@@ -96,6 +96,7 @@ namespace View.Services.ViewModel
         }
         #endregion
 
+        #region Propiedades de navegación
         private Page pagina;
         public Page Pagina
         {
@@ -106,6 +107,7 @@ namespace View.Services.ViewModel
                 NotifyChange("Pagina");
             }
         }
+        #endregion
 
         #region Constructores
         public UsuarioViewModel()
