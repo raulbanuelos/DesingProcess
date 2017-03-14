@@ -1,0 +1,86 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+namespace DataAccess.SQLServer
+{
+    internal class Desing_SQL
+    {
+        #region Variables Locales
+        private string StringDeConexion = string.Empty;
+        #endregion
+
+        #region Propiedades
+        #endregion
+
+        #region Constructores
+        /// <summary>
+        /// Constructor por default.
+        /// </summary>
+        public Desing_SQL()
+        {
+            //Obtenemos la cadena de conexión hacia la base de datos.
+            //StringDeConexion = System.Configuration.ConfigurationManager.ConnectionStrings["ConexionRGP"].ConnectionString;
+            StringDeConexion = @"Data Source=MXAGSQLSRV01\SQLINTERTEL12;Network Library=DBMSSOCN;Initial Catalog=RGP2-PBA;User ID=shruser;Password=sOHR2011";
+        }
+        #endregion
+
+        #region Métodos
+
+        /// <summary>
+        /// Método que ejecuta un procedimiento almacenado de la base de datos.
+        /// </summary>
+        /// <param name="nombreProcedimientoAlmacenado">Nombre del procedimiento almacenado que se requiere ejecutar.</param>
+        /// <param name="parametros">Diccionario de datos con el nombre de los parámetros y su valor.</param>
+        /// <returns>DataSet con la información resultante del procedimiento almacenado.</returns>
+        public DataSet EjecutarStoredProcedure(string nombreProcedimientoAlmacenado, Dictionary<string, object> parametros)
+        {
+            //Creamos un objeto Dataset que será el que contendrá los resultados del procedimiento almacenado.
+            DataSet data = new DataSet();
+
+            try
+            {
+
+                //Verificamos que la cadena de conexión sea válida y que el nombre del procedimiento sea direfenre de vacío.
+                if (this.StringDeConexion != string.Empty && !string.IsNullOrEmpty(nombreProcedimientoAlmacenado))
+                {
+
+                    //Declaramos la conexión con el string definido.
+                    using (SqlConnection DBConnection = new SqlConnection(StringDeConexion))
+                    {
+
+                        //Declaramos un comando de SQL indicando el nombre del procedimiento y la conexión.
+                        SqlCommand sqlCommand = new SqlCommand(nombreProcedimientoAlmacenado, DBConnection);
+
+                        //Indicamos que será un procedimiento almacenado.
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                        //Iteramos la lista de parámetros y los asginamos al comando.
+                        foreach (var parametro in parametros)
+                        {
+                            sqlCommand.Parameters.AddWithValue(parametro.Key, parametro.Value);
+                        }
+
+                        //Inicializamos un dataadapter
+                        SqlDataAdapter adapter = new SqlDataAdapter();
+                        adapter.SelectCommand = sqlCommand;
+
+                        //Llenamos el dataset con el resultado de la Base de datos
+                        adapter.Fill(data);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                //Registrar el error.
+            }
+            finally
+            {
+
+            }
+            //Retornamos el dataset.
+            return data;
+        }
+        #endregion
+    }
+}

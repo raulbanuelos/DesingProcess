@@ -40,7 +40,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Anillo.cs" />
+    <Compile Include="Arquetipo.cs" />
+    <Compile Include="ClasificacionHerramental.cs" />
+    <Compile Include="Cliente.cs" />
+    <Compile Include="DataManager.cs" />
+    <Compile Include="Empaquetado.cs" />
+    <Compile Include="Herramental.cs" />
+    <Compile Include="Interfaces\ICentroTrabajo.cs" />
+    <Compile Include="Interfaces\IObserverDiametro.cs" />
+    <Compile Include="Interfaces\IObserverThickness.cs" />
+    <Compile Include="Interfaces\IObserverWidth.cs" />
+    <Compile Include="Interfaces\IOperacion.cs" />
+    <Compile Include="Interfaces\ISubjectDiametro.cs" />
+    <Compile Include="Interfaces\ISubjectThickness.cs" />
+    <Compile Include="Interfaces\ISubjectWidth.cs" />
+    <Compile Include="MateriaPrima.cs" />
+    <Compile Include="Perfil.cs" />
+    <Compile Include="PinturaAnillo.cs" />
+    <Compile Include="Plano.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Propiedad.cs" />
+    <Compile Include="PropiedadBool.cs" />
+    <Compile Include="PropiedadCadena.cs" />
+    <Compile Include="Revision.cs" />
+    <Compile Include="SubjectDiametro.cs" />
+    <Compile Include="SubjectThickness.cs" />
+    <Compile Include="SubjectWidth.cs" />
+    <Compile Include="UbicacionPintura.cs" />
+    <Compile Include="Usuario.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{cc1fd5b3-dd64-4773-b014-3dbcf2c3fb55}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

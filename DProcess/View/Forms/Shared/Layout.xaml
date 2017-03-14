@@ -1,0 +1,11 @@
+﻿<Controls:MetroWindow x:Class="View.Forms.Shared.Layout"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+                    WindowState="Maximized" 
+	Title="Desing Process" WindowStartupLocation="CenterScreen">
+	<DockPanel>
+		<!--<Frame x:Name="_mainFrame" Source="/Forms/Index/Home.xaml"></Frame>-->
+        <Frame x:Name="_mainFrame" Content="{Binding Path=Pagina,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></Frame>
+	</DockPanel>
+</Controls:MetroWindow>
