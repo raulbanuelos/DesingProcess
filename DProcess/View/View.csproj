@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Encriptar">
-      <HintPath>..\..\..\..\..\Documents\DesingProcess\View\bin\Debug\Encriptar.dll</HintPath>
+      <HintPath>Z:\RrrrUUUUUULLL\Encriptar.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.2.4.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\MahApps.Metro.dll</HintPath>
