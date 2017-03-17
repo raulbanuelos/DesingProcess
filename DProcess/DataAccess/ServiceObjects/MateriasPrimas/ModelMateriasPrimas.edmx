@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DataAccess.ServiceObjects.MateriasPrimas.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DataAccess.ServiceObjects.MateriasPrimas.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="id_cliente" />
@@ -76,6 +76,13 @@
           <Property Name="Detalle" Type="varchar" MaxLength="50" />
           <Property Name="Diseno" Type="bit" />
         </EntityType>
+        <EntityType Name="Tipo_Materia_Prima">
+          <Key>
+            <PropertyRef Name="id_tipo_mp" />
+          </Key>
+          <Property Name="id_tipo_mp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="materia_prima" Type="varchar" MaxLength="50" />
+        </EntityType>
         <Association Name="FK_patt_actualizaciones_Pattern2">
           <End Role="Pattern2" Type="Self.Pattern2" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -102,10 +109,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Pattern2_Tipo_Materia_Prima">
+          <End Role="Tipo_Materia_Prima" Type="Self.Tipo_Materia_Prima" Multiplicity="0..1" />
+          <End Role="Pattern2" Type="Self.Pattern2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Materia_Prima">
+              <PropertyRef Name="id_tipo_mp" />
+            </Principal>
+            <Dependent Role="Pattern2">
+              <PropertyRef Name="TIPO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DataAccessServiceObjectsMateriasPrimasStoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="patt_actualizaciones" EntityType="Self.patt_actualizaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pattern2" EntityType="Self.Pattern2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipo_Materia_Prima" EntityType="Self.Tipo_Materia_Prima" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_patt_actualizaciones_Pattern2" Association="Self.FK_patt_actualizaciones_Pattern2">
             <End Role="Pattern2" EntitySet="Pattern2" />
             <End Role="patt_actualizaciones" EntitySet="patt_actualizaciones" />
@@ -114,9 +134,12 @@
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Pattern2" EntitySet="Pattern2" />
           </AssociationSet>
+          <AssociationSet Name="FK_Pattern2_Tipo_Materia_Prima" Association="Self.FK_Pattern2_Tipo_Materia_Prima">
+            <End Role="Tipo_Materia_Prima" EntitySet="Tipo_Materia_Prima" />
+            <End Role="Pattern2" EntitySet="Pattern2" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DataAccess.ServiceObjects.MateriasPrimas" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -194,6 +217,7 @@
           <Property Name="Diseno" Type="Boolean" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Pattern2_Cliente" FromRole="Pattern2" ToRole="Cliente" />
           <NavigationProperty Name="patt_actualizaciones" Relationship="Self.FK_patt_actualizaciones_Pattern2" FromRole="Pattern2" ToRole="patt_actualizaciones" />
+          <NavigationProperty Name="Tipo_Materia_Prima" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Pattern2_Tipo_Materia_Prima" FromRole="Pattern2" ToRole="Tipo_Materia_Prima" />
         </EntityType>
         <Association Name="FK_Pattern2_Cliente">
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
@@ -233,7 +257,32 @@
             <End Role="Pattern2" EntitySet="Pattern2" />
             <End Role="patt_actualizaciones" EntitySet="patt_actualizaciones" />
           </AssociationSet>
+          <EntitySet Name="Tipo_Materia_Prima" EntityType="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Materia_Prima" />
+          <AssociationSet Name="FK_Pattern2_Tipo_Materia_Prima" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Pattern2_Tipo_Materia_Prima">
+            <End Role="Tipo_Materia_Prima" EntitySet="Tipo_Materia_Prima" />
+            <End Role="Pattern2" EntitySet="Pattern2" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Tipo_Materia_Prima">
+          <Key>
+            <PropertyRef Name="id_tipo_mp" />
+          </Key>
+          <Property Name="id_tipo_mp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="materia_prima" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Pattern2" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Pattern2_Tipo_Materia_Prima" FromRole="Tipo_Materia_Prima" ToRole="Pattern2" />
+        </EntityType>
+        <Association Name="FK_Pattern2_Tipo_Materia_Prima">
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Materia_Prima" Role="Tipo_Materia_Prima" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.Pattern2" Role="Pattern2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Materia_Prima">
+              <PropertyRef Name="id_tipo_mp" />
+            </Principal>
+            <Dependent Role="Pattern2">
+              <PropertyRef Name="TIPO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -311,6 +360,14 @@
                 <ScalarProperty Name="Plato" ColumnName="Plato" />
                 <ScalarProperty Name="Detalle" ColumnName="Detalle" />
                 <ScalarProperty Name="Diseno" ColumnName="Diseno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipo_Materia_Prima">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Materia_Prima">
+              <MappingFragment StoreEntitySet="Tipo_Materia_Prima">
+                <ScalarProperty Name="materia_prima" ColumnName="materia_prima" />
+                <ScalarProperty Name="id_tipo_mp" ColumnName="id_tipo_mp" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

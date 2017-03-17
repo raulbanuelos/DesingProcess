@@ -28,5 +28,6 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         public virtual DbSet<Cliente> Cliente { get; set; }
         public virtual DbSet<patt_actualizaciones> patt_actualizaciones { get; set; }
         public virtual DbSet<Pattern2> Pattern2 { get; set; }
+        public virtual DbSet<Tipo_Materia_Prima> Tipo_Materia_Prima { get; set; }
     }
 }

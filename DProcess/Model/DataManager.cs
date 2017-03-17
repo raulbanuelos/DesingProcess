@@ -100,8 +100,10 @@ namespace Model
                 //Iteramos la lista resultante de la consulta.
                 foreach (var elemento in InformacionBD)
                 {
+                    //Ejecutamos el método para obtener la información del herramental.
                     herramental = ReadInformacionHerramentalEncontrado(InformacionBD);
 
+                    //Asignamos los valores restantes a las propiedades.
                     herramental.DescripcionRuta = "";
                 }
             }
@@ -117,18 +119,31 @@ namespace Model
         #endregion
 
         #region Métodos Generales
+
+        /// <summary>
+        /// Método que transforma un objeto de tipo IList a Herramental.
+        /// </summary>
+        /// <param name="Informacion"></param>
+        /// <returns></returns>
         public static Herramental ReadInformacionHerramentalEncontrado(IList Informacion)
         {
+            //Declaramos un objeto de tipo Herramental, que será el que retornemos en el método.
             Herramental herramental = new Herramental();
+
+            //Verificamos que el valor del parámetro recibido sea diferente de nulo.
             if (Informacion != null)
             {
+                //Iteramos la lista recibida.
                 foreach (var elemento in Informacion)
                 {
 
+                    //Obtenemos el tipo del elemento iterado.
                     System.Type tipo = elemento.GetType();
 
+                    //Incializamos el objeto herramental.
                     herramental = new Herramental();
 
+                    //Asingamos los valores correspondientes a cada propiedad del objeto herramental.
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(elemento, null);
                     herramental.Encontrado = true;
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(elemento, null);
@@ -141,10 +156,14 @@ namespace Model
                     herramental.clasificacionHerramental.UnidadMedida = (string)tipo.GetProperty("UnidadMedida").GetValue(elemento, null);
                     herramental.clasificacionHerramental.VerificacionAnual = (bool)tipo.GetProperty("VerificacionAnual").GetValue(elemento, null);
                     herramental.clasificacionHerramental.VidaUtil = (int)tipo.GetProperty("VidaUtil").GetValue(elemento, null);
+
+                    //Falta agregar la columna plano.
                     herramental.Plano = string.Empty;
                     herramental.Propiedades = new ObservableCollection<Propiedad>();
                 }
             }
+
+            //Retornamos el objeto herramental.
             return herramental;
         }
 
