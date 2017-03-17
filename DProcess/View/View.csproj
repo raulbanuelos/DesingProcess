@@ -88,6 +88,9 @@
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo110.cs" />
     <Compile Include="Services\ViewModel\RelayCommand.cs" />
     <Compile Include="Services\ViewModel\UsuarioViewModel.cs" />
+    <Compile Include="UserControls\DProcessPropiedad.xaml.cs">
+      <DependentUpon>DProcessPropiedad.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -147,6 +150,10 @@
     <Page Include="Resources\IconsNonShared.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\DProcessPropiedad.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

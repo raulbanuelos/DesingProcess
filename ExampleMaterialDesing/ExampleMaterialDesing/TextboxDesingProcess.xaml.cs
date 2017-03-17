@@ -16,17 +16,13 @@ using System.Windows.Shapes;
 namespace ExampleMaterialDesing
 {
     /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
+    /// Lógica de interacción para TextboxDesingProcess.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TextboxDesingProcess : UserControl
     {
-        public MainWindow()
+        public TextboxDesingProcess()
         {
             InitializeComponent();
-
-            TextboxDesingProcess obj = new TextboxDesingProcess();
-
-            MyGrid.Children.Add(obj);
         }
     }
 }

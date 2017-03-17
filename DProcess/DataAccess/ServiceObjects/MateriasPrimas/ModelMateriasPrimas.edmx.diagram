@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="98867543662149a2873b42151dde59c9" Name="Diagram1" ZoomLevel="79">
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Cliente" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.patt_actualizaciones" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Pattern2" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Pattern2_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_patt_actualizaciones_Pattern2" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Materia_Prima" Width="1.5" PointX="0.75" PointY="2.875" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Pattern2_Tipo_Materia_Prima" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="06b63071d21c4366b71d91d12a9c5c0f" Name="Diagram1">
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Operaciones.Premaquinado.SplitterSpacerChart" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Operaciones.Premaquinado.SPlitterSpacerChart2" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="072a7ae518934767818d5f43dc95a435" Name="Diagram1">
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Operaciones.Premaquinado.SplitterSpacerChart" Width="2.75" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Operaciones.Premaquinado.SPlitterSpacerChart2" Width="2.375" PointX="6.375" PointY="0.625" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

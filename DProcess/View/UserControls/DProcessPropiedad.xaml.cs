@@ -13,20 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ExampleMaterialDesing
+namespace View.UserControls
 {
     /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
+    /// Lógica de interacción para DProcessPropiedad.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class DProcessPropiedad : UserControl
     {
-        public MainWindow()
+        public DProcessPropiedad()
         {
             InitializeComponent();
-
-            TextboxDesingProcess obj = new TextboxDesingProcess();
-
-            MyGrid.Children.Add(obj);
         }
     }
 }
