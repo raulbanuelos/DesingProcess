@@ -14,7 +14,7 @@
         public string NombreCliente { get; set; }
 
         int num;
-        int n;
+        
         #endregion
 
         #region Constructores
