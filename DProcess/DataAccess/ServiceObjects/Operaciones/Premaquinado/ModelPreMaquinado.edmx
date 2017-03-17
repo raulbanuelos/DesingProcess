@@ -5,8 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="DataAccess.ServiceObjects.Operaciones.Premaquinado.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.SplitterSpacerChart' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="SplitterSpacerChart">
           <Key>
             <PropertyRef Name="ident" />
@@ -25,8 +23,6 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.SplitterSpacerChart' no tiene d
           <Property Name="Proceso" Type="varchar" MaxLength="50" />
           <Property Name="ident" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.SPlitterSpacerChart2' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="SPlitterSpacerChart2">
           <Key>
             <PropertyRef Name="ident" />
@@ -42,36 +38,8 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.SPlitterSpacerChart2' no tiene 
           <Property Name="ident" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityContainer Name="DataAccessServiceObjectsOperacionesPremaquinadoStoreContainer">
-          <EntitySet Name="SplitterSpacerChart" EntityType="Self.SplitterSpacerChart" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [SplitterSpacerChart].[Nominal_split] AS [Nominal_split], 
-    [SplitterSpacerChart].[Jaw_Block_Length] AS [Jaw_Block_Length], 
-    [SplitterSpacerChart].[Jaw_Block_min] AS [Jaw_Block_min], 
-    [SplitterSpacerChart].[Jaw_Block_max] AS [Jaw_Block_max], 
-    [SplitterSpacerChart].[Thrust_shoe_width] AS [Thrust_shoe_width], 
-    [SplitterSpacerChart].[Cutter_spacer] AS [Cutter_spacer], 
-    [SplitterSpacerChart].[Castings_per_chuck] AS [Castings_per_chuck], 
-    [SplitterSpacerChart].[Split_width] AS [Split_width], 
-    [SplitterSpacerChart].[Split_min] AS [Split_min], 
-    [SplitterSpacerChart].[Split_max] AS [Split_max], 
-    [SplitterSpacerChart].[Grind_width] AS [Grind_width], 
-    [SplitterSpacerChart].[Proceso] AS [Proceso], 
-    [SplitterSpacerChart].[ident] AS [ident]
-    FROM [dbo].[SplitterSpacerChart] AS [SplitterSpacerChart]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="SPlitterSpacerChart2" EntityType="Self.SPlitterSpacerChart2" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [SPlitterSpacerChart2].[Proceso] AS [Proceso], 
-    [SPlitterSpacerChart2].[RingWidth] AS [RingWidth], 
-    [SPlitterSpacerChart2].[SplitWidth] AS [SplitWidth], 
-    [SPlitterSpacerChart2].[GrindWidth] AS [GrindWidth], 
-    [SPlitterSpacerChart2].[CutterSpacer1] AS [CutterSpacer1], 
-    [SPlitterSpacerChart2].[CantidadSpacer1] AS [CantidadSpacer1], 
-    [SPlitterSpacerChart2].[CutterSpacer2] AS [CutterSpacer2], 
-    [SPlitterSpacerChart2].[CantidadSpacer2] AS [CantidadSpacer2], 
-    [SPlitterSpacerChart2].[ident] AS [ident]
-    FROM [dbo].[SPlitterSpacerChart2] AS [SPlitterSpacerChart2]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="SplitterSpacerChart" EntityType="Self.SplitterSpacerChart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SPlitterSpacerChart2" EntityType="Self.SPlitterSpacerChart2" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>

@@ -52,6 +52,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceObjects\MateriasPrimas\Cliente.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\ModelMateriasPrimas.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelMateriasPrimas.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\ModelMateriasPrimas.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\ModelMateriasPrimas.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelMateriasPrimas.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\Pattern2.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\patt_actualizaciones.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\SO_Pattern.cs" />
     <Compile Include="ServiceObjects\Operaciones\Premaquinado\ModelPreMaquinado.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -81,19 +106,17 @@
     <Compile Include="ServiceObjects\SO_Usuario.cs" />
     <Compile Include="SQLServer\Desing_SQL.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-    <EntityDeploy Include="ServiceObjects\Operaciones\Premaquinado\ModelPreMaquinado.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelPreMaquinado.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="ServiceObjects\Operaciones\Premaquinado\ModelPreMaquinado.edmx.diagram">
-      <DependentUpon>ModelPreMaquinado.edmx</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="ServiceObjects\MateriasPrimas\ModelMateriasPrimas.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelMateriasPrimas.edmx</DependentUpon>
+      <LastGenOutput>ModelMateriasPrimas.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ServiceObjects\MateriasPrimas\ModelMateriasPrimas.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelMateriasPrimas.edmx</DependentUpon>
+      <LastGenOutput>ModelMateriasPrimas.cs</LastGenOutput>
+    </Content>
     <Content Include="ServiceObjects\Operaciones\Premaquinado\ModelPreMaquinado.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelPreMaquinado.edmx</DependentUpon>
@@ -104,6 +127,26 @@
       <DependentUpon>ModelPreMaquinado.edmx</DependentUpon>
       <LastGenOutput>ModelPreMaquinado.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <EntityDeploy Include="ServiceObjects\MateriasPrimas\ModelMateriasPrimas.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelMateriasPrimas.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ServiceObjects\MateriasPrimas\ModelMateriasPrimas.edmx.diagram">
+      <DependentUpon>ModelMateriasPrimas.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="ServiceObjects\Operaciones\Premaquinado\ModelPreMaquinado.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelPreMaquinado.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ServiceObjects\Operaciones\Premaquinado\ModelPreMaquinado.edmx.diagram">
+      <DependentUpon>ModelPreMaquinado.edmx</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

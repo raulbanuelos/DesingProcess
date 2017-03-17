@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DataAccess.ServiceObjects.MateriasPrimas.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+          </Key>
+          <Property Name="id_cliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cliente" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="patt_actualizaciones">
+          <Key>
+            <PropertyRef Name="id_patt_actualizaciones" />
+          </Key>
+          <Property Name="codigo_patt" Type="char" MaxLength="12" Nullable="false" />
+          <Property Name="consec_fabr" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="fecha" Type="varchar" MaxLength="50" />
+          <Property Name="nivel" Type="char" MaxLength="2" />
+          <Property Name="actualizaciones" Type="varchar" MaxLength="1000" />
+          <Property Name="observaciones" Type="varchar" MaxLength="1000" />
+          <Property Name="id_patt_actualizaciones" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pattern2">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="char" MaxLength="12" Nullable="false" />
+          <Property Name="MEDIDA" Type="float" />
+          <Property Name="DIAMETRO" Type="float" />
+          <Property Name="CUSTOMER" Type="int" />
+          <Property Name="MOUNTING" Type="nvarchar" MaxLength="255" />
+          <Property Name="ON_14_RD_GATE" Type="nvarchar" MaxLength="255" />
+          <Property Name="BUTTON" Type="nvarchar" MaxLength="255" />
+          <Property Name="CONE" Type="nvarchar" MaxLength="255" />
+          <Property Name="M_CIRCLE" Type="nvarchar" MaxLength="255" />
+          <Property Name="RING_WTH_min" Type="float" />
+          <Property Name="RING_WTH_max" Type="float" />
+          <Property Name="DATE_ORDERED" Type="varchar" MaxLength="50" />
+          <Property Name="B_DIA" Type="float" />
+          <Property Name="FIN_DIA" Type="float" />
+          <Property Name="TURN_ALLOW" Type="float" />
+          <Property Name="CSTG_SM_OD" Type="float" />
+          <Property Name="SHRINK_ALLOW" Type="float" />
+          <Property Name="PATT_SM_OD" Type="float" />
+          <Property Name="PIECE_IN_PATT" Type="float" />
+          <Property Name="BORE_ALLOW" Type="float" />
+          <Property Name="PATT_SM_ID" Type="float" />
+          <Property Name="PATT_THICKNESS" Type="float" />
+          <Property Name="JOINT" Type="nvarchar" MaxLength="255" />
+          <Property Name="NICK" Type="nvarchar" MaxLength="255" />
+          <Property Name="NICK_DRAF" Type="nvarchar" MaxLength="255" />
+          <Property Name="NICK_DEPTH" Type="nvarchar" MaxLength="255" />
+          <Property Name="SIDE_RELIEF" Type="nvarchar" MaxLength="255" />
+          <Property Name="CAM" Type="float" />
+          <Property Name="CAM_ROLL" Type="float" />
+          <Property Name="RISE" Type="float" />
+          <Property Name="OD" Type="float" />
+          <Property Name="ID" Type="float" />
+          <Property Name="DIFF" Type="float" />
+          <Property Name="TIPO" Type="int" />
+          <Property Name="mounted" Type="varchar" MaxLength="50" />
+          <Property Name="ordered" Type="varchar" MaxLength="50" />
+          <Property Name="checked" Type="varchar" MaxLength="50" />
+          <Property Name="date_checked" Type="varchar" MaxLength="50" />
+          <Property Name="esp_inst" Type="varchar" MaxLength="500" />
+          <Property Name="factor_k" Type="float" />
+          <Property Name="rise_built" Type="float" />
+          <Property Name="ring_th_min" Type="float" />
+          <Property Name="ring_th_max" Type="float" />
+          <Property Name="estado" Type="bit" />
+          <Property Name="Plato" Type="float" />
+          <Property Name="Detalle" Type="varchar" MaxLength="50" />
+          <Property Name="Diseno" Type="bit" />
+        </EntityType>
+        <Association Name="FK_patt_actualizaciones_Pattern2">
+          <End Role="Pattern2" Type="Self.Pattern2" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="patt_actualizaciones" Type="Self.patt_actualizaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pattern2">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="patt_actualizaciones">
+              <PropertyRef Name="codigo_patt" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pattern2_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Pattern2" Type="Self.Pattern2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="Pattern2">
+              <PropertyRef Name="CUSTOMER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataAccessServiceObjectsMateriasPrimasStoreContainer">
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="patt_actualizaciones" EntityType="Self.patt_actualizaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pattern2" EntityType="Self.Pattern2" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_patt_actualizaciones_Pattern2" Association="Self.FK_patt_actualizaciones_Pattern2">
+            <End Role="Pattern2" EntitySet="Pattern2" />
+            <End Role="patt_actualizaciones" EntitySet="patt_actualizaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pattern2_Cliente" Association="Self.FK_Pattern2_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Pattern2" EntitySet="Pattern2" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataAccess.ServiceObjects.MateriasPrimas" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+          </Key>
+          <Property Name="id_cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cliente1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Pattern2" Relationship="Self.FK_Pattern2_Cliente" FromRole="Cliente" ToRole="Pattern2" />
+        </EntityType>
+        <EntityType Name="patt_actualizaciones">
+          <Key>
+            <PropertyRef Name="id_patt_actualizaciones" />
+          </Key>
+          <Property Name="codigo_patt" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="consec_fabr" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="fecha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nivel" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="actualizaciones" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="observaciones" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="id_patt_actualizaciones" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Pattern2" Relationship="Self.FK_patt_actualizaciones_Pattern2" FromRole="patt_actualizaciones" ToRole="Pattern2" />
+        </EntityType>
+        <EntityType Name="Pattern2">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MEDIDA" Type="Double" />
+          <Property Name="DIAMETRO" Type="Double" />
+          <Property Name="CUSTOMER" Type="Int32" />
+          <Property Name="MOUNTING" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ON_14_RD_GATE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BUTTON" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CONE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="M_CIRCLE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RING_WTH_min" Type="Double" />
+          <Property Name="RING_WTH_max" Type="Double" />
+          <Property Name="DATE_ORDERED" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="B_DIA" Type="Double" />
+          <Property Name="FIN_DIA" Type="Double" />
+          <Property Name="TURN_ALLOW" Type="Double" />
+          <Property Name="CSTG_SM_OD" Type="Double" />
+          <Property Name="SHRINK_ALLOW" Type="Double" />
+          <Property Name="PATT_SM_OD" Type="Double" />
+          <Property Name="PIECE_IN_PATT" Type="Double" />
+          <Property Name="BORE_ALLOW" Type="Double" />
+          <Property Name="PATT_SM_ID" Type="Double" />
+          <Property Name="PATT_THICKNESS" Type="Double" />
+          <Property Name="JOINT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NICK" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NICK_DRAF" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NICK_DEPTH" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SIDE_RELIEF" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CAM" Type="Double" />
+          <Property Name="CAM_ROLL" Type="Double" />
+          <Property Name="RISE" Type="Double" />
+          <Property Name="OD" Type="Double" />
+          <Property Name="ID" Type="Double" />
+          <Property Name="DIFF" Type="Double" />
+          <Property Name="TIPO" Type="Int32" />
+          <Property Name="mounted" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ordered" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="checked" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_checked" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="esp_inst" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="factor_k" Type="Double" />
+          <Property Name="rise_built" Type="Double" />
+          <Property Name="ring_th_min" Type="Double" />
+          <Property Name="ring_th_max" Type="Double" />
+          <Property Name="estado" Type="Boolean" />
+          <Property Name="Plato" Type="Double" />
+          <Property Name="Detalle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Diseno" Type="Boolean" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Pattern2_Cliente" FromRole="Pattern2" ToRole="Cliente" />
+          <NavigationProperty Name="patt_actualizaciones" Relationship="Self.FK_patt_actualizaciones_Pattern2" FromRole="Pattern2" ToRole="patt_actualizaciones" />
+        </EntityType>
+        <Association Name="FK_Pattern2_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Pattern2" Type="Self.Pattern2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="Pattern2">
+              <PropertyRef Name="CUSTOMER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_patt_actualizaciones_Pattern2">
+          <End Role="Pattern2" Type="Self.Pattern2" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="patt_actualizaciones" Type="Self.patt_actualizaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pattern2">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="patt_actualizaciones">
+              <PropertyRef Name="codigo_patt" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EntitiesMateriaPrima" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="patt_actualizaciones" EntityType="Self.patt_actualizaciones" />
+          <EntitySet Name="Pattern2" EntityType="Self.Pattern2" />
+          <AssociationSet Name="FK_Pattern2_Cliente" Association="Self.FK_Pattern2_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Pattern2" EntitySet="Pattern2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_patt_actualizaciones_Pattern2" Association="Self.FK_patt_actualizaciones_Pattern2">
+            <End Role="Pattern2" EntitySet="Pattern2" />
+            <End Role="patt_actualizaciones" EntitySet="patt_actualizaciones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DataAccessServiceObjectsMateriasPrimasStoreContainer" CdmEntityContainer="EntitiesMateriaPrima">
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="Cliente1" ColumnName="Cliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="patt_actualizaciones">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.patt_actualizaciones">
+              <MappingFragment StoreEntitySet="patt_actualizaciones">
+                <ScalarProperty Name="codigo_patt" ColumnName="codigo_patt" />
+                <ScalarProperty Name="consec_fabr" ColumnName="consec_fabr" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="nivel" ColumnName="nivel" />
+                <ScalarProperty Name="actualizaciones" ColumnName="actualizaciones" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="id_patt_actualizaciones" ColumnName="id_patt_actualizaciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pattern2">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.Pattern2">
+              <MappingFragment StoreEntitySet="Pattern2">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="MEDIDA" ColumnName="MEDIDA" />
+                <ScalarProperty Name="DIAMETRO" ColumnName="DIAMETRO" />
+                <ScalarProperty Name="CUSTOMER" ColumnName="CUSTOMER" />
+                <ScalarProperty Name="MOUNTING" ColumnName="MOUNTING" />
+                <ScalarProperty Name="ON_14_RD_GATE" ColumnName="ON_14_RD_GATE" />
+                <ScalarProperty Name="BUTTON" ColumnName="BUTTON" />
+                <ScalarProperty Name="CONE" ColumnName="CONE" />
+                <ScalarProperty Name="M_CIRCLE" ColumnName="M_CIRCLE" />
+                <ScalarProperty Name="RING_WTH_min" ColumnName="RING_WTH_min" />
+                <ScalarProperty Name="RING_WTH_max" ColumnName="RING_WTH_max" />
+                <ScalarProperty Name="DATE_ORDERED" ColumnName="DATE_ORDERED" />
+                <ScalarProperty Name="B_DIA" ColumnName="B_DIA" />
+                <ScalarProperty Name="FIN_DIA" ColumnName="FIN_DIA" />
+                <ScalarProperty Name="TURN_ALLOW" ColumnName="TURN_ALLOW" />
+                <ScalarProperty Name="CSTG_SM_OD" ColumnName="CSTG_SM_OD" />
+                <ScalarProperty Name="SHRINK_ALLOW" ColumnName="SHRINK_ALLOW" />
+                <ScalarProperty Name="PATT_SM_OD" ColumnName="PATT_SM_OD" />
+                <ScalarProperty Name="PIECE_IN_PATT" ColumnName="PIECE_IN_PATT" />
+                <ScalarProperty Name="BORE_ALLOW" ColumnName="BORE_ALLOW" />
+                <ScalarProperty Name="PATT_SM_ID" ColumnName="PATT_SM_ID" />
+                <ScalarProperty Name="PATT_THICKNESS" ColumnName="PATT_THICKNESS" />
+                <ScalarProperty Name="JOINT" ColumnName="JOINT" />
+                <ScalarProperty Name="NICK" ColumnName="NICK" />
+                <ScalarProperty Name="NICK_DRAF" ColumnName="NICK_DRAF" />
+                <ScalarProperty Name="NICK_DEPTH" ColumnName="NICK_DEPTH" />
+                <ScalarProperty Name="SIDE_RELIEF" ColumnName="SIDE_RELIEF" />
+                <ScalarProperty Name="CAM" ColumnName="CAM" />
+                <ScalarProperty Name="CAM_ROLL" ColumnName="CAM_ROLL" />
+                <ScalarProperty Name="RISE" ColumnName="RISE" />
+                <ScalarProperty Name="OD" ColumnName="OD" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DIFF" ColumnName="DIFF" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="mounted" ColumnName="mounted" />
+                <ScalarProperty Name="ordered" ColumnName="ordered" />
+                <ScalarProperty Name="checked" ColumnName="checked" />
+                <ScalarProperty Name="date_checked" ColumnName="date_checked" />
+                <ScalarProperty Name="esp_inst" ColumnName="esp_inst" />
+                <ScalarProperty Name="factor_k" ColumnName="factor_k" />
+                <ScalarProperty Name="rise_built" ColumnName="rise_built" />
+                <ScalarProperty Name="ring_th_min" ColumnName="ring_th_min" />
+                <ScalarProperty Name="ring_th_max" ColumnName="ring_th_max" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="Plato" ColumnName="Plato" />
+                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+                <ScalarProperty Name="Diseno" ColumnName="Diseno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
