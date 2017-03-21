@@ -602,7 +602,6 @@ namespace View.Services.ViewModel
         }
 
 
-        
         #endregion
 
         #region INotifyPropertyChanged Métodos
