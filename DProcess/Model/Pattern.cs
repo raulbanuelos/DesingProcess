@@ -57,6 +57,8 @@ namespace Model
         public string detalle { get; set; }
         public bool diseno { get; set; }
 
+        int n;
+
 
     }
 
