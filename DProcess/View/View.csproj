@@ -86,6 +86,7 @@
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\FirstRoughGrind.cs" />
     <Compile Include="Services\Router.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo110.cs" />
+    <Compile Include="Services\ViewModel\PatternViewModel.cs" />
     <Compile Include="Services\ViewModel\RelayCommand.cs" />
     <Compile Include="Services\ViewModel\UsuarioViewModel.cs" />
     <Compile Include="UserControls\DProcessPropiedad.xaml.cs">

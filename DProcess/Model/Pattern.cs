@@ -9,6 +9,7 @@ namespace Model
 
     public class Pattern
     {
+        #region Propiedades 
         public string codigo { get; set; }
         public double medida { get; set; }
         public double diametro { get; set; }
@@ -29,7 +30,7 @@ namespace Model
         public double patt_sm_od { get; set; }
         public double piece_in_patt { get; set; }
         public double bore_allow { get; set; }
-        public double patt_sm_oid { get; set; }
+        public double patt_sm_id { get; set; }
         public double patt_thickness { get; set; }
         public string joint { get; set; }
         public string nick { get; set; }
@@ -56,8 +57,8 @@ namespace Model
         public double plato { get; set; }
         public string detalle { get; set; }
         public bool diseno { get; set; }
+        #endregion
 
-        int n;
 
 
     }
