@@ -98,7 +98,7 @@ namespace DataAccess.ServiceObjects.Herramentales
                     clasificacion.VerificacionAnual = verificacionAnual;
                     clasificacion.VidaUtil = vidaUtil;
 
-                    //Establesemos el estado del registro a Modificado.
+                    //Establecemos el estado del registro a Modificado.
                     Conexion.Entry(clasificacion).State = EntityState.Modified;
 
                     //Guardamos los cambios y retornamos el número de registros afectados.
@@ -127,7 +127,7 @@ namespace DataAccess.ServiceObjects.Herramentales
                     //Obtenemos el objeto que se requiere eliminar.
                     ClasificacionHerramental clasificacion = Conexion.ClasificacionHerramental.Where(x => x.idClasificacion == idClaficacionHerramental).FirstOrDefault();
 
-                    //Establesemos el estado del registro a Eliminado.
+                    //Establecemos el estado del registro a Eliminado.
                     Conexion.Entry(clasificacion).State = EntityState.Deleted;
 
                     //Guardamos los cambios y retornamos el número de registros afectados.
