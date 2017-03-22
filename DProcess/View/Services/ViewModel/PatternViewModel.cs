@@ -612,6 +612,7 @@ namespace View.Services.ViewModel
                     PropertyChanged(this, new PropertyChangedEventArgs(id));
         }
         #endregion
+
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
