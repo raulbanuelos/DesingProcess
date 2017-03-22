@@ -6,19 +6,32 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ExampleMaterialDesing"
              mc:Ignorable="d" 
-              d:DesignHeight="50" d:DesignWidth="150">
+              d:DesignHeight="50" d:DesignWidth="200">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}">
                 <Setter Property="Margin" Value="0 8 0 8" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel>
-        <TextBox materialDesign:HintAssist.Hint="Texto Flotante" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+    <StackPanel Orientation="Horizontal">
+        <TextBox materialDesign:HintAssist.Hint="D1: Inch (in)" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <StackPanel VerticalAlignment="Center">
+            <materialDesign:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+                                         PlacementMode="BottomAndAlignCentres" Width="10" Height="10"
+                                         ToolTipService.Placement="Right"
+                                         ToolTip="PopupBox, Style MaterialDesignMultiFloatingActionPopupBox">
+                <StackPanel>
+                    <Button ToolTip="Inch" Content="In"></Button>
+                    <Button ToolTip="Milimeters" Content="mm"></Button>
+                </StackPanel>
+            </materialDesign:PopupBox>
+        </StackPanel>
+        
     </StackPanel>
     
 </UserControl>

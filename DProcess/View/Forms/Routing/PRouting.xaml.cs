@@ -15,6 +15,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using View.UserControls;
 
 namespace View.Forms.Routing
 {
@@ -26,6 +27,11 @@ namespace View.Forms.Routing
 		public PRouting()
 		{
 			InitializeComponent();
-		}
+
+            DProcessPropiedad obj = new DProcessPropiedad();
+
+            myGrid.Children.Add(obj);
+
+        }
 	}
 }
