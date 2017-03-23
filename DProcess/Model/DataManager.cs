@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DataAccess.ServiceObjects;
 using DataAccess.ServiceObjects.Operaciones.Premaquinado;
 using DataAccess.ServiceObjects.Herramentales;
+using DataAccess.ServiceObjects.MateriasPrimas;
 
 namespace Model
 {
@@ -272,6 +273,93 @@ namespace Model
                 //Retornamos el usuario.
                 return usuario;
             });
+
+        }
+        #endregion
+
+        #region MateriasPrimas
+        /// <summary>
+        /// Método que obtiene todos los registros de la tabla Pattern2.
+        /// </summary>
+        /// <returns></returns>Lista obaservable con todos los datos de la  tabla Pattern2.
+        public static ObservableCollection<Pattern> GetPattern()
+        {
+            //Inicializamos los servicios de Pattern 
+            SO_Pattern ServicePattern = new SO_Pattern();
+
+            //Se declara una lista de tipo ObservableCollection, la cúal se va a retornar.
+            ObservableCollection<Pattern> Lista = new ObservableCollection<Pattern>();
+
+            //Se obtiene las placas modelo de la BD;
+            IList PatternBD = ServicePattern.GetAllPattern();
+
+            //Verifcamos que la información de la base de datos no se encuentre vacía.
+            if (PatternBD!=null)
+            {
+                //Iteración de la información recibida.
+                foreach (var item in PatternBD)
+                {
+                    //Se obtiene el tipo
+                    System.Type tipo = item.GetType();
+
+                    //Declaración del objeto de tipo Pattern que contendrá la información de un registro.
+                    Pattern obj = new Pattern();
+
+                    //Se asignan los valores.
+                    obj.codigo = (string)tipo.GetProperty("codigo").GetValue(item, null);
+                    obj.medida = (double)tipo.GetProperty("MEDIDA").GetValue(item, null);
+                    obj.diametro = (double)tipo.GetProperty("DIAMETRO").GetValue(item, null);
+                    obj.customer = (Cliente)tipo.GetProperty("CUSTOMER").GetValue(item, null);
+                    obj.mounting=(int) tipo.GetProperty("MOUNTING").GetValue(item, null);
+                    obj.on_14_rd_gate= (string)tipo.GetProperty("ON_14_RD_GATE").GetValue(item, null);
+                    obj.button=(string) tipo.GetProperty("BUTTON").GetValue(item, null);
+                    obj.cone= (string)tipo.GetProperty("CONE").GetValue(item, null);
+                    obj.M_Circle=(string) tipo.GetProperty("CUSTOMER").GetValue(item, null);
+                    obj.ring_w_min= (double)tipo.GetProperty("RING_WTH_min").GetValue(item, null);
+                    obj.ring_w_max= (double)tipo.GetProperty("RING_WTH_max").GetValue(item, null);
+                    obj.date_ordered= (string)tipo.GetProperty("DATE_ORDERED").GetValue(item, null);
+                    obj.B_Dia= (double)tipo.GetProperty("B_DIA").GetValue(item, null);
+                    obj.fin_Dia=(double) tipo.GetProperty("FIN_DIA").GetValue(item, null);
+                    obj.turn_allow=(double) tipo.GetProperty("TURN_ALLOW").GetValue(item, null);
+                    obj.cstg_sm_od= (double) tipo.GetProperty("CSTG_SM_OD").GetValue(item, null);
+                    obj.shrink_allow= (double) tipo.GetProperty("SHRINK_ALLOW").GetValue(item, null);
+                    obj.patt_sm_od= (double) tipo.GetProperty("PATT_SM_OD").GetValue(item, null);
+                    obj.piece_in_patt= (double) tipo.GetProperty("PIECE_IN_PATT").GetValue(item, null);
+                    obj.bore_allow= (double) tipo.GetProperty("BORE_ALLOW").GetValue(item, null);
+                    obj.patt_sm_id= (double) tipo.GetProperty("PATT_SM_ID").GetValue(item, null);
+                    obj.patt_thickness= (double) tipo.GetProperty("PATT_THICKNESS").GetValue(item, null);
+                    obj.joint= (string)tipo.GetProperty("JOINT").GetValue(item, null);
+                    obj.nick= (string)tipo.GetProperty("NICK").GetValue(item, null);
+                    obj.nick_draf= (string)tipo.GetProperty("NICK_DRAF").GetValue(item, null);
+                    obj.nick_depth= (string)tipo.GetProperty("NICK_DEPTH").GetValue(item, null);
+                    obj.side_relief= (string)tipo.GetProperty("SIDE_RELIEF").GetValue(item, null);
+                    obj.cam= (int)tipo.GetProperty("CAM").GetValue(item, null);
+                    obj.cam_roll= (double)tipo.GetProperty("CAM_ROLL").GetValue(item, null);
+                    obj.rise= (double)tipo.GetProperty("RISE").GetValue(item, null);
+                    obj.OD= (double)tipo.GetProperty("OD").GetValue(item, null);
+                    obj.ID= (double)tipo.GetProperty("ID").GetValue(item, null);
+                    obj.diff= (double)tipo.GetProperty("DIFF").GetValue(item, null);
+                    obj.tipo= (string)tipo.GetProperty("TIPO").GetValue(item, null);
+                    obj.mounted= (string)tipo.GetProperty("mounted").GetValue(item, null);
+                    obj.ordered= (string)tipo.GetProperty("ordered").GetValue(item, null);
+                    obj.Checked= (string)tipo.GetProperty("checked").GetValue(item, null);
+                    obj.date_checked= (string)tipo.GetProperty("date_checked").GetValue(item, null);
+                    obj.esp_inst= (string)tipo.GetProperty("esp_inst").GetValue(item, null);
+                    obj.factor_k= (double)tipo.GetProperty("factor_k").GetValue(item, null);
+                    obj.rise_built= (double)tipo.GetProperty("rise_built").GetValue(item, null);
+                    obj.ring_th_min=(double)tipo.GetProperty("ring_th_min").GetValue(item, null);
+                    obj.ring_th_min= (double)tipo.GetProperty("ring_th_max").GetValue(item, null);
+                    obj.estado= (bool)tipo.GetProperty("estado").GetValue(item, null);
+                    obj.plato= (double)tipo.GetProperty("Plato").GetValue(item, null);
+                    obj.detalle= (string)tipo.GetProperty("Detalle").GetValue(item, null);
+                    obj.diseno= (bool)tipo.GetProperty("Diseno").GetValue(item, null);
+
+                    //Agregamos el objeto tipo Pattern a la lista.
+                    Lista.Add(obj);
+                }
+            }
+            //Devolvemos la lista 
+            return Lista;
 
         }
         #endregion

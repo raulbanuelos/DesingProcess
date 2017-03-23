@@ -34,12 +34,12 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                                      p.codigo,
                                      DIAMETRO = p.MEDIDA,
                                      WIDTH = p.DIAMETRO,
-                                     c.Cliente1,p.MOUNTING,p.ON_14_RD_GATE,p.BUTTON,p.CONE,
-                                     p.M_CIRCLE,p.RING_WTH_min,p.RING_WTH_max,p.DATE_ORDERED,
-                                     p.B_DIA,p.FIN_DIA,p.TURN_ALLOW,p.CSTG_SM_OD,p.SHRINK_ALLOW,p.PATT_SM_OD,p.PIECE_IN_PATT,p.BORE_ALLOW,
-                                     p.PATT_SM_ID,p.PATT_THICKNESS,p.JOINT,p.NICK,p.NICK_DRAF,p.NICK_DEPTH,p.SIDE_RELIEF,p.CAM,p.CAM_ROLL,
-                                     p.RISE,p.OD,p.ID,p.DIFF,TIPO = t.materia_prima,p.mounted,p.ordered,p.@checked,p.date_checked,p.esp_inst,p.factor_k,p.rise_built,p.ring_th_min,p.ring_th_max,
-                                     p.estado,p.Plato,p.Detalle,p.Diseno
+                                     c.Cliente1, p.MOUNTING, p.ON_14_RD_GATE, p.BUTTON, p.CONE,
+                                     p.M_CIRCLE, p.RING_WTH_min, p.RING_WTH_max, p.DATE_ORDERED,
+                                     p.B_DIA, p.FIN_DIA, p.TURN_ALLOW, p.CSTG_SM_OD, p.SHRINK_ALLOW, p.PATT_SM_OD, p.PIECE_IN_PATT, p.BORE_ALLOW,
+                                     p.PATT_SM_ID, p.PATT_THICKNESS, p.JOINT, p.NICK, p.NICK_DRAF, p.NICK_DEPTH, p.SIDE_RELIEF, p.CAM, p.CAM_ROLL,
+                                     p.RISE, p.OD, p.ID, p.DIFF, TIPO = t.materia_prima, p.mounted, p.ordered, p.@checked, p.date_checked, p.esp_inst, p.factor_k, p.rise_built, p.ring_th_min, p.ring_th_max,
+                                     p.estado, p.Plato, p.Detalle, p.Diseno
                                  }).ToList();
 
                     //Retornamos el resultado de la consulta.
@@ -111,15 +111,15 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                                 string M_circle, double ring_w_min, double ring_w_max, string date_ordered, double B_dia, double fin_dia, double turn_allow,
                                 double cstg_sm_od, double shrink_allow, double patt_sm_od, double piece_in_patt, double bore_allow, double patt_sm_id,
                                 double patt_thickness, string joint, string nick, string nick_draf, string nick_depth, string side_relief, double cam, double cam_roll,
-                                double rise,double OD,double ID,double DIFF,int tipo,string mounted,string ordered,string Checked,string date_checked,
-                                string esp_inst,double factor_k,double rise_built,double ring_th_min,double ring_th_max,bool estado,double plato,string detalle,bool diseno)
-                                
+                                double rise, double OD, double ID, double DIFF, int tipo, string mounted, string ordered, string Checked, string date_checked,
+                                string esp_inst, double factor_k, double rise_built, double ring_th_min, double ring_th_max, bool estado, double plato, string detalle, bool diseno)
+
         {
             try
             {   //Se establece la conexión a la base de datos.
-                using (var Conexion= new EntitiesMateriaPrima())
+                using (var Conexion = new EntitiesMateriaPrima())
                 {
-                    
+
                     //Se crea un objeto de tipo Pattern2, el cual será insertado.
                     Pattern2 obj = new Pattern2();
 
@@ -186,13 +186,63 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
             catch (Exception)
             {
                 //Si se encuentra un error se retorna 0.
-                return null;
+                return string.Empty;
             }
         }
 
-        
-        /// Método que actualiza los valores de un registro en la tabla Pattern2.
-        ///retorna cero si existe algún error encuentra error.
+        /// <summary>
+        ///  Método que actualiza los valores de un registro en la tabla Pattern2.
+        ///retorna cero si existe se ecnuentra algún error.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="medida"></param>
+        /// <param name="diametro"></param>
+        /// <param name="customer"></param>
+        /// <param name="mounting"></param>
+        /// <param name="on_14_rd_gate"></param>
+        /// <param name="button"></param>
+        /// <param name="cone"></param>
+        /// <param name="M_circle"></param>
+        /// <param name="ring_w_min"></param>
+        /// <param name="ring_w_max"></param>
+        /// <param name="date_ordered"></param>
+        /// <param name="B_dia"></param>
+        /// <param name="fin_dia"></param>
+        /// <param name="turn_allow"></param>
+        /// <param name="cstg_sm_od"></param>
+        /// <param name="shrink_allow"></param>
+        /// <param name="patt_sm_od"></param>
+        /// <param name="piece_in_patt"></param>
+        /// <param name="bore_allow"></param>
+        /// <param name="patt_sm_id"></param>
+        /// <param name="patt_thickness"></param>
+        /// <param name="joint"></param>
+        /// <param name="nick"></param>
+        /// <param name="nick_draf"></param>
+        /// <param name="nick_depth"></param>
+        /// <param name="side_relief"></param>
+        /// <param name="cam"></param>
+        /// <param name="cam_roll"></param>
+        /// <param name="rise"></param>
+        /// <param name="OD"></param>
+        /// <param name="ID"></param>
+        /// <param name="DIFF"></param>
+        /// <param name="tipo"></param>
+        /// <param name="mounted"></param>
+        /// <param name="ordered"></param>
+        /// <param name="Checked"></param>
+        /// <param name="date_checked"></param>
+        /// <param name="esp_inst"></param>
+        /// <param name="factor_k"></param>
+        /// <param name="rise_built"></param>
+        /// <param name="ring_th_min"></param>
+        /// <param name="ring_th_max"></param>
+        /// <param name="estado"></param>
+        /// <param name="plato"></param>
+        /// <param name="detalle"></param>
+        /// <param name="diseno"></param>
+        /// <returns></returns>
+
         public int UpdatePattern2(string codigo, double medida, double diametro, int customer, string mounting, string on_14_rd_gate, string button, string cone,
                                 string M_circle, double ring_w_min, double ring_w_max, string date_ordered, double B_dia, double fin_dia, double turn_allow,
                                 double cstg_sm_od, double shrink_allow, double patt_sm_od, double piece_in_patt, double bore_allow, double patt_sm_id,
@@ -203,7 +253,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
             try
             {
                 //Se establece la conexión a la base de datos.
-                using (var Conexion=new EntitiesMateriaPrima())
+                using (var Conexion = new EntitiesMateriaPrima())
                 {
                     //creación del objeto tipo Pattern2.
                     Pattern2 pattern = Conexion.Pattern2.Where(x => x.codigo == codigo).FirstOrDefault();
@@ -258,7 +308,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     pattern.Diseno = diseno;
 
                     //Se cambia el estado de registro a modificado.
-                    Conexion.Entry(pattern).State= EntityState.Modified;
+                    Conexion.Entry(pattern).State = EntityState.Modified;
 
                     //Se guardan los cambios y se retorna el número de registros afectados.
                     return Conexion.SaveChanges();
@@ -266,7 +316,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
             }
             catch (Exception)
             {
-                //Si encuentra error devuelve nulo.
+                //Si encuentra error devuelve cero.
                 return 0;
             }
         }
@@ -284,7 +334,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
                     //Se obtiene el objeto que se va a eliminar.
-                    Pattern2 pattern = Conexion.Pattern2.Where(x=>x.codigo==codigo).FirstOrDefault();
+                    Pattern2 pattern = Conexion.Pattern2.Where(x => x.codigo == codigo).FirstOrDefault();
 
                     //Se estable el estado de registro a eliminado.
                     Conexion.Entry(pattern).State = EntityState.Deleted;
@@ -335,6 +385,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
             }
             //Retornamos el valor.
             return LastCod;
+
         }
 
         #endregion
