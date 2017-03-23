@@ -4,6 +4,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="View.Forms.Routing.PRouting"
 	Title="PRouting">
     <Grid x:Name="myGrid">
-       
+        <Button Click="button_Click" x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="6,19,0,0" VerticalAlignment="Top" Width="150" Height="200"/>
+
     </Grid>
 </Page>

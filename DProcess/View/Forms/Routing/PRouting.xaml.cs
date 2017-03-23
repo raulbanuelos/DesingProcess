@@ -6,6 +6,7 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -28,10 +29,15 @@ namespace View.Forms.Routing
 		{
 			InitializeComponent();
 
-            DProcessPropiedad obj = new DProcessPropiedad();
+            //DProcessPropiedad obj = new DProcessPropiedad();
 
-            myGrid.Children.Add(obj);
+            //myGrid.Children.Add(obj);
 
         }
-	}
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            DataManager.GetClasificacionHerramental();
+        }
+    }
 }

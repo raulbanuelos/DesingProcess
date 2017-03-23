@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Data.Entity;
 using System.Linq;
 
@@ -141,6 +142,31 @@ namespace DataAccess.ServiceObjects.Herramentales
             }
         }
 
+        /// <summary>
+        /// Método que obtiene todas las clasificaciones de herramental.
+        /// </summary>
+        /// <returns>Lista anónima que contiene la información de la tabla ClasificacionHerramental, si se genera algún error retornamos un nulo.</returns>
+        public IList GetClasificacionHerramental()
+        {
+            try
+            {
+                //Incializamos la conexión a través de Entity Framework.
+                using (var Conexion = new EntitiesHerramentales())
+                {
+                    //Realizamos la consulta para obtener todos los registros, los ordenamos por la descripcion.
+                    var lista = (from h in Conexion.ClasificacionHerramental
+                                 select h).OrderBy(x => x.Descripcion).ToList();
+
+                    //Renornamos el resultado de la consulta.
+                    return lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si se generó algún error, retornamos un nulo.
+                return null;
+            }
+        }
         #endregion
     }
 }

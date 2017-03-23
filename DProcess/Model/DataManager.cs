@@ -5,6 +5,7 @@ using System.Data;
 using System.Threading.Tasks;
 using DataAccess.ServiceObjects;
 using DataAccess.ServiceObjects.Operaciones.Premaquinado;
+using DataAccess.ServiceObjects.Herramentales;
 
 namespace Model
 {
@@ -116,6 +117,63 @@ namespace Model
         }
         #endregion
 
+        #endregion
+
+        #region Herramentales
+
+        /// <summary>
+        /// Método que obtiene todos los registros de la tabla ClasificacionHerramental.
+        /// </summary>
+        /// <returns>Lista observable con todos los registros, si se genera algún error retorna el objeto vacío.</returns>
+        public static ObservableCollection<ClasificacionHerramental> GetClasificacionHerramental()
+        {
+            //Inicializamos los servicios de clasificación.
+            SO_ClasificacionHerramental ServiceClasificacion = new SO_ClasificacionHerramental();
+
+            //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
+            ObservableCollection<ClasificacionHerramental> ListaResultante = new ObservableCollection<ClasificacionHerramental>();
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList InformacionBD = ServiceClasificacion.GetClasificacionHerramental();
+
+            //Comparamos que la información de la base de datos no sea nulo.
+            if (InformacionBD != null)
+            {
+                //Iteramos la información recibida.
+                foreach (var item in InformacionBD)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos on objeto de tipo ClasificacionHerramental que contendrá la información de un registro.
+                    ClasificacionHerramental obj = new ClasificacionHerramental();
+
+                    //Asignamos los valores correspondientes.
+                    obj.CantidadUtilizar = (int)tipo.GetProperty("CantidadUtilizar").GetValue(item, null);
+                    obj.Costo = (double)tipo.GetProperty("Costo").GetValue(item, null);
+                    obj.Descripcion = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    obj.IdClasificacion = (int)tipo.GetProperty("idClasificacion").GetValue(item, null);
+                    obj.UnidadMedida = (string)tipo.GetProperty("UnidadMedida").GetValue(item, null);
+                    obj.VerificacionAnual = (bool)tipo.GetProperty("VerificacionAnual").GetValue(item, null);
+                    obj.VidaUtil = (int)tipo.GetProperty("VidaUtil").GetValue(item, null);
+
+                    //Obtenemos el valor de la columna ListaCotasRevisar y la asignamos a una cadena.
+                    string cotasRevisar = (string)tipo.GetProperty("ListaCotasRevisar").GetValue(item, null);
+
+                    //Convertimos la cadena a un vector separado por comas.
+                    string[] vector = cotasRevisar.Split(',');
+
+                    //Creamos un objeto de tipo ObservableCollection a partir de un vector, lo asignamos a la propiedad correspondiente.
+                    obj.ListaCotasRevizar = new ObservableCollection<string>(vector);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(obj);
+                }
+            }
+
+            //Retornamos la lista.
+            return ListaResultante;
+        }
         #endregion
 
         #region Métodos Generales
