@@ -292,8 +292,6 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     //Se guardan los cambios y retorna el número de registros afectados.
                     return Conexion.SaveChanges();
                 }
-
-
             }
             catch (Exception)
             {
@@ -302,24 +300,40 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
             }
         }
 
-        ///Método que obtiene el último código de Pattern
-        ///
-        public string GetCode()
+        /// <summary>
+        /// Método que obtiene el último código de Pattern
+        /// </summary>
+        /// <returns>Cadena que representa el último código agregado, si la tabla esta vacía el primer código es: BC-00001, si hubo algún error el método retorna una cadena vacía.</returns>
+        public string GetLastCode()
         {
             //Declaramos una variable, que retornara el último código agregado
             string LastCod;
 
-            //Se establece la conexión a la BD.
-            using (var Conexion= new EntitiesMateriaPrima())
+            try
             {
-                //Se ordena de mayor a menor el código para obtener el primer valor,
-                //en este caso es el último código agregado a la tabla.
-                var last = (from p in Conexion.Pattern2
-                            orderby p.codigo descending
-                            select p.codigo).First();
+                //Se establece la conexión a la BD.
+                using (var Conexion = new EntitiesMateriaPrima())
+                {
+                    //Se ordena de mayor a menor el código para obtener el primer valor,
+                    //en este caso es el último código agregado a la tabla.
+                    var last = (from p in Conexion.Pattern2
+                                orderby p.codigo descending
+                                select p.codigo).First();
 
-                LastCod = last;
+                    //Asignamos el resultado obtenido a la variable local.
+                    LastCod = last;
+
+                    //Verificamos que no sea vacío.
+                    if (string.IsNullOrEmpty(LastCod))
+                        LastCod = "BC-00001";
+                }
             }
+            catch (Exception)
+            {
+                //Si hubo algún error retornamos una cadena vacía.
+                return string.Empty;
+            }
+            //Retornamos el valor.
             return LastCod;
         }
 
