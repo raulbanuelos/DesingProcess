@@ -34,11 +34,11 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                                      p.codigo,
                                      DIAMETRO = p.MEDIDA,
                                      WIDTH = p.DIAMETRO,
-                                     c.Cliente1, p.MOUNTING, p.ON_14_RD_GATE, p.BUTTON, p.CONE,
+                                     c.Cliente1,c.id_cliente, p.MOUNTING, p.ON_14_RD_GATE, p.BUTTON, p.CONE,
                                      p.M_CIRCLE, p.RING_WTH_min, p.RING_WTH_max, p.DATE_ORDERED,
                                      p.B_DIA, p.FIN_DIA, p.TURN_ALLOW, p.CSTG_SM_OD, p.SHRINK_ALLOW, p.PATT_SM_OD, p.PIECE_IN_PATT, p.BORE_ALLOW,
                                      p.PATT_SM_ID, p.PATT_THICKNESS, p.JOINT, p.NICK, p.NICK_DRAF, p.NICK_DEPTH, p.SIDE_RELIEF, p.CAM, p.CAM_ROLL,
-                                     p.RISE, p.OD, p.ID, p.DIFF, TIPO = t.materia_prima, p.mounted, p.ordered, p.@checked, p.date_checked, p.esp_inst, p.factor_k, p.rise_built, p.ring_th_min, p.ring_th_max,
+                                     p.RISE, p.OD, p.ID, p.DIFF, TIPO = t.materia_prima,t.id_tipo_mp, p.mounted, p.ordered, p.@checked, p.date_checked, p.esp_inst, p.factor_k, p.rise_built, p.ring_th_min, p.ring_th_max,
                                      p.estado, p.Plato, p.Detalle, p.Diseno
                                  }).ToList();
 
@@ -56,7 +56,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         }
 
         /// <summary>
-        ///Método para insertar pattern en la base de datos.
+        ///Método para insertar materias primas en la tabla Pattern2.
         /// </summary>
         /// <param name="codigo"></param>
         /// <param name="medida"></param>
@@ -341,6 +341,8 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
 
                     //Se guardan los cambios y retorna el número de registros afectados.
                     return Conexion.SaveChanges();
+
+              
                 }
             }
             catch (Exception)
@@ -388,6 +390,10 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
 
         }
 
+        
+
         #endregion
+
+        
     }
 }
