@@ -654,8 +654,6 @@ namespace View.Services.ViewModel
                 NotifyChange("diseno");
             }
         }
-
-
         #endregion
 
         #region INotifyPropertyChanged Métodos
