@@ -307,14 +307,17 @@ namespace Model
 
                     //Se asignan los valores.
                     obj.codigo = (string)tipo.GetProperty("codigo").GetValue(item, null);
-                    obj.medida = (double)tipo.GetProperty("MEDIDA").GetValue(item, null);
-                    obj.diametro = (double)tipo.GetProperty("DIAMETRO").GetValue(item, null);
-                    obj.customer = (Cliente)tipo.GetProperty("CUSTOMER").GetValue(item, null);
-                    obj.mounting=(int) tipo.GetProperty("MOUNTING").GetValue(item, null);
+                    obj.medida = (double)tipo.GetProperty("DIAMETRO").GetValue(item, null);
+                    obj.diametro = (double)tipo.GetProperty("WIDTH").GetValue(item, null);
+                    Cliente cliente = new Cliente();
+                    cliente.IdCliente = (int)tipo.GetProperty("id_cliente").GetValue(item, null);
+                    cliente.NombreCliente=(string)tipo.GetProperty("Cliente1").GetValue(item, null);
+                    obj.customer = cliente;
+                    obj.mounting=(string) tipo.GetProperty("MOUNTING").GetValue(item, null);
                     obj.on_14_rd_gate= (string)tipo.GetProperty("ON_14_RD_GATE").GetValue(item, null);
                     obj.button=(string) tipo.GetProperty("BUTTON").GetValue(item, null);
                     obj.cone= (string)tipo.GetProperty("CONE").GetValue(item, null);
-                    obj.M_Circle=(string) tipo.GetProperty("CUSTOMER").GetValue(item, null);
+                    obj.M_Circle=(string) tipo.GetProperty("M_CIRCLE").GetValue(item, null);
                     obj.ring_w_min= (double)tipo.GetProperty("RING_WTH_min").GetValue(item, null);
                     obj.ring_w_max= (double)tipo.GetProperty("RING_WTH_max").GetValue(item, null);
                     obj.date_ordered= (string)tipo.GetProperty("DATE_ORDERED").GetValue(item, null);
@@ -333,13 +336,13 @@ namespace Model
                     obj.nick_draf= (string)tipo.GetProperty("NICK_DRAF").GetValue(item, null);
                     obj.nick_depth= (string)tipo.GetProperty("NICK_DEPTH").GetValue(item, null);
                     obj.side_relief= (string)tipo.GetProperty("SIDE_RELIEF").GetValue(item, null);
-                    obj.cam= (int)tipo.GetProperty("CAM").GetValue(item, null);
+                    obj.cam= (double)tipo.GetProperty("CAM").GetValue(item, null);
                     obj.cam_roll= (double)tipo.GetProperty("CAM_ROLL").GetValue(item, null);
                     obj.rise= (double)tipo.GetProperty("RISE").GetValue(item, null);
                     obj.OD= (double)tipo.GetProperty("OD").GetValue(item, null);
                     obj.ID= (double)tipo.GetProperty("ID").GetValue(item, null);
                     obj.diff= (double)tipo.GetProperty("DIFF").GetValue(item, null);
-                    obj.tipo= (string)tipo.GetProperty("TIPO").GetValue(item, null);
+                    obj.tipo= (int)tipo.GetProperty("id_tipo_mp").GetValue(item, null);
                     obj.mounted= (string)tipo.GetProperty("mounted").GetValue(item, null);
                     obj.ordered= (string)tipo.GetProperty("ordered").GetValue(item, null);
                     obj.Checked= (string)tipo.GetProperty("checked").GetValue(item, null);
@@ -362,6 +365,7 @@ namespace Model
             return Lista;
 
         }
+      
         #endregion
     }
 }

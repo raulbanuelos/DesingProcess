@@ -14,7 +14,7 @@ namespace Model
         public double medida { get; set; }
         public double diametro { get; set; }
         public Cliente customer { get; set; }
-        public int mounting { get; set; }
+        public string mounting { get; set; }
         public string on_14_rd_gate { get; set; }
         public string button { get; set; }
         public string cone { get; set; }
@@ -37,13 +37,13 @@ namespace Model
         public string nick_draf { get; set; }
         public string nick_depth { get; set; }
         public string side_relief { get; set; }
-        public int cam { get; set; }
+        public double cam { get; set; }
         public double cam_roll { get; set; }
         public double rise { get; set; }
         public double OD { get; set; }
         public double ID { get; set; }
         public double diff { get; set; }
-        public string tipo { get; set; }
+        public int tipo { get; set; }
         public string mounted { get; set; }
         public string ordered { get; set; }
         public string Checked { get; set; }

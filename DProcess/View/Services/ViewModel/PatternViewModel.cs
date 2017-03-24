@@ -62,8 +62,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private int _mountig;
-        public int mounting
+        private string _mountig;
+        public string mounting
         {
             get
             {
@@ -377,8 +377,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private int _cam;
-        public int cam
+        private double _cam;
+        public double cam
         {
             get
             {
@@ -461,8 +461,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _tipo;
-        public string tipo
+        private int _tipo;
+        public int tipo
         {
             get
             {

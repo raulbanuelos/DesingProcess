@@ -37,7 +37,7 @@ namespace View.Forms.Routing
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            DataManager.GetClasificacionHerramental();
+            DataManager.GetPattern();
         }
     }
 }
