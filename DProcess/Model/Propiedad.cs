@@ -63,6 +63,48 @@
             Imagen = null;
 
         }
+
+        /// <summary>
+        /// Constructor que inicializa las unidades en su valor por default.
+        /// </summary>
+        /// <param name="nombre">Nombre de la propiedad</param>
+        /// <param name="descripcionCorta"></param>
+        /// <param name="descripcionLarga"></param>
+        /// <param name="_TipoDato">Tipo de dato. (Distance,Cantidad,Angle,Force,Mass,Presion,Tiempo)</param>
+        public Propiedad(string nombre, string descripcionCorta,string descripcionLarga,string _TipoDato)
+        {
+            Nombre = nombre;
+            DescripcionCorta = descripcionCorta;
+            DescripcionLarga = descripcionLarga;
+
+            switch (_TipoDato)
+            {
+                case "Distance":
+                    Unidad = "Inch (in)";
+                    break;
+                case "Cantidad":
+                    Unidad = "Unidades";
+                    break;
+                case "Angle":
+                    Unidad = "degree(°)";
+                    break;
+                case "Force":
+                    Unidad = "Newton";
+                    break;
+                case "Mass":
+                    Unidad = "Kilogram(kg)";
+                    break;
+                case "Presion":
+                    Unidad = "PSI";
+                    break;
+                case "Tiempo":
+                    Unidad = "second ('')";
+                    break;
+                default:
+                    break;
+            }
+            Valor = 0;
+        }
         #endregion
 
         #region Métodos

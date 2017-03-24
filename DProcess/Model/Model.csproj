@@ -64,6 +64,7 @@
     <Compile Include="Propiedad.cs" />
     <Compile Include="PropiedadBool.cs" />
     <Compile Include="PropiedadCadena.cs" />
+    <Compile Include="PropiedadFecha.cs" />
     <Compile Include="Revision.cs" />
     <Compile Include="SubjectDiametro.cs" />
     <Compile Include="SubjectThickness.cs" />

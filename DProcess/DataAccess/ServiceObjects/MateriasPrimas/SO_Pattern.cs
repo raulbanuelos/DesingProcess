@@ -105,9 +105,8 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         /// <param name="plato"></param>
         /// <param name="detalle"></param>
         /// <param name="diseno"></param>
-        /// <returns></returns>
-        ///retorn null si hay algún error.
-        public string SetPattern2(string codigo, double medida, double diametro, int customer, string mounting, string on_14_rd_gate, string button, string cone,
+        /// <returns>retorn null si hay algún error.</returns>
+        public string SetPattern(string codigo, double medida, double diametro, int customer, string mounting, string on_14_rd_gate, string button, string cone,
                                 string M_circle, double ring_w_min, double ring_w_max, string date_ordered, double B_dia, double fin_dia, double turn_allow,
                                 double cstg_sm_od, double shrink_allow, double patt_sm_od, double piece_in_patt, double bore_allow, double patt_sm_id,
                                 double patt_thickness, string joint, string nick, string nick_draf, string nick_depth, string side_relief, double cam, double cam_roll,
@@ -243,7 +242,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         /// <param name="diseno"></param>
         /// <returns></returns>
 
-        public int UpdatePattern2(string codigo, double medida, double diametro, int customer, string mounting, string on_14_rd_gate, string button, string cone,
+        public int UpdatePattern(string codigo, double medida, double diametro, int customer, string mounting, string on_14_rd_gate, string button, string cone,
                                 string M_circle, double ring_w_min, double ring_w_max, string date_ordered, double B_dia, double fin_dia, double turn_allow,
                                 double cstg_sm_od, double shrink_allow, double patt_sm_od, double piece_in_patt, double bore_allow, double patt_sm_id,
                                 double patt_thickness, string joint, string nick, string nick_draf, string nick_depth, string side_relief, double cam, double cam_roll,
@@ -259,7 +258,6 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     Pattern2 pattern = Conexion.Pattern2.Where(x => x.codigo == codigo).FirstOrDefault();
 
                     //Asignamos los  parámetros recibidos a cada uno de los valores de los objetos.
-                    pattern.codigo = codigo;
                     pattern.MEDIDA = medida;
                     pattern.DIAMETRO = diametro;
                     pattern.CUSTOMER = customer;
@@ -326,7 +324,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         /// </summary>
         /// <param name="codigo">Código de Pattern a eliminar</param>
         /// <returns></returns>
-        public int DeletePattern2(string codigo)
+        public int DeletePattern(string codigo)
         {
             try
             {
