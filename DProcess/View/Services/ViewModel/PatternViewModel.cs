@@ -6,8 +6,8 @@ namespace View.Services.ViewModel
     public class PatternViewModel : INotifyPropertyChanged
     {
         #region Propiedades Pattern
-        private string _codigo;
-        public string codigo
+        private PropiedadCadena _codigo;
+        public PropiedadCadena codigo
         {
             get
             {
@@ -20,8 +20,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double _medida;
-        public double medida
+        private Propiedad _medida;
+        public Propiedad medida
         {
             get
             {
@@ -34,8 +34,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double _diametro;
-        public double diametro
+        private Propiedad _diametro;
+        public Propiedad diametro
         {
             get
             {
@@ -62,8 +62,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _mountig;
-        public string mounting
+        private Propiedad _mountig;
+        public Propiedad mounting
         {
             get
             {
@@ -76,8 +76,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _ON_14_RD_GATE;
-        public string on_14_rd_gate
+        private PropiedadCadena _ON_14_RD_GATE;
+        public PropiedadCadena on_14_rd_gate
         {
             get
             {
@@ -90,8 +90,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _button;
-        public string button
+        private PropiedadCadena _button;
+        public PropiedadCadena button
         {
             get
             {
@@ -104,8 +104,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _cone;
-        public string cone
+        private PropiedadCadena _cone;
+        public PropiedadCadena cone
         {
             get
             {
@@ -118,8 +118,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _Mcircle;
-        public string M_Circle
+        private PropiedadCadena _Mcircle;
+        public PropiedadCadena M_Circle
         {
             get
             {
@@ -132,8 +132,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double _ring_min;
-        public double ring_w_min
+        private Propiedad _ring_min;
+        public Propiedad ring_w_min
         {
             get
             {
@@ -146,8 +146,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double _ring_max;
-        public double ring_w_max
+        private Propiedad _ring_max;
+        public Propiedad ring_w_max
         {
             get
             {
@@ -160,8 +160,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _date_ordered;
-        public string date_ordered
+        private PropiedadCadena _date_ordered;
+        public PropiedadCadena date_ordered
         {
             get
             {
@@ -173,8 +173,8 @@ namespace View.Services.ViewModel
                 NotifyChange("date_ordered");
             }
         }
-        private double _b_dia;
-        public double B_Dia
+        private Propiedad _b_dia;
+        public Propiedad B_Dia
         {
             get
             {
@@ -186,8 +186,8 @@ namespace View.Services.ViewModel
                 NotifyChange("B_dia");
             }
         }
-        private double _fin_dia;
-        public double fin_Dia
+        private Propiedad _fin_dia;
+        public Propiedad fin_Dia
         {
             get
             {
@@ -199,8 +199,8 @@ namespace View.Services.ViewModel
                 NotifyChange("fin_dia");
             }
         }
-        private double _turn_allow;
-        public double turn_allow
+        private Propiedad _turn_allow;
+        public Propiedad turn_allow
         {
             get
             {
@@ -212,8 +212,8 @@ namespace View.Services.ViewModel
                 NotifyChange("turn_allow");
             }
         }
-        private double _cstg_SM_OD;
-        public double cstg_sm_od
+        private Propiedad _cstg_SM_OD;
+        public Propiedad cstg_sm_od
         {
             get
             {
@@ -225,8 +225,8 @@ namespace View.Services.ViewModel
                 NotifyChange("cstg_sm_od");
             }
         }
-        private double _shrink_allow;
-        public double shrink_allow
+        private Propiedad _shrink_allow;
+        public Propiedad shrink_allow
         {
             get
             {
@@ -238,8 +238,8 @@ namespace View.Services.ViewModel
                 NotifyChange("shrink_allow");
             }
         }
-        private double _patt_SM_OD;
-        public double patt_sm_od
+        private Propiedad _patt_SM_OD;
+        public Propiedad patt_sm_od
         {
             get
             {
@@ -252,8 +252,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double _piece_in_patt;
-        public double piece_in_patt
+        private Propiedad _piece_in_patt;
+        public Propiedad piece_in_patt
         {
             get
             {
@@ -266,8 +266,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double _bore_allow;
-        public double bore_allow
+        private Propiedad _bore_allow;
+        public Propiedad bore_allow
         {
             get
             {
@@ -279,8 +279,8 @@ namespace View.Services.ViewModel
                 NotifyChange("bore_allow");
             }
         }
-        private double _patt_sm_id;
-        public double patt_sm_id
+        private Propiedad _patt_sm_id;
+        public Propiedad patt_sm_id
         {
             get
             {
@@ -293,8 +293,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double _patt_thickness;
-        public double patt_thickness
+        private Propiedad _patt_thickness;
+        public Propiedad patt_thickness
         {
             get
             {
@@ -307,8 +307,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _joint;
-        public string joint
+        private PropiedadCadena _joint;
+        public PropiedadCadena joint
         {
             get
             {
@@ -321,8 +321,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _nick;
-        public string nick
+        private PropiedadCadena _nick;
+        public PropiedadCadena nick
         {
             get
             {
@@ -335,8 +335,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _Nick_draf;
-        public string nick_draf
+        private PropiedadCadena _Nick_draf;
+        public PropiedadCadena nick_draf
         {
             get
             {
@@ -349,8 +349,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _Nick_depth;
-        public string nick_depth
+        private PropiedadCadena _Nick_depth;
+        public PropiedadCadena nick_depth
         {
             get
             {
@@ -363,8 +363,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _side_relief;
-        public string side_relief
+        private PropiedadCadena _side_relief;
+        public PropiedadCadena side_relief
         {
             get
             {
@@ -377,8 +377,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double _cam;
-        public double cam
+        private Propiedad _cam;
+        public Propiedad cam
         {
             get
             {
@@ -391,8 +391,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double _cam_roll;
-        public double cam_roll
+        private Propiedad _cam_roll;
+        public Propiedad cam_roll
         {
             get
             {
@@ -405,8 +405,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double _rise;
-        public double rise
+        private Propiedad _rise;
+        public Propiedad rise
         {
             get
             {
@@ -419,8 +419,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double _OD;
-        public double OD
+        private Propiedad _OD;
+        public Propiedad OD
         {
             get
             {
@@ -433,8 +433,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double _ID;
-        public double ID
+        private Propiedad _ID;
+        public Propiedad ID
         {
             get
             {
@@ -447,8 +447,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double _diff;
-        public double diff
+        private Propiedad _diff;
+        public Propiedad diff
         {
             get
             {
@@ -461,8 +461,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private int _tipo;
-        public int tipo
+        private PropiedadCadena _tipo;
+        public PropiedadCadena tipo
         {
             get
             {
@@ -475,8 +475,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _mounted;
-        public string mounted
+        private PropiedadCadena _mounted;
+        public PropiedadCadena mounted
         {
             get
             {
@@ -489,8 +489,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _ordered;
-        public string ordered
+        private PropiedadCadena _ordered;
+        public PropiedadCadena ordered
         {
             get
             {
@@ -503,8 +503,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _checked;
-        public string Checked
+        private PropiedadCadena _checked;
+        public PropiedadCadena Checked
         {
             get
             {
@@ -517,8 +517,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _date_checked;
-        public string date_checked
+        private PropiedadCadena _date_checked;
+        public PropiedadCadena date_checked
         {
             get
             {
@@ -531,8 +531,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _esp_inst;
-        public string esp_inst
+        private PropiedadCadena _esp_inst;
+        public PropiedadCadena esp_inst
         {
             get
             {
@@ -544,8 +544,8 @@ namespace View.Services.ViewModel
                 NotifyChange("esp_inst");
             }
         }
-        private double _factor_K;
-        public double factor_k
+        private Propiedad _factor_K;
+        public Propiedad factor_k
         {
             get
             {
@@ -558,8 +558,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double _rise_built;
-        public double rise_built
+        private Propiedad _rise_built;
+        public Propiedad rise_built
         {
             get
             {
@@ -572,8 +572,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double _ring_TH_MIN;
-        public double ring_th_min
+        private Propiedad _ring_TH_MIN;
+        public Propiedad ring_th_min
         {
             get
             {
@@ -586,8 +586,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double _ring_TH_max;
-        public double ring_th_max
+        private Propiedad _ring_TH_max;
+        public Propiedad ring_th_max
         {
             get
             {
@@ -599,8 +599,8 @@ namespace View.Services.ViewModel
                 NotifyChange("ring_th_max");
             }
         }
-        private bool _estado;
-        public bool estado
+        private PropiedadBool _estado;
+        public PropiedadBool estado
         {
             get
             {
@@ -613,8 +613,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double _plato;
-        public double plato
+        private Propiedad _plato;
+        public Propiedad plato
         {
             get
             {
@@ -627,8 +627,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _detalle;
-        public string detalle
+        private PropiedadCadena _detalle;
+        public PropiedadCadena detalle
         {
             get
             {
@@ -641,8 +641,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private bool _diseno;
-        public bool diseno
+        private PropiedadBool _diseno;
+        public PropiedadBool diseno
         {
             get
             {

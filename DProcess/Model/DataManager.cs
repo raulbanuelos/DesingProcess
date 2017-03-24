@@ -294,7 +294,7 @@ namespace Model
             IList PatternBD = ServicePattern.GetAllPattern();
 
             //Verifcamos que la información de la base de datos no se encuentre vacía.
-            if (PatternBD!=null)
+            if (PatternBD != null)
             {
                 //Iteración de la información recibida.
                 foreach (var item in PatternBD)
@@ -306,56 +306,53 @@ namespace Model
                     Pattern obj = new Pattern();
 
                     //Se asignan los valores.
-                    obj.codigo = (string)tipo.GetProperty("codigo").GetValue(item, null);
-                    obj.medida = (double)tipo.GetProperty("DIAMETRO").GetValue(item, null);
-                    obj.diametro = (double)tipo.GetProperty("WIDTH").GetValue(item, null);
-                    Cliente cliente = new Cliente();
-                    cliente.IdCliente = (int)tipo.GetProperty("id_cliente").GetValue(item, null);
-                    cliente.NombreCliente=(string)tipo.GetProperty("Cliente1").GetValue(item, null);
-                    obj.customer = cliente;
-                    obj.mounting=(string) tipo.GetProperty("MOUNTING").GetValue(item, null);
-                    obj.on_14_rd_gate= (string)tipo.GetProperty("ON_14_RD_GATE").GetValue(item, null);
-                    obj.button=(string) tipo.GetProperty("BUTTON").GetValue(item, null);
-                    obj.cone= (string)tipo.GetProperty("CONE").GetValue(item, null);
-                    obj.M_Circle=(string) tipo.GetProperty("M_CIRCLE").GetValue(item, null);
-                    obj.ring_w_min= (double)tipo.GetProperty("RING_WTH_min").GetValue(item, null);
-                    obj.ring_w_max= (double)tipo.GetProperty("RING_WTH_max").GetValue(item, null);
-                    obj.date_ordered= (string)tipo.GetProperty("DATE_ORDERED").GetValue(item, null);
-                    obj.B_Dia= (double)tipo.GetProperty("B_DIA").GetValue(item, null);
-                    obj.fin_Dia=(double) tipo.GetProperty("FIN_DIA").GetValue(item, null);
-                    obj.turn_allow=(double) tipo.GetProperty("TURN_ALLOW").GetValue(item, null);
-                    obj.cstg_sm_od= (double) tipo.GetProperty("CSTG_SM_OD").GetValue(item, null);
-                    obj.shrink_allow= (double) tipo.GetProperty("SHRINK_ALLOW").GetValue(item, null);
-                    obj.patt_sm_od= (double) tipo.GetProperty("PATT_SM_OD").GetValue(item, null);
-                    obj.piece_in_patt= (double) tipo.GetProperty("PIECE_IN_PATT").GetValue(item, null);
-                    obj.bore_allow= (double) tipo.GetProperty("BORE_ALLOW").GetValue(item, null);
-                    obj.patt_sm_id= (double) tipo.GetProperty("PATT_SM_ID").GetValue(item, null);
-                    obj.patt_thickness= (double) tipo.GetProperty("PATT_THICKNESS").GetValue(item, null);
-                    obj.joint= (string)tipo.GetProperty("JOINT").GetValue(item, null);
-                    obj.nick= (string)tipo.GetProperty("NICK").GetValue(item, null);
-                    obj.nick_draf= (string)tipo.GetProperty("NICK_DRAF").GetValue(item, null);
-                    obj.nick_depth= (string)tipo.GetProperty("NICK_DEPTH").GetValue(item, null);
-                    obj.side_relief= (string)tipo.GetProperty("SIDE_RELIEF").GetValue(item, null);
-                    obj.cam= (double)tipo.GetProperty("CAM").GetValue(item, null);
-                    obj.cam_roll= (double)tipo.GetProperty("CAM_ROLL").GetValue(item, null);
-                    obj.rise= (double)tipo.GetProperty("RISE").GetValue(item, null);
-                    obj.OD= (double)tipo.GetProperty("OD").GetValue(item, null);
-                    obj.ID= (double)tipo.GetProperty("ID").GetValue(item, null);
-                    obj.diff= (double)tipo.GetProperty("DIFF").GetValue(item, null);
-                    obj.tipo= (int)tipo.GetProperty("id_tipo_mp").GetValue(item, null);
-                    obj.mounted= (string)tipo.GetProperty("mounted").GetValue(item, null);
-                    obj.ordered= (string)tipo.GetProperty("ordered").GetValue(item, null);
-                    obj.Checked= (string)tipo.GetProperty("checked").GetValue(item, null);
-                    obj.date_checked= (string)tipo.GetProperty("date_checked").GetValue(item, null);
-                    obj.esp_inst= (string)tipo.GetProperty("esp_inst").GetValue(item, null);
-                    obj.factor_k= (double)tipo.GetProperty("factor_k").GetValue(item, null);
-                    obj.rise_built= (double)tipo.GetProperty("rise_built").GetValue(item, null);
-                    obj.ring_th_min=(double)tipo.GetProperty("ring_th_min").GetValue(item, null);
-                    obj.ring_th_min= (double)tipo.GetProperty("ring_th_max").GetValue(item, null);
-                    obj.estado= (bool)tipo.GetProperty("estado").GetValue(item, null);
-                    obj.plato= (double)tipo.GetProperty("Plato").GetValue(item, null);
-                    obj.detalle= (string)tipo.GetProperty("Detalle").GetValue(item, null);
-                    obj.diseno= (bool)tipo.GetProperty("Diseno").GetValue(item, null);
+                    obj.codigo.Valor = (string)tipo.GetProperty("codigo").GetValue(item, null);
+                    obj.medida.Valor = (double)tipo.GetProperty("DIAMETRO").GetValue(item, null);
+                    obj.diametro.Valor = (double)tipo.GetProperty("WIDTH").GetValue(item, null);
+                    //obj.customer = (Cliente)tipo.GetProperty("CUSTOMER").GetValue(item, null);
+                    obj.mounting.Valor = (int)tipo.GetProperty("MOUNTING").GetValue(item, null);
+                    obj.on_14_rd_gate.Valor = (string)tipo.GetProperty("ON_14_RD_GATE").GetValue(item, null);
+                    obj.button.Valor = (string)tipo.GetProperty("BUTTON").GetValue(item, null);
+                    obj.cone.Valor = (string)tipo.GetProperty("CONE").GetValue(item, null);
+                    obj.M_Circle.Valor = (string)tipo.GetProperty("CUSTOMER").GetValue(item, null);
+                    obj.ring_w_min.Valor = (double)tipo.GetProperty("RING_WTH_min").GetValue(item, null);
+                    obj.ring_w_max.Valor = (double)tipo.GetProperty("RING_WTH_max").GetValue(item, null);
+                    obj.date_ordered.Valor = (string)tipo.GetProperty("DATE_ORDERED").GetValue(item, null);
+                    obj.B_Dia.Valor = (double)tipo.GetProperty("B_DIA").GetValue(item, null);
+                    obj.fin_Dia.Valor = (double)tipo.GetProperty("FIN_DIA").GetValue(item, null);
+                    obj.turn_allow.Valor = (double)tipo.GetProperty("TURN_ALLOW").GetValue(item, null);
+                    obj.cstg_sm_od.Valor = (double)tipo.GetProperty("CSTG_SM_OD").GetValue(item, null);
+                    obj.shrink_allow.Valor = (double)tipo.GetProperty("SHRINK_ALLOW").GetValue(item, null);
+                    obj.patt_sm_od.Valor = (double)tipo.GetProperty("PATT_SM_OD").GetValue(item, null);
+                    obj.piece_in_patt.Valor = (double)tipo.GetProperty("PIECE_IN_PATT").GetValue(item, null);
+                    obj.bore_allow.Valor = (double)tipo.GetProperty("BORE_ALLOW").GetValue(item, null);
+                    obj.patt_sm_id.Valor = (double)tipo.GetProperty("PATT_SM_ID").GetValue(item, null);
+                    obj.patt_thickness.Valor = (double)tipo.GetProperty("PATT_THICKNESS").GetValue(item, null);
+                    obj.joint.Valor = (string)tipo.GetProperty("JOINT").GetValue(item, null);
+                    obj.nick.Valor = (string)tipo.GetProperty("NICK").GetValue(item, null);
+                    obj.nick_draf.Valor = (string)tipo.GetProperty("NICK_DRAF").GetValue(item, null);
+                    obj.nick_depth.Valor = (string)tipo.GetProperty("NICK_DEPTH").GetValue(item, null);
+                    obj.side_relief.Valor = (string)tipo.GetProperty("SIDE_RELIEF").GetValue(item, null);
+                    obj.cam.Valor = (int)tipo.GetProperty("CAM").GetValue(item, null);
+                    obj.cam_roll.Valor = (double)tipo.GetProperty("CAM_ROLL").GetValue(item, null);
+                    obj.rise.Valor = (double)tipo.GetProperty("RISE").GetValue(item, null);
+                    obj.OD.Valor = (double)tipo.GetProperty("OD").GetValue(item, null);
+                    obj.ID.Valor = (double)tipo.GetProperty("ID").GetValue(item, null);
+                    obj.diff.Valor = (double)tipo.GetProperty("DIFF").GetValue(item, null);
+                    obj.tipo.Valor = (double)tipo.GetProperty("TIPO").GetValue(item, null);
+                    obj.mounted.Valor = (string)tipo.GetProperty("mounted").GetValue(item, null);
+                    obj.ordered.Valor = (string)tipo.GetProperty("ordered").GetValue(item, null);
+                    obj.Checked.Valor = (string)tipo.GetProperty("checked").GetValue(item, null);
+                    obj.date_checked.Valor = (string)tipo.GetProperty("date_checked").GetValue(item, null);
+                    obj.esp_inst.Valor = (string)tipo.GetProperty("esp_inst").GetValue(item, null);
+                    obj.factor_k.Valor = (double)tipo.GetProperty("factor_k").GetValue(item, null);
+                    obj.rise_built.Valor = (double)tipo.GetProperty("rise_built").GetValue(item, null);
+                    obj.ring_th_min.Valor = (double)tipo.GetProperty("ring_th_min").GetValue(item, null);
+                    obj.ring_th_min.Valor = (double)tipo.GetProperty("ring_th_max").GetValue(item, null);
+                    obj.estado.Valor = (bool)tipo.GetProperty("estado").GetValue(item, null);
+                    obj.plato.Valor = (double)tipo.GetProperty("Plato").GetValue(item, null);
+                    obj.detalle.Valor = (string)tipo.GetProperty("Detalle").GetValue(item, null);
+                    obj.diseno.Valor = (bool)tipo.GetProperty("Diseno").GetValue(item, null);
 
                     //Agregamos el objeto tipo Pattern a la lista.
                     Lista.Add(obj);
@@ -365,7 +362,56 @@ namespace Model
             return Lista;
 
         }
-      
+
+        /// <summary>
+        /// Método que inserta un registro en la tabla de Pattern2
+        /// </summary>
+        /// <param name="pattern"></param>
+        /// <returns></returns>
+        public static string SetPattern(Pattern pattern)
+        {
+            //Inicializamos los servicios de SO_Pattern.
+            SO_Pattern ServicePatter = new SO_Pattern();
+
+            //Ejecutamos el método para insertar el registro, Retornamos el nuevo código de placa modelo.
+            return ServicePatter.SetPattern(pattern.codigo.Valor, pattern.medida.Valor, pattern.diametro.Valor, pattern.customer.IdCliente, Convert.ToString(pattern.mounting.Valor), pattern.on_14_rd_gate.Valor, pattern.button.Valor, pattern.cone.Valor, pattern.M_Circle.Valor, pattern.ring_w_min.Valor, pattern.ring_w_max.Valor, pattern.date_ordered.Valor, pattern.B_Dia.Valor, pattern.fin_Dia.Valor, pattern.turn_allow.Valor, pattern.cstg_sm_od.Valor, pattern.shrink_allow.Valor, pattern.patt_sm_od.Valor, pattern.piece_in_patt.Valor, pattern.bore_allow.Valor, pattern.patt_sm_id.Valor, pattern.patt_thickness.Valor, pattern.joint.Valor, pattern.nick.Valor, pattern.nick_draf.Valor, pattern.nick_depth.Valor, pattern.side_relief.Valor, pattern.cam.Valor, pattern.cam_roll.Valor, pattern.rise.Valor, pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.tipo.Valor), pattern.mounted.Valor, pattern.ordered.Valor, pattern.Checked.Valor, pattern.date_checked.Valor, pattern.esp_inst.Valor, pattern.factor_k.Valor, pattern.rise_built.Valor, pattern.ring_th_min.Valor, pattern.ring_th_max.Valor, pattern.estado.Valor, pattern.plato.Valor, pattern.detalle.Valor, pattern.diseno.Valor);
+        }
+
+    
+        /// <summary>
+        /// Método que modifica un registro de la tabla Pattern2.
+        /// </summary>
+        /// <param name="pattern"></param>
+        /// <returns></returns>
+        public static int UpdatePattern(Pattern pattern)
+        {
+            //Se inicializan los servicios de SO_Pattern.
+            SO_Pattern ServicePattern = new SO_Pattern();
+
+            //Ejecutamos el método para modificiar el registro,se retorna el número de registros afectados.
+            return ServicePattern.UpdatePattern(pattern.codigo.Valor, pattern.medida.Valor, pattern.diametro.Valor, pattern.customer.IdCliente, Convert.ToString(pattern.mounting.Valor), 
+                                                pattern.on_14_rd_gate.Valor, pattern.button.Valor, pattern.cone.Valor, pattern.M_Circle.Valor, pattern.ring_w_min.Valor, pattern.ring_w_max.Valor,
+                                                pattern.date_ordered.Valor, pattern.B_Dia.Valor, pattern.fin_Dia.Valor, pattern.turn_allow.Valor, pattern.cstg_sm_od.Valor, pattern.shrink_allow.Valor,
+                                                pattern.patt_sm_od.Valor, pattern.piece_in_patt.Valor, pattern.bore_allow.Valor, pattern.patt_sm_id.Valor, pattern.patt_thickness.Valor, pattern.joint.Valor,
+                                                pattern.nick.Valor, pattern.nick_draf.Valor, pattern.nick_depth.Valor, pattern.side_relief.Valor, pattern.cam.Valor, pattern.cam_roll.Valor, pattern.rise.Valor,
+                                                pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.tipo.Valor), pattern.mounted.Valor, pattern.ordered.Valor, pattern.Checked.Valor,
+                                                pattern.date_checked.Valor, pattern.esp_inst.Valor, pattern.factor_k.Valor, pattern.rise_built.Valor, pattern.ring_th_min.Valor, pattern.ring_th_max.Valor, 
+                                                pattern.estado.Valor, pattern.plato.Valor, pattern.detalle.Valor, pattern.diseno.Valor);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla Pattern2
+        /// </summary>
+        /// <param name="pattern">Cadena que representa el código de placa modelo que se requiere eliminar.</param>
+        /// <returns></returns>
+        public static int DeletePattern(Pattern pattern)
+        {
+            //Inicializamos los servicios de SO_Pattern.
+            SO_Pattern ServicePattern = new SO_Pattern();
+
+            //Ejecutamos el método para insertar el registro, Retornamos la cantidad de registros eliminados.
+            return ServicePattern.DeletePattern(pattern.codigo.Valor);
+        }
         #endregion
     }
 }
