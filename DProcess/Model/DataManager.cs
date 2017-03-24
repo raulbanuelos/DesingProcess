@@ -412,6 +412,51 @@ namespace Model
             //Ejecutamos el método para insertar el registro, Retornamos la cantidad de registros eliminados.
             return ServicePattern.DeletePattern(pattern.codigo.Valor);
         }
+        /// <summary>
+        /// Método que agrega un nuevo registro,en base a otro registro existente
+        /// </summary>
+        /// <param name="pattern"></param>
+        /// <returns></returns>
+        public static string CopyPattern(Pattern pattern)
+        {
+            //Declaramos un variable de tipo string, la cúal se le va asignar el último código agregado
+            string code;
+            //Se inicializan los servicios de SO_pattern
+            SO_Pattern ServicePattern = new SO_Pattern();
+
+            //Se manda a llamar a la función GetLasCode que retorna el último código agregado a la tabla, se manda como parámetro a la función add,
+            //se le suma uno al código y se asigna a la variable code.
+            code = Add(ServicePattern.GetLastCode());
+                
+            //Se ejecuta el método para insertar un nuevo registro.
+            return ServicePattern.SetPattern(code, pattern.medida.Valor, pattern.diametro.Valor, pattern.customer.IdCliente, Convert.ToString(pattern.mounting.Valor),
+                                              pattern.on_14_rd_gate.Valor, pattern.button.Valor, pattern.cone.Valor, pattern.M_Circle.Valor, pattern.ring_w_min.Valor, pattern.ring_w_max.Valor,
+                                              pattern.date_ordered.Valor, pattern.B_Dia.Valor, pattern.fin_Dia.Valor, pattern.turn_allow.Valor, pattern.cstg_sm_od.Valor, pattern.shrink_allow.Valor,
+                                              pattern.patt_sm_od.Valor, pattern.piece_in_patt.Valor, pattern.bore_allow.Valor, pattern.patt_sm_id.Valor, pattern.patt_thickness.Valor, pattern.joint.Valor,
+                                              pattern.nick.Valor, pattern.nick_draf.Valor, pattern.nick_depth.Valor, pattern.side_relief.Valor, pattern.cam.Valor, pattern.cam_roll.Valor, pattern.rise.Valor,
+                                              pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.tipo.Valor), pattern.mounted.Valor, pattern.ordered.Valor, pattern.Checked.Valor,
+                                              pattern.date_checked.Valor, pattern.esp_inst.Valor, pattern.factor_k.Valor, pattern.rise_built.Valor, pattern.ring_th_min.Valor, pattern.ring_th_max.Valor,
+                                              pattern.estado.Valor, pattern.plato.Valor, pattern.detalle.Valor, pattern.diseno.Valor);
+        }
+
+        /// <summary>
+        /// Método que recibe el último código agregado y le suma uno.
+        /// </summary>
+        /// <param name="LastCode"></param>
+        /// <returns></returns>
+        public static string Add(string LastCode)
+        {
+            //Declaración de la variable code, la cúal se va a retornar ya con nuevo valor del código.
+            string code;
+            //Declaración de la variable número, se le va asignar el número de la cadena recibida.
+            int number;
+            //Se recupera una cadena de la variable recibida, comienza en la posición 3 y tiene la longitud de LastCode menos 3
+            number=Int32.Parse(LastCode.Substring(3,LastCode.Length-3));
+            //Al número de la cadena se le suma uno.
+            number += 1;
+            //retorna el nuevo string, concatenado con el número.
+            return code = string.Concat("BC-", number.ToString());
+        }
         #endregion
     }
 }
