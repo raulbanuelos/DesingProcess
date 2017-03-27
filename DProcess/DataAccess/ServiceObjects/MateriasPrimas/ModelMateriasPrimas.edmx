@@ -93,6 +93,28 @@
           <Property Name="id_tipo_mp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="materia_prima" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="TubosCL">
+          <Key>
+            <PropertyRef Name="Tubo" />
+          </Key>
+          <Property Name="Tubo" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="DiaExt" Type="float" />
+          <Property Name="DiaInt" Type="float" />
+          <Property Name="Thickness" Type="float" />
+          <Property Name="Largo" Type="float" />
+        </EntityType>
+        <EntityType Name="TubosHD">
+          <Key>
+            <PropertyRef Name="Tubo" />
+          </Key>
+          <Property Name="Tubo" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="DiaExt" Type="float" />
+          <Property Name="DiaInt" Type="float" />
+          <Property Name="Thickness" Type="float" />
+          <Property Name="Largo" Type="float" />
+          <Property Name="Molde" Type="varchar" MaxLength="50" />
+          <Property Name="RPM" Type="int" />
+        </EntityType>
         <Association Name="FK_patt_actualizaciones_Pattern2">
           <End Role="Pattern2" Type="Self.Pattern2" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -137,6 +159,8 @@
           <EntitySet Name="patt_actualizaciones" EntityType="Self.patt_actualizaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pattern2" EntityType="Self.Pattern2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Materia_Prima" EntityType="Self.Tipo_Materia_Prima" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TubosCL" EntityType="Self.TubosCL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TubosHD" EntityType="Self.TubosHD" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_patt_actualizaciones_Pattern2" Association="Self.FK_patt_actualizaciones_Pattern2">
             <End Role="Pattern2" EntitySet="Pattern2" />
             <End Role="patt_actualizaciones" EntitySet="patt_actualizaciones" />
@@ -274,6 +298,8 @@
             <End Role="Pattern2" EntitySet="Pattern2" />
           </AssociationSet>
           <EntitySet Name="cuffs" EntityType="DataAccess.ServiceObjects.MateriasPrimas.cuffs" />
+          <EntitySet Name="TubosCL" EntityType="DataAccess.ServiceObjects.MateriasPrimas.TubosCL" />
+          <EntitySet Name="TubosHD" EntityType="DataAccess.ServiceObjects.MateriasPrimas.TubosHD" />
         </EntityContainer>
         <EntityType Name="Tipo_Materia_Prima">
           <Key>
@@ -304,6 +330,28 @@
           <Property Name="dia_int" Type="Double" />
           <Property Name="largo" Type="Double" />
           <Property Name="peso" Type="Double" />
+        </EntityType>
+        <EntityType Name="TubosCL">
+          <Key>
+            <PropertyRef Name="Tubo" />
+          </Key>
+          <Property Name="Tubo" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="DiaExt" Type="Double" />
+          <Property Name="DiaInt" Type="Double" />
+          <Property Name="Thickness" Type="Double" />
+          <Property Name="Largo" Type="Double" />
+        </EntityType>
+        <EntityType Name="TubosHD">
+          <Key>
+            <PropertyRef Name="Tubo" />
+          </Key>
+          <Property Name="Tubo" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="DiaExt" Type="Double" />
+          <Property Name="DiaInt" Type="Double" />
+          <Property Name="Thickness" Type="Double" />
+          <Property Name="Largo" Type="Double" />
+          <Property Name="Molde" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RPM" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -401,6 +449,30 @@
                 <ScalarProperty Name="dia_int" ColumnName="dia_int" />
                 <ScalarProperty Name="dia_ext" ColumnName="dia_ext" />
                 <ScalarProperty Name="no_cuff" ColumnName="no_cuff" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TubosCL">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.TubosCL">
+              <MappingFragment StoreEntitySet="TubosCL">
+                <ScalarProperty Name="Largo" ColumnName="Largo" />
+                <ScalarProperty Name="Thickness" ColumnName="Thickness" />
+                <ScalarProperty Name="DiaInt" ColumnName="DiaInt" />
+                <ScalarProperty Name="DiaExt" ColumnName="DiaExt" />
+                <ScalarProperty Name="Tubo" ColumnName="Tubo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TubosHD">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.TubosHD">
+              <MappingFragment StoreEntitySet="TubosHD">
+                <ScalarProperty Name="RPM" ColumnName="RPM" />
+                <ScalarProperty Name="Molde" ColumnName="Molde" />
+                <ScalarProperty Name="Largo" ColumnName="Largo" />
+                <ScalarProperty Name="Thickness" ColumnName="Thickness" />
+                <ScalarProperty Name="DiaInt" ColumnName="DiaInt" />
+                <ScalarProperty Name="DiaExt" ColumnName="DiaExt" />
+                <ScalarProperty Name="Tubo" ColumnName="Tubo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

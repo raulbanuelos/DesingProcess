@@ -8,78 +8,75 @@ using System.Threading.Tasks;
 
 namespace View.Services.ViewModel
 {
-    public class CuffViewModel : INotifyPropertyChanged
+    public class TubosCLViewModel: INotifyPropertyChanged
     {
-        #region PropiedadesCuffs
-        private PropiedadCadena num_cuff;
-        public PropiedadCadena no_cuff
+        #region PropiedadesTubosCL 
+        private PropiedadCadena _Tubo;
+        public PropiedadCadena Tubo
         {
             get
             {
-                return num_cuff;
+                return _Tubo;
             }
             set
             {
-                num_cuff = value;
-                NotifyChange("no_cuff");
+                _Tubo = value;
+                NotifyChange("Tubo");
             }
         }
-        private Propiedad _dia_ext;
-        public Propiedad dia_ext
+        private Propiedad _DiaExt;
+        public Propiedad DiaExt
         {
             get
             {
-                return _dia_ext;
+                return _DiaExt;
             }
             set
             {
-                _dia_ext = value;
-                NotifyChange("dia_ext");
-            }
-        }
-
-        private Propiedad _dia_int;
-        public Propiedad dia_int
-        {
-            get
-            {
-                return _dia_int;
-            }
-            set
-            {
-                _dia_int = value;
-                NotifyChange("dia_int");
-            }
-        }
-        private Propiedad _largo;
-        public Propiedad largo
-        {
-            get
-            {
-                return _largo;
-            }
-            set
-            {
-                _largo = value;
-                NotifyChange("largo");
-            }
-        }
-        private Propiedad _peso;
-        public Propiedad peso
-        {
-            get
-            {
-                return _peso;
-            }
-            set
-            {
-                _peso = value;
-                NotifyChange("peso");
+                _DiaExt = value;
+                NotifyChange("DiaExt");
             }
         }
 
-
-        #endregion
+        private Propiedad _DiaInt;
+        public Propiedad DiaInt
+        {
+            get
+            {
+                return _DiaInt;
+            }
+            set
+            {
+                _DiaInt = value;
+                NotifyChange("DiaInt");
+            }
+        }
+        private Propiedad _Thinckness;
+        public Propiedad Thickness
+        {
+            get
+            {
+                return _Thinckness;
+            }
+            set
+            {
+                _Thinckness = value;
+                NotifyChange("Thinckness");
+            }
+        }
+        private Propiedad _Largo;
+        public Propiedad Largo
+        {
+            get
+            {
+                return _Largo;
+            }
+            set
+            {
+                _Largo = value;
+                NotifyChange("Largo");
+            }
+        }
 
         void NotifyChange(params string[] ids)
         {
@@ -87,7 +84,7 @@ namespace View.Services.ViewModel
                 foreach (var id in ids)
                     PropertyChanged(this, new PropertyChangedEventArgs(id));
         }
-
+        #endregion
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

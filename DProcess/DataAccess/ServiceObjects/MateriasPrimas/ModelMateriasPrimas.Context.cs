@@ -30,5 +30,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         public virtual DbSet<Pattern2> Pattern2 { get; set; }
         public virtual DbSet<Tipo_Materia_Prima> Tipo_Materia_Prima { get; set; }
         public virtual DbSet<cuffs> cuffs { get; set; }
+        public virtual DbSet<TubosCL> TubosCL { get; set; }
+        public virtual DbSet<TubosHD> TubosHD { get; set; }
     }
 }

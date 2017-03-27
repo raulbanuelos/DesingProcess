@@ -13,6 +13,8 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Materia_Prima" Width="1.5" PointX="0.75" PointY="2.875" />
         <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Pattern2_Tipo_Materia_Prima" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.cuffs" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.TubosCL" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.TubosHD" Width="1.5" PointX="7.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

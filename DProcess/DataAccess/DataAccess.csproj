@@ -100,7 +100,15 @@
     </Compile>
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Cuffs.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Pattern.cs" />
+    <Compile Include="ServiceObjects\MateriasPrimas\SO_TubosCL.cs" />
+    <Compile Include="ServiceObjects\MateriasPrimas\SO_TubosHD.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\Tipo_Materia_Prima.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\TubosCL.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\TubosHD.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Operaciones\Premaquinado\ModelPreMaquinado.Context.cs">

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.ServiceObjects.MateriasPrimas
 {
-    public class SO_Cuffs
+    public class SO_Cuffs 
     {
         #region Métodos
         /// <summary>
@@ -99,7 +99,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                 {
                     //Se crea el objeto de tipo cuff.
                     cuffs obj = Conexion.cuffs.Where(x => x.no_cuff == no_cuff).FirstOrDefault();
-
+                    //Se modifican los datos.
                     obj.dia_ext = dia_ext;
                     obj.dia_int = dia_int;
                     obj.largo = largo;

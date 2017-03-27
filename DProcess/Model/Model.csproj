@@ -70,6 +70,8 @@
     <Compile Include="SubjectDiametro.cs" />
     <Compile Include="SubjectThickness.cs" />
     <Compile Include="SubjectWidth.cs" />
+    <Compile Include="Tubos_CL.cs" />
+    <Compile Include="Tubos_HD.cs" />
     <Compile Include="UbicacionPintura.cs" />
     <Compile Include="Usuario.cs" />
   </ItemGroup>
