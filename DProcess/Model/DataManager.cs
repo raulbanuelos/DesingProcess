@@ -426,7 +426,7 @@ namespace Model
 
             //Se manda a llamar a la función GetLasCode que retorna el último código agregado a la tabla, se manda como parámetro a la función add,
             //se le suma uno al código y se asigna a la variable code.
-            code = Add(ServicePattern.GetLastCode());
+            code = GetNextCodePattern(ServicePattern.GetLastCode());
                 
             //Se ejecuta el método para insertar un nuevo registro.
             return ServicePattern.SetPattern(code, pattern.medida.Valor, pattern.diametro.Valor, pattern.customer.IdCliente, Convert.ToString(pattern.mounting.Valor),
@@ -444,7 +444,7 @@ namespace Model
         /// </summary>
         /// <param name="LastCode"></param>
         /// <returns></returns>
-        public static string Add(string LastCode)
+        public static string GetNextCodePattern(string LastCode)
         {
             //Declaración de la variable code, la cúal se va a retornar ya con nuevo valor del código.
             string code;
