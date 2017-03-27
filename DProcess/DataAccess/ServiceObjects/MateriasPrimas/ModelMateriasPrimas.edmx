@@ -12,6 +12,16 @@
           <Property Name="id_cliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Cliente" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="cuffs">
+          <Key>
+            <PropertyRef Name="no_cuff" />
+          </Key>
+          <Property Name="no_cuff" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="dia_ext" Type="float" />
+          <Property Name="dia_int" Type="float" />
+          <Property Name="largo" Type="float" />
+          <Property Name="peso" Type="float" />
+        </EntityType>
         <EntityType Name="patt_actualizaciones">
           <Key>
             <PropertyRef Name="id_patt_actualizaciones" />
@@ -123,6 +133,7 @@
         </Association>
         <EntityContainer Name="DataAccessServiceObjectsMateriasPrimasStoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cuffs" EntityType="Self.cuffs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="patt_actualizaciones" EntityType="Self.patt_actualizaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pattern2" EntityType="Self.Pattern2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Materia_Prima" EntityType="Self.Tipo_Materia_Prima" Schema="dbo" store:Type="Tables" />
@@ -262,6 +273,7 @@
             <End Role="Tipo_Materia_Prima" EntitySet="Tipo_Materia_Prima" />
             <End Role="Pattern2" EntitySet="Pattern2" />
           </AssociationSet>
+          <EntitySet Name="cuffs" EntityType="DataAccess.ServiceObjects.MateriasPrimas.cuffs" />
         </EntityContainer>
         <EntityType Name="Tipo_Materia_Prima">
           <Key>
@@ -283,6 +295,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="cuffs">
+          <Key>
+            <PropertyRef Name="no_cuff" />
+          </Key>
+          <Property Name="no_cuff" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="dia_ext" Type="Double" />
+          <Property Name="dia_int" Type="Double" />
+          <Property Name="largo" Type="Double" />
+          <Property Name="peso" Type="Double" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -368,6 +390,17 @@
               <MappingFragment StoreEntitySet="Tipo_Materia_Prima">
                 <ScalarProperty Name="materia_prima" ColumnName="materia_prima" />
                 <ScalarProperty Name="id_tipo_mp" ColumnName="id_tipo_mp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cuffs">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.cuffs">
+              <MappingFragment StoreEntitySet="cuffs">
+                <ScalarProperty Name="peso" ColumnName="peso" />
+                <ScalarProperty Name="largo" ColumnName="largo" />
+                <ScalarProperty Name="dia_int" ColumnName="dia_int" />
+                <ScalarProperty Name="dia_ext" ColumnName="dia_ext" />
+                <ScalarProperty Name="no_cuff" ColumnName="no_cuff" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
