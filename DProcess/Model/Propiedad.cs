@@ -46,67 +46,6 @@
         public byte[] Imagen { get; set; }
         #endregion
 
-        #region Constructores
-
-        /// <summary>
-        /// Constructor por default. Inicializa todas las propiedades con valores por default.
-        /// </summary>
-        public Propiedad()
-        {
-            //Asignamos los valores iniciales para cada propiedad.
-            Nombre = string.Empty;
-            DescripcionCorta = string.Empty;
-            DescripcionLarga = string.Empty;
-            TipoDato = string.Empty;
-            Unidad = string.Empty;
-            Valor = 0;
-            Imagen = null;
-
-        }
-
-        /// <summary>
-        /// Constructor que inicializa las unidades en su valor por default.
-        /// </summary>
-        /// <param name="nombre">Nombre de la propiedad</param>
-        /// <param name="descripcionCorta"></param>
-        /// <param name="descripcionLarga"></param>
-        /// <param name="_TipoDato">Tipo de dato. (Distance,Cantidad,Angle,Force,Mass,Presion,Tiempo)</param>
-        public Propiedad(string nombre, string descripcionCorta,string descripcionLarga,string _TipoDato)
-        {
-            Nombre = nombre;
-            DescripcionCorta = descripcionCorta;
-            DescripcionLarga = descripcionLarga;
-
-            switch (_TipoDato)
-            {
-                case "Distance":
-                    Unidad = "Inch (in)";
-                    break;
-                case "Cantidad":
-                    Unidad = "Unidades";
-                    break;
-                case "Angle":
-                    Unidad = "degree(°)";
-                    break;
-                case "Force":
-                    Unidad = "Newton";
-                    break;
-                case "Mass":
-                    Unidad = "Kilogram(kg)";
-                    break;
-                case "Presion":
-                    Unidad = "PSI";
-                    break;
-                case "Tiempo":
-                    Unidad = "second ('')";
-                    break;
-                default:
-                    break;
-            }
-            Valor = 0;
-        }
-        #endregion
-
         #region Métodos
 
         public override string ToString()

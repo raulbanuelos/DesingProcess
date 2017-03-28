@@ -28,16 +28,6 @@ namespace View.Forms.Routing
 		public PRouting()
 		{
 			InitializeComponent();
-
-            //DProcessPropiedad obj = new DProcessPropiedad();
-
-            //myGrid.Children.Add(obj);
-
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            DataManager.GetPattern();
         }
     }
 }

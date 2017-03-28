@@ -122,14 +122,21 @@
     <Compile Include="Forms\LogIn\LogIn.xaml.cs">
       <DependentUpon>LogIn.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RawMaterial\PPattern.xaml.cs">
+      <DependentUpon>PPattern.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Routing\PRouting.xaml.cs">
       <DependentUpon>PRouting.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Shared\Layout.xaml.cs">
       <DependentUpon>Layout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\Module.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\FirstRoughGrind.cs" />
+    <Compile Include="Services\ViewModel\PropiedadBoolViewModel.cs" />
+    <Compile Include="Services\ViewModel\PropiedadCadenaViewModel.cs" />
+    <Compile Include="Services\ViewModel\PropiedadViewModel.cs" />
     <Compile Include="UserControls\Router.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo110.cs" />
     <Compile Include="Services\ViewModel\PatternViewModel.cs" />
@@ -182,6 +189,10 @@
     <Page Include="Forms\LogIn\LogIn.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\RawMaterial\PPattern.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Routing\PRouting.xaml">
       <Generator>MSBuild:Compile</Generator>

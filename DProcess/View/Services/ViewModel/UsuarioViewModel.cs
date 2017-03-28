@@ -3,6 +3,8 @@ using System.Windows.Input;
 using Model;
 using System.Windows.Controls;
 using View.Forms.Routing;
+using System;
+using View.Forms.RawMaterial;
 
 namespace View.Services.ViewModel
 {
@@ -137,6 +139,21 @@ namespace View.Services.ViewModel
             {
                 return new RelayCommand(o => irRouting());
             }
+        }
+
+        public ICommand IrRawMaterial {
+            get {
+                return new RelayCommand(o => isRawMaterial());
+            }
+        }
+
+        private void isRawMaterial()
+        {
+            PPattern pantallaPattern = new PPattern();
+            PatternViewModel context = new PatternViewModel();
+
+            pantallaPattern.DataContext = context;
+            Pagina = pantallaPattern;
         }
 
         #endregion

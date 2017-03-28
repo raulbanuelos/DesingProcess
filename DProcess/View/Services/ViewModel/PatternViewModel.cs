@@ -1,13 +1,20 @@
 using System.ComponentModel;
 using Model;
+using System.Windows.Input;
+using System;
 
 namespace View.Services.ViewModel
 {
     public class PatternViewModel : INotifyPropertyChanged
     {
+        #region Atributos
+        private Pattern model; 
+        #endregion
+
         #region Propiedades Pattern
-        private PropiedadCadena _codigo;
-        public PropiedadCadena codigo
+
+        private PropiedadCadenaViewModel _codigo;
+        public PropiedadCadenaViewModel codigo
         {
             get
             {
@@ -20,8 +27,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Propiedad _medida;
-        public Propiedad medida
+        PropiedadViewModel _medida;
+        public PropiedadViewModel medida
         {
             get
             {
@@ -34,8 +41,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Propiedad _diametro;
-        public Propiedad diametro
+        private PropiedadViewModel _diametro;
+        public PropiedadViewModel diametro
         {
             get
             {
@@ -62,8 +69,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Propiedad _mountig;
-        public Propiedad mounting
+        private PropiedadViewModel _mountig;
+        public PropiedadViewModel mounting
         {
             get
             {
@@ -76,8 +83,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private PropiedadCadena _ON_14_RD_GATE;
-        public PropiedadCadena on_14_rd_gate
+        private PropiedadCadenaViewModel _ON_14_RD_GATE;
+        public PropiedadCadenaViewModel on_14_rd_gate
         {
             get
             {
@@ -90,8 +97,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private PropiedadCadena _button;
-        public PropiedadCadena button
+        private PropiedadCadenaViewModel _button;
+        public PropiedadCadenaViewModel button
         {
             get
             {
@@ -104,8 +111,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private PropiedadCadena _cone;
-        public PropiedadCadena cone
+        private PropiedadCadenaViewModel _cone;
+        public PropiedadCadenaViewModel cone
         {
             get
             {
@@ -118,8 +125,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private PropiedadCadena _Mcircle;
-        public PropiedadCadena M_Circle
+        private PropiedadCadenaViewModel _Mcircle;
+        public PropiedadCadenaViewModel M_Circle
         {
             get
             {
@@ -132,8 +139,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Propiedad _ring_min;
-        public Propiedad ring_w_min
+        private PropiedadViewModel _ring_min;
+        public PropiedadViewModel ring_w_min
         {
             get
             {
@@ -146,8 +153,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Propiedad _ring_max;
-        public Propiedad ring_w_max
+        private PropiedadViewModel _ring_max;
+        public PropiedadViewModel ring_w_max
         {
             get
             {
@@ -160,8 +167,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private PropiedadCadena _date_ordered;
-        public PropiedadCadena date_ordered
+        private PropiedadCadenaViewModel _date_ordered;
+        public PropiedadCadenaViewModel date_ordered
         {
             get
             {
@@ -173,8 +180,9 @@ namespace View.Services.ViewModel
                 NotifyChange("date_ordered");
             }
         }
-        private Propiedad _b_dia;
-        public Propiedad B_Dia
+
+        private PropiedadViewModel _b_dia;
+        public PropiedadViewModel B_Dia
         {
             get
             {
@@ -186,8 +194,9 @@ namespace View.Services.ViewModel
                 NotifyChange("B_dia");
             }
         }
-        private Propiedad _fin_dia;
-        public Propiedad fin_Dia
+
+        private PropiedadViewModel _fin_dia;
+        public PropiedadViewModel fin_Dia
         {
             get
             {
@@ -199,8 +208,9 @@ namespace View.Services.ViewModel
                 NotifyChange("fin_dia");
             }
         }
-        private Propiedad _turn_allow;
-        public Propiedad turn_allow
+
+        private PropiedadViewModel _turn_allow;
+        public PropiedadViewModel turn_allow
         {
             get
             {
@@ -212,8 +222,9 @@ namespace View.Services.ViewModel
                 NotifyChange("turn_allow");
             }
         }
-        private Propiedad _cstg_SM_OD;
-        public Propiedad cstg_sm_od
+
+        private PropiedadViewModel _cstg_SM_OD;
+        public PropiedadViewModel cstg_sm_od
         {
             get
             {
@@ -225,8 +236,9 @@ namespace View.Services.ViewModel
                 NotifyChange("cstg_sm_od");
             }
         }
-        private Propiedad _shrink_allow;
-        public Propiedad shrink_allow
+
+        private PropiedadViewModel _shrink_allow;
+        public PropiedadViewModel shrink_allow
         {
             get
             {
@@ -238,8 +250,9 @@ namespace View.Services.ViewModel
                 NotifyChange("shrink_allow");
             }
         }
-        private Propiedad _patt_SM_OD;
-        public Propiedad patt_sm_od
+
+        private PropiedadViewModel _patt_SM_OD;
+        public PropiedadViewModel patt_sm_od
         {
             get
             {
@@ -252,8 +265,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Propiedad _piece_in_patt;
-        public Propiedad piece_in_patt
+        private PropiedadViewModel _piece_in_patt;
+        public PropiedadViewModel piece_in_patt
         {
             get
             {
@@ -266,8 +279,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Propiedad _bore_allow;
-        public Propiedad bore_allow
+        private PropiedadViewModel _bore_allow;
+        public PropiedadViewModel bore_allow
         {
             get
             {
@@ -279,8 +292,9 @@ namespace View.Services.ViewModel
                 NotifyChange("bore_allow");
             }
         }
-        private Propiedad _patt_sm_id;
-        public Propiedad patt_sm_id
+
+        private PropiedadViewModel _patt_sm_id;
+        public PropiedadViewModel patt_sm_id
         {
             get
             {
@@ -293,8 +307,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Propiedad _patt_thickness;
-        public Propiedad patt_thickness
+        private PropiedadViewModel _patt_thickness;
+        public PropiedadViewModel patt_thickness
         {
             get
             {
@@ -307,8 +321,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private PropiedadCadena _joint;
-        public PropiedadCadena joint
+        private PropiedadCadenaViewModel _joint;
+        public PropiedadCadenaViewModel joint
         {
             get
             {
@@ -321,8 +335,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private PropiedadCadena _nick;
-        public PropiedadCadena nick
+        private PropiedadCadenaViewModel _nick;
+        public PropiedadCadenaViewModel nick
         {
             get
             {
@@ -335,8 +349,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private PropiedadCadena _Nick_draf;
-        public PropiedadCadena nick_draf
+        private PropiedadCadenaViewModel _Nick_draf;
+        public PropiedadCadenaViewModel nick_draf
         {
             get
             {
@@ -349,8 +363,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private PropiedadCadena _Nick_depth;
-        public PropiedadCadena nick_depth
+        private PropiedadCadenaViewModel _Nick_depth;
+        public PropiedadCadenaViewModel nick_depth
         {
             get
             {
@@ -363,8 +377,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private PropiedadCadena _side_relief;
-        public PropiedadCadena side_relief
+        private PropiedadCadenaViewModel _side_relief;
+        public PropiedadCadenaViewModel side_relief
         {
             get
             {
@@ -377,8 +391,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Propiedad _cam;
-        public Propiedad cam
+        private PropiedadViewModel _cam;
+        public PropiedadViewModel cam
         {
             get
             {
@@ -391,8 +405,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Propiedad _cam_roll;
-        public Propiedad cam_roll
+        private PropiedadViewModel _cam_roll;
+        public PropiedadViewModel cam_roll
         {
             get
             {
@@ -405,8 +419,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Propiedad _rise;
-        public Propiedad rise
+        private PropiedadViewModel _rise;
+        public PropiedadViewModel rise
         {
             get
             {
@@ -419,8 +433,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Propiedad _OD;
-        public Propiedad OD
+        private PropiedadViewModel _OD;
+        public PropiedadViewModel OD
         {
             get
             {
@@ -433,8 +447,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Propiedad _ID;
-        public Propiedad ID
+        private PropiedadViewModel _ID;
+        public PropiedadViewModel ID
         {
             get
             {
@@ -447,8 +461,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Propiedad _diff;
-        public Propiedad diff
+        private PropiedadViewModel _diff;
+        public PropiedadViewModel diff
         {
             get
             {
@@ -461,8 +475,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private PropiedadCadena _tipo;
-        public PropiedadCadena tipo
+        private PropiedadCadenaViewModel _tipo;
+        public PropiedadCadenaViewModel tipo
         {
             get
             {
@@ -475,8 +489,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private PropiedadCadena _mounted;
-        public PropiedadCadena mounted
+        private PropiedadCadenaViewModel _mounted;
+        public PropiedadCadenaViewModel mounted
         {
             get
             {
@@ -489,8 +503,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private PropiedadCadena _ordered;
-        public PropiedadCadena ordered
+        private PropiedadCadenaViewModel _ordered;
+        public PropiedadCadenaViewModel ordered
         {
             get
             {
@@ -503,8 +517,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private PropiedadCadena _checked;
-        public PropiedadCadena Checked
+        private PropiedadCadenaViewModel _checked;
+        public PropiedadCadenaViewModel Checked
         {
             get
             {
@@ -517,8 +531,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private PropiedadCadena _date_checked;
-        public PropiedadCadena date_checked
+        private PropiedadCadenaViewModel _date_checked;
+        public PropiedadCadenaViewModel date_checked
         {
             get
             {
@@ -531,8 +545,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private PropiedadCadena _esp_inst;
-        public PropiedadCadena esp_inst
+        private PropiedadCadenaViewModel _esp_inst;
+        public PropiedadCadenaViewModel esp_inst
         {
             get
             {
@@ -544,8 +558,9 @@ namespace View.Services.ViewModel
                 NotifyChange("esp_inst");
             }
         }
-        private Propiedad _factor_K;
-        public Propiedad factor_k
+
+        private PropiedadViewModel _factor_K;
+        public PropiedadViewModel factor_k
         {
             get
             {
@@ -558,8 +573,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Propiedad _rise_built;
-        public Propiedad rise_built
+        private PropiedadViewModel _rise_built;
+        public PropiedadViewModel rise_built
         {
             get
             {
@@ -572,8 +587,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Propiedad _ring_TH_MIN;
-        public Propiedad ring_th_min
+        private PropiedadViewModel _ring_TH_MIN;
+        public PropiedadViewModel ring_th_min
         {
             get
             {
@@ -586,8 +601,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Propiedad _ring_TH_max;
-        public Propiedad ring_th_max
+        private PropiedadViewModel _ring_TH_max;
+        public PropiedadViewModel ring_th_max
         {
             get
             {
@@ -599,8 +614,9 @@ namespace View.Services.ViewModel
                 NotifyChange("ring_th_max");
             }
         }
-        private PropiedadBool _estado;
-        public PropiedadBool estado
+
+        private PropiedadBoolViewModel _estado;
+        public PropiedadBoolViewModel estado
         {
             get
             {
@@ -613,8 +629,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Propiedad _plato;
-        public Propiedad plato
+        private PropiedadViewModel _plato;
+        public PropiedadViewModel plato
         {
             get
             {
@@ -627,8 +643,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private PropiedadCadena _detalle;
-        public PropiedadCadena detalle
+        private PropiedadCadenaViewModel _detalle;
+        public PropiedadCadenaViewModel detalle
         {
             get
             {
@@ -641,8 +657,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private PropiedadBool _diseno;
-        public PropiedadBool diseno
+        private PropiedadBoolViewModel _diseno;
+        public PropiedadBoolViewModel diseno
         {
             get
             {
@@ -667,6 +683,94 @@ namespace View.Services.ViewModel
 
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
+
+        #region Constructores
+        public PatternViewModel()
+        {
+            codigo = new PropiedadCadenaViewModel();
+            medida = new PropiedadViewModel("DPlacaModelo", "Diámetro", "Diámetro de la placa modelo", "Distance");
+            diametro = new PropiedadViewModel("WPlacaModelo", "Width", "Width de la placa modelo", "Distance");
+            customer = new Cliente();
+            mounting = new PropiedadViewModel("MoutingPlacaModelo", "Mouting", "Número de impresiones de la placa modelo", "Cantidad");
+            on_14_rd_gate = new PropiedadCadenaViewModel();
+            button = new PropiedadCadenaViewModel();
+            cone = new PropiedadCadenaViewModel();
+            M_Circle = new PropiedadCadenaViewModel();
+            ring_w_min = new PropiedadViewModel("RingWidthMinPlacaModelo", "Ring Width Min", "Width mínimo del anillo", "Distance");
+            ring_w_max = new PropiedadViewModel("RingWidthMaxPlacaModelo", "Ring Width Max", "Width máximo del anillo", "Distance");
+            date_ordered = new PropiedadCadenaViewModel();
+            B_Dia = new PropiedadViewModel("BDiaPlacaModelo", "B Dia", "Diámetro B de la placa modelo", "Distance");
+            fin_Dia = new PropiedadViewModel("FinDiaPlacaModelo", "Fin Dia", "", "Distance");
+            turn_allow = new PropiedadViewModel("TurnAllowPlacaModelo", "Turn allow", "Material permitido a remover en el diámetro exterior", "Distance");
+            cstg_sm_od = new PropiedadViewModel("CstgSModPlacaModelo", "cstg sm od", "", "Distance");
+            shrink_allow = new PropiedadViewModel("ShrinkAllowPlacaModelo", "Shrink Allow", "", "Distance");
+            patt_sm_od = new PropiedadViewModel("PattSMODPlacaModelo", "Patt SM OD", "", "Distance");
+            piece_in_patt = new PropiedadViewModel("PieceInPattPlacaModelo", "Piece in patt", "", "Distance");
+            bore_allow = new PropiedadViewModel("BoreAllowPlacaModelo", "Bore Allow", "Material permitido a remover en el diámetro interior", "Distance");
+            patt_sm_id = new PropiedadViewModel("PattSMIDPlacaModelo", "Patt SM ID", "", "Distance");
+            patt_thickness = new PropiedadViewModel("PattThicknessPlacaModelo", "Patt thickness", "", "Distance");
+            joint = new PropiedadCadenaViewModel();
+            nick = new PropiedadCadenaViewModel();
+            nick_draf = new PropiedadCadenaViewModel();
+            nick_depth = new PropiedadCadenaViewModel();
+            side_relief = new PropiedadCadenaViewModel();
+            cam = new PropiedadViewModel("CamPlacaModelo", "Cam", "", "Distance");
+            cam_roll = new PropiedadViewModel("CamRollPlacaModelo", "Cam Roll", "", "Distance");
+            rise = new PropiedadViewModel("RisePlacaModelo", "Rise", "", "Distance");
+            OD = new PropiedadViewModel("ODPlacaModelo", "OD", "Diámetro exterior de la placa modelo", "Distance");
+            ID = new PropiedadViewModel("IDPlacaModelo", "ID", "Diámetro interior de la placa modelo", "Distance");
+            diff = new PropiedadViewModel("DiffPlacaModelo", "Diff", "Diferencia entre OD e ID", "Distance");
+            //tipo = new PropiedadViewModel();
+            mounted = new PropiedadCadenaViewModel();
+            ordered = new PropiedadCadenaViewModel();
+            Checked = new PropiedadCadenaViewModel();
+            date_checked = new PropiedadCadenaViewModel();
+            esp_inst = new PropiedadCadenaViewModel();
+            factor_k = new PropiedadViewModel("FactorKPlacaModelo", "Factor K", "", "Distance");
+            rise_built = new PropiedadViewModel("RiseBuiltPlacaModelo", "Rise built", "", "Distance");
+            ring_th_min = new PropiedadViewModel("RingThicknessMinPlacaModelo", "Ring Th Min", "Thickness mínimo del anillo", "Distance");
+            ring_th_max = new PropiedadViewModel("RingThicknessMaxPlacaModelo", "Ring Th Max", "Thickness máximo del anillo", "Distance");
+            estado = new PropiedadBoolViewModel();
+            plato = new PropiedadViewModel("PlatoPlacaModelo", "Plato", "Dimensión del plato de la placa modelo", "Distance");
+            detalle = new PropiedadCadenaViewModel();
+            diseno = new PropiedadBoolViewModel();
+        }
+        #endregion
+
+        #region Commands
+
+        /// <summary>
+        /// Comando que responde a la petición de guardar una placa modelo.
+        /// </summary>
+        public ICommand GuardarPattern {
+            get {
+                return new RelayCommand(o => guardarPattern());
+            }
+        }
+
+        /// <summary>
+        /// Método que guarda una placa modelo.
+        /// </summary>
+        private async void guardarPattern()
+        {
+            //Declaramos un objeto de tipo DialogService.
+            DialogService dialog = new DialogService();
+
+            //Ejecutamos el método para insertar el pattern.
+            string codigoNuevo = DataManager.SetPattern(new Pattern{ Codigo = codigo.Valor});
+            
+            //Comparamos si es distinto de nulo o vacío, si es así indica que se guardó con exito la placa modelo.
+            if (!string.IsNullOrEmpty(codigoNuevo))
+
+                //Mostramos el mensaje de confirmación con el nuevo código registrado.
+                await dialog.SendMessage("RGP: Confirmación", "Placa modelo registrada con el código: " + codigoNuevo);
+            else
+
+                //Mostramos
+                await dialog.SendMessage("RGP: Alerta", "Oh, Oh, parece ser que algo salió mal.");
+            
+        }
         #endregion
     }
 }

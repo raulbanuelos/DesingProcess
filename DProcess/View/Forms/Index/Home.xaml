@@ -89,7 +89,7 @@
 			</Controls:Tile>
 			
 			<!--Raw material-->
-			<Controls:Tile TiltFactor="2" Background="#0B5AC3" Title="Raw material" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="0" Cursor="Hand">
+            <Controls:Tile TiltFactor="2" Background="#0B5AC3" Title="Raw material" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="0" Cursor="Hand" Command="{Binding IrRawMaterial}">
 				<Rectangle Width="100" Height="100" Fill="White">
 					<Rectangle.OpacityMask>
 						<VisualBrush Visual="{StaticResource appbar_shuffle}" Stretch="Fill" />

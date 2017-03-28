@@ -105,7 +105,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         /// <param name="plato"></param>
         /// <param name="detalle"></param>
         /// <param name="diseno"></param>
-        /// <returns>retorn null si hay algún error.</returns>
+        /// <returns>Retorna una cadena vacía si hay algún error.</returns>
         public string SetPattern(string codigo, double medida, double diametro, int customer, string mounting, string on_14_rd_gate, string button, string cone,
                                 string M_circle, double ring_w_min, double ring_w_max, string date_ordered, double B_dia, double fin_dia, double turn_allow,
                                 double cstg_sm_od, double shrink_allow, double patt_sm_od, double piece_in_patt, double bore_allow, double patt_sm_id,
