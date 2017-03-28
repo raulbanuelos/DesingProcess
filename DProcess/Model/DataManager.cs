@@ -278,6 +278,7 @@ namespace Model
         #endregion
 
         #region MateriasPrimas
+        #region Pattern
         /// <summary>
         /// Método que obtiene todos los registros de la tabla Pattern2.
         /// </summary>
@@ -451,12 +452,279 @@ namespace Model
             //Declaración de la variable número, se le va asignar el número de la cadena recibida.
             int number;
             //Se recupera una cadena de la variable recibida, comienza en la posición 3 y tiene la longitud de LastCode menos 3
+            //Se convierte a tipo int
             number=Int32.Parse(LastCode.Substring(3,LastCode.Length-3));
             //Al número de la cadena se le suma uno.
             number += 1;
             //retorna el nuevo string, concatenado con el número.
             return code = string.Concat("BC-", number.ToString());
         }
+
+        #endregion Pattern
+        #region Cuffs
+        /// <summary>
+        /// Método que obtiene todos los registros de la tabla Cuffs.
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<Cuffs> GetCuffs()
+        {
+            //Inicializamos los servicios de Cuffs.
+            SO_Cuffs ServiceCuffs = new SO_Cuffs();
+
+            //Se declara una lista de tipo ObservableCollection, la cúal se va a retornar.
+            ObservableCollection<Cuffs> Lista = new ObservableCollection<Cuffs>();
+
+            //Se obtienen los registros de la BD.
+            IList ObjCuffs = ServiceCuffs.GetCuff();
+
+            //Se verifica que la información de la base de datos no se encuentre vacía
+            if (ObjCuffs!=null)
+            {
+                //Iteración de la información recibida
+                foreach (var item in ObjCuffs)
+                {
+                    //Se obtiene el tipo
+                    System.Type tipo = item.GetType();
+
+                    //Declaración del objeto de tipo Cuffs que contendrá la información de un registro.
+                    Cuffs obj = new Cuffs();
+
+                    //Se asignan los valores 
+                    obj.no_cuff.Valor = (string)tipo.GetProperty("no_cuff").GetValue(item,null);
+                    obj.dia_ext.Valor = (double)tipo.GetProperty("dia_ext").GetValue(item, null);
+                    obj.dia_int.Valor = (double)tipo.GetProperty("dia_int").GetValue(item, null);
+                    obj.largo.Valor = (double)tipo.GetProperty("largo").GetValue(item, null);
+                    obj.peso.Valor = (double)tipo.GetProperty("peso").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista
+                    Lista.Add(obj);
+                }
+            }
+            //Se retorna la lista 
+            return Lista;
+        }
+
+
+        /// <summary>
+        /// Método para insertar un nuevo registro en la tabla Cuffs.
+        /// </summary>
+        /// <param name="cuffs"></param>
+        /// <returns></returns>
+        public static string SetCuffs(Cuffs cuffs)
+        {
+            //Se inicializa los servicios de SO_Cuffs.
+            SO_Cuffs ServiceCuffs = new SO_Cuffs();
+
+            //Se ejecuta el método para insertar el registro, se retorna el código del cuff insertado.
+            return ServiceCuffs.SetCuff(cuffs.no_cuff.Valor,cuffs.dia_ext.Valor,cuffs.dia_int.Valor,cuffs.largo.Valor,cuffs.peso.Valor);
+        }
+
+        /// <summary>
+        /// Método para modificar un registro en la tabla Cuffs.
+        /// </summary>
+        /// <param name="cuff"></param>
+        /// <returns></returns>
+        public static int UpdateCuffs(Cuffs cuff)
+        {
+            //Se inicializa los servicios de SO_Cuffs.
+            SO_Cuffs ServiceCuffs = new SO_Cuffs();
+
+            //Se ejectuta el método para actualizar los datos del registro, retorna la cantidad de registros actualizados.
+            return ServiceCuffs.UpdateCuffs(cuff.no_cuff.Valor, cuff.dia_ext.Valor, cuff.dia_int.Valor, cuff.largo.Valor, cuff.peso.Valor);
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro en la tabla Cuffs.
+        /// </summary>
+        /// <param name="cuff"></param>
+        /// <returns></returns>
+        public static int DeleteCuff(Cuffs cuff)
+        {
+            //Se inicializa los servicios de SO_Cuffs.
+            SO_Cuffs ServiceCuffs = new SO_Cuffs();
+
+            //Se ejectuta el método de eliminar, se retorna la cantidad de registros eliminados.
+            return ServiceCuffs.DeleteCuffs(cuff.no_cuff.Valor);
+
+        }
+        #endregion
+
+        #region TubosCL
+
+        /// <summary>
+        ///  Método que obtiene todos los registros de la tabla Cuffs.
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<Tubos_CL> GetTubosCL()
+        {
+            //Se inician los servicios de TubosCL.
+            SO_TubosCL ServiceTubosCL = new SO_TubosCL();
+
+            //Se declara una lista de tipo ObservableCollection, la cúal se va a retornar.
+            ObservableCollection<Tubos_CL> Lista = new ObservableCollection<Tubos_CL>();
+
+            //Se obtienen los registros de la BD.
+            IList objTubosCL = ServiceTubosCL.GetTubosCL();
+
+            //Se verifica que la información de la base de datos no se encuentre vacía
+            if (objTubosCL != null)
+            {
+                //Iteración de la información recibida
+                foreach (var item in objTubosCL)
+                {
+                    //Se obtiene el tipo
+                    System.Type tipo = item.GetType();
+
+                    //Declaración del objeto de tipo TubosCL que contendrá la información de un registro.
+                    Tubos_CL obj = new Tubos_CL();
+                    //Se asignan los valores 
+                    obj.Tubo.Valor = (string)tipo.GetProperty("Tubo").GetValue(item, null);
+                    obj.DiaExt.Valor = (double)tipo.GetProperty("DiaExt").GetValue(item, null);
+                    obj.DiaInt.Valor = (double)tipo.GetProperty("DiaInt").GetValue(item, null);
+                    obj.Thickness.Valor = (double)tipo.GetProperty("Thickness").GetValue(item, null);
+                    obj.Largo.Valor = (int)tipo.GetProperty("Largo").GetValue(item, null);
+
+                    //Se agrega el objeto a la lista
+                    Lista.Add(obj);
+                }
+            }
+            //Se retorna la lista
+            return Lista;
+        }
+
+        /// <summary>
+        /// Método para insertar un registro a la tabla TubosCL
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static string SetTubosCL(Tubos_CL obj)
+        {
+
+            //Se inician los servicios de TubosCL.
+            SO_TubosCL ServiceTubosCL = new SO_TubosCL();
+
+            //Se ejecuta el método y retorna el código del tubo que fue insertado.
+            return ServiceTubosCL.SetTubosCL(obj.Tubo.Valor,obj.DiaExt.Valor,obj.DiaInt.Valor,obj.Thickness.Valor,obj.Largo.Valor);
+        }
+
+        /// <summary>
+        /// Método para actualizat un registro de la tabla TubosCL
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateTubosCL(Tubos_CL obj)
+        {
+            //Se inician los servicios de TubosCL.
+            SO_TubosCL ServiceTubosCL = new SO_TubosCL();
+
+            //Se ejecuta el método retorna los registros que fueron modificados.
+            return ServiceTubosCL.UpdateTubosCL(obj.Tubo.Valor, obj.DiaExt.Valor, obj.DiaInt.Valor, obj.Thickness.Valor, obj.Largo.Valor);
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro de la tabla tubosCL.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int DeleteTubosCL(Tubos_CL obj)
+        {
+            // Se inician los servicios de TubosCL.
+             SO_TubosCL ServiceTubosCL = new SO_TubosCL();
+
+            //Se ejecuta el método y retorna el número de registros que fueron afectados.
+            return ServiceTubosCL.DeleteTubosCL(obj.Tubo.Valor);
+        }
+
+        #endregion
+        #region TubosHD
+
+        /// <summary>
+        /// Método que obtiene todos los registros de la tabla TubosHD.
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<Tubos_HD> GetTubosHD()
+        {
+            //Se inician los servicios de TubosHD.
+            SO_TubosHD ServiceTubosHD = new SO_TubosHD();
+
+            //Se declara una lista de tipo ObservableCollection, la cúal se va a retornar.
+            ObservableCollection<Tubos_HD> Lista = new ObservableCollection<Tubos_HD>();
+
+            //Se obtienen los registros de la BD.
+            IList objTubosHD = ServiceTubosHD.GetTubosHD();
+
+            //Se verifica que la información de la base de datos no se encuentre vacía
+            if (objTubosHD != null)
+            {
+                //Iteración de la información recibida
+                foreach (var item in objTubosHD)
+                {
+                    //Se obtiene el tipo
+                    System.Type tipo = item.GetType();
+
+                    //Declaración del objeto de tipo TubosHD que contendrá la información de un registro.
+                    Tubos_HD obj = new Tubos_HD();
+                    //Se asignan los valores 
+                    obj.Tubo.Valor = (string)tipo.GetProperty("Tubo").GetValue(item, null);
+                    obj.DiaExt.Valor = (double)tipo.GetProperty("DiaExt").GetValue(item, null);
+                    obj.DiaInt.Valor = (double)tipo.GetProperty("DiaInt").GetValue(item, null);
+                    obj.Thickness.Valor = (double)tipo.GetProperty("Thickness").GetValue(item, null);
+                    obj.Largo.Valor = (double)tipo.GetProperty("Largo").GetValue(item, null);
+                    obj.Molde.Valor= (string)tipo.GetProperty("Molde").GetValue(item, null);
+                    obj.RPM.Valor = (double)tipo.GetProperty("RPM").GetValue(item, null);
+
+                    //Se agrega el objeto a la lista
+                    Lista.Add(obj);
+                }
+            }
+            //Se retorna la lista
+            return Lista;
+        }
+
+        /// <summary>
+        /// Método para insertar registros a la tabla TubosHD.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static string SetTubosHD(Tubos_HD obj)
+        {
+
+            //Se inician los servicios de TubosCL.
+            SO_TubosHD ServiceTubosHD = new SO_TubosHD();
+
+            //Se ejecuta el método y retorna el código del tubo que fue insertado.
+            return ServiceTubosHD.SetTubosHD(obj.Tubo.Valor, obj.DiaExt.Valor, obj.DiaInt.Valor, obj.Thickness.Valor, obj.Largo.Valor,obj.Molde.Valor,Convert.ToInt32( obj.RPM.Valor));
+        }
+
+        /// <summary>
+        /// Método para modificar un registro de la tabla.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateTubosHD(Tubos_HD obj)
+        {
+
+            //Se inician los servicios de TubosCL.
+            SO_TubosHD ServiceTubosHD = new SO_TubosHD();
+
+            //Se ejecuta el método y retorna el código del tubo que fue insertado.
+            return ServiceTubosHD.UpdateTubosHD(obj.Tubo.Valor, obj.DiaExt.Valor, obj.DiaInt.Valor, obj.Thickness.Valor, obj.Largo.Valor, obj.Molde.Valor, Convert.ToInt32(obj.RPM.Valor));
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro de la tabla TubosHd.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int DeleteTubosHD(Tubos_HD obj)
+        {
+            // Se inician los servicios de TubosHD.
+            SO_TubosHD ServiceTubosHD = new SO_TubosHD();
+
+            //Se ejecuta el método y retorna el número de registros que fueron afectados.
+            return ServiceTubosHD.DeleteTubosHD(obj.Tubo.Valor);
+        }
+        #endregion
         #endregion
     }
 }
