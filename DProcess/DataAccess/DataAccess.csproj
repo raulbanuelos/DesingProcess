@@ -52,6 +52,39 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceObjects\ControlDocumentos\ModelControlDocumentos.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelControlDocumentos.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\ModelControlDocumentos.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\ModelControlDocumentos.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelControlDocumentos.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\TBL_ARCHIVO.cs">
+      <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\TBL_DEPARTAMENTO.cs">
+      <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\TBL_DOCUMENTO.cs">
+      <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\TBL_ROL.cs">
+      <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\TBL_VERSION.cs">
+      <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\Usuarios.cs">
+      <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Herramentales\ClasificacionHerramental.cs">
       <DependentUpon>ModelHerramentales.tt</DependentUpon>
     </Compile>
@@ -140,6 +173,16 @@
     <Compile Include="SQLServer\Desing_SQL.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ServiceObjects\ControlDocumentos\ModelControlDocumentos.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelControlDocumentos.edmx</DependentUpon>
+      <LastGenOutput>ModelControlDocumentos.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ServiceObjects\ControlDocumentos\ModelControlDocumentos.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelControlDocumentos.edmx</DependentUpon>
+      <LastGenOutput>ModelControlDocumentos.cs</LastGenOutput>
+    </Content>
     <Content Include="ServiceObjects\Herramentales\ModelHerramentales.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelHerramentales.edmx</DependentUpon>
@@ -184,6 +227,13 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelHerramentales.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="ServiceObjects\ControlDocumentos\ModelControlDocumentos.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelControlDocumentos.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ServiceObjects\ControlDocumentos\ModelControlDocumentos.edmx.diagram">
+      <DependentUpon>ModelControlDocumentos.edmx</DependentUpon>
+    </None>
     <None Include="ServiceObjects\Herramentales\ModelHerramentales.edmx.diagram">
       <DependentUpon>ModelHerramentales.edmx</DependentUpon>
     </None>
@@ -201,9 +251,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ServiceObjects\ControlDocumentos\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
