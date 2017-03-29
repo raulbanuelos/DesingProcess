@@ -25,7 +25,10 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     var Lista = (from r in Conexion.TBL_ROL
                                  select new
                                  {
-                                    r.ID_ROL,r.NOMBRE_ROL,r.FECHA_CREACION,r.FECHA_ACTUALIZACION
+                                     r.ID_ROL,
+                                     r.NOMBRE_ROL,
+                                     r.FECHA_CREACION,
+                                     r.FECHA_ACTUALIZACION
                                  }).ToList();
                     //se retorna la lista
                     return Lista;

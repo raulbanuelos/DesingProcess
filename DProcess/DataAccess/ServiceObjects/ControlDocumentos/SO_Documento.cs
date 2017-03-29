@@ -27,8 +27,14 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                  join u in Conexion.Usuarios on d.ID_USUARIO_REVISO equals u.Usuario
                                  select new
                                  {
-                                     d.ID_DOCUMENTO,d.ID_USUARIO_REVISO,d.NOMBRE,d.DESCRIPCION,d.VERSION_ACTUAL,
-                                     d.FECHA_EMISION,d.FECHA_CREACION,d.FECHA_ACTUALIZACION                                     
+                                     d.ID_DOCUMENTO,
+                                     d.ID_USUARIO_REVISO,
+                                     d.NOMBRE,
+                                     d.DESCRIPCION,
+                                     d.VERSION_ACTUAL,
+                                     d.FECHA_EMISION,
+                                     d.FECHA_CREACION,
+                                     d.FECHA_ACTUALIZACION
                                  }).ToList();
                     //se retorna la lista
                     return Lista;

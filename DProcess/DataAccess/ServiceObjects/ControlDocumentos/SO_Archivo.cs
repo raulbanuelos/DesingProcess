@@ -26,7 +26,10 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                  join v in Conexion.TBL_VERSION on a.ID_VERSION equals v.ID_VERSION
                                  select new
                                  {
-                                  a.ID_ARCHIVO,ID_VERSION=v.ID_VERSION,a.ARCHIVO,a.EXT   
+                                     a.ID_ARCHIVO,
+                                     ID_VERSION = v.ID_VERSION,
+                                     a.ARCHIVO,
+                                     a.EXT
                                  }).ToList();
                     //se retorna la lista
                     return Lista;
