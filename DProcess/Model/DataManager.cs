@@ -671,7 +671,7 @@ namespace Model
                     obj.Thickness.Valor = (double)tipo.GetProperty("Thickness").GetValue(item, null);
                     obj.Largo.Valor = (double)tipo.GetProperty("Largo").GetValue(item, null);
                     obj.Molde.Valor= (string)tipo.GetProperty("Molde").GetValue(item, null);
-                    obj.RPM.Valor = (double)tipo.GetProperty("RPM").GetValue(item, null);
+                    obj.RPM.Valor = (int)tipo.GetProperty("RPM").GetValue(item, null);
 
                     //Se agrega el objeto a la lista
                     Lista.Add(obj);

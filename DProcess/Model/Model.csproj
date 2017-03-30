@@ -44,6 +44,13 @@
     <Compile Include="Arquetipo.cs" />
     <Compile Include="ClasificacionHerramental.cs" />
     <Compile Include="Cliente.cs" />
+    <Compile Include="ControlDocumentos\Archivo.cs" />
+    <Compile Include="ControlDocumentos\DataManagerControlDocumentos.cs" />
+    <Compile Include="ControlDocumentos\Departamento.cs" />
+    <Compile Include="ControlDocumentos\Documento.cs" />
+    <Compile Include="ControlDocumentos\Rol.cs" />
+    <Compile Include="ControlDocumentos\Usuarios.cs" />
+    <Compile Include="ControlDocumentos\Version.cs" />
     <Compile Include="Cuffs.cs" />
     <Compile Include="DataManager.cs" />
     <Compile Include="Empaquetado.cs" />

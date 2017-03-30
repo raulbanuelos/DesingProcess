@@ -1,0 +1,549 @@
+﻿using DataAccess.ServiceObjects.ControlDocumentos;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Model.ControlDocumentos
+{
+    public static class DataManagerControlDocumentos
+    {
+        #region Archivo
+        /// <summary>
+        /// Método para obtener los registros de la BD.
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<Archivo> GetArchivo()
+        {
+            //Se inicializan los servicios de Archivo.
+            SO_Archivo ServiceArchivo = new SO_Archivo();
+
+            //Se crea una lista de tipo archivo, la cual se va a retornar.
+            ObservableCollection<Archivo> Lista = new ObservableCollection<Archivo>();
+
+            //obtenemos todo de la BD.
+            IList ObjArchivo = ServiceArchivo.GetArchivo();
+
+            //Verificamos que la informacion no esté vacía.
+            if (ObjArchivo != null)
+            {
+                foreach (var item in ObjArchivo)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    Archivo obj = new Archivo();
+
+                    obj.id_archivo = (int)tipo.GetProperty("ID_ARCHIVO").GetValue(item, null);
+                    obj.id_version = (int)tipo.GetProperty("NOMBRE_VERSION").GetValue(item, null);
+                    obj.archivo = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
+                    obj.ext = (string)tipo.GetProperty("EXT").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //regresamos la lista.
+            return Lista;
+        }
+
+        /// <summary>
+        /// Método que inserta un registro a la tabla TBL_Archivo
+        /// </summary>
+        /// <param name="archivo"></param>
+        /// <returns></returns>
+        public static int SetArchivo(Archivo archivo)
+        {
+            //Inicializamos los servicios de Archivo.
+            SO_Archivo ServiceArchivo = new SO_Archivo();
+
+            //Se ejecuta el método y regresa el id del archivo insertado.
+            return ServiceArchivo.SetArchivo(archivo.id_archivo, archivo.id_version, archivo.archivo, archivo.ext);
+
+        }
+        /// <summary>
+        /// Método para modificar un registro de la tabla.
+        /// </summary>
+        /// <param name="archivo"></param>
+        /// <returns></returns>
+        public static int UpdateArchivo(Archivo archivo)
+        {
+
+            //Inicializamos los servicios de Archivo.
+            SO_Archivo ServiceArchivo = new SO_Archivo();
+
+            //Se ejecuta el método y regresa los registros modificados.
+            return ServiceArchivo.UpdateArchivo(archivo.id_archivo, archivo.id_version, archivo.archivo, archivo.ext);
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro de la tabla.
+        /// </summary>
+        /// <param name="archivo"></param>
+        /// <returns></returns>
+        public static int DeleteArchivo(Archivo archivo)
+        {
+            //Inicializamos los servicios de Archivo
+            SO_Archivo ServiceArchivo = new SO_Archivo();
+
+            //Se ejecuta el método y regresamos los registros afectados.
+            return ServiceArchivo.DeleteArchivo(archivo.id_archivo);
+
+        }
+        #endregion
+
+        #region Departamento
+
+        /// <summary>
+        /// Método para obtener todos los registros de la tabla TBL_departamento
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<Departamento> GetDepartamento()
+        {
+
+            //Se inicializan los servicios de Departamento.
+            SO_Departamento ServiceDepartamento = new SO_Departamento();
+
+            //Se crea una lista de tipo departamento, la cual se va a retornar.
+            ObservableCollection<Departamento> Lista = new ObservableCollection<Departamento>();
+
+            //obtenemos todo de la BD.
+            IList ObjDepartamento = ServiceDepartamento.GetDepartamento();
+
+            //Verificamos que la informacion no esté vacía.
+            if (ObjDepartamento != null)
+            {
+                foreach (var item in ObjDepartamento)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    Departamento obj = new Departamento();
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_dep = (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
+                    obj.nombre_dep = (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
+                    obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
+                    obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //regresamos la lista.
+            return Lista;
+        }
+
+        /// <summary>
+        /// Método para insertar un registro en la tabla.
+        /// </summary>
+        /// <param name="departamento"></param>
+        /// <returns></returns>
+        public static int SetDepartamento(Departamento departamento)
+        {
+            //Se inician los servicios de ]Departamento.
+            SO_Departamento ServiceDepartamento = new SO_Departamento();
+
+            //Se ejecuta el método y retorna el id del departamento que fue insertado.
+            return ServiceDepartamento.SetDepartamento(Convert.ToInt32(departamento.id_dep), departamento.nombre_dep, departamento.fecha_creacion, departamento.fecha_actualizacion);
+        }
+
+        /// <summary>
+        /// Método para modificar un registro de la tabla.
+        /// </summary>
+        /// <param name="departamento"></param>
+        /// <returns></returns>
+        public static int UpdateDepartamento(Departamento departamento)
+        {
+            //inicializamos los servicios de Departamento.
+            SO_Departamento ServiceDepartamento = new SO_Departamento();
+
+            // Se ejecuta el método y retorna los registros que se modificaron.
+            return ServiceDepartamento.UpdateDepartamento(Convert.ToInt32(departamento.id_dep), departamento.nombre_dep, departamento.fecha_creacion, departamento.fecha_actualizacion);
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro de la tabla.
+        /// </summary>
+        /// <param name="departamento"></param>
+        /// <returns></returns>
+        public static int DeleteDepartamento(Departamento departamento)
+        {
+            //Se inicializan los servicios.
+            SO_Departamento ServiceDepartamento = new SO_Departamento();
+
+            // Se ejecuta el método y retorna número de registros eliminados.
+            return ServiceDepartamento.DeleteDepartamento(Convert.ToInt32(departamento.id_dep));
+
+        }
+        #endregion
+
+        #region Documento
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<Documento> GetDocumento()
+        {
+            //Se inicializan los servicios de Documento.
+            SO_Documento ServiceDocumento = new SO_Documento();
+
+            //Se crea una lista de tipo documento, la cual se va a retornar
+            ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
+
+            //obtenemos todo de la BD.
+            IList ObjDocumento = ServiceDocumento.GetDocumento();
+
+            //Verificamos que la informacion no esté vacía.
+            if (ObjDocumento != null)
+            {
+                foreach (var item in ObjDocumento)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+                    
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    Documento obj = new Documento();
+
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    obj.id_usuario = (string)tipo.GetProperty("ID_USUARIO_REVISO").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    obj.version_actual = (string)tipo.GetProperty("VERSION_ACTUAL").GetValue(item, null);
+                    obj.fecha_emision = (DateTime)tipo.GetProperty("FECHA_EMISION").GetValue(item, null);
+                    obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
+                    obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //regresamos la lista.
+            return Lista;
+        }
+
+        /// <summary>
+        /// Método para insertar un registro de la tabla TBL_Documento.
+        /// </summary>
+        /// <param name="documento"></param>
+        /// <returns></returns>
+        public static int SetDocumento(Documento documento)
+        {
+            //Se inician los servicios de Documento.
+            SO_Documento ServiceDocumento = new SO_Documento();
+
+            //Se ejecuta el método y retorna el id del documento que fue insertado.
+            return ServiceDocumento.SetDocumento(documento.id_documento, documento.id_usuario, documento.nombre, documento.descripcion,
+                                                 documento.version_actual, documento.fecha_creacion, documento.fecha_actualizacion, documento.fecha_emision);
+        }
+
+        /// <summary>
+        /// Método para modificar un registro de la tabla TBL_Documento.
+        /// </summary>
+        /// <param name="documento"></param>
+        /// <returns></returns>
+        public static int UpdateDocumento(Documento documento)
+        {
+            //Se inician los servicios de Documento.
+            SO_Documento ServiceDocumento = new SO_Documento();
+
+            // Se ejecuta el método y retorna los registros que se modificaron.
+            return ServiceDocumento.UpdateDocumento(documento.id_documento, documento.id_usuario, documento.nombre, documento.descripcion,
+                                                 documento.version_actual, documento.fecha_creacion, documento.fecha_actualizacion, documento.fecha_emision);
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro de la tabla TB_Documento.
+        /// </summary>
+        /// <param name="documento"></param>
+        /// <returns></returns>
+        public static int DeleteDocumento(Documento documento)
+        {
+            //Se inician los servicios de Documento.
+            SO_Documento ServiceDocumento = new SO_Documento();
+
+            // Se ejecuta el método y retorna los registros que se eliminaron.
+            return ServiceDocumento.DeleteDocumento(Convert.ToInt32(documento.id_documento));
+        } 
+
+        #endregion
+
+        #region Rol
+        /// <summary>
+        /// Método para obetener los registros de la BD.
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<Rol> GetRol()
+        {
+            //Se inicializan los servicios
+            SO_Rol ServiceRol = new SO_Rol();
+
+            //Se crea una lista de tipo rol, la cual se va a retornar
+            ObservableCollection<Rol> Lista = new ObservableCollection<Rol>();
+
+            //obtenemos todo de la BD.
+            IList ObjRol = ServiceRol.GetRol();
+
+            //Verificamos que la informacion no esté vacía.
+            if (ObjRol != null)
+            {
+                foreach (var item in ObjRol)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    Rol obj = new Rol();
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_rol = (int)tipo.GetProperty("ID_ROL").GetValue(item, null);
+                    obj.nombre_rol = (string)tipo.GetProperty("NOMBRE_ROL").GetValue(item, null);
+                    obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
+                    obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //regresamos la lista.
+            return Lista;
+        }
+
+        /// <summary>
+        /// Método para insertar un registro a la BD.
+        /// </summary>
+        /// <param name="rol"></param>
+        /// <returns></returns>
+        public static int SetRol(Rol rol)
+        {
+
+            //Inicializamos los servicios
+            SO_Rol ServiceRol = new SO_Rol();
+
+            //Se ejecuta el método y retorna el id del rol
+            return ServiceRol.SetRol(rol.id_rol, rol.nombre_rol, rol.fecha_creacion, rol.fecha_actualizacion);
+        }
+
+        /// <summary>
+        /// Método para modificar un registro.
+        /// </summary>
+        /// <param name="rol"></param>
+        /// <returns></returns>
+        public static int UpdateRol(Rol rol)
+        {
+            //Inicializamos los servicios
+            SO_Rol ServiceRol = new SO_Rol();
+
+            // Se ejecuta el método y retorna los registros que se modificaron.
+            return ServiceRol.UpdateRol(rol.id_rol, rol.nombre_rol, rol.fecha_creacion, rol.fecha_actualizacion);
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro.
+        /// </summary>
+        /// <param name="rol"></param>
+        /// <returns></returns>
+        public static int DeleteRol(Rol rol)
+        {
+            //Inicializamos los servicios
+            SO_Rol ServiceRol = new SO_Rol();
+
+            // Se ejecuta el método y retorna los registros que se eliminaron.
+            return ServiceRol.DeleteRol(rol.id_rol);
+        }
+        #endregion
+
+        #region Usuarios
+
+        /// <summary>
+        /// Método para obtener todos los registros de la tabla Usuarios.
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<Usuarios> GetUsuarios(){
+
+
+            //Inicializamos los servicios de usuarios.
+            SO_Usuarios ServiceUsuarios = new SO_Usuarios();
+
+            //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
+            ObservableCollection<Usuarios> Lista = new ObservableCollection<Usuarios>();
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList ObjUsuarios = ServiceUsuarios.GetUsuario();
+
+            //Comparamos que la información de la base de datos no sea nulo
+            if (ObjUsuarios!=null)
+
+            {
+                //Iteramos la información recibida.
+                foreach (var item in ObjUsuarios)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos on objeto de tipo usuarios que contendrá la información de un registro.
+                    Usuarios obj = new Usuarios();
+
+                    //Asignamos los valores correspondientes.
+                    obj.usuario = (string)tipo.GetProperty("Usuario").GetValue(item, null);
+                    obj.password = (string)tipo.GetProperty("Password").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("Nombre").GetValue(item, null);
+                    obj.APaterno = (string)tipo.GetProperty("APaterno").GetValue(item, null);
+                    obj.AMaterno = (string)tipo.GetProperty("AMaterno").GetValue(item, null);
+                    obj.estado = (int)tipo.GetProperty("Estado").GetValue(item, null);
+                    obj.usql = (string)tipo.GetProperty("Usql").GetValue(item, null);
+                    obj.psql = (string)tipo.GetProperty("Psql").GetValue(item, null);
+                    obj.bloqueado = (bool)tipo.GetProperty("Bloqueado").GetValue(item, null);
+                    obj.id_departamento = (int)tipo.GetProperty("Id_Departamento").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //Retornamos la lista.
+            return Lista;
+            }
+
+        /// <summary>
+        /// Método para insertar un registro en la tabla Usuarios.
+        /// </summary>
+        /// <param name="usuarios"></param>
+        /// <returns></returns>
+        public static string SetUsuario(Usuarios usuarios)
+        {
+            //Se inician los servicios de Usuarios.
+            SO_Usuarios ServiceUsuarios = new SO_Usuarios();
+
+            //Se ejecuta el método y retorna el usuario que fue insertado.
+            return ServiceUsuarios.SetUsuario(usuarios.usuario,usuarios.password, usuarios.nombre, usuarios.APaterno, usuarios.AMaterno,
+                                              usuarios.estado, usuarios.usql, usuarios.psql, usuarios.bloqueado, usuarios.id_departamento);
+
+        }
+
+
+        /// <summary>
+        /// Método para modificar un registro en la tabla.
+        /// </summary>
+        /// <param name="usuarios"></param>
+        /// <returns></returns>
+        public static int UpdateUsuario(Usuarios usuarios)
+        {
+            //Se inician los servicios de Usuarios.
+            SO_Usuarios ServiceUsuarios = new SO_Usuarios();
+
+            // Se ejecuta el método y retorna los registros que se modificaron.
+            return ServiceUsuarios.UpdateUsuarios(usuarios.usuario, usuarios.password, usuarios.nombre, usuarios.APaterno, usuarios.AMaterno,
+                                              usuarios.estado, usuarios.usql, usuarios.psql, usuarios.bloqueado, usuarios.id_departamento);
+
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro de la tabla Usuarios.
+        /// </summary>
+        /// <param name="usuarios"></param>
+        /// <returns></returns>
+        public static int DeleteUsuarios(Usuarios usuarios)
+        {
+            //Se inician los servicios de Usuarios.
+            SO_Usuarios ServiceUsuarios = new SO_Usuarios();
+
+            // Se ejecuta el método y retorna número de registros eliminados.
+            return ServiceUsuarios.DeleteUsuario(usuarios.usuario);
+        }
+        #endregion
+
+        #region version
+
+        /// <summary>
+        /// Método para obtener los registros de la BD.
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<Version> GetVersion()
+        {
+            //Inicializamos los servicios de version.
+            SO_Version ServiceVersion = new SO_Version();
+
+            //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
+            ObservableCollection<Version> Lista = new ObservableCollection<Version>();
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList ObjVersion = ServiceVersion.GetVersion();
+
+            //Comparamos que la información de la base de datos no sea nulo.
+            if (ObjVersion != null)
+            {
+
+                //Iteramos la información recibida.
+                foreach (var item in ObjVersion)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos on objeto de tipo version que contendrá la información de un registro.
+                    Version obj = new Version();
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    obj.id_usuario = (string)tipo.GetProperty("ID_USUARIO_ELABORO").GetValue(item, null);
+                    obj.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    obj.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
+                    obj.no_copias = (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //Retornamos la lista.
+            return Lista;
+        }
+        /// <summary>
+        /// Método para insertar un registto a la Bd.
+        /// </summary>
+        /// <param name="version"></param>
+        /// <returns></returns>
+        public static int SetVersion(Version version)
+        {
+            //Inicializamos los servicios
+            SO_Version ServiceVersion = new SO_Version();
+
+            //Se ejecuta el método y regresa el id de la versión
+            return ServiceVersion.SetVersion(version.id_version, version.id_usuario,version.id_documento, version.no_version, version.fecha_version, version.no_copias);
+        }
+
+        /// <summary>
+        /// Método para modificar un regitro de la BD.
+        /// </summary>
+        /// <param name="version"></param>
+        /// <returns></returns>
+        public static int UpdateVersion(Version version)
+        {
+            //Inicializamos los servicios
+            SO_Version ServiceVersion = new SO_Version();
+
+            // Se ejecuta el método y retorna los registros que se modificarion
+            return ServiceVersion.UpdateVersion(version.id_version, version.id_usuario, version.id_documento, version.no_version, version.fecha_version, version.no_copias);
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro de la BD.
+        /// </summary>
+        /// <param name="version"></param>
+        /// <returns></returns>
+        public static int DelteVersion(Version version)
+        {
+            //Inicializamos los servicios
+            SO_Version ServiceVersion = new SO_Version();
+
+            // Se ejecuta el método y retorna los registros que se eliminaron.
+            return ServiceVersion.DeleteVersion(version.id_version);
+        }
+        #endregion
+
+    }
+}
