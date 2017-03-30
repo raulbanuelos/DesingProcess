@@ -67,6 +67,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelControlDocumentos.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\SO_Archivo.cs" />
+    <Compile Include="ServiceObjects\ControlDocumentos\SO_Departamento.cs" />
+    <Compile Include="ServiceObjects\ControlDocumentos\SO_Documento.cs" />
+    <Compile Include="ServiceObjects\ControlDocumentos\SO_Rol.cs" />
+    <Compile Include="ServiceObjects\ControlDocumentos\SO_Usuarios.cs" />
+    <Compile Include="ServiceObjects\ControlDocumentos\SO_Version.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_ARCHIVO.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
