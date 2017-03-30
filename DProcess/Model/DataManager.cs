@@ -7,6 +7,7 @@ using DataAccess.ServiceObjects;
 using DataAccess.ServiceObjects.Operaciones.Premaquinado;
 using DataAccess.ServiceObjects.Herramentales;
 using DataAccess.ServiceObjects.MateriasPrimas;
+using DataAccess.ServiceObjects.Usuario;
 
 namespace Model
 {
@@ -266,6 +267,26 @@ namespace Model
                             usuario.ApellidoPaterno = Convert.ToString(element["APaterno"]);
                             usuario.Nombre = Convert.ToString(element["Nombre"]);
                             usuario.NombreUsuario = Convert.ToString(element["Usuario"]);
+
+                            usuario.PerfilRGP = Convert.ToBoolean(element["PERFIL_RGP"]);
+                            usuario.PerfilTooling = Convert.ToBoolean(element["PERFIL_TOOLING"]);
+                            usuario.PerfilRawMaterial = Convert.ToBoolean(element["PERFIL_RAW_MATERIAL"]);
+                            usuario.PerfilStandarTime = Convert.ToBoolean(element["PERFIL_STANDAR_TIME"]);
+                            usuario.PerfilQuotes = Convert.ToBoolean(element["PERFIL_QUOTES"]);
+                            usuario.PerfilCIT = Convert.ToBoolean(element["PERFIL_CIT"]);
+                            usuario.PerfilData = Convert.ToBoolean(element["PERFIL_DATA"]);
+                            usuario.PerfilUserProfile = Convert.ToBoolean(element["PERFIL_USER_PROFILE"]);
+                            usuario.PerfilHelp = Convert.ToBoolean(element["PERFIL_HELP"]);
+
+                            usuario.PrivilegioRGP = Convert.ToBoolean(element["PRIVIL_HELP"]);
+                            usuario.PrivilegioTooling = Convert.ToBoolean(element["PRIVIL_HELP"]);
+                            usuario.PrivilegioRawMaterial = Convert.ToBoolean(element["PRIVIL_HELP"]);
+                            usuario.PrivilegioStandarTime = Convert.ToBoolean(element["PRIVIL_HELP"]);
+                            usuario.PrivilegioQuotes = Convert.ToBoolean(element["PRIVIL_HELP"]);
+                            usuario.PrivilegioCIT = Convert.ToBoolean(element["PRIVIL_HELP"]);
+                            usuario.PrivilegioData = Convert.ToBoolean(element["PRIVIL_HELP"]);
+                            usuario.PrivilegioUserProfile = Convert.ToBoolean(element["PRIVIL_HELP"]);
+                            usuario.PrivilegioHelp = Convert.ToBoolean(element["PRIVIL_HELP"]);
                         }
                     }
                 }

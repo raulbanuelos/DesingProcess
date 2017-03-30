@@ -62,11 +62,7 @@ namespace View.Forms.LogIn
                         Home PantallaHome = new Home();
 
                         //Creamos un objeto UsuarioViewModel, y le asignamos los valores correspondientes, a la propiedad Pagina se le asgina la pantalla inicial de Home.
-                        UsuarioViewModel context = new UsuarioViewModel { Nombre = usuarioConectado.Nombre,
-                                                                            ApellidoPaterno = usuarioConectado.ApellidoPaterno,
-                                                                            ApellidoMaterno = usuarioConectado.ApellidoMaterno,
-                                                                            NombreUsuario = usuarioConectado.NombreUsuario,
-                                                                            Pagina = PantallaHome};
+                        UsuarioViewModel context = new UsuarioViewModel { ModelUsuario = usuarioConectado, Pagina = PantallaHome };
 
                         //Asignamos al DataContext de la PantallaHome el context creado anteriormente.
                         //NOTA IMPORTANTE: Se hizo una redundancia al asignarle en la propiedad Pagina su misma pantalla. Solo es por ser la primeva vez y tenernos en donde descanzar la primera pantalla.

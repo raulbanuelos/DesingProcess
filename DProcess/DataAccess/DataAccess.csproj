@@ -169,7 +169,31 @@
     </Compile>
     <Compile Include="ServiceObjects\SO_CentroTrabajo.cs" />
     <Compile Include="ServiceObjects\SO_Material.cs" />
-    <Compile Include="ServiceObjects\SO_Usuario.cs" />
+    <Compile Include="ServiceObjects\Usuario\ModelUsuario.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelUsuario.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Usuario\ModelUsuario.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelUsuario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Usuario\ModelUsuario.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelUsuario.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Usuario\PerfilUsuario.cs">
+      <DependentUpon>ModelUsuario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Usuario\PrivilegioUsuario.cs">
+      <DependentUpon>ModelUsuario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Usuario\SO_Usuario.cs" />
+    <Compile Include="ServiceObjects\Usuario\Usuarios.cs">
+      <DependentUpon>ModelUsuario.tt</DependentUpon>
+    </Compile>
     <Compile Include="SQLServer\Desing_SQL.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +237,16 @@
       <DependentUpon>ModelPreMaquinado.edmx</DependentUpon>
       <LastGenOutput>ModelPreMaquinado.cs</LastGenOutput>
     </Content>
+    <Content Include="ServiceObjects\Usuario\ModelUsuario.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelUsuario.edmx</DependentUpon>
+      <LastGenOutput>ModelUsuario.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ServiceObjects\Usuario\ModelUsuario.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelUsuario.edmx</DependentUpon>
+      <LastGenOutput>ModelUsuario.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -246,6 +280,13 @@
     </EntityDeploy>
     <None Include="ServiceObjects\Operaciones\Premaquinado\ModelPreMaquinado.edmx.diagram">
       <DependentUpon>ModelPreMaquinado.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="ServiceObjects\Usuario\ModelUsuario.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelUsuario.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ServiceObjects\Usuario\ModelUsuario.edmx.diagram">
+      <DependentUpon>ModelUsuario.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DataAccess.ServiceObjects.Usuario.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PerfilUsuario">
+          <Key>
+            <PropertyRef Name="ID_PERFIL_USUARIO" />
+          </Key>
+          <Property Name="ID_PERFIL_USUARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_USUARIO" Type="varchar" MaxLength="20" />
+          <Property Name="RGP" Type="bit" />
+          <Property Name="TOOLING" Type="bit" />
+          <Property Name="RAW_MATERIAL" Type="bit" />
+          <Property Name="STANDAR_TIME" Type="bit" />
+          <Property Name="QUOTES" Type="bit" />
+          <Property Name="CIT" Type="bit" />
+          <Property Name="DATA" Type="bit" />
+          <Property Name="USER_PROFILE" Type="bit" />
+          <Property Name="HELP" Type="bit" />
+        </EntityType>
+        <EntityType Name="PrivilegioUsuario">
+          <Key>
+            <PropertyRef Name="ID_PRIVILEGIO_USUARIO" />
+          </Key>
+          <Property Name="ID_PRIVILEGIO_USUARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_USUARIO" Type="varchar" MaxLength="20" />
+          <Property Name="RGP" Type="bit" />
+          <Property Name="TOOLING" Type="bit" />
+          <Property Name="RAW_MATERIAL" Type="bit" />
+          <Property Name="STANDAR_TIME" Type="bit" />
+          <Property Name="QUOTES" Type="bit" />
+          <Property Name="CIT" Type="bit" />
+          <Property Name="DATA" Type="bit" />
+          <Property Name="USER_PROFILE" Type="bit" />
+          <Property Name="HELP" Type="bit" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Usuario" />
+          </Key>
+          <Property Name="Usuario" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="APaterno" Type="varchar" MaxLength="50" />
+          <Property Name="AMaterno" Type="varchar" MaxLength="50" />
+          <Property Name="Estado" Type="int" />
+          <Property Name="Usql" Type="varchar" MaxLength="50" />
+          <Property Name="Psql" Type="varchar" MaxLength="50" />
+          <Property Name="Bloqueado" Type="bit" />
+          <Property Name="Id_Departamento" Type="int" />
+        </EntityType>
+        <Association Name="FK_PerfilUsuario_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="PerfilUsuario" Type="Self.PerfilUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario" />
+            </Principal>
+            <Dependent Role="PerfilUsuario">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrivilegioUsuario_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="PrivilegioUsuario" Type="Self.PrivilegioUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario" />
+            </Principal>
+            <Dependent Role="PrivilegioUsuario">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataAccessServiceObjectsUsuarioStoreContainer">
+          <EntitySet Name="PerfilUsuario" EntityType="Self.PerfilUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrivilegioUsuario" EntityType="Self.PrivilegioUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PerfilUsuario_Usuarios" Association="Self.FK_PerfilUsuario_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="PerfilUsuario" EntitySet="PerfilUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivilegioUsuario_Usuarios" Association="Self.FK_PrivilegioUsuario_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="PrivilegioUsuario" EntitySet="PrivilegioUsuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataAccess.ServiceObjects.Usuario" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PerfilUsuario">
+          <Key>
+            <PropertyRef Name="ID_PERFIL_USUARIO" />
+          </Key>
+          <Property Name="ID_PERFIL_USUARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_USUARIO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="RGP" Type="Boolean" />
+          <Property Name="TOOLING" Type="Boolean" />
+          <Property Name="RAW_MATERIAL" Type="Boolean" />
+          <Property Name="STANDAR_TIME" Type="Boolean" />
+          <Property Name="QUOTES" Type="Boolean" />
+          <Property Name="CIT" Type="Boolean" />
+          <Property Name="DATA" Type="Boolean" />
+          <Property Name="USER_PROFILE" Type="Boolean" />
+          <Property Name="HELP" Type="Boolean" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_PerfilUsuario_Usuarios" FromRole="PerfilUsuario" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="PrivilegioUsuario">
+          <Key>
+            <PropertyRef Name="ID_PRIVILEGIO_USUARIO" />
+          </Key>
+          <Property Name="ID_PRIVILEGIO_USUARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_USUARIO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="RGP" Type="Boolean" />
+          <Property Name="TOOLING" Type="Boolean" />
+          <Property Name="RAW_MATERIAL" Type="Boolean" />
+          <Property Name="STANDAR_TIME" Type="Boolean" />
+          <Property Name="QUOTES" Type="Boolean" />
+          <Property Name="CIT" Type="Boolean" />
+          <Property Name="DATA" Type="Boolean" />
+          <Property Name="USER_PROFILE" Type="Boolean" />
+          <Property Name="HELP" Type="Boolean" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_PrivilegioUsuario_Usuarios" FromRole="PrivilegioUsuario" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Usuario" />
+          </Key>
+          <Property Name="Usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="APaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Int32" />
+          <Property Name="Usql" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Psql" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Bloqueado" Type="Boolean" />
+          <Property Name="Id_Departamento" Type="Int32" />
+          <NavigationProperty Name="PerfilUsuario" Relationship="Self.FK_PerfilUsuario_Usuarios" FromRole="Usuarios" ToRole="PerfilUsuario" />
+          <NavigationProperty Name="PrivilegioUsuario" Relationship="Self.FK_PrivilegioUsuario_Usuarios" FromRole="Usuarios" ToRole="PrivilegioUsuario" />
+        </EntityType>
+        <Association Name="FK_PerfilUsuario_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="PerfilUsuario" Type="Self.PerfilUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario" />
+            </Principal>
+            <Dependent Role="PerfilUsuario">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrivilegioUsuario_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="PrivilegioUsuario" Type="Self.PrivilegioUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario" />
+            </Principal>
+            <Dependent Role="PrivilegioUsuario">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EntitiesUsuario" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PerfilUsuario" EntityType="Self.PerfilUsuario" />
+          <EntitySet Name="PrivilegioUsuario" EntityType="Self.PrivilegioUsuario" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <AssociationSet Name="FK_PerfilUsuario_Usuarios" Association="Self.FK_PerfilUsuario_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="PerfilUsuario" EntitySet="PerfilUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivilegioUsuario_Usuarios" Association="Self.FK_PrivilegioUsuario_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="PrivilegioUsuario" EntitySet="PrivilegioUsuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DataAccessServiceObjectsUsuarioStoreContainer" CdmEntityContainer="EntitiesUsuario">
+          <EntitySetMapping Name="PerfilUsuario">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Usuario.PerfilUsuario">
+              <MappingFragment StoreEntitySet="PerfilUsuario">
+                <ScalarProperty Name="ID_PERFIL_USUARIO" ColumnName="ID_PERFIL_USUARIO" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="RGP" ColumnName="RGP" />
+                <ScalarProperty Name="TOOLING" ColumnName="TOOLING" />
+                <ScalarProperty Name="RAW_MATERIAL" ColumnName="RAW_MATERIAL" />
+                <ScalarProperty Name="STANDAR_TIME" ColumnName="STANDAR_TIME" />
+                <ScalarProperty Name="QUOTES" ColumnName="QUOTES" />
+                <ScalarProperty Name="CIT" ColumnName="CIT" />
+                <ScalarProperty Name="DATA" ColumnName="DATA" />
+                <ScalarProperty Name="USER_PROFILE" ColumnName="USER_PROFILE" />
+                <ScalarProperty Name="HELP" ColumnName="HELP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrivilegioUsuario">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Usuario.PrivilegioUsuario">
+              <MappingFragment StoreEntitySet="PrivilegioUsuario">
+                <ScalarProperty Name="ID_PRIVILEGIO_USUARIO" ColumnName="ID_PRIVILEGIO_USUARIO" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="RGP" ColumnName="RGP" />
+                <ScalarProperty Name="TOOLING" ColumnName="TOOLING" />
+                <ScalarProperty Name="RAW_MATERIAL" ColumnName="RAW_MATERIAL" />
+                <ScalarProperty Name="STANDAR_TIME" ColumnName="STANDAR_TIME" />
+                <ScalarProperty Name="QUOTES" ColumnName="QUOTES" />
+                <ScalarProperty Name="CIT" ColumnName="CIT" />
+                <ScalarProperty Name="DATA" ColumnName="DATA" />
+                <ScalarProperty Name="USER_PROFILE" ColumnName="USER_PROFILE" />
+                <ScalarProperty Name="HELP" ColumnName="HELP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Usuario.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="APaterno" ColumnName="APaterno" />
+                <ScalarProperty Name="AMaterno" ColumnName="AMaterno" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Usql" ColumnName="Usql" />
+                <ScalarProperty Name="Psql" ColumnName="Psql" />
+                <ScalarProperty Name="Bloqueado" ColumnName="Bloqueado" />
+                <ScalarProperty Name="Id_Departamento" ColumnName="Id_Departamento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
