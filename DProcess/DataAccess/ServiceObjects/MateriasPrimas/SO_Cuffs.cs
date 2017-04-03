@@ -58,7 +58,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     //Se crea un objeto de tipo Cuff, el cúal será añadido a la tabla Cuffs
                     cuffs obj = new cuffs();
                     //Asignamos los parámetros recibidos a cada uno de los valores del objeto cuff
-                    obj.no_cuff = no_cuff;
+                   obj.no_cuff = no_cuff;
                     obj.dia_ext = dia_ext;
                     obj.dia_int = dia_int;
                     obj.largo = largo;
@@ -75,7 +75,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                 }
 
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 //Si hay un error se retorna el string vacío.
                 return string.Empty;

@@ -68,11 +68,12 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     TBL_VERSION obj = new TBL_VERSION();
 
                     //Se asiganan los valores.
-                    obj.ID_VERSION = id_version;
+                   obj.ID_VERSION = id_version;
                     obj.ID_USUARIO_ELABORO = id_usuario;
                     obj.ID_DOCUMENTO = id_documento;
                     obj.No_VERSION = no_version;
                     obj.NO_COPIAS = no_copias;
+                    obj.FECHA_VERSION = fecha;
 
                     //Agrega el objeto a la tabla.
                     Conexion.TBL_VERSION.Add(obj);
@@ -83,7 +84,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return obj.ID_VERSION;
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 //Si hay error regresa una cadena vacía.
                 return 0;

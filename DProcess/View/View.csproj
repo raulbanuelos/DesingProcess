@@ -231,6 +231,10 @@
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{CC1FD5B3-DD64-4773-B014-3DBCF2C3FB55}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{e7b32643-710e-4b8d-b4da-4f9ee16a8655}</Project>
       <Name>Model</Name>
