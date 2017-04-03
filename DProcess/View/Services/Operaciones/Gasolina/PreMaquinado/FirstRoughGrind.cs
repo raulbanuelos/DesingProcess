@@ -157,9 +157,9 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             TextoProceso += "CHUCK RPM 15+-2 " + "\n";
 
             //Agregamos las propiedades que se obtiene el anillo durante el proceso.
-            Propiedad rpm1_110 = new Propiedad { Nombre = "RPM1_110", TipoDato = "Cantidad", DescripcionLarga = "Cantidad de RMP primer corte en operación FIRST ROUGH GRIND", Imagen = null, DescripcionCorta = "RPM 1er corte (First Rough grind):", Valor = 15 };
+            Propiedad rpm1_110 = new Propiedad { Nombre = "RPM1_110", TipoDato = "Cantidad", DescripcionLarga = "Cantidad de RPM primer corte en operación FIRST ROUGH GRIND", Imagen = null, DescripcionCorta = "RPM 1er corte (First Rough grind):", Valor = 15 };
             anilloProcesado.PropiedadesAdquiridasProceso.Add(rpm1_110);
-            Propiedad rpm2_100 = new Propiedad { Nombre = "RMP2_110", TipoDato = "Cantidad", DescripcionLarga = "Cantidad de RMP segundo corte en operación FIRST ROUGH GRIND", Imagen = null, DescripcionCorta = "RPM 2do corte (First Rough grind):", Valor = 20 };
+            Propiedad rpm2_100 = new Propiedad { Nombre = "RMP2_110", TipoDato = "Cantidad", DescripcionLarga = "Cantidad de RPM segundo corte en operación FIRST ROUGH GRIND", Imagen = null, DescripcionCorta = "RPM 2do corte (First Rough grind):", Valor = 20 };
             anilloProcesado.PropiedadesAdquiridasProceso.Add(rpm2_100);
 
             //Ejecutamos el método para calculo de Herramentales.
@@ -181,7 +181,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         {
             try
             {
-
+                //Ejecutamos el método
                 TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
                 CentroTrabajo110 objTiempos = new CentroTrabajo110();
                 objTiempos.Calcular(anilloProcesado);
