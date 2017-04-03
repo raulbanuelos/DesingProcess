@@ -18,13 +18,7 @@ namespace Model.ControlDocumentos
         #endregion
 
         #region Constructor
-        public Archivo()
-        {
-            id_archivo = 0;
-            id_version = 0;
-            archivo = new byte[50];
-            ext = "";
-        }
+        
         #endregion
     }
 }

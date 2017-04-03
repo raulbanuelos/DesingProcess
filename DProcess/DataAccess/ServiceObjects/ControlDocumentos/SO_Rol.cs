@@ -61,13 +61,14 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     TBL_ROL rol = new TBL_ROL();
 
                     //Se asiganan los valores.
-                    rol.ID_ROL=id_rol;
+                   //rol.ID_ROL=id_rol;
                     rol.NOMBRE_ROL = nombre_rol;
                     rol.FECHA_CREACION = fecha_creacion;
                     rol.FECHA_ACTUALIZACION = fecha_actualizacion;
 
                     //Agrega el objeto a la tabla.
                     Conexion.TBL_ROL.Add(rol);
+                    
                     //Se guardan los cambios
                     Conexion.SaveChanges();
 
@@ -75,7 +76,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return rol.ID_ROL;
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 //Si hay error regresa una cadena vacía.
                 return 0;

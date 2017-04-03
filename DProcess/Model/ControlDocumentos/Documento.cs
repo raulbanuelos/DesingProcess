@@ -24,17 +24,7 @@ namespace Model.ControlDocumentos
         #endregion
 
         #region Constructores
-        public Documento()
-        {
-            id_documento = 0;
-            id_usuario = "";
-            nombre = "";
-            descripcion = "";
-            version_actual = "";
-            fecha_creacion = new DateTime();
-            fecha_actualizacion = new DateTime();
-            fecha_emision = new DateTime();
-        }
+       
 
         #endregion
     }

@@ -148,7 +148,7 @@ namespace Model.ControlDocumentos
             SO_Departamento ServiceDepartamento = new SO_Departamento();
 
             //Se ejecuta el método y retorna el id del departamento que fue insertado.
-            return ServiceDepartamento.SetDepartamento(Convert.ToInt32(departamento.id_dep), departamento.nombre_dep, departamento.fecha_creacion, departamento.fecha_actualizacion);
+            return ServiceDepartamento.SetDepartamento(departamento.id_dep, departamento.nombre_dep, departamento.fecha_creacion, departamento.fecha_actualizacion);
         }
 
         /// <summary>
@@ -162,7 +162,7 @@ namespace Model.ControlDocumentos
             SO_Departamento ServiceDepartamento = new SO_Departamento();
 
             // Se ejecuta el método y retorna los registros que se modificaron.
-            return ServiceDepartamento.UpdateDepartamento(Convert.ToInt32(departamento.id_dep), departamento.nombre_dep, departamento.fecha_creacion, departamento.fecha_actualizacion);
+            return ServiceDepartamento.UpdateDepartamento(departamento.id_dep, departamento.nombre_dep, departamento.fecha_creacion, departamento.fecha_actualizacion);
         }
 
         /// <summary>

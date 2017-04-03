@@ -18,15 +18,7 @@ namespace Model.ControlDocumentos
         #endregion
 
         #region Constructores
-        public Version()
-        {
-            id_version = 0;
-            id_usuario = "";
-            id_documento = 0;
-            no_version = "";
-            fecha_version = new DateTime();
-            no_copias = 0;
-        }
+       
 
         #endregion
 

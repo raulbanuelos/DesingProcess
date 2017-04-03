@@ -2,6 +2,9 @@ using System.ComponentModel;
 using Model;
 using System.Windows.Input;
 using System;
+using Model.ControlDocumentos;
+using DataAccess.ServiceObjects.Herramentales;
+using DataAccess.ServiceObjects.ControlDocumentos;
 
 namespace View.Services.ViewModel
 {
@@ -754,23 +757,45 @@ namespace View.Services.ViewModel
         /// </summary>
         private async void guardarPattern()
         {
-            //Declaramos un objeto de tipo DialogService.
+            ////Declaramos un objeto de tipo DialogService.
+            //DialogService dialog = new DialogService();
+
+            ////Ejecutamos el método para insertar el pattern.
+            //string codigoNuevo = DataManager.SetPattern(new Pattern{ Codigo = codigo.Valor});
+
+            ////Comparamos si es distinto de nulo o vacío, si es así indica que se guardó con exito la placa modelo.
+            //if (!string.IsNullOrEmpty(codigoNuevo))
+
+            //    //Mostramos el mensaje de confirmación con el nuevo código registrado.
+            //    await dialog.SendMessage("RGP: Confirmación", "Placa modelo registrada con el código: " + codigoNuevo);
+            //else
+
+            //    //Mostramos
+            //    await dialog.SendMessage("RGP: Alerta", "Oh, Oh, parece ser que algo salió mal.");
+
             DialogService dialog = new DialogService();
+            Documento obj = new Documento();
+            obj.id_documento = 1;
+            obj.id_usuario = "1";
+            obj.nombre = "test";
+            obj.descripcion = "hola";
+            obj.version_actual = "2";
+            obj.fecha_actualizacion= Convert.ToDateTime("01/02/2017");
+            obj.fecha_creacion= Convert.ToDateTime("01/02/2017");
+            obj.fecha_emision= Convert.ToDateTime("01/02/2017");
 
-            //Ejecutamos el método para insertar el pattern.
-            string codigoNuevo = DataManager.SetPattern(new Pattern{ Codigo = codigo.Valor});
-            
-            //Comparamos si es distinto de nulo o vacío, si es así indica que se guardó con exito la placa modelo.
-            if (!string.IsNullOrEmpty(codigoNuevo))
+            int test = DataManagerControlDocumentos.DeleteDocumento(obj);
 
-                //Mostramos el mensaje de confirmación con el nuevo código registrado.
-                await dialog.SendMessage("RGP: Confirmación", "Placa modelo registrada con el código: " + codigoNuevo);
-            else
-
-                //Mostramos
+            if (test!=0)
+            {
+                await dialog.SendMessage("RGP: Confirmación", "Placa modelo registrada con el código: " + test);
+            }else
+            {
                 await dialog.SendMessage("RGP: Alerta", "Oh, Oh, parece ser que algo salió mal.");
-            
+            }
         }
+
+            
         #endregion
     }
 }

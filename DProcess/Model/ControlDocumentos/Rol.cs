@@ -15,14 +15,7 @@ namespace Model.ControlDocumentos
         public DateTime fecha_actualizacion { get; set; }
         #endregion
         #region Constructores
-        public Rol()
-        {
-            id_rol = 0;
-            nombre_rol = "";
-            fecha_creacion = new DateTime();
-            fecha_actualizacion = new DateTime();
-
-        }
+        
         //int id_rol,string nombre_rol,DateTime fecha_creacion,DateTime fecha_actualizacion
         #endregion
     }

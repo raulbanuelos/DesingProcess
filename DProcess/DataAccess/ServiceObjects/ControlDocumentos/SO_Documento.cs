@@ -88,7 +88,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return obj.ID_DOCUMENTO;
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 //Si hay error regresa una cadena vacía.
                 return 0;
@@ -162,7 +162,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //Si hay error, se regresa 0.
                 return 0;

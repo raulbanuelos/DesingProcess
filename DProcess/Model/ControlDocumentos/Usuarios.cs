@@ -25,21 +25,7 @@ namespace Model.ControlDocumentos
         #endregion
         #region Constructores
 
-        public Usuarios()
-        {
-            usuario = "";
-            password ="" ;
-            nombre = "";
-            APaterno = "";
-            AMaterno = "";
-            estado = 0;
-            usql = "";
-            psql = "";
-            bloqueado = false;
-            id_departamento = 0;
-
-
-        }
+       
         #endregion
     }
 }
