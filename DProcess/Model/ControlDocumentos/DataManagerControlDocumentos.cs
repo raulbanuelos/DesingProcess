@@ -387,7 +387,6 @@ namespace Model.ControlDocumentos
                     //Declaramos un objeto  que contendrá la información de un registro.
                     TipoDocumento obj = new TipoDocumento();
 
-
                     //Asignamos los valores correspondientes.
                     obj.id_tipo = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     obj.tipo_documento = (string)tipo.GetProperty("ID_USUARIO_REVISO").GetValue(item, null);
@@ -445,6 +444,7 @@ namespace Model.ControlDocumentos
             return ServiceTipo.DeleteTipo(tipo.id_tipo);
         }
         #endregion  
+
         #region Usuarios
 
         /// <summary>

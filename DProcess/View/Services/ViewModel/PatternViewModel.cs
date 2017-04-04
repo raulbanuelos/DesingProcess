@@ -775,14 +775,14 @@ namespace View.Services.ViewModel
 
             DialogService dialog = new DialogService();
             TipoDocumento obj = new TipoDocumento();
-            obj.id_tipo = 1;
+            obj.id_tipo = 2;
             obj.tipo_documento = "test";
             obj.abreviatura = "tst";
             obj.fecha_actualizacion= Convert.ToDateTime("01/02/2017");
             obj.fecha_creacion= Convert.ToDateTime("01/02/2017");
 
 
-            int test = DataManagerControlDocumentos.DeleteTipo(obj);
+            int test = DataManagerControlDocumentos.UpdateTipo(obj);
 
             if (test!=0)
             {
