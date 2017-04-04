@@ -188,6 +188,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     
                     //Renornamos el resultado de la consulta.
                     return Lista;
+     
                 }
             }
             catch (Exception er)
