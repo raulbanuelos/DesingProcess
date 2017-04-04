@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace DataAccess.ServiceObjects.ControlDocumentos
 {
 
@@ -167,6 +168,34 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 //Si hay error, se regresa 0.
                 return 0;
             }
+        }
+
+        /// <summary>
+        /// Método que busca el documento de acuerdo al nombre o descripcón 
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public IList SearchDocumento(string keyword)
+        {
+            try
+            {
+                //Incializamos la conexión a través de EntityControlDocumentos.
+
+                using (var Conexion= new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta para obtener todos los registros,donde el nombre o la descripción  del documento debe de contener la palabra recibida.
+                    var Lista = Conexion.TBL_DOCUMENTO.Where(d => d.NOMBRE.Contains(keyword) || d.DESCRIPCION.Contains(keyword)).ToList();
+                    
+                    //Renornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si se generó algún error, retornamos un nulo.
+                return null;
+            }
+
         }
     }
 }

@@ -149,5 +149,30 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        /// <summary>
+        /// Método para buscar el archivo de acuerdo a la extensión
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public IList SearchArchivo(string keyword)
+        {
+            try
+            {
+                //Establecemos la conexión a la BD.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Se obtiene la lista de la búsqueda,donde la extensión debe contener la palabra recibida.
+                    var Lista = Conexion.TBL_ARCHIVO.Where(a => a.EXT.Contains(keyword)).ToList();
+
+                    //Regresa el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception e)
+            {
+                //Si hay error, retorna nulo
+                return null;
+            }
+        }
     }
 }
