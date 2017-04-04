@@ -142,6 +142,7 @@
     </Compile>
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Cuffs.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Pattern.cs" />
+    <Compile Include="ServiceObjects\ControlDocumentos\SO_TipoDocumento.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_TubosCL.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_TubosHD.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\Tipo_Materia_Prima.cs">

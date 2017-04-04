@@ -49,6 +49,7 @@
     <Compile Include="ControlDocumentos\Departamento.cs" />
     <Compile Include="ControlDocumentos\Documento.cs" />
     <Compile Include="ControlDocumentos\Rol.cs" />
+    <Compile Include="ControlDocumentos\TipoDocumento.cs" />
     <Compile Include="ControlDocumentos\Usuarios.cs" />
     <Compile Include="ControlDocumentos\Version.cs" />
     <Compile Include="Cuffs.cs" />

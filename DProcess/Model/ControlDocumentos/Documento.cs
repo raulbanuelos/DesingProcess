@@ -11,6 +11,7 @@ namespace Model.ControlDocumentos
         #region Propiedades
         public int id_documento { get; set; }
         public string id_usuario { get; set; }
+        public int id_tipo_documento { get; set; }
         public string nombre { get; set; }
         public string descripcion { get; set; }
         public string version_actual { get; set; }

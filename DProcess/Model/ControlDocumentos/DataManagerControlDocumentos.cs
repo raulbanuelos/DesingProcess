@@ -212,6 +212,7 @@ namespace Model.ControlDocumentos
                     //Asignamos los valores correspondientes.
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     obj.id_usuario = (string)tipo.GetProperty("ID_USUARIO_REVISO").GetValue(item, null);
+                    obj.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
                     obj.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
                     obj.version_actual = (string)tipo.GetProperty("VERSION_ACTUAL").GetValue(item, null);
@@ -238,7 +239,7 @@ namespace Model.ControlDocumentos
             SO_Documento ServiceDocumento = new SO_Documento();
 
             //Se ejecuta el método y retorna el id del documento que fue insertado.
-            return ServiceDocumento.SetDocumento(documento.id_documento, documento.id_usuario, documento.nombre, documento.descripcion,
+            return ServiceDocumento.SetDocumento(documento.id_documento, documento.id_usuario, documento.id_tipo_documento,documento.nombre, documento.descripcion,
                                                  documento.version_actual, documento.fecha_creacion, documento.fecha_actualizacion, documento.fecha_emision);
         }
 
@@ -253,7 +254,7 @@ namespace Model.ControlDocumentos
             SO_Documento ServiceDocumento = new SO_Documento();
 
             // Se ejecuta el método y retorna los registros que se modificaron.
-            return ServiceDocumento.UpdateDocumento(documento.id_documento, documento.id_usuario, documento.nombre, documento.descripcion,
+            return ServiceDocumento.UpdateDocumento(documento.id_documento, documento.id_usuario,documento.id_tipo_documento, documento.nombre, documento.descripcion,
                                                  documento.version_actual, documento.fecha_creacion, documento.fecha_actualizacion, documento.fecha_emision);
         }
 
@@ -268,7 +269,7 @@ namespace Model.ControlDocumentos
             SO_Documento ServiceDocumento = new SO_Documento();
 
             // Se ejecuta el método y retorna los registros que se eliminaron.
-            return ServiceDocumento.DeleteDocumento(Convert.ToInt32(documento.id_documento));
+            return ServiceDocumento.DeleteDocumento(documento.id_documento);
         } 
 
         #endregion
@@ -358,6 +359,92 @@ namespace Model.ControlDocumentos
         }
         #endregion
 
+
+        #region TipoDocumento
+        /// <summary>
+        /// Método para obtener los registros de la tabla.
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<TipoDocumento> GetTipo()
+        {
+            //Se inicializan los servicios de Documento.
+            SO_TipoDocumento ServiceTipo = new SO_TipoDocumento();
+
+            //Se crea una lista de tipo documento, la cual se va a retornar
+            ObservableCollection<TipoDocumento> Lista = new ObservableCollection<TipoDocumento>();
+
+            //obtenemos todo de la BD.
+            IList ObjTipo = ServiceTipo.GetTipo();
+
+            //Verificamos que la informacion no esté vacía.
+            if (ObjTipo != null)
+            {
+                foreach (var item in ObjTipo)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    TipoDocumento obj = new TipoDocumento();
+
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_tipo = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    obj.tipo_documento = (string)tipo.GetProperty("ID_USUARIO_REVISO").GetValue(item, null);
+                    obj.abreviatura = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
+                    obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //regresamos la lista.
+            return Lista;
+        }
+
+        /// <summary>
+        /// Método que inserta un registro a la tabla TBL_Tipo.
+        /// </summary>
+        /// <param name="tipo"></param>
+        /// <returns></returns>
+        public static int SetTipo(TipoDocumento tipo)
+        {
+            //Se inician los servicios de TipoDocumento.
+            SO_TipoDocumento ServiceTipo = new SO_TipoDocumento();
+
+            //Se ejecuta el método y retorna el id del tipo que fue insertado.
+            return ServiceTipo.SetTipo(tipo.id_tipo, tipo.tipo_documento, tipo.abreviatura, tipo.fecha_creacion, tipo.fecha_actualizacion);
+        }
+
+        /// <summary>
+        /// Método para modificar un registro en la tabla.
+        /// </summary>
+        /// <param name="tipo"></param>
+        /// <returns></returns>
+        public static int UpdateTipo(TipoDocumento tipo)
+        {
+            //Se inician los servicios de TipoDocumento.
+            SO_TipoDocumento ServiceTipo = new SO_TipoDocumento();
+
+            //Se ejecuta el método y retorna el id del tipo que fue insertado.
+            return ServiceTipo.UpdateTipo(tipo.id_tipo, tipo.tipo_documento, tipo.abreviatura, tipo.fecha_creacion, tipo.fecha_actualizacion);
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro de la tabla.
+        /// </summary>
+        /// <param name="tipo"></param>
+        /// <returns></returns>
+        public static int DeleteTipo(TipoDocumento tipo)
+        {
+            //Se inician los servicios de TipoDocumento.
+            SO_TipoDocumento ServiceTipo = new SO_TipoDocumento();
+
+            // Se ejecuta el método y retorna los registros que se eliminaron.
+            return ServiceTipo.DeleteTipo(tipo.id_tipo);
+        }
+        #endregion  
         #region Usuarios
 
         /// <summary>

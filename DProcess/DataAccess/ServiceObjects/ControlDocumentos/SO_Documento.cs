@@ -26,10 +26,12 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
                     var Lista = (from d in Conexion.TBL_DOCUMENTO
                                  join u in Conexion.Usuarios on d.ID_USUARIO_REVISO equals u.Usuario
+                                 join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
                                  select new
                                  {
                                      d.ID_DOCUMENTO,
                                      d.ID_USUARIO_REVISO,
+                                     d.ID_TIPO_DOCUMENTO,
                                      d.NOMBRE,
                                      d.DESCRIPCION,
                                      d.VERSION_ACTUAL,
@@ -60,7 +62,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_actualizacion"></param>
         /// <param name="fecha_emision"></param>
         /// <returns></returns>
-        public int SetDocumento(int id_documento,string id_usuario,string nombre,string descripcion,string version_actual,DateTime fecha_creacion,DateTime fecha_actualizacion,DateTime fecha_emision)
+        public int SetDocumento(int id_documento,string id_usuario,int id_tipo_documento,string nombre,string descripcion,string version_actual,DateTime fecha_creacion,DateTime fecha_actualizacion,DateTime fecha_emision)
         {
             try
             {
@@ -73,6 +75,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     //Se asiganan los valores.
                     obj.ID_DOCUMENTO = id_documento;
                     obj.ID_USUARIO_REVISO = id_usuario;
+                    obj.ID_TIPO_DOCUMENTO = id_tipo_documento;
                     obj.NOMBRE = nombre;
                     obj.DESCRIPCION = descripcion;
                     obj.VERSION_ACTUAL = version_actual;
@@ -108,7 +111,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_actualizacion"></param>
         /// <param name="fecha_emision"></param>
         /// <returns></returns>
-        public int UpdateDocumento(int id_documento, string id_usuario, string nombre, string descripcion, string version_actual, DateTime fecha_creacion, DateTime fecha_actualizacion, DateTime fecha_emision)
+        public int UpdateDocumento(int id_documento, string id_usuario,int id_tipo_documento, string nombre, string descripcion, string version_actual, DateTime fecha_creacion, DateTime fecha_actualizacion, DateTime fecha_emision)
         {
             try
             {
@@ -121,6 +124,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     //Asignamos los  parámetros recibidos a cada uno de los valores de los objetos.
                     obj.ID_USUARIO_REVISO = id_usuario;
                     obj.NOMBRE = nombre;
+                    obj.ID_TIPO_DOCUMENTO = id_tipo_documento;
                     obj.DESCRIPCION = descripcion;
                     obj.VERSION_ACTUAL = version_actual;
                     obj.FECHA_ACTUALIZACION = fecha_actualizacion;

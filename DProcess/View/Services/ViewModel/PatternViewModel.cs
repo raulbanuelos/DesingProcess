@@ -774,17 +774,15 @@ namespace View.Services.ViewModel
             //    await dialog.SendMessage("RGP: Alerta", "Oh, Oh, parece ser que algo salió mal.");
 
             DialogService dialog = new DialogService();
-            Documento obj = new Documento();
-            obj.id_documento = 1;
-            obj.id_usuario = "1";
-            obj.nombre = "test";
-            obj.descripcion = "hola";
-            obj.version_actual = "2";
+            TipoDocumento obj = new TipoDocumento();
+            obj.id_tipo = 1;
+            obj.tipo_documento = "test";
+            obj.abreviatura = "tst";
             obj.fecha_actualizacion= Convert.ToDateTime("01/02/2017");
             obj.fecha_creacion= Convert.ToDateTime("01/02/2017");
-            obj.fecha_emision= Convert.ToDateTime("01/02/2017");
 
-            int test = DataManagerControlDocumentos.DeleteDocumento(obj);
+
+            int test = DataManagerControlDocumentos.DeleteTipo(obj);
 
             if (test!=0)
             {
