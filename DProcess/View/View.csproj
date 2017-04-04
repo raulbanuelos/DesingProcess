@@ -122,6 +122,9 @@
     <Compile Include="Forms\LogIn\LogIn.xaml.cs">
       <DependentUpon>LogIn.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Modals\frmViewUnidades.xaml.cs">
+      <DependentUpon>frmViewUnidades.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RawMaterial\PPattern.xaml.cs">
       <DependentUpon>PPattern.xaml</DependentUpon>
     </Compile>
@@ -192,6 +195,10 @@
     <Page Include="Forms\LogIn\LogIn.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\Modals\frmViewUnidades.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\RawMaterial\PPattern.xaml">
       <SubType>Designer</SubType>
