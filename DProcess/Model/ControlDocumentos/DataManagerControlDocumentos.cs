@@ -106,16 +106,15 @@ namespace Model.ControlDocumentos
             //Se inicializan los servicios de Archivo.
             SO_Archivo ServiceArchivo = new SO_Archivo();
 
-            //obtenemos todo de la BD, con el id que recibimos de parámetro.
+            //obtenemos la extensión y el archivo con el id que se recibió.
             IList ObjArchivo = ServiceArchivo.GetByte(id_archivo);
 
             //Creamos un objeto de tipo archivo
             Archivo obj = new Archivo();
 
-            //Se verifica que la informacion no esté vacía.
+            //Se verifica que la información extraída de la BD no esté vacía.
             if (ObjArchivo != null)
             {
-               
                 foreach (var item in ObjArchivo)
                 {
                     //Obtenemos el tipo.
@@ -131,7 +130,7 @@ namespace Model.ControlDocumentos
            var tempFolder = Path.GetTempPath();
             //se asigna el nombre del archivo temporal, se concatena el nombre y la extensión.
            string filename = Path.Combine(tempFolder, "temp"+obj.ext);
-            //Crea un archivo nuevo temporal, escribe en él los bytes extraidos de la BD.
+            //Crea un archivo nuevo temporal, escribe en él los bytes extraídos de la BD.
             File.WriteAllBytes(filename, obj.archivo);
 
             //Se inicializa el programa para visualizar el archivo.

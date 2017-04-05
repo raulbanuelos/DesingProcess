@@ -176,7 +176,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
-        /// Método para obtener el archivo y la extensión de acuerdo al id;
+        /// Método para obtener el archivo y la extensión del id recibido.
         /// </summary>
         /// <param name="id_archivo"></param>
         /// <returns></returns>
@@ -187,7 +187,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 //Establecemos la conexión a la BD.
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
-                    //obtenemos los valores 
+                    //obtenemos los valores del id que se recibió como parámetro.
                     var lista = (from a in Conexion.TBL_ARCHIVO
                                  where a.ID_ARCHIVO == id_archivo
                                  select new
