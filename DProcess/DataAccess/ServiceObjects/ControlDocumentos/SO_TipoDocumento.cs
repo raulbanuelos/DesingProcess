@@ -43,15 +43,16 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
-/// <summary>
-/// Método para insertar un registro a la tabla tipo.
-/// </summary>
-/// <param name="id_tipo"></param>
-/// <param name="tipo_documento"></param>
-/// <param name="abreviatura"></param>
-/// <param name="fecha_creacion"></param>
-/// <param name="fecha_actualizacion"></param>
-/// <returns>Si encuentra un error, retorna cero.</returns>
+
+        /// <summary>
+        /// Método para insertar un registro a la tabla tipo.
+        /// </summary>
+        /// <param name="id_tipo"></param>
+        /// <param name="tipo_documento"></param>
+        /// <param name="abreviatura"></param>
+        /// <param name="fecha_creacion"></param>
+        /// <param name="fecha_actualizacion"></param>
+        /// <returns>Si encuentra un error, retorna cero.</returns>
         public int SetTipo(int id_tipo,string tipo_documento,string abreviatura,DateTime fecha_creacion,DateTime fecha_actualizacion)
         {
             try

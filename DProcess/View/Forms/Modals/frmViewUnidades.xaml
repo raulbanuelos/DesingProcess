@@ -7,12 +7,27 @@
         mc:Ignorable="d"
         Title="Unidades" Height="341" Width="220">
     <DockPanel>
-        
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="5">
             <Button Content="Cancelar" HorizontalAlignment="Left" Margin="5"></Button>
             <Button Content="Aceptar" HorizontalAlignment="Left" Margin="5"></Button>
         </StackPanel>
-
+            <ItemsControl ItemsSource="{Binding ListaUnidadesViewModel}">
+                <DataTemplate>
+                    <Border Padding="8">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="Checkerz"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsSelected}"></CheckBox>
+                            <StackPanel Margin="8 0 0 0" Grid.Column="1">
+                                <TextBlock FontWeight="Bold" Text="{Binding Name}"></TextBlock>
+                                <TextBlock Text="{Binding Descipcion}"></TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl>
         <StackPanel/>
     </DockPanel>
 </Window>
