@@ -174,5 +174,36 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
+
+        /// <summary>
+        /// Método para obtener el archivo y la extensión de acuerdo al id;
+        /// </summary>
+        /// <param name="id_archivo"></param>
+        /// <returns></returns>
+        public IList GetByte(int id_archivo)
+        {
+            try
+            {
+                //Establecemos la conexión a la BD.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //obtenemos los valores 
+                    var lista = (from a in Conexion.TBL_ARCHIVO
+                                 where a.ID_ARCHIVO == id_archivo
+                                 select new
+                                 {
+                                     a.ARCHIVO,
+                                     a.EXT
+                                 }).ToList();
+                    //retornamos la lista.
+                    return lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si hay algún error, retornamos nulo.
+                return null;
+            }
+        }
     }
 }

@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -93,6 +95,47 @@ namespace Model.ControlDocumentos
             //Se ejecuta el método y regresamos los registros afectados.
             return ServiceArchivo.DeleteArchivo(archivo.id_archivo);
 
+        }
+        
+        /// <summary>
+        /// Método para obtener el archivo de la BD.
+        /// </summary>
+        /// <param name="id_archivo"></param>
+        public static void GetFile(int id_archivo)
+        {
+            //Se inicializan los servicios de Archivo.
+            SO_Archivo ServiceArchivo = new SO_Archivo();
+
+            //obtenemos todo de la BD, con el id que recibimos de parámetro.
+            IList ObjArchivo = ServiceArchivo.GetByte(id_archivo);
+
+            //Creamos un objeto de tipo archivo
+            Archivo obj = new Archivo();
+
+            //Se verifica que la informacion no esté vacía.
+            if (ObjArchivo != null)
+            {
+               
+                foreach (var item in ObjArchivo)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Agregamos el objeto a la lista resultante.
+                    obj.archivo = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
+                    obj.ext = (string)tipo.GetProperty("EXT").GetValue(item, null);
+                }
+            }
+            
+            //Se guarda la ruta del directorio temporal.
+           var tempFolder = Path.GetTempPath();
+            //se asigna el nombre del archivo temporal, se concatena el nombre y la extensión.
+           string filename = Path.Combine(tempFolder, "temp"+obj.ext);
+            //Crea un archivo nuevo temporal, escribe en él los bytes extraidos de la BD.
+            File.WriteAllBytes(filename, obj.archivo);
+
+            //Se inicializa el programa para visualizar el archivo.
+           Process.Start(filename);
         }
         #endregion
 
