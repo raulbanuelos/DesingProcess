@@ -143,7 +143,7 @@
     <Compile Include="Services\ViewModel\CuffViewModel.cs" />
     <Compile Include="Services\ViewModel\TubosCLViewModel.cs" />
     <Compile Include="Services\ViewModel\TubosHDViewModel.cs" />
-    <Compile Include="UserControls\Router.cs" />
+    <Compile Include="Services\Router.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo110.cs" />
     <Compile Include="Services\ViewModel\PatternViewModel.cs" />
     <Compile Include="Services\ViewModel\RelayCommand.cs" />
