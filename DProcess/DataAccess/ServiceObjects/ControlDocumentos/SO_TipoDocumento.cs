@@ -105,7 +105,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     TBL_TIPO_DOCUMENTO obj = Conexion.TBL_TIPO_DOCUMENTO.Where(x => x.ID_TIPO_DOCUMENTO == id_tipo).FirstOrDefault();
 
                     //Se asiganan los valores.
-                 
+
                     obj.TIPO_DOCUMENTO = tipo_documento;
                     obj.ABREBIATURA = abreviatura;
                     obj.FECHA_ACTUALIZACION = fecha_actualizacion;
@@ -153,5 +153,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return 0;
             }
         }
+
+      
     }
 }

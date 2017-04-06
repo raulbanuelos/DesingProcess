@@ -5,6 +5,7 @@ using System;
 using Model.ControlDocumentos;
 using DataAccess.ServiceObjects.Herramentales;
 using DataAccess.ServiceObjects.ControlDocumentos;
+using System.IO;
 
 namespace View.Services.ViewModel
 {
@@ -752,6 +753,17 @@ namespace View.Services.ViewModel
             }
         }
 
+        public byte[] FileToByteArray(string fileName)
+        {
+            try
+            {
+                return File.ReadAllBytes(fileName);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
         /// <summary>
         /// Método que guarda una placa modelo.
         /// </summary>
@@ -774,16 +786,14 @@ namespace View.Services.ViewModel
             //    await dialog.SendMessage("RGP: Alerta", "Oh, Oh, parece ser que algo salió mal.");
 
             DialogService dialog = new DialogService();
-            TipoDocumento obj = new TipoDocumento();
-            obj.id_tipo = 2;
-            obj.tipo_documento = "test";
-            obj.abreviatura = "tst";
-            obj.fecha_actualizacion= Convert.ToDateTime("01/02/2017");
-            obj.fecha_creacion= Convert.ToDateTime("01/02/2017");
+            Archivo obj = new Archivo();
+            obj.id_archivo = 11;
+            //obj.id_version = 8;
+            //obj.archivo = FileToByteArray("C:\\Users\\Ing.practicante\\Documents\\t.docx");
+            //obj.ext = ".docx";
 
-
-            int test = DataManagerControlDocumentos.UpdateTipo(obj);
-
+            DataManagerControlDocumentos.GetFile(obj.id_archivo);
+            int test = 1;
             if (test!=0)
             {
                 await dialog.SendMessage("RGP: Confirmación", "Placa modelo registrada con el código: " + test);
@@ -793,7 +803,6 @@ namespace View.Services.ViewModel
             }
         }
 
-            
         #endregion
     }
 }
