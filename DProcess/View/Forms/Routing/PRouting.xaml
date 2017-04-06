@@ -6,10 +6,26 @@
     xmlns:UserControlDProcess="clr-namespace:View.UserControls"
     mc:Ignorable="d" 
     x:Class="View.Forms.Routing.PRouting"
-	Title="PRouting">
-    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" >
-        <UserControlDProcess:DProcessPropiedad>
+	Title="PRouting"  Height="600" Width="2000">
 
-        </UserControlDProcess:DProcessPropiedad>
-    </StackPanel>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.GroupBox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid ShowGridLines="True" Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="149*"/>
+            <RowDefinition Height="244*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="1350"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+    </Grid>
 </Page>

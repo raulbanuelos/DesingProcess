@@ -20,19 +20,10 @@
     </UserControl.Resources>
 
     <StackPanel Orientation="Horizontal">
-        <TextBox materialDesign:HintAssist.Hint="D1: Inch (in)" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <TextBox materialDesign:HintAssist.Hint="{Binding TextoPresentacion}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
         <StackPanel VerticalAlignment="Center">
-            <materialDesign:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
-                                         PlacementMode="BottomAndAlignCentres" Width="10" Height="10"
-                                         ToolTipService.Placement="Right"
-                                         ToolTip="PopupBox, Style MaterialDesignMultiFloatingActionPopupBox">
-                <StackPanel>
-                    <Button ToolTip="Inch" Content="In"></Button>
-                    <Button ToolTip="Milimeters" Content="mm"></Button>
-                </StackPanel>
-            </materialDesign:PopupBox>
+            <Button Width="15" Height="15"></Button>
         </StackPanel>
-
     </StackPanel>
 </UserControl>
 

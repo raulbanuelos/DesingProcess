@@ -24,9 +24,23 @@ namespace View.Services.ViewModel
             set {
                 model.Nombre = value;
                 NotifyChange("Nombre");
+                NotifyChange("TextoPresentacion");
             }
         }
-        
+
+        /// <summary>
+        /// Cadena que representa la concatecacion del nombre con la unidad.
+        /// </summary>
+        public string TextoPresentacion {
+            get {
+                return model.Nombre + ":" + model.Unidad;
+            }
+            set {
+                model.TextoPresentacion = value;
+                NotifyChange("TextoPresentacion");
+            }
+        }
+
         /// <summary>
         /// Cadena que representa una descripción larga de la propiedad.
         /// </summary>
@@ -84,6 +98,7 @@ namespace View.Services.ViewModel
             set {
                 model.Unidad = value;
                 NotifyChange("Unidad");
+                NotifyChange("TextoPresentacion");
             }
         }
         
