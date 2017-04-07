@@ -261,7 +261,7 @@ namespace Model.ControlDocumentos
                     obj.fecha_emision = (DateTime)tipo.GetProperty("FECHA_EMISION").GetValue(item, null);
                     obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
                     obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
-
+                   
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }
@@ -314,6 +314,43 @@ namespace Model.ControlDocumentos
             return ServiceDocumento.DeleteDocumento(documento.id_documento);
         } 
 
+        public static ObservableCollection<Documento> GetDataGrid()
+        {
+            //Se inicializan los servicios de Documento.
+            SO_Documento ServiceDocumento = new SO_Documento();
+
+            //Se crea una lista de tipo documento, la cual se va a retornar
+            ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
+
+            //obtenemos todo de la BD.
+            IList ObjDocumento = ServiceDocumento.GetDataGrid();
+
+            //Verificamos que la informacion no esté vacía.
+            if (ObjDocumento != null)
+            {
+                foreach (var item in ObjDocumento)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    Documento obj = new Documento();
+
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.Usuarios.nombre= (string)tipo.GetProperty("Nombre").GetValue(item, null);
+                    obj.version.no_version= (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    obj.version.no_copias= (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
+                    obj.version.archivo.archivo=(byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //regresamos la lista.
+            return Lista;
+        }
         #endregion
 
         #region Rol

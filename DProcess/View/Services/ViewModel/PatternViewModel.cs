@@ -792,7 +792,7 @@ namespace View.Services.ViewModel
             //obj.archivo = FileToByteArray("C:\\Users\\Ing.practicante\\Documents\\t.docx");
             //obj.ext = ".docx";
 
-            DataManagerControlDocumentos.GetFile(obj.id_archivo);
+            DataManagerControlDocumentos.GetDataGrid();
             int test = 1;
             if (test!=0)
             {

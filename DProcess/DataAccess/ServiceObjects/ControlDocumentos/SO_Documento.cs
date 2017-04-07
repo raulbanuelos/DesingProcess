@@ -202,5 +202,42 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
 
         }
+
+        /// <summary>
+        /// Método para obtener los registros para el llenado de la tabla ControlDocumento.
+        /// </summary>
+        /// <returns></returns>
+        public IList GetDataGrid()
+        {
+            try
+            {
+                //Se inician los servicios de Entity Control Documento
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta, para llenar la tabla de control documento
+                    var lista = (from d in Conexion.TBL_DOCUMENTO
+                                 join u in Conexion.Usuarios on d.ID_USUARIO_REVISO equals u.Usuario
+                                 join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                 join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
+                                 select new
+                                 {
+                                     d.ID_DOCUMENTO,
+                                     d.NOMBRE,
+                                     d.FECHA_ACTUALIZACION,
+                                     u.Nombre,
+                                     v.No_VERSION,
+                                     v.NO_COPIAS,
+                                     a.ARCHIVO
+                                 }).OrderBy(x => x.ID_DOCUMENTO).ToList();
+                    //se retorna la lista
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si existe algún error, se regresa nulo.
+                return null;
+            }
+        }
     }
 }
