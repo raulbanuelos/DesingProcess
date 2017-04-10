@@ -340,6 +340,7 @@ namespace Model.ControlDocumentos
                     //Asignamos los valores correspondientes.
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.fecha_actualizacion=(DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
                     obj.Usuarios.nombre= (string)tipo.GetProperty("Nombre").GetValue(item, null);
                     obj.version.no_version= (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     obj.version.no_copias= (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
