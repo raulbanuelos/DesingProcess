@@ -56,6 +56,16 @@ namespace Model
         public Propiedad TensionTol { get; set; }
 
         /// <summary>
+        /// Propiedad que representa la ovalidad mínima del anillo.
+        /// </summary>
+        public Propiedad OvalityMin { get; set; }
+
+        /// <summary>
+        /// Propiedad que representa la ovalidad máxima del anillo.
+        /// </summary>
+        public Propiedad OvalityMax { get; set; }
+
+        /// <summary>
         /// Materia prima que representa el material base del anillo.
         /// </summary>
         public MateriaPrima MaterialBase { get; set; }
@@ -202,6 +212,8 @@ namespace Model
             PropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
             Operaciones = new ObservableCollection<IOperacion>();
             FranjasPintura = new ObservableCollection<PinturaAnillo>();
+            OvalityMax = new Propiedad();
+            OvalityMin = new Propiedad();
         }
         #endregion
 

@@ -12,7 +12,11 @@
         /// <summary>
         /// Cadena que representa la concatecacion del nombre con la unidad.
         /// </summary>
-        public string TextoPresentacion { get; set; }
+        public string TextoPresentacion {
+            get {
+                return DescripcionCorta + " : " + Unidad;
+            }
+        }
 
         /// <summary>
         /// Cadena que representa una descripción larga de la propiedad.

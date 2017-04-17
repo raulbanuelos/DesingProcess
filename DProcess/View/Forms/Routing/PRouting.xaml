@@ -4,9 +4,10 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:UserControlDProcess="clr-namespace:View.UserControls"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     mc:Ignorable="d" 
     x:Class="View.Forms.Routing.PRouting"
-	Title="PRouting"  Height="600" Width="2000">
+	Title="PRouting"  Height="Auto" Width="Auto">
 
     <Page.Resources>
         <ResourceDictionary>
@@ -16,16 +17,146 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid ShowGridLines="True" Margin="5">
+    <Grid ShowGridLines="False" Margin="5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="149*"/>
-            <RowDefinition Height="244*"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="15"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="1350"/>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="450"/>
+            <ColumnDefinition Width="15"/>
         </Grid.ColumnDefinitions>
+        
+        <!--Comienza Panel Lateral Derecho-->
+        <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical">
+            <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
+                <GroupBox HorizontalAlignment="Right"  VerticalAlignment="Top" Header="Changes" Style="{DynamicResource MaterialDesignGroupBox}" Width="450" UseLayoutRounding="True" SnapsToDevicePixels="True">
+                    <DataGrid ItemsSource="{Binding Customers}" AutoGenerateColumns="False" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Revision" />
+                            <DataGridTextColumn Header="Description"/>
+                            <DataGridTextColumn Header="Date"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+            </Border>
+            <StackPanel Orientation="Vertical">
+                <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
+                    <GroupBox HorizontalAlignment="Center"  VerticalAlignment="Top" Header="REMARKS" Style="{DynamicResource MaterialDesignGroupBox}" Width="450" UseLayoutRounding="True" SnapsToDevicePixels="True">
+                        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
+                            <TextBox Width="120"></TextBox>
+                        </Border>
+                    </GroupBox>
+                </Border>
+                
+                <!--Comienza GroupBox de Characteristics-->
+                <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
+                    <GroupBox HorizontalAlignment="Center"  VerticalAlignment="Top" Header="CHARACTERISTICS" Style="{DynamicResource MaterialDesignGroupBox}" Width="450" UseLayoutRounding="True" SnapsToDevicePixels="True">
+                        
+                        <!--Comienza panel de Characteristics-->
+                        <StackPanel Orientation="Vertical">
+                            
+                            <!--Comienza panel de Treatment-->
+                            <StackPanel Orientation="Horizontal">
+                                <ComboBox materialDesign:HintAssist.Hint="TREATMENT" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200">
+                                    <ComboBoxItem>ZINC PHOSPHATE</ComboBoxItem>
+                                    <ComboBoxItem>MANGANESE PHOSPHATE</ComboBoxItem>
+                                    <ComboBoxItem>NINGUNO</ComboBoxItem>
+                                </ComboBox>
+                                <ComboBox materialDesign:HintAssist.Hint="SPEC. TREATMENT" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200">
+                                    <ComboBoxItem>SPF-24</ComboBoxItem>
+                                    <ComboBoxItem>MPR023</ComboBoxItem>
+                                    <ComboBoxItem>PCF-40</ComboBoxItem>
+                                    <ComboBoxItem>SPF-21</ComboBoxItem>
+                                    <ComboBoxItem>PCF-207</ComboBoxItem>
+                                    <ComboBoxItem>MPR-207</ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>
+                            <!--Termina panel de Treatment-->
+                            
+                            <!--Comienza panel de Coating-->
+                            <StackPanel Orientation="Horizontal">
+                                <ComboBox materialDesign:HintAssist.Hint="COATING" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200">
+                                    <ComboBoxItem>CHROME</ComboBoxItem>
+                                    <ComboBoxItem>MOLY</ComboBoxItem>
+                                    <ComboBoxItem>NINGUNO</ComboBoxItem>
+                                </ComboBox>
+                                <ComboBox materialDesign:HintAssist.Hint="SPEC. COATING" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200">
+                                    <ComboBoxItem>CHROME</ComboBoxItem>
+                                    <ComboBoxItem>MOLY</ComboBoxItem>
+                                    <ComboBoxItem>NINGUNO</ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>
+                            <!--Termina panel de Coating-->
+                            
+                            <!--Comienza panel de Ovality-->
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding OvalityMin.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding OvalityMin.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                    <Button Width="10" Height="10"></Button>
+                                </StackPanel>
+                                <StackPanel VerticalAlignment="Center" Margin="5">
+                                    <TextBlock Text="-" FontSize="20"></TextBlock>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding OvalityMax.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding OvalityMin.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                    <Button Width="10" Height="10"></Button>
+                                </StackPanel>
+                            </StackPanel>
+                            <!--Termina panel de Ovality-->
+
+                            <!--Comienza panel FT-->
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding Tension.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding Tension.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                    <Button Width="10" Height="10"></Button>
+                                </StackPanel>
+                                <StackPanel VerticalAlignment="Center" Margin="5">
+                                    <TextBlock Text="-" FontSize="20"></TextBlock>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding TensionTol.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding TensionTol.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                    <Button Width="10" Height="10"></Button>
+                                </StackPanel>
+                            </StackPanel>
+                            <!--Termina panel de FT-->
+
+                            <!--Comienza panel Free Gap-->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox materialDesign:HintAssist.Hint="{Binding FreeGap.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding FreeGap.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                <Button Width="10" Height="10"></Button>
+                            </StackPanel>
+                            <!--Termina panel de Free Gap-->
+
+                            <!--Comienza Diámetro y Width-->
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <StackPanel VerticalAlignment="Center" Margin="5">
+                                    <TextBlock Text="-" FontSize="20"></TextBlock>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding H1.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding H1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                    <Button Width="10" Height="10"></Button>
+                                </StackPanel>
+                            </StackPanel>
+                            <!--Temmina Diámetro y Width-->
+                            
+                        </StackPanel>
+                        <!--Termina panel de Characteristics-->
+                        
+                    </GroupBox>
+                </Border>
+                <!--Termina GroupBox de Characteristics-->
+                
+            </StackPanel>
+        </StackPanel>
+        <!--Termina Panel Lateral Derecho-->
+        
     </Grid>
 </Page>

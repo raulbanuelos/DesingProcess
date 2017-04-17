@@ -284,11 +284,23 @@ namespace View.Services.ViewModel
 
         #region Métodos
         #region Métodos de navegación
+
+        /// <summary>
+        /// Método el cual nos envía a la pantalla de captura del plano.
+        /// </summary>
         private void irRouting()
         {
+            //Declaramos un objeto de tipo PRouting, el cual contiene el formulario de entrada del plano del anillo.
             PRouting pantallaPlano = new PRouting();
+
+            //Declaramos un objeto de tipo AnilloViewModel el cual será el contexto de la patalla.
+            AnilloViewModel contexto = new AnilloViewModel();
+
+            //Asignamos el contexto a la pantalla del plano.
+            pantallaPlano.DataContext = contexto;
+
+            //Asignamos a la propiedad Pagina la nueva pantalla que debe de mostrar.
             Pagina = pantallaPlano;
-            pantallaPlano.DataContext = this;
         }
         #endregion
         #endregion

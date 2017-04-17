@@ -33,11 +33,7 @@ namespace View.Services.ViewModel
         /// </summary>
         public string TextoPresentacion {
             get {
-                return model.Nombre + ":" + model.Unidad;
-            }
-            set {
-                model.TextoPresentacion = value;
-                NotifyChange("TextoPresentacion");
+                return model.DescripcionCorta + ":" + model.Unidad;
             }
         }
 
