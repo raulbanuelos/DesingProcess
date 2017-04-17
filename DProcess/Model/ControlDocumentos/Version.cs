@@ -15,10 +15,11 @@ namespace Model.ControlDocumentos
         public string no_version { get; set; }
         public DateTime fecha_version { get; set; }
         public int no_copias { get; set; }
+        public Archivo archivo = new Archivo();
         #endregion
 
         #region Constructores
-       
+
 
         #endregion
 
