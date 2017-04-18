@@ -96,14 +96,14 @@
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBox materialDesign:HintAssist.Hint="{Binding OvalityMin.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding OvalityMin.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                    <Button Width="10" Height="10"></Button>
+                                    <Button Width="10" Height="10" Command="{Binding  VerUnidadesOvalityMax}"></Button>
                                 </StackPanel>
                                 <StackPanel VerticalAlignment="Center" Margin="5">
                                     <TextBlock Text="-" FontSize="20"></TextBlock>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBox materialDesign:HintAssist.Hint="{Binding OvalityMax.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding OvalityMin.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                    <Button Width="10" Height="10"></Button>
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding OvalityMax.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding OvalityMax.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesOvalityMin}"></Button>
                                 </StackPanel>
                             </StackPanel>
                             <!--Termina panel de Ovality-->
@@ -112,14 +112,14 @@
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBox materialDesign:HintAssist.Hint="{Binding Tension.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding Tension.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                    <Button Width="10" Height="10"></Button>
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesTension}"></Button>
                                 </StackPanel>
                                 <StackPanel VerticalAlignment="Center" Margin="5">
                                     <TextBlock Text="-" FontSize="20"></TextBlock>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBox materialDesign:HintAssist.Hint="{Binding TensionTol.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding TensionTol.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                    <Button Width="10" Height="10"></Button>
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesTensionTol}"></Button>
                                 </StackPanel>
                             </StackPanel>
                             <!--Termina panel de FT-->
@@ -127,7 +127,7 @@
                             <!--Comienza panel Free Gap-->
                             <StackPanel Orientation="Horizontal">
                                 <TextBox materialDesign:HintAssist.Hint="{Binding FreeGap.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding FreeGap.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                <Button Width="10" Height="10"></Button>
+                                <Button Width="10" Height="10" Command="{Binding VerUnidadesFreeGap}"></Button>
                             </StackPanel>
                             <!--Termina panel de Free Gap-->
 
@@ -142,7 +142,7 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBox materialDesign:HintAssist.Hint="{Binding H1.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding H1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                    <Button Width="10" Height="10"></Button>
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesH1}"></Button>
                                 </StackPanel>
                             </StackPanel>
                             <!--Temmina Diámetro y Width-->

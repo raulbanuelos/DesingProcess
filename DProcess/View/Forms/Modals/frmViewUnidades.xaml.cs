@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace View.Forms.Modals
     /// <summary>
     /// Lógica de interacción para frmViewUnidades.xaml
     /// </summary>
-    public partial class frmViewUnidades : Window
+    public partial class frmViewUnidades : MetroWindow
     {
         public frmViewUnidades()
         {

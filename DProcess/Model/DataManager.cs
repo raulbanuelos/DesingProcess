@@ -8,6 +8,7 @@ using DataAccess.ServiceObjects.Operaciones.Premaquinado;
 using DataAccess.ServiceObjects.Herramentales;
 using DataAccess.ServiceObjects.MateriasPrimas;
 using DataAccess.ServiceObjects.Usuario;
+using DataAccess.ServiceObjects.Unidades;
 
 namespace Model
 {
@@ -748,6 +749,95 @@ namespace Model
             return ServiceTubosHD.DeleteTubosHD(obj.Tubo.Valor);
         }
         #endregion
+        #endregion
+
+        #region Unidades
+
+        /// <summary>
+        /// Método que obtiene las unidades correspondientes al tipo de dato recibido.
+        /// </summary>
+        /// <param name="TipoDato"></param>
+        /// <returns></returns>
+        public static ObservableCollection<string> GetUnidades(string TipoDato)
+        {
+            //Inicializamos el servicio de Unidades.
+            SO_Unidades ServiceUnidades = new SO_Unidades();
+
+            //Declaramos un lista Observable de tipo cadena. Esta lista será la que retornaremos en el método.
+            ObservableCollection<string> ListaResultante = new ObservableCollection<string>();
+
+            //Declaramos una lista anónima en la que almacenaremos la información de la base de datos.
+            IList InformacionBD;
+
+            //Verificamos de que tipo tendremos que obtener la información.
+            if (TipoDato == "Distance")
+            {
+                InformacionBD = ServiceUnidades.GetUnidadesDistancia();
+            }
+            else {
+                if (TipoDato == "Force")
+                {
+                    InformacionBD = ServiceUnidades.GetUnidadesForce();
+                }
+                else {
+                    if (TipoDato == "Mass")
+                    {
+                        InformacionBD = ServiceUnidades.GetUnidadesMas();
+                    }
+                    else {
+                        if (TipoDato == "Presion")
+                        {
+                            InformacionBD = ServiceUnidades.GetUnidadesPresion();
+                        }
+                        else {
+                            if (TipoDato == "Tiempo")
+                            {
+                                InformacionBD = ServiceUnidades.GetUnidadesTiempo();
+                            }
+                            else {
+                                if (TipoDato == "Cantidad")
+                                {
+                                    InformacionBD = ServiceUnidades.GetUnidadesCantidad();
+                                }
+                                else {
+                                    if (TipoDato == "Angle")
+                                    {
+                                        InformacionBD = ServiceUnidades.GetUnidadesAngle();
+                                    }
+                                    else {
+                                        InformacionBD = null;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Verificamos que el objeto sea diferente de nulo.
+            if (InformacionBD != null)
+            {
+                //Iteramos la información.
+                foreach (var item in InformacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramemos una cadena en la cual guardaremos la unidad.
+                    string elemento;
+
+                    //Obtenemos el valor de la unidad del elemento iterado.
+                    elemento = (string)tipo.GetProperty("UNIDAD").GetValue(item, null);
+
+                    //Agregamos el elemento a la lista.
+                    ListaResultante.Add(elemento);
+                }
+            }
+
+            //Retornamos la lista resultante.
+            return ListaResultante;
+
+        }
         #endregion
     }
 }

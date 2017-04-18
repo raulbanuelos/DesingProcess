@@ -60,7 +60,7 @@
         public override string ToString()
         {
             //Retornamos una cadena con el valor de la propiedad con el formato 0.00000
-            return string.Format("{0:0.00000}", Valor);
+            return Nombre;
         }
         #endregion
     }

@@ -1,4 +1,5 @@
 ﻿using Model;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace View.Services.ViewModel
@@ -6,7 +7,16 @@ namespace View.Services.ViewModel
     public class PropiedadViewModel : INotifyPropertyChanged
     {
         #region Atributos
-        private Propiedad model; 
+        private Propiedad model;
+
+        private ObservableCollection<string> _allTipoUnidad;
+
+        public ObservableCollection<string> AllTipoUnidad
+        {
+            get { return _allTipoUnidad; }
+            set { _allTipoUnidad = value; NotifyChange("AllTipoUnidad"); }
+        }
+
         #endregion
 
         #region Events INotifyPropertyChanged
@@ -63,7 +73,6 @@ namespace View.Services.ViewModel
                 NotifyChange("DescripcionCorta");
             }
         }
-
         
         /// <summary>
         /// Cadena que representa el tipo de dato de la propiedad.
@@ -82,7 +91,7 @@ namespace View.Services.ViewModel
         }
         
         /// <summary>
-        /// Cadena que representa la unidad de la proiedad.
+        /// Cadena que representa la unidad de la propiedad.
         /// </summary>
         /// <example>
         /// degree(°),Inch (in),PSI
@@ -126,6 +135,20 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Constructores
+
+        /// <summary>
+        /// Constructor que inicializa el atributo de modelo.
+        /// </summary>
+        /// <param name="Model">Propiedad que se va asignar al modelo.</param>
+        public PropiedadViewModel(Propiedad Model)
+        {
+            //Mapeamos el valor del modelo recibido al atributo de la clase.
+            model = Model;
+
+            //Ejecutamos el método para obtener la lista de unidades, asignamos el resultado a la lista de la clase.
+            AllTipoUnidad = DataManager.GetUnidades(model.TipoDato);
+        }
+
         /// <summary>
         /// Constructor por default. Inicializa todas las propiedades con valores por default.
         /// </summary>

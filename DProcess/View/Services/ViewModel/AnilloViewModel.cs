@@ -482,7 +482,90 @@ namespace View.Services.ViewModel
             SetUnidesDefault();
         }
 
+        #endregion
+
+        #region Commands
+
+        /// <summary>
+        /// Comando que reponde a la acción de consultar/Modificar la propiedad D1.
+        /// </summary>
+        public ICommand VerUnidadesD1
+        {
+            get
+            {
+                return new RelayCommand(o => verUnidadesDistancia(D1));
+            }
+        }
+
+        public ICommand VerUnidadesH1
+        {
+            get
+            {
+                return new RelayCommand(o => verUnidadesDistancia(H1));
+            }
+        }
+
+        public ICommand VerUnidadesFreeGap
+        {
+            get
+            {
+                return new RelayCommand(o => verUnidadesDistancia(FreeGap));
+            }
+        }
+
+        public ICommand VerUnidadesTensionTol
+        {
+            get
+            {
+                return new RelayCommand(o => verUnidadesDistancia(TensionTol));
+            }
+        }
+
+        public ICommand VerUnidadesTension
+        {
+            get
+            {
+                return new RelayCommand(o => verUnidadesDistancia(Tension));
+            }
+        }
+
+        public ICommand VerUnidadesOvalityMax
+        {
+            get
+            {
+                return new RelayCommand(o => verUnidadesDistancia(OvalityMax));
+            }
+        }
+
+        public ICommand VerUnidadesOvalityMin
+        {
+            get
+            {
+                return new RelayCommand(o => verUnidadesDistancia(OvalityMin));
+            }
+        }
+        #endregion
+
         #region Methods
+
+        /// <summary>
+        /// Método que muestra una ventana con todas las posibles unidades a mostrar.
+        /// </summary>
+        /// <param name="laPropiedad">Propiedad que representa el modelo de la pantalla que se muestra.</param>
+        private void verUnidadesDistancia(Propiedad laPropiedad)
+        {
+            //Inicializamos el contexto de Propiedad.
+            PropiedadViewModel contexto = new PropiedadViewModel(laPropiedad);
+
+            //Declaramos un objeto que representa la pantalla a mostrar.
+            frmViewUnidades modal = new frmViewUnidades();
+
+            //Asignamos el contexto a la pantalla.
+            modal.DataContext = contexto;
+
+            //Ejecutamos el método para que se muestre la pantalla.
+            modal.ShowDialog();
+        }
 
         /// <summary>
         /// Método que inicializa los valores por defualt de todas las propiedades del modelo Anillo.
@@ -537,31 +620,6 @@ namespace View.Services.ViewModel
             ModelAnillo.FreeGap.DescripcionCorta = "Free gap";
             ModelAnillo.FreeGap.DescripcionLarga = "Abertura libre del anillo";
 
-        }
-
-        #endregion
-
-        #endregion
-
-        #region Commands
-
-        /// <summary>
-        /// Comando que reponde a la acción de consultar/Modificar l
-        /// </summary>
-        public ICommand VerUnidadesD1
-        {
-            get
-            {
-                return new RelayCommand(o => verUnidadesDistancia(D1));
-            }
-        }
-        #endregion
-
-        #region Methods
-        private void verUnidadesDistancia(Propiedad laPropiedad)
-        {
-            frmViewUnidades obj = new frmViewUnidades();
-            obj.ShowDialog();
         }
         #endregion
     }
