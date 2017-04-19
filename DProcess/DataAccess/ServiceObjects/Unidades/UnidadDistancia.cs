@@ -16,6 +16,6 @@ namespace DataAccess.ServiceObjects.Unidades
     {
         public int ID_UNIDAD_DISTANCIA { get; set; }
         public string Nombre { get; set; }
-        public Nullable<double> ValorInches { get; set; }
+        public double ValorInches { get; set; }
     }
 }

@@ -6,9 +6,8 @@
         xmlns:local="clr-namespace:View.Forms.Modals"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="Unidades" Height="341" Width="220"
+        Title="Unidades" Height="491" Width="679"
                       GlowBrush="{DynamicResource AccentColorBrush}"
-
                       WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="RadioButtonListStyle" TargetType="{x:Type ListBox}">
@@ -34,14 +33,12 @@
     </Window.Resources>
 
     <DockPanel>
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="5">
-            <Button Content="Cancelar" HorizontalAlignment="Left" Margin="5"></Button>
-            <Button Content="Aceptar" HorizontalAlignment="Left" Margin="5"></Button>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical" HorizontalAlignment="Right" Margin="10,0,10,10">
+            <Button Name="btn_aceptar" Click="btn_aceptar_Click" Content="Aceptar" HorizontalAlignment="Left" Command="{Binding CerrarVentana}"></Button>
         </StackPanel>
-        <ListBox Cursor="Hand" Margin="10" Width="190" Style="{StaticResource RadioButtonListStyle}" Name="listViewUnidades" ItemsSource="{Binding AllTipoUnidad}" SelectedItem="{Binding Unidad}">
+        <ListBox Cursor="Hand" Margin="10,10,10,5" Width="645" Style="{StaticResource RadioButtonListStyle}" Name="listViewUnidades" ItemsSource="{Binding AllTipoUnidad}" SelectedItem="{Binding Unidad}">
 
         </ListBox>
-
         <StackPanel/>
     </DockPanel>
 </Controls:MetroWindow>

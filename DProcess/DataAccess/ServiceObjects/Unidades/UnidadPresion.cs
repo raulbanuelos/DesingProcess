@@ -16,6 +16,6 @@ namespace DataAccess.ServiceObjects.Unidades
     {
         public int ID_UNIDAD_PRESION { get; set; }
         public string Nombre { get; set; }
-        public Nullable<double> ValorPSI { get; set; }
+        public double ValorPSI { get; set; }
     }
 }

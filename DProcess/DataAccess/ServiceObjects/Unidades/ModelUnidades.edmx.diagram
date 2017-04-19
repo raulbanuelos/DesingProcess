@@ -5,13 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="8a5bf571c22f499da27342889631394c" Name="Diagram1">
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Unidades.UnidadAngle" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Unidades.UnidadCantidad" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Unidades.UnidadDistancia" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Unidades.UnidadForce" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Unidades.UnidadMass" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Unidades.UnidadPresion" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Unidades.UnidadTiempo" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Unidades.UnidadAngle" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Unidades.UnidadCantidad" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Unidades.UnidadDistancia" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Unidades.UnidadForce" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Unidades.UnidadMass" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Unidades.UnidadPresion" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Unidades.UnidadTiempo" Width="1.5" PointX="6.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

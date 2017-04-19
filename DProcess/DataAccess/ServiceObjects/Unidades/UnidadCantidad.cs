@@ -16,6 +16,6 @@ namespace DataAccess.ServiceObjects.Unidades
     {
         public int ID_UNIDAD_CANTIDAD { get; set; }
         public string Nombre { get; set; }
-        public Nullable<double> ValorUnidad { get; set; }
+        public double ValorUnidad { get; set; }
     }
 }

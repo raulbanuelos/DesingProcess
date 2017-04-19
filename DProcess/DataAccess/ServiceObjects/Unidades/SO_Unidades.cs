@@ -36,6 +36,26 @@ namespace DataAccess.ServiceObjects.Unidades
             }
         }
 
+
+        public double GetValueInchUnidadDistance(string nombreUnidad)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesUnidades())
+                {
+                    double valor = (from a in Conexion.UnidadDistancia
+                                    where a.Nombre == nombreUnidad
+                                    select a.ValorInches).FirstOrDefault();
+                    return valor;
+
+                }
+            }
+            catch (Exception er)
+            {
+                return 0;
+            }
+        }
+
         /// <summary>
         /// Método que obtiene todas las unidades de tipo Presion.
         /// </summary>
@@ -63,6 +83,25 @@ namespace DataAccess.ServiceObjects.Unidades
             {
                 //Si se presenta algún error, retornamos un nulo.
                 return null;
+            }
+        }
+
+        public double GetValuePSIUnidadPresion(string nombreUnidad)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesUnidades())
+                {
+                    var valor = (from a in Conexion.UnidadPresion
+                                 where a.Nombre == nombreUnidad
+                                 select a.ValorPSI).FirstOrDefault();
+
+                    return valor;
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
             }
         }
 
@@ -96,6 +135,25 @@ namespace DataAccess.ServiceObjects.Unidades
             }
         }
 
+        public double GetValueGradosUnidadAngle(string nombreUnidad)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesUnidades())
+                {
+                    var valor = (from a in Conexion.UnidadAngle
+                                 where a.Nombre == nombreUnidad
+                                 select a.ValorGrados).FirstOrDefault();
+
+                    return valor;
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
         /// <summary>
         /// Método que obtiene todas las unidades de tipo Cantidad.
         /// </summary>
@@ -123,6 +181,25 @@ namespace DataAccess.ServiceObjects.Unidades
             {
                 //Si se presenta algún error, retornamos un nulo.
                 return null;
+            }
+        }
+
+        public double GetValueUnidadUnidadCantidad(string nombreUnidad)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesUnidades())
+                {
+                    var valor = (from a in Conexion.UnidadCantidad
+                                 where a.Nombre == nombreUnidad
+                                 select a.ValorUnidad).FirstOrDefault();
+
+                    return valor;
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
             }
         }
 
@@ -156,6 +233,25 @@ namespace DataAccess.ServiceObjects.Unidades
             }
         }
 
+        public double GetValueLBSUnidadForce(string nombreUnidad)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesUnidades())
+                {
+                    var valor = (from a in Conexion.UnidadForce
+                                 where a.Nombre == nombreUnidad
+                                 select a.ValorLBS).FirstOrDefault();
+
+                    return valor;
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
         /// <summary>
         /// Método que obtiene todas las unidades de tipo Mass.
         /// </summary>
@@ -186,6 +282,25 @@ namespace DataAccess.ServiceObjects.Unidades
             }
         }
 
+        public double GetValueGramUnidadMass(string nombreUnidad)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesUnidades())
+                {
+                    var valor = (from a in Conexion.UnidadMass
+                                 where a.Nombre == nombreUnidad
+                                 select a.ValorGram).FirstOrDefault();
+
+                    return valor;
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
         /// <summary>
         /// Método que obtiene todas las unidades de tipo Tiempo.
         /// </summary>
@@ -213,6 +328,25 @@ namespace DataAccess.ServiceObjects.Unidades
             {
                 //Si se presenta algún error, retornamos un nulo.
                 return null;
+            }
+        }
+
+        public double GetValueSegUnidadTiempo(string nombreUnidad)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesUnidades())
+                {
+                    var valor = (from a in Conexion.UnidadTiempo
+                                 where a.Nombre == nombreUnidad
+                                 select a.ValorSeg).FirstOrDefault();
+
+                    return valor;
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
             }
         }
     }

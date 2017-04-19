@@ -16,6 +16,6 @@ namespace DataAccess.ServiceObjects.Unidades
     {
         public int ID_UNIDAD_TIEMPO { get; set; }
         public string Nombre { get; set; }
-        public Nullable<double> ValorSeg { get; set; }
+        public double ValorSeg { get; set; }
     }
 }

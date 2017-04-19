@@ -16,6 +16,6 @@ namespace DataAccess.ServiceObjects.Unidades
     {
         public int ID_UNIDAD_ANGLE { get; set; }
         public string Nombre { get; set; }
-        public Nullable<double> ValorGrados { get; set; }
+        public double ValorGrados { get; set; }
     }
 }

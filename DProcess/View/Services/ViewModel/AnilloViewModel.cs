@@ -487,7 +487,7 @@ namespace View.Services.ViewModel
         #region Commands
 
         /// <summary>
-        /// Comando que reponde a la acción de consultar/Modificar la propiedad D1.
+        /// Comando que reponde a la acción de consultar/Modificar la unidad de la propiedad D1(Diámetro nominal del anillo).
         /// </summary>
         public ICommand VerUnidadesD1
         {
@@ -497,6 +497,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando que reponde a la acción de consultar/Modificar la unidad de la propiedad H1(Width del anillo).
+        /// </summary>
         public ICommand VerUnidadesH1
         {
             get
@@ -505,6 +508,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando que reponde a la acción de consultar/Modificar la unidad de la propiedad FreeGap.
+        /// </summary>
         public ICommand VerUnidadesFreeGap
         {
             get
@@ -513,6 +519,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando que reponde a la acción de consultar/Modificar la unidad de la propiedad TensionTol.
+        /// </summary>
         public ICommand VerUnidadesTensionTol
         {
             get
@@ -521,6 +530,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando que reponde a la acción de consultar/Modificar la unidad de la propiedad Tension.
+        /// </summary>
         public ICommand VerUnidadesTension
         {
             get
@@ -529,6 +541,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando que reponde a la acción de consultar/Modificar la unidad de la propiedad OvalityMax.
+        /// </summary>
         public ICommand VerUnidadesOvalityMax
         {
             get
@@ -537,6 +552,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando que reponde a la acción de consultar/Modificar la unidad de la propiedad OvalityMin.
+        /// </summary>
         public ICommand VerUnidadesOvalityMin
         {
             get
@@ -555,50 +573,51 @@ namespace View.Services.ViewModel
         private void verUnidadesDistancia(Propiedad laPropiedad)
         {
             //Inicializamos el contexto de Propiedad.
-            PropiedadViewModel contexto = new PropiedadViewModel(laPropiedad);
+            PropiedadViewModel contextoUnidades = new PropiedadViewModel(laPropiedad);
 
             //Declaramos un objeto que representa la pantalla a mostrar.
             frmViewUnidades modal = new frmViewUnidades();
 
             //Asignamos el contexto a la pantalla.
-            modal.DataContext = contexto;
+            modal.DataContext = contextoUnidades;
 
             //Ejecutamos el método para que se muestre la pantalla.
             modal.ShowDialog();
 
+            //Verificamos cual es la propiedad y asignamos el atributo model de la clase PropiedadViewModel para que se visualice el cambio de unidad.
             if (laPropiedad.Nombre == "H1")
             {
-                H1 = contexto.model;
+                H1 = contextoUnidades.model;
             }
             else {
                 if (laPropiedad.Nombre == "D1")
                 {
-                    D1 = contexto.model;
+                    D1 = contextoUnidades.model;
                 }
                 else {
                     if (laPropiedad.Nombre == "FreeGap")
                     {
-                        FreeGap = contexto.model;
+                        FreeGap = contextoUnidades.model;
                     }
                     else {
                         if (laPropiedad.Nombre == "Tension")
                         {
-                            Tension = contexto.model;
+                            Tension = contextoUnidades.model;
                         }
                         else {
                             if (laPropiedad.Nombre == "TensionTol")
                             {
-                                TensionTol = contexto.model;
+                                TensionTol = contextoUnidades.model;
                             }
                             else {
                                 if (laPropiedad.Nombre == "OvalityMin")
                                 {
-                                    OvalityMin = contexto.model;
+                                    OvalityMin = contextoUnidades.model;
                                 }
                                 else {
                                     if (laPropiedad.Nombre == "OvalityMax")
                                     {
-                                        OvalityMax = contexto.model;
+                                        OvalityMax = contextoUnidades.model;
                                     }
                                 }
                             }

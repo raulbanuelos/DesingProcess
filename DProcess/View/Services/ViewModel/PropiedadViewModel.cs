@@ -1,6 +1,9 @@
-﻿using Model;
+﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 
 namespace View.Services.ViewModel
 {
@@ -20,6 +23,7 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Properties
+
         #endregion
 
         #region Events INotifyPropertyChanged
@@ -104,12 +108,41 @@ namespace View.Services.ViewModel
                 return model.Unidad;
             }
             set {
-                model.Unidad = value;
-                NotifyChange("Unidad");
-                NotifyChange("TextoPresentacion");
+                if (model.Unidad != value)
+                {
+                    SetNewValor(value);
+                }
             }
         }
-        
+
+        /// <summary>
+        /// Método que asigna el nuevo valor a la propiedad Unidad. Así mismo permirte convertir o mantener el valor.
+        /// </summary>
+        /// <param name="NewUnidad"></param>
+        public async void SetNewValor(string NewUnidad)
+        {
+            //Ejecutamos el método para obtener la ventana donde se muestran las unidades.
+            var metroWindow = Module.GetWindow("Unidades") as MetroWindow;
+
+            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = "Convert to";
+            setting.NegativeButtonText = "Keep";
+
+            //Mostramos el mensaje en donde le indicamos al usuario que desea realizar, si mantener el mismo valor o convertirlo a la unidad que acaba de seleccionar. El resultado lo guardamos en una variable de tipo MessageDialogResult.
+            MessageDialogResult result = await metroWindow.ShowMessageAsync("Attention", "What do you want to do? \n Keep the same value \n Convert the value from " + model.Unidad + " to " + NewUnidad, MessageDialogStyle.AffirmativeAndNegative, setting);
+
+            //Comparamos si la respuesta fué afirmativa, el usuario eligió convertir el valor.
+            if (result == MessageDialogResult.Affirmative)
+            {
+                Valor = Module.ConvertTo(model.TipoDato, model.Unidad, NewUnidad,Valor);
+                NotifyChange("Valor");
+            }
+            model.Unidad = NewUnidad;
+            NotifyChange("Unidad");
+            NotifyChange("TextoPresentacion");
+        }
+
         /// <summary>
         /// Double que representa el valor de la propiedad.
         /// </summary>

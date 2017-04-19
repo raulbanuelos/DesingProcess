@@ -16,6 +16,6 @@ namespace DataAccess.ServiceObjects.Unidades
     {
         public int ID_UNIDAD_FORCE { get; set; }
         public string Nombre { get; set; }
-        public Nullable<double> ValorLBS { get; set; }
+        public double ValorLBS { get; set; }
     }
 }
