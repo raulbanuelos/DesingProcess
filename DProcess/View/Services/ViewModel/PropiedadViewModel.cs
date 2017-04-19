@@ -7,7 +7,7 @@ namespace View.Services.ViewModel
     public class PropiedadViewModel : INotifyPropertyChanged
     {
         #region Atributos
-        private Propiedad model;
+        public Propiedad model;
 
         private ObservableCollection<string> _allTipoUnidad;
 
@@ -17,6 +17,9 @@ namespace View.Services.ViewModel
             set { _allTipoUnidad = value; NotifyChange("AllTipoUnidad"); }
         }
 
+        #endregion
+
+        #region Properties
         #endregion
 
         #region Events INotifyPropertyChanged
@@ -207,9 +210,7 @@ namespace View.Services.ViewModel
             }
 
         }
-
-
-
+        
         #endregion
 
         #region INotifyPropertyChanged Métodos

@@ -565,6 +565,47 @@ namespace View.Services.ViewModel
 
             //Ejecutamos el método para que se muestre la pantalla.
             modal.ShowDialog();
+
+            if (laPropiedad.Nombre == "H1")
+            {
+                H1 = contexto.model;
+            }
+            else {
+                if (laPropiedad.Nombre == "D1")
+                {
+                    D1 = contexto.model;
+                }
+                else {
+                    if (laPropiedad.Nombre == "FreeGap")
+                    {
+                        FreeGap = contexto.model;
+                    }
+                    else {
+                        if (laPropiedad.Nombre == "Tension")
+                        {
+                            Tension = contexto.model;
+                        }
+                        else {
+                            if (laPropiedad.Nombre == "TensionTol")
+                            {
+                                TensionTol = contexto.model;
+                            }
+                            else {
+                                if (laPropiedad.Nombre == "OvalityMin")
+                                {
+                                    OvalityMin = contexto.model;
+                                }
+                                else {
+                                    if (laPropiedad.Nombre == "OvalityMax")
+                                    {
+                                        OvalityMax = contexto.model;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>

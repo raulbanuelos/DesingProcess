@@ -32,7 +32,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    
+
     <DockPanel>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="5">
             <Button Content="Cancelar" HorizontalAlignment="Left" Margin="5"></Button>
@@ -41,6 +41,7 @@
         <ListBox Cursor="Hand" Margin="10" Width="190" Style="{StaticResource RadioButtonListStyle}" Name="listViewUnidades" ItemsSource="{Binding AllTipoUnidad}" SelectedItem="{Binding Unidad}">
 
         </ListBox>
+
         <StackPanel/>
     </DockPanel>
 </Controls:MetroWindow>
