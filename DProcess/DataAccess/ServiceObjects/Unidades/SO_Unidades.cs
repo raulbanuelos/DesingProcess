@@ -36,22 +36,30 @@ namespace DataAccess.ServiceObjects.Unidades
             }
         }
 
-
+        /// <summary>
+        /// Método que obtiene el valor de una unidad.
+        /// </summary>
+        /// <param name="nombreUnidad">Cadena que representa el nombre de la unidad requerida.</param>
+        /// <returns></returns>
         public double GetValueInchUnidadDistance(string nombreUnidad)
         {
             try
             {
+                //Inicializamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesUnidades())
                 {
+                    //Realizamos la consulta y el resultado lo guardamos en una variable.
                     double valor = (from a in Conexion.UnidadDistancia
                                     where a.Nombre == nombreUnidad
                                     select a.ValorInches).FirstOrDefault();
-                    return valor;
 
+                    //Retornamos el resultado de la consulta.
+                    return valor;
                 }
             }
             catch (Exception er)
             {
+                //Retornamos un cero si ocurre algún error.
                 return 0;
             }
         }
@@ -86,21 +94,30 @@ namespace DataAccess.ServiceObjects.Unidades
             }
         }
 
+        /// <summary>
+        /// Método que obtiene el valor de una unidad.
+        /// </summary>
+        /// <param name="nombreUnidad">Cadena que representa el nombre de la unidad requerida.</param>
+        /// <returns></returns>
         public double GetValuePSIUnidadPresion(string nombreUnidad)
         {
             try
             {
+                //Inicializamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesUnidades())
                 {
+                    //Realizamos la consulta y el resultado lo guardamos en una variable.
                     var valor = (from a in Conexion.UnidadPresion
                                  where a.Nombre == nombreUnidad
                                  select a.ValorPSI).FirstOrDefault();
 
+                    //Retornamos el resultado de la consulta.
                     return valor;
                 }
             }
             catch (Exception)
             {
+                //Retornamos un cero si ocurre algún error.
                 return 0;
             }
         }
@@ -135,21 +152,30 @@ namespace DataAccess.ServiceObjects.Unidades
             }
         }
 
+        /// <summary>
+        /// Método que obtiene el valor de una unidad.
+        /// </summary>
+        /// <param name="nombreUnidad">Cadena que representa el nombre de la unidad requerida.</param>
+        /// <returns></returns>
         public double GetValueGradosUnidadAngle(string nombreUnidad)
         {
             try
             {
+                //Inicializamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesUnidades())
                 {
+                    //Realizamos la consulta y el resultado lo guardamos en una variable.
                     var valor = (from a in Conexion.UnidadAngle
                                  where a.Nombre == nombreUnidad
                                  select a.ValorGrados).FirstOrDefault();
 
+                    //Retornamos el resultado de la consulta.
                     return valor;
                 }
             }
             catch (Exception)
             {
+                //Retornamos un cero si ocurre algún error.
                 return 0;
             }
         }
@@ -184,21 +210,30 @@ namespace DataAccess.ServiceObjects.Unidades
             }
         }
 
+        /// <summary>
+        /// Método que obtiene el valor de una unidad.
+        /// </summary>
+        /// <param name="nombreUnidad">Cadena que representa el nombre de la unidad requerida.</param>
+        /// <returns></returns>
         public double GetValueUnidadUnidadCantidad(string nombreUnidad)
         {
             try
             {
+                //Inicializamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesUnidades())
                 {
+                    //Realizamos la consulta y el resultado lo guardamos en una variable.
                     var valor = (from a in Conexion.UnidadCantidad
                                  where a.Nombre == nombreUnidad
                                  select a.ValorUnidad).FirstOrDefault();
 
+                    //Retornamos el resultado de la consulta.
                     return valor;
                 }
             }
             catch (Exception)
             {
+                //Retornamos un cero si ocurre algún error.
                 return 0;
             }
         }
@@ -233,21 +268,30 @@ namespace DataAccess.ServiceObjects.Unidades
             }
         }
 
+        /// <summary>
+        /// Método que obtiene el valor de una unidad.
+        /// </summary>
+        /// <param name="nombreUnidad">Cadena que representa el nombre de la unidad requerida.</param>
+        /// <returns></returns>
         public double GetValueLBSUnidadForce(string nombreUnidad)
         {
             try
             {
+                //Inicializamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesUnidades())
                 {
+                    //Realizamos la consulta y el resultado lo guardamos en una variable.
                     var valor = (from a in Conexion.UnidadForce
                                  where a.Nombre == nombreUnidad
                                  select a.ValorLBS).FirstOrDefault();
 
+                    //Retornamos el resultado de la consulta.
                     return valor;
                 }
             }
             catch (Exception)
             {
+                //Retornamos un cero si ocurre algún error.
                 return 0;
             }
         }
@@ -282,21 +326,30 @@ namespace DataAccess.ServiceObjects.Unidades
             }
         }
 
+        /// <summary>
+        /// Método que obtiene el valor de una unidad.
+        /// </summary>
+        /// <param name="nombreUnidad">Cadena que representa el nombre de la unidad requerida.</param>
+        /// <returns></returns>
         public double GetValueGramUnidadMass(string nombreUnidad)
         {
             try
             {
+                //Inicializamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesUnidades())
                 {
+                    //Realizamos la consulta y el resultado lo guardamos en una variable.
                     var valor = (from a in Conexion.UnidadMass
                                  where a.Nombre == nombreUnidad
                                  select a.ValorGram).FirstOrDefault();
 
+                    //Retornamos el resultado de la consulta.
                     return valor;
                 }
             }
             catch (Exception)
             {
+                //Retornamos un cero si ocurre algún error.
                 return 0;
             }
         }
@@ -331,21 +384,30 @@ namespace DataAccess.ServiceObjects.Unidades
             }
         }
 
+        /// <summary>
+        /// Método que obtiene el valor de una unidad.
+        /// </summary>
+        /// <param name="nombreUnidad">Cadena que representa el nombre de la unidad requerida.</param>
+        /// <returns></returns>
         public double GetValueSegUnidadTiempo(string nombreUnidad)
         {
             try
             {
+                //Inicializamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesUnidades())
                 {
+                    //Realizamos la consulta y el resultado lo guardamos en una variable.
                     var valor = (from a in Conexion.UnidadTiempo
                                  where a.Nombre == nombreUnidad
                                  select a.ValorSeg).FirstOrDefault();
 
+                    //Retornamos el resultado de la consulta.
                     return valor;
                 }
             }
             catch (Exception)
             {
+                //Retornamos un cero si ocurre algún error.
                 return 0;
             }
         }
