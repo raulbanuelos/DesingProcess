@@ -411,5 +411,62 @@ namespace DataAccess.ServiceObjects.Unidades
                 return 0;
             }
         }
+
+        /// <summary>
+        /// Método que obtiene todas las unidades de tipo Dureza.
+        /// </summary>
+        /// <returns>Retorna una lista anónima con la información. Si se presenta algún error retorna un nulo.</returns>
+        public IList GetUnidadesDureza()
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Contexto = new EntitiesUnidades())
+                {
+                    //Realizamos la consulta. El resultado lo asignamos a una lista anónima.
+                    var Lista = (from a in Contexto.UnidadDureza
+                                 select new {
+                                     ID = a.ID_UNIDAD_DUREZA,
+                                     VALOR = a.ValorHR,
+                                     UNIDAD = a.Nombre
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si se presenta algún error, retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene el valor de una unidad.
+        /// </summary>
+        /// <param name="nombreUnidad">Cadena que representa el nombre de la unidad requerida.</param>
+        /// <returns></returns>
+        public double GetValueDurezaUnidadDureza(string nombreUnidad)
+        {
+            try
+            {
+                 //Inicializamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesUnidades())
+                {
+                    //Realizamos la consulta y el resultado lo guardamos en una variable.
+                    var valor = (from a in Conexion.UnidadDureza
+                                 where a.Nombre == nombreUnidad
+                                 select a.ValorHR).FirstOrDefault();
+
+                    //Retornamos el resultado de la consulta.
+                    return valor;
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
     }
 }

@@ -32,5 +32,6 @@ namespace DataAccess.ServiceObjects.Unidades
         public virtual DbSet<UnidadMass> UnidadMass { get; set; }
         public virtual DbSet<UnidadPresion> UnidadPresion { get; set; }
         public virtual DbSet<UnidadTiempo> UnidadTiempo { get; set; }
+        public virtual DbSet<UnidadDureza> UnidadDureza { get; set; }
     }
 }

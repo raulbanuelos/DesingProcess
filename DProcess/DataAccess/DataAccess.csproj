@@ -204,6 +204,9 @@
     <Compile Include="ServiceObjects\Unidades\UnidadDistancia.cs">
       <DependentUpon>ModelUnidades.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Unidades\UnidadDureza.cs">
+      <DependentUpon>ModelUnidades.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Unidades\UnidadForce.cs">
       <DependentUpon>ModelUnidades.tt</DependentUpon>
     </Compile>

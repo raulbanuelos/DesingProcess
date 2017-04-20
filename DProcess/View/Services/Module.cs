@@ -5,6 +5,7 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.Windows;
 using DataAccess.ServiceObjects.Unidades;
+using System;
 
 namespace View.Services
 {
@@ -467,8 +468,14 @@ namespace View.Services
                                         valorUnidadInicial = ServicioUnidades.GetValueUnidadUnidadCantidad(UnidadInicial);
                                         valorUnidadDestino = ServicioUnidades.GetValueUnidadUnidadCantidad(UnidadDestino);
                                     }
+                                    else {
+                                        if (TipoDato == "Dureza")
+                                        {
+                                            valorUnidadInicial = ServicioUnidades.GetValueDurezaUnidadDureza(UnidadInicial);
+                                            valorUnidadDestino = ServicioUnidades.GetValueDurezaUnidadDureza(UnidadDestino);
+                                        }
+                                    }
                                 }
-
                             }
                         }
                     }
@@ -477,10 +484,10 @@ namespace View.Services
 
             //Convertimos primeramente a la unidad por defautl. 
             //Ejemplo para el caso del tipo de unidad distancia, primeramente lo convertimos a Pulgadas.
-            double valorUnidadDefault = valorUnidadInicial * valor;
+            double valorUnidadDefault = Math.Round(valorUnidadInicial * valor,4);
 
             //Convertimos el valor de pulgadas a la unidad requerida.
-            respuesta = valorUnidadDefault / valorUnidadDestino;
+            respuesta = Math.Round(valorUnidadDefault / valorUnidadDestino,4);
 
             //Retornamos el valor.
             return respuesta;

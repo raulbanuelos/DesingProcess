@@ -293,7 +293,7 @@ namespace View.Services.ViewModel
             //Declaramos un objeto de tipo PRouting, el cual contiene el formulario de entrada del plano del anillo.
             PRouting pantallaPlano = new PRouting();
 
-            //Declaramos un objeto de tipo AnilloViewModel el cual será el contexto de la patalla.
+            //Declaramos un objeto de tipo AnilloViewModel el cual será el contexto de la pantalla.
             AnilloViewModel contexto = new AnilloViewModel();
 
             //Asignamos el contexto a la pantalla del plano.

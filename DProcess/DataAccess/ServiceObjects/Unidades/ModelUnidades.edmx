@@ -29,6 +29,14 @@
           <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="ValorInches" Type="float" Nullable="false" />
         </EntityType>
+        <EntityType Name="UnidadDureza">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD_DUREZA" />
+          </Key>
+          <Property Name="ID_UNIDAD_DUREZA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ValorHR" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="UnidadForce">
           <Key>
             <PropertyRef Name="ID_UNIDAD_FORCE" />
@@ -65,6 +73,7 @@
           <EntitySet Name="UnidadAngle" EntityType="Self.UnidadAngle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnidadCantidad" EntityType="Self.UnidadCantidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnidadDistancia" EntityType="Self.UnidadDistancia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnidadDureza" EntityType="Self.UnidadDureza" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnidadForce" EntityType="Self.UnidadForce" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnidadMass" EntityType="Self.UnidadMass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnidadPresion" EntityType="Self.UnidadPresion" Schema="dbo" store:Type="Tables" />
@@ -82,6 +91,7 @@
           <EntitySet Name="UnidadMass" EntityType="DataAccess.ServiceObjects.Unidades.UnidadMass" />
           <EntitySet Name="UnidadPresion" EntityType="DataAccess.ServiceObjects.Unidades.UnidadPresion" />
           <EntitySet Name="UnidadTiempo" EntityType="DataAccess.ServiceObjects.Unidades.UnidadTiempo" />
+          <EntitySet Name="UnidadDureza" EntityType="DataAccess.ServiceObjects.Unidades.UnidadDureza" />
         </EntityContainer>
         <EntityType Name="UnidadAngle">
           <Key>
@@ -138,6 +148,14 @@
           <Property Name="ID_UNIDAD_TIEMPO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ValorSeg" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnidadDureza">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD_DUREZA" />
+          </Key>
+          <Property Name="ID_UNIDAD_DUREZA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ValorHR" Type="Double" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -205,6 +223,15 @@
                 <ScalarProperty Name="ValorSeg" ColumnName="ValorSeg" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="ID_UNIDAD_TIEMPO" ColumnName="ID_UNIDAD_TIEMPO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnidadDureza">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Unidades.UnidadDureza">
+              <MappingFragment StoreEntitySet="UnidadDureza">
+                <ScalarProperty Name="ValorHR" ColumnName="ValorHR" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID_UNIDAD_DUREZA" ColumnName="ID_UNIDAD_DUREZA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

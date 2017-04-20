@@ -12,6 +12,7 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Unidades.UnidadMass" Width="1.5" PointX="4.75" PointY="0.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Unidades.UnidadPresion" Width="1.5" PointX="4.75" PointY="3.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Unidades.UnidadTiempo" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Unidades.UnidadDureza" Width="1.5" PointX="0.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

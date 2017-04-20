@@ -805,7 +805,13 @@ namespace Model
                                         InformacionBD = ServiceUnidades.GetUnidadesAngle();
                                     }
                                     else {
-                                        InformacionBD = null;
+                                        if (TipoDato == "Dureza")
+                                        {
+                                            InformacionBD = ServiceUnidades.GetUnidadesDureza();
+                                        }
+                                        else {
+                                            InformacionBD = null;
+                                        }
                                     }
                                 }
                             }

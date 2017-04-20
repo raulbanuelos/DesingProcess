@@ -262,22 +262,9 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Cadena que representa la dureza del anillo.
-        /// </summary>
-        public string Hardness {
-            get {
-                return ModelAnillo.Hardness;
-            }
-            set {
-                ModelAnillo.Hardness = value;
-                NotifyChange("Hardness");
-            }
-        }
-
-        /// <summary>
         /// Double que representa la dureza máxima del anillo.
         /// </summary>
-        public double HardnessMin {
+        public Propiedad HardnessMin {
             get {
                 return ModelAnillo.HardnessMin;
             }
@@ -290,7 +277,7 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Double que representa la dureza mínima del anillo.
         /// </summary>
-        public double HardnessMax {
+        public Propiedad HardnessMax {
             get {
                 return ModelAnillo.HardnessMax;
             }
@@ -493,7 +480,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(o => verUnidadesDistancia(D1));
+                return new RelayCommand(o => verListaUnidades(D1));
             }
         }
 
@@ -504,7 +491,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(o => verUnidadesDistancia(H1));
+                return new RelayCommand(o => verListaUnidades(H1));
             }
         }
 
@@ -515,7 +502,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(o => verUnidadesDistancia(FreeGap));
+                return new RelayCommand(o => verListaUnidades(FreeGap));
             }
         }
 
@@ -526,7 +513,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(o => verUnidadesDistancia(TensionTol));
+                return new RelayCommand(o => verListaUnidades(TensionTol));
             }
         }
 
@@ -537,7 +524,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(o => verUnidadesDistancia(Tension));
+                return new RelayCommand(o => verListaUnidades(Tension));
             }
         }
 
@@ -548,7 +535,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(o => verUnidadesDistancia(OvalityMax));
+                return new RelayCommand(o => verListaUnidades(OvalityMax));
             }
         }
 
@@ -559,7 +546,22 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(o => verUnidadesDistancia(OvalityMin));
+                return new RelayCommand(o => verListaUnidades(OvalityMin));
+            }
+        }
+
+        public ICommand VerUnidadesHardnessMin
+        {
+            get {
+                return new RelayCommand(o => verListaUnidades(HardnessMin));
+            }
+        }
+
+        public ICommand VerUnidadesHardnessMax
+        {
+            get
+            {
+                return new RelayCommand(o => verListaUnidades(HardnessMax));
             }
         }
         #endregion
@@ -570,7 +572,7 @@ namespace View.Services.ViewModel
         /// Método que muestra una ventana con todas las posibles unidades a mostrar.
         /// </summary>
         /// <param name="laPropiedad">Propiedad que representa el modelo de la pantalla que se muestra.</param>
-        private void verUnidadesDistancia(Propiedad laPropiedad)
+        private void verListaUnidades(Propiedad laPropiedad)
         {
             //Inicializamos el contexto de Propiedad.
             PropiedadViewModel contextoUnidades = new PropiedadViewModel(laPropiedad);
@@ -619,6 +621,18 @@ namespace View.Services.ViewModel
                                     {
                                         OvalityMax = contextoUnidades.model;
                                     }
+                                    else {
+                                        if (laPropiedad.Nombre == "HardnessMin")
+                                        {
+                                            HardnessMin = contextoUnidades.model;
+                                        }
+                                        else {
+                                            if (laPropiedad.Nombre == "HardnessMax")
+                                            {
+                                                HardnessMax = contextoUnidades.model;
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -635,8 +649,12 @@ namespace View.Services.ViewModel
             //Declaramos las variables que contienen los valores por default para cada tipo de dato.
             string tipodatodistance = "Distance";
             string unidaddistance = "Inch (in)";
+
             string tipodatoforce = "Force";
             string unidadforce = "LBS";
+
+            string tipodatodureza = "Dureza";
+            string unidaddureza = "HRC";
 
             ModelAnillo.D1.Nombre = "D1";
             ModelAnillo.D1.TipoDato = tipodatodistance;
@@ -679,6 +697,18 @@ namespace View.Services.ViewModel
             ModelAnillo.FreeGap.Unidad = unidaddistance;
             ModelAnillo.FreeGap.DescripcionCorta = "Free gap";
             ModelAnillo.FreeGap.DescripcionLarga = "Abertura libre del anillo";
+
+            ModelAnillo.HardnessMin.Nombre = "HardnessMin";
+            ModelAnillo.HardnessMin.TipoDato = tipodatodureza;
+            ModelAnillo.HardnessMin.Unidad = unidaddureza;
+            ModelAnillo.HardnessMin.DescripcionCorta = "Hardness Min";
+            ModelAnillo.HardnessMin.DescripcionLarga = "Dureza mínima";
+
+            ModelAnillo.HardnessMax.Nombre = "HardnessMax";
+            ModelAnillo.HardnessMax.TipoDato = tipodatodureza;
+            ModelAnillo.HardnessMax.Unidad = unidaddureza;
+            ModelAnillo.HardnessMax.DescripcionCorta = "Hardness Max";
+            ModelAnillo.HardnessMax.DescripcionLarga = "Dureza máxima";
 
         }
         #endregion

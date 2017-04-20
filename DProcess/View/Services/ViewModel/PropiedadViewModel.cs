@@ -130,7 +130,7 @@ namespace View.Services.ViewModel
             setting.NegativeButtonText = "Keep";
 
             //Mostramos el mensaje en donde le indicamos al usuario que desea realizar, si mantener el mismo valor o convertirlo a la unidad que acaba de seleccionar. El resultado lo guardamos en una variable de tipo MessageDialogResult.
-            MessageDialogResult result = await metroWindow.ShowMessageAsync("Attention", "What do you want to do? \n Keep the same value \n Convert the value from " + model.Unidad + " to " + NewUnidad, MessageDialogStyle.AffirmativeAndNegative, setting);
+            MessageDialogResult result = await metroWindow.ShowMessageAsync("Attention", "What do you want to do? \n •Keep the same value \n •Convert the value from " + model.Unidad + " to " + NewUnidad, MessageDialogStyle.AffirmativeAndNegative, setting);
 
             //Comparamos si la respuesta fué afirmativa, el usuario eligió convertir el valor.
             if (result == MessageDialogResult.Affirmative)
@@ -237,6 +237,9 @@ namespace View.Services.ViewModel
                     break;
                 case "Tiempo":
                     Unidad = "second ('')";
+                    break;
+                case "Dureza":
+                    Unidad = "HRC";
                     break;
                 default:
                     break;
