@@ -13,166 +13,212 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.GroupBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid ShowGridLines="False" Margin="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="15"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="15"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="15"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="450"/>
-            <ColumnDefinition Width="15"/>
-        </Grid.ColumnDefinitions>
-        
-        <!--Comienza Panel Lateral Derecho-->
-        <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical">
-            <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
-                <GroupBox HorizontalAlignment="Right"  VerticalAlignment="Top" Header="Changes" Style="{DynamicResource MaterialDesignGroupBox}" Width="450" UseLayoutRounding="True" SnapsToDevicePixels="True">
-                    <DataGrid ItemsSource="{Binding Customers}" AutoGenerateColumns="False" >
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Revision" />
-                            <DataGridTextColumn Header="Description"/>
-                            <DataGridTextColumn Header="Date"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </GroupBox>
-            </Border>
-            <StackPanel Orientation="Vertical">
-                <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
-                    <GroupBox HorizontalAlignment="Center"  VerticalAlignment="Top" Header="REMARKS" Style="{DynamicResource MaterialDesignGroupBox}" Width="450" UseLayoutRounding="True" SnapsToDevicePixels="True">
-                        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
-                            <TextBox Width="120"></TextBox>
+    <materialDesign:DialogHost Identifier="RootDialog" >
+        <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding IsOpenedToogle}">
+            <materialDesign:DrawerHost.LeftDrawerContent>
+                <DockPanel MinWidth="212">
+                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                                    DockPanel.Dock="Top"
+                                    HorizontalAlignment="Right" Margin="16"
+                                    Command="{Binding CerrarToogle}"
+                                    IsChecked="{Binding IsOpenedToogle}" />
+                    <ListBox Margin="0 16 0 16" SelectedIndex="0" >
+                        <ListBoxItem>
+                            <StackPanel VerticalAlignment="Top">
+                                <Button Command="{Binding NewPlano}" Content="New"></Button>
+                            </StackPanel>
+                            
+                        </ListBoxItem>
+                        <ListBoxItem Content="New"></ListBoxItem>
+                        <ListBoxItem Content="New"></ListBoxItem>
+                        <ListBoxItem Content="New"></ListBoxItem>
+                        
+                    </ListBox>
+
+                </DockPanel>
+            </materialDesign:DrawerHost.LeftDrawerContent>
+            <Grid ShowGridLines="False" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="15"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="450"/>
+                    <ColumnDefinition Width="15"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Grid.Row="0" Width="50" Height="50">
+                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="{Binding IsOpenedToogle}"
+                                        x:Name="MenuToggleButton" Command="{Binding AbrirCerrarToogle}"/>
+                </StackPanel>
+                <!--Comienza Panel Lateral Derecho-->
+                <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom">
+                    <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
+                        <GroupBox HorizontalAlignment="Right"  VerticalAlignment="Top" Header="Changes" Style="{DynamicResource MaterialDesignGroupBox}" Width="450" UseLayoutRounding="True" SnapsToDevicePixels="True">
+                            <DataGrid ItemsSource="{Binding Customers}" AutoGenerateColumns="False" >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Revision" />
+                                    <DataGridTextColumn Header="Description"/>
+                                    <DataGridTextColumn Header="Date"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
+                    </Border>
+                    <StackPanel Orientation="Vertical">
+                        <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
+                            <GroupBox HorizontalAlignment="Center"  VerticalAlignment="Top" Header="REMARKS" Style="{DynamicResource MaterialDesignGroupBox}" Width="450" UseLayoutRounding="True" SnapsToDevicePixels="True">
+                                <Border HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
+                                    <TextBox Width="120"></TextBox>
+                                </Border>
+                            </GroupBox>
                         </Border>
-                    </GroupBox>
-                </Border>
-                
-                <!--Comienza GroupBox de Characteristics-->
-                <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
-                    <GroupBox HorizontalAlignment="Center"  VerticalAlignment="Top" Header="CHARACTERISTICS" Style="{DynamicResource MaterialDesignGroupBox}" Width="450" UseLayoutRounding="True" SnapsToDevicePixels="True">
-                        
-                        <!--Comienza panel de Characteristics-->
-                        <StackPanel Orientation="Vertical">
-                            
-                            <!--Comienza panel de Treatment-->
-                            <StackPanel Orientation="Horizontal">
-                                <ComboBox materialDesign:HintAssist.Hint="TREATMENT" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200">
-                                    <ComboBoxItem>ZINC PHOSPHATE</ComboBoxItem>
-                                    <ComboBoxItem>MANGANESE PHOSPHATE</ComboBoxItem>
-                                    <ComboBoxItem>NINGUNO</ComboBoxItem>
-                                </ComboBox>
-                                <ComboBox materialDesign:HintAssist.Hint="SPEC. TREATMENT" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200">
-                                    <ComboBoxItem>SPF-24</ComboBoxItem>
-                                    <ComboBoxItem>MPR023</ComboBoxItem>
-                                    <ComboBoxItem>PCF-40</ComboBoxItem>
-                                    <ComboBoxItem>SPF-21</ComboBoxItem>
-                                    <ComboBoxItem>PCF-207</ComboBoxItem>
-                                    <ComboBoxItem>MPR-207</ComboBoxItem>
-                                </ComboBox>
-                            </StackPanel>
-                            <!--Termina panel de Treatment-->
-                            
-                            <!--Comienza panel de Coating-->
-                            <StackPanel Orientation="Horizontal">
-                                <ComboBox materialDesign:HintAssist.Hint="COATING" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200">
-                                    <ComboBoxItem>CHROME</ComboBoxItem>
-                                    <ComboBoxItem>MOLY</ComboBoxItem>
-                                    <ComboBoxItem>NINGUNO</ComboBoxItem>
-                                </ComboBox>
-                                <ComboBox materialDesign:HintAssist.Hint="SPEC. COATING" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200">
-                                    <ComboBoxItem>CHROME</ComboBoxItem>
-                                    <ComboBoxItem>MOLY</ComboBoxItem>
-                                    <ComboBoxItem>NINGUNO</ComboBoxItem>
-                                </ComboBox>
-                            </StackPanel>
-                            <!--Termina panel de Coating-->
-                            
-                            <!--Comienza panel de Ovality-->
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBox materialDesign:HintAssist.Hint="{Binding OvalityMin.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding OvalityMin.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                    <Button Width="10" Height="10" Command="{Binding  VerUnidadesOvalityMin}"></Button>
-                                </StackPanel>
-                                <StackPanel VerticalAlignment="Center" Margin="5">
-                                    <TextBlock Text="-" FontSize="20"></TextBlock>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBox materialDesign:HintAssist.Hint="{Binding OvalityMax.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding OvalityMax.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesOvalityMax}"></Button>
-                                </StackPanel>
-                            </StackPanel>
-                            <!--Termina panel de Ovality-->
 
-                            <!--Comienza panel FT-->
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBox materialDesign:HintAssist.Hint="{Binding Tension.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding Tension.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesTension}"></Button>
-                                </StackPanel>
-                                <StackPanel VerticalAlignment="Center" Margin="5">
-                                    <TextBlock Text="-" FontSize="20"></TextBlock>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBox materialDesign:HintAssist.Hint="{Binding TensionTol.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding TensionTol.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesTensionTol}"></Button>
-                                </StackPanel>
-                            </StackPanel>
-                            <!--Termina panel de FT-->
+                        <!--Comienza GroupBox de Characteristics-->
+                        <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Background="{DynamicResource MaterialDesignBackground}">
 
-                            <!--Comienza panel Free Gap-->
-                            <StackPanel Orientation="Horizontal">
-                                <TextBox materialDesign:HintAssist.Hint="{Binding FreeGap.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding FreeGap.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                <Button Width="10" Height="10" Command="{Binding VerUnidadesFreeGap}"></Button>
-                            </StackPanel>
-                            <!--Termina panel de Free Gap-->
-                            
-                            <!--Comienza panel Dureza-->
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBox materialDesign:HintAssist.Hint="{Binding HardnessMin.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding HardnessMin.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesHardnessMin}"></Button>
-                                </StackPanel>
-                                <StackPanel VerticalAlignment="Center" Margin="5">
-                                    <TextBlock Text="-" FontSize="20"></TextBlock>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBox materialDesign:HintAssist.Hint="{Binding HardnessMax.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding HardnessMax.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesHardnessMax}"></Button>
-                                </StackPanel>
-                            </StackPanel>
-                            <!--Termina panel dureza-->
+                            <GroupBox HorizontalAlignment="Center" VerticalAlignment="Top" Header="CHARACTERISTICS" Style="{DynamicResource MaterialDesignGroupBox}" Width="450" UseLayoutRounding="True" SnapsToDevicePixels="True">
 
-                            <!--Comienza Diámetro y Width-->
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                <!--Comienza panel de Characteristics-->
+                                <StackPanel Orientation="Vertical">
+
+                                    <!--Comienza panel de Treatment-->
+                                    <StackPanel Orientation="Horizontal">
+                                        <ComboBox materialDesign:HintAssist.Hint="TREATMENT" ItemsSource="{Binding ListaTreatment}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200">
+
+                                        </ComboBox>
+                                        <ComboBox materialDesign:HintAssist.Hint="SPEC. TREATMENT" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200">
+                                            <ComboBoxItem>SPF-24</ComboBoxItem>
+                                            <ComboBoxItem>MPR023</ComboBoxItem>
+                                            <ComboBoxItem>PCF-40</ComboBoxItem>
+                                            <ComboBoxItem>SPF-21</ComboBoxItem>
+                                            <ComboBoxItem>PCF-207</ComboBoxItem>
+                                            <ComboBoxItem>MPR-207</ComboBoxItem>
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <!--Termina panel de Treatment-->
+
+                                    <!--Comienza panel de Ovality-->
+                                    <StackPanel Orientation="Horizontal">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox materialDesign:HintAssist.Hint="{Binding OvalityMin.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding OvalityMin.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                            <Button Width="10" Height="10" Command="{Binding  VerUnidadesOvalityMin}"></Button>
+                                        </StackPanel>
+                                        <StackPanel VerticalAlignment="Center" Margin="5">
+                                            <TextBlock Text="-" FontSize="20"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox materialDesign:HintAssist.Hint="{Binding OvalityMax.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding OvalityMax.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                            <Button Width="10" Height="10" Command="{Binding VerUnidadesOvalityMax}"></Button>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <!--Termina panel de Ovality-->
+
+                                    <!--Comienza panel FT-->
+                                    <StackPanel Orientation="Horizontal">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox materialDesign:HintAssist.Hint="{Binding Tension.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding Tension.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                            <Button Width="10" Height="10" Command="{Binding VerUnidadesTension}"></Button>
+                                        </StackPanel>
+                                        <StackPanel VerticalAlignment="Center" Margin="5">
+                                            <TextBlock Text="-" FontSize="20"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox materialDesign:HintAssist.Hint="{Binding TensionTol.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding TensionTol.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                            <Button Width="10" Height="10" Command="{Binding VerUnidadesTensionTol}"></Button>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <!--Termina panel de FT-->
+
+                                    <!--Comienza panel Free Gap-->
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox materialDesign:HintAssist.Hint="{Binding FreeGap.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding FreeGap.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                        <Button Width="10" Height="10" Command="{Binding VerUnidadesFreeGap}"></Button>
+                                    </StackPanel>
+                                    <!--Termina panel de Free Gap-->
+
+                                    <!--Comienza panel de material-->
+                                    <StackPanel Orientation="Horizontal">
+                                        <ComboBox materialDesign:HintAssist.Hint="MATERIAL" ItemsSource="{Binding ListaEspecificacionesMateriaPrima}" Text="{Binding  MaterialBase.Especificacion.Valor}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200">
+
+                                        </ComboBox>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox materialDesign:HintAssist.Hint="{Binding Mass.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding Mass.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                            <Button Width="10" Height="10" Command="{Binding VerUnidadesMass}"></Button>
+                                        </StackPanel>
+
+                                    </StackPanel>
+                                    <!--Termina panel de material-->
+
+                                    <!--Comienza panel Dureza-->
+                                    <StackPanel Orientation="Horizontal">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox materialDesign:HintAssist.Hint="{Binding HardnessMin.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding HardnessMin.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                            <Button Width="10" Height="10" Command="{Binding VerUnidadesHardnessMin}"></Button>
+                                        </StackPanel>
+                                        <StackPanel VerticalAlignment="Center" Margin="5">
+                                            <TextBlock Text="-" FontSize="20"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox materialDesign:HintAssist.Hint="{Binding HardnessMax.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding HardnessMax.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                            <Button Width="10" Height="10" Command="{Binding VerUnidadesHardnessMax}"></Button>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <!--Termina panel dureza-->
+
+                                    <!--Comienza Cliente-->
+                                    <StackPanel Orientation="Horizontal">
+                                        <ComboBox materialDesign:HintAssist.Hint="CUSTOMER" SelectedItem="{Binding cliente}" ItemsSource="{Binding ListaClientes}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200">
+
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <!--Termina Cliente-->
+
+                                    <!--Comienza Diámetro y Width-->
+                                    <StackPanel Orientation="Horizontal">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                            <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                        </StackPanel>
+                                        <StackPanel VerticalAlignment="Center" Margin="5">
+                                            <TextBlock Text="-" FontSize="20"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox materialDesign:HintAssist.Hint="{Binding H1.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding H1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                            <Button Width="10" Height="10" Command="{Binding VerUnidadesH1}"></Button>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <!--Temmina Diámetro y Width-->
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox materialDesign:HintAssist.Hint="Doc. no" Width="300" Text="{Binding NoPlano}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                    </StackPanel>
+
+
+
                                 </StackPanel>
-                                <StackPanel VerticalAlignment="Center" Margin="5">
-                                    <TextBlock Text="-" FontSize="20"></TextBlock>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBox materialDesign:HintAssist.Hint="{Binding H1.TextoPresentacion}" TextAlignment="Center" Width="180" Text="{Binding H1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesH1}"></Button>
-                                </StackPanel>
-                            </StackPanel>
-                            <!--Temmina Diámetro y Width-->
-                            
-                        </StackPanel>
-                        <!--Termina panel de Characteristics-->
-                        
-                    </GroupBox>
-                </Border>
-                <!--Termina GroupBox de Characteristics-->
-                
-            </StackPanel>
-        </StackPanel>
-        <!--Termina Panel Lateral Derecho-->
-        
-    </Grid>
+                                <!--Termina panel de Characteristics-->
+
+                            </GroupBox>
+
+                        </Border>
+                        <!--Termina GroupBox de Characteristics-->
+
+                    </StackPanel>
+                </StackPanel>
+                <!--Termina Panel Lateral Derecho-->
+
+            </Grid>
+        </materialDesign:DrawerHost>
+
+
+    </materialDesign:DialogHost>
+    
+
 </Page>

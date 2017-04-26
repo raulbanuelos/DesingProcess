@@ -4,46 +4,46 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
 	Title="" Height="591" Width="801" Background="{StaticResource Fondo}" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1" WindowStartupLocation="CenterScreen">
-	<Controls:MetroWindow.LeftWindowCommands>
-		<Controls:WindowCommands>
-			<Button>
-				<StackPanel Orientation="Horizontal">
-					<Rectangle Width="20" Height="20" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
-						<Rectangle.OpacityMask>
-							<VisualBrush Stretch="Fill" Visual="{StaticResource appbar_resource_group}" />
-						</Rectangle.OpacityMask>
-					</Rectangle>
-					<TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Routing Generation Program" />
-				</StackPanel>
-			</Button>
-		</Controls:WindowCommands>
-	</Controls:MetroWindow.LeftWindowCommands>
-	
-	<Controls:MetroWindow.RightWindowCommands>
-		<Controls:WindowCommands>
-			<Button>
-				<StackPanel Orientation="Horizontal">
-					<Rectangle Width="20" Height="20" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
-						<Rectangle.OpacityMask>
-							<VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
-						</Rectangle.OpacityMask>
-					</Rectangle>
-					<TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Settings" />
-				</StackPanel>
-			</Button>
-		</Controls:WindowCommands>
-	</Controls:MetroWindow.RightWindowCommands>
+    <Controls:MetroWindow.LeftWindowCommands>
+        <Controls:WindowCommands>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_resource_group}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Routing Generation Program" />
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.LeftWindowCommands>
 
-	<Canvas Margin="50,350">
-		<Button Name="btn_ingresar" Click="Btn_ingresar_Click" >
-			<StackPanel>
-				<Rectangle Width="30" Height="30" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
-					<Rectangle.OpacityMask>
-						<VisualBrush Stretch="Fill" Visual="{StaticResource appbar_door_enter}" />
-					</Rectangle.OpacityMask>
-				</Rectangle>
-			</StackPanel>
-		</Button>
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Settings" />
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
 
-	</Canvas>
+    <Canvas Margin="50,350">
+        <Button Name="btn_ingresar" Click="Btn_ingresar_Click" Height="65" Width="65" >
+            <StackPanel>
+                <Rectangle Width="30" Height="30" Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_door_enter}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </StackPanel>
+        </Button>
+
+    </Canvas>
 </Controls:MetroWindow>

@@ -12,6 +12,13 @@
           <Property Name="id_cliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Cliente" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Coating">
+          <Key>
+            <PropertyRef Name="ident" />
+          </Key>
+          <Property Name="ident" Type="int" Nullable="false" />
+          <Property Name="NombreCoating" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="cuffs">
           <Key>
             <PropertyRef Name="no_cuff" />
@@ -21,6 +28,35 @@
           <Property Name="dia_int" Type="float" />
           <Property Name="largo" Type="float" />
           <Property Name="peso" Type="float" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Esp_MP_Anillos">
+          <Key>
+            <PropertyRef Name="id_material" />
+          </Key>
+          <Property Name="id_material" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="Odl_Mahle" Type="varchar" MaxLength="50" />
+          <Property Name="Ref1" Type="varchar" MaxLength="50" />
+          <Property Name="Ref2" Type="varchar" MaxLength="50" />
+          <Property Name="Ref3" Type="varchar" MaxLength="50" />
+          <Property Name="Ref4" Type="varchar" MaxLength="50" />
+          <Property Name="Ref5" Type="varchar" MaxLength="50" />
+          <Property Name="Ref6" Type="varchar" MaxLength="50" />
+          <Property Name="Ref7" Type="varchar" MaxLength="50" />
+          <Property Name="Ref8" Type="varchar" MaxLength="50" />
+          <Property Name="Ref9" Type="varchar" MaxLength="50" />
+          <Property Name="Ref10" Type="varchar" MaxLength="50" />
+          <Property Name="Ref11" Type="varchar" MaxLength="50" />
+          <Property Name="Ref12" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="material">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar" MaxLength="100" />
+          <Property Name="Recomendado" Type="bit" />
         </EntityType>
         <EntityType Name="patt_actualizaciones">
           <Key>
@@ -115,6 +151,20 @@
           <Property Name="Molde" Type="varchar" MaxLength="50" />
           <Property Name="RPM" Type="int" />
         </EntityType>
+        <Association Name="FK_Esp_MP_Anillos_material">
+          <End Role="material" Type="Self.material" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Esp_MP_Anillos" Type="Self.Esp_MP_Anillos" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="material">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Esp_MP_Anillos">
+              <PropertyRef Name="id_material" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_patt_actualizaciones_Pattern2">
           <End Role="Pattern2" Type="Self.Pattern2" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -155,12 +205,36 @@
         </Association>
         <EntityContainer Name="DataAccessServiceObjectsMateriasPrimasStoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Coating" EntityType="Self.Coating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cuffs" EntityType="Self.cuffs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="material" EntityType="Self.material" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="patt_actualizaciones" EntityType="Self.patt_actualizaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pattern2" EntityType="Self.Pattern2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Materia_Prima" EntityType="Self.Tipo_Materia_Prima" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TubosCL" EntityType="Self.TubosCL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TubosHD" EntityType="Self.TubosHD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Esp_MP_Anillos" EntityType="Self.Esp_MP_Anillos" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Esp_MP_Anillos].[id_material] AS [id_material], 
+    [Esp_MP_Anillos].[Odl_Mahle] AS [Odl_Mahle], 
+    [Esp_MP_Anillos].[Ref1] AS [Ref1], 
+    [Esp_MP_Anillos].[Ref2] AS [Ref2], 
+    [Esp_MP_Anillos].[Ref3] AS [Ref3], 
+    [Esp_MP_Anillos].[Ref4] AS [Ref4], 
+    [Esp_MP_Anillos].[Ref5] AS [Ref5], 
+    [Esp_MP_Anillos].[Ref6] AS [Ref6], 
+    [Esp_MP_Anillos].[Ref7] AS [Ref7], 
+    [Esp_MP_Anillos].[Ref8] AS [Ref8], 
+    [Esp_MP_Anillos].[Ref9] AS [Ref9], 
+    [Esp_MP_Anillos].[Ref10] AS [Ref10], 
+    [Esp_MP_Anillos].[Ref11] AS [Ref11], 
+    [Esp_MP_Anillos].[Ref12] AS [Ref12]
+    FROM [dbo].[Esp_MP_Anillos] AS [Esp_MP_Anillos]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Esp_MP_Anillos_material" Association="Self.FK_Esp_MP_Anillos_material">
+            <End Role="material" EntitySet="material" />
+            <End Role="Esp_MP_Anillos" EntitySet="Esp_MP_Anillos" />
+          </AssociationSet>
           <AssociationSet Name="FK_patt_actualizaciones_Pattern2" Association="Self.FK_patt_actualizaciones_Pattern2">
             <End Role="Pattern2" EntitySet="Pattern2" />
             <End Role="patt_actualizaciones" EntitySet="patt_actualizaciones" />
@@ -300,6 +374,13 @@
           <EntitySet Name="cuffs" EntityType="DataAccess.ServiceObjects.MateriasPrimas.cuffs" />
           <EntitySet Name="TubosCL" EntityType="DataAccess.ServiceObjects.MateriasPrimas.TubosCL" />
           <EntitySet Name="TubosHD" EntityType="DataAccess.ServiceObjects.MateriasPrimas.TubosHD" />
+          <EntitySet Name="material" EntityType="DataAccess.ServiceObjects.MateriasPrimas.material" />
+          <EntitySet Name="Esp_MP_Anillos" EntityType="DataAccess.ServiceObjects.MateriasPrimas.Esp_MP_Anillos" />
+          <AssociationSet Name="FK_Esp_MP_Anillos_material" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Esp_MP_Anillos_material">
+            <End Role="material" EntitySet="material" />
+            <End Role="Esp_MP_Anillos" EntitySet="Esp_MP_Anillos" />
+          </AssociationSet>
+          <EntitySet Name="Coating" EntityType="DataAccess.ServiceObjects.MateriasPrimas.Coating" />
         </EntityContainer>
         <EntityType Name="Tipo_Materia_Prima">
           <Key>
@@ -352,6 +433,56 @@
           <Property Name="Largo" Type="Double" />
           <Property Name="Molde" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RPM" Type="Int32" />
+        </EntityType>
+        <EntityType Name="material">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Recomendado" Type="Boolean" />
+          <NavigationProperty Name="Esp_MP_Anillos" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Esp_MP_Anillos_material" FromRole="material" ToRole="Esp_MP_Anillos" />
+        </EntityType>
+        <EntityType Name="Esp_MP_Anillos">
+          <Key>
+            <PropertyRef Name="id_material" />
+          </Key>
+          <Property Name="id_material" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="Odl_Mahle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ref1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ref2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ref3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ref4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ref5" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ref6" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ref7" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ref8" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ref9" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ref10" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ref11" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ref12" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="material" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Esp_MP_Anillos_material" FromRole="Esp_MP_Anillos" ToRole="material" />
+        </EntityType>
+        <Association Name="FK_Esp_MP_Anillos_material">
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.material" Role="material" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.Esp_MP_Anillos" Role="Esp_MP_Anillos" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="material">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Esp_MP_Anillos">
+              <PropertyRef Name="id_material" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Coating">
+          <Key>
+            <PropertyRef Name="ident" />
+          </Key>
+          <Property Name="ident" Type="Int32" Nullable="false" />
+          <Property Name="NombreCoating" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -473,6 +604,43 @@
                 <ScalarProperty Name="DiaInt" ColumnName="DiaInt" />
                 <ScalarProperty Name="DiaExt" ColumnName="DiaExt" />
                 <ScalarProperty Name="Tubo" ColumnName="Tubo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="material">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.material">
+              <MappingFragment StoreEntitySet="material">
+                <ScalarProperty Name="Recomendado" ColumnName="Recomendado" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Esp_MP_Anillos">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.Esp_MP_Anillos">
+              <MappingFragment StoreEntitySet="Esp_MP_Anillos">
+                <ScalarProperty Name="Ref12" ColumnName="Ref12" />
+                <ScalarProperty Name="Ref11" ColumnName="Ref11" />
+                <ScalarProperty Name="Ref10" ColumnName="Ref10" />
+                <ScalarProperty Name="Ref9" ColumnName="Ref9" />
+                <ScalarProperty Name="Ref8" ColumnName="Ref8" />
+                <ScalarProperty Name="Ref7" ColumnName="Ref7" />
+                <ScalarProperty Name="Ref6" ColumnName="Ref6" />
+                <ScalarProperty Name="Ref5" ColumnName="Ref5" />
+                <ScalarProperty Name="Ref4" ColumnName="Ref4" />
+                <ScalarProperty Name="Ref3" ColumnName="Ref3" />
+                <ScalarProperty Name="Ref2" ColumnName="Ref2" />
+                <ScalarProperty Name="Ref1" ColumnName="Ref1" />
+                <ScalarProperty Name="Odl_Mahle" ColumnName="Odl_Mahle" />
+                <ScalarProperty Name="id_material" ColumnName="id_material" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Coating">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.Coating">
+              <MappingFragment StoreEntitySet="Coating">
+                <ScalarProperty Name="NombreCoating" ColumnName="NombreCoating" />
+                <ScalarProperty Name="ident" ColumnName="ident" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

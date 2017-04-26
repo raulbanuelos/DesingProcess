@@ -141,6 +141,7 @@
     <Compile Include="Services\Module.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\FirstRoughGrind.cs" />
     <Compile Include="Services\ViewModel\AnilloViewModel.cs" />
+    <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
     <Compile Include="Services\ViewModel\PropiedadBoolViewModel.cs" />
     <Compile Include="Services\ViewModel\PropiedadCadenaViewModel.cs" />
     <Compile Include="Services\ViewModel\PropiedadViewModel.cs" />

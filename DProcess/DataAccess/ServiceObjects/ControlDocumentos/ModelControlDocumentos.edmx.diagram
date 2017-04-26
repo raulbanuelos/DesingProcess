@@ -5,15 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="20228259bbed4e74b703f47416098d2d" Name="Diagram1">
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_ARCHIVO" Width="2.625" PointX="11.5" PointY="2.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_ARCHIVO" Width="2.625" PointX="14.5" PointY="1.25" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_DEPARTAMENTO" Width="1.5" PointX="0.625" PointY="4.375" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_ROL" Width="1.5" PointX="0.625" PointY="7.125" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" Width="2.5" PointX="6.625" PointY="0.5" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" Width="2.5" PointX="10.25" PointY="0.5" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.Usuarios" Width="1.5" PointX="4" PointY="4.375" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_ARCHIVO_TBL_VERSION" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_Usuarios_TBL_DEPARTAMENTO" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_DOCUMENTO" Width="3.375" PointX="6.25" PointY="4.5" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_DOCUMENTO" Width="3.375" PointX="6.5" PointY="4.5" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_TIPO_DOCUMENTO" Width="1.5" PointX="4" PointY="9" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_TIPO_DOCUMENTO" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_Usuarios" />

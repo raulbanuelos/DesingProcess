@@ -19,6 +19,29 @@ namespace View.Services.ViewModel
         private Anillo ModelAnillo;
         #endregion
 
+        #region Properties
+        public ObservableCollection<string> ListaEspecificacionesMateriaPrima { get; set; }
+
+        public ObservableCollection<Cliente> ListaClientes { get; set; }
+
+        public ObservableCollection<string> ListaTreatment { get; set; }
+
+        private bool isOpededToogle;
+        public bool IsOpenedToogle {
+            get
+            {
+                return isOpededToogle;
+            }
+            set
+            {
+                isOpededToogle = value;
+                NotifyChange("IsOpenedToogle");
+            }
+        }
+
+        public ObservableCollection<string> MenuItems { get; set; }
+        #endregion
+
         #region Propiedades del Modelo Anillo
         /// <summary>
         /// Perfil que representa el diámetro exterior del anillo.
@@ -465,8 +488,21 @@ namespace View.Services.ViewModel
             //Inicializamos el objeto anillo que representa nuestro modelo.
             ModelAnillo = new Anillo();
 
+            //Inicializamos los atributos
+            ListaEspecificacionesMateriaPrima = DataManager.GetAllEspecificacionesMateriaPrima();
+            ListaClientes = DataManager.GetAllClientes();
+            ListaTreatment = DataManager.GetAllTreatment();
+            MenuItems = new ObservableCollection<string>();
+
+            MenuItems.Add("New");
+            MenuItems.Add("Open");
+            MenuItems.Add("Import File");
+            MenuItems.Add("Save");
+            MenuItems.Add("SAP");
+
             //Establesemos a todas las propiedades del modelo anillo los valores por default.
             SetUnidesDefault();
+            
         }
 
         #endregion
@@ -564,6 +600,30 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => verListaUnidades(HardnessMax));
             }
         }
+
+        public ICommand VerUnidadesMass
+        {
+            get
+            {
+                return new RelayCommand(o => verListaUnidades(Mass));
+            }
+        }
+
+        public ICommand AbrirToogle
+        {
+            get
+            {
+                return new RelayCommand(o => abrirToogle());
+            }
+        }
+
+        public ICommand CerrarToogle
+        {
+            get
+            {
+                return new RelayCommand(o => cerrarToogle());
+            }
+        }
         #endregion
 
         #region Methods
@@ -631,6 +691,12 @@ namespace View.Services.ViewModel
                                             {
                                                 HardnessMax = contextoUnidades.model;
                                             }
+                                            else {
+                                                if (laPropiedad.Nombre == "MassAnillo")
+                                                {
+                                                    Mass = contextoUnidades.model;
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -655,6 +721,9 @@ namespace View.Services.ViewModel
 
             string tipodatodureza = "Dureza";
             string unidaddureza = "HRC";
+
+            string tipodatoMass = "Mass";
+            string unidadMass = "Gram (g)";
 
             ModelAnillo.D1.Nombre = "D1";
             ModelAnillo.D1.TipoDato = tipodatodistance;
@@ -710,6 +779,22 @@ namespace View.Services.ViewModel
             ModelAnillo.HardnessMax.DescripcionCorta = "Hardness Max";
             ModelAnillo.HardnessMax.DescripcionLarga = "Dureza máxima";
 
+            ModelAnillo.Mass.Nombre = "MassAnillo";
+            ModelAnillo.Mass.TipoDato = tipodatoMass;
+            ModelAnillo.Mass.Unidad = unidadMass;
+            ModelAnillo.Mass.DescripcionCorta = "Mass";
+            ModelAnillo.Mass.DescripcionLarga = "Peso del Anillo";
+
+
+        }
+
+        private void abrirToogle()
+        {
+            IsOpenedToogle = true;
+        }
+        private void cerrarToogle()
+        {
+            IsOpenedToogle = false;
         }
         #endregion
     }

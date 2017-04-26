@@ -116,7 +116,16 @@
     <Compile Include="ServiceObjects\MateriasPrimas\Cliente.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\Coating.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\MateriasPrimas\cuffs.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\Esp_MP_Anillos.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\material.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\MateriasPrimas\ModelMateriasPrimas.Context.cs">
@@ -140,7 +149,10 @@
     <Compile Include="ServiceObjects\MateriasPrimas\patt_actualizaciones.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\SO_Cliente.cs" />
+    <Compile Include="ServiceObjects\MateriasPrimas\SO_Coating.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Cuffs.cs" />
+    <Compile Include="ServiceObjects\MateriasPrimas\SO_Especificaciones.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Pattern.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_TipoDocumento.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_TubosCL.cs" />
@@ -178,7 +190,7 @@
       <DependentUpon>ModelPreMaquinado.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\SO_CentroTrabajo.cs" />
-    <Compile Include="ServiceObjects\SO_Material.cs" />
+    <Compile Include="ServiceObjects\MateriasPrimas\SO_Material.cs" />
     <Compile Include="ServiceObjects\Unidades\ModelUnidades.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

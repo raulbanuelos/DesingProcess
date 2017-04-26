@@ -4,12 +4,18 @@
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" Title="Home">
 	<DockPanel Background="{StaticResource FondoInicio}">
 		<StackPanel DockPanel.Dock="Left" Width="15"></StackPanel>
-		<StackPanel DockPanel.Dock="Top" Width="985" Height="50">
-			<Label Content="{Binding Nombre}"></Label>
-			<Label Content="{Binding ApellidoPaterno}"></Label>
+        <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Right" Width="150" Height="100" Orientation="Horizontal">
+            <StackPanel>
+                <Label Content="{Binding Nombre}" FontSize="24" HorizontalAlignment="Right" Foreground="White" Margin="0"></Label>
+                <Label Content="{Binding ApellidoPaterno}" FontSize="16" Foreground="White" HorizontalAlignment="Right" Margin="0"></Label>
+            </StackPanel>
+            <Label Content="Foto"></Label>
 		</StackPanel>
-		<StackPanel DockPanel.Dock="Right" Width="15"></StackPanel>
-		<StackPanel DockPanel.Dock="Bottom" Width="150" HorizontalAlignment="Right">
+        
+        <Grid DockPanel.Dock="Right" ShowGridLines="True">
+            
+        </Grid>
+        <StackPanel DockPanel.Dock="Bottom" Width="150" HorizontalAlignment="Right">
             <Button Name="btn_salir" Width="50" Height="50" Style="{DynamicResource MetroCircleButtonStyle}" Cursor="Hand">
                 <StackPanel>
                     <Rectangle Width="30" Height="30" Fill="White">
@@ -98,7 +104,7 @@
 			</Controls:Tile>
 			
 			<!--Standar Times-->
-            <Controls:Tile TiltFactor="2" Background="#DA522C" Title="Standard times" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="1" Cursor="Hand" Margin="6,3,0,3" IsEnabled="{Binding PerfilStandarTime}">
+            <Controls:Tile TiltFactor="2" Background="#DA522C" Title="Standard times" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="1" Cursor="Hand" IsEnabled="{Binding PerfilStandarTime}">
 				<Rectangle Width="85" Height="90" Fill="White">
 					<Rectangle.OpacityMask>
 						<VisualBrush Visual="{StaticResource appbar_timer}" Stretch="Fill" />

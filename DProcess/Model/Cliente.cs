@@ -33,7 +33,7 @@
         public override string ToString()
         {
             //Retornamos el nombre del cliente.
-            return string.Format("[Cliente NombreCliente={0}]", NombreCliente);
+            return NombreCliente;
         }
 
         #endregion
