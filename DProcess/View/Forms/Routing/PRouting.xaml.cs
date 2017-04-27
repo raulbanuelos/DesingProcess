@@ -6,24 +6,14 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-using Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using View.UserControls;
 
 namespace View.Forms.Routing
 {
-	/// <summary>
-	/// Interaction logic for PRouting.xaml
-	/// </summary>
-	public partial class PRouting : Page
+    /// <summary>
+    /// Interaction logic for PRouting.xaml
+    /// </summary>
+    public partial class PRouting : Page
 	{
 		public PRouting()
 		{

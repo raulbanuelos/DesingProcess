@@ -32,11 +32,16 @@
                             <StackPanel VerticalAlignment="Top">
                                 <Button Command="{Binding NewPlano}" Content="New"></Button>
                             </StackPanel>
-                            
                         </ListBoxItem>
-                        <ListBoxItem Content="New"></ListBoxItem>
-                        <ListBoxItem Content="New"></ListBoxItem>
-                        <ListBoxItem Content="New"></ListBoxItem>
+                        <ListBoxItem>
+                            <Button Command="{Binding OpenPlano}" Content="Open"></Button>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <Button Command="{Binding ImportXML}" Content="Import XML"></Button>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <Button Command="{Binding SavePlano}" Content="Save"></Button>
+                        </ListBoxItem>
                         
                     </ListBox>
 
@@ -174,7 +179,7 @@
 
                                     <!--Comienza Cliente-->
                                     <StackPanel Orientation="Horizontal">
-                                        <ComboBox materialDesign:HintAssist.Hint="CUSTOMER" SelectedItem="{Binding cliente}" ItemsSource="{Binding ListaClientes}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200">
+                                        <ComboBox materialDesign:HintAssist.Hint="CUSTOMER" SelectedItem="{Binding cliente}" Text="{Binding cliente.NombreCliente}" ItemsSource="{Binding ListaClientes}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200">
 
                                         </ComboBox>
                                     </StackPanel>

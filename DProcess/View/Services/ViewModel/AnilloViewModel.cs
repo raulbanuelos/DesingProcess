@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Model.Interfaces;
 using System.Windows.Input;
 using View.Forms.Modals;
+using System.Xml;
+using System.IO;
+using System.Windows.Forms;
 
 namespace View.Services.ViewModel
 {
@@ -43,6 +42,67 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Propiedades del Modelo Anillo
+
+        /// <summary>
+		/// Cadena que representa el código general de algún elemento existente en sistema ERP.
+		/// </summary>
+		public string Codigo {
+            get
+            {
+                return ModelAnillo.Codigo;
+            }
+            set
+            {
+                ModelAnillo.Codigo = value;
+                NotifyChange("Codigo");
+            }
+        }
+
+        /// <summary>
+        /// Cadena que representa la descripción general del elemento existente en sistema ERP.
+        /// </summary>
+        public string DescripcionGeneral {
+            get
+            {
+                return ModelAnillo.DescripcionGeneral;
+            }
+            set
+            {
+                ModelAnillo.DescripcionGeneral = value;
+                NotifyChange("DescripcionGeneral");
+            }
+        }
+
+        /// <summary>
+        /// Arreglo de Bytes que representa una imagen correspondiente al elemento.
+        /// </summary>
+        public byte[] Imagen {
+            get
+            {
+                return ModelAnillo.Imagen;
+            }
+            set
+            {
+                ModelAnillo.Imagen = value;
+                NotifyChange("Imagen");
+            }
+        }
+
+        /// <summary>
+        /// Booleano que representa si el elemento esta activo: true, o baja: false.
+        /// </summary>
+        public bool Activo {
+            get
+            {
+                return ModelAnillo.Activo;
+            }
+            set
+            {
+                ModelAnillo.Activo = value;
+                NotifyChange("Activo");
+            }
+        }
+
         /// <summary>
         /// Perfil que representa el diámetro exterior del anillo.
         /// </summary>
@@ -501,7 +561,7 @@ namespace View.Services.ViewModel
             MenuItems.Add("SAP");
 
             //Establesemos a todas las propiedades del modelo anillo los valores por default.
-            SetUnidesDefault();
+            SetUnidesDefault("Distance", "Inch (in)", "Force", "LBS", "Dureza", "HRC", "Mass", "Gram (g)");
             
         }
 
@@ -624,9 +684,178 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => cerrarToogle());
             }
         }
+
+        public ICommand NewPlano
+        {
+            get
+            {
+                return new RelayCommand(o => newPlano());
+            }
+        }
+        public ICommand ImportXML
+        {
+            get
+            {
+                return new RelayCommand(o => importXML());
+            }
+        }
         #endregion
 
         #region Methods
+
+        private async void newPlano()
+        {
+            DialogService obj = new DialogService();
+            await obj.SendMessage("Prueba", "Hola");
+            IsOpenedToogle = false;
+        }
+
+        /// <summary>
+        /// Método que importa un archivo .xml con la estructura del plano.
+        /// </summary>
+        private async void importXML()
+        {
+            //Declaramos los servicios de dialogo.
+            DialogService dialogService = new DialogService();
+
+            //Declaramos una ventana para poder seleccionar el archivo.
+            OpenFileDialog dialog = new OpenFileDialog();
+
+            //Establecemos las propiuedades del objeto dialog.
+            dialog.Title = "Open xml file.";
+            dialog.Filter = "XML files|*.xml";
+            dialog.InitialDirectory = @"C:\";
+
+            //Ejecutamos el método para abrir la ventana.
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                //Asignamos el nombre del archivo seleccionado a una variable local.
+                string path = dialog.FileName;
+
+                //Comprobamos que el archivo exista.
+                if (File.Exists(path))
+                {
+                    //Obtenemos el nombre de la extensión y lo asignamos a una variable local.
+                    string ext = Path.GetExtension(path);
+
+                    //Comporbamos que en efecto sea un archivo xml.
+                    if (ext == ".xml")
+                    {
+                        //Declaramos un objeto el cual contendra la informacion de archivo xml.
+                        XmlDocument doc = new XmlDocument();
+
+                        //Ejecutamos el método para cargar la informaicón del archivo seleccionado al objeto creado.
+                        doc.Load(path);
+
+                        //Obtenemos todos los nodos que contiene el archivo xml con la siguiente estructura. "/itens/item"
+                        XmlNodeList Nodes = doc.DocumentElement.SelectNodes("/itens/item");
+
+                        //Comprobamos que exista mas de un nodo.
+                        if (Nodes.Count > 0)
+                        {
+                            //Iteramos la lista obtenida de nodos.
+                            foreach (XmlNode node in Nodes)
+                            {
+                                //Creamos un objeto de tipo itens el cual contendra la inforamción del registro iterado.
+                                Itens obj = new Itens();
+
+                                //Mapeamos los valores de cada atributo en las respectivas propiedades del objeto.
+                                obj.id = node.Attributes["id"].Value;
+                                obj.name = node.Attributes["name"].Value;
+                                obj.value = node.Attributes["value"].Value;
+
+                                //Ejecutamos el método el cual se encarga de asignar los valores a cada propiedad del plano.
+                                mapearPropiedad(obj);
+                            }
+
+                            //Cerramos el menú.
+                            IsOpenedToogle = false;
+
+                            //Enviamos un mensaje para informar que se importo el plano correctamente.
+                            await dialogService.SendMessage("Information", "Se cargo el plano del componente :" + Codigo);
+                        }
+                        else
+                        {
+                            //En caso de que el archivo no contenga elementos, enviamos un mensaje de alerta.
+                            await dialogService.SendMessage("Attention", "No has seleccionado un archivo válido");
+                        }
+                    }
+                    else
+                    {
+                        //En caso de que el usuario no seleccione un archivo .xml, enviamos un mensaje indicando formato no soportado.
+                        await dialogService.SendMessage("Attention", "No has seleccionado un archivo válido");
+                    }
+                }
+                else
+                {
+                    //En caso de que no exista el archivo, enviamos un mensaje de alerta.
+                    await dialogService.SendMessage("Attention", "No has seleccionado un archivo válido");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Método que asigna el iten a la propiedad correspondiente.
+        /// </summary>
+        /// <param name="obj"></param>
+        private void mapearPropiedad(Itens obj)
+        {
+            //Declaramos una bandera la cual no ayudará a indicar si ya se asigno la propiedad, y no recorrer todas las propiedades.
+            bool ban = true;
+            switch (obj.name)
+            {
+                case "d1":
+                    D1.Valor = Convert.ToDouble(obj.value);
+                    D1 = D1;
+                    break;
+                case "h1":
+                    H1.Valor = Convert.ToDouble(obj.value);
+                    H1 = H1;
+                    break;
+                case "Doc No Ring":
+                    NoPlano = obj.value;
+                    break;
+                case "Material MAHLE":
+                    MaterialBase.Especificacion.Valor = obj.value;
+                    MaterialBase = MaterialBase;
+                    break;
+                case "Mass Calculated":
+                    Mass.Valor =  Convert.ToDouble(obj.value);
+                    Mass = Mass;
+                    break;
+                case "Cust Name":
+                    cliente.NombreCliente = obj.value;
+                    cliente = cliente;
+                    break;
+                default:
+                    ban = false;
+                    break;
+            }
+
+            int c =  0;
+            while (c < PerfilID.Propiedades.Count && !ban)
+            {
+                if (PerfilID.Propiedades[c].Nombre == obj.name)
+                {
+                    PerfilID.Propiedades[c].Valor = Convert.ToDouble(obj.value);
+                    PerfilID.Propiedades[c] = PerfilID.Propiedades[c];
+                    ban = true;
+                }
+                c += 1;
+            }
+
+            c = 0;
+            while (c < PerfilID.PropiedadesCadena.Count && !ban)
+            {
+                if (PerfilID.PropiedadesCadena[c].Nombre == obj.name)
+                {
+                    PerfilID.PropiedadesCadena[c].Valor = obj.value;
+                    PerfilID.PropiedadesCadena[c] = PerfilID.PropiedadesCadena[c];
+                    ban = true;
+                }
+            }
+
+        }
 
         /// <summary>
         /// Método que muestra una ventana con todas las posibles unidades a mostrar.
@@ -710,20 +939,8 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Método que inicializa los valores por defualt de todas las propiedades del modelo Anillo.
         /// </summary>
-        private void SetUnidesDefault()
+        private void SetUnidesDefault(string tipodatodistance, string unidaddistance, string tipodatoforce, string unidadforce, string tipodatodureza, string unidaddureza, string tipodatoMass, string unidadMass)
         {
-            //Declaramos las variables que contienen los valores por default para cada tipo de dato.
-            string tipodatodistance = "Distance";
-            string unidaddistance = "Inch (in)";
-
-            string tipodatoforce = "Force";
-            string unidadforce = "LBS";
-
-            string tipodatodureza = "Dureza";
-            string unidaddureza = "HRC";
-
-            string tipodatoMass = "Mass";
-            string unidadMass = "Gram (g)";
 
             ModelAnillo.D1.Nombre = "D1";
             ModelAnillo.D1.TipoDato = tipodatodistance;
@@ -784,8 +1001,6 @@ namespace View.Services.ViewModel
             ModelAnillo.Mass.Unidad = unidadMass;
             ModelAnillo.Mass.DescripcionCorta = "Mass";
             ModelAnillo.Mass.DescripcionLarga = "Peso del Anillo";
-
-
         }
 
         private void abrirToogle()
