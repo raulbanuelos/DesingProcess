@@ -56,6 +56,26 @@ namespace Model
         public Propiedad TensionTol { get; set; }
 
         /// <summary>
+        /// Propiedad que representa la ovalidad mínima del anillo.
+        /// </summary>
+        public Propiedad OvalityMin { get; set; }
+
+        /// <summary>
+        /// Propiedad que representa la ovalidad máxima del anillo.
+        /// </summary>
+        public Propiedad OvalityMax { get; set; }
+
+        /// <summary>
+        /// Double que representa la dureza máxima del anillo.
+        /// </summary>
+        public Propiedad HardnessMin { get; set; }
+
+        /// <summary>
+        /// Double que representa la dureza mínima del anillo.
+        /// </summary>
+        public Propiedad HardnessMax { get; set; }
+
+        /// <summary>
         /// Materia prima que representa el material base del anillo.
         /// </summary>
         public MateriaPrima MaterialBase { get; set; }
@@ -88,21 +108,6 @@ namespace Model
         /// Cadena que representa el tipo de anillo.
         /// </summary>
         public string TipoAnillo { get; set; }
-
-        /// <summary>
-        /// Cadena que representa la dureza del anillo.
-        /// </summary>
-        public string Hardness { get; set; }
-
-        /// <summary>
-        /// Double que representa la dureza máxima del anillo.
-        /// </summary>
-        public double HardnessMin { get; set; }
-
-        /// <summary>
-        /// Double que representa la dureza mínima del anillo.
-        /// </summary>
-        public double HardnessMax { get; set; }
 
         /// <summary>
         /// Cadena que representa el numero de documento del cliente.
@@ -189,9 +194,8 @@ namespace Model
             CustomerRevisionLevel = string.Empty;
             Size = string.Empty;
             TipoAnillo = string.Empty;
-            Hardness = string.Empty;
-            HardnessMin = 0;
-            HardnessMax = 0;
+            HardnessMin = new Propiedad();
+            HardnessMax = new Propiedad();
             CustomerDocNo = string.Empty;
             Treatment = string.Empty;
             EspecTreatment = string.Empty;
@@ -202,6 +206,8 @@ namespace Model
             PropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
             Operaciones = new ObservableCollection<IOperacion>();
             FranjasPintura = new ObservableCollection<PinturaAnillo>();
+            OvalityMax = new Propiedad();
+            OvalityMin = new Propiedad();
         }
         #endregion
 

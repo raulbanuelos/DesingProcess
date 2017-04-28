@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DataAccess.ServiceObjects.Unidades.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="UnidadAngle">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD_ANGLE" />
+          </Key>
+          <Property Name="ID_UNIDAD_ANGLE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ValorGrados" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnidadCantidad">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD_CANTIDAD" />
+          </Key>
+          <Property Name="ID_UNIDAD_CANTIDAD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ValorUnidad" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnidadDistancia">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD_DISTANCIA" />
+          </Key>
+          <Property Name="ID_UNIDAD_DISTANCIA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ValorInches" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnidadDureza">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD_DUREZA" />
+          </Key>
+          <Property Name="ID_UNIDAD_DUREZA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ValorHR" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnidadForce">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD_FORCE" />
+          </Key>
+          <Property Name="ID_UNIDAD_FORCE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ValorLBS" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnidadMass">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD_MASS" />
+          </Key>
+          <Property Name="ID_UNIDAD_MASS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ValorGram" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnidadPresion">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD_PRESION" />
+          </Key>
+          <Property Name="ID_UNIDAD_PRESION" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="ValorPSI" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnidadTiempo">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD_TIEMPO" />
+          </Key>
+          <Property Name="ID_UNIDAD_TIEMPO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ValorSeg" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="DataAccessServiceObjectsUnidadesStoreContainer">
+          <EntitySet Name="UnidadAngle" EntityType="Self.UnidadAngle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnidadCantidad" EntityType="Self.UnidadCantidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnidadDistancia" EntityType="Self.UnidadDistancia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnidadDureza" EntityType="Self.UnidadDureza" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnidadForce" EntityType="Self.UnidadForce" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnidadMass" EntityType="Self.UnidadMass" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnidadPresion" EntityType="Self.UnidadPresion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnidadTiempo" EntityType="Self.UnidadTiempo" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataAccess.ServiceObjects.Unidades" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="EntitiesUnidades" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UnidadAngle" EntityType="DataAccess.ServiceObjects.Unidades.UnidadAngle" />
+          <EntitySet Name="UnidadCantidad" EntityType="DataAccess.ServiceObjects.Unidades.UnidadCantidad" />
+          <EntitySet Name="UnidadDistancia" EntityType="DataAccess.ServiceObjects.Unidades.UnidadDistancia" />
+          <EntitySet Name="UnidadForce" EntityType="DataAccess.ServiceObjects.Unidades.UnidadForce" />
+          <EntitySet Name="UnidadMass" EntityType="DataAccess.ServiceObjects.Unidades.UnidadMass" />
+          <EntitySet Name="UnidadPresion" EntityType="DataAccess.ServiceObjects.Unidades.UnidadPresion" />
+          <EntitySet Name="UnidadTiempo" EntityType="DataAccess.ServiceObjects.Unidades.UnidadTiempo" />
+          <EntitySet Name="UnidadDureza" EntityType="DataAccess.ServiceObjects.Unidades.UnidadDureza" />
+        </EntityContainer>
+        <EntityType Name="UnidadAngle">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD_ANGLE" />
+          </Key>
+          <Property Name="ID_UNIDAD_ANGLE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ValorGrados" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnidadCantidad">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD_CANTIDAD" />
+          </Key>
+          <Property Name="ID_UNIDAD_CANTIDAD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ValorUnidad" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnidadDistancia">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD_DISTANCIA" />
+          </Key>
+          <Property Name="ID_UNIDAD_DISTANCIA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ValorInches" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnidadForce">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD_FORCE" />
+          </Key>
+          <Property Name="ID_UNIDAD_FORCE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ValorLBS" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnidadMass">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD_MASS" />
+          </Key>
+          <Property Name="ID_UNIDAD_MASS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ValorGram" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnidadPresion">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD_PRESION" />
+          </Key>
+          <Property Name="ID_UNIDAD_PRESION" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="ValorPSI" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnidadTiempo">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD_TIEMPO" />
+          </Key>
+          <Property Name="ID_UNIDAD_TIEMPO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ValorSeg" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnidadDureza">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD_DUREZA" />
+          </Key>
+          <Property Name="ID_UNIDAD_DUREZA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ValorHR" Type="Double" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DataAccessServiceObjectsUnidadesStoreContainer" CdmEntityContainer="EntitiesUnidades">
+          <EntitySetMapping Name="UnidadAngle">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Unidades.UnidadAngle">
+              <MappingFragment StoreEntitySet="UnidadAngle">
+                <ScalarProperty Name="ValorGrados" ColumnName="ValorGrados" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID_UNIDAD_ANGLE" ColumnName="ID_UNIDAD_ANGLE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnidadCantidad">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Unidades.UnidadCantidad">
+              <MappingFragment StoreEntitySet="UnidadCantidad">
+                <ScalarProperty Name="ValorUnidad" ColumnName="ValorUnidad" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID_UNIDAD_CANTIDAD" ColumnName="ID_UNIDAD_CANTIDAD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnidadDistancia">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Unidades.UnidadDistancia">
+              <MappingFragment StoreEntitySet="UnidadDistancia">
+                <ScalarProperty Name="ValorInches" ColumnName="ValorInches" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID_UNIDAD_DISTANCIA" ColumnName="ID_UNIDAD_DISTANCIA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnidadForce">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Unidades.UnidadForce">
+              <MappingFragment StoreEntitySet="UnidadForce">
+                <ScalarProperty Name="ValorLBS" ColumnName="ValorLBS" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID_UNIDAD_FORCE" ColumnName="ID_UNIDAD_FORCE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnidadMass">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Unidades.UnidadMass">
+              <MappingFragment StoreEntitySet="UnidadMass">
+                <ScalarProperty Name="ValorGram" ColumnName="ValorGram" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID_UNIDAD_MASS" ColumnName="ID_UNIDAD_MASS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnidadPresion">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Unidades.UnidadPresion">
+              <MappingFragment StoreEntitySet="UnidadPresion">
+                <ScalarProperty Name="ValorPSI" ColumnName="ValorPSI" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID_UNIDAD_PRESION" ColumnName="ID_UNIDAD_PRESION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnidadTiempo">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Unidades.UnidadTiempo">
+              <MappingFragment StoreEntitySet="UnidadTiempo">
+                <ScalarProperty Name="ValorSeg" ColumnName="ValorSeg" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID_UNIDAD_TIEMPO" ColumnName="ID_UNIDAD_TIEMPO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnidadDureza">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Unidades.UnidadDureza">
+              <MappingFragment StoreEntitySet="UnidadDureza">
+                <ScalarProperty Name="ValorHR" ColumnName="ValorHR" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID_UNIDAD_DUREZA" ColumnName="ID_UNIDAD_DUREZA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

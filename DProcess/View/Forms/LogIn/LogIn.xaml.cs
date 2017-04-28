@@ -65,7 +65,7 @@ namespace View.Forms.LogIn
                         UsuarioViewModel context = new UsuarioViewModel { ModelUsuario = usuarioConectado, Pagina = PantallaHome };
 
                         //Asignamos al DataContext de la PantallaHome el context creado anteriormente.
-                        //NOTA IMPORTANTE: Se hizo una redundancia al asignarle en la propiedad Pagina su misma pantalla. Solo es por ser la primeva vez y tenernos en donde descanzar la primera pantalla.
+                        //NOTA IMPORTANTE: Se hizo una redundancia al asignarle en la propiedad página su misma pantalla. Solo es por ser la primeva vez y tenernos en donde descanzar la primera pantalla.
                         PantallaHome.DataContext = context;
 
                         //Declaramos la pantalla en la que descanzan todas las páginas.

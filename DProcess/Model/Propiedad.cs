@@ -12,7 +12,11 @@
         /// <summary>
         /// Cadena que representa la concatecacion del nombre con la unidad.
         /// </summary>
-        public string TextoPresentacion { get; set; }
+        public string TextoPresentacion {
+            get {
+                return DescripcionCorta + " : " + Unidad;
+            }
+        }
 
         /// <summary>
         /// Cadena que representa una descripción larga de la propiedad.
@@ -56,7 +60,7 @@
         public override string ToString()
         {
             //Retornamos una cadena con el valor de la propiedad con el formato 0.00000
-            return string.Format("{0:0.00000}", Valor);
+            return Nombre;
         }
         #endregion
     }

@@ -26,6 +26,11 @@ namespace Model
         }
 
         /// <summary>
+        /// Cadena que representa un texto para identificar que tipo de material es.
+        /// </summary>
+        public string TextoPresentacion { get; }
+
+        /// <summary>
         /// Cadena que representa el tipo de material.
         /// </summary>
         /// <example>

@@ -8,6 +8,8 @@ using DataAccess.ServiceObjects.Operaciones.Premaquinado;
 using DataAccess.ServiceObjects.Herramentales;
 using DataAccess.ServiceObjects.MateriasPrimas;
 using DataAccess.ServiceObjects.Usuario;
+using DataAccess.ServiceObjects.Unidades;
+using System.Collections.Generic;
 
 namespace Model
 {
@@ -30,7 +32,7 @@ namespace Model
         /// <returns>Tipo de material de la especificación(HIERRO GRIS, HIERRO DUCTIL, ETC.)</returns>
         public static string GetTipoMaterial(string EspecificacionMaterial)
         {
-            SO_Material ServiceMaterial = new SO_Material("");
+            SO_Material ServiceMaterial = new SO_Material();
 
             DataSet InformacionBD = ServiceMaterial.GetTipoMaterial(EspecificacionMaterial);
 
@@ -180,7 +182,7 @@ namespace Model
        
         #endregion
 
-        #region Métodos Generales
+        #region Métodos Genéricos
 
         /// <summary>
         /// Método que transforma un objeto de tipo IList a Herramental.
@@ -298,9 +300,52 @@ namespace Model
             });
 
         }
+
+        public static ObservableCollection<string> GetAllTreatment()
+        {
+            ObservableCollection<string> ListaResultante = new ObservableCollection<string>();
+
+            
+
+            return ListaResultante;
+        }
+
+        public static ObservableCollection<string> ConvertTo(List<string> lista)
+        {
+            ObservableCollection<string> ListaResultante = new ObservableCollection<string>();
+
+            foreach (string item in lista)
+            {
+                ListaResultante.Add(item);
+            }
+
+            return ListaResultante;
+        }
+
+        /// <summary>
+        /// Elimina los valores duplicados de una lista y deja solo un valor.
+        /// </summary>
+        /// <param name="inputList">Lista que se requiere evaluar.</param>
+        /// <returns></returns>
+        public static List<string> removeDuplicates(List<string> inputList)
+        {
+            Dictionary<string, int> uniqueStore = new Dictionary<string, int>();
+            List<string> finalList = new List<string>();
+            foreach (string currValue in inputList)
+            {
+                if (!uniqueStore.ContainsKey(currValue))
+                {
+                    uniqueStore.Add(currValue, 0);
+                    finalList.Add(currValue);
+                }
+            }
+            return finalList;
+        }
+
         #endregion
 
         #region MateriasPrimas
+
         #region Pattern
         /// <summary>
         /// Método que obtiene todos los registros de la tabla Pattern2.
@@ -484,6 +529,7 @@ namespace Model
         }
 
         #endregion Pattern
+
         #region Cuffs
         /// <summary>
         /// Método que obtiene todos los registros de la tabla Cuffs.
@@ -659,6 +705,7 @@ namespace Model
         }
 
         #endregion
+
         #region TubosHD
 
         /// <summary>
@@ -748,6 +795,245 @@ namespace Model
             return ServiceTubosHD.DeleteTubosHD(obj.Tubo.Valor);
         }
         #endregion
+
+        #region Especificaciones
+        public static ObservableCollection<string> GetAllEspecificacionesMateriaPrima()
+        {
+            SO_Especificaciones ServicioEspecificaciones = new SO_Especificaciones();
+
+            List<string> ListaResultante = new List<string>();
+
+            IList InformacionBD = ServicioEspecificaciones.GetAllEspecificaciones();
+
+            if (InformacionBD != null)
+            {
+                foreach (var registro in InformacionBD)
+                {
+                    System.Type tipo = registro.GetType();
+
+                    string dato = "";
+                    dato = (string)tipo.GetProperty("id_material").GetValue(registro, null);
+                    if (!string.IsNullOrEmpty(dato.Trim()))
+                    {
+                        ListaResultante.Add(dato);
+                    }
+
+                    dato = (string)tipo.GetProperty("Odl_Mahle").GetValue(registro, null);
+                    if (!string.IsNullOrEmpty(dato.Trim()))
+                    {
+                        ListaResultante.Add(dato);
+                    }
+
+                    dato = (string)tipo.GetProperty("Ref1").GetValue(registro, null);
+                    if (!string.IsNullOrEmpty(dato.Trim()))
+                    {
+                        ListaResultante.Add(dato);
+                    }
+
+                    dato = (string)tipo.GetProperty("Ref2").GetValue(registro, null);
+                    if (!string.IsNullOrEmpty(dato.Trim()))
+                    {
+                        ListaResultante.Add(dato);
+                    }
+
+                    dato = (string)tipo.GetProperty("Ref3").GetValue(registro, null);
+                    if (!string.IsNullOrEmpty(dato.Trim()))
+                    {
+                        ListaResultante.Add(dato);
+                    }
+
+                    dato = (string)tipo.GetProperty("Ref4").GetValue(registro, null);
+                    if (!string.IsNullOrEmpty(dato.Trim()))
+                    {
+                        ListaResultante.Add(dato);
+                    }
+
+                    dato = (string)tipo.GetProperty("Ref5").GetValue(registro, null);
+                    if (!string.IsNullOrEmpty(dato.Trim()))
+                    {
+                        ListaResultante.Add(dato);
+                    }
+
+                    dato = (string)tipo.GetProperty("Ref6").GetValue(registro, null);
+                    if (!string.IsNullOrEmpty(dato.Trim()))
+                    {
+                        ListaResultante.Add(dato);
+                    }
+
+                    dato = (string)tipo.GetProperty("Ref7").GetValue(registro, null);
+                    if (!string.IsNullOrEmpty(dato.Trim()))
+                    {
+                        ListaResultante.Add(dato);
+                    }
+
+                    dato = (string)tipo.GetProperty("Ref8").GetValue(registro, null);
+                    if (!string.IsNullOrEmpty(dato.Trim()))
+                    {
+                        ListaResultante.Add(dato);
+                    }
+
+                    dato = (string)tipo.GetProperty("Ref9").GetValue(registro, null);
+                    if (!string.IsNullOrEmpty(dato))
+                    {
+                        ListaResultante.Add(dato);
+                    }
+
+                    dato = (string)tipo.GetProperty("Ref10").GetValue(registro, null);
+                    if (!string.IsNullOrEmpty(dato.Trim()))
+                    {
+                        ListaResultante.Add(dato);
+                    }
+
+                    dato = (string)tipo.GetProperty("Ref11").GetValue(registro, null);
+                    if (!string.IsNullOrEmpty(dato.Trim()))
+                    {
+                        ListaResultante.Add(dato);
+                    }
+
+                    dato = (string)tipo.GetProperty("Ref12").GetValue(registro, null);
+                    if (!string.IsNullOrEmpty(dato.Trim()))
+                    {
+                        ListaResultante.Add(dato);
+                    }
+                }
+            }
+
+            ListaResultante.Sort();
+
+            ListaResultante = removeDuplicates(ListaResultante);
+
+            return ConvertTo(ListaResultante);
+        }
+
+
         #endregion
+
+        #endregion
+
+        #region Unidades
+
+        /// <summary>
+        /// Método que obtiene las unidades correspondientes al tipo de dato recibido.
+        /// </summary>
+        /// <param name="TipoDato"></param>
+        /// <returns></returns>
+        public static ObservableCollection<string> GetUnidades(string TipoDato)
+        {
+            //Inicializamos el servicio de Unidades.
+            SO_Unidades ServiceUnidades = new SO_Unidades();
+
+            //Declaramos un lista Observable de tipo cadena. Esta lista será la que retornaremos en el método.
+            ObservableCollection<string> ListaResultante = new ObservableCollection<string>();
+
+            //Declaramos una lista anónima en la que almacenaremos la información de la base de datos.
+            IList InformacionBD;
+
+            //Verificamos de que tipo tendremos que obtener la información.
+            if (TipoDato == "Distance")
+            {
+                InformacionBD = ServiceUnidades.GetUnidadesDistancia();
+            }
+            else {
+                if (TipoDato == "Force")
+                {
+                    InformacionBD = ServiceUnidades.GetUnidadesForce();
+                }
+                else {
+                    if (TipoDato == "Mass")
+                    {
+                        InformacionBD = ServiceUnidades.GetUnidadesMas();
+                    }
+                    else {
+                        if (TipoDato == "Presion")
+                        {
+                            InformacionBD = ServiceUnidades.GetUnidadesPresion();
+                        }
+                        else {
+                            if (TipoDato == "Tiempo")
+                            {
+                                InformacionBD = ServiceUnidades.GetUnidadesTiempo();
+                            }
+                            else {
+                                if (TipoDato == "Cantidad")
+                                {
+                                    InformacionBD = ServiceUnidades.GetUnidadesCantidad();
+                                }
+                                else {
+                                    if (TipoDato == "Angle")
+                                    {
+                                        InformacionBD = ServiceUnidades.GetUnidadesAngle();
+                                    }
+                                    else {
+                                        if (TipoDato == "Dureza")
+                                        {
+                                            InformacionBD = ServiceUnidades.GetUnidadesDureza();
+                                        }
+                                        else {
+                                            InformacionBD = null;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Verificamos que el objeto sea diferente de nulo.
+            if (InformacionBD != null)
+            {
+                //Iteramos la información.
+                foreach (var item in InformacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramemos una cadena en la cual guardaremos la unidad.
+                    string elemento;
+
+                    //Obtenemos el valor de la unidad del elemento iterado.
+                    elemento = (string)tipo.GetProperty("UNIDAD").GetValue(item, null);
+
+                    //Agregamos el elemento a la lista.
+                    ListaResultante.Add(elemento);
+                }
+            }
+
+            //Retornamos la lista resultante.
+            return ListaResultante;
+
+        }
+        #endregion
+
+        #region
+        public static ObservableCollection<Cliente> GetAllClientes()
+        {
+            SO_Cliente ServicioCliente = new SO_Cliente();
+
+            ObservableCollection<Cliente> ListaResultante = new ObservableCollection<Cliente>();
+
+            IList InformacionBD = ServicioCliente.GetAllClientes();
+
+            if (InformacionBD != null)
+            {
+                foreach (var item in InformacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    Cliente registro = new Cliente();
+
+                    registro.IdCliente = (int)tipo.GetProperty("id_cliente").GetValue(item, null);
+                    registro.NombreCliente = (string)tipo.GetProperty("Cliente1").GetValue(item, null);
+
+                    ListaResultante.Add(registro);
+                }
+            }
+
+            
+
+            return ListaResultante;
+        }
+        #endregion
+
     }
 }

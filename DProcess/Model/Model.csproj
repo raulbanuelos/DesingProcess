@@ -55,6 +55,7 @@
     <Compile Include="Cuffs.cs" />
     <Compile Include="DataManager.cs" />
     <Compile Include="Empaquetado.cs" />
+    <Compile Include="FO_Item.cs" />
     <Compile Include="Herramental.cs" />
     <Compile Include="Interfaces\ICentroTrabajo.cs" />
     <Compile Include="Interfaces\IObserverDiametro.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Interfaces\ISubjectDiametro.cs" />
     <Compile Include="Interfaces\ISubjectThickness.cs" />
     <Compile Include="Interfaces\ISubjectWidth.cs" />
+    <Compile Include="Itens.cs" />
     <Compile Include="MateriaPrima.cs" />
     <Compile Include="Pattern.cs" />
     <Compile Include="Perfil.cs" />

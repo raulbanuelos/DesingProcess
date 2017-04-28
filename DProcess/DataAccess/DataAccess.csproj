@@ -116,7 +116,16 @@
     <Compile Include="ServiceObjects\MateriasPrimas\Cliente.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\Coating.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\MateriasPrimas\cuffs.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\Esp_MP_Anillos.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\material.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\MateriasPrimas\ModelMateriasPrimas.Context.cs">
@@ -140,7 +149,10 @@
     <Compile Include="ServiceObjects\MateriasPrimas\patt_actualizaciones.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\SO_Cliente.cs" />
+    <Compile Include="ServiceObjects\MateriasPrimas\SO_Coating.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Cuffs.cs" />
+    <Compile Include="ServiceObjects\MateriasPrimas\SO_Especificaciones.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Pattern.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_TipoDocumento.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_TubosCL.cs" />
@@ -178,7 +190,47 @@
       <DependentUpon>ModelPreMaquinado.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\SO_CentroTrabajo.cs" />
-    <Compile Include="ServiceObjects\SO_Material.cs" />
+    <Compile Include="ServiceObjects\MateriasPrimas\SO_Material.cs" />
+    <Compile Include="ServiceObjects\Unidades\ModelUnidades.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelUnidades.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Unidades\ModelUnidades.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelUnidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Unidades\ModelUnidades.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelUnidades.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Unidades\SO_Unidades.cs" />
+    <Compile Include="ServiceObjects\Unidades\UnidadAngle.cs">
+      <DependentUpon>ModelUnidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Unidades\UnidadCantidad.cs">
+      <DependentUpon>ModelUnidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Unidades\UnidadDistancia.cs">
+      <DependentUpon>ModelUnidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Unidades\UnidadDureza.cs">
+      <DependentUpon>ModelUnidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Unidades\UnidadForce.cs">
+      <DependentUpon>ModelUnidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Unidades\UnidadMass.cs">
+      <DependentUpon>ModelUnidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Unidades\UnidadPresion.cs">
+      <DependentUpon>ModelUnidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Unidades\UnidadTiempo.cs">
+      <DependentUpon>ModelUnidades.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Usuario\ModelUsuario.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -247,6 +299,16 @@
       <DependentUpon>ModelPreMaquinado.edmx</DependentUpon>
       <LastGenOutput>ModelPreMaquinado.cs</LastGenOutput>
     </Content>
+    <Content Include="ServiceObjects\Unidades\ModelUnidades.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelUnidades.edmx</DependentUpon>
+      <LastGenOutput>ModelUnidades.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ServiceObjects\Unidades\ModelUnidades.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelUnidades.edmx</DependentUpon>
+      <LastGenOutput>ModelUnidades.cs</LastGenOutput>
+    </Content>
     <Content Include="ServiceObjects\Usuario\ModelUsuario.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelUsuario.edmx</DependentUpon>
@@ -260,6 +322,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <EntityDeploy Include="ServiceObjects\Unidades\ModelUnidades.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelUnidades.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ServiceObjects\Unidades\ModelUnidades.edmx.diagram">
+      <DependentUpon>ModelUnidades.edmx</DependentUpon>
+    </None>
     <None Include="SQLServer\App.config">
       <SubType>Designer</SubType>
     </None>

@@ -33,6 +33,8 @@ namespace View.Services.ViewModel
             set {
                 model.Valor = value;
                 NotifyChange("Valor");
+
+
             }
         }
 
@@ -73,6 +75,7 @@ namespace View.Services.ViewModel
                 NotifyChange("Imagen");
             }
         }
+        
         #endregion
 
         #region Events INotifyPropertyChanged

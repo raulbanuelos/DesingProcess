@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using DataAccess.SQLServer;
+using DataAccess.ServiceObjects.MateriasPrimas;
+using System.Collections;
+using System.Data.Entity;
+using System.Linq;
 
-namespace DataAccess.ServiceObjects
+namespace DataAccess.ServiceObjects.MateriasPrimas
 {
     public class SO_Material
     {
@@ -16,6 +20,11 @@ namespace DataAccess.ServiceObjects
         {
             StrinDeConexion = stringDeConexion;
         }
+
+        public SO_Material()
+        {
+        }
+
         #endregion
 
         #region Métodos
@@ -49,6 +58,34 @@ namespace DataAccess.ServiceObjects
                 return InformacionBD;
             }
             return InformacionBD;
+        }
+
+        /// <summary>
+        /// Método que obtiene la lista de materias primas que pertenecen a un grupo determinado.
+        /// </summary>
+        /// <param name="desc"></param>
+        /// <returns></returns>
+        public IList GetEspecByDescripcion(string desc)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework, el resultado lo asignamos a una variable anónima.
+                using (var Conexion = new EntitiesMateriaPrima())
+                {
+
+                    var Lista = (from a in Conexion.material
+                                 where a.descripcion == desc
+                                 select a).OrderBy(x => x.descripcion).ToList();
+
+                    //Retornamos el resultado de consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
         }
 
         #endregion

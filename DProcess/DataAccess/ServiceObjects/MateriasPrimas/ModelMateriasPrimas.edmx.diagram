@@ -15,6 +15,10 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.cuffs" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.TubosCL" Width="1.5" PointX="7.375" PointY="0.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.TubosHD" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.material" Width="1.5" PointX="11" PointY="2.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Esp_MP_Anillos" Width="1.5" PointX="15.5" PointY="3" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Esp_MP_Anillos_material" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Coating" Width="2.625" PointX="11" PointY="4.625" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

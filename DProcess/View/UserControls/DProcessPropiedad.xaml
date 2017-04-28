@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:View.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="200">
+             d:DesignHeight="50" d:DesignWidth="150">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,7 +20,7 @@
     </UserControl.Resources>
 
     <StackPanel Orientation="Horizontal">
-        <TextBox materialDesign:HintAssist.Hint="{Binding TextoPresentacion}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <TextBox materialDesign:HintAssist.Hint="{Binding TextoPresentacion}" Width="150" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
         <StackPanel VerticalAlignment="Center">
             <Button Width="15" Height="15"></Button>
         </StackPanel>

@@ -1,12 +1,31 @@
-﻿using Model;
+﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using Model;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 
 namespace View.Services.ViewModel
 {
     public class PropiedadViewModel : INotifyPropertyChanged
     {
         #region Atributos
-        private Propiedad model; 
+        public Propiedad model;
+
+        private ObservableCollection<string> _allTipoUnidad;
+
+        private DialogService dialogService;
+
+        public ObservableCollection<string> AllTipoUnidad
+        {
+            get { return _allTipoUnidad; }
+            set { _allTipoUnidad = value; NotifyChange("AllTipoUnidad"); }
+        }
+
+        #endregion
+
+        #region Properties
+
         #endregion
 
         #region Events INotifyPropertyChanged
@@ -33,11 +52,7 @@ namespace View.Services.ViewModel
         /// </summary>
         public string TextoPresentacion {
             get {
-                return model.Nombre + ":" + model.Unidad;
-            }
-            set {
-                model.TextoPresentacion = value;
-                NotifyChange("TextoPresentacion");
+                return model.DescripcionCorta + ":" + model.Unidad;
             }
         }
 
@@ -67,7 +82,6 @@ namespace View.Services.ViewModel
                 NotifyChange("DescripcionCorta");
             }
         }
-
         
         /// <summary>
         /// Cadena que representa el tipo de dato de la propiedad.
@@ -86,7 +100,7 @@ namespace View.Services.ViewModel
         }
         
         /// <summary>
-        /// Cadena que representa la unidad de la proiedad.
+        /// Cadena que representa la unidad de la propiedad.
         /// </summary>
         /// <example>
         /// degree(°),Inch (in),PSI
@@ -96,12 +110,38 @@ namespace View.Services.ViewModel
                 return model.Unidad;
             }
             set {
-                model.Unidad = value;
-                NotifyChange("Unidad");
-                NotifyChange("TextoPresentacion");
+                if (model.Unidad != value)
+                {
+                    SetNewValor(value);
+                }
             }
         }
-        
+
+        /// <summary>
+        /// Método que asigna el nuevo valor a la propiedad Unidad. Así mismo permirte convertir o mantener el valor.
+        /// </summary>
+        /// <param name="NewUnidad"></param>
+        public async void SetNewValor(string NewUnidad)
+        {
+            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = "Convert to";
+            setting.NegativeButtonText = "Keep";
+
+            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+            MessageDialogResult result = await dialogService.SendMessage("Attention", "What do you want to do? \n •Keep the same value \n •Convert the value from " + model.Unidad + " to " + NewUnidad, setting, MessageDialogStyle.AffirmativeAndNegative);
+            
+            //Comparamos si la respuesta fué afirmativa, el usuario eligió convertir el valor.
+            if (result == MessageDialogResult.Affirmative)
+            {
+                Valor = Module.ConvertTo(model.TipoDato, model.Unidad, NewUnidad,Valor);
+                NotifyChange("Valor");
+            }
+            model.Unidad = NewUnidad;
+            NotifyChange("Unidad");
+            NotifyChange("TextoPresentacion");
+        }
+
         /// <summary>
         /// Double que representa el valor de la propiedad.
         /// </summary>
@@ -130,6 +170,22 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Constructores
+
+        /// <summary>
+        /// Constructor que inicializa el atributo de modelo.
+        /// </summary>
+        /// <param name="Model">Propiedad que se va asignar al modelo.</param>
+        public PropiedadViewModel(Propiedad Model)
+        {
+            //Mapeamos el valor del modelo recibido al atributo de la clase.
+            model = Model;
+
+            //Ejecutamos el método para obtener la lista de unidades, asignamos el resultado a la lista de la clase.
+            AllTipoUnidad = DataManager.GetUnidades(model.TipoDato);
+
+            dialogService = new DialogService();
+        }
+
         /// <summary>
         /// Constructor por default. Inicializa todas las propiedades con valores por default.
         /// </summary>
@@ -183,11 +239,15 @@ namespace View.Services.ViewModel
                 case "Tiempo":
                     Unidad = "second ('')";
                     break;
+                case "Dureza":
+                    Unidad = "HRC";
+                    break;
                 default:
                     break;
             }
 
         }
+        
         #endregion
 
         #region INotifyPropertyChanged Métodos

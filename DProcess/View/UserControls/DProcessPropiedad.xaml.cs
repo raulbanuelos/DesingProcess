@@ -24,5 +24,6 @@ namespace View.UserControls
         {
             InitializeComponent();
         }
+        
     }
 }

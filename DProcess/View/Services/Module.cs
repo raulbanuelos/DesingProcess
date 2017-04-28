@@ -1,6 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Model;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using System.Windows;
+using DataAccess.ServiceObjects.Unidades;
+using System;
 
 namespace View.Services
 {
@@ -374,6 +379,93 @@ namespace View.Services
 
             //Retornamos la lista de propiedades cadena con los valores.
             return ListaPropiedades;
+        }
+
+        /// <summary>
+        /// Método que realiza la conversión de un valor de un tipo de unidad a otro.
+        /// </summary>
+        /// <param name="TipoDato">Cadena que representa el tipo de dato que es el valor. Distance, angle, presion, etc.</param>
+        /// <param name="UnidadInicial">Cadena que representa la unidad en la que está el valor. Inch, Grados, Segundos, etc.</param>
+        /// <param name="UnidadDestino">Cadena que representa la unidad a la que se requiere convertir el valor.</param>
+        /// <param name="valor">Numérico que representa el valor.</param>
+        /// <returns></returns>
+        public static double ConvertTo(string TipoDato, string UnidadInicial, string UnidadDestino,double valor)
+        {
+            //Incializamos los servicios de Unidad.
+            SO_Unidades ServicioUnidades = new SO_Unidades();
+
+            //Declaramos una variable de tipo double que nos ayudará a guardar el valor convertido.
+            double respuesta = 0;
+
+            //Declaramos las variables que guardarán el valor equivalente a la unidad por default.
+            double valorUnidadInicial = 0;
+            double valorUnidadDestino = 0;
+
+            //Verificamos que tipo de dato es, y obtenemos en cada una de las opciones el valor equivalente por default.
+            if (TipoDato == "Distance")
+            {
+                valorUnidadInicial = ServicioUnidades.GetValueInchUnidadDistance(UnidadInicial);
+                valorUnidadDestino = ServicioUnidades.GetValueInchUnidadDistance(UnidadDestino);
+            }
+            else {
+                if (TipoDato == "Force")
+                {
+                    valorUnidadInicial = ServicioUnidades.GetValueLBSUnidadForce(UnidadInicial);
+                    valorUnidadDestino = ServicioUnidades.GetValueLBSUnidadForce(UnidadDestino);
+                }
+                else {
+                    if (TipoDato == "Mass")
+                    {
+                        valorUnidadInicial = ServicioUnidades.GetValueGramUnidadMass(UnidadInicial);
+                        valorUnidadDestino = ServicioUnidades.GetValueGramUnidadMass(UnidadDestino);
+                    }
+                    else {
+                        if (TipoDato == "Tiempo")
+                        {
+                            valorUnidadInicial = ServicioUnidades.GetValueSegUnidadTiempo(UnidadInicial);
+                            valorUnidadDestino = ServicioUnidades.GetValueSegUnidadTiempo(UnidadDestino);
+                        }
+                        else {
+                            if (TipoDato == "Presion")
+                            {
+                                valorUnidadInicial = ServicioUnidades.GetValuePSIUnidadPresion(UnidadInicial);
+                                valorUnidadDestino = ServicioUnidades.GetValuePSIUnidadPresion(UnidadDestino);
+                            }
+                            else {
+                                if (TipoDato == "Angle")
+                                {
+                                    valorUnidadInicial = ServicioUnidades.GetValueGradosUnidadAngle(UnidadInicial);
+                                    valorUnidadDestino = ServicioUnidades.GetValueGradosUnidadAngle(UnidadDestino);
+                                }
+                                else {
+                                    if (TipoDato == "Cantidad")
+                                    {
+                                        valorUnidadInicial = ServicioUnidades.GetValueUnidadUnidadCantidad(UnidadInicial);
+                                        valorUnidadDestino = ServicioUnidades.GetValueUnidadUnidadCantidad(UnidadDestino);
+                                    }
+                                    else {
+                                        if (TipoDato == "Dureza")
+                                        {
+                                            valorUnidadInicial = ServicioUnidades.GetValueDurezaUnidadDureza(UnidadInicial);
+                                            valorUnidadDestino = ServicioUnidades.GetValueDurezaUnidadDureza(UnidadDestino);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Convertimos primeramente a la unidad por defautl. 
+            //Ejemplo para el caso del tipo de unidad distancia, primeramente lo convertimos a Pulgadas.
+            double valorUnidadDefault = Math.Round(valorUnidadInicial * valor,4);
+
+            //Convertimos el valor de pulgadas a la unidad requerida.
+            respuesta = Math.Round(valorUnidadDefault / valorUnidadDestino,4);
+
+            //Retornamos el valor.
+            return respuesta;
         }
     }
 }
