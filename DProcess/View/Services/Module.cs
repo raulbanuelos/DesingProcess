@@ -380,31 +380,6 @@ namespace View.Services
             //Retornamos la lista de propiedades cadena con los valores.
             return ListaPropiedades;
         }
-        
-        /// <summary>
-        /// Método que obtiene la instancia de la ventana que tiene el título enviado en el parámetro.
-        /// </summary>
-        /// <param name="title">Cadena que representa el título de la ventana que se quiere obtener.</param>
-        /// <returns></returns>
-        public static Window GetWindow(string title)
-        {
-            //Declaramos un objeto que nos servirá para guardar la ventana.
-            Window respuesta = null;
-
-            //Iteramos la lista de ventanas activas que estan registradas en la colección de la aplicación.
-            foreach (Window ventana in Application.Current.Windows)
-            {
-                //Comparamos si la ventana iterada tiene el mismo título que el parámetro recibido.
-                if (ventana.Title == title)
-                {
-                    //Asignamos la ventana iterada al objeto declarado anteriormente.
-                    respuesta = ventana;
-                }
-            }
-
-            //Retornamos la ventana.
-            return respuesta;
-        }
 
         /// <summary>
         /// Método que realiza la conversión de un valor de un tipo de unidad a otro.

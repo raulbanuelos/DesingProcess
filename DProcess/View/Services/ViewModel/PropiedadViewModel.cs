@@ -14,6 +14,8 @@ namespace View.Services.ViewModel
 
         private ObservableCollection<string> _allTipoUnidad;
 
+        private DialogService dialogService;
+
         public ObservableCollection<string> AllTipoUnidad
         {
             get { return _allTipoUnidad; }
@@ -121,17 +123,13 @@ namespace View.Services.ViewModel
         /// <param name="NewUnidad"></param>
         public async void SetNewValor(string NewUnidad)
         {
-            //Ejecutamos el método para obtener la ventana donde se muestran las unidades.
-            var metroWindow = Module.GetWindow("Unidades") as MetroWindow;
-
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
             setting.AffirmativeButtonText = "Convert to";
             setting.NegativeButtonText = "Keep";
 
-            //Mostramos el mensaje en donde le indicamos al usuario que desea realizar, si mantener el mismo valor o convertirlo a la unidad que acaba de seleccionar. El resultado lo guardamos en una variable de tipo MessageDialogResult.
-            MessageDialogResult result = await metroWindow.ShowMessageAsync("Attention", "What do you want to do? \n •Keep the same value \n •Convert the value from " + model.Unidad + " to " + NewUnidad, MessageDialogStyle.AffirmativeAndNegative, setting);
-
+            MessageDialogResult result = await dialogService.SendMessage("Attention", "What do you want to do? \n •Keep the same value \n •Convert the value from " + model.Unidad + " to " + NewUnidad, setting, MessageDialogStyle.AffirmativeAndNegative);
+            
             //Comparamos si la respuesta fué afirmativa, el usuario eligió convertir el valor.
             if (result == MessageDialogResult.Affirmative)
             {
@@ -183,6 +181,8 @@ namespace View.Services.ViewModel
 
             //Ejecutamos el método para obtener la lista de unidades, asignamos el resultado a la lista de la clase.
             AllTipoUnidad = DataManager.GetUnidades(model.TipoDato);
+
+            dialogService = new DialogService();
         }
 
         /// <summary>
