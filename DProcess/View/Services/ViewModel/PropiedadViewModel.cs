@@ -128,6 +128,7 @@ namespace View.Services.ViewModel
             setting.AffirmativeButtonText = "Convert to";
             setting.NegativeButtonText = "Keep";
 
+            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
             MessageDialogResult result = await dialogService.SendMessage("Attention", "What do you want to do? \n •Keep the same value \n •Convert the value from " + model.Unidad + " to " + NewUnidad, setting, MessageDialogStyle.AffirmativeAndNegative);
             
             //Comparamos si la respuesta fué afirmativa, el usuario eligió convertir el valor.
