@@ -353,6 +353,46 @@ namespace Model.ControlDocumentos
             //regresamos la lista.
             return Lista;
         }
+
+        public static ObservableCollection<Documento> GetTipo(int id_documento)
+        {
+            SO_Documento ServiceDocumento = new SO_Documento();
+
+            //Se crea una lista de tipo documento, la cual se va a retornar
+            ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
+
+            //obtenemos todo de la BD.
+            IList ObjDocumento = ServiceDocumento.GetTipo(id_documento);
+
+            //Verificamos que la informacion no esté vacía.
+            if (ObjDocumento != null)
+            {
+                foreach (var item in ObjDocumento)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    Documento obj = new Documento();
+
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_documento = id_documento;
+                    obj.nombre= (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.tipo.tipo_documento= (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.version.archivo.id_archivo = (int)tipo.GetProperty("ID_ARCHIVO").GetValue(item, null);
+                    obj.version.archivo.ext= (string)tipo.GetProperty("EXT").GetValue(item, null);
+                    obj.version.archivo.archivo = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //regresamos la lista.
+            return Lista;
+
+        }
         #endregion
 
         #region Rol

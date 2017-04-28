@@ -62,7 +62,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_actualizacion"></param>
         /// <param name="fecha_emision"></param>
         /// <returns></returns>
-        public int SetDocumento(int id_documento,string id_usuario,int id_tipo_documento,string nombre,string descripcion,string version_actual,DateTime fecha_creacion,DateTime fecha_actualizacion,DateTime fecha_emision)
+        public int SetDocumento(int id_documento, string id_usuario, int id_tipo_documento, string nombre, string descripcion, string version_actual, DateTime fecha_creacion, DateTime fecha_actualizacion, DateTime fecha_emision)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_actualizacion"></param>
         /// <param name="fecha_emision"></param>
         /// <returns></returns>
-        public int UpdateDocumento(int id_documento, string id_usuario,int id_tipo_documento, string nombre, string descripcion, string version_actual, DateTime fecha_creacion, DateTime fecha_actualizacion, DateTime fecha_emision)
+        public int UpdateDocumento(int id_documento, string id_usuario, int id_tipo_documento, string nombre, string descripcion, string version_actual, DateTime fecha_creacion, DateTime fecha_actualizacion, DateTime fecha_emision)
         {
             try
             {
@@ -144,7 +144,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return 0;
             }
         }
-        
+
         /// <summary>
         /// Método para eliminar un registro de la tabla TBL_documento.
         /// </summary>
@@ -185,14 +185,14 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             {
                 //Incializamos la conexión a través de EntityControlDocumentos.
 
-                using (var Conexion= new EntitiesControlDocumentos())
+                using (var Conexion = new EntitiesControlDocumentos())
                 {
                     //Realizamos la consulta para obtener todos los registros,donde el nombre o la descripción  del documento debe de contener la palabra recibida.
                     var Lista = Conexion.TBL_DOCUMENTO.Where(d => d.NOMBRE.Contains(keyword) || d.DESCRIPCION.Contains(keyword)).ToList();
-                    
+
                     //Renornamos el resultado de la consulta.
                     return Lista;
-     
+
                 }
             }
             catch (Exception er)
@@ -237,6 +237,38 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             catch (Exception)
             {
                 //Si existe algún error, se regresa nulo.
+                return null;
+            }
+        }
+
+        public IList GetTipo(int id_documento)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    var Lista = (from d in Conexion.TBL_DOCUMENTO
+                                 join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
+                                 join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                 join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
+                                 where d.ID_DOCUMENTO==id_documento
+                                 select new
+                                 {
+                                    
+                                     d.ID_TIPO_DOCUMENTO,
+                                     d.NOMBRE,
+                                     t.TIPO_DOCUMENTO,
+                                     a.ID_ARCHIVO,
+                                     a.ARCHIVO,
+                                     a.EXT
+                                 }).ToList();
+                    //se retorna la lista
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+
                 return null;
             }
         }

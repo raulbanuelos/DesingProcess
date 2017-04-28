@@ -21,6 +21,7 @@ namespace Model.ControlDocumentos
         public DateTime fecha_emision { get; set; }
         public Version version { get; set; }
         public Usuarios Usuarios { get; set; }
+        public TipoDocumento tipo { get; set; }
         //int id_documento,string id_usuario,string nombre,string descripcion,string version_actual,
         //DateTime fecha_creacion,DateTime fecha_actualizacion,DateTime fecha_emision
 
@@ -40,6 +41,7 @@ namespace Model.ControlDocumentos
             fecha_actualizacion = new DateTime();
             version = new Version();
             Usuarios = new Usuarios();
+            tipo = new TipoDocumento();
         }
         #endregion
 

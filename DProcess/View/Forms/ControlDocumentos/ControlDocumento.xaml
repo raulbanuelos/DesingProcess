@@ -18,7 +18,8 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="1350"/>
+            <ColumnDefinition Width="988.5"/>
+            <ColumnDefinition Width="362.5"/>
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
 
@@ -29,10 +30,10 @@
             <CheckBox x:Name="checkBox1" Content="Docuementos Internos" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" Height="48" Width="297" FontSize="27"/>
             <CheckBox x:Name="checkBox2" Content="Registros" HorizontalAlignment="Left" Height="42" Margin="14,124,0,0" VerticalAlignment="Top" Width="257" FontSize="27"/>
         </Grid>
-        <Label x:Name="label2" Content="Abreviaturas unidad/entidad:" Grid.Column="1" HorizontalAlignment="Left" Height="71" Margin="794,34,0,0" Grid.Row="1" VerticalAlignment="Top" Width="374" FontSize="28"/>
-        <Label x:Name="label3" Content="Emitido:" Grid.Column="2" Height="50" Margin="10,87,176,0" Grid.Row="1" VerticalAlignment="Top" FontSize="28"/>
-        <Label x:Name="lbl_date" Content="" Grid.Column="2" HorizontalAlignment="Left" Height="50" Margin="130,87,-92,0" Grid.Row="1" VerticalAlignment="Top" Width="263" />
-        <DataGrid x:Name="dataGrid" Height="266" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1351" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" Grid.ColumnSpan="2" AutoGenerateColumns="False">
+        <Label x:Name="label2" Content="Abreviaturas unidad/entidad:" Grid.Column="1" HorizontalAlignment="Left" Height="71" Margin="794,34,0,0" Grid.Row="1" VerticalAlignment="Top" Width="374" FontSize="28" Grid.ColumnSpan="2"/>
+        <Label x:Name="label3" Content="Emitido:" Grid.Column="3" Height="50" Margin="10,87,176,0" Grid.Row="1" VerticalAlignment="Top" FontSize="28"/>
+        <Label x:Name="lbl_date" Content="" Grid.Column="3" HorizontalAlignment="Left" Height="50" Margin="130,87,-92,0" Grid.Row="1" VerticalAlignment="Top" Width="263" />
+        <DataGrid x:Name="dataGrid" Height="266" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1351" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" Grid.ColumnSpan="3" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding id_documento}" ClipboardContentBinding="{x:Null}" Header="Número de Documento"/>
                 <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre de Documento"/>
@@ -45,7 +46,7 @@
             </DataGrid.Columns>
 
         </DataGrid>
-        <Canvas Grid.Column="2" HorizontalAlignment="Left" Height="141" Margin="10,30,-177,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="468">
+        <Canvas Grid.Column="3" HorizontalAlignment="Left" Height="141" Margin="10,30,-177,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="468">
             <Image x:Name="image" Grid.Column="2" HorizontalAlignment="Left" Height="131" VerticalAlignment="Top" Width="458" Grid.RowSpan="2" Source="/View;component/Images/logo-mahle.png"/>
         </Canvas>
     </Grid>

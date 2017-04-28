@@ -183,6 +183,48 @@ namespace View.Services.ViewModel
             }
 
         }
+
+        private bool _bttnEliminar;
+        public bool BttnEliminar {
+            get
+            {
+                return _bttnEliminar;
+            }
+            set
+            {
+                _bttnEliminar = value;
+                NotifyChange("BttnEliminar");
+            }
+        }
+
+        private bool _bttnModificar;
+        public bool BttnModificar
+        {
+            get
+            {
+                return _bttnModificar;
+            }
+            set
+            {
+                _bttnModificar = value;
+                NotifyChange("BttnModificar");
+            }
+        }
+
+        private bool _bttnVersion;
+        public bool BttnVersion
+        {
+            get
+            {
+                return _bttnVersion;
+            }
+            set
+            {
+                _bttnVersion = value;
+                NotifyChange("BttnVersion");
+            }
+        }
+
         #endregion
 
         #region Constructor
@@ -194,13 +236,39 @@ namespace View.Services.ViewModel
             Descripcion = _descripcion;
             id_documento = _id_documento;
             BotonGuardar = "Guardar";
+            BttnEliminar = true;
+            BttnModificar = true;
+            BttnVersion = true;
+            ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetTipo(_id_documento);
+
+            foreach (var item in Lista)
+            {
+                Archivo objArchivo = new Archivo();
+
+
+                objArchivo.nombre = item.nombre;
+                objArchivo.id_archivo = item.version.archivo.id_archivo;
+                objArchivo.archivo = item.version.archivo.archivo;
+                objArchivo.ext = item.version.archivo.ext;
+
+                if (objArchivo.ext == ".pdf")
+                {
+                    //asigna la imagen del pdf al objeto
+                    objArchivo.ruta = @"/Images/p.png";
+                }
+                else
+                {
+                    //Si es archivo de word asigna la imagen correspondiente.
+                    objArchivo.ruta = @"/Images/w.png";
+                }
+                ListaDocumentos.Add(objArchivo);
+            }
         }
 
         public DocumentoViewModel()
         {
             BotonGuardar = "Guardar";
         }
-
 
         #endregion
 
@@ -218,9 +286,11 @@ namespace View.Services.ViewModel
         private async void guardarControl()
         {
             DialogService dialog = new DialogService();
-            if (nombre != null & version != null & fecha != null & copias != null & descripcion != null & id_tipo != 0)
+
+            if (BotonGuardar == "Guardar")
             {
-                if (BotonGuardar == "Guardar") {
+                if (nombre != null & version != null & fecha != null & copias != null & descripcion != null & id_tipo != 0)
+                {
                     Documento obj = new Documento();
                     Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
 
@@ -253,8 +323,17 @@ namespace View.Services.ViewModel
 
                         int n = DataManagerControlDocumentos.SetArchivo(objArchivo);
                     }
+                    await dialog.SendMessage("", "Los cambios fueron guardados exitosamente..");
                 }
                 else
+                {
+                    await dialog.SendMessage("Alerta", "Se debe llenar todos los campos.");
+                }
+            }
+            else
+            {
+
+                if (version != null & copias != null & fecha != null & id_documento != 0)
                 {
                     Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
 
@@ -276,12 +355,15 @@ namespace View.Services.ViewModel
 
                         int id_archivo = DataManagerControlDocumentos.SetArchivo(objArchivo);
                     }
+
                     BotonGuardar = "Guardar";
+                    await dialog.SendMessage("", "Los cambios fueron guardados exitosamente..");
                 }
-            }
-            else
-            {
-                await dialog.SendMessage("RGP: Alerta", "Se debe llenar todos los campos");
+                else
+                {
+                    await dialog.SendMessage("Alerta", "Se debe llenar todos los campos.");
+                }
+
             }
         }
 
@@ -303,10 +385,8 @@ namespace View.Services.ViewModel
             //Filtar los dpocumentos por extensión 
             dlg.Filter = "Word (97-2003)|*.doc|PDF Files (.pdf)|*.pdf";
 
-
             // Mostrar el explorador de archivos
             Nullable<bool> result = dlg.ShowDialog();
-
 
             // Si fue seleccionado un documento 
             if (result == true)
@@ -325,21 +405,22 @@ namespace View.Services.ViewModel
 
                 //Se obtiene sólo el nombre, sin extensión.
                 obj.nombre = System.IO.Path.GetFileNameWithoutExtension(filename);
+                //El nombre del archivo lo asigna al textbox del nombre
+                Nombre = obj.nombre;
 
+                //Si el archivo tiene extensión pdf
                 if (obj.ext == ".pdf")
                 {
-
-                    //img_icono.Source = new BitmapImage(new Uri(@"/Images/pdf.ico", UriKind.Relative));
+                    //asigna la imagen del pdf al objeto
                     obj.ruta = @"/Images/p.png";
                 }
                 else
                 {
-                    //img_icono.Source = new BitmapImage(new Uri(@"/Images/piston.ico", UriKind.Relative));
+                    //Si es archivo de word asigna la imagen correspondiente.
                     obj.ruta = @"/Images/w.png";
                 }
                 //Se agrega el objeto a la lista
                 ListaDocumentos.Add(obj);
-
             }
         }
 
@@ -355,7 +436,10 @@ namespace View.Services.ViewModel
         }
         private void cancelar()
         {
-
+            BotonGuardar = "Guardar";
+            BttnEliminar = true;
+            BttnModificar = true;
+            BttnVersion = true;
         }
 
         /// <summary>
@@ -407,6 +491,7 @@ namespace View.Services.ViewModel
                 obj.fecha_emision = Convert.ToDateTime("03/02/2015");
 
                 int n = DataManagerControlDocumentos.UpdateDocumento(obj);
+                await dialog.SendMessage("", "Cambios realizados..");
             }
             else
             {
@@ -428,6 +513,9 @@ namespace View.Services.ViewModel
             Copias=string.Empty;
             ListaDocumentos.Clear();
             BotonGuardar = "Guardar Version";
+            BttnEliminar = false;
+            BttnModificar = false;
+            BttnVersion = false;
         }
 
         public ICommand VerArchivo

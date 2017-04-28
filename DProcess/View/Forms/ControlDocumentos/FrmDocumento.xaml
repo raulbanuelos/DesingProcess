@@ -11,6 +11,8 @@
         Title="" Height="808.5" Width="1114.5" WindowStartupLocation="CenterScreen">
     <Window.Resources>
 
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+
         <DataTemplate x:Key="Lista">
             <Border Margin="5" BorderThickness="1" BorderBrush="#FF2196F3" CornerRadius="4" Width="380">
                 <Grid Margin="3">
@@ -111,10 +113,10 @@
                     </TransformGroup>
                 </Canvas.RenderTransform>
                 <Button x:Name="bttn_guardar" Content="{Binding BotonGuardar}" Height="41" Canvas.Top="10" Width="135" Canvas.Left="38" Command="{Binding GuardarControl}" Background="#FF157EFB"  />
-                <Button x:Name="bttn_cancelar" Content="Cancelar" Height="41" Canvas.Left="668" Canvas.Top="10" Width="135" Command="{Binding Cancelar}" Background="#FF157EFB"/>
-                <Button x:Name="bttn_eliminar" Content="Eliminar" Canvas.Left="202" Canvas.Top="10" Width="135" Height="41" Background="#FF157EFB" Command="{Binding Eliminar}"/>
-                <Button x:Name="bttn_cambios" Content="Modificar" Height="41" Canvas.Left="360" Canvas.Top="10" Width="135" Background="#FF157EFB" Command="{Binding Modificar}"/>
-                <Button x:Name="bttn_generar" Content="Generar Versión" Height="41" Canvas.Left="515" Canvas.Top="10" Width="135" Background="#FF157EFB" Command="{Binding GenerarVersion}"/>
+                <Button x:Name="bttn_cancelar" Content="Cancelar" Height="41" Canvas.Left="202" Canvas.Top="10" Width="135" Command="{Binding Cancelar}" Background="#FF157EFB"/>
+                <Button x:Name="bttn_eliminar" Content="Eliminar" Canvas.Left="522" Canvas.Top="10" Width="135" Height="41" Background="#FF157EFB" Command="{Binding Eliminar}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
+                <Button x:Name="bttn_cambios" Content="Modificar" Height="41" Canvas.Left="362" Canvas.Top="10" Width="135" Background="#FF157EFB" Command="{Binding Modificar}" Visibility="{Binding BttnModificar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
+                <Button x:Name="bttn_generar" Content="Generar Versión" Height="41" Canvas.Left="681" Canvas.Top="10" Width="135" Background="#FF157EFB" Command="{Binding GenerarVersion}" Visibility="{Binding BttnVersion, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
             </Canvas>
 
             <!--ListView-->
@@ -125,12 +127,11 @@
                              CommandParameter="{Binding extension}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-
             </ListBox>
             <Label x:Name="label5" Content="Lista de Documentos" Height="36" Canvas.Left="657" Canvas.Top="8" Width="197" FontSize="18" FontWeight="Bold"/>
 
             <!--Tipo de Documento-->
-            <ComboBox x:Name="comboBox" Height="38" Canvas.Left="83" Canvas.Top="402" Width="517" BorderThickness="1" BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}" DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}" FontSize="18"  />
+            <ComboBox x:Name="comboBox" Height="38" Canvas.Left="83" Canvas.Top="402" Width="517" BorderThickness="1" BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}" FontSize="18"   />
             <Label x:Name="label6" Content="Tipo de Documento" Height="29" Canvas.Left="83" Canvas.Top="368" Width="161" FontSize="16" FontWeight="Bold"/>
 
         </Canvas>

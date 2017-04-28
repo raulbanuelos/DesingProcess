@@ -287,12 +287,8 @@ namespace View.Services.ViewModel
         {
             FrmDocumento frm = new FrmDocumento();
             DocumentoViewModel context = new DocumentoViewModel("HOE-ETL-001", "1", "1", "", 1025);
-
-
-            
             frm.DataContext = context;
             frm.ShowDialog();
-
             //ControlDocumento frm = new ControlDocumento();
             //ControlDocumentoViewModel context = new ControlDocumentoViewModel();
             //frm.DataContext = context;
