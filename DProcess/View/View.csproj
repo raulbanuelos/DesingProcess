@@ -120,6 +120,9 @@
     <Compile Include="Forms\ControlDocumentos\ControlDocumento.xaml.cs">
       <DependentUpon>ControlDocumento.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmDocumento.xaml.cs">
+      <DependentUpon>FrmDocumento.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Index\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
@@ -142,6 +145,8 @@
     <Compile Include="Services\Module.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\FirstRoughGrind.cs" />
     <Compile Include="Services\ViewModel\AnilloViewModel.cs" />
+    <Compile Include="Services\ViewModel\ControlDocumentoViewModel.cs" />
+    <Compile Include="Services\ViewModel\DocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
     <Compile Include="Services\ViewModel\PropiedadBoolViewModel.cs" />
     <Compile Include="Services\ViewModel\PropiedadCadenaViewModel.cs" />
@@ -197,6 +202,10 @@
     <Page Include="Forms\ControlDocumentos\ControlDocumento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmDocumento.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\Index\Home.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -268,6 +277,26 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\name.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\copy.png" />
+    <Resource Include="Images\date.png" />
+    <Resource Include="Images\file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\number.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\p.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\w.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
