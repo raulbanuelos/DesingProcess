@@ -8,6 +8,7 @@ using View.Forms.Modals;
 using System.Xml;
 using System.IO;
 using System.Windows.Forms;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace View.Services.ViewModel
 {
@@ -561,7 +562,7 @@ namespace View.Services.ViewModel
             MenuItems.Add("SAP");
 
             //Establesemos a todas las propiedades del modelo anillo los valores por default.
-            SetUnidesDefault("Distance", "Inch (in)", "Force", "LBS", "Dureza", "HRC", "Mass", "Gram (g)");
+            SetUnidadesDefault("Distance", "Inch (in)", "Force", "LBS", "Dureza", "HRC", "Mass", "Gram (g)");
             
         }
 
@@ -703,11 +704,52 @@ namespace View.Services.ViewModel
 
         #region Methods
 
+        /// <summary>
+        /// Método que 
+        /// </summary>
         private async void newPlano()
         {
-            DialogService obj = new DialogService();
-            await obj.SendMessage("Prueba", "Hola");
-            IsOpenedToogle = false;
+            //Inicializamos los servicios de dialog.
+            DialogService dialogService = new DialogService();
+
+            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = "Format MAHLE";
+            setting.NegativeButtonText = "Old Format";
+            setting.FirstAuxiliaryButtonText = "Cancel";
+
+            //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
+            MessageDialogResult result = await dialogService.SendMessage("Attention", "Select the format of the plane:", setting, MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary);
+
+            //Para cada resultado realizamos una acción.
+            switch (result)
+            {
+                case MessageDialogResult.Negative:
+
+                    //Inicializamos el nuevo modelo.
+                    ModelAnillo = new Anillo();
+
+                    //Establesemos a todas las propiedades del modelo anillo los valores por default.
+                    SetUnidadesDefault("Distance", "Inch (in)", "Force", "LBS", "Dureza", "HRC", "Mass", "Gram (g)");
+                    break;
+                case MessageDialogResult.Affirmative:
+
+                    //Inicializamos el nuevo modelo.
+                    ModelAnillo = new Anillo();
+
+                    //Establesemos a todas las propiedades del modelo anillo los valores por default.
+                    SetUnidadesDefault("Distance", " Millimeter(mm)", "Force", "LBS", "Dureza", "HRC", "Mass", "Gram (g)");
+                    break;
+                case MessageDialogResult.FirstAuxiliary:
+                    break;
+                case MessageDialogResult.SecondAuxiliary:
+                    break;
+                default:
+                    break;
+            }
+
+            //Cerramos el menu lateral derecho.
+            cerrarToogle();
         }
 
         /// <summary>
@@ -853,7 +895,94 @@ namespace View.Services.ViewModel
                     PerfilID.PropiedadesCadena[c] = PerfilID.PropiedadesCadena[c];
                     ban = true;
                 }
+                c += 1;
             }
+
+            /*
+             * Falta agregar el código para mapear los valores boleanos.
+             */
+
+            c = 0;
+            while (c < PerfilLateral.Propiedades.Count && !ban)
+            {
+                if (PerfilLateral.Propiedades[c].Nombre == obj.name)
+                {
+                    PerfilLateral.Propiedades[c].Valor = Convert.ToDouble(obj.value);
+                    PerfilLateral.Propiedades[c] = PerfilLateral.Propiedades[c];
+                    ban = true;
+                }
+                c += 1;
+            }
+
+            c = 0;
+            while (c < PerfilLateral.PropiedadesCadena.Count && !ban)
+            {
+                if (PerfilLateral.PropiedadesCadena[c].Nombre == obj.name)
+                {
+                    PerfilLateral.PropiedadesCadena[c].Valor = obj.value;
+                    PerfilLateral.PropiedadesCadena[c] = PerfilLateral.PropiedadesCadena[c];
+                    ban = true;
+                }
+                c += 1;
+            }
+
+            /*
+             * Falta agregar el código para mapear los valores booleanos.
+             */
+
+            c = 0;
+            while (c < PerfilOD.Propiedades.Count && !ban)
+            {
+                if (PerfilOD.Propiedades[c].Nombre == obj.name)
+                {
+                    PerfilOD.Propiedades[c].Valor = Convert.ToDouble(obj.value);
+                    PerfilOD.Propiedades[c] = PerfilOD.Propiedades[c];
+                    ban = true;
+                }
+                c += 1;
+            }
+
+            c = 0;
+            while (c < PerfilOD.PropiedadesCadena.Count && !ban)
+            {
+                if (PerfilOD.PropiedadesCadena[c].Nombre == obj.name)
+                {
+                    PerfilOD.PropiedadesCadena[c].Valor = obj.value;
+                    PerfilOD.PropiedadesCadena[c] = PerfilOD.PropiedadesCadena[c];
+                    ban = true;
+                }
+                c += 1;
+            }
+            /*
+             * Falta agregar el código para mapear los valores booleanos.
+             */
+
+            c = 0;
+            while (c < PerfilPuntas.Propiedades.Count && !ban)
+            {
+                if (PerfilPuntas.Propiedades[c].Nombre == obj.name)
+                {
+                    PerfilPuntas.Propiedades[c].Valor = Convert.ToDouble(obj.value);
+                    PerfilPuntas.Propiedades[c] = PerfilPuntas.Propiedades[c];
+                    ban = true;
+                }
+                c += 1;
+            }
+
+            c = 0;
+            while (c < PerfilPuntas.PropiedadesCadena.Count && !ban)
+            {
+                if (PerfilPuntas.PropiedadesCadena[c].Nombre == obj.name)
+                {
+                    PerfilPuntas.PropiedadesCadena[c].Valor = obj.value;
+                    PerfilPuntas.PropiedadesCadena[c] = PerfilPuntas.PropiedadesCadena[c];
+                    ban = true;
+                }
+                c += 1;
+            }
+            /*
+             * Falta agregar el código para mapear los valores booleanos.
+             */
 
         }
 
@@ -939,7 +1068,7 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Método que inicializa los valores por defualt de todas las propiedades del modelo Anillo.
         /// </summary>
-        private void SetUnidesDefault(string tipodatodistance, string unidaddistance, string tipodatoforce, string unidadforce, string tipodatodureza, string unidaddureza, string tipodatoMass, string unidadMass)
+        private void SetUnidadesDefault(string tipodatodistance, string unidaddistance, string tipodatoforce, string unidadforce, string tipodatodureza, string unidaddureza, string tipodatoMass, string unidadMass)
         {
 
             ModelAnillo.D1.Nombre = "D1";
@@ -947,68 +1076,87 @@ namespace View.Services.ViewModel
             ModelAnillo.D1.Unidad = unidaddistance;
             ModelAnillo.D1.DescripcionCorta = "D1";
             ModelAnillo.D1.DescripcionLarga = "Diámetro nominal del anillo.";
+            D1 = ModelAnillo.D1;
 
             ModelAnillo.H1.Nombre = "H1";
             ModelAnillo.H1.TipoDato = tipodatodistance;
             ModelAnillo.H1.Unidad = unidaddistance;
             ModelAnillo.H1.DescripcionCorta = "H1";
             ModelAnillo.H1.DescripcionLarga = "Width nominal del anillo";
+            H1 = ModelAnillo.H1;
 
             ModelAnillo.OvalityMin.Nombre = "OvalityMin";
             ModelAnillo.OvalityMin.TipoDato = tipodatodistance;
             ModelAnillo.OvalityMin.Unidad = unidaddistance;
             ModelAnillo.OvalityMin.DescripcionCorta = "Ovality Min";
             ModelAnillo.OvalityMin.DescripcionLarga = "Ovalidad mínima del anillo";
+            OvalityMin = ModelAnillo.OvalityMin;
 
             ModelAnillo.OvalityMax.Nombre = "OvalityMax";
             ModelAnillo.OvalityMax.TipoDato = tipodatodistance;
             ModelAnillo.OvalityMax.Unidad = unidaddistance;
             ModelAnillo.OvalityMax.DescripcionCorta = "Ovality Max";
             ModelAnillo.OvalityMax.DescripcionLarga = "Ovalidad máxima del anillo";
+            OvalityMax = ModelAnillo.OvalityMax;
 
             ModelAnillo.Tension.Nombre = "Tension";
             ModelAnillo.Tension.TipoDato = tipodatoforce;
             ModelAnillo.Tension.Unidad = unidadforce;
             ModelAnillo.Tension.DescripcionCorta = "Tension";
             ModelAnillo.Tension.DescripcionLarga = "Tensión del anillo";
+            Tension = ModelAnillo.Tension;
 
             ModelAnillo.TensionTol.Nombre = "TensionTol";
             ModelAnillo.TensionTol.TipoDato = tipodatoforce;
             ModelAnillo.TensionTol.Unidad = unidadforce;
             ModelAnillo.TensionTol.DescripcionCorta = "Tension Tol";
             ModelAnillo.TensionTol.DescripcionLarga = "Tolerancia de tensión del anillo.";
+            TensionTol = ModelAnillo.TensionTol;
 
             ModelAnillo.FreeGap.Nombre = "FreeGap";
             ModelAnillo.FreeGap.TipoDato = tipodatodistance;
             ModelAnillo.FreeGap.Unidad = unidaddistance;
             ModelAnillo.FreeGap.DescripcionCorta = "Free gap";
             ModelAnillo.FreeGap.DescripcionLarga = "Abertura libre del anillo";
+            FreeGap = ModelAnillo.FreeGap;
 
             ModelAnillo.HardnessMin.Nombre = "HardnessMin";
             ModelAnillo.HardnessMin.TipoDato = tipodatodureza;
             ModelAnillo.HardnessMin.Unidad = unidaddureza;
             ModelAnillo.HardnessMin.DescripcionCorta = "Hardness Min";
             ModelAnillo.HardnessMin.DescripcionLarga = "Dureza mínima";
+            HardnessMin = ModelAnillo.HardnessMin;
 
             ModelAnillo.HardnessMax.Nombre = "HardnessMax";
             ModelAnillo.HardnessMax.TipoDato = tipodatodureza;
             ModelAnillo.HardnessMax.Unidad = unidaddureza;
             ModelAnillo.HardnessMax.DescripcionCorta = "Hardness Max";
             ModelAnillo.HardnessMax.DescripcionLarga = "Dureza máxima";
+            HardnessMax = ModelAnillo.HardnessMax;
 
             ModelAnillo.Mass.Nombre = "MassAnillo";
             ModelAnillo.Mass.TipoDato = tipodatoMass;
             ModelAnillo.Mass.Unidad = unidadMass;
             ModelAnillo.Mass.DescripcionCorta = "Mass";
             ModelAnillo.Mass.DescripcionLarga = "Peso del Anillo";
+            Mass = ModelAnillo.Mass;
         }
 
+        /// <summary>
+        /// Método que abre el menú lateral derecho de la pantalla.
+        /// </summary>
         private void abrirToogle()
         {
+            //Asignamos a la propiedad el valor de true. Esto abrirá el menú.
             IsOpenedToogle = true;
         }
+
+        /// <summary>
+        /// Método que cierra el menú lateral derecho de la pantalla.
+        /// </summary>
         private void cerrarToogle()
         {
+            //Asignamos a la propiedad el valor de false. Esto cerrará el menú.
             IsOpenedToogle = false;
         }
         #endregion
