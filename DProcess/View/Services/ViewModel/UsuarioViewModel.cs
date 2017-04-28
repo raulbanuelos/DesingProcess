@@ -286,7 +286,10 @@ namespace View.Services.ViewModel
         private void irControlDocumentos()
         {
             FrmDocumento frm = new FrmDocumento();
-            DocumentoViewModel context = new DocumentoViewModel("nom", "2", "3", "prueba del documento", 1019);
+            DocumentoViewModel context = new DocumentoViewModel("HOE-ETL-001", "1", "1", "", 1025);
+
+
+            
             frm.DataContext = context;
             frm.ShowDialog();
 

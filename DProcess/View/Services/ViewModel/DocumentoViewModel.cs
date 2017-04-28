@@ -196,6 +196,12 @@ namespace View.Services.ViewModel
             BotonGuardar = "Guardar";
         }
 
+        public DocumentoViewModel()
+        {
+            BotonGuardar = "Guardar";
+        }
+
+
         #endregion
 
         #region Commands
@@ -214,7 +220,7 @@ namespace View.Services.ViewModel
             DialogService dialog = new DialogService();
             if (nombre != null & version != null & fecha != null & copias != null & descripcion != null & id_tipo != 0)
             {
-                if (BotonGuardar=="Guardar") {
+                if (BotonGuardar == "Guardar") {
                     Documento obj = new Documento();
                     Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
 

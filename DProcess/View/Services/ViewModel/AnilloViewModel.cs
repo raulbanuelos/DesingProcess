@@ -545,7 +545,6 @@ namespace View.Services.ViewModel
 
         public AnilloViewModel()
         {
-
             //Inicializamos el objeto anillo que representa nuestro modelo.
             ModelAnillo = new Anillo();
 
@@ -563,7 +562,6 @@ namespace View.Services.ViewModel
 
             //Establesemos a todas las propiedades del modelo anillo los valores por default.
             SetUnidadesDefault("Distance", "Inch (in)", "Force", "LBS", "Dureza", "HRC", "Mass", "Gram (g)");
-            
         }
 
         #endregion
@@ -705,7 +703,7 @@ namespace View.Services.ViewModel
         #region Methods
 
         /// <summary>
-        /// Método que 
+        /// Método que inicializa todas las propiedades para generar un nuevo plano.
         /// </summary>
         private async void newPlano()
         {
