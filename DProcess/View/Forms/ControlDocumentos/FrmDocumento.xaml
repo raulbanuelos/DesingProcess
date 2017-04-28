@@ -1,0 +1,138 @@
+﻿<Controls:MetroWindow x:Class="View.Forms.ControlDocumentos.FrmDocumento"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+       xmlns:System="clr-namespace:System;assembly=mscorlib"
+       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        Title="" Height="808.5" Width="1114.5" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+
+        <DataTemplate x:Key="Lista">
+            <Border Margin="5" BorderThickness="1" BorderBrush="#FF2196F3" CornerRadius="4" Width="380">
+                <Grid Margin="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Nombre: " FontSize="14"></TextBlock>
+                    <TextBlock FontWeight="Bold" Text="{Binding Path=nombre}" Grid.Column="2" HorizontalAlignment="Center" Padding="2"></TextBlock>
+                    <Image Name="img_icono" Source="{Binding Path=ruta}" Grid.Column="3" HorizontalAlignment="Right" Width="50"></Image>
+                    <TextBlock Text="Extensión: " FontSize="14" Grid.Row="1"></TextBlock>
+                    <TextBlock Grid.Row="1" Text="{Binding Path=ext}" HorizontalAlignment="Center" Padding="2" Grid.Column="2" FontWeight="Bold"></TextBlock>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </Window.Resources>
+
+
+    <Grid Margin="0,0,2,328">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="46*"/>
+            <RowDefinition Height="55*"/>
+        </Grid.RowDefinitions>
+
+        <Canvas HorizontalAlignment="Left" Height="670" Margin="10,10,0,-230" VerticalAlignment="Top" Width="1072" Grid.RowSpan="2">
+
+            <!--Nombre Documento-->
+            <Label x:Name="label" Content="Nombre del Documento" Height="31" Canvas.Left="82" Canvas.Top="10" Width="196" FontSize="16" FontWeight="Bold"/>
+            <Rectangle Fill="#89DCDCDC" Height="38" Canvas.Left="83" Canvas.Top="41" Width="51" Stroke="#FFBDBDBD"/>
+            <Rectangle Width="47" Height="38" Canvas.Top="41" RenderTransformOrigin="0.871,0.394" Canvas.Left="86">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="/View;component/Images/name.png"/>
+                </Rectangle.Fill>
+
+            </Rectangle>
+            <TextBox x:Name="txt_nombre" Width="393" Canvas.Left="134" Canvas.Top="41" Tag="Nombre" BorderThickness="1,1,1,1" Height="38" BorderBrush="#89535353" Background="White" FontSize="16" Text="{Binding Nombre}"></TextBox>
+
+            <!--Version-->
+            <Label x:Name="label1" Content="Versión" Height="30" Canvas.Left="82" Canvas.Top="94" Width="65" FontSize="16" FontWeight="Bold"/>
+            <Rectangle Fill="#89DCDCDC" Height="38" Canvas.Left="83" Canvas.Top="126" Width="51" Stroke="#FFBDBDBD"/>
+            <Rectangle Width="39" Height="32" Canvas.Top="129" RenderTransformOrigin="0.871,0.394" Canvas.Left="90">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="/View;component/Images/copy.png"/>
+                </Rectangle.Fill>
+
+            </Rectangle>
+            <TextBox x:Name="txt_version" Height="38" Canvas.Left="133" TextWrapping="Wrap" Canvas.Top="126" Width="467" BorderThickness="1" BorderBrush="#89535353" FontSize="18" Text="{Binding Version}"/>
+
+            <!--Date-->
+            <DatePicker x:Name="txt_fecha"  Height="38" Canvas.Left="133" Canvas.Top="216" Width="467" BorderThickness="1" BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}" />
+            <Rectangle Fill="#89DCDCDC" Height="38" Canvas.Left="83" Canvas.Top="216" Width="51" Stroke="#FFBDBDBD"/>
+            <Rectangle Width="40" Height="39" Canvas.Top="215" RenderTransformOrigin="0.871,0.394" Canvas.Left="88">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="/View;component/Images/date.png"/>
+                </Rectangle.Fill>
+
+            </Rectangle>
+            <Label x:Name="label2" Content="Fecha de Creación" Height="32" Canvas.Left="83" Canvas.Top="184" Width="146" FontSize="16" FontWeight="Bold"/>
+
+
+            <!--Numero de Copias-->
+            <Label x:Name="label4" Content="Número de Copias" Height="29" Canvas.Left="83" Canvas.Top="274" Width="172" FontWeight="Bold" FontSize="16"/>
+            <TextBox x:Name="txt_copias" Height="38" Canvas.Left="134" TextWrapping="Wrap" Text="{Binding Copias}" Canvas.Top="311" Width="467" BorderThickness="1,1,1,1" BorderBrush="#89535353" FontSize="18"  />
+            <Rectangle Fill="#89DCDCDC" Height="38" Canvas.Left="83" Canvas.Top="311" Width="51" Stroke="#FFBDBDBD"/>
+            <Rectangle Width="44" Height="38" Canvas.Top="310" RenderTransformOrigin="0.871,0.394" Canvas.Left="88">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="/View;component/Images/number.png"/>
+                </Rectangle.Fill>
+
+            </Rectangle>
+            <!--Descripción-->
+            <RichTextBox x:Name="txt_descripcion" Height="175" Canvas.Left="82" Canvas.Top="485" Width="518" OpacityMask="White"  SelectionOpacity="0.2" BorderBrush="#FFBDBDBD"  FontSize="18" Foreground="Black" SelectionBrush="#FFBDBDBD" >
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Background="White" Text="{Binding Descripcion}"/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+            <Label x:Name="label3" Content="Descripción" Height="34" Canvas.Left="86" Canvas.Top="451" Width="117" FontSize="16" FontWeight="Bold"/>
+            <!--Buttons-->
+
+            <Button x:Name="button"  Height="38" Width="59" RenderTransformOrigin="0.495,0.578" Background="#89FFFFFF" BorderBrush="#FFE0DEDE" Canvas.Left="541" Canvas.Top="41"  Command="{Binding LlenarLista}">
+
+                <Rectangle Width="26" Height="28" RenderTransformOrigin="1.244,0.344" >
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/View;component/Images/folder.png"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+
+            <Canvas Height="64" Canvas.Left="133" Canvas.Top="687" Width="826" RenderTransformOrigin="0.5,0.5">
+                <Canvas.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-0.098"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="-0.748"/>
+                    </TransformGroup>
+                </Canvas.RenderTransform>
+                <Button x:Name="bttn_guardar" Content="{Binding BotonGuardar}" Height="41" Canvas.Top="10" Width="135" Canvas.Left="38" Command="{Binding GuardarControl}" Background="#FF157EFB"  />
+                <Button x:Name="bttn_cancelar" Content="Cancelar" Height="41" Canvas.Left="668" Canvas.Top="10" Width="135" Command="{Binding Cancelar}" Background="#FF157EFB"/>
+                <Button x:Name="bttn_eliminar" Content="Eliminar" Canvas.Left="202" Canvas.Top="10" Width="135" Height="41" Background="#FF157EFB" Command="{Binding Eliminar}"/>
+                <Button x:Name="bttn_cambios" Content="Modificar" Height="41" Canvas.Left="360" Canvas.Top="10" Width="135" Background="#FF157EFB" Command="{Binding Modificar}"/>
+                <Button x:Name="bttn_generar" Content="Generar Versión" Height="41" Canvas.Left="515" Canvas.Top="10" Width="135" Background="#FF157EFB" Command="{Binding GenerarVersion}"/>
+            </Canvas>
+
+            <!--ListView-->
+            <ListBox Name="listBox" Height="619" Canvas.Left="636" Canvas.Top="44" Width="417" ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}"  >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding VerArchivo}"
+                             CommandParameter="{Binding extension}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+            </ListBox>
+            <Label x:Name="label5" Content="Lista de Documentos" Height="36" Canvas.Left="657" Canvas.Top="8" Width="197" FontSize="18" FontWeight="Bold"/>
+
+            <!--Tipo de Documento-->
+            <ComboBox x:Name="comboBox" Height="38" Canvas.Left="83" Canvas.Top="402" Width="517" BorderThickness="1" BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}" DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}" FontSize="18"  />
+            <Label x:Name="label6" Content="Tipo de Documento" Height="29" Canvas.Left="83" Canvas.Top="368" Width="161" FontSize="16" FontWeight="Bold"/>
+
+        </Canvas>
+    </Grid>
+</Controls:MetroWindow>

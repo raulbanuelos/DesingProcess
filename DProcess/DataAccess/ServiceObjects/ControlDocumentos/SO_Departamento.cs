@@ -75,7 +75,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return obj.ID_DEPARTAMENTO;
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 //Si hay error regresa una cadena vacía.
                 return 0;

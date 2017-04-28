@@ -23,7 +23,7 @@
         </Grid.ColumnDefinitions>
 
         <Label x:Name="label" Content="Matriz de Control de Documentos" HorizontalAlignment="Left" Height="60" Margin="38,30,0,0" VerticalAlignment="Top" Width="566" Grid.ColumnSpan="2" FontSize="34" FontWeight="Bold"/>
-        <Label x:Name="label1" Content="Unidad Organizativa:" HorizontalAlignment="Left" Height="53" Margin="38,36,0,0" Grid.Row="1" VerticalAlignment="Top" Width="292" Grid.ColumnSpan="2" FontSize="28"/>
+        <Label x:Name="label1" Content="Unidad Organizativa:" HorizontalAlignment="Left" Height="53" Margin="38,36,0,0" Grid.Row="1" VerticalAlignment="Top" Width="292" Grid.ColumnSpan="2" FontSize="28" RenderTransformOrigin="0.873,0.566"/>
         <Grid Grid.Column="1" HorizontalAlignment="Left" Height="176" Margin="427,0,0,0" VerticalAlignment="Top" Width="317" Grid.Row="1">
             <CheckBox x:Name="checkBox" Content="Documentos Externos" HorizontalAlignment="Left" Height="41" Margin="10,10,0,0" VerticalAlignment="Top" Width="297" FontSize="27"/>
             <CheckBox x:Name="checkBox1" Content="Docuementos Internos" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" Height="48" Width="297" FontSize="27"/>
@@ -32,14 +32,14 @@
         <Label x:Name="label2" Content="Abreviaturas unidad/entidad:" Grid.Column="1" HorizontalAlignment="Left" Height="71" Margin="794,34,0,0" Grid.Row="1" VerticalAlignment="Top" Width="374" FontSize="28"/>
         <Label x:Name="label3" Content="Emitido:" Grid.Column="2" Height="50" Margin="10,87,176,0" Grid.Row="1" VerticalAlignment="Top" FontSize="28"/>
         <Label x:Name="lbl_date" Content="" Grid.Column="2" HorizontalAlignment="Left" Height="50" Margin="130,87,-92,0" Grid.Row="1" VerticalAlignment="Top" Width="263" />
-        <DataGrid x:Name="dataGrid" Height="266" Margin="0,10,0,0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1351" HeadersVisibility="Column" FontSize="18"  Grid.Column="1">
+        <DataGrid x:Name="dataGrid" Height="266" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1351" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" Grid.ColumnSpan="2" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Número de Documento"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Nombre"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Versión"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Responsable"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Copias"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Fecha"/>
+                <DataGridTextColumn Binding="{Binding id_documento}" ClipboardContentBinding="{x:Null}" Header="Número de Documento"/>
+                <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre de Documento"/>
+                <DataGridTextColumn Binding="{Binding version.no_version}" ClipboardContentBinding="{x:Null}" Header="Versión"/>
+                <DataGridTextColumn Binding="{Binding Usuarios.nombre}" ClipboardContentBinding="{x:Null}" Header="Responsable"/>
+                <DataGridTextColumn Binding="{Binding version.no_copias}" ClipboardContentBinding="{x:Null}" Header="Copias"/>
+                <DataGridTextColumn Binding="{Binding fecha_actualizacion}" ClipboardContentBinding="{x:Null}" Header="Fecha de Actualizacion"/>
                 <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Archivo"/>
 
             </DataGrid.Columns>

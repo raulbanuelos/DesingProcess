@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using View.Forms.Routing;
 using System;
 using View.Forms.RawMaterial;
+using View.Forms.ControlDocumentos;
 
 namespace View.Services.ViewModel
 {
@@ -269,6 +270,31 @@ namespace View.Services.ViewModel
             get {
                 return new RelayCommand(o => irRawMaterial());
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICommand IrControlDocumentos
+        {
+            get
+            {
+                return new RelayCommand(o => irControlDocumentos());
+            }
+        }
+
+        private void irControlDocumentos()
+        {
+            FrmDocumento frm = new FrmDocumento();
+            DocumentoViewModel context = new DocumentoViewModel("nom", "2", "3", "prueba del documento", 1019);
+            frm.DataContext = context;
+            frm.ShowDialog();
+
+            //ControlDocumento frm = new ControlDocumento();
+            //ControlDocumentoViewModel context = new ControlDocumentoViewModel();
+            //frm.DataContext = context;
+            //Pagina = frm;
+
         }
 
         private void irRawMaterial()

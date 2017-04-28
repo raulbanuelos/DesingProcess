@@ -786,13 +786,6 @@ namespace View.Services.ViewModel
             //    await dialog.SendMessage("RGP: Alerta", "Oh, Oh, parece ser que algo salió mal.");
 
             DialogService dialog = new DialogService();
-            Archivo obj = new Archivo();
-            obj.id_archivo = 11;
-            //obj.id_version = 8;
-            //obj.archivo = FileToByteArray("C:\\Users\\Ing.practicante\\Documents\\t.docx");
-            //obj.ext = ".docx";
-
-            DataManagerControlDocumentos.GetDataGrid();
             int test = 1;
             if (test!=0)
             {

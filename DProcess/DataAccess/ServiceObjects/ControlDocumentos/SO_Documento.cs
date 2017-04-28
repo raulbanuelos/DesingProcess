@@ -224,8 +224,9 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      d.ID_DOCUMENTO,
                                      d.NOMBRE,
                                      d.FECHA_ACTUALIZACION,
-                                     u.Nombre,
                                      v.No_VERSION,
+                                     u.Nombre,
+                                     v.ID_VERSION,
                                      v.NO_COPIAS,
                                      a.ARCHIVO
                                  }).OrderBy(x => x.ID_DOCUMENTO).ToList();

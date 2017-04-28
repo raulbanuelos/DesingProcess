@@ -41,7 +41,7 @@ namespace Model.ControlDocumentos
                     Archivo obj = new Archivo();
 
                     obj.id_archivo = (int)tipo.GetProperty("ID_ARCHIVO").GetValue(item, null);
-                    obj.id_version = (int)tipo.GetProperty("NOMBRE_VERSION").GetValue(item, null);
+                    obj.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
                     obj.archivo = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
                     obj.ext = (string)tipo.GetProperty("EXT").GetValue(item, null);
 
@@ -281,7 +281,7 @@ namespace Model.ControlDocumentos
             SO_Documento ServiceDocumento = new SO_Documento();
 
             //Se ejecuta el método y retorna el id del documento que fue insertado.
-            return ServiceDocumento.SetDocumento(documento.id_documento, documento.id_usuario, documento.id_tipo_documento,documento.nombre, documento.descripcion,
+            return ServiceDocumento.SetDocumento( documento.id_documento,documento.id_usuario, documento.id_tipo_documento,documento.nombre, documento.descripcion,
                                                  documento.version_actual, documento.fecha_creacion, documento.fecha_actualizacion, documento.fecha_emision);
         }
 
@@ -343,6 +343,7 @@ namespace Model.ControlDocumentos
                     obj.fecha_actualizacion=(DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
                     obj.Usuarios.nombre= (string)tipo.GetProperty("Nombre").GetValue(item, null);
                     obj.version.no_version= (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    obj.version.id_version=(int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
                     obj.version.no_copias= (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
                     obj.version.archivo.archivo=(byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
                     //Agregamos el objeto a la lista resultante.
@@ -468,9 +469,9 @@ namespace Model.ControlDocumentos
                     TipoDocumento obj = new TipoDocumento();
 
                     //Asignamos los valores correspondientes.
-                    obj.id_tipo = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
-                    obj.tipo_documento = (string)tipo.GetProperty("ID_USUARIO_REVISO").GetValue(item, null);
-                    obj.abreviatura = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.id_tipo = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.abreviatura = (string)tipo.GetProperty("ABREBIATURA").GetValue(item, null);
                     obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
                     obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
 

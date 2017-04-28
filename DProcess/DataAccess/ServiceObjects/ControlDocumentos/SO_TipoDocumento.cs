@@ -24,7 +24,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 {
                     //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
                     var Lista = (from t in Conexion.TBL_TIPO_DOCUMENTO
-                                 join d in Conexion.TBL_DOCUMENTO on t.ID_TIPO_DOCUMENTO equals d.ID_TIPO_DOCUMENTO
                                  select new
                                  {
                                   t.ID_TIPO_DOCUMENTO,

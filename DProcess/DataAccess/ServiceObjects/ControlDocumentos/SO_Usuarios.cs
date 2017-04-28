@@ -96,7 +96,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return user.Usuario;
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 //Si hay error regresa una cadena vacía.
                 return string.Empty;
