@@ -39,18 +39,18 @@ namespace View.Services
             //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
+            //Comprobamos que la ventana sea diferente de nulo.
             if (window != null)
             {
+                //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
                 MessageDialogResult result = await window.ShowMessageAsync(title, message, style, setting);
+
+                //Retornamos el resultado.
                 return result;
             }
             else
+                //Si la ventana no fue encontrada, retornamos un valor Negative.
                 return MessageDialogResult.Negative;
-                
-
-            
         }
-
-
     }
 }
