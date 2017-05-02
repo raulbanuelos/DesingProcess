@@ -15,12 +15,21 @@ namespace Model.ControlDocumentos
         public string no_version { get; set; }
         public DateTime fecha_version { get; set; }
         public int no_copias { get; set; }
-        public Archivo archivo = new Archivo();
+        public Archivo archivo { get; set; }
         #endregion
 
         #region Constructores
 
-
+        public Version()
+        {
+            id_version = 0;
+            id_usuario = string.Empty;
+            id_documento = 0;
+            no_version = string.Empty;
+            fecha_version = new DateTime();
+            no_copias = 0;
+            archivo = new Archivo();
+        }
         #endregion
 
         //int id_version,string id_usuario,int id_documento,string no_version,DateTime fecha,int no_copias
