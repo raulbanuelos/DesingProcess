@@ -21,7 +21,7 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
                     <TextBlock Text="Nombre: " FontSize="14"></TextBlock>
-                    <TextBlock FontWeight="Bold" Text="{Binding Path=nombre}" Grid.Column="2" HorizontalAlignment="Center" Padding="2"></TextBlock>
+                    <TextBlock FontWeight="Bold" Text="{Binding Path=nombre}" TextWrapping="WrapWithOverflow" TextAlignment="Center" Grid.Column="2" HorizontalAlignment="Center" Padding="2"></TextBlock>
                     <Image Name="img_icono" Source="{Binding Path=ruta}" Grid.Column="3" HorizontalAlignment="Right" Width="50"></Image>
                     <TextBlock Text="Extensión: " FontSize="14" Grid.Row="1"></TextBlock>
                     <TextBlock Grid.Row="1" Text="{Binding Path=ext}" HorizontalAlignment="Center" Padding="2" Grid.Column="2" FontWeight="Bold"></TextBlock>

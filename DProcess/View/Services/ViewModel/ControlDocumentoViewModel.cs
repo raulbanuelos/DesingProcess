@@ -1,11 +1,9 @@
 ﻿using Model.ControlDocumentos;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
+using System;
+using View.Forms.ControlDocumentos;
 
 namespace View.Services.ViewModel
 {
@@ -37,6 +35,39 @@ namespace View.Services.ViewModel
                 _Lista = value;
                 NotifyChange("Lista");
             }
+        }
+
+        private ObservableCollection<TipoDocumento> _ListaTipoDocumento = DataManagerControlDocumentos.GetTipo();
+        public ObservableCollection<TipoDocumento> ListaTipoDocumento
+        {
+            get
+            {
+                return _ListaTipoDocumento;
+            }
+            set
+            {
+                _ListaTipoDocumento = value;
+                NotifyChange("ListaTipoDocumento");
+            }
+        }
+        #endregion
+
+        #region Commands
+        public ICommand IrNuevoDocumento
+        {
+            get
+            {
+                return new RelayCommand(o => irNuevoDocumento());
+            }
+        }
+
+        private void irNuevoDocumento()
+        {
+            FrmDocumento frm = new FrmDocumento();
+            //DocumentoViewModel context = new DocumentoViewModel("IF00-0093", "2", "2", "Ayuda Visual Especificaciones de abertura de máquina H", 1026);
+            DocumentoViewModel context = new DocumentoViewModel();
+            frm.DataContext = context;
+            frm.ShowDialog();
         }
         #endregion
     }

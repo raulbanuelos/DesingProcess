@@ -74,9 +74,13 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 
                     //Retorna el código del usuario insertado
                     return obj.ID_ARCHIVO;
+
+                    // Throw an OutOfMemoryException exception.
+                    throw new OutOfMemoryException();
+
                 }
             }
-            catch (Exception er)
+            catch (OutOfMemoryException er)
             {
                 //Si hay error regresa una cadena vacía.
                 return 0;

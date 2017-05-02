@@ -23,7 +23,6 @@ namespace View.Forms.ControlDocumentos
         public ControlDocumento()
         {
             InitializeComponent();
-            lbl_date.Content = DateTime.Now.ToString();
         }
     }
 }

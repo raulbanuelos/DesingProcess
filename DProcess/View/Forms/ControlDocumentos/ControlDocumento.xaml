@@ -4,36 +4,39 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="ControlDocumento"
-      Height="600" Width="2000">
+      Height="Auto" Width="2000">
 
 
-    <Grid ShowGridLines="True" Margin="5" Background="White">
+    <Grid ShowGridLines="True" Margin="0" Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="149*"/>
-            <RowDefinition Height="244*"/>
+            <RowDefinition Height="85"/>
+            <RowDefinition Height="130"/>
+            <RowDefinition Height="107*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="988.5"/>
-            <ColumnDefinition Width="362.5"/>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="1600"/>
+            <ColumnDefinition Width="170"/>
         </Grid.ColumnDefinitions>
 
-        <Label x:Name="label" Content="Matriz de Control de Documentos" HorizontalAlignment="Left" Height="60" Margin="38,30,0,0" VerticalAlignment="Top" Width="566" Grid.ColumnSpan="2" FontSize="34" FontWeight="Bold"/>
-        <Label x:Name="label1" Content="Unidad Organizativa:" HorizontalAlignment="Left" Height="53" Margin="38,36,0,0" Grid.Row="1" VerticalAlignment="Top" Width="292" Grid.ColumnSpan="2" FontSize="28" RenderTransformOrigin="0.873,0.566"/>
-        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="176" Margin="427,0,0,0" VerticalAlignment="Top" Width="317" Grid.Row="1">
-            <CheckBox x:Name="checkBox" Content="Documentos Externos" HorizontalAlignment="Left" Height="41" Margin="10,10,0,0" VerticalAlignment="Top" Width="297" FontSize="27"/>
-            <CheckBox x:Name="checkBox1" Content="Docuementos Internos" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" Height="48" Width="297" FontSize="27"/>
-            <CheckBox x:Name="checkBox2" Content="Registros" HorizontalAlignment="Left" Height="42" Margin="14,124,0,0" VerticalAlignment="Top" Width="257" FontSize="27"/>
-        </Grid>
-        <Label x:Name="label2" Content="Abreviaturas unidad/entidad:" Grid.Column="1" HorizontalAlignment="Left" Height="71" Margin="794,34,0,0" Grid.Row="1" VerticalAlignment="Top" Width="374" FontSize="28" Grid.ColumnSpan="2"/>
-        <Label x:Name="label3" Content="Emitido:" Grid.Column="3" Height="50" Margin="10,87,176,0" Grid.Row="1" VerticalAlignment="Top" FontSize="28"/>
-        <Label x:Name="lbl_date" Content="" Grid.Column="3" HorizontalAlignment="Left" Height="50" Margin="130,87,-92,0" Grid.Row="1" VerticalAlignment="Top" Width="263" />
-        <DataGrid x:Name="dataGrid" Height="266" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1351" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" Grid.ColumnSpan="3" AutoGenerateColumns="False">
+        <Label x:Name="label" Content="Matriz de Control de Documentos" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="0"/>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+            <TextBlock TextWrapping="WrapWithOverflow" TextAlignment="Center"  x:Name="label1" Text="MAHLE COMPONENTES DE MOTOR DE MEXICO S. DE R. L. DE C.V." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="28"/>
+            <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
+                <TextBox materialDesign:HintAssist.Hint="Buscar..." TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20"></TextBox>
+                <ComboBox materialDesign:HintAssist.Hint="Tipo de Documento" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="500" ItemsSource="{Binding ListaTipoDocumento}"  DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}">
+                </ComboBox>
+                <Button Content="Nuevo" Command="{Binding IrNuevoDocumento}"></Button>
+            </StackPanel>
+            
+        </StackPanel>
+        
+        <DataGrid x:Name="dataGrid" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding id_documento}" ClipboardContentBinding="{x:Null}" Header="Número de Documento"/>
                 <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre de Documento"/>
@@ -42,12 +45,11 @@
                 <DataGridTextColumn Binding="{Binding version.no_copias}" ClipboardContentBinding="{x:Null}" Header="Copias"/>
                 <DataGridTextColumn Binding="{Binding fecha_actualizacion}" ClipboardContentBinding="{x:Null}" Header="Fecha de Actualizacion"/>
                 <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Archivo"/>
-
             </DataGrid.Columns>
-
         </DataGrid>
-        <Canvas Grid.Column="3" HorizontalAlignment="Left" Height="141" Margin="10,30,-177,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="468">
-            <Image x:Name="image" Grid.Column="2" HorizontalAlignment="Left" Height="131" VerticalAlignment="Top" Width="458" Grid.RowSpan="2" Source="/View;component/Images/logo-mahle.png"/>
+        
+        <Canvas Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Image x:Name="image" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Source="/View;component/Images/logo-mahle.png"/>
         </Canvas>
     </Grid>
 </Page>

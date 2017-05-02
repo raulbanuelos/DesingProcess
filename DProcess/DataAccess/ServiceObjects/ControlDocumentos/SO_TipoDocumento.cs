@@ -153,6 +153,32 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
-      
+        /// <summary>
+        /// Método que obtiene el Id de tipo de documento a partir de un idDocumento
+        /// </summary>
+        /// <param name="idDocumento">Entero que representa el id del documento.</param>
+        /// <returns></returns>
+        public int GetTipoDocumento(int idDocumento)
+        {
+            try
+            {
+                //Relizamos la conexión a través de Entity Framework.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta y e resultado lo guardamos en una variable local.
+                    int IdTipoDocumento = (from a in Conexion.TBL_DOCUMENTO
+                                           where a.ID_DOCUMENTO == idDocumento
+                                           select a.ID_TIPO_DOCUMENTO).ToList().FirstOrDefault();
+
+                    //Retornamos el resultado de la consulta.
+                    return IdTipoDocumento;
+                }
+            }
+            catch (Exception)
+            {
+                //Si se genera un error retornamos un cero.
+                return 0;
+            }
+        }
     }
 }

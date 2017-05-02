@@ -158,7 +158,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
                     //Se obtiene el objeto que se va a eliminar.
-                    TBL_DOCUMENTO obj = Conexion.TBL_DOCUMENTO.Where(x => x.ID_DOCUMENTO == id_documento).FirstOrDefault();
+                    TBL_DOCUMENTO obj = Conexion.TBL_DOCUMENTO.Where(x => x.ID_DOCUMENTO == id_documento).FirstOrDefault(); 
 
                     //Se estable el estado de registro a eliminado.
                     Conexion.Entry(obj).State = EntityState.Deleted;

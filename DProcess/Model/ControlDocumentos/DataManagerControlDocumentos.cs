@@ -482,6 +482,21 @@ namespace Model.ControlDocumentos
 
 
         #region TipoDocumento
+
+        /// <summary>
+        /// Método que obtiene el id de tipo de documento de un documento dado de alta.
+        /// </summary>
+        /// <param name="idDocumento">Entero que representa el id del documento.</param>
+        /// <returns></returns>
+        public static int GetTipoDocumento(int idDocumento)
+        {
+            //Inicializamos los servicios de Tipo de Documento.
+            SO_TipoDocumento ServicioTipoDocumento = new SO_TipoDocumento();
+
+            //Ejecutamos el método y el resultado lo retornamos.
+            return ServicioTipoDocumento.GetTipoDocumento(idDocumento);
+        }
+
         /// <summary>
         /// Método para obtener los registros de la tabla.
         /// </summary>

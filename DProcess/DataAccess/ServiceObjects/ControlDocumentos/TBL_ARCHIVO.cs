@@ -10,8 +10,7 @@
 namespace DataAccess.ServiceObjects.ControlDocumentos
 {
     using System;
-    using System.Collections.Generic;
-    
+
     public partial class TBL_ARCHIVO
     {
         public int ID_ARCHIVO { get; set; }

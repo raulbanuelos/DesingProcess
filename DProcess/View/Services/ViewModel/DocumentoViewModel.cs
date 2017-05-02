@@ -20,6 +20,7 @@ namespace View.Services.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
+
         #region INotifyPropertyChanged Métodos
         void NotifyChange(params string[] ids)
         {
@@ -239,6 +240,7 @@ namespace View.Services.ViewModel
             BttnEliminar = true;
             BttnModificar = true;
             BttnVersion = true;
+            id_tipo = DataManagerControlDocumentos.GetTipoDocumento(_id_documento);
             ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetTipo(_id_documento);
 
             foreach (var item in Lista)
