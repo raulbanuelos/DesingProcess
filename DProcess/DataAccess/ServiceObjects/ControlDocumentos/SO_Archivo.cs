@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess.SQLServer;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -53,7 +54,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="archivo"></param>
         /// <param name="ext"></param>
         /// <returns></returns>
-        public int SetArchivo(int id_archivo,int id_version,byte[] archivo,string ext)
+        public int SetArchivo(int id_archivo, int id_version, byte[] archivo, string ext)
         {
             try
             {
@@ -214,36 +215,26 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 
 
 
-        public int Set2(int version,byte[] archivo, string ext)
+        public int Set2(int version, byte[] archivo, string ext)
         {
-
-            using (SqlConnection Conexion = new SqlConnection(@"Data Source=MXAGSQLSRV01\SQLINTERTEL12;Network Library=DBMSSOCN;Initial Catalog=RGP2-PBA;User ID=shruser;Password=sOHR2011"))
-            //using (SqlConnection )
-
+            try
             {
-                string query = "INSERT INTO TBL_ARCHIVO (ID_VERSION,ARCHIVO,EXT) VALUES (@version,@archivo,@ext)";
-                using (SqlCommand sql= new SqlCommand(query))
-                {
-                    sql.Connection = Conexion;
-                    sql.Parameters.Add("@version", SqlDbType.Int).Value = version;
-                    sql.Parameters.Add("@archivo", SqlDbType.VarBinary).Value = archivo;
-                    sql.Parameters.Add("@ext", SqlDbType.VarChar).Value = ext;
+                DataSet datos = null;
+                Desing_SQL conexion = new Desing_SQL();
 
+                Dictionary<string, object> parametros = new Dictionary<string, object>();
 
-                    try
-                    {
-                        Conexion.Open();
-                        int records = sql.ExecuteNonQuery();
-                        return records;
-                    }
-                    catch (SqlException er)
-                    {
-                        return 0;
-                    }
+                parametros.Add("version", version);
+                parametros.Add("archivo", archivo);
+                parametros.Add("ext", ext);
 
-                }
+                datos = conexion.EjecutarStoredProcedure("Set_Archivo", parametros);
+                return datos.Tables.Count;
             }
-
-        }
+            catch (Exception e)
+            {
+                return 0;
+            }
+            }
     }
 }

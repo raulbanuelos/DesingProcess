@@ -64,7 +64,7 @@ namespace Model.ControlDocumentos
             SO_Archivo ServiceArchivo = new SO_Archivo();
 
             //Se ejecuta el método y regresa el id del archivo insertado.
-            return ServiceArchivo.Set2(archivo.id_version, archivo.archivo, archivo.ext);
+            return  ServiceArchivo.Set2(archivo.id_version, archivo.archivo, archivo.ext);
 
         }
         /// <summary>
