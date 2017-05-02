@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +12,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 {
     public class SO_Archivo
     {
+
         /// <summary>
         /// Método para obtener los registros de la tabla TBL_archivos.
         /// </summary>
@@ -66,13 +69,12 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.ARCHIVO = archivo;
                     obj.EXT = ext;
 
-
                     //Agrega el objeto a la tabla.
                     Conexion.TBL_ARCHIVO.Add(obj);
                     //Se guardan los cambios
                     Conexion.SaveChanges();
 
-                    //Retorna el código del usuario insertado
+                    //Retorna el código del archivo insertado
                     return obj.ID_ARCHIVO;
 
                     // Throw an OutOfMemoryException exception.
@@ -208,6 +210,40 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 //Si hay algún error, retornamos nulo.
                 return null;
             }
+        }
+
+
+
+        public int Set2(int version,byte[] archivo, string ext)
+        {
+
+            using (SqlConnection Conexion = new SqlConnection(@"Data Source=MXAGSQLSRV01\SQLINTERTEL12;Network Library=DBMSSOCN;Initial Catalog=RGP2-PBA;User ID=shruser;Password=sOHR2011"))
+            //using (SqlConnection )
+
+            {
+                string query = "INSERT INTO TBL_ARCHIVO (ID_VERSION,ARCHIVO,EXT) VALUES (@version,@archivo,@ext)";
+                using (SqlCommand sql= new SqlCommand(query))
+                {
+                    sql.Connection = Conexion;
+                    sql.Parameters.Add("@version", SqlDbType.Int).Value = version;
+                    sql.Parameters.Add("@archivo", SqlDbType.VarBinary).Value = archivo;
+                    sql.Parameters.Add("@ext", SqlDbType.VarChar).Value = ext;
+
+
+                    try
+                    {
+                        Conexion.Open();
+                        int records = sql.ExecuteNonQuery();
+                        return records;
+                    }
+                    catch (SqlException er)
+                    {
+                        return 0;
+                    }
+
+                }
+            }
+
         }
     }
 }

@@ -291,7 +291,7 @@ namespace View.Services.ViewModel
 
             if (BotonGuardar == "Guardar")
             {
-                if (nombre != null & version != null & fecha != null & copias != null & descripcion != null & id_tipo != 0)
+                if (nombre != null & version != null & fecha != null & copias != null & descripcion != null & id_tipo != 0 & _ListaDocumentos.Count!=0)
                 {
                     Documento obj = new Documento();
                     Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
@@ -322,7 +322,7 @@ namespace View.Services.ViewModel
                         objArchivo.id_version = id_version;
                         objArchivo.archivo = item.archivo;
                         objArchivo.ext = item.ext;
-
+                        
                         int n = DataManagerControlDocumentos.SetArchivo(objArchivo);
                     }
                     await dialog.SendMessage("", "Los cambios fueron guardados exitosamente..");
@@ -335,7 +335,7 @@ namespace View.Services.ViewModel
             else
             {
 
-                if (version != null & copias != null & fecha != null & id_documento != 0)
+                if (version != null & copias != null & fecha != null & id_documento != 0 & _ListaDocumentos.Count != 0)
                 {
                     Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
 

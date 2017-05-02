@@ -71,7 +71,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     //Se guardan los cambios
                     Conexion.SaveChanges();
 
-                    //Retorna el código del usuario insertado
+                    //Retorna el código del departamento insertado
                     return obj.ID_DEPARTAMENTO;
                 }
             }
