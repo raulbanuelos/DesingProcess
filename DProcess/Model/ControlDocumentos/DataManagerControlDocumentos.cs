@@ -620,7 +620,7 @@ namespace Model.ControlDocumentos
             //Se inician los servicios de Usuarios.
             SO_Usuarios ServiceUsuarios = new SO_Usuarios();
 
-            // Se ejecuta el método y retorna número de registros eliminados.
+            //Se ejecuta el método y retorna número de registros eliminados.
             return ServiceUsuarios.DeleteUsuario(usuarios.usuario);
         }
         #endregion

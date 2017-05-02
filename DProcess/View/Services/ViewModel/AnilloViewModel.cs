@@ -560,8 +560,8 @@ namespace View.Services.ViewModel
             MenuItems.Add("Save");
             MenuItems.Add("SAP");
 
-            //Establesemos a todas las propiedades del modelo anillo los valores por default.
-            SetUnidadesDefault("Distance", "Inch (in)", "Force", "LBS", "Dureza", "HRC", "Mass", "Gram (g)");
+            //Inicializamos el plano;
+            newPlano();
         }
 
         #endregion
@@ -710,7 +710,7 @@ namespace View.Services.ViewModel
             //Inicializamos los servicios de dialog.
             DialogService dialogService = new DialogService();
 
-            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
             setting.AffirmativeButtonText = "Format MAHLE";
             setting.NegativeButtonText = "Old Format";
@@ -727,7 +727,7 @@ namespace View.Services.ViewModel
                     //Inicializamos el nuevo modelo.
                     ModelAnillo = new Anillo();
 
-                    //Establesemos a todas las propiedades del modelo anillo los valores por default.
+                    //Establecemos a todas las propiedades del modelo anillo los valores por default.
                     SetUnidadesDefault("Distance", "Inch (in)", "Force", "LBS", "Dureza", "HRC", "Mass", "Gram (g)");
                     break;
                 case MessageDialogResult.Affirmative:
@@ -735,7 +735,7 @@ namespace View.Services.ViewModel
                     //Inicializamos el nuevo modelo.
                     ModelAnillo = new Anillo();
 
-                    //Establesemos a todas las propiedades del modelo anillo los valores por default.
+                    //Establecemos a todas las propiedades del modelo anillo los valores por default.
                     SetUnidadesDefault("Distance", " Millimeter(mm)", "Force", "LBS", "Dureza", "HRC", "Mass", "Gram (g)");
                     break;
                 case MessageDialogResult.FirstAuxiliary:
