@@ -281,7 +281,7 @@ namespace Model.ControlDocumentos
             SO_Documento ServiceDocumento = new SO_Documento();
 
             //Se ejecuta el método y retorna el id del documento que fue insertado.
-            return ServiceDocumento.SetDocumento( documento.id_documento,documento.id_usuario, documento.id_tipo_documento,documento.nombre, documento.descripcion,
+            return ServiceDocumento.SetDocumento( documento.id_documento,documento.id_usuario, documento.id_tipo_documento,documento.id_dep,documento.nombre, documento.descripcion,
                                                  documento.version_actual, documento.fecha_creacion, documento.fecha_actualizacion, documento.fecha_emision);
         }
 
@@ -296,7 +296,7 @@ namespace Model.ControlDocumentos
             SO_Documento ServiceDocumento = new SO_Documento();
 
             // Se ejecuta el método y retorna los registros que se modificaron.
-            return ServiceDocumento.UpdateDocumento(documento.id_documento, documento.id_usuario,documento.id_tipo_documento, documento.nombre, documento.descripcion,
+            return ServiceDocumento.UpdateDocumento(documento.id_documento, documento.id_usuario,documento.id_tipo_documento,documento.id_dep, documento.nombre, documento.descripcion,
                                                  documento.version_actual, documento.fecha_creacion, documento.fecha_actualizacion, documento.fecha_emision);
         }
 

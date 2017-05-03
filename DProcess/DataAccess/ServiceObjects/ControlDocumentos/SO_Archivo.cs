@@ -169,6 +169,13 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
         
+        /// <summary>
+        /// Método para insertar un registro a la tabla archivo.
+        /// </summary>
+        /// <param name="version"></param>
+        /// <param name="archivo"></param>
+        /// <param name="ext"></param>
+        /// <returns></returns>
         public Task<int> SetArchivo(int version, byte[] archivo, string ext)
         {
             return Task.Run(() =>
@@ -176,15 +183,21 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 try
                 {
                     DataSet datos = null;
+                    //Se crea conexion a la BD.
                     Desing_SQL conexion = new Desing_SQL();
 
+                    //Se inicializa un dictionario que contiene propiedades de tipo string y un objeto.
                     Dictionary<string, object> parametros = new Dictionary<string, object>();
 
+                    //se agregan el nombre y el objeto de los parámetros.
                     parametros.Add("version", version);
                     parametros.Add("archivo", archivo);
                     parametros.Add("ext", ext);
 
+                    //se ejecuta el procedimiento y se mandan los parámetros añadidos anteriormente.
                     datos = conexion.EjecutarStoredProcedure("Set_Archivo", parametros);
+
+                    //Retorna el número de elementos en la tabla.
                     return datos.Tables.Count;
                 }
                 catch (Exception e)

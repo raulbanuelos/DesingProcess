@@ -143,6 +143,33 @@ namespace View.Services.ViewModel
             }
         }
 
+        private int _id_dep;
+        public int id_dep {
+            get
+            {
+                return _id_dep;
+            }
+
+            set
+            {
+                _id_dep = value;
+                NotifyChange("id_tipo");
+            }
+
+        }
+
+        private string _usuario;
+        public string usuario { get
+            {
+                return _usuario;
+            }
+            set
+            {
+                _usuario = value;
+                NotifyChange("usuario");
+            }
+        }
+
         private ObservableCollection<Archivo> _ListaDocumentos = new ObservableCollection<Archivo>();
         public ObservableCollection<Archivo> ListaDocumentos
         {
@@ -168,6 +195,33 @@ namespace View.Services.ViewModel
             {
                 _ListaTipo = value;
                 NotifyChange("ListaTipo");
+            }
+        }
+
+        private ObservableCollection<Departamento> _ListaDepartamento = DataManagerControlDocumentos.GetDepartamento();
+        public ObservableCollection<Departamento> ListaDepartamento {
+            get
+            {
+                return _ListaDepartamento;
+            }
+        set
+            {
+                _ListaDepartamento = value;
+                NotifyChange("ListaDepartamento");
+            }
+
+        }
+
+        private ObservableCollection<Usuarios> _ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
+        public ObservableCollection<Usuarios> ListaUsuarios {
+            get
+            {
+                return _ListaUsuarios;
+            }
+            set
+            {
+                _ListaUsuarios = value;
+                NotifyChange("ListaUsuarios");
             }
         }
 
@@ -247,7 +301,6 @@ namespace View.Services.ViewModel
             {
                 Archivo objArchivo = new Archivo();
 
-
                 objArchivo.nombre = item.nombre;
                 objArchivo.id_archivo = item.version.archivo.id_archivo;
                 objArchivo.archivo = item.version.archivo.archivo;
@@ -310,47 +363,67 @@ namespace View.Services.ViewModel
 
                     //Mapeamos los valores al objeto declarado.
                     obj.nombre = nombre;
-                    obj.id_usuario = "2";
                     obj.id_tipo_documento = _id_tipo;
+                    obj.id_dep = _id_dep;
                     obj.descripcion = descripcion;
                     obj.version_actual = version;
                     obj.fecha_creacion = DateTime.Now;
                     obj.fecha_actualizacion = DateTime.Now;
                     obj.fecha_emision = fecha;
-
+                    
                     //Ejecutamos el método para guardar el documento. El resultado lo guardamos en una variable local.
                     id_documento = DataManagerControlDocumentos.SetDocumento(obj);
 
-                    //Mapeamos los valores al objeto de versión.
-                    objVersion.no_version = version;
-                    objVersion.no_copias = Convert.ToInt32(copias);
-                    objVersion.id_documento = id_documento;
-                    objVersion.id_usuario = "2";
-                    objVersion.fecha_version = fecha;
-
-                    //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
-                    int id_version = DataManagerControlDocumentos.SetVersion(objVersion);
-
-                    //Iteramos la lista de documentos.
-                    foreach (var item in _ListaDocumentos)
+                    //si se guardo el registro en la tabla documento
+                    if (id_documento!=0)
                     {
-                        //Declaramos un objeto de tipo Archivo.
-                        Archivo objArchivo = new Archivo();
+                        //Mapeamos los valores al objeto de versión.
+                        objVersion.no_version = version;
+                        objVersion.no_copias = Convert.ToInt32(copias);
+                        objVersion.id_documento = id_documento;
+                        objVersion.id_usuario = _usuario;
+                        objVersion.fecha_version = fecha;
 
-                        //Mapeamos los valores al objeto creado.
-                        objArchivo.id_version = id_version;
-                        objArchivo.archivo = item.archivo;
-                        objArchivo.ext = item.ext;
+                        //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
+                        int id_version = DataManagerControlDocumentos.SetVersion(objVersion);
 
-                        //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
-                        int n = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                        //si se guardó correctamente el registro en la tabla versión.
+                        if (id_version!=0)
+                        {
+                            //Iteramos la lista de documentos.
+                            foreach (var item in _ListaDocumentos)
+                            {
+                                //Declaramos un objeto de tipo Archivo.
+                                Archivo objArchivo = new Archivo();
+
+                                //Mapeamos los valores al objeto creado.
+                                objArchivo.id_version = id_version;
+                                objArchivo.archivo = item.archivo;
+                                objArchivo.ext = item.ext;
+
+                                //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
+                                int n = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                                
+                            }
+
+                            //Ejecutamos el método para cerrar el mensaje de espera.
+                            await controllerProgressAsync.CloseAsync();
+
+                            //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
+                            await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+                        }
+                        else
+                        {
+                            await dialog.SendMessage("Alerta", "Error al registrar la versión..");
+                        }
                     }
-
-                    //Ejecutamos el método para cerrar el mensaje de espera.
-                    await controllerProgressAsync.CloseAsync();
-
-                    //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
-                    await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+                    else
+                    {
+                        //Si no se hizo la alta.
+                        //Ejecutamos el método para enviar un mensaje de alerta al usuario.
+                        await dialog.SendMessage("Alerta", "Error al registrar el documento..");
+                    }
+                    
                 }
                 else
                 {
@@ -376,7 +449,7 @@ namespace View.Services.ViewModel
                     objVersion.no_version = version;
                     objVersion.no_copias = Convert.ToInt32(copias);
                     objVersion.id_documento = id_documento;
-                    objVersion.id_usuario = "2";
+                    objVersion.id_usuario = _usuario;
                     objVersion.fecha_version = fecha;
 
                     //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
@@ -503,11 +576,14 @@ namespace View.Services.ViewModel
         }
         private void eliminar()
         {
+            //Si el id es diferente de cero
             if (id_documento != 0)
             {
-
+                //Se crea un objeto de tipo Documento
                 Documento obj = new Documento();
+                //se le asigna el id al objeto
                 obj.id_documento = id_documento;
+                //Se manda a llamar a la función.
                 int n = DataManagerControlDocumentos.DeleteDocumento(obj);
             }
         }
@@ -524,30 +600,48 @@ namespace View.Services.ViewModel
         }
         private async void modificar()
         {
+            //Incializamos los servicios de dialog.
             DialogService dialog = new DialogService();
-            if (nombre != null & version != null & fecha != null & copias != null & descripcion != null & _id_tipo != 0)
-            {
 
+            //Ejecutamos el método para valirdar los valores.
+            if (ValidarValores())
+            {
+                //Se crea un objeto de tipo Documento.
                 Documento obj = new Documento();
+
+                //Se asignan los valores.
                 obj.id_documento = id_documento;
                 obj.nombre = nombre;
-                obj.id_usuario = "2";
+                obj.id_dep = _id_dep;
                 obj.id_tipo_documento = _id_tipo;
                 obj.descripcion = descripcion;
                 obj.version_actual = version;
-                obj.fecha_creacion = Convert.ToDateTime("03/02/2017");
                 obj.fecha_actualizacion = fecha;
-                obj.fecha_emision = Convert.ToDateTime("03/02/2015");
 
+                //Ejecuta el método para modificar un registro 
                 int n = DataManagerControlDocumentos.UpdateDocumento(obj);
+
+                //Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+                //objVersion.no_version = version;
+                //objVersion.no_copias = Convert.ToInt32(copias);
+                //objVersion.id_documento = id_documento;
+                //objVersion.id_usuario = _usuario;
+                //objVersion.fecha_version = fecha;
+
+                //Ejecutamos el método para modificar una versión             
+
                 await dialog.SendMessage("", "Cambios realizados..");
             }
             else
             {
+                //Si los campos están vacíos, manda un mensaje.
                 await dialog.SendMessage("RGP: Alerta", "Se debe llenar todos los campos");
             }
         }
 
+        /// <summary>
+        /// Comando para generar una nueva versión a un documento
+        /// </summary>
         public ICommand GenerarVersion
         {
             get
@@ -557,6 +651,7 @@ namespace View.Services.ViewModel
         }
         private  void generarVersion()
         {
+            //Limpiamos todos lo textbox, y se cambia el content del botón de guardar.
             Version = string.Empty;
             Fecha = DateTime.Now;
             Copias=string.Empty;
@@ -567,6 +662,9 @@ namespace View.Services.ViewModel
             BttnVersion = false;
         }
 
+        /// <summary>
+        /// Comando para ver el archivo desde la lista de documentos.
+        /// </summary>
         public ICommand VerArchivo
         {
             get
@@ -574,7 +672,6 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => verArchivo());
             }
         }
-
         private  void verArchivo()
         {
 
@@ -599,7 +696,7 @@ namespace View.Services.ViewModel
         /// <returns></returns>
         private bool ValidarValores()
         {
-            if (nombre != null & version != null & fecha != null & copias != null & descripcion != null & id_tipo != 0 & _ListaDocumentos.Count != 0)
+            if (nombre != null & version != null & fecha != null & copias != null & descripcion != null & id_tipo != 0 & _ListaDocumentos.Count != 0 & _usuario!=null & _id_dep!=0)
                 return true;
             else 
                 return false;

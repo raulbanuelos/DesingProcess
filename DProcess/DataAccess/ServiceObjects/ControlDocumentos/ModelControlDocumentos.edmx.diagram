@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="20228259bbed4e74b703f47416098d2d" Name="Diagram1">
+      <Diagram DiagramId="20228259bbed4e74b703f47416098d2d" Name="Diagram1" ZoomLevel="131">
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_ARCHIVO" Width="2.625" PointX="14.5" PointY="1.25" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_ROL" Width="1.5" PointX="4.875" PointY="5.375" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" Width="2.5" PointX="10.25" PointY="0.5" />

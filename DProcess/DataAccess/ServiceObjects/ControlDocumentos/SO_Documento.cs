@@ -62,7 +62,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_actualizacion"></param>
         /// <param name="fecha_emision"></param>
         /// <returns></returns>
-        public int SetDocumento(int id_documento, string id_usuario, int id_tipo_documento, string nombre, string descripcion, string version_actual, DateTime fecha_creacion, DateTime fecha_actualizacion, DateTime fecha_emision)
+        public int SetDocumento(int id_documento, string id_usuario, int id_tipo_documento,int id_dep, string nombre, string descripcion, string version_actual, DateTime fecha_creacion, DateTime fecha_actualizacion, DateTime fecha_emision)
         {
             try
             {
@@ -76,6 +76,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.ID_DOCUMENTO = id_documento;
                     obj.ID_USUARIO_REVISO = id_usuario;
                     obj.ID_TIPO_DOCUMENTO = id_tipo_documento;
+                    obj.ID_DEPARTAMENTO = id_dep;
                     obj.NOMBRE = nombre;
                     obj.DESCRIPCION = descripcion;
                     obj.VERSION_ACTUAL = version_actual;
@@ -111,7 +112,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_actualizacion"></param>
         /// <param name="fecha_emision"></param>
         /// <returns></returns>
-        public int UpdateDocumento(int id_documento, string id_usuario, int id_tipo_documento, string nombre, string descripcion, string version_actual, DateTime fecha_creacion, DateTime fecha_actualizacion, DateTime fecha_emision)
+        public int UpdateDocumento(int id_documento, string id_usuario, int id_tipo_documento,int id_dep, string nombre, string descripcion, string version_actual, DateTime fecha_creacion, DateTime fecha_actualizacion, DateTime fecha_emision)
         {
             try
             {
@@ -125,6 +126,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.ID_USUARIO_REVISO = id_usuario;
                     obj.NOMBRE = nombre;
                     obj.ID_TIPO_DOCUMENTO = id_tipo_documento;
+                    obj.ID_DEPARTAMENTO = id_dep;
                     obj.DESCRIPCION = descripcion;
                     obj.VERSION_ACTUAL = version_actual;
                     obj.FECHA_ACTUALIZACION = fecha_actualizacion;
@@ -265,12 +267,19 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        /// <summary>
+        /// Métdo para obtener el tipo de documento y el archivo.
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <returns></returns>
         public IList GetTipo(int id_documento)
         {
             try
             {
+                //Se inician los servicios de Entity Control Documento
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
+                    //Se realiza la consulta para obtener el archivo y el tipo de acuerdo al documento requerido.
                     var Lista = (from d in Conexion.TBL_DOCUMENTO
                                  join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
                                  join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
@@ -292,7 +301,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
             catch (Exception er)
             {
-
+                //si hay error, retorna nulo.
                 return null;
             }
         }
