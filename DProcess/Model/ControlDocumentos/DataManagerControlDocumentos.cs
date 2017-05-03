@@ -58,13 +58,13 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="archivo"></param>
         /// <returns></returns>
-        public static int SetArchivo(Archivo archivo)
+        public static Task<int> SetArchivo(Archivo archivo)
         {
             //Inicializamos los servicios de Archivo.
             SO_Archivo ServiceArchivo = new SO_Archivo();
 
             //Se ejecuta el método y regresa el id del archivo insertado.
-            return  ServiceArchivo.Set2(archivo.id_version, archivo.archivo, archivo.ext);
+            return  ServiceArchivo.SetArchivo(archivo.id_version, archivo.archivo, archivo.ext);
 
         }
         /// <summary>
@@ -314,7 +314,7 @@ namespace Model.ControlDocumentos
             return ServiceDocumento.DeleteDocumento(documento.id_documento);
         } 
 
-        public static ObservableCollection<Documento> GetDataGrid()
+        public static ObservableCollection<Documento> GetDataGrid(int idTipoDocumento,string textoBusqueda)
         {
             //Se inicializan los servicios de Documento.
             SO_Documento ServiceDocumento = new SO_Documento();
@@ -323,7 +323,7 @@ namespace Model.ControlDocumentos
             ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
 
             //obtenemos todo de la BD.
-            IList ObjDocumento = ServiceDocumento.GetDataGrid();
+            IList ObjDocumento = ServiceDocumento.GetDataGrid(idTipoDocumento,textoBusqueda);
 
             //Verificamos que la informacion no esté vacía.
             if (ObjDocumento != null)
@@ -336,7 +336,6 @@ namespace Model.ControlDocumentos
                     //Declaramos un objeto  que contendrá la información de un registro.
                     Documento obj = new Documento();
 
-
                     //Asignamos los valores correspondientes.
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
@@ -345,7 +344,7 @@ namespace Model.ControlDocumentos
                     obj.version.no_version= (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     obj.version.id_version=(int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
                     obj.version.no_copias= (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
-                    obj.version.archivo.archivo=(byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
+                    obj.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }
@@ -374,7 +373,6 @@ namespace Model.ControlDocumentos
 
                     //Declaramos un objeto  que contendrá la información de un registro.
                     Documento obj = new Documento();
-
 
                     //Asignamos los valores correspondientes.
                     obj.id_documento = id_documento;
@@ -479,8 +477,7 @@ namespace Model.ControlDocumentos
             return ServiceRol.DeleteRol(rol.id_rol);
         }
         #endregion
-
-
+        
         #region TipoDocumento
 
         /// <summary>
@@ -622,7 +619,6 @@ namespace Model.ControlDocumentos
                     obj.usql = (string)tipo.GetProperty("Usql").GetValue(item, null);
                     obj.psql = (string)tipo.GetProperty("Psql").GetValue(item, null);
                     obj.bloqueado = (bool)tipo.GetProperty("Bloqueado").GetValue(item, null);
-                    obj.id_departamento = (int)tipo.GetProperty("Id_Departamento").GetValue(item, null);
 
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
@@ -644,7 +640,7 @@ namespace Model.ControlDocumentos
 
             //Se ejecuta el método y retorna el usuario que fue insertado.
             return ServiceUsuarios.SetUsuario(usuarios.usuario,usuarios.password, usuarios.nombre, usuarios.APaterno, usuarios.AMaterno,
-                                              usuarios.estado, usuarios.usql, usuarios.psql, usuarios.bloqueado, usuarios.id_departamento);
+                                              usuarios.estado, usuarios.usql, usuarios.psql, usuarios.bloqueado);
 
         }
 
@@ -661,7 +657,7 @@ namespace Model.ControlDocumentos
 
             // Se ejecuta el método y retorna los registros que se modificaron.
             return ServiceUsuarios.UpdateUsuarios(usuarios.usuario, usuarios.password, usuarios.nombre, usuarios.APaterno, usuarios.AMaterno,
-                                              usuarios.estado, usuarios.usql, usuarios.psql, usuarios.bloqueado, usuarios.id_departamento);
+                                              usuarios.estado, usuarios.usql, usuarios.psql, usuarios.bloqueado);
 
         }
 

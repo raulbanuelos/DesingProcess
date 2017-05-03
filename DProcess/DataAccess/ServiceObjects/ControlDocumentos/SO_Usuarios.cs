@@ -22,10 +22,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
                     //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
-                    var Lista = (from u in Conexion.Usuarios
-                                 join d in Conexion.TBL_DEPARTAMENTO on u.Id_Departamento equals d.ID_DEPARTAMENTO
-                                 
-                                 select new
+                    var Lista = (from u in Conexion.Usuarios select new
                                  {
                                      u.Usuario,
                                      u.Password,
@@ -35,8 +32,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      u.Estado,
                                      u.Usql,
                                      u.Psql,
-                                     u.Bloqueado,
-                                     Id_Departamento=d.ID_DEPARTAMENTO
+                                     u.Bloqueado
+                                    
                                  }).ToList();
                     //se retorna la lista
                     return Lista;
@@ -66,7 +63,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <returns>Si hay error, regresa una cadena vacía</returns>
 
         public string SetUsuario(string usuario,string password,string nombre,string APaterno,string AMaterno,
-                                 int estado,string usql,string psql,bool bloqueado, int id_departartemento)
+                                 int estado,string usql,string psql,bool bloqueado)
         {
             try
             {
@@ -86,7 +83,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     user.Usql = usql;
                     user.Psql = psql;
                     user.Bloqueado = bloqueado;
-                    user.Id_Departamento = id_departartemento;
                     //Agrega el objeto a la tabla.
                     Conexion.Usuarios.Add(user);
                     //Se guardan los cambios
@@ -118,7 +114,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="id_departartemento"></param>
         /// <returns></returns>
         public int UpdateUsuarios(string usuario, string password, string nombre, string APaterno, string AMaterno,
-                                 int estado, string usql, string psql, bool bloqueado, int id_departartemento)
+                                 int estado, string usql, string psql, bool bloqueado)
         {
             try
             {
@@ -137,7 +133,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     user.Usql = usql;
                     user.Psql = psql;
                     user.Bloqueado = bloqueado;
-                    user.Id_Departamento = id_departartemento;
 
                     //Se cambia el estado de registro a modificado.
                     Conexion.Entry(user).State= EntityState.Modified;

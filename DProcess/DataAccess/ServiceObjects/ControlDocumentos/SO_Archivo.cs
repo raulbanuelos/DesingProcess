@@ -13,7 +13,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 {
     public class SO_Archivo
     {
-
         /// <summary>
         /// Método para obtener los registros de la tabla TBL_archivos.
         /// </summary>
@@ -44,49 +43,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             {
                 //Si hay algún error, se retorna un nulo.
                 return null;
-            }
-        }
-        /// <summary>
-        /// Método para insertar un registro a la tabla TBL_Archivo.
-        /// </summary>
-        /// <param name="id_archivo"></param>
-        /// <param name="id_version"></param>
-        /// <param name="archivo"></param>
-        /// <param name="ext"></param>
-        /// <returns></returns>
-        public int SetArchivo(int id_archivo, int id_version, byte[] archivo, string ext)
-        {
-            try
-            {
-                //Se establece conexión a la BD.
-                using (var Conexion = new EntitiesControlDocumentos())
-                {
-                    //Se  crea un objeto de tipo usuarios, el cual se va agregar a la tabla 
-                    TBL_ARCHIVO obj = new TBL_ARCHIVO();
-
-                    //Se asiganan los valores.
-                    obj.ID_ARCHIVO = id_archivo;
-                    obj.ID_VERSION = id_version;
-                    obj.ARCHIVO = archivo;
-                    obj.EXT = ext;
-
-                    //Agrega el objeto a la tabla.
-                    Conexion.TBL_ARCHIVO.Add(obj);
-                    //Se guardan los cambios
-                    Conexion.SaveChanges();
-
-                    //Retorna el código del archivo insertado
-                    return obj.ID_ARCHIVO;
-
-                    // Throw an OutOfMemoryException exception.
-                    throw new OutOfMemoryException();
-
-                }
-            }
-            catch (OutOfMemoryException er)
-            {
-                //Si hay error regresa una cadena vacía.
-                return 0;
             }
         }
 
@@ -212,29 +168,30 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
-
-
-
-        public int Set2(int version, byte[] archivo, string ext)
+        
+        public Task<int> SetArchivo(int version, byte[] archivo, string ext)
         {
-            try
+            return Task.Run(() =>
             {
-                DataSet datos = null;
-                Desing_SQL conexion = new Desing_SQL();
+                try
+                {
+                    DataSet datos = null;
+                    Desing_SQL conexion = new Desing_SQL();
 
-                Dictionary<string, object> parametros = new Dictionary<string, object>();
+                    Dictionary<string, object> parametros = new Dictionary<string, object>();
 
-                parametros.Add("version", version);
-                parametros.Add("archivo", archivo);
-                parametros.Add("ext", ext);
+                    parametros.Add("version", version);
+                    parametros.Add("archivo", archivo);
+                    parametros.Add("ext", ext);
 
-                datos = conexion.EjecutarStoredProcedure("Set_Archivo", parametros);
-                return datos.Tables.Count;
-            }
-            catch (Exception e)
-            {
-                return 0;
-            }
-            }
+                    datos = conexion.EjecutarStoredProcedure("Set_Archivo", parametros);
+                    return datos.Tables.Count;
+                }
+                catch (Exception e)
+                {
+                    return 0;
+                }
+            });
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace View.Services.ViewModel
 
         #region Propiedades
 
-        private ObservableCollection<Documento> _Lista = DataManagerControlDocumentos.GetDataGrid();
+        private ObservableCollection<Documento> _Lista;
         public ObservableCollection<Documento> Lista {
            get
             {
@@ -37,7 +37,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private ObservableCollection<TipoDocumento> _ListaTipoDocumento = DataManagerControlDocumentos.GetTipo();
+        private ObservableCollection<TipoDocumento> _ListaTipoDocumento;
         public ObservableCollection<TipoDocumento> ListaTipoDocumento
         {
             get
@@ -50,6 +50,19 @@ namespace View.Services.ViewModel
                 NotifyChange("ListaTipoDocumento");
             }
         }
+
+        private TipoDocumento selectedTipoDocumento;
+        public TipoDocumento SelectedTipoDocumento
+        {
+            get {
+                return selectedTipoDocumento;
+            }
+            set {
+                selectedTipoDocumento = value;
+                NotifyChange("SelectedTipoDocumento");
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -58,6 +71,22 @@ namespace View.Services.ViewModel
             get
             {
                 return new RelayCommand(o => irNuevoDocumento());
+            }
+        }
+
+        public ICommand ConsultarDocumentos
+        {
+            get
+            {
+                return new RelayCommand(o => GetDataGrid(string.Empty));
+            }
+        }
+
+        public ICommand BuscarDocumentos
+        {
+            get
+            {
+                return new RelayCommand(param => GetDataGrid((string)param));
             }
         }
 
@@ -70,5 +99,21 @@ namespace View.Services.ViewModel
             frm.ShowDialog();
         }
         #endregion
+
+        private void GetDataGrid(string TextoBusqueda)
+        {
+           Lista = DataManagerControlDocumentos.GetDataGrid(SelectedTipoDocumento.id_tipo,TextoBusqueda);
+        }
+
+        public ControlDocumentoViewModel()
+        {
+            _ListaTipoDocumento = DataManagerControlDocumentos.GetTipo();
+
+            if (_ListaTipoDocumento.Count > 0)
+            {
+                SelectedTipoDocumento = _ListaTipoDocumento[0];
+            }
+            GetDataGrid(string.Empty);
+        }
     }
 }

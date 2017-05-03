@@ -18,7 +18,6 @@ namespace Model.ControlDocumentos
         public string usql { get; set; }
         public string psql { get; set; }
         public bool bloqueado { get; set; }
-        public int id_departamento { get; set; }
 
         //string usuario,string password,string nombre,string APaterno,string AMaterno,
         // int estado,string usql,string psql,bool bloqueado, int id_departartemento

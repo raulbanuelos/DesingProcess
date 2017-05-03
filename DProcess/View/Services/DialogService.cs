@@ -52,5 +52,37 @@ namespace View.Services
                 //Si la ventana no fue encontrada, retornamos un valor Negative.
                 return MessageDialogResult.Negative;
         }
+
+        /// <summary>
+        /// Método que muestra un mesaje modal con progress bar.
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public async Task<ProgressDialogController> SendProgressAsync(string title,string message)
+        {
+            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+            //Creamos las configuraciones que va a tener el mensaje.
+            MetroDialogSettings settings = new MetroDialogSettings();
+            settings.AnimateShow = true;
+
+            //Comprobamos que la ventana sea diferente de nulo.
+            if (window != null)
+            {
+                //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
+                var Controller =  await window.ShowProgressAsync(title, message,false,settings);
+
+                //Ejecutamos el método para indicar que el mensaje no tiene un fin establecido.
+                Controller.SetIndeterminate();
+                
+                //Retornamos el resultado.
+                return Controller;
+            }
+
+            //Si la ventana es igual a nulo retornamos un null.
+            return null;
+        }
     }
 }

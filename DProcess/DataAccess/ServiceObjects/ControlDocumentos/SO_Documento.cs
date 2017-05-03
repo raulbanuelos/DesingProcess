@@ -79,7 +79,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.NOMBRE = nombre;
                     obj.DESCRIPCION = descripcion;
                     obj.VERSION_ACTUAL = version_actual;
-                    obj.FECHA_CREACION = fecha_creacion;
+                    obj.FECHA_CREACION = DateTime.Now;
                     obj.FECHA_ACTUALIZACION = fecha_actualizacion;
                     obj.FECHA_EMISION = fecha_emision;
 
@@ -207,34 +207,58 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// Método para obtener los registros para el llenado de la tabla ControlDocumento.
         /// </summary>
         /// <returns></returns>
-        public IList GetDataGrid()
+        public IList GetDataGrid(int idTipoDocumento,string textoBusqueda)
         {
             try
             {
                 //Se inician los servicios de Entity Control Documento
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
-                    //Realizamos la consulta, para llenar la tabla de control documento
-                    var lista = (from d in Conexion.TBL_DOCUMENTO
-                                 join u in Conexion.Usuarios on d.ID_USUARIO_REVISO equals u.Usuario
-                                 join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
-                                 join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
-                                 select new
-                                 {
-                                     d.ID_DOCUMENTO,
-                                     d.NOMBRE,
-                                     d.FECHA_ACTUALIZACION,
-                                     v.No_VERSION,
-                                     u.Nombre,
-                                     v.ID_VERSION,
-                                     v.NO_COPIAS,
-                                     a.ARCHIVO
-                                 }).OrderBy(x => x.ID_DOCUMENTO).ToList();
-                    //se retorna la lista
-                    return lista;
+                    if (string.IsNullOrEmpty(textoBusqueda))
+                    {
+                        //Realizamos la consulta, para llenar la tabla de control documento
+                        var lista = (from d in Conexion.TBL_DOCUMENTO
+                                     join u in Conexion.Usuarios on d.ID_USUARIO_REVISO equals u.Usuario
+                                     join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                     join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
+                                     where d.ID_TIPO_DOCUMENTO == idTipoDocumento
+                                     select new
+                                     {
+                                         d.ID_DOCUMENTO,
+                                         d.NOMBRE,
+                                         d.FECHA_ACTUALIZACION,
+                                         v.No_VERSION,
+                                         u.Nombre,
+                                         v.ID_VERSION,
+                                         v.NO_COPIAS,
+                                         DESCRIPCION = d.DESCRIPCION
+                                     }).OrderBy(x => x.ID_DOCUMENTO).ToList();
+                        return lista;
+                    }
+                    else
+                    {
+                        //Realizamos la consulta, para llenar la tabla de control documento
+                        var lista = (from d in Conexion.TBL_DOCUMENTO
+                                     join u in Conexion.Usuarios on d.ID_USUARIO_REVISO equals u.Usuario
+                                     join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                     join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
+                                     where d.ID_TIPO_DOCUMENTO == idTipoDocumento && (d.NOMBRE.Contains(textoBusqueda) || d.DESCRIPCION.Contains(textoBusqueda))
+                                     select new
+                                     {
+                                         d.ID_DOCUMENTO,
+                                         d.NOMBRE,
+                                         d.FECHA_ACTUALIZACION,
+                                         v.No_VERSION,
+                                         u.Nombre,
+                                         v.ID_VERSION,
+                                         v.NO_COPIAS,
+                                         DESCRIPCION = d.DESCRIPCION
+                                     }).OrderBy(x => x.ID_DOCUMENTO).ToList();
+                        return lista;
+                    }
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 //Si existe algún error, se regresa nulo.
                 return null;

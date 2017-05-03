@@ -5,13 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="ControlDocumento"
       Height="Auto" Width="2000">
 
 
-    <Grid ShowGridLines="True" Margin="0" Background="White">
+    <Grid ShowGridLines="False" Margin="0" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="85"/>
             <RowDefinition Height="130"/>
@@ -28,23 +29,37 @@
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
             <TextBlock TextWrapping="WrapWithOverflow" TextAlignment="Center"  x:Name="label1" Text="MAHLE COMPONENTES DE MOTOR DE MEXICO S. DE R. L. DE C.V." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="28"/>
             <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
-                <TextBox materialDesign:HintAssist.Hint="Buscar..." TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20"></TextBox>
-                <ComboBox materialDesign:HintAssist.Hint="Tipo de Documento" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="500" ItemsSource="{Binding ListaTipoDocumento}"  DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}">
+                <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="Buscar..." Text="{Binding TextoBusqueda}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction
+									Command="{Binding BuscarDocumentos}"
+                                    CommandParameter="{Binding ElementName=txt_busqueda, Path=Text}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                <ComboBox materialDesign:HintAssist.Hint="Tipo de Documento" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="500" ItemsSource="{Binding ListaTipoDocumento}"  DisplayMemberPath="tipo_documento" SelectedItem="{Binding SelectedTipoDocumento}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction
+									Command="{Binding ConsultarDocumentos}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </ComboBox>
                 <Button Content="Nuevo" Command="{Binding IrNuevoDocumento}"></Button>
+                <Label Content="{Binding TextoBusqueda}"></Label>
             </StackPanel>
             
         </StackPanel>
         
         <DataGrid x:Name="dataGrid" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding id_documento}" ClipboardContentBinding="{x:Null}" Header="Número de Documento"/>
-                <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre de Documento"/>
+                <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="Número de Documento"/>
+                <DataGridTextColumn Binding="{Binding descripcion}" ClipboardContentBinding="{x:Null}" Header="Nombre de Documento"/>
                 <DataGridTextColumn Binding="{Binding version.no_version}" ClipboardContentBinding="{x:Null}" Header="Versión"/>
                 <DataGridTextColumn Binding="{Binding Usuarios.nombre}" ClipboardContentBinding="{x:Null}" Header="Responsable"/>
                 <DataGridTextColumn Binding="{Binding version.no_copias}" ClipboardContentBinding="{x:Null}" Header="Copias"/>
                 <DataGridTextColumn Binding="{Binding fecha_actualizacion}" ClipboardContentBinding="{x:Null}" Header="Fecha de Actualizacion"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Archivo"/>
             </DataGrid.Columns>
         </DataGrid>
         

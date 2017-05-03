@@ -17,7 +17,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TBL_DEPARTAMENTO()
         {
-            this.Usuarios = new HashSet<Usuarios>();
+            this.TBL_DOCUMENTO = new HashSet<TBL_DOCUMENTO>();
         }
     
         public int ID_DEPARTAMENTO { get; set; }
@@ -26,6 +26,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public Nullable<System.DateTime> FECHA_ACTUALIZACION { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usuarios> Usuarios { get; set; }
+        public virtual ICollection<TBL_DOCUMENTO> TBL_DOCUMENTO { get; set; }
     }
 }

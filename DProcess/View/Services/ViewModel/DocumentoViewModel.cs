@@ -287,82 +287,129 @@ namespace View.Services.ViewModel
         }
         private async void guardarControl()
         {
+            //Incializamos los servicios de dialog.
             DialogService dialog = new DialogService();
 
+            //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
+            ProgressDialogController controllerProgressAsync;
+
+            //Verificamos que el botón contenga la leyenda Guardar, esto indica que el registro es nuevo.
             if (BotonGuardar == "Guardar")
             {
-                if (nombre != null & version != null & fecha != null & copias != null & descripcion != null & id_tipo != 0 & _ListaDocumentos.Count!=0)
+                //Ejecutamos el método para verificar que todos los campos contengan valores.
+                if (ValidarValores())
                 {
+                    //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
+                    controllerProgressAsync = await dialog.SendProgressAsync("Por favor espere", "Guardando el documento...");
+
+                    //Declaramos un objeto de tipo documento.
                     Documento obj = new Documento();
+                    
+                    //Declaramos un objeto de tipo Version.
                     Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
 
+                    //Mapeamos los valores al objeto declarado.
                     obj.nombre = nombre;
                     obj.id_usuario = "2";
                     obj.id_tipo_documento = _id_tipo;
                     obj.descripcion = descripcion;
                     obj.version_actual = version;
-                    obj.fecha_creacion = fecha;
-                    obj.fecha_actualizacion = Convert.ToDateTime("03/02/2017");
-                    obj.fecha_emision = Convert.ToDateTime("03/02/2015");
+                    obj.fecha_creacion = DateTime.Now;
+                    obj.fecha_actualizacion = DateTime.Now;
+                    obj.fecha_emision = fecha;
 
+                    //Ejecutamos el método para guardar el documento. El resultado lo guardamos en una variable local.
                     id_documento = DataManagerControlDocumentos.SetDocumento(obj);
 
+                    //Mapeamos los valores al objeto de versión.
                     objVersion.no_version = version;
                     objVersion.no_copias = Convert.ToInt32(copias);
                     objVersion.id_documento = id_documento;
                     objVersion.id_usuario = "2";
                     objVersion.fecha_version = fecha;
 
+                    //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
                     int id_version = DataManagerControlDocumentos.SetVersion(objVersion);
 
+                    //Iteramos la lista de documentos.
                     foreach (var item in _ListaDocumentos)
                     {
+                        //Declaramos un objeto de tipo Archivo.
                         Archivo objArchivo = new Archivo();
 
+                        //Mapeamos los valores al objeto creado.
                         objArchivo.id_version = id_version;
                         objArchivo.archivo = item.archivo;
                         objArchivo.ext = item.ext;
-                        
-                        int n = DataManagerControlDocumentos.SetArchivo(objArchivo);
+
+                        //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
+                        int n = await DataManagerControlDocumentos.SetArchivo(objArchivo);
                     }
-                    await dialog.SendMessage("", "Los cambios fueron guardados exitosamente..");
+
+                    //Ejecutamos el método para cerrar el mensaje de espera.
+                    await controllerProgressAsync.CloseAsync();
+
+                    //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
+                    await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
                 }
                 else
                 {
+                    //Si no cumple con la validación.
+                    //Ejecutamos el método para enviar un mensaje de alerta al usuario.
                     await dialog.SendMessage("Alerta", "Se debe llenar todos los campos.");
                 }
             }
             else
             {
-
-                if (version != null & copias != null & fecha != null & id_documento != 0 & _ListaDocumentos.Count != 0)
+                //Si es una actualización.
+                //Ejecutamos el método para valirdar los valores.
+                if (ValidarValores())
                 {
+
+                    //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
+                    controllerProgressAsync = await dialog.SendProgressAsync("Por favor espere", "Guardando el documento...");
+
+                    //Declaramos un objeto de tipo Version.
                     Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
 
+                    //Mapeamos los valores al objeto de versión.
                     objVersion.no_version = version;
                     objVersion.no_copias = Convert.ToInt32(copias);
                     objVersion.id_documento = id_documento;
                     objVersion.id_usuario = "2";
                     objVersion.fecha_version = fecha;
 
+                    //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
                     int id_version = DataManagerControlDocumentos.SetVersion(objVersion);
 
+                    //Iteramos la lista de documentos.
                     foreach (var item in _ListaDocumentos)
                     {
+                        //Mapeamos los valores al objeto creado.
                         Archivo objArchivo = new Archivo();
 
+                        //Mapeamos los valores al objeto creado.
                         objArchivo.id_version = id_version;
                         objArchivo.archivo = item.archivo;
                         objArchivo.ext = item.ext;
 
-                        int id_archivo = DataManagerControlDocumentos.SetArchivo(objArchivo);
+                        //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
+                        int id_archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
                     }
 
+                    //Asignamos el valore de Guardar a la etiqueta del botón.
                     BotonGuardar = "Guardar";
-                    await dialog.SendMessage("", "Los cambios fueron guardados exitosamente..");
+
+                    //Ejecutamos el método para cerrar el mensaje de espera.
+                    await controllerProgressAsync.CloseAsync();
+
+                    //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
+                    await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
                 }
                 else
                 {
+                    //Si no cumple con la validación.
+                    //Ejecutamos el método para enviar un mensaje de alerta al usuario.
                     await dialog.SendMessage("Alerta", "Se debe llenar todos los campos.");
                 }
 
@@ -541,6 +588,21 @@ namespace View.Services.ViewModel
             //Se inicializa el programa para visualizar el archivo.
             Process.Start(filename);
 
+        }
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Método que retorna un true si todos los campos contienen un valor.
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidarValores()
+        {
+            if (nombre != null & version != null & fecha != null & copias != null & descripcion != null & id_tipo != 0 & _ListaDocumentos.Count != 0)
+                return true;
+            else 
+                return false;
         }
         #endregion
     }

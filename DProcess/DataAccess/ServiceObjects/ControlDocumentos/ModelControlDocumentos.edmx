@@ -30,6 +30,7 @@
           <Property Name="ID_DOCUMENTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_USUARIO_REVISO" Type="varchar" MaxLength="20" />
           <Property Name="ID_TIPO_DOCUMENTO" Type="int" Nullable="false" />
+          <Property Name="ID_DEPARTAMENTO" Type="int" />
           <Property Name="NOMBRE" Type="varchar" MaxLength="50" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="200" />
           <Property Name="VERSION_ACTUAL" Type="varchar" MaxLength="10" />
@@ -80,7 +81,6 @@
           <Property Name="Usql" Type="varchar" MaxLength="50" />
           <Property Name="Psql" Type="varchar" MaxLength="50" />
           <Property Name="Bloqueado" Type="bit" />
-          <Property Name="Id_Departamento" Type="int" />
         </EntityType>
         <Association Name="FK_TBL_ARCHIVO_TBL_VERSION">
           <End Role="TBL_VERSION" Type="Self.TBL_VERSION" Multiplicity="0..1" />
@@ -91,6 +91,18 @@
             </Principal>
             <Dependent Role="TBL_ARCHIVO">
               <PropertyRef Name="ID_VERSION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_DOCUMENTO_TBL_DEPARTAMENTO">
+          <End Role="TBL_DEPARTAMENTO" Type="Self.TBL_DEPARTAMENTO" Multiplicity="0..1" />
+          <End Role="TBL_DOCUMENTO" Type="Self.TBL_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_DEPARTAMENTO">
+              <PropertyRef Name="ID_DEPARTAMENTO" />
+            </Principal>
+            <Dependent Role="TBL_DOCUMENTO">
+              <PropertyRef Name="ID_DEPARTAMENTO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -130,18 +142,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Usuarios_TBL_DEPARTAMENTO">
-          <End Role="TBL_DEPARTAMENTO" Type="Self.TBL_DEPARTAMENTO" Multiplicity="0..1" />
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_DEPARTAMENTO">
-              <PropertyRef Name="ID_DEPARTAMENTO" />
-            </Principal>
-            <Dependent Role="Usuarios">
-              <PropertyRef Name="Id_Departamento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="DataAccessServiceObjectsControlDocumentosStoreContainer">
           <EntitySet Name="TBL_ARCHIVO" EntityType="Self.TBL_ARCHIVO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_DEPARTAMENTO" EntityType="Self.TBL_DEPARTAMENTO" Schema="dbo" store:Type="Tables" />
@@ -153,6 +153,10 @@
           <AssociationSet Name="FK_TBL_ARCHIVO_TBL_VERSION" Association="Self.FK_TBL_ARCHIVO_TBL_VERSION">
             <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
             <End Role="TBL_ARCHIVO" EntitySet="TBL_ARCHIVO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_DOCUMENTO_TBL_DEPARTAMENTO" Association="Self.FK_TBL_DOCUMENTO_TBL_DEPARTAMENTO">
+            <End Role="TBL_DEPARTAMENTO" EntitySet="TBL_DEPARTAMENTO" />
+            <End Role="TBL_DOCUMENTO" EntitySet="TBL_DOCUMENTO" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_DOCUMENTO_TBL_TIPO_DOCUMENTO" Association="Self.FK_TBL_DOCUMENTO_TBL_TIPO_DOCUMENTO">
             <End Role="TBL_TIPO_DOCUMENTO" EntitySet="TBL_TIPO_DOCUMENTO" />
@@ -166,10 +170,6 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
           </AssociationSet>
-          <AssociationSet Name="FK_Usuarios_TBL_DEPARTAMENTO" Association="Self.FK_Usuarios_TBL_DEPARTAMENTO">
-            <End Role="TBL_DEPARTAMENTO" EntitySet="TBL_DEPARTAMENTO" />
-            <End Role="Usuarios" EntitySet="Usuarios" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -177,30 +177,30 @@
       <Schema Namespace="DataAccess.ServiceObjects.ControlDocumentos" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="EntitiesControlDocumentos" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TBL_ARCHIVO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_ARCHIVO" />
-          <EntitySet Name="TBL_DEPARTAMENTO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_DEPARTAMENTO" />
           <EntitySet Name="TBL_ROL" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_ROL" />
           <EntitySet Name="TBL_VERSION" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" />
-          <EntitySet Name="Usuarios" EntityType="DataAccess.ServiceObjects.ControlDocumentos.Usuarios" />
           <AssociationSet Name="FK_TBL_ARCHIVO_TBL_VERSION" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_ARCHIVO_TBL_VERSION">
             <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
             <End Role="TBL_ARCHIVO" EntitySet="TBL_ARCHIVO" />
           </AssociationSet>
-          <AssociationSet Name="FK_Usuarios_TBL_DEPARTAMENTO" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_Usuarios_TBL_DEPARTAMENTO">
-            <End Role="TBL_DEPARTAMENTO" EntitySet="TBL_DEPARTAMENTO" />
-            <End Role="Usuarios" EntitySet="Usuarios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TBL_VERSION_Usuarios" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios">
-            <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
-          </AssociationSet>
           <EntitySet Name="TBL_TIPO_DOCUMENTO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_TIPO_DOCUMENTO" />
+          <EntitySet Name="TBL_DEPARTAMENTO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_DEPARTAMENTO" />
           <EntitySet Name="TBL_DOCUMENTO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_DOCUMENTO" />
+          <AssociationSet Name="FK_TBL_DOCUMENTO_TBL_DEPARTAMENTO" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_DEPARTAMENTO">
+            <End Role="TBL_DEPARTAMENTO" EntitySet="TBL_DEPARTAMENTO" />
+            <End Role="TBL_DOCUMENTO" EntitySet="TBL_DOCUMENTO" />
+          </AssociationSet>
           <AssociationSet Name="FK_TBL_DOCUMENTO_TBL_TIPO_DOCUMENTO" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_TIPO_DOCUMENTO">
             <End Role="TBL_TIPO_DOCUMENTO" EntitySet="TBL_TIPO_DOCUMENTO" />
             <End Role="TBL_DOCUMENTO" EntitySet="TBL_DOCUMENTO" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_VERSION_TBL_DOCUMENTOS" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_TBL_DOCUMENTOS">
             <End Role="TBL_DOCUMENTO" EntitySet="TBL_DOCUMENTO" />
+            <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
+          </AssociationSet>
+          <EntitySet Name="Usuarios" EntityType="DataAccess.ServiceObjects.ControlDocumentos.Usuarios" />
+          <AssociationSet Name="FK_TBL_VERSION_Usuarios" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
           </AssociationSet>
         </EntityContainer>
@@ -213,16 +213,6 @@
           <Property Name="ARCHIVO" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="EXT" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TBL_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_ARCHIVO_TBL_VERSION" FromRole="TBL_ARCHIVO" ToRole="TBL_VERSION" />
-        </EntityType>
-        <EntityType Name="TBL_DEPARTAMENTO">
-          <Key>
-            <PropertyRef Name="ID_DEPARTAMENTO" />
-          </Key>
-          <Property Name="ID_DEPARTAMENTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NOMBRE_DEPARTAMENTO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="FECHA_CREACION" Type="DateTime" Precision="3" />
-          <Property Name="FECHA_ACTUALIZACION" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Usuarios" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_Usuarios_TBL_DEPARTAMENTO" FromRole="TBL_DEPARTAMENTO" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="TBL_ROL">
           <Key>
@@ -244,25 +234,8 @@
           <Property Name="FECHA_VERSION" Type="DateTime" Precision="0" />
           <Property Name="NO_COPIAS" Type="Int32" />
           <NavigationProperty Name="TBL_ARCHIVO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_ARCHIVO_TBL_VERSION" FromRole="TBL_VERSION" ToRole="TBL_ARCHIVO" />
-          <NavigationProperty Name="Usuarios" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios" FromRole="TBL_VERSION" ToRole="Usuarios" />
           <NavigationProperty Name="TBL_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_TBL_DOCUMENTOS" FromRole="TBL_VERSION" ToRole="TBL_DOCUMENTO" />
-        </EntityType>
-        <EntityType Name="Usuarios">
-          <Key>
-            <PropertyRef Name="Usuario" />
-          </Key>
-          <Property Name="Usuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="APaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Estado" Type="Int32" />
-          <Property Name="Usql" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Psql" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Bloqueado" Type="Boolean" />
-          <Property Name="Id_Departamento" Type="Int32" />
-          <NavigationProperty Name="TBL_DEPARTAMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_Usuarios_TBL_DEPARTAMENTO" FromRole="Usuarios" ToRole="TBL_DEPARTAMENTO" />
-          <NavigationProperty Name="TBL_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios" FromRole="Usuarios" ToRole="TBL_VERSION" />
+          <NavigationProperty Name="Usuarios" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios" FromRole="TBL_VERSION" ToRole="Usuarios" />
         </EntityType>
         <Association Name="FK_TBL_ARCHIVO_TBL_VERSION">
           <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" Role="TBL_VERSION" Multiplicity="0..1" />
@@ -273,30 +246,6 @@
             </Principal>
             <Dependent Role="TBL_ARCHIVO">
               <PropertyRef Name="ID_VERSION" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Usuarios_TBL_DEPARTAMENTO">
-          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_DEPARTAMENTO" Role="TBL_DEPARTAMENTO" Multiplicity="0..1" />
-          <End Type="DataAccess.ServiceObjects.ControlDocumentos.Usuarios" Role="Usuarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_DEPARTAMENTO">
-              <PropertyRef Name="ID_DEPARTAMENTO" />
-            </Principal>
-            <Dependent Role="Usuarios">
-              <PropertyRef Name="Id_Departamento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TBL_VERSION_Usuarios">
-          <End Type="DataAccess.ServiceObjects.ControlDocumentos.Usuarios" Role="Usuarios" Multiplicity="0..1" />
-          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" Role="TBL_VERSION" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuarios">
-              <PropertyRef Name="Usuario" />
-            </Principal>
-            <Dependent Role="TBL_VERSION">
-              <PropertyRef Name="ID_USUARIO_ELABORO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -311,6 +260,16 @@
           <Property Name="FECHA_ACTUALIZACION" Type="DateTime" Precision="3" />
           <NavigationProperty Name="TBL_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_TIPO_DOCUMENTO" FromRole="TBL_TIPO_DOCUMENTO" ToRole="TBL_DOCUMENTO" />
         </EntityType>
+        <EntityType Name="TBL_DEPARTAMENTO">
+          <Key>
+            <PropertyRef Name="ID_DEPARTAMENTO" />
+          </Key>
+          <Property Name="ID_DEPARTAMENTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE_DEPARTAMENTO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_CREACION" Type="DateTime" Precision="3" />
+          <Property Name="FECHA_ACTUALIZACION" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TBL_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_DEPARTAMENTO" FromRole="TBL_DEPARTAMENTO" ToRole="TBL_DOCUMENTO" />
+        </EntityType>
         <EntityType Name="TBL_DOCUMENTO">
           <Key>
             <PropertyRef Name="ID_DOCUMENTO" />
@@ -318,15 +277,29 @@
           <Property Name="ID_DOCUMENTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_USUARIO_REVISO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ID_TIPO_DOCUMENTO" Type="Int32" Nullable="false" />
+          <Property Name="ID_DEPARTAMENTO" Type="Int32" />
           <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="VERSION_ACTUAL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="FECHA_EMISION" Type="DateTime" Precision="0" />
           <Property Name="FECHA_CREACION" Type="DateTime" Precision="3" />
           <Property Name="FECHA_ACTUALIZACION" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TBL_DEPARTAMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_DEPARTAMENTO" FromRole="TBL_DOCUMENTO" ToRole="TBL_DEPARTAMENTO" />
           <NavigationProperty Name="TBL_TIPO_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_TIPO_DOCUMENTO" FromRole="TBL_DOCUMENTO" ToRole="TBL_TIPO_DOCUMENTO" />
           <NavigationProperty Name="TBL_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_TBL_DOCUMENTOS" FromRole="TBL_DOCUMENTO" ToRole="TBL_VERSION" />
         </EntityType>
+        <Association Name="FK_TBL_DOCUMENTO_TBL_DEPARTAMENTO">
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_DEPARTAMENTO" Role="TBL_DEPARTAMENTO" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_DOCUMENTO" Role="TBL_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_DEPARTAMENTO">
+              <PropertyRef Name="ID_DEPARTAMENTO" />
+            </Principal>
+            <Dependent Role="TBL_DOCUMENTO">
+              <PropertyRef Name="ID_DEPARTAMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBL_DOCUMENTO_TBL_TIPO_DOCUMENTO">
           <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_TIPO_DOCUMENTO" Role="TBL_TIPO_DOCUMENTO" Multiplicity="1" />
           <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_DOCUMENTO" Role="TBL_DOCUMENTO" Multiplicity="*" />
@@ -351,6 +324,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Usuario" />
+          </Key>
+          <Property Name="Usuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="APaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Int32" />
+          <Property Name="Usql" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Psql" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Bloqueado" Type="Boolean" />
+          <NavigationProperty Name="TBL_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios" FromRole="Usuarios" ToRole="TBL_VERSION" />
+        </EntityType>
+        <Association Name="FK_TBL_VERSION_Usuarios">
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.Usuarios" Role="Usuarios" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" Role="TBL_VERSION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario" />
+            </Principal>
+            <Dependent Role="TBL_VERSION">
+              <PropertyRef Name="ID_USUARIO_ELABORO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -364,16 +364,6 @@
                 <ScalarProperty Name="ARCHIVO" ColumnName="ARCHIVO" />
                 <ScalarProperty Name="ID_VERSION" ColumnName="ID_VERSION" />
                 <ScalarProperty Name="ID_ARCHIVO" ColumnName="ID_ARCHIVO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TBL_DEPARTAMENTO">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TBL_DEPARTAMENTO">
-              <MappingFragment StoreEntitySet="TBL_DEPARTAMENTO">
-                <ScalarProperty Name="FECHA_ACTUALIZACION" ColumnName="FECHA_ACTUALIZACION" />
-                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
-                <ScalarProperty Name="NOMBRE_DEPARTAMENTO" ColumnName="NOMBRE_DEPARTAMENTO" />
-                <ScalarProperty Name="ID_DEPARTAMENTO" ColumnName="ID_DEPARTAMENTO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -399,22 +389,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Usuarios">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.Usuarios">
-              <MappingFragment StoreEntitySet="Usuarios">
-                <ScalarProperty Name="Id_Departamento" ColumnName="Id_Departamento" />
-                <ScalarProperty Name="Bloqueado" ColumnName="Bloqueado" />
-                <ScalarProperty Name="Psql" ColumnName="Psql" />
-                <ScalarProperty Name="Usql" ColumnName="Usql" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="AMaterno" ColumnName="AMaterno" />
-                <ScalarProperty Name="APaterno" ColumnName="APaterno" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TBL_TIPO_DOCUMENTO">
             <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TBL_TIPO_DOCUMENTO">
               <MappingFragment StoreEntitySet="TBL_TIPO_DOCUMENTO">
@@ -423,6 +397,16 @@
                 <ScalarProperty Name="ABREBIATURA" ColumnName="ABREBIATURA" />
                 <ScalarProperty Name="TIPO_DOCUMENTO" ColumnName="TIPO_DOCUMENTO" />
                 <ScalarProperty Name="ID_TIPO_DOCUMENTO" ColumnName="ID_TIPO_DOCUMENTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_DEPARTAMENTO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TBL_DEPARTAMENTO">
+              <MappingFragment StoreEntitySet="TBL_DEPARTAMENTO">
+                <ScalarProperty Name="FECHA_ACTUALIZACION" ColumnName="FECHA_ACTUALIZACION" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="NOMBRE_DEPARTAMENTO" ColumnName="NOMBRE_DEPARTAMENTO" />
+                <ScalarProperty Name="ID_DEPARTAMENTO" ColumnName="ID_DEPARTAMENTO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -435,9 +419,25 @@
                 <ScalarProperty Name="VERSION_ACTUAL" ColumnName="VERSION_ACTUAL" />
                 <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ID_DEPARTAMENTO" ColumnName="ID_DEPARTAMENTO" />
                 <ScalarProperty Name="ID_TIPO_DOCUMENTO" ColumnName="ID_TIPO_DOCUMENTO" />
                 <ScalarProperty Name="ID_USUARIO_REVISO" ColumnName="ID_USUARIO_REVISO" />
                 <ScalarProperty Name="ID_DOCUMENTO" ColumnName="ID_DOCUMENTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Bloqueado" ColumnName="Bloqueado" />
+                <ScalarProperty Name="Psql" ColumnName="Psql" />
+                <ScalarProperty Name="Usql" ColumnName="Usql" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="AMaterno" ColumnName="AMaterno" />
+                <ScalarProperty Name="APaterno" ColumnName="APaterno" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

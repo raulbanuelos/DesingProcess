@@ -29,7 +29,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_ARCHIVO> TBL_ARCHIVO { get; set; }
-        public virtual Usuarios Usuarios { get; set; }
         public virtual TBL_DOCUMENTO TBL_DOCUMENTO { get; set; }
+        public virtual Usuarios Usuarios { get; set; }
     }
 }
