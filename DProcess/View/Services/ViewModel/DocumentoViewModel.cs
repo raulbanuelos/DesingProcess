@@ -455,29 +455,39 @@ namespace View.Services.ViewModel
                     //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
                     int id_version = DataManagerControlDocumentos.SetVersion(objVersion);
 
-                    //Iteramos la lista de documentos.
-                    foreach (var item in _ListaDocumentos)
+                    //si se realizo la alta
+                    if (id_version != 0)
                     {
-                        //Mapeamos los valores al objeto creado.
-                        Archivo objArchivo = new Archivo();
 
-                        //Mapeamos los valores al objeto creado.
-                        objArchivo.id_version = id_version;
-                        objArchivo.archivo = item.archivo;
-                        objArchivo.ext = item.ext;
+                        //Iteramos la lista de documentos.
+                        foreach (var item in _ListaDocumentos)
+                        {
+                            //Mapeamos los valores al objeto creado.
+                            Archivo objArchivo = new Archivo();
 
-                        //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
-                        int id_archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                            //Mapeamos los valores al objeto creado.
+                            objArchivo.id_version = id_version;
+                            objArchivo.archivo = item.archivo;
+                            objArchivo.ext = item.ext;
+
+                            //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
+                            int id_archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                        }
+
+                        //Asignamos el valore de Guardar a la etiqueta del botón.
+                        BotonGuardar = "Guardar";
+
+                        //Ejecutamos el método para cerrar el mensaje de espera.
+                        await controllerProgressAsync.CloseAsync();
+
+                        //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
+                        await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
                     }
-
-                    //Asignamos el valore de Guardar a la etiqueta del botón.
-                    BotonGuardar = "Guardar";
-
-                    //Ejecutamos el método para cerrar el mensaje de espera.
-                    await controllerProgressAsync.CloseAsync();
-
-                    //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
-                    await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+                    else
+                    {
+                        //si hubo algún error en la alta, manda mensaje se error.
+                        await dialog.SendMessage("Alerta", "Error al registrar la versión..");
+                    }
                 }
                 else
                 {
