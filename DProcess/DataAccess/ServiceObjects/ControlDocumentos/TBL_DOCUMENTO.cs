@@ -21,7 +21,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
     
         public int ID_DOCUMENTO { get; set; }
-        public string ID_USUARIO_REVISO { get; set; }
         public int ID_TIPO_DOCUMENTO { get; set; }
         public Nullable<int> ID_DEPARTAMENTO { get; set; }
         public string NOMBRE { get; set; }

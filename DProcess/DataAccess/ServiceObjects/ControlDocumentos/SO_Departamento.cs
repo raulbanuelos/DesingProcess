@@ -23,6 +23,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 {
                     //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
                     var Lista = (from d in Conexion.TBL_DEPARTAMENTO
+                                 orderby d.NOMBRE_DEPARTAMENTO ascending
                                  select new
                                  {
                                      d.ID_DEPARTAMENTO,

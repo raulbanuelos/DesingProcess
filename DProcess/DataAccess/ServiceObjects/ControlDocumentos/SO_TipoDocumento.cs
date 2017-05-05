@@ -24,6 +24,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 {
                     //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
                     var Lista = (from t in Conexion.TBL_TIPO_DOCUMENTO
+                                 orderby t.TIPO_DOCUMENTO ascending
                                  select new
                                  {
                                   t.ID_TIPO_DOCUMENTO,

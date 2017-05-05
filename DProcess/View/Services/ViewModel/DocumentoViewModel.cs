@@ -225,7 +225,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Archivo _selectedItem;
+        private Archivo _selectedItem=new Archivo();
         public Archivo SelectedItem {
             get
             {
@@ -279,6 +279,7 @@ namespace View.Services.ViewModel
                 NotifyChange("BttnVersion");
             }
         }
+
 
         #endregion
 
@@ -368,7 +369,7 @@ namespace View.Services.ViewModel
                     obj.descripcion = descripcion;
                     obj.version_actual = version;
                     obj.fecha_creacion = DateTime.Now;
-                    obj.fecha_actualizacion = DateTime.Now;
+                    obj.fecha_actualizacion = fecha;
                     obj.fecha_emision = fecha;
                     
                     //Ejecutamos el método para guardar el documento. El resultado lo guardamos en una variable local.
@@ -631,16 +632,47 @@ namespace View.Services.ViewModel
                 //Ejecuta el método para modificar un registro 
                 int n = DataManagerControlDocumentos.UpdateDocumento(obj);
 
-                //Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
-                //objVersion.no_version = version;
-                //objVersion.no_copias = Convert.ToInt32(copias);
-                //objVersion.id_documento = id_documento;
-                //objVersion.id_usuario = _usuario;
-                //objVersion.fecha_version = fecha;
+                //Ejecutamos el método para modificar un documento             
+                if (n!=0)
+                {
+                    Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+                    objVersion.no_version = version;
+                    objVersion.no_copias = Convert.ToInt32(copias);
+                    objVersion.id_documento = id_documento;
+                    objVersion.id_usuario = _usuario;
+                    objVersion.fecha_version = fecha;
 
-                //Ejecutamos el método para modificar una versión             
+                    int id_version = DataManagerControlDocumentos.UpdateVersion(objVersion);
 
-                await dialog.SendMessage("", "Cambios realizados..");
+                    if (id_version!=0)
+                    {
+
+                        foreach (var item in _ListaDocumentos)
+                        {
+                            //Declaramos un objeto de tipo Archivo.
+                            Archivo objArchivo = new Archivo();
+
+                            //Mapeamos los valores al objeto creado.
+                            objArchivo.id_version = id_version;
+                            objArchivo.archivo = item.archivo;
+                            objArchivo.ext = item.ext;
+
+                            //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
+                            int archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                        }
+                            await dialog.SendMessage("", "Cambios realizados..");
+
+                    }
+                    else
+                    {
+                        await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en la versión..");
+                    }
+                }
+                else
+                {
+                    await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en documento..");
+                }
+                
             }
             else
             {
@@ -679,23 +711,40 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(o => verArchivo());
+                return new RelayCommand(o => verArchivo(_selectedItem));
             }
         }
-        private  void verArchivo()
+        private  void verArchivo(Archivo item)
         {
+            if (item != null)
+            {
+                //Se guarda la ruta del directorio temporal.
+                var tempFolder = Path.GetTempPath();
+                //se asigna el nombre del archivo temporal, se concatena el nombre y la extensión.
+                string filename = Path.Combine(tempFolder, "temp" + item.ext);
+                //Crea un archivo nuevo temporal, escribe en él los bytes extraídos de la BD.
+                File.WriteAllBytes(filename, item.archivo);
 
-            //Se guarda la ruta del directorio temporal.
-            var tempFolder = Path.GetTempPath();
-            //se asigna el nombre del archivo temporal, se concatena el nombre y la extensión.
-            string filename = Path.Combine(tempFolder, "temp" + _selectedItem.ext);
-            //Crea un archivo nuevo temporal, escribe en él los bytes extraídos de la BD.
-            File.WriteAllBytes(filename, _selectedItem.archivo);
-
-            //Se inicializa el programa para visualizar el archivo.
-            Process.Start(filename);
-
+                //Se inicializa el programa para visualizar el archivo.
+                Process.Start(filename);
+            }
         }
+
+        public ICommand EliminarItem
+        {
+            get
+            {
+                return new RelayCommand(o => eliminarItem(_selectedItem));
+            }
+        }
+        private void eliminarItem(Archivo item)
+        {
+            if (item != null)
+            {
+                ListaDocumentos.Remove(item);
+            }
+        }
+        
         #endregion
 
         #region Methods

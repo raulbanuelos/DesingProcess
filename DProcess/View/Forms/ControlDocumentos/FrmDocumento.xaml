@@ -8,36 +8,42 @@
        xmlns:System="clr-namespace:System;assembly=mscorlib"
        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="" Height="983.5" Width="1114.5"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen">
+        Title="" Height="983.5" Width="1147.5"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen">
     <Window.Resources>
 
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
 
         <DataTemplate x:Key="Lista">
-            <Border Margin="5" BorderThickness="1" BorderBrush="#FF2196F3" CornerRadius="4" Width="380">
+            <Border Margin="5" BorderThickness="1" BorderBrush="#FF2196F3" CornerRadius="4" Width="420" Height="100">
                 <Grid Margin="3">
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="Nombre: " FontSize="14"></TextBlock>
-                    <TextBlock FontWeight="Bold" Text="{Binding Path=nombre}" TextWrapping="WrapWithOverflow" TextAlignment="Center" Grid.Column="2" HorizontalAlignment="Center" Padding="2"></TextBlock>
-                    <Image Name="img_icono" Source="{Binding Path=ruta}" Grid.Column="3" HorizontalAlignment="Right" Width="50"></Image>
-                    <TextBlock Text="Extensión: " FontSize="14" Grid.Row="1"></TextBlock>
-                    <TextBlock Grid.Row="1" Text="{Binding Path=ext}" HorizontalAlignment="Center" Padding="2" Grid.Column="2" FontWeight="Bold"></TextBlock>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="110">
+                        </ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                     <!--Columna0-->
+                    <TextBlock Text="Nombre: " FontSize="14" Grid.Column="0" HorizontalAlignment="Left"></TextBlock>
+                    <TextBlock FontWeight="Bold" Text="{Binding Path=nombre}" TextWrapping="WrapWithOverflow" TextAlignment="Center" Grid.Column="0" HorizontalAlignment="Right" Padding="2"></TextBlock>
+                    <TextBlock Text="Extensión: " FontSize="14" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Text="{Binding Path=ext}" HorizontalAlignment="Right" Padding="2" Grid.Column="0" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                    <Button  Grid.Column="0" Content="Eliminar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{Binding Path=DataContext.EliminarItem,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"/>
+                    <Button  Grid.Column="0" Content="Ver" Width="80" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Command="{Binding Path=DataContext.VerArchivo,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"></Button>
+
+                    <!--Columna1-->
+                    <Image Name="img_icono" Source="{Binding Path=ruta}" Grid.Column="1" HorizontalAlignment="Stretch" Width="70" VerticalAlignment="Stretch"></Image>
                 </Grid>
             </Border>
         </DataTemplate>
     </Window.Resources>
 
 
-    <Grid Margin="0,0,2,328">
+    <Grid Margin="0,0,33,328">
         <Grid.RowDefinitions>
             <RowDefinition Height="46*"/>
             <RowDefinition Height="55*"/>
         </Grid.RowDefinitions>
 
-        <Canvas HorizontalAlignment="Left" Height="670" Margin="10,10,0,-54" VerticalAlignment="Top" Width="1072" Grid.RowSpan="2">
+        <Canvas HorizontalAlignment="Left" Height="670" Margin="10,10,0,-58" VerticalAlignment="Top" Width="1105" Grid.RowSpan="2">
 
             <!--Nombre Documento-->
             <Label x:Name="label" Content="Nombre del Documento" Height="31" Canvas.Left="82" Canvas.Top="10" Width="196" FontSize="16" FontWeight="Bold"/>
@@ -120,14 +126,11 @@
             </Canvas>
 
             <!--ListView-->
-            <ListBox Name="listBox" Height="626" Canvas.Left="645" Canvas.Top="60" Width="417" ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}"  >
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding VerArchivo}"
-                             CommandParameter="{Binding extension}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+            <ListBox Name="listBox" Height="735" Canvas.Left="645" Canvas.Top="51" Width="450" ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" >
+                
             </ListBox>
+
+
             <Label x:Name="label5" Content="Lista de Documentos" Height="36" Canvas.Left="645" Canvas.Top="10" Width="197" FontSize="18" FontWeight="Bold"/>
 
             <!--Tipo de Documento-->
@@ -156,5 +159,7 @@
             </ComboBox>
             <Label x:Name="label8" Content="Usuario" Height="28" Canvas.Left="86" Canvas.Top="532" Width="76" FontSize="16" FontWeight="Bold"/>
         </Canvas>
+
+
     </Grid>
 </Controls:MetroWindow>

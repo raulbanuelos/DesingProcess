@@ -29,6 +29,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public string Usql { get; set; }
         public string Psql { get; set; }
         public Nullable<bool> Bloqueado { get; set; }
+        public Nullable<int> ID_ROL { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_VERSION> TBL_VERSION { get; set; }

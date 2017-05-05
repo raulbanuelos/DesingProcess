@@ -22,7 +22,9 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
                     //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
-                    var Lista = (from u in Conexion.Usuarios select new
+                    var Lista = (from u in Conexion.Usuarios
+                                 orderby u.Nombre ascending
+                                 select new
                                  {
                                      u.Usuario,
                                      u.Password,
