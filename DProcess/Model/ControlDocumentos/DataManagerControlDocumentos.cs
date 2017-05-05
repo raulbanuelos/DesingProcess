@@ -339,6 +339,7 @@ namespace Model.ControlDocumentos
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
                     obj.fecha_actualizacion=(DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+                    obj.id_dep= (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
                     obj.version.no_version= (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     obj.version.id_version=(int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
                     obj.version.no_copias= (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
@@ -761,6 +762,14 @@ namespace Model.ControlDocumentos
 
             // Se ejecuta el método y retorna los registros que se eliminaron.
             return ServiceVersion.DeleteVersion(version.id_version);
+        }
+
+        public static string GetIdUsuario(int id_version)
+        {
+            //Inicializamos los servicios de version.
+            SO_Version ServiceVersion = new SO_Version();
+
+            return ServiceVersion.GetUsuario(id_version);
         }
         #endregion
 

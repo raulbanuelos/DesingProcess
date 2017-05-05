@@ -280,11 +280,23 @@ namespace View.Services.ViewModel
             }
         }
 
+        private bool _bttnGuardar;
+        public bool BttnGuardar { get
+            {
+                return _bttnGuardar;
+            }
+            set
+            {
+                _bttnGuardar = value;
+                NotifyChange("BttnGuardar");
+            }
+        }
+
 
         #endregion
 
         #region Constructor
-        public DocumentoViewModel(string _nombre, string _version, string _copias, string _descripcion, int _id_documento)
+        public DocumentoViewModel(string _nombre, string _version, string _copias, string _descripcion, int _id_documento,int _idDep)
         {
             Nombre = _nombre;
             Version = _version;
@@ -292,10 +304,13 @@ namespace View.Services.ViewModel
             Descripcion = _descripcion;
             id_documento = _id_documento;
             BotonGuardar = "Guardar";
+            BttnGuardar = false;
             BttnEliminar = true;
             BttnModificar = true;
             BttnVersion = true;
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(_id_documento);
+            id_dep = _idDep;
+            //usuario = DataManagerControlDocumentos.GetIdUsuario(id_version);
             ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetTipo(_id_documento);
 
             foreach (var item in Lista)
@@ -699,6 +714,7 @@ namespace View.Services.ViewModel
             Copias=string.Empty;
             ListaDocumentos.Clear();
             BotonGuardar = "Guardar Version";
+            BttnGuardar = true;
             BttnEliminar = false;
             BttnModificar = false;
             BttnVersion = false;
@@ -730,6 +746,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Método para eliminar un item de listBox
+        /// </summary>
         public ICommand EliminarItem
         {
             get

@@ -160,5 +160,28 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return 0;
             }
         }
+
+        public string GetUsuario(int id_version)
+        {
+            try
+            {
+                //Relizamos la conexión a través de Entity Framework.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta y e resultado lo guardamos en una variable local.
+                    string usuario = (from v in Conexion.TBL_VERSION
+                                           where v.ID_VERSION == id_version
+                                           select v.ID_USUARIO_ELABORO).ToList().FirstOrDefault();
+
+                    //Retornamos el resultado de la consulta.
+                    return usuario;
+                }
+            }
+            catch (Exception)
+            {
+                //Si se genera un error retornamos un cero.
+                return null;
+            }
+        }
     }
 }

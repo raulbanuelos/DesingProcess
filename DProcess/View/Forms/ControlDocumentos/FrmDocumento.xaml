@@ -9,10 +9,9 @@
        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="" Height="983.5" Width="1147.5"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen">
+    
     <Window.Resources>
-
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
-
         <DataTemplate x:Key="Lista">
             <Border Margin="5" BorderThickness="1" BorderBrush="#FF2196F3" CornerRadius="4" Width="420" Height="100">
                 <Grid Margin="3">
@@ -26,7 +25,7 @@
                     <TextBlock FontWeight="Bold" Text="{Binding Path=nombre}" TextWrapping="WrapWithOverflow" TextAlignment="Center" Grid.Column="0" HorizontalAlignment="Right" Padding="2"></TextBlock>
                     <TextBlock Text="Extensión: " FontSize="14" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Text="{Binding Path=ext}" HorizontalAlignment="Right" Padding="2" Grid.Column="0" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
-                    <Button  Grid.Column="0" Content="Eliminar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{Binding Path=DataContext.EliminarItem,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"/>
+                    <Button  Grid.Column="0" Content="Eliminar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#FFE27B7B" BorderBrush="#FFD36B6B" Command="{Binding Path=DataContext.EliminarItem,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"/>
                     <Button  Grid.Column="0" Content="Ver" Width="80" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Command="{Binding Path=DataContext.VerArchivo,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"></Button>
 
                     <!--Columna1-->
@@ -52,7 +51,6 @@
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="/View;component/Images/name.png"/>
                 </Rectangle.Fill>
-
             </Rectangle>
             <TextBox x:Name="txt_nombre" Width="393" Canvas.Left="134" Canvas.Top="41" Tag="Nombre" BorderThickness="1,1,1,1" Height="38" BorderBrush="#89535353" Background="White" FontSize="16" Text="{Binding Nombre}"></TextBox>
 
@@ -63,7 +61,6 @@
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="/View;component/Images/copy.png"/>
                 </Rectangle.Fill>
-
             </Rectangle>
             <TextBox x:Name="txt_version" Height="38" Canvas.Left="134" TextWrapping="Wrap" Canvas.Top="121" Width="467" BorderThickness="1" BorderBrush="#89535353" FontSize="18" Text="{Binding Version}"/>
 
@@ -74,10 +71,8 @@
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="/View;component/Images/date.png"/>
                 </Rectangle.Fill>
-
             </Rectangle>
             <Label x:Name="label2" Content="Fecha de Creación" Height="32" Canvas.Left="83" Canvas.Top="172" Width="146" FontSize="16" FontWeight="Bold"/>
-
 
             <!--Numero de Copias-->
             <Label x:Name="label4" Content="Número de Copias" Height="29" Canvas.Left="83" Canvas.Top="261" Width="172" FontWeight="Bold" FontSize="16"/>
@@ -87,8 +82,8 @@
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="/View;component/Images/number.png"/>
                 </Rectangle.Fill>
-
             </Rectangle>
+
             <!--Descripción-->
             <RichTextBox x:Name="txt_descripcion" Height="175" Canvas.Left="82" Canvas.Top="649" Width="518" OpacityMask="White"  SelectionOpacity="0.2" BorderBrush="#FFBDBDBD"  FontSize="18" Foreground="Black" SelectionBrush="#FFBDBDBD" >
                 <FlowDocument>
@@ -98,10 +93,9 @@
                 </FlowDocument>
             </RichTextBox>
             <Label x:Name="label3" Content="Descripción" Height="34" Canvas.Left="85" Canvas.Top="614" Width="117" FontSize="16" FontWeight="Bold"/>
+
             <!--Buttons-->
-
             <Button x:Name="button"  Height="38" Width="59" RenderTransformOrigin="0.495,0.578" Background="#89FFFFFF" BorderBrush="#FFE0DEDE" Canvas.Left="541" Canvas.Top="41"  Command="{Binding LlenarLista}">
-
                 <Rectangle Width="26" Height="28" RenderTransformOrigin="1.244,0.344" >
                     <Rectangle.Fill>
                         <ImageBrush ImageSource="/View;component/Images/folder.png"/>
@@ -118,7 +112,7 @@
                         <TranslateTransform Y="-0.748"/>
                     </TransformGroup>
                 </Canvas.RenderTransform>
-                <Button x:Name="bttn_guardar" Content="{Binding BotonGuardar}" Height="41" Canvas.Top="10" Width="135" Canvas.Left="38" Command="{Binding GuardarControl}" Background="#FF157EFB"  />
+                <Button x:Name="bttn_guardar" Content="{Binding BotonGuardar}" Height="41" Canvas.Top="10" Width="135" Canvas.Left="38" Command="{Binding GuardarControl}" Background="#FF157EFB" Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" />
                 <Button x:Name="bttn_cancelar" Content="Cancelar" Height="41" Canvas.Left="202" Canvas.Top="10" Width="135" Command="{Binding Cancelar}" Background="#FF157EFB"/>
                 <Button x:Name="bttn_eliminar" Content="Eliminar" Canvas.Left="522" Canvas.Top="10" Width="135" Height="41" Background="#FF157EFB" Command="{Binding Eliminar}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
                 <Button x:Name="bttn_cambios" Content="Modificar" Height="41" Canvas.Left="362" Canvas.Top="10" Width="135" Background="#FF157EFB" Command="{Binding Modificar}" Visibility="{Binding BttnModificar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
@@ -127,10 +121,7 @@
 
             <!--ListView-->
             <ListBox Name="listBox" Height="735" Canvas.Left="645" Canvas.Top="51" Width="450" ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" >
-                
             </ListBox>
-
-
             <Label x:Name="label5" Content="Lista de Documentos" Height="36" Canvas.Left="645" Canvas.Top="10" Width="197" FontSize="18" FontWeight="Bold"/>
 
             <!--Tipo de Documento-->
@@ -159,7 +150,6 @@
             </ComboBox>
             <Label x:Name="label8" Content="Usuario" Height="28" Canvas.Left="86" Canvas.Top="532" Width="76" FontSize="16" FontWeight="Bold"/>
         </Canvas>
-
 
     </Grid>
 </Controls:MetroWindow>

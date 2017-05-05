@@ -224,6 +224,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                          d.ID_DOCUMENTO,
                                          d.NOMBRE,
                                          d.FECHA_ACTUALIZACION,
+                                         d.ID_DEPARTAMENTO,
                                          v.No_VERSION,
                                          v.ID_VERSION,
                                          v.NO_COPIAS,
@@ -246,6 +247,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                          d.ID_DOCUMENTO,
                                          d.NOMBRE,
                                          d.FECHA_ACTUALIZACION,
+                                         d.ID_DEPARTAMENTO,
                                          v.No_VERSION,
                                          v.ID_VERSION,
                                          v.NO_COPIAS,
@@ -302,5 +304,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
+
+    
+      
     }
 }

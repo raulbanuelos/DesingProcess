@@ -63,6 +63,19 @@ namespace View.Services.ViewModel
             }
         }
 
+        private Documento selectedDocumento;
+        public Documento SelectedDocumento {
+            get
+            {
+                return selectedDocumento;
+            }
+            set
+            {
+                selectedDocumento = value;
+                NotifyChange("SelectedDocumento");
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -90,11 +103,28 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand EditarDocumento
+        {
+            get
+            {
+                return new RelayCommand(o => editarDocumento());
+            }
+        }
+
         private void irNuevoDocumento()
         {
             FrmDocumento frm = new FrmDocumento();
             //DocumentoViewModel context = new DocumentoViewModel("IF00-0093", "2", "2", "Ayuda Visual Especificaciones de abertura de máquina H", 1026);
             DocumentoViewModel context = new DocumentoViewModel();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        private void editarDocumento()
+        {
+
+            FrmDocumento frm = new FrmDocumento();
+            DocumentoViewModel context = new DocumentoViewModel(selectedDocumento.nombre, selectedDocumento.version.no_version, Convert.ToString( selectedDocumento.version.no_copias),selectedDocumento.descripcion, selectedDocumento.id_documento,selectedDocumento.id_dep);
             frm.DataContext = context;
             frm.ShowDialog();
         }

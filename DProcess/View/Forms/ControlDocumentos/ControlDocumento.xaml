@@ -51,8 +51,8 @@
             </StackPanel>
             
         </StackPanel>
-        
-        <DataGrid x:Name="dataGrid" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" AutoGenerateColumns="False">
+
+        <DataGrid x:Name="dataGrid" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="Número de Documento"/>
                 <DataGridTextColumn Binding="{Binding descripcion}" ClipboardContentBinding="{x:Null}" Header="Nombre de Documento"/>
@@ -62,6 +62,12 @@
                 <DataGridTextColumn Binding="{Binding fecha_emision, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="Fecha de Emisión"/>
                 <DataGridTextColumn Binding="{Binding fecha_actualizacion, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="Fecha revisión"/>
             </DataGrid.Columns>
+            <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding EditarDocumento}"
+                             CommandParameter="{Binding extension}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
         </DataGrid>
         
         <Canvas Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">
