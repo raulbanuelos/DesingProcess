@@ -253,7 +253,6 @@ namespace Model.ControlDocumentos
 
                     //Asignamos los valores correspondientes.
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
-                    obj.id_usuario = (string)tipo.GetProperty("ID_USUARIO_REVISO").GetValue(item, null);
                     obj.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
                     obj.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
@@ -281,7 +280,7 @@ namespace Model.ControlDocumentos
             SO_Documento ServiceDocumento = new SO_Documento();
 
             //Se ejecuta el método y retorna el id del documento que fue insertado.
-            return ServiceDocumento.SetDocumento( documento.id_documento,documento.id_usuario, documento.id_tipo_documento,documento.id_dep,documento.nombre, documento.descripcion,
+            return ServiceDocumento.SetDocumento( documento.id_documento, documento.id_tipo_documento,documento.id_dep,documento.nombre, documento.descripcion,
                                                  documento.version_actual, documento.fecha_creacion, documento.fecha_actualizacion, documento.fecha_emision);
         }
 
@@ -296,7 +295,7 @@ namespace Model.ControlDocumentos
             SO_Documento ServiceDocumento = new SO_Documento();
 
             // Se ejecuta el método y retorna los registros que se modificaron.
-            return ServiceDocumento.UpdateDocumento(documento.id_documento, documento.id_usuario,documento.id_tipo_documento,documento.id_dep, documento.nombre, documento.descripcion,
+            return ServiceDocumento.UpdateDocumento(documento.id_documento,documento.id_tipo_documento,documento.id_dep, documento.nombre, documento.descripcion,
                                                  documento.version_actual, documento.fecha_creacion, documento.fecha_actualizacion, documento.fecha_emision);
         }
 
@@ -340,11 +339,12 @@ namespace Model.ControlDocumentos
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
                     obj.fecha_actualizacion=(DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
-                    obj.Usuarios.nombre= (string)tipo.GetProperty("Nombre").GetValue(item, null);
                     obj.version.no_version= (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     obj.version.id_version=(int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
                     obj.version.no_copias= (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
                     obj.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    obj.Departamento = (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
+                    obj.fecha_emision = (DateTime)tipo.GetProperty("FECHA_EMISION").GetValue(item, null);
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }

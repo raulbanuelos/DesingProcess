@@ -25,12 +25,10 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 {
                     //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
                     var Lista = (from d in Conexion.TBL_DOCUMENTO
-                                 join u in Conexion.Usuarios on d.ID_USUARIO_REVISO equals u.Usuario
                                  join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
                                  select new
                                  {
                                      d.ID_DOCUMENTO,
-                                     d.ID_USUARIO_REVISO,
                                      d.ID_TIPO_DOCUMENTO,
                                      d.NOMBRE,
                                      d.DESCRIPCION,
@@ -54,7 +52,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// Método para insertar un registro en la tabla TBL_Documento.
         /// </summary>
         /// <param name="id_documento"></param>
-        /// <param name="id_usuario"></param>
         /// <param name="nombre"></param>
         /// <param name="descripcion"></param>
         /// <param name="version_actual"></param>
@@ -62,7 +59,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_actualizacion"></param>
         /// <param name="fecha_emision"></param>
         /// <returns></returns>
-        public int SetDocumento(int id_documento, string id_usuario, int id_tipo_documento,int id_dep, string nombre, string descripcion, string version_actual, DateTime fecha_creacion, DateTime fecha_actualizacion, DateTime fecha_emision)
+        public int SetDocumento(int id_documento, int id_tipo_documento,int id_dep, string nombre, string descripcion, string version_actual, DateTime fecha_creacion, DateTime fecha_actualizacion, DateTime fecha_emision)
         {
             try
             {
@@ -74,7 +71,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 
                     //Se asiganan los valores.
                     obj.ID_DOCUMENTO = id_documento;
-                    obj.ID_USUARIO_REVISO = id_usuario;
                     obj.ID_TIPO_DOCUMENTO = id_tipo_documento;
                     obj.ID_DEPARTAMENTO = id_dep;
                     obj.NOMBRE = nombre;
@@ -112,7 +108,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_actualizacion"></param>
         /// <param name="fecha_emision"></param>
         /// <returns></returns>
-        public int UpdateDocumento(int id_documento, string id_usuario, int id_tipo_documento,int id_dep, string nombre, string descripcion, string version_actual, DateTime fecha_creacion, DateTime fecha_actualizacion, DateTime fecha_emision)
+        public int UpdateDocumento(int id_documento, int id_tipo_documento,int id_dep, string nombre, string descripcion, string version_actual, DateTime fecha_creacion, DateTime fecha_actualizacion, DateTime fecha_emision)
         {
             try
             {
@@ -123,7 +119,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     TBL_DOCUMENTO obj = Conexion.TBL_DOCUMENTO.Where(x => x.ID_DOCUMENTO == id_documento).FirstOrDefault();
 
                     //Asignamos los  parámetros recibidos a cada uno de los valores de los objetos.
-                    obj.ID_USUARIO_REVISO = id_usuario;
                     obj.NOMBRE = nombre;
                     obj.ID_TIPO_DOCUMENTO = id_tipo_documento;
                     obj.ID_DEPARTAMENTO = id_dep;
@@ -220,9 +215,9 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     {
                         //Realizamos la consulta, para llenar la tabla de control documento
                         var lista = (from d in Conexion.TBL_DOCUMENTO
-                                     join u in Conexion.Usuarios on d.ID_USUARIO_REVISO equals u.Usuario
                                      join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                      join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
+                                     join b in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals b.ID_DEPARTAMENTO
                                      where d.ID_TIPO_DOCUMENTO == idTipoDocumento
                                      select new
                                      {
@@ -230,10 +225,11 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                          d.NOMBRE,
                                          d.FECHA_ACTUALIZACION,
                                          v.No_VERSION,
-                                         u.Nombre,
                                          v.ID_VERSION,
                                          v.NO_COPIAS,
-                                         DESCRIPCION = d.DESCRIPCION
+                                         DESCRIPCION = d.DESCRIPCION,
+                                         b.NOMBRE_DEPARTAMENTO,
+                                         d.FECHA_EMISION
                                      }).OrderBy(x => x.ID_DOCUMENTO).ToList();
                         return lista;
                     }
@@ -241,9 +237,9 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     {
                         //Realizamos la consulta, para llenar la tabla de control documento
                         var lista = (from d in Conexion.TBL_DOCUMENTO
-                                     join u in Conexion.Usuarios on d.ID_USUARIO_REVISO equals u.Usuario
                                      join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                      join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
+                                     join b in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals b.ID_DEPARTAMENTO
                                      where d.ID_TIPO_DOCUMENTO == idTipoDocumento && (d.NOMBRE.Contains(textoBusqueda) || d.DESCRIPCION.Contains(textoBusqueda))
                                      select new
                                      {
@@ -251,10 +247,11 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                          d.NOMBRE,
                                          d.FECHA_ACTUALIZACION,
                                          v.No_VERSION,
-                                         u.Nombre,
                                          v.ID_VERSION,
                                          v.NO_COPIAS,
-                                         DESCRIPCION = d.DESCRIPCION
+                                         DESCRIPCION = d.DESCRIPCION,
+                                         b.NOMBRE_DEPARTAMENTO,
+                                         d.FECHA_EMISION
                                      }).OrderBy(x => x.ID_DOCUMENTO).ToList();
                         return lista;
                     }
