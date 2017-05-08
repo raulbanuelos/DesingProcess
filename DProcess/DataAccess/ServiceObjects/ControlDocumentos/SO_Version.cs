@@ -161,6 +161,11 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id_version"></param>
+        /// <returns></returns>
         public string GetUsuario(int id_version)
         {
             try
@@ -183,5 +188,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
+
+
+      
     }
 }

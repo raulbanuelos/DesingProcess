@@ -32,7 +32,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      a.ID_ARCHIVO,
                                      ID_VERSION = v.ID_VERSION,
                                      a.ARCHIVO,
-                                     a.EXT
+                                     a.EXT,
+                                     a.NOMBRE_ARCHIVO
                                  }).ToList();
                     //se retorna la lista
                     return Lista;
@@ -54,7 +55,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="archivo"></param>
         /// <param name="ext"></param>
         /// <returns>Retorna cero si hay error.</returns>
-        public int UpdateArchivo(int id_archivo, int id_version, byte[] archivo, string ext)
+        public int UpdateArchivo(int id_archivo, int id_version, byte[] archivo, string ext,string nombre)
         {
             try
             {
@@ -68,6 +69,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.ID_VERSION = id_version;
                     obj.ARCHIVO = archivo;
                     obj.EXT = ext;
+                    obj.NOMBRE_ARCHIVO = nombre;
 
                     //Se cambia el estado de registro a modificado.
                     Conexion.Entry(obj).State = EntityState.Modified;
@@ -176,7 +178,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="archivo"></param>
         /// <param name="ext"></param>
         /// <returns></returns>
-        public Task<int> SetArchivo(int version, byte[] archivo, string ext)
+        public Task<int> SetArchivo(int version, byte[] archivo, string ext,string nombre)
         {
             return Task.Run(() =>
             {
@@ -193,6 +195,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     parametros.Add("version", version);
                     parametros.Add("archivo", archivo);
                     parametros.Add("ext", ext);
+                    parametros.Add("nombre", nombre);
 
                     //se ejecuta el procedimiento y se mandan los parámetros añadidos anteriormente.
                     datos = conexion.EjecutarStoredProcedure("Set_Archivo", parametros);

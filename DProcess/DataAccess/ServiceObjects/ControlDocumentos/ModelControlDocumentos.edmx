@@ -12,7 +12,16 @@
           <Property Name="ID_ARCHIVO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_VERSION" Type="int" />
           <Property Name="ARCHIVO" Type="varbinary(max)" />
+          <Property Name="NOMBRE_ARCHIVO" Type="varchar" MaxLength="100" />
           <Property Name="EXT" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="TBL_CONF_DOCUMENTO">
+          <Key>
+            <PropertyRef Name="ID_CONF_DOCUMENTO" />
+          </Key>
+          <Property Name="ID_CONF_DOCUMENTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_TIPO_DOCUMENTO" Type="int" Nullable="false" />
+          <Property Name="PERIODO_ANIOS_ACTUALIZACION" Type="int" />
         </EntityType>
         <EntityType Name="TBL_DEPARTAMENTO">
           <Key>
@@ -94,6 +103,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBL_CONF_DOCUMENTO_TBL_TIPO_DOCUMENTO">
+          <End Role="TBL_TIPO_DOCUMENTO" Type="Self.TBL_TIPO_DOCUMENTO" Multiplicity="1" />
+          <End Role="TBL_CONF_DOCUMENTO" Type="Self.TBL_CONF_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_TIPO_DOCUMENTO">
+              <PropertyRef Name="ID_TIPO_DOCUMENTO" />
+            </Principal>
+            <Dependent Role="TBL_CONF_DOCUMENTO">
+              <PropertyRef Name="ID_TIPO_DOCUMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBL_DOCUMENTO_TBL_DEPARTAMENTO">
           <End Role="TBL_DEPARTAMENTO" Type="Self.TBL_DEPARTAMENTO" Multiplicity="0..1" />
           <End Role="TBL_DOCUMENTO" Type="Self.TBL_DOCUMENTO" Multiplicity="*" />
@@ -144,6 +165,7 @@
         </Association>
         <EntityContainer Name="DataAccessServiceObjectsControlDocumentosStoreContainer">
           <EntitySet Name="TBL_ARCHIVO" EntityType="Self.TBL_ARCHIVO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_CONF_DOCUMENTO" EntityType="Self.TBL_CONF_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_DEPARTAMENTO" EntityType="Self.TBL_DEPARTAMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_DOCUMENTO" EntityType="Self.TBL_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ROL" EntityType="Self.TBL_ROL" Schema="dbo" store:Type="Tables" />
@@ -153,6 +175,10 @@
           <AssociationSet Name="FK_TBL_ARCHIVO_TBL_VERSION" Association="Self.FK_TBL_ARCHIVO_TBL_VERSION">
             <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
             <End Role="TBL_ARCHIVO" EntitySet="TBL_ARCHIVO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONF_DOCUMENTO_TBL_TIPO_DOCUMENTO" Association="Self.FK_TBL_CONF_DOCUMENTO_TBL_TIPO_DOCUMENTO">
+            <End Role="TBL_TIPO_DOCUMENTO" EntitySet="TBL_TIPO_DOCUMENTO" />
+            <End Role="TBL_CONF_DOCUMENTO" EntitySet="TBL_CONF_DOCUMENTO" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_DOCUMENTO_TBL_DEPARTAMENTO" Association="Self.FK_TBL_DOCUMENTO_TBL_DEPARTAMENTO">
             <End Role="TBL_DEPARTAMENTO" EntitySet="TBL_DEPARTAMENTO" />
@@ -176,13 +202,8 @@
     <edmx:ConceptualModels>
       <Schema Namespace="DataAccess.ServiceObjects.ControlDocumentos" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="EntitiesControlDocumentos" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="TBL_ARCHIVO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_ARCHIVO" />
           <EntitySet Name="TBL_ROL" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_ROL" />
           <EntitySet Name="TBL_VERSION" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" />
-          <AssociationSet Name="FK_TBL_ARCHIVO_TBL_VERSION" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_ARCHIVO_TBL_VERSION">
-            <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
-            <End Role="TBL_ARCHIVO" EntitySet="TBL_ARCHIVO" />
-          </AssociationSet>
           <EntitySet Name="TBL_TIPO_DOCUMENTO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_TIPO_DOCUMENTO" />
           <EntitySet Name="TBL_DEPARTAMENTO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_DEPARTAMENTO" />
           <EntitySet Name="Usuarios" EntityType="DataAccess.ServiceObjects.ControlDocumentos.Usuarios" />
@@ -203,17 +224,17 @@
             <End Role="TBL_DOCUMENTO" EntitySet="TBL_DOCUMENTO" />
             <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
           </AssociationSet>
+          <EntitySet Name="TBL_ARCHIVO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_ARCHIVO" />
+          <EntitySet Name="TBL_CONF_DOCUMENTO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_CONF_DOCUMENTO" />
+          <AssociationSet Name="FK_TBL_ARCHIVO_TBL_VERSION" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_ARCHIVO_TBL_VERSION">
+            <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
+            <End Role="TBL_ARCHIVO" EntitySet="TBL_ARCHIVO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONF_DOCUMENTO_TBL_TIPO_DOCUMENTO" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_CONF_DOCUMENTO_TBL_TIPO_DOCUMENTO">
+            <End Role="TBL_TIPO_DOCUMENTO" EntitySet="TBL_TIPO_DOCUMENTO" />
+            <End Role="TBL_CONF_DOCUMENTO" EntitySet="TBL_CONF_DOCUMENTO" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="TBL_ARCHIVO">
-          <Key>
-            <PropertyRef Name="ID_ARCHIVO" />
-          </Key>
-          <Property Name="ID_ARCHIVO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_VERSION" Type="Int32" />
-          <Property Name="ARCHIVO" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="EXT" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="TBL_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_ARCHIVO_TBL_VERSION" FromRole="TBL_ARCHIVO" ToRole="TBL_VERSION" />
-        </EntityType>
         <EntityType Name="TBL_ROL">
           <Key>
             <PropertyRef Name="ID_ROL" />
@@ -233,22 +254,10 @@
           <Property Name="No_VERSION" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="FECHA_VERSION" Type="DateTime" Precision="0" />
           <Property Name="NO_COPIAS" Type="Int32" />
-          <NavigationProperty Name="TBL_ARCHIVO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_ARCHIVO_TBL_VERSION" FromRole="TBL_VERSION" ToRole="TBL_ARCHIVO" />
           <NavigationProperty Name="Usuarios" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios" FromRole="TBL_VERSION" ToRole="Usuarios" />
           <NavigationProperty Name="TBL_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_TBL_DOCUMENTOS" FromRole="TBL_VERSION" ToRole="TBL_DOCUMENTO" />
+          <NavigationProperty Name="TBL_ARCHIVO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_ARCHIVO_TBL_VERSION" FromRole="TBL_VERSION" ToRole="TBL_ARCHIVO" />
         </EntityType>
-        <Association Name="FK_TBL_ARCHIVO_TBL_VERSION">
-          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" Role="TBL_VERSION" Multiplicity="0..1" />
-          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_ARCHIVO" Role="TBL_ARCHIVO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_VERSION">
-              <PropertyRef Name="ID_VERSION" />
-            </Principal>
-            <Dependent Role="TBL_ARCHIVO">
-              <PropertyRef Name="ID_VERSION" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="TBL_TIPO_DOCUMENTO">
           <Key>
             <PropertyRef Name="ID_TIPO_DOCUMENTO" />
@@ -259,6 +268,7 @@
           <Property Name="FECHA_CREACION" Type="DateTime" Precision="3" />
           <Property Name="FECHA_ACTUALIZACION" Type="DateTime" Precision="3" />
           <NavigationProperty Name="TBL_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_TIPO_DOCUMENTO" FromRole="TBL_TIPO_DOCUMENTO" ToRole="TBL_DOCUMENTO" />
+          <NavigationProperty Name="TBL_CONF_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_CONF_DOCUMENTO_TBL_TIPO_DOCUMENTO" FromRole="TBL_TIPO_DOCUMENTO" ToRole="TBL_CONF_DOCUMENTO" />
         </EntityType>
         <EntityType Name="TBL_DEPARTAMENTO">
           <Key>
@@ -351,22 +361,56 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_ARCHIVO">
+          <Key>
+            <PropertyRef Name="ID_ARCHIVO" />
+          </Key>
+          <Property Name="ID_ARCHIVO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_VERSION" Type="Int32" />
+          <Property Name="ARCHIVO" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="NOMBRE_ARCHIVO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EXT" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_ARCHIVO_TBL_VERSION" FromRole="TBL_ARCHIVO" ToRole="TBL_VERSION" />
+        </EntityType>
+        <EntityType Name="TBL_CONF_DOCUMENTO">
+          <Key>
+            <PropertyRef Name="ID_CONF_DOCUMENTO" />
+          </Key>
+          <Property Name="ID_CONF_DOCUMENTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_TIPO_DOCUMENTO" Type="Int32" Nullable="false" />
+          <Property Name="PERIODO_ANIOS_ACTUALIZACION" Type="Int32" />
+          <NavigationProperty Name="TBL_TIPO_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_CONF_DOCUMENTO_TBL_TIPO_DOCUMENTO" FromRole="TBL_CONF_DOCUMENTO" ToRole="TBL_TIPO_DOCUMENTO" />
+        </EntityType>
+        <Association Name="FK_TBL_ARCHIVO_TBL_VERSION">
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" Role="TBL_VERSION" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_ARCHIVO" Role="TBL_ARCHIVO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_VERSION">
+              <PropertyRef Name="ID_VERSION" />
+            </Principal>
+            <Dependent Role="TBL_ARCHIVO">
+              <PropertyRef Name="ID_VERSION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONF_DOCUMENTO_TBL_TIPO_DOCUMENTO">
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_TIPO_DOCUMENTO" Role="TBL_TIPO_DOCUMENTO" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_CONF_DOCUMENTO" Role="TBL_CONF_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_TIPO_DOCUMENTO">
+              <PropertyRef Name="ID_TIPO_DOCUMENTO" />
+            </Principal>
+            <Dependent Role="TBL_CONF_DOCUMENTO">
+              <PropertyRef Name="ID_TIPO_DOCUMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DataAccessServiceObjectsControlDocumentosStoreContainer" CdmEntityContainer="EntitiesControlDocumentos">
-          <EntitySetMapping Name="TBL_ARCHIVO">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TBL_ARCHIVO">
-              <MappingFragment StoreEntitySet="TBL_ARCHIVO">
-                <ScalarProperty Name="EXT" ColumnName="EXT" />
-                <ScalarProperty Name="ARCHIVO" ColumnName="ARCHIVO" />
-                <ScalarProperty Name="ID_VERSION" ColumnName="ID_VERSION" />
-                <ScalarProperty Name="ID_ARCHIVO" ColumnName="ID_ARCHIVO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TBL_ROL">
             <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TBL_ROL">
               <MappingFragment StoreEntitySet="TBL_ROL">
@@ -438,6 +482,26 @@
                 <ScalarProperty Name="ID_DEPARTAMENTO" ColumnName="ID_DEPARTAMENTO" />
                 <ScalarProperty Name="ID_TIPO_DOCUMENTO" ColumnName="ID_TIPO_DOCUMENTO" />
                 <ScalarProperty Name="ID_DOCUMENTO" ColumnName="ID_DOCUMENTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_ARCHIVO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TBL_ARCHIVO">
+              <MappingFragment StoreEntitySet="TBL_ARCHIVO">
+                <ScalarProperty Name="EXT" ColumnName="EXT" />
+                <ScalarProperty Name="NOMBRE_ARCHIVO" ColumnName="NOMBRE_ARCHIVO" />
+                <ScalarProperty Name="ARCHIVO" ColumnName="ARCHIVO" />
+                <ScalarProperty Name="ID_VERSION" ColumnName="ID_VERSION" />
+                <ScalarProperty Name="ID_ARCHIVO" ColumnName="ID_ARCHIVO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_CONF_DOCUMENTO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TBL_CONF_DOCUMENTO">
+              <MappingFragment StoreEntitySet="TBL_CONF_DOCUMENTO">
+                <ScalarProperty Name="PERIODO_ANIOS_ACTUALIZACION" ColumnName="PERIODO_ANIOS_ACTUALIZACION" />
+                <ScalarProperty Name="ID_TIPO_DOCUMENTO" ColumnName="ID_TIPO_DOCUMENTO" />
+                <ScalarProperty Name="ID_CONF_DOCUMENTO" ColumnName="ID_CONF_DOCUMENTO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

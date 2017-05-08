@@ -12,14 +12,12 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
     using System;
     using System.Collections.Generic;
     
-    public partial class TBL_ARCHIVO
+    public partial class TBL_CONF_DOCUMENTO
     {
-        public int ID_ARCHIVO { get; set; }
-        public Nullable<int> ID_VERSION { get; set; }
-        public byte[] ARCHIVO { get; set; }
-        public string NOMBRE_ARCHIVO { get; set; }
-        public string EXT { get; set; }
+        public int ID_CONF_DOCUMENTO { get; set; }
+        public int ID_TIPO_DOCUMENTO { get; set; }
+        public Nullable<int> PERIODO_ANIOS_ACTUALIZACION { get; set; }
     
-        public virtual TBL_VERSION TBL_VERSION { get; set; }
+        public virtual TBL_TIPO_DOCUMENTO TBL_TIPO_DOCUMENTO { get; set; }
     }
 }

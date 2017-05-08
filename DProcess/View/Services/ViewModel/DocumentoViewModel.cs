@@ -296,7 +296,7 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Constructor
-        public DocumentoViewModel(string _nombre, string _version, string _copias, string _descripcion, int _id_documento,int _idDep)
+        public DocumentoViewModel(string _nombre, string _version, string _copias, string _descripcion, int _id_documento,int _idDep,int _id_version)
         {
             Nombre = _nombre;
             Version = _version;
@@ -310,8 +310,9 @@ namespace View.Services.ViewModel
             BttnVersion = true;
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(_id_documento);
             id_dep = _idDep;
-            //usuario = DataManagerControlDocumentos.GetIdUsuario(id_version);
-            ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetTipo(_id_documento);
+            usuario = DataManagerControlDocumentos.GetIdUsuario(_id_version);
+
+            ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetTipo(_id_documento,_id_version);
 
             foreach (var item in Lista)
             {
@@ -339,6 +340,7 @@ namespace View.Services.ViewModel
         public DocumentoViewModel()
         {
             BotonGuardar = "Guardar";
+            BttnGuardar = true;
         }
 
         #endregion
@@ -382,7 +384,7 @@ namespace View.Services.ViewModel
                     obj.id_tipo_documento = _id_tipo;
                     obj.id_dep = _id_dep;
                     obj.descripcion = descripcion;
-                    obj.version_actual = version;
+                    //obj.version_actual = version;
                     obj.fecha_creacion = DateTime.Now;
                     obj.fecha_actualizacion = fecha;
                     obj.fecha_emision = fecha;
@@ -393,6 +395,7 @@ namespace View.Services.ViewModel
                     //si se guardo el registro en la tabla documento
                     if (id_documento!=0)
                     {
+                      
                         //Mapeamos los valores al objeto de versión.
                         objVersion.no_version = version;
                         objVersion.no_copias = Convert.ToInt32(copias);
@@ -406,6 +409,12 @@ namespace View.Services.ViewModel
                         //si se guardó correctamente el registro en la tabla versión.
                         if (id_version!=0)
                         {
+                            obj.id_documento = id_documento;
+                            obj.version_actual = Convert.ToString(id_version);
+
+                            //Se ejecuta el método para modificar sólo la versión actual del documento, con el id de la versión que se guardó anteriormente.
+                            int update = DataManagerControlDocumentos.UpdateVersionActual(obj);
+                            
                             //Iteramos la lista de documentos.
                             foreach (var item in _ListaDocumentos)
                             {
@@ -416,7 +425,7 @@ namespace View.Services.ViewModel
                                 objArchivo.id_version = id_version;
                                 objArchivo.archivo = item.archivo;
                                 objArchivo.ext = item.ext;
-
+                                objArchivo.nombre = item.nombre;
                                 //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
                                 int n = await DataManagerControlDocumentos.SetArchivo(objArchivo);
                                 
@@ -474,6 +483,14 @@ namespace View.Services.ViewModel
                     //si se realizo la alta
                     if (id_version != 0)
                     {
+                        //Creamos un objeto de tipo Documento
+                        Documento obj = new Documento();
+
+                        //Mapeamos los valores al objeto.
+                        obj.id_documento = id_documento;
+                        obj.version_actual = Convert.ToString(id_version);
+                        //Se ejecuta el método para modificar sólo la versión actual del documento, con el id de la versión que se guardó anteriormente.
+                        int update = DataManagerControlDocumentos.UpdateVersionActual(obj);
 
                         //Iteramos la lista de documentos.
                         foreach (var item in _ListaDocumentos)
@@ -485,6 +502,7 @@ namespace View.Services.ViewModel
                             objArchivo.id_version = id_version;
                             objArchivo.archivo = item.archivo;
                             objArchivo.ext = item.ext;
+                            objArchivo.nombre = item.nombre;
 
                             //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
                             int id_archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
@@ -588,6 +606,31 @@ namespace View.Services.ViewModel
             BttnEliminar = true;
             BttnModificar = true;
             BttnVersion = true;
+            BttnGuardar = false;
+
+           // ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetTipo(id_documento,id_version);
+
+            //foreach (var item in Lista)
+            //{
+            //    Archivo objArchivo = new Archivo();
+
+            //    objArchivo.nombre = item.nombre;
+            //    objArchivo.id_archivo = item.version.archivo.id_archivo;
+            //    objArchivo.archivo = item.version.archivo.archivo;
+            //    objArchivo.ext = item.version.archivo.ext;
+
+            //    if (objArchivo.ext == ".pdf")
+            //    {
+            //        //asigna la imagen del pdf al objeto
+            //        objArchivo.ruta = @"/Images/p.png";
+            //    }
+            //    else
+            //    {
+            //        //Si es archivo de word asigna la imagen correspondiente.
+            //        objArchivo.ruta = @"/Images/w.png";
+            //    }
+            //    ListaDocumentos.Add(objArchivo);
+            //}
         }
 
         /// <summary>
@@ -671,6 +714,7 @@ namespace View.Services.ViewModel
                             objArchivo.id_version = id_version;
                             objArchivo.archivo = item.archivo;
                             objArchivo.ext = item.ext;
+                            objArchivo.nombre = item.nombre;
 
                             //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
                             int archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
@@ -712,6 +756,7 @@ namespace View.Services.ViewModel
             Version = string.Empty;
             Fecha = DateTime.Now;
             Copias=string.Empty;
+            usuario = null;
             ListaDocumentos.Clear();
             BotonGuardar = "Guardar Version";
             BttnGuardar = true;

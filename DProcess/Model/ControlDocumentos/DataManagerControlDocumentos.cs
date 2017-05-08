@@ -44,6 +44,7 @@ namespace Model.ControlDocumentos
                     obj.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
                     obj.archivo = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
                     obj.ext = (string)tipo.GetProperty("EXT").GetValue(item, null);
+                    obj.nombre= (string)tipo.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
 
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
@@ -64,7 +65,7 @@ namespace Model.ControlDocumentos
             SO_Archivo ServiceArchivo = new SO_Archivo();
 
             //Se ejecuta el método y regresa el id del archivo insertado.
-            return  ServiceArchivo.SetArchivo(archivo.id_version, archivo.archivo, archivo.ext);
+            return  ServiceArchivo.SetArchivo(archivo.id_version, archivo.archivo, archivo.ext,archivo.nombre);
 
         }
         /// <summary>
@@ -79,7 +80,7 @@ namespace Model.ControlDocumentos
             SO_Archivo ServiceArchivo = new SO_Archivo();
 
             //Se ejecuta el método y regresa los registros modificados.
-            return ServiceArchivo.UpdateArchivo(archivo.id_archivo, archivo.id_version, archivo.archivo, archivo.ext);
+            return ServiceArchivo.UpdateArchivo(archivo.id_archivo, archivo.id_version, archivo.archivo, archivo.ext,archivo.nombre);
         }
 
         /// <summary>
@@ -354,7 +355,7 @@ namespace Model.ControlDocumentos
             return Lista;
         }
 
-        public static ObservableCollection<Documento> GetTipo(int id_documento)
+        public static ObservableCollection<Documento> GetTipo(int id_documento,int id_version)
         {
             SO_Documento ServiceDocumento = new SO_Documento();
 
@@ -362,7 +363,7 @@ namespace Model.ControlDocumentos
             ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
 
             //obtenemos todo de la BD.
-            IList ObjDocumento = ServiceDocumento.GetTipo(id_documento);
+            IList ObjDocumento = ServiceDocumento.GetTipo(id_documento,id_version);
 
             //Verificamos que la informacion no esté vacía.
             if (ObjDocumento != null)
@@ -377,7 +378,7 @@ namespace Model.ControlDocumentos
 
                     //Asignamos los valores correspondientes.
                     obj.id_documento = id_documento;
-                    obj.nombre= (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.nombre= (string)tipo.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
                     obj.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
                     obj.tipo.tipo_documento= (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
                     obj.version.archivo.id_archivo = (int)tipo.GetProperty("ID_ARCHIVO").GetValue(item, null);
@@ -392,6 +393,16 @@ namespace Model.ControlDocumentos
             return Lista;
 
         }
+
+        public static int UpdateVersionActual(Documento documento)
+        {
+            //Se inician los servicios de Documento.
+            SO_Documento ServiceDocumento = new SO_Documento();
+
+            // Se ejecuta el método y retorna los registros que se modificaron.
+            return ServiceDocumento.UpdateVersion(documento.id_documento, documento.version_actual);
+        }
+
         #endregion
 
         #region Rol

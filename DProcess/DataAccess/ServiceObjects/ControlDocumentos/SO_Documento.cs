@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -142,6 +143,36 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        public int UpdateVersion(int id_documento,string version_actual)
+        {
+
+            try
+            {
+                //Se establece la conexión a la base de datos.
+                using (var Conexion= new EntitiesControlDocumentos())
+                {
+                    //creación del objeto tipo TBL_archivo.
+                    TBL_DOCUMENTO obj = Conexion.TBL_DOCUMENTO.Where(x => x.ID_DOCUMENTO == id_documento).FirstOrDefault();
+
+                    //Se modifica el id de la version con la original
+                    obj.VERSION_ACTUAL = version_actual;
+
+                    //Se cambia el estado de registro a modificado.
+                    Conexion.Entry(obj).State = EntityState.Modified;
+
+                    //Se guardan los cambios y se retorna el número de registros afectados.
+                    return Conexion.SaveChanges();
+
+                }
+            }
+            catch (Exception)
+            {
+                //Si encuentra error devuelve cero.
+                return 0;
+
+            }
+        }
+
         /// <summary>
         /// Método para eliminar un registro de la tabla TBL_documento.
         /// </summary>
@@ -218,7 +249,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                      join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
                                      join b in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals b.ID_DEPARTAMENTO
-                                     where d.ID_TIPO_DOCUMENTO == idTipoDocumento
+                                     where d.ID_TIPO_DOCUMENTO == idTipoDocumento && d.VERSION_ACTUAL.Contains(v.ID_VERSION.ToString())
                                      select new
                                      {
                                          d.ID_DOCUMENTO,
@@ -231,7 +262,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                          DESCRIPCION = d.DESCRIPCION,
                                          b.NOMBRE_DEPARTAMENTO,
                                          d.FECHA_EMISION
-                                     }).OrderBy(x => x.ID_DOCUMENTO).ToList();
+                                     }).OrderBy(x => x.ID_DOCUMENTO).Distinct().ToList();
                         return lista;
                     }
                     else
@@ -241,7 +272,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                      join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
                                      join b in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals b.ID_DEPARTAMENTO
-                                     where d.ID_TIPO_DOCUMENTO == idTipoDocumento && (d.NOMBRE.Contains(textoBusqueda) || d.DESCRIPCION.Contains(textoBusqueda))
+                                     where d.ID_TIPO_DOCUMENTO == idTipoDocumento && d.VERSION_ACTUAL.Contains(v.ID_VERSION.ToString()) && (d.NOMBRE.Contains(textoBusqueda) || d.DESCRIPCION.Contains(textoBusqueda))
                                      select new
                                      {
                                          d.ID_DOCUMENTO,
@@ -254,7 +285,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                          DESCRIPCION = d.DESCRIPCION,
                                          b.NOMBRE_DEPARTAMENTO,
                                          d.FECHA_EMISION
-                                     }).OrderBy(x => x.ID_DOCUMENTO).ToList();
+                                     }).OrderBy(x => x.ID_DOCUMENTO).Distinct().ToList();
                         return lista;
                     }
                 }
@@ -271,7 +302,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// </summary>
         /// <param name="id_documento"></param>
         /// <returns></returns>
-        public IList GetTipo(int id_documento)
+        public IList GetTipo(int id_documento,int id_version)
         {
             try
             {
@@ -283,12 +314,12 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                  join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
                                  join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                  join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
-                                 where d.ID_DOCUMENTO==id_documento
+                                 where d.ID_DOCUMENTO == id_documento && v.ID_VERSION == id_version
                                  select new
                                  {
-                                    
+
                                      d.ID_TIPO_DOCUMENTO,
-                                     d.NOMBRE,
+                                     a.NOMBRE_ARCHIVO,
                                      t.TIPO_DOCUMENTO,
                                      a.ID_ARCHIVO,
                                      a.ARCHIVO,
