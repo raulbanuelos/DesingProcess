@@ -52,7 +52,7 @@
                     <ImageBrush ImageSource="/View;component/Images/name.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <TextBox x:Name="txt_nombre" Width="393" Canvas.Left="134" Canvas.Top="41" Tag="Nombre" BorderThickness="1,1,1,1" Height="38" BorderBrush="#89535353" Background="White" FontSize="16" Text="{Binding Nombre}"></TextBox>
+            <TextBox x:Name="txt_nombre" Width="393" Canvas.Left="134" Canvas.Top="41" Tag="Nombre" BorderThickness="1,1,1,1" Height="38" BorderBrush="#89535353" Background="White" FontSize="16" Text="{Binding Nombre}"  IsEnabled="{Binding NombreEnabled}"></TextBox>
 
             <!--Version-->
             <Label x:Name="label1" Content="Versión" Height="30" Canvas.Left="83" Canvas.Top="91" Width="65" FontSize="16" FontWeight="Bold"/>

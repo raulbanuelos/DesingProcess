@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using View.Forms.ControlDocumentos;
 
@@ -170,6 +171,10 @@ namespace View.Services.ViewModel
             }
         }
 
+        private int idVersion;
+
+        private string auxcopias, auxversion, auxUsuario;
+
         private ObservableCollection<Archivo> _ListaDocumentos = new ObservableCollection<Archivo>();
         public ObservableCollection<Archivo> ListaDocumentos
         {
@@ -225,7 +230,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Archivo _selectedItem=new Archivo();
+        private Archivo _selectedItem;
         public Archivo SelectedItem {
             get
             {
@@ -292,6 +297,19 @@ namespace View.Services.ViewModel
             }
         }
 
+        private bool nombreEnabled=true;
+        public bool NombreEnabled {
+            get
+            {
+                return nombreEnabled;
+            }
+            set
+            {
+                nombreEnabled = value;
+                NotifyChange("NombreEnabled");
+            }
+        }
+
 
         #endregion
 
@@ -300,6 +318,8 @@ namespace View.Services.ViewModel
         {
             Nombre = _nombre;
             Version = _version;
+            auxversion = _version;
+            auxcopias = _copias;
             Copias = _copias;
             Descripcion = _descripcion;
             id_documento = _id_documento;
@@ -308,11 +328,12 @@ namespace View.Services.ViewModel
             BttnEliminar = true;
             BttnModificar = true;
             BttnVersion = true;
+            idVersion = _id_version;
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(_id_documento);
             id_dep = _idDep;
             usuario = DataManagerControlDocumentos.GetIdUsuario(_id_version);
-
-            ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetTipo(_id_documento,_id_version);
+            auxUsuario = usuario;
+            ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetTipo(_id_documento,idVersion);
 
             foreach (var item in Lista)
             {
@@ -477,50 +498,60 @@ namespace View.Services.ViewModel
                     objVersion.id_usuario = _usuario;
                     objVersion.fecha_version = fecha;
 
-                    //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
-                    int id_version = DataManagerControlDocumentos.SetVersion(objVersion);
+                    int validacion = DataManagerControlDocumentos.ValidateVersion(objVersion);
 
-                    //si se realizo la alta
-                    if (id_version != 0)
+                    if (validacion == 0)
                     {
-                        //Creamos un objeto de tipo Documento
-                        Documento obj = new Documento();
+                        //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
+                        int id_version = DataManagerControlDocumentos.SetVersion(objVersion);
 
-                        //Mapeamos los valores al objeto.
-                        obj.id_documento = id_documento;
-                        obj.version_actual = Convert.ToString(id_version);
-                        //Se ejecuta el método para modificar sólo la versión actual del documento, con el id de la versión que se guardó anteriormente.
-                        int update = DataManagerControlDocumentos.UpdateVersionActual(obj);
-
-                        //Iteramos la lista de documentos.
-                        foreach (var item in _ListaDocumentos)
+                        //si se realizo la alta
+                        if (id_version != 0)
                         {
-                            //Mapeamos los valores al objeto creado.
-                            Archivo objArchivo = new Archivo();
+                            //Creamos un objeto de tipo Documento
+                            Documento obj = new Documento();
 
-                            //Mapeamos los valores al objeto creado.
-                            objArchivo.id_version = id_version;
-                            objArchivo.archivo = item.archivo;
-                            objArchivo.ext = item.ext;
-                            objArchivo.nombre = item.nombre;
+                            //Mapeamos los valores al objeto.
+                            obj.id_documento = id_documento;
+                            obj.version_actual = Convert.ToString(id_version);
+                            //Se ejecuta el método para modificar sólo la versión actual del documento, con el id de la versión que se guardó anteriormente.
+                            int update = DataManagerControlDocumentos.UpdateVersionActual(obj);
 
-                            //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
-                            int id_archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                            //Iteramos la lista de documentos.
+                            foreach (var item in _ListaDocumentos)
+                            {
+                                //Mapeamos los valores al objeto creado.
+                                Archivo objArchivo = new Archivo();
+
+                                //Mapeamos los valores al objeto creado.
+                                objArchivo.id_version = id_version;
+                                objArchivo.archivo = item.archivo;
+                                objArchivo.ext = item.ext;
+                                objArchivo.nombre = item.nombre;
+
+                                //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
+                                int id_archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                            }
+
+                            //Asignamos el valore de Guardar a la etiqueta del botón.
+                            BotonGuardar = "Guardar";
+
+                            //Ejecutamos el método para cerrar el mensaje de espera.
+                            await controllerProgressAsync.CloseAsync();
+
+                            //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
+                            await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
                         }
-
-                        //Asignamos el valore de Guardar a la etiqueta del botón.
-                        BotonGuardar = "Guardar";
-
-                        //Ejecutamos el método para cerrar el mensaje de espera.
-                        await controllerProgressAsync.CloseAsync();
-
-                        //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
-                        await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+                        else
+                        {
+                            //si hubo algún error en la alta, manda mensaje se error.
+                            await dialog.SendMessage("Alerta", "Error al registrar la versión..");
+                        }
                     }
                     else
                     {
-                        //si hubo algún error en la alta, manda mensaje se error.
-                        await dialog.SendMessage("Alerta", "Error al registrar la versión..");
+                        await dialog.SendMessage("Información", "La versión ya existe para este documento");
+                        await controllerProgressAsync.CloseAsync();
                     }
                 }
                 else
@@ -602,35 +633,39 @@ namespace View.Services.ViewModel
         }
         private void cancelar()
         {
+            Copias = auxcopias;
+            usuario = auxUsuario;
+            Version = auxversion;
             BotonGuardar = "Guardar";
             BttnEliminar = true;
             BttnModificar = true;
             BttnVersion = true;
             BttnGuardar = false;
+            NombreEnabled = true;
 
-           // ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetTipo(id_documento,id_version);
+            ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetTipo(id_documento, idVersion);
 
-            //foreach (var item in Lista)
-            //{
-            //    Archivo objArchivo = new Archivo();
+            foreach (var item in Lista)
+            {
+                Archivo objArchivo = new Archivo();
 
-            //    objArchivo.nombre = item.nombre;
-            //    objArchivo.id_archivo = item.version.archivo.id_archivo;
-            //    objArchivo.archivo = item.version.archivo.archivo;
-            //    objArchivo.ext = item.version.archivo.ext;
+                objArchivo.nombre = item.nombre;
+                objArchivo.id_archivo = item.version.archivo.id_archivo;
+                objArchivo.archivo = item.version.archivo.archivo;
+                objArchivo.ext = item.version.archivo.ext;
 
-            //    if (objArchivo.ext == ".pdf")
-            //    {
-            //        //asigna la imagen del pdf al objeto
-            //        objArchivo.ruta = @"/Images/p.png";
-            //    }
-            //    else
-            //    {
-            //        //Si es archivo de word asigna la imagen correspondiente.
-            //        objArchivo.ruta = @"/Images/w.png";
-            //    }
-            //    ListaDocumentos.Add(objArchivo);
-            //}
+                if (objArchivo.ext == ".pdf")
+                {
+                    //asigna la imagen del pdf al objeto
+                    objArchivo.ruta = @"/Images/p.png";
+                }
+                else
+                {
+                    //Si es archivo de word asigna la imagen correspondiente.
+                    objArchivo.ruta = @"/Images/w.png";
+                }
+                ListaDocumentos.Add(objArchivo);
+            }
         }
 
         /// <summary>
@@ -643,10 +678,21 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => eliminar());
             }
         }
-        private void eliminar()
+        private async void eliminar()
         {
+            //Incializamos los servicios de dialog.
+            DialogService dialog = new DialogService();
+
+            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = "SI";
+            setting.NegativeButtonText = "NO";
+
+            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Deseas eliminar el registro?", setting, MessageDialogStyle.AffirmativeAndNegative);
+
             //Si el id es diferente de cero
-            if (id_documento != 0)
+            if (id_documento != 0 & result==MessageDialogResult.Affirmative)
             {
                 //Se crea un objeto de tipo Documento
                 Documento obj = new Documento();
@@ -654,6 +700,15 @@ namespace View.Services.ViewModel
                 obj.id_documento = id_documento;
                 //Se manda a llamar a la función.
                 int n = DataManagerControlDocumentos.DeleteDocumento(obj);
+
+                if (n!=0)
+                {
+                    await dialog.SendMessage("", "Registro eliminado!");
+                }
+                else
+                {
+                    await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios..");
+                }
             }
         }
 
@@ -672,71 +727,83 @@ namespace View.Services.ViewModel
             //Incializamos los servicios de dialog.
             DialogService dialog = new DialogService();
 
-            //Ejecutamos el método para valirdar los valores.
-            if (ValidarValores())
+            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = "SI";
+            setting.NegativeButtonText = "NO";
+
+            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Deseas guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+
+            if (result == MessageDialogResult.Affirmative)
             {
-                //Se crea un objeto de tipo Documento.
-                Documento obj = new Documento();
-
-                //Se asignan los valores.
-                obj.id_documento = id_documento;
-                obj.nombre = nombre;
-                obj.id_dep = _id_dep;
-                obj.id_tipo_documento = _id_tipo;
-                obj.descripcion = descripcion;
-                obj.version_actual = version;
-                obj.fecha_actualizacion = fecha;
-
-                //Ejecuta el método para modificar un registro 
-                int n = DataManagerControlDocumentos.UpdateDocumento(obj);
-
-                //Ejecutamos el método para modificar un documento             
-                if (n!=0)
+                //Ejecutamos el método para valirdar los valores.
+                if (ValidarValores())
                 {
-                    Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
-                    objVersion.no_version = version;
-                    objVersion.no_copias = Convert.ToInt32(copias);
-                    objVersion.id_documento = id_documento;
-                    objVersion.id_usuario = _usuario;
-                    objVersion.fecha_version = fecha;
+                    //Se crea un objeto de tipo Documento.
+                    Documento obj = new Documento();
 
-                    int id_version = DataManagerControlDocumentos.UpdateVersion(objVersion);
+                    //Se asignan los valores.
+                    obj.id_documento = id_documento;
+                    obj.nombre = nombre;
+                    obj.id_dep = _id_dep;
+                    obj.id_tipo_documento = _id_tipo;
+                    obj.descripcion = descripcion;
+                    obj.version_actual = version;
+                    obj.fecha_actualizacion = fecha;
 
-                    if (id_version!=0)
+                    //Ejecuta el método para modificar un registro 
+                    int n = DataManagerControlDocumentos.UpdateDocumento(obj);
+
+                    //Ejecutamos el método para modificar un documento             
+                    if (n != 0)
                     {
+                        Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+                        objVersion.id_version = idVersion;
+                        objVersion.no_version = version;
+                        objVersion.no_copias = Convert.ToInt32(copias);
+                        objVersion.id_documento = id_documento;
+                        objVersion.id_usuario = _usuario;
+                        objVersion.fecha_version = fecha;
 
-                        foreach (var item in _ListaDocumentos)
+                        int id_version = DataManagerControlDocumentos.UpdateVersion(objVersion);
+
+                        if (id_version != 0)
                         {
-                            //Declaramos un objeto de tipo Archivo.
-                            Archivo objArchivo = new Archivo();
 
-                            //Mapeamos los valores al objeto creado.
-                            objArchivo.id_version = id_version;
-                            objArchivo.archivo = item.archivo;
-                            objArchivo.ext = item.ext;
-                            objArchivo.nombre = item.nombre;
+                            foreach (var item in _ListaDocumentos)
+                            {
+                                //Declaramos un objeto de tipo Archivo.
+                                Archivo objArchivo = new Archivo();
 
-                            //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
-                            int archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
-                        }
+                                //Mapeamos los valores al objeto creado.
+                                objArchivo.id_version = id_version;
+                                objArchivo.archivo = item.archivo;
+                                objArchivo.ext = item.ext;
+                                objArchivo.nombre = item.nombre;
+
+                                //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
+                                int archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                            }
                             await dialog.SendMessage("", "Cambios realizados..");
 
+                        }
+                        else
+                        {
+                            await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en la versión..");
+                        }
                     }
                     else
                     {
-                        await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en la versión..");
+                        await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en documento..");
                     }
+
                 }
                 else
                 {
-                    await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en documento..");
+                    //Si los campos están vacíos, manda un mensaje.
+                    await dialog.SendMessage("RGP: Alerta", "Se debe llenar todos los campos");
                 }
-                
-            }
-            else
-            {
-                //Si los campos están vacíos, manda un mensaje.
-                await dialog.SendMessage("RGP: Alerta", "Se debe llenar todos los campos");
             }
         }
 
@@ -753,7 +820,7 @@ namespace View.Services.ViewModel
         private  void generarVersion()
         {
             //Limpiamos todos lo textbox, y se cambia el content del botón de guardar.
-            Version = string.Empty;
+            Version = DataManagerControlDocumentos.GetLastVersion(id_documento);
             Fecha = DateTime.Now;
             Copias=string.Empty;
             usuario = null;
@@ -763,6 +830,7 @@ namespace View.Services.ViewModel
             BttnEliminar = false;
             BttnModificar = false;
             BttnVersion = false;
+            NombreEnabled = false;
         }
 
         /// <summary>
@@ -798,14 +866,27 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(o => eliminarItem(_selectedItem));
+                return new RelayCommand(o => eliminarItem(SelectedItem));
             }
         }
-        private void eliminarItem(Archivo item)
+        private async void eliminarItem(Archivo item)
         {
-            if (item != null)
+            DialogService dialogService = new DialogService();
+
+            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = "SI";
+            setting.NegativeButtonText = "NO";
+
+            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+            MessageDialogResult result = await dialogService.SendMessage("Attention", "¿Deseas eliminar el archivo?" , setting, MessageDialogStyle.AffirmativeAndNegative);
+
+            if (item != null & result== MessageDialogResult.Affirmative)
             {
+                int id = item.id_archivo;
+                string nom = item.nombre;
                 ListaDocumentos.Remove(item);
+                int n = DataManagerControlDocumentos.DeleteArchivo(item);
             }
         }
         

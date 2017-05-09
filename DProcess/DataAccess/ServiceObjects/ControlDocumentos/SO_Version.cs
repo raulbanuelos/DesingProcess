@@ -189,7 +189,68 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        /// <summary>
+        /// Método para obtener el último número de la versión de un documento.
+        /// </summary>
+        /// <returns></returns>
+        public string GetLastVersion(int id_documento)
+        {
+            //Declaramos una variable, que retornara el último código agregado
+            string version;
 
-      
+            try
+            {
+                //Se establece la conexión a la BD.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Se ordena de mayor a menor el código para obtener el primer valor,
+                    //en este caso la última versión del documento correspondiente.
+                    var last = (from v in Conexion.TBL_VERSION
+                                join d in Conexion.TBL_DOCUMENTO on v.ID_DOCUMENTO equals d.ID_DOCUMENTO
+                                where v.ID_DOCUMENTO== id_documento
+                                orderby v.No_VERSION descending
+                                select v.No_VERSION).First();
+
+                    //Asignamos el resultado obtenido a la variable local.
+                    version = last;
+                  
+                }
+            }
+            catch (Exception)
+            {
+                //Si hubo algún error retornamos una cadena vacía.
+                return string.Empty;
+            }
+            //Retornamos el valor.
+            return version;
+
+        }
+
+        /// <summary>
+        /// Método para validar si la versión recibida existe.
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <param name="no_version"></param>
+        /// <returns></returns>
+        public int  ValidateVersion(int id_documento,string no_version)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    var version = (from v in Conexion.TBL_VERSION
+                                   where v.ID_DOCUMENTO == id_documento & v.No_VERSION == no_version
+                                   select v.ID_VERSION).ToList().FirstOrDefault();
+
+                    return version;
+                }
+            }
+            catch (Exception er)
+            {
+
+                return 0;
+            }
+        }
+
     }
 }

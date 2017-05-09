@@ -775,12 +775,50 @@ namespace Model.ControlDocumentos
             return ServiceVersion.DeleteVersion(version.id_version);
         }
 
+        /// <summary>
+        /// Método para obtener el usuario
+        /// </summary>
+        /// <param name="id_version"></param>
+        /// <returns></returns>
         public static string GetIdUsuario(int id_version)
         {
             //Inicializamos los servicios de version.
             SO_Version ServiceVersion = new SO_Version();
 
             return ServiceVersion.GetUsuario(id_version);
+        }
+
+        /// <summary>
+        /// Método para obetener la última versión de un documento.
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <returns></returns>
+        public static string GetLastVersion(int id_documento)
+        {
+            //Inicializamos los servicios de version.
+            SO_Version ServiceVersion = new SO_Version();
+
+            //convierte a entero para poder agregarle uno al valor.
+            int version= Convert.ToInt32( ServiceVersion.GetLastVersion(id_documento));
+            //se agrega uno.
+            version++;
+
+            //etorna el nuevo valor de la versión, convertido a string.
+            return Convert.ToString(version);
+        }
+
+        /// <summary>
+        /// Método para validar la versión
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <param name="version"></param>
+        public static int ValidateVersion(Version obj)
+        {
+            //Inicializamos los servicios de version.
+            SO_Version ServiceVersion = new SO_Version();
+
+            //Retorna el id de la versión si ya existe.
+            return ServiceVersion.ValidateVersion(obj.id_documento,obj.no_version );
         }
         #endregion
 
