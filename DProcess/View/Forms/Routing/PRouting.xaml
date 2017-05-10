@@ -18,11 +18,11 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <materialDesign:DialogHost Identifier="RootDialog" >
+    <materialDesign:DialogHost Identifier="RootDialog">
         <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding IsOpenedToogle}">
             <materialDesign:DrawerHost.LeftDrawerContent>
                 <DockPanel MinWidth="212">
-                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}"
                                     DockPanel.Dock="Top"
                                     HorizontalAlignment="Right" Margin="16"
                                     Command="{Binding CerrarToogle}"
@@ -44,7 +44,6 @@
                         </ListBoxItem>
 
                     </ListBox>
-
                 </DockPanel>
             </materialDesign:DrawerHost.LeftDrawerContent>
             <Grid ShowGridLines="False" Margin="5">
@@ -206,29 +205,291 @@
                     </StackPanel>
                 </StackPanel>
                 <!--Termina Panel Lateral Derecho-->
-                
+
                 <!--Comienza Grid Central-->
                 <Grid Grid.Column="1" Grid.Row="1" ShowGridLines="False">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="150"/>
+                        <RowDefinition Height="80"/>
                     </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0" ShowGridLines="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100*"></RowDefinition>
+                            <RowDefinition Height="100*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        
+                        <!--Comienza Perfil Puntas-->
+                        <Grid Grid.Column="0" Grid.Row="0" ShowGridLines="False">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="450" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
+                                
+                                <!--ejemplo-->
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <!--termina ejemplo-->
+
+                            </StackPanel>
+                        </Grid>
+                        <!--Termina Perfil Puntas-->
+                        
+                        <!--Comienza Pefil OD-->
+                        <Grid Grid.Column="1" Grid.Row="0" ShowGridLines="False">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="450" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
+                                <!--ejemplo-->
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <!--termina ejemplo-->
+
+                            </StackPanel>
+                        </Grid>
+                        <!--Termina Pefil OD-->
+                        
+                        <!--Comienza Perfil lateral-->
+                        <Grid Grid.Column="0" Grid.Row="1" ShowGridLines="False">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="450" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
+                                <!--ejemplo-->
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <!--termina ejemplo-->
+
+                            </StackPanel>
+                        </Grid>
+                        <!--Termina Perfil lateral-->
+                        
+                        <!--Comienza Perfil ID-->
+                        <Grid Grid.Column="1" Grid.Row="1" ShowGridLines="False">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="450" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
+                                <!--ejemplo-->
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+
+                                    <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="100" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                    <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
+                                </StackPanel>
+                                <!--termina ejemplo-->
+
+                            </StackPanel>
+                        </Grid>
+                        <!--Termina Perfil ID-->
+                    </Grid>
+                    
+                    <!--Comienza panel inferior-->
                     <Border HorizontalAlignment="Right"  VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Grid.Column="0" Grid.Row="1" Background="{DynamicResource MaterialDesignBackground}">
-                        <GroupBox HorizontalAlignment="Center" VerticalAlignment="Top" Style="{DynamicResource MaterialDesignGroupBox}" UseLayoutRounding="True" SnapsToDevicePixels="True">
+                        <GroupBox HorizontalAlignment="Center" VerticalAlignment="Top" Height="80" Style="{DynamicResource MaterialDesignGroupBox}" UseLayoutRounding="True" SnapsToDevicePixels="True">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                
+                                <TextBox materialDesign:HintAssist.Hint="Customer Part No" MaxLength="18" FontSize="16" TextAlignment="Center" Width="180" Text="{Binding CustomerPartNumber}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                <TextBox materialDesign:HintAssist.Hint="Mahle Part No" MaxLength="18" FontSize="16" TextAlignment="Center" Width="180" Text="{Binding Codigo}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
                                 <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="180" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
                                 <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
-                                <TextBox materialDesign:HintAssist.Hint="{Binding STD}" FontSize="16" TextAlignment="Center" Width="180" Text="{Binding STD.Valor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                                <TextBox materialDesign:HintAssist.Hint="STD" FontSize="16" TextAlignment="Center" Width="70" Text="{Binding STD.Valor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
                             </StackPanel>
                         </GroupBox>
-                        
                     </Border>
+                    <!--Termina panel inferior-->
                     
                 </Grid>
                 <!--Termina Grid Central-->
             </Grid>
         </materialDesign:DrawerHost>
-
-
     </materialDesign:DialogHost>
 </Page>

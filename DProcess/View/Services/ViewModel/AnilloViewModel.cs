@@ -714,10 +714,9 @@ namespace View.Services.ViewModel
             MetroDialogSettings setting = new MetroDialogSettings();
             setting.AffirmativeButtonText = "Format MAHLE";
             setting.NegativeButtonText = "Old Format";
-            setting.FirstAuxiliaryButtonText = "Cancel";
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
-            MessageDialogResult result = await dialogService.SendMessage("Attention", "Select the format of the plane:", setting, MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary);
+            MessageDialogResult result = await dialogService.SendMessage("Attention", "Select the format of the plane:", setting, MessageDialogStyle.AffirmativeAndNegative);
 
             //Para cada resultado realizamos una acción.
             switch (result)
@@ -736,7 +735,7 @@ namespace View.Services.ViewModel
                     ModelAnillo = new Anillo();
 
                     //Establecemos a todas las propiedades del modelo anillo los valores por default.
-                    SetUnidadesDefault("Distance", " Millimeter(mm)", "Force", "LBS", "Dureza", "HRC", "Mass", "Gram (g)");
+                    SetUnidadesDefault("Distance", "Millimeter (mm)", "Force", "LBS", "Dureza", "HRC", "Mass", "Gram (g)");
                     break;
                 case MessageDialogResult.FirstAuxiliary:
                     break;
