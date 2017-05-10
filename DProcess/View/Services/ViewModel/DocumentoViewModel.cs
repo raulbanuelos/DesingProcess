@@ -310,6 +310,18 @@ namespace View.Services.ViewModel
             }
         }
 
+        private bool _bttnCancelar;
+        public bool BttnCancelar {
+            get
+            {
+                return _bttnCancelar;
+            }
+            set
+            {
+                _bttnCancelar = value;
+                NotifyChange("BttnCancelar");
+            }
+        }
 
         #endregion
 
@@ -482,6 +494,7 @@ namespace View.Services.ViewModel
             {
                 //Si es una actualización.
                 //Ejecutamos el método para valirdar los valores.
+
                 if (ValidarValores())
                 {
 
@@ -498,6 +511,7 @@ namespace View.Services.ViewModel
                     objVersion.id_usuario = _usuario;
                     objVersion.fecha_version = fecha;
 
+                    //valida que la version en el documento no se repita
                     int validacion = DataManagerControlDocumentos.ValidateVersion(objVersion);
 
                     if (validacion == 0)
@@ -602,8 +616,11 @@ namespace View.Services.ViewModel
 
                 //Se obtiene sólo el nombre, sin extensión.
                 obj.nombre = System.IO.Path.GetFileNameWithoutExtension(filename);
-                //El nombre del archivo lo asigna al textbox del nombre
-                Nombre = obj.nombre;
+
+                if (BotonGuardar=="Guardar") {
+                    //El nombre del archivo lo asigna al textbox del nombre
+                    Nombre = obj.nombre;
+                }
 
                 //Si el archivo tiene extensión pdf
                 if (obj.ext == ".pdf")
@@ -642,6 +659,9 @@ namespace View.Services.ViewModel
             BttnVersion = true;
             BttnGuardar = false;
             NombreEnabled = true;
+            BttnCancelar = false;
+
+            ListaDocumentos.Clear();
 
             ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetTipo(id_documento, idVersion);
 
@@ -703,6 +723,19 @@ namespace View.Services.ViewModel
 
                 if (n!=0)
                 {
+
+                    //Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+                    ////Se asigna el id 
+                    //objVersion.id_version = idVersion;
+                    ////Mandamos a llamar a la  función para eliminar la versión.
+                    //int version = DataManagerControlDocumentos.DeleteVersion(objVersion);
+
+                    //foreach (var item in _ListaDocumentos)
+                    //{
+
+                    //    DataManagerControlDocumentos.DeleteArchivo(item);
+                    //}
+
                     await dialog.SendMessage("", "Registro eliminado!");
                 }
                 else
@@ -831,6 +864,7 @@ namespace View.Services.ViewModel
             BttnModificar = false;
             BttnVersion = false;
             NombreEnabled = false;
+            BttnCancelar = true;
         }
 
         /// <summary>
@@ -883,9 +917,9 @@ namespace View.Services.ViewModel
 
             if (item != null & result== MessageDialogResult.Affirmative)
             {
-                int id = item.id_archivo;
-                string nom = item.nombre;
+                //Se elimina el item seleccionado de la listaDocumentos.
                 ListaDocumentos.Remove(item);
+                //Se elimina de la base de datos.
                 int n = DataManagerControlDocumentos.DeleteArchivo(item);
             }
         }

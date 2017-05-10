@@ -162,7 +162,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
-        /// 
+        /// Método para obetener el id del usuario del id de la version.
         /// </summary>
         /// <param name="id_version"></param>
         /// <returns></returns>

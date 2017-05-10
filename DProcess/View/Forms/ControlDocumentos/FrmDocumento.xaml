@@ -113,7 +113,7 @@
                     </TransformGroup>
                 </Canvas.RenderTransform>
                 <Button x:Name="bttn_guardar" Content="{Binding BotonGuardar}" Height="41" Canvas.Top="10" Width="135" Canvas.Left="38" Command="{Binding GuardarControl}" Background="#FF157EFB" Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" />
-                <Button x:Name="bttn_cancelar" Content="Cancelar" Height="41" Canvas.Left="202" Canvas.Top="10" Width="135" Command="{Binding Cancelar}" Background="#FF157EFB"/>
+                <Button x:Name="bttn_cancelar" Content="Cancelar" Height="41" Canvas.Left="202" Canvas.Top="10" Width="135" Command="{Binding Cancelar}" Background="#FF157EFB" Visibility="{Binding BttnCancelar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
                 <Button x:Name="bttn_eliminar" Content="Eliminar" Canvas.Left="522" Canvas.Top="10" Width="135" Height="41" Background="#FF157EFB" Command="{Binding Eliminar}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
                 <Button x:Name="bttn_cambios" Content="Modificar" Height="41" Canvas.Left="362" Canvas.Top="10" Width="135" Background="#FF157EFB" Command="{Binding Modificar}" Visibility="{Binding BttnModificar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
                 <Button x:Name="bttn_generar" Content="Generar Versión" Height="41" Canvas.Left="681" Canvas.Top="10" Width="135" Background="#FF157EFB" Command="{Binding GenerarVersion}" Visibility="{Binding BttnVersion, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>

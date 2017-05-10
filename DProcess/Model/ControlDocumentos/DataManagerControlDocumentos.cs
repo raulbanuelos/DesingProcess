@@ -766,7 +766,7 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="version"></param>
         /// <returns></returns>
-        public static int DelteVersion(Version version)
+        public static int DeleteVersion(Version version)
         {
             //Inicializamos los servicios
             SO_Version ServiceVersion = new SO_Version();
