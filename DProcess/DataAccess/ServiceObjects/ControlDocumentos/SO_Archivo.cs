@@ -209,5 +209,31 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 }
             });
         }
+
+
+        /// <summary>
+        /// Método para validar si existe el archivo
+        /// </summary>
+        /// <param name="id_archivo"></param>
+        /// <returns></returns>
+        public int ValidateArchivo(int id_archivo)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    var archivo = (from v in Conexion.TBL_ARCHIVO
+                                   where v.ID_ARCHIVO == id_archivo
+                                   select v.ID_ARCHIVO).ToList().FirstOrDefault();
+
+                    return archivo;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay algún error, retornamos nulo.
+                return 0;
+            }
+        }
     }
 }

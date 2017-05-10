@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls.Dialogs;
+﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using Model.ControlDocumentos;
 using System;
 using System.Collections.Generic;
@@ -326,10 +327,11 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Constructor
-        public DocumentoViewModel(string _nombre, string _version, string _copias, string _descripcion, int _id_documento,int _idDep,int _id_version)
+        public DocumentoViewModel(string _nombre, string _version, string _copias, string _descripcion, int _id_documento,int _idDep,int _id_version,DateTime fecha_resivion)
         {
             Nombre = _nombre;
             Version = _version;
+            Fecha = fecha_resivion;
             auxversion = _version;
             auxcopias = _copias;
             Copias = _copias;
@@ -340,6 +342,7 @@ namespace View.Services.ViewModel
             BttnEliminar = true;
             BttnModificar = true;
             BttnVersion = true;
+            NombreEnabled = false;
             idVersion = _id_version;
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(_id_documento);
             id_dep = _idDep;
@@ -469,6 +472,16 @@ namespace View.Services.ViewModel
 
                             //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
                             await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+
+                            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                            //Verificamos que la pantalla sea diferente de nulo.
+                            if (window!=null)
+                            {
+                                //Cerramos la pantalla
+                                window.Close();
+                            }
                         }
                         else
                         {
@@ -555,6 +568,16 @@ namespace View.Services.ViewModel
 
                             //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
                             await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+
+                            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                            //Verificamos que la pantalla sea diferente de nulo.
+                            if (window != null)
+                            {
+                                //Cerramos la pantalla
+                                window.Close();
+                            }
                         }
                         else
                         {
@@ -658,7 +681,7 @@ namespace View.Services.ViewModel
             BttnModificar = true;
             BttnVersion = true;
             BttnGuardar = false;
-            NombreEnabled = true;
+            NombreEnabled = false;
             BttnCancelar = false;
 
             ListaDocumentos.Clear();
@@ -714,34 +737,45 @@ namespace View.Services.ViewModel
             //Si el id es diferente de cero
             if (id_documento != 0 & result==MessageDialogResult.Affirmative)
             {
-                //Se crea un objeto de tipo Documento
-                Documento obj = new Documento();
-                //se le asigna el id al objeto
-                obj.id_documento = id_documento;
-                //Se manda a llamar a la función.
-                int n = DataManagerControlDocumentos.DeleteDocumento(obj);
-
-                if (n!=0)
+                //Elimina los documentos de la lista 
+                foreach (var item in _ListaDocumentos)
                 {
 
-                    //Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
-                    ////Se asigna el id 
-                    //objVersion.id_version = idVersion;
-                    ////Mandamos a llamar a la  función para eliminar la versión.
-                    //int version = DataManagerControlDocumentos.DeleteVersion(objVersion);
+                  int n = DataManagerControlDocumentos.DeleteArchivo(item);
+                }
 
-                    //foreach (var item in _ListaDocumentos)
-                    //{
+                Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+                //Se asigna el id 
+                objVersion.id_version = idVersion;
+                //Mandamos a llamar a la  función para eliminar la versión.
+                int version = DataManagerControlDocumentos.DeleteVersion(objVersion);
 
-                    //    DataManagerControlDocumentos.DeleteArchivo(item);
-                    //}
+                if (version != 0)
+                {
+                    Documento obj = new Documento();
 
-                    await dialog.SendMessage("", "Registro eliminado!");
+                    //se le asigna el id al objeto
+                    obj.id_documento = id_documento;
+
+                    //Se manda a llamar a la función.
+                    int n = DataManagerControlDocumentos.DeleteDocumento(obj);
+                   
                 }
                 else
                 {
-                    await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios..");
+                    await dialog.SendMessage("Alert", "No se puedo eliminar la versión");
                 }
+
+                     await dialog.SendMessage("", "Registro eliminado!");
+                    //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                    var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                    //Verificamos que la pantalla sea diferente de nulo.
+                    if (window != null)
+                    {
+                        //Cerramos la pantalla
+                        window.Close();
+                    }
             }
         }
 
@@ -778,11 +812,10 @@ namespace View.Services.ViewModel
 
                     //Se asignan los valores.
                     obj.id_documento = id_documento;
-                    obj.nombre = nombre;
                     obj.id_dep = _id_dep;
                     obj.id_tipo_documento = _id_tipo;
                     obj.descripcion = descripcion;
-                    obj.version_actual = version;
+                    obj.version_actual = Convert.ToString( idVersion);
                     obj.fecha_actualizacion = fecha;
 
                     //Ejecuta el método para modificar un registro 
@@ -810,15 +843,31 @@ namespace View.Services.ViewModel
                                 Archivo objArchivo = new Archivo();
 
                                 //Mapeamos los valores al objeto creado.
-                                objArchivo.id_version = id_version;
+                                objArchivo.id_version = idVersion;
                                 objArchivo.archivo = item.archivo;
                                 objArchivo.ext = item.ext;
                                 objArchivo.nombre = item.nombre;
 
-                                //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
-                                int archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                                //Valida si el archivo existe
+                                int aux = DataManagerControlDocumentos.ValidateVersion(item.id_archivo);
+
+                                //si el archivo no existe 
+                                if (aux == 0)
+                                {
+                                    //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
+                                    int a = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                                }
                             }
                             await dialog.SendMessage("", "Cambios realizados..");
+                            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                            //Verificamos que la pantalla sea diferente de nulo.
+                            if (window != null)
+                            {
+                                //Cerramos la pantalla
+                                window.Close();
+                            }
 
                         }
                         else

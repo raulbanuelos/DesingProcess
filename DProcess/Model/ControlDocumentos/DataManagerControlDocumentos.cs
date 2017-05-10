@@ -137,6 +137,15 @@ namespace Model.ControlDocumentos
             //Se inicializa el programa para visualizar el archivo.
            Process.Start(filename);
         }
+
+        public static int ValidateVersion(int id_archivo)
+        {
+            //Inicializamos los servicios de Archivo
+            SO_Archivo ServiceArchivo = new SO_Archivo();
+
+            //Se ejecuta el método y regresamos el id si existe el archivo.
+            return ServiceArchivo.ValidateArchivo(id_archivo);
+        }
         #endregion
 
         #region Departamento
@@ -314,6 +323,12 @@ namespace Model.ControlDocumentos
             return ServiceDocumento.DeleteDocumento(documento.id_documento);
         } 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idTipoDocumento"></param>
+        /// <param name="textoBusqueda"></param>
+        /// <returns></returns>
         public static ObservableCollection<Documento> GetDataGrid(int idTipoDocumento,string textoBusqueda)
         {
             //Se inicializan los servicios de Documento.
@@ -355,6 +370,12 @@ namespace Model.ControlDocumentos
             return Lista;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <param name="id_version"></param>
+        /// <returns></returns>
         public static ObservableCollection<Documento> GetTipo(int id_documento,int id_version)
         {
             SO_Documento ServiceDocumento = new SO_Documento();
@@ -393,6 +414,11 @@ namespace Model.ControlDocumentos
             return Lista;
 
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="documento"></param>
+        /// <returns></returns>
 
         public static int UpdateVersionActual(Documento documento)
         {
