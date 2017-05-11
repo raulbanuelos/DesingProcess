@@ -128,16 +128,17 @@ namespace View.Services.ViewModel
 
         private void editarDocumento()
         {
+            if (selectedDocumento != null)
+            {
+                FrmDocumento frm = new FrmDocumento();
+                DocumentoViewModel context = new DocumentoViewModel(selectedDocumento.nombre, selectedDocumento.version.no_version, Convert.ToString(selectedDocumento.version.no_copias), selectedDocumento.descripcion, selectedDocumento.id_documento, selectedDocumento.id_dep, selectedDocumento.version.id_version, selectedDocumento.fecha_actualizacion);
 
-            FrmDocumento frm = new FrmDocumento();
+                frm.DataContext = context;
 
-            DocumentoViewModel context = new DocumentoViewModel(selectedDocumento.nombre, selectedDocumento.version.no_version, Convert.ToString( selectedDocumento.version.no_copias),selectedDocumento.descripcion, selectedDocumento.id_documento,selectedDocumento.id_dep,selectedDocumento.version.id_version,selectedDocumento.fecha_actualizacion);
+                frm.ShowDialog();
 
-            frm.DataContext = context;
-
-            frm.ShowDialog();
-
-            initControlDocumentos();
+                initControlDocumentos();
+            }
         }
         #endregion
 

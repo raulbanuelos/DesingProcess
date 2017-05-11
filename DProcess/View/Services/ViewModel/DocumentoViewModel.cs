@@ -231,6 +231,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        private ObservableCollection<Model.ControlDocumentos.Version> ListaVersiones = new ObservableCollection<Model.ControlDocumentos.Version>();
+        private ObservableCollection<Archivo> ListaArchivo = new ObservableCollection<Archivo>();
+
         private Archivo _selectedItem;
         public Archivo SelectedItem {
             get
@@ -640,6 +643,7 @@ namespace View.Services.ViewModel
                 //Se obtiene sólo el nombre, sin extensión.
                 obj.nombre = System.IO.Path.GetFileNameWithoutExtension(filename);
 
+                obj.numero = ListaDocumentos.Count+1;
                 if (BotonGuardar=="Guardar") {
                     //El nombre del archivo lo asigna al textbox del nombre
                     Nombre = obj.nombre;
@@ -750,6 +754,25 @@ namespace View.Services.ViewModel
                 //Mandamos a llamar a la  función para eliminar la versión.
                 int version = DataManagerControlDocumentos.DeleteVersion(objVersion);
 
+                //Obetenemos las versiones del documento
+                ListaVersiones = DataManagerControlDocumentos.GetVersiones(id_documento);
+
+                //iteramos la lista de las versiones
+                foreach (var item in ListaVersiones)
+                {
+                    //De cada versión obetemos los correspondientes archivos.
+                    ListaArchivo = DataManagerControlDocumentos.GetArchivos(item.id_version);
+
+                    //Iteramos la lista de archivos
+                    foreach (var archivo in ListaArchivo)
+                    {
+                        //Eliminamos el archivo
+                        int a = DataManagerControlDocumentos.DeleteArchivo(archivo);
+                    }
+                    //Mandamos a llamar la funcion para eliminar la version.
+                   int v = DataManagerControlDocumentos.DeleteVersion(item);
+                }
+
                 if (version != 0)
                 {
                     Documento obj = new Documento();
@@ -815,7 +838,7 @@ namespace View.Services.ViewModel
                     obj.id_dep = _id_dep;
                     obj.id_tipo_documento = _id_tipo;
                     obj.descripcion = descripcion;
-                    obj.version_actual = Convert.ToString( idVersion);
+                    obj.version_actual = Convert.ToString(idVersion);
                     obj.fecha_actualizacion = fecha;
 
                     //Ejecuta el método para modificar un registro 
@@ -832,47 +855,54 @@ namespace View.Services.ViewModel
                         objVersion.id_usuario = _usuario;
                         objVersion.fecha_version = fecha;
 
-                        int id_version = DataManagerControlDocumentos.UpdateVersion(objVersion);
+                        int validacion = DataManagerControlDocumentos.ValidateVersion(objVersion);
 
-                        if (id_version != 0)
+                        if (validacion == 0)
                         {
+                            //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
+                            int id_version = DataManagerControlDocumentos.UpdateVersion(objVersion);
 
-                            foreach (var item in _ListaDocumentos)
+                            if (id_version != 0)
                             {
-                                //Declaramos un objeto de tipo Archivo.
-                                Archivo objArchivo = new Archivo();
 
-                                //Mapeamos los valores al objeto creado.
-                                objArchivo.id_version = idVersion;
-                                objArchivo.archivo = item.archivo;
-                                objArchivo.ext = item.ext;
-                                objArchivo.nombre = item.nombre;
-
-                                //Valida si el archivo existe
-                                int aux = DataManagerControlDocumentos.ValidateVersion(item.id_archivo);
-
-                                //si el archivo no existe 
-                                if (aux == 0)
+                                foreach (var item in _ListaDocumentos)
                                 {
-                                    //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
-                                    int a = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                                    //Declaramos un objeto de tipo Archivo.
+                                    Archivo objArchivo = new Archivo();
+
+                                    //Mapeamos los valores al objeto creado.
+                                    objArchivo.id_version = idVersion;
+                                    objArchivo.archivo = item.archivo;
+                                    objArchivo.ext = item.ext;
+                                    objArchivo.nombre = item.nombre;
+
+                                    //si el archivo no existe 
+                                    if (item.id_archivo == 0)
+                                    {
+                                        //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
+                                        int a = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                                    }
                                 }
-                            }
-                            await dialog.SendMessage("", "Cambios realizados..");
-                            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+                                await dialog.SendMessage("Información", "Cambios realizados..");
+                                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
-                            //Verificamos que la pantalla sea diferente de nulo.
-                            if (window != null)
+                                //Verificamos que la pantalla sea diferente de nulo.
+                                if (window != null)
+                                {
+                                    //Cerramos la pantalla
+                                    window.Close();
+                                }
+
+                            }
+                            else
                             {
-                                //Cerramos la pantalla
-                                window.Close();
+                                await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en la versión..");
                             }
-
                         }
                         else
                         {
-                            await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en la versión..");
+                            await dialog.SendMessage("Información", "La versión ya existe para este documento");
                         }
                     }
                     else
@@ -880,6 +910,7 @@ namespace View.Services.ViewModel
                         await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en documento..");
                     }
 
+                    }
                 }
                 else
                 {
@@ -887,7 +918,7 @@ namespace View.Services.ViewModel
                     await dialog.SendMessage("RGP: Alerta", "Se debe llenar todos los campos");
                 }
             }
-        }
+        
 
         /// <summary>
         /// Comando para generar una nueva versión a un documento
@@ -930,10 +961,11 @@ namespace View.Services.ViewModel
         {
             if (item != null)
             {
+                
                 //Se guarda la ruta del directorio temporal.
                 var tempFolder = Path.GetTempPath();
-                //se asigna el nombre del archivo temporal, se concatena el nombre y la extensión.
-                string filename = Path.Combine(tempFolder, "temp" + item.ext);
+                //se asigna el nombre del archivo temporal, se concatena el nombre del archivo, la posicion de la lista y la extensión.
+                string filename = Path.Combine(tempFolder, item.nombre+item.numero + item.ext);
                 //Crea un archivo nuevo temporal, escribe en él los bytes extraídos de la BD.
                 File.WriteAllBytes(filename, item.archivo);
 

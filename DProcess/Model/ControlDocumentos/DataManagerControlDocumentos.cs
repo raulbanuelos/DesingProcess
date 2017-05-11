@@ -138,14 +138,6 @@ namespace Model.ControlDocumentos
            Process.Start(filename);
         }
 
-        public static int ValidateVersion(int id_archivo)
-        {
-            //Inicializamos los servicios de Archivo
-            SO_Archivo ServiceArchivo = new SO_Archivo();
-
-            //Se ejecuta el método y regresamos el id si existe el archivo.
-            return ServiceArchivo.ValidateArchivo(id_archivo);
-        }
         #endregion
 
         #region Departamento
@@ -845,6 +837,84 @@ namespace Model.ControlDocumentos
 
             //Retorna el id de la versión si ya existe.
             return ServiceVersion.ValidateVersion(obj.id_documento,obj.no_version );
+        }
+
+        /// <summary>
+        /// Método que retorna todas las versiones de un documento.
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Version> GetVersiones(int id_documento)
+        {
+            //Inicializamos los servicios de version.
+            SO_Version ServiceVersion = new SO_Version();
+
+            //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
+            ObservableCollection<Version> Lista = new ObservableCollection<Version>();
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList ObjVersion = ServiceVersion.Versiones(id_documento);
+
+            //Comparamos que la información de la base de datos no sea nulo.
+            if (ObjVersion != null)
+            {
+
+                //Iteramos la información recibida.
+                foreach (var item in ObjVersion)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos on objeto de tipo version que contendrá la información de un registro.
+                    Version obj = new Version();
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //Retornamos la lista.
+            return Lista;
+        }
+
+        /// <summary>
+        /// Método para obtener el id de los archivos de una versión
+        /// </summary>
+        /// <param name="id_version"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Archivo> GetArchivos(int id_version)
+        {
+            //Inicializamos los servicios de version.
+            SO_Version ServiceVersion = new SO_Version();
+
+            //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
+            ObservableCollection<Archivo> Lista = new ObservableCollection<Archivo>();
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList ObjVersion = ServiceVersion.GetArchivos(id_version);
+
+            //Comparamos que la información de la base de datos no sea nulo.
+            if (ObjVersion != null)
+            {
+
+                //Iteramos la información recibida.
+                foreach (var item in ObjVersion)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos on objeto de tipo version que contendrá la información de un registro.
+                   Archivo obj = new Archivo();
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_archivo = (int)tipo.GetProperty("ID_ARCHIVO").GetValue(item, null);
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //Retornamos la lista.
+            return Lista;
         }
         #endregion
 
