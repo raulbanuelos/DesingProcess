@@ -113,29 +113,37 @@ namespace View.Services.ViewModel
 
         private void irNuevoDocumento()
         {
+
             FrmDocumento frm = new FrmDocumento();
+            
             //DocumentoViewModel context = new DocumentoViewModel("IF00-0093", "2", "2", "Ayuda Visual Especificaciones de abertura de máquina H", 1026);
             DocumentoViewModel context = new DocumentoViewModel();
+
             frm.DataContext = context;
+
             frm.ShowDialog();
+
+            initControlDocumentos();
         }
 
         private void editarDocumento()
         {
 
             FrmDocumento frm = new FrmDocumento();
+
             DocumentoViewModel context = new DocumentoViewModel(selectedDocumento.nombre, selectedDocumento.version.no_version, Convert.ToString( selectedDocumento.version.no_copias),selectedDocumento.descripcion, selectedDocumento.id_documento,selectedDocumento.id_dep,selectedDocumento.version.id_version,selectedDocumento.fecha_actualizacion);
+
             frm.DataContext = context;
+
             frm.ShowDialog();
+
+            initControlDocumentos();
         }
         #endregion
 
-        private void GetDataGrid(string TextoBusqueda)
-        {
-           Lista = DataManagerControlDocumentos.GetDataGrid(SelectedTipoDocumento.id_tipo,TextoBusqueda);
-        }
+        #region Methods
 
-        public ControlDocumentoViewModel()
+        private void initControlDocumentos()
         {
             _ListaTipoDocumento = DataManagerControlDocumentos.GetTipo();
 
@@ -145,5 +153,20 @@ namespace View.Services.ViewModel
             }
             GetDataGrid(string.Empty);
         }
+
+        private void GetDataGrid(string TextoBusqueda)
+        {
+            Lista = DataManagerControlDocumentos.GetDataGrid(SelectedTipoDocumento.id_tipo, TextoBusqueda);
+        } 
+
+        #endregion
+
+        #region Constructors
+        public ControlDocumentoViewModel()
+        {
+            initControlDocumentos();
+        }
+        #endregion
+
     }
 }

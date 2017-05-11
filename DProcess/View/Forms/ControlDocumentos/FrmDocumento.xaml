@@ -45,7 +45,7 @@
         <Canvas HorizontalAlignment="Left" Height="670" Margin="10,10,0,-58" VerticalAlignment="Top" Width="1105" Grid.RowSpan="2">
 
             <!--Nombre Documento-->
-            <Label x:Name="label" Content="Nombre del Documento" Height="31" Canvas.Left="82" Canvas.Top="10" Width="196" FontSize="16" FontWeight="Bold"/>
+            <Label x:Name="label" Content="Número de Documento" Height="31" Canvas.Left="82" Canvas.Top="10" Width="196" FontSize="16" FontWeight="Bold"/>
             <Rectangle Fill="#89DCDCDC" Height="38" Canvas.Left="83" Canvas.Top="41" Width="51" Stroke="#FFBDBDBD"/>
             <Rectangle Width="47" Height="38" Canvas.Top="41" RenderTransformOrigin="0.871,0.394" Canvas.Left="86">
                 <Rectangle.Fill>
@@ -92,7 +92,7 @@
                     </Paragraph>
                 </FlowDocument>
             </RichTextBox>
-            <Label x:Name="label3" Content="Descripción" Height="34" Canvas.Left="85" Canvas.Top="614" Width="117" FontSize="16" FontWeight="Bold"/>
+            <Label x:Name="label3" Content="Nombre del Documento" Height="34" Canvas.Left="85" Canvas.Top="614" FontSize="16" FontWeight="Bold"/>
 
             <!--Buttons-->
             <Button x:Name="button"  Height="38" Width="59" RenderTransformOrigin="0.495,0.578" Background="#89FFFFFF" BorderBrush="#FFE0DEDE" Canvas.Left="541" Canvas.Top="41"  Command="{Binding LlenarLista}">
