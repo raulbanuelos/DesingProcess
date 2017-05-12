@@ -46,22 +46,47 @@
                     </ListBox>
                 </DockPanel>
             </materialDesign:DrawerHost.LeftDrawerContent>
-            <Grid ShowGridLines="False" Margin="5">
+            <Grid ShowGridLines="True" Margin="5">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="60"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="15"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="60"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="450"/>
                     <ColumnDefinition Width="15"/>
                 </Grid.ColumnDefinitions>
+                
+                <!--Comienza Menú Hamburguesa-->
                 <StackPanel Grid.Column="0" Grid.Row="0" Width="50" Height="50">
                     <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="{Binding IsOpenedToogle}"
                                         x:Name="MenuToggleButton" Command="{Binding AbrirCerrarToogle}"/>
                 </StackPanel>
+                <!--Termina menú Hamburguesa-->
+
+                <Grid Grid.Column="1" Grid.Row="0" ShowGridLines="True">
+                    <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
+                        <Button ToolTip="New">
+                            <materialDesign:PackIcon Kind="File" />
+                        </Button>
+
+                        <Button ToolTip="Open">
+                            <materialDesign:PackIcon Kind="Folder" />
+                        </Button>
+
+                        <Button ToolTip="Open">
+                            <materialDesign:PackIcon Kind="ContentSave" />
+                        </Button>
+                        <Separator />
+
+                        <Button ToolTip="Open">
+                            <materialDesign:PackIcon Kind="PlayCircle" />
+                        </Button>
+                    </ToolBar>
+                </Grid>
+                
                 <!--Comienza Panel Lateral Derecho-->
                 <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom">
                     <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
@@ -207,7 +232,7 @@
                 <!--Termina Panel Lateral Derecho-->
 
                 <!--Comienza Grid Central-->
-                <Grid Grid.Column="1" Grid.Row="1" ShowGridLines="False">
+                <Grid Grid.Column="1" Grid.Row="1" ShowGridLines="True">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="80"/>
@@ -215,7 +240,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Row="0" Grid.Column="0" ShowGridLines="False">
+                    <Grid Grid.Row="0" Grid.Column="0" ShowGridLines="True">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100*"></ColumnDefinition>
                             <ColumnDefinition Width="100*"></ColumnDefinition>
@@ -226,7 +251,7 @@
                         </Grid.RowDefinitions>
                         
                         <!--Comienza Perfil Puntas-->
-                        <Grid Grid.Column="0" Grid.Row="0" ShowGridLines="False">
+                        <Grid Grid.Column="0" Grid.Row="0" ShowGridLines="True">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="450" />
                                 <ColumnDefinition Width="*" />
@@ -287,7 +312,7 @@
                         <!--Termina Perfil Puntas-->
                         
                         <!--Comienza Pefil OD-->
-                        <Grid Grid.Column="1" Grid.Row="0" ShowGridLines="False">
+                        <Grid Grid.Column="1" Grid.Row="0" ShowGridLines="True">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="450" />
                                 <ColumnDefinition Width="*" />
@@ -347,7 +372,7 @@
                         <!--Termina Pefil OD-->
                         
                         <!--Comienza Perfil lateral-->
-                        <Grid Grid.Column="0" Grid.Row="1" ShowGridLines="False">
+                        <Grid Grid.Column="0" Grid.Row="1" ShowGridLines="True">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="450" />
                                 <ColumnDefinition Width="*" />
@@ -407,7 +432,7 @@
                         <!--Termina Perfil lateral-->
                         
                         <!--Comienza Perfil ID-->
-                        <Grid Grid.Column="1" Grid.Row="1" ShowGridLines="False">
+                        <Grid Grid.Column="1" Grid.Row="1" ShowGridLines="True">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="450" />
                                 <ColumnDefinition Width="*" />
