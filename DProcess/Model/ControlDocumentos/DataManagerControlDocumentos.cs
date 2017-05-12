@@ -316,7 +316,7 @@ namespace Model.ControlDocumentos
         } 
 
         /// <summary>
-        /// 
+        /// Método que obtiene los datos para llenar la informacion en un datagrid
         /// </summary>
         /// <param name="idTipoDocumento"></param>
         /// <param name="textoBusqueda"></param>
@@ -362,8 +362,13 @@ namespace Model.ControlDocumentos
             return Lista;
         }
 
+        public static void ExportToExcel(string tipo_docu)
+        {
+
+        }
+
         /// <summary>
-        /// 
+        /// Método para obtener el tipo y el archivo de un documento y una version.
         /// </summary>
         /// <param name="id_documento"></param>
         /// <param name="id_version"></param>
@@ -407,11 +412,10 @@ namespace Model.ControlDocumentos
 
         }
         /// <summary>
-        /// 
+        /// Método para actualizar la versión actual en la tbl documento.
         /// </summary>
         /// <param name="documento"></param>
         /// <returns></returns>
-
         public static int UpdateVersionActual(Documento documento)
         {
             //Se inician los servicios de Documento.

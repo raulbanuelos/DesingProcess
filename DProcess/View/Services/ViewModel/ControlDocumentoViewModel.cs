@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System;
 using View.Forms.ControlDocumentos;
 
+
 namespace View.Services.ViewModel
 {
     public class ControlDocumentoViewModel : INotifyPropertyChanged
@@ -126,6 +127,17 @@ namespace View.Services.ViewModel
             initControlDocumentos();
         }
 
+        private void ExportToExcel (){
+            //Excel.Application oXL;
+            //Excel._Workbook oWB;
+            //Excel._Worksheet oSheet;
+            //Excel.Range range;
+            //Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
+
+            //Excel.Workbook xlWorkBook;
+            //Excel.Worksheet xlWorkSheet;
+
+        }
         private void editarDocumento()
         {
             if (selectedDocumento != null)

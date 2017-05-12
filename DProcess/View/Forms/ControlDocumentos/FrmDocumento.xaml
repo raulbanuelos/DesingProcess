@@ -65,7 +65,7 @@
             <TextBox x:Name="txt_version" Canvas.Left="134" TextWrapping="Wrap" Canvas.Top="121" Height="38"  Width="467" BorderThickness="1" BorderBrush="#89535353" FontSize="18" Text="{Binding Version}"/>
 
             <!--Date-->
-            <DatePicker x:Name="txt_fecha"  Height="38" Canvas.Left="133" Canvas.Top="204" Width="467" BorderThickness="1" BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"/>
+            <DatePicker x:Name="txt_fecha"  Height="38" Canvas.Left="133" Canvas.Top="204" Width="467" DisplayDateEnd="{x:Static System:DateTime.Today}" BorderThickness="1" BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"/>
             <Rectangle Fill="#89DCDCDC" Height="38" Canvas.Left="83" Canvas.Top="204" Width="51" Stroke="#FFBDBDBD"/>
             <Rectangle Width="40" Height="39" Canvas.Top="203" RenderTransformOrigin="0.871,0.394" Canvas.Left="88">
                 <Rectangle.Fill>
@@ -85,14 +85,7 @@
             </Rectangle>
 
             <!--Descripción-->
-            <!--<RichTextBox x:Name="txt_descripcion" Height="175" Canvas.Left="82" Canvas.Top="649" Width="518" OpacityMask="White"  SelectionOpacity="0.2" BorderBrush="#FFBDBDBD"  FontSize="18" Foreground="Black" SelectionBrush="#FFBDBDBD" >
-                <FlowDocument>
-                    <Paragraph>
-                        <Run Background="White" Text="{Binding Descripcion}"/>
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>-->
-            <TextBox Text="{Binding Descripcion}" Canvas.Left="93" Canvas.Top="653" RenderTransformOrigin="-4.028,-0.333" Height="38"  Width="507" BorderThickness="1" BorderBrush="#89535353" FontSize="18"></TextBox>
+            <TextBox Text="{Binding Descripcion}" Canvas.Left="86" Canvas.Top="653" RenderTransformOrigin="-4.028,-0.333" Height="38"  Width="517" BorderThickness="1" BorderBrush="#89535353" FontSize="18"></TextBox>
             <Label x:Name="label3" Content="Nombre del Documento" Height="34" Canvas.Left="85" Canvas.Top="614" FontSize="16" FontWeight="Bold"/>
 
             <!--Buttons-->
@@ -131,7 +124,7 @@
 
 
             <!--Nombre del departamento-->
-            <ComboBox x:Name="comboBox1" Height="38" Canvas.Left="86" Canvas.Top="476" Width="517" BorderThickness="1" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaDepartamento}" DisplayMemberPath="nombre_dep" SelectedValuePath="id_dep" SelectedValue="{Binding id_dep}"/>
+            <ComboBox x:Name="comboBox1" Height="38" Canvas.Left="88" Canvas.Top="476" Width="517" BorderThickness="1" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaDepartamento}" DisplayMemberPath="nombre_dep" SelectedValuePath="id_dep" SelectedValue="{Binding id_dep}"/>
             <Label x:Name="label7" Content="Nombre del Departamento" Height="37" Canvas.Left="86" Canvas.Top="439" Width="232" FontSize="16" FontWeight="Bold"/>
 
             <!--Usuario-->

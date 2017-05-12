@@ -921,10 +921,18 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => generarVersion());
             }
         }
-        private  void generarVersion()
+        private async void generarVersion()
         {
-            //Limpiamos todos lo textbox, y se cambia el content del botón de guardar.
+            //Incializamos los servicios de dialog.
+            DialogService dialog = new DialogService();
+
+            //Obtiene la últuma version del documento.
             Version = DataManagerControlDocumentos.GetLastVersion(id_documento);
+
+            //Manda un mensaje al usuario, donde muestra la versión nueva.
+            await dialog.SendMessage("Alerta", "La nueva versión del documento es la número "+Version);
+
+            //Limpiamos todos lo textbox, y se cambia el content del botón de guardar.
             Fecha = DateTime.Now;
             Copias=string.Empty;
             usuario = null;
@@ -936,6 +944,7 @@ namespace View.Services.ViewModel
             BttnVersion = false;
             NombreEnabled = false;
             BttnCancelar = true;
+
         }
 
         /// <summary>
@@ -996,6 +1005,7 @@ namespace View.Services.ViewModel
         }
         private async void eliminarItem(Archivo item)
         {
+            //Incializamos los servicios de dialog.
             DialogService dialogService = new DialogService();
 
             if (item != null)
