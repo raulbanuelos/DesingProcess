@@ -9,7 +9,7 @@
        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="" Height="983.5" Width="1147.5"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen">
-    
+
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
         <DataTemplate x:Key="Lista">
@@ -20,7 +20,7 @@
                         <ColumnDefinition Width="110">
                         </ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                     <!--Columna0-->
+                    <!--Columna0-->
                     <TextBlock Text="Nombre: " FontSize="14" Grid.Column="0" HorizontalAlignment="Left"></TextBlock>
                     <TextBlock FontWeight="Bold" Text="{Binding Path=nombre}" TextWrapping="WrapWithOverflow" TextAlignment="Center" Grid.Column="0" HorizontalAlignment="Right" Padding="2"></TextBlock>
                     <TextBlock Text="Extensión: " FontSize="14" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
@@ -42,7 +42,7 @@
             <RowDefinition Height="55*"/>
         </Grid.RowDefinitions>
 
-        <Canvas HorizontalAlignment="Left" Height="670" Margin="10,10,0,-58" VerticalAlignment="Top" Width="1105" Grid.RowSpan="2">
+        <Canvas HorizontalAlignment="Left" Height="745" Margin="10,10,-12,-133" VerticalAlignment="Top" Width="1105" Grid.RowSpan="2">
 
             <!--Nombre Documento-->
             <Label x:Name="label" Content="Número de Documento" Height="31" Canvas.Left="82" Canvas.Top="10" Width="196" FontSize="16" FontWeight="Bold"/>
@@ -62,7 +62,7 @@
                     <ImageBrush ImageSource="/View;component/Images/copy.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <TextBox x:Name="txt_version" Height="38" Canvas.Left="134" TextWrapping="Wrap" Canvas.Top="121" Width="467" BorderThickness="1" BorderBrush="#89535353" FontSize="18" Text="{Binding Version}"/>
+            <TextBox x:Name="txt_version" Canvas.Left="134" TextWrapping="Wrap" Canvas.Top="121" Height="38"  Width="467" BorderThickness="1" BorderBrush="#89535353" FontSize="18" Text="{Binding Version}"/>
 
             <!--Date-->
             <DatePicker x:Name="txt_fecha"  Height="38" Canvas.Left="133" Canvas.Top="204" Width="467" BorderThickness="1" BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"/>
@@ -85,13 +85,14 @@
             </Rectangle>
 
             <!--Descripción-->
-            <RichTextBox x:Name="txt_descripcion" Height="175" Canvas.Left="82" Canvas.Top="649" Width="518" OpacityMask="White"  SelectionOpacity="0.2" BorderBrush="#FFBDBDBD"  FontSize="18" Foreground="Black" SelectionBrush="#FFBDBDBD" >
+            <!--<RichTextBox x:Name="txt_descripcion" Height="175" Canvas.Left="82" Canvas.Top="649" Width="518" OpacityMask="White"  SelectionOpacity="0.2" BorderBrush="#FFBDBDBD"  FontSize="18" Foreground="Black" SelectionBrush="#FFBDBDBD" >
                 <FlowDocument>
                     <Paragraph>
                         <Run Background="White" Text="{Binding Descripcion}"/>
                     </Paragraph>
                 </FlowDocument>
-            </RichTextBox>
+            </RichTextBox>-->
+            <TextBox Text="{Binding Descripcion}" Canvas.Left="93" Canvas.Top="653" RenderTransformOrigin="-4.028,-0.333" Height="38"  Width="507" BorderThickness="1" BorderBrush="#89535353" FontSize="18"></TextBox>
             <Label x:Name="label3" Content="Nombre del Documento" Height="34" Canvas.Left="85" Canvas.Top="614" FontSize="16" FontWeight="Bold"/>
 
             <!--Buttons-->

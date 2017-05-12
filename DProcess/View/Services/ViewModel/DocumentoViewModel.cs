@@ -837,7 +837,7 @@ namespace View.Services.ViewModel
                     obj.id_documento = id_documento;
                     obj.id_dep = _id_dep;
                     obj.id_tipo_documento = _id_tipo;
-                    obj.descripcion = descripcion;
+                    obj.descripcion = Descripcion;
                     obj.version_actual = Convert.ToString(idVersion);
                     obj.fecha_actualizacion = fecha;
 
