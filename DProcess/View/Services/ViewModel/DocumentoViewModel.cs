@@ -855,54 +855,45 @@ namespace View.Services.ViewModel
                         objVersion.id_usuario = _usuario;
                         objVersion.fecha_version = fecha;
 
-                        int validacion = DataManagerControlDocumentos.ValidateVersion(objVersion);
+                        //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
+                        int id_version = DataManagerControlDocumentos.UpdateVersion(objVersion);
 
-                        if (validacion == 0)
+                        if (id_version != 0)
                         {
-                            //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
-                            int id_version = DataManagerControlDocumentos.UpdateVersion(objVersion);
 
-                            if (id_version != 0)
+                            foreach (var item in _ListaDocumentos)
                             {
+                                //Declaramos un objeto de tipo Archivo.
+                                Archivo objArchivo = new Archivo();
 
-                                foreach (var item in _ListaDocumentos)
+                                //Mapeamos los valores al objeto creado.
+                                objArchivo.id_version = idVersion;
+                                objArchivo.archivo = item.archivo;
+                                objArchivo.ext = item.ext;
+                                objArchivo.nombre = item.nombre;
+
+                                //si el archivo no existe 
+                                if (item.id_archivo == 0)
                                 {
-                                    //Declaramos un objeto de tipo Archivo.
-                                    Archivo objArchivo = new Archivo();
-
-                                    //Mapeamos los valores al objeto creado.
-                                    objArchivo.id_version = idVersion;
-                                    objArchivo.archivo = item.archivo;
-                                    objArchivo.ext = item.ext;
-                                    objArchivo.nombre = item.nombre;
-
-                                    //si el archivo no existe 
-                                    if (item.id_archivo == 0)
-                                    {
-                                        //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
-                                        int a = await DataManagerControlDocumentos.SetArchivo(objArchivo);
-                                    }
+                                    //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
+                                    int a = await DataManagerControlDocumentos.SetArchivo(objArchivo);
                                 }
-                                await dialog.SendMessage("Información", "Cambios realizados..");
-                                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                                //Verificamos que la pantalla sea diferente de nulo.
-                                if (window != null)
-                                {
-                                    //Cerramos la pantalla
-                                    window.Close();
-                                }
-
                             }
-                            else
+                            await dialog.SendMessage("Información", "Cambios realizados..");
+                            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                            //Verificamos que la pantalla sea diferente de nulo.
+                            if (window != null)
                             {
-                                await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en la versión..");
+                                //Cerramos la pantalla
+                                window.Close();
                             }
+
                         }
                         else
                         {
-                            await dialog.SendMessage("Información", "La versión ya existe para este documento");
+                            await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en la versión..");
                         }
                     }
                     else
@@ -910,7 +901,6 @@ namespace View.Services.ViewModel
                         await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en documento..");
                     }
 
-                    }
                 }
                 else
                 {
@@ -918,6 +908,7 @@ namespace View.Services.ViewModel
                     await dialog.SendMessage("RGP: Alerta", "Se debe llenar todos los campos");
                 }
             }
+        }
         
 
         /// <summary>
@@ -954,7 +945,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(o => verArchivo(_selectedItem));
+                return new RelayCommand(o => verArchivo(SelectedItem));
             }
         }
         private  void verArchivo(Archivo item)
@@ -1007,20 +998,23 @@ namespace View.Services.ViewModel
         {
             DialogService dialogService = new DialogService();
 
-            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
-            MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
-
-            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialogService.SendMessage("Attention", "¿Deseas eliminar el archivo?" , setting, MessageDialogStyle.AffirmativeAndNegative);
-
-            if (item != null & result== MessageDialogResult.Affirmative)
+            if (item != null)
             {
-                //Se elimina el item seleccionado de la listaDocumentos.
-                ListaDocumentos.Remove(item);
-                //Se elimina de la base de datos.
-                int n = DataManagerControlDocumentos.DeleteArchivo(item);
+                //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+                MetroDialogSettings setting = new MetroDialogSettings();
+                setting.AffirmativeButtonText = "SI";
+                setting.NegativeButtonText = "NO";
+
+                //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+                MessageDialogResult result = await dialogService.SendMessage("Attention", "¿Deseas eliminar el archivo?", setting, MessageDialogStyle.AffirmativeAndNegative);
+
+                if (item != null & result == MessageDialogResult.Affirmative)
+                {
+                    //Se elimina el item seleccionado de la listaDocumentos.
+                    ListaDocumentos.Remove(item);
+                    //Se elimina de la base de datos.
+                    int n = DataManagerControlDocumentos.DeleteArchivo(item);
+                }
             }
         }
         
@@ -1034,7 +1028,7 @@ namespace View.Services.ViewModel
         /// <returns></returns>
         private bool ValidarValores()
         {
-            if (nombre != null & version != null & fecha != null & copias != null & descripcion != null & id_tipo != 0 & _ListaDocumentos.Count != 0 & _usuario!=null & _id_dep!=0)
+            if (nombre != string.Empty & version != string.Empty & fecha != null & copias != string.Empty & descripcion != string.Empty & id_tipo != 0 & _ListaDocumentos.Count != 0 & _usuario!=string.Empty & _id_dep!=0)
                 return true;
             else 
                 return false;

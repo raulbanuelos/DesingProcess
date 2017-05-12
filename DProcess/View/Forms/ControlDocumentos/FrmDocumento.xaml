@@ -65,7 +65,7 @@
             <TextBox x:Name="txt_version" Height="38" Canvas.Left="134" TextWrapping="Wrap" Canvas.Top="121" Width="467" BorderThickness="1" BorderBrush="#89535353" FontSize="18" Text="{Binding Version}"/>
 
             <!--Date-->
-            <DatePicker x:Name="txt_fecha"  Height="38" Canvas.Left="133" Canvas.Top="204" Width="467" BorderThickness="1" BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}" />
+            <DatePicker x:Name="txt_fecha"  Height="38" Canvas.Left="133" Canvas.Top="204" Width="467" BorderThickness="1" BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"/>
             <Rectangle Fill="#89DCDCDC" Height="38" Canvas.Left="83" Canvas.Top="204" Width="51" Stroke="#FFBDBDBD"/>
             <Rectangle Width="40" Height="39" Canvas.Top="203" RenderTransformOrigin="0.871,0.394" Canvas.Left="88">
                 <Rectangle.Fill>
