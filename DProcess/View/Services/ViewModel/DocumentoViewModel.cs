@@ -961,17 +961,36 @@ namespace View.Services.ViewModel
         {
             if (item != null)
             {
-                
-                //Se guarda la ruta del directorio temporal.
-                var tempFolder = Path.GetTempPath();
                 //se asigna el nombre del archivo temporal, se concatena el nombre del archivo, la posicion de la lista y la extensión.
-                string filename = Path.Combine(tempFolder, item.nombre+item.numero + item.ext);
+                string filename = GetPathTempFile(item);
+
                 //Crea un archivo nuevo temporal, escribe en él los bytes extraídos de la BD.
                 File.WriteAllBytes(filename, item.archivo);
 
                 //Se inicializa el programa para visualizar el archivo.
                 Process.Start(filename);
             }
+        }
+
+        /// <summary>
+        /// Método que genera una cadena para cargar un archivo en la carpeta temporal del sistema.
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        private string GetPathTempFile(Archivo item)
+        {
+            //Se guarda la ruta del directorio temporal.
+            var tempFolder = Path.GetTempPath();
+
+            string filename = string.Empty;
+            do
+            {
+                string aleatorio = Module.GetRandomString(5);
+
+                filename = Path.Combine(tempFolder, item.nombre + item.numero + "_" + aleatorio + item.ext);
+            } while (File.Exists(filename));
+
+            return filename;
         }
 
         /// <summary>

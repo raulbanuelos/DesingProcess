@@ -6,6 +6,7 @@ using MahApps.Metro.Controls.Dialogs;
 using System.Windows;
 using DataAccess.ServiceObjects.Unidades;
 using System;
+using System.Linq;
 
 namespace View.Services
 {
@@ -466,6 +467,19 @@ namespace View.Services
 
             //Retornamos el valor.
             return respuesta;
+        }
+
+        /// <summary>
+        /// Método que genera una cadena aleatorea del un tamaño deceado.
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static string GetRandomString(int length)
+        {
+            Random random = new Random();
+            const string chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }
