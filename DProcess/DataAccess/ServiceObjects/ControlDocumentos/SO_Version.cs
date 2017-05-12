@@ -252,5 +252,68 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        /// <summary>
+        /// Método que retorna todas las versiones de un documento.
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <returns></returns>
+        public IList Versiones(int id_documento)
+        {
+            try
+            {
+                //Establecemos la conexión a la BD.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
+                    var Lista = (from v in Conexion.TBL_VERSION
+                                 where v.ID_DOCUMENTO== id_documento
+                                 select new
+                                 {
+                                     v.ID_VERSION
+                                 }).ToList();
+                    //se retorna la lista
+                    return Lista;
+
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay algún error, se retorna un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método para obtener los archivos de una versión
+        /// </summary>
+        /// <param name="id_version"></param>
+        /// <returns></returns>
+        public IList GetArchivos(int id_version)
+        {
+            try
+            {
+                //Establecemos la conexión a la BD.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
+                    var Lista = (from a in Conexion.TBL_ARCHIVO
+                                 where a.ID_VERSION== id_version
+                                 select new
+                                 {
+                                     a.ID_ARCHIVO
+                                 }).ToList();
+                    //se retorna la lista
+                    return Lista;
+
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay algún error, se retorna un nulo.
+                return null;
+            }
+        }
+
+
     }
 }
