@@ -4,7 +4,8 @@ using System.ComponentModel;
 using System.Windows.Input;
 using System;
 using View.Forms.ControlDocumentos;
-
+using System.Data;
+using Model;
 
 namespace View.Services.ViewModel
 {
@@ -112,6 +113,14 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand Exportar
+        {
+            get
+            {
+                return new RelayCommand(o => ExportarExcel());
+            }
+        }
+
         private void irNuevoDocumento()
         {
 
@@ -127,16 +136,46 @@ namespace View.Services.ViewModel
             initControlDocumentos();
         }
 
-        private void ExportToExcel (){
-            //Excel.Application oXL;
-            //Excel._Workbook oWB;
-            //Excel._Worksheet oSheet;
-            //Excel.Range range;
-            //Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
+        private async void ExportarExcel(){
 
-            //Excel.Workbook xlWorkBook;
-            //Excel.Worksheet xlWorkSheet;
+           DataSet ds = new DataSet();
+           DataTable table = new DataTable();
 
+           //Incializamos los servicios de dialog.
+           DialogService dialog = new DialogService();
+
+            table.Columns.Add("Numero de Documento");
+            table.Columns.Add("Nombre de Documento");
+            table.Columns.Add("Version");
+            table.Columns.Add("Copias");
+            table.Columns.Add("Responsable");
+            table.Columns.Add("Fecha de Emision");
+            table.Columns.Add("Fecha de Revision");
+
+            foreach (var item in Lista)
+            {
+                DataRow newRow = table.NewRow();
+
+                newRow["Numero de Documento"] = item.nombre;
+                newRow["Nombre de Documento"] = item.descripcion;
+                newRow["Version"] = item.version.no_version;
+                newRow["Copias"] = item.version.no_copias;
+                newRow["Responsable"] = item.Departamento;
+                newRow["Fecha de Emision"] = item.fecha_emision.ToShortDateString();
+                newRow["Fecha de Revision"] = item.fecha_actualizacion.ToShortDateString();
+
+                table.Rows.Add(newRow);
+            }
+
+            ds.Tables.Add(table);
+
+            string e=ExportToExcel.Export(ds);
+
+            if (e!=null)
+            {
+            await dialog.SendMessage("Alerta", e);
+            }
+            
         }
         private void editarDocumento()
         {
