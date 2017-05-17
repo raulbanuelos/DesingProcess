@@ -1,0 +1,41 @@
+﻿<Controls:MetroWindow  x:Class="View.Forms.ControlDocumentos.FrmNuevoUsuario"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
+        mc:Ignorable="d"
+        Title="Agregar Usuario" 
+        Height="502.177" Width="701.097" 
+        BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="0,0,8,7" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="456*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <Grid HorizontalAlignment="Left" Height="326" Margin="10,65,0,0" VerticalAlignment="Top" Width="660">
+            <TextBox x:Name="textBox"  materialDesign:HintAssist.Hint="Nombre de Usuario" HorizontalAlignment="Left" Height="58" Margin="30,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="600"  BorderThickness="1,1,1,1" BorderBrush="#899B9999" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction
+									Command="{Binding BuscarDocumentos}"
+                                    CommandParameter="{Binding ElementName=txt_busqueda, Path=Text}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <TextBox x:Name="txt_nombre"  materialDesign:HintAssist.Hint="Nombre " HorizontalAlignment="Left" Height="43" Margin="30,97,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="600"  BorderThickness="1,1,1,1" BorderBrush="#899B9999" FontSize="18" />
+            <TextBox x:Name="textBox1" materialDesign:HintAssist.Hint="Apellido Paterno " HorizontalAlignment="Left" Height="43" Margin="30,173,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="293"  BorderThickness="1,1,1,1" BorderBrush="#899B9999" FontSize="18"/>
+            <TextBox x:Name="textBox2" materialDesign:HintAssist.Hint="Apellido Materno " HorizontalAlignment="Left" Height="43" Margin="342,173,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="288" BorderThickness="1,1,1,1" BorderBrush="#899B9999" FontSize="18"/>
+            <TextBox x:Name="textBox3" materialDesign:HintAssist.Hint="Contraseña " HorizontalAlignment="Left" Height="49" Margin="30,248,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="600" BorderThickness="1,1,1,1" BorderBrush="#899B9999" FontSize="18"/>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="54" Margin="479,407,0,0" VerticalAlignment="Top" Width="192" Grid.RowSpan="2">
+            <Button x:Name="button" Content="Guardar" HorizontalAlignment="Left" Height="41" Margin="10,0,0,0" VerticalAlignment="Top" Width="139"/>
+        </Grid>
+        <Label x:Name="label" Content="Agregar Usuario" HorizontalAlignment="Left" Height="38" Margin="37,22,0,0" VerticalAlignment="Top" Width="375" FontSize="20" FontWeight="Bold"/>
+
+    </Grid>
+</Controls:MetroWindow>

@@ -6,6 +6,7 @@ using System;
 using View.Forms.ControlDocumentos;
 using System.Data;
 using Model;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace View.Services.ViewModel
 {
@@ -139,9 +140,9 @@ namespace View.Services.ViewModel
 
            DataSet ds = new DataSet();
            DataTable table = new DataTable();
-
-           //Incializamos los servicios de dialog.
-           DialogService dialog = new DialogService();
+          
+            //Incializamos los servicios de dialog.
+            DialogService dialog = new DialogService();
 
             table.Columns.Add("Numero de Documento");
             table.Columns.Add("Nombre de Documento");
@@ -168,7 +169,7 @@ namespace View.Services.ViewModel
 
             ds.Tables.Add(table);
 
-            string e=ExportToExcel.Export(ds);
+            string e= ExportToExcel.Export(ds);
 
             if (e!=null)
             {

@@ -744,6 +744,7 @@ namespace Model.ControlDocumentos
                     obj.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     obj.id_usuario = (string)tipo.GetProperty("ID_USUARIO_ELABORO").GetValue(item, null);
+                    obj.id_usuario_autorizo= (string)tipo.GetProperty("ID_USUARIO_AUTORIZO").GetValue(item, null);
                     obj.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     obj.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
                     obj.no_copias = (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
@@ -766,7 +767,7 @@ namespace Model.ControlDocumentos
             SO_Version ServiceVersion = new SO_Version();
 
             //Se ejecuta el método y regresa el id de la versión
-            return ServiceVersion.SetVersion(version.id_version, version.id_usuario,version.id_documento, version.no_version, version.fecha_version, version.no_copias);
+            return ServiceVersion.SetVersion(version.id_version, version.id_usuario,version.id_usuario_autorizo,version.id_documento, version.no_version, version.fecha_version, version.no_copias);
         }
 
         /// <summary>
@@ -780,7 +781,7 @@ namespace Model.ControlDocumentos
             SO_Version ServiceVersion = new SO_Version();
 
             // Se ejecuta el método y retorna los registros que se modificarion
-            return ServiceVersion.UpdateVersion(version.id_version, version.id_usuario, version.id_documento, version.no_version, version.fecha_version, version.no_copias);
+            return ServiceVersion.UpdateVersion(version.id_version, version.id_usuario,version.id_usuario_autorizo, version.id_documento, version.no_version, version.fecha_version, version.no_copias);
         }
 
         /// <summary>
@@ -802,12 +803,39 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="id_version"></param>
         /// <returns></returns>
-        public static string GetIdUsuario(int id_version)
+        public static ObservableCollection<Version> GetIdUsuario(int id_version)
         {
             //Inicializamos los servicios de version.
             SO_Version ServiceVersion = new SO_Version();
 
-            return ServiceVersion.GetUsuario(id_version);
+            //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
+            ObservableCollection<Version> Lista = new ObservableCollection<Version>();
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList ObjVersion = ServiceVersion.GetUsuario(id_version);
+
+            //Comparamos que la información de la base de datos no sea nulo.
+            if (ObjVersion != null)
+            {
+
+                //Iteramos la información recibida.
+                foreach (var item in ObjVersion)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos on objeto de tipo version que contendrá la información de un registro.
+                    Version obj = new Version();
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_usuario = (string)tipo.GetProperty("ID_USUARIO_ELABORO").GetValue(item, null);
+                    obj.id_usuario_autorizo = (string)tipo.GetProperty("ID_USUARIO_AUTORIZO").GetValue(item, null);
+                    
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            return Lista;
         }
 
         /// <summary>

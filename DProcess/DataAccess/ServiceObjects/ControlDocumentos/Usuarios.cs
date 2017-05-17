@@ -18,6 +18,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public Usuarios()
         {
             this.TBL_VERSION = new HashSet<TBL_VERSION>();
+            this.TBL_VERSION1 = new HashSet<TBL_VERSION>();
         }
     
         public string Usuario { get; set; }
@@ -33,5 +34,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_VERSION> TBL_VERSION { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_VERSION> TBL_VERSION1 { get; set; }
     }
 }

@@ -172,9 +172,23 @@ namespace View.Services.ViewModel
             }
         }
 
+        private string _usuarioAutorizo;
+        public string usuarioAutorizo
+        {
+            get
+            {
+                return _usuarioAutorizo;
+            }
+            set
+            {
+                _usuarioAutorizo = value;
+                NotifyChange("usuarioAutorizo");
+            }
+        }
+
         private int idVersion;
 
-        private string auxcopias, auxversion, auxUsuario;
+        private string auxcopias, auxversion, auxUsuario,auxUsuario_Autorizo;
 
         private ObservableCollection<Archivo> _ListaDocumentos = new ObservableCollection<Archivo>();
         public ObservableCollection<Archivo> ListaDocumentos
@@ -349,8 +363,16 @@ namespace View.Services.ViewModel
             idVersion = _id_version;
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(_id_documento);
             id_dep = _idDep;
-            usuario = DataManagerControlDocumentos.GetIdUsuario(_id_version);
-            auxUsuario = usuario;
+            // usuario = DataManagerControlDocumentos.GetIdUsuario(_id_version);
+            ObservableCollection<Model.ControlDocumentos.Version> ListaUsuario = DataManagerControlDocumentos.GetIdUsuario(_id_version);
+            foreach (var item in ListaUsuario)
+            {
+                usuario = item.id_usuario;
+                auxUsuario = usuario;
+                usuarioAutorizo = item.id_usuario_autorizo;
+                auxUsuario_Autorizo = usuarioAutorizo;
+            }
+          
             ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetTipo(_id_documento,idVersion);
 
             foreach (var item in Lista)
@@ -423,10 +445,10 @@ namespace View.Services.ViewModel
                     obj.id_tipo_documento = _id_tipo;
                     obj.id_dep = _id_dep;
                     obj.descripcion = descripcion;
-                    //obj.version_actual = version;
                     obj.fecha_creacion = DateTime.Now;
                     obj.fecha_actualizacion = fecha;
                     obj.fecha_emision = fecha;
+
                     
                     //Ejecutamos el método para guardar el documento. El resultado lo guardamos en una variable local.
                     id_documento = DataManagerControlDocumentos.SetDocumento(obj);
@@ -440,6 +462,7 @@ namespace View.Services.ViewModel
                         objVersion.no_copias = Convert.ToInt32(copias);
                         objVersion.id_documento = id_documento;
                         objVersion.id_usuario = _usuario;
+                        objVersion.id_usuario_autorizo = _usuarioAutorizo;
                         objVersion.fecha_version = fecha;
 
                         //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
@@ -525,6 +548,7 @@ namespace View.Services.ViewModel
                     objVersion.no_copias = Convert.ToInt32(copias);
                     objVersion.id_documento = id_documento;
                     objVersion.id_usuario = _usuario;
+                    objVersion.id_usuario_autorizo = _usuarioAutorizo;
                     objVersion.fecha_version = fecha;
 
                     //valida que la version en el documento no se repita
@@ -679,6 +703,7 @@ namespace View.Services.ViewModel
         {
             Copias = auxcopias;
             usuario = auxUsuario;
+            usuarioAutorizo = auxUsuario_Autorizo;
             Version = auxversion;
             BotonGuardar = "Guardar";
             BttnEliminar = true;
@@ -853,6 +878,7 @@ namespace View.Services.ViewModel
                         objVersion.no_copias = Convert.ToInt32(copias);
                         objVersion.id_documento = id_documento;
                         objVersion.id_usuario = _usuario;
+                        objVersion.id_usuario_autorizo = _usuarioAutorizo;
                         objVersion.fecha_version = fecha;
 
                         //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
@@ -936,6 +962,7 @@ namespace View.Services.ViewModel
             Fecha = DateTime.Now;
             Copias=string.Empty;
             usuario = null;
+            usuarioAutorizo = null;
             ListaDocumentos.Clear();
             BotonGuardar = "Guardar Version";
             BttnGuardar = true;
@@ -1027,7 +1054,21 @@ namespace View.Services.ViewModel
                 }
             }
         }
+
+        public ICommand AgregarUsuario
+        {
+            get
+            {
+                return new RelayCommand(o => agregarUsuario());
+            }
+        }
         
+        private void agregarUsuario()
+        {
+            FrmNuevoUsuario frm = new FrmNuevoUsuario();
+
+            frm.ShowDialog();
+        }
         #endregion
 
         #region Methods
@@ -1038,7 +1079,7 @@ namespace View.Services.ViewModel
         /// <returns></returns>
         private bool ValidarValores()
         {
-            if (nombre != string.Empty & version != string.Empty & fecha != null & copias != string.Empty & descripcion != string.Empty & id_tipo != 0 & _ListaDocumentos.Count != 0 & _usuario!=string.Empty & _id_dep!=0)
+            if (nombre != string.Empty & version != string.Empty & fecha != null & copias != string.Empty & descripcion != string.Empty & id_tipo != 0 & _ListaDocumentos.Count != 0 & _usuario!=null & _id_dep!=0 & _usuarioAutorizo!=null)
                 return true;
             else 
                 return false;

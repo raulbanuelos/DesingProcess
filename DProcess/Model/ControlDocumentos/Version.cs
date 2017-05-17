@@ -16,6 +16,7 @@ namespace Model.ControlDocumentos
         public DateTime fecha_version { get; set; }
         public int no_copias { get; set; }
         public Archivo archivo { get; set; }
+        public string id_usuario_autorizo { get; set; }
         #endregion
 
         #region Constructores
@@ -29,6 +30,7 @@ namespace Model.ControlDocumentos
             fecha_version = new DateTime();
             no_copias = 0;
             archivo = new Archivo();
+            id_usuario_autorizo = string.Empty;
         }
         #endregion
 

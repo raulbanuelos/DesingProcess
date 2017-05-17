@@ -24,11 +24,13 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
                     var Lista = (from v in Conexion.TBL_VERSION
                                  join d in Conexion.TBL_DOCUMENTO on v.ID_DOCUMENTO equals d.ID_DOCUMENTO
-                                 join u in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals u.Usuario
+                                 join u in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals u.Usuario 
+                                 join us in Conexion.Usuarios on v.ID_USUARIO_AUTORIZO equals us.Usuario
                                  select new
                                  {
                                      v.ID_VERSION,
                                      ID_USUARIO_ELABORO = u.Usuario,
+                                     ID_USUARIO_AUTORIZO=us.Usuario,
                                      ID_DOCUMENTO = d.ID_DOCUMENTO,
                                      v.No_VERSION,
                                      v.FECHA_VERSION,
@@ -56,7 +58,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha"></param>
         /// <param name="no_copias"></param>
         /// <returns>Si hay algún error, retorna cero.</returns>
-        public int SetVersion(int id_version,string id_usuario,int id_documento,string no_version,DateTime fecha,int no_copias)
+        public int SetVersion(int id_version,string id_usuario,string id_usuario_autorizo,int id_documento,string no_version,DateTime fecha,int no_copias)
         {
 
             try
@@ -68,13 +70,13 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     TBL_VERSION obj = new TBL_VERSION();
 
                     //Se asiganan los valores.
-                   obj.ID_VERSION = id_version;
+                    obj.ID_VERSION = id_version;
                     obj.ID_USUARIO_ELABORO = id_usuario;
                     obj.ID_DOCUMENTO = id_documento;
                     obj.No_VERSION = no_version;
                     obj.NO_COPIAS = no_copias;
                     obj.FECHA_VERSION = fecha;
-
+                    obj.ID_USUARIO_AUTORIZO = id_usuario_autorizo;
                     //Agrega el objeto a la tabla.
                     Conexion.TBL_VERSION.Add(obj);
                     //Se guardan los cambios
@@ -101,7 +103,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha"></param>
         /// <param name="no_copias"></param>
         /// <returns></returns>
-        public int UpdateVersion(int id_version, string id_usuario, int id_documento, string no_version, DateTime fecha, int no_copias)
+        public int UpdateVersion(int id_version, string id_usuario,string id_usuario_autorizo, int id_documento, string no_version, DateTime fecha, int no_copias)
         {
             try
             {
@@ -113,6 +115,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 
                     //Asignamos los  parámetros recibidos a cada uno de los valores de los objetos.
                     obj.ID_USUARIO_ELABORO = id_usuario;
+                    obj.ID_USUARIO_AUTORIZO = id_usuario_autorizo;
                     obj.ID_DOCUMENTO = id_documento;
                     obj.No_VERSION = no_version;
                     obj.FECHA_VERSION = fecha;
@@ -162,11 +165,11 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
-        /// Método para obetener el id del usuario del id de la version.
+        /// Método para obetener el id del usuario del id que elaboró y autorizó de la version.
         /// </summary>
         /// <param name="id_version"></param>
         /// <returns></returns>
-        public string GetUsuario(int id_version)
+        public IList GetUsuario(int id_version)
         {
             try
             {
@@ -174,9 +177,12 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
                     //Realizamos la consulta y e resultado lo guardamos en una variable local.
-                    string usuario = (from v in Conexion.TBL_VERSION
+                    var usuario = (from v in Conexion.TBL_VERSION
                                            where v.ID_VERSION == id_version
-                                           select v.ID_USUARIO_ELABORO).ToList().FirstOrDefault();
+                                           select new {
+                                               v.ID_USUARIO_ELABORO,
+                                               v.ID_USUARIO_AUTORIZO
+                                           }).ToList();
 
                     //Retornamos el resultado de la consulta.
                     return usuario;

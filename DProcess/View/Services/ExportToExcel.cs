@@ -6,14 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Excel = Microsoft.Office.Interop.Excel;
 
-namespace Model
+namespace View.Services
 {
-   public static class ExportToExcel
+    public static class ExportToExcel
     {
         /// <summary>
-        /// Método que exporta un dataset a excel.
+        /// Método para exportar un archivo excel desde un dataset
         /// </summary>
         /// <param name="data"></param>
+        /// <returns></returns>
         public static string Export(DataSet data)
         {
             try
@@ -56,7 +57,7 @@ namespace Model
                             border[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
                             border[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
                             //Establece automáticamente el tamaño de la columna.
-                             ExcelWoorkSheet.Columns.AutoFit();
+                            ExcelWoorkSheet.Columns.AutoFit();
                             //ExcelWoorkSheet.Cells[1, i + 1].EntireColumn.ColumnWidth = 15;
                         }
                         //Reccorre el número de filas de la tabla.
@@ -75,6 +76,7 @@ namespace Model
                                 border[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
                                 border[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
                                 border[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+          
                             }
                         }
                     }
@@ -91,6 +93,5 @@ namespace Model
                 return ex.Message;
             }
         }
-
     }
 }
