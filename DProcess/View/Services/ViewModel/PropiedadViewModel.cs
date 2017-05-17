@@ -4,27 +4,31 @@ using Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Input;
+using System;
+using View.Forms.Modals;
 
 namespace View.Services.ViewModel
 {
     public class PropiedadViewModel : INotifyPropertyChanged
     {
         #region Atributos
+
         public Propiedad model;
 
         private ObservableCollection<string> _allTipoUnidad;
 
         private DialogService dialogService;
 
+        #endregion
+
+        #region Properties
+
         public ObservableCollection<string> AllTipoUnidad
         {
             get { return _allTipoUnidad; }
             set { _allTipoUnidad = value; NotifyChange("AllTipoUnidad"); }
         }
-
-        #endregion
-
-        #region Properties
 
         #endregion
 
@@ -191,15 +195,11 @@ namespace View.Services.ViewModel
         /// </summary>
         public PropiedadViewModel()
         {
-            Nombre = string.Empty;
-            DescripcionCorta = string.Empty;
-            DescripcionLarga = string.Empty;
-            TipoDato = string.Empty;
-            Unidad = string.Empty;
-            Valor = 0;
-            Imagen = null;
-
             model = new Propiedad();
+            dialogService = new DialogService();
+
+            //Ejecutamos el método para obtener la lista de unidades, asignamos el resultado a la lista de la clase.
+            AllTipoUnidad = DataManager.GetUnidades(model.TipoDato);
         }
 
         /// <summary>
@@ -211,7 +211,9 @@ namespace View.Services.ViewModel
         /// <param name="_TipoDato">Tipo de dato. (Distance,Cantidad,Angle,Force,Mass,Presion,Tiempo)</param>
         public PropiedadViewModel(string _nombre,string _descripcionCorta, string _descripcionLarga,string _TipoDato)
         {
+            dialogService = new DialogService();
             model = new Propiedad();
+
             Nombre = _nombre;
             DescripcionCorta = _descripcionCorta;
             DescripcionLarga = _descripcionLarga;
@@ -257,6 +259,29 @@ namespace View.Services.ViewModel
                 foreach (var id in ids)
                     PropertyChanged(this, new PropertyChangedEventArgs(id));
         }
+        #endregion
+
+        #region Commands
+        public ICommand VerUnidades
+        {
+            get
+            {
+                return new RelayCommand(o => verListaUnidades());
+            }
+        }
+        #endregion
+
+        #region Methods
+
+        private void verListaUnidades()
+        {
+            frmViewUnidades modal = new frmViewUnidades();
+
+            modal.DataContext = this;
+
+            modal.ShowDialog();
+        }
+
         #endregion
     }
 }

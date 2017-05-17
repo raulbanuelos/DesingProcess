@@ -9,6 +9,7 @@ using System.Xml;
 using System.IO;
 using System.Windows.Forms;
 using MahApps.Metro.Controls.Dialogs;
+using View.Forms.UserControls;
 
 namespace View.Services.ViewModel
 {
@@ -25,6 +26,37 @@ namespace View.Services.ViewModel
         public ObservableCollection<Cliente> ListaClientes { get; set; }
 
         public ObservableCollection<string> ListaTreatment { get; set; }
+
+        private ObservableCollection<NumericEntry> propiedadesOD;
+        public ObservableCollection<NumericEntry> PropiedadesOD
+        {
+            get { return propiedadesOD; }
+            set { propiedadesOD = value; NotifyChange("PropiedadesOD"); }
+        }
+
+        private ObservableCollection<NumericEntry> propiedadesPuntas;
+        public ObservableCollection<NumericEntry> PropiedadesPuntas
+        {
+            get { return propiedadesPuntas; }
+            set { propiedadesPuntas = value; NotifyChange("PropiedadesPuntas"); }
+        }
+
+        private ObservableCollection<NumericEntry> propiedadesID;
+        public ObservableCollection<NumericEntry> PropiedadesID
+        {
+            get { return propiedadesID; }
+            set { propiedadesID = value; NotifyChange("PropiedadesID"); }
+        }
+
+        private ObservableCollection<NumericEntry> propiedadesLateral;
+        public ObservableCollection<NumericEntry> PropiedadesLateral
+        {
+            get { return propiedadesLateral; }
+            set { propiedadesLateral = value; NotifyChange("PropiedadesLateral"); }
+        }
+
+
+
 
         private bool isOpededToogle;
         public bool IsOpenedToogle {
@@ -553,6 +585,10 @@ namespace View.Services.ViewModel
             ListaClientes = DataManager.GetAllClientes();
             ListaTreatment = DataManager.GetAllTreatment();
             MenuItems = new ObservableCollection<string>();
+            PropiedadesOD = new ObservableCollection<NumericEntry>();
+            PropiedadesID = new ObservableCollection<NumericEntry>();
+            PropiedadesLateral = new ObservableCollection<NumericEntry>();
+            PropiedadesPuntas = new ObservableCollection<NumericEntry>();
 
             MenuItems.Add("New");
             MenuItems.Add("Open");
@@ -691,11 +727,20 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => newPlano());
             }
         }
+
         public ICommand ImportXML
         {
             get
             {
                 return new RelayCommand(o => importXML());
+            }
+        }
+
+        public ICommand OpenPlano
+        {
+            get
+            {
+                return new RelayCommand(o => openPlano());
             }
         }
         #endregion
@@ -831,6 +876,61 @@ namespace View.Services.ViewModel
                     await dialogService.SendMessage("Attention", "No has seleccionado un archivo válido");
                 }
             }
+        }
+
+        /// <summary>
+        /// Método que abre un plano guardado en la base de datos.
+        /// </summary>
+        private void openPlano()
+        {
+            PerfilOD.Propiedades = new ObservableCollection<Propiedad>();
+            PerfilOD.Propiedades.Add(new Propiedad { Nombre = "S1", DescripcionCorta = "S1", DescripcionLarga = "DIÁMETRO NOMINAL DEL ANILLO", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            PropiedadesOD.Clear();
+
+            foreach (var item in PerfilOD.Propiedades)
+            {
+                NumericEntry uc = new NumericEntry();
+                PropiedadViewModel mvm = new PropiedadViewModel(item);
+                uc.DataContext = mvm;
+                PropiedadesOD.Add(uc);
+            }
+
+            PerfilPuntas.Propiedades = new ObservableCollection<Propiedad>();
+            PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "Q1", DescripcionCorta = "Q1", DescripcionLarga = "Q1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            PropiedadesPuntas.Clear();
+
+            foreach (var item in PerfilPuntas.Propiedades)
+            {
+                NumericEntry uc = new NumericEntry();
+                PropiedadViewModel mvm = new PropiedadViewModel(item);
+                uc.DataContext = mvm;
+                PropiedadesPuntas.Add(uc);
+            }
+
+            PerfilID.Propiedades = new ObservableCollection<Propiedad>();
+            PerfilID.Propiedades.Add(new Propiedad { Nombre = "P1", DescripcionCorta = "P1", DescripcionLarga = "P1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            PropiedadesID.Clear();
+
+            foreach (var item in PerfilID.Propiedades)
+            {
+                NumericEntry uc = new NumericEntry();
+                PropiedadViewModel mvm = new PropiedadViewModel(item);
+                uc.DataContext = mvm;
+                PropiedadesID.Add(uc);
+            }
+
+            PerfilLateral.Propiedades = new ObservableCollection<Propiedad>();
+            PerfilLateral.Propiedades.Add(new Propiedad { Nombre = "T1", DescripcionCorta = "T1", DescripcionLarga = "T1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            PropiedadesLateral.Clear();
+
+            foreach (var item in PerfilLateral.Propiedades)
+            {
+                NumericEntry uc = new NumericEntry();
+                PropiedadViewModel mvm = new PropiedadViewModel(item);
+                uc.DataContext = mvm;
+                PropiedadesLateral.Add(uc);
+            }
+
         }
 
         /// <summary>

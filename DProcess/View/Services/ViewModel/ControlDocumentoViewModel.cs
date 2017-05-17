@@ -126,7 +126,6 @@ namespace View.Services.ViewModel
 
             FrmDocumento frm = new FrmDocumento();
             
-            //DocumentoViewModel context = new DocumentoViewModel("IF00-0093", "2", "2", "Ayuda Visual Especificaciones de abertura de máquina H", 1026);
             DocumentoViewModel context = new DocumentoViewModel();
 
             frm.DataContext = context;

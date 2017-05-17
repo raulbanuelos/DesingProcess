@@ -141,6 +141,9 @@
     <Compile Include="Forms\Shared\Layout.xaml.cs">
       <DependentUpon>Layout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UserControls\NumericEntry.xaml.cs">
+      <DependentUpon>NumericEntry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\Module.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\FirstRoughGrind.cs" />
@@ -230,6 +233,10 @@
     <Page Include="Forms\Shared\Layout.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\UserControls\NumericEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -15,18 +15,33 @@
     <Grid ShowGridLines="False" Margin="0" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="85"/>
+            <RowDefinition Height="85"/>
             <RowDefinition Height="130"/>
             <RowDefinition Height="107*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="60"/>
             <ColumnDefinition Width="1600"/>
             <ColumnDefinition Width="170"/>
         </Grid.ColumnDefinitions>
 
-        <Label x:Name="label" Content="Matriz de Control de Documentos" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="0"/>
+        <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" Grid.Row="0" Grid.Column="1">
+            
+            <Button ToolTip="Nuevo documento" Command="{Binding IrNuevoDocumento}" Cursor="Hand">
+                <materialDesign:PackIcon Kind="File" />
+            </Button>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+            <Separator></Separator>
+
+            <Button ToolTip="Exportar a Excel" Command="{Binding Exportar}" Cursor="Hand">
+                <materialDesign:PackIcon Kind="FileExcel" />
+            </Button>
+            
+        </ToolBar>
+
+        <Label x:Name="label" Content="Matriz de Control de Documentos" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="1"/>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical">
             <TextBlock TextWrapping="WrapWithOverflow" TextAlignment="Center"  x:Name="label1" Text="MAHLE COMPONENTES DE MOTOR DE MEXICO S. DE R. L. DE C.V." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="28"/>
             <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
                 <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="Buscar..." Text="{Binding TextoBusqueda}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
@@ -46,14 +61,11 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </ComboBox>
-                <Button Content="Nuevo" Command="{Binding IrNuevoDocumento}"></Button>
-                <Label Content="{Binding TextoBusqueda}"></Label>
-                <Button Content="Exportar" Command="{Binding Exportar}"/>
             </StackPanel>
 
         </StackPanel>
 
-        <DataGrid x:Name="dataGrid" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
+        <DataGrid x:Name="dataGrid" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="Número de Documento"/>
                 <DataGridTextColumn Binding="{Binding descripcion}" ClipboardContentBinding="{x:Null}" Header="Nombre de Documento"/>
