@@ -160,6 +160,8 @@
             </ComboBox>
             <Label x:Name="label9" Content="Usuario Autorizó" Height="34" Canvas.Left="84" Canvas.Top="621" Width="234" FontSize="16" FontWeight="Bold"/>
             <Button x:Name="button1" Content="Add" Height="37" Canvas.Left="623" Canvas.Top="563" Width="57" Command="{Binding AgregarUsuario}"/>
+            <Button x:Name="button2" Content="add" Height="36" Canvas.Left="628" Canvas.Top="472" Width="52" Command="{Binding AgregarDepartamento}"/>
+            <Button x:Name="button3" Content="Add" HorizontalAlignment="Left" Height="34" VerticalAlignment="Top" Width="60" Canvas.Left="620" Canvas.Top="378" Command="{Binding AgregarTipo}"/>
         </Canvas>
 
     </Grid>

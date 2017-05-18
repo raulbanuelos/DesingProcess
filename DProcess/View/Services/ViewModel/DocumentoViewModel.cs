@@ -1055,6 +1055,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand AgregarUsuario
         {
             get
@@ -1062,13 +1065,80 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => agregarUsuario());
             }
         }
-        
         private void agregarUsuario()
         {
             FrmNuevoUsuario frm = new FrmNuevoUsuario();
+            NuevoUsuarioVM context = new NuevoUsuarioVM();
 
+            frm.DataContext = context;
             frm.ShowDialog();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICommand AgregarDepartamento
+        {
+            get
+            {
+                return new RelayCommand(o => agregarDepartamento());
+            }
+        }
+        private async void agregarDepartamento()
+        {
+            //Incializamos los servicios de dialog.
+            DialogService dialog = new DialogService();
+
+            //Se obtiene la ventana actual.
+            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+            //Abrimos el mensaje modal para que el usuario ingrese el nombre de departamento, el resultado lo guardamos.
+            string nom_departamento = await window.ShowInputAsync("Agregar Departamento", "Nombre de Departamento", null);
+
+            if (nom_departamento != string.Empty & nom_departamento!=null)
+            {
+                //Creamos un objeto de tipo departamento
+                Departamento objDep = new Departamento();
+
+                //Asiganmos los valores al objeto.
+                objDep.nombre_dep = nom_departamento;
+                objDep.fecha_actualizacion = DateTime.Now;
+                objDep.fecha_creacion = DateTime.Now;
+
+                //Ejecutamos el método, el resultado lo asignamos a una variable
+                int id = DataManagerControlDocumentos.SetDepartamento(objDep);
+
+                //si se inserto correctamente 
+                if (id!=0)
+                {
+                    await dialog.SendMessage("Información", "Departamento agregado..");
+                }
+                else
+                {
+                    await dialog.SendMessage("Alerta", "No se pudo agregar el departamento..");
+                }
+            }
+        }
+
+        public ICommand AgregarTipo
+        {
+            get
+            {
+                return new RelayCommand(o => agregarTipo());
+            }
+        }
+
+        private void agregarTipo()
+        {
+            FrmNuevoTipo frmTipo = new FrmNuevoTipo();
+            NuevoTipoDocumentoVM context = new NuevoTipoDocumentoVM();
+
+            frmTipo.DataContext = context;
+
+            frmTipo.ShowDialog();
+
+        }
+
         #endregion
 
         #region Methods
@@ -1079,7 +1149,7 @@ namespace View.Services.ViewModel
         /// <returns></returns>
         private bool ValidarValores()
         {
-            if (nombre != string.Empty & version != string.Empty & fecha != null & copias != string.Empty & descripcion != string.Empty & id_tipo != 0 & _ListaDocumentos.Count != 0 & _usuario!=null & _id_dep!=0 & _usuarioAutorizo!=null)
+            if (nombre != null & version != null & fecha != null & copias != null & descripcion != null & id_tipo != 0 & _ListaDocumentos.Count != 0 & _usuario!=null & _id_dep!=0 & _usuarioAutorizo!=null)
                 return true;
             else 
                 return false;
