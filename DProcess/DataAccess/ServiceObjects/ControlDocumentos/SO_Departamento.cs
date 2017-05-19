@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.ServiceObjects.ControlDocumentos
 {
-   public  class SO_Departamento
+    public class SO_Departamento
     {
         /// <summary>
         /// Méotodo para obtener todos los registros de la tabla.
@@ -51,7 +51,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_creacion"></param>
         /// <param name="fecha_actualizacion"></param>
         /// <returns>Retorna cero, si hay algún error.</returns>
-        public int SetDepartamento(int id_dep,string nombre_dep,DateTime fecha_creacion,DateTime fecha_actualizacion)
+        public int SetDepartamento(int id_dep, string nombre_dep, DateTime fecha_creacion, DateTime fecha_actualizacion)
         {
             try
             {
@@ -149,6 +149,32 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
-       
+        /// <summary>
+        /// Método para validar si el departamento existe.
+        /// </summary>
+        /// <param name="nombre_departamento"></param>
+        /// <returns></returns>
+        public int ValidateDepartamento(string nombre_departamento)
+        {
+            try
+            {
+                //Relizamos la conexión a través de Entity Framework.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta y e resultado lo guardamos en una variable local.
+                    int idDep = (from d in Conexion.TBL_DEPARTAMENTO
+                                           where d.NOMBRE_DEPARTAMENTO.Contains(nombre_departamento)
+                                           select d.ID_DEPARTAMENTO).ToList().FirstOrDefault();
+
+                    //Retornamos el resultado de la consulta.
+                    return idDep;
+                }
+            }
+            catch (Exception)
+            {
+                //Si se genera un error retornamos un cero.
+                return 0;
+            }
+        }
     }
 }

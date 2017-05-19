@@ -93,24 +93,33 @@ namespace View.Services.ViewModel
                     obj.fecha_actualizacion = DateTime.Now;
                     obj.fecha_creacion = DateTime.Now;
 
-                    int n = DataManagerControlDocumentos.SetTipo(obj);
+                    int val = DataManagerControlDocumentos.ValidateTipo(obj);
 
-                    if (n!=0)
+                    if (val == 0)
                     {
-                        await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
-                        //Obtenemos la ventana actual.
-                        var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+                        int n = DataManagerControlDocumentos.SetTipo(obj);
 
-                        //Verificamos que la pantalla sea diferente de nulo.
-                        if (window != null)
+                        if (n != 0)
                         {
-                            //Cerramos la pantalla
-                            window.Close();
+                            await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+                            //Obtenemos la ventana actual.
+                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                            //Verificamos que la pantalla sea diferente de nulo.
+                            if (window != null)
+                            {
+                                //Cerramos la pantalla
+                                window.Close();
+                            }
+                        }
+                        else
+                        {
+                            await dialog.SendMessage("RGP: Alerta", "Error al registrar el tipo de documento");
                         }
                     }
                     else
                     {
-                         await dialog.SendMessage("RGP: Alerta", "Error al registrar el tipo de documento");
+                        await dialog.SendMessage("RGP: Alerta", "El tipo de documento ya existe..");
                     }
                 }
                 else

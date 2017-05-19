@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-       xmlns:System="clr-namespace:System;assembly=mscorlib"
-       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="" Height="998.5" Width="1228.5"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen">
 
@@ -43,7 +44,7 @@
         </Grid.RowDefinitions>
 
 
-        <Canvas HorizontalAlignment="Left" Height="834" Margin="10,10,-19,-208" VerticalAlignment="Top" Width="1192" Grid.RowSpan="2">
+        <Canvas HorizontalAlignment="Left" Height="788" Margin="10,56,-19,-208" VerticalAlignment="Top" Width="1192" Grid.RowSpan="2">
 
             <!--Nombre Documento-->
             <Label x:Name="label" Content="Número de Documento" Height="31" Canvas.Left="82" Canvas.Top="10" Width="196" FontSize="16" FontWeight="Bold"/>
@@ -63,7 +64,7 @@
                     <ImageBrush ImageSource="/View;component/Images/copy.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <TextBox x:Name="txt_version" Canvas.Left="134" TextWrapping="Wrap" Canvas.Top="121" Height="38"  Width="467" BorderThickness="1" BorderBrush="#89535353" FontSize="18" Text="{Binding Version}"/>
+            <TextBox x:Name="txt_version" Canvas.Left="134" TextWrapping="Wrap" Canvas.Top="121" Height="38"  Width="467" BorderThickness="1" BorderBrush="#89535353" FontSize="18" Text="{Binding Version}" IsEnabled="{Binding VersionEnabled}"/>
 
             <!--Date-->
             <DatePicker x:Name="txt_fecha"  Height="38" Canvas.Left="133" Canvas.Top="204" Width="467" DisplayDateEnd="{x:Static System:DateTime.Today}" BorderThickness="1" BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"/>
@@ -98,7 +99,7 @@
                 </Rectangle>
             </Button>
 
-            <Canvas Height="64" Canvas.Left="90" Canvas.Top="840" Width="826" RenderTransformOrigin="0.5,0.5">
+            <Canvas Height="64" Canvas.Left="56" Canvas.Top="831" Width="826" RenderTransformOrigin="0.5,0.5">
                 <Canvas.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -115,7 +116,7 @@
             </Canvas>
 
             <!--ListView-->
-            <ListBox Name="listBox" Height="763" Canvas.Left="716" Canvas.Top="51" Width="450" ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" >
+            <ListBox Name="listBox" Height="763" Canvas.Left="696" Canvas.Top="51" Width="470" ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" >
             </ListBox>
             <Label x:Name="label5" Content="Lista de Documentos" Height="36" Canvas.Left="716" Canvas.Top="10" Width="196" FontSize="18" FontWeight="Bold"/>
 
@@ -159,10 +160,35 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Label x:Name="label9" Content="Usuario Autorizó" Height="34" Canvas.Left="84" Canvas.Top="621" Width="234" FontSize="16" FontWeight="Bold"/>
-            <Button x:Name="button1" Content="Add" Height="37" Canvas.Left="623" Canvas.Top="563" Width="57" Command="{Binding AgregarUsuario}"/>
-            <Button x:Name="button2" Content="add" Height="36" Canvas.Left="628" Canvas.Top="472" Width="52" Command="{Binding AgregarDepartamento}"/>
-            <Button x:Name="button3" Content="Add" HorizontalAlignment="Left" Height="34" VerticalAlignment="Top" Width="60" Canvas.Left="620" Canvas.Top="378" Command="{Binding AgregarTipo}"/>
         </Canvas>
 
+        <!--Barra-->
+        <ToolBar x:Name="toolBar" HorizontalAlignment="Left" Height="56" Margin="0,0,-33,0" VerticalAlignment="Top" Width="1216" Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
+            <Button ToolTip="Agregar Usuario" Command="{Binding AgregarUsuario}" Cursor="Hand" Height="56" Margin="0,0,0,-2" Width="57">
+                <Rectangle Width="24" Height="27"  >
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/View;component/Images/addUser.png"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+
+            <Separator></Separator>
+
+            <Button ToolTip="Agregar Tipo de Documento" Command="{Binding AgregarTipo}" Cursor="Hand" Height="56" Margin="0,0,0,-2" Width="54">
+                <Rectangle Width="23" Height="24"  >
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/View;component/Images/addTipo.png"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+            <Separator></Separator>
+            <Button ToolTip="Agregar Departamento" Command="{Binding AgregarDepartamento}" Cursor="Hand" Height="56" Margin="0,0,0,-2" Width="57">
+                <Rectangle Width="29" Height="28"   >
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/View;component/Images/AddDep.png"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+        </ToolBar>
     </Grid>
 </Controls:MetroWindow>

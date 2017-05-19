@@ -223,6 +223,16 @@ namespace Model.ControlDocumentos
             return ServiceDepartamento.DeleteDepartamento(Convert.ToInt32(departamento.id_dep));
 
         }
+
+        public static int ValidateDepartamento(Departamento departamento)
+        {
+            //Se inicializan los servicios.
+            SO_Departamento ServiceDepartamento = new SO_Departamento();
+
+            // Se ejecuta el método y retorna número de registros eliminados.
+            return ServiceDepartamento.ValidateDepartamento(departamento.nombre_dep);
+
+        }
         #endregion
 
         #region Documento
@@ -362,11 +372,6 @@ namespace Model.ControlDocumentos
             return Lista;
         }
 
-        public static void ExportToExcel(string tipo_docu)
-        {
-
-        }
-
         /// <summary>
         /// Método para obtener el tipo y el archivo de un documento y una version.
         /// </summary>
@@ -424,6 +429,8 @@ namespace Model.ControlDocumentos
             // Se ejecuta el método y retorna los registros que se modificaron.
             return ServiceDocumento.UpdateVersion(documento.id_documento, documento.version_actual);
         }
+
+
 
         #endregion
 
@@ -610,6 +617,14 @@ namespace Model.ControlDocumentos
             // Se ejecuta el método y retorna los registros que se eliminaron.
             return ServiceTipo.DeleteTipo(tipo.id_tipo);
         }
+
+        public static int ValidateTipo(TipoDocumento tipo)
+        {
+            SO_TipoDocumento ServiceTipo = new SO_TipoDocumento();
+
+            // Se ejecuta el método y retorna los registros que se eliminaron.
+            return ServiceTipo.ValidateTipo(tipo.tipo_documento,tipo.abreviatura);
+        }
         #endregion  
 
         #region Usuarios
@@ -707,6 +722,19 @@ namespace Model.ControlDocumentos
 
             //Se ejecuta el método y retorna número de registros eliminados.
             return ServiceUsuarios.DeleteUsuario(usuarios.usuario);
+        }
+
+        /// <summary>
+        /// Método para validar si existe un usuario
+        /// </summary>
+        /// <param name="usuarios"></param>
+        /// <returns></returns>
+        public static string ValidateUsuario(Usuarios usuarios)
+        {
+            SO_Usuarios ServiceUsuarios = new SO_Usuarios();
+
+            //Se ejecuta el método y retorna número de registros eliminados.
+            return ServiceUsuarios.ValidateUsuarios(usuarios.nombre,usuarios.APaterno,usuarios.AMaterno);
         }
         #endregion
 

@@ -204,7 +204,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private ObservableCollection<TipoDocumento> _ListaTipo = DataManagerControlDocumentos.GetTipo();
+        private ObservableCollection<TipoDocumento> _ListaTipo;
         public ObservableCollection<TipoDocumento> ListaTipo
         {
             get
@@ -218,7 +218,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private ObservableCollection<Departamento> _ListaDepartamento = DataManagerControlDocumentos.GetDepartamento();
+        private ObservableCollection<Departamento> _ListaDepartamento;
         public ObservableCollection<Departamento> ListaDepartamento {
             get
             {
@@ -232,7 +232,7 @@ namespace View.Services.ViewModel
 
         }
 
-        private ObservableCollection<Usuarios> _ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
+        private ObservableCollection<Usuarios> _ListaUsuarios;
         public ObservableCollection<Usuarios> ListaUsuarios {
             get
             {
@@ -328,6 +328,20 @@ namespace View.Services.ViewModel
             }
         }
 
+        private bool versionEnabled = false;
+        public bool VersionEnabled
+        {
+            get
+            {
+                return versionEnabled;
+            }
+            set
+            {
+                versionEnabled = value;
+                NotifyChange("VersionEnabled");
+            }
+        }
+
         private bool _bttnCancelar;
         public bool BttnCancelar {
             get
@@ -361,9 +375,9 @@ namespace View.Services.ViewModel
             BttnVersion = true;
             NombreEnabled = false;
             idVersion = _id_version;
-            id_tipo = DataManagerControlDocumentos.GetTipoDocumento(_id_documento);
             id_dep = _idDep;
-            // usuario = DataManagerControlDocumentos.GetIdUsuario(_id_version);
+
+            id_tipo = DataManagerControlDocumentos.GetTipoDocumento(_id_documento);
             ObservableCollection<Model.ControlDocumentos.Version> ListaUsuario = DataManagerControlDocumentos.GetIdUsuario(_id_version);
             foreach (var item in ListaUsuario)
             {
@@ -396,12 +410,16 @@ namespace View.Services.ViewModel
                 }
                 ListaDocumentos.Add(objArchivo);
             }
+
+            
         }
 
         public DocumentoViewModel()
         {
             BotonGuardar = "Guardar";
             BttnGuardar = true;
+            Version = "1";
+            Inicializar();
         }
 
         #endregion
@@ -1072,6 +1090,7 @@ namespace View.Services.ViewModel
 
             frm.DataContext = context;
             frm.ShowDialog();
+            ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
         }
 
         /// <summary>
@@ -1105,21 +1124,34 @@ namespace View.Services.ViewModel
                 objDep.fecha_actualizacion = DateTime.Now;
                 objDep.fecha_creacion = DateTime.Now;
 
-                //Ejecutamos el método, el resultado lo asignamos a una variable
-                int id = DataManagerControlDocumentos.SetDepartamento(objDep);
+                int val = DataManagerControlDocumentos.ValidateDepartamento(objDep);
 
-                //si se inserto correctamente 
-                if (id!=0)
+                if (val == 0)
                 {
-                    await dialog.SendMessage("Información", "Departamento agregado..");
+                    //Ejecutamos el método, el resultado lo asignamos a una variable
+                    int id = DataManagerControlDocumentos.SetDepartamento(objDep);
+
+                    //si se inserto correctamente 
+                    if (id != 0)
+                    {
+                        await dialog.SendMessage("Información", "Departamento agregado..");
+                    }
+                    else
+                    {
+                        await dialog.SendMessage("Alerta", "No se pudo agregar el departamento..");
+                    }
                 }
                 else
                 {
-                    await dialog.SendMessage("Alerta", "No se pudo agregar el departamento..");
+                    await dialog.SendMessage("Alerta", "El nombre de departamento ya existe..");
                 }
             }
+            ListaDepartamento = DataManagerControlDocumentos.GetDepartamento();
         }
 
+        /// <summary>
+        /// Mátodo para agregar tipo de Documento
+        /// </summary>
         public ICommand AgregarTipo
         {
             get
@@ -1127,7 +1159,6 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => agregarTipo());
             }
         }
-
         private void agregarTipo()
         {
             FrmNuevoTipo frmTipo = new FrmNuevoTipo();
@@ -1136,7 +1167,7 @@ namespace View.Services.ViewModel
             frmTipo.DataContext = context;
 
             frmTipo.ShowDialog();
-
+            ListaTipo = DataManagerControlDocumentos.GetTipo();
         }
 
         #endregion
@@ -1153,6 +1184,13 @@ namespace View.Services.ViewModel
                 return true;
             else 
                 return false;
+        }
+
+        private void Inicializar()
+        {
+            ListaDepartamento= DataManagerControlDocumentos.GetDepartamento();
+            ListaTipo = DataManagerControlDocumentos.GetTipo();
+            ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
         }
         #endregion
     }

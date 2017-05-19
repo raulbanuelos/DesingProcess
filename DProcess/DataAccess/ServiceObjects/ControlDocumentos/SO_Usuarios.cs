@@ -179,6 +179,33 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
-       
+        /// <summary>
+        /// Valida que el usuario no exista.
+        /// </summary>
+        /// <param name="nombre_departamento"></param>
+        /// <returns></returns>
+        public string ValidateUsuarios(string nombre,string Apaterno, string Amaterno)
+        {
+            try
+            {
+                //Relizamos la conexión a través de Entity Framework.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta y e resultado lo guardamos en una variable local.
+                    string idUsuario = (from d in Conexion.Usuarios
+                                    where d.Nombre.Contains(nombre) & d.APaterno.Contains(Apaterno) & d.AMaterno.Contains(Amaterno)
+                                    select d.Usuario).FirstOrDefault();
+
+                    //Retornamos el resultado de la consulta.
+                    return idUsuario;
+                }
+            }
+            catch (Exception)
+            {
+                //Si se genera un error retornamos un cero.
+                return null;
+            }
+        }
+
     }
 }

@@ -181,5 +181,33 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return 0;
             }
         }
+
+        /// <summary>
+        /// Método para validar si existe el tipo.
+        /// </summary>
+        /// <param name="tipo_documento"></param>
+        /// <returns></returns>
+        public int ValidateTipo(string tipo_documento,string abrev)
+        {
+            try
+            {
+                //Relizamos la conexión a través de Entity Framework.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta y e resultado lo guardamos en una variable local.
+                    int IdTipoDocumento = (from t in Conexion.TBL_TIPO_DOCUMENTO
+                                           where t.TIPO_DOCUMENTO.Equals(tipo_documento) || t.ABREBIATURA.Equals(abrev)
+                                           select t.ID_TIPO_DOCUMENTO).ToList().FirstOrDefault();
+
+                    //Retornamos el resultado de la consulta.
+                    return IdTipoDocumento;
+                }
+            }
+            catch (Exception)
+            {
+                //Si se genera un error retornamos un cero.
+                return 0;
+            }
+        }
     }
 }

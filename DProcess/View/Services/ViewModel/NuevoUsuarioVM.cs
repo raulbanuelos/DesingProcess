@@ -148,29 +148,38 @@ namespace View.Services.ViewModel
                     objUsuario.AMaterno = _aMaterno;
                     objUsuario.password = encriptar.encript(_contraseña);
 
-                    //ejecutamos el método para insertar un registro a la tabla
-                    string usuario = DataManagerControlDocumentos.SetUsuario(objUsuario);
+                    string validate = DataManagerControlDocumentos.ValidateUsuario(objUsuario);
 
-                    //si el usuario es diferente de vacío
-                    if (usuario!=string.Empty)
+                    if (validate == null)
                     {
-                        //se muestra un mensaje de cambios realizados.
-                        await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
-                        //Obtenemos la ventana actual.
-                        var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+                        //ejecutamos el método para insertar un registro a la tabla
+                        string usuario = DataManagerControlDocumentos.SetUsuario(objUsuario);
 
-                        //Verificamos que la pantalla sea diferente de nulo.
-                        if (window != null)
+                        //si el usuario es diferente de vacío
+                        if (usuario != string.Empty)
                         {
-                            //Cerramos la pantalla
-                            window.Close();
+                            //se muestra un mensaje de cambios realizados.
+                            await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+                            //Obtenemos la ventana actual.
+                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                            //Verificamos que la pantalla sea diferente de nulo.
+                            if (window != null)
+                            {
+                                //Cerramos la pantalla
+                                window.Close();
+                            }
                         }
+                        else
+                        {
+                            await dialog.SendMessage("Alerta", "Error al registar el usuario.");
+                        }
+
                     }
                     else
                     {
-                        await dialog.SendMessage("Alerta", "Error al registar el usuario.");
+                        await dialog.SendMessage("Alerta", "Error el usuario ya existe.");
                     }
-
                 }
                 else
                 {
