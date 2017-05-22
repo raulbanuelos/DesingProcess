@@ -37,6 +37,11 @@
                 <materialDesign:PackIcon Kind="FileExcel" />
             </Button>
             
+            <Separator></Separator>
+
+            <Button ToolTip="Generar Número de Documento" Command="{Binding Generador}" Cursor="Hand">
+                <materialDesign:PackIcon Kind="FileDocument" />
+            </Button>
         </ToolBar>
 
         <Label x:Name="label" Content="Matriz de Control de Documentos" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="1"/>

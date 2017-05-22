@@ -11,6 +11,7 @@ namespace Model.ControlDocumentos
         #region Propiedades
         public int  id_dep { get; set; }
         public string nombre_dep { get; set; }
+        public string  Abreviatura { get; set; }
         public DateTime fecha_creacion { get; set; }
         public DateTime fecha_actualizacion { get; set; }
         #endregion

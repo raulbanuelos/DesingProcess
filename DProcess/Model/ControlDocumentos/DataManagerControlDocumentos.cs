@@ -173,6 +173,7 @@ namespace Model.ControlDocumentos
                     obj.nombre_dep = (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
                     obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
                     obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+                    obj.Abreviatura= (string)tipo.GetProperty("ABREVIATURA").GetValue(item, null);
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }
@@ -192,7 +193,7 @@ namespace Model.ControlDocumentos
             SO_Departamento ServiceDepartamento = new SO_Departamento();
 
             //Se ejecuta el método y retorna el id del departamento que fue insertado.
-            return ServiceDepartamento.SetDepartamento(departamento.id_dep, departamento.nombre_dep, departamento.fecha_creacion, departamento.fecha_actualizacion);
+            return ServiceDepartamento.SetDepartamento(departamento.id_dep, departamento.nombre_dep,departamento.Abreviatura ,departamento.fecha_creacion, departamento.fecha_actualizacion);
         }
 
         /// <summary>
@@ -272,7 +273,9 @@ namespace Model.ControlDocumentos
                     obj.fecha_emision = (DateTime)tipo.GetProperty("FECHA_EMISION").GetValue(item, null);
                     obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
                     obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
-                   
+                    obj.usuario= (string)tipo.GetProperty("Usuario").GetValue(item, null);
+                    obj.id_estatus= (int)tipo.GetProperty("ID_ESTATUS_DOCUMENTO").GetValue(item, null);
+
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }
@@ -293,7 +296,8 @@ namespace Model.ControlDocumentos
 
             //Se ejecuta el método y retorna el id del documento que fue insertado.
             return ServiceDocumento.SetDocumento( documento.id_documento, documento.id_tipo_documento,documento.id_dep,documento.nombre, documento.descripcion,
-                                                 documento.version_actual, documento.fecha_creacion, documento.fecha_actualizacion, documento.fecha_emision);
+                                                 documento.version_actual, documento.fecha_creacion, documento.fecha_actualizacion, documento.fecha_emision,
+                                                 documento.id_estatus,documento.usuario );
         }
 
         /// <summary>
@@ -308,7 +312,7 @@ namespace Model.ControlDocumentos
 
             // Se ejecuta el método y retorna los registros que se modificaron.
             return ServiceDocumento.UpdateDocumento(documento.id_documento,documento.id_tipo_documento,documento.id_dep, documento.nombre, documento.descripcion,
-                                                 documento.version_actual, documento.fecha_creacion, documento.fecha_actualizacion, documento.fecha_emision);
+                                                 documento.version_actual, documento.fecha_actualizacion,documento.id_estatus);
         }
 
         /// <summary>

@@ -12,6 +12,8 @@ namespace Model.ControlDocumentos
         #region Propiedades
         public int id_documento { get; set; }
         public int id_tipo_documento { get; set; }
+        public string  usuario { get; set; }
+        public int id_estatus { get; set; }
         public int id_dep { get; set; }
         public string nombre { get; set; }
         public string descripcion { get; set; }
@@ -33,6 +35,8 @@ namespace Model.ControlDocumentos
             Departamento = string.Empty;
             id_documento = 0;
             id_tipo_documento = 0;
+            usuario = string.Empty;
+            id_estatus = 0;
             id_dep = 0;
             nombre = string.Empty;
             descripcion = string.Empty;

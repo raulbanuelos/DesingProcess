@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace View.Forms.ControlDocumentos
 {
     /// <summary>
-    /// Lógica de interacción para FrmGenerador_Numero.xaml
+    /// Lógica de interacción para FrmNuevo_Departamento.xaml
     /// </summary>
-    public partial class FrmGenerador_Numero : MetroWindow
+    public partial class FrmNuevo_Departamento : MetroWindow
     {
-        public FrmGenerador_Numero()
+        public FrmNuevo_Departamento()
         {
             InitializeComponent();
         }

@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
         mc:Ignorable="d"
         Title="" 
-        Height="502.177" Width="701.097" 
+        Height="502" Width="701" 
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
         WindowStartupLocation="CenterScreen">
     <Grid>

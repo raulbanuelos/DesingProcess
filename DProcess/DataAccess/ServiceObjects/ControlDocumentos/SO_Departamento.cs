@@ -29,7 +29,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      d.ID_DEPARTAMENTO,
                                      d.NOMBRE_DEPARTAMENTO,
                                      d.FECHA_ACTUALIZACION,
-                                     d.FECHA_CREACION
+                                     d.FECHA_CREACION,
+                                     d.ABREVIATURA
                                  }).ToList();
                     //se retorna la lista
                     return Lista;
@@ -51,7 +52,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_creacion"></param>
         /// <param name="fecha_actualizacion"></param>
         /// <returns>Retorna cero, si hay algún error.</returns>
-        public int SetDepartamento(int id_dep, string nombre_dep, DateTime fecha_creacion, DateTime fecha_actualizacion)
+        public int SetDepartamento(int id_dep, string nombre_dep,string abreviatura ,DateTime fecha_creacion, DateTime fecha_actualizacion)
         {
             try
             {
@@ -66,7 +67,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.NOMBRE_DEPARTAMENTO = nombre_dep;
                     obj.FECHA_CREACION = fecha_creacion;
                     obj.FECHA_ACTUALIZACION = fecha_actualizacion;
-
+                    obj.ABREVIATURA = abreviatura;
                     //Agrega el objeto a la tabla.
                     Conexion.TBL_DEPARTAMENTO.Add(obj);
                     //Se guardan los cambios

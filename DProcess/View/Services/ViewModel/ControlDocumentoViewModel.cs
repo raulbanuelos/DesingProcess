@@ -122,6 +122,14 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand Generador
+        {
+            get
+            {
+                return new RelayCommand(o => GenerarNumero());
+            }
+        }
+
         private void irNuevoDocumento()
         {
 
@@ -134,6 +142,17 @@ namespace View.Services.ViewModel
             frm.ShowDialog();
 
             initControlDocumentos();
+        }
+
+        private void GenerarNumero()
+        {
+            FrmGenerador_Numero frmGenerador = new FrmGenerador_Numero();
+
+            GeneradorViewModel context = new GeneradorViewModel();
+
+            frmGenerador.DataContext = context;
+
+            frmGenerador.ShowDialog();
         }
 
         private async void ExportarExcel(){

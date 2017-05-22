@@ -27,16 +27,20 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
                     var Lista = (from d in Conexion.TBL_DOCUMENTO
                                  join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
+                                 join e in Conexion.TBL_ESTATUS_DOCUMENTO on d.ID_ESTATUS_DOCUMENTO equals e.ID_ESTATUS_DOCUMENTO
+                                 join u in Conexion.Usuarios on d.ID_USUARIO equals u.Usuario
                                  select new
                                  {
                                      d.ID_DOCUMENTO,
-                                     d.ID_TIPO_DOCUMENTO,
+                                     t.ID_TIPO_DOCUMENTO,
                                      d.NOMBRE,
                                      d.DESCRIPCION,
                                      d.VERSION_ACTUAL,
                                      d.FECHA_EMISION,
                                      d.FECHA_CREACION,
-                                     d.FECHA_ACTUALIZACION
+                                     d.FECHA_ACTUALIZACION,
+                                     e.ID_ESTATUS_DOCUMENTO,
+                                     u.Usuario
                                  }).ToList();
                     //se retorna la lista
                     return Lista;
@@ -60,7 +64,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_actualizacion"></param>
         /// <param name="fecha_emision"></param>
         /// <returns></returns>
-        public int SetDocumento(int id_documento, int id_tipo_documento,int id_dep, string nombre, string descripcion, string version_actual, DateTime fecha_creacion, DateTime fecha_actualizacion, DateTime fecha_emision)
+        public int SetDocumento(int id_documento, int id_tipo_documento,int id_dep, string nombre, string descripcion, string version_actual, DateTime fecha_creacion, DateTime fecha_actualizacion, DateTime fecha_emision,
+                                 int id_estatus, string id_usuario)
         {
             try
             {
@@ -80,6 +85,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.FECHA_CREACION = DateTime.Now;
                     obj.FECHA_ACTUALIZACION = fecha_actualizacion;
                     obj.FECHA_EMISION = fecha_emision;
+                    obj.ID_ESTATUS_DOCUMENTO = id_estatus;
+                    obj.ID_USUARIO = id_usuario;
 
                     //Agrega el objeto a la tabla.
                     Conexion.TBL_DOCUMENTO.Add(obj);
@@ -109,7 +116,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_actualizacion"></param>
         /// <param name="fecha_emision"></param>
         /// <returns></returns>
-        public int UpdateDocumento(int id_documento, int id_tipo_documento,int id_dep, string nombre, string descripcion, string version_actual, DateTime fecha_creacion, DateTime fecha_actualizacion, DateTime fecha_emision)
+        public int UpdateDocumento(int id_documento, int id_tipo_documento,int id_dep, string nombre, string descripcion, string version_actual, DateTime fecha_actualizacion,int id_estatus)
         {
             try
             {
@@ -126,7 +133,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.DESCRIPCION = descripcion;
                     obj.VERSION_ACTUAL = version_actual;
                     obj.FECHA_ACTUALIZACION = fecha_actualizacion;
-                  
+             
 
                     //Se cambia el estado de registro a modificado.
                     Conexion.Entry(obj).State = EntityState.Modified;
@@ -142,6 +149,12 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <param name="version_actual"></param>
+        /// <returns></returns>
         public int UpdateVersion(int id_documento,string version_actual)
         {
 

@@ -1103,49 +1103,12 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => agregarDepartamento());
             }
         }
-        private async void agregarDepartamento()
+        private  void agregarDepartamento()
         {
-            //Incializamos los servicios de dialog.
-            DialogService dialog = new DialogService();
-
-            //Se obtiene la ventana actual.
-            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-            //Abrimos el mensaje modal para que el usuario ingrese el nombre de departamento, el resultado lo guardamos.
-            string nom_departamento = await window.ShowInputAsync("Agregar Departamento", "Nombre de Departamento", null);
-
-            if (nom_departamento != string.Empty & nom_departamento!=null)
-            {
-                //Creamos un objeto de tipo departamento
-                Departamento objDep = new Departamento();
-
-                //Asiganmos los valores al objeto.
-                objDep.nombre_dep = nom_departamento;
-                objDep.fecha_actualizacion = DateTime.Now;
-                objDep.fecha_creacion = DateTime.Now;
-
-                int val = DataManagerControlDocumentos.ValidateDepartamento(objDep);
-
-                if (val == 0)
-                {
-                    //Ejecutamos el método, el resultado lo asignamos a una variable
-                    int id = DataManagerControlDocumentos.SetDepartamento(objDep);
-
-                    //si se inserto correctamente 
-                    if (id != 0)
-                    {
-                        await dialog.SendMessage("Información", "Departamento agregado..");
-                    }
-                    else
-                    {
-                        await dialog.SendMessage("Alerta", "No se pudo agregar el departamento..");
-                    }
-                }
-                else
-                {
-                    await dialog.SendMessage("Alerta", "El nombre de departamento ya existe..");
-                }
-            }
+            FrmNuevo_Departamento frm = new FrmNuevo_Departamento();
+            NuevoDepartamentoVM context = new NuevoDepartamentoVM();
+            frm.DataContext =context;
+            frm.ShowDialog();
             ListaDepartamento = DataManagerControlDocumentos.GetDepartamento();
         }
 

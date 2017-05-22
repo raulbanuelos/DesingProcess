@@ -132,6 +132,9 @@
     <Compile Include="Forms\ControlDocumentos\FrmNuevoUsuario.xaml.cs">
       <DependentUpon>FrmNuevoUsuario.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmNuevo_Departamento.xaml.cs">
+      <DependentUpon>FrmNuevo_Departamento.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Index\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
@@ -160,7 +163,9 @@
     <Compile Include="Services\ViewModel\AnilloViewModel.cs" />
     <Compile Include="Services\ViewModel\ControlDocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\DocumentoViewModel.cs" />
+    <Compile Include="Services\ViewModel\GeneradorViewModel.cs" />
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
+    <Compile Include="Services\ViewModel\NuevoDepartamentoVM.cs" />
     <Compile Include="Services\ViewModel\NuevoTipoDocumentoVM.cs" />
     <Compile Include="Services\ViewModel\NuevoUsuarioVM.cs" />
     <Compile Include="Services\ViewModel\PropiedadBoolViewModel.cs" />
@@ -231,6 +236,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmNuevoUsuario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmNuevo_Departamento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
