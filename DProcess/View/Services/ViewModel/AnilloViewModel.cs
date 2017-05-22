@@ -1,15 +1,19 @@
 ﻿using System;
-using Model;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using Model.Interfaces;
-using System.Windows.Input;
-using View.Forms.Modals;
-using System.Xml;
 using System.IO;
+using System.Xml;
+using System.Windows.Input;
 using System.Windows.Forms;
-using MahApps.Metro.Controls.Dialogs;
+using System.Windows.Controls;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
+using Model;
+using Model.Interfaces;
+using View.Forms.Modals;
 using View.Forms.UserControls;
+using MahApps.Metro.Controls.Dialogs;
+using System.Linq;
+using System.Collections.Generic;
+using View.Forms.Routing;
 
 namespace View.Services.ViewModel
 {
@@ -55,8 +59,33 @@ namespace View.Services.ViewModel
             set { propiedadesLateral = value; NotifyChange("PropiedadesLateral"); }
         }
 
+        private ObservableCollection<StackPanel> panelPropiedadesOD;
+        public ObservableCollection<StackPanel> PanelPropiedadesOD
+        {
+            get { return panelPropiedadesOD; }
+            set { panelPropiedadesOD = value; NotifyChange("PanelPropiedadesOD"); }
+        }
 
+        private ObservableCollection<StackPanel> panelPropiedadesPuntas;
+        public ObservableCollection<StackPanel> PanelPropiedadesPuntas
+        {
+            get { return panelPropiedadesPuntas; }
+            set { panelPropiedadesPuntas = value; NotifyChange("panelPropiedadesPuntas"); }
+        }
 
+        private ObservableCollection<StackPanel> panelPropiedadesID;
+        public ObservableCollection<StackPanel> PanelPropiedadesID
+        {
+            get { return panelPropiedadesID; }
+            set { panelPropiedadesID = value; NotifyChange("panelPropiedadesID"); }
+        }
+
+        private ObservableCollection<StackPanel> panelPropiedadesLateral;
+        public ObservableCollection<StackPanel> PanelPropiedadesLateral
+        {
+            get { return panelPropiedadesLateral; }
+            set { panelPropiedadesLateral = value; NotifyChange("PanelPropiedadesLateral"); }
+        }
 
         private bool isOpededToogle;
         public bool IsOpenedToogle {
@@ -743,6 +772,14 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => openPlano());
             }
         }
+
+        public ICommand OpenCalculateDimencions
+        {
+            get
+            {
+                return new RelayCommand(o => openCalculateDimensions());
+            }
+        }
         #endregion
 
         #region Methods
@@ -879,12 +916,70 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
+        /// Método que ordena de manera alfanumérica una colección observable de tipo Propiedad
+        /// </summary>
+        /// <param name="Collection">Colección que se requiere ordenar.</param>
+        /// <returns>Colección observable ordenada</returns>
+        private ObservableCollection<Propiedad> SortObservableCollectionPropiedad(ObservableCollection<Propiedad> Collection)
+        {
+            //Ordenamos la colección y le resutlado lo asignamos a una lista de tipo propiedad.
+            List<Propiedad> Lista = Collection.OrderBy(x => x.Nombre).ToList();
+
+            //Limpiamos la colección.
+            Collection.Clear();
+
+            //Iteramos la lista para ir guardando cada item en la colección.
+            foreach (var laPropiedad in Lista)
+            {
+                //Agregamos el item iterado a la colección.
+                Collection.Add(laPropiedad);
+            }
+
+            //Retornamos la colección.
+            return Collection;
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="CollectionNumeric"></param>
+        /// <returns></returns>
+        private ObservableCollection<StackPanel> SetNumericEntryToStackPanel(ObservableCollection<NumericEntry> CollectionNumeric, ObservableCollection<Propiedad> CollectionPropiedades)
+        {
+            //Declaramos la colección que será la que retornemos en el método.
+            ObservableCollection<StackPanel> CollectionPanel = new ObservableCollection<StackPanel>();
+
+            //Verificamos si las dos colecciones contienen el mismo número de elementos.
+            if (CollectionNumeric.Count == CollectionPropiedades.Count)
+            {
+                int c = 0;
+
+                while (c < CollectionNumeric.Count)
+                {
+                    string[] separador = CollectionPropiedades[c].Nombre.Split(' ');
+
+
+                    c += 1;
+                }
+            }
+
+
+            //Retornamos la colección creada.
+            return CollectionPanel;
+        }
+
+        /// <summary>
         /// Método que abre un plano guardado en la base de datos.
         /// </summary>
         private void openPlano()
         {
+            //-------------------Perfil OD-------------------
             PerfilOD.Propiedades = new ObservableCollection<Propiedad>();
-            PerfilOD.Propiedades.Add(new Propiedad { Nombre = "S1", DescripcionCorta = "S1", DescripcionLarga = "DIÁMETRO NOMINAL DEL ANILLO", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            PerfilOD.Propiedades.Add(new Propiedad { Nombre = "S1 MIN", DescripcionCorta = "S1 MIN", DescripcionLarga = "DIÁMETRO NOMINAL DEL ANILLO", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+
+            PerfilOD.Propiedades = SortObservableCollectionPropiedad(PerfilOD.Propiedades);
+
             PropiedadesOD.Clear();
 
             foreach (var item in PerfilOD.Propiedades)
@@ -895,8 +990,18 @@ namespace View.Services.ViewModel
                 PropiedadesOD.Add(uc);
             }
 
+            PanelPropiedadesOD = SetNumericEntryToStackPanel(PropiedadesOD, PerfilOD.Propiedades);
+            //-------------------Perfil OD-------------------
+
+            //-------------------Perfil Puntas-------------------
             PerfilPuntas.Propiedades = new ObservableCollection<Propiedad>();
-            PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "Q1", DescripcionCorta = "Q1", DescripcionLarga = "Q1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "Q1 MIN", DescripcionCorta = "Q1 MIN", DescripcionLarga = "Q1 MIN", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "Q1 MAX", DescripcionCorta = "Q1 MAX", DescripcionLarga = "Q1 MAX", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "A1", DescripcionCorta = "A1", DescripcionLarga = "A1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "Y6", DescripcionCorta = "Y6", DescripcionLarga = "Y6", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+
+            PerfilPuntas.Propiedades = SortObservableCollectionPropiedad(PerfilPuntas.Propiedades);
+
             PropiedadesPuntas.Clear();
 
             foreach (var item in PerfilPuntas.Propiedades)
@@ -906,9 +1011,15 @@ namespace View.Services.ViewModel
                 uc.DataContext = mvm;
                 PropiedadesPuntas.Add(uc);
             }
+            PanelPropiedadesPuntas = SetNumericEntryToStackPanel(PropiedadesPuntas, PerfilPuntas.Propiedades);
+            //-------------------Perfil Puntas-------------------
 
+            //-------------------Perfil ID-------------------
             PerfilID.Propiedades = new ObservableCollection<Propiedad>();
             PerfilID.Propiedades.Add(new Propiedad { Nombre = "P1", DescripcionCorta = "P1", DescripcionLarga = "P1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+
+            PerfilID.Propiedades = SortObservableCollectionPropiedad(PerfilID.Propiedades);
+
             PropiedadesID.Clear();
 
             foreach (var item in PerfilID.Propiedades)
@@ -918,9 +1029,15 @@ namespace View.Services.ViewModel
                 uc.DataContext = mvm;
                 PropiedadesID.Add(uc);
             }
+            panelPropiedadesID = SetNumericEntryToStackPanel(PropiedadesID, PerfilID.Propiedades);
+            //-------------------Perfil ID-------------------
 
+            //-------------------Perfil Lateral-------------------
             PerfilLateral.Propiedades = new ObservableCollection<Propiedad>();
             PerfilLateral.Propiedades.Add(new Propiedad { Nombre = "T1", DescripcionCorta = "T1", DescripcionLarga = "T1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+
+            PerfilLateral.Propiedades = SortObservableCollectionPropiedad(PerfilLateral.Propiedades);
+
             PropiedadesLateral.Clear();
 
             foreach (var item in PerfilLateral.Propiedades)
@@ -930,7 +1047,16 @@ namespace View.Services.ViewModel
                 uc.DataContext = mvm;
                 PropiedadesLateral.Add(uc);
             }
+            PanelPropiedadesLateral = SetNumericEntryToStackPanel(PropiedadesLateral, PerfilLateral.Propiedades);
+            //-------------------Perfil Lateral-------------------
+            
+        }
 
+        private void openCalculateDimensions()
+        {
+            WDimensions p = new WDimensions();
+            p.ShowDialog();
+            
         }
 
         /// <summary>

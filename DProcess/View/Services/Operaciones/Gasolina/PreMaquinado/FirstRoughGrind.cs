@@ -5,7 +5,7 @@ using Model.Interfaces;
 using View.Services.TiempoEstandar.Gasolina.PreMaquinado;
 namespace View.Services.Operaciones.Gasolina.PreMaquinado
 {
-    public class FirstRoughGrind
+    public class FirstRoughGrind : IOperacion, IObserverWidth
     {
         #region Propiedades
 
