@@ -22,7 +22,9 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
     
         public int ID_DOCUMENTO { get; set; }
         public int ID_TIPO_DOCUMENTO { get; set; }
-        public Nullable<int> ID_DEPARTAMENTO { get; set; }
+        public string ID_USUARIO { get; set; }
+        public int ID_DEPARTAMENTO { get; set; }
+        public Nullable<int> ID_ESTATUS_DOCUMENTO { get; set; }
         public string NOMBRE { get; set; }
         public string DESCRIPCION { get; set; }
         public string VERSION_ACTUAL { get; set; }
@@ -31,7 +33,9 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public Nullable<System.DateTime> FECHA_ACTUALIZACION { get; set; }
     
         public virtual TBL_DEPARTAMENTO TBL_DEPARTAMENTO { get; set; }
+        public virtual TBL_ESTATUS_DOCUMENTO TBL_ESTATUS_DOCUMENTO { get; set; }
         public virtual TBL_TIPO_DOCUMENTO TBL_TIPO_DOCUMENTO { get; set; }
+        public virtual Usuarios Usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_VERSION> TBL_VERSION { get; set; }
     }

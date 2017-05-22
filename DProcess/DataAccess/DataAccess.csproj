@@ -86,6 +86,9 @@
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_DOCUMENTO.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\TBL_ESTATUS_DOCUMENTO.cs">
+      <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_ROL.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>

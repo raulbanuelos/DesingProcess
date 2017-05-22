@@ -12,17 +12,16 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
     using System;
     using System.Collections.Generic;
     
-    public partial class TBL_DEPARTAMENTO
+    public partial class TBL_ESTATUS_DOCUMENTO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TBL_DEPARTAMENTO()
+        public TBL_ESTATUS_DOCUMENTO()
         {
             this.TBL_DOCUMENTO = new HashSet<TBL_DOCUMENTO>();
         }
     
-        public int ID_DEPARTAMENTO { get; set; }
-        public string NOMBRE_DEPARTAMENTO { get; set; }
-        public string ABREVIATURA { get; set; }
+        public int ID_ESTATUS_DOCUMENTO { get; set; }
+        public string ESTATUS_DOCUMENTO { get; set; }
         public Nullable<System.DateTime> FECHA_CREACION { get; set; }
         public Nullable<System.DateTime> FECHA_ACTUALIZACION { get; set; }
     

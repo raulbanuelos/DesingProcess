@@ -7,19 +7,22 @@
       <Diagram DiagramId="20228259bbed4e74b703f47416098d2d" Name="Diagram1" ZoomLevel="98">
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_ROL" Width="1.5" PointX="4.875" PointY="5.375" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_TIPO_DOCUMENTO" Width="2.125" PointX="6.875" PointY="5.5" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_DEPARTAMENTO" Width="2.625" PointX="14" PointY="5.5" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_DOCUMENTO" Width="1.5" PointX="17.375" PointY="4.875" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_DEPARTAMENTO" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_TIPO_DOCUMENTO" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_ARCHIVO" Width="1.5" PointX="13.5" PointY="0.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_CONF_DOCUMENTO" Width="1.5" PointX="9.75" PointY="5.75" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_CONF_DOCUMENTO_TBL_TIPO_DOCUMENTO" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" Width="1.5" PointX="19.625" PointY="5.875" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" Width="1.5" PointX="13.375" PointY="5.125" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.Usuarios" Width="1.5" PointX="17.375" PointY="0.75" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_ARCHIVO_TBL_VERSION" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_TBL_DOCUMENTOS" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios1" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_DEPARTAMENTO" Width="1.5" PointX="17.25" PointY="7.625" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_DOCUMENTO" Width="1.5" PointX="19.5" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_ESTATUS_DOCUMENTO" Width="1.5" PointX="19.875" PointY="5.875" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_DEPARTAMENTO" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_ESTATUS_DOCUMENTO" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_TIPO_DOCUMENTO" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_Usuarios" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_TBL_DOCUMENTOS" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

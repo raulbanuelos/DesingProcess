@@ -123,6 +123,9 @@
     <Compile Include="Forms\ControlDocumentos\FrmDocumento.xaml.cs">
       <DependentUpon>FrmDocumento.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmGenerador_Numero.xaml.cs">
+      <DependentUpon>FrmGenerador_Numero.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmNuevoTipo.xaml.cs">
       <DependentUpon>FrmNuevoTipo.xaml</DependentUpon>
     </Compile>
@@ -222,6 +225,10 @@
     <Page Include="Forms\ControlDocumentos\FrmDocumento.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmGenerador_Numero.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmNuevoTipo.xaml">
       <SubType>Designer</SubType>

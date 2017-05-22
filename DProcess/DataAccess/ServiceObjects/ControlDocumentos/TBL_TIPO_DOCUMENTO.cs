@@ -17,8 +17,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TBL_TIPO_DOCUMENTO()
         {
-            this.TBL_DOCUMENTO = new HashSet<TBL_DOCUMENTO>();
             this.TBL_CONF_DOCUMENTO = new HashSet<TBL_CONF_DOCUMENTO>();
+            this.TBL_DOCUMENTO = new HashSet<TBL_DOCUMENTO>();
         }
     
         public int ID_TIPO_DOCUMENTO { get; set; }
@@ -28,8 +28,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public Nullable<System.DateTime> FECHA_ACTUALIZACION { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_DOCUMENTO> TBL_DOCUMENTO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_CONF_DOCUMENTO> TBL_CONF_DOCUMENTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_DOCUMENTO> TBL_DOCUMENTO { get; set; }
     }
 }
