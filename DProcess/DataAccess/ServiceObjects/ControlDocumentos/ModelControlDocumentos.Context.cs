@@ -27,11 +27,12 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
     
         public virtual DbSet<TBL_ROL> TBL_ROL { get; set; }
         public virtual DbSet<TBL_TIPO_DOCUMENTO> TBL_TIPO_DOCUMENTO { get; set; }
-        public virtual DbSet<TBL_DEPARTAMENTO> TBL_DEPARTAMENTO { get; set; }
-        public virtual DbSet<TBL_DOCUMENTO> TBL_DOCUMENTO { get; set; }
         public virtual DbSet<TBL_ARCHIVO> TBL_ARCHIVO { get; set; }
         public virtual DbSet<TBL_CONF_DOCUMENTO> TBL_CONF_DOCUMENTO { get; set; }
         public virtual DbSet<TBL_VERSION> TBL_VERSION { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<TBL_DEPARTAMENTO> TBL_DEPARTAMENTO { get; set; }
+        public virtual DbSet<TBL_DOCUMENTO> TBL_DOCUMENTO { get; set; }
+        public virtual DbSet<TBL_ESTATUS_DOCUMENTO> TBL_ESTATUS_DOCUMENTO { get; set; }
     }
 }

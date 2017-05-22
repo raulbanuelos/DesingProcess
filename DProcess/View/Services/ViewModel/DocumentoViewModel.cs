@@ -315,7 +315,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private bool nombreEnabled=true;
+        private bool nombreEnabled=false;
         public bool NombreEnabled {
             get
             {
