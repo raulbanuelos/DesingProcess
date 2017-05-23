@@ -1,12 +1,9 @@
-﻿using MahApps.Metro.Controls;
-using MahApps.Metro.Controls.Dialogs;
-using Model;
-using System.Collections.ObjectModel;
+﻿using System.Windows.Input;
 using System.ComponentModel;
-using System.Windows;
-using System.Windows.Input;
-using System;
+using System.Collections.ObjectModel;
+using Model;
 using View.Forms.Modals;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace View.Services.ViewModel
 {

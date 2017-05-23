@@ -55,7 +55,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="60"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="450"/>
+                    <ColumnDefinition Width="360"/>
                     <ColumnDefinition Width="15"/>
                 </Grid.ColumnDefinitions>
                 
@@ -68,25 +68,30 @@
 
                 <Grid Grid.Column="1" Grid.Row="0" ShowGridLines="True">
                     <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
-                        <Button ToolTip="New" Command="{Binding NewPlano}">
+                        <Button ToolTip="New" Command="{Binding NewPlano}" Cursor="Hand">
                             <materialDesign:PackIcon Kind="File" />
                         </Button>
 
-                        <Button ToolTip="Open" Command="{Binding OpenPlano}">
+                        <Button ToolTip="Open" Command="{Binding OpenPlano}" Cursor="Hand">
                             <materialDesign:PackIcon Kind="Folder" />
                         </Button>
 
-                        <Button ToolTip="Import XML" Command="{Binding ImportXML}">
+                        <Button ToolTip="Import XML" Command="{Binding ImportXML}" Cursor="Hand">
                             <materialDesign:PackIcon Kind="FileXml" />
                         </Button>
 
-                        <Button ToolTip="Save">
+                        <Button ToolTip="Save" Cursor="Hand">
                             <materialDesign:PackIcon Kind="ContentSave" />
                         </Button>
                         <Separator />
 
-                        <Button ToolTip="Run">
+                        <Button ToolTip="Run" Cursor="Hand">
                             <materialDesign:PackIcon Kind="PlayCircle" />
+                        </Button>
+
+                        <Separator/>
+                        <Button ToolTip="Calculate dimencions" Cursor="Hand" Command="{Binding OpenCalculateDimencions}">
+                            <materialDesign:PackIcon Kind="Sigma" />
                         </Button>
                     </ToolBar>
                 </Grid>
@@ -94,7 +99,7 @@
                 <!--Comienza Panel Lateral Derecho-->
                 <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom">
                     <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
-                        <GroupBox HorizontalAlignment="Right"  VerticalAlignment="Top" Header="Changes" Style="{DynamicResource MaterialDesignGroupBox}" Width="450" UseLayoutRounding="True" SnapsToDevicePixels="True">
+                        <GroupBox HorizontalAlignment="Right"  VerticalAlignment="Top" Header="Changes" Style="{DynamicResource MaterialDesignGroupBox}"  UseLayoutRounding="True" SnapsToDevicePixels="True">
                             <DataGrid ItemsSource="{Binding Customers}" AutoGenerateColumns="False" >
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Revision" />
@@ -106,9 +111,9 @@
                     </Border>
                     <StackPanel Orientation="Vertical">
                         <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
-                            <GroupBox HorizontalAlignment="Center"  VerticalAlignment="Top" Header="REMARKS" Style="{DynamicResource MaterialDesignGroupBox}" Width="450" UseLayoutRounding="True" SnapsToDevicePixels="True">
+                            <GroupBox HorizontalAlignment="Center"  VerticalAlignment="Top" Header="REMARKS" Style="{DynamicResource MaterialDesignGroupBox}" UseLayoutRounding="True" SnapsToDevicePixels="True">
                                 <Border HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
-                                    <TextBox Width="120" FontSize="20"></TextBox>
+                                    <TextBox Width="300" FontSize="20"></TextBox>
                                 </Border>
                             </GroupBox>
                         </Border>
@@ -116,14 +121,14 @@
                         <!--Comienza GroupBox de Characteristics-->
                         <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Background="{DynamicResource MaterialDesignBackground}">
 
-                            <GroupBox HorizontalAlignment="Center" VerticalAlignment="Top" Header="CHARACTERISTICS" Style="{DynamicResource MaterialDesignGroupBox}" Width="450" UseLayoutRounding="True" SnapsToDevicePixels="True">
+                            <GroupBox HorizontalAlignment="Center" VerticalAlignment="Top" Header="CHARACTERISTICS" Style="{DynamicResource MaterialDesignGroupBox}" UseLayoutRounding="True" SnapsToDevicePixels="True">
 
                                 <!--Comienza panel de Characteristics-->
                                 <StackPanel Orientation="Vertical">
 
                                     <!--Comienza panel de Treatment-->
                                     <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
-                                        <ComboBox materialDesign:HintAssist.Hint="TREATMENT" FontSize="16" ItemsSource="{Binding ListaTreatment}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="400">
+                                        <ComboBox materialDesign:HintAssist.Hint="TREATMENT" FontSize="16" ItemsSource="{Binding ListaTreatment}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="300">
                                         </ComboBox>
                                     </StackPanel>
                                     <!--Termina panel de Treatment-->
@@ -131,14 +136,16 @@
                                     <!--Comienza panel de Ovality-->
                                     <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBox materialDesign:HintAssist.Hint="{Binding OvalityMin.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="180" Text="{Binding OvalityMin.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                            <TextBox materialDesign:HintAssist.Hint="{Binding OvalityMin.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
+                                                     Width="150" Text="{Binding OvalityMin.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                                             <Button Width="10" Height="10" Command="{Binding  VerUnidadesOvalityMin}"></Button>
                                         </StackPanel>
                                         <StackPanel VerticalAlignment="Center" Margin="5">
                                             <TextBlock Text="-" FontSize="20"></TextBlock>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBox materialDesign:HintAssist.Hint="{Binding OvalityMax.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="180" Text="{Binding OvalityMax.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                            <TextBox materialDesign:HintAssist.Hint="{Binding OvalityMax.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
+                                                     Width="150" Text="{Binding OvalityMax.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                                             <Button Width="10" Height="10" Command="{Binding VerUnidadesOvalityMax}"></Button>
                                         </StackPanel>
                                     </StackPanel>
@@ -147,14 +154,16 @@
                                     <!--Comienza panel FT-->
                                     <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBox materialDesign:HintAssist.Hint="{Binding Tension.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="180" Text="{Binding Tension.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                            <TextBox materialDesign:HintAssist.Hint="{Binding Tension.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
+                                                     Width="150" Text="{Binding Tension.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                                             <Button Width="10" Height="10" Command="{Binding VerUnidadesTension}"></Button>
                                         </StackPanel>
                                         <StackPanel VerticalAlignment="Center" Margin="5">
                                             <TextBlock Text="-" FontSize="20"></TextBlock>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBox materialDesign:HintAssist.Hint="{Binding TensionTol.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="180" Text="{Binding TensionTol.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                            <TextBox materialDesign:HintAssist.Hint="{Binding TensionTol.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
+                                                     Width="150" Text="{Binding TensionTol.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                                             <Button Width="10" Height="10" Command="{Binding VerUnidadesTensionTol}"></Button>
                                         </StackPanel>
                                     </StackPanel>
@@ -162,18 +171,21 @@
 
                                     <!--Comienza panel Free Gap-->
                                     <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
-                                        <TextBox materialDesign:HintAssist.Hint="{Binding FreeGap.TextoPresentacion}" FontSize="16"  TextAlignment="Center" Width="180" Text="{Binding FreeGap.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                        <TextBox materialDesign:HintAssist.Hint="{Binding FreeGap.TextoPresentacion}" FontSize="16"  TextAlignment="Center" 
+                                                 Width="150" Text="{Binding FreeGap.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                                         <Button Width="10" Height="10" Command="{Binding VerUnidadesFreeGap}"></Button>
                                     </StackPanel>
                                     <!--Termina panel de Free Gap-->
 
                                     <!--Comienza panel de material-->
                                     <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
-                                        <ComboBox materialDesign:HintAssist.Hint="MATERIAL" FontSize="16" ItemsSource="{Binding ListaEspecificacionesMateriaPrima}" Text="{Binding  MaterialBase.Especificacion.Valor}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200">
+                                        <ComboBox materialDesign:HintAssist.Hint="MATERIAL" FontSize="16" ItemsSource="{Binding ListaEspecificacionesMateriaPrima}" Text="{Binding  MaterialBase.Especificacion.Valor}" 
+                                                  IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="150">
 
                                         </ComboBox>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBox materialDesign:HintAssist.Hint="{Binding Mass.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="180" Text="{Binding Mass.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                            <TextBox materialDesign:HintAssist.Hint="{Binding Mass.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
+                                                     Width="150" Text="{Binding Mass.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                                             <Button Width="10" Height="10" Command="{Binding VerUnidadesMass}"></Button>
                                         </StackPanel>
 
@@ -183,14 +195,16 @@
                                     <!--Comienza panel Dureza-->
                                     <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBox materialDesign:HintAssist.Hint="{Binding HardnessMin.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="180" Text="{Binding HardnessMin.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                            <TextBox materialDesign:HintAssist.Hint="{Binding HardnessMin.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
+                                                     Width="150" Text="{Binding HardnessMin.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                                             <Button Width="10" Height="10" Command="{Binding VerUnidadesHardnessMin}"></Button>
                                         </StackPanel>
                                         <StackPanel VerticalAlignment="Center" Margin="5">
                                             <TextBlock Text="-" FontSize="20"></TextBlock>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBox materialDesign:HintAssist.Hint="{Binding HardnessMax.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="180" Text="{Binding HardnessMax.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                            <TextBox materialDesign:HintAssist.Hint="{Binding HardnessMax.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
+                                                     Width="150" Text="{Binding HardnessMax.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                                             <Button Width="10" Height="10" Command="{Binding VerUnidadesHardnessMax}"></Button>
                                         </StackPanel>
                                     </StackPanel>
@@ -198,7 +212,7 @@
 
                                     <!--Comienza Cliente-->
                                     <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
-                                        <ComboBox materialDesign:HintAssist.Hint="CUSTOMER" SelectedItem="{Binding cliente}" FontSize="16" Text="{Binding cliente.NombreCliente}" ItemsSource="{Binding ListaClientes}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200">
+                                        <ComboBox materialDesign:HintAssist.Hint="CUSTOMER" SelectedItem="{Binding cliente}" FontSize="16" Text="{Binding cliente.NombreCliente}" ItemsSource="{Binding ListaClientes}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="150">
 
                                         </ComboBox>
                                     </StackPanel>
@@ -207,14 +221,16 @@
                                     <!--Comienza Diámetro y Width-->
                                     <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="180" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                            <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
+                                                     Width="150" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                                             <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
                                         </StackPanel>
                                         <StackPanel VerticalAlignment="Center" Margin="5">
                                             <TextBlock Text="-" FontSize="20"></TextBlock>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBox materialDesign:HintAssist.Hint="{Binding H1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="180" Text="{Binding H1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                            <TextBox materialDesign:HintAssist.Hint="{Binding H1.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
+                                                     Width="150" Text="{Binding H1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                                             <Button Width="10" Height="10" Command="{Binding VerUnidadesH1}"></Button>
                                         </StackPanel>
                                     </StackPanel>
@@ -257,12 +273,17 @@
                         <!--Comienza Perfil Puntas-->
                         <Grid Grid.Column="0" Grid.Row="0" ShowGridLines="True">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="450" />
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="260" />
                             </Grid.ColumnDefinitions>
-                            
-                            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
-                                <ItemsControl ItemsSource="{Binding PropiedadesPuntas}">
+                            <StackPanel Grid.Column="0"/>
+                            <StackPanel Grid.Column="1" Grid.Row="0">
+                                <ItemsControl ItemsSource="{Binding PanelPropiedadesPuntas}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal"></StackPanel>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
                                 </ItemsControl>
                             </StackPanel>
                         </Grid>
@@ -275,7 +296,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
-                                <ItemsControl ItemsSource="{Binding PropiedadesOD}">
+                                <ItemsControl ItemsSource="{Binding PanelPropiedadesOD}">
                                 </ItemsControl>
                             </StackPanel>
                         </Grid>
@@ -289,7 +310,7 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
-                                <ItemsControl ItemsSource="{Binding PropiedadesLateral}">
+                                <ItemsControl ItemsSource="{Binding PanelPropiedadesLateral}">
                                 </ItemsControl>
                             </StackPanel>
                         </Grid>
@@ -303,7 +324,7 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
-                                <ItemsControl ItemsSource="{Binding PropiedadesID}">
+                                <ItemsControl ItemsSource="{Binding PanelPropiedadesLateral}">
                                 </ItemsControl>
                             </StackPanel>
                         </Grid>

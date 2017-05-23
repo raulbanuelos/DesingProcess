@@ -28,7 +28,7 @@ namespace View.Forms.LogIn
 		async void Btn_ingresar_Click(object sender, RoutedEventArgs e)
 		{
             //Abrimos el mensaje modal para que el usuario ingrese sus credenciales, el resultado lo guardamos en una variable local.
-			LoginDialogData result = await this.ShowLoginAsync("Authentication","Enter your credentials", new LoginDialogSettings{ColorScheme=this.MetroDialogOptions.ColorScheme,InitialUsername=""});
+			LoginDialogData result = await this.ShowLoginAsync("Authentication","Enter your credentials", new LoginDialogSettings{ColorScheme= MetroDialogOptions.ColorScheme,InitialUsername=""});
 
             //Comparamos si el resultado es distinto de nulo. Si es igual a nulo quiere decir que el usuario cancelo la captura o cerró inesperadamente la pantalla.
 			if(result != null)
