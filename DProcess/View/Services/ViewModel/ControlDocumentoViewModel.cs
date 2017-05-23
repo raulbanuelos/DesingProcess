@@ -26,7 +26,7 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Propiedades
-
+        public Usuario usuario;
         private ObservableCollection<Documento> _Lista;
         public ObservableCollection<Documento> Lista {
            get
@@ -148,7 +148,7 @@ namespace View.Services.ViewModel
         {
             FrmGenerador_Numero frmGenerador = new FrmGenerador_Numero();
 
-            GeneradorViewModel context = new GeneradorViewModel();
+            GeneradorViewModel context = new GeneradorViewModel { ModelUsuario = usuario };
 
             frmGenerador.DataContext = context;
 

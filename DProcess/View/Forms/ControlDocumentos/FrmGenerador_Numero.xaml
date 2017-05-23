@@ -14,6 +14,7 @@
         <Label x:Name="label" Content="Generador de Número " FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Height="33" Margin="23,26,0,0" VerticalAlignment="Top" Width="305"/>
         <ComboBox x:Name="comboBox" materialDesign:HintAssist.Hint="Tipo de Documento" HorizontalAlignment="Left" Height="46" Margin="40,150,0,0" VerticalAlignment="Top" Width="474" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListaTipoDocumento}"  DisplayMemberPath="tipo_documento" SelectedItem="{Binding SelectedTipoDocumento}"/>
         <ComboBox x:Name="comboBox1" materialDesign:HintAssist.Hint="Departamento/Proceso" HorizontalAlignment="Left" Height="51" Margin="40,311,0,0" VerticalAlignment="Top" Width="474" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListaDepartamento}" DisplayMemberPath="nombre_dep" SelectedItem="{Binding SelectedDepartamento}"/>
+        <Button x:Name="button" Content="Generar" HorizontalAlignment="Left" Height="56" Margin="318,479,0,0" VerticalAlignment="Top" Width="196" Command="{Binding Generar}" FontSize="20"/>
 
     </Grid>
 </Controls:MetroWindow>

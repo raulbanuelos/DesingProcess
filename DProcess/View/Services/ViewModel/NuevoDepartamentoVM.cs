@@ -86,7 +86,7 @@ namespace View.Services.ViewModel
             if (result == MessageDialogResult.Affirmative)
             {
 
-                if (_nombreDep != string.Empty & _abreviatura != null)
+                if (!string.IsNullOrEmpty(_nombreDep) & !string.IsNullOrEmpty(_abreviatura))
                 {
                     //Creamos un objeto de tipo departamento
                     Departamento objDep = new Departamento();

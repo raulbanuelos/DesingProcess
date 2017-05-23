@@ -84,7 +84,7 @@ namespace View.Services.ViewModel
 
             if (result == MessageDialogResult.Affirmative)
             {
-                if (_abreviatura!=null & _tipoDocumento !=null)
+                if (!string.IsNullOrEmpty(_abreviatura) & !string.IsNullOrEmpty(_tipoDocumento))
                 {
                     TipoDocumento obj = new TipoDocumento();
 

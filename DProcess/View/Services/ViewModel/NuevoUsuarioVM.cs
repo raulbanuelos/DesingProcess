@@ -193,13 +193,13 @@ namespace View.Services.ViewModel
 
         private bool Validar()
         {
-            if (_usuario != null & _nombre != null & _aPaterno != null & _aMaterno != null & _contraseña != string.Empty)
+            if (string.IsNullOrEmpty(_usuario) & string.IsNullOrEmpty(_nombre) & string.IsNullOrEmpty(_aPaterno) & string.IsNullOrEmpty(_aMaterno) & string.IsNullOrEmpty(_contraseña))
             {
-                return true;
+                return false;
             }
             else
             {
-                return false;
+                return true;
             }
         }
         #endregion

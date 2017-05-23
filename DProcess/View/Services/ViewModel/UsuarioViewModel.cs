@@ -294,7 +294,7 @@ namespace View.Services.ViewModel
 
 
             ControlDocumento frm = new ControlDocumento();
-            ControlDocumentoViewModel context = new ControlDocumentoViewModel();
+            ControlDocumentoViewModel context = new ControlDocumentoViewModel {usuario=ModelUsuario};
             frm.DataContext = context;
             Pagina = frm;
 

@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 
@@ -80,11 +81,11 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.ID_TIPO_DOCUMENTO = id_tipo_documento;
                     obj.ID_DEPARTAMENTO = id_dep;
                     obj.NOMBRE = nombre;
-                    obj.DESCRIPCION = descripcion;
-                    obj.VERSION_ACTUAL = version_actual;
-                    obj.FECHA_CREACION = DateTime.Now;
-                    obj.FECHA_ACTUALIZACION = fecha_actualizacion;
-                    obj.FECHA_EMISION = fecha_emision;
+                    //obj.DESCRIPCION = descripcion;
+                    //obj.VERSION_ACTUAL = version_actual;
+                    //obj.FECHA_CREACION = DateTime.Now;
+                    //obj.FECHA_ACTUALIZACION = fecha_actualizacion;
+                    //obj.FECHA_EMISION = fecha_emision;
                     obj.ID_ESTATUS_DOCUMENTO = id_estatus;
                     obj.ID_USUARIO = id_usuario;
 
@@ -348,7 +349,94 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
-    
+        /// <summary>
+        /// Método para generar número al documento.
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <returns></returns>
+        public string GetNumero(string nombre)
+        {
+            string lastNumber;
+            try
+            {
+                //Establecemos la conexión a la BD.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta para obetener el último número de un documento.
+                    string numero = (from d in Conexion.TBL_DOCUMENTO
+                                     where d.NOMBRE.Contains(nombre)
+                                     orderby d.ID_DOCUMENTO descending
+                                     select d.NOMBRE).ToList().FirstOrDefault();
+
+                    //se asigna a la variable lastNumber
+                    lastNumber = numero;
+
+                    //si no encontró ningun registro, se crea un nuevo número
+                    if (string.IsNullOrEmpty(lastNumber))
+                    {
+                        //se le asigna al nombre el primer número.
+                        lastNumber = string.Concat(nombre, "-0001");
+                    }
+                    else
+                    {
+                       //si encontro algún número
+                       //Extraemos el número del registro que se obtuvo
+                       string resultString = Regex.Match(lastNumber, @"\d+").Value;
+
+                        //Sumamos uno al número 
+                        int number = Int32.Parse(resultString);
+                       number++;
+
+                        //Concatenamos el nombre con el nuevo número
+                        lastNumber = string.Concat(nombre,"-",number.ToString("D4"));
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay algún error, se retorna un nulo.
+                return null;
+            }
+            //retornamos el número generado.
+            return lastNumber;
+        }
+
+        /// <summary>
+        /// Método para obtener los documentos pendientes de un usuario
+        /// </summary>
+        /// <param name="id_usuario"></param>
+        public IList GetDocumento_Version(string id_usuario)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    var Lista = (from d in Conexion.TBL_DOCUMENTO
+                                 join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
+                                 join dep in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals dep.ID_DEPARTAMENTO
+                                 where d.ID_ESTATUS_DOCUMENTO == 1 & d.ID_USUARIO== id_usuario
+                                 select new
+                                 {
+                                     d.ID_DOCUMENTO,
+                                     d.ID_TIPO_DOCUMENTO,
+                                     d.ID_DEPARTAMENTO,
+                                     d.NOMBRE,
+                                     t.TIPO_DOCUMENTO,
+                                     dep.NOMBRE_DEPARTAMENTO,
+                                     d.ID_ESTATUS_DOCUMENTO
+                                 }).OrderBy(x => x.ID_DOCUMENTO).ToList();
+
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+           
+        }
       
     }
 }

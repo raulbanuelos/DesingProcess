@@ -360,6 +360,7 @@ namespace View.Services.ViewModel
         #region Constructor
         public DocumentoViewModel(string _nombre, string _version, string _copias, string _descripcion, int _id_documento,int _idDep,int _id_version,DateTime fecha_resivion)
         {
+            Inicializar();
             Nombre = _nombre;
             Version = _version;
             Fecha = fecha_resivion;

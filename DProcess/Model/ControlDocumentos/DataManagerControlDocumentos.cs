@@ -420,6 +420,7 @@ namespace Model.ControlDocumentos
             return Lista;
 
         }
+
         /// <summary>
         /// Método para actualizar la versión actual en la tbl documento.
         /// </summary>
@@ -434,8 +435,68 @@ namespace Model.ControlDocumentos
             return ServiceDocumento.UpdateVersion(documento.id_documento, documento.version_actual);
         }
 
+        /// <summary>
+        /// Método para obtener el último número de un documento
+        /// </summary>
+        /// <param name="tipoDocumento"></param>
+        /// <param name="departamento"></param>
+        /// <returns></returns>
+        public static string GetNumero(TipoDocumento tipoDocumento,Departamento departamento)
+        {
+           //concatenamos la abreviatura del tipo y del departamento.
+            string numero = string.Concat(tipoDocumento.abreviatura, departamento.Abreviatura);
+
+            //Se inician los servicios de Documento.
+            SO_Documento ServiceDocumento = new SO_Documento();
+
+            // Se ejecuta el método y retonamos el número generado.
+            return ServiceDocumento.GetNumero(numero);
+        }
+
+        /// <summary>
+        /// Método que obtiene una lista de los documentos sin versión de un usuario.
+        /// </summary>
+        /// <param name="id_usuario"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Documento> GetDocumento_SinVersion(string id_usuario)
+        {
+            //Se inicializan los servicios de Documento.
+            SO_Documento ServiceDocumento = new SO_Documento();
+
+            //Se crea una lista de tipo documento, la cual se va a retornar
+            ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
+
+            //obtenemos todo de la BD.
+            IList ObjDocumento = ServiceDocumento.GetDocumento_Version(id_usuario);
+
+            //Verificamos que la informacion no esté vacía.
+            if (ObjDocumento != null)
+            {
+                foreach (var item in ObjDocumento)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    Documento obj = new Documento();
 
 
+                    //Asignamos los valores correspondientes.
+                    obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    obj.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.descripcion = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.id_dep= (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
+                    obj.Departamento= (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
+                    obj.id_estatus = (int)tipo.GetProperty("ID_ESTATUS_DOCUMENTO").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //regresamos la lista.
+            return Lista;
+        }
         #endregion
 
         #region Rol
