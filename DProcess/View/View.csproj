@@ -160,6 +160,7 @@
     <Compile Include="Services\ExportToExcel.cs" />
     <Compile Include="Services\Module.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\FirstRoughGrind.cs" />
+    <Compile Include="Services\Operaciones\Generica\OperacionGenericaWidth.cs" />
     <Compile Include="Services\ViewModel\AnilloViewModel.cs" />
     <Compile Include="Services\ViewModel\ControlDocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\DimensionsViewModel.cs" />
