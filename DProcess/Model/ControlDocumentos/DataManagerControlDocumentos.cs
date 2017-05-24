@@ -312,7 +312,7 @@ namespace Model.ControlDocumentos
 
             // Se ejecuta el método y retorna los registros que se modificaron.
             return ServiceDocumento.UpdateDocumento(documento.id_documento,documento.id_tipo_documento,documento.id_dep, documento.nombre, documento.descripcion,
-                                                 documento.version_actual, documento.fecha_actualizacion,documento.id_estatus);
+                                                 documento.version_actual, documento.fecha_actualizacion,documento.id_estatus,documento.fecha_emision);
         }
 
         /// <summary>
@@ -479,7 +479,6 @@ namespace Model.ControlDocumentos
 
                     //Declaramos un objeto  que contendrá la información de un registro.
                     Documento obj = new Documento();
-
 
                     //Asignamos los valores correspondientes.
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);

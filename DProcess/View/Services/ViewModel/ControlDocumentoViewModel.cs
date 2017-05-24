@@ -134,8 +134,8 @@ namespace View.Services.ViewModel
         {
 
             FrmDocumento frm = new FrmDocumento();
-            
-            DocumentoViewModel context = new DocumentoViewModel();
+
+            DocumentoViewModel context = new DocumentoViewModel(usuario);
 
             frm.DataContext = context;
 
@@ -163,36 +163,39 @@ namespace View.Services.ViewModel
             //Incializamos los servicios de dialog.
             DialogService dialog = new DialogService();
 
-            table.Columns.Add("Numero de Documento");
-            table.Columns.Add("Nombre de Documento");
-            table.Columns.Add("Version");
-            table.Columns.Add("Copias");
-            table.Columns.Add("Responsable");
-            table.Columns.Add("Fecha de Emision");
-            table.Columns.Add("Fecha de Revision");
-
-            foreach (var item in Lista)
+            if (Lista.Count != 0)
             {
-                DataRow newRow = table.NewRow();
+                table.Columns.Add("Numero de Documento");
+                table.Columns.Add("Nombre de Documento");
+                table.Columns.Add("Version");
+                table.Columns.Add("Copias");
+                table.Columns.Add("Responsable");
+                table.Columns.Add("Fecha de Emision");
+                table.Columns.Add("Fecha de Revision");
 
-                newRow["Numero de Documento"] = item.nombre;
-                newRow["Nombre de Documento"] = item.descripcion;
-                newRow["Version"] = item.version.no_version;
-                newRow["Copias"] = item.version.no_copias;
-                newRow["Responsable"] = item.Departamento;
-                newRow["Fecha de Emision"] = item.fecha_emision.ToShortDateString();
-                newRow["Fecha de Revision"] = item.fecha_actualizacion.ToShortDateString();
+                foreach (var item in Lista)
+                {
+                    DataRow newRow = table.NewRow();
 
-                table.Rows.Add(newRow);
-            }
+                    newRow["Numero de Documento"] = item.nombre;
+                    newRow["Nombre de Documento"] = item.descripcion;
+                    newRow["Version"] = item.version.no_version;
+                    newRow["Copias"] = item.version.no_copias;
+                    newRow["Responsable"] = item.Departamento;
+                    newRow["Fecha de Emision"] = item.fecha_emision.ToShortDateString();
+                    newRow["Fecha de Revision"] = item.fecha_actualizacion.ToShortDateString();
 
-            ds.Tables.Add(table);
+                    table.Rows.Add(newRow);
+                }
 
-            string e= ExportToExcel.Export(ds);
+                ds.Tables.Add(table);
 
-            if (e!=null)
-            {
-            await dialog.SendMessage("Alerta", e);
+                string e = ExportToExcel.Export(ds);
+
+                if (e != null)
+                {
+                    await dialog.SendMessage("Alerta", e);
+                }
             }
             
         }

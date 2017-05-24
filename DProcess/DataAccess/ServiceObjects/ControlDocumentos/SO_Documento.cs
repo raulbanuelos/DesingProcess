@@ -83,7 +83,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.NOMBRE = nombre;
                     //obj.DESCRIPCION = descripcion;
                     //obj.VERSION_ACTUAL = version_actual;
-                    //obj.FECHA_CREACION = DateTime.Now;
+                    obj.FECHA_CREACION = DateTime.Now;
                     //obj.FECHA_ACTUALIZACION = fecha_actualizacion;
                     //obj.FECHA_EMISION = fecha_emision;
                     obj.ID_ESTATUS_DOCUMENTO = id_estatus;
@@ -117,7 +117,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_actualizacion"></param>
         /// <param name="fecha_emision"></param>
         /// <returns></returns>
-        public int UpdateDocumento(int id_documento, int id_tipo_documento,int id_dep, string nombre, string descripcion, string version_actual, DateTime fecha_actualizacion,int id_estatus)
+        public int UpdateDocumento(int id_documento, int id_tipo_documento,int id_dep, string nombre, string descripcion, string version_actual, DateTime fecha_actualizacion,int id_estatus,DateTime fecha_emision)
         {
             try
             {
@@ -134,7 +134,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.DESCRIPCION = descripcion;
                     obj.VERSION_ACTUAL = version_actual;
                     obj.FECHA_ACTUALIZACION = fecha_actualizacion;
-             
+                    obj.FECHA_EMISION = fecha_emision;
+                    obj.ID_ESTATUS_DOCUMENTO = id_estatus;
 
                     //Se cambia el estado de registro a modificado.
                     Conexion.Entry(obj).State = EntityState.Modified;

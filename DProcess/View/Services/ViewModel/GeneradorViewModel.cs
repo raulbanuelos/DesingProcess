@@ -45,7 +45,6 @@ namespace View.Services.ViewModel
                 NotifyChange("NombreUsuario");
             }
         }
-
         public string Nombre
         {
             get
@@ -132,48 +131,54 @@ namespace View.Services.ViewModel
             //Incializamos los servicios de dialog.
             DialogService dialog = new DialogService();
 
-            //Ejecutamos el método para generar el número
-            string numero = DataManagerControlDocumentos.GetNumero(selectedTipoDocumento, selectedDepartamento);
+            if (selectedTipoDocumento!=null & selectedDepartamento!=null) {
+                //Ejecutamos el método para generar el número
+                string numero = DataManagerControlDocumentos.GetNumero(selectedTipoDocumento, selectedDepartamento);
 
-            //si se generó correctamente
-            if (numero!=null)
-            {
-                //inicializamos un objeto de documento
-                Documento objDocumento = new Documento();
-
-                //Mapeamos los valores
-                objDocumento.nombre = numero;
-                objDocumento.id_tipo_documento = selectedTipoDocumento.id_tipo;
-                objDocumento.id_dep = selectedDepartamento.id_dep;
-                objDocumento.usuario = NombreUsuario;
-                objDocumento.id_estatus = 1;
-
-                //Ejecutamos el método para registrar un nuevo documento
-                int id_doc = DataManagerControlDocumentos.SetDocumento(objDocumento);
-
-                if (id_doc != 0)
+                //si se generó correctamente
+                if (numero != null)
                 {
-                    //Muestra mensaje con el número que se generó.
-                    await dialog.SendMessage("Información", "Se generó el número " + numero);
+                    //inicializamos un objeto de documento
+                    Documento objDocumento = new Documento();
 
-                    //Obtememos la ventana actual
-                    var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+                    //Mapeamos los valores
+                    objDocumento.nombre = numero;
+                    objDocumento.id_tipo_documento = selectedTipoDocumento.id_tipo;
+                    objDocumento.id_dep = selectedDepartamento.id_dep;
+                    objDocumento.usuario = NombreUsuario;
+                    objDocumento.id_estatus = 1;
 
-                    //Verificamos que la pantalla sea diferente de nulo.
-                    if (window != null)
+                    //Ejecutamos el método para registrar un nuevo documento
+                    int id_doc = DataManagerControlDocumentos.SetDocumento(objDocumento);
+
+                    if (id_doc != 0)
                     {
-                        //Cerramos la pantalla
-                        window.Close();
+                        //Muestra mensaje con el número que se generó.
+                        await dialog.SendMessage("Información", "Se generó el número " + numero);
+
+                        //Obtememos la ventana actual
+                        var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                        //Verificamos que la pantalla sea diferente de nulo.
+                        if (window != null)
+                        {
+                            //Cerramos la pantalla
+                            window.Close();
+                        }
+                    }
+                    else
+                    {
+                        await dialog.SendMessage("Alerta", "Error al registrar el documento");
                     }
                 }
                 else
                 {
-                    await dialog.SendMessage("Alerta", "Error al registrar el documento");
+                    await dialog.SendMessage("Alerta", "Error al generar el número");
                 }
             }
             else
             {
-                    await dialog.SendMessage("Alerta", "Error al generar el número");
+                await dialog.SendMessage("Información", "Debe de escoger tipo y/o departamento");
             }
            
         }

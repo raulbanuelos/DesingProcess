@@ -54,8 +54,14 @@
                     <ImageBrush ImageSource="/View;component/Images/name.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <TextBox x:Name="txt_nombre" Width="393" Canvas.Left="134" Canvas.Top="41" Tag="Nombre" BorderThickness="1,1,1,1" Height="38" BorderBrush="#89535353" Background="White" FontSize="16" Text="{Binding Nombre}"  IsEnabled="{Binding NombreEnabled}"></TextBox>
-
+            <ComboBox x:Name="comboBox4" Height="38" Canvas.Left="133" Canvas.Top="41" Width="397" BorderThickness="1" Background="White" BorderBrush="#89535353" FontSize="18" ItemsSource="{Binding ListaNumeroDocumento}" DisplayMemberPath="nombre"  SelectedItem="{Binding SelectedDocumento}" IsEnabled="{Binding NombreEnabled}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction
+									Command="{Binding CambiarCombo}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
             <!--Version-->
             <Label x:Name="label1" Content="Versión" Height="30" Canvas.Left="83" Canvas.Top="91" Width="65" FontSize="16" FontWeight="Bold"/>
             <Rectangle Fill="#89DCDCDC" Height="38" Canvas.Left="83" Canvas.Top="121" Width="51" Stroke="#FFBDBDBD"/>
@@ -121,12 +127,12 @@
             <Label x:Name="label5" Content="Lista de Documentos" Height="36" Canvas.Left="716" Canvas.Top="10" Width="196" FontSize="18" FontWeight="Bold"/>
 
             <!--Tipo de Documento-->
-            <ComboBox x:Name="comboBox" Height="38" Canvas.Left="86" Canvas.Top="378" Width="517" BorderThickness="1" BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}" FontSize="18"   />
+            <ComboBox x:Name="comboBox" Height="38" Canvas.Left="86" Canvas.Top="378" Width="517" BorderThickness="1" BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}" FontSize="18" IsEnabled="{Binding TipoEnabled}"  />
             <Label x:Name="label6" Content="Tipo de Documento" Height="29" Canvas.Left="83" Canvas.Top="346" Width="161" FontSize="16" FontWeight="Bold"/>
 
 
             <!--Nombre del departamento-->
-            <ComboBox x:Name="comboBox1" Height="38" Canvas.Left="88" Canvas.Top="470" Width="517" BorderThickness="1" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaDepartamento}" DisplayMemberPath="nombre_dep" SelectedValuePath="id_dep" SelectedValue="{Binding id_dep}"/>
+            <ComboBox x:Name="comboBox1" Height="38" Canvas.Left="88" Canvas.Top="470" Width="517" BorderThickness="1" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaDepartamento}" DisplayMemberPath="nombre_dep" SelectedValuePath="id_dep" SelectedValue="{Binding id_dep}" IsEnabled="{Binding DepartamentoEnabled}"/>
             <Label x:Name="label7" Content="Nombre del Departamento" Height="37" Canvas.Left="86" Canvas.Top="433" Width="232" FontSize="16" FontWeight="Bold"/>
 
             <!--Usuario-->
@@ -160,6 +166,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Label x:Name="label9" Content="Usuario Autorizó" Height="34" Canvas.Left="84" Canvas.Top="621" Width="234" FontSize="16" FontWeight="Bold"/>
+          
         </Canvas>
 
         <!--Barra-->

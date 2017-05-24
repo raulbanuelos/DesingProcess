@@ -1,5 +1,6 @@
 ﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using Model;
 using Model.ControlDocumentos;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace View.Services.ViewModel
 {
     public class DocumentoViewModel : INotifyPropertyChanged
     {
+      
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -33,16 +35,18 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Propiedades
+        public Usuario User;
+
         private string nombre;
         public string Nombre
         {
             get
             {
-                return this.nombre;
+                return nombre;
             }
             set
             {
-                this.nombre = value;
+                nombre = value;
                 NotifyChange("Nombre");
             }
         }
@@ -155,7 +159,7 @@ namespace View.Services.ViewModel
             set
             {
                 _id_dep = value;
-                NotifyChange("id_tipo");
+                NotifyChange("id_dep");
             }
 
         }
@@ -248,6 +252,32 @@ namespace View.Services.ViewModel
         private ObservableCollection<Model.ControlDocumentos.Version> ListaVersiones = new ObservableCollection<Model.ControlDocumentos.Version>();
         private ObservableCollection<Archivo> ListaArchivo = new ObservableCollection<Archivo>();
 
+        private ObservableCollection<Documento> _ListaNumeroDocumento;
+        public ObservableCollection<Documento> ListaNumeroDocumento {
+            get
+            {
+                return _ListaNumeroDocumento;
+            }
+            set
+            {
+                _ListaNumeroDocumento = value;
+                NotifyChange("ListaNumeroDocumento");
+            }
+        }
+       
+        private Documento _selectedDocumento;
+        public Documento SelectedDocumento {
+            get
+            {
+                return _selectedDocumento;
+            }
+            set
+            {
+                _selectedDocumento = value;
+                NotifyChange("SelectedDocumento");
+            }
+        }
+
         private Archivo _selectedItem;
         public Archivo SelectedItem {
             get
@@ -315,7 +345,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private bool nombreEnabled=false;
+        private bool nombreEnabled;
         public bool NombreEnabled {
             get
             {
@@ -342,6 +372,34 @@ namespace View.Services.ViewModel
             }
         }
 
+        private bool tipoEnabled = true;
+        public bool TipoEnabled
+        {
+            get
+            {
+                return tipoEnabled;
+            }
+            set
+            {
+                tipoEnabled = value;
+                NotifyChange("TipoEnabled");
+            }
+        }
+
+        private bool departamentoEnabled = true;
+        public bool DepartamentoEnabled
+        {
+            get
+            {
+                return departamentoEnabled; ;
+            }
+            set
+            {
+                departamentoEnabled = value;
+                NotifyChange("DepartamentoEnabled");
+            }
+        }
+
         private bool _bttnCancelar;
         public bool BttnCancelar {
             get
@@ -358,12 +416,13 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Constructor
-        public DocumentoViewModel(string _nombre, string _version, string _copias, string _descripcion, int _id_documento,int _idDep,int _id_version,DateTime fecha_resivion)
+        public DocumentoViewModel(string _nombre, string _version, string _copias, string _descripcion, int _id_documento,int _idDep,int _id_version,DateTime fecha_revision)
         {
             Inicializar();
             Nombre = _nombre;
+            User = new Usuario();
             Version = _version;
-            Fecha = fecha_resivion;
+            Fecha = fecha_revision;
             auxversion = _version;
             auxcopias = _copias;
             Copias = _copias;
@@ -377,8 +436,8 @@ namespace View.Services.ViewModel
             NombreEnabled = false;
             idVersion = _id_version;
             id_dep = _idDep;
-
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(_id_documento);
+
             ObservableCollection<Model.ControlDocumentos.Version> ListaUsuario = DataManagerControlDocumentos.GetIdUsuario(_id_version);
             foreach (var item in ListaUsuario)
             {
@@ -415,11 +474,16 @@ namespace View.Services.ViewModel
             
         }
 
-        public DocumentoViewModel()
+        public DocumentoViewModel(Usuario usuario)
         {
             BotonGuardar = "Guardar";
             BttnGuardar = true;
             Version = "1";
+            User = usuario;
+            NombreEnabled = true;
+            TipoEnabled = false;
+            DepartamentoEnabled = false;
+            ListaNumeroDocumento = DataManagerControlDocumentos.GetDocumento_SinVersion(User.NombreUsuario);
             Inicializar();
         }
 
@@ -460,26 +524,28 @@ namespace View.Services.ViewModel
                     Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
 
                     //Mapeamos los valores al objeto declarado.
-                    obj.nombre = nombre;
+                    obj.id_documento = _selectedDocumento.id_documento;
+                    obj.nombre =_selectedDocumento.nombre;
                     obj.id_tipo_documento = _id_tipo;
                     obj.id_dep = _id_dep;
                     obj.descripcion = descripcion;
                     obj.fecha_creacion = DateTime.Now;
                     obj.fecha_actualizacion = fecha;
                     obj.fecha_emision = fecha;
-
+                    obj.id_estatus =2;
                     
                     //Ejecutamos el método para guardar el documento. El resultado lo guardamos en una variable local.
-                    id_documento = DataManagerControlDocumentos.SetDocumento(obj);
+                   // id_documento = DataManagerControlDocumentos.SetDocumento(obj);
+                    id_documento = DataManagerControlDocumentos.UpdateDocumento(obj);
 
                     //si se guardo el registro en la tabla documento
                     if (id_documento!=0)
-                    {
-                      
+                    {         
                         //Mapeamos los valores al objeto de versión.
                         objVersion.no_version = version;
                         objVersion.no_copias = Convert.ToInt32(copias);
-                        objVersion.id_documento = id_documento;
+                       // objVersion.id_documento = id_documento;
+                        objVersion.id_documento = _selectedDocumento.id_documento;
                         objVersion.id_usuario = _usuario;
                         objVersion.id_usuario_autorizo = _usuarioAutorizo;
                         objVersion.fecha_version = fecha;
@@ -490,7 +556,7 @@ namespace View.Services.ViewModel
                         //si se guardó correctamente el registro en la tabla versión.
                         if (id_version!=0)
                         {
-                            obj.id_documento = id_documento;
+                            //obj.id_documento = id_documento;      
                             obj.version_actual = Convert.ToString(id_version);
 
                             //Se ejecuta el método para modificar sólo la versión actual del documento, con el id de la versión que se guardó anteriormente.
@@ -689,7 +755,7 @@ namespace View.Services.ViewModel
                 obj.numero = ListaDocumentos.Count+1;
                 if (BotonGuardar=="Guardar") {
                     //El nombre del archivo lo asigna al textbox del nombre
-                    Nombre = obj.nombre;
+                   // Nombre = obj.nombre;
                 }
 
                 //Si el archivo tiene extensión pdf
@@ -955,7 +1021,6 @@ namespace View.Services.ViewModel
             }
         }
         
-
         /// <summary>
         /// Comando para generar una nueva versión a un documento
         /// </summary>
@@ -1132,6 +1197,23 @@ namespace View.Services.ViewModel
 
             frmTipo.ShowDialog();
             ListaTipo = DataManagerControlDocumentos.GetTipo();
+        }
+
+        public ICommand CambiarCombo
+        {
+            get
+            {
+                return new RelayCommand(o => cambiarCombo());
+            }
+        }
+        private void cambiarCombo()
+        {
+            if (_selectedDocumento !=null)
+            {
+                id_dep = _selectedDocumento.id_dep;
+                id_tipo = _selectedDocumento.id_tipo_documento;
+                nombre = _selectedDocumento.nombre;
+            }
         }
 
         #endregion
