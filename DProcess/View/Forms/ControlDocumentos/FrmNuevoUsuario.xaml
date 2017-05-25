@@ -23,7 +23,15 @@
             <TextBox x:Name="textBox1" Text="{Binding APaterno}" materialDesign:HintAssist.Hint="Apellido Paterno " HorizontalAlignment="Left" Height="60" Margin="30,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="293"  BorderThickness="1,1,1,1" BorderBrush="#899B9999" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <TextBox x:Name="textBox2" Text="{Binding AMaterno}" materialDesign:HintAssist.Hint="Apellido Materno " HorizontalAlignment="Left" Height="60" Margin="342,168,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="288" BorderThickness="1,1,1,1" BorderBrush="#899B9999" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <TextBox x:Name="textBox3" Text="{Binding Contraseña}" materialDesign:HintAssist.Hint="Contraseña " HorizontalAlignment="Left" Height="60" Margin="30,248,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="293" BorderThickness="1,1,1,1" BorderBrush="#899B9999" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-            <TextBox x:Name="textBox4" Text="{Binding ConfirmarContraseña}" materialDesign:HintAssist.Hint="Confirmar Contraseña" HorizontalAlignment="Left" Height="60" Margin="342,248,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="288" BorderThickness="1,1,1,1" BorderBrush="#899B9999" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <PasswordBox x:Name="txt_password" PasswordChar="*"  materialDesign:HintAssist.Hint="Confirmar Contraseña" HorizontalAlignment="Left" Height="60" Margin="342,248,0,0"  VerticalAlignment="Top" Width="288" BorderThickness="1,1,1,1" BorderBrush="#899B9999" FontSize="18" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PasswordChanged">
+                        <i:InvokeCommandAction
+									Command="{Binding PasswordChanged}"
+                                     CommandParameter="{Binding ElementName=txt_password}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </PasswordBox>
 
         </Grid>
         <Grid HorizontalAlignment="Left" Height="54" Margin="479,407,0,0" VerticalAlignment="Top" Width="192" Grid.RowSpan="2">

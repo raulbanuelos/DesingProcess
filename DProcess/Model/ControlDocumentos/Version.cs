@@ -17,6 +17,7 @@ namespace Model.ControlDocumentos
         public int no_copias { get; set; }
         public Archivo archivo { get; set; }
         public string id_usuario_autorizo { get; set; }
+        public int id_estatus_version { get; set; }
         #endregion
 
         #region Constructores
@@ -31,6 +32,7 @@ namespace Model.ControlDocumentos
             no_copias = 0;
             archivo = new Archivo();
             id_usuario_autorizo = string.Empty;
+            id_estatus_version = 0;
         }
         #endregion
 

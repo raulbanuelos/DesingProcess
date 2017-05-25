@@ -858,7 +858,7 @@ namespace Model.ControlDocumentos
             SO_Version ServiceVersion = new SO_Version();
 
             //Se ejecuta el método y regresa el id de la versión
-            return ServiceVersion.SetVersion(version.id_version, version.id_usuario,version.id_usuario_autorizo,version.id_documento, version.no_version, version.fecha_version, version.no_copias);
+            return ServiceVersion.SetVersion(version.id_version, version.id_usuario,version.id_usuario_autorizo,version.id_documento, version.no_version, version.fecha_version, version.no_copias,version.id_estatus_version);
         }
 
         /// <summary>

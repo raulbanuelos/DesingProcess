@@ -58,7 +58,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha"></param>
         /// <param name="no_copias"></param>
         /// <returns>Si hay algún error, retorna cero.</returns>
-        public int SetVersion(int id_version,string id_usuario,string id_usuario_autorizo,int id_documento,string no_version,DateTime fecha,int no_copias)
+        public int SetVersion(int id_version,string id_usuario,string id_usuario_autorizo,int id_documento,string no_version,DateTime fecha,int no_copias,int id_estatus)
         {
 
             try
@@ -70,13 +70,15 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     TBL_VERSION obj = new TBL_VERSION();
 
                     //Se asiganan los valores.
-                    obj.ID_VERSION = id_version;
+                   // obj.ID_VERSION = id_version;
                     obj.ID_USUARIO_ELABORO = id_usuario;
                     obj.ID_DOCUMENTO = id_documento;
                     obj.No_VERSION = no_version;
                     obj.NO_COPIAS = no_copias;
                     obj.FECHA_VERSION = fecha;
                     obj.ID_USUARIO_AUTORIZO = id_usuario_autorizo;
+                    obj.ID_ESTATUS_VERSION = id_estatus;
+
                     //Agrega el objeto a la tabla.
                     Conexion.TBL_VERSION.Add(obj);
                     //Se guardan los cambios

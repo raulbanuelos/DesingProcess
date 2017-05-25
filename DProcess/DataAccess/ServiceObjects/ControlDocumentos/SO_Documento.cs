@@ -128,11 +128,10 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     TBL_DOCUMENTO obj = Conexion.TBL_DOCUMENTO.Where(x => x.ID_DOCUMENTO == id_documento).FirstOrDefault();
 
                     //Asignamos los  parámetros recibidos a cada uno de los valores de los objetos.
-                  //  obj.NOMBRE = nombre;
+                    //obj.NOMBRE = nombre;
                     obj.ID_TIPO_DOCUMENTO = id_tipo_documento;
                     obj.ID_DEPARTAMENTO = id_dep;
                     obj.DESCRIPCION = descripcion;
-                    //obj.VERSION_ACTUAL = version_actual;
                     obj.FECHA_ACTUALIZACION = fecha_actualizacion;
                     obj.FECHA_EMISION = fecha_emision;
                     obj.ID_ESTATUS_DOCUMENTO = id_estatus;

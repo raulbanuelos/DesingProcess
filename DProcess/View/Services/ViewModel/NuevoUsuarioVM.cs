@@ -103,6 +103,21 @@ namespace View.Services.ViewModel
             }
         }
 
+        private string _confirmarContraseña;
+        public string ConfirmarContraseña
+        {
+            get
+            {
+                return _confirmarContraseña;
+            }
+            set
+            {
+                _confirmarContraseña = value;
+                NotifyChange("ConfirmarContraseña");
+            }
+        }
+
+        
 
         #endregion
 
@@ -118,7 +133,6 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => guardarUsuario());
             }
         }
-
         public async void guardarUsuario()
         {
             //Incializamos los servicios de dialog.
@@ -186,6 +200,19 @@ namespace View.Services.ViewModel
                     await dialog.SendMessage("RGP: Alerta", "Se debe llenar todos los campos");
                 }
             }
+        }
+
+        public ICommand PasswordChanged
+        {
+            get
+            {
+                return new RelayCommand(parametro => changed(parametro));
+            }
+        }
+
+        public void changed(object pass)
+        {
+          //  _confirmarContraseña = pass.ToString();
         }
         #endregion
 
