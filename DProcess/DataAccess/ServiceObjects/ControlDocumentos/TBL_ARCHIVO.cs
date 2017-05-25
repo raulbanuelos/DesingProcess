@@ -15,7 +15,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
     public partial class TBL_ARCHIVO
     {
         public int ID_ARCHIVO { get; set; }
-        public Nullable<int> ID_VERSION { get; set; }
+        public int ID_VERSION { get; set; }
         public byte[] ARCHIVO { get; set; }
         public string NOMBRE_ARCHIVO { get; set; }
         public string EXT { get; set; }

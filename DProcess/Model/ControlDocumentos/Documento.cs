@@ -17,7 +17,6 @@ namespace Model.ControlDocumentos
         public int id_dep { get; set; }
         public string nombre { get; set; }
         public string descripcion { get; set; }
-        public string version_actual { get; set; }
         public string Departamento { get; set; }
         public DateTime fecha_creacion { get; set; }
         public DateTime fecha_actualizacion { get; set; }
@@ -40,7 +39,6 @@ namespace Model.ControlDocumentos
             id_dep = 0;
             nombre = string.Empty;
             descripcion = string.Empty;
-            version_actual = string.Empty;
             fecha_creacion = new DateTime();
             fecha_emision = new DateTime();
             fecha_actualizacion = new DateTime();

@@ -36,7 +36,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      t.ID_TIPO_DOCUMENTO,
                                      d.NOMBRE,
                                      d.DESCRIPCION,
-                                     d.VERSION_ACTUAL,
+                                     //d.VERSION_ACTUAL,
                                      d.FECHA_EMISION,
                                      d.FECHA_CREACION,
                                      d.FECHA_ACTUALIZACION,
@@ -65,7 +65,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_actualizacion"></param>
         /// <param name="fecha_emision"></param>
         /// <returns></returns>
-        public int SetDocumento(int id_documento, int id_tipo_documento,int id_dep, string nombre, string descripcion, string version_actual, DateTime fecha_creacion, DateTime fecha_actualizacion, DateTime fecha_emision,
+        public int SetDocumento(int id_documento, int id_tipo_documento,int id_dep, string nombre, string descripcion, DateTime fecha_creacion, DateTime fecha_actualizacion, DateTime fecha_emision,
                                  int id_estatus, string id_usuario)
         {
             try
@@ -117,7 +117,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_actualizacion"></param>
         /// <param name="fecha_emision"></param>
         /// <returns></returns>
-        public int UpdateDocumento(int id_documento, int id_tipo_documento,int id_dep, string nombre, string descripcion, string version_actual, DateTime fecha_actualizacion,int id_estatus,DateTime fecha_emision)
+        public int UpdateDocumento(int id_documento, int id_tipo_documento,int id_dep, string nombre, string descripcion, DateTime fecha_actualizacion,int id_estatus,DateTime fecha_emision)
         {
             try
             {
@@ -132,7 +132,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.ID_TIPO_DOCUMENTO = id_tipo_documento;
                     obj.ID_DEPARTAMENTO = id_dep;
                     obj.DESCRIPCION = descripcion;
-                    obj.VERSION_ACTUAL = version_actual;
+                    //obj.VERSION_ACTUAL = version_actual;
                     obj.FECHA_ACTUALIZACION = fecha_actualizacion;
                     obj.FECHA_EMISION = fecha_emision;
                     obj.ID_ESTATUS_DOCUMENTO = id_estatus;
@@ -157,7 +157,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="id_documento"></param>
         /// <param name="version_actual"></param>
         /// <returns></returns>
-        public int UpdateVersion(int id_documento,string version_actual)
+        public int UpdateVersion(int id_documento)
         {
 
             try
@@ -169,7 +169,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     TBL_DOCUMENTO obj = Conexion.TBL_DOCUMENTO.Where(x => x.ID_DOCUMENTO == id_documento).FirstOrDefault();
 
                     //Se modifica el id de la version con la original
-                    obj.VERSION_ACTUAL = version_actual;
+                    //obj.VERSION_ACTUAL = version_actual;
 
                     //Se cambia el estado de registro a modificado.
                     Conexion.Entry(obj).State = EntityState.Modified;
@@ -263,7 +263,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                      join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
                                      join b in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals b.ID_DEPARTAMENTO
-                                     where d.ID_TIPO_DOCUMENTO == idTipoDocumento && d.VERSION_ACTUAL.Contains(v.ID_VERSION.ToString())
+                                     where d.ID_TIPO_DOCUMENTO == idTipoDocumento
                                      select new
                                      {
                                          d.ID_DOCUMENTO,
@@ -286,7 +286,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                      join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
                                      join b in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals b.ID_DEPARTAMENTO
-                                     where d.ID_TIPO_DOCUMENTO == idTipoDocumento && d.VERSION_ACTUAL.Contains(v.ID_VERSION.ToString()) && (d.NOMBRE.Contains(textoBusqueda) || d.DESCRIPCION.Contains(textoBusqueda))
+                                     where d.ID_TIPO_DOCUMENTO == idTipoDocumento  && (d.NOMBRE.Contains(textoBusqueda) || d.DESCRIPCION.Contains(textoBusqueda))
                                      select new
                                      {
                                          d.ID_DOCUMENTO,

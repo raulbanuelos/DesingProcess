@@ -557,7 +557,7 @@ namespace View.Services.ViewModel
                         if (id_version!=0)
                         {
                             //obj.id_documento = id_documento;      
-                            obj.version_actual = Convert.ToString(id_version);
+                            //obj.version_actual = Convert.ToString(id_version);
 
                             //Se ejecuta el método para modificar sólo la versión actual del documento, con el id de la versión que se guardó anteriormente.
                             int update = DataManagerControlDocumentos.UpdateVersionActual(obj);
@@ -652,7 +652,7 @@ namespace View.Services.ViewModel
 
                             //Mapeamos los valores al objeto.
                             obj.id_documento = id_documento;
-                            obj.version_actual = Convert.ToString(id_version);
+                            //obj.version_actual = Convert.ToString(id_version);
                             //Se ejecuta el método para modificar sólo la versión actual del documento, con el id de la versión que se guardó anteriormente.
                             int update = DataManagerControlDocumentos.UpdateVersionActual(obj);
 
@@ -948,7 +948,7 @@ namespace View.Services.ViewModel
                     obj.id_dep = _id_dep;
                     obj.id_tipo_documento = _id_tipo;
                     obj.descripcion = Descripcion;
-                    obj.version_actual = Convert.ToString(idVersion);
+                    //obj.version_actual = Convert.ToString(idVersion);
                     obj.fecha_actualizacion = fecha;
 
                     //Ejecuta el método para modificar un registro 
