@@ -118,6 +118,7 @@ namespace View.Services.ViewModel
             set
             {
                 id_documento = value;
+                NotifyChange("ID_documento");
             }
         }
 
@@ -525,7 +526,7 @@ namespace View.Services.ViewModel
 
                     //Mapeamos los valores al objeto declarado.
                     obj.id_documento = _selectedDocumento.id_documento;
-                    obj.nombre =_selectedDocumento.nombre;
+                    obj.nombre =nombre;
                     obj.id_tipo_documento = _id_tipo;
                     obj.id_dep = _id_dep;
                     obj.descripcion = descripcion;
