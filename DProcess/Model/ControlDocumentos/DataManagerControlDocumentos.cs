@@ -269,7 +269,6 @@ namespace Model.ControlDocumentos
                     obj.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
                     obj.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
-                    obj.version_actual = (string)tipo.GetProperty("VERSION_ACTUAL").GetValue(item, null);
                     obj.fecha_emision = (DateTime)tipo.GetProperty("FECHA_EMISION").GetValue(item, null);
                     obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
                     obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
@@ -296,7 +295,7 @@ namespace Model.ControlDocumentos
 
             //Se ejecuta el método y retorna el id del documento que fue insertado.
             return ServiceDocumento.SetDocumento( documento.id_documento, documento.id_tipo_documento,documento.id_dep,documento.nombre, documento.descripcion,
-                                                 documento.version_actual, documento.fecha_creacion, documento.fecha_actualizacion, documento.fecha_emision,
+                                                 documento.fecha_creacion, documento.fecha_actualizacion, documento.fecha_emision,
                                                  documento.id_estatus,documento.usuario );
         }
 
@@ -312,7 +311,7 @@ namespace Model.ControlDocumentos
 
             // Se ejecuta el método y retorna los registros que se modificaron.
             return ServiceDocumento.UpdateDocumento(documento.id_documento,documento.id_tipo_documento,documento.id_dep, documento.nombre, documento.descripcion,
-                                                 documento.version_actual, documento.fecha_actualizacion,documento.id_estatus,documento.fecha_emision);
+                                                 documento.fecha_actualizacion,documento.id_estatus,documento.fecha_emision);
         }
 
         /// <summary>
@@ -432,7 +431,7 @@ namespace Model.ControlDocumentos
             SO_Documento ServiceDocumento = new SO_Documento();
 
             // Se ejecuta el método y retorna los registros que se modificaron.
-            return ServiceDocumento.UpdateVersion(documento.id_documento, documento.version_actual);
+            return ServiceDocumento.UpdateVersion(documento.id_documento);
         }
 
         /// <summary>

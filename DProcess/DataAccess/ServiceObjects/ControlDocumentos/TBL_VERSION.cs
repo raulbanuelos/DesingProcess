@@ -21,17 +21,19 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
     
         public int ID_VERSION { get; set; }
+        public int ID_ESTATUS_VERSION { get; set; }
         public string ID_USUARIO_ELABORO { get; set; }
         public string ID_USUARIO_AUTORIZO { get; set; }
-        public Nullable<int> ID_DOCUMENTO { get; set; }
+        public int ID_DOCUMENTO { get; set; }
         public string No_VERSION { get; set; }
         public Nullable<System.DateTime> FECHA_VERSION { get; set; }
         public Nullable<int> NO_COPIAS { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_ARCHIVO> TBL_ARCHIVO { get; set; }
+        public virtual TBL_DOCUMENTO TBL_DOCUMENTO { get; set; }
         public virtual Usuarios Usuarios { get; set; }
         public virtual Usuarios Usuarios1 { get; set; }
-        public virtual TBL_DOCUMENTO TBL_DOCUMENTO { get; set; }
+        public virtual TBL_ESTATUS_VERSION TBL_ESTATUS_VERSION { get; set; }
     }
 }
