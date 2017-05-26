@@ -130,18 +130,61 @@ namespace View.Services.ViewModel
             }
         }
 
-        private void irNuevoDocumento()
+        private async void irNuevoDocumento()
         {
 
-            FrmDocumento frm = new FrmDocumento();
 
-            DocumentoViewModel context = new DocumentoViewModel(usuario);
+            //Obtenermos la cantidad de números de documentosque tiene el usuario sin versión.
+            int num_documentos = DataManagerControlDocumentos.GetDocumento_SinVersion(usuario.NombreUsuario).Count;
 
-            frm.DataContext = context;
+            if (num_documentos > 0)
+            {
+                FrmDocumento frm = new FrmDocumento();
 
-            frm.ShowDialog();
+                DocumentoViewModel context = new DocumentoViewModel(usuario);
 
-            initControlDocumentos();
+                frm.DataContext = context;
+
+                frm.ShowDialog();
+
+                initControlDocumentos();
+            }
+            else
+            {
+
+                DialogService dialogService = new DialogService();
+
+                //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
+                MetroDialogSettings setting = new MetroDialogSettings();
+                setting.AffirmativeButtonText = "Crear un nuevo número";
+                setting.NegativeButtonText = "Cancelar";
+
+                //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
+                MessageDialogResult result = await dialogService.SendMessage("Atención", "Usted no tiene ningún número de documento disponible", setting, MessageDialogStyle.AffirmativeAndNegative);
+                switch (result)
+                {
+                    case MessageDialogResult.Negative:
+                        break;
+                    case MessageDialogResult.Affirmative:
+                        FrmGenerador_Numero frmGenerador = new FrmGenerador_Numero();
+
+                        GeneradorViewModel context = new GeneradorViewModel { ModelUsuario = usuario };
+
+                        frmGenerador.DataContext = context;
+
+                        frmGenerador.ShowDialog();
+
+                        break;
+                    case MessageDialogResult.FirstAuxiliary:
+                        break;
+                    case MessageDialogResult.SecondAuxiliary:
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+
         }
 
         private void GenerarNumero()

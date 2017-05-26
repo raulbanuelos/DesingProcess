@@ -262,7 +262,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                      join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
                                      join b in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals b.ID_DEPARTAMENTO
-                                     where d.ID_TIPO_DOCUMENTO == idTipoDocumento
+                                     where d.ID_TIPO_DOCUMENTO == idTipoDocumento && d.ID_ESTATUS_DOCUMENTO == 5 && v.ID_ESTATUS_VERSION == 1
                                      select new
                                      {
                                          d.ID_DOCUMENTO,
@@ -285,7 +285,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                      join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
                                      join b in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals b.ID_DEPARTAMENTO
-                                     where d.ID_TIPO_DOCUMENTO == idTipoDocumento  && (d.NOMBRE.Contains(textoBusqueda) || d.DESCRIPCION.Contains(textoBusqueda))
+                                     where d.ID_TIPO_DOCUMENTO == idTipoDocumento && d.ID_ESTATUS_DOCUMENTO == 5 && v.ID_ESTATUS_VERSION == 1  && (d.NOMBRE.Contains(textoBusqueda) || d.DESCRIPCION.Contains(textoBusqueda))
                                      select new
                                      {
                                          d.ID_DOCUMENTO,

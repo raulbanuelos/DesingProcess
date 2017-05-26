@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DataAccess.ServiceObjects.Usuario.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DataAccess.ServiceObjects.Usuario.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="PerfilUsuario">
           <Key>
             <PropertyRef Name="ID_PERFIL_USUARIO" />
@@ -50,7 +50,7 @@
           <Property Name="Usql" Type="varchar" MaxLength="50" />
           <Property Name="Psql" Type="varchar" MaxLength="50" />
           <Property Name="Bloqueado" Type="bit" />
-          <Property Name="Id_Departamento" Type="int" />
+          <Property Name="ID_ROL" Type="int" />
         </EntityType>
         <Association Name="FK_PerfilUsuario_Usuarios">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
@@ -89,8 +89,7 @@
             <End Role="PrivilegioUsuario" EntitySet="PrivilegioUsuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DataAccess.ServiceObjects.Usuario" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -109,7 +108,7 @@
           <Property Name="DATA" Type="Boolean" />
           <Property Name="USER_PROFILE" Type="Boolean" />
           <Property Name="HELP" Type="Boolean" />
-          <NavigationProperty Name="Usuarios" Relationship="Self.FK_PerfilUsuario_Usuarios" FromRole="PerfilUsuario" ToRole="Usuarios" />
+          <NavigationProperty Name="Usuarios" Relationship="DataAccess.ServiceObjects.Usuario.FK_PerfilUsuario_Usuarios" FromRole="PerfilUsuario" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="PrivilegioUsuario">
           <Key>
@@ -126,13 +125,26 @@
           <Property Name="DATA" Type="Boolean" />
           <Property Name="USER_PROFILE" Type="Boolean" />
           <Property Name="HELP" Type="Boolean" />
-          <NavigationProperty Name="Usuarios" Relationship="Self.FK_PrivilegioUsuario_Usuarios" FromRole="PrivilegioUsuario" ToRole="Usuarios" />
+          <NavigationProperty Name="Usuarios" Relationship="DataAccess.ServiceObjects.Usuario.FK_PrivilegioUsuario_Usuarios" FromRole="PrivilegioUsuario" ToRole="Usuarios" />
         </EntityType>
+        <EntityContainer Name="EntitiesUsuario" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PerfilUsuario" EntityType="Self.PerfilUsuario" />
+          <EntitySet Name="PrivilegioUsuario" EntityType="Self.PrivilegioUsuario" />
+          <EntitySet Name="Usuarios" EntityType="DataAccess.ServiceObjects.Usuario.Usuarios" />
+          <AssociationSet Name="FK_PerfilUsuario_Usuarios" Association="DataAccess.ServiceObjects.Usuario.FK_PerfilUsuario_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="PerfilUsuario" EntitySet="PerfilUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivilegioUsuario_Usuarios" Association="DataAccess.ServiceObjects.Usuario.FK_PrivilegioUsuario_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="PrivilegioUsuario" EntitySet="PrivilegioUsuario" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="Usuario" />
           </Key>
-          <Property Name="Usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Usuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="APaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -141,13 +153,13 @@
           <Property Name="Usql" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Psql" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Bloqueado" Type="Boolean" />
-          <Property Name="Id_Departamento" Type="Int32" />
-          <NavigationProperty Name="PerfilUsuario" Relationship="Self.FK_PerfilUsuario_Usuarios" FromRole="Usuarios" ToRole="PerfilUsuario" />
-          <NavigationProperty Name="PrivilegioUsuario" Relationship="Self.FK_PrivilegioUsuario_Usuarios" FromRole="Usuarios" ToRole="PrivilegioUsuario" />
+          <Property Name="ID_ROL" Type="Int32" />
+          <NavigationProperty Name="PerfilUsuario" Relationship="DataAccess.ServiceObjects.Usuario.FK_PerfilUsuario_Usuarios" FromRole="Usuarios" ToRole="PerfilUsuario" />
+          <NavigationProperty Name="PrivilegioUsuario" Relationship="DataAccess.ServiceObjects.Usuario.FK_PrivilegioUsuario_Usuarios" FromRole="Usuarios" ToRole="PrivilegioUsuario" />
         </EntityType>
         <Association Name="FK_PerfilUsuario_Usuarios">
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
-          <End Role="PerfilUsuario" Type="Self.PerfilUsuario" Multiplicity="*" />
+          <End Type="DataAccess.ServiceObjects.Usuario.Usuarios" Role="Usuarios" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Usuario.PerfilUsuario" Role="PerfilUsuario" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuarios">
               <PropertyRef Name="Usuario" />
@@ -158,8 +170,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PrivilegioUsuario_Usuarios">
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
-          <End Role="PrivilegioUsuario" Type="Self.PrivilegioUsuario" Multiplicity="*" />
+          <End Type="DataAccess.ServiceObjects.Usuario.Usuarios" Role="Usuarios" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Usuario.PrivilegioUsuario" Role="PrivilegioUsuario" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuarios">
               <PropertyRef Name="Usuario" />
@@ -169,19 +181,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="EntitiesUsuario" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="PerfilUsuario" EntityType="Self.PerfilUsuario" />
-          <EntitySet Name="PrivilegioUsuario" EntityType="Self.PrivilegioUsuario" />
-          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
-          <AssociationSet Name="FK_PerfilUsuario_Usuarios" Association="Self.FK_PerfilUsuario_Usuarios">
-            <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="PerfilUsuario" EntitySet="PerfilUsuario" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PrivilegioUsuario_Usuarios" Association="Self.FK_PrivilegioUsuario_Usuarios">
-            <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="PrivilegioUsuario" EntitySet="PrivilegioUsuario" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -225,16 +224,16 @@
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Usuario.Usuarios">
               <MappingFragment StoreEntitySet="Usuarios">
-                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="APaterno" ColumnName="APaterno" />
-                <ScalarProperty Name="AMaterno" ColumnName="AMaterno" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="Usql" ColumnName="Usql" />
-                <ScalarProperty Name="Psql" ColumnName="Psql" />
+                <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
                 <ScalarProperty Name="Bloqueado" ColumnName="Bloqueado" />
-                <ScalarProperty Name="Id_Departamento" ColumnName="Id_Departamento" />
+                <ScalarProperty Name="Psql" ColumnName="Psql" />
+                <ScalarProperty Name="Usql" ColumnName="Usql" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="AMaterno" ColumnName="AMaterno" />
+                <ScalarProperty Name="APaterno" ColumnName="APaterno" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -101,6 +101,9 @@
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_VERSION.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\TR_ROL_USUARIOS.cs">
+      <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\ControlDocumentos\Usuarios.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>

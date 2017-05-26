@@ -14,9 +14,18 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
     
     public partial class TBL_ROL
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TBL_ROL()
+        {
+            this.TR_ROL_USUARIOS = new HashSet<TR_ROL_USUARIOS>();
+        }
+    
         public int ID_ROL { get; set; }
         public string NOMBRE_ROL { get; set; }
         public Nullable<System.DateTime> FECHA_CREACION { get; set; }
         public Nullable<System.DateTime> FECHA_ACTUALIZACION { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TR_ROL_USUARIOS> TR_ROL_USUARIOS { get; set; }
     }
 }
