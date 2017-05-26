@@ -130,6 +130,25 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand IrDocumentosValidar
+        {
+            get
+            {
+                return new RelayCommand(o => irDocumentosValidar());
+            }
+        }
+
+        private void irDocumentosValidar()
+        {
+            DocumentoValidarViewModel o = new DocumentoValidarViewModel(usuario);
+            
+            FrmDocumentosValidar p = new FrmDocumentosValidar();
+
+            p.DataContext = o;
+
+            p.ShowDialog();
+        }
+
         private async void irNuevoDocumento()
         {
 

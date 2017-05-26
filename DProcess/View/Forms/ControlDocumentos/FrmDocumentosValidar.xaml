@@ -5,9 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        mc:Ignorable="d"
-        Title="FrmDocumentosValidar" Height="300" Width="300">
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
+        Title="FrmDocumentosValidar" Height="500" Width="1000" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <DataGrid x:Name="dataGrid"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding ListaDocumentosValidar}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding id_documento}" ClipboardContentBinding="{x:Null}" Header="id documento"/>
+                <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre"/>
+                <DataGridTextColumn Binding="{Binding version.no_version}" ClipboardContentBinding="{x:Null}" Header="Versión"/>
+                <DataGridTextColumn Binding="{Binding tipo.tipo_documento}" ClipboardContentBinding="{x:Null}" Header="Tipo de documento"/>
+                <DataGridTextColumn Binding="{Binding usuario}" ClipboardContentBinding="{x:Null}" Header="Usuario"/>
+            </DataGrid.Columns>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding EditarDocumento}"
+                             CommandParameter="{Binding extension}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </DataGrid>
     </Grid>
 </Controls:MetroWindow>

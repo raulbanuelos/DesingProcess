@@ -15,8 +15,9 @@ namespace View.Services.ViewModel
 
         public Usuario usuario;
 
-        public DocumentoValidarViewModel()
+        public DocumentoValidarViewModel(Usuario _usuario)
         {
+            usuario = _usuario;
             ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentosValidar(usuario.NombreUsuario);
 
         }
