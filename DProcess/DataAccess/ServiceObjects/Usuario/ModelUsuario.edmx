@@ -50,7 +50,6 @@
           <Property Name="Usql" Type="varchar" MaxLength="50" />
           <Property Name="Psql" Type="varchar" MaxLength="50" />
           <Property Name="Bloqueado" Type="bit" />
-          <Property Name="ID_ROL" Type="int" />
         </EntityType>
         <Association Name="FK_PerfilUsuario_Usuarios">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
@@ -153,7 +152,6 @@
           <Property Name="Usql" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Psql" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Bloqueado" Type="Boolean" />
-          <Property Name="ID_ROL" Type="Int32" />
           <NavigationProperty Name="PerfilUsuario" Relationship="DataAccess.ServiceObjects.Usuario.FK_PerfilUsuario_Usuarios" FromRole="Usuarios" ToRole="PerfilUsuario" />
           <NavigationProperty Name="PrivilegioUsuario" Relationship="DataAccess.ServiceObjects.Usuario.FK_PrivilegioUsuario_Usuarios" FromRole="Usuarios" ToRole="PrivilegioUsuario" />
         </EntityType>
@@ -181,7 +179,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -224,7 +222,6 @@
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Usuario.Usuarios">
               <MappingFragment StoreEntitySet="Usuarios">
-                <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
                 <ScalarProperty Name="Bloqueado" ColumnName="Bloqueado" />
                 <ScalarProperty Name="Psql" ColumnName="Psql" />
                 <ScalarProperty Name="Usql" ColumnName="Usql" />

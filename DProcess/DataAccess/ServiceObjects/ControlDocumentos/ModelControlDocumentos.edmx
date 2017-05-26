@@ -119,7 +119,6 @@
           <Property Name="Usql" Type="varchar" MaxLength="50" />
           <Property Name="Psql" Type="varchar" MaxLength="50" />
           <Property Name="Bloqueado" Type="bit" />
-          <Property Name="ID_ROL" Type="int" />
         </EntityType>
         <Association Name="FK_TBL_ARCHIVO_TBL_VERSION">
           <End Role="TBL_VERSION" Type="Self.TBL_VERSION" Multiplicity="1" />
@@ -369,14 +368,14 @@
           </AssociationSet>
           <EntitySet Name="TBL_ROL" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_ROL" />
           <EntitySet Name="TR_ROL_USUARIOS" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TR_ROL_USUARIOS" />
+          <AssociationSet Name="FK_TR_ROL_USUARIOS_TBL_ROL" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_ROL_USUARIOS_TBL_ROL">
+            <End Role="TBL_ROL" EntitySet="TBL_ROL" />
+            <End Role="TR_ROL_USUARIOS" EntitySet="TR_ROL_USUARIOS" />
+          </AssociationSet>
           <EntitySet Name="Usuarios" EntityType="DataAccess.ServiceObjects.ControlDocumentos.Usuarios" />
           <AssociationSet Name="FK_TBL_DOCUMENTO_Usuarios" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TBL_DOCUMENTO" EntitySet="TBL_DOCUMENTO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TR_ROL_USUARIOS_TBL_ROL" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_ROL_USUARIOS_TBL_ROL">
-            <End Role="TBL_ROL" EntitySet="TBL_ROL" />
-            <End Role="TR_ROL_USUARIOS" EntitySet="TR_ROL_USUARIOS" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_VERSION_Usuarios" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
@@ -483,7 +482,7 @@
           <NavigationProperty Name="TBL_ESTATUS_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_TBL_ESTATUS_VERSION" FromRole="TBL_VERSION" ToRole="TBL_ESTATUS_VERSION" />
           <NavigationProperty Name="Usuarios" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios" FromRole="TBL_VERSION" ToRole="Usuarios" />
           <NavigationProperty Name="Usuarios1" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios1" FromRole="TBL_VERSION" ToRole="Usuarios" />
-        </EntityType>
+          </EntityType>
         <Association Name="FK_TBL_ARCHIVO_TBL_VERSION">
           <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" Role="TBL_VERSION" Multiplicity="1" />
           <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_ARCHIVO" Role="TBL_ARCHIVO" Multiplicity="*" />
@@ -596,6 +595,18 @@
           <NavigationProperty Name="TBL_ROL" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_ROL_USUARIOS_TBL_ROL" FromRole="TR_ROL_USUARIOS" ToRole="TBL_ROL" />
           <NavigationProperty Name="Usuarios" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_ROL_USUARIOS_Usuarios" FromRole="TR_ROL_USUARIOS" ToRole="Usuarios" />
         </EntityType>
+        <Association Name="FK_TR_ROL_USUARIOS_TBL_ROL">
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_ROL" Role="TBL_ROL" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TR_ROL_USUARIOS" Role="TR_ROL_USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ROL">
+              <PropertyRef Name="ID_ROL" />
+            </Principal>
+            <Dependent Role="TR_ROL_USUARIOS">
+              <PropertyRef Name="ID_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="Usuario" />
@@ -609,7 +620,6 @@
           <Property Name="Usql" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Psql" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Bloqueado" Type="Boolean" />
-          <Property Name="ID_ROL" Type="Int32" />
           <NavigationProperty Name="TBL_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_Usuarios" FromRole="Usuarios" ToRole="TBL_DOCUMENTO" />
           <NavigationProperty Name="TBL_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios" FromRole="Usuarios" ToRole="TBL_VERSION" />
           <NavigationProperty Name="TBL_VERSION1" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios1" FromRole="Usuarios" ToRole="TBL_VERSION" />
@@ -624,18 +634,6 @@
             </Principal>
             <Dependent Role="TBL_DOCUMENTO">
               <PropertyRef Name="ID_USUARIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TR_ROL_USUARIOS_TBL_ROL">
-          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_ROL" Role="TBL_ROL" Multiplicity="0..1" />
-          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TR_ROL_USUARIOS" Role="TR_ROL_USUARIOS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_ROL">
-              <PropertyRef Name="ID_ROL" />
-            </Principal>
-            <Dependent Role="TR_ROL_USUARIOS">
-              <PropertyRef Name="ID_ROL" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -795,7 +793,6 @@
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.Usuarios">
               <MappingFragment StoreEntitySet="Usuarios">
-                <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
                 <ScalarProperty Name="Bloqueado" ColumnName="Bloqueado" />
                 <ScalarProperty Name="Psql" ColumnName="Psql" />
                 <ScalarProperty Name="Usql" ColumnName="Usql" />

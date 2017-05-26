@@ -22,9 +22,9 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_TBL_ESTATUS_VERSION" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_ROL" Width="1.5" PointX="17.375" PointY="13.5" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TR_ROL_USUARIOS" Width="1.5" PointX="19.625" PointY="0.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.Usuarios" Width="1.5" PointX="11.125" PointY="4.75" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_Usuarios" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_ROL_USUARIOS_TBL_ROL" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.Usuarios" Width="1.5" PointX="17.375" PointY="2.375" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_Usuarios" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios1" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_ROL_USUARIOS_Usuarios" />
