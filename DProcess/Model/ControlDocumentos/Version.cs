@@ -18,6 +18,7 @@ namespace Model.ControlDocumentos
         public Archivo archivo { get; set; }
         public string id_usuario_autorizo { get; set; }
         public int id_estatus_version { get; set; }
+        public string estatus { get; set;  }
         #endregion
 
         #region Constructores
@@ -33,6 +34,7 @@ namespace Model.ControlDocumentos
             archivo = new Archivo();
             id_usuario_autorizo = string.Empty;
             id_estatus_version = 0;
+            estatus = string.Empty;
         }
         #endregion
 

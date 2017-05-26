@@ -322,6 +322,36 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <returns></returns>
+        public IList GetStatus(int id_documento)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    var version = (from v in Conexion.TBL_VERSION
+                                   join e in Conexion.TBL_ESTATUS_VERSION on v.ID_ESTATUS_VERSION equals e.ID_ESTATUS_VERSION
+                                   where v.ID_DOCUMENTO == id_documento & v.ID_ESTATUS_VERSION != 1 & v.ID_ESTATUS_VERSION != 2
+                                   select new
+                                   {
+                                       v.ID_VERSION,
+                                       v.No_VERSION,
+                                       e.ESTATUS_VERSION
+                                   }).ToList();
+
+                    return version;
+                }
+            }
+            catch (Exception er)
+            {
+
+                return null;
+            }
+        }
 
     }
 }

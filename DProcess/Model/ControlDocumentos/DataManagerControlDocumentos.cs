@@ -421,6 +421,44 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <param name="id_version"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Documento> GetNombre_Documento(int id_documento)
+        {
+            SO_Documento ServiceDocumento = new SO_Documento();
+
+            //Se crea una lista de tipo documento, la cual se va a retornar
+            ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
+
+            //obtenemos todo de la BD.
+            IList ObjDocumento = ServiceDocumento.GetNombre(id_documento);
+
+            //Verificamos que la informacion no esté vacía.
+            if (ObjDocumento != null)
+            {
+                foreach (var item in ObjDocumento)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    Documento obj = new Documento();
+
+                    //Asignamos los valores correspondientes.
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //regresamos la lista.
+            return Lista;
+
+        }
+        /// <summary>
         /// Método para actualizar la versión actual en la tbl documento.
         /// </summary>
         /// <param name="documento"></param>
@@ -1067,6 +1105,39 @@ namespace Model.ControlDocumentos
 
             return ListaResultante;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <returns></returns>
+       public static ObservableCollection<Version> GetStatus_Version(int id_documento)
+        {
+            ObservableCollection<Version> Lista = new ObservableCollection<Version>();
+
+            SO_Version ServicioVersion = new SO_Version();
+
+            IList informacionBD = ServicioVersion.GetStatus(id_documento);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    Version obj = new Version();
+
+                    obj.id_version= (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    obj.no_version= (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    obj.estatus = (string)tipo.GetProperty("ESTATUS_VERSION").GetValue(item, null);
+
+                    Lista.Add(obj);
+                }
+            }
+
+            return Lista;
+        }
+
         #endregion
 
     }

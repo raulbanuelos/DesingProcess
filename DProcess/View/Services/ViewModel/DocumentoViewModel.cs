@@ -193,7 +193,7 @@ namespace View.Services.ViewModel
 
         private int idVersion;
 
-        private string auxcopias, auxversion, auxUsuario,auxUsuario_Autorizo;
+        private string auxversion, auxUsuario,auxUsuario_Autorizo;
 
         private ObservableCollection<Archivo> _ListaDocumentos = new ObservableCollection<Archivo>();
         public ObservableCollection<Archivo> ListaDocumentos
@@ -430,27 +430,34 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Constructor
-        public DocumentoViewModel(string _nombre, string _version, string _copias, string _descripcion, int _id_documento,int _idDep,int _id_version,DateTime fecha_revision)
+        public DocumentoViewModel(Documento selectedDocumento)
         {
             Inicializar();
-            Nombre = _nombre;
+            Nombre = selectedDocumento.nombre;
             User = new Usuario();
-            Version = _version;
-            Fecha = fecha_revision;
-            auxversion = _version;
-            Descripcion = _descripcion;
-            id_documento = _id_documento;
+            Version = selectedDocumento.version.no_version;
+            Fecha = selectedDocumento.fecha_actualizacion;
+            auxversion = selectedDocumento.version.no_version;
+            Descripcion = selectedDocumento.descripcion;
+            id_documento = selectedDocumento.id_documento;
             BotonGuardar = "Guardar";
             BttnGuardar = false;
             BttnEliminar = true;
             BttnModificar = true;
             BttnVersion = true;
             NombreEnabled = false;
-            idVersion = _id_version;
-            id_dep = _idDep;
-            id_tipo = DataManagerControlDocumentos.GetTipoDocumento(_id_documento);
+            TipoEnabled = false;
+            DepartamentoEnabled = false;
+            idVersion = selectedDocumento.version.id_version;
+            id_dep = selectedDocumento.id_dep;
+            id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
 
-            ObservableCollection<Model.ControlDocumentos.Version> ListaUsuario = DataManagerControlDocumentos.GetIdUsuario(_id_version);
+            _ListaNumeroDocumento = DataManagerControlDocumentos.GetNombre_Documento(id_documento);
+
+            if(_ListaNumeroDocumento.Count >0)
+            SelectedDocumento = _ListaNumeroDocumento[0];
+
+            ObservableCollection<Model.ControlDocumentos.Version> ListaUsuario = DataManagerControlDocumentos.GetIdUsuario(idVersion);
             foreach (var item in ListaUsuario)
             {
                 usuario = item.id_usuario;
@@ -459,7 +466,7 @@ namespace View.Services.ViewModel
                 auxUsuario_Autorizo = usuarioAutorizo;
             }
           
-            ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetTipo(_id_documento,idVersion);
+            ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetTipo(id_documento,idVersion);
 
             foreach (var item in Lista)
             {
@@ -946,7 +953,7 @@ namespace View.Services.ViewModel
                     obj.id_tipo_documento = _id_tipo;
                     obj.descripcion = Descripcion;
                     obj.fecha_actualizacion = fecha;
-                    obj.id_estatus = 2;
+                    obj.id_estatus = 5;
 
                     //Ejecuta el método para modificar un registro 
                     int n = DataManagerControlDocumentos.UpdateDocumento(obj);
@@ -961,7 +968,7 @@ namespace View.Services.ViewModel
                         objVersion.id_usuario = _usuario;
                         objVersion.id_usuario_autorizo = _usuarioAutorizo;
                         objVersion.fecha_version = fecha;
-                        objVersion.id_estatus_version = 3;
+                        objVersion.id_estatus_version = 1;
                         //objVersion.no_copias =;
                         
                         //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
@@ -1034,25 +1041,39 @@ namespace View.Services.ViewModel
             //Incializamos los servicios de dialog.
             DialogService dialog = new DialogService();
 
-            //Obtiene la últuma version del documento.
-            Version = DataManagerControlDocumentos.GetLastVersion(id_documento);
+            ObservableCollection<Model.ControlDocumentos.Version> ListaEstatus = DataManagerControlDocumentos.GetStatus_Version(id_documento);
 
-            //Manda un mensaje al usuario, donde muestra la versión nueva.
-            await dialog.SendMessage("Alerta", "La nueva versión del documento es la número "+Version);
+            if (ListaEstatus.Count == 0)
+            {
 
-            //Limpiamos todos lo textbox, y se cambia el content del botón de guardar.
-            Fecha = DateTime.Now;
-            Copias=string.Empty;
-            usuario = null;
-            usuarioAutorizo = null;
-            ListaDocumentos.Clear();
-            BotonGuardar = "Guardar Version";
-            BttnGuardar = true;
-            BttnEliminar = false;
-            BttnModificar = false;
-            BttnVersion = false;
-            NombreEnabled = false;
-            BttnCancelar = true;
+                //Obtiene la últuma version del documento.
+                Version = DataManagerControlDocumentos.GetLastVersion(id_documento);
+
+                //Manda un mensaje al usuario, donde muestra la versión nueva.
+                await dialog.SendMessage("Información", "La nueva versión del documento es la número " + Version);
+
+                //Limpiamos todos lo textbox, y se cambia el content del botón de guardar.
+                Fecha = DateTime.Now;
+                usuarioAutorizo = null;
+                ListaDocumentos.Clear();
+                BotonGuardar = "Guardar Version";
+                BttnGuardar = true;
+                BttnEliminar = false;
+                BttnModificar = false;
+                BttnVersion = false;
+                NombreEnabled = false;
+                BttnCancelar = true;
+            }
+            else
+            {
+                Model.ControlDocumentos.Version obj = new Model.ControlDocumentos.Version();
+                foreach (var item in ListaEstatus)
+                {
+                     obj.no_version = item.no_version;
+                     obj.estatus = item.estatus;
+                }
+                await dialog.SendMessage("No se puede crear una nueva versión", " Versión número " + obj.no_version + " tiene estado: " + obj.estatus );
+            }
 
         }
 
@@ -1197,6 +1218,9 @@ namespace View.Services.ViewModel
             ListaTipo = DataManagerControlDocumentos.GetTipo();
         }
 
+        /// <summary>
+        /// Método para mostrar el departamento y tipo de acuero al nombre que esocoja el usuario
+        /// </summary>
         public ICommand CambiarCombo
         {
             get

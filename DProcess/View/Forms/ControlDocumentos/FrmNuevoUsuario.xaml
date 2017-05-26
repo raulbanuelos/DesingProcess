@@ -22,8 +22,16 @@
             <TextBox x:Name="txt_nombre" Text="{Binding Nombre}" materialDesign:HintAssist.Hint="Nombre " HorizontalAlignment="Left" Height="60" Margin="30,86,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="600"  BorderThickness="1,1,1,1" BorderBrush="#899B9999" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
             <TextBox x:Name="textBox1" Text="{Binding APaterno}" materialDesign:HintAssist.Hint="Apellido Paterno " HorizontalAlignment="Left" Height="60" Margin="30,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="293"  BorderThickness="1,1,1,1" BorderBrush="#899B9999" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <TextBox x:Name="textBox2" Text="{Binding AMaterno}" materialDesign:HintAssist.Hint="Apellido Materno " HorizontalAlignment="Left" Height="60" Margin="342,168,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="288" BorderThickness="1,1,1,1" BorderBrush="#899B9999" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-            <TextBox x:Name="textBox3" Text="{Binding Contraseña}" materialDesign:HintAssist.Hint="Contraseña " HorizontalAlignment="Left" Height="60" Margin="30,248,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="293" BorderThickness="1,1,1,1" BorderBrush="#899B9999" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-            <PasswordBox x:Name="txt_password" PasswordChar="*"  materialDesign:HintAssist.Hint="Confirmar Contraseña" HorizontalAlignment="Left" Height="60" Margin="342,248,0,0"  VerticalAlignment="Top" Width="288" BorderThickness="1,1,1,1" BorderBrush="#899B9999" FontSize="18" >
+            <PasswordBox x:Name="txt_pass"  materialDesign:HintAssist.Hint="Contraseña " HorizontalAlignment="Left" Height="50" Margin="30,258,0,0" VerticalAlignment="Top" Width="293" BorderThickness="1,1,1,1" BorderBrush="#899B9999" FontSize="18">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PasswordChanged">
+                        <i:InvokeCommandAction
+									Command="{Binding PasswordChanged1}"
+                                     CommandParameter="{Binding ElementName=txt_pass}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </PasswordBox>
+            <PasswordBox x:Name="txt_password" PasswordChar="*"  materialDesign:HintAssist.Hint="Confirmar Contraseña" HorizontalAlignment="Left" Height="50" Margin="342,258,0,0"  VerticalAlignment="Top" Width="288" BorderThickness="1,1,1,1" BorderBrush="#899B9999" FontSize="18" >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PasswordChanged">
                         <i:InvokeCommandAction

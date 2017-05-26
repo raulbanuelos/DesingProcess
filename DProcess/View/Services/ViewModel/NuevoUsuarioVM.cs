@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace View.Services.ViewModel
 {
@@ -166,27 +167,35 @@ namespace View.Services.ViewModel
 
                     if (validate == null)
                     {
-                        //ejecutamos el método para insertar un registro a la tabla
-                        string usuario = DataManagerControlDocumentos.SetUsuario(objUsuario);
+                        //confirmar contraseña
+                        if (_contraseña.Contains(_confirmarContraseña)) {
 
-                        //si el usuario es diferente de vacío
-                        if (usuario != string.Empty)
-                        {
-                            //se muestra un mensaje de cambios realizados.
-                            await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
-                            //Obtenemos la ventana actual.
-                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+                            //ejecutamos el método para insertar un registro a la tabla
+                            string usuario = DataManagerControlDocumentos.SetUsuario(objUsuario);
 
-                            //Verificamos que la pantalla sea diferente de nulo.
-                            if (window != null)
+                            //si el usuario es diferente de vacío
+                            if (usuario != string.Empty)
                             {
-                                //Cerramos la pantalla
-                                window.Close();
+                                //se muestra un mensaje de cambios realizados.
+                                await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+                                //Obtenemos la ventana actual.
+                                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                                //Verificamos que la pantalla sea diferente de nulo.
+                                if (window != null)
+                                {
+                                    //Cerramos la pantalla
+                                    window.Close();
+                                }
+                            }
+                            else
+                            {
+                                await dialog.SendMessage("Alerta", "Error al registar el usuario.");
                             }
                         }
                         else
                         {
-                            await dialog.SendMessage("Alerta", "Error al registar el usuario.");
+                            await dialog.SendMessage("Alerta", "La contraseña no coincide.");
                         }
 
                     }
@@ -201,18 +210,38 @@ namespace View.Services.ViewModel
                 }
             }
         }
-
+        /// <summary>
+        /// Método para guardar text de passwordBox para confirmar contraseña
+        /// </summary>
         public ICommand PasswordChanged
         {
             get
             {
-                return new RelayCommand(parametro => changed(parametro));
+                return new RelayCommand(parametro => changed((object)parametro));
             }
         }
 
-        public void changed(object pass)
+        public void changed(object parametro)
         {
-          //  _confirmarContraseña = pass.ToString();
+            var passwordBox = parametro as PasswordBox;
+            _confirmarContraseña = passwordBox.Password;
+        }
+
+        /// <summary>
+        /// Método para guardar text de passwordBox 
+        /// </summary>
+        public ICommand PasswordChanged1
+        {
+            get
+            {
+                return new RelayCommand(parametro => changedPass((object)parametro));
+            }
+        }
+
+        public void changedPass(object parametro)
+        {
+            var passwordBox = parametro as PasswordBox;
+            _contraseña = passwordBox.Password;
         }
         #endregion
 
@@ -220,7 +249,7 @@ namespace View.Services.ViewModel
 
         private bool Validar()
         {
-            if (string.IsNullOrEmpty(_usuario) & string.IsNullOrEmpty(_nombre) & string.IsNullOrEmpty(_aPaterno) & string.IsNullOrEmpty(_aMaterno) & string.IsNullOrEmpty(_contraseña))
+            if (string.IsNullOrEmpty(_usuario) & string.IsNullOrEmpty(_nombre) & string.IsNullOrEmpty(_aPaterno) & string.IsNullOrEmpty(_aMaterno) & string.IsNullOrEmpty(_contraseña) & string.IsNullOrEmpty(_confirmarContraseña))
             {
                 return false;
             }

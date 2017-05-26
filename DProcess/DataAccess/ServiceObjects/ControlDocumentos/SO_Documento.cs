@@ -438,6 +438,37 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
            
         }
 
+        /// <summary>
+        /// Método que obtiene el nombre de un documento
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <returns></returns>
+        public IList GetNombre(int id_documento)
+        {
+            try
+            {
+                //Se inician los servicios de Entity Control Documento
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Se realiza la consulta para obtener el archivo y el tipo de acuerdo al documento requerido.
+                    var Lista = (from d in Conexion.TBL_DOCUMENTO
+                                 where d.ID_DOCUMENTO == id_documento 
+                                 select new
+                                 {
+                                     d.NOMBRE
+                                 }).ToList();
+                    //se retorna la lista
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //si hay error, retorna nulo.
+                return null;
+            }
+        }
+
+
         public IList GetDocumentosValidar(string nombreUsuario)
         {
             try
