@@ -1039,6 +1039,34 @@ namespace Model.ControlDocumentos
             //Retornamos la lista.
             return Lista;
         }
+
+        public static ObservableCollection<Documento> GetDocumentosValidar(string nombreUsuario)
+        {
+            ObservableCollection<Documento> ListaResultante = new ObservableCollection<Documento>();
+
+            SO_Documento ServicioDocumento = new SO_Documento();
+
+            IList informacionBD = ServicioDocumento.GetDocumentosValidar(nombreUsuario);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    Documento obj = new Documento();
+
+                    obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.usuario = (string)tipo.GetProperty("NOMBRE_USUARIO").GetValue(item, null);
+
+
+                }
+            }
+
+            return ListaResultante;
+        }
         #endregion
 
     }

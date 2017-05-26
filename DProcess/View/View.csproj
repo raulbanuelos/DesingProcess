@@ -123,6 +123,9 @@
     <Compile Include="Forms\ControlDocumentos\FrmDocumento.xaml.cs">
       <DependentUpon>FrmDocumento.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmDocumentosValidar.xaml.cs">
+      <DependentUpon>FrmDocumentosValidar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmGenerador_Numero.xaml.cs">
       <DependentUpon>FrmGenerador_Numero.xaml</DependentUpon>
     </Compile>
@@ -167,6 +170,7 @@
     <Compile Include="Services\ViewModel\AnilloViewModel.cs" />
     <Compile Include="Services\ViewModel\ControlDocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\DimensionsViewModel.cs" />
+    <Compile Include="Services\ViewModel\DocumentoValidarViewModel.cs" />
     <Compile Include="Services\ViewModel\DocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\GeneradorViewModel.cs" />
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
@@ -231,6 +235,10 @@
     <Page Include="Forms\ControlDocumentos\FrmDocumento.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmDocumentosValidar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmGenerador_Numero.xaml">
       <SubType>Designer</SubType>

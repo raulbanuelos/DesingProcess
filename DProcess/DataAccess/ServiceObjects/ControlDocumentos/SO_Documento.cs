@@ -437,6 +437,32 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
            
         }
-      
+
+        public IList GetDocumentosValidar(string nombreUsuario)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    var Lista = (from d in Conexion.TBL_DOCUMENTO
+                                 join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                 join u in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals u.Usuario
+                                 join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
+                                 where v.ID_ESTATUS_VERSION == 3
+                                 select new
+                                 {
+                                     d.ID_DOCUMENTO,
+                                     d.NOMBRE,
+                                     NOMBRE_USUARIO = u.Nombre + " " + u.APaterno + " " + u.AMaterno,
+                                     t.TIPO_DOCUMENTO
+                                 }).ToList();
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }
