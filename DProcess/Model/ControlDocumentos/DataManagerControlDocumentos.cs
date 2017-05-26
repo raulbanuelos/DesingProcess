@@ -1060,7 +1060,8 @@ namespace Model.ControlDocumentos
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
                     obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
                     obj.usuario = (string)tipo.GetProperty("NOMBRE_USUARIO").GetValue(item, null);
-
+                    obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    ListaResultante.Add(obj);
 
                 }
             }
