@@ -19,7 +19,7 @@
             </DataGrid.Columns>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
-                    <i:InvokeCommandAction Command="{Binding EditarDocumento}"
+                    <i:InvokeCommandAction Command="{Binding AbrirDocumento}"
                              CommandParameter="{Binding extension}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>

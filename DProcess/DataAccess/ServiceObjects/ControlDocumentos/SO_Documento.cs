@@ -468,7 +468,11 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nombreUsuario"></param>
+        /// <returns></returns>
         public IList GetDocumentosValidar(string nombreUsuario)
         {
             try
@@ -492,6 +496,29 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 }
             }
             catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public IList GetDocumentoVersion(int idDocumento, string version)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    var lista = (from d in Conexion.TBL_DOCUMENTO
+                                 join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                 where v.No_VERSION == version && d.ID_DOCUMENTO == idDocumento
+                                 select new
+                                 {
+                                     d.ID_DOCUMENTO,d.ID_TIPO_DOCUMENTO,d.ID_USUARIO,d.ID_DEPARTAMENTO,d.ID_ESTATUS_DOCUMENTO,d.NOMBRE,d.DESCRIPCION,d.FECHA_EMISION,d.FECHA_CREACION,d.FECHA_ACTUALIZACION,
+                                     v.ID_VERSION,v.ID_ESTATUS_VERSION,v.ID_USUARIO_ELABORO,v.ID_USUARIO_AUTORIZO,v.No_VERSION,v.FECHA_VERSION,v.NO_COPIAS
+                                 }).ToList();
+                    return lista;
+                }
+            }
+            catch (Exception er)
             {
                 return null;
             }

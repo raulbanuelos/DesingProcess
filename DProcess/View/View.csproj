@@ -138,6 +138,9 @@
     <Compile Include="Forms\ControlDocumentos\FrmNuevo_Departamento.xaml.cs">
       <DependentUpon>FrmNuevo_Departamento.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmValidarDocumento.xaml.cs">
+      <DependentUpon>FrmValidarDocumento.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Index\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
@@ -253,6 +256,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmNuevo_Departamento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmValidarDocumento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -467,7 +467,7 @@ namespace View.Services.ViewModel
             }
           
             ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetTipo(id_documento,idVersion);
-
+            
             foreach (var item in Lista)
             {
                 Archivo objArchivo = new Archivo();
@@ -488,6 +488,7 @@ namespace View.Services.ViewModel
                     objArchivo.ruta = @"/Images/w.png";
                 }
                 ListaDocumentos.Add(objArchivo);
+                
             }
 
             
@@ -805,7 +806,7 @@ namespace View.Services.ViewModel
             ListaDocumentos.Clear();
 
             ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetTipo(id_documento, idVersion);
-
+            
             foreach (var item in Lista)
             {
                 Archivo objArchivo = new Archivo();
@@ -826,6 +827,7 @@ namespace View.Services.ViewModel
                     objArchivo.ruta = @"/Images/w.png";
                 }
                 ListaDocumentos.Add(objArchivo);
+                
             }
         }
 

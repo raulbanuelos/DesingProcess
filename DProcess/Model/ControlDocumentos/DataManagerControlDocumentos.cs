@@ -241,7 +241,7 @@ namespace Model.ControlDocumentos
         /// 
         /// </summary>
         /// <returns></returns>
-        public static ObservableCollection<Documento> GetDocumento()
+        public static ObservableCollection<Documento> GetDocumentos()
         {
             //Se inicializan los servicios de Documento.
             SO_Documento ServiceDocumento = new SO_Documento();
@@ -458,6 +458,7 @@ namespace Model.ControlDocumentos
             return Lista;
 
         }
+
         /// <summary>
         /// Método para actualizar la versión actual en la tbl documento.
         /// </summary>
@@ -532,6 +533,42 @@ namespace Model.ControlDocumentos
             }
             //regresamos la lista.
             return Lista;
+        }
+
+
+        public static Documento GetDocumento(int id_documento, string version)
+        {
+            SO_Documento ServicioDocumento = new SO_Documento();
+
+            Documento documento = new Documento();
+
+            IList informacionBD = ServicioDocumento.GetDocumentoVersion(id_documento, version);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    documento.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    documento.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
+                    documento.id_estatus = (int)tipo.GetProperty("ID_ESTATUS_DOCUMENTO").GetValue(item, null);
+                    documento.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    documento.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    documento.fecha_emision = (DateTime)tipo.GetProperty("FECHA_EMISION").GetValue(item, null);
+                    documento.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
+                    documento.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+                    documento.version.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    documento.version.id_estatus_version = (int)tipo.GetProperty("ID_ESTATUS_VERSION").GetValue(item, null);
+                    documento.version.id_usuario = (string)tipo.GetProperty("ID_USUARIO_ELABORO").GetValue(item, null);
+                    documento.version.id_usuario_autorizo = (string)tipo.GetProperty("ID_USUARIO_AUTORIZO").GetValue(item, null);
+                    documento.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    documento.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
+                    documento.version.no_copias = (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
+                }
+            }
+
+            return documento;
         }
         #endregion
 
