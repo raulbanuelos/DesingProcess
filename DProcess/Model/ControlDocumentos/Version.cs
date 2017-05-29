@@ -19,6 +19,8 @@ namespace Model.ControlDocumentos
         public string id_usuario_autorizo { get; set; }
         public int id_estatus_version { get; set; }
         public string estatus { get; set;  }
+        public string nombre_usuario_autorizo { get; set; }
+        public string nombre_usuario_elaboro { get; set; }
         #endregion
 
         #region Constructores
@@ -35,6 +37,8 @@ namespace Model.ControlDocumentos
             id_usuario_autorizo = string.Empty;
             id_estatus_version = 0;
             estatus = string.Empty;
+            nombre_usuario_autorizo = string.Empty;
+            nombre_usuario_elaboro = string.Empty;
         }
         #endregion
 

@@ -231,7 +231,7 @@ namespace Model.ControlDocumentos
             SO_Departamento ServiceDepartamento = new SO_Departamento();
 
             // Se ejecuta el método y retorna número de registros eliminados.
-            return ServiceDepartamento.ValidateDepartamento(departamento.nombre_dep);
+            return ServiceDepartamento.ValidateDepartamento(departamento.nombre_dep,departamento.Abreviatura);
 
         }
         #endregion
@@ -381,7 +381,7 @@ namespace Model.ControlDocumentos
         /// <param name="id_documento"></param>
         /// <param name="id_version"></param>
         /// <returns></returns>
-        public static ObservableCollection<Documento> GetTipo(int id_documento,int id_version)
+        public static ObservableCollection<Documento> GetArchivos(int id_documento,int id_version)
         {
             SO_Documento ServiceDocumento = new SO_Documento();
 
@@ -410,7 +410,7 @@ namespace Model.ControlDocumentos
                     obj.version.archivo.id_archivo = (int)tipo.GetProperty("ID_ARCHIVO").GetValue(item, null);
                     obj.version.archivo.ext= (string)tipo.GetProperty("EXT").GetValue(item, null);
                     obj.version.archivo.archivo = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
-
+                    obj.Departamento= (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }
@@ -969,13 +969,12 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="id_version"></param>
         /// <returns></returns>
-        public static ObservableCollection<Version> GetIdUsuario(int id_version)
+        public static Version GetIdUsuario(int id_version)
         {
             //Inicializamos los servicios de version.
             SO_Version ServiceVersion = new SO_Version();
 
-            //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
-            ObservableCollection<Version> Lista = new ObservableCollection<Version>();
+            Version obj = new Version();
 
             //Ejecutamos el método para obtener la información de la base de datos.
             IList ObjVersion = ServiceVersion.GetUsuario(id_version);
@@ -983,7 +982,7 @@ namespace Model.ControlDocumentos
             //Comparamos que la información de la base de datos no sea nulo.
             if (ObjVersion != null)
             {
-
+               
                 //Iteramos la información recibida.
                 foreach (var item in ObjVersion)
                 {
@@ -991,17 +990,18 @@ namespace Model.ControlDocumentos
                     System.Type tipo = item.GetType();
 
                     //Declaramos on objeto de tipo version que contendrá la información de un registro.
-                    Version obj = new Version();
+                    
 
                     //Asignamos los valores correspondientes.
                     obj.id_usuario = (string)tipo.GetProperty("ID_USUARIO_ELABORO").GetValue(item, null);
                     obj.id_usuario_autorizo = (string)tipo.GetProperty("ID_USUARIO_AUTORIZO").GetValue(item, null);
-                    
+                    obj.nombre_usuario_elaboro= (string)tipo.GetProperty("USUARIO_ELABORO").GetValue(item, null);
+                    obj.nombre_usuario_autorizo = (string)tipo.GetProperty("USUARIO_AUTORIZO").GetValue(item, null);
                     //Agregamos el objeto a la lista resultante.
-                    Lista.Add(obj);
+                   
                 }
             }
-            return Lista;
+            return obj;
         }
 
         /// <summary>

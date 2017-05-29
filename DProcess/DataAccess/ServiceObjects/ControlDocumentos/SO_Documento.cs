@@ -325,6 +325,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     //Se realiza la consulta para obtener el archivo y el tipo de acuerdo al documento requerido.
                     var Lista = (from d in Conexion.TBL_DOCUMENTO
                                  join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
+                                 join dep in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals dep.ID_DEPARTAMENTO
                                  join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                  join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
                                  where d.ID_DOCUMENTO == id_documento && v.ID_VERSION == id_version
@@ -336,7 +337,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      t.TIPO_DOCUMENTO,
                                      a.ID_ARCHIVO,
                                      a.ARCHIVO,
-                                     a.EXT
+                                     a.EXT,
+                                     dep.NOMBRE_DEPARTAMENTO
                                  }).ToList();
                     //se retorna la lista
                     return Lista;

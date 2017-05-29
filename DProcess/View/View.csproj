@@ -191,6 +191,7 @@
     <Compile Include="Services\ViewModel\PatternViewModel.cs" />
     <Compile Include="Services\ViewModel\RelayCommand.cs" />
     <Compile Include="Services\ViewModel\UsuarioViewModel.cs" />
+    <Compile Include="Services\ViewModel\ValidarDocumentoViewM.cs" />
     <Compile Include="UserControls\DProcessPropiedad.xaml.cs">
       <DependentUpon>DProcessPropiedad.xaml</DependentUpon>
     </Compile>

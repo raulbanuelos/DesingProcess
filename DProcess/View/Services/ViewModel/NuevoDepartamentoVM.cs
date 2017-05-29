@@ -128,7 +128,10 @@ namespace View.Services.ViewModel
                         await dialog.SendMessage("Alerta", "El nombre de departamento ya existe..");
                     }
                 }
-                await dialog.SendMessage("Alerta", "De debe de llenar todos los campos..");
+                else
+                {
+                    await dialog.SendMessage("Alerta", "De debe de llenar todos los campos..");
+                }
             }
         }
 

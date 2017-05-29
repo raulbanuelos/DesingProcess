@@ -180,10 +180,14 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 {
                     //Realizamos la consulta y e resultado lo guardamos en una variable local.
                     var usuario = (from v in Conexion.TBL_VERSION
+                                           join u in Conexion.Usuarios on v.ID_USUARIO_AUTORIZO equals u.Usuario 
+                                           join us in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals us.Usuario
                                            where v.ID_VERSION == id_version
                                            select new {
                                                v.ID_USUARIO_ELABORO,
-                                               v.ID_USUARIO_AUTORIZO
+                                               v.ID_USUARIO_AUTORIZO,
+                                               USUARIO_AUTORIZO = u.Nombre + " "  +u.APaterno,
+                                               USUARIO_ELABORO = us.Nombre + " " + us.APaterno
                                            }).ToList();
 
                     //Retornamos el resultado de la consulta.

@@ -457,16 +457,16 @@ namespace View.Services.ViewModel
             if(_ListaNumeroDocumento.Count >0)
             SelectedDocumento = _ListaNumeroDocumento[0];
 
-            ObservableCollection<Model.ControlDocumentos.Version> ListaUsuario = DataManagerControlDocumentos.GetIdUsuario(idVersion);
-            foreach (var item in ListaUsuario)
-            {
-                usuario = item.id_usuario;
-                auxUsuario = usuario;
-                usuarioAutorizo = item.id_usuario_autorizo;
-                auxUsuario_Autorizo = usuarioAutorizo;
-            }
+            Model.ControlDocumentos.Version UsuarioObj = DataManagerControlDocumentos.GetIdUsuario(idVersion);
+
+
+            usuario = UsuarioObj.id_usuario;
+            auxUsuario = usuario;
+            usuarioAutorizo = UsuarioObj.id_usuario_autorizo;
+            auxUsuario_Autorizo = usuarioAutorizo;  
+            
           
-            ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetTipo(id_documento,idVersion);
+            ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetArchivos(id_documento,idVersion);
             
             foreach (var item in Lista)
             {
@@ -501,6 +501,7 @@ namespace View.Services.ViewModel
             Version = "1";
             User = Modelusuario;
             usuario = User.NombreUsuario;
+            auxUsuario = usuario;
             NombreEnabled = true;
             TipoEnabled = false;
             DepartamentoEnabled = false;
@@ -805,7 +806,7 @@ namespace View.Services.ViewModel
 
             ListaDocumentos.Clear();
 
-            ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetTipo(id_documento, idVersion);
+            ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetArchivos(id_documento, idVersion);
             
             foreach (var item in Lista)
             {
@@ -1161,7 +1162,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Método para agregar un usuario
         /// </summary>
         public ICommand AgregarUsuario
         {
@@ -1178,6 +1179,7 @@ namespace View.Services.ViewModel
             frm.DataContext = context;
             frm.ShowDialog();
             ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
+            usuario = auxUsuario;
         }
 
         /// <summary>

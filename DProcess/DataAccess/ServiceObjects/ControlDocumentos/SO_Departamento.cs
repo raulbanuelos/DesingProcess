@@ -155,7 +155,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// </summary>
         /// <param name="nombre_departamento"></param>
         /// <returns></returns>
-        public int ValidateDepartamento(string nombre_departamento)
+        public int ValidateDepartamento(string nombre_departamento,string abreviatura)
         {
             try
             {
@@ -164,7 +164,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 {
                     //Realizamos la consulta y e resultado lo guardamos en una variable local.
                     int idDep = (from d in Conexion.TBL_DEPARTAMENTO
-                                           where d.NOMBRE_DEPARTAMENTO.Contains(nombre_departamento)
+                                           where d.NOMBRE_DEPARTAMENTO.Contains(nombre_departamento) || d.ABREVIATURA.Contains(abreviatura)
                                            select d.ID_DEPARTAMENTO).ToList().FirstOrDefault();
 
                     //Retornamos el resultado de la consulta.
