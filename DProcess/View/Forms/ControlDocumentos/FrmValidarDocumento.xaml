@@ -65,7 +65,7 @@
                     <TextBox  materialDesign:HintAssist.Hint="Tipo de documento" Text="{Binding  SelectedDocumento.tipo.tipo_documento}"   Width="390" IsReadOnly="True" Height="50" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Height="50" >
-                    <TextBox materialDesign:HintAssist.Hint="Nombre Departamento/Proceso" Text="{Binding SelectedDocumento.Departamento}" Width="390" Height="50" FontSize="18" IsReadOnly="True"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="Nombre del Departamento/Proceso" Text="{Binding SelectedDocumento.Departamento}" Width="390" Height="50" FontSize="18" IsReadOnly="True"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                 </StackPanel >
                 <StackPanel Orientation="Horizontal" Height="50">
                     <TextBox materialDesign:HintAssist.Hint="Usuario Elaboró" Text="{Binding Usuario.nombre_usuario_elaboro}" Width="390" Height="50" FontSize="18" IsReadOnly="True"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>

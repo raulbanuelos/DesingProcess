@@ -263,7 +263,20 @@ namespace View.Services.ViewModel
                 NotifyChange("ListaNumeroDocumento");
             }
         }
-       
+        private ObservableCollection<ValidacionDocumento> _ListaValidaciones;
+        public ObservableCollection<ValidacionDocumento> ListaValidaciones
+        {
+            get
+            {
+                return _ListaValidaciones;
+            }
+            set
+            {
+                _ListaValidaciones = value;
+                NotifyChange("ListaValidaciones");
+            }
+        }
+
         private Documento _selectedDocumento;
         public Documento SelectedDocumento {
             get
@@ -425,6 +438,17 @@ namespace View.Services.ViewModel
             }
         }
 
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get { return _isSelected; }
+            set
+            {
+                _isSelected = value;
+                NotifyChange("IsSelected"); 
+            }
+        }
+
         #endregion
 
         #region Constructor
@@ -456,8 +480,6 @@ namespace View.Services.ViewModel
             SelectedDocumento = _ListaNumeroDocumento[0];
 
             Model.ControlDocumentos.Version UsuarioObj = DataManagerControlDocumentos.GetIdUsuario(idVersion);
-
-
             usuario = UsuarioObj.id_usuario;
             auxUsuario = usuario;
             usuarioAutorizo = UsuarioObj.id_usuario_autorizo;
@@ -1237,6 +1259,8 @@ namespace View.Services.ViewModel
                 id_dep = _selectedDocumento.id_dep;
                 id_tipo = _selectedDocumento.id_tipo_documento;
                 nombre = _selectedDocumento.nombre;
+
+                 ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
             }
         }
 

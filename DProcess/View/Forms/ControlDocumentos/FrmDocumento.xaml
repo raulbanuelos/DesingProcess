@@ -9,10 +9,31 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="" Height="998.5" Width="1228.5"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen">
+        Title="" Height="998.5" Width="1566.5"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        <DataTemplate x:Key="ListCheck">
+            <Border x:Name="Border" Padding="8" BorderThickness="0 0 0 1" Width="280" BorderBrush="{DynamicResource MaterialDesignDivider}">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"></ColumnDefinition>
+                        <ColumnDefinition ></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ToggleButton  IsChecked="{Binding IsSelected}"
+                                         Style="{StaticResource MaterialDesignActionToggleButton}"
+                                          Content="X" ToolTip="{Binding Path=validacion_descripcion}" />
+                    <TextBlock FontWeight="Bold" Text="{Binding Path=validacion_documento}" Grid.Column="1"></TextBlock>
+                </Grid>
+            </Border>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                    <Setter TargetName="Border" Property="Background" Value="{DynamicResource MaterialDesignSelection}" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+
+        <!--Lista de Archivos-->
         <DataTemplate x:Key="Lista">
             <Border Margin="5" BorderThickness="1" BorderBrush="#FF2196F3" CornerRadius="4" Width="445" Height="100">
                 <Grid Margin="3">
@@ -37,14 +58,14 @@
     </Window.Resources>
 
 
-    <Grid Margin="0,0,33,328">
+    <Grid Margin="0,0,-2,328">
         <Grid.RowDefinitions>
             <RowDefinition Height="46*"/>
             <RowDefinition Height="55*"/>
         </Grid.RowDefinitions>
 
 
-        <Canvas HorizontalAlignment="Left" Height="788" Margin="0,56,-19,-208" VerticalAlignment="Top" Width="1202" Grid.RowSpan="2">
+        <Canvas HorizontalAlignment="Left" Height="816" Margin="0,56,0,-236" VerticalAlignment="Top" Width="1178" Grid.RowSpan="2">
 
             <!--Nombre Documento-->
             <Label x:Name="label" Content="Número de Documento" Height="31" Canvas.Left="83" Canvas.Top="10" Width="196" FontSize="16" FontWeight="Bold"/>
@@ -89,15 +110,16 @@
             <Label x:Name="label3" Content="Nombre del Documento" Height="34" Canvas.Left="90" Canvas.Top="666" FontSize="16" FontWeight="Bold"/>
 
             <!--Buttons-->
-            <Button x:Name="button"  Height="45" Width="81" RenderTransformOrigin="0.495,0.578" Background="#89FFFFFF" BorderBrush="#FFE0DEDE" Canvas.Left="1071" Canvas.Top="755"  Command="{Binding LlenarLista}">
-                <Rectangle Width="37" Height="37" RenderTransformOrigin="1.244,0.344" >
+            <Button x:Name="button"  Height="47" Width="77" RenderTransformOrigin="0.495,0.578" BorderBrush="#89DCDCDC" Canvas.Left="1075" Canvas.Top="743"  Command="{Binding LlenarLista}" Background="#89F2F5F7">
+                <Rectangle Width="40" Height="39" Canvas.Top="226" RenderTransformOrigin="0.871,0.394" Canvas.Left="89">
                     <Rectangle.Fill>
                         <ImageBrush ImageSource="/View;component/Images/folder.png"/>
                     </Rectangle.Fill>
                 </Rectangle>
+
             </Button>
 
-            <Canvas Height="64" Canvas.Left="62" Canvas.Top="805" Width="826" RenderTransformOrigin="0.5,0.5">
+            <Canvas Height="64" Canvas.Left="70" Canvas.Top="819" Width="826" RenderTransformOrigin="0.5,0.5">
                 <Canvas.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -158,11 +180,28 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Label x:Name="label9" Content="Usuario Autorizó" Height="34" Canvas.Left="90" Canvas.Top="572" Width="234" FontSize="16" FontWeight="Bold"/>
+            <Grid Height="49" Canvas.Left="90" Canvas.Top="767" Width="929">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10,-14,0,0">
+                    <ToggleButton Content="X" Margin="0 0 8 8" Style="{StaticResource MaterialDesignActionToggleButton}"
+                          ToolTip="MaterialDesignActionToggleButton"/>
+                    <!-- checkbox style same as toggle button -->
+                    <CheckBox Content="X" Margin="0 0 8 8" Style="{StaticResource MaterialDesignActionDarkCheckBox}"
+                      ToolTip="MaterialDesignActionDarkCheckBox"/>
+                    <Button Style="{StaticResource MaterialDesignFloatingActionDarkButton}" 
+                        Margin="0,4,8,10" HorizontalAlignment="Left"
+                        ToolTip="Agregar Archivo" Height="Auto" Width="49">
+                        <materialDesign:PackIcon Kind="Paperclip" Height="34" Width="34" />
+                    </Button>
 
+                </StackPanel>
+            </Grid>
         </Canvas>
 
         <!--Barra-->
-        <ToolBar x:Name="toolBar" HorizontalAlignment="Left" Height="56" Margin="0,0,-33,0" VerticalAlignment="Top" Width="1216" Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
+        <ToolBar x:Name="toolBar" HorizontalAlignment="Left" Height="56" VerticalAlignment="Top" Width="1492" Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
             <Button ToolTip="Agregar Usuario" Command="{Binding AgregarUsuario}" Cursor="Hand" Height="56" Margin="0,0,0,-2" Width="57">
                 <Rectangle Width="24" Height="27"  >
                     <Rectangle.Fill>
@@ -189,5 +228,9 @@
                 </Rectangle>
             </Button>
         </ToolBar>
+        <Grid HorizontalAlignment="Left" Height="693" Margin="1178,104,0,-161" Grid.RowSpan="2" VerticalAlignment="Top" Width="302">
+            <ListBox Canvas.Left="666" Canvas.Top="51" ItemsSource="{Binding ListaValidaciones}" ItemTemplate="{StaticResource ListCheck}" BorderBrush="#FFB8B6B6"  Background="White" Foreground="#DD040404"  
+                     Margin="0,3,-48,0"   SelectedItem="SelectedValidacion"/>
+        </Grid>
     </Grid>
 </Controls:MetroWindow>

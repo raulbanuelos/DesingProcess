@@ -1178,5 +1178,45 @@ namespace Model.ControlDocumentos
 
         #endregion
 
+        #region ValidacionDocumento
+
+
+        public static ObservableCollection<ValidacionDocumento> GetValidacion_Documento(int id_tipo)
+        {
+            //Se inicializan los servicios de Documento.
+            SO_Validacion ServiceValidacion = new SO_Validacion();
+
+            //Se crea una lista de tipo documento, la cual se va a retornar
+            ObservableCollection<ValidacionDocumento> Lista = new ObservableCollection<ValidacionDocumento>();
+
+            //obtenemos todo de la BD.
+            IList ObjValidacion = ServiceValidacion.GetValidacion(id_tipo);
+
+            //Verificamos que la informacion no esté vacía.
+            if (ObjValidacion != null)
+            {
+                foreach (var item in ObjValidacion)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    ValidacionDocumento obj = new ValidacionDocumento();
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_validacion = (int)tipo.GetProperty("ID_VALIDACION_DOCUMENTO").GetValue(item, null);
+                    obj.validacion_documento = (string)tipo.GetProperty("VALIDACION_DOCUMENTO").GetValue(item, null);
+                    obj.validacion_descripcion = (string)tipo.GetProperty("VALIDACION_DESCRIPCION").GetValue(item, null);
+                    obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //regresamos la lista.
+            return Lista;
+        }
+        #endregion
+
     }
 }
