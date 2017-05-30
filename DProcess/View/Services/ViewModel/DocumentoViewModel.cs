@@ -19,10 +19,8 @@ namespace View.Services.ViewModel
 {
     public class DocumentoViewModel : INotifyPropertyChanged
     {
-      
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
-
         #endregion
 
         #region INotifyPropertyChanged Métodos

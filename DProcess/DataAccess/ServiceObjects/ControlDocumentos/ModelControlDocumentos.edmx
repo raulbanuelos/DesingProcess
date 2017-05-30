@@ -85,6 +85,16 @@
           <Property Name="FECHA_CREACION" Type="datetime" />
           <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
         </EntityType>
+        <EntityType Name="TBL_VALIDACION_DOCUMENTO">
+          <Key>
+            <PropertyRef Name="ID_VALIDACION_DOCUMENTO" />
+          </Key>
+          <Property Name="ID_VALIDACION_DOCUMENTO" Type="int" Nullable="false" />
+          <Property Name="VALIDACION_DOCUMENTO" Type="varchar" MaxLength="50" />
+          <Property Name="VALIDACION_DESCRIPCION" Type="varchar" MaxLength="200" />
+          <Property Name="FECHA_CREACION" Type="datetime" />
+          <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
+        </EntityType>
         <EntityType Name="TBL_VERSION">
           <Key>
             <PropertyRef Name="ID_VERSION" />
@@ -105,6 +115,14 @@
           <Property Name="ID_ROL_USUARIOS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_USUARIO" Type="varchar" MaxLength="20" />
           <Property Name="ID_ROL" Type="int" />
+        </EntityType>
+        <EntityType Name="TR_VALIDACION_TIPO_DOCUMENTO">
+          <Key>
+            <PropertyRef Name="ID_VALIDACION_TIPO_DOCUMENTO" />
+          </Key>
+          <Property Name="ID_VALIDACION_TIPO_DOCUMENTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_VALIDACION_DOCUMENTO" Type="int" />
+          <Property Name="ID_TIPO_DOCUMENTO" Type="int" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -264,6 +282,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO">
+          <End Role="TBL_TIPO_DOCUMENTO" Type="Self.TBL_TIPO_DOCUMENTO" Multiplicity="0..1" />
+          <End Role="TR_VALIDACION_TIPO_DOCUMENTO" Type="Self.TR_VALIDACION_TIPO_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_TIPO_DOCUMENTO">
+              <PropertyRef Name="ID_TIPO_DOCUMENTO" />
+            </Principal>
+            <Dependent Role="TR_VALIDACION_TIPO_DOCUMENTO">
+              <PropertyRef Name="ID_TIPO_DOCUMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_VALIDACION_DOCUMENTO">
+          <End Role="TBL_VALIDACION_DOCUMENTO" Type="Self.TBL_VALIDACION_DOCUMENTO" Multiplicity="0..1" />
+          <End Role="TR_VALIDACION_TIPO_DOCUMENTO" Type="Self.TR_VALIDACION_TIPO_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_VALIDACION_DOCUMENTO">
+              <PropertyRef Name="ID_VALIDACION_DOCUMENTO" />
+            </Principal>
+            <Dependent Role="TR_VALIDACION_TIPO_DOCUMENTO">
+              <PropertyRef Name="ID_VALIDACION_DOCUMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DataAccessServiceObjectsControlDocumentosStoreContainer">
           <EntitySet Name="TBL_ARCHIVO" EntityType="Self.TBL_ARCHIVO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_CONF_DOCUMENTO" EntityType="Self.TBL_CONF_DOCUMENTO" Schema="dbo" store:Type="Tables" />
@@ -273,8 +315,10 @@
           <EntitySet Name="TBL_ESTATUS_VERSION" EntityType="Self.TBL_ESTATUS_VERSION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ROL" EntityType="Self.TBL_ROL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_TIPO_DOCUMENTO" EntityType="Self.TBL_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_VALIDACION_DOCUMENTO" EntityType="Self.TBL_VALIDACION_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_VERSION" EntityType="Self.TBL_VERSION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TR_ROL_USUARIOS" EntityType="Self.TR_ROL_USUARIOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TR_VALIDACION_TIPO_DOCUMENTO" EntityType="Self.TR_VALIDACION_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_TBL_ARCHIVO_TBL_VERSION" Association="Self.FK_TBL_ARCHIVO_TBL_VERSION">
             <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
@@ -323,6 +367,14 @@
           <AssociationSet Name="FK_TR_ROL_USUARIOS_Usuarios" Association="Self.FK_TR_ROL_USUARIOS_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TR_ROL_USUARIOS" EntitySet="TR_ROL_USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO" Association="Self.FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO">
+            <End Role="TBL_TIPO_DOCUMENTO" EntitySet="TBL_TIPO_DOCUMENTO" />
+            <End Role="TR_VALIDACION_TIPO_DOCUMENTO" EntitySet="TR_VALIDACION_TIPO_DOCUMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_VALIDACION_DOCUMENTO" Association="Self.FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_VALIDACION_DOCUMENTO">
+            <End Role="TBL_VALIDACION_DOCUMENTO" EntitySet="TBL_VALIDACION_DOCUMENTO" />
+            <End Role="TR_VALIDACION_TIPO_DOCUMENTO" EntitySet="TR_VALIDACION_TIPO_DOCUMENTO" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -389,6 +441,16 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TR_ROL_USUARIOS" EntitySet="TR_ROL_USUARIOS" />
           </AssociationSet>
+          <EntitySet Name="TBL_VALIDACION_DOCUMENTO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_VALIDACION_DOCUMENTO" />
+          <EntitySet Name="TR_VALIDACION_TIPO_DOCUMENTO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TR_VALIDACION_TIPO_DOCUMENTO" />
+          <AssociationSet Name="FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO">
+            <End Role="TBL_TIPO_DOCUMENTO" EntitySet="TBL_TIPO_DOCUMENTO" />
+            <End Role="TR_VALIDACION_TIPO_DOCUMENTO" EntitySet="TR_VALIDACION_TIPO_DOCUMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_VALIDACION_DOCUMENTO" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_VALIDACION_DOCUMENTO">
+            <End Role="TBL_VALIDACION_DOCUMENTO" EntitySet="TBL_VALIDACION_DOCUMENTO" />
+            <End Role="TR_VALIDACION_TIPO_DOCUMENTO" EntitySet="TR_VALIDACION_TIPO_DOCUMENTO" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="TBL_TIPO_DOCUMENTO">
           <Key>
@@ -401,6 +463,7 @@
           <Property Name="FECHA_ACTUALIZACION" Type="DateTime" Precision="3" />
           <NavigationProperty Name="TBL_CONF_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_CONF_DOCUMENTO_TBL_TIPO_DOCUMENTO" FromRole="TBL_TIPO_DOCUMENTO" ToRole="TBL_CONF_DOCUMENTO" />
           <NavigationProperty Name="TBL_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_TIPO_DOCUMENTO" FromRole="TBL_TIPO_DOCUMENTO" ToRole="TBL_DOCUMENTO" />
+          <NavigationProperty Name="TR_VALIDACION_TIPO_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO" FromRole="TBL_TIPO_DOCUMENTO" ToRole="TR_VALIDACION_TIPO_DOCUMENTO" />
         </EntityType>
         <EntityType Name="TBL_ARCHIVO">
           <Key>
@@ -673,6 +736,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_VALIDACION_DOCUMENTO">
+          <Key>
+            <PropertyRef Name="ID_VALIDACION_DOCUMENTO" />
+          </Key>
+          <Property Name="ID_VALIDACION_DOCUMENTO" Type="Int32" Nullable="false" />
+          <Property Name="VALIDACION_DOCUMENTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VALIDACION_DESCRIPCION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_CREACION" Type="DateTime" Precision="3" />
+          <Property Name="FECHA_ACTUALIZACION" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TR_VALIDACION_TIPO_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_VALIDACION_DOCUMENTO" FromRole="TBL_VALIDACION_DOCUMENTO" ToRole="TR_VALIDACION_TIPO_DOCUMENTO" />
+        </EntityType>
+        <EntityType Name="TR_VALIDACION_TIPO_DOCUMENTO">
+          <Key>
+            <PropertyRef Name="ID_VALIDACION_TIPO_DOCUMENTO" />
+          </Key>
+          <Property Name="ID_VALIDACION_TIPO_DOCUMENTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_VALIDACION_DOCUMENTO" Type="Int32" />
+          <Property Name="ID_TIPO_DOCUMENTO" Type="Int32" />
+          <NavigationProperty Name="TBL_TIPO_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO" FromRole="TR_VALIDACION_TIPO_DOCUMENTO" ToRole="TBL_TIPO_DOCUMENTO" />
+          <NavigationProperty Name="TBL_VALIDACION_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_VALIDACION_DOCUMENTO" FromRole="TR_VALIDACION_TIPO_DOCUMENTO" ToRole="TBL_VALIDACION_DOCUMENTO" />
+        </EntityType>
+        <Association Name="FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO">
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_TIPO_DOCUMENTO" Role="TBL_TIPO_DOCUMENTO" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TR_VALIDACION_TIPO_DOCUMENTO" Role="TR_VALIDACION_TIPO_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_TIPO_DOCUMENTO">
+              <PropertyRef Name="ID_TIPO_DOCUMENTO" />
+            </Principal>
+            <Dependent Role="TR_VALIDACION_TIPO_DOCUMENTO">
+              <PropertyRef Name="ID_TIPO_DOCUMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_VALIDACION_DOCUMENTO">
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_VALIDACION_DOCUMENTO" Role="TBL_VALIDACION_DOCUMENTO" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TR_VALIDACION_TIPO_DOCUMENTO" Role="TR_VALIDACION_TIPO_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_VALIDACION_DOCUMENTO">
+              <PropertyRef Name="ID_VALIDACION_DOCUMENTO" />
+            </Principal>
+            <Dependent Role="TR_VALIDACION_TIPO_DOCUMENTO">
+              <PropertyRef Name="ID_VALIDACION_DOCUMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -802,6 +910,26 @@
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_VALIDACION_DOCUMENTO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TBL_VALIDACION_DOCUMENTO">
+              <MappingFragment StoreEntitySet="TBL_VALIDACION_DOCUMENTO">
+                <ScalarProperty Name="FECHA_ACTUALIZACION" ColumnName="FECHA_ACTUALIZACION" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="VALIDACION_DESCRIPCION" ColumnName="VALIDACION_DESCRIPCION" />
+                <ScalarProperty Name="VALIDACION_DOCUMENTO" ColumnName="VALIDACION_DOCUMENTO" />
+                <ScalarProperty Name="ID_VALIDACION_DOCUMENTO" ColumnName="ID_VALIDACION_DOCUMENTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TR_VALIDACION_TIPO_DOCUMENTO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TR_VALIDACION_TIPO_DOCUMENTO">
+              <MappingFragment StoreEntitySet="TR_VALIDACION_TIPO_DOCUMENTO">
+                <ScalarProperty Name="ID_TIPO_DOCUMENTO" ColumnName="ID_TIPO_DOCUMENTO" />
+                <ScalarProperty Name="ID_VALIDACION_DOCUMENTO" ColumnName="ID_VALIDACION_DOCUMENTO" />
+                <ScalarProperty Name="ID_VALIDACION_TIPO_DOCUMENTO" ColumnName="ID_VALIDACION_TIPO_DOCUMENTO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

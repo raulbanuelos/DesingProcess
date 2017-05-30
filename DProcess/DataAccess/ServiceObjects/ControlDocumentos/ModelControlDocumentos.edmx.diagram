@@ -28,6 +28,10 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios1" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_ROL_USUARIOS_Usuarios" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_VALIDACION_DOCUMENTO" Width="2.375" PointX="4.875" PointY="2.375" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TR_VALIDACION_TIPO_DOCUMENTO" Width="3.125" PointX="8.25" PointY="7.25" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_VALIDACION_DOCUMENTO" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
