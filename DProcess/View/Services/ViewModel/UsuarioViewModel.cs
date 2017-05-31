@@ -3,7 +3,6 @@ using System.Windows.Input;
 using Model;
 using System.Windows.Controls;
 using View.Forms.Routing;
-using System;
 using View.Forms.RawMaterial;
 using View.Forms.ControlDocumentos;
 
@@ -236,11 +235,21 @@ namespace View.Services.ViewModel
 
         #endregion
 
+        #region Properties
+        #endregion
+
         #region Constructores
         public UsuarioViewModel()
         {
-
         }
+
+        public UsuarioViewModel(Usuario modelUsuario, Page pagina)
+        {
+            ModelUsuario = modelUsuario;
+            this.pagina = pagina;
+            
+        }
+
         #endregion
 
         #region INotifyPropertyChanged Métodos
@@ -332,6 +341,7 @@ namespace View.Services.ViewModel
             Pagina = pantallaPlano;
         }
         #endregion
+        
         #endregion
     }
 }

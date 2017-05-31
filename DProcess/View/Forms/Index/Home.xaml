@@ -1,161 +1,181 @@
 ﻿<Page x:Class="View.Forms.Index.Home"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" Title="Home">
-	<DockPanel Background="{StaticResource FondoInicio}">
-		<StackPanel DockPanel.Dock="Left" Width="15"></StackPanel>
-        <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Right" Width="150" Height="100" Orientation="Horizontal">
-            <StackPanel>
-                <Label Content="{Binding Nombre}" FontSize="24" HorizontalAlignment="Right" Foreground="White" Margin="0"></Label>
-                <Label Content="{Binding ApellidoPaterno}" FontSize="16" Foreground="White" HorizontalAlignment="Right" Margin="0"></Label>
-            </StackPanel>
-            <Label Content="Foto"></Label>
-		</StackPanel>
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Title="Home">
+
+    <Grid Background="{StaticResource FondoInicio}">
         
-        <Grid DockPanel.Dock="Right" ShowGridLines="True">
-            
-        </Grid>
-        <StackPanel DockPanel.Dock="Bottom" Width="150" HorizontalAlignment="Right">
-            <Button Name="btn_salir" Width="50" Height="50" Style="{DynamicResource MetroCircleButtonStyle}" Cursor="Hand">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Column="0" Grid.Row="0">
+            <StackPanel DockPanel.Dock="Left" Width="15"></StackPanel>
+            <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Right" Width="150" Height="100" Orientation="Horizontal">
                 <StackPanel>
-                    <Rectangle Width="30" Height="30" Fill="White">
+                    <Label Content="{Binding Nombre}" FontSize="24" HorizontalAlignment="Right" Foreground="White" Margin="0"></Label>
+                    <Label Content="{Binding ApellidoPaterno}" FontSize="16" Foreground="White" HorizontalAlignment="Right" Margin="0"></Label>
+                </StackPanel>
+                <Label Content="Foto"></Label>
+            </StackPanel>
+
+            <Grid DockPanel.Dock="Right" ShowGridLines="True">
+
+            </Grid>
+            <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right">
+                <Button Name="btn_salir" Width="50" Height="50" Style="{DynamicResource MetroCircleButtonStyle}" Cursor="Hand">
+                    <StackPanel>
+                        <Rectangle Width="30" Height="30" Fill="White">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_door_leave}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <Grid Height="500" Width="905">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="300" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150" />
+                    <RowDefinition Height="150" />
+                    <RowDefinition Height="150" />
+                </Grid.RowDefinitions>
+
+                <!--Routing Generation Program-->
+                <Controls:Tile Background="#00879D" TiltFactor="2" Title="Routing Generation Program" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="0" Cursor="Hand" Command="{Binding IrRouting}" IsEnabled="{Binding PerfilRGP}">
+                    <Controls:Tile.Style>
+                        <Style TargetType="Controls:Tile">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <StackPanel Orientation="Vertical">
+                                        <Rectangle Width="100" Height="100" Fill="White">
+                                            <Rectangle.OpacityMask>
+                                                <VisualBrush Visual="{StaticResource appbar_map_aerial_highway}" Stretch="Fill" />
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                    </StackPanel>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <TextBlock Text="Click here to calculate a routing" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Controls:Tile.Style>
+                </Controls:Tile>
+
+                <!--Tooling-->
+                <Controls:Tile TiltFactor="2" Background="#01A300" Title="Tooling" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="0" Cursor="Hand" IsEnabled="{Binding PerfilTooling}">
+                    <Controls:Tile.Style>
+                        <Style TargetType="Controls:Tile">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <StackPanel Orientation="Vertical">
+                                        <Rectangle Width="100" Height="100" Fill="White">
+                                            <Rectangle.OpacityMask>
+                                                <VisualBrush Visual="{StaticResource appbar_tools}" Stretch="Fill" />
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                    </StackPanel>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <TextBlock Text="Click here to manage the tools" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Controls:Tile.Style>
+                </Controls:Tile>
+
+                <!--Raw material-->
+                <Controls:Tile TiltFactor="2" Background="#0B5AC3" Title="Raw material" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="0" Cursor="Hand" Command="{Binding IrRawMaterial}" IsEnabled="{Binding PerfilRawMaterial}">
+                    <Rectangle Width="100" Height="100" Fill="White">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_door_leave}" />
+                            <VisualBrush Visual="{StaticResource appbar_shuffle}" Stretch="Fill" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                </StackPanel>
-            </Button>
-        </StackPanel>
-		<Grid Height="500" Width="905">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="300" />
-				<ColumnDefinition Width="300" />
-				<ColumnDefinition Width="300" />
-			</Grid.ColumnDefinitions>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="150" />
-				<RowDefinition Height="150" />
-				<RowDefinition Height="150" />
-			</Grid.RowDefinitions>
-			
-			<!--Routing Generation Program-->
-            <Controls:Tile Background="#00879D" TiltFactor="2" Title="Routing Generation Program" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="0" Cursor="Hand" Command="{Binding IrRouting}" IsEnabled="{Binding PerfilRGP}">
-				<Controls:Tile.Style>
-					<Style TargetType="Controls:Tile">
-						<Setter Property="Content">
-							<Setter.Value>
-								<StackPanel Orientation="Vertical">
-									<Rectangle Width="100" Height="100" Fill="White">
-										<Rectangle.OpacityMask>
-											<VisualBrush Visual="{StaticResource appbar_map_aerial_highway}" Stretch="Fill" />
-										</Rectangle.OpacityMask>
-									</Rectangle>
-								</StackPanel>
-							</Setter.Value>
-						</Setter>
-						<Style.Triggers>
-							<Trigger Property="IsMouseOver" Value="True">
-								<Setter Property="Content">
-									<Setter.Value>
-										<TextBlock Text="Click here to calculate a routing" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
-									</Setter.Value>
-								</Setter>
-							</Trigger>
-						</Style.Triggers>
-					</Style>
-				</Controls:Tile.Style>
-			</Controls:Tile>
-			
-			<!--Tooling-->
-            <Controls:Tile TiltFactor="2" Background="#01A300" Title="Tooling" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="0" Cursor="Hand" IsEnabled="{Binding PerfilTooling}">
-				<Controls:Tile.Style>
-					<Style TargetType="Controls:Tile">
-						<Setter Property="Content">
-							<Setter.Value>
-								<StackPanel Orientation="Vertical">
-									<Rectangle Width="100" Height="100" Fill="White">
-										<Rectangle.OpacityMask>
-											<VisualBrush Visual="{StaticResource appbar_tools}" Stretch="Fill" />
-										</Rectangle.OpacityMask>
-									</Rectangle>
-								</StackPanel>
-							</Setter.Value>
-						</Setter>
-						<Style.Triggers>
-							<Trigger Property="IsMouseOver" Value="True">
-								<Setter Property="Content">
-									<Setter.Value>
-										<TextBlock Text="Click here to manage the tools" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
-									</Setter.Value>
-								</Setter>
-							</Trigger>
-						</Style.Triggers>
-					</Style>
-				</Controls:Tile.Style>
-			</Controls:Tile>
-			
-			<!--Raw material-->
-            <Controls:Tile TiltFactor="2" Background="#0B5AC3" Title="Raw material" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="0" Cursor="Hand" Command="{Binding IrRawMaterial}" IsEnabled="{Binding PerfilRawMaterial}">
-				<Rectangle Width="100" Height="100" Fill="White">
-					<Rectangle.OpacityMask>
-						<VisualBrush Visual="{StaticResource appbar_shuffle}" Stretch="Fill" />
-					</Rectangle.OpacityMask>
-				</Rectangle>
-			</Controls:Tile>
-			
-			<!--Standar Times-->
-            <Controls:Tile TiltFactor="2" Background="#DA522C" Title="Standard times" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="1" Cursor="Hand" IsEnabled="{Binding PerfilStandarTime}">
-				<Rectangle Width="85" Height="90" Fill="White">
-					<Rectangle.OpacityMask>
-						<VisualBrush Visual="{StaticResource appbar_timer}" Stretch="Fill" />
-					</Rectangle.OpacityMask>
-				</Rectangle>
-			</Controls:Tile>
-			
-			<!--Quotes-->
-            <Controls:Tile TiltFactor="2" Background="#00556A" Title="Quotes" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="1" Cursor="Hand" IsEnabled="{Binding PerfilQuotes}">
-				<Rectangle Width="100" Height="100" Fill="White">
-					<Rectangle.OpacityMask>
-						<VisualBrush Visual="{StaticResource appbar_billing}" Stretch="Fill" />
-					</Rectangle.OpacityMask>
-				</Rectangle>
-			</Controls:Tile>
-			
-			<!--CIT-->
-            <Controls:Tile Command="{Binding IrControlDocumentos}" Background="#91009B" TiltFactor="2" Title="C.I.T" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="1" Cursor="Hand" RenderTransformOrigin="0.5,0.5" IsEnabled="{Binding PerfilCIT}">
-				<Rectangle Width="100" Height="100" Fill="White">
-					<Rectangle.OpacityMask>
-						<VisualBrush Visual="{StaticResource appbar_cabinet_files_variant}" Stretch="Fill" />
-					</Rectangle.OpacityMask>
-				</Rectangle>
-			</Controls:Tile>
-			
-			<!--Data-->
-            <Controls:Tile Background="#6CB71D" TiltFactor="2" Title="Data" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilData}">
-				<Rectangle Width="90" Height="90" Fill="White">
-					<Rectangle.OpacityMask>
-						<VisualBrush Visual="{StaticResource appbar_database}" Stretch="Fill" /> 
-					</Rectangle.OpacityMask>
-				</Rectangle>
-			</Controls:Tile>
-			
-			<!--User-->
-            <Controls:Tile Background="#A200AB" TiltFactor="2" Title="User" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilUserProfile}">
-				<Rectangle Width="100" Height="100" Fill="White">
-					<Rectangle.OpacityMask>
-						<VisualBrush Visual="{StaticResource appbar_user_tie}" Stretch="Fill" />
-					</Rectangle.OpacityMask>
-				</Rectangle>
-			</Controls:Tile>
-			
-			<!--HELP-->
-            <Controls:Tile Background="#5F3BBC" TiltFactor="2" Title="Help" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilHelp}">
-				<Rectangle Width="80" Height="100" Fill="White">
-					<Rectangle.OpacityMask>
-						<VisualBrush Visual="{StaticResource appbar_book_perspective_help}" Stretch="Fill" />
-					</Rectangle.OpacityMask>
-				</Rectangle>
-			</Controls:Tile>
-		</Grid>
-	</DockPanel>
+                </Controls:Tile>
+
+                <!--Standar Times-->
+                <Controls:Tile TiltFactor="2" Background="#DA522C" Title="Standard times" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="1" Cursor="Hand" IsEnabled="{Binding PerfilStandarTime}">
+                    <Rectangle Width="85" Height="90" Fill="White">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_timer}" Stretch="Fill" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Controls:Tile>
+
+                <!--Quotes-->
+                <Controls:Tile TiltFactor="2" Background="#00556A" Title="Quotes" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="1" Cursor="Hand" IsEnabled="{Binding PerfilQuotes}">
+                    <Rectangle Width="100" Height="100" Fill="White">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_billing}" Stretch="Fill" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Controls:Tile>
+
+                <!--CIT-->
+                <Controls:Tile Command="{Binding IrControlDocumentos}" Background="#91009B" TiltFactor="2" Title="C.I.T" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="1" Cursor="Hand" RenderTransformOrigin="0.5,0.5" IsEnabled="{Binding PerfilCIT}">
+                    <Rectangle Width="100" Height="100" Fill="White">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_cabinet_files_variant}" Stretch="Fill" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Controls:Tile>
+
+                <!--Data-->
+                <Controls:Tile Background="#6CB71D" TiltFactor="2" Title="Data" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilData}">
+                    <Rectangle Width="90" Height="90" Fill="White">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_database}" Stretch="Fill" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Controls:Tile>
+
+                <!--User-->
+                <Controls:Tile Background="#A200AB" TiltFactor="2" Title="User" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilUserProfile}">
+                    <Rectangle Width="100" Height="100" Fill="White">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_user_tie}" Stretch="Fill" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Controls:Tile>
+
+                <!--HELP-->
+                <Controls:Tile Background="#5F3BBC" TiltFactor="2" Title="Help" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilHelp}">
+                    <Rectangle Width="80" Height="100" Fill="White">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_book_perspective_help}" Stretch="Fill" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Controls:Tile>
+            </Grid>
+
+        </DockPanel>
+
+        <materialDesign:Snackbar MessageQueue="{materialDesign:MessageQueue}" x:Name="SnackbarFour" Grid.Row="1" Grid.Column="0" />
+    </Grid>
+    
+	
 </Page>
