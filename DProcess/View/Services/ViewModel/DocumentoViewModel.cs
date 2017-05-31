@@ -438,17 +438,6 @@ namespace View.Services.ViewModel
             }
         }
 
-        private bool _isSelected;
-        public bool IsSelected
-        {
-            get { return _isSelected; }
-            set
-            {
-                _isSelected = value;
-                NotifyChange("IsSelected"); 
-            }
-        }
-
         #endregion
 
         #region Constructor
@@ -532,6 +521,7 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Commands
+
         /// <summary>
         /// Comando para guardar un registro de documento
         /// </summary>
@@ -553,9 +543,11 @@ namespace View.Services.ViewModel
             //Verificamos que el botón contenga la leyenda Guardar, esto indica que el registro es nuevo.
             if (BotonGuardar == "Guardar")
             {
+             
                 //Ejecutamos el método para verificar que todos los campos contengan valores.
-                if (ValidarValores())
+                if (ValidarValores() & ValidaSelected())
                 {
+                   
                     //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
                     controllerProgressAsync = await dialog.SendProgressAsync("Por favor espere", "Guardando el documento...");
 
@@ -609,7 +601,7 @@ namespace View.Services.ViewModel
                                 objArchivo.nombre = item.nombre;
 
                                 //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
-                                int n = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                                int nombre = await DataManagerControlDocumentos.SetArchivo(objArchivo);
                                 
                             }
 
@@ -654,7 +646,7 @@ namespace View.Services.ViewModel
                 //Si es una actualización.
                 //Ejecutamos el método para valirdar los valores.
 
-                if (ValidarValores())
+                if (ValidarValores() & ValidaSelected())
                 {
 
                     //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
@@ -965,7 +957,7 @@ namespace View.Services.ViewModel
             if (result == MessageDialogResult.Affirmative)
             {
                 //Ejecutamos el método para valirdar los valores.
-                if (ValidarValores())
+                if (ValidarValores() & ValidaSelected())
                 {
                     //Se crea un objeto de tipo Documento.
                     Documento obj = new Documento();
@@ -1285,6 +1277,16 @@ namespace View.Services.ViewModel
             ListaDepartamento= DataManagerControlDocumentos.GetDepartamento();
             ListaTipo = DataManagerControlDocumentos.GetTipo();
             ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
+        }
+
+        private bool ValidaSelected()
+        {
+            foreach (var item in ListaValidaciones)
+            {
+                if (!item.selected)
+                    return false;
+            }
+            return true;
         }
         #endregion
     }

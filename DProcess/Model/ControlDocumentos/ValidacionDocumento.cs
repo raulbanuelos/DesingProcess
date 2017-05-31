@@ -13,6 +13,7 @@ namespace Model.ControlDocumentos
         public string validacion_documento { get; set; }
         public string validacion_descripcion { get; set; }
         public DateTime fecha_creacion { get; set; }
+        public bool selected { get; set; }
 
         #endregion
     }
