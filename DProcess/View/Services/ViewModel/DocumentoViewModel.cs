@@ -543,102 +543,108 @@ namespace View.Services.ViewModel
             //Verificamos que el botón contenga la leyenda Guardar, esto indica que el registro es nuevo.
             if (BotonGuardar == "Guardar")
             {
-             
+
                 //Ejecutamos el método para verificar que todos los campos contengan valores.
-                if (ValidarValores() & ValidaSelected())
+                if (ValidarValores())
                 {
-                   
-                    //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
-                    controllerProgressAsync = await dialog.SendProgressAsync("Por favor espere", "Guardando el documento...");
+                    if (ValidaSelected())
+                    {
+                        //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
+                        controllerProgressAsync = await dialog.SendProgressAsync("Por favor espere", "Guardando el documento...");
 
-                    //Declaramos un objeto de tipo documento.
-                    Documento obj = new Documento();
-                    
-                    //Declaramos un objeto de tipo Version.
-                    Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+                        //Declaramos un objeto de tipo documento.
+                        Documento obj = new Documento();
 
-                    //Mapeamos los valores al objeto declarado.
-                    obj.id_documento = _selectedDocumento.id_documento;
-                    obj.nombre =nombre;
-                    obj.id_tipo_documento = _id_tipo;
-                    obj.id_dep = _id_dep;
-                    obj.descripcion = descripcion;
-                    obj.fecha_actualizacion = fecha;
-                    obj.fecha_emision = fecha;
-                    obj.id_estatus = 2;
-                    
-                    //Ejecutamos el método para guardar el documento. El resultado lo guardamos en una variable local.
-                    int update = DataManagerControlDocumentos.UpdateDocumento(obj);
+                        //Declaramos un objeto de tipo Version.
+                        Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
 
-                    //si se guardo el registro en la tabla documento
-                    if ( update!=0)
-                    {         
-                        //Mapeamos los valores al objeto de versión.
-                        objVersion.no_version = version;
-                        objVersion.id_documento = _selectedDocumento.id_documento;
-                        objVersion.id_usuario = _usuario;
-                        objVersion.id_usuario_autorizo = _usuarioAutorizo;
-                        objVersion.fecha_version = fecha;
-                        objVersion.id_estatus_version = 3;
-                        objVersion.no_copias = 0;
+                        //Mapeamos los valores al objeto declarado.
+                        obj.id_documento = _selectedDocumento.id_documento;
+                        obj.nombre = nombre;
+                        obj.id_tipo_documento = _id_tipo;
+                        obj.id_dep = _id_dep;
+                        obj.descripcion = descripcion;
+                        obj.fecha_actualizacion = fecha;
+                        obj.fecha_emision = fecha;
+                        obj.id_estatus = 2;
 
-                        //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
-                        int id_version = DataManagerControlDocumentos.SetVersion(objVersion);
+                        //Ejecutamos el método para guardar el documento. El resultado lo guardamos en una variable local.
+                        int update = DataManagerControlDocumentos.UpdateDocumento(obj);
 
-                        //si se guardó correctamente el registro en la tabla versión.
-                        if (id_version!=0)
-                        {   
-                            //Iteramos la lista de documentos.
-                            foreach (var item in _ListaDocumentos)
+                        //si se guardo el registro en la tabla documento
+                        if (update != 0)
+                        {
+                            //Mapeamos los valores al objeto de versión.
+                            objVersion.no_version = version;
+                            objVersion.id_documento = _selectedDocumento.id_documento;
+                            objVersion.id_usuario = _usuario;
+                            objVersion.id_usuario_autorizo = _usuarioAutorizo;
+                            objVersion.fecha_version = fecha;
+                            objVersion.id_estatus_version = 3;
+                            objVersion.no_copias = 0;
+
+                            //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
+                            int id_version = DataManagerControlDocumentos.SetVersion(objVersion);
+
+                            //si se guardó correctamente el registro en la tabla versión.
+                            if (id_version != 0)
                             {
-                                //Declaramos un objeto de tipo Archivo.
-                                Archivo objArchivo = new Archivo();
+                                //Iteramos la lista de documentos.
+                                foreach (var item in _ListaDocumentos)
+                                {
+                                    //Declaramos un objeto de tipo Archivo.
+                                    Archivo objArchivo = new Archivo();
 
-                                //Mapeamos los valores al objeto creado.
-                                objArchivo.id_version = id_version;
-                                objArchivo.archivo = item.archivo;
-                                objArchivo.ext = item.ext;
-                                objArchivo.nombre = item.nombre;
+                                    //Mapeamos los valores al objeto creado.
+                                    objArchivo.id_version = id_version;
+                                    objArchivo.archivo = item.archivo;
+                                    objArchivo.ext = item.ext;
+                                    objArchivo.nombre = item.nombre;
 
-                                //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
-                                int nombre = await DataManagerControlDocumentos.SetArchivo(objArchivo);
-                                
+                                    //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
+                                    int nombre = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+
+                                }
+
+                                //Ejecutamos el método para cerrar el mensaje de espera.
+                                await controllerProgressAsync.CloseAsync();
+
+                                //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
+                                await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente, los archivos serán verificados por el personal del CIT..");
+
+                                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                                //Verificamos que la pantalla sea diferente de nulo.
+                                if (window != null)
+                                {
+                                    //Cerramos la pantalla
+                                    window.Close();
+                                }
                             }
-
-                            //Ejecutamos el método para cerrar el mensaje de espera.
-                            await controllerProgressAsync.CloseAsync();
-
-                            //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
-                            await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
-
-                            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                            //Verificamos que la pantalla sea diferente de nulo.
-                            if (window!=null)
+                            else
                             {
-                                //Cerramos la pantalla
-                                window.Close();
+                                await dialog.SendMessage("Alerta", "Error al registrar la versión..");
                             }
                         }
                         else
                         {
-                            await dialog.SendMessage("Alerta", "Error al registrar la versión..");
+                            //Si no se hizo la alta.
+                            //Ejecutamos el método para enviar un mensaje de alerta al usuario.
+                            await dialog.SendMessage("Alerta", "Error al registrar el documento..");
                         }
+
                     }
                     else
                     {
-                        //Si no se hizo la alta.
+                        //Si no cumple con la validación.
                         //Ejecutamos el método para enviar un mensaje de alerta al usuario.
-                        await dialog.SendMessage("Alerta", "Error al registrar el documento..");
+                        await dialog.SendMessage("Alerta", "Se debe llenar todos los campos.");
                     }
-                    
                 }
                 else
                 {
-                    //Si no cumple con la validación.
-                    //Ejecutamos el método para enviar un mensaje de alerta al usuario.
-                    await dialog.SendMessage("Alerta", "Se debe llenar todos los campos.");
+                    await dialog.SendMessage("Alerta", "Verifica que el archivo  cumpla con todos los requisitos..");
                 }
             }
             else
@@ -646,87 +652,93 @@ namespace View.Services.ViewModel
                 //Si es una actualización.
                 //Ejecutamos el método para valirdar los valores.
 
-                if (ValidarValores() & ValidaSelected())
+                if (ValidarValores())
                 {
-
-                    //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
-                    controllerProgressAsync = await dialog.SendProgressAsync("Por favor espere", "Guardando el documento...");
-
-                    //Declaramos un objeto de tipo Version.
-                    Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
-
-                    //Mapeamos los valores al objeto de versión.
-                    objVersion.no_version = version;
-                    objVersion.id_documento = id_documento;
-                    objVersion.id_usuario = _usuario;
-                    objVersion.id_usuario_autorizo = _usuarioAutorizo;
-                    objVersion.fecha_version = fecha;
-                    objVersion.id_estatus_version = 3;
-                    objVersion.no_copias = 0;
-
-                    //valida que la version en el documento no se repita
-                    int validacion = DataManagerControlDocumentos.ValidateVersion(objVersion);
-
-                    if (validacion == 0)
+                    if (ValidaSelected())
                     {
-                        //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
-                        int id_version = DataManagerControlDocumentos.SetVersion(objVersion);
+                        //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
+                        controllerProgressAsync = await dialog.SendProgressAsync("Por favor espere", "Guardando el documento...");
 
-                        //si se realizo la alta
-                        if (id_version != 0)
+                        //Declaramos un objeto de tipo Version.
+                        Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+
+                        //Mapeamos los valores al objeto de versión.
+                        objVersion.no_version = version;
+                        objVersion.id_documento = id_documento;
+                        objVersion.id_usuario = _usuario;
+                        objVersion.id_usuario_autorizo = _usuarioAutorizo;
+                        objVersion.fecha_version = fecha;
+                        objVersion.id_estatus_version = 3;
+                        objVersion.no_copias = 0;
+
+                        //valida que la version en el documento no se repita
+                        int validacion = DataManagerControlDocumentos.ValidateVersion(objVersion);
+
+                        if (validacion == 0)
                         {
-                            //Iteramos la lista de documentos.
-                            foreach (var item in _ListaDocumentos)
+                            //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
+                            int id_version = DataManagerControlDocumentos.SetVersion(objVersion);
+
+                            //si se realizo la alta
+                            if (id_version != 0)
                             {
-                                //Mapeamos los valores al objeto creado.
-                                Archivo objArchivo = new Archivo();
+                                //Iteramos la lista de documentos.
+                                foreach (var item in _ListaDocumentos)
+                                {
+                                    //Mapeamos los valores al objeto creado.
+                                    Archivo objArchivo = new Archivo();
 
-                                //Mapeamos los valores al objeto creado.
-                                objArchivo.id_version = id_version;
-                                objArchivo.archivo = item.archivo;
-                                objArchivo.ext = item.ext;
-                                objArchivo.nombre = item.nombre;
+                                    //Mapeamos los valores al objeto creado.
+                                    objArchivo.id_version = id_version;
+                                    objArchivo.archivo = item.archivo;
+                                    objArchivo.ext = item.ext;
+                                    objArchivo.nombre = item.nombre;
 
-                                //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
-                                int id_archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                                    //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
+                                    int id_archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                                }
+
+                                //Asignamos el valore de Guardar a la etiqueta del botón.
+                                BotonGuardar = "Guardar";
+
+                                //Ejecutamos el método para cerrar el mensaje de espera.
+                                await controllerProgressAsync.CloseAsync();
+
+                                //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
+                                await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente, los archivos serán verificados por el personal del CIT..");
+
+                                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                                //Verificamos que la pantalla sea diferente de nulo.
+                                if (window != null)
+                                {
+                                    //Cerramos la pantalla
+                                    window.Close();
+                                }
                             }
-
-                            //Asignamos el valore de Guardar a la etiqueta del botón.
-                            BotonGuardar = "Guardar";
-
-                            //Ejecutamos el método para cerrar el mensaje de espera.
-                            await controllerProgressAsync.CloseAsync();
-
-                            //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
-                            await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
-
-                            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                            //Verificamos que la pantalla sea diferente de nulo.
-                            if (window != null)
+                            else
                             {
-                                //Cerramos la pantalla
-                                window.Close();
+                                //si hubo algún error en la alta, manda mensaje se error.
+                                await dialog.SendMessage("Alerta", "Error al registrar la versión..");
                             }
                         }
                         else
                         {
-                            //si hubo algún error en la alta, manda mensaje se error.
-                            await dialog.SendMessage("Alerta", "Error al registrar la versión..");
+                            await dialog.SendMessage("Información", "La versión ya existe para este documento..");
+                            await controllerProgressAsync.CloseAsync();
                         }
                     }
                     else
                     {
-                        await dialog.SendMessage("Información", "La versión ya existe para este documento");
-                        await controllerProgressAsync.CloseAsync();
+                        //Si no cumple con la validación.
+                        //Ejecutamos el método para enviar un mensaje de alerta al usuario.
+                        await dialog.SendMessage("Alerta", "Se debe llenar todos los campos..");
                     }
                 }
                 else
                 {
-                    //Si no cumple con la validación.
-                    //Ejecutamos el método para enviar un mensaje de alerta al usuario.
-                    await dialog.SendMessage("Alerta", "Se debe llenar todos los campos.");
+                    await dialog.SendMessage("Alerta", "Verifica que el archivo cumpla con todos los requisitos..");
                 }
 
             }
@@ -957,86 +969,93 @@ namespace View.Services.ViewModel
             if (result == MessageDialogResult.Affirmative)
             {
                 //Ejecutamos el método para valirdar los valores.
-                if (ValidarValores() & ValidaSelected())
+                if (ValidarValores())
                 {
-                    //Se crea un objeto de tipo Documento.
-                    Documento obj = new Documento();
-
-                    //Se asignan los valores.
-                    obj.id_documento = id_documento;
-                    obj.id_dep = _id_dep;
-                    obj.id_tipo_documento = _id_tipo;
-                    obj.descripcion = Descripcion;
-                    obj.fecha_actualizacion = fecha;
-                    obj.id_estatus = 5;
-
-                    //Ejecuta el método para modificar un registro 
-                    int n = DataManagerControlDocumentos.UpdateDocumento(obj);
-
-                    //Ejecutamos el método para modificar un documento             
-                    if (n != 0)
+                    if (ValidaSelected())
                     {
-                        Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
-                        objVersion.id_version = idVersion;
-                        objVersion.no_version = version;
-                        objVersion.id_documento = id_documento;
-                        objVersion.id_usuario = _usuario;
-                        objVersion.id_usuario_autorizo = _usuarioAutorizo;
-                        objVersion.fecha_version = fecha;
-                        objVersion.id_estatus_version = 1;
-                        //objVersion.no_copias =;
-                        
-                        //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
-                        int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion);
+                        //Se crea un objeto de tipo Documento.
+                        Documento obj = new Documento();
 
-                        if (update_version != 0)
+                        //Se asignan los valores.
+                        obj.id_documento = id_documento;
+                        obj.id_dep = _id_dep;
+                        obj.id_tipo_documento = _id_tipo;
+                        obj.descripcion = Descripcion;
+                        obj.fecha_actualizacion = fecha;
+                        obj.id_estatus = 5;
+
+                        //Ejecuta el método para modificar un registro 
+                        int n = DataManagerControlDocumentos.UpdateDocumento(obj);
+
+                        //Ejecutamos el método para modificar un documento             
+                        if (n != 0)
                         {
+                            Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+                            objVersion.id_version = idVersion;
+                            objVersion.no_version = version;
+                            objVersion.id_documento = id_documento;
+                            objVersion.id_usuario = _usuario;
+                            objVersion.id_usuario_autorizo = _usuarioAutorizo;
+                            objVersion.fecha_version = fecha;
+                            objVersion.id_estatus_version = 1;
+                            objVersion.no_copias = 0;
 
-                            foreach (var item in _ListaDocumentos)
+                            //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
+                            int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion);
+
+                            if (update_version != 0)
                             {
-                                //Declaramos un objeto de tipo Archivo.
-                                Archivo objArchivo = new Archivo();
 
-                                //Mapeamos los valores al objeto creado.
-                                objArchivo.id_version = idVersion;
-                                objArchivo.archivo = item.archivo;
-                                objArchivo.ext = item.ext;
-                                objArchivo.nombre = item.nombre;
-
-                                //si el archivo no existe 
-                                if (item.id_archivo == 0)
+                                foreach (var item in _ListaDocumentos)
                                 {
-                                    //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
-                                    int a = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                                    //Declaramos un objeto de tipo Archivo.
+                                    Archivo objArchivo = new Archivo();
+
+                                    //Mapeamos los valores al objeto creado.
+                                    objArchivo.id_version = idVersion;
+                                    objArchivo.archivo = item.archivo;
+                                    objArchivo.ext = item.ext;
+                                    objArchivo.nombre = item.nombre;
+
+                                    //si el archivo no existe 
+                                    if (item.id_archivo == 0)
+                                    {
+                                        //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
+                                        int a = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                                    }
                                 }
-                            }
-                            await dialog.SendMessage("Información", "Cambios realizados..");
-                            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+                                await dialog.SendMessage("Información", "Cambios realizados, los archivos serán verificados por el personal del CIT..");
+                                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
-                            //Verificamos que la pantalla sea diferente de nulo.
-                            if (window != null)
+                                //Verificamos que la pantalla sea diferente de nulo.
+                                if (window != null)
+                                {
+                                    //Cerramos la pantalla
+                                    window.Close();
+                                }
+
+                            }
+                            else
                             {
-                                //Cerramos la pantalla
-                                window.Close();
+                                await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en la versión..");
                             }
-
                         }
                         else
                         {
-                            await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en la versión..");
+                            await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en documento..");
                         }
+
                     }
                     else
                     {
-                        await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en documento..");
+                        //Si los campos están vacíos, manda un mensaje.
+                        await dialog.SendMessage("RGP: Alerta", "Se debe llenar todos los campos");
                     }
-
                 }
                 else
                 {
-                    //Si los campos están vacíos, manda un mensaje.
-                    await dialog.SendMessage("RGP: Alerta", "Se debe llenar todos los campos");
+                    await dialog.SendMessage("RGP: Alerta", "Verifica que el archivo cumpla con todos los requisitos");
                 }
             }
         }

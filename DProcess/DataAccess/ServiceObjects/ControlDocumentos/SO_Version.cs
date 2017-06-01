@@ -357,5 +357,38 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        /// <summary>
+        /// Método para actualizar el estatus de una versiónm.
+        /// </summary>
+        /// <param name="id_version"></param>
+        /// <param name="id_estatus"></param>
+        /// <returns></returns>
+        public int UpdateEstatus_Version(int id_version, int id_estatus)
+        {
+            try
+            {
+                //Se establece la conexión a la base de datos.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //creación del objeto tipo TBL_archivo.
+                    TBL_VERSION obj = Conexion.TBL_VERSION.Where(x => x.ID_VERSION== id_version).FirstOrDefault();
+
+                    //Asignamos los  parámetros recibidos a cada uno de los valores de los objetos.
+                    obj.ID_ESTATUS_VERSION = id_estatus;
+
+                    //Se cambia el estado de registro a modificado.
+                    Conexion.Entry(obj).State = EntityState.Modified;
+
+                    //Se guardan los cambios y se retorna el número de registros afectados.
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                //Si encuentra error devuelve cero.
+                return 0;
+            }
+        }
+
     }
 }

@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="FrmValidarDocumento" Height="800" Width="1000"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen">
     <Window.Resources>
@@ -78,11 +79,32 @@
                 </StackPanel>
 
             </StackPanel>
+            <StackPanel Grid.Column="1" Margin="10,657,464,0" Orientation="Horizontal">
+                <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" VerticalAlignment="Center"
+                          ToolTip="Liberado" Height="84"  Width="76" Margin="0,-15,0,0" IsChecked="{Binding IsSelected}" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Checked">
+                            <i:InvokeCommandAction
+									Command="{Binding Checked}"
+                                    />
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Unchecked">
+                            <i:InvokeCommandAction
+									Command="{Binding Unchecked}"
+                                    />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                </ToggleButton>
+            </StackPanel>
 
             <!---->
-            <StackPanel Grid.Column="1" HorizontalAlignment="Left" Height="673" VerticalAlignment="Top" Width="537" Margin="5,57,0,0" RenderTransformOrigin="0.5,0.5">
+            <StackPanel Grid.Column="1" HorizontalAlignment="Left" Height="604" VerticalAlignment="Top" Width="543" Margin="5,57,0,0" RenderTransformOrigin="0.5,0.5">
                 <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="601" Margin="25,0,0,0" Width="495" BorderBrush="#FFB8B6B6" BorderThickness="1" Background="White" Foreground="#DD040404" ItemTemplate="{StaticResource Lista}" ItemsSource="{Binding ListaArchivos}" SelectedItem="{Binding SelectedItem}"/>
             </StackPanel>
+            <Button x:Name="button" Content="Guardar" Grid.Column="1" HorizontalAlignment="Left" Height="51" Margin="424,666,0,0" VerticalAlignment="Top" Width="101"
+                    Command="{Binding Guardar}"/>
+            <Label Content="{Binding Estatus}" FontSize="15" FontWeight="Bold" Grid.Column="1" HorizontalAlignment="Left" Height="31" Margin="78,668,0,0" VerticalAlignment="Top" Width="310" IsEnabled="False"/>
         </Grid>
     </Grid>
 </Controls:MetroWindow>

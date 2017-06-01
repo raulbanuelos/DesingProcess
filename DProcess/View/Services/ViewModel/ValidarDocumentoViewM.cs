@@ -1,4 +1,5 @@
-﻿using Model.ControlDocumentos;
+﻿using MahApps.Metro.Controls;
+using Model.ControlDocumentos;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows;
 
 namespace View.Services.ViewModel
 {
@@ -73,6 +75,35 @@ namespace View.Services.ViewModel
             }
 
         }
+
+        private bool isSelected = false;
+        public bool IsSelected {
+            get
+            {
+                return isSelected;
+            }
+            set
+            {
+                isSelected = value;
+                NotifyChange("IsSelected");
+            }
+        }
+
+        private string _estatus = "PENDIENTE POR CORREGIR";
+        public string Estatus
+        {
+            get
+            {
+                return _estatus;
+            }
+            set
+            {
+                _estatus = value;
+                NotifyChange("Estatus");
+            }
+        }
+
+        public DialogService dialog = new DialogService();
 
         #endregion
 
@@ -162,6 +193,146 @@ namespace View.Services.ViewModel
             return filename;
         }
 
+        public ICommand Guardar
+        {
+            get
+            {
+                return new RelayCommand(g => guardarEstatus());
+            }
+        }
+
+        public ICommand Checked
+        {
+            get
+            {
+                return new RelayCommand(g => check());
+            }
+        }
+
+        private void check()
+        {
+            Estatus = "APROBADO, PENDIENTE POR LIBERAR";  
+        }
+
+        public ICommand Unchecked
+        {
+            get
+            {
+                return new RelayCommand(g => uncheck());
+            }
+        }
+
+        private void uncheck()
+        {
+            Estatus = "PENDIENTE POR CORREGIR";
+        }
+
+
+        private async void guardarEstatus()
+        {
+            //isSelected es falso, id_estatus=pendiente por corregir, verdadero estatus= aprobado pendiente por liberar
+            //
+          
+            string version = SelectedDocumento.version.no_version;
+            Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+            objVersion.id_version = SelectedDocumento.version.id_version;
+
+            // Si el checkbox es verdadero
+            if (isSelected == true)
+            {
+                //Si el documento no tiene una versión liberada
+                if (version.Equals("1"))
+                {
+                    //Actualiza el estatus de la versión y del documento a pendiente por liberar
+                    selectedDocumento.id_estatus = 4;
+                    objVersion.id_estatus_version = 5;
+                   
+                    //Se llama al método para actualizar el estatus del documento
+                    int n = DataManagerControlDocumentos.Update_EstatusDocumento(SelectedDocumento);
+                    
+                    //si se realizo la actualizacion
+                    if (n != 0)
+                    {
+                        //Se llama a la función para actualizar el estatus de la versión
+                        UpdateVersion(objVersion);
+                    }
+                    else
+                    {
+                        //Se muestra que hubo un error al actualizar el documento
+                        await dialog.SendMessage("Alerta", "Error al actualizar el estatus del documento ..");
+                    }
+                }
+                else
+                {
+                    //si es un documento con versión liberada.
+                    objVersion.id_estatus_version = 5;
+
+                    //Se llama a la función para actualizar el estatus de la versión
+                    UpdateVersion(objVersion);
+                }
+
+            }else
+            {
+                //Si el documento no tiene una versión liberada
+                if (version.Equals("1"))
+                {
+                    //Actualiza el estatus de la versión y del documento a pendiente por corregir
+                    selectedDocumento.id_estatus = 3;
+                    objVersion.id_estatus_version = 4;
+
+                    //Se llama al método para actualizar el estatus del documento
+                    int n = DataManagerControlDocumentos.Update_EstatusDocumento(SelectedDocumento);
+
+                    //si se realizo la actualizacion
+                    if (n != 0)
+                    {
+                        //Se llama a la función para actualizar el estatus de la versión
+                        UpdateVersion(objVersion);
+                    }
+                    else
+                    {
+                        //Se muestra que hubo un error al actualizar el documento
+                        await dialog.SendMessage("Alerta", "Error al actualizar el estatus del documento ..");
+                    }
+                }
+                else
+                {
+                    //si es un documento con versión .
+                    //Estatus pendiente por corregir.
+                    objVersion.id_estatus_version = 4;
+                    //Se llama a la función para actualizar el estatus de la versión
+                    UpdateVersion(objVersion);
+                }
+
+            }
+        }
+
+        //método para modificar la versión.
+        public async void UpdateVersion(Model.ControlDocumentos.Version objVersion)
+        {
+            //Se llama al método para actualizar el estatus de la version
+            int update_version = DataManagerControlDocumentos.Update_EstatusVersion(objVersion);
+
+            if (update_version!=0)
+            {
+                await dialog.SendMessage("Información", "Se actualizó el estatus de la versión..");
+                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                //Verificamos que la pantalla sea diferente de nulo.
+                if (window != null)
+                {
+                    //Cerramos la pantalla
+                    window.Close();
+                }
+            }
+            else
+            {
+                await dialog.SendMessage("Alerta", "Error al actualizar el estatus de la versión..");
+            }
+        }
+
+        
         #endregion
 
         #region PropertyChanged

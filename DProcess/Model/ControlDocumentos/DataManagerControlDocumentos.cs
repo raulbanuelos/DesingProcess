@@ -570,6 +570,19 @@ namespace Model.ControlDocumentos
 
             return documento;
         }
+
+        /// <summary>
+        /// Método para actualizar el estado de un documento
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <param name="id_estatus"></param>
+        /// <returns></returns>
+        public static int Update_EstatusDocumento(Documento obj)
+        {
+            SO_Documento ServicioDocumento = new SO_Documento();
+
+            return ServicioDocumento.UpdateEstatus_Documento(obj.id_documento,obj.id_estatus);
+        }
         #endregion
 
         #region Rol
@@ -1142,6 +1155,17 @@ namespace Model.ControlDocumentos
             }
 
             return ListaResultante;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int  Update_EstatusVersion(Version obj)
+        {
+            SO_Version ServiceVersion = new SO_Version();
+
+            return ServiceVersion.UpdateEstatus_Version(obj.id_version, obj.id_estatus_version);
         }
 
         /// <summary>
