@@ -173,6 +173,7 @@
     <Compile Include="Services\ViewModel\AnilloViewModel.cs" />
     <Compile Include="Services\ViewModel\ControlDocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\DimensionsViewModel.cs" />
+    <Compile Include="Services\ViewModel\DocumentosPendientesViewM.cs" />
     <Compile Include="Services\ViewModel\DocumentoValidarViewModel.cs" />
     <Compile Include="Services\ViewModel\DocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\GeneradorViewModel.cs" />

@@ -7,7 +7,10 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
-        Title="FrmDocumentosValidar" Height="500" Width="1000" WindowStartupLocation="CenterScreen">
+        Title="Documentos Pendientes" Height="500" Width="1000" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Window.Resources>
     <Grid>
         <DataGrid x:Name="dataGrid"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding ListaDocumentosValidar}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
             <DataGrid.Columns>
@@ -15,7 +18,7 @@
                 <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre"/>
                 <DataGridTextColumn Binding="{Binding version.no_version}" ClipboardContentBinding="{x:Null}" Header="Versión"/>
                 <DataGridTextColumn Binding="{Binding tipo.tipo_documento}" ClipboardContentBinding="{x:Null}" Header="Tipo de documento"/>
-                <DataGridTextColumn Binding="{Binding usuario}" ClipboardContentBinding="{x:Null}" Header="Usuario"/>
+                <DataGridTextColumn Binding="{Binding usuario}" ClipboardContentBinding="{x:Null}" Header="Usuario" Visibility="{Binding GridUsuario, Converter={StaticResource BoolToVis}, FallbackValue= Visible}" />
             </DataGrid.Columns>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">

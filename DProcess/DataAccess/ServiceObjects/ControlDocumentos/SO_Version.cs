@@ -105,7 +105,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha"></param>
         /// <param name="no_copias"></param>
         /// <returns></returns>
-        public int UpdateVersion(int id_version, string id_usuario,string id_usuario_autorizo, int id_documento, string no_version, DateTime fecha, int no_copias)
+        public int UpdateVersion(int id_version, string id_usuario,string id_usuario_autorizo, int id_documento, string no_version, DateTime fecha, int no_copias,int id_estatus)
         {
             try
             {
@@ -122,6 +122,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.No_VERSION = no_version;
                     obj.FECHA_VERSION = fecha;
                     obj.NO_COPIAS = no_copias;
+                    obj.ID_ESTATUS_VERSION = id_estatus;
 
                     //Se cambia el estado de registro a modificado.
                     Conexion.Entry(obj).State = EntityState.Modified;

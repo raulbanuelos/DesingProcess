@@ -565,6 +565,8 @@ namespace Model.ControlDocumentos
                     documento.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     documento.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
                     documento.version.no_copias = (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
+                    documento.id_dep= (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
+
                 }
             }
 
@@ -960,7 +962,7 @@ namespace Model.ControlDocumentos
             SO_Version ServiceVersion = new SO_Version();
 
             // Se ejecuta el método y retorna los registros que se modificarion
-            return ServiceVersion.UpdateVersion(version.id_version, version.id_usuario,version.id_usuario_autorizo, version.id_documento, version.no_version, version.fecha_version, version.no_copias);
+            return ServiceVersion.UpdateVersion(version.id_version, version.id_usuario,version.id_usuario_autorizo, version.id_documento, version.no_version, version.fecha_version, version.no_copias, version.id_estatus_version);
         }
 
         /// <summary>
@@ -1156,6 +1158,75 @@ namespace Model.ControlDocumentos
 
             return ListaResultante;
         }
+
+        /// <summary>
+        /// Método para obtener los documentos pendientes de un usuario.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Documento> GetDocumentosPendientes(string usuario)
+        {
+            ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
+
+            SO_Documento ServicioDocumento = new SO_Documento();
+
+            IList informacionBD = ServicioDocumento.GetDocumentosPendientes(usuario);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    Documento obj = new Documento();
+
+                    obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.usuario = (string)tipo.GetProperty("NOMBRE_USUARIO").GetValue(item, null);
+                    obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    Lista.Add(obj);
+
+                }
+            }
+
+            return Lista;
+        }
+
+        /// <summary>
+        /// Método para obtener los documentos aprobados de un usuario.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Documento> GetDocumentoAprobado(string usuario)
+        {
+            ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
+
+            SO_Documento ServicioDocumento = new SO_Documento();
+
+            IList informacionBD = ServicioDocumento.GetDocumentosAprobados(usuario);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    Documento obj = new Documento();
+
+                    obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.usuario = (string)tipo.GetProperty("NOMBRE_USUARIO").GetValue(item, null);
+                    obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    Lista.Add(obj);
+
+                }
+            }
+
+            return Lista;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -1180,15 +1251,13 @@ namespace Model.ControlDocumentos
             SO_Version ServicioVersion = new SO_Version();
 
             IList informacionBD = ServicioVersion.GetStatus(id_documento);
+            Version obj = new Version();
 
             if (informacionBD != null)
             {
                 foreach (var item in informacionBD)
                 {
                     System.Type tipo = item.GetType();
-
-                    Version obj = new Version();
-
                     obj.id_version= (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
                     obj.no_version= (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     obj.estatus = (string)tipo.GetProperty("ESTATUS_VERSION").GetValue(item, null);

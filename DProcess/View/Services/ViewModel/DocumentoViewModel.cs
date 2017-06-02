@@ -441,7 +441,7 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Constructor
-        public DocumentoViewModel(Documento selectedDocumento)
+        public DocumentoViewModel(Documento selectedDocumento, bool band)
         {
             Inicializar();
             Nombre = selectedDocumento.nombre;
@@ -453,15 +453,17 @@ namespace View.Services.ViewModel
             id_documento = selectedDocumento.id_documento;
             BotonGuardar = "Guardar";
             BttnGuardar = false;
-            BttnEliminar = true;
+            BttnEliminar = band;
             BttnModificar = true;
-            BttnVersion = true;
+            BttnVersion = band;
             NombreEnabled = false;
             TipoEnabled = false;
             DepartamentoEnabled = false;
             idVersion = selectedDocumento.version.id_version;
             id_dep = selectedDocumento.id_dep;
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
+
+            ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
 
             _ListaNumeroDocumento = DataManagerControlDocumentos.GetNombre_Documento(id_documento);
 
@@ -997,7 +999,7 @@ namespace View.Services.ViewModel
                             objVersion.id_usuario = _usuario;
                             objVersion.id_usuario_autorizo = _usuarioAutorizo;
                             objVersion.fecha_version = fecha;
-                            objVersion.id_estatus_version = 1;
+                            objVersion.id_estatus_version = 3;
                             objVersion.no_copias = 0;
 
                             //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
@@ -1079,7 +1081,6 @@ namespace View.Services.ViewModel
 
             if (ListaEstatus.Count == 0)
             {
-
                 //Obtiene la últuma version del documento.
                 Version = DataManagerControlDocumentos.GetLastVersion(id_documento);
 

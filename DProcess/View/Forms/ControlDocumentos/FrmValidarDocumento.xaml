@@ -31,7 +31,7 @@
             </Border>
         </DataTemplate>
     </Window.Resources>
-    <Grid ShowGridLines="True">
+    <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -43,7 +43,7 @@
             <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="1" Grid.Row="1" ShowGridLines="True">
+        <Grid Grid.Column="1" Grid.Row="1" ShowGridLines="False">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>

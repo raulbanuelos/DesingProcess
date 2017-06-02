@@ -149,6 +149,26 @@ namespace View.Services.ViewModel
             p.ShowDialog();
         }
 
+        public ICommand DocumentosPendientes
+        {
+            get
+            {
+                return new RelayCommand(o => irDocumentosPendientes());
+            }
+        }
+           
+        private void irDocumentosPendientes()
+        {
+            FrmDocumentosValidar frm = new FrmDocumentosValidar();
+
+            DocumentosPendientesViewM context = new DocumentosPendientesViewM(usuario);
+
+            frm.DataContext = context;
+
+            frm.ShowDialog();
+            
+        }
+
         private async void irNuevoDocumento()
         {
 
@@ -266,7 +286,7 @@ namespace View.Services.ViewModel
             if (selectedDocumento != null)
             {
                 FrmDocumento frm = new FrmDocumento();
-                DocumentoViewModel context = new DocumentoViewModel(selectedDocumento);
+                DocumentoViewModel context = new DocumentoViewModel(selectedDocumento,true);
 
                 frm.DataContext = context;
 
