@@ -23,6 +23,7 @@ namespace View.Forms.ControlDocumentos
         public ControlDocumento()
         {
             InitializeComponent();
+           
         }
     }
 }

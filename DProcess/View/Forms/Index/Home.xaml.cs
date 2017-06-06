@@ -4,6 +4,7 @@
  * Hora: 12:10
  * 
  */
+using MaterialDesignThemes.Wpf;
 using Model.ControlDocumentos;
 using System;
 using System.Diagnostics;
@@ -21,6 +22,8 @@ namespace View.Forms.Index
 			InitializeComponent();
 
             string ExampleFourTextBox = string.Empty;
+            var messageQueue= new SnackbarMessageQueue(TimeSpan.FromMilliseconds(800));
+            SnackbarFour.MessageQueue = messageQueue;
 
             int NoDocumentosValidar = DataManagerControlDocumentos.GetDocumentosValidar(nombreUsuario).Count;
             if (NoDocumentosValidar > 0)
@@ -40,5 +43,6 @@ namespace View.Forms.Index
                 s);
             }
         }
-	}
+        //param => HandleUndoMethod(param)
+    }
 }

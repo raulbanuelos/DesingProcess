@@ -303,7 +303,7 @@ namespace View.Services.ViewModel
 
 
             ControlDocumento frm = new ControlDocumento();
-            ControlDocumentoViewModel context = new ControlDocumentoViewModel {usuario=ModelUsuario};
+            ControlDocumentoViewModel context = new ControlDocumentoViewModel (ModelUsuario);
             frm.DataContext = context;
             Pagina = frm;
 

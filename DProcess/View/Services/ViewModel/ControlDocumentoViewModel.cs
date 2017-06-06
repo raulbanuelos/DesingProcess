@@ -302,6 +302,7 @@ namespace View.Services.ViewModel
         private void initControlDocumentos()
         {
             _ListaTipoDocumento = DataManagerControlDocumentos.GetTipo();
+           // PendientesAprobar = DataManagerControlDocumentos.GetDocumentosValidar(usuario.NombreUsuario).Count.ToString();
 
             if (_ListaTipoDocumento.Count > 0)
             {
@@ -318,9 +319,12 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Constructors
-        public ControlDocumentoViewModel()
+        public ControlDocumentoViewModel(Usuario modelUsuario)
         {
+            usuario = new Usuario();
+            usuario = modelUsuario;
             initControlDocumentos();
+            
         }
         #endregion
 
