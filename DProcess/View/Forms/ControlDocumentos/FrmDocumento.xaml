@@ -184,13 +184,6 @@
             </ComboBox>
             <Label x:Name="label9" Content="Usuario Autorizó" Height="34" Canvas.Left="90" Canvas.Top="572" Width="234" FontSize="16" FontWeight="Bold"/>
 
-            <StackPanel  Orientation="Horizontal" Canvas.Left="910" Canvas.Top="743" Height="73" Width="138">
-                <Button Command="{Binding RunExtendedDialogCommand}"
-                        Width="128" Margin="0 32 0 0">
-                    EXTENDED
-                </Button>
-            </StackPanel>
-
         </Canvas>
 
         <!--Barra-->

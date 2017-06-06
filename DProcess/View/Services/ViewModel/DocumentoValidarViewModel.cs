@@ -15,7 +15,18 @@ namespace View.Services.ViewModel
     public class DocumentoValidarViewModel : INotifyPropertyChanged
     {
         #region Properties
-        public ObservableCollection<Documento> ListaDocumentosValidar { get; set; }
+        private ObservableCollection<Documento> _ListaDocumentos;
+        public ObservableCollection<Documento> ListaDocumentosValidar {
+            get
+            {
+                return _ListaDocumentos;
+            }
+            set
+            {
+                _ListaDocumentos = value;
+                NotifyChange("ListaDocumentosValidar");
+            }
+        }
 
         private Documento selectedDocumento;
         public Documento SelectedDocumento

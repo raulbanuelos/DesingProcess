@@ -30,7 +30,19 @@ namespace View.Services.ViewModel
         #region propiedades
         public Usuario usuario;
 
-        public ObservableCollection<Documento> ListaDocumentosValidar { get; set; }
+        private ObservableCollection<Documento> _ListaDocumentos;
+        public ObservableCollection<Documento> ListaDocumentosValidar
+        {
+            get
+            {
+                return _ListaDocumentos;
+            }
+            set
+            {
+                _ListaDocumentos = value;
+                NotifyChange("ListaDocumentosValidar");
+            }
+        }
 
 
         private bool _gridUsuario;
