@@ -74,15 +74,16 @@ namespace View.Services.ViewModel
         }
 
         private Documento documento;
+        private string Estatus;
         #endregion
 
         #region constructor
 
-        public DocumentosPendientesViewM(Usuario user)
+        public DocumentosPendientesViewM(Usuario user,string _estatus)
         {
             usuario = user;
-         
-            inicializa();
+            Estatus = _estatus;
+            inicializa(Estatus);
         }
         #endregion
 
@@ -101,23 +102,43 @@ namespace View.Services.ViewModel
             {
                 documento = DataManagerControlDocumentos.GetDocumento(SelectedDocumento.id_documento, SelectedDocumento.version.no_version);
 
-                DocumentoViewModel viewM = new DocumentoViewModel(documento,false);
+                if (Estatus.Contains("pendiente"))
+                {
+                    DocumentoViewModel viewM = new DocumentoViewModel(documento, false);
+                    FrmDocumento frm = new FrmDocumento();
 
-                FrmDocumento frm = new FrmDocumento();
+                    frm.DataContext = viewM;
 
-                frm.DataContext = viewM;
+                    frm.ShowDialog();
 
-                frm.ShowDialog();
+                    inicializa(Estatus);
+                }
+                else if (Estatus.Contains("aprobados"))
+                {
+                    DocumentoViewModel viewM = new DocumentoViewModel(documento);
+                    FrmDocumento frm = new FrmDocumento();
 
-                inicializa();
+                    frm.DataContext = viewM;
+
+                    frm.ShowDialog();
+
+                    inicializa(Estatus);
+                }
+
+                
             }
         }
 
         #endregion
 
-        public void inicializa()
+        public void inicializa(string status)
         {
-            ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentosPendientes(usuario.NombreUsuario);
+            if (status.Contains("pendiente")) {
+                ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentosPendientes(usuario.NombreUsuario);
+            }else if (status.Contains("aprobados"))
+            {
+                ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentoAprobado(usuario.NombreUsuario);
+            }
         }
 
     }

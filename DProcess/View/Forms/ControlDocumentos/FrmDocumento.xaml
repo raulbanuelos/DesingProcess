@@ -50,8 +50,9 @@
                     <TextBlock FontWeight="Bold" Text="{Binding Path=nombre}" TextWrapping="WrapWithOverflow" TextAlignment="Center" Grid.Column="0" HorizontalAlignment="Right" Padding="2"></TextBlock>
                     <TextBlock Text="Extensión: " FontSize="14" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Text="{Binding Path=ext}" HorizontalAlignment="Right" Padding="2" Grid.Column="0" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
-                    <Button  Grid.Column="0" Content="Eliminar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#FFE27B7B" BorderBrush="#FFD36B6B" Command="{Binding Path=DataContext.EliminarItem,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"/>
-                    <Button  Grid.Column="0" Content="Ver" Width="80" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Command="{Binding Path=DataContext.VerArchivo,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"></Button>
+                    <Button  Grid.Column="0" Content="Eliminar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#FFE27B7B" BorderBrush="#FFD36B6B" Command="{Binding Path=DataContext.EliminarItem,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"  
+                             Visibility="{Binding EnabledEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"/>
+                    <Button  Grid.Column="0" Content="Ver" Width="80" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Command="{Binding Path=DataContext.VerArchivo,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" ></Button>
 
                     <!--Columna1-->
                     <Image Name="img_icono" Source="{Binding Path=ruta}" Grid.Column="1" HorizontalAlignment="Stretch" Width="70" VerticalAlignment="Stretch"></Image>
@@ -95,7 +96,8 @@
             <TextBox x:Name="txt_version" Canvas.Left="134" TextWrapping="Wrap" Canvas.Top="137" Height="38"  Width="467" BorderThickness="1" BorderBrush="#89535353" FontSize="18" Text="{Binding Version}" IsEnabled="{Binding VersionEnabled}"/>
 
             <!--Date-->
-            <DatePicker x:Name="txt_fecha"  Height="38" Canvas.Left="133" Canvas.Top="226" Width="467" DisplayDateEnd="{x:Static System:DateTime.Today}" BorderThickness="1" BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"/>
+            <DatePicker x:Name="txt_fecha"  Height="38" Canvas.Left="133" Canvas.Top="226" Width="467" DisplayDateEnd="{x:Static System:DateTime.Today}" BorderThickness="1" BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"
+                        IsEnabled="{Binding IsEnabled}"/>
             <Rectangle Fill="#89DCDCDC" Height="38" Canvas.Left="83" Canvas.Top="226" Width="51" Stroke="#FFBDBDBD"/>
             <Rectangle Width="40" Height="39" Canvas.Top="226" RenderTransformOrigin="0.871,0.394" Canvas.Left="89">
                 <Rectangle.Fill>
@@ -107,11 +109,12 @@
             <!--Numero de Copias-->
 
             <!--Descripción-->
-            <TextBox Text="{Binding Descripcion}" Canvas.Left="88" Canvas.Top="700" RenderTransformOrigin="-4.028,-0.333" Height="38"  Width="515" BorderThickness="1" BorderBrush="#89535353" FontSize="18"></TextBox>
+            <TextBox Text="{Binding Descripcion}" Canvas.Left="88" Canvas.Top="700" RenderTransformOrigin="-4.028,-0.333" Height="38"  Width="515" BorderThickness="1" BorderBrush="#89535353" FontSize="18"  IsEnabled="{Binding IsEnabled}"></TextBox>
             <Label x:Name="label3" Content="Nombre del Documento" Height="34" Canvas.Left="90" Canvas.Top="666" FontSize="16" FontWeight="Bold"/>
 
             <!--Buttons-->
-            <Button x:Name="button"  Height="47" Width="77" RenderTransformOrigin="0.495,0.578" BorderBrush="#89DCDCDC" Canvas.Left="1075" Canvas.Top="743"  Command="{Binding LlenarLista}" Background="#89F2F5F7" ToolTip="Abrir archivo">
+            <Button x:Name="button"  Height="47" Width="77" RenderTransformOrigin="0.495,0.578" BorderBrush="#89DCDCDC" Canvas.Left="1075" Canvas.Top="743"  Command="{Binding LlenarLista}" Background="#89F2F5F7" ToolTip="Abrir archivo"
+                    Visibility="{Binding BttnArchivos, Converter={StaticResource BoolToVis}, FallbackValue= Visible}">
                 <Rectangle Width="40" Height="39" Canvas.Top="226" RenderTransformOrigin="0.871,0.394" Canvas.Left="89">
                     <Rectangle.Fill>
                         <ImageBrush ImageSource="/View;component/Images/folder.png"/>
@@ -120,7 +123,7 @@
 
             </Button>
 
-            <Canvas Height="64" Canvas.Left="70" Canvas.Top="819" Width="826" RenderTransformOrigin="0.5,0.5">
+            <Canvas Height="64" Canvas.Left="70" Canvas.Top="819" Width="1024" RenderTransformOrigin="0.5,0.5">
                 <Canvas.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -134,6 +137,7 @@
                 <Button x:Name="bttn_eliminar" Content="Eliminar" Canvas.Left="522" Canvas.Top="10" Width="135" Height="41" Background="#FF157EFB" Command="{Binding Eliminar}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
                 <Button x:Name="bttn_cambios" Content="Modificar" Height="41" Canvas.Left="362" Canvas.Top="10" Width="135" Background="#FF157EFB" Command="{Binding Modificar}" Visibility="{Binding BttnModificar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
                 <Button x:Name="bttn_generar" Content="Generar Versión" Height="41" Canvas.Left="681" Canvas.Top="10" Width="135" Background="#FF157EFB" Command="{Binding GenerarVersion}" Visibility="{Binding BttnVersion, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
+                <Button x:Name="button1" Content="Liberar" Height="41" Canvas.Left="847" Canvas.Top="10" Width="135" Background="#FF157EFB"  Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" Command="{Binding LiberarDocumento}" />
             </Canvas>
 
             <!--ListView Archivos-->
@@ -144,16 +148,16 @@
             <Label x:Name="label5" Content="Lista de Documentos" Height="36" Canvas.Left="666" Canvas.Top="8" Width="196" FontSize="18" FontWeight="Bold" RenderTransformOrigin="0.194,0.5"/>
 
             <!--Tipo de Documento-->
-            <ComboBox x:Name="comboBox" Height="38" Canvas.Left="83" Canvas.Top="311" Width="517" BorderThickness="1" BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}" FontSize="18" IsEnabled="{Binding TipoEnabled}"  />
+            <ComboBox x:Name="comboBox" Height="38" Canvas.Left="83" Canvas.Top="311" Width="517" BorderThickness="1" BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}" FontSize="18" IsEnabled="{Binding VersionEnabled}"  />
             <Label x:Name="label6" Content="Tipo de Documento" Height="29" Canvas.Left="88" Canvas.Top="282" Width="161" FontSize="16" FontWeight="Bold"/>
 
 
             <!--Nombre del departamento-->
-            <ComboBox x:Name="comboBox1" Height="38" Canvas.Left="88" Canvas.Top="413" Width="517" BorderThickness="1" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaDepartamento}" DisplayMemberPath="nombre_dep" SelectedValuePath="id_dep" SelectedValue="{Binding id_dep}" IsEnabled="{Binding DepartamentoEnabled}"/>
+            <ComboBox x:Name="comboBox1" Height="38" Canvas.Left="88" Canvas.Top="413" Width="517" BorderThickness="1" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaDepartamento}" DisplayMemberPath="nombre_dep" SelectedValuePath="id_dep" SelectedValue="{Binding id_dep}" IsEnabled="{Binding VersionEnabled}"/>
             <Label x:Name="label7" Content="Nombre del Departamento/ Proceso" Height="37" Canvas.Left="90" Canvas.Top="376" Width="309" FontSize="16" FontWeight="Bold"/>
 
             <!--Usuario-->
-            <ComboBox x:Name="comboBox2" Height="38" Canvas.Left="90" Canvas.Top="507" Width="517" BorderThickness="1" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaUsuarios}"  SelectedValuePath="usuario" SelectedValue="{Binding usuario}" Background="White" IsEnabled="{Binding UsuarioEnabled}">
+            <ComboBox x:Name="comboBox2" Height="38" Canvas.Left="90" Canvas.Top="507" Width="517" BorderThickness="1" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaUsuarios}"  SelectedValuePath="usuario" SelectedValue="{Binding usuario}" Background="White" IsEnabled="{Binding VersionEnabled}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>
@@ -168,7 +172,8 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Label x:Name="label8" Content="Usuario Elaboró" Height="28" Canvas.Left="90" Canvas.Top="478" Width="208" FontSize="16" FontWeight="Bold"/>
-            <ComboBox x:Name="comboBox3" Height="38" Canvas.Left="90" Canvas.Top="606" Width="514" BorderThickness="1" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" ItemsSource="{Binding Path=ListaUsuarios}"  SelectedValuePath="usuario" SelectedValue="{Binding usuarioAutorizo}">
+            <ComboBox x:Name="comboBox3" Height="38" Canvas.Left="90" Canvas.Top="606" Width="514" BorderThickness="1" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" ItemsSource="{Binding Path=ListaUsuarios}"  SelectedValuePath="usuario" SelectedValue="{Binding usuarioAutorizo}"
+                       IsEnabled="{Binding IsEnabled}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>

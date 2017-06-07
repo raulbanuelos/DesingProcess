@@ -591,6 +591,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
+       
+
 
         /// <summary>
         /// Método para obtener los documentos aprobados de un usuario

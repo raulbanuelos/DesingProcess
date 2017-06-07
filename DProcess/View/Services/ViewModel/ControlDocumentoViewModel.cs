@@ -79,6 +79,90 @@ namespace View.Services.ViewModel
             }
         }
 
+        private string _DocumentosValidar;
+        public string DocumentosValidar{
+            get
+            {
+                return _DocumentosValidar;
+            }
+            set
+            {
+                _DocumentosValidar = value;
+                NotifyChange("DocumentosValidar");
+            }
+        }
+
+        private bool _enabledValidar;
+        public bool EnabledValidar
+        {
+            get
+            {
+                return _enabledValidar;
+            }
+            set
+            {
+                _enabledValidar = value;
+                NotifyChange("EnabledValidar");
+            }
+        }
+
+        private string _DocumentosCorregir;
+        public string DocumentosCorregir
+        {
+            get
+            {
+                return _DocumentosCorregir;
+            }
+            set
+            {
+                _DocumentosCorregir = value;
+                NotifyChange("DocumentosCorregir");
+            }
+        }
+
+        private bool _enabledCorregir;
+        public bool EnabledCorregir
+        {
+            get
+            {
+                return _enabledCorregir;
+            }
+            set
+            {
+                _enabledCorregir = value;
+                NotifyChange("EnabledCorregir");
+            }
+        }
+
+        private string _DocumentosAprobados;
+        public string DocumentosAprobados
+        {
+            get
+            {
+                return _DocumentosAprobados;
+            }
+            set
+            {
+                _DocumentosAprobados = value;
+                NotifyChange("DocumentosAprobados");
+            }
+        }
+
+        private bool _enabledAprobados;
+        public bool EnabledAprobados
+        {
+            get
+            {
+                return _enabledAprobados;
+            }
+            set
+            {
+                _enabledAprobados = value;
+                NotifyChange("EnabledAprobados");
+            }
+        }
+
+
         #endregion
 
         #region Commands
@@ -161,12 +245,31 @@ namespace View.Services.ViewModel
         {
             FrmDocumentosValidar frm = new FrmDocumentosValidar();
 
-            DocumentosPendientesViewM context = new DocumentosPendientesViewM(usuario);
+            DocumentosPendientesViewM context = new DocumentosPendientesViewM(usuario,"pendientes");
 
             frm.DataContext = context;
 
             frm.ShowDialog();
             
+        }
+
+        public ICommand IrDocumentosAprobados
+        {
+            get
+            {
+                return new RelayCommand(param => irDocumentosAprobados());
+            }
+        }
+
+        private void irDocumentosAprobados()
+        {
+            FrmDocumentosValidar frm = new FrmDocumentosValidar();
+
+            DocumentosPendientesViewM context = new DocumentosPendientesViewM(usuario, "aprobados");
+
+            frm.DataContext = context;
+
+            frm.ShowDialog();
         }
 
         private async void irNuevoDocumento()
@@ -302,13 +405,38 @@ namespace View.Services.ViewModel
         private void initControlDocumentos()
         {
             _ListaTipoDocumento = DataManagerControlDocumentos.GetTipo();
-           // PendientesAprobar = DataManagerControlDocumentos.GetDocumentosValidar(usuario.NombreUsuario).Count.ToString();
+          
 
             if (_ListaTipoDocumento.Count > 0)
             {
                 SelectedTipoDocumento = _ListaTipoDocumento[0];
             }
             GetDataGrid(string.Empty);
+        }
+
+        private void initSnack()
+        {
+
+            int num_validar = DataManagerControlDocumentos.GetDocumentosValidar(usuario.NombreUsuario).Count;
+            int num_pendientes= DataManagerControlDocumentos.GetDocumentosPendientes(usuario.NombreUsuario).Count;
+            int num_aprobados = DataManagerControlDocumentos.GetDocumentoAprobado(usuario.NombreUsuario).Count;
+
+            if (num_validar>0)
+            {
+                EnabledValidar = true;
+                DocumentosValidar = " " + num_validar + " Documento(s) pendiente(s) por validar";
+            }
+            if (num_pendientes >0 )
+            {
+                EnabledCorregir = true;
+                DocumentosCorregir = " " + num_pendientes + " Documento(s) pendiente(s) por corregir";
+            }
+            if (num_aprobados>0)
+            {
+                EnabledAprobados = true;
+                DocumentosAprobados= " " + num_aprobados + " Documento(s) pendiente(s) por liberar";
+            }
+            
         }
 
         private void GetDataGrid(string TextoBusqueda)
@@ -324,6 +452,7 @@ namespace View.Services.ViewModel
             usuario = new Usuario();
             usuario = modelUsuario;
             initControlDocumentos();
+            initSnack();
             
         }
         #endregion

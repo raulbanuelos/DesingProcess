@@ -304,6 +304,19 @@ namespace View.Services.ViewModel
 
         }
 
+        private bool _bttnArchivos=true;
+        public bool BttnArchivos {
+            get
+            {
+                return _bttnArchivos;
+            }
+            set
+            {
+                _bttnArchivos = value;
+                NotifyChange("BttnArchivos");
+            }
+        }
+
         private bool _bttnEliminar;
         public bool BttnEliminar {
             get
@@ -357,7 +370,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private bool nombreEnabled;
+        private bool nombreEnabled=false;
         public bool NombreEnabled {
             get
             {
@@ -384,44 +397,31 @@ namespace View.Services.ViewModel
             }
         }
 
-        private bool tipoEnabled = true;
-        public bool TipoEnabled
+        private bool _enabledEliminar;
+        public bool EnabledEliminar
         {
             get
             {
-                return tipoEnabled;
+                return _enabledEliminar;
             }
             set
             {
-                tipoEnabled = value;
-                NotifyChange("TipoEnabled");
+                _enabledEliminar = value;
+                NotifyChange("EnabledEliminar");
             }
         }
 
-        private bool departamentoEnabled = true;
-        public bool DepartamentoEnabled
+        private bool _bttnLiberar = false;
+        public bool BttnLiberar
         {
             get
             {
-                return departamentoEnabled; ;
+                return _bttnLiberar; ;
             }
             set
             {
-                departamentoEnabled = value;
-                NotifyChange("DepartamentoEnabled");
-            }
-        }
-
-        private bool usuarioEnabled = false;
-        public bool UsuarioEnabled {
-            get
-            {
-                return usuarioEnabled;
-            }
-            set
-            {
-                usuarioEnabled = value;
-                NotifyChange("UsuarioEnabled");
+                _bttnLiberar = value;
+                NotifyChange("BttnLiberar");
             }
         }
 
@@ -435,6 +435,20 @@ namespace View.Services.ViewModel
             {
                 _bttnCancelar = value;
                 NotifyChange("BttnCancelar");
+            }
+        }
+
+        private bool _isEnabled=true;
+        public bool IsEnabled
+        {
+            get
+            {
+                return _isEnabled;
+            }
+            set
+            {
+                _isEnabled = value;
+                NotifyChange("IsEnabled");
             }
         }
 
@@ -456,9 +470,6 @@ namespace View.Services.ViewModel
             BttnEliminar = band;
             BttnModificar = true;
             BttnVersion = band;
-            NombreEnabled = false;
-            TipoEnabled = false;
-            DepartamentoEnabled = false;
             idVersion = selectedDocumento.version.id_version;
             id_dep = selectedDocumento.id_dep;
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
@@ -514,12 +525,64 @@ namespace View.Services.ViewModel
             usuario = User.NombreUsuario;
             auxUsuario = usuario;
             NombreEnabled = true;
-            TipoEnabled = false;
-            DepartamentoEnabled = false;
             ListaNumeroDocumento = DataManagerControlDocumentos.GetDocumento_SinVersion(User.NombreUsuario);
             Inicializar();
         }
 
+        public DocumentoViewModel(Documento selectedDocumento)
+        {
+            Inicializar();
+
+            IsEnabled = false;
+            EnabledEliminar = false;
+            BttnArchivos = false;
+            BttnLiberar = true;
+
+            Nombre = selectedDocumento.nombre;
+            User = new Usuario();
+            Version = selectedDocumento.version.no_version;
+            Fecha = selectedDocumento.fecha_actualizacion;
+            Descripcion = selectedDocumento.descripcion;
+            id_documento = selectedDocumento.id_documento;
+            idVersion = selectedDocumento.version.id_version;
+            id_dep = selectedDocumento.id_dep;
+            id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
+
+            _ListaNumeroDocumento = DataManagerControlDocumentos.GetNombre_Documento(id_documento);
+
+            if (_ListaNumeroDocumento.Count > 0)
+                SelectedDocumento = _ListaNumeroDocumento[0];
+
+            Model.ControlDocumentos.Version UsuarioObj = DataManagerControlDocumentos.GetIdUsuario(idVersion);
+            usuario = UsuarioObj.id_usuario;
+            usuarioAutorizo = UsuarioObj.id_usuario_autorizo;
+
+            ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetArchivos(id_documento, idVersion);
+
+            foreach (var item in Lista)
+            {
+                Archivo objArchivo = new Archivo();
+
+                objArchivo.nombre = item.nombre;
+                objArchivo.id_archivo = item.version.archivo.id_archivo;
+                objArchivo.archivo = item.version.archivo.archivo;
+                objArchivo.ext = item.version.archivo.ext;
+
+                if (objArchivo.ext == ".pdf")
+                {
+                    //asigna la imagen del pdf al objeto
+                    objArchivo.ruta = @"/Images/p.png";
+                }
+                else
+                {
+                    //Si es archivo de word asigna la imagen correspondiente.
+                    objArchivo.ruta = @"/Images/w.png";
+                }
+                ListaDocumentos.Add(objArchivo);
+
+            }
+
+        }
         #endregion
 
         #region Commands
@@ -641,12 +704,12 @@ namespace View.Services.ViewModel
                     {
                         //Si no cumple con la validación.
                         //Ejecutamos el método para enviar un mensaje de alerta al usuario.
-                        await dialog.SendMessage("Alerta", "Se debe llenar todos los campos.");
+                        await dialog.SendMessage("Alerta", "Verifica que el archivo  cumpla con todos los requisitos..");
                     }
                 }
                 else
                 {
-                    await dialog.SendMessage("Alerta", "Verifica que el archivo  cumpla con todos los requisitos..");
+                    await dialog.SendMessage("Alerta", "Se debe llenar todos los campos.");
                 }
             }
             else
@@ -1273,6 +1336,27 @@ namespace View.Services.ViewModel
                 nombre = _selectedDocumento.nombre;
 
                  ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
+            }
+        }
+
+        public ICommand LiberarDocumento
+        {
+            get
+            {
+               return  new RelayCommand(o => liberarDocumento());
+            }
+        }
+        private async void liberarDocumento()
+        {
+            DialogService dialog = new DialogService();
+
+            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+            string num_copias = await window.ShowInputAsync("Libera Documento", "Número de Copias", null);
+
+            if (!string.IsNullOrEmpty(num_copias))
+            {
+
             }
         }
 
