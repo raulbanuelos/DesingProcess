@@ -174,7 +174,7 @@
 
         </DockPanel>
 
-        <materialDesign:Snackbar MessageQueue="{materialDesign:MessageQueue}" x:Name="SnackbarFour" Grid.Row="1" Grid.Column="0" />
+        <materialDesign:Snackbar MessageQueue="{materialDesign:MessageQueue}" IsActive="True" x:Name="SnackbarFour" Grid.Row="1" Grid.Column="0" />
     </Grid>
     
 	

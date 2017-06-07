@@ -17,6 +17,7 @@
             <RowDefinition Height="85"/>
             <RowDefinition Height="130"/>
             <RowDefinition Height="107*"/>
+            <RowDefinition Height="107*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60"/>
@@ -98,7 +99,7 @@
         <Canvas Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Image x:Name="image" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Source="/View;component/Images/logo-mahle.png"/>
         </Canvas>
-        <materialDesign:Snackbar IsActive="True" Grid.Column="1" Margin="1033,0,280,22" Grid.Row="2" >
+        <materialDesign:Snackbar IsActive="True" Grid.Column="1" Margin="1033,0,280,22" Grid.Row="4" >
             <materialDesign:SnackbarMessage Content="Pendientes por Aprobar" ActionContent="Ver" ActionCommand="{Binding IrDocumentosValidar}"/>
         </materialDesign:Snackbar>
     </Grid>
