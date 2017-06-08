@@ -102,8 +102,8 @@ namespace DataAccess.ServiceObjects.Usuario
                 //Si se generó algún error, retornamos un nulo.
                 return null;
             }
-        } 
-
+        }
+        
         #endregion
 
     }

@@ -293,6 +293,18 @@ namespace View.Services
         }
 
         /// <summary>
+        /// Método que verifica si un usuarios tiene un rol especificado
+        /// </summary>
+        /// <param name="roles"></param>
+        /// <param name="idRol"></param>
+        /// <returns></returns>
+        public static bool UsuarioIsRol(List<Rol> roles, int idRol)
+        {
+            return roles.Where(a => a.idRol == idRol).ToList().Count > 0 ? true : false;
+
+        }
+
+        /// <summary>
         /// Método que busca las propiedades bool de la ListaPropiedades en la lista de propiedades del anillo y asigna los valores que tiene la lista de propiedades con los valores en la ListaPropiedades.
         /// </summary>
         /// <param name="ListaPropiedades">Lista de propiedades bool las cuales se requiere buscar su valor.</param>

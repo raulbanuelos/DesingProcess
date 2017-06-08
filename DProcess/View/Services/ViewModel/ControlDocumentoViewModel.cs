@@ -416,6 +416,7 @@ namespace View.Services.ViewModel
 
         private void initSnack()
         {
+            bool g = Module.UsuarioIsRol(usuario.Roles, 1);
 
             int num_validar = DataManagerControlDocumentos.GetDocumentosValidar(usuario.NombreUsuario).Count;
             int num_pendientes= DataManagerControlDocumentos.GetDocumentosPendientes(usuario.NombreUsuario).Count;
@@ -453,7 +454,6 @@ namespace View.Services.ViewModel
             usuario = modelUsuario;
             initControlDocumentos();
             initSnack();
-            
         }
         #endregion
 

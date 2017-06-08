@@ -207,5 +207,38 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        /// <summary>
+        /// Método que obtiene los roles de un usuario en específico.
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <returns></returns>
+        public IList GetRolesUsuario(string idUsuario)
+        {
+            try
+            {
+                //Establecemos la conexión a través de Entity Framework.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta.
+                    var ListaRoles = (from a in Conexion.TR_ROL_USUARIOS
+                                      join b in Conexion.TBL_ROL on a.ID_ROL equals b.ID_ROL
+                                      where a.ID_USUARIO == idUsuario
+                                      select new
+                                      {
+                                          a.ID_ROL,
+                                          b.NOMBRE_ROL
+                                      }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return ListaRoles;
+                }
+            }
+            catch (Exception)
+            {
+                //Si se generó algún error, retornamos un nulo.
+                return null;
+            }
+        }
+
     }
 }

@@ -6,8 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="adf9c2322c1c490f85317aea132fe3de" Name="Diagram1">
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.PerfilUsuario" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.PrivilegioUsuario" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.Usuarios" Width="1.5" PointX="0.75" PointY="3.375" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.PrivilegioUsuario" Width="1.875" PointX="2.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.Usuarios" Width="1.5" PointX="6.125" PointY="3.5" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK_PerfilUsuario_Usuarios" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK_PrivilegioUsuario_Usuarios" />
         </Diagram>

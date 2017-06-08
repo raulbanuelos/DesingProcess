@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using View.Forms.Routing;
 using View.Forms.RawMaterial;
 using View.Forms.ControlDocumentos;
+using System.Collections.Generic;
 
 namespace View.Services.ViewModel
 {
@@ -88,6 +89,18 @@ namespace View.Services.ViewModel
             {
                 ModelUsuario.Conectado = value;
                 NotifyChange("Conectado");
+            }
+        }
+
+        public List<Rol> Roles {
+            get
+            {
+                return ModelUsuario.Roles;
+            }
+            set
+            {
+                ModelUsuario.Roles = value;
+                NotifyChange("Roles");
             }
         }
         #endregion

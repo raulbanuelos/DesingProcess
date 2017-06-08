@@ -79,6 +79,7 @@
     <Compile Include="PropiedadCadena.cs" />
     <Compile Include="PropiedadFecha.cs" />
     <Compile Include="Revision.cs" />
+    <Compile Include="Rol.cs" />
     <Compile Include="SubjectDiametro.cs" />
     <Compile Include="SubjectThickness.cs" />
     <Compile Include="SubjectWidth.cs" />

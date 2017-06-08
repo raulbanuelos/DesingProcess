@@ -1,4 +1,6 @@
-﻿namespace Model
+﻿using System.Collections.Generic;
+
+namespace Model
 {
     public class Usuario
     {
@@ -54,6 +56,9 @@
         public bool PrivilegioUserProfile { get; set; }
 
         public bool PrivilegioHelp { get; set; }
+
+        //Roles
+        public List<Rol> Roles { get; set; }
         #endregion
 
         #region Constructores
