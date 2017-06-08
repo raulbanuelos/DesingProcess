@@ -240,6 +240,44 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
+        /// Método para obtener el id de la versión anterior de la la versión actual
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <returns></returns>
+        public int GetLastVersion_Id(int id_documento,int idVersion)
+        {
+            //Declaramos una variable, que retornara el último código agregado
+            int id_version;
+
+            try
+            {
+                //Se establece la conexión a la BD.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Se ordena de mayor a menor el código para obtener el primer valor,
+                    //en este caso la última versión del documento correspondiente.
+                    var last = (from v in Conexion.TBL_VERSION
+                                join d in Conexion.TBL_DOCUMENTO on v.ID_DOCUMENTO equals d.ID_DOCUMENTO
+                                where v.ID_DOCUMENTO == id_documento & v.ID_VERSION!= idVersion
+                                orderby v.ID_VERSION descending
+                                select v.ID_VERSION).First();
+
+                    //Asignamos el resultado obtenido a la variable local.
+                    id_version = last;
+
+                }
+            }
+            catch (Exception)
+            {
+                //Si hubo algún error retornamos una cadena vacía.
+                return 0;
+            }
+            //Retornamos el valor.
+            return id_version;
+
+        }
+
+        /// <summary>
         /// Método para validar si la versión recibida existe.
         /// </summary>
         /// <param name="id_documento"></param>

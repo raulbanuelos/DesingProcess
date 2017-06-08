@@ -1039,6 +1039,19 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
+        /// Método para obtener el id de la versión anterior de la actual
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <returns></returns>
+        public static int GetID_LastVersion(int id_documento,int id_version)
+        {
+            //Inicializamos los servicios de version.
+            SO_Version ServiceVersion = new SO_Version();
+
+            return ServiceVersion.GetLastVersion_Id(id_documento, id_version);
+        }
+
+        /// <summary>
         /// Método para validar la versión
         /// </summary>
         /// <param name="id_documento"></param>
@@ -1164,7 +1177,7 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public static ObservableCollection<Documento> GetDocumentosPendientes(string usuario)
+        public static ObservableCollection<Documento> GetDocumentos_PendientesCorregir(string usuario)
         {
             ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
 
@@ -1194,11 +1207,11 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// Método para obtener los documentos aprobados de un usuario.
+        /// Método para obtener los documentos pendientes por liberar
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public static ObservableCollection<Documento> GetDocumentoAprobado(string usuario)
+        public static ObservableCollection<Documento> GetDocumentos_PendientesLiberar(string usuario)
         {
             ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
 

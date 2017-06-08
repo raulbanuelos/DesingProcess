@@ -134,10 +134,10 @@ namespace View.Services.ViewModel
         public void inicializa(string status)
         {
             if (status.Contains("pendiente")) {
-                ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentosPendientes(usuario.NombreUsuario);
+                ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario);
             }else if (status.Contains("aprobados"))
             {
-                ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentoAprobado(usuario.NombreUsuario);
+                ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar(usuario.NombreUsuario);
             }
         }
 

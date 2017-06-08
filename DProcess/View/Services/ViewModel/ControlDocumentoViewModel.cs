@@ -7,6 +7,7 @@ using View.Forms.ControlDocumentos;
 using System.Data;
 using Model;
 using MahApps.Metro.Controls.Dialogs;
+using Encriptar;
 
 namespace View.Services.ViewModel
 {
@@ -231,6 +232,8 @@ namespace View.Services.ViewModel
             p.DataContext = o;
 
             p.ShowDialog();
+
+            initSnack();
         }
 
         public ICommand DocumentosPendientes
@@ -250,7 +253,8 @@ namespace View.Services.ViewModel
             frm.DataContext = context;
 
             frm.ShowDialog();
-            
+
+            initSnack();
         }
 
         public ICommand IrDocumentosAprobados
@@ -270,6 +274,8 @@ namespace View.Services.ViewModel
             frm.DataContext = context;
 
             frm.ShowDialog();
+
+            initSnack();
         }
 
         private async void irNuevoDocumento()
@@ -416,27 +422,57 @@ namespace View.Services.ViewModel
 
         private void initSnack()
         {
-            bool g = Module.UsuarioIsRol(usuario.Roles, 1);
+            int num_pendientes,num_validar,num_aprobados;
+             bool g = Module.UsuarioIsRol(usuario.Roles, 1);
+            //id_rol=2 mostrar todos los snackbar
+            //id_rol=3 solo mostrar pendientes por corregir 
 
-            int num_validar = DataManagerControlDocumentos.GetDocumentosValidar(usuario.NombreUsuario).Count;
-            int num_pendientes= DataManagerControlDocumentos.GetDocumentosPendientes(usuario.NombreUsuario).Count;
-            int num_aprobados = DataManagerControlDocumentos.GetDocumentoAprobado(usuario.NombreUsuario).Count;
+            //Si el usuaruio es administador del CIT, puede visualizar todos los avisos
+            if (Module.UsuarioIsRol(usuario.Roles, 2)) {
 
-            if (num_validar>0)
-            {
-                EnabledValidar = true;
-                DocumentosValidar = " " + num_validar + " Documento(s) pendiente(s) por validar";
+                //Método para obtener todos los documentos que están pendientes por validar
+                num_validar = DataManagerControlDocumentos.GetDocumentosValidar(usuario.NombreUsuario).Count;
+
+                //Método para obetener los documentos que tiene pendientes  por corregir del usuario. 
+                num_pendientes = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario).Count;
+
+                //Método para obtener todos los documentos que están aprobados pero están pendientes por liberar
+                num_aprobados = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar(usuario.NombreUsuario).Count;
+
+                //Muestra los snackBar si hay documentos en la lista
+                if (num_validar > 0)
+                {
+                    EnabledValidar = true;
+                    DocumentosValidar = " " + num_validar + " Documento(s) pendiente(s) por validar";
+                }
+                if (num_pendientes > 0)
+                {
+                    EnabledCorregir = true;
+                    DocumentosCorregir = " " + num_pendientes + " Documento(s) pendiente(s) por corregir";
+                }
+                if (num_aprobados > 0)
+                {
+                    EnabledAprobados = true;
+                    DocumentosAprobados = " " + num_aprobados + " Documento(s) pendiente(s) por liberar";
+                }
+
             }
-            if (num_pendientes >0 )
+
+            //Si el usuario es dueño del documento
+            if (Module.UsuarioIsRol(usuario.Roles, 3))
             {
-                EnabledCorregir = true;
-                DocumentosCorregir = " " + num_pendientes + " Documento(s) pendiente(s) por corregir";
+                //Método para obetener los documentos que tiene pendientes  por corregir del usuario. 
+                num_pendientes = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario).Count;
+
+                //Si hay documentos pendientes, muestra snackbar
+                if (num_pendientes > 0)
+                {
+                    EnabledCorregir = true;
+                    DocumentosCorregir = " " + num_pendientes + " Documento(s) pendiente(s) por corregir";
+                }
             }
-            if (num_aprobados>0)
-            {
-                EnabledAprobados = true;
-                DocumentosAprobados= " " + num_aprobados + " Documento(s) pendiente(s) por liberar";
-            }
+
+            
             
         }
 
