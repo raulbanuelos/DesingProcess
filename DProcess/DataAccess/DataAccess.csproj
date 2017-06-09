@@ -209,6 +209,46 @@
     <Compile Include="ServiceObjects\Operaciones\Premaquinado\SPlitterSpacerChart2.cs">
       <DependentUpon>ModelPreMaquinado.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Perfiles\CAT_PERFIL.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\CAT_PROPIEDAD.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\CAT_PROPIEDAD_BOOL.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\CAT_PROPIEDAD_CADENA.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\CAT_TIPO_PERFIL.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\ModelPerfiles.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelPerfiles.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\ModelPerfiles.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\ModelPerfiles.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelPerfiles.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\SO_Perfil.cs" />
+    <Compile Include="ServiceObjects\Perfiles\TR_PROPIEDAD_BOOL_PERFIL.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\TR_PROPIEDAD_CADENA_PERFIL.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\TR_PROPIEDAD_PERFIL.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\SO_CentroTrabajo.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Material.cs" />
     <Compile Include="ServiceObjects\Unidades\ModelUnidades.Context.cs">
@@ -319,6 +359,16 @@
       <DependentUpon>ModelPreMaquinado.edmx</DependentUpon>
       <LastGenOutput>ModelPreMaquinado.cs</LastGenOutput>
     </Content>
+    <Content Include="ServiceObjects\Perfiles\ModelPerfiles.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelPerfiles.edmx</DependentUpon>
+      <LastGenOutput>ModelPerfiles.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ServiceObjects\Perfiles\ModelPerfiles.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelPerfiles.edmx</DependentUpon>
+      <LastGenOutput>ModelPerfiles.cs</LastGenOutput>
+    </Content>
     <Content Include="ServiceObjects\Unidades\ModelUnidades.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelUnidades.edmx</DependentUpon>
@@ -346,6 +396,13 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelUnidades.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="ServiceObjects\Perfiles\ModelPerfiles.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelPerfiles.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ServiceObjects\Perfiles\ModelPerfiles.edmx.diagram">
+      <DependentUpon>ModelPerfiles.edmx</DependentUpon>
+    </None>
     <None Include="ServiceObjects\Unidades\ModelUnidades.edmx.diagram">
       <DependentUpon>ModelUnidades.edmx</DependentUpon>
     </None>

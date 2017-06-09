@@ -1,0 +1,584 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DataAccess.ServiceObjects.Perfiles.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CAT_PERFIL">
+          <Key>
+            <PropertyRef Name="ID_PERFIL" />
+          </Key>
+          <Property Name="ID_PERFIL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_TIPO_PERFIL" Type="int" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" />
+          <Property Name="IMAGEN" Type="varbinary(max)" />
+          <Property Name="ID_USUARIO_CREACION" Type="int" Nullable="false" />
+          <Property Name="FECHA_CREACION" Type="datetime" Nullable="false" />
+          <Property Name="ID_USUARIO_ACTUALIZACION" Type="int" />
+          <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CAT_PROPIEDAD">
+          <Key>
+            <PropertyRef Name="ID_PROPIEDAD" />
+          </Key>
+          <Property Name="ID_PROPIEDAD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DESCRIPCION_LARGA" Type="varchar" MaxLength="200" />
+          <Property Name="DESCRIPCION_CORTA" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TIPO_DATO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IMAGEN" Type="varbinary(max)" />
+          <Property Name="ID_USUARIO_CREACION" Type="int" Nullable="false" />
+          <Property Name="FECHA_CREACION" Type="datetime" Nullable="false" />
+          <Property Name="ID_USUARIO_ACTUALIZACION" Type="int" />
+          <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CAT_PROPIEDAD_BOOL">
+          <Key>
+            <PropertyRef Name="ID_PROPIEDAD_BOOL" />
+          </Key>
+          <Property Name="ID_PROPIEDAD_BOOL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DESCRIPCION_LARGA" Type="varchar" MaxLength="200" />
+          <Property Name="DESCRIPCION_CORTA" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IMAGEN" Type="varbinary(max)" />
+          <Property Name="ID_USUARIO_CREACION" Type="int" Nullable="false" />
+          <Property Name="FECHA_CREACION" Type="datetime" Nullable="false" />
+          <Property Name="ID_USUARIO_ACTUALIZACION" Type="int" />
+          <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CAT_PROPIEDAD_CADENA">
+          <Key>
+            <PropertyRef Name="ID_PROPIEDAD_CADENA" />
+          </Key>
+          <Property Name="ID_PROPIEDAD_CADENA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DESCRIPCION_LARGA" Type="varchar" MaxLength="200" />
+          <Property Name="DESCRIPCION_CORTA" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IMAGEN" Type="varbinary(max)" />
+          <Property Name="ID_USUARIO_CREACION" Type="int" Nullable="false" />
+          <Property Name="FECHA_CREACION" Type="datetime" Nullable="false" />
+          <Property Name="ID_USUARIO_ACTUALIZACION" Type="int" />
+          <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CAT_TIPO_PERFIL">
+          <Key>
+            <PropertyRef Name="ID_TIPO_PERFIL" />
+          </Key>
+          <Property Name="ID_TIPO_PERFIL" Type="int" Nullable="false" />
+          <Property Name="PERFIL" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ID_USUARIO_CREACION" Type="int" Nullable="false" />
+          <Property Name="FECHA_CREACION" Type="datetime" Nullable="false" />
+          <Property Name="ID_USUARIO_ACTUALIZACION" Type="int" />
+          <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TR_PROPIEDAD_BOOL_PERFIL">
+          <Key>
+            <PropertyRef Name="ID_PROPIEDAD_BOOL_PERFIL" />
+          </Key>
+          <Property Name="ID_PROPIEDAD_BOOL_PERFIL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_PROPIEDAD_BOOL" Type="int" Nullable="false" />
+          <Property Name="ID_PERFIL" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TR_PROPIEDAD_CADENA_PERFIL">
+          <Key>
+            <PropertyRef Name="ID_PROPIEDAD_CADENA_PERFIL" />
+          </Key>
+          <Property Name="ID_PROPIEDAD_CADENA_PERFIL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_PROPIEDAD_CADENA" Type="int" Nullable="false" />
+          <Property Name="ID_PERFIL" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TR_PROPIEDAD_PERFIL">
+          <Key>
+            <PropertyRef Name="ID_PROPIEDAD_PERFIL" />
+          </Key>
+          <Property Name="ID_PROPIEDAD_PERFIL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_PROPIEDAD" Type="int" Nullable="false" />
+          <Property Name="ID_PERFIL" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CAT_PERFIL_CAT_TIPO_PERFIL">
+          <End Role="CAT_TIPO_PERFIL" Type="Self.CAT_TIPO_PERFIL" Multiplicity="1" />
+          <End Role="CAT_PERFIL" Type="Self.CAT_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_TIPO_PERFIL">
+              <PropertyRef Name="ID_TIPO_PERFIL" />
+            </Principal>
+            <Dependent Role="CAT_PERFIL">
+              <PropertyRef Name="ID_TIPO_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PERFIL">
+          <End Role="CAT_PERFIL" Type="Self.CAT_PERFIL" Multiplicity="1" />
+          <End Role="TR_PROPIEDAD_BOOL_PERFIL" Type="Self.TR_PROPIEDAD_BOOL_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PERFIL">
+              <PropertyRef Name="ID_PERFIL" />
+            </Principal>
+            <Dependent Role="TR_PROPIEDAD_BOOL_PERFIL">
+              <PropertyRef Name="ID_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PROPIEDAD_BOOL">
+          <End Role="CAT_PROPIEDAD_BOOL" Type="Self.CAT_PROPIEDAD_BOOL" Multiplicity="1" />
+          <End Role="TR_PROPIEDAD_BOOL_PERFIL" Type="Self.TR_PROPIEDAD_BOOL_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PROPIEDAD_BOOL">
+              <PropertyRef Name="ID_PROPIEDAD_BOOL" />
+            </Principal>
+            <Dependent Role="TR_PROPIEDAD_BOOL_PERFIL">
+              <PropertyRef Name="ID_PROPIEDAD_BOOL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PERFIL">
+          <End Role="CAT_PERFIL" Type="Self.CAT_PERFIL" Multiplicity="1" />
+          <End Role="TR_PROPIEDAD_CADENA_PERFIL" Type="Self.TR_PROPIEDAD_CADENA_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PERFIL">
+              <PropertyRef Name="ID_PERFIL" />
+            </Principal>
+            <Dependent Role="TR_PROPIEDAD_CADENA_PERFIL">
+              <PropertyRef Name="ID_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PROPIEDAD_CADENA">
+          <End Role="CAT_PROPIEDAD_CADENA" Type="Self.CAT_PROPIEDAD_CADENA" Multiplicity="1" />
+          <End Role="TR_PROPIEDAD_CADENA_PERFIL" Type="Self.TR_PROPIEDAD_CADENA_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PROPIEDAD_CADENA">
+              <PropertyRef Name="ID_PROPIEDAD_CADENA" />
+            </Principal>
+            <Dependent Role="TR_PROPIEDAD_CADENA_PERFIL">
+              <PropertyRef Name="ID_PROPIEDAD_CADENA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL">
+          <End Role="CAT_PERFIL" Type="Self.CAT_PERFIL" Multiplicity="1" />
+          <End Role="TR_PROPIEDAD_PERFIL" Type="Self.TR_PROPIEDAD_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PERFIL">
+              <PropertyRef Name="ID_PERFIL" />
+            </Principal>
+            <Dependent Role="TR_PROPIEDAD_PERFIL">
+              <PropertyRef Name="ID_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD">
+          <End Role="CAT_PROPIEDAD" Type="Self.CAT_PROPIEDAD" Multiplicity="1" />
+          <End Role="TR_PROPIEDAD_PERFIL" Type="Self.TR_PROPIEDAD_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PROPIEDAD">
+              <PropertyRef Name="ID_PROPIEDAD" />
+            </Principal>
+            <Dependent Role="TR_PROPIEDAD_PERFIL">
+              <PropertyRef Name="ID_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataAccessServiceObjectsPerfilesStoreContainer">
+          <EntitySet Name="CAT_PERFIL" EntityType="Self.CAT_PERFIL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CAT_PROPIEDAD" EntityType="Self.CAT_PROPIEDAD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CAT_PROPIEDAD_BOOL" EntityType="Self.CAT_PROPIEDAD_BOOL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CAT_PROPIEDAD_CADENA" EntityType="Self.CAT_PROPIEDAD_CADENA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CAT_TIPO_PERFIL" EntityType="Self.CAT_TIPO_PERFIL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TR_PROPIEDAD_BOOL_PERFIL" EntityType="Self.TR_PROPIEDAD_BOOL_PERFIL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TR_PROPIEDAD_CADENA_PERFIL" EntityType="Self.TR_PROPIEDAD_CADENA_PERFIL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TR_PROPIEDAD_PERFIL" EntityType="Self.TR_PROPIEDAD_PERFIL" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CAT_PERFIL_CAT_TIPO_PERFIL" Association="Self.FK_CAT_PERFIL_CAT_TIPO_PERFIL">
+            <End Role="CAT_TIPO_PERFIL" EntitySet="CAT_TIPO_PERFIL" />
+            <End Role="CAT_PERFIL" EntitySet="CAT_PERFIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PERFIL" Association="Self.FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PERFIL">
+            <End Role="CAT_PERFIL" EntitySet="CAT_PERFIL" />
+            <End Role="TR_PROPIEDAD_BOOL_PERFIL" EntitySet="TR_PROPIEDAD_BOOL_PERFIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PROPIEDAD_BOOL" Association="Self.FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PROPIEDAD_BOOL">
+            <End Role="CAT_PROPIEDAD_BOOL" EntitySet="CAT_PROPIEDAD_BOOL" />
+            <End Role="TR_PROPIEDAD_BOOL_PERFIL" EntitySet="TR_PROPIEDAD_BOOL_PERFIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PERFIL" Association="Self.FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PERFIL">
+            <End Role="CAT_PERFIL" EntitySet="CAT_PERFIL" />
+            <End Role="TR_PROPIEDAD_CADENA_PERFIL" EntitySet="TR_PROPIEDAD_CADENA_PERFIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PROPIEDAD_CADENA" Association="Self.FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PROPIEDAD_CADENA">
+            <End Role="CAT_PROPIEDAD_CADENA" EntitySet="CAT_PROPIEDAD_CADENA" />
+            <End Role="TR_PROPIEDAD_CADENA_PERFIL" EntitySet="TR_PROPIEDAD_CADENA_PERFIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL" Association="Self.FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL">
+            <End Role="CAT_PERFIL" EntitySet="CAT_PERFIL" />
+            <End Role="TR_PROPIEDAD_PERFIL" EntitySet="TR_PROPIEDAD_PERFIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD" Association="Self.FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD">
+            <End Role="CAT_PROPIEDAD" EntitySet="CAT_PROPIEDAD" />
+            <End Role="TR_PROPIEDAD_PERFIL" EntitySet="TR_PROPIEDAD_PERFIL" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataAccess.ServiceObjects.Perfiles" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CAT_PERFIL">
+          <Key>
+            <PropertyRef Name="ID_PERFIL" />
+          </Key>
+          <Property Name="ID_PERFIL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_TIPO_PERFIL" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IMAGEN" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ID_USUARIO_CREACION" Type="Int32" Nullable="false" />
+          <Property Name="FECHA_CREACION" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ID_USUARIO_ACTUALIZACION" Type="Int32" />
+          <Property Name="FECHA_ACTUALIZACION" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CAT_TIPO_PERFIL" Relationship="Self.FK_CAT_PERFIL_CAT_TIPO_PERFIL" FromRole="CAT_PERFIL" ToRole="CAT_TIPO_PERFIL" />
+          <NavigationProperty Name="TR_PROPIEDAD_BOOL_PERFIL" Relationship="Self.FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PERFIL" FromRole="CAT_PERFIL" ToRole="TR_PROPIEDAD_BOOL_PERFIL" />
+          <NavigationProperty Name="TR_PROPIEDAD_CADENA_PERFIL" Relationship="Self.FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PERFIL" FromRole="CAT_PERFIL" ToRole="TR_PROPIEDAD_CADENA_PERFIL" />
+          <NavigationProperty Name="TR_PROPIEDAD_PERFIL" Relationship="Self.FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL" FromRole="CAT_PERFIL" ToRole="TR_PROPIEDAD_PERFIL" />
+        </EntityType>
+        <EntityType Name="CAT_PROPIEDAD">
+          <Key>
+            <PropertyRef Name="ID_PROPIEDAD" />
+          </Key>
+          <Property Name="ID_PROPIEDAD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DESCRIPCION_LARGA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION_CORTA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TIPO_DATO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IMAGEN" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ID_USUARIO_CREACION" Type="Int32" Nullable="false" />
+          <Property Name="FECHA_CREACION" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ID_USUARIO_ACTUALIZACION" Type="Int32" />
+          <Property Name="FECHA_ACTUALIZACION" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TR_PROPIEDAD_PERFIL" Relationship="Self.FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD" FromRole="CAT_PROPIEDAD" ToRole="TR_PROPIEDAD_PERFIL" />
+        </EntityType>
+        <EntityType Name="CAT_PROPIEDAD_BOOL">
+          <Key>
+            <PropertyRef Name="ID_PROPIEDAD_BOOL" />
+          </Key>
+          <Property Name="ID_PROPIEDAD_BOOL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DESCRIPCION_LARGA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION_CORTA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IMAGEN" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ID_USUARIO_CREACION" Type="Int32" Nullable="false" />
+          <Property Name="FECHA_CREACION" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ID_USUARIO_ACTUALIZACION" Type="Int32" />
+          <Property Name="FECHA_ACTUALIZACION" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TR_PROPIEDAD_BOOL_PERFIL" Relationship="Self.FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PROPIEDAD_BOOL" FromRole="CAT_PROPIEDAD_BOOL" ToRole="TR_PROPIEDAD_BOOL_PERFIL" />
+        </EntityType>
+        <EntityType Name="CAT_PROPIEDAD_CADENA">
+          <Key>
+            <PropertyRef Name="ID_PROPIEDAD_CADENA" />
+          </Key>
+          <Property Name="ID_PROPIEDAD_CADENA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DESCRIPCION_LARGA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION_CORTA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IMAGEN" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ID_USUARIO_CREACION" Type="Int32" Nullable="false" />
+          <Property Name="FECHA_CREACION" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ID_USUARIO_ACTUALIZACION" Type="Int32" />
+          <Property Name="FECHA_ACTUALIZACION" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TR_PROPIEDAD_CADENA_PERFIL" Relationship="Self.FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PROPIEDAD_CADENA" FromRole="CAT_PROPIEDAD_CADENA" ToRole="TR_PROPIEDAD_CADENA_PERFIL" />
+        </EntityType>
+        <EntityType Name="CAT_TIPO_PERFIL">
+          <Key>
+            <PropertyRef Name="ID_TIPO_PERFIL" />
+          </Key>
+          <Property Name="ID_TIPO_PERFIL" Type="Int32" Nullable="false" />
+          <Property Name="PERFIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_USUARIO_CREACION" Type="Int32" Nullable="false" />
+          <Property Name="FECHA_CREACION" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ID_USUARIO_ACTUALIZACION" Type="Int32" />
+          <Property Name="FECHA_ACTUALIZACION" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CAT_PERFIL" Relationship="Self.FK_CAT_PERFIL_CAT_TIPO_PERFIL" FromRole="CAT_TIPO_PERFIL" ToRole="CAT_PERFIL" />
+        </EntityType>
+        <EntityType Name="TR_PROPIEDAD_BOOL_PERFIL">
+          <Key>
+            <PropertyRef Name="ID_PROPIEDAD_BOOL_PERFIL" />
+          </Key>
+          <Property Name="ID_PROPIEDAD_BOOL_PERFIL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_PROPIEDAD_BOOL" Type="Int32" Nullable="false" />
+          <Property Name="ID_PERFIL" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CAT_PERFIL" Relationship="Self.FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PERFIL" FromRole="TR_PROPIEDAD_BOOL_PERFIL" ToRole="CAT_PERFIL" />
+          <NavigationProperty Name="CAT_PROPIEDAD_BOOL" Relationship="Self.FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PROPIEDAD_BOOL" FromRole="TR_PROPIEDAD_BOOL_PERFIL" ToRole="CAT_PROPIEDAD_BOOL" />
+        </EntityType>
+        <EntityType Name="TR_PROPIEDAD_CADENA_PERFIL">
+          <Key>
+            <PropertyRef Name="ID_PROPIEDAD_CADENA_PERFIL" />
+          </Key>
+          <Property Name="ID_PROPIEDAD_CADENA_PERFIL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_PROPIEDAD_CADENA" Type="Int32" Nullable="false" />
+          <Property Name="ID_PERFIL" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CAT_PERFIL" Relationship="Self.FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PERFIL" FromRole="TR_PROPIEDAD_CADENA_PERFIL" ToRole="CAT_PERFIL" />
+          <NavigationProperty Name="CAT_PROPIEDAD_CADENA" Relationship="Self.FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PROPIEDAD_CADENA" FromRole="TR_PROPIEDAD_CADENA_PERFIL" ToRole="CAT_PROPIEDAD_CADENA" />
+        </EntityType>
+        <EntityType Name="TR_PROPIEDAD_PERFIL">
+          <Key>
+            <PropertyRef Name="ID_PROPIEDAD_PERFIL" />
+          </Key>
+          <Property Name="ID_PROPIEDAD_PERFIL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_PROPIEDAD" Type="Int32" Nullable="false" />
+          <Property Name="ID_PERFIL" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CAT_PERFIL" Relationship="Self.FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL" FromRole="TR_PROPIEDAD_PERFIL" ToRole="CAT_PERFIL" />
+          <NavigationProperty Name="CAT_PROPIEDAD" Relationship="Self.FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD" FromRole="TR_PROPIEDAD_PERFIL" ToRole="CAT_PROPIEDAD" />
+        </EntityType>
+        <Association Name="FK_CAT_PERFIL_CAT_TIPO_PERFIL">
+          <End Role="CAT_TIPO_PERFIL" Type="Self.CAT_TIPO_PERFIL" Multiplicity="1" />
+          <End Role="CAT_PERFIL" Type="Self.CAT_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_TIPO_PERFIL">
+              <PropertyRef Name="ID_TIPO_PERFIL" />
+            </Principal>
+            <Dependent Role="CAT_PERFIL">
+              <PropertyRef Name="ID_TIPO_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PERFIL">
+          <End Role="CAT_PERFIL" Type="Self.CAT_PERFIL" Multiplicity="1" />
+          <End Role="TR_PROPIEDAD_BOOL_PERFIL" Type="Self.TR_PROPIEDAD_BOOL_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PERFIL">
+              <PropertyRef Name="ID_PERFIL" />
+            </Principal>
+            <Dependent Role="TR_PROPIEDAD_BOOL_PERFIL">
+              <PropertyRef Name="ID_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PERFIL">
+          <End Role="CAT_PERFIL" Type="Self.CAT_PERFIL" Multiplicity="1" />
+          <End Role="TR_PROPIEDAD_CADENA_PERFIL" Type="Self.TR_PROPIEDAD_CADENA_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PERFIL">
+              <PropertyRef Name="ID_PERFIL" />
+            </Principal>
+            <Dependent Role="TR_PROPIEDAD_CADENA_PERFIL">
+              <PropertyRef Name="ID_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL">
+          <End Role="CAT_PERFIL" Type="Self.CAT_PERFIL" Multiplicity="1" />
+          <End Role="TR_PROPIEDAD_PERFIL" Type="Self.TR_PROPIEDAD_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PERFIL">
+              <PropertyRef Name="ID_PERFIL" />
+            </Principal>
+            <Dependent Role="TR_PROPIEDAD_PERFIL">
+              <PropertyRef Name="ID_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD">
+          <End Role="CAT_PROPIEDAD" Type="Self.CAT_PROPIEDAD" Multiplicity="1" />
+          <End Role="TR_PROPIEDAD_PERFIL" Type="Self.TR_PROPIEDAD_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PROPIEDAD">
+              <PropertyRef Name="ID_PROPIEDAD" />
+            </Principal>
+            <Dependent Role="TR_PROPIEDAD_PERFIL">
+              <PropertyRef Name="ID_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PROPIEDAD_BOOL">
+          <End Role="CAT_PROPIEDAD_BOOL" Type="Self.CAT_PROPIEDAD_BOOL" Multiplicity="1" />
+          <End Role="TR_PROPIEDAD_BOOL_PERFIL" Type="Self.TR_PROPIEDAD_BOOL_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PROPIEDAD_BOOL">
+              <PropertyRef Name="ID_PROPIEDAD_BOOL" />
+            </Principal>
+            <Dependent Role="TR_PROPIEDAD_BOOL_PERFIL">
+              <PropertyRef Name="ID_PROPIEDAD_BOOL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PROPIEDAD_CADENA">
+          <End Role="CAT_PROPIEDAD_CADENA" Type="Self.CAT_PROPIEDAD_CADENA" Multiplicity="1" />
+          <End Role="TR_PROPIEDAD_CADENA_PERFIL" Type="Self.TR_PROPIEDAD_CADENA_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PROPIEDAD_CADENA">
+              <PropertyRef Name="ID_PROPIEDAD_CADENA" />
+            </Principal>
+            <Dependent Role="TR_PROPIEDAD_CADENA_PERFIL">
+              <PropertyRef Name="ID_PROPIEDAD_CADENA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EntitiesPerfiles" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CAT_PERFIL" EntityType="Self.CAT_PERFIL" />
+          <EntitySet Name="CAT_PROPIEDAD" EntityType="Self.CAT_PROPIEDAD" />
+          <EntitySet Name="CAT_PROPIEDAD_BOOL" EntityType="Self.CAT_PROPIEDAD_BOOL" />
+          <EntitySet Name="CAT_PROPIEDAD_CADENA" EntityType="Self.CAT_PROPIEDAD_CADENA" />
+          <EntitySet Name="CAT_TIPO_PERFIL" EntityType="Self.CAT_TIPO_PERFIL" />
+          <EntitySet Name="TR_PROPIEDAD_BOOL_PERFIL" EntityType="Self.TR_PROPIEDAD_BOOL_PERFIL" />
+          <EntitySet Name="TR_PROPIEDAD_CADENA_PERFIL" EntityType="Self.TR_PROPIEDAD_CADENA_PERFIL" />
+          <EntitySet Name="TR_PROPIEDAD_PERFIL" EntityType="Self.TR_PROPIEDAD_PERFIL" />
+          <AssociationSet Name="FK_CAT_PERFIL_CAT_TIPO_PERFIL" Association="Self.FK_CAT_PERFIL_CAT_TIPO_PERFIL">
+            <End Role="CAT_TIPO_PERFIL" EntitySet="CAT_TIPO_PERFIL" />
+            <End Role="CAT_PERFIL" EntitySet="CAT_PERFIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PERFIL" Association="Self.FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PERFIL">
+            <End Role="CAT_PERFIL" EntitySet="CAT_PERFIL" />
+            <End Role="TR_PROPIEDAD_BOOL_PERFIL" EntitySet="TR_PROPIEDAD_BOOL_PERFIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PERFIL" Association="Self.FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PERFIL">
+            <End Role="CAT_PERFIL" EntitySet="CAT_PERFIL" />
+            <End Role="TR_PROPIEDAD_CADENA_PERFIL" EntitySet="TR_PROPIEDAD_CADENA_PERFIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL" Association="Self.FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL">
+            <End Role="CAT_PERFIL" EntitySet="CAT_PERFIL" />
+            <End Role="TR_PROPIEDAD_PERFIL" EntitySet="TR_PROPIEDAD_PERFIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD" Association="Self.FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD">
+            <End Role="CAT_PROPIEDAD" EntitySet="CAT_PROPIEDAD" />
+            <End Role="TR_PROPIEDAD_PERFIL" EntitySet="TR_PROPIEDAD_PERFIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PROPIEDAD_BOOL" Association="Self.FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PROPIEDAD_BOOL">
+            <End Role="CAT_PROPIEDAD_BOOL" EntitySet="CAT_PROPIEDAD_BOOL" />
+            <End Role="TR_PROPIEDAD_BOOL_PERFIL" EntitySet="TR_PROPIEDAD_BOOL_PERFIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PROPIEDAD_CADENA" Association="Self.FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PROPIEDAD_CADENA">
+            <End Role="CAT_PROPIEDAD_CADENA" EntitySet="CAT_PROPIEDAD_CADENA" />
+            <End Role="TR_PROPIEDAD_CADENA_PERFIL" EntitySet="TR_PROPIEDAD_CADENA_PERFIL" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DataAccessServiceObjectsPerfilesStoreContainer" CdmEntityContainer="EntitiesPerfiles">
+          <EntitySetMapping Name="CAT_PERFIL">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.CAT_PERFIL">
+              <MappingFragment StoreEntitySet="CAT_PERFIL">
+                <ScalarProperty Name="ID_PERFIL" ColumnName="ID_PERFIL" />
+                <ScalarProperty Name="ID_TIPO_PERFIL" ColumnName="ID_TIPO_PERFIL" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="IMAGEN" ColumnName="IMAGEN" />
+                <ScalarProperty Name="ID_USUARIO_CREACION" ColumnName="ID_USUARIO_CREACION" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="ID_USUARIO_ACTUALIZACION" ColumnName="ID_USUARIO_ACTUALIZACION" />
+                <ScalarProperty Name="FECHA_ACTUALIZACION" ColumnName="FECHA_ACTUALIZACION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAT_PROPIEDAD">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD">
+              <MappingFragment StoreEntitySet="CAT_PROPIEDAD">
+                <ScalarProperty Name="ID_PROPIEDAD" ColumnName="ID_PROPIEDAD" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+                <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+                <ScalarProperty Name="TIPO_DATO" ColumnName="TIPO_DATO" />
+                <ScalarProperty Name="IMAGEN" ColumnName="IMAGEN" />
+                <ScalarProperty Name="ID_USUARIO_CREACION" ColumnName="ID_USUARIO_CREACION" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="ID_USUARIO_ACTUALIZACION" ColumnName="ID_USUARIO_ACTUALIZACION" />
+                <ScalarProperty Name="FECHA_ACTUALIZACION" ColumnName="FECHA_ACTUALIZACION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAT_PROPIEDAD_BOOL">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_BOOL">
+              <MappingFragment StoreEntitySet="CAT_PROPIEDAD_BOOL">
+                <ScalarProperty Name="ID_PROPIEDAD_BOOL" ColumnName="ID_PROPIEDAD_BOOL" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+                <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+                <ScalarProperty Name="IMAGEN" ColumnName="IMAGEN" />
+                <ScalarProperty Name="ID_USUARIO_CREACION" ColumnName="ID_USUARIO_CREACION" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="ID_USUARIO_ACTUALIZACION" ColumnName="ID_USUARIO_ACTUALIZACION" />
+                <ScalarProperty Name="FECHA_ACTUALIZACION" ColumnName="FECHA_ACTUALIZACION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAT_PROPIEDAD_CADENA">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_CADENA">
+              <MappingFragment StoreEntitySet="CAT_PROPIEDAD_CADENA">
+                <ScalarProperty Name="ID_PROPIEDAD_CADENA" ColumnName="ID_PROPIEDAD_CADENA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+                <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+                <ScalarProperty Name="IMAGEN" ColumnName="IMAGEN" />
+                <ScalarProperty Name="ID_USUARIO_CREACION" ColumnName="ID_USUARIO_CREACION" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="ID_USUARIO_ACTUALIZACION" ColumnName="ID_USUARIO_ACTUALIZACION" />
+                <ScalarProperty Name="FECHA_ACTUALIZACION" ColumnName="FECHA_ACTUALIZACION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAT_TIPO_PERFIL">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.CAT_TIPO_PERFIL">
+              <MappingFragment StoreEntitySet="CAT_TIPO_PERFIL">
+                <ScalarProperty Name="ID_TIPO_PERFIL" ColumnName="ID_TIPO_PERFIL" />
+                <ScalarProperty Name="PERFIL" ColumnName="PERFIL" />
+                <ScalarProperty Name="ID_USUARIO_CREACION" ColumnName="ID_USUARIO_CREACION" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="ID_USUARIO_ACTUALIZACION" ColumnName="ID_USUARIO_ACTUALIZACION" />
+                <ScalarProperty Name="FECHA_ACTUALIZACION" ColumnName="FECHA_ACTUALIZACION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TR_PROPIEDAD_BOOL_PERFIL">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_BOOL_PERFIL">
+              <MappingFragment StoreEntitySet="TR_PROPIEDAD_BOOL_PERFIL">
+                <ScalarProperty Name="ID_PROPIEDAD_BOOL_PERFIL" ColumnName="ID_PROPIEDAD_BOOL_PERFIL" />
+                <ScalarProperty Name="ID_PROPIEDAD_BOOL" ColumnName="ID_PROPIEDAD_BOOL" />
+                <ScalarProperty Name="ID_PERFIL" ColumnName="ID_PERFIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TR_PROPIEDAD_CADENA_PERFIL">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_CADENA_PERFIL">
+              <MappingFragment StoreEntitySet="TR_PROPIEDAD_CADENA_PERFIL">
+                <ScalarProperty Name="ID_PROPIEDAD_CADENA_PERFIL" ColumnName="ID_PROPIEDAD_CADENA_PERFIL" />
+                <ScalarProperty Name="ID_PROPIEDAD_CADENA" ColumnName="ID_PROPIEDAD_CADENA" />
+                <ScalarProperty Name="ID_PERFIL" ColumnName="ID_PERFIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TR_PROPIEDAD_PERFIL">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_PERFIL">
+              <MappingFragment StoreEntitySet="TR_PROPIEDAD_PERFIL">
+                <ScalarProperty Name="ID_PROPIEDAD_PERFIL" ColumnName="ID_PROPIEDAD_PERFIL" />
+                <ScalarProperty Name="ID_PROPIEDAD" ColumnName="ID_PROPIEDAD" />
+                <ScalarProperty Name="ID_PERFIL" ColumnName="ID_PERFIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2bb0edd517ef4c0a8662a96585da10c9" Name="Diagram1">
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_PERFIL" Width="1.5" PointX="5" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD" Width="2" PointX="2.125" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_BOOL" Width="2.25" PointX="4" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_CADENA" Width="1.5" PointX="10" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_TIPO_PERFIL" Width="2.25" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_BOOL_PERFIL" Width="2.5" PointX="0.5" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_CADENA_PERFIL" Width="2.5" PointX="7.625" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_PERFIL" Width="2.5" PointX="5.375" PointY="9" IsExpanded="true" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_CAT_PERFIL_CAT_TIPO_PERFIL" ManuallyRouted="false" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PERFIL" ManuallyRouted="false" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PERFIL" ManuallyRouted="false" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL" ManuallyRouted="false" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD" ManuallyRouted="false" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PROPIEDAD_BOOL" ManuallyRouted="false" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PROPIEDAD_CADENA" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
