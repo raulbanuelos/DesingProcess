@@ -20,6 +20,19 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD" ManuallyRouted="false" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PROPIEDAD_BOOL" ManuallyRouted="false" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PROPIEDAD_CADENA" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.Arquetipo" Width="1.5" PointX="5.375" PointY="16.625" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES" Width="1.5" PointX="7.625" PointY="16.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_BOOL" Width="1.5" PointX="8.625" PointY="10.875" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_CADENA" Width="1.5" PointX="12.25" PointY="12" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TR_PERFIL_ARQUETIPO" Width="1.5" PointX="7.625" PointY="13.75" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_Arquetipo" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_BOOL_Arquetipo" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_Arquetipo" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PERFIL_ARQUETIPO_Arquetipo" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PERFIL_ARQUETIPO_CAT_PERFIL" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CAT_PROPIEDAD" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_BOOL_CAT_PROPIEDAD_BOOL" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_CAT_PROPIEDAD_CADENA" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

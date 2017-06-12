@@ -18,6 +18,7 @@ namespace DataAccess.ServiceObjects.Perfiles
         public CAT_PROPIEDAD()
         {
             this.TR_PROPIEDAD_PERFIL = new HashSet<TR_PROPIEDAD_PERFIL>();
+            this.TBL_ARQUETIPO_PROPIEDADES = new HashSet<TBL_ARQUETIPO_PROPIEDADES>();
         }
     
         public int ID_PROPIEDAD { get; set; }
@@ -33,5 +34,7 @@ namespace DataAccess.ServiceObjects.Perfiles
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TR_PROPIEDAD_PERFIL> TR_PROPIEDAD_PERFIL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_ARQUETIPO_PROPIEDADES> TBL_ARQUETIPO_PROPIEDADES { get; set; }
     }
 }

@@ -209,6 +209,9 @@
     <Compile Include="ServiceObjects\Operaciones\Premaquinado\SPlitterSpacerChart2.cs">
       <DependentUpon>ModelPreMaquinado.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Perfiles\Arquetipo.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Perfiles\CAT_PERFIL.cs">
       <DependentUpon>ModelPerfiles.tt</DependentUpon>
     </Compile>
@@ -240,6 +243,18 @@
       <DependentUpon>ModelPerfiles.edmx</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Perfiles\SO_Perfil.cs" />
+    <Compile Include="ServiceObjects\Perfiles\TBL_ARQUETIPO_PROPIEDADES.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\TBL_ARQUETIPO_PROPIEDADES_BOOL.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\TBL_ARQUETIPO_PROPIEDADES_CADENA.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\TR_PERFIL_ARQUETIPO.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Perfiles\TR_PROPIEDAD_BOOL_PERFIL.cs">
       <DependentUpon>ModelPerfiles.tt</DependentUpon>
     </Compile>

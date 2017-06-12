@@ -12,34 +12,28 @@ namespace DataAccess.ServiceObjects.Perfiles
     using System;
     using System.Collections.Generic;
     
-    public partial class CAT_PERFIL
+    public partial class Arquetipo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CAT_PERFIL()
+        public Arquetipo()
         {
-            this.TR_PROPIEDAD_BOOL_PERFIL = new HashSet<TR_PROPIEDAD_BOOL_PERFIL>();
-            this.TR_PROPIEDAD_CADENA_PERFIL = new HashSet<TR_PROPIEDAD_CADENA_PERFIL>();
-            this.TR_PROPIEDAD_PERFIL = new HashSet<TR_PROPIEDAD_PERFIL>();
+            this.TBL_ARQUETIPO_PROPIEDADES = new HashSet<TBL_ARQUETIPO_PROPIEDADES>();
+            this.TBL_ARQUETIPO_PROPIEDADES_BOOL = new HashSet<TBL_ARQUETIPO_PROPIEDADES_BOOL>();
+            this.TBL_ARQUETIPO_PROPIEDADES_CADENA = new HashSet<TBL_ARQUETIPO_PROPIEDADES_CADENA>();
             this.TR_PERFIL_ARQUETIPO = new HashSet<TR_PERFIL_ARQUETIPO>();
         }
     
-        public int ID_PERFIL { get; set; }
-        public int ID_TIPO_PERFIL { get; set; }
-        public string NOMBRE { get; set; }
-        public string DESCRIPCION { get; set; }
-        public byte[] IMAGEN { get; set; }
-        public int ID_USUARIO_CREACION { get; set; }
-        public System.DateTime FECHA_CREACION { get; set; }
-        public Nullable<int> ID_USUARIO_ACTUALIZACION { get; set; }
-        public Nullable<System.DateTime> FECHA_ACTUALIZACION { get; set; }
+        public string Codigo { get; set; }
+        public string DescripcionGeneral { get; set; }
+        public byte[] Imagen { get; set; }
+        public bool Activo { get; set; }
     
-        public virtual CAT_TIPO_PERFIL CAT_TIPO_PERFIL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TR_PROPIEDAD_BOOL_PERFIL> TR_PROPIEDAD_BOOL_PERFIL { get; set; }
+        public virtual ICollection<TBL_ARQUETIPO_PROPIEDADES> TBL_ARQUETIPO_PROPIEDADES { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TR_PROPIEDAD_CADENA_PERFIL> TR_PROPIEDAD_CADENA_PERFIL { get; set; }
+        public virtual ICollection<TBL_ARQUETIPO_PROPIEDADES_BOOL> TBL_ARQUETIPO_PROPIEDADES_BOOL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TR_PROPIEDAD_PERFIL> TR_PROPIEDAD_PERFIL { get; set; }
+        public virtual ICollection<TBL_ARQUETIPO_PROPIEDADES_CADENA> TBL_ARQUETIPO_PROPIEDADES_CADENA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TR_PERFIL_ARQUETIPO> TR_PERFIL_ARQUETIPO { get; set; }
     }
