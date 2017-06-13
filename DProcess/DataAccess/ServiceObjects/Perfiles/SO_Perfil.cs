@@ -1,6 +1,8 @@
-﻿using System;
+﻿using DataAccess.SQLServer;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +35,37 @@ namespace DataAccess.ServiceObjects.Perfiles
                 //Si se genero algún error, retornamos un null.
                 return null;
             }
+        }
+
+        public Task<int> SetPerfil(int idTipoPerfil, string Nombre, string Descripcion, byte[] imagen, int idUsuarioCreacion)
+        {
+            return Task.Run(() =>
+            {
+                try
+                {
+                    DataSet datos = null;
+
+                    Desing_SQL conexion = new Desing_SQL();
+
+                    Dictionary<string, object> parametros = new Dictionary<string, object>();
+
+                    parametros.Add("idTipoPerfil", idTipoPerfil);
+                    parametros.Add("Nombre", Nombre);
+                    parametros.Add("Descripcion", Descripcion);
+                    parametros.Add("Imagen", imagen);
+                    parametros.Add("idUsuarioCreacion", idUsuarioCreacion);
+
+                    datos = conexion.EjecutarStoredProcedure("SP_RGP_SET_PERFIL", parametros);
+
+                    //Retorna el número de elementos en la tabla.
+                    return datos.Tables.Count;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            });
         }
     }
 }

@@ -243,6 +243,7 @@
       <DependentUpon>ModelPerfiles.edmx</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Perfiles\SO_Perfil.cs" />
+    <Compile Include="ServiceObjects\Perfiles\SO_Propiedad.cs" />
     <Compile Include="ServiceObjects\Perfiles\TBL_ARQUETIPO_PROPIEDADES.cs">
       <DependentUpon>ModelPerfiles.tt</DependentUpon>
     </Compile>
