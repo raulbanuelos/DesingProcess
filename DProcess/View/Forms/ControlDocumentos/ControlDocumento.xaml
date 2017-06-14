@@ -102,20 +102,24 @@
         </Canvas>
         <Grid Grid.Column="1" Grid.Row="4">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="550*"/>
-                <ColumnDefinition Width="550*"/>
-                <ColumnDefinition Width="501*"/>
+                <ColumnDefinition Width="502*"/>
+                <ColumnDefinition Width="502*"/>
+                <ColumnDefinition Width="502*"/>
+                <ColumnDefinition Width="502*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
-            <materialDesign:Snackbar  IsActive="{Binding EnabledValidar}" Height="51" Width="536" Margin="4,0,10,0">
-                <materialDesign:SnackbarMessage Content="{Binding DocumentosValidar}" ActionContent="Ver" ActionCommand="{Binding IrDocumentosValidar}"/>
-            </materialDesign:Snackbar>
-            <materialDesign:Snackbar  IsActive="{Binding EnabledCorregir}" Height="51" Width="530" Margin="15,0,5,0" Grid.Column="1">
+            <materialDesign:Snackbar  IsActive="{Binding EnabledCorregir}" Height="51" Width="390" Margin="10,0,0,0" Grid.Column="0">
                 <materialDesign:SnackbarMessage Content="{Binding DocumentosCorregir}" ActionContent="Ver" ActionCommand="{Binding DocumentosPendientes}"/>
             </materialDesign:Snackbar>
-            <materialDesign:Snackbar  IsActive="{Binding EnabledAprobados}" Height="51" Width="446" Margin="32,0,23,0" Grid.Column="2">
+            <materialDesign:Snackbar IsActive="{Binding EnabledPendientes_Liberar}" Height="51" Width="390" Grid.Column="1" Margin="0,0,0,-1">
+                <materialDesign:SnackbarMessage Content="{Binding PendientesLiberar}" ActionContent="Ver" ActionCommand="{Binding irPendientesLiberar}"></materialDesign:SnackbarMessage>
+            </materialDesign:Snackbar>
+            <materialDesign:Snackbar  IsActive="{Binding EnabledValidar}" Height="51" Width="390" Margin="8,0,2,0" Grid.Column="2">
+                <materialDesign:SnackbarMessage Content="{Binding DocumentosValidar}" ActionContent="Ver" ActionCommand="{Binding IrDocumentosValidar}"/>
+            </materialDesign:Snackbar>
+            <materialDesign:Snackbar  IsActive="{Binding EnabledAprobados}" Height="51" Width="380" Margin="20,0,0,0" Grid.Column="3">
                 <materialDesign:SnackbarMessage Content="{Binding DocumentosAprobados}" ActionContent="Ver" ActionCommand="{Binding IrDocumentosAprobados}"/>
             </materialDesign:Snackbar>
 

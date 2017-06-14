@@ -134,6 +134,32 @@ namespace View.Services.ViewModel
                 NotifyChange("EnabledCorregir");
             }
         }
+        private bool _enabled_pendientesLiberar;
+        public bool EnabledPendientes_Liberar
+        {
+            get
+            {
+                return _enabled_pendientesLiberar;
+            }
+            set
+            {
+               _enabled_pendientesLiberar = value;
+                NotifyChange("EnabledPendientes_Liberar");
+            }
+        }
+
+        private string _pendientesLiberar;
+        public string PendientesLiberar {
+            get
+            {
+                return _pendientesLiberar;
+            }
+            set
+            {
+                _pendientesLiberar = value;
+                NotifyChange("PendientesLiberar");
+            }
+        }
 
         private string _DocumentosAprobados;
         public string DocumentosAprobados
@@ -163,6 +189,7 @@ namespace View.Services.ViewModel
             }
         }
 
+        private int num_pendientes { get; set; }
 
         #endregion
 
@@ -256,6 +283,27 @@ namespace View.Services.ViewModel
 
             initSnack();
         }
+        public ICommand irPendientesLiberar
+        {
+            get
+            {
+                return new RelayCommand(o => _irPendientesLiberar());
+            }
+        }
+
+        private void _irPendientesLiberar()
+        {
+            FrmPendientes_Liberar frm = new FrmPendientes_Liberar();
+
+            PendientesLiberarVM context = new PendientesLiberarVM(usuario);
+
+            frm.DataContext = context;
+
+            frm.ShowDialog();
+
+            initSnack();
+        }
+
 
         public ICommand IrDocumentosAprobados
         {
@@ -395,7 +443,7 @@ namespace View.Services.ViewModel
             if (selectedDocumento != null)
             {
                 FrmDocumento frm = new FrmDocumento();
-                DocumentoViewModel context = new DocumentoViewModel(selectedDocumento,true);
+                DocumentoViewModel context = new DocumentoViewModel(selectedDocumento,true,usuario);
 
                 frm.DataContext = context;
 
@@ -420,13 +468,14 @@ namespace View.Services.ViewModel
             GetDataGrid(string.Empty);
         }
 
-        private void initSnack()
+
+            private void initSnack()
         {
-            int num_pendientes,num_validar,num_aprobados;
+            int num_validar,num_aprobados,pendientes_liberar;
              bool g = Module.UsuarioIsRol(usuario.Roles, 1);
             //id_rol=2 mostrar todos los snackbar
             //id_rol=3 solo mostrar pendientes por corregir 
-
+           
             //Si el usuaruio es administador del CIT, puede visualizar todos los avisos
             if (Module.UsuarioIsRol(usuario.Roles, 2)) {
 
@@ -437,7 +486,9 @@ namespace View.Services.ViewModel
                 num_pendientes = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario).Count;
 
                 //Método para obtener todos los documentos que están aprobados pero están pendientes por liberar
-                num_aprobados = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar(usuario.NombreUsuario).Count;
+                num_aprobados = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar().Count;
+
+                pendientes_liberar = DataManagerControlDocumentos.GetPendientes_Liberar(usuario.NombreUsuario).Count;
 
                 //Muestra los snackBar si hay documentos en la lista
                 if (num_validar > 0)
@@ -445,15 +496,39 @@ namespace View.Services.ViewModel
                     EnabledValidar = true;
                     DocumentosValidar = " " + num_validar + " Documento(s) pendiente(s) por validar";
                 }
+                else
+                {
+                    EnabledValidar = false;
+                    DocumentosValidar = string.Empty;
+                }
                 if (num_pendientes > 0)
                 {
                     EnabledCorregir = true;
                     DocumentosCorregir = " " + num_pendientes + " Documento(s) pendiente(s) por corregir";
                 }
+                else
+                {
+                    EnabledCorregir = false;
+                    DocumentosCorregir = string.Empty;
+                }
                 if (num_aprobados > 0)
                 {
                     EnabledAprobados = true;
                     DocumentosAprobados = " " + num_aprobados + " Documento(s) pendiente(s) por liberar";
+                }
+                else
+                {
+                    EnabledAprobados = false;
+                    DocumentosAprobados = string.Empty;
+                }
+                if(pendientes_liberar >0 ){
+                    EnabledPendientes_Liberar = true;
+                    PendientesLiberar= "Existen  " + pendientes_liberar + " documentos que puedes entregar";
+                }
+                else
+                {
+                    EnabledPendientes_Liberar = false;
+                    PendientesLiberar = string.Empty;
                 }
 
             }
@@ -463,6 +538,7 @@ namespace View.Services.ViewModel
             {
                 //Método para obetener los documentos que tiene pendientes  por corregir del usuario. 
                 num_pendientes = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario).Count;
+                pendientes_liberar = DataManagerControlDocumentos.GetPendientes_Liberar(usuario.NombreUsuario).Count;
 
                 //Si hay documentos pendientes, muestra snackbar
                 if (num_pendientes > 0)
@@ -470,10 +546,12 @@ namespace View.Services.ViewModel
                     EnabledCorregir = true;
                     DocumentosCorregir = " " + num_pendientes + " Documento(s) pendiente(s) por corregir";
                 }
-            }
-
-            
-            
+                if (pendientes_liberar > 0)
+                {
+                    EnabledPendientes_Liberar = true;
+                    PendientesLiberar = "Existen  " + pendientes_liberar + " documentos que puedes entregar";
+                }
+            }     
         }
 
         private void GetDataGrid(string TextoBusqueda)

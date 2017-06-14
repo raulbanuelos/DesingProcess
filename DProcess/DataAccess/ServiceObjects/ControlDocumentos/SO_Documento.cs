@@ -599,7 +599,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public IList GetDocumentosAprobados(string usuario)
+        public IList GetDocumentosAprobados()
         {
             try
             {
@@ -610,6 +610,39 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                  join u in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals u.Usuario
                                  join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
                                  where v.ID_ESTATUS_VERSION == 5 
+                                 select new
+                                 {
+                                     d.ID_DOCUMENTO,
+                                     d.NOMBRE,
+                                     NOMBRE_USUARIO = u.Nombre + " " + u.APaterno + " " + u.AMaterno,
+                                     t.TIPO_DOCUMENTO,
+                                     v.No_VERSION
+                                 }).ToList();
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public IList GetDocumentos_PendientesLiberar(string usuario)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    var Lista = (from d in Conexion.TBL_DOCUMENTO
+                                 join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                 join u in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals u.Usuario
+                                 join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
+                                 where v.ID_ESTATUS_VERSION == 5 & v.ID_USUARIO_ELABORO.Contains(usuario)
                                  select new
                                  {
                                      d.ID_DOCUMENTO,

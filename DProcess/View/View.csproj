@@ -138,6 +138,9 @@
     <Compile Include="Forms\ControlDocumentos\FrmNuevo_Departamento.xaml.cs">
       <DependentUpon>FrmNuevo_Departamento.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmPendientes_Liberar.xaml.cs">
+      <DependentUpon>FrmPendientes_Liberar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmValidarDocumento.xaml.cs">
       <DependentUpon>FrmValidarDocumento.xaml</DependentUpon>
     </Compile>
@@ -187,6 +190,7 @@
     <Compile Include="Services\ViewModel\NuevoDepartamentoVM.cs" />
     <Compile Include="Services\ViewModel\NuevoTipoDocumentoVM.cs" />
     <Compile Include="Services\ViewModel\NuevoUsuarioVM.cs" />
+    <Compile Include="Services\ViewModel\PendientesLiberarVM.cs" />
     <Compile Include="Services\ViewModel\PerfilViewModel.cs" />
     <Compile Include="Services\ViewModel\PropiedadBoolViewModel.cs" />
     <Compile Include="Services\ViewModel\PropiedadCadenaViewModel.cs" />
@@ -265,6 +269,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmNuevo_Departamento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmPendientes_Liberar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

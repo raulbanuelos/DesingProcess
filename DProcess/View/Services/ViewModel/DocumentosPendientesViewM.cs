@@ -104,7 +104,7 @@ namespace View.Services.ViewModel
 
                 if (Estatus.Contains("pendiente"))
                 {
-                    DocumentoViewModel viewM = new DocumentoViewModel(documento, false);
+                    DocumentoViewModel viewM = new DocumentoViewModel(documento, false,usuario);
                     FrmDocumento frm = new FrmDocumento();
 
                     frm.DataContext = viewM;
@@ -137,7 +137,7 @@ namespace View.Services.ViewModel
                 ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario);
             }else if (status.Contains("aprobados"))
             {
-                ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar(usuario.NombreUsuario);
+                ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar();
             }
         }
 
