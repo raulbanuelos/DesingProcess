@@ -141,6 +141,12 @@
     <Compile Include="Forms\ControlDocumentos\FrmValidarDocumento.xaml.cs">
       <DependentUpon>FrmValidarDocumento.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DataBase\PDataBase.xaml.cs">
+      <DependentUpon>PDataBase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DataBase\WPerfil.xaml.cs">
+      <DependentUpon>WPerfil.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Index\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
@@ -181,6 +187,7 @@
     <Compile Include="Services\ViewModel\NuevoDepartamentoVM.cs" />
     <Compile Include="Services\ViewModel\NuevoTipoDocumentoVM.cs" />
     <Compile Include="Services\ViewModel\NuevoUsuarioVM.cs" />
+    <Compile Include="Services\ViewModel\PerfilViewModel.cs" />
     <Compile Include="Services\ViewModel\PropiedadBoolViewModel.cs" />
     <Compile Include="Services\ViewModel\PropiedadCadenaViewModel.cs" />
     <Compile Include="Services\ViewModel\PropiedadViewModel.cs" />
@@ -262,6 +269,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmValidarDocumento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\DataBase\PDataBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\DataBase\WPerfil.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -55,15 +55,14 @@ namespace DataAccess.ServiceObjects.Perfiles
                     parametros.Add("Imagen", imagen);
                     parametros.Add("idUsuarioCreacion", idUsuarioCreacion);
 
-                    datos = conexion.EjecutarStoredProcedure("SP_RGP_SET_PERFIL", parametros);
+                    datos = conexion.EjecutarStoredProcedure("SP_RGP_INSERT_PERFIL", parametros);
 
                     //Retorna el número de elementos en la tabla.
                     return datos.Tables.Count;
                 }
                 catch (Exception)
                 {
-
-                    throw;
+                    return 0;
                 }
             });
         }

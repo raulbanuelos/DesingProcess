@@ -11,6 +11,7 @@ using DataAccess.ServiceObjects.Usuario;
 using DataAccess.ServiceObjects.Unidades;
 using System.Collections.Generic;
 using DataAccess.ServiceObjects.ControlDocumentos;
+using DataAccess.ServiceObjects.Perfiles;
 
 namespace Model
 {
@@ -1052,6 +1053,49 @@ namespace Model
                 return usuario;
             });
 
+        }
+        #endregion
+
+        #region TipoPerfil
+
+        /// <summary>
+        /// Método el cual obtiene todos los tipos de perfil y lo retorna como una ObservableCollection
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<TipoPerfil> GetAllTipoPerfil()
+        {
+            //Inicializamos los servicios de SO_TipoPerfil.
+            SO_TipoPerfil ServiceTipoPerfil = new SO_TipoPerfil();
+
+            //Declaramos una colección observable la cual será la que retornemos en el método.
+            ObservableCollection<TipoPerfil> ListaResultante = new ObservableCollection<TipoPerfil>();
+
+            //Ejecutamos el método para obtener la información de tipo de perfiles, el resultado lo asignamos a una lista anónima.
+            IList InformacionBD = ServiceTipoPerfil.GetAllTipoPerfil();
+
+            //Verificamos que el resultado sea direfente de nulo.
+            if (InformacionBD != null)
+            {
+                //Iteramos el resultado.
+                foreach (var item in InformacionBD)
+                {
+                    //Obtenemos el tipo de cada item iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo TipoPerfil el cual será el que agregumos a la lista resultante.
+                    TipoPerfil tipoperfil = new TipoPerfil();
+
+                    //Mapeamos los valores en cada propiedad correspondiente.
+                    tipoperfil.IdTipoPerfil = (int)tipo.GetProperty("ID_TIPO_PERFIL").GetValue(item, null);
+                    tipoperfil.Perfil = (string)tipo.GetProperty("PERFIL").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista.
+                    ListaResultante.Add(tipoperfil);
+                }
+            }
+
+            //Retornamos la lista resultante.
+            return ListaResultante;
         }
         #endregion
 

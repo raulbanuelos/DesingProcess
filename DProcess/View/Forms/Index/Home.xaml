@@ -145,7 +145,7 @@
                 </Controls:Tile>
 
                 <!--Data-->
-                <Controls:Tile Background="#6CB71D" TiltFactor="2" Title="Data" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilData}">
+                <Controls:Tile Background="#6CB71D" TiltFactor="2" Title="Data" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilData}" Command="{Binding IrDataBase}">
                     <Rectangle Width="90" Height="90" Fill="White">
                         <Rectangle.OpacityMask>
                             <VisualBrush Visual="{StaticResource appbar_database}" Stretch="Fill" />

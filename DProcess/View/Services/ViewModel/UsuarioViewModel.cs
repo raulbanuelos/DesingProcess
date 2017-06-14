@@ -6,6 +6,8 @@ using View.Forms.Routing;
 using View.Forms.RawMaterial;
 using View.Forms.ControlDocumentos;
 using System.Collections.Generic;
+using System;
+using View.Forms.DataBase;
 
 namespace View.Services.ViewModel
 {
@@ -294,6 +296,22 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand IrDataBase
+        {
+            get
+            {
+                return new RelayCommand(o => irDataBase());
+            }
+        }
+
+        public ICommand IrPerfil
+        {
+            get
+            {
+                return new RelayCommand(o => irPerfil());
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -353,8 +371,30 @@ namespace View.Services.ViewModel
             //Asignamos a la propiedad Pagina la nueva pantalla que debe de mostrar.
             Pagina = pantallaPlano;
         }
+
+        private void irDataBase()
+        {
+            PDataBase pantallaData = new PDataBase();
+
+            pantallaData.DataContext = this;
+
+
+            Pagina = pantallaData;
+        }
+
+        private void irPerfil()
+        {
+            WPerfil p = new WPerfil();
+
+            PerfilViewModel vmPerfil = new PerfilViewModel();
+
+            p.DataContext = vmPerfil;
+
+            p.Show();
+
+        }
         #endregion
-        
+
         #endregion
     }
 }
