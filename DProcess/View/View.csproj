@@ -165,6 +165,9 @@
     <Compile Include="Forms\Routing\WDimensions.xaml.cs">
       <DependentUpon>WDimensions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Routing\WViewPerfiles.xaml.cs">
+      <DependentUpon>WViewPerfiles.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Shared\Layout.xaml.cs">
       <DependentUpon>Layout.xaml</DependentUpon>
     </Compile>
@@ -301,6 +304,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\Routing\WDimensions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Routing\WViewPerfiles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

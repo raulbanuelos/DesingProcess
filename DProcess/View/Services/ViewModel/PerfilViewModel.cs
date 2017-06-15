@@ -87,6 +87,9 @@ namespace View.Services.ViewModel
             SelectedTipoPerfil = ListaTipoPerfil.First();
 
             modelPerfil = new Perfil();
+
+            //Inicializamos los servicios de DialogService.
+            dialogService = new DialogService();
         }
         #endregion
 
@@ -107,8 +110,7 @@ namespace View.Services.ViewModel
             }
         }
         #endregion
-
-
+        
         #region Methods
 
         private void seleccionarImagen()
@@ -122,16 +124,14 @@ namespace View.Services.ViewModel
             if (result == true)
             {
                 string fileName = dialog.FileName;
-
                 Imagen = File.ReadAllBytes(fileName);
             }
         }
 
         private async void guardarPerfil()
         {
+            //Inicializamos los servicios de SO_Perfil.
             SO_Perfil ServicioPerfil = new SO_Perfil();
-
-            dialogService = new DialogService();
 
             //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
             ProgressDialogController controllerProgressAsync;
@@ -139,6 +139,7 @@ namespace View.Services.ViewModel
             //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
             controllerProgressAsync = await dialogService.SendProgressAsync("Please Wait", "Saving...");
 
+            //Ejecutamos el método para guardar los datos del perfil.
             await ServicioPerfil.SetPerfil(SelectedTipoPerfil.IdTipoPerfil, Nombre, Descripcion, Imagen, 1);
 
             //Ejecutamos el método para cerrar el mensaje de espera.

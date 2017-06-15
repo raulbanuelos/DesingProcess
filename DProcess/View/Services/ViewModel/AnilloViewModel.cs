@@ -780,9 +780,22 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => openCalculateDimensions());
             }
         }
+
+        public ICommand AbrirPerfiles
+        {
+            get
+            {
+                return new RelayCommand(o => abrirPlano());
+            }
+        }
         #endregion
 
         #region Methods
+
+        private void abrirPlano()
+        {
+            
+        }
 
         /// <summary>
         /// Método que inicializa todas las propiedades para generar un nuevo plano.
