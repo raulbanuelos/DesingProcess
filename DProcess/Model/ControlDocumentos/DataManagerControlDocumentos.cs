@@ -1211,13 +1211,42 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public static ObservableCollection<Documento> GetDocumentos_PendientesLiberar(string usuario)
+        public static ObservableCollection<Documento> GetDocumentos_PendientesLiberar()
         {
             ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
 
             SO_Documento ServicioDocumento = new SO_Documento();
 
-            IList informacionBD = ServicioDocumento.GetDocumentosAprobados(usuario);
+            IList informacionBD = ServicioDocumento.GetDocumentosAprobados();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    Documento obj = new Documento();
+
+                    obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.usuario = (string)tipo.GetProperty("NOMBRE_USUARIO").GetValue(item, null);
+                    obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    Lista.Add(obj);
+
+                }
+            }
+
+            return Lista;
+        }
+
+        public static ObservableCollection<Documento> GetPendientes_Liberar(string usuario)
+        {
+            ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
+
+            SO_Documento ServicioDocumento = new SO_Documento();
+
+            IList informacionBD = ServicioDocumento.GetDocumentos_PendientesLiberar(usuario);
 
             if (informacionBD != null)
             {
