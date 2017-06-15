@@ -123,7 +123,7 @@
 
             </Button>
 
-            <Canvas Height="64" Canvas.Left="70" Canvas.Top="819" Width="1024" RenderTransformOrigin="0.5,0.5">
+            <Canvas Height="64" Canvas.Left="48" Canvas.Top="828" Width="1110" RenderTransformOrigin="0.5,0.5">
                 <Canvas.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -133,11 +133,11 @@
                     </TransformGroup>
                 </Canvas.RenderTransform>
                 <Button x:Name="bttn_guardar" Content="{Binding BotonGuardar}" Height="41" Canvas.Top="10" Width="135" Canvas.Left="38" Command="{Binding GuardarControl}" Background="#FF157EFB" Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" />
-                <Button x:Name="bttn_cancelar" Content="Cancelar" Height="41" Canvas.Left="202" Canvas.Top="10" Width="135" Command="{Binding Cancelar}" Background="#FF157EFB" Visibility="{Binding BttnCancelar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
-                <Button x:Name="bttn_eliminar" Content="Eliminar" Canvas.Left="522" Canvas.Top="10" Width="135" Height="41" Background="#FF157EFB" Command="{Binding Eliminar}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
-                <Button x:Name="bttn_cambios" Content="Modificar" Height="41" Canvas.Left="362" Canvas.Top="10" Width="135" Background="#FF157EFB" Command="{Binding Modificar}" Visibility="{Binding BttnModificar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
-                <Button x:Name="bttn_generar" Content="Generar Versión" Height="41" Canvas.Left="681" Canvas.Top="10" Width="135" Background="#FF157EFB" Command="{Binding GenerarVersion}" Visibility="{Binding BttnVersion, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
-                <Button x:Name="button1" Content="Liberar" Height="41" Canvas.Left="847" Canvas.Top="10" Width="135" Background="#FF157EFB"  Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" Command="{Binding LiberarDocumento}" />
+                <Button x:Name="bttn_cancelar" Content="Cancelar" Height="41" Canvas.Left="211" Canvas.Top="10" Width="135" Command="{Binding Cancelar}" Background="#FF157EFB" Visibility="{Binding BttnCancelar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
+                <Button x:Name="bttn_eliminar" Content="Eliminar" Canvas.Left="729" Canvas.Top="10" Width="135" Height="41" Background="#FF157EFB" Command="{Binding Eliminar}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
+                <Button x:Name="bttn_cambios" Content="Modificar" Height="41" Canvas.Left="545" Canvas.Top="10" Width="135" Background="#FF157EFB" Command="{Binding Modificar}" Visibility="{Binding BttnModificar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
+                <Button x:Name="bttn_generar" Content="Generar Versión" Height="41" Canvas.Left="378" Canvas.Top="10" Width="135" Background="#FF157EFB" Command="{Binding GenerarVersion}" Visibility="{Binding BttnVersion, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
+                <Button x:Name="button1" Content="Liberar" Height="41" Canvas.Left="907" Canvas.Top="10" Width="135" Background="#FF157EFB"  Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" Command="{Binding LiberarDocumento}" />
             </Canvas>
 
             <!--ListView Archivos-->
@@ -192,33 +192,6 @@
         </Canvas>
 
         <!--Barra-->
-        <ToolBar x:Name="toolBar" HorizontalAlignment="Left" Height="56" VerticalAlignment="Top" Width="1492" Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
-            <Button ToolTip="Agregar Usuario" Command="{Binding AgregarUsuario}" Cursor="Hand" Height="56" Margin="0,0,0,-2" Width="57">
-                <Rectangle Width="24" Height="27"  >
-                    <Rectangle.Fill>
-                        <ImageBrush ImageSource="/View;component/Images/addUser.png"/>
-                    </Rectangle.Fill>
-                </Rectangle>
-            </Button>
-
-            <Separator></Separator>
-
-            <Button ToolTip="Agregar Tipo de Documento" Command="{Binding AgregarTipo}" Cursor="Hand" Height="56" Margin="0,0,0,-2" Width="54">
-                <Rectangle Width="23" Height="24"  >
-                    <Rectangle.Fill>
-                        <ImageBrush ImageSource="/View;component/Images/addTipo.png"/>
-                    </Rectangle.Fill>
-                </Rectangle>
-            </Button>
-            <Separator></Separator>
-            <Button ToolTip="Agregar Departamento" Command="{Binding AgregarDepartamento}" Cursor="Hand" Height="56" Margin="0,0,0,-2" Width="57">
-                <Rectangle Width="29" Height="28"   >
-                    <Rectangle.Fill>
-                        <ImageBrush ImageSource="/View;component/Images/AddDep.png"/>
-                    </Rectangle.Fill>
-                </Rectangle>
-            </Button>
-        </ToolBar>
         <Grid HorizontalAlignment="Left" Height="693" Margin="1178,104,0,-161" Grid.RowSpan="2" VerticalAlignment="Top" Width="326">
             <ListBox Canvas.Left="666" Canvas.Top="51" ItemsSource="{Binding ListaValidaciones}" ItemTemplate="{StaticResource ListCheck}"  Background="White" Foreground="#DD040404" >
             </ListBox>

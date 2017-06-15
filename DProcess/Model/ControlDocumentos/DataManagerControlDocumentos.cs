@@ -464,13 +464,13 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="documento"></param>
         /// <returns></returns>
-        public static int UpdateVersionActual(Documento documento)
+        public static int UpdateFecha_actualizacion(int id_doc)
         {
             //Se inician los servicios de Documento.
             SO_Documento ServiceDocumento = new SO_Documento();
 
             // Se ejecuta el método y retorna los registros que se modificaron.
-            return ServiceDocumento.UpdateVersion(documento.id_documento);
+            return ServiceDocumento.UpdateFecha_Actualizacion(id_doc);
         }
 
         /// <summary>

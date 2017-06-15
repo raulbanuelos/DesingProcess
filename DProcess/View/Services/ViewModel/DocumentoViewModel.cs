@@ -461,7 +461,6 @@ namespace View.Services.ViewModel
             Inicializar();
             User = Modelusuario;
             Nombre = selectedDocumento.nombre;
-            User = new Usuario();
             Version = selectedDocumento.version.no_version;
             Fecha = selectedDocumento.fecha_actualizacion;
             auxversion = selectedDocumento.version.no_version;
@@ -469,8 +468,19 @@ namespace View.Services.ViewModel
             id_documento = selectedDocumento.id_documento;
             BotonGuardar = "Guardar";
             BttnGuardar = false;
-            BttnEliminar = band;
-            BttnModificar = true;
+            IsEnabled = false;
+
+            //si es personal del cit
+            if (Module.UsuarioIsRol(User.Roles, 2))
+            {
+                BttnModificar = true;
+                BttnEliminar = band;
+                IsEnabled = true;
+            } 
+            if (band==false)
+            {
+
+            }
             BttnVersion = band;
             idVersion = selectedDocumento.version.id_version;
             id_dep = selectedDocumento.id_dep;
@@ -489,7 +499,6 @@ namespace View.Services.ViewModel
             usuarioAutorizo = UsuarioObj.id_usuario_autorizo;
             auxUsuario_Autorizo = usuarioAutorizo;  
             
-          
             ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetArchivos(id_documento,idVersion);
             
             foreach (var item in Lista)
@@ -511,11 +520,8 @@ namespace View.Services.ViewModel
                     //Si es archivo de word asigna la imagen correspondiente.
                     objArchivo.ruta = @"/Images/w.png";
                 }
-                ListaDocumentos.Add(objArchivo);
-                
-            }
-
-            
+                ListaDocumentos.Add(objArchivo);   
+            } 
         }
 
         public DocumentoViewModel(Usuario Modelusuario)
@@ -534,7 +540,6 @@ namespace View.Services.ViewModel
         public DocumentoViewModel(Documento selectedDocumento)
         {
             Inicializar();
-
             IsEnabled = false;
             EnabledEliminar = false;
             BttnArchivos = false;
@@ -581,9 +586,7 @@ namespace View.Services.ViewModel
                     objArchivo.ruta = @"/Images/w.png";
                 }
                 ListaDocumentos.Add(objArchivo);
-
             }
-
         }
         #endregion
 
@@ -609,8 +612,7 @@ namespace View.Services.ViewModel
 
             //Verificamos que el botón contenga la leyenda Guardar, esto indica que el registro es nuevo.
             if (BotonGuardar == "Guardar")
-            {
-
+            { 
                 //Ejecutamos el método para verificar que todos los campos contengan valores.
                 if (ValidarValores())
                 {
@@ -631,7 +633,7 @@ namespace View.Services.ViewModel
                         obj.id_tipo_documento = _id_tipo;
                         obj.id_dep = _id_dep;
                         obj.descripcion = descripcion;
-                        obj.fecha_actualizacion = fecha;
+                        obj.fecha_actualizacion = DateTime.Now;
                         obj.fecha_emision = fecha;
                         obj.id_estatus = 2;
 
@@ -670,9 +672,7 @@ namespace View.Services.ViewModel
 
                                     //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
                                     int nombre = await DataManagerControlDocumentos.SetArchivo(objArchivo);
-
                                 }
-
                                 //Ejecutamos el método para cerrar el mensaje de espera.
                                 await controllerProgressAsync.CloseAsync();
 
@@ -700,7 +700,6 @@ namespace View.Services.ViewModel
                             //Ejecutamos el método para enviar un mensaje de alerta al usuario.
                             await dialog.SendMessage("Alerta", "Error al registrar el documento..");
                         }
-
                     }
                     else
                     {
@@ -807,7 +806,6 @@ namespace View.Services.ViewModel
                 {
                     await dialog.SendMessage("Alerta", "Verifica que el archivo cumpla con todos los requisitos..");
                 }
-
             }
         }
 
@@ -855,7 +853,6 @@ namespace View.Services.ViewModel
                     //El nombre del archivo lo asigna al textbox del nombre
                    // Nombre = obj.nombre;
                 }
-
                 //Si el archivo tiene extensión pdf
                 if (obj.ext == ".pdf")
                 {
@@ -888,8 +885,13 @@ namespace View.Services.ViewModel
             usuarioAutorizo = auxUsuario_Autorizo;
             Version = auxversion;
             BotonGuardar = "Guardar";
-            BttnEliminar = true;
-            BttnModificar = true;
+            IsEnabled = false;
+            if (Module.UsuarioIsRol(User.Roles, 2))
+            {
+                BttnEliminar = true;
+                BttnModificar = true;
+                IsEnabled = true;
+            }
             BttnVersion = true;
             BttnGuardar = false;
             NombreEnabled = false;
@@ -989,8 +991,7 @@ namespace View.Services.ViewModel
                     obj.id_documento = id_documento;
 
                     //Se manda a llamar a la función.
-                    int n = DataManagerControlDocumentos.DeleteDocumento(obj);
-                   
+                    int n = DataManagerControlDocumentos.DeleteDocumento(obj);  
                 }
                 else
                 {
@@ -1048,7 +1049,8 @@ namespace View.Services.ViewModel
                         obj.id_dep = _id_dep;
                         obj.id_tipo_documento = _id_tipo;
                         obj.descripcion = Descripcion;
-                        obj.fecha_actualizacion = fecha;
+                        obj.fecha_emision = fecha;
+                        obj.fecha_actualizacion = DateTime.Now;
                         obj.id_estatus = 5;
 
                         //Ejecuta el método para modificar un registro 
@@ -1142,39 +1144,51 @@ namespace View.Services.ViewModel
             //Incializamos los servicios de dialog.
             DialogService dialog = new DialogService();
 
-            ObservableCollection<Model.ControlDocumentos.Version> ListaEstatus = DataManagerControlDocumentos.GetStatus_Version(id_documento);
+            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = "SI";
+            setting.NegativeButtonText = "NO";
 
-            if (ListaEstatus.Count == 0)
+            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Deseas generar una nueva versión?", setting, MessageDialogStyle.AffirmativeAndNegative);
+
+            if (result == MessageDialogResult.Affirmative)
             {
-                //Obtiene la últuma version del documento.
-                Version = DataManagerControlDocumentos.GetLastVersion(id_documento);
+                ObservableCollection<Model.ControlDocumentos.Version> ListaEstatus = DataManagerControlDocumentos.GetStatus_Version(id_documento);
 
-                //Manda un mensaje al usuario, donde muestra la versión nueva.
-                await dialog.SendMessage("Información", "La nueva versión del documento es la número " + Version);
-
-                //Limpiamos todos lo textbox, y se cambia el content del botón de guardar.
-                Fecha = DateTime.Now;
-                usuarioAutorizo = null;
-                ListaDocumentos.Clear();
-                BotonGuardar = "Guardar Version";
-                BttnGuardar = true;
-                BttnEliminar = false;
-                BttnModificar = false;
-                BttnVersion = false;
-                NombreEnabled = false;
-                BttnCancelar = true;
-            }
-            else
-            {
-                Model.ControlDocumentos.Version obj = new Model.ControlDocumentos.Version();
-                foreach (var item in ListaEstatus)
+                if (ListaEstatus.Count == 0)
                 {
-                     obj.no_version = item.no_version;
-                     obj.estatus = item.estatus;
-                }
-                await dialog.SendMessage("No se puede crear una nueva versión", " Versión número " + obj.no_version + " tiene estado: " + obj.estatus );
-            }
+                    //Obtiene la últuma version del documento.
+                    Version = DataManagerControlDocumentos.GetLastVersion(id_documento);
 
+                    //Manda un mensaje al usuario, donde muestra la versión nueva.
+                    await dialog.SendMessage("Información", "La nueva versión del documento es la número " + Version);
+
+                    //Limpiamos todos lo textbox, y se cambia el content del botón de guardar.
+                    Fecha = DateTime.Now;
+                    usuarioAutorizo = null;
+                    ListaDocumentos.Clear();
+                    BotonGuardar = "Guardar Version";
+                    BttnGuardar = true;
+                    BttnEliminar = false;
+                    BttnModificar = false;
+                    BttnVersion = false;
+                    NombreEnabled = false;
+                    BttnCancelar = true;
+                    IsEnabled = true;
+                    usuario = User.NombreUsuario;
+                }
+                else
+                {
+                    Model.ControlDocumentos.Version obj = new Model.ControlDocumentos.Version();
+                    foreach (var item in ListaEstatus)
+                    {
+                        obj.no_version = item.no_version;
+                        obj.estatus = item.estatus;
+                    }
+                    await dialog.SendMessage("No se puede crear una nueva versión", " Versión número " + obj.no_version + " tiene estado: " + obj.estatus);
+                }
+            }
         }
 
         /// <summary>
@@ -1216,7 +1230,6 @@ namespace View.Services.ViewModel
             do
             {
                 string aleatorio = Module.GetRandomString(5);
-
                 filename = Path.Combine(tempFolder, item.nombre + item.numero + "_" + aleatorio + item.ext);
             } while (File.Exists(filename));
 
@@ -1299,7 +1312,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Mátodo para agregar tipo de Documento
+        /// Método para agregar tipo de Documento
         /// </summary>
         public ICommand AgregarTipo
         {
@@ -1312,9 +1325,7 @@ namespace View.Services.ViewModel
         {
             FrmNuevoTipo frmTipo = new FrmNuevoTipo();
             NuevoTipoDocumentoVM context = new NuevoTipoDocumentoVM();
-
             frmTipo.DataContext = context;
-
             frmTipo.ShowDialog();
             ListaTipo = DataManagerControlDocumentos.GetTipo();
         }
@@ -1336,8 +1347,7 @@ namespace View.Services.ViewModel
                 id_dep = _selectedDocumento.id_dep;
                 id_tipo = _selectedDocumento.id_tipo_documento;
                 nombre = _selectedDocumento.nombre;
-
-                 ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
+                ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
             }
         }
 
@@ -1360,28 +1370,74 @@ namespace View.Services.ViewModel
 
             //bool result= Regex.IsMatch(num_copias, @"^\d+$");
             //Comprueba que el número de copias sólo contenga números.
-            if (Regex.IsMatch(num_copias, @"^\d+$"))
+            if (num_copias != null)
             {
-                Documento objDocumento = new Documento();
-                Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
-
-                //Asiganmos el id del documento al objeto
-                objDocumento.id_documento = id_documento;
-
-                if (!string.IsNullOrEmpty(num_copias))
+                if (Regex.IsMatch(num_copias, @"^\d+$"))
                 {
-                    //si el documento sólo tiene una versión, se modifica el estatus del documento y la versión, se cambia el estatus a liberado
-                    if (version.Equals("1"))
-                    {
-                        //Estatus de documento liberado
-                        objDocumento.id_estatus = 5;
+                    Documento objDocumento = new Documento();
+                    Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
 
-                        //Ejecutamos el método para actualizar el estatus del documento.
-                        int update_documento = DataManagerControlDocumentos.Update_EstatusDocumento(objDocumento);
-                        //Si se actualizó correctamente.
-                        if (update_documento != 0)
+                    //Asiganmos el id del documento al objeto
+                    objDocumento.id_documento = id_documento;
+
+                    if (!string.IsNullOrEmpty(num_copias))
+                    {
+                        //si el documento sólo tiene una versión, se modifica el estatus del documento y la versión, se cambia el estatus a liberado
+                        if (version.Equals("1"))
                         {
-                            //Asigamos los valores
+                            //Estatus de documento liberado
+                            objDocumento.id_estatus = 5;
+
+                            //Ejecutamos el método para actualizar el estatus del documento.
+                            int update_documento = DataManagerControlDocumentos.Update_EstatusDocumento(objDocumento);
+
+                            //Si se actualizó correctamente.
+                            if (update_documento != 0)
+                            {
+                                //Asigamos los valores
+                                objVersion.id_version = idVersion;
+                                objVersion.no_version = version;
+                                objVersion.id_documento = id_documento;
+                                objVersion.id_usuario = _usuario;
+                                objVersion.id_usuario_autorizo = _usuarioAutorizo;
+                                objVersion.fecha_version = fecha;
+                                objVersion.id_estatus_version = 1;
+                                objVersion.no_copias = Convert.ToInt32(num_copias);
+
+                                //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
+                                int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion);
+
+                                //Si la versión se actualizó correctamente.
+                                if (update_version != 0)
+                                {
+                                    await dialog.SendMessage("Información", "Documento y versión liberados..");
+
+                                    //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                                    var frame = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                                    //Verificamos que la pantalla sea diferente de nulo.
+                                    if (frame != null)
+                                    {
+                                        //Cerramos la pantalla
+                                        frame.Close();
+                                    }
+                                }
+                                else
+                                {
+                                    await dialog.SendMessage("Alerta", "Error al actualizar el estatus de la versión y del documento..");
+                                }
+                            }
+                            else
+                            {
+                                await dialog.SendMessage("Alerta", "Error al actualizar el estatus del documento..");
+                            }
+                        }
+                        else
+                        {
+                            //si el documento tiene más de un versión, sólo se modifica el estatus de la versión a liberado
+                            //la versión anterior se modifica el estatus a obsoleto
+                            int fecha_actualizacion = DataManagerControlDocumentos.UpdateFecha_actualizacion(id_documento);
+
                             objVersion.id_version = idVersion;
                             objVersion.no_version = version;
                             objVersion.id_documento = id_documento;
@@ -1391,79 +1447,41 @@ namespace View.Services.ViewModel
                             objVersion.id_estatus_version = 1;
                             objVersion.no_copias = Convert.ToInt32(num_copias);
 
-                            //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
+                            //Ejecutamos el método para modificar el estatus de la versión. El resultado lo guardamos en una variable local.
                             int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion);
 
-                            //Si la versión se actualizó correctamente.
+                            //si fue modificado correctamente.
                             if (update_version != 0)
                             {
-                                await dialog.SendMessage("Información", "Documento y versión liberados..");
+                                //obetemos el id de la versión anterior
+                                int last_id = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
+                                //Creamos un objeto para la versión anterior 
+                                Model.ControlDocumentos.Version lastVersion = new Model.ControlDocumentos.Version();
 
-                                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                                var frame = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+                                //asigamos el id y el estatus obsoleto
+                                lastVersion.id_version = last_id;
+                                lastVersion.id_estatus_version = 2;
 
-                                //Verificamos que la pantalla sea diferente de nulo.
-                                if (frame != null)
+                                //Ejecutamos el método para actualizar el estatus de la versión.
+                                int update = DataManagerControlDocumentos.Update_EstatusVersion(lastVersion);
+
+                                //si se actualizó correctamente
+                                if (update != 0)
                                 {
-                                    //Cerramos la pantalla
-                                    frame.Close();
+                                    await dialog.SendMessage("Información", "Versión liberada..");
+                                    //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                                    var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                                    //Verificamos que la pantalla sea diferente de nulo.
+                                    if (frm != null)
+                                    {
+                                        //Cerramos la pantalla
+                                        frm.Close();
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                await dialog.SendMessage("Alerta", "Error al actualizar el estatus de la versión y del documento..");
-                            }
-                        }
-                        else
-                        {
-                            await dialog.SendMessage("Alerta", "Error al actualizar el estatus del documento..");
-                        }
-                    }
-                    else
-                    {
-                        //si el documento tiene más de un versión, sólo se modifica el estatus de la versión a liberado
-                        //la versión anterior se modifica el estatus a obsoleto
-
-                        objVersion.id_version = idVersion;
-                        objVersion.no_version = version;
-                        objVersion.id_documento = id_documento;
-                        objVersion.id_usuario = _usuario;
-                        objVersion.id_usuario_autorizo = _usuarioAutorizo;
-                        objVersion.fecha_version = fecha;
-                        objVersion.id_estatus_version = 1;
-                        objVersion.no_copias = Convert.ToInt32(num_copias);
-
-
-                        //Ejecutamos el método para modificar el estatus de la versión. El resultado lo guardamos en una variable local.
-                        int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion);
-
-                        //si fue modificado correctamente.
-                        if (update_version != 0)
-                        {
-                            //obetemos el id de la versión anterior
-                            int last_id = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
-                            //Creamos un objeto para la versión anterior 
-                            Model.ControlDocumentos.Version lastVersion = new Model.ControlDocumentos.Version();
-
-                            //asigamos el id y el estatus obsoleto
-                            lastVersion.id_version = last_id;
-                            lastVersion.id_estatus_version = 2;
-
-                            //Ejecutamos el método para actualizar el estatus de la versión.
-                            int update = DataManagerControlDocumentos.Update_EstatusVersion(lastVersion);
-
-                            //si se actualizó correctamente
-                            if (update != 0)
-                            {
-                                await dialog.SendMessage("Información", "Versión liberada..");
-                                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                                var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                                //Verificamos que la pantalla sea diferente de nulo.
-                                if (frm != null)
+                                else
                                 {
-                                    //Cerramos la pantalla
-                                    frm.Close();
+                                    await dialog.SendMessage("Alerta", "Error al actualizar el estatus de la versión..");
                                 }
                             }
                             else
@@ -1471,11 +1489,11 @@ namespace View.Services.ViewModel
                                 await dialog.SendMessage("Alerta", "Error al actualizar el estatus de la versión..");
                             }
                         }
-                        else
-                        {
-                            await dialog.SendMessage("Alerta", "Error al actualizar el estatus de la versión..");
-                        }
                     }
+                }
+                else
+                {
+                    await dialog.SendMessage("Alerta", "Campos inválidos, ingrese números..");
                 }
             }
         }
