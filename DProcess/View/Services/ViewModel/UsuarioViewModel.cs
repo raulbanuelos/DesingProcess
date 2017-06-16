@@ -8,6 +8,7 @@ using View.Forms.ControlDocumentos;
 using System.Collections.Generic;
 using System;
 using View.Forms.DataBase;
+using View.Forms.User;
 
 namespace View.Services.ViewModel
 {
@@ -312,6 +313,15 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand IrUser
+        {
+            get
+            {
+                return new RelayCommand(o => irUser());
+                    
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -322,33 +332,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => irControlDocumentos());
             }
         }
-
-        private void irControlDocumentos()
-        {
-            //FrmDocumento frm = new FrmDocumento();
-            //DocumentoViewModel context = new DocumentoViewModel("IF00-0093", "2", "2", "Ayuda Visual Especificaciones de abertura de máquina H", 1026);
-            ////DocumentoViewModel context = new DocumentoViewModel();
-
-            //frm.DataContext = context;
-            //frm.ShowDialog();
-
-
-            ControlDocumento frm = new ControlDocumento();
-            ControlDocumentoViewModel context = new ControlDocumentoViewModel (ModelUsuario);
-            frm.DataContext = context;
-            Pagina = frm;
-
-        }
-
-        private void irRawMaterial()
-        {
-            PPattern pantallaPattern = new PPattern();
-            PatternViewModel context = new PatternViewModel();
-
-            pantallaPattern.DataContext = context;
-            Pagina = pantallaPattern;
-        }
-
+        
         #endregion
 
         #region Métodos
@@ -392,6 +376,41 @@ namespace View.Services.ViewModel
 
             p.Show();
 
+        }
+
+        private void irUser()
+        {
+            PUser pantallaUser = new PUser();
+
+            pantallaUser.DataContext = this;
+
+            Pagina = pantallaUser;
+        }
+
+        private void irControlDocumentos()
+        {
+            //FrmDocumento frm = new FrmDocumento();
+            //DocumentoViewModel context = new DocumentoViewModel("IF00-0093", "2", "2", "Ayuda Visual Especificaciones de abertura de máquina H", 1026);
+            ////DocumentoViewModel context = new DocumentoViewModel();
+
+            //frm.DataContext = context;
+            //frm.ShowDialog();
+
+
+            ControlDocumento frm = new ControlDocumento();
+            ControlDocumentoViewModel context = new ControlDocumentoViewModel(ModelUsuario);
+            frm.DataContext = context;
+            Pagina = frm;
+
+        }
+
+        private void irRawMaterial()
+        {
+            PPattern pantallaPattern = new PPattern();
+            PatternViewModel context = new PatternViewModel();
+
+            pantallaPattern.DataContext = context;
+            Pagina = pantallaPattern;
         }
         #endregion
 

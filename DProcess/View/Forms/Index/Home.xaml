@@ -154,7 +154,7 @@
                 </Controls:Tile>
 
                 <!--User-->
-                <Controls:Tile Background="#A200AB" TiltFactor="2" Title="User" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilUserProfile}">
+                <Controls:Tile Command="{Binding IrUser}"  Background="#A200AB" TiltFactor="2" Title="User" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilUserProfile}">
                     <Rectangle Width="100" Height="100" Fill="White">
                         <Rectangle.OpacityMask>
                             <VisualBrush Visual="{StaticResource appbar_user_tie}" Stretch="Fill" />

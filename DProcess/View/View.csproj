@@ -177,6 +177,9 @@
     <Compile Include="Forms\UserControls\NumericEntry.xaml.cs">
       <DependentUpon>NumericEntry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\User\PUser.xaml.cs">
+      <DependentUpon>PUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\ExportToExcel.cs" />
     <Compile Include="Services\Module.cs" />
@@ -324,6 +327,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\UserControls\NumericEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\User\PUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
