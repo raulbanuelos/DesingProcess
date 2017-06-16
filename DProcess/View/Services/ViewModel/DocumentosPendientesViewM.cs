@@ -108,7 +108,6 @@ namespace View.Services.ViewModel
                     FrmDocumento frm = new FrmDocumento();
 
                     frm.DataContext = viewM;
-
                     frm.ShowDialog();
 
                     inicializa(Estatus);
@@ -119,13 +118,10 @@ namespace View.Services.ViewModel
                     FrmDocumento frm = new FrmDocumento();
 
                     frm.DataContext = viewM;
-
                     frm.ShowDialog();
 
                     inicializa(Estatus);
                 }
-
-                
             }
         }
 

@@ -31,7 +31,6 @@ namespace View.Services.ViewModel
             }
         }
 
-
         private Documento selectedDocumento;
         public Documento SelectedDocumento
         {
@@ -139,10 +138,8 @@ namespace View.Services.ViewModel
                     objArchivo.ruta = @"/Images/w.png";
                 }
                 ListaArchivos.Add(objArchivo);
-
             }
         }
-
         #endregion
 
         #region Commandos

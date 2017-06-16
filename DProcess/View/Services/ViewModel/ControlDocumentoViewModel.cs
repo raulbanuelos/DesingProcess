@@ -278,9 +278,7 @@ namespace View.Services.ViewModel
             DocumentosPendientesViewM context = new DocumentosPendientesViewM(usuario,"pendientes");
 
             frm.DataContext = context;
-
             frm.ShowDialog();
-
             initSnack();
         }
         public ICommand irPendientesLiberar
@@ -459,8 +457,7 @@ namespace View.Services.ViewModel
         private void initControlDocumentos()
         {
             _ListaTipoDocumento = DataManagerControlDocumentos.GetTipo();
-          
-
+        
             if (_ListaTipoDocumento.Count > 0)
             {
                 SelectedTipoDocumento = _ListaTipoDocumento[0];
@@ -570,6 +567,5 @@ namespace View.Services.ViewModel
             initSnack();
         }
         #endregion
-
     }
 }

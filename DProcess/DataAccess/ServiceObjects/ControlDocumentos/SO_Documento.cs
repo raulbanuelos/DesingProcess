@@ -156,7 +156,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="id_documento"></param>
         /// <param name="version_actual"></param>
         /// <returns></returns>
-        public int UpdateVersion(int id_documento)
+        public int UpdateFecha_Actualizacion(int id_documento)
         {
 
             try
@@ -168,7 +168,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     TBL_DOCUMENTO obj = Conexion.TBL_DOCUMENTO.Where(x => x.ID_DOCUMENTO == id_documento).FirstOrDefault();
 
                     //Se modifica el id de la version con la original
-                    //obj.VERSION_ACTUAL = version_actual;
+                    obj.FECHA_ACTUALIZACION= DateTime.Now;
 
                     //Se cambia el estado de registro a modificado.
                     Conexion.Entry(obj).State = EntityState.Modified;
