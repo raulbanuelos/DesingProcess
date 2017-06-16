@@ -202,6 +202,7 @@
     <Compile Include="Services\ViewModel\PropiedadCadenaViewModel.cs" />
     <Compile Include="Services\ViewModel\PropiedadViewModel.cs" />
     <Compile Include="Services\ViewModel\CuffViewModel.cs" />
+    <Compile Include="Services\ViewModel\PUserViewModel.cs" />
     <Compile Include="Services\ViewModel\TubosCLViewModel.cs" />
     <Compile Include="Services\ViewModel\TubosHDViewModel.cs" />
     <Compile Include="Services\Router.cs" />

@@ -114,7 +114,7 @@
 
             <!--Buttons-->
             <Button x:Name="button"  Height="47" Width="77" RenderTransformOrigin="0.495,0.578" BorderBrush="#89DCDCDC" Canvas.Left="1075" Canvas.Top="743"  Command="{Binding LlenarLista}" Background="#89F2F5F7" ToolTip="Abrir archivo"
-                    Visibility="{Binding BttnArchivos, Converter={StaticResource BoolToVis}, FallbackValue= Visible}">
+                    Visibility="{Binding BttnArchivos, Converter={StaticResource BoolToVis}, FallbackValue= Hidden}">
                 <Rectangle Width="40" Height="39" Canvas.Top="226" RenderTransformOrigin="0.871,0.394" Canvas.Left="89">
                     <Rectangle.Fill>
                         <ImageBrush ImageSource="/View;component/Images/folder.png"/>

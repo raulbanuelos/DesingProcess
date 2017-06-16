@@ -543,10 +543,20 @@ namespace View.Services.ViewModel
                     EnabledCorregir = true;
                     DocumentosCorregir = " " + num_pendientes + " Documento(s) pendiente(s) por corregir";
                 }
+                else
+                {
+                    EnabledCorregir = false;
+                    DocumentosCorregir = string.Empty;
+                }
                 if (pendientes_liberar > 0)
                 {
                     EnabledPendientes_Liberar = true;
                     PendientesLiberar = "Existen  " + pendientes_liberar + " documentos que puedes entregar";
+                }
+                else
+                {
+                    EnabledPendientes_Liberar = false;
+                    PendientesLiberar = string.Empty;
                 }
             }     
         }

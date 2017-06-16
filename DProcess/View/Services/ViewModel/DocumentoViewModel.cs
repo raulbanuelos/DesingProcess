@@ -302,7 +302,7 @@ namespace View.Services.ViewModel
 
         }
 
-        private bool _bttnArchivos=true;
+        private bool _bttnArchivos;
         public bool BttnArchivos {
             get
             {
@@ -473,10 +473,13 @@ namespace View.Services.ViewModel
                 BttnModificar = true;
                 BttnEliminar = band;
                 IsEnabled = true;
-            } 
+                BttnArchivos = true;
+            } //si es ventana para corregir archivos.
             if (band==false)
             {
-
+                IsEnabled = true;
+                BttnArchivos = true;
+                BttnModificar = true;
             }
             BttnVersion = band;
             idVersion = selectedDocumento.version.id_version;
@@ -525,6 +528,7 @@ namespace View.Services.ViewModel
         {
             BotonGuardar = "Guardar";
             BttnGuardar = true;
+            BttnArchivos = true;
             Version = "1";
             User = Modelusuario;
             usuario = User.NombreUsuario;
@@ -883,11 +887,13 @@ namespace View.Services.ViewModel
             Version = auxversion;
             BotonGuardar = "Guardar";
             IsEnabled = false;
+            BttnArchivos = false;
             if (Module.UsuarioIsRol(User.Roles, 2))
             {
                 BttnEliminar = true;
                 BttnModificar = true;
                 IsEnabled = true;
+                BttnArchivos = true;
             }
             BttnVersion = true;
             BttnGuardar = false;
@@ -1171,6 +1177,7 @@ namespace View.Services.ViewModel
                     BttnModificar = false;
                     BttnVersion = false;
                     NombreEnabled = false;
+                    BttnArchivos = true;
                     BttnCancelar = true;
                     IsEnabled = true;
                     usuario = User.NombreUsuario;

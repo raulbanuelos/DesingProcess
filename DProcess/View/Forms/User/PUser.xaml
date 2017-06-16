@@ -4,11 +4,41 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:View.Forms.User"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="PUser">
+      Title="PUser" Height="400" Width="1000">
 
-    <Grid>
-        <Label Content="Datos del usuario"></Label>
+    <Grid Margin="0" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="200*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Datos del usuario" FontWeight="Bold" FontSize="25" Grid.Column="1"></Label>
+        <materialDesign:PackIcon Kind="AccountCircle"  Width="140" Height="140" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Margin="5,5,5,185" />
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+            <Canvas Height="50">
+                <TextBox materialDesign:HintAssist.Hint="Usuario " Text="" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" IsReadOnly="True"></TextBox>
+            </Canvas>
+            <Canvas Height="50">
+                <TextBox materialDesign:HintAssist.Hint="Password" Text="" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" IsReadOnly="True"></TextBox>
+            </Canvas>
+            <Canvas Height="50">
+                <TextBox materialDesign:HintAssist.Hint="Nombre" Text="" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" Height="50" IsReadOnly="True"></TextBox>
+            </Canvas>
+            <Canvas Height="50">
+                <TextBox materialDesign:HintAssist.Hint="Apellido Paterno" Text="" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" Height="50" IsReadOnly="True"></TextBox>
+            </Canvas>
+            <Canvas Height="50">
+                <TextBox materialDesign:HintAssist.Hint="Apellido Materno" Text="" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" Height="50" IsReadOnly="True"></TextBox>
+            </Canvas>
+
+        </StackPanel>
     </Grid>
 </Page>

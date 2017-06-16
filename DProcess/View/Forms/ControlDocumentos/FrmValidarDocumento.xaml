@@ -60,7 +60,7 @@
                     <TextBox materialDesign:HintAssist.Hint="Versión" Text="{Binding SelectedDocumento.version.no_version}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="390" IsReadOnly="True"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <DatePicker materialDesign:HintAssist.Hint="Fecha" Width="390" FontSize="18" SelectedDate="{Binding SelectedDocumento.version.fecha_version}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
+                    <DatePicker materialDesign:HintAssist.Hint="Fecha" Width="390" FontSize="18" SelectedDate="{Binding SelectedDocumento.version.fecha_version}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" IsEnabled="False"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Height="50" >
                     <TextBox  materialDesign:HintAssist.Hint="Tipo de documento" Text="{Binding  SelectedDocumento.tipo.tipo_documento}"   Width="390" IsReadOnly="True" Height="50" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
