@@ -81,10 +81,10 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     user.Nombre = nombre;
                     user.APaterno = APaterno;
                     user.AMaterno = AMaterno;
-                    user.Estado = estado;
-                    user.Usql = usql;
-                    user.Psql = psql;
-                    user.Bloqueado = bloqueado;
+                    user.Estado = 0;
+                    user.Usql = null;
+                    user.Psql = null;
+                    user.Bloqueado = false;
                     //Agrega el objeto a la tabla.
                     Conexion.Usuarios.Add(user);
                     //Se guardan los cambios

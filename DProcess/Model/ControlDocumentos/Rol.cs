@@ -13,9 +13,11 @@ namespace Model.ControlDocumentos
         public string nombre_rol { get; set; }
         public DateTime fecha_creacion { get; set; }
         public DateTime fecha_actualizacion { get; set; }
+        public bool selected { get; set; }
+        public string id_usuario { get; set; }
         #endregion
         #region Constructores
-        
+
         //int id_rol,string nombre_rol,DateTime fecha_creacion,DateTime fecha_actualizacion
         #endregion
     }

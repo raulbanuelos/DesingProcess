@@ -670,8 +670,61 @@ namespace Model.ControlDocumentos
             // Se ejecuta el método y retorna los registros que se eliminaron.
             return ServiceRol.DeleteRol(rol.id_rol);
         }
+        /// <summary>
+        /// Método que devuelve una lista de los roles que tiene un usuario.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Rol> GetRol_Usuario(string usuario)
+        {
+            //Se inicializan los servicios
+            SO_Rol ServiceRol = new SO_Rol();
+
+            //Se crea una lista de tipo rol, la cual se va a retornar
+            ObservableCollection<Rol> Lista = new ObservableCollection<Rol>();
+
+            //obtenemos todo de la BD.
+            IList ObjRol = ServiceRol.GetRol_Usuario(usuario);
+
+            //Verificamos que la informacion no esté vacía.
+            if (ObjRol != null)
+            {
+                foreach (var item in ObjRol)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    Rol obj = new Rol();
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_rol = (int)tipo.GetProperty("ID_ROL").GetValue(item, null);
+                    obj.nombre_rol = (string)tipo.GetProperty("NOMBRE_ROL").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //regresamos la lista.
+            return Lista;
+        }
+
+        /// <summary>
+        /// Método que inserta los roles de cada usuario.
+        /// </summary>
+        /// <param name="rol"></param>
+        /// <returns></returns>
+        public static int SetRol_Usuario(Rol rol)
+        {
+
+            //Inicializamos los servicios
+            SO_Rol ServiceRol = new SO_Rol();
+
+            //Se ejecuta el método y retorna el id del rol
+            return ServiceRol.SetRol_Usuario(rol.id_rol,rol.id_usuario);
+        }
         #endregion
-        
+
         #region TipoDocumento
 
         /// <summary>

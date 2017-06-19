@@ -391,7 +391,9 @@ namespace View.Services.ViewModel
         {
             PUser pantallaUser = new PUser();
 
-            pantallaUser.DataContext = this;
+            PUserViewModel context = new PUserViewModel(ModelUsuario);
+
+            pantallaUser.DataContext = context;
 
             Pagina = pantallaUser;
         }

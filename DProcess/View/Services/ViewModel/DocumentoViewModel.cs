@@ -1288,9 +1288,9 @@ namespace View.Services.ViewModel
         private void agregarUsuario()
         {
             FrmNuevoUsuario frm = new FrmNuevoUsuario();
-            NuevoUsuarioVM context = new NuevoUsuarioVM();
+            //NuevoUsuarioVM context = new NuevoUsuarioVM();
 
-            frm.DataContext = context;
+           // frm.DataContext = context;
             frm.ShowDialog();
             ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
             usuario = auxUsuario;

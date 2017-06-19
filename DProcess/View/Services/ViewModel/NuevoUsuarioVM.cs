@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using System.Windows.Controls;
+using System.Collections.ObjectModel;
+using Model;
 
 namespace View.Services.ViewModel
 {
@@ -33,6 +35,7 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Propiedades
+        public Usuario User;
 
         private string _usuario;
         public string Usuario
@@ -118,10 +121,30 @@ namespace View.Services.ViewModel
             }
         }
 
-        
+        private ObservableCollection<Model.ControlDocumentos.Rol> _listaRol = new ObservableCollection<Model.ControlDocumentos.Rol>();
+        public ObservableCollection<Model.ControlDocumentos.Rol> ListaRol
+        {
+            get
+            {
+                return _listaRol;
+            }
+            set
+            {
+                _listaRol = value;
+                NotifyChange("ListaRol");
+            }
+        }
+
 
         #endregion
+        #region Constructor
 
+        public NuevoUsuarioVM(Usuario ModelUsuario )
+        {
+            User = ModelUsuario;
+            ListaRol= DataManagerControlDocumentos.GetRol_Usuario(User.NombreUsuario);
+        }
+        #endregion
         #region comandos
 
         /// <summary>
@@ -161,6 +184,7 @@ namespace View.Services.ViewModel
                     objUsuario.nombre = _nombre;
                     objUsuario.APaterno = _aPaterno;
                     objUsuario.AMaterno = _aMaterno;
+                    //objUsuario.password = "password";
                     objUsuario.password = encriptar.encript(_contraseña);
 
                     string validate = DataManagerControlDocumentos.ValidateUsuario(objUsuario);
@@ -176,8 +200,21 @@ namespace View.Services.ViewModel
                             //si el usuario es diferente de vacío
                             if (usuario != string.Empty)
                             {
+                                foreach (var item in _listaRol)
+                                {
+                                    if (item.selected == true)
+                                    {
+                                        Model.ControlDocumentos.Rol objRol = new Model.ControlDocumentos.Rol();
+
+                                        objRol.id_rol = item.id_rol;
+                                        objRol.id_usuario = usuario;
+
+                                        int id_rolUsuario = DataManagerControlDocumentos.SetRol_Usuario(objRol);
+                                    }
+                                }
+
                                 //se muestra un mensaje de cambios realizados.
-                                await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+                                await dialog.SendMessage("Información", "Usuario dado de alta..");
                                 //Obtenemos la ventana actual.
                                 var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
@@ -257,6 +294,16 @@ namespace View.Services.ViewModel
             {
                 return true;
             }
+        }
+
+        private bool ValidarSelected()
+        {
+            foreach (var item in ListaRol)
+            {
+                if (!item.selected)
+                    return false;
+            }
+            return true;
         }
         #endregion
     }

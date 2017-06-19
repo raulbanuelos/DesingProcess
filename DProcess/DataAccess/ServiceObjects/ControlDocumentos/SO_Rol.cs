@@ -149,6 +149,71 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return 0;
             }
         }
+
+        public IList GetRol_Usuario(string usuario)
+        {
+            try
+            {
+                //Establecemos la conexión a la BD.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
+                    var Lista = (from r in Conexion.TBL_ROL
+                                 join tr in Conexion.TR_ROL_USUARIOS on r.ID_ROL equals tr.ID_ROL
+                                 where tr.ID_USUARIO.Contains(usuario)
+                                 select new
+                                 {
+                                     r.ID_ROL,
+                                     r.NOMBRE_ROL
+                                 }).ToList();
+                    //se retorna la lista
+                    return Lista;
+
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay algún error, se retorna nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que insertar los roles de cada usuario
+        /// </summary>
+        /// <param name="id_rol"></param>
+        /// <param name="id_usuario"></param>
+        /// <returns></returns>
+        public int SetRol_Usuario(int id_rol,string id_usuario)
+        {
+            try
+            {
+                //Se establece conexión a la BD.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Se  crea un objeto de tipo usuarios, el cual se va agregar a la tabla 
+                    TR_ROL_USUARIOS rol = new TR_ROL_USUARIOS();
+
+                    //Se asiganan los valores.
+                    rol.ID_ROL=id_rol;
+                    rol.ID_USUARIO = id_usuario;
+
+                    //Agrega el objeto a la tabla.
+                    Conexion.TR_ROL_USUARIOS.Add(rol);
+
+                    //Se guardan los cambios
+                    Conexion.SaveChanges();
+
+                    //Retorna el código del usuario insertado
+                    return rol.ID_ROL_USUARIOS;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si hay error regresa una cadena vacía.
+                return 0;
+            }
+        }
     }
 
 }

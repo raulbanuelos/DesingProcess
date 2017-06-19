@@ -1,9 +1,13 @@
-﻿using System;
+﻿using Encriptar;
+using Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using View.Forms.ControlDocumentos;
 
 namespace View.Services.ViewModel
 {
@@ -23,7 +27,10 @@ namespace View.Services.ViewModel
         }
         #endregion
 
-        # region Propiedades
+        #region Propiedades
+        public Usuario user;
+        Encriptacion encriptar = new Encriptacion();
+
         private string _usuario;
         public string Usuario {
             get
@@ -56,12 +63,12 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return _password;
+                return _nombre;
             }
             set
             {
-                _password = value;
-                NotifyChange("Password");
+                _nombre = value;
+                NotifyChange("Nombre");
             }
         }
 
@@ -78,11 +85,48 @@ namespace View.Services.ViewModel
                 NotifyChange("ApellidoPaterno");
             }
         }
+        private string _apellidoMaterno;
+        public string ApellidMaterno
+        {
+            get
+            {
+                return _apellidoMaterno;
+            }
+            set
+            {
+                _apellidoMaterno = value;
+                NotifyChange("ApellidoMaterno");
+            }
+        }
         #endregion
 
         #region Contructor
+        public PUserViewModel(Usuario ModelUsuario)
+        {
+            user = ModelUsuario;
+            Usuario = encriptar.desencript(user.NombreUsuario);
+            Nombre = user.Nombre;
+            ApellidPaterno = user.ApellidoPaterno;
+            ApellidMaterno = user.ApellidoMaterno;
 
+        }
         #endregion
+
+        public ICommand AgregarUsuario
+        {
+            get
+            {
+                return new RelayCommand(o => agregarUsuario());
+            }
+        }
+        private void agregarUsuario()
+        {
+            FrmNuevoUsuario frm = new FrmNuevoUsuario();
+            NuevoUsuarioVM context = new NuevoUsuarioVM(user);
+
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
 
     }
 }
