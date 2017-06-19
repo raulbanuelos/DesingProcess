@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System;
 using View.Forms.DataBase;
 using View.Forms.User;
+using View.Forms.Tooling;
 
 namespace View.Services.ViewModel
 {
@@ -322,6 +323,14 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand IrTooling
+        {
+            get
+            {
+                return new RelayCommand( o => irTooling());
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -385,6 +394,15 @@ namespace View.Services.ViewModel
             pantallaUser.DataContext = this;
 
             Pagina = pantallaUser;
+        }
+
+        private void irTooling()
+        {
+            PTooling pantallaTooling = new PTooling();
+
+            pantallaTooling.DataContext = this;
+
+            Pagina = pantallaTooling;
         }
 
         private void irControlDocumentos()

@@ -30,9 +30,6 @@ namespace View.Forms.Index
             {
                 ExampleFourTextBox = "Tienes " + NoDocumentosValidar + " documentos por validar.";
             }
-
-            ExampleFourTextBox += Environment.NewLine + "Existen 25 documentos que su fecha de actualización ya vencio.";
-            ExampleFourTextBox += Environment.NewLine + "Tienes 18 alertas del software de hojas de ruta.";
             
             foreach (var s in ExampleFourTextBox.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
             {

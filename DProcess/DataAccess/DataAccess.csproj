@@ -268,6 +268,35 @@
     </Compile>
     <Compile Include="ServiceObjects\SO_CentroTrabajo.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Material.cs" />
+    <Compile Include="ServiceObjects\Tooling\ClasificacionHerramental.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\CollarBK.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\MaestroHerramentales.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\ModelTooling.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelTooling.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\ModelTooling.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\ModelTooling.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelTooling.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\PLANO_HERRAMENTAL.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\SO_BK.cs" />
+    <Compile Include="ServiceObjects\Tooling\SO_MaestroHerramental.cs" />
     <Compile Include="ServiceObjects\Unidades\ModelUnidades.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -386,6 +415,16 @@
       <DependentUpon>ModelPerfiles.edmx</DependentUpon>
       <LastGenOutput>ModelPerfiles.cs</LastGenOutput>
     </Content>
+    <Content Include="ServiceObjects\Tooling\ModelTooling.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelTooling.edmx</DependentUpon>
+      <LastGenOutput>ModelTooling.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ServiceObjects\Tooling\ModelTooling.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelTooling.edmx</DependentUpon>
+      <LastGenOutput>ModelTooling.cs</LastGenOutput>
+    </Content>
     <Content Include="ServiceObjects\Unidades\ModelUnidades.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelUnidades.edmx</DependentUpon>
@@ -419,6 +458,13 @@
     </EntityDeploy>
     <None Include="ServiceObjects\Perfiles\ModelPerfiles.edmx.diagram">
       <DependentUpon>ModelPerfiles.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="ServiceObjects\Tooling\ModelTooling.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelTooling.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ServiceObjects\Tooling\ModelTooling.edmx.diagram">
+      <DependentUpon>ModelTooling.edmx</DependentUpon>
     </None>
     <None Include="ServiceObjects\Unidades\ModelUnidades.edmx.diagram">
       <DependentUpon>ModelUnidades.edmx</DependentUpon>

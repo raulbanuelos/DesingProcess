@@ -81,7 +81,7 @@
                 </Controls:Tile>
 
                 <!--Tooling-->
-                <Controls:Tile TiltFactor="2" Background="#01A300" Title="Tooling" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="0" Cursor="Hand" IsEnabled="{Binding PerfilTooling}">
+                <Controls:Tile Command="{Binding IrTooling}" TiltFactor="2" Background="#01A300" Title="Tooling" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="0" Cursor="Hand" IsEnabled="{Binding PerfilTooling}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e1e9c6e9823045bc8a3f97fca9e18867" Name="Diagram1" ZoomLevel="124">
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ClasificacionHerramental" Width="2.75" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Width="4.125" PointX="5.625" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.PLANO_HERRAMENTAL" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.fk_Clasificacion_MaestroHerramentales" ManuallyRouted="false" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.fk_Plano_MaestroHerramentales" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CollarBK" Width="2.25" PointX="12.25" PointY="1.375" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CollarBK_MaestroHerramentales" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
