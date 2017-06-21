@@ -210,7 +210,7 @@ namespace Model
             return ListaResultante;
         }
 
-        public static ObservableCollection<Herramental> GetCollarBK(double maxA, double minB)
+        public static DataSet GetCollarBK(double maxA, double minB)
         {
             SO_BK ServicioBk = new SO_BK();
 
@@ -229,17 +229,104 @@ namespace Model
 
                     herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+
                     Propiedad propiedadDimA = new Propiedad();
                     propiedadDimA.Unidad = (string)tipo.GetProperty("DIM_A_UNIDAD").GetValue(item, null);
                     propiedadDimA.Valor = (double)tipo.GetProperty("DIM_A").GetValue(item, null);
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    herramental.Propiedades.Add(propiedadDimA);
+                    
 
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.Unidad = (string)tipo.GetProperty("DIM_B_UNIDAD").GetValue(item, null);
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DIM_B").GetValue(item, null);
+                    propiedadDimA.DescripcionCorta = "Dim B";
+                    herramental.Propiedades.Add(propiedadDimB);
 
                     herramental.Propiedades = propiedades;
                     ListaResultante.Add(herramental);
                 }
             }
 
-            return ListaResultante;
+            return ConvertHerramental(ListaResultante,"CollarBK");
+        }
+
+        public static DataSet GetCollarBK()
+        {
+            SO_BK ServicioBk = new SO_BK();
+
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            IList informacionBD = ServicioBk.GetAllCollar();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+                    ObservableCollection<Propiedad> propiedades = new ObservableCollection<Propiedad>();
+
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.Unidad = (string)tipo.GetProperty("DIM_A_UNIDAD").GetValue(item, null);
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DIM_A").GetValue(item, null);
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    herramental.Propiedades.Add(propiedadDimA);
+
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.Unidad = (string)tipo.GetProperty("DIM_B_UNIDAD").GetValue(item, null);
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DIM_B").GetValue(item, null);
+                    propiedadDimA.DescripcionCorta = "Dim B";
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    herramental.Propiedades = propiedades;
+                    ListaResultante.Add(herramental);
+                }
+            }
+
+            return ConvertHerramental(ListaResultante, "CollarBK");
+        }
+
+        public static DataSet ConvertHerramental(ObservableCollection<Herramental> lista,string nameTable)
+        {
+            DataSet listaResultante = new DataSet(nameTable);
+
+            DataTable dt = new DataTable();
+
+            dt.Columns.Add("Code");
+            dt.Columns.Add("Description");
+
+            if (lista.Count > 0)
+            {
+                foreach (var item in lista[0].Propiedades)
+                {
+                    dt.Columns.Add(item.DescripcionCorta);
+                }
+
+                foreach (Herramental herramental in lista)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr[0] = herramental.Codigo;
+                    dr[1] = herramental.DescripcionGeneral;
+
+                    int c = 2;
+                    foreach (Propiedad propiedad in herramental.Propiedades)
+                    {
+                        dr[c] = propiedad.Valor;
+                        c += 1;
+                    }
+                    dt.Rows.Add(dr);
+                }
+            }
+
+            listaResultante.Tables.Add(dt);
+
+            return listaResultante;
         }
         #endregion
 

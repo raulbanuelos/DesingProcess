@@ -99,14 +99,24 @@ namespace DataAccess.ServiceObjects.Tooling
                 using (var Conexion = new EntitiesTooling())
                 {
                     //Realizamos la consulta, el resultado lo guardamos en una variable anónima.
-                    var Lista = (from a in Conexion.CollarBK
-                                 select a).ToList();
+                    var Lista = (from a in Conexion.MaestroHerramentales
+                                 join b in Conexion.CollarBK on a.Codigo equals b.Codigo
+                                 select new
+                                 {
+                                     CODIGO = a.Codigo,
+                                     DESCRIPCION = a.Descripcion,
+                                     PARTE = b.Parte,
+                                     DIM_A = b.DimA,
+                                     DIM_A_UNIDAD = b.DimA_Unidad,
+                                     DIM_B = b.DimB,
+                                     DIM_B_UNIDAD = b.DimB_Unidad
+                                 }).ToList();
 
                     //Retornamos el resultado de la consulta.
                     return Lista;
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 //Si ocurre algún error, retornamos un nulo.
                 return null;

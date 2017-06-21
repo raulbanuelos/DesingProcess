@@ -23,7 +23,10 @@
                 </TabItem.Header>
                 <TabItem.Content>
                     <StackPanel>
-                        <Label Content="Contenido 1"></Label>
+                        <Label Content="Data"></Label>
+                        <DataGrid x:Name="dataGrid" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="True" ItemsSource="{Binding ListaHerramentales}" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
+                            
+                        </DataGrid>
                     </StackPanel>
                 </TabItem.Content>
             </TabItem>

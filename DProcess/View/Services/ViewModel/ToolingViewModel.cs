@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -83,6 +84,14 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => irCollarBK());
             }
         }
+
+        private DataSet listaHerramentales;
+        public DataSet ListaHerramentales
+        {
+            get { return listaHerramentales; }
+            set { listaHerramentales = value; NotifyChange("ListaHerramentales"); }
+        }
+
         #endregion
 
         #region Methods
@@ -95,6 +104,7 @@ namespace View.Services.ViewModel
         {
             WCollarBK wCollar = new WCollarBK();
 
+            ListaHerramentales = DataManager.GetCollarBK();
             wCollar.DataContext = this;
 
             wCollar.ShowDialog();
