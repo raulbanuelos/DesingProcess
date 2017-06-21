@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DataAccess.ServiceObjects.Herramentales
+namespace DataAccess.ServiceObjects.Tooling
 {
     public class SO_ClasificacionHerramental
     {
-        #region Métodos
-
         /// <summary>
         /// Método que inserta una clasificacion en la base de datos.
         /// </summary>
@@ -23,12 +24,12 @@ namespace DataAccess.ServiceObjects.Herramentales
         /// <param name="tablaDetalles"></param>
         /// <param name="fechaModificacion"></param>
         /// <returns>ID de la clasificación que se insertó, si se registro algún problema retorna un 0</returns>
-        public int SetClasificacionHerramental(string descripcion,string unidadMedida,double costo,int cantidadUtilizar,int vidaUtil,bool verificacionAnual,string cotasRevisar,string objetoXML,string tablaDetalles,DateTime fechaModificacion)
+        public int SetClasificacionHerramental(string descripcion, string unidadMedida, double costo, int cantidadUtilizar, int vidaUtil, bool verificacionAnual, string cotasRevisar, string objetoXML, string tablaDetalles, DateTime fechaModificacion)
         {
             try
             {
                 //Incializamos la conexión a través de Entity Framework.
-                using (var Conexion = new EntitiesHerramentales())
+                using (var Conexion = new EntitiesTooling())
                 {
                     //Declaramos un objeto de tipo ClasificacionHerramental que será el que contenga la información para insertarlo.
                     ClasificacionHerramental obj = new ClasificacionHerramental();
@@ -82,7 +83,7 @@ namespace DataAccess.ServiceObjects.Herramentales
             try
             {
                 //Incializamos la conexión a través de Entity Framework.
-                using (var Conexion = new EntitiesHerramentales())
+                using (var Conexion = new EntitiesTooling())
                 {
                     //Obtenemos el objeto que se requiere modificar.
                     ClasificacionHerramental clasificacion = Conexion.ClasificacionHerramental.Where(x => x.idClasificacion == idClasificacion).FirstOrDefault();
@@ -123,7 +124,7 @@ namespace DataAccess.ServiceObjects.Herramentales
             try
             {
                 //Incializamos la conexión a través de Entity Framework.
-                using (var Conexion = new EntitiesHerramentales())
+                using (var Conexion = new EntitiesTooling())
                 {
                     //Obtenemos el objeto que se requiere eliminar.
                     ClasificacionHerramental clasificacion = Conexion.ClasificacionHerramental.Where(x => x.idClasificacion == idClaficacionHerramental).FirstOrDefault();
@@ -151,7 +152,7 @@ namespace DataAccess.ServiceObjects.Herramentales
             try
             {
                 //Incializamos la conexión a través de Entity Framework.
-                using (var Conexion = new EntitiesHerramentales())
+                using (var Conexion = new EntitiesTooling())
                 {
                     //Realizamos la consulta para obtener todos los registros, los ordenamos por la descripcion.
                     var lista = (from h in Conexion.ClasificacionHerramental
@@ -167,6 +168,5 @@ namespace DataAccess.ServiceObjects.Herramentales
                 return null;
             }
         }
-        #endregion
     }
 }

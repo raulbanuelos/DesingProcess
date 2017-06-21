@@ -3,7 +3,6 @@ using Model;
 using System.Windows.Input;
 using System;
 using Model.ControlDocumentos;
-using DataAccess.ServiceObjects.Herramentales;
 using DataAccess.ServiceObjects.ControlDocumentos;
 using System.IO;
 

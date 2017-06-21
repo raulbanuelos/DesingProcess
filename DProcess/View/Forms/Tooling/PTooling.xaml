@@ -4,11 +4,84 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:View.Forms.Tooling"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      Width="Auto" Height="Auto"
       Title="PTooling">
 
-    <Grid>
+    <Grid ShowGridLines="True" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="85"/>
+            <RowDefinition Height="85"/>
+            <RowDefinition Height="130"/>
+            <RowDefinition Height="110*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="1600"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Menu IsMainMenu="True" Grid.Row="0" Grid.Column="1" Cursor="Hand">
+            <MenuItem Header="_File" Cursor="Hand">
+                <MenuItem Header="New" Cursor="Hand">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Newspaper" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+
+            <MenuItem Header="_Operations" Cursor="Hand">
+                <MenuItem Header="Auto Finish Turn" Cursor="Hand">
+                    <MenuItem Header="Collar" Cursor="Hand" Command="{Binding IrCollarBK}"/>
+                    <MenuItem Header="Guide plate" Cursor="Hand"/>
+                    <MenuItem Header="Tool turn"  Cursor="Hand"/>
+                    <MenuItem Header="Tool bore" Cursor="Hand"/>
+                    <MenuItem Header="Tool barm" Cursor="Hand"/>
+                    <MenuItem Header="Cam" Cursor="Hand"/>
+                    <MenuItem Header="Shield" Cursor="Hand"/>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
         
+        <Label x:Name="label" Content="Tooling Master" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="1"/>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical">
+
+            <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
+                <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="Search..." TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction
+									Command="{Binding BuscarTooling}"
+                                    CommandParameter="{Binding ElementName=txt_busqueda, Path=Text}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+
+                
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Total: "></Label>
+                <Label Content="{Binding MaestroHerramentales.Count}"></Label>
+            </StackPanel>
+        </StackPanel>
+        
+        <DataGrid x:Name="dataGrid" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding MaestroHerramentales}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Codigo}" ClipboardContentBinding="{x:Null}" Header="Code"/>
+                <DataGridTextColumn Binding="{Binding DescripcionGeneral}" ClipboardContentBinding="{x:Null}" Header="Description"/>
+                <DataGridTextColumn Binding="{Binding clasificacionHerramental.Descripcion}" ClipboardContentBinding="{x:Null}" Header="Classification"/>
+                <DataGridTextColumn Binding="{Binding Plano}" ClipboardContentBinding="{x:Null}" Header="Drawing"/>
+            </DataGrid.Columns>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding VerDetalleHerramental}"
+                             CommandParameter="{Binding Codigo}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </DataGrid>
     </Grid>
 </Page>

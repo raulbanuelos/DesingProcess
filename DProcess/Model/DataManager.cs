@@ -5,13 +5,13 @@ using System.Data;
 using System.Threading.Tasks;
 using DataAccess.ServiceObjects;
 using DataAccess.ServiceObjects.Operaciones.Premaquinado;
-using DataAccess.ServiceObjects.Herramentales;
 using DataAccess.ServiceObjects.MateriasPrimas;
 using DataAccess.ServiceObjects.Usuario;
 using DataAccess.ServiceObjects.Unidades;
 using System.Collections.Generic;
 using DataAccess.ServiceObjects.ControlDocumentos;
 using DataAccess.ServiceObjects.Perfiles;
+using DataAccess.ServiceObjects.Tooling;
 
 namespace Model
 {
@@ -181,7 +181,66 @@ namespace Model
             return ListaResultante;
         }
 
-       
+        public static ObservableCollection<Herramental> GetMaestroHerramental(string busqueda)
+        {
+            SO_MaestroHerramental ServiceHerramental = new SO_MaestroHerramental();
+
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            DataSet informacionBD = ServiceHerramental.GetMaestroHerramentales(busqueda == null ? string.Empty : busqueda);
+
+            if (informacionBD != null)
+            {
+                //Comparamos si la información obtenida contiene al menos una tabla y esa tabla contiene al menos un registro.
+                if (informacionBD.Tables.Count > 0 && informacionBD.Tables[0].Rows.Count > 0)
+                {
+                    //Itermamos los registro de la tabla cero.
+                    foreach (DataRow element in informacionBD.Tables[0].Rows)
+                    {
+                        Herramental herramental = new Herramental();
+
+                        herramental.Codigo = Convert.ToString(element["Codigo"]);
+                        herramental.DescripcionGeneral = Convert.ToString(element["Descripcion"]);
+                        herramental.clasificacionHerramental.Descripcion = Convert.ToString(element["DescripcionClasificacion"]);
+                        herramental.Plano = Convert.ToString(element["NO_PLANO"]);
+                        ListaResultante.Add(herramental);
+                    }
+                }
+            }
+            return ListaResultante;
+        }
+
+        public static ObservableCollection<Herramental> GetCollarBK(double maxA, double minB)
+        {
+            SO_BK ServicioBk = new SO_BK();
+
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            IList informacionBD = ServicioBk.GetCollar(maxA, minB);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+                    ObservableCollection<Propiedad> propiedades = new ObservableCollection<Propiedad>();
+
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.Unidad = (string)tipo.GetProperty("DIM_A_UNIDAD").GetValue(item, null);
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DIM_A").GetValue(item, null);
+
+
+                    herramental.Propiedades = propiedades;
+                    ListaResultante.Add(herramental);
+                }
+            }
+
+            return ListaResultante;
+        }
         #endregion
 
         #region Métodos Genéricos

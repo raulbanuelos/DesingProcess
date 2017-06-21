@@ -19,7 +19,9 @@ namespace DataAccess.ServiceObjects.Tooling
         public string Plano { get; set; }
         public string Parte { get; set; }
         public Nullable<double> DimA { get; set; }
+        public string DimA_Unidad { get; set; }
         public Nullable<double> DimB { get; set; }
+        public string DimB_Unidad { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }

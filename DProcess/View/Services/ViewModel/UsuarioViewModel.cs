@@ -402,24 +402,21 @@ namespace View.Services.ViewModel
         {
             PTooling pantallaTooling = new PTooling();
 
-            pantallaTooling.DataContext = this;
+            ToolingViewModel vm = new ToolingViewModel();
+
+            pantallaTooling.DataContext = vm;
 
             Pagina = pantallaTooling;
         }
 
         private void irControlDocumentos()
         {
-            //FrmDocumento frm = new FrmDocumento();
-            //DocumentoViewModel context = new DocumentoViewModel("IF00-0093", "2", "2", "Ayuda Visual Especificaciones de abertura de máquina H", 1026);
-            ////DocumentoViewModel context = new DocumentoViewModel();
-
-            //frm.DataContext = context;
-            //frm.ShowDialog();
-
-
             ControlDocumento frm = new ControlDocumento();
+
             ControlDocumentoViewModel context = new ControlDocumentoViewModel(ModelUsuario);
+
             frm.DataContext = context;
+
             Pagina = frm;
 
         }

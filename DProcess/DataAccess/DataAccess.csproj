@@ -114,25 +114,6 @@
     <Compile Include="ServiceObjects\ControlDocumentos\Usuarios.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
-    <Compile Include="ServiceObjects\Herramentales\ClasificacionHerramental.cs">
-      <DependentUpon>ModelHerramentales.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ServiceObjects\Herramentales\ModelHerramentales.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelHerramentales.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ServiceObjects\Herramentales\ModelHerramentales.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelHerramentales.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ServiceObjects\Herramentales\ModelHerramentales.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelHerramentales.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="ServiceObjects\Herramentales\SO_ClasificacionHerramental.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\Cliente.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
@@ -296,6 +277,7 @@
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\SO_BK.cs" />
+    <Compile Include="ServiceObjects\Tooling\SO_ClasificacionHerramental.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_MaestroHerramental.cs" />
     <Compile Include="ServiceObjects\Unidades\ModelUnidades.Context.cs">
       <AutoGen>True</AutoGen>
@@ -374,16 +356,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelControlDocumentos.edmx</DependentUpon>
       <LastGenOutput>ModelControlDocumentos.cs</LastGenOutput>
-    </Content>
-    <Content Include="ServiceObjects\Herramentales\ModelHerramentales.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelHerramentales.edmx</DependentUpon>
-      <LastGenOutput>ModelHerramentales.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="ServiceObjects\Herramentales\ModelHerramentales.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelHerramentales.edmx</DependentUpon>
-      <LastGenOutput>ModelHerramentales.cs</LastGenOutput>
     </Content>
     <Content Include="ServiceObjects\MateriasPrimas\ModelMateriasPrimas.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -477,19 +449,12 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelMateriasPrimas.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <EntityDeploy Include="ServiceObjects\Herramentales\ModelHerramentales.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelHerramentales.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <EntityDeploy Include="ServiceObjects\ControlDocumentos\ModelControlDocumentos.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelControlDocumentos.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="ServiceObjects\ControlDocumentos\ModelControlDocumentos.edmx.diagram">
       <DependentUpon>ModelControlDocumentos.edmx</DependentUpon>
-    </None>
-    <None Include="ServiceObjects\Herramentales\ModelHerramentales.edmx.diagram">
-      <DependentUpon>ModelHerramentales.edmx</DependentUpon>
     </None>
     <None Include="ServiceObjects\MateriasPrimas\ModelMateriasPrimas.edmx.diagram">
       <DependentUpon>ModelMateriasPrimas.edmx</DependentUpon>

@@ -1,0 +1,54 @@
+﻿<Controls:MetroWindow x:Class="View.Forms.Tooling.WCollarBK"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:View.Forms.Tooling"
+        mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen"
+        Title="WCollarBK" Height="338" Width="876">
+
+    <Controls:MetroWindow.Resources>
+        <Style x:Key="TabHeader" TargetType="Label">
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+    </Controls:MetroWindow.Resources>
+
+    <Grid>
+        <TabControl>
+            <TabItem>
+                <TabItem.Header>
+                    <Label Content="Data" Style="{StaticResource TabHeader}"></Label>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <Label Content="Contenido 1"></Label>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
+                    <Label Content="Search" Style="{StaticResource TabHeader}"></Label>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <Label Content="Contenido 2"></Label>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
+                    <Label Content="Formula" Style="{StaticResource TabHeader}"></Label>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <Label Content="Contenido 3"></Label>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Controls:MetroWindow>

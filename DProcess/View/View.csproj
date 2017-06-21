@@ -177,6 +177,9 @@
     <Compile Include="Forms\Tooling\PTooling.xaml.cs">
       <DependentUpon>PTooling.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\WCollarBK.xaml.cs">
+      <DependentUpon>WCollarBK.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\UserControls\NumericEntry.xaml.cs">
       <DependentUpon>NumericEntry.xaml</DependentUpon>
     </Compile>
@@ -206,6 +209,7 @@
     <Compile Include="Services\ViewModel\PropiedadViewModel.cs" />
     <Compile Include="Services\ViewModel\CuffViewModel.cs" />
     <Compile Include="Services\ViewModel\PUserViewModel.cs" />
+    <Compile Include="Services\ViewModel\ToolingViewModel.cs" />
     <Compile Include="Services\ViewModel\TubosCLViewModel.cs" />
     <Compile Include="Services\ViewModel\TubosHDViewModel.cs" />
     <Compile Include="Services\Router.cs" />
@@ -331,6 +335,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\Tooling\PTooling.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WCollarBK.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

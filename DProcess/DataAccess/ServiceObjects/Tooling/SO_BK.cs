@@ -27,8 +27,10 @@ namespace DataAccess.ServiceObjects.Tooling
                                  {
                                      CODIGO = a.Codigo,
                                      DESCRIPCION = a.Descripcion,
-                                     DIMA = b.DimA,
-                                     DIMB = b.DimB,
+                                     DIM_A = b.DimA,
+                                     DIM_B = b.DimB,
+                                     DIM_B_UNIDAD = b.DimB_Unidad,
+                                     DIM_A_UNIDAD = b.DimA_Unidad,
                                      PARTE = b.Parte,
                                      PAREDCOLLARIN = b.DimA - b.DimB
                                  }
@@ -67,8 +69,38 @@ namespace DataAccess.ServiceObjects.Tooling
                                  {
                                      CODIGO = a.Codigo,
                                      DESCRIPCION = a.Descripcion,
-                                     PARTE = b.Parte
+                                     PARTE = b.Parte,
+                                     DIM_A = b.DimA,
+                                     DIM_A_UNIDAD = b.DimA_Unidad,
+                                     DIM_B = b.DimB,
+                                     DIM_B_UNIDAD = b.DimB_Unidad
                                  }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si ocurre algún error, retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que retorna todos los registros de collarines de Auto Finish Turn.
+        /// </summary>
+        /// <returns></returns>
+        public IList GetAllCollar()
+        {
+            try
+            {
+                //Establecemos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta, el resultado lo guardamos en una variable anónima.
+                    var Lista = (from a in Conexion.CollarBK
+                                 select a).ToList();
 
                     //Retornamos el resultado de la consulta.
                     return Lista;

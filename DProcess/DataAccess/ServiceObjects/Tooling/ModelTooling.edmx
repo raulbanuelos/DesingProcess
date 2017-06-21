@@ -30,7 +30,9 @@
           <Property Name="Plano" Type="varchar" MaxLength="50" />
           <Property Name="Parte" Type="varchar" MaxLength="50" />
           <Property Name="DimA" Type="float" />
+          <Property Name="DimA_Unidad" Type="varchar" MaxLength="50" />
           <Property Name="DimB" Type="float" />
+          <Property Name="DimB_Unidad" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="MaestroHerramentales">
           <Key>
@@ -216,7 +218,9 @@
           <Property Name="Plano" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Parte" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DimA" Type="Double" />
+          <Property Name="DimA_Unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DimB" Type="Double" />
+          <Property Name="DimB_Unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_CollarBK_MaestroHerramentales" FromRole="CollarBK" ToRole="MaestroHerramentales" />
         </EntityType>
         <Association Name="FK_CollarBK_MaestroHerramentales">
@@ -287,7 +291,9 @@
           <EntitySetMapping Name="CollarBK">
             <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.CollarBK">
               <MappingFragment StoreEntitySet="CollarBK">
+                <ScalarProperty Name="DimB_Unidad" ColumnName="DimB_Unidad" />
                 <ScalarProperty Name="DimB" ColumnName="DimB" />
+                <ScalarProperty Name="DimA_Unidad" ColumnName="DimA_Unidad" />
                 <ScalarProperty Name="DimA" ColumnName="DimA" />
                 <ScalarProperty Name="Parte" ColumnName="Parte" />
                 <ScalarProperty Name="Plano" ColumnName="Plano" />
