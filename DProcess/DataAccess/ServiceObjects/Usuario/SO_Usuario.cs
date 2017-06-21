@@ -103,8 +103,85 @@ namespace DataAccess.ServiceObjects.Usuario
                 return null;
             }
         }
-        
-        #endregion
 
+        public int Privilegio_Usuario(string id_usuario, bool rgp, bool tooling, bool raw_material, bool standar_time, bool quotes, bool cit,
+            bool data, bool user_profile, bool help)
+        {
+            try
+            {
+                //Se establece conexión a la BD.
+                using (var Conexion = new EntitiesUsuario())
+                {
+                    //Se  crea un objeto de tipo usuarios, el cual se va agregar a la tabla 
+                    PrivilegioUsuario Puser = new PrivilegioUsuario();
+
+                    //Se asiganan los valores.
+                    Puser.ID_USUARIO = id_usuario;
+                    Puser.RGP = rgp;
+                    Puser.TOOLING = tooling;
+                    Puser.RAW_MATERIAL = raw_material;
+                    Puser.STANDAR_TIME = standar_time;
+                    Puser.QUOTES = quotes;
+                    Puser.CIT = cit;
+                    Puser.DATA = data;
+                    Puser.USER_PROFILE = user_profile;
+                    Puser.HELP = help;
+
+                    //Agrega el objeto a la tabla.
+                    Conexion.PrivilegioUsuario.Add(Puser);
+                    //Se guardan los cambios
+                    Conexion.SaveChanges();
+
+                    //Retorna el código del usuario insertado
+                    return Puser.ID_PRIVILEGIO_USUARIO;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si hay error regresa una cadena vacía.
+                return 0;
+            }
+        }
+
+        public int Perfil_Usuario(string id_usuario, bool rgp, bool tooling, bool raw_material, bool standar_time, bool quotes, bool cit,
+           bool data, bool user_profile, bool help)
+        {
+            try
+            {
+                //Se establece conexión a la BD.
+                using (var Conexion = new EntitiesUsuario())
+                {
+                    //Se  crea un objeto de tipo usuarios, el cual se va agregar a la tabla 
+                    PerfilUsuario Puser = new PerfilUsuario();
+
+                    //Se asiganan los valores.
+                    Puser.ID_USUARIO = id_usuario;
+                    Puser.RGP = rgp;
+                    Puser.TOOLING = tooling;
+                    Puser.RAW_MATERIAL = raw_material;
+                    Puser.STANDAR_TIME = standar_time;
+                    Puser.QUOTES = quotes;
+                    Puser.CIT = cit;
+                    Puser.DATA = data;
+                    Puser.USER_PROFILE = user_profile;
+                    Puser.HELP = help;
+
+                    //Agrega el objeto a la tabla.
+                    Conexion.PerfilUsuario.Add(Puser);
+                    //Se guardan los cambios
+                    Conexion.SaveChanges();
+
+                    //Retorna el código del usuario insertado
+                    return Puser.ID_PERFIL_USUARIO;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si hay error regresa una cadena vacía.
+                return 0;
+            }
+        }
+
+        #endregion
     }
 }

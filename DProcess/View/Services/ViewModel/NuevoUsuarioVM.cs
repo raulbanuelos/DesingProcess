@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using Model;
+using System.Collections;
 
 namespace View.Services.ViewModel
 {
@@ -184,10 +185,10 @@ namespace View.Services.ViewModel
                     objUsuario.nombre = _nombre;
                     objUsuario.APaterno = _aPaterno;
                     objUsuario.AMaterno = _aMaterno;
-                    //objUsuario.password = "password";
                     objUsuario.password = encriptar.encript(_contraseña);
 
-                    string validate = DataManagerControlDocumentos.ValidateUsuario(objUsuario);
+
+                   string validate = DataManagerControlDocumentos.ValidateUsuario(objUsuario);
 
                     if (validate == null)
                     {
@@ -196,6 +197,9 @@ namespace View.Services.ViewModel
 
                             //ejecutamos el método para insertar un registro a la tabla
                             string usuario = DataManagerControlDocumentos.SetUsuario(objUsuario);
+
+                            Usuario _usuario = new Usuario();
+                            _usuario.NombreUsuario = usuario;
 
                             //si el usuario es diferente de vacío
                             if (usuario != string.Empty)
@@ -213,8 +217,69 @@ namespace View.Services.ViewModel
                                     }
                                 }
 
-                                //se muestra un mensaje de cambios realizados.
-                                await dialog.SendMessage("Información", "Usuario dado de alta..");
+                               IList Roles= DataManager.GetRoles(_usuario.NombreUsuario);
+                                _usuario.Roles = new List<Model.Rol>();
+                                foreach (var item in Roles)
+                                {
+                                    System.Type tipo = item.GetType();
+                                    Model.Rol rol = new Model.Rol();
+                                    rol.idRol = (int)tipo.GetProperty("ID_ROL").GetValue(item, null);
+                                    rol.NombreRol = (string)tipo.GetProperty("NOMBRE_ROL").GetValue(item, null);
+                                    _usuario.Roles.Add(rol);
+                                }
+
+                                if (Module.UsuarioIsRol(_usuario.Roles, 1))
+                                {
+                                    //Es administrador
+                                    _usuario.PerfilCIT = true;
+                                    _usuario.PerfilData = true;
+                                    _usuario.PerfilHelp = true;
+                                    _usuario.PerfilQuotes = true;
+                                    _usuario.PerfilRawMaterial = true;
+                                    _usuario.PerfilStandarTime = true;
+                                    _usuario.PerfilTooling = true;
+                                    _usuario.PerfilUserProfile = true;
+                                    _usuario.PerfilRGP = true;
+                                    DataManager.Set_PerfilUsuario(_usuario);
+                                    DataManager.Set_PrivilegiosUsuario(_usuario);
+
+                                }else if(Module.UsuarioIsRol(_usuario.Roles, 2) || Module.UsuarioIsRol(_usuario.Roles, 3))
+                                {
+                                    //usuario es admin del cit o dueño del documento
+                                    _usuario.PerfilCIT = true;
+                                    _usuario.PerfilData = false;
+                                    _usuario.PerfilHelp = false;
+                                    _usuario.PerfilQuotes = false;
+                                    _usuario.PerfilRawMaterial = false;
+                                    _usuario.PerfilStandarTime = false;
+                                    _usuario.PerfilTooling = false;
+                                    _usuario.PerfilUserProfile = true;
+                                    _usuario.PerfilRGP = false;
+
+                                    DataManager.Set_PerfilUsuario(_usuario);
+                                    DataManager.Set_PrivilegiosUsuario(_usuario);
+                                }
+                                else
+                                {
+                                    //usuario tiene rol de ingeniero
+
+                                    _usuario.PerfilCIT = false;
+                                    _usuario.PerfilUserProfile = true;
+                                    _usuario.PerfilData = true;
+                                    _usuario.PerfilHelp = false;
+                                    _usuario.PerfilQuotes = true;
+                                    _usuario.PerfilRawMaterial = true;
+                                    _usuario.PerfilStandarTime = true;
+                                    _usuario.PerfilTooling = true;
+                                    _usuario.PerfilRGP = true;
+
+                                    DataManager.Set_PerfilUsuario(_usuario);
+                                    DataManager.Set_PrivilegiosUsuario(_usuario);
+                                }
+
+
+                                    //se muestra un mensaje de cambios realizados.
+                                    await dialog.SendMessage("Información", "Usuario dado de alta..");
                                 //Obtenemos la ventana actual.
                                 var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
