@@ -1200,6 +1200,27 @@ namespace Model
             });
 
         }
+
+        public static IList GetRoles(string usuario)
+        {
+            SO_Usuarios ServiceUsuario = new SO_Usuarios();
+
+            return ServiceUsuario.GetRolesUsuario(usuario);
+        }
+
+        public static int Set_PrivilegiosUsuario(Usuario usuario)
+        {
+            SO_Usuario ServiceUsuario = new SO_Usuario();
+
+            return ServiceUsuario.Privilegio_Usuario(usuario.NombreUsuario, usuario.PerfilRGP, usuario.PerfilTooling, usuario.PerfilRawMaterial, usuario.PerfilStandarTime, usuario.PerfilQuotes, usuario.PerfilCIT, usuario.PerfilData, usuario.PerfilUserProfile, usuario.PerfilHelp);
+        }
+
+        public static int Set_PerfilUsuario(Usuario usuario)
+        {
+            SO_Usuario ServiceUsuario = new SO_Usuario();
+
+            return ServiceUsuario.Perfil_Usuario(usuario.NombreUsuario, usuario.PerfilRGP, usuario.PerfilTooling, usuario.PerfilRawMaterial, usuario.PerfilStandarTime, usuario.PerfilQuotes, usuario.PerfilCIT, usuario.PerfilData, usuario.PerfilUserProfile, usuario.PerfilHelp);
+        }
         #endregion
 
         #region TipoPerfil
