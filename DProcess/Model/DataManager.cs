@@ -1113,7 +1113,11 @@ namespace Model
             });
 
         }
-
+        /// <summary>
+        /// Método que obtiene los roles de usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public static IList GetRoles(string usuario)
         {
             SO_Usuarios ServiceUsuario = new SO_Usuarios();
@@ -1121,6 +1125,11 @@ namespace Model
             return ServiceUsuario.GetRolesUsuario(usuario);
         }
 
+        /// <summary>
+        /// Método que añade los privilegios de un usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public static int Set_PrivilegiosUsuario(Usuario usuario)
         {
             SO_Usuario ServiceUsuario = new SO_Usuario();
@@ -1128,6 +1137,11 @@ namespace Model
             return ServiceUsuario.Privilegio_Usuario(usuario.NombreUsuario, usuario.PerfilRGP, usuario.PerfilTooling, usuario.PerfilRawMaterial, usuario.PerfilStandarTime, usuario.PerfilQuotes, usuario.PerfilCIT, usuario.PerfilData, usuario.PerfilUserProfile, usuario.PerfilHelp);
         }
 
+        /// <summary>
+        /// Método que añade el perfil de cada usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public static int Set_PerfilUsuario(Usuario usuario)
         {
             SO_Usuario ServiceUsuario = new SO_Usuario();

@@ -104,6 +104,20 @@ namespace DataAccess.ServiceObjects.Usuario
             }
         }
 
+        /// <summary>
+        /// Método para agregar privilegios de un usuario en específico
+        /// </summary>
+        /// <param name="id_usuario"></param>
+        /// <param name="rgp"></param>
+        /// <param name="tooling"></param>
+        /// <param name="raw_material"></param>
+        /// <param name="standar_time"></param>
+        /// <param name="quotes"></param>
+        /// <param name="cit"></param>
+        /// <param name="data"></param>
+        /// <param name="user_profile"></param>
+        /// <param name="help"></param>
+        /// <returns></returns>
         public int Privilegio_Usuario(string id_usuario, bool rgp, bool tooling, bool raw_material, bool standar_time, bool quotes, bool cit,
             bool data, bool user_profile, bool help)
         {
@@ -143,6 +157,20 @@ namespace DataAccess.ServiceObjects.Usuario
             }
         }
 
+        /// <summary>
+        /// Método para agregar el perfil de un usuario
+        /// </summary>
+        /// <param name="id_usuario"></param>
+        /// <param name="rgp"></param>
+        /// <param name="tooling"></param>
+        /// <param name="raw_material"></param>
+        /// <param name="standar_time"></param>
+        /// <param name="quotes"></param>
+        /// <param name="cit"></param>
+        /// <param name="data"></param>
+        /// <param name="user_profile"></param>
+        /// <param name="help"></param>
+        /// <returns></returns>
         public int Perfil_Usuario(string id_usuario, bool rgp, bool tooling, bool raw_material, bool standar_time, bool quotes, bool cit,
            bool data, bool user_profile, bool help)
         {
