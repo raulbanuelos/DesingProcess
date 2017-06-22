@@ -43,10 +43,6 @@
                 <materialDesign:PackIcon Kind="FileDocument" />
             </Button>
 
-            <Button ToolTip="Documentos Pendientes por Aprobar" Command="{Binding IrDocumentosValidar }" Cursor="Hand">
-                <materialDesign:PackIcon Kind="FileDocument" />
-            </Button>
-
             <Button ToolTip="Documentos Pendientes por Corregir" Command="{Binding DocumentosPendientes }" Cursor="Hand">
                 <materialDesign:PackIcon Kind="FileCheck" />
             </Button>

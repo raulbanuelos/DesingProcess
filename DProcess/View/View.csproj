@@ -188,6 +188,7 @@
     </Compile>
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\ExportToExcel.cs" />
+    <Compile Include="Services\ImportExcel.cs" />
     <Compile Include="Services\Module.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\FirstRoughGrind.cs" />
     <Compile Include="Services\Operaciones\Generica\OperacionGenericaWidth.cs" />
