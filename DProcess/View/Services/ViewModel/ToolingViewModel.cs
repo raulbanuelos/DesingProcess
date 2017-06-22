@@ -84,14 +84,6 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => irCollarBK());
             }
         }
-
-        private DataTable listaHerramentales;
-        public DataTable ListaHerramentales
-        {
-            get { return listaHerramentales; }
-            set { listaHerramentales = value; NotifyChange("ListaHerramentales"); }
-        }
-
         #endregion
 
         #region Methods
@@ -104,10 +96,9 @@ namespace View.Services.ViewModel
         {
             WCollarBK wCollar = new WCollarBK();
 
-            DataSet a = DataManager.GetCollarBK();
-            ListaHerramentales = a.Tables[0];
+            CollarAutoFinTurnViewModel vm = new CollarAutoFinTurnViewModel();
 
-            wCollar.DataContext = this;
+            wCollar.DataContext = vm;
 
             wCollar.ShowDialog();
         }

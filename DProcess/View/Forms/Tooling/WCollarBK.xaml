@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:View.Forms.Tooling"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen"
-        Title="WCollarBK" Height="338" Width="876">
+        Title="WCollarBK" Height="600" Width="876">
 
     <Controls:MetroWindow.Resources>
         <Style x:Key="TabHeader" TargetType="Label">
@@ -14,34 +16,91 @@
             <Setter Property="Cursor" Value="Hand" />
         </Style>
     </Controls:MetroWindow.Resources>
-
     <Grid>
         <TabControl>
+            <!-- Comienza TAB Data -->
             <TabItem>
                 <TabItem.Header>
                     <Label Content="Data" Style="{StaticResource TabHeader}"></Label>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <StackPanel>
-                        <Label Content="Data"></Label>
-                        <DataGrid x:Name="dataGrid" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="True" ItemsSource="{Binding ListaHerramentales}" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
-                            
+                    <Grid ShowGridLines="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="10" />
+                        </Grid.RowDefinitions>
+
+                        <TextBox Name="txt_busqueda" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Search..." TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction
+									Command="{Binding BuscarCollarBK}"
+                                    CommandParameter="{Binding ElementName=txt_busqueda, Path=Text}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+
+                        <DataGrid x:Name="dataGrid" Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="True" ItemsSource="{Binding ListaHerramentales}" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
+
                         </DataGrid>
-                    </StackPanel>
+
+                        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
+                            <Label Content="Total:"></Label>
+                            <Label Content="{Binding ListaHerramentales.Count}"></Label>
+                        </StackPanel>
+                    </Grid>
                 </TabItem.Content>
             </TabItem>
-
+            <!-- Termina TAB Data -->
+            
+            <!-- Comienza TAB Search-->
             <TabItem>
                 <TabItem.Header>
                     <Label Content="Search" Style="{StaticResource TabHeader}"></Label>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <StackPanel>
-                        <Label Content="Contenido 2"></Label>
-                    </StackPanel>
+                    <Grid ShowGridLines="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="10" />
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
+                            <GroupBox Header="Required data" Margin="10">
+                                <StackPanel>
+                                    <TextBox Text="{Binding DimA}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Max A" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+
+                                    </TextBox>
+                                    <TextBox Text="{Binding DimB}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Min B" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+
+                                    </TextBox>
+                                    <Button Content="Start" Command="{Binding BuscarCollars}"></Button>
+                                </StackPanel>
+                                
+                                
+                            </GroupBox>
+                        </StackPanel>
+                        
+                    </Grid>
                 </TabItem.Content>
             </TabItem>
-
+            <!-- Termina TAB Search-->
+            
+            <!-- Comienza TAB Formula-->
             <TabItem>
                 <TabItem.Header>
                     <Label Content="Formula" Style="{StaticResource TabHeader}"></Label>
@@ -52,6 +111,8 @@
                     </StackPanel>
                 </TabItem.Content>
             </TabItem>
+            <!--Termina TAB Formula-->
+            
         </TabControl>
     </Grid>
 </Controls:MetroWindow>

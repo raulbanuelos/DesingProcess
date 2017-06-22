@@ -91,7 +91,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// Método que retorna todos los registros de collarines de Auto Finish Turn.
         /// </summary>
         /// <returns></returns>
-        public IList GetAllCollar()
+        public IList GetAllCollar(string busqueda)
         {
             try
             {
@@ -101,6 +101,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Realizamos la consulta, el resultado lo guardamos en una variable anónima.
                     var Lista = (from a in Conexion.MaestroHerramentales
                                  join b in Conexion.CollarBK on a.Codigo equals b.Codigo
+                                 where b.Codigo.Contains(busqueda) || a.Descripcion.Contains(busqueda)
                                  select new
                                  {
                                      CODIGO = a.Codigo,

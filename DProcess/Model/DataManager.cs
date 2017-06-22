@@ -210,7 +210,7 @@ namespace Model
             return ListaResultante;
         }
 
-        public static DataSet GetCollarBK(double maxA, double minB)
+        public static DataTable GetCollarBK(double maxA, double minB)
         {
             SO_BK ServicioBk = new SO_BK();
 
@@ -248,16 +248,16 @@ namespace Model
                 }
             }
 
-            return ConvertHerramental(ListaResultante,"CollarBK");
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante,"CollarBK");
         }
 
-        public static DataSet GetCollarBK()
+        public static DataTable GetCollarBK(string busqueda)
         {
             SO_BK ServicioBk = new SO_BK();
 
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
 
-            IList informacionBD = ServicioBk.GetAllCollar();
+            IList informacionBD = ServicioBk.GetAllCollar(busqueda);
 
             if (informacionBD != null)
             {
@@ -280,17 +280,23 @@ namespace Model
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.Unidad = (string)tipo.GetProperty("DIM_B_UNIDAD").GetValue(item, null);
                     propiedadDimB.Valor = (double)tipo.GetProperty("DIM_B").GetValue(item, null);
-                    propiedadDimA.DescripcionCorta = "Dim B";
+                    propiedadDimB.DescripcionCorta = "Dim B";
                     herramental.Propiedades.Add(propiedadDimB);
                     
                     ListaResultante.Add(herramental);
                 }
             }
 
-            return ConvertHerramental(ListaResultante, "CollarBK");
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CollarBK");
         }
 
-        public static DataSet ConvertHerramental(ObservableCollection<Herramental> lista,string nameTable)
+        /// <summary>
+        /// Método que convierte una lista de tipo ObservableCollection a un DataSet
+        /// </summary>
+        /// <param name="lista"></param>
+        /// <param name="nameTable"></param>
+        /// <returns></returns>
+        public static DataTable ConverToObservableCollectionHerramental_DataSet(ObservableCollection<Herramental> lista,string nameTable)
         {
             DataSet listaResultante = new DataSet(nameTable);
 
@@ -324,7 +330,7 @@ namespace Model
 
             listaResultante.Tables.Add(dt);
 
-            return listaResultante;
+            return listaResultante.Tables[0];
         }
         #endregion
 
