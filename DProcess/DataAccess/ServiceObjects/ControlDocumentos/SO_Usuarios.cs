@@ -184,7 +184,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// </summary>
         /// <param name="nombre_departamento"></param>
         /// <returns></returns>
-        public string ValidateUsuarios(string nombre,string Apaterno, string Amaterno)
+        public string ValidateUsuarios(string nombre,string Apaterno, string Amaterno,string nombre_usuario)
         {
             try
             {
@@ -193,7 +193,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 {
                     //Realizamos la consulta y e resultado lo guardamos en una variable local.
                     string idUsuario = (from d in Conexion.Usuarios
-                                    where d.Nombre.Contains(nombre) & d.APaterno.Contains(Apaterno) & d.AMaterno.Contains(Amaterno)
+                                    where  d.Usuario.Contains(nombre_usuario)
                                     select d.Usuario).FirstOrDefault();
 
                     //Retornamos el resultado de la consulta.

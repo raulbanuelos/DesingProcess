@@ -940,7 +940,7 @@ namespace Model.ControlDocumentos
             SO_Usuarios ServiceUsuarios = new SO_Usuarios();
 
             //Se ejecuta el método y retorna número de registros eliminados.
-            return ServiceUsuarios.ValidateUsuarios(usuarios.nombre,usuarios.APaterno,usuarios.AMaterno);
+            return ServiceUsuarios.ValidateUsuarios(usuarios.nombre,usuarios.APaterno,usuarios.AMaterno,usuarios.usuario);
         }
         #endregion
 

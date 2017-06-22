@@ -174,25 +174,27 @@ namespace View.Services.ViewModel
             if (result == MessageDialogResult.Affirmative)
             {
                 //Valida que los campos no estén vacíos.
-                if (Validar())
+                if (Validar() & ValidarSelected())
                 {
                     //Declaramos un objeto con el cual se realiza la encriptación
                     Encriptacion encriptar = new Encriptacion();
                     //Declaramos un objeto de tipo usuarios
                     Usuarios objUsuario = new Usuarios();
 
+                    //Asignamos los valores al objeto
                     objUsuario.usuario = encriptar.encript(_usuario);
                     objUsuario.nombre = _nombre;
                     objUsuario.APaterno = _aPaterno;
                     objUsuario.AMaterno = _aMaterno;
                     objUsuario.password = encriptar.encript(_contraseña);
 
-
+                    //Valida que el nombre de usuario no se repita
                    string validate = DataManagerControlDocumentos.ValidateUsuario(objUsuario);
 
+                    //si no se repite
                     if (validate == null)
                     {
-                        //confirmar contraseña
+                        //si las contraseñas son iguales
                         if (_contraseña.Contains(_confirmarContraseña)) {
 
                             //ejecutamos el método para insertar un registro a la tabla
@@ -204,8 +206,10 @@ namespace View.Services.ViewModel
                             //si el usuario es diferente de vacío
                             if (usuario != string.Empty)
                             {
+                                //Recorremos la lista de roles
                                 foreach (var item in _listaRol)
                                 {
+                                    //si el rol fue seleccionado
                                     if (item.selected == true)
                                     {
                                         Model.ControlDocumentos.Rol objRol = new Model.ControlDocumentos.Rol();
@@ -213,10 +217,12 @@ namespace View.Services.ViewModel
                                         objRol.id_rol = item.id_rol;
                                         objRol.id_usuario = usuario;
 
+                                        //Agregamos el rol de cada usuario
                                         int id_rolUsuario = DataManagerControlDocumentos.SetRol_Usuario(objRol);
                                     }
                                 }
 
+                                //Obtenemos los roles del usuario nuevo
                                IList Roles= DataManager.GetRoles(_usuario.NombreUsuario);
                                 _usuario.Roles = new List<Model.Rol>();
                                 foreach (var item in Roles)
@@ -225,9 +231,12 @@ namespace View.Services.ViewModel
                                     Model.Rol rol = new Model.Rol();
                                     rol.idRol = (int)tipo.GetProperty("ID_ROL").GetValue(item, null);
                                     rol.NombreRol = (string)tipo.GetProperty("NOMBRE_ROL").GetValue(item, null);
+
+                                    //los agregamos a la propiedad de roles
                                     _usuario.Roles.Add(rol);
                                 }
 
+                                //Si el usuario agregado tiene rol de administrador
                                 if (Module.UsuarioIsRol(_usuario.Roles, 1))
                                 {
                                     //Es administrador
@@ -240,10 +249,13 @@ namespace View.Services.ViewModel
                                     _usuario.PerfilTooling = true;
                                     _usuario.PerfilUserProfile = true;
                                     _usuario.PerfilRGP = true;
+
+                                    //Agreamos el perfil y privilegios
                                     DataManager.Set_PerfilUsuario(_usuario);
                                     DataManager.Set_PrivilegiosUsuario(_usuario);
 
-                                }else if(Module.UsuarioIsRol(_usuario.Roles, 2) || Module.UsuarioIsRol(_usuario.Roles, 3))
+                                }//Si el usuario agregado tiene rol de dueño de documento o CIT
+                                else if(Module.UsuarioIsRol(_usuario.Roles, 2) || Module.UsuarioIsRol(_usuario.Roles, 3))
                                 {
                                     //usuario es admin del cit o dueño del documento
                                     _usuario.PerfilCIT = true;
@@ -259,7 +271,7 @@ namespace View.Services.ViewModel
                                     DataManager.Set_PerfilUsuario(_usuario);
                                     DataManager.Set_PrivilegiosUsuario(_usuario);
                                 }
-                                else
+                                else if(Module.UsuarioIsRol(_usuario.Roles, 4) || Module.UsuarioIsRol(_usuario.Roles, 5) || Module.UsuarioIsRol(_usuario.Roles, 6) || Module.UsuarioIsRol(_usuario.Roles, 7))
                                 {
                                     //usuario tiene rol de ingeniero
 
@@ -278,8 +290,9 @@ namespace View.Services.ViewModel
                                 }
 
 
-                                    //se muestra un mensaje de cambios realizados.
+                                 //se muestra un mensaje de cambios realizados.
                                     await dialog.SendMessage("Información", "Usuario dado de alta..");
+
                                 //Obtenemos la ventana actual.
                                 var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
@@ -363,11 +376,19 @@ namespace View.Services.ViewModel
 
         private bool ValidarSelected()
         {
+            int aux=0;
             foreach (var item in ListaRol)
             {
-                if (!item.selected)
-                    return false;
+                if (item.selected)
+                {
+                    aux++;
+                }
+                   
             }
+
+            if (aux == 0)
+                return false;
+
             return true;
         }
         #endregion
