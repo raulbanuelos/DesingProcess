@@ -176,147 +176,153 @@ namespace View.Services.ViewModel
                 //Valida que los campos no estén vacíos.
                 if (Validar() & ValidarSelected())
                 {
-                    //Declaramos un objeto con el cual se realiza la encriptación
-                    Encriptacion encriptar = new Encriptacion();
-                    //Declaramos un objeto de tipo usuarios
-                    Usuarios objUsuario = new Usuarios();
+                    if (_contraseña.Length >= 6 ) {
+                        //Declaramos un objeto con el cual se realiza la encriptación
+                        Encriptacion encriptar = new Encriptacion();
+                        //Declaramos un objeto de tipo usuarios
+                        Usuarios objUsuario = new Usuarios();
 
-                    //Asignamos los valores al objeto
-                    objUsuario.usuario = encriptar.encript(_usuario);
-                    objUsuario.nombre = _nombre;
-                    objUsuario.APaterno = _aPaterno;
-                    objUsuario.AMaterno = _aMaterno;
-                    objUsuario.password = encriptar.encript(_contraseña);
+                        //Asignamos los valores al objeto
+                        objUsuario.usuario = encriptar.encript(_usuario);
+                        objUsuario.nombre = _nombre;
+                        objUsuario.APaterno = _aPaterno;
+                        objUsuario.AMaterno = _aMaterno;
+                        objUsuario.password = encriptar.encript(_contraseña);
 
-                    //Valida que el nombre de usuario no se repita
-                   string validate = DataManagerControlDocumentos.ValidateUsuario(objUsuario);
+                        //Valida que el nombre de usuario no se repita
+                        string validate = DataManagerControlDocumentos.ValidateUsuario(objUsuario);
 
-                    //si no se repite
-                    if (validate == null)
-                    {
-                        //si las contraseñas son iguales
-                        if (_contraseña.Contains(_confirmarContraseña)) {
+                        //si no se repite
+                        if (validate == null)
+                        {
+                            //si las contraseñas son iguales
+                            if (_contraseña.Equals(_confirmarContraseña)) {
 
-                            //ejecutamos el método para insertar un registro a la tabla
-                            string usuario = DataManagerControlDocumentos.SetUsuario(objUsuario);
+                                //ejecutamos el método para insertar un registro a la tabla
+                                string usuario = DataManagerControlDocumentos.SetUsuario(objUsuario);
 
-                            Usuario _usuario = new Usuario();
-                            _usuario.NombreUsuario = usuario;
+                                Usuario _usuario = new Usuario();
+                                _usuario.NombreUsuario = usuario;
 
-                            //si el usuario es diferente de vacío
-                            if (usuario != string.Empty)
-                            {
-                                //Recorremos la lista de roles
-                                foreach (var item in _listaRol)
+                                //si el usuario es diferente de vacío
+                                if (usuario != string.Empty)
                                 {
-                                    //si el rol fue seleccionado
-                                    if (item.selected == true)
+                                    //Recorremos la lista de roles
+                                    foreach (var item in _listaRol)
                                     {
-                                        Model.ControlDocumentos.Rol objRol = new Model.ControlDocumentos.Rol();
+                                        //si el rol fue seleccionado
+                                        if (item.selected == true)
+                                        {
+                                            Model.ControlDocumentos.Rol objRol = new Model.ControlDocumentos.Rol();
 
-                                        objRol.id_rol = item.id_rol;
-                                        objRol.id_usuario = usuario;
+                                            objRol.id_rol = item.id_rol;
+                                            objRol.id_usuario = usuario;
 
-                                        //Agregamos el rol de cada usuario
-                                        int id_rolUsuario = DataManagerControlDocumentos.SetRol_Usuario(objRol);
+                                            //Agregamos el rol de cada usuario
+                                            int id_rolUsuario = DataManagerControlDocumentos.SetRol_Usuario(objRol);
+                                        }
                                     }
-                                }
 
-                                //Obtenemos los roles del usuario nuevo
-                               IList Roles= DataManager.GetRoles(_usuario.NombreUsuario);
-                                _usuario.Roles = new List<Model.Rol>();
-                                foreach (var item in Roles)
-                                {
-                                    System.Type tipo = item.GetType();
-                                    Model.Rol rol = new Model.Rol();
-                                    rol.idRol = (int)tipo.GetProperty("ID_ROL").GetValue(item, null);
-                                    rol.NombreRol = (string)tipo.GetProperty("NOMBRE_ROL").GetValue(item, null);
+                                    //Obtenemos los roles del usuario nuevo
+                                    IList Roles = DataManager.GetRoles(_usuario.NombreUsuario);
+                                    _usuario.Roles = new List<Model.Rol>();
+                                    foreach (var item in Roles)
+                                    {
+                                        System.Type tipo = item.GetType();
+                                        Model.Rol rol = new Model.Rol();
+                                        rol.idRol = (int)tipo.GetProperty("ID_ROL").GetValue(item, null);
+                                        rol.NombreRol = (string)tipo.GetProperty("NOMBRE_ROL").GetValue(item, null);
 
-                                    //los agregamos a la propiedad de roles
-                                    _usuario.Roles.Add(rol);
-                                }
+                                        //los agregamos a la propiedad de roles
+                                        _usuario.Roles.Add(rol);
+                                    }
 
-                                //Si el usuario agregado tiene rol de administrador
-                                if (Module.UsuarioIsRol(_usuario.Roles, 1))
-                                {
-                                    //Es administrador
-                                    _usuario.PerfilCIT = true;
-                                    _usuario.PerfilData = true;
-                                    _usuario.PerfilHelp = true;
-                                    _usuario.PerfilQuotes = true;
-                                    _usuario.PerfilRawMaterial = true;
-                                    _usuario.PerfilStandarTime = true;
-                                    _usuario.PerfilTooling = true;
-                                    _usuario.PerfilUserProfile = true;
-                                    _usuario.PerfilRGP = true;
+                                    //Si el usuario agregado tiene rol de administrador
+                                    if (Module.UsuarioIsRol(_usuario.Roles, 1))
+                                    {
+                                        //Es administrador
+                                        _usuario.PerfilCIT = true;
+                                        _usuario.PerfilData = true;
+                                        _usuario.PerfilHelp = true;
+                                        _usuario.PerfilQuotes = true;
+                                        _usuario.PerfilRawMaterial = true;
+                                        _usuario.PerfilStandarTime = true;
+                                        _usuario.PerfilTooling = true;
+                                        _usuario.PerfilUserProfile = true;
+                                        _usuario.PerfilRGP = true;
 
-                                    //Agreamos el perfil y privilegios
-                                    DataManager.Set_PerfilUsuario(_usuario);
-                                    DataManager.Set_PrivilegiosUsuario(_usuario);
+                                        //Agreamos el perfil y privilegios
+                                        DataManager.Set_PerfilUsuario(_usuario);
+                                        DataManager.Set_PrivilegiosUsuario(_usuario);
 
-                                }//Si el usuario agregado tiene rol de dueño de documento o CIT
-                                else if(Module.UsuarioIsRol(_usuario.Roles, 2) || Module.UsuarioIsRol(_usuario.Roles, 3))
-                                {
-                                    //usuario es admin del cit o dueño del documento
-                                    _usuario.PerfilCIT = true;
-                                    _usuario.PerfilData = false;
-                                    _usuario.PerfilHelp = false;
-                                    _usuario.PerfilQuotes = false;
-                                    _usuario.PerfilRawMaterial = false;
-                                    _usuario.PerfilStandarTime = false;
-                                    _usuario.PerfilTooling = false;
-                                    _usuario.PerfilUserProfile = true;
-                                    _usuario.PerfilRGP = false;
+                                    }//Si el usuario agregado tiene rol de dueño de documento o CIT
+                                    else if (Module.UsuarioIsRol(_usuario.Roles, 2) || Module.UsuarioIsRol(_usuario.Roles, 3))
+                                    {
+                                        //usuario es admin del cit o dueño del documento
+                                        _usuario.PerfilCIT = true;
+                                        _usuario.PerfilData = false;
+                                        _usuario.PerfilHelp = false;
+                                        _usuario.PerfilQuotes = false;
+                                        _usuario.PerfilRawMaterial = false;
+                                        _usuario.PerfilStandarTime = false;
+                                        _usuario.PerfilTooling = false;
+                                        _usuario.PerfilUserProfile = true;
+                                        _usuario.PerfilRGP = false;
 
-                                    DataManager.Set_PerfilUsuario(_usuario);
-                                    DataManager.Set_PrivilegiosUsuario(_usuario);
-                                }
-                                else if(Module.UsuarioIsRol(_usuario.Roles, 4) || Module.UsuarioIsRol(_usuario.Roles, 5) || Module.UsuarioIsRol(_usuario.Roles, 6) || Module.UsuarioIsRol(_usuario.Roles, 7))
-                                {
-                                    //usuario tiene rol de ingeniero
+                                        DataManager.Set_PerfilUsuario(_usuario);
+                                        DataManager.Set_PrivilegiosUsuario(_usuario);
+                                    }
+                                    else if (Module.UsuarioIsRol(_usuario.Roles, 4) || Module.UsuarioIsRol(_usuario.Roles, 5) || Module.UsuarioIsRol(_usuario.Roles, 6) || Module.UsuarioIsRol(_usuario.Roles, 7))
+                                    {
+                                        //usuario tiene rol de ingeniero
 
-                                    _usuario.PerfilCIT = false;
-                                    _usuario.PerfilUserProfile = true;
-                                    _usuario.PerfilData = true;
-                                    _usuario.PerfilHelp = false;
-                                    _usuario.PerfilQuotes = true;
-                                    _usuario.PerfilRawMaterial = true;
-                                    _usuario.PerfilStandarTime = true;
-                                    _usuario.PerfilTooling = true;
-                                    _usuario.PerfilRGP = true;
+                                        _usuario.PerfilCIT = false;
+                                        _usuario.PerfilUserProfile = true;
+                                        _usuario.PerfilData = true;
+                                        _usuario.PerfilHelp = false;
+                                        _usuario.PerfilQuotes = true;
+                                        _usuario.PerfilRawMaterial = true;
+                                        _usuario.PerfilStandarTime = true;
+                                        _usuario.PerfilTooling = true;
+                                        _usuario.PerfilRGP = true;
 
-                                    DataManager.Set_PerfilUsuario(_usuario);
-                                    DataManager.Set_PrivilegiosUsuario(_usuario);
-                                }
+                                        DataManager.Set_PerfilUsuario(_usuario);
+                                        DataManager.Set_PrivilegiosUsuario(_usuario);
+                                    }
 
 
-                                 //se muestra un mensaje de cambios realizados.
+                                    //se muestra un mensaje de cambios realizados.
                                     await dialog.SendMessage("Información", "Usuario dado de alta..");
 
-                                //Obtenemos la ventana actual.
-                                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+                                    //Obtenemos la ventana actual.
+                                    var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
-                                //Verificamos que la pantalla sea diferente de nulo.
-                                if (window != null)
+                                    //Verificamos que la pantalla sea diferente de nulo.
+                                    if (window != null)
+                                    {
+                                        //Cerramos la pantalla
+                                        window.Close();
+                                    }
+                                }
+                                else
                                 {
-                                    //Cerramos la pantalla
-                                    window.Close();
+                                    await dialog.SendMessage("Alerta", "Error al registar el usuario.");
                                 }
                             }
                             else
                             {
-                                await dialog.SendMessage("Alerta", "Error al registar el usuario.");
+                                await dialog.SendMessage("Alerta", "La contraseña no coincide.");
                             }
+
                         }
                         else
                         {
-                            await dialog.SendMessage("Alerta", "La contraseña no coincide.");
+                            await dialog.SendMessage("Alerta", "Error el usuario ya existe.");
                         }
-
                     }
                     else
                     {
-                        await dialog.SendMessage("Alerta", "Error el usuario ya existe.");
+                        await dialog.SendMessage("Alerta", "La contreseña debe de tener mínimo 6 caracteres");
                     }
                 }
                 else

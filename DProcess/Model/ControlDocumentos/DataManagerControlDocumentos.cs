@@ -942,6 +942,22 @@ namespace Model.ControlDocumentos
             //Se ejecuta el método y retorna número de registros eliminados.
             return ServiceUsuarios.ValidateUsuarios(usuarios.nombre,usuarios.APaterno,usuarios.AMaterno,usuarios.usuario);
         }
+
+        public static string GetPass(string id_usuario)
+        {
+            SO_Usuarios ServiceUsuarios = new SO_Usuarios();
+
+            //Se ejecuta el método y retorna número de registros eliminados.
+            return ServiceUsuarios.GetContraseña(id_usuario);
+        }
+
+        public static int UpdatePass(string id_usuario,string pass)
+        {
+            SO_Usuarios ServiceUsuarios = new SO_Usuarios();
+
+            //Se ejecuta el método y retorna número de registros eliminados.
+            return ServiceUsuarios.UpdatePass(id_usuario, pass);
+        }
         #endregion
 
         #region version

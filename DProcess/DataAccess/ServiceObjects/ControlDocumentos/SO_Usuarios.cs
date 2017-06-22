@@ -193,7 +193,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 {
                     //Realizamos la consulta y e resultado lo guardamos en una variable local.
                     string idUsuario = (from d in Conexion.Usuarios
-                                    where  d.Usuario.Contains(nombre_usuario)
+                                    where  d.Usuario.Equals(nombre_usuario)
                                     select d.Usuario).FirstOrDefault();
 
                     //Retornamos el resultado de la consulta.
@@ -238,7 +238,57 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 //Si se generó algún error, retornamos un nulo.
                 return null;
             }
-        } 
+        }
+        
+        public string GetContraseña(string usuario)
+        {
+            try
+            {
+                //Establecemos la conexión a través de Entity Framework.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta.
+                    string pass = (from u in Conexion.Usuarios
+                                      where u.Usuario.Equals(usuario)
+                                      select u.Password).FirstOrDefault();
+
+                    //Retornamos el resultado de la consulta.
+                    return pass;
+                }
+            }
+            catch (Exception)
+            {
+                //Si se generó algún error, retornamos un nulo.
+                return null;
+            }
+        }
+
+        public int UpdatePass(string usuario, string password)
+        {
+            try
+            {
+                //Se establece la conexión a la base de datos.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //creación del objeto tipo Usuarios.
+                    Usuarios user = Conexion.Usuarios.Where(x => x.Usuario == usuario).FirstOrDefault();
+
+                    //Asignamos los  parámetros recibidos a cada uno de los valores de los objetos.
+                    user.Password = password;
+
+                    //Se cambia el estado de registro a modificado.
+                    Conexion.Entry(user).State = EntityState.Modified;
+
+                    //Se guardan los cambios y se retorna el número de registros afectados.
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si encuentra error devuelve cero.
+                return 0;
+            }
+        }
 
     }
 }

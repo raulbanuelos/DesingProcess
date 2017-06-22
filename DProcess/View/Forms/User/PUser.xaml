@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:View.Forms.User"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="PUser" Height="Auto" Width="2000">
@@ -13,7 +14,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="55"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="250"/>
+            <RowDefinition Height="350"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
@@ -29,13 +30,10 @@
                 <materialDesign:PackIcon Kind="AccountCheck" />
             </Button>
         </ToolBar>
-        <materialDesign:PackIcon Kind="AccountCircle"  Width="140" Height="140" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Margin="52,10,58,80" />
+        <materialDesign:PackIcon Kind="AccountCircle"  Width="140" Height="140" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Margin="44,10,56,200" />
         <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Vertical">
             <Canvas Height="50">
                 <TextBox materialDesign:HintAssist.Hint="Usuario " Text="{Binding Usuario}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" IsReadOnly="True"></TextBox>
-            </Canvas>
-            <Canvas Height="50">
-                <TextBox materialDesign:HintAssist.Hint="Password" Text="" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" IsReadOnly="True"></TextBox>
             </Canvas>
             <Canvas Height="50">
                 <TextBox materialDesign:HintAssist.Hint="Nombre" Text="{Binding Nombre}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" Height="50" IsReadOnly="True"></TextBox>
@@ -46,8 +44,41 @@
             <Canvas Height="50">
                 <TextBox materialDesign:HintAssist.Hint="Apellido Materno" Text="{Binding ApellidMaterno}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" Height="50" IsReadOnly="True"></TextBox>
             </Canvas>
+            <Canvas Height="50">
+                <PasswordBox x:Name="txt_pass"  materialDesign:HintAssist.Hint="Contraseña Actual"  Height="50"  Width="350" BorderThickness="0,0,0,1"  FontSize="18">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PasswordChanged">
+                            <i:InvokeCommandAction
+									Command="{Binding PasswordChanged1}"
+                                     CommandParameter="{Binding ElementName=txt_pass}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </PasswordBox>
+            </Canvas>
+            <Canvas Height="50">
+                <PasswordBox x:Name="txt_Newpass"  materialDesign:HintAssist.Hint="Contraseña Nueva"  Height="50"  Width="350" BorderThickness="0,0,0,1"  FontSize="18">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PasswordChanged">
+                            <i:InvokeCommandAction
+									Command="{Binding ChangedNewPass}"
+                                     CommandParameter="{Binding ElementName=txt_Newpass}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </PasswordBox>
+            </Canvas>
+            <Canvas Height="50">
+                <PasswordBox x:Name="txt_Confirmpass"  materialDesign:HintAssist.Hint="Confirmar Contraseña"  Height="50"  Width="350" BorderThickness="0,0,0,1"  FontSize="18">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PasswordChanged">
+                            <i:InvokeCommandAction
+									Command="{Binding ChangedConfirmPass}"
+                                     CommandParameter="{Binding ElementName=txt_Confirmpass}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </PasswordBox>
+            </Canvas>
 
         </StackPanel>
-        <Button Grid.Column="2" Grid.Row="4" Content="Modificar"></Button>
+        <Button Grid.Column="2" Grid.Row="4" Content="Modificar" Command="{Binding ModificarPass}"></Button>
     </Grid>
 </Page>
