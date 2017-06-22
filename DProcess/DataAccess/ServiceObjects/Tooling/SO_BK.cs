@@ -34,7 +34,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      PARTE = b.Parte,
                                      PAREDCOLLARIN = b.DimA - b.DimB
                                  }
-                                 ).OrderBy(o => o.PAREDCOLLARIN).ToList();
+                                 ).OrderByDescending(o => o.PAREDCOLLARIN).ToList();
 
                     //Retornamos el resultado de la consulta.
                     return Lista;
