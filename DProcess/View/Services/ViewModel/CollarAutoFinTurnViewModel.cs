@@ -29,7 +29,7 @@ namespace View.Services.ViewModel
         public DataTable ListaHerramentalesOptimos
         {
             get { return listaHerramentalesOptimos; }
-            set { listaHerramentalesOptimos = value; }
+            set { listaHerramentalesOptimos = value; NotifyChange("ListaHerramentalesOptimos"); }
         }
 
 
@@ -93,7 +93,7 @@ namespace View.Services.ViewModel
 
         private void buscarCollarBK()
         {
-            ListaHerramentales = DataManager.GetCollarBK(DimA, DimB);
+            ListaHerramentalesOptimos = DataManager.GetCollarBK(DimA, DimB);
         }
         #endregion
     }

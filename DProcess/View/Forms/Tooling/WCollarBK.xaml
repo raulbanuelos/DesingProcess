@@ -8,7 +8,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen"
-        Title="WCollarBK" Height="600" Width="876">
+        Title="WCollarBK" Height="650" Width="900">
 
     <Controls:MetroWindow.Resources>
         <Style x:Key="TabHeader" TargetType="Label">
@@ -79,21 +79,38 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="10" />
                         </Grid.RowDefinitions>
-                        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
-                            <GroupBox Header="Required data" Margin="10">
-                                <StackPanel>
-                                    <TextBox Text="{Binding DimA}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Max A" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+                        <Grid Grid.Column="1" Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="225" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
 
-                                    </TextBox>
-                                    <TextBox Text="{Binding DimB}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Min B" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+                            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                <GroupBox Header="Required data" Margin="10">
+                                    <StackPanel>
+                                        <TextBox Text="{Binding DimA}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Max A" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
 
-                                    </TextBox>
-                                    <Button Content="Start" Command="{Binding BuscarCollars}"></Button>
-                                </StackPanel>
-                                
-                                
-                            </GroupBox>
-                        </StackPanel>
+                                        </TextBox>
+                                        <TextBox Text="{Binding DimB}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Min B" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+
+                                        </TextBox>
+                                        <Button Content="Start" Command="{Binding BuscarCollars}" Margin="10" Width="70" HorizontalAlignment="Left"></Button>
+                                    </StackPanel>
+                                </GroupBox>
+
+                                <GroupBox Header="The best option" Margin="10">
+                                    <StackPanel>
+                                        <Label Content="{Binding Collar1}"></Label>
+                                        <Label Content="{Binding Collar2}"></Label>
+                                    </StackPanel>
+                                </GroupBox>
+                            </StackPanel>
+                            
+                            <DataGrid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="True" ItemsSource="{Binding ListaHerramentalesOptimos}" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
+
+                            </DataGrid>
+
+                        </Grid>
                         
                     </Grid>
                 </TabItem.Content>
