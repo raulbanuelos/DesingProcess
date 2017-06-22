@@ -85,8 +85,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private DataSet listaHerramentales;
-        public DataSet ListaHerramentales
+        private DataTable listaHerramentales;
+        public DataTable ListaHerramentales
         {
             get { return listaHerramentales; }
             set { listaHerramentales = value; NotifyChange("ListaHerramentales"); }
@@ -104,7 +104,9 @@ namespace View.Services.ViewModel
         {
             WCollarBK wCollar = new WCollarBK();
 
-            ListaHerramentales = DataManager.GetCollarBK();
+            DataSet a = DataManager.GetCollarBK();
+            ListaHerramentales = a.Tables[0];
+
             wCollar.DataContext = this;
 
             wCollar.ShowDialog();

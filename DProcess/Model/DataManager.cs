@@ -266,7 +266,6 @@ namespace Model
                     System.Type tipo = item.GetType();
 
                     Herramental herramental = new Herramental();
-                    ObservableCollection<Propiedad> propiedades = new ObservableCollection<Propiedad>();
 
                     herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
@@ -283,8 +282,7 @@ namespace Model
                     propiedadDimB.Valor = (double)tipo.GetProperty("DIM_B").GetValue(item, null);
                     propiedadDimA.DescripcionCorta = "Dim B";
                     herramental.Propiedades.Add(propiedadDimB);
-
-                    herramental.Propiedades = propiedades;
+                    
                     ListaResultante.Add(herramental);
                 }
             }
