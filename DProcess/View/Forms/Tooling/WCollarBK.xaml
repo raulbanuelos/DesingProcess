@@ -7,8 +7,8 @@
         xmlns:local="clr-namespace:View.Forms.Tooling"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen"
-        Title="WCollarBK" Height="650" Width="900">
+        mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen" ShowMaxRestoreButton="False"
+        Title="WCollarBK" Height="650" Width="1000">
 
     <Controls:MetroWindow.Resources>
         <Style x:Key="TabHeader" TargetType="Label">
@@ -86,19 +86,19 @@
                             </Grid.RowDefinitions>
 
                             <StackPanel Orientation="Horizontal" Grid.Row="0">
-                                <GroupBox Header="Required data" Margin="10">
+                                <GroupBox Header="Required data" Margin="10" Width="300">
                                     <StackPanel>
-                                        <TextBox Text="{Binding DimA}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Max A" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+                                        <TextBox Text="{Binding DimA}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Max A" TextAlignment="Center" Width="280" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
 
                                         </TextBox>
-                                        <TextBox Text="{Binding DimB}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Min B" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+                                        <TextBox Text="{Binding DimB}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Min B" TextAlignment="Center" Width="280" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
 
                                         </TextBox>
-                                        <Button Content="Start" Command="{Binding BuscarCollars}" Margin="10" Width="70" HorizontalAlignment="Left"></Button>
+                                        <Button Content="Start" Command="{Binding BuscarCollars}" Margin="10" Width="70" HorizontalAlignment="Right"></Button>
                                     </StackPanel>
                                 </GroupBox>
 
-                                <GroupBox Header="The best option" Margin="10">
+                                <GroupBox Header="The best option" Margin="10" Width="550">
                                     <Grid>
 
                                         <DataGrid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="True" ItemsSource="{Binding ListaMejoresHerramentales}" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
