@@ -281,6 +281,20 @@ namespace View.Services.ViewModel
             frm.ShowDialog();
             initSnack();
         }
+
+        public ICommand ImportarExcel
+        {
+            get
+            {
+                return new RelayCommand(o => importar());
+            }
+        }
+
+        private void importar()
+        {
+           string error= ImportExcel.ImportCollarBK();
+        }
+
         public ICommand irPendientesLiberar
         {
             get

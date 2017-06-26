@@ -57,8 +57,8 @@ namespace View.Services
                             border[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
                             border[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
                             //Establece automáticamente el tamaño de la columna.
-                            ExcelWoorkSheet.Columns.AutoFit();
-                            //ExcelWoorkSheet.Cells[1, i + 1].EntireColumn.ColumnWidth = 15;
+                          //  ExcelWoorkSheet.Columns.AutoFit();
+                           ExcelWoorkSheet.Cells[1, i + 1].EntireColumn.ColumnWidth = 25;
                         }
                         //Reccorre el número de filas de la tabla.
                         for (int j = 0; j < table.Rows.Count; j++)
