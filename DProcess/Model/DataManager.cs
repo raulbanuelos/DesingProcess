@@ -181,14 +181,23 @@ namespace Model
             return ListaResultante;
         }
 
+        /// <summary>
+        /// Método que obtiene el maestro de herramentales a partir de un criterio de busqueda.
+        /// </summary>
+        /// <param name="busqueda"></param>
+        /// <returns></returns>
         public static ObservableCollection<Herramental> GetMaestroHerramental(string busqueda)
         {
+            //Inicializamos los servicios de SO_MaestroHerramental.
             SO_MaestroHerramental ServiceHerramental = new SO_MaestroHerramental();
 
+            //Declaramos una lista la cual será la que retornemos en el método.
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
 
+            //Ejecutamos el método para obtener la información.Si la variable que recibimos es igual a nulo enviamos una cadena vacía. El resultado lo guardamos en un DataSet.
             DataSet informacionBD = ServiceHerramental.GetMaestroHerramentales(busqueda == null ? string.Empty : busqueda);
 
+            //Verificamos que el resultado sea diferente de nulo.
             if (informacionBD != null)
             {
                 //Comparamos si la información obtenida contiene al menos una tabla y esa tabla contiene al menos un registro.
@@ -197,36 +206,55 @@ namespace Model
                     //Itermamos los registro de la tabla cero.
                     foreach (DataRow element in informacionBD.Tables[0].Rows)
                     {
+                        //Declaramos un objeto de tipo Herramental.
                         Herramental herramental = new Herramental();
 
+                        //Mapeamos los valores del elemento iterado a las propiedades correspondientes del objeto.
                         herramental.Codigo = Convert.ToString(element["Codigo"]);
                         herramental.DescripcionGeneral = Convert.ToString(element["Descripcion"]);
                         herramental.clasificacionHerramental.Descripcion = Convert.ToString(element["DescripcionClasificacion"]);
                         herramental.Plano = Convert.ToString(element["NO_PLANO"]);
+
+                        //Agregamos el objeto a la lista resultante.
                         ListaResultante.Add(herramental);
                     }
                 }
             }
+
+            //Retornamos la lista.
             return ListaResultante;
         }
 
+        /// <summary>
+        /// Método que obtiene los collars de Auto Fin Turn a partir de los parámetros recibidos.
+        /// </summary>
+        /// <param name="maxA"></param>
+        /// <param name="minB"></param>
+        /// <returns></returns>
         public static DataTable GetCollarBK(double maxA, double minB)
         {
+            //Inicializamos los servicios de BK.
             SO_BK ServicioBk = new SO_BK();
 
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
-
+            
+            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
             IList informacionBD = ServicioBk.GetCollar(maxA, minB);
 
+            //Verificamos que la lista sea diferente de nulo.
             if (informacionBD != null)
             {
+                //Iteramos la lista.
                 foreach (var item in informacionBD)
                 {
+                    //Obtenemos el tipo del elemento iterado.
                     System.Type tipo = item.GetType();
 
+                    //Declaramos un objeto de tipo Herramental.
                     Herramental herramental = new Herramental();
-                    ObservableCollection<Propiedad> propiedades = new ObservableCollection<Propiedad>();
 
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
                     herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
 
@@ -235,38 +263,57 @@ namespace Model
                     propiedadDimA.Valor = (double)tipo.GetProperty("DIM_A").GetValue(item, null);
                     propiedadDimA.DescripcionCorta = "Dim A";
                     herramental.Propiedades.Add(propiedadDimA);
-                    
 
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.Unidad = (string)tipo.GetProperty("DIM_B_UNIDAD").GetValue(item, null);
                     propiedadDimB.Valor = (double)tipo.GetProperty("DIM_B").GetValue(item, null);
-                    propiedadDimA.DescripcionCorta = "Dim B";
+                    propiedadDimB.DescripcionCorta = "Dim B";
                     herramental.Propiedades.Add(propiedadDimB);
 
-                    herramental.Propiedades = propiedades;
+                    PropiedadCadena propiedadParte = new PropiedadCadena();
+                    propiedadParte.DescripcionCorta = "Parte";
+                    propiedadParte.Valor = (string)tipo.GetProperty("PARTE").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propiedadParte);
+                    
+
+                    //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
                 }
             }
 
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante,"CollarBK");
         }
 
+        /// <summary>
+        /// Método que obtiene los collars de Auto Fin Turn a partir de los parámetros recibidos.
+        /// </summary>
+        /// <param name="busqueda"></param>
+        /// <returns></returns>
         public static DataTable GetCollarBK(string busqueda)
         {
+            //Inicializamos los servicios de BK.
             SO_BK ServicioBk = new SO_BK();
 
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
 
+            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
             IList informacionBD = ServicioBk.GetAllCollar(busqueda);
 
+            //Verificamos que la lista sea diferente de nulo.
             if (informacionBD != null)
             {
+                //Iteramos la lista.
                 foreach (var item in informacionBD)
                 {
+                    //Obtenemos el tipo del elemento iterado.
                     System.Type tipo = item.GetType();
 
+                    //Declaramos un objeto de tipo Herramental.
                     Herramental herramental = new Herramental();
 
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
                     herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
 
@@ -282,12 +329,89 @@ namespace Model
                     propiedadDimB.Valor = (double)tipo.GetProperty("DIM_B").GetValue(item, null);
                     propiedadDimB.DescripcionCorta = "Dim B";
                     herramental.Propiedades.Add(propiedadDimB);
-                    
+
+                    PropiedadCadena propiedadParte = new PropiedadCadena();
+                    propiedadParte.DescripcionCorta = "Parte";
+                    propiedadParte.Valor = (string)tipo.GetProperty("PARTE").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propiedadParte);
+
+                    //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
                 }
             }
 
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CollarBK");
+        }
+
+        /// <summary>
+        /// Método que selecciona los mejores collar´s, a partir de una tabla recibida en el parámetro.
+        /// </summary>
+        /// <param name="datatable"></param>
+        /// <returns></returns>
+        public static DataTable SelectBestCollar(DataTable datatable)
+        {
+            //Incializamos los servicios de BK.
+            SO_BK ServicioBK = new SO_BK();
+
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable dtResultante = new DataTable();
+
+            //Agregamos las columnas de code y descripction a la tabla.
+            dtResultante.Columns.Add("Code");
+            dtResultante.Columns.Add("Description");
+
+            //Iteramos los registros del data table. (Este for solo será de un ciclo.)
+            foreach (DataRow row in datatable.Rows)
+            {
+                //Obtenemos los valores del item iterado.
+                string codigo = row["CODE"].ToString();
+                string descripcion = row["DESCRIPTION"].ToString();
+                double dima = Convert.ToDouble(row["Dim A"].ToString());
+                double dimb = Convert.ToDouble(row["Dim B"].ToString());
+                string parte = row["Parte"].ToString();
+
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = dtResultante.NewRow();
+                dr["Code"] = codigo;
+                dr["Description"] = descripcion;
+                
+                //Agregamnos el datarow al datatable resultante.
+                dtResultante.Rows.Add(dr);
+               
+                //Ejecutamos el método para buscar la otra parte del collarin. El resultado lo guardamos en una lista anónima.
+                IList informacionBD = ServicioBK.GetCollar(dima, dimb, parte);
+
+                //Verificamos que la lista sea diferente de nulo.
+                if (informacionBD != null)
+                {
+                    //Iteramos la lista.(Este for solo será de un ciclo.)
+                    foreach (var item in informacionBD)
+                    {
+                        //Obtenemos el tipo del elemento iterado.
+                        System.Type tipo = item.GetType();
+                        
+                        //Creacion un DataRow en la datatable resultante.
+                        DataRow dr1 = dtResultante.NewRow();
+
+                        //Mapeamos los valores correspondientes de codigo y descripión.
+                        dr1["Code"] = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                        dr1["Description"] = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+
+                        //Agregamos el datarow a la datatable resultante.
+                        dtResultante.Rows.Add(dr1);
+
+                        //Salimos del ciclo-
+                        break;
+                    }
+                }
+
+                //Salimos del ciclo.
+                break;
+            }
+
+            //Retornamos el datatable resultante.
+            return dtResultante;
         }
 
         /// <summary>
@@ -298,23 +422,34 @@ namespace Model
         /// <returns></returns>
         public static DataTable ConverToObservableCollectionHerramental_DataSet(ObservableCollection<Herramental> lista,string nameTable)
         {
-            DataSet listaResultante = new DataSet(nameTable);
+            //Declaramos un datatable que será el que retornemos en el método.
+            DataTable dataTableResultante = new DataTable();
 
-            DataTable dt = new DataTable();
+            //Asignamos las primeras dos colomnas.
+            dataTableResultante.Columns.Add("Code");
+            dataTableResultante.Columns.Add("Description");
 
-            dt.Columns.Add("Code");
-            dt.Columns.Add("Description");
-
+            //Verificamos si la lista contiene al menos un registro.
             if (lista.Count > 0)
             {
+                //Iteramos las propiedades del primer elemento, esto para saber cuantas columnas se tiene que crear.
                 foreach (var item in lista[0].Propiedades)
                 {
-                    dt.Columns.Add(item.DescripcionCorta);
+                    //Agregamos la columna al datatable.
+                    dataTableResultante.Columns.Add(item.DescripcionCorta);
                 }
 
+                //Iteramos las propiedades cadena del primer elemento, esto para saber cuantas columnas se tiene que crear.
+                foreach (var item in lista[0].PropiedadesCadena)
+                {
+                    //Agregamos la columna al datatable.
+                    dataTableResultante.Columns.Add(item.DescripcionCorta);
+                }
+
+                //Iteramos la lista de herramentales.
                 foreach (Herramental herramental in lista)
                 {
-                    DataRow dr = dt.NewRow();
+                    DataRow dr = dataTableResultante.NewRow();
                     dr[0] = herramental.Codigo;
                     dr[1] = herramental.DescripcionGeneral;
 
@@ -324,13 +459,21 @@ namespace Model
                         dr[c] = propiedad.Valor;
                         c += 1;
                     }
-                    dt.Rows.Add(dr);
+
+                    c = 2 + herramental.Propiedades.Count;
+                    foreach (PropiedadCadena propiedadCadena in herramental.PropiedadesCadena)
+                    {
+                        dr[c] = propiedadCadena.Valor;
+                        c += 1;
+                    }
+
+                    dataTableResultante.Rows.Add(dr);
                 }
             }
 
-            listaResultante.Tables.Add(dt);
+           
 
-            return listaResultante.Tables[0];
+            return dataTableResultante;
         }
         #endregion
 

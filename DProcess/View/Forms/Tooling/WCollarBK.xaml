@@ -67,7 +67,7 @@
                     <Label Content="Search" Style="{StaticResource TabHeader}"></Label>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <Grid ShowGridLines="True">
+                    <Grid ShowGridLines="False">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="10" />
                             <ColumnDefinition Width="*" />
@@ -99,10 +99,13 @@
                                 </GroupBox>
 
                                 <GroupBox Header="The best option" Margin="10">
-                                    <StackPanel>
-                                        <Label Content="{Binding Collar1}"></Label>
-                                        <Label Content="{Binding Collar2}"></Label>
-                                    </StackPanel>
+                                    <Grid>
+
+                                        <DataGrid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="True" ItemsSource="{Binding ListaMejoresHerramentales}" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
+
+                                        </DataGrid>
+                                        
+                                    </Grid>
                                 </GroupBox>
                             </StackPanel>
                             
@@ -117,8 +120,8 @@
             </TabItem>
             <!-- Termina TAB Search-->
             
-            <!-- Comienza TAB Formula-->
-            <TabItem>
+            <!-- Comienza TAB Formula (Propuesto)-->
+            <!--<TabItem>
                 <TabItem.Header>
                     <Label Content="Formula" Style="{StaticResource TabHeader}"></Label>
                 </TabItem.Header>
@@ -127,7 +130,7 @@
                         <Label Content="Contenido 3"></Label>
                     </StackPanel>
                 </TabItem.Content>
-            </TabItem>
+            </TabItem>-->
             <!--Termina TAB Formula-->
             
         </TabControl>

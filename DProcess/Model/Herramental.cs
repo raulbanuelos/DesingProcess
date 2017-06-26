@@ -34,6 +34,16 @@ namespace Model
         /// Colección de propiedades que representa las propiedades del herramental.
         /// </summary>
         public ObservableCollection<Propiedad> Propiedades { get; set; }
+
+        /// <summary>
+        /// Colección de propiedades cadena que representa las propiedades tipo string del herramental.
+        /// </summary>
+        public ObservableCollection<PropiedadCadena> PropiedadesCadena { get; set; }
+
+        /// <summary>
+        /// Colección de propiedades booleanas que representa las propiedades tipo booleano del herramental.
+        /// </summary>
+        public ObservableCollection<PropiedadBool> PropiedadesBool { get; set; }
         #endregion
 
         #region Constructores
@@ -48,6 +58,8 @@ namespace Model
             Encontrado = false;
             Plano = string.Empty;
             Propiedades = new ObservableCollection<Propiedad>();
+            PropiedadesCadena = new ObservableCollection<PropiedadCadena>();
+            PropiedadesBool = new ObservableCollection<PropiedadBool>();
         }
 
         #endregion

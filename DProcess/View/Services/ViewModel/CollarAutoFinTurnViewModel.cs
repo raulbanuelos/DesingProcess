@@ -13,7 +13,7 @@ namespace View.Services.ViewModel
     public class CollarAutoFinTurnViewModel : INotifyPropertyChanged
     {
         #region Attributtes
-
+        DialogService dialogService;
         #endregion
 
         #region Properties
@@ -31,6 +31,15 @@ namespace View.Services.ViewModel
             get { return listaHerramentalesOptimos; }
             set { listaHerramentalesOptimos = value; NotifyChange("ListaHerramentalesOptimos"); }
         }
+
+        private DataTable listaMejoresHerramentales;
+
+        public DataTable ListaMejoresHerramentales
+        {
+            get { return listaMejoresHerramentales; }
+            set { listaMejoresHerramentales = value; NotifyChange("ListaMejoresHerramentales"); }
+        }
+
 
 
         private double dimA;
@@ -50,11 +59,12 @@ namespace View.Services.ViewModel
 
         #endregion
 
+        #region Commands
         public ICommand BuscarCollarBK
         {
             get
             {
-                return new RelayCommand( param => buscarCollarBK((string)param));
+                return new RelayCommand(param => buscarCollarBK((string)param));
             }
         }
 
@@ -64,11 +74,14 @@ namespace View.Services.ViewModel
             {
                 return new RelayCommand(o => buscarCollarBK());
             }
-        }
+        } 
+        #endregion
+
         #region Constructor
         public CollarAutoFinTurnViewModel()
         {
             buscarCollarBK(string.Empty);
+            dialogService = new DialogService();
         }
         #endregion
 
@@ -86,14 +99,34 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Método que busca algun collar con el parámetro recibido.
+        /// </summary>
+        /// <param name="busqueda"></param>
         private void buscarCollarBK(string busqueda)
         {
+            //Ejecutamos el método para buscar un collar con el parámetro recibido, el resultado lo asignamos a la lista de herramentales.
             ListaHerramentales = DataManager.GetCollarBK(busqueda);
         }
 
-        private void buscarCollarBK()
+        /// <summary>
+        /// Método que busca un collar de acuerdo a las dimenciones MaxA y MinB
+        /// </summary>
+        private async void buscarCollarBK()
         {
+            //Ejecutamos el método para buscar los collarines optimos.
             ListaHerramentalesOptimos = DataManager.GetCollarBK(DimA, DimB);
+
+            //Ejecutamos el método para seleccionar la mejor opción de collarines.
+            ListaMejoresHerramentales = DataManager.SelectBestCollar(ListaHerramentalesOptimos);
+
+            //Verificamos que la cantidad de mejores herramentales sea mayor a cero.
+            if (ListaMejoresHerramentales.Rows.Count == 0)
+            {
+                //Enviamos un mensaje si no hay herramentales.
+                await dialogService.SendMessage("Alerta","No se encontro herramental con estas caracteristicas");
+            }
         }
         #endregion
     }
