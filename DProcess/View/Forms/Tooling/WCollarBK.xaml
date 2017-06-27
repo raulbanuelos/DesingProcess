@@ -114,11 +114,11 @@
                             </DataGrid>
 
                         </Grid>
-                        <ToolBarTray Orientation="Vertical" Grid.Column="2" Grid.Row="1" Margin="0,0,0,10">
+                        <ToolBarTray Orientation="Vertical" Grid.Column="2" Grid.Row="1">
                             <ToolBar x:Name="toolBar"  HorizontalAlignment="Left" Height="221" VerticalAlignment="Top" Width="40" Style="{DynamicResource MaterialDesignToolBar}" >
 
-                                <Button ToolTip="" Command="{Binding IrNuevoDocumento}" Cursor="Hand" Width="48">
-                                    <materialDesign:PackIcon Kind="FileExcel" />
+                                <Button ToolTip="Nuevo documento" Command="{Binding LeerExcel}" Cursor="Hand" Width="48">
+                                    <materialDesign:PackIcon Kind="File" />
                                 </Button>
                             </ToolBar>
                         </ToolBarTray>

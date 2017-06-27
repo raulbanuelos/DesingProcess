@@ -75,6 +75,15 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => buscarCollarBK());
             }
         } 
+
+        public ICommand LeerExcel
+        {
+            get
+            {
+                return new RelayCommand(o => leerExcel());
+            }
+        }
+        
         #endregion
 
         #region Constructor
@@ -100,6 +109,11 @@ namespace View.Services.ViewModel
 
         #region Methods
 
+        private void leerExcel()
+        {
+            ImportExcel.ImportCollarBK();
+        }
+
         /// <summary>
         /// Método que busca algun collar con el parámetro recibido.
         /// </summary>
@@ -115,6 +129,10 @@ namespace View.Services.ViewModel
         /// </summary>
         private async void buscarCollarBK()
         {
+            //Inicializamos las listas de herramentales.
+            ListaHerramentalesOptimos = new DataTable();
+            ListaMejoresHerramentales = new DataTable();
+
             //Ejecutamos el método para buscar los collarines optimos.
             ListaHerramentalesOptimos = DataManager.GetCollarBK(DimA, DimB);
 

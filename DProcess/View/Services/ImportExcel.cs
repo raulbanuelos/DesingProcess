@@ -111,6 +111,9 @@ namespace View.Services
                         ds.Tables.Add(dTable);
                         
                     }
+
+                    ExcelWork.Close();
+                    
                     string e = ExportToExcel.Export(ds);
 
                     if (e != null)
