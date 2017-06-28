@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using Model;
+﻿using Model;
 using Model.Interfaces;
-using View.Services.TiempoEstandar.Gasolina.PreMaquinado;
-namespace View.Services.Operaciones.Gasolina.PreMaquinado
-{
-    public class FirstRoughGrind : IOperacion, IObserverWidth
-    {
-        #region Propiedades
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace View.Services.Operaciones.Gasolina
+{
+    public class DegreaseRings : IOperacion
+    {
         #region Propiedades de IOperacion
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
@@ -104,41 +106,20 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         public Anillo elPlano { get; set; }
         #endregion
 
-        #region Propiedades de IObserverWidth
-        /// <summary>
-        /// Double que representa la medida del width del anillo en la operación.
-        /// </summary>
-        public double WidthOperacion { get; set; }
-
-        /// <summary>
-        /// Double que representa el material a remover en la operación.
-        /// Si en la operación se agrega material(por ejemplo cromo lateral) el valor será negativo.
-        /// </summary>
-        public double MatRemoverWidth { get; set; }
-
-        #endregion
-
-        #endregion
-
-        #region Constructores
-        public FirstRoughGrind(Anillo plano)
+        #region Constructors
+        public DegreaseRings(Anillo plano)
         {
             //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "FIRST ROUGH GRIND";
+            NombreOperacion = "DEGREASE RINGS";
             CentroCostos = "32012524";
-            CentroTrabajo = "110";
+            CentroTrabajo = "140";
             ControlKey = "MA42";
             elPlano = plano;
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-
-            //Ejecutamos el método para calcular el width y el meterial a remover.
-            CalcularWidth();
-        }
+        } 
         #endregion
-
-        #region Métodos
 
         #region Métodos de IOperacion
         /// <summary>
@@ -152,15 +133,8 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "*1ST RGH GRIND";
-            TextoProceso += "(2)(" + Convert.ToString(WidthOperacion + .010) + " +- .0005) (" + Convert.ToString(WidthOperacion) + " +- .0005)" + "\n";
-            TextoProceso += "CHUCK RPM 15+-2 " + "\n";
-
-            //Agregamos las propiedades que se obtiene el anillo durante el proceso.
-            Propiedad rpm1_110 = new Propiedad { Nombre = "RPM1_110", TipoDato = "Cantidad", DescripcionLarga = "Cantidad de RPM primer corte en operación FIRST ROUGH GRIND", Imagen = null, DescripcionCorta = "RPM 1er corte (First Rough grind):", Valor = 15 };
-            anilloProcesado.PropiedadesAdquiridasProceso.Add(rpm1_110);
-            Propiedad rpm2_100 = new Propiedad { Nombre = "RMP2_110", TipoDato = "Cantidad", DescripcionLarga = "Cantidad de RPM segundo corte en operación FIRST ROUGH GRIND", Imagen = null, DescripcionCorta = "RPM 2do corte (First Rough grind):", Valor = 20 };
-            anilloProcesado.PropiedadesAdquiridasProceso.Add(rpm2_100);
+            TextoProceso = "*DEGREASE";
+            
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
@@ -171,7 +145,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
 
         public void BuscarHerramentales()
         {
-            ListaHerramentales.Add(DataManager.GetGuideBarFirstRoughGrind(.125));
+            
         }
 
         /// <summary>
@@ -179,79 +153,8 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         /// </summary>
         public void CalcularTiemposEstandar()
         {
-            try
-            {
-                //Declaramos un objeto del tipo CentroTrabajo110.
-                CentroTrabajo110 objTiempos = new CentroTrabajo110();
-
-                //Ejecutamos el método para calcular los tiempos.
-                objTiempos.Calcular(anilloProcesado);
-
-                //Mapeamos los valores correspondientes.
-                this.TiempoLabor = objTiempos.TiempoLabor;
-                this.TiempoMachine = objTiempos.TiempoMachine;
-                this.TiempoSetup = objTiempos.TiempoSetup;
-
-                //Verificamos si no se generaron alertas durante el calculo de tiempos.
-                if (objTiempos.Alertas.Count > 0)
-                {
-                    AlertasOperacion.Add("Error en calculo de tiempo estándar");
-                    AlertasOperacion.CopyTo(objTiempos.Alertas.ToArray(), 0);
-                }
-                else
-                {
-                    NotasOperacion.Add("Tiempos estándar calculados correctamente.");
-                }
-            }
-            catch (Exception er)
-            {
-                //Si ocurrio algún error, lo agregamos a la lista de alertas de la operación.
-                AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
-            }
+            
         }
-        #endregion
-
-        #region Métodos de IObserverWidth
-
-        /// <summary>
-        /// Método que actualiza el valor del width en la operación.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="MaterialRemoverAfterOperacion"></param>
-        /// <param name="WidthAfterOperacion"></param>
-        public void UpdateState(ISubjectWidth sender, double MaterialRemoverAfterOperacion, double WidthAfterOperacion)
-        {
-
-            //Actualizamos el width de la operación.
-            WidthOperacion = WidthAfterOperacion + MaterialRemoverAfterOperacion;
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Método que calcula el width y el material a remover en la operación.
-        /// </summary>
-        private void CalcularWidth()
-        {
-
-            //Obtenemos el valor de la propiedad Proceso que ingresó el usuario.
-            string proceso = Module.GetValorPropiedadString("Proceso", elPlano.PerfilOD.PropiedadesCadena);
-
-            //Obtenemos el valor del width de la operación First Rough Grind.
-            WidthOperacion = DataManager.GetWidthFirstRoughGrind(proceso, elPlano.H1.Valor);
-
-            //Comparamos si el proceso es distindo a Sencillo.
-            if (proceso != "Sencillo")
-            {
-
-                //Obtenemos el valor del width en la operación Splitter.
-                double widthSplitter = DataManager.GetWidthSplitterCasting(proceso, elPlano.H1.Valor);
-
-                //Calculamos el valor del material a remover en la operación.
-                MatRemoverWidth = WidthOperacion - widthSplitter;
-            }
-        }
-
         #endregion
     }
 }
