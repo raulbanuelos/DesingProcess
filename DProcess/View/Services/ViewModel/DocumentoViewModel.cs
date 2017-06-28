@@ -191,6 +191,8 @@ namespace View.Services.ViewModel
 
         private string auxversion, auxUsuario,auxUsuario_Autorizo;
 
+        private DateTime auxFecha;
+
         private ObservableCollection<Archivo> _ListaDocumentos = new ObservableCollection<Archivo>();
         public ObservableCollection<Archivo> ListaDocumentos
         {
@@ -459,10 +461,15 @@ namespace View.Services.ViewModel
             User = Modelusuario;
             Nombre = selectedDocumento.nombre;
             Version = selectedDocumento.version.no_version;
-            Fecha = selectedDocumento.fecha_emision;
+            Fecha = selectedDocumento.fecha_actualizacion;
+            auxFecha = Fecha;      
             auxversion = selectedDocumento.version.no_version;
             Descripcion = selectedDocumento.descripcion;
             id_documento = selectedDocumento.id_documento;
+            idVersion = selectedDocumento.version.id_version;
+            id_dep = selectedDocumento.id_dep;
+            id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
+
             BotonGuardar = "Guardar";
             BttnGuardar = false;
             IsEnabled = false;
@@ -480,13 +487,12 @@ namespace View.Services.ViewModel
                 IsEnabled = true;
                 BttnArchivos = true;
                 BttnModificar = true;
+                ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
+                Fecha = selectedDocumento.version.fecha_version;
             }
-            BttnVersion = band;
-            idVersion = selectedDocumento.version.id_version;
-            id_dep = selectedDocumento.id_dep;
-            id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
 
-            ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
+            BttnVersion = band;
+           // ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
 
             _ListaNumeroDocumento = DataManagerControlDocumentos.GetNombre_Documento(id_documento);
 
@@ -549,7 +555,7 @@ namespace View.Services.ViewModel
             Nombre = selectedDocumento.nombre;
             User = new Usuario();
             Version = selectedDocumento.version.no_version;
-            Fecha = selectedDocumento.fecha_emision;
+            Fecha = selectedDocumento.version.fecha_version;
             Descripcion = selectedDocumento.descripcion;
             id_documento = selectedDocumento.id_documento;
             idVersion = selectedDocumento.version.id_version;
@@ -885,6 +891,7 @@ namespace View.Services.ViewModel
             usuario = auxUsuario;
             usuarioAutorizo = auxUsuario_Autorizo;
             Version = auxversion;
+            Fecha = auxFecha;
             BotonGuardar = "Guardar";
             IsEnabled = false;
             BttnArchivos = false;
@@ -900,6 +907,7 @@ namespace View.Services.ViewModel
             NombreEnabled = false;
             BttnCancelar = false;
 
+            ListaValidaciones.Clear();
             ListaDocumentos.Clear();
 
             ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetArchivos(id_documento, idVersion);
@@ -1044,40 +1052,75 @@ namespace View.Services.ViewModel
                 {
                     if (ValidaSelected())
                     {
-                        //Se crea un objeto de tipo Documento.
-                        Documento obj = new Documento();
-
-                        //Se asignan los valores.
-                        obj.id_documento = id_documento;
-                        obj.id_dep = _id_dep;
-                        obj.id_tipo_documento = _id_tipo;
-                        obj.descripcion = Descripcion;
-                        obj.fecha_emision = fecha;
-                        obj.fecha_actualizacion = DateTime.Now;
-                        obj.id_estatus = 5;
-
-                        //Ejecuta el método para modificar un registro 
-                        int n = DataManagerControlDocumentos.UpdateDocumento(obj);
-
-                        //Ejecutamos el método para modificar un documento             
-                        if (n != 0)
+                        if (version.Equals("1"))
                         {
-                            Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
-                            objVersion.id_version = idVersion;
-                            objVersion.no_version = version;
-                            objVersion.id_documento = id_documento;
-                            objVersion.id_usuario = _usuario;
-                            objVersion.id_usuario_autorizo = _usuarioAutorizo;
-                            objVersion.fecha_version = fecha;
-                            objVersion.id_estatus_version = 3;
-                            objVersion.no_copias = 0;
+                            //Se crea un objeto de tipo Documento.
+                            Documento obj = new Documento();
 
-                            //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
-                            int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion);
+                            //Se asignan los valores.
+                            obj.id_documento = id_documento;
+                            obj.id_dep = _id_dep;
+                            obj.id_tipo_documento = _id_tipo;
+                            obj.descripcion = Descripcion;
+                            obj.fecha_emision = fecha;
+                            obj.fecha_actualizacion = DateTime.Now;
+                            obj.id_estatus = 5;
+                           // obj.id_estatus = 2;
 
+                            //Ejecuta el método para modificar un registro 
+                            int n = DataManagerControlDocumentos.UpdateDocumento(obj);
+
+                            if (n != 0)
+                            {
+                                int update_version = modificaVersion();
+                                if (update_version != 0)
+                                {
+                                    foreach (var item in _ListaDocumentos)
+                                    {
+                                        //Declaramos un objeto de tipo Archivo.
+                                        Archivo objArchivo = new Archivo();
+
+                                        //Mapeamos los valores al objeto creado.
+                                        objArchivo.id_version = idVersion;
+                                        objArchivo.archivo = item.archivo;
+                                        objArchivo.ext = item.ext;
+                                        objArchivo.nombre = item.nombre;
+
+                                        //si el archivo no existe 
+                                        if (item.id_archivo == 0)
+                                        {
+                                            //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
+                                            int a = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                                        }
+                                    }
+                                    await dialog.SendMessage("Información", "Cambios realizados, los archivos serán verificados por el personal del CIT..");
+                                    //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                                    var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                                    //Verificamos que la pantalla sea diferente de nulo.
+                                    if (window != null)
+                                    {
+                                        //Cerramos la pantalla
+                                        window.Close();
+                                    }
+
+                                }
+                                else
+                                {
+                                    await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en la versión..");
+                                }
+                            }
+                            else
+                            {
+                                await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en documento..");
+                            }
+                        }
+                        else
+                        {
+                            //modificacion de la version, cuando es más de una versión 
+                            int update_version = modificaVersion();
                             if (update_version != 0)
                             {
-
                                 foreach (var item in _ListaDocumentos)
                                 {
                                     //Declaramos un objeto de tipo Archivo.
@@ -1113,25 +1156,38 @@ namespace View.Services.ViewModel
                                 await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en la versión..");
                             }
                         }
-                        else
-                        {
-                            await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en documento..");
-                        }
-
+                            
                     }
                     else
                     {
                         //Si los campos están vacíos, manda un mensaje.
                         await dialog.SendMessage("RGP: Alerta", "Se debe llenar todos los campos");
                     }
-                }
-                else
-                {
-                    await dialog.SendMessage("RGP: Alerta", "Verifica que el archivo cumpla con todos los requisitos");
+                    }
+                    else
+                    {
+                        await dialog.SendMessage("RGP: Alerta", "Verifica que el archivo cumpla con todos los requisitos");
+                    }
                 }
             }
+
+
+        private int modificaVersion()
+        {
+            Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+            objVersion.id_version = idVersion;
+            objVersion.no_version = version;
+            objVersion.id_documento = id_documento;
+            objVersion.id_usuario = _usuario;
+            objVersion.id_usuario_autorizo = _usuarioAutorizo;
+            objVersion.fecha_version = fecha;
+            objVersion.id_estatus_version = 3;
+            objVersion.no_copias = 0;
+
+            //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
+            return DataManagerControlDocumentos.UpdateVersion(objVersion);
         }
-        
+
         /// <summary>
         /// Comando para generar una nueva versión a un documento
         /// </summary>
@@ -1171,6 +1227,8 @@ namespace View.Services.ViewModel
                     Fecha = DateTime.Now;
                     //usuarioAutorizo = null;
                     ListaDocumentos.Clear();
+                    ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
+
                     BotonGuardar = "Guardar Version";
                     BttnGuardar = true;
                     BttnEliminar = false;

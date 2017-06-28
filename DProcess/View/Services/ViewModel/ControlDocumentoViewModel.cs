@@ -189,6 +189,20 @@ namespace View.Services.ViewModel
             }
         }
 
+        private bool bttnEnabled=false;
+        public bool BttnEnabled
+        {
+            get
+            {
+                return bttnEnabled;
+            }
+            set
+            {
+                bttnEnabled = value;
+                NotifyChange("BttnEnabled");
+            }
+        }
+
         private int num_pendientes { get; set; }
 
         #endregion
@@ -337,6 +351,36 @@ namespace View.Services.ViewModel
 
             initControlDocumentos();
             initSnack();
+        }
+
+        public ICommand AgregarTipo
+        {
+            get
+            {
+                return new RelayCommand(o => agregarTipo());
+            }
+        }
+        private void agregarTipo()
+        {
+            FrmNuevoTipo frmTipo = new FrmNuevoTipo();
+            NuevoTipoDocumentoVM context = new NuevoTipoDocumentoVM();
+            frmTipo.DataContext = context;
+            frmTipo.ShowDialog();
+        }
+
+        public ICommand AgregarDepartamento
+        {
+            get
+            {
+                return new RelayCommand(o => agregarDepartamento());
+            }
+        }
+        private void agregarDepartamento()
+        {
+            FrmNuevo_Departamento frm = new FrmNuevo_Departamento();
+            NuevoDepartamentoVM context = new NuevoDepartamentoVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
         }
 
         private async void irNuevoDocumento()
@@ -587,6 +631,11 @@ namespace View.Services.ViewModel
             usuario = modelUsuario;
             initControlDocumentos();
             initSnack();
+
+            if (Module.UsuarioIsRol(usuario.Roles, 2))
+            {
+                BttnEnabled = true;
+            }
         }
         #endregion
     }

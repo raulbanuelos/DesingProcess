@@ -10,6 +10,9 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="ControlDocumento"
       Height="Auto" Width="2000">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Page.Resources>
 
     <Grid ShowGridLines="False" Margin="0" Background="White">
         <Grid.RowDefinitions>
@@ -40,6 +43,16 @@
             <Separator></Separator>
             <Button ToolTip="Generar Número de Documento" Command="{Binding Generador}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="FileDocument" />
+            </Button>
+
+            <Separator></Separator>
+            <Button ToolTip="Agregar Tipo" Command="{Binding AgregarTipo}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
+                <materialDesign:PackIcon Kind="FolderPlus" />
+            </Button>
+
+            <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
+            <Button ToolTip="Agregar Departamento" Command="{Binding AgregarDepartamento}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
+                <materialDesign:PackIcon Kind="PlusBox" />
             </Button>
         </ToolBar>
 

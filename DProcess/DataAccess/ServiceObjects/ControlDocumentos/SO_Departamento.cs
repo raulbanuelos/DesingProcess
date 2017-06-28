@@ -164,7 +164,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 {
                     //Realizamos la consulta y e resultado lo guardamos en una variable local.
                     int idDep = (from d in Conexion.TBL_DEPARTAMENTO
-                                           where d.NOMBRE_DEPARTAMENTO.Contains(nombre_departamento) || d.ABREVIATURA.Contains(abreviatura)
+                                           where d.NOMBRE_DEPARTAMENTO.Equals(nombre_departamento) || d.ABREVIATURA.Equals(abreviatura)
                                            select d.ID_DEPARTAMENTO).ToList().FirstOrDefault();
 
                     //Retornamos el resultado de la consulta.
