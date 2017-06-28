@@ -9,7 +9,8 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="" Height="998.5" Width="1566.5"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen">
+        Title="" Height="920" Width="1400"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
@@ -30,10 +31,7 @@
                 <DataTrigger Binding="{Binding selected}" Value="True"  >
                     <Setter TargetName="Border" Property="Background" Value="{DynamicResource MaterialDesignSelection}" />
                 </DataTrigger>
-
             </DataTemplate.Triggers>
-
-
         </DataTemplate>
 
         <!--Lista de Archivos-->
@@ -53,31 +51,26 @@
                     <Button  Grid.Column="0" Content="Eliminar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#FFE27B7B" BorderBrush="#FFD36B6B" Command="{Binding Path=DataContext.EliminarItem,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"  
                              Visibility="{Binding EnabledEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"/>
                     <Button  Grid.Column="0" Content="Ver" Width="80" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Command="{Binding Path=DataContext.VerArchivo,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" ></Button>
-
                     <!--Columna1-->
                     <Image Name="img_icono" Source="{Binding Path=ruta}" Grid.Column="1" HorizontalAlignment="Stretch" Width="70" VerticalAlignment="Stretch"></Image>
                 </Grid>
             </Border>
         </DataTemplate>
     </Window.Resources>
-
-
-    <Grid Margin="0,0,-2,328">
+    <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="46*"/>
-            <RowDefinition Height="55*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="135"/>
         </Grid.RowDefinitions>
-        <Canvas HorizontalAlignment="Left" Height="816" Margin="0,56,0,-236" VerticalAlignment="Top" Width="1163" Grid.RowSpan="2">
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="380"/>
+        </Grid.ColumnDefinitions>
+        <Canvas HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Height="727" VerticalAlignment="Top" Width="980" Grid.RowSpan="2">
             <!--Nombre Documento-->
-            <Label x:Name="label" Content="Número de Documento" Height="31" Canvas.Left="83" Canvas.Top="10" Width="196" FontSize="16" FontWeight="Bold"/>
-            <Rectangle Fill="#89DCDCDC" Height="38" Canvas.Left="83" Canvas.Top="51" Width="51" Stroke="#FFBDBDBD"/>
-            <Rectangle Width="47" Height="38" Canvas.Top="51" RenderTransformOrigin="0.871,0.394" Canvas.Left="86">
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="/View;component/Images/name.png"/>
-                </Rectangle.Fill>
-            </Rectangle>
-            <ComboBox x:Name="comboBox4" Height="38" Canvas.Left="134" Canvas.Top="51" Width="467" BorderThickness="1" Background="White" BorderBrush="#89535353" FontSize="18" ItemsSource="{Binding ListaNumeroDocumento}" DisplayMemberPath="nombre"  SelectedItem="{Binding SelectedDocumento}" IsEnabled="{Binding NombreEnabled}">
+            <ComboBox x:Name="comboBox4" materialDesign:HintAssist.Hint="Número de Documento" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Canvas.Left="11" Canvas.Top="21" Width="420"  Background="White" BorderBrush="#89535353" FontSize="18" ItemsSource="{Binding ListaNumeroDocumento}" DisplayMemberPath="nombre"  SelectedItem="{Binding SelectedDocumento}" IsEnabled="{Binding NombreEnabled}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction
@@ -86,78 +79,32 @@
                 </i:Interaction.Triggers>
             </ComboBox>
             <!--Version-->
-            <Label x:Name="label1" Content="Versión" Height="30" Canvas.Left="83" Canvas.Top="107" Width="68" FontSize="16" FontWeight="Bold"/>
-            <Rectangle Fill="#89DCDCDC" Height="38" Canvas.Left="83" Canvas.Top="137" Width="51" Stroke="#FFBDBDBD"/>
-            <Rectangle Width="39" Height="32" Canvas.Top="140" RenderTransformOrigin="0.871,0.394" Canvas.Left="90">
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="/View;component/Images/copy.png"/>
-                </Rectangle.Fill>
-            </Rectangle>
-            <TextBox x:Name="txt_version" Canvas.Left="134" TextWrapping="Wrap" Canvas.Top="137" Height="38"  Width="467" BorderThickness="1" BorderBrush="#89535353" FontSize="18" Text="{Binding Version}" IsEnabled="{Binding VersionEnabled}"/>
-
+            <TextBox x:Name="txt_version"  materialDesign:HintAssist.Hint="Versión" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Canvas.Left="11" TextWrapping="Wrap" Canvas.Top="76" Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding Version}" IsEnabled="{Binding VersionEnabled}"/>
             <!--Date-->
-            <DatePicker x:Name="txt_fecha"  Height="38" Canvas.Left="133" Canvas.Top="226" Width="467" DisplayDateEnd="{x:Static System:DateTime.Today}" BorderThickness="1" BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"
+            <DatePicker x:Name="txt_fecha" materialDesign:HintAssist.Hint="Fecha" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40" Canvas.Left="11" Canvas.Top="141" Width="420" DisplayDateEnd="{x:Static System:DateTime.Today}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"
                         IsEnabled="{Binding IsEnabled}"/>
-            <Rectangle Fill="#89DCDCDC" Height="38" Canvas.Left="83" Canvas.Top="226" Width="51" Stroke="#FFBDBDBD"/>
-            <Rectangle Width="40" Height="39" Canvas.Top="226" RenderTransformOrigin="0.871,0.394" Canvas.Left="89">
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="/View;component/Images/date.png"/>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Label x:Name="label2" Content="Fecha de Creación" Height="32" Canvas.Left="84" Canvas.Top="194" Width="146" FontSize="16" FontWeight="Bold"/>
-
-            <!--Numero de Copias-->
-
             <!--Descripción-->
-            <TextBox Text="{Binding Descripcion}" Canvas.Left="88" Canvas.Top="700" RenderTransformOrigin="-4.028,-0.333" Height="38"  Width="515" BorderThickness="1" BorderBrush="#89535353" FontSize="18"  IsEnabled="{Binding IsEnabled}"></TextBox>
-            <Label x:Name="label3" Content="Nombre del Documento" Height="34" Canvas.Left="90" Canvas.Top="666" FontSize="16" FontWeight="Bold"/>
-
+            <TextBox Text="{Binding Descripcion}"  materialDesign:HintAssist.Hint="Nombre del Documento" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Canvas.Left="12" Canvas.Top="415"  Height="50"  Width="420" BorderBrush="#89535353" FontSize="18"  IsEnabled="{Binding IsEnabled}"></TextBox>
             <!--Buttons-->
-            <Button x:Name="button"  Height="47" Width="77" RenderTransformOrigin="0.495,0.578" BorderBrush="#89DCDCDC" Canvas.Left="1075" Canvas.Top="743"  Command="{Binding LlenarLista}" Background="#89F2F5F7" ToolTip="Abrir archivo"
-                    Visibility="{Binding BttnArchivos, Converter={StaticResource BoolToVis}, FallbackValue= Hidden}">
-                <Rectangle Width="40" Height="39" Canvas.Top="226" RenderTransformOrigin="0.871,0.394" Canvas.Left="89">
+            <Button x:Name="button"  Height="40" Width="75" RenderTransformOrigin="0.495,0.578" BorderBrush="#89DCDCDC" Canvas.Left="887" Canvas.Top="687"  Command="{Binding LlenarLista}" Background="#89F2F5F7" ToolTip="Abrir archivo"
+                    Visibility="{Binding BttnArchivos, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}">
+                <Rectangle Width="36" Height="35" Canvas.Top="226"  Canvas.Left="89">
                     <Rectangle.Fill>
                         <ImageBrush ImageSource="/View;component/Images/folder.png"/>
                     </Rectangle.Fill>
                 </Rectangle>
-
             </Button>
 
-            <Canvas Height="64" Canvas.Left="48" Canvas.Top="828" Width="1110" RenderTransformOrigin="0.5,0.5">
-                <Canvas.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform AngleY="-0.098"/>
-                        <RotateTransform/>
-                        <TranslateTransform Y="-0.748"/>
-                    </TransformGroup>
-                </Canvas.RenderTransform>
-                <Button x:Name="bttn_guardar" Content="{Binding BotonGuardar}" Height="41" Canvas.Top="10" Width="135" Canvas.Left="38" Command="{Binding GuardarControl}" Background="#FF157EFB" Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" />
-                <Button x:Name="bttn_cancelar" Content="Cancelar" Height="41" Canvas.Left="211" Canvas.Top="10" Width="135" Command="{Binding Cancelar}" Background="#FF157EFB" Visibility="{Binding BttnCancelar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
-                <Button x:Name="bttn_eliminar" Content="Eliminar" Canvas.Left="729" Canvas.Top="10" Width="135" Height="41" Background="#FF157EFB" Command="{Binding Eliminar}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
-                <Button x:Name="bttn_cambios" Content="Modificar" Height="41" Canvas.Left="545" Canvas.Top="10" Width="135" Background="#FF157EFB" Command="{Binding Modificar}" Visibility="{Binding BttnModificar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
-                <Button x:Name="bttn_generar" Content="Generar Versión" Height="41" Canvas.Left="378" Canvas.Top="10" Width="135" Background="#FF157EFB" Command="{Binding GenerarVersion}" Visibility="{Binding BttnVersion, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
-                <Button x:Name="button1" Content="Liberar" Height="41" Canvas.Left="907" Canvas.Top="10" Width="135" Background="#FF157EFB"  Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" Command="{Binding LiberarDocumento}" />
-            </Canvas>
-
             <!--ListView Archivos-->
-
-            <ListBox Name="listBox" Height="687" Canvas.Left="666" Canvas.Top="51" Width="486" ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" BorderThickness="1" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" >
+            <ListBox Name="listBox" Height="619" Canvas.Left="481" Canvas.Top="56" Width="481" ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" BorderThickness="1" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" >
             </ListBox>
-
-            <Label x:Name="label5" Content="Lista de Documentos" Height="36" Canvas.Left="666" Canvas.Top="8" Width="196" FontSize="18" FontWeight="Bold" RenderTransformOrigin="0.194,0.5"/>
-
+            <Label x:Name="label5" Content="Lista de Documentos" Height="36" Canvas.Left="481" Canvas.Top="10" Width="196" FontSize="18" FontWeight="Bold" RenderTransformOrigin="0.194,0.5"/>
             <!--Tipo de Documento-->
-            <ComboBox x:Name="comboBox" Height="38" Canvas.Left="83" Canvas.Top="311" Width="517" BorderThickness="1" BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}" FontSize="18" IsEnabled="{Binding VersionEnabled}"  />
-            <Label x:Name="label6" Content="Tipo de Documento" Height="29" Canvas.Left="88" Canvas.Top="282" Width="161" FontSize="16" FontWeight="Bold"/>
-
-
+            <ComboBox x:Name="comboBox" materialDesign:HintAssist.Hint="Tipo de Documento" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Canvas.Left="10" Canvas.Top="186" Width="420"  BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}" FontSize="18" IsEnabled="{Binding VersionEnabled}"  />
             <!--Nombre del departamento-->
-            <ComboBox x:Name="comboBox1" Height="38" Canvas.Left="88" Canvas.Top="413" Width="517" BorderThickness="1" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaDepartamento}" DisplayMemberPath="nombre_dep" SelectedValuePath="id_dep" SelectedValue="{Binding id_dep}" IsEnabled="{Binding VersionEnabled}"/>
-            <Label x:Name="label7" Content="Nombre del Departamento/ Proceso" Height="37" Canvas.Left="90" Canvas.Top="376" Width="309" FontSize="16" FontWeight="Bold"/>
-
+            <ComboBox x:Name="comboBox1" materialDesign:HintAssist.Hint="Nombre del Departamento/Proceso" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Canvas.Left="11" Canvas.Top="241" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaDepartamento}" DisplayMemberPath="nombre_dep" SelectedValuePath="id_dep" SelectedValue="{Binding id_dep}" IsEnabled="{Binding VersionEnabled}"/>
             <!--Usuario-->
-            <ComboBox x:Name="comboBox2" Height="38" Canvas.Left="90" Canvas.Top="507" Width="517" BorderThickness="1" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaUsuarios}"  SelectedValuePath="usuario" SelectedValue="{Binding usuario}" Background="White" IsEnabled="{Binding VersionEnabled}">
+            <ComboBox x:Name="comboBox2" materialDesign:HintAssist.Hint="Usuario Elaboró" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Canvas.Left="11" Canvas.Top="296" Width="420"  BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaUsuarios}"  SelectedValuePath="usuario" SelectedValue="{Binding usuario}" Background="White" IsEnabled="{Binding VersionEnabled}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>
@@ -171,8 +118,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Label x:Name="label8" Content="Usuario Elaboró" Height="28" Canvas.Left="90" Canvas.Top="478" Width="208" FontSize="16" FontWeight="Bold"/>
-            <ComboBox x:Name="comboBox3" Height="38" Canvas.Left="90" Canvas.Top="606" Width="514" BorderThickness="1" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" ItemsSource="{Binding Path=ListaUsuarios}"  SelectedValuePath="usuario" SelectedValue="{Binding usuarioAutorizo}"
+            <ComboBox x:Name="comboBox3" materialDesign:HintAssist.Hint="Usuario Autorizó" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  Height="50" Canvas.Left="12" Canvas.Top="351" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" ItemsSource="{Binding Path=ListaUsuarios}"  SelectedValuePath="usuario" SelectedValue="{Binding usuarioAutorizo}"
                        IsEnabled="{Binding IsEnabled}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -187,14 +133,19 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Label x:Name="label9" Content="Usuario Autorizó" Height="34" Canvas.Left="90" Canvas.Top="572" Width="234" FontSize="16" FontWeight="Bold"/>
-
         </Canvas>
-
+        <!--Botones-->
+        <Canvas Height="64"  Grid.Column="1" Grid.Row="2" Margin="0,25,0,46"  >
+            <Button x:Name="bttn_guardar" Content="{Binding BotonGuardar}" Height="40" Canvas.Top="12" Width="90" Canvas.Left="880" Command="{Binding GuardarControl}"  Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" />
+            <Button x:Name="bttn_cancelar" Content="Cancelar" Height="40" Canvas.Left="785" Canvas.Top="12" Width="90" Command="{Binding Cancelar}"  Visibility="{Binding BttnCancelar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
+            <Button x:Name="bttn_eliminar" Content="Eliminar" Canvas.Left="438" Canvas.Top="12" Width="90" Height="40"  Command="{Binding Eliminar}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
+            <Button x:Name="bttn_cambios" Content="Modificar" Height="40" Canvas.Left="544" Canvas.Top="12" Width="93"  Command="{Binding Modificar}" Visibility="{Binding BttnModificar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
+            <Button x:Name="bttn_generar" Content="Generar Versión" Height="40" Canvas.Left="651" Canvas.Top="12" FontSize="12" Width="120"  Command="{Binding GenerarVersion}" Visibility="{Binding BttnVersion, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
+            <Button x:Name="button1" Content="Liberar" Height="40" Canvas.Left="331" Canvas.Top="12" Width="90"  Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" Command="{Binding LiberarDocumento}" />
+        </Canvas>
         <!--Barra-->
-        <Grid HorizontalAlignment="Left" Height="693" Margin="1178,104,0,-161" Grid.RowSpan="2" VerticalAlignment="Top" Width="326">
-            <ListBox Canvas.Left="666" Canvas.Top="51" ItemsSource="{Binding ListaValidaciones}" ItemTemplate="{StaticResource ListCheck}"  Background="White" Foreground="#DD040404" >
-            </ListBox>
+        <Grid Height="609" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Width="326">
+            <ListBox Canvas.Left="666" ItemsSource="{Binding ListaValidaciones}" ItemTemplate="{StaticResource ListCheck}"  Background="White" Foreground="#DD040404"  Height="609" VerticalAlignment="Top" Margin="0,-10,0,0" />
         </Grid>
     </Grid>
 </Controls:MetroWindow>

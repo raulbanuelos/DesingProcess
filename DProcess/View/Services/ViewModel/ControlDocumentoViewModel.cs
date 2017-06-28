@@ -335,6 +335,7 @@ namespace View.Services.ViewModel
 
             frm.ShowDialog();
 
+            initControlDocumentos();
             initSnack();
         }
 
@@ -391,8 +392,6 @@ namespace View.Services.ViewModel
                         break;
                 }
             }
-
-
         }
 
         private void GenerarNumero()
@@ -541,7 +540,6 @@ namespace View.Services.ViewModel
                     EnabledPendientes_Liberar = false;
                     PendientesLiberar = string.Empty;
                 }
-
             }
 
             //Si el usuario es dueño del documento

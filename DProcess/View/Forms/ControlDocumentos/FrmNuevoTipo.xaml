@@ -9,17 +9,17 @@
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
         mc:Ignorable="d"
         Title="" 
-        Height="502" Width="701" 
+        Height="280" Width="500" 
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
-        <Grid HorizontalAlignment="Left" Height="333" Margin="10,31,0,0" VerticalAlignment="Top" Width="659">
-            <Label x:Name="label" Content="Agregar Tipo de Documento" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Height="42" Margin="19,10,0,0" VerticalAlignment="Top" Width="349"/>
-            <TextBox x:Name="textBox" materialDesign:HintAssist.Hint="Tipo de Documento" HorizontalAlignment="Left"  Text="{Binding TipoDocumento}"  Height="65" Margin="29,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="600"  BorderThickness="1,1,1,1" BorderBrush="#899B9999" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-            <TextBox x:Name="textBox1"  materialDesign:HintAssist.Hint="Abreviatura" HorizontalAlignment="Left" Height="65" Margin="29,165,0,0" TextWrapping="Wrap" Text="{Binding Abreviatura}" VerticalAlignment="Top" Width="600" BorderThickness="1,1,1,1" BorderBrush="#899B9999" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+        <Grid HorizontalAlignment="Left" Height="178" Margin="10,10,0,0" VerticalAlignment="Top" Width="517">
+            <Label x:Name="label" Content="Agregar Tipo de Documento" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Height="42" Margin="29,10,0,0" VerticalAlignment="Top" Width="349"/>
+            <TextBox x:Name="textBox" materialDesign:HintAssist.Hint="Tipo de Documento" HorizontalAlignment="Left"  Text="{Binding TipoDocumento}"  Height="50" Margin="29,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="400"   FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox x:Name="textBox1"  materialDesign:HintAssist.Hint="Abreviatura" HorizontalAlignment="Left" Height="50" Margin="29,107,0,0" TextWrapping="Wrap" Text="{Binding Abreviatura}" VerticalAlignment="Top" Width="400" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
         </Grid>
-        <Canvas HorizontalAlignment="Left" Height="66" Margin="446,392,0,0" VerticalAlignment="Top" Width="233">
-            <Button x:Name="button" Content="Guardar" Height="49" Canvas.Left="32" Width="176" Canvas.Top="7" Command="{Binding GuardarTipo}"/>
+        <Canvas HorizontalAlignment="Left" Height="64" VerticalAlignment="Top" Width="116" Margin="327,178,0,0">
+            <Button x:Name="button" Content="Guardar" Height="40" Canvas.Left="20" Width="90" Canvas.Top="16" Command="{Binding GuardarTipo}"/>
         </Canvas>
 
     </Grid>

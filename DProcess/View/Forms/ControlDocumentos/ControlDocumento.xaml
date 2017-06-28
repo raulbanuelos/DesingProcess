@@ -38,17 +38,8 @@
             </Button>
 
             <Separator></Separator>
-
             <Button ToolTip="Generar Número de Documento" Command="{Binding Generador}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="FileDocument" />
-            </Button>
-
-            <Button ToolTip="Documentos Pendientes por Corregir" Command="{Binding DocumentosPendientes }" Cursor="Hand">
-                <materialDesign:PackIcon Kind="FileCheck" />
-            </Button>
-            
-            <Button ToolTip="Documentos Pendientes por Corregir" Command="{Binding ImportarExcel }" Cursor="Hand">
-                <materialDesign:PackIcon Kind="FileCheck" />
             </Button>
         </ToolBar>
 

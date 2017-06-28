@@ -459,7 +459,7 @@ namespace View.Services.ViewModel
             User = Modelusuario;
             Nombre = selectedDocumento.nombre;
             Version = selectedDocumento.version.no_version;
-            Fecha = selectedDocumento.fecha_actualizacion;
+            Fecha = selectedDocumento.fecha_emision;
             auxversion = selectedDocumento.version.no_version;
             Descripcion = selectedDocumento.descripcion;
             id_documento = selectedDocumento.id_documento;
@@ -549,7 +549,7 @@ namespace View.Services.ViewModel
             Nombre = selectedDocumento.nombre;
             User = new Usuario();
             Version = selectedDocumento.version.no_version;
-            Fecha = selectedDocumento.fecha_actualizacion;
+            Fecha = selectedDocumento.fecha_emision;
             Descripcion = selectedDocumento.descripcion;
             id_documento = selectedDocumento.id_documento;
             idVersion = selectedDocumento.version.id_version;

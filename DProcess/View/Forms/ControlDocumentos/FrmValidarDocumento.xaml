@@ -8,7 +8,8 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="FrmValidarDocumento" Height="800" Width="1000"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen">
+        Title="Validar Documento" Height="800" Width="1000"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.Resources>
         <DataTemplate x:Key="Lista">
             <Border Margin="5" BorderThickness="1" BorderBrush="#FF2196F3" CornerRadius="4" Width="445" Height="100">
@@ -102,7 +103,7 @@
             <StackPanel Grid.Column="1" HorizontalAlignment="Left" Height="604" VerticalAlignment="Top" Width="543" Margin="5,57,0,0" RenderTransformOrigin="0.5,0.5">
                 <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="601" Margin="25,0,0,0" Width="495" BorderBrush="#FFB8B6B6" BorderThickness="1" Background="White" Foreground="#DD040404" ItemTemplate="{StaticResource Lista}" ItemsSource="{Binding ListaArchivos}" SelectedItem="{Binding SelectedItem}"/>
             </StackPanel>
-            <Button x:Name="button" Content="Guardar" Grid.Column="1" HorizontalAlignment="Left" Height="51" Margin="424,666,0,0" VerticalAlignment="Top" Width="101"
+            <Button x:Name="button" Content="Guardar" Grid.Column="1" HorizontalAlignment="Left" Height="40" Margin="433,666,0,0" VerticalAlignment="Top" Width="90"
                     Command="{Binding Guardar}"/>
             <Label Content="{Binding Estatus}" FontSize="15" FontWeight="Bold" Grid.Column="1" HorizontalAlignment="Left" Height="31" Margin="78,668,0,0" VerticalAlignment="Top" Width="310" IsEnabled="False"/>
         </Grid>
