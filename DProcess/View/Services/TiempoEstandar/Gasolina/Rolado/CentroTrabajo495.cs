@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using Model;
+﻿using Model;
 using Model.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace View.Services.TiempoEstandar.Gasolina.PreMaquinado
+namespace View.Services.TiempoEstandar.Gasolina.Rolado
 {
-    public class CentroTrabajo110 : ICentroTrabajo
+    public class CentroTrabajo495 : ICentroTrabajo
     {
         #region Propiedades
 
@@ -67,29 +70,21 @@ namespace View.Services.TiempoEstandar.Gasolina.PreMaquinado
 
         #endregion
 
-        #region Constructores
-        public CentroTrabajo110()
+        #region Métodos
+
+        public CentroTrabajo495()
         {
-            CentroTrabajo = "110";
-            FactorLabor = 2;
+            CentroTrabajo = "495";
+            FactorLabor = 0.50;
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
 
             //Inicializamos los datos requeridos para el cálculo.
-            Propiedad rpm1_110 = new Propiedad { Nombre = "RPM1_110", TipoDato = "Cantidad", DescripcionLarga = "Cantidad de RMP primer corte en operación FIRST ROUGH GRIND", Imagen = null, DescripcionCorta = "RPM 1er corte (First Rough grind):" };
-            PropiedadesRequeridadas.Add(rpm1_110);
-
-            Propiedad rpm2_100 = new Propiedad { Nombre = "RMP2_110", TipoDato = "Cantidad", DescripcionLarga = "Cantidad de RMP segundo corte en operación FIRST ROUGH GRIND", Imagen = null, DescripcionCorta = "RPM 2do corte (First Rough grind):" };
-            PropiedadesRequeridadas.Add(rpm2_100);
-
-            PropiedadCadena espeMaterial = new PropiedadCadena { Nombre = "EspecMaterial", DescripcionCorta = "Material:", DescripcionLarga = "Especificación de materia prima (MF012-S,SPR-128,ETC)" };
-            PropiedadesRequeridasCadena.Add(espeMaterial);
-
+            Propiedad _d1 = new Propiedad { Nombre = "D1", TipoDato = "Distance", DescripcionCorta = "Diámetro nominal", DescripcionLarga = "Diámetro nominal del anillo", Imagen = null, Unidad = "inches (in)", Valor = 0 };
+            PropiedadesRequeridadas.Add(_d1);
+            
         }
-        #endregion
-
-        #region Métodos
 
         #region Métodos de ICentroTrabajo
 
@@ -120,7 +115,6 @@ namespace View.Services.TiempoEstandar.Gasolina.PreMaquinado
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
-            PropiedadesRequeridasCadena.Add(anillo.MaterialBase.Especificacion);
 
             //Ejecutamos el método para calcular los tiempos estándar.
             Calcular();
@@ -133,49 +127,9 @@ namespace View.Services.TiempoEstandar.Gasolina.PreMaquinado
         {
 
             TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            double rpm1 = Module.GetValorPropiedad("RPM1_110", PropiedadesRequeridadas);
-            double rpm2 = Module.GetValorPropiedad("RPM2_110", PropiedadesRequeridadas);
-            string tipoMaterial = Module.GetValorPropiedadString("EspecMaterial", PropiedadesRequeridasCadena);
-
-            double t_ciclo2 = 0;
-            double t_ciclo1 = 0;
-            double ciclo_carga = 0;
-
-            //Comienza cálculo de tiempo estándar
-
-            if (tipoMaterial == "HIERRO GRIS" || tipoMaterial == "HIERRO GRIS CENTRIFUGADO")
-            {
-                t_ciclo1 = Math.Round((0.39 * 9) / rpm1, 3);
-                t_ciclo2 = Math.Round((0.3 * 12) / rpm2, 3);
-            }
-            else
-            {
-                if (tipoMaterial == "HIERRO GRIS INTERMEDIO")
-                {
-                    t_ciclo1 = Math.Round((0.49 * 7) / rpm1, 3);
-                    t_ciclo2 = Math.Round((0.36 * 11) / rpm2, 3);
-                }
-                else
-                {
-                    if (tipoMaterial == "HIERRO GRIS ALTO MODULO")
-                    {
-                        t_ciclo1 = 0.65;
-                        t_ciclo2 = 0.65;
-                    }
-                    else
-                    {
-                        Alertas.Add("El material " + tipoMaterial + " no está disponible para el cálculo de tiempo estándar del centro de trabajo 110");
-                    }
-                }
-            }
-
-            ciclo_carga = (t_ciclo1 + t_ciclo2 + 0.0748 + 0.0267);
-            TiempoMachine = Math.Round((100 * ((ciclo_carga) / 3600) / 1) * 100, 3);
+            double diametroNominal = Module.GetValorPropiedad("D1", PropiedadesRequeridadas);
+            TiempoMachine = Math.Round(((0.0120 + ((2.06 * diametroNominal) / 3.91730)) / 36) * 100,3);
             TiempoLabor = TiempoMachine * FactorLabor;
-
-            //Termina cálculo de tiempo estándar.
         }
         #endregion
 

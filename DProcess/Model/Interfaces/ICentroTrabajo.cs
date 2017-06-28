@@ -14,6 +14,8 @@ namespace Model.Interfaces
 
         double FactorLabor { get; set; }
 
+        string CentroTrabajo { get; set; }
+
         List<Propiedad> PropiedadesRequeridadas { get; set; }
         List<PropiedadBool> PropiedadesRequeridasBool { get; set; }
         List<PropiedadCadena> PropiedadesRequeridasCadena { get; set; }
