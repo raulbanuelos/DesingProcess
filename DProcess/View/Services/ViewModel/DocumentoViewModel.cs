@@ -1169,7 +1169,7 @@ namespace View.Services.ViewModel
 
                     //Limpiamos todos lo textbox, y se cambia el content del botón de guardar.
                     Fecha = DateTime.Now;
-                    usuarioAutorizo = null;
+                    //usuarioAutorizo = null;
                     ListaDocumentos.Clear();
                     BotonGuardar = "Guardar Version";
                     BttnGuardar = true;
@@ -1512,7 +1512,7 @@ namespace View.Services.ViewModel
         /// <returns></returns>
         private bool ValidarValores()
         {
-            if (nombre != null & version != null & fecha != null & descripcion != null & id_tipo != 0 & _ListaDocumentos.Count != 0 & _usuario!=null & _id_dep!=0 & _usuarioAutorizo!=null)
+            if (nombre != null & version != null & fecha != null & descripcion != null & id_tipo != 0 & _ListaDocumentos.Count != 0 & _usuario!=null & _id_dep!=0 & usuarioAutorizo!=null)
                 return true;
             else 
                 return false;
