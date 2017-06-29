@@ -19,6 +19,7 @@ namespace View.Services
         {
             try
             {
+                //Si la información recibida es diferente de cero
                 if (data != null)
                 {
                     //Creamos una instancia de la aplicación.

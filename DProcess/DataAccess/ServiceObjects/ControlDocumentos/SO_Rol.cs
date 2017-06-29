@@ -11,7 +11,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
    public  class SO_Rol
     {
         /// <summary>
-        /// 
+        /// Método para obtener los roles
         /// </summary>
         /// <returns></returns>
         public IList GetRol()
@@ -150,6 +150,11 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        /// <summary>
+        /// Método para obtener los roles de un usuario en específico.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public IList GetRol_Usuario(string usuario)
         {
             try

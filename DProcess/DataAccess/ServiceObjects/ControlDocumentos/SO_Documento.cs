@@ -412,8 +412,10 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         {
             try
             {
+                //Establecemos la conexión a la BD.
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
+                    //Realizamos la consulta para obtener los documentos que se encuentran pendientes del usario
                     var Lista = (from d in Conexion.TBL_DOCUMENTO
                                  join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
                                  join dep in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals dep.ID_DEPARTAMENTO
@@ -429,12 +431,13 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      d.ID_ESTATUS_DOCUMENTO
                                  }).OrderBy(x => x.ID_DOCUMENTO).ToList();
 
+                    //Se retorna la lista
                     return Lista;
                 }
             }
             catch (Exception)
             {
-
+                //Si hay algun error, retorna nulo
                 return null;
             }
            
@@ -471,7 +474,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene las versiones que están pendientes por aprobar
         /// </summary>
         /// <param name="nombreUsuario"></param>
         /// <returns></returns>
@@ -479,8 +482,10 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         {
             try
             {
+                //Se inician los servicios de Entity Control Documento
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
+                    //Se realiza la consulta para obtener todas las versiones que de deben aprobar
                     var Lista = (from d in Conexion.TBL_DOCUMENTO
                                  join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                  join u in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals u.Usuario
@@ -494,40 +499,67 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      t.TIPO_DOCUMENTO,
                                      v.No_VERSION
                                  }).ToList();
+                    //retorna la lista
                     return Lista;
                 }
             }
             catch (Exception)
             {
-                return null;
-            }
-        }
-
-        public IList GetDocumentoVersion(int idDocumento, string version)
-        {
-            try
-            {
-                using (var Conexion = new EntitiesControlDocumentos())
-                {
-                    var lista = (from d in Conexion.TBL_DOCUMENTO
-                                 join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
-                                 where v.No_VERSION == version && d.ID_DOCUMENTO == idDocumento
-                                 select new
-                                 {
-                                     d.ID_DOCUMENTO,d.ID_TIPO_DOCUMENTO,d.ID_USUARIO,d.ID_DEPARTAMENTO,d.ID_ESTATUS_DOCUMENTO,d.NOMBRE,d.DESCRIPCION,d.FECHA_EMISION,d.FECHA_CREACION,d.FECHA_ACTUALIZACION,
-                                     v.ID_VERSION,v.ID_ESTATUS_VERSION,v.ID_USUARIO_ELABORO,v.ID_USUARIO_AUTORIZO,v.No_VERSION,v.FECHA_VERSION,v.NO_COPIAS
-                                 }).ToList();
-                    return lista;
-                }
-            }
-            catch (Exception er)
-            {
+                //Si hay error, regresa nulo
                 return null;
             }
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene toda la información de un documento y su versión actual
+        /// </summary>
+        /// <param name="idDocumento"></param>
+        /// <param name="version"></param>
+        /// <returns></returns>
+        public IList GetDocumentoVersion(int idDocumento, string version)
+        {
+            try
+            {
+                //Se inician los servicios de Entity Control Documento
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Se realiza la consulta
+                    var lista = (from d in Conexion.TBL_DOCUMENTO
+                                 join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                 where v.No_VERSION == version && d.ID_DOCUMENTO == idDocumento
+                                 select new
+                                 {
+                                     d.ID_DOCUMENTO,
+                                     d.ID_TIPO_DOCUMENTO,
+                                     d.ID_USUARIO,
+                                     d.ID_DEPARTAMENTO,
+                                     d.ID_ESTATUS_DOCUMENTO,
+                                     d.NOMBRE,
+                                     d.DESCRIPCION,
+                                     d.FECHA_EMISION,
+                                     d.FECHA_CREACION,
+                                     d.FECHA_ACTUALIZACION,
+                                     v.ID_VERSION,
+                                     v.ID_ESTATUS_VERSION,
+                                     v.ID_USUARIO_ELABORO,
+                                     v.ID_USUARIO_AUTORIZO,
+                                     v.No_VERSION,
+                                     v.FECHA_VERSION,
+                                     v.NO_COPIAS
+                                 }).ToList();
+                    //Se retorna la lista
+                    return lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si hay error, se regresa nulo
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que modifica el estatus del documento
         /// </summary>
         /// <param name="id_documento"></param>
         /// <param name="id_estatus"></param>
@@ -560,7 +592,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene todos los documentos pendientes por corregir
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
@@ -568,13 +600,15 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         {
             try
             {
+                //Se inician los servicios de Entity Control Documento
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
+                    //Se realiza la consulta para obtener los documentos pendientes por corregir de un usuario
                     var Lista = (from d in Conexion.TBL_DOCUMENTO
                                  join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                  join u in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals u.Usuario
                                  join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
-                                 where v.ID_ESTATUS_VERSION == 4 & v.ID_USUARIO_ELABORO.Contains(usuario)
+                                 where v.ID_ESTATUS_VERSION == 4 & v.ID_USUARIO_ELABORO.Equals(usuario)
                                  select new
                                  {
                                      d.ID_DOCUMENTO,
@@ -584,11 +618,14 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      v.No_VERSION,
                                      v.FECHA_VERSION
                                  }).ToList();
+
+                    //Retorna la lista de los documentos
                     return Lista;
                 }
             }
             catch (Exception)
             {
+                //si hay error, regresa nulo
                 return null;
             }
         }
@@ -596,7 +633,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 
 
         /// <summary>
-        /// Método para obtener los documentos aprobados pendientes por liberar
+        /// Método para obtener todos los documentos aprobados pendientes por liberar
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
@@ -604,8 +641,10 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         {
             try
             {
+                //Se inician los servicios de Entity Control Documento
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
+                    //Se realiza la consulta
                     var Lista = (from d in Conexion.TBL_DOCUMENTO
                                  join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                  join u in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals u.Usuario
@@ -620,17 +659,20 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      v.No_VERSION,
                                      v.FECHA_VERSION
                                  }).ToList();
+
+                    //Retorna la lista
                     return Lista;
                 }
             }
             catch (Exception)
             {
+                //Retorna nulo, si hay error
                 return null;
             }
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene todos los documentos pendientes por liberar de un determinado usuarip
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
@@ -638,13 +680,15 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         {
             try
             {
+                //Se inician los servicios de Entity Control Documento
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
+                    //Se realiza la consulta
                     var Lista = (from d in Conexion.TBL_DOCUMENTO
                                  join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                  join u in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals u.Usuario
                                  join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
-                                 where v.ID_ESTATUS_VERSION == 5 & v.ID_USUARIO_ELABORO.Contains(usuario)
+                                 where v.ID_ESTATUS_VERSION == 5 & v.ID_USUARIO_ELABORO.Equals(usuario)
                                  select new
                                  {
                                      d.ID_DOCUMENTO,
@@ -653,11 +697,14 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      t.TIPO_DOCUMENTO,
                                      v.No_VERSION
                                  }).ToList();
+
+                    //Regresa la lista
                     return Lista;
                 }
             }
             catch (Exception)
             {
+                //Si hay error, regresa nulo
                 return null;
             }
         }

@@ -68,8 +68,9 @@ namespace Model.ControlDocumentos
             return  ServiceArchivo.SetArchivo(archivo.id_version, archivo.archivo, archivo.ext,archivo.nombre);
 
         }
+
         /// <summary>
-        /// Método para modificar un registro de la tabla.
+        /// Método para modificar un registro de la tabla archvio.
         /// </summary>
         /// <param name="archivo"></param>
         /// <returns></returns>
@@ -183,7 +184,7 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// Método para insertar un registro en la tabla.
+        /// Método para insertar un registro en la tabla deparatamento.
         /// </summary>
         /// <param name="departamento"></param>
         /// <returns></returns>
@@ -197,7 +198,7 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// Método para modificar un registro de la tabla.
+        /// Método para modificar un registro de la tabla deparatamento.
         /// </summary>
         /// <param name="departamento"></param>
         /// <returns></returns>
@@ -211,7 +212,7 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// Método para eliminar un registro de la tabla.
+        /// Método para eliminar un registro de la tabla deparatamento.
         /// </summary>
         /// <param name="departamento"></param>
         /// <returns></returns>
@@ -225,6 +226,11 @@ namespace Model.ControlDocumentos
 
         }
 
+        /// <summary>
+        /// Método para validar si el departamento existe
+        /// </summary>
+        /// <param name="departamento"></param>
+        /// <returns></returns>
         public static int ValidateDepartamento(Departamento departamento)
         {
             //Se inicializan los servicios.
@@ -238,7 +244,7 @@ namespace Model.ControlDocumentos
 
         #region Documento
         /// <summary>
-        /// 
+        /// Método para obtener los registros de todos los documentos
         /// </summary>
         /// <returns></returns>
         public static ObservableCollection<Documento> GetDocumentos()
@@ -262,7 +268,6 @@ namespace Model.ControlDocumentos
                     
                     //Declaramos un objeto  que contendrá la información de un registro.
                     Documento obj = new Documento();
-
 
                     //Asignamos los valores correspondientes.
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
@@ -383,6 +388,7 @@ namespace Model.ControlDocumentos
         /// <returns></returns>
         public static ObservableCollection<Documento> GetArchivos(int id_documento,int id_version)
         {
+            //Se inicializan los servicios de Documento.
             SO_Documento ServiceDocumento = new SO_Documento();
 
             //Se crea una lista de tipo documento, la cual se va a retornar
@@ -421,13 +427,14 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene el nombre de un documento
         /// </summary>
         /// <param name="id_documento"></param>
         /// <param name="id_version"></param>
         /// <returns></returns>
         public static ObservableCollection<Documento> GetNombre_Documento(int id_documento)
         {
+            //Se inicializan los servicios de Documento.
             SO_Documento ServiceDocumento = new SO_Documento();
 
             //Se crea una lista de tipo documento, la cual se va a retornar
@@ -535,21 +542,33 @@ namespace Model.ControlDocumentos
             return Lista;
         }
 
-
+        /// <summary>
+        /// Método que obtiene la información de la versión y de un documento en específico
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <param name="version"></param>
+        /// <returns></returns>
         public static Documento GetDocumento(int id_documento, string version)
         {
+            //Se inicializan los servicios de Documento.
             SO_Documento ServicioDocumento = new SO_Documento();
 
+            //Se crea un objeto de tipo documento
             Documento documento = new Documento();
 
+            //Obtenemos la información de la BD.
             IList informacionBD = ServicioDocumento.GetDocumentoVersion(id_documento, version);
 
+            //Si la información es diferente de nulo
             if (informacionBD != null)
             {
+                //Iteramos la lista que se obtuvo
                 foreach (var item in informacionBD)
                 {
+                    //Obtenemos el tipo.
                     System.Type tipo = item.GetType();
 
+                    //Asignamos los valores correspondientes.
                     documento.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     documento.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
                     documento.id_estatus = (int)tipo.GetProperty("ID_ESTATUS_DOCUMENTO").GetValue(item, null);
@@ -570,8 +589,10 @@ namespace Model.ControlDocumentos
                 }
             }
 
+            //Retornamos el objeto
             return documento;
         }
+        
 
         /// <summary>
         /// Método para actualizar el estado de un documento
@@ -581,8 +602,10 @@ namespace Model.ControlDocumentos
         /// <returns></returns>
         public static int Update_EstatusDocumento(Documento obj)
         {
+            //Se inicializan los servicios de Documento.
             SO_Documento ServicioDocumento = new SO_Documento();
 
+            //Se ejecuta el método y retornamos el resultado
             return ServicioDocumento.UpdateEstatus_Documento(obj.id_documento,obj.id_estatus);
         }
         #endregion
@@ -824,6 +847,11 @@ namespace Model.ControlDocumentos
             return ServiceTipo.DeleteTipo(tipo.id_tipo);
         }
 
+        /// <summary>
+        /// Método para validar si existe el tipo de documento 
+        /// </summary>
+        /// <param name="tipo"></param>
+        /// <returns></returns>
         public static int ValidateTipo(TipoDocumento tipo)
         {
             SO_TipoDocumento ServiceTipo = new SO_TipoDocumento();
@@ -937,22 +965,36 @@ namespace Model.ControlDocumentos
         /// <returns></returns>
         public static string ValidateUsuario(Usuarios usuarios)
         {
+            //Se inician los servicios de Usuarios.
             SO_Usuarios ServiceUsuarios = new SO_Usuarios();
 
             //Se ejecuta el método y retorna número de registros eliminados.
             return ServiceUsuarios.ValidateUsuarios(usuarios.nombre,usuarios.APaterno,usuarios.AMaterno,usuarios.usuario);
         }
 
+        /// <summary>
+        /// Método que obtiene la contraseña de un determinado usuario.
+        /// </summary>
+        /// <param name="id_usuario"></param>
+        /// <returns></returns>
         public static string GetPass(string id_usuario)
         {
+            //Se inician los servicios de Usuarios.
             SO_Usuarios ServiceUsuarios = new SO_Usuarios();
 
             //Se ejecuta el método y retorna número de registros eliminados.
             return ServiceUsuarios.GetContraseña(id_usuario);
         }
 
+        /// <summary>
+        /// Método que modifica la contraseña de un determinado usuario.
+        /// </summary>
+        /// <param name="id_usuario"></param>
+        /// <param name="pass"></param>
+        /// <returns></returns>
         public static int UpdatePass(string id_usuario,string pass)
         {
+            //Se inician los servicios de Usuarios.
             SO_Usuarios ServiceUsuarios = new SO_Usuarios();
 
             //Se ejecuta el método y retorna número de registros eliminados.
@@ -1199,7 +1241,7 @@ namespace Model.ControlDocumentos
                     //Obtenemos el tipo.
                     System.Type tipo = item.GetType();
 
-                    //Declaramos on objeto de tipo version que contendrá la información de un registro.
+                    //Declaramos un objeto de tipo archivo que contendrá la información de un registro.
                    Archivo obj = new Archivo();
 
                     //Asignamos los valores correspondientes.
@@ -1212,67 +1254,90 @@ namespace Model.ControlDocumentos
             return Lista;
         }
 
+        /// <summary>
+        /// Método que obtiene las versiones que están pendientes por aprobar de todos los usuarios
+        /// </summary>
+        /// <param name="nombreUsuario"></param>
+        /// <returns></returns>
         public static ObservableCollection<Documento> GetDocumentosValidar(string nombreUsuario)
         {
+            //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
             ObservableCollection<Documento> ListaResultante = new ObservableCollection<Documento>();
 
+            //Inicializamos los servicios de Documento.
             SO_Documento ServicioDocumento = new SO_Documento();
 
+            //Ejecutamos el método para obtener la información de la base de datos.
             IList informacionBD = ServicioDocumento.GetDocumentosValidar(nombreUsuario);
 
+            //Si la lista es diferente de nulo
             if (informacionBD != null)
             {
+                //Iteramos la lista resultante
                 foreach (var item in informacionBD)
                 {
+                    //Obtenemos el tipo.
                     System.Type tipo = item.GetType();
 
+                    //Declaramos un objeto de tipo documento que contendrá la información de un registro.
                     Documento obj = new Documento();
 
+                    //Asignamos los valores correspondientes.
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
                     obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
                     obj.usuario = (string)tipo.GetProperty("NOMBRE_USUARIO").GetValue(item, null);
                     obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    //Los agregamos a la lista
                     ListaResultante.Add(obj);
-
                 }
             }
-
+            //Retornamos la lista resultante
             return ListaResultante;
         }
 
         /// <summary>
-        /// Método para obtener los documentos pendientes de un usuario.
+        /// Método para obtener los documentos pendientes por corregir  de un usuario.
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
         public static ObservableCollection<Documento> GetDocumentos_PendientesCorregir(string usuario)
         {
+            //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
             ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
 
+            //Inicializamos los servicios de documento.
             SO_Documento ServicioDocumento = new SO_Documento();
 
+            //Ejecutamos el método para obtener la información de la base de datos.
             IList informacionBD = ServicioDocumento.GetDocumentosPendientes(usuario);
 
+            //Si la lista es diferente de nulo
             if (informacionBD != null)
             {
+                //Iteramos la lista
                 foreach (var item in informacionBD)
                 {
+                    //Obtenemos el tipo.
                     System.Type tipo = item.GetType();
 
+                    //Creamos un objeto de tipo Documento
                     Documento obj = new Documento();
 
+                    //Asignamos los valores correspondientes.
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
                     obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
                     obj.usuario = (string)tipo.GetProperty("NOMBRE_USUARIO").GetValue(item, null);
                     obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     obj.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
+
+                    //La agregamos a la lista
                     Lista.Add(obj);
 
                 }
             }
-
+            //Retonamos la lista resultante
             return Lista;
         }
 
@@ -1283,102 +1348,136 @@ namespace Model.ControlDocumentos
         /// <returns></returns>
         public static ObservableCollection<Documento> GetDocumentos_PendientesLiberar()
         {
+            //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
             ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
 
+            //Inicializamos los servicios de documento.
             SO_Documento ServicioDocumento = new SO_Documento();
 
+            //Ejecutamos el método para obtener la información de la base de datos.
             IList informacionBD = ServicioDocumento.GetDocumentosAprobados();
 
+            //Si la lista es diferente de nulo
             if (informacionBD != null)
             {
+                //Iteramos la lista
                 foreach (var item in informacionBD)
                 {
+                    //Obtenemos el tipo.
                     System.Type tipo = item.GetType();
 
+                    //Creamos un objeto de tipo Documento
                     Documento obj = new Documento();
 
+                    //Asignamos los valores correspondientes.
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
                     obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
                     obj.usuario = (string)tipo.GetProperty("NOMBRE_USUARIO").GetValue(item, null);
                     obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     obj.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
-                    Lista.Add(obj);
 
+                    //Agregamos a la lista resultante
+                    Lista.Add(obj);
                 }
             }
-
+            //Retornamos la lista
             return Lista;
         }
 
+        /// <summary>
+        /// Método que obtiene todos los documentos pendientes por liberar de un determinado usuarip
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public static ObservableCollection<Documento> GetPendientes_Liberar(string usuario)
         {
+            //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
             ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
 
+            //Inicializamos los servicios de documento.
             SO_Documento ServicioDocumento = new SO_Documento();
 
+            //Ejecutamos el método para obtener la información de la base de datos.
             IList informacionBD = ServicioDocumento.GetDocumentos_PendientesLiberar(usuario);
 
+            //Si la lista es diferente de nulo
             if (informacionBD != null)
             {
+                //Iteramos la lista
                 foreach (var item in informacionBD)
                 {
+                    //Obtenemos el tipo.
                     System.Type tipo = item.GetType();
 
+                    //Creamos un objeto de tipo Documento
                     Documento obj = new Documento();
 
+                    //Asignamos los valores correspondientes
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
                     obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
                     obj.usuario = (string)tipo.GetProperty("NOMBRE_USUARIO").GetValue(item, null);
                     obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    //se añaden a la lista resultante
                     Lista.Add(obj);
 
                 }
             }
-
+            //Retornamos la lista
             return Lista;
         }
 
         /// <summary>
-        /// 
+        /// Método para actualizar el estatus de una versión
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
         public static int  Update_EstatusVersion(Version obj)
         {
+            //Inicializamos los servicios de version.
             SO_Version ServiceVersion = new SO_Version();
 
+            //Ejecutamos el método y retornamos el resultado
             return ServiceVersion.UpdateEstatus_Version(obj.id_version, obj.id_estatus_version);
         }
 
         /// <summary>
-        /// 
+        /// Método para obtener la versión de un documento que no esté liberado u obsoleto
         /// </summary>
         /// <param name="id_documento"></param>
         /// <returns></returns>
-       public static ObservableCollection<Version> GetStatus_Version(int id_documento)
+        public static ObservableCollection<Version> GetStatus_Version(int id_documento)
         {
+            //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
             ObservableCollection<Version> Lista = new ObservableCollection<Version>();
 
+            //Inicializamos los servicios de version.
             SO_Version ServicioVersion = new SO_Version();
 
+            //Ejecutamos el método para obtener la información de la base de datos.
             IList informacionBD = ServicioVersion.GetStatus(id_documento);
+
+            //Creamos un objeto de tipo Versión
             Version obj = new Version();
 
+            //Si la lista es diferente de nulo
             if (informacionBD != null)
             {
+                //Iteramos la lista
                 foreach (var item in informacionBD)
                 {
                     System.Type tipo = item.GetType();
+                    //Asignamos los valores correspondientes
                     obj.id_version= (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
                     obj.no_version= (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     obj.estatus = (string)tipo.GetProperty("ESTATUS_VERSION").GetValue(item, null);
 
+                    //Agregamos el objeto a la lista resultante
                     Lista.Add(obj);
                 }
             }
-
+            //retornamos la lista
             return Lista;
         }
 

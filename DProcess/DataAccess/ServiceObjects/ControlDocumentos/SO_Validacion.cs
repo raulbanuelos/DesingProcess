@@ -9,7 +9,11 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 {
     public class SO_Validacion
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id_tipoDocumento"></param>
+        /// <returns></returns>
         public IList GetValidacion(int id_tipoDocumento)
         {
             try

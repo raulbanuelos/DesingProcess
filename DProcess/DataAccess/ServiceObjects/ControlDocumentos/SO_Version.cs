@@ -366,7 +366,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
-        /// 
+        /// M+etodo para obtener la versión de un documento que no esté liberado u obsoleto
         /// </summary>
         /// <param name="id_documento"></param>
         /// <returns></returns>
@@ -374,8 +374,10 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         {
             try
             {
+                //Se inician los servicios de Entity Control Documento
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
+                    //Se realiza la consulta, el resultado se guarda en una lista
                     var version = (from v in Conexion.TBL_VERSION
                                    join e in Conexion.TBL_ESTATUS_VERSION on v.ID_ESTATUS_VERSION equals e.ID_ESTATUS_VERSION
                                    where v.ID_DOCUMENTO == id_documento & v.ID_ESTATUS_VERSION != 1 & v.ID_ESTATUS_VERSION != 2
@@ -385,13 +387,13 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                        v.No_VERSION,
                                        e.ESTATUS_VERSION
                                    }).ToList();
-
+                    //Retornamos la lista
                     return version;
                 }
             }
             catch (Exception er)
             {
-
+                //Si hay error, se regresa nulo
                 return null;
             }
         }

@@ -98,10 +98,13 @@ namespace View.Services.ViewModel
 
         private void modificarDocumento()
         {
+            //Si fue seleccionado un documento
             if (selectedDocumento != null)
             {
+                //Se ejecuta el método que obtiene la información del documento seleccionado
                 documento = DataManagerControlDocumentos.GetDocumento(SelectedDocumento.id_documento, SelectedDocumento.version.no_version);
 
+                //Si el estatus es pendiente por corregir, se muestra ña ventana para modificar el documento
                 if (Estatus.Contains("pendiente"))
                 {
                     DocumentoViewModel viewM = new DocumentoViewModel(documento, false,usuario);
@@ -112,6 +115,7 @@ namespace View.Services.ViewModel
 
                     inicializa(Estatus);
                 }
+             // Si el estatus es aprobado pendiente por liberar, se muestra la pantalla para liberar el documento seleccionado
                 else if (Estatus.Contains("aprobados"))
                 {
                     DocumentoViewModel viewM = new DocumentoViewModel(documento);
@@ -129,10 +133,14 @@ namespace View.Services.ViewModel
 
         public void inicializa(string status)
         {
+            //Si el estatus es pendiente por corregir
             if (status.Contains("pendiente")) {
+                //Se ejecuta el método que obtiene los documentos pendientes por corregir de un usuario
                 ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario);
-            }else if (status.Contains("aprobados"))
+            }//Si es estatus aprobado pendiente por liberar
+            else if (status.Contains("aprobados"))
             {
+                //Se ejecuta el método que obtiene los documentos pendientes por liberar
                 ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar();
             }
         }

@@ -264,6 +264,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Método que muestra la ventana de documentos pendientes por validar
+        /// </summary>
         private void irDocumentosValidar()
         {
             DocumentoValidarViewModel o = new DocumentoValidarViewModel(usuario);
@@ -284,7 +287,9 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => irDocumentosPendientes());
             }
         }
-           
+        /// <summary>
+        /// Método que muestra la ventada de documentos pendientes por corregir de un usuario
+        /// </summary>
         private void irDocumentosPendientes()
         {
             FrmDocumentosValidar frm = new FrmDocumentosValidar();
@@ -317,6 +322,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Método que muestra la ventada de documentos pendientes por liberar de un usuario
+        /// </summary>
         private void _irPendientesLiberar()
         {
             FrmPendientes_Liberar frm = new FrmPendientes_Liberar();
@@ -339,6 +347,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Método que muestra la ventada de documentos pendientes por aprobar
+        /// </summary>
         private void irDocumentosAprobados()
         {
             FrmDocumentosValidar frm = new FrmDocumentosValidar();
@@ -360,6 +371,10 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => agregarTipo());
             }
         }
+
+        /// <summary>
+        /// Método que muestra la ventana para agregar el tipo de documento
+        /// </summary>
         private void agregarTipo()
         {
             FrmNuevoTipo frmTipo = new FrmNuevoTipo();
@@ -375,6 +390,10 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => agregarDepartamento());
             }
         }
+
+        /// <summary>
+        /// Método que muestra la ventana para dar de alta un departamento
+        /// </summary>
         private void agregarDepartamento()
         {
             FrmNuevo_Departamento frm = new FrmNuevo_Departamento();
@@ -385,26 +404,27 @@ namespace View.Services.ViewModel
 
         private async void irNuevoDocumento()
         {
-
-
             //Obtenermos la cantidad de números de documentosque tiene el usuario sin versión.
             int num_documentos = DataManagerControlDocumentos.GetDocumento_SinVersion(usuario.NombreUsuario).Count;
 
+            //Si el número de documento es menor que cero
             if (num_documentos > 0)
             {
+                //Creamos un objeto de la ventana
                 FrmDocumento frm = new FrmDocumento();
 
                 DocumentoViewModel context = new DocumentoViewModel(usuario);
 
                 frm.DataContext = context;
 
+                //Mostramos la ventana
                 frm.ShowDialog();
 
                 initControlDocumentos();
             }
             else
             {
-
+                //El usuario no tiene documentos sin verisón 
                 DialogService dialogService = new DialogService();
 
                 //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
@@ -457,8 +477,10 @@ namespace View.Services.ViewModel
             //Incializamos los servicios de dialog.
             DialogService dialog = new DialogService();
 
+            //Si la lista de documentos es diferente de cero
             if (Lista.Count != 0)
             {
+                //Se añade las columnas
                 table.Columns.Add("Numero de Documento");
                 table.Columns.Add("Nombre de Documento");
                 table.Columns.Add("Version");
@@ -467,10 +489,13 @@ namespace View.Services.ViewModel
                 table.Columns.Add("Fecha de Emision");
                 table.Columns.Add("Fecha de Revision");
 
+                //Iteramos la lista de documentos
                 foreach (var item in Lista)
                 {
+                    //Se crea una nueva fila
                     DataRow newRow = table.NewRow();
 
+                    //Se añaden los valores a las columnas
                     newRow["Numero de Documento"] = item.nombre;
                     newRow["Nombre de Documento"] = item.descripcion;
                     newRow["Version"] = item.version.no_version;
@@ -479,11 +504,13 @@ namespace View.Services.ViewModel
                     newRow["Fecha de Emision"] = item.fecha_emision.ToShortDateString();
                     newRow["Fecha de Revision"] = item.fecha_actualizacion.ToShortDateString();
 
+                    //Agregamos la fila a la tabla
                     table.Rows.Add(newRow);
                 }
-
+                //Se agrega la tabla al dataset
                 ds.Tables.Add(table);
 
+                //Ejecutamos el método para exportar el archivo
                 string e = ExportToExcel.Export(ds);
 
                 if (e != null)
@@ -522,11 +549,10 @@ namespace View.Services.ViewModel
             GetDataGrid(string.Empty);
         }
 
-
-            private void initSnack()
+        private void initSnack()
         {
             int num_validar,num_aprobados,pendientes_liberar;
-             bool g = Module.UsuarioIsRol(usuario.Roles, 1);
+            
             //id_rol=2 mostrar todos los snackbar
             //id_rol=3 solo mostrar pendientes por corregir 
            
@@ -591,6 +617,7 @@ namespace View.Services.ViewModel
             {
                 //Método para obetener los documentos que tiene pendientes  por corregir del usuario. 
                 num_pendientes = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario).Count;
+                //Método para obetener los documentos que tiene pendientes  por liberar del usuario. 
                 pendientes_liberar = DataManagerControlDocumentos.GetPendientes_Liberar(usuario.NombreUsuario).Count;
 
                 //Si hay documentos pendientes, muestra snackbar

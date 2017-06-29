@@ -240,6 +240,11 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
         
+        /// <summary>
+        /// Método para obtener la contraseña de un usuario en específico
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public string GetContraseña(string usuario)
         {
             try
@@ -263,6 +268,12 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        /// <summary>
+        /// Método para actualizar la contraseña de un usuario.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public int UpdatePass(string usuario, string password)
         {
             try

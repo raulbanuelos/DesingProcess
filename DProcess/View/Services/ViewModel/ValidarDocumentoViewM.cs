@@ -110,12 +110,16 @@ namespace View.Services.ViewModel
 
         public ValidarDocumentoViewM(Documento documento)
         {
+            //Obtenemos la información del documento y de la versión
             SelectedDocumento = DataManagerControlDocumentos.GetDocumento(documento.id_documento, documento.version.no_version);
 
+            //Ejecutamos el método para obtener los archivos de la versión
             ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetArchivos(documento.id_documento, documento.version.id_version);
 
+            //Ejecutamos el método para obtener el id del usuario que elaboró la versión
             Usuario = DataManagerControlDocumentos.GetIdUsuario(documento.version.id_version);
 
+            //Iteramos la lista de dpcumentos
             foreach (var item in Lista)
             {
                 SelectedDocumento.tipo.tipo_documento = item.tipo.tipo_documento;

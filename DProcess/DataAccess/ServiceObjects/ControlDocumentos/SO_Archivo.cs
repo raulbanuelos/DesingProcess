@@ -219,6 +219,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         {
             try
             {
+                //Establecemos la conexión a la BD.
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
                     var archivo = (from v in Conexion.TBL_ARCHIVO

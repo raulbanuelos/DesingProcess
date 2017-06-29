@@ -59,9 +59,10 @@ namespace View.Services.ViewModel
         #region Methods
         private void abrirDocumento()
         {
-            
+            //Si se ha seleccionado un documento
             if (selectedDocumento != null)
             {
+                //Obtiene la información de un documento y la versión
                 SelectedDocumento = DataManagerControlDocumentos.GetDocumento(SelectedDocumento.id_documento, SelectedDocumento.version.no_version);
                 
                 FrmValidarDocumento p = new FrmValidarDocumento();
@@ -79,6 +80,7 @@ namespace View.Services.ViewModel
 
         private void init()
         {
+            //Ejecutamos el método para obtener la lista de documentos pendientes por validar
             ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentosValidar(usuario.NombreUsuario);
         }
         #endregion

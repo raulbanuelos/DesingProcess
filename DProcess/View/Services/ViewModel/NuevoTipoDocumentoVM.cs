@@ -93,10 +93,13 @@ namespace View.Services.ViewModel
                     obj.fecha_actualizacion = DateTime.Now;
                     obj.fecha_creacion = DateTime.Now;
 
+                    //Valida que no exista el tipo de documento
                     int val = DataManagerControlDocumentos.ValidateTipo(obj);
 
+                    //Si el tipo no existe
                     if (val == 0)
                     {
+                        //Ejecutamos el método para insertar el tipo de documento
                         int n = DataManagerControlDocumentos.SetTipo(obj);
 
                         if (n != 0)

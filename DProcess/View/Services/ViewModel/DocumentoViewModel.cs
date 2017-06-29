@@ -457,7 +457,10 @@ namespace View.Services.ViewModel
         #region Constructor
         public DocumentoViewModel(Documento selectedDocumento, bool band,Usuario Modelusuario)
         {
+            //Contructor para generar una versión, o modificar el documetnto
+            //Inicializa los combobox 
             Inicializar();
+            //Asiganmos los valores para que se muestren 
             User = Modelusuario;
             Nombre = selectedDocumento.nombre;
             Version = selectedDocumento.version.no_version;
@@ -487,30 +490,34 @@ namespace View.Services.ViewModel
                 IsEnabled = true;
                 BttnArchivos = true;
                 BttnModificar = true;
+                //Mostramos la lista de validaciones dependiento el tipo
                 ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
                 Fecha = selectedDocumento.version.fecha_version;
             }
 
             BttnVersion = band;
-           // ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
-
+      
             _ListaNumeroDocumento = DataManagerControlDocumentos.GetNombre_Documento(id_documento);
 
             if(_ListaNumeroDocumento.Count >0)
             SelectedDocumento = _ListaNumeroDocumento[0];
 
+            //Obtenemos el usuario que autorizó y el usuario que dio de alta
             Model.ControlDocumentos.Version UsuarioObj = DataManagerControlDocumentos.GetIdUsuario(idVersion);
             usuario = UsuarioObj.id_usuario;
             auxUsuario = usuario;
             usuarioAutorizo = UsuarioObj.id_usuario_autorizo;
             auxUsuario_Autorizo = usuarioAutorizo;  
             
+            //Método que obtiene los archivos de un documento y de la versión
             ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetArchivos(id_documento,idVersion);
             
+            //Iteramos la lista
             foreach (var item in Lista)
             {
                 Archivo objArchivo = new Archivo();
 
+                //Asiganmos los valores para que se muestren 
                 objArchivo.nombre = item.nombre;
                 objArchivo.id_archivo = item.version.archivo.id_archivo;
                 objArchivo.archivo = item.version.archivo.archivo;
@@ -532,6 +539,7 @@ namespace View.Services.ViewModel
 
         public DocumentoViewModel(Usuario Modelusuario)
         {
+            //Contrusctor para crear un nuevo documento
             BotonGuardar = "Guardar";
             BttnGuardar = true;
             BttnArchivos = true;
@@ -546,12 +554,15 @@ namespace View.Services.ViewModel
 
         public DocumentoViewModel(Documento selectedDocumento)
         {
+            //Contructor para liberar documentos
+            //Inicializa los combobox 
             Inicializar();
             IsEnabled = false;
             EnabledEliminar = false;
             BttnArchivos = false;
             BttnLiberar = true;
 
+            //Asiganmos los valores para que se muestren 
             Nombre = selectedDocumento.nombre;
             User = new Usuario();
             Version = selectedDocumento.version.no_version;
@@ -560,19 +571,25 @@ namespace View.Services.ViewModel
             id_documento = selectedDocumento.id_documento;
             idVersion = selectedDocumento.version.id_version;
             id_dep = selectedDocumento.id_dep;
+            //Obtenemos el tipo de documento
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
 
+            //obtenemos el nombre del documento
             _ListaNumeroDocumento = DataManagerControlDocumentos.GetNombre_Documento(id_documento);
 
+            //Se muestra en el combobox
             if (_ListaNumeroDocumento.Count > 0)
                 SelectedDocumento = _ListaNumeroDocumento[0];
 
+            //Obtenemos el usuario que autorizó y el usuario que elabroró
             Model.ControlDocumentos.Version UsuarioObj = DataManagerControlDocumentos.GetIdUsuario(idVersion);
             usuario = UsuarioObj.id_usuario;
             usuarioAutorizo = UsuarioObj.id_usuario_autorizo;
 
+            //Método que obtiene los archivos de un documento y de la versión
             ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetArchivos(id_documento, idVersion);
 
+            //Iteramos la lista 
             foreach (var item in Lista)
             {
                 Archivo objArchivo = new Archivo();
@@ -895,6 +912,8 @@ namespace View.Services.ViewModel
             BotonGuardar = "Guardar";
             IsEnabled = false;
             BttnArchivos = false;
+
+            //Si es administrador del CIT
             if (Module.UsuarioIsRol(User.Roles, 2))
             {
                 BttnEliminar = true;
@@ -910,6 +929,7 @@ namespace View.Services.ViewModel
             ListaValidaciones.Clear();
             ListaDocumentos.Clear();
 
+            //Obtenemos los archvios de la versión
             ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetArchivos(id_documento, idVersion);
             
             foreach (var item in Lista)
@@ -1050,8 +1070,10 @@ namespace View.Services.ViewModel
                 //Ejecutamos el método para valirdar los valores.
                 if (ValidarValores())
                 {
+                    //Validamos que los campos ésten seleccionados
                     if (ValidaSelected())
                     {
+                        //Si es la primer versión del documento
                         if (version.Equals("1"))
                         {
                             //Se crea un objeto de tipo Documento.
@@ -1213,6 +1235,7 @@ namespace View.Services.ViewModel
 
             if (result == MessageDialogResult.Affirmative)
             {
+                //Ejecutamos el método que obtiene las versiones de un documentos si no están liberadas u obsoletas
                 ObservableCollection<Model.ControlDocumentos.Version> ListaEstatus = DataManagerControlDocumentos.GetStatus_Version(id_documento);
 
                 if (ListaEstatus.Count == 0)
@@ -1229,6 +1252,7 @@ namespace View.Services.ViewModel
                     ListaDocumentos.Clear();
                     ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
 
+                    //Oculta y muestra los botones
                     BotonGuardar = "Guardar Version";
                     BttnGuardar = true;
                     BttnEliminar = false;
@@ -1585,8 +1609,10 @@ namespace View.Services.ViewModel
 
         private bool ValidaSelected()
         {
+            //Itera la lista de Validaciones
             foreach (var item in ListaValidaciones)
             {
+                //Si hay un elemento que no está seleccionado, retorna falso
                 if (!item.selected)
                     return false;
             }
