@@ -117,7 +117,7 @@ namespace View.Services.ViewModel
         #region Commands
 
         /// <summary>
-        /// Método para generar un nuevo número
+        /// Comando para generar un nuevo número
         /// </summary>
         public ICommand Generar
         {
@@ -126,6 +126,9 @@ namespace View.Services.ViewModel
              return new RelayCommand(o => generarNumero());
             }
         }
+        /// <summary>
+        /// Método que genera un nuevo número y crea un nuevo documento con el número generado
+        /// </summary>
         private async void generarNumero()
         {
             //Incializamos los servicios de dialog.
@@ -168,16 +171,19 @@ namespace View.Services.ViewModel
                     }
                     else
                     {
+                        //No se pudo dar de alta el documento
                         await dialog.SendMessage("Alerta", "Error al registrar el documento");
                     }
                 }
                 else
                 {
+                    //Si hubo error ak generar el número
                     await dialog.SendMessage("Alerta", "Error al generar el número");
                 }
             }
             else
             {
+                //Si no éscogió ninguna opción
                 await dialog.SendMessage("Información", "Debe de escoger tipo y/o departamento");
             }
            

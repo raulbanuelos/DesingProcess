@@ -61,7 +61,9 @@ namespace View.Services.ViewModel
         #endregion
 
         #region
-
+        /// <summary>
+        /// Comando para guardar un nuevo departamento
+        /// </summary>
         public ICommand Guardar
         {
             get
@@ -69,7 +71,9 @@ namespace View.Services.ViewModel
                return new RelayCommand(o => guardarDepartamento());
             }
         }
-
+        /// <summary>
+        /// Método que valida si el departamento ingresado no existe, guarda el registro del departamento
+        /// </summary>
         public async void guardarDepartamento()
         {
             //Incializamos los servicios de dialog.
@@ -83,9 +87,10 @@ namespace View.Services.ViewModel
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
             MessageDialogResult result = await dialog.SendMessage("Attention", "¿Deseas guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
 
+            //Si el resultado es afirmativo
             if (result == MessageDialogResult.Affirmative)
             {
-
+                //Si los campos son diferentes de nulo vacío
                 if (!string.IsNullOrEmpty(_nombreDep) & !string.IsNullOrEmpty(_abreviatura))
                 {
                     //Creamos un objeto de tipo departamento
@@ -97,8 +102,10 @@ namespace View.Services.ViewModel
                     objDep.fecha_actualizacion = DateTime.Now;
                     objDep.fecha_creacion = DateTime.Now;
 
+                    //Ejecuta el método para validar si existe el departamento
                     int val = DataManagerControlDocumentos.ValidateDepartamento(objDep);
 
+                    //Si no existe
                     if (val == 0)
                     {
                         //Ejecutamos el método, el resultado lo asignamos a una variable
@@ -109,6 +116,7 @@ namespace View.Services.ViewModel
                         {
                             await dialog.SendMessage("Información", "Departamento agregado..");
 
+                            //Obtenemos para pantalla
                             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
                             //Verificamos que la pantalla sea diferente de nulo.
@@ -120,16 +128,19 @@ namespace View.Services.ViewModel
                         }
                         else
                         {
+                            //Si hubo error al registrar el departamento
                             await dialog.SendMessage("Alerta", "No se pudo agregar el departamento..");
                         }
                     }
                     else
                     {
+                        //Si el nombre del departamento existe
                         await dialog.SendMessage("Alerta", "El nombre de departamento ya existe..");
                     }
                 }
                 else
                 {
+                    //Si los campos están vacíos
                     await dialog.SendMessage("Alerta", "De debe de llenar todos los campos..");
                 }
             }

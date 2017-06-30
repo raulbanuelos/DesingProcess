@@ -56,9 +56,7 @@ namespace View.Services
                         //Obtiene el número de filas de la hoja
                         int rowCount = range.Rows.Count;
 
-                        //Número de columnas siempre es fijo para CollarBK
-                        int colCount = 3; 
-
+               
                         //Se empieza a leer el documento en la fila 3
                         int aux = 3;
                         string componente, MaxA, MaxB;
@@ -129,8 +127,7 @@ namespace View.Services
                             aux++;
                         }
                         //Añadimos la tabla al DataSet
-                        ds.Tables.Add(dTable);
-                        
+                        ds.Tables.Add(dTable);                       
                     }
 
                     //Cerramos el excel

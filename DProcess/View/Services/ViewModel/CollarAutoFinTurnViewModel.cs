@@ -109,9 +109,14 @@ namespace View.Services.ViewModel
 
         #region Methods
 
-        private void leerExcel()
+        private async void leerExcel()
         {
-            ImportExcel.ImportCollarBK();
+            string e=ImportExcel.ImportCollarBK();
+
+            if (e != null)
+            {
+                await dialogService.SendMessage("Alerta", "Error al leer el archivo");
+            }
         }
 
         /// <summary>

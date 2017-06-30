@@ -208,6 +208,9 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Commands
+        /// <summary>
+        /// Comando que muestra la ventana para crear un documento o generar un número de documento
+        /// </summary>
         public ICommand IrNuevoDocumento
         {
             get
@@ -216,6 +219,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando que filtra los documentos por tipo
+        /// </summary>
         public ICommand ConsultarDocumentos
         {
             get
@@ -224,6 +230,10 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando que al cambiar el textBox, busca un archivo de la lista
+        /// Recibe como parámetro la palabra a buscar
+        /// </summary>
         public ICommand BuscarDocumentos
         {
             get
@@ -232,6 +242,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando para visualizar el documento seleccionado
+        /// </summary>
         public ICommand EditarDocumento
         {
             get
@@ -240,6 +253,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando para crear un archivo excel de la lista de los documentos
+        /// </summary>
         public ICommand Exportar
         {
             get
@@ -248,6 +264,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando para generar un nuevo número de documento
+        /// </summary>
         public ICommand Generador
         {
             get
@@ -256,6 +275,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        ///  Comando para mostrar la ventana de los documentos que tiene que validar el Administrador
+        /// </summary>
         public ICommand IrDocumentosValidar
         {
             get
@@ -265,7 +287,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método que muestra la ventana de documentos pendientes por validar
+        /// Método que muestra la ventana de documentos que tiene que validar el Administrador
         /// </summary>
         private void irDocumentosValidar()
         {
@@ -280,6 +302,9 @@ namespace View.Services.ViewModel
             initSnack();
         }
 
+        /// <summary>
+        ///  Comando para mostrar la ventana de los documentos que están pendientes por corregir
+        /// </summary>
         public ICommand DocumentosPendientes
         {
             get
@@ -287,6 +312,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => irDocumentosPendientes());
             }
         }
+
         /// <summary>
         /// Método que muestra la ventada de documentos pendientes por corregir de un usuario
         /// </summary>
@@ -301,19 +327,9 @@ namespace View.Services.ViewModel
             initSnack();
         }
 
-        public ICommand ImportarExcel
-        {
-            get
-            {
-                return new RelayCommand(o => importar());
-            }
-        }
-
-        private void importar()
-        {
-           string error= ImportExcel.ImportCollarBK();
-        }
-
+        /// <summary>
+        ///  Comando para mostrar la ventana de los documentos que están pendientes por liberar de un usuario
+        /// </summary>
         public ICommand irPendientesLiberar
         {
             get
@@ -338,7 +354,9 @@ namespace View.Services.ViewModel
             initSnack();
         }
 
-
+        /// <summary>
+        /// Comando para mostrar la ventana de los documentos que están pendientes por aprobar
+        /// </summary>
         public ICommand IrDocumentosAprobados
         {
             get
@@ -364,6 +382,9 @@ namespace View.Services.ViewModel
             initSnack();
         }
 
+        /// <summary>
+        /// Comando para agregar un nuevo tipo de documento
+        /// </summary>
         public ICommand AgregarTipo
         {
             get
@@ -383,6 +404,9 @@ namespace View.Services.ViewModel
             frmTipo.ShowDialog();
         }
 
+        /// <summary>
+        /// Comando para agregar un nuevo departamento
+        /// </summary>
         public ICommand AgregarDepartamento
         {
             get
@@ -402,6 +426,10 @@ namespace View.Services.ViewModel
             frm.ShowDialog();
         }
 
+        /// <summary>
+        /// Método que muestra la ventana para agregar un documento
+        /// si el usuario no tiene una versión muestra la ventana para generar versión
+        /// </summary>
         private async void irNuevoDocumento()
         {
             //Obtenermos la cantidad de números de documentosque tiene el usuario sin versión.
@@ -458,6 +486,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Método que muestra la ventana para gener un número de documento
+        /// </summary>
         private void GenerarNumero()
         {
             FrmGenerador_Numero frmGenerador = new FrmGenerador_Numero();
@@ -469,6 +500,9 @@ namespace View.Services.ViewModel
             frmGenerador.ShowDialog();
         }
 
+        /// <summary>
+        /// Método que crea un DataSet de los documentos listados, manda a llamar a la función para crear un nuevo archivo
+        /// </summary>
         private async void ExportarExcel(){
 
            DataSet ds = new DataSet();
@@ -520,6 +554,11 @@ namespace View.Services.ViewModel
             }
             
         }
+
+        /// <summary>
+        /// Muestra la ventana donde muestra información del documento
+        /// en la ventana se puede modificar, eliminaro generar una nueva versión
+        /// </summary>
         private void editarDocumento()
         {
             if (selectedDocumento != null)
@@ -538,6 +577,9 @@ namespace View.Services.ViewModel
 
         #region Methods
 
+        /// <summary>
+        /// inicializa la lista de tipos de documentos, obtiene los documentos dependiendo el tipo
+        /// </summary>
         private void initControlDocumentos()
         {
             _ListaTipoDocumento = DataManagerControlDocumentos.GetTipo();
@@ -549,6 +591,9 @@ namespace View.Services.ViewModel
             GetDataGrid(string.Empty);
         }
 
+        /// <summary>
+        /// Inicializa las alertas de los documentos
+        /// </summary>
         private void initSnack()
         {
             int num_validar,num_aprobados,pendientes_liberar;
@@ -578,6 +623,7 @@ namespace View.Services.ViewModel
                 }
                 else
                 {
+                    //Si no hay documentos en la lista, no muestra el snackbar
                     EnabledValidar = false;
                     DocumentosValidar = string.Empty;
                 }
@@ -644,6 +690,10 @@ namespace View.Services.ViewModel
             }     
         }
 
+        /// <summary>
+        /// Método que obtiene los documentos liberados, los asigna a la lista para mostrar en el datagrid
+        /// </summary>
+        /// <param name="TextoBusqueda"></param>
         private void GetDataGrid(string TextoBusqueda)
         {
             Lista = DataManagerControlDocumentos.GetDataGrid(SelectedTipoDocumento.id_tipo, TextoBusqueda);
@@ -658,7 +708,8 @@ namespace View.Services.ViewModel
             usuario = modelUsuario;
             initControlDocumentos();
             initSnack();
-
+            //Si el usuario es administrador del CIT muestra los botones para agregar tipode Documento
+            //Y departamento
             if (Module.UsuarioIsRol(usuario.Roles, 2))
             {
                 BttnEnabled = true;

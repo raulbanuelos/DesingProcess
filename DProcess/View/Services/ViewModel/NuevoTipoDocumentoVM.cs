@@ -60,7 +60,9 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Icommands
-
+        /// <summary>
+        /// Comando para guardar el tipo de documento
+        /// </summary>
         public ICommand GuardarTipo
         {
             get
@@ -68,7 +70,10 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => guardar());
             }
         }
-
+        /// <summary>
+        /// Método que valida si el tipo de documento no existe
+        /// Guarda el nuevo tipo de documento
+        /// </summary>
         private async void guardar()
         {
             //Incializamos los servicios de dialog.
@@ -82,18 +87,21 @@ namespace View.Services.ViewModel
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
             MessageDialogResult result = await dialog.SendMessage("Attention", "¿Deseas guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
 
+            //Si el resultado es afirmativo
             if (result == MessageDialogResult.Affirmative)
             {
                 if (!string.IsNullOrEmpty(_abreviatura) & !string.IsNullOrEmpty(_tipoDocumento))
                 {
+                    //Creamos un objeto de tipo TipoDcouemtno
                     TipoDocumento obj = new TipoDocumento();
 
+                    //Asiganmos los valores al objeto
                     obj.tipo_documento = _tipoDocumento;
                     obj.abreviatura = _abreviatura;
                     obj.fecha_actualizacion = DateTime.Now;
                     obj.fecha_creacion = DateTime.Now;
 
-                    //Valida que no exista el tipo de documento
+                    //Validamos que no exista el tipo de documento
                     int val = DataManagerControlDocumentos.ValidateTipo(obj);
 
                     //Si el tipo no existe
@@ -117,16 +125,19 @@ namespace View.Services.ViewModel
                         }
                         else
                         {
+                            //Si existe un error al dar de alta el tipo
                             await dialog.SendMessage("RGP: Alerta", "Error al registrar el tipo de documento");
                         }
                     }
                     else
                     {
+                        //Si el documento existe
                         await dialog.SendMessage("RGP: Alerta", "El tipo de documento ya existe..");
                     }
                 }
                 else
                 {
+                    //Si no se llenaron todos los campos
                     await dialog.SendMessage("RGP: Alerta", "Se debe llenar todos los campos");
                 }
             }

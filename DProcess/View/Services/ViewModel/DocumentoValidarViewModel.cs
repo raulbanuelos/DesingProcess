@@ -57,6 +57,10 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Método que muestra la ventana con la información del documento seleccionado
+        /// 
+        /// </summary>
         private void abrirDocumento()
         {
             //Si se ha seleccionado un documento
@@ -78,6 +82,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Inicializa la lista de los documentos para mostrar en la tabla
+        /// </summary>
         private void init()
         {
             //Ejecutamos el método para obtener la lista de documentos pendientes por validar
@@ -86,7 +93,9 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Commands
-
+        /// <summary>
+        /// Comando para visualizar el documento seleccioando
+        /// </summary>
         public ICommand AbrirDocumento
         {
             get

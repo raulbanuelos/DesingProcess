@@ -88,6 +88,9 @@ namespace View.Services.ViewModel
         #endregion
 
         #region commands
+        /// <summary>
+        /// Comando para moestrar el documento seleccionado
+        /// </summary>
         public ICommand AbrirDocumento
         {
             get
@@ -96,6 +99,10 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Método que abre la ventana donde se mostrara la información del documento y la versión
+        /// Dependiendo del estatus la ventana se muestra con diferentes características
+        /// </summary>
         private void modificarDocumento()
         {
             //Si fue seleccionado un documento
@@ -130,7 +137,11 @@ namespace View.Services.ViewModel
         }
 
         #endregion
-
+        /// <summary>
+        /// Método que inicializa la lista de documentos que se mostaran en la tabla
+        /// Dependiendo del estatus se ejecutarán diferentes métodos
+        /// </summary>
+        /// <param name="status"></param>
         public void inicializa(string status)
         {
             //Si el estatus es pendiente por corregir
