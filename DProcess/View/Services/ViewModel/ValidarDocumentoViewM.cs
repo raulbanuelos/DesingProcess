@@ -157,8 +157,13 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => verArchivo(SelectedItem));
             }
         }
+        /// <summary>
+        /// Método que visualiza el archivo seleccioando de la Lista
+        /// </summary>
+        /// <param name="item"></param>
         private  void verArchivo(Archivo item)
         {
+            //Si hay un archivo seleccionado
             if (item != null)
             {
                 //se asigna el nombre del archivo temporal, se concatena el nombre del archivo, la posicion de la lista y la extensión.
@@ -194,6 +199,9 @@ namespace View.Services.ViewModel
             return filename;
         }
 
+        /// <summary>
+        /// Comando que guarda el estatus del documento
+        /// </summary>
         public ICommand Guardar
         {
             get
@@ -201,7 +209,9 @@ namespace View.Services.ViewModel
                 return new RelayCommand(g => guardarEstatus());
             }
         }
-
+        /// <summary>
+        /// Comando para cambiar el combobox
+        /// </summary>
         public ICommand Checked
         {
             get
@@ -210,11 +220,17 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Método que cambia la etiqueta si el checkbox fue seleccionado
+        /// </summary>
         private void check()
         {
             Estatus = "APROBADO, PENDIENTE POR LIBERAR";  
         }
 
+        /// <summary>
+        /// Comando para cambiar estatus 
+        /// </summary>
         public ICommand Unchecked
         {
             get
@@ -223,12 +239,19 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Si el checkbox cambia a seleccionado falso, la etiqeuta cambia de estado
+        /// </summary>
         private void uncheck()
         {
             Estatus = "PENDIENTE POR CORREGIR";
         }
 
-
+        /// <summary>
+        /// Método que cambia el estatus aprobado o pendiente por liberar
+        /// Si el documento sólo tiene una versión cambia el estatus de documento y versión
+        /// De lo contrario cambia estatus de versión
+        /// </summary>
         private async void guardarEstatus()
         {
             //isSelected es falso, id_estatus=pendiente por corregir, verdadero estatus= aprobado pendiente por liberar
@@ -308,7 +331,10 @@ namespace View.Services.ViewModel
             }
         }
 
-        //método para modificar la versión.
+       /// <summary>
+       /// Funcíón que modifica la versión
+       /// </summary>
+       /// <param name="objVersion"></param>
         public async void UpdateVersion(Model.ControlDocumentos.Version objVersion)
         {
             //Se llama al método para actualizar el estatus de la version

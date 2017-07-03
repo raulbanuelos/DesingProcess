@@ -626,6 +626,10 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => guardarControl());
             }
         }
+        /// <summary>
+        /// Método que guarda un nuevo documento, con su respectiva versión y los archivos
+        /// O guarda una nueva versión con sus archivos
+        /// </summary>
         private async void guardarControl()
         {
             //Incializamos los servicios de dialog.
@@ -843,6 +847,9 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => llenarLista());
             }
         }
+        /// <summary>
+        /// Método que llena la lista para visualizar los archivos seleccionados
+        /// </summary>
         private void llenarLista()
         {
             //Abre la ventana de explorador de archivos
@@ -903,6 +910,9 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => cancelar());
             }
         }
+        /// <summary>
+        /// Método que cancela cuando se genera una nueva versión, muestra la información de la versión anterior
+        /// </summary>
         private void cancelar()
         {
             usuario = auxUsuario;
@@ -966,6 +976,10 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => eliminar());
             }
         }
+        /// <summary>
+        /// Método para eliminar el registro de un documento
+        /// Elimina los registros de todos las versiones de un documento
+        /// </summary>
         private async void eliminar()
         {
             //Incializamos los servicios de dialog.
@@ -1052,6 +1066,10 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => modificar());
             }
         }
+        /// <summary>
+        /// Método que modifica el documento si tiene sólo una versión
+        /// Si el documento tiene más de una versión sólo modifica la versión
+        /// </summary>
         private async void modificar()
         {
             //Incializamos los servicios de dialog.
@@ -1193,7 +1211,10 @@ namespace View.Services.ViewModel
                 }
             }
 
-
+        /// <summary>
+        /// Método que modifica la versión
+        /// </summary>
+        /// <returns></returns>
         private int modificaVersion()
         {
             Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
@@ -1220,6 +1241,10 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => generarVersion());
             }
         }
+        /// <summary>
+        /// Método que genera un versión
+        /// Limpia los datos de la versión anterior
+        /// </summary>
         private async void generarVersion()
         {
             //Incializamos los servicios de dialog.
@@ -1287,6 +1312,10 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => verArchivo(SelectedItem));
             }
         }
+        /// <summary>
+        /// Método para ver el archivo que está en la lista de documetnos
+        /// </summary>
+        /// <param name="item"></param>
         private  void verArchivo(Archivo item)
         {
             if (item != null)
@@ -1332,6 +1361,11 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => eliminarItem(SelectedItem));
             }
         }
+        /// <summary>
+        /// Método que elimina el archvio seleccionado de la lista de Documento
+        /// Elimina el archivo de la base de datos
+        /// </summary>
+        /// <param name="item"></param>
         private async void eliminarItem(Archivo item)
         {
             //Incializamos los servicios de dialog.
@@ -1358,66 +1392,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método para agregar un usuario
-        /// </summary>
-        public ICommand AgregarUsuario
-        {
-            get
-            {
-                return new RelayCommand(o => agregarUsuario());
-            }
-        }
-        private void agregarUsuario()
-        {
-            FrmNuevoUsuario frm = new FrmNuevoUsuario();
-            //NuevoUsuarioVM context = new NuevoUsuarioVM();
-
-           // frm.DataContext = context;
-            frm.ShowDialog();
-            ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
-            usuario = auxUsuario;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ICommand AgregarDepartamento
-        {
-            get
-            {
-                return new RelayCommand(o => agregarDepartamento());
-            }
-        }
-        private  void agregarDepartamento()
-        {
-            FrmNuevo_Departamento frm = new FrmNuevo_Departamento();
-            NuevoDepartamentoVM context = new NuevoDepartamentoVM();
-            frm.DataContext =context;
-            frm.ShowDialog();
-            ListaDepartamento = DataManagerControlDocumentos.GetDepartamento();
-        }
-
-        /// <summary>
-        /// Método para agregar tipo de Documento
-        /// </summary>
-        public ICommand AgregarTipo
-        {
-            get
-            {
-                return new RelayCommand(o => agregarTipo());
-            }
-        }
-        private void agregarTipo()
-        {
-            FrmNuevoTipo frmTipo = new FrmNuevoTipo();
-            NuevoTipoDocumentoVM context = new NuevoTipoDocumentoVM();
-            frmTipo.DataContext = context;
-            frmTipo.ShowDialog();
-            ListaTipo = DataManagerControlDocumentos.GetTipo();
-        }
-
-        /// <summary>
-        /// Método para mostrar el departamento y tipo de acuero al nombre que esocoja el usuario
+        /// Comando para mostrar el departamento y tipo de acuerdo al nombre de documento
         /// </summary>
         public ICommand CambiarCombo
         {
@@ -1426,6 +1401,10 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => cambiarCombo());
             }
         }
+        /// <summary>
+        /// Método que muestra el tipo de documento y el departamento de acuerdo al número de documento
+        /// Llena la lista de validaciones de acuerdo al tipo de documento
+        /// </summary>
         private void cambiarCombo()
         {
             if (_selectedDocumento !=null)
@@ -1436,7 +1415,9 @@ namespace View.Services.ViewModel
                 ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
             }
         }
-
+        /// <summary>
+        /// Comando para liberar un documento
+        /// </summary>
         public ICommand LiberarDocumento
         {
             get
@@ -1444,6 +1425,9 @@ namespace View.Services.ViewModel
                return  new RelayCommand(o => liberarDocumento());
             }
         }
+        /// <summary>
+        /// Método para liberar un documento, modifica el número de copias del documento y el estatus de la versión
+        /// </summary>
         private async void liberarDocumento()
         {
             DialogService dialog = new DialogService();
@@ -1600,6 +1584,9 @@ namespace View.Services.ViewModel
                 return false;
         }
 
+        /// <summary>
+        /// Método que inicializa la lista de los departamentos, tipos y usuarios
+        /// </summary>
         private void Inicializar()
         {
             ListaDepartamento= DataManagerControlDocumentos.GetDepartamento();
@@ -1607,6 +1594,10 @@ namespace View.Services.ViewModel
             ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
         }
 
+        /// <summary>
+        /// Método para validar que todos los checkbos de la lista de Validaciones estén seleccioandos
+        /// </summary>
+        /// <returns></returns>
         private bool ValidaSelected()
         {
             //Itera la lista de Validaciones
