@@ -1,4 +1,5 @@
 ﻿using Model;
+using Model.ControlDocumentos;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -76,7 +77,7 @@ namespace View.Services
                             componente = range.Cells[aux, 1].Value2.ToString();
                             MaxA = range.Cells[aux, 2].Value2.ToString();
                             MaxB = range.Cells[aux, 3].Value2.ToString();
-
+                            
                             //Obtenemos los datos de los dos primeros registros con el max que se obtuvo en el excel
                             table = DataManager.SelectBestCollar(DataManager.GetCollarBK(Convert.ToDouble(MaxA), Convert.ToDouble(MaxB)));
                             int cont = 1;
@@ -145,6 +146,62 @@ namespace View.Services
             {
                 //Si hay error, retorna el error
                 return er.ToString();
+            }
+        }
+
+        public static void ImportAV()
+        {
+            try
+            {
+                string path = "C:\\Users\\Ing.practicante\\Documents\\AV.xls";
+                //Creamos una instancia de la aplicación.
+                Excel.Application ExcelApp = new Excel.Application();
+
+                //Abre el documento
+                Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(path, true);
+
+                foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                {
+                    //Obtenemos el rango de la hoja que estamos leyendo
+                    Excel.Range range = sheet.UsedRange;
+
+                    //Obtiene el número de filas de la hoja
+                    int rowCount = range.Rows.Count;
+                    int columCount = range.Columns.Count;
+
+                    int aux = 2;
+
+                    string url;
+
+                    Documento objDocumento = new Documento();
+                    Archivo objArchivo = new Archivo();
+                    while (aux <= rowCount)
+                    {
+                        objDocumento.nombre = range.Cells[aux, 3].Value2.ToString();
+                        objDocumento.descripcion = range.Cells[aux, 5].Value2.ToString();
+
+                        url = range.Cells[aux, 4].Cells.Hyperlinks[1].Address;
+                        url = url.Replace("..\\..\\M0051722\\AppData\\Roaming\\", "");
+                        url= url.Replace("..\\..\\", "");
+                        url = string.Concat("\\agufileserv2\\INGENIERIA\\RESPRUTAS\\", url);
+                        //string u="\\agufileserv2\INGENIERIA\RESPRUTAS\MANUELITO\manuelito\MANUELITO\CIT\AYUDAS VISUALES (FISICAS)";
+
+                        objArchivo.ext= System.IO.Path.GetExtension(url);
+
+                        objArchivo.nombre = System.IO.Path.GetFileNameWithoutExtension(url);
+
+                        
+                        aux++;
+                    }
+
+                }
+
+                ExcelWork.Close();
+                }
+            catch(Exception er)
+            {
+                
+
             }
         }
     }

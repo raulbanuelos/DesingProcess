@@ -54,6 +54,10 @@
             <Button ToolTip="Agregar Departamento" Command="{Binding AgregarDepartamento}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="PlusBox" />
             </Button>
+
+            <Button ToolTip="Agregar Departamento" Command="{Binding ImportAV}" Cursor="Hand">
+                <materialDesign:PackIcon Kind="PlusBox" />
+            </Button>
         </ToolBar>
 
         <Label x:Name="label" Content="Matriz de Control de Documentos" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="1"/>

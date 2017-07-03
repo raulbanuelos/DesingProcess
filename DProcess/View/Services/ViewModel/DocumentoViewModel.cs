@@ -848,7 +848,7 @@ namespace View.Services.ViewModel
             }
         }
         /// <summary>
-        /// Método que llena la lista para visualizar los archivos seleccionados
+        /// Método que llena la lista para visualizar los archivos de la versión
         /// </summary>
         private void llenarLista()
         {
