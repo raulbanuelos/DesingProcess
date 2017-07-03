@@ -548,7 +548,7 @@ namespace View.Services.ViewModel
             }
             GetDataGrid(string.Empty);
         }
-
+        
         private void initSnack()
         {
             int num_validar,num_aprobados,pendientes_liberar;

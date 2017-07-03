@@ -1,11 +1,7 @@
 ﻿using Model;
 using Model.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using View.Services.TiempoEstandar.Gasolina.Rolado;
 
 namespace View.Services.Operaciones.Gasolina.Rolado
