@@ -556,11 +556,12 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Muestra la ventana donde muestra información del documento
-        /// en la ventana se puede modificar, eliminaro generar una nueva versión
+        /// Muestra la ventana que contiene información del documento
+        /// En la ventana se puede modificar, eliminar o generar una nueva versión
         /// </summary>
         private void editarDocumento()
         {
+            //Si se seleccionó algún documento
             if (selectedDocumento != null)
             {
                 FrmDocumento frm = new FrmDocumento();
