@@ -189,8 +189,7 @@ namespace View.Services
                         objArchivo.ext= System.IO.Path.GetExtension(url);
 
                         objArchivo.nombre = System.IO.Path.GetFileNameWithoutExtension(url);
-
-                        
+                       
                         aux++;
                     }
 
