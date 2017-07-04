@@ -848,7 +848,7 @@ namespace View.Services.ViewModel
             }
         }
         /// <summary>
-        /// Método que llena la lista para visualizar los archivos seleccionados
+        /// Método que llena la lista para visualizar los archivos de la versión
         /// </summary>
         private void llenarLista()
         {
@@ -939,9 +939,9 @@ namespace View.Services.ViewModel
             ListaValidaciones.Clear();
             ListaDocumentos.Clear();
 
-            //Obtenemos los archvios de la versión
+            //Obtenemos los archvios de la versión anterior
             ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetArchivos(id_documento, idVersion);
-            
+            //Iteración de la lista de archivos
             foreach (var item in Lista)
             {
                 Archivo objArchivo = new Archivo();
@@ -961,6 +961,7 @@ namespace View.Services.ViewModel
                     //Si es archivo de word asigna la imagen correspondiente.
                     objArchivo.ruta = @"/Images/w.png";
                 }
+                //Añadimos los archivos a la lista
                 ListaDocumentos.Add(objArchivo);
                 
             }
@@ -1027,7 +1028,7 @@ namespace View.Services.ViewModel
                     //Mandamos a llamar la funcion para eliminar la version.
                    int v = DataManagerControlDocumentos.DeleteVersion(item);
                 }
-
+                //Si se elimino correctamente la versión
                 if (version != 0)
                 {
                     Documento obj = new Documento();
@@ -1107,12 +1108,16 @@ namespace View.Services.ViewModel
                             obj.id_estatus = 5;
                            // obj.id_estatus = 2;
 
-                            //Ejecuta el método para modificar un registro 
+                            //Ejecuta el método para modificar el documento actual
                             int n = DataManagerControlDocumentos.UpdateDocumento(obj);
 
+                            //Si se realizo la modificacion
                             if (n != 0)
                             {
+                                //Se ejecuta el metodo que modifica la version actual
                                 int update_version = modificaVersion();
+
+                                //si se modifico correctamente
                                 if (update_version != 0)
                                 {
                                     foreach (var item in _ListaDocumentos)
@@ -1161,6 +1166,7 @@ namespace View.Services.ViewModel
                             int update_version = modificaVersion();
                             if (update_version != 0)
                             {
+                                //Iteramos la lista de los archivos de la versión
                                 foreach (var item in _ListaDocumentos)
                                 {
                                     //Declaramos un objeto de tipo Archivo.
@@ -1260,9 +1266,10 @@ namespace View.Services.ViewModel
 
             if (result == MessageDialogResult.Affirmative)
             {
-                //Ejecutamos el método que obtiene las versiones de un documentos si no están liberadas u obsoletas
+                //Ejecutamos el método que obtiene las versiones de un documentos que no están liberadas u obsoletas
                 ObservableCollection<Model.ControlDocumentos.Version> ListaEstatus = DataManagerControlDocumentos.GetStatus_Version(id_documento);
 
+                //Si el documento no tiene versiones pendientes 
                 if (ListaEstatus.Count == 0)
                 {
                     //Obtiene la últuma version del documento.
@@ -1291,12 +1298,14 @@ namespace View.Services.ViewModel
                 }
                 else
                 {
+                    //Si el documento tiene una versión pendiente por liberar
                     Model.ControlDocumentos.Version obj = new Model.ControlDocumentos.Version();
                     foreach (var item in ListaEstatus)
                     {
                         obj.no_version = item.no_version;
                         obj.estatus = item.estatus;
                     }
+                    //Muestra mensaje 
                     await dialog.SendMessage("No se puede crear una nueva versión", " Versión número " + obj.no_version + " tiene estado: " + obj.estatus);
                 }
             }
@@ -1551,12 +1560,14 @@ namespace View.Services.ViewModel
                                 }
                                 else
                                 {
+                                    //Si hubo error al actualizar el estaus de la última versión
                                     await dialog.SendMessage("Alerta", "Error al actualizar el estatus de la versión..");
                                 }
                             }
                             else
                             {
-                                await dialog.SendMessage("Alerta", "Error al actualizar el estatus de la versión..");
+                                //Si hubo error al actualizar la última versión
+                                await dialog.SendMessage("Alerta", "Error al actualizar la versión..");
                             }
                         }
                     }

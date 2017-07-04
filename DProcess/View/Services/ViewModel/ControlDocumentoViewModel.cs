@@ -426,6 +426,20 @@ namespace View.Services.ViewModel
             frm.ShowDialog();
         }
 
+        //Test
+        public ICommand ImportAV
+        {
+            get
+            {
+                return new RelayCommand(o => importAyudaVisual());
+            }
+        }
+        //Test
+        private void importAyudaVisual()
+        {
+            ImportExcel.ImportAV();
+        }
+
         /// <summary>
         /// Método que muestra la ventana para agregar un documento
         /// si el usuario no tiene una versión muestra la ventana para generar versión
@@ -556,11 +570,12 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Muestra la ventana donde muestra información del documento
-        /// en la ventana se puede modificar, eliminaro generar una nueva versión
+        /// Muestra la ventana que contiene información del documento
+        /// En la ventana se puede modificar, eliminar o generar una nueva versión
         /// </summary>
         private void editarDocumento()
         {
+            //Si se seleccionó algún documento
             if (selectedDocumento != null)
             {
                 FrmDocumento frm = new FrmDocumento();
