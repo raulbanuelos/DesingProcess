@@ -93,51 +93,58 @@ namespace View.Services.ViewModel
                 //Si los campos son diferentes de nulo vacío
                 if (!string.IsNullOrEmpty(_nombreDep) & !string.IsNullOrEmpty(_abreviatura))
                 {
-                    //Creamos un objeto de tipo departamento
-                    Departamento objDep = new Departamento();
+                    if (_abreviatura.Length <= 6) {
+                        //Creamos un objeto de tipo departamento
+                        Departamento objDep = new Departamento();
 
-                    //Asiganmos los valores al objeto.
-                    objDep.nombre_dep = _nombreDep;
-                    objDep.Abreviatura = _abreviatura;
-                    objDep.fecha_actualizacion = DateTime.Now;
-                    objDep.fecha_creacion = DateTime.Now;
+                        //Asiganmos los valores al objeto.
+                        objDep.nombre_dep = _nombreDep;
+                        objDep.Abreviatura = _abreviatura;
+                        objDep.fecha_actualizacion = DateTime.Now;
+                        objDep.fecha_creacion = DateTime.Now;
 
-                    //Ejecuta el método para validar si existe el departamento
-                    int val = DataManagerControlDocumentos.ValidateDepartamento(objDep);
+                        //Ejecuta el método para validar si existe el departamento
+                        int val = DataManagerControlDocumentos.ValidateDepartamento(objDep);
 
-                    //Si no existe
-                    if (val == 0)
-                    {
-                        //Ejecutamos el método, el resultado lo asignamos a una variable
-                        int id = DataManagerControlDocumentos.SetDepartamento(objDep);
-
-                        //si se inserto correctamente 
-                        if (id != 0)
+                        //Si no existe
+                        if (val == 0)
                         {
-                            await dialog.SendMessage("Información", "Departamento agregado..");
+                            //Ejecutamos el método, el resultado lo asignamos a una variable
+                            int id = DataManagerControlDocumentos.SetDepartamento(objDep);
 
-                            //Obtenemos para pantalla
-                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                            //Verificamos que la pantalla sea diferente de nulo.
-                            if (window != null)
+                            //si se inserto correctamente 
+                            if (id != 0)
                             {
-                                //Cerramos la pantalla
-                                window.Close();
+                                await dialog.SendMessage("Información", "Departamento agregado..");
+
+                                //Obtenemos para pantalla
+                                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                                //Verificamos que la pantalla sea diferente de nulo.
+                                if (window != null)
+                                {
+                                    //Cerramos la pantalla
+                                    window.Close();
+                                }
+                            }
+                            else
+                            {
+                                //Si hubo error al registrar el departamento
+                                await dialog.SendMessage("Alerta", "No se pudo agregar el departamento..");
                             }
                         }
                         else
                         {
-                            //Si hubo error al registrar el departamento
-                            await dialog.SendMessage("Alerta", "No se pudo agregar el departamento..");
+                            //Si el nombre del departamento existe
+                            await dialog.SendMessage("Alerta", "El nombre de departamento ya existe..");
                         }
                     }
                     else
                     {
-                        //Si el nombre del departamento existe
-                        await dialog.SendMessage("Alerta", "El nombre de departamento ya existe..");
+                        await dialog.SendMessage("Alerta", "La abreviatura debe tener menos de 7 caracteres..");
                     }
                 }
+
                 else
                 {
                     //Si los campos están vacíos

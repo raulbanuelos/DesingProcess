@@ -208,8 +208,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 //Si se genera un error retornamos un cero.
                 return 0;
             }
-        }
+        }  
 
-      
     }
 }

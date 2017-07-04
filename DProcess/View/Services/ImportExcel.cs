@@ -3,6 +3,7 @@ using Model.ControlDocumentos;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -153,7 +154,7 @@ namespace View.Services
         {
             try
             {
-                string path = "C:\\Users\\Ing.practicante\\Documents\\AV.xls";
+                string path = "C:\\Users\\Ing.practicante\\Documents\\AYUDAVISUAL.xls";
                 //Creamos una instancia de la aplicación.
                 Excel.Application ExcelApp = new Excel.Application();
 
@@ -171,25 +172,52 @@ namespace View.Services
 
                     int aux = 2;
 
-                    string url;
+                    string url, proceso;
+                    Double fecha;
 
-                    Documento objDocumento = new Documento();
-                    Archivo objArchivo = new Archivo();
                     while (aux <= rowCount)
                     {
-                        objDocumento.nombre = range.Cells[aux, 3].Value2.ToString();
-                        objDocumento.descripcion = range.Cells[aux, 5].Value2.ToString();
+                        Documento objDocumento = new Documento();
+                        Archivo objArchivo = new Archivo();
+                        Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+                        //Alta del documento
+                        proceso = range.Cells[aux, 2].Value2.ToString();
 
+                        //Obtenemos el id del proceso
+                        objDocumento.id_dep = DataManagerControlDocumentos.GetID_Dep(proceso);
+                        objDocumento.nombre = range.Cells[aux, 3].Value2.ToString();
+                        objDocumento.id_tipo_documento =1004;
+                        objDocumento.usuario = "sistema";
+                        objDocumento.descripcion = range.Cells[aux, 5].Value2.ToString();
+                        fecha = range.Cells[aux, 6].Value2;
+                        DateTime f= DateTime.FromOADate(fecha);
+                        // objDocumento.fecha_emision = DateTime.Parse(fecha);
+                        //DateTime.ParseExact("24/01/2013", "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                        objDocumento.id_estatus = 5;
+
+                        //Alta de Versión
+
+                        //objVersion.id_documento =?;
+                        objVersion.id_estatus_version = 1;
+                        objVersion.id_usuario_autorizo="sistema";
+                        objVersion.id_usuario_autorizo = "sistema";
+                        objVersion.no_version= range.Cells[aux, 10].Value2.ToString();
+                        objVersion.fecha_version = DateTime.Now;
+                        objVersion.no_copias = Convert.ToInt32(range.Cells[aux, 9].Value2.ToString());
+
+                        //Alta del Archivo
                         url = range.Cells[aux, 4].Cells.Hyperlinks[1].Address;
                         url = url.Replace("..\\..\\M0051722\\AppData\\Roaming\\", "");
                         url= url.Replace("..\\..\\", "");
-                        url = string.Concat("\\agufileserv2\\INGENIERIA\\RESPRUTAS\\", url);
+                        url = string.Concat("Z:\\", url);
                         //string u="\\agufileserv2\INGENIERIA\RESPRUTAS\MANUELITO\manuelito\MANUELITO\CIT\AYUDAS VISUALES (FISICAS)";
 
                         objArchivo.ext= System.IO.Path.GetExtension(url);
 
                         objArchivo.nombre = System.IO.Path.GetFileNameWithoutExtension(url);
                        
+                        objArchivo.archivo= File.ReadAllBytes(url);
+
                         aux++;
                     }
 
