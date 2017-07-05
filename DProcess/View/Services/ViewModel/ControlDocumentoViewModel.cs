@@ -437,7 +437,7 @@ namespace View.Services.ViewModel
         //Test
         private void importAyudaVisual()
         {
-            ImportExcel.ImportAV();
+            ImportExcel.ImportAV(usuario.NombreUsuario);
         }
 
         /// <summary>

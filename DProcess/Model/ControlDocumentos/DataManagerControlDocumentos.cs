@@ -330,7 +330,7 @@ namespace Model.ControlDocumentos
             //Se inician los servicios de Documento.
             SO_Documento ServiceDocumento = new SO_Documento();
 
-            return ServiceDocumento.InsertDocumentos(documento.id_tipo_documento, documento.id_dep, documento.nombre, documento.descripcion, documento.fecha_emision, documento.id_estatus,
+            return ServiceDocumento.InsertDocumentos(documento.id_tipo_documento, documento.id_dep, documento.nombre, documento.descripcion, documento.fecha_emision,documento.fecha_actualizacion ,documento.id_estatus,
                                                 documento.usuario);
         }
 

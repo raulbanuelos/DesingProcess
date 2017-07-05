@@ -115,7 +115,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="id_estatus"></param>
         /// <param name="id_usuario"></param>
         /// <returns></returns>
-        public int InsertDocumentos(int id_tipo_documento, int id_dep, string nombre, string descripcion, DateTime fecha_emision, int id_estatus, string id_usuario)
+        public int InsertDocumentos(int id_tipo_documento, int id_dep, string nombre, string descripcion, DateTime fecha_emision,DateTime fecha_actualizacion ,int id_estatus, string id_usuario)
         {
             try
             {
@@ -130,8 +130,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.ID_DEPARTAMENTO = id_dep;
                     obj.NOMBRE = nombre;
                     obj.DESCRIPCION = descripcion;
-                    obj.FECHA_CREACION = DateTime.Now;
-                    obj.FECHA_ACTUALIZACION = DateTime.Now;
+                    obj.FECHA_CREACION = fecha_emision;
+                    obj.FECHA_ACTUALIZACION = fecha_actualizacion;
                     obj.FECHA_EMISION = fecha_emision;
                     obj.ID_ESTATUS_DOCUMENTO = id_estatus;
                     obj.ID_USUARIO = id_usuario;

@@ -3,6 +3,7 @@ using Model.ControlDocumentos;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -150,11 +151,11 @@ namespace View.Services
             }
         }
 
-        public static void ImportAV()
+        public async static void ImportAV(string usuario)
         {
             try
             {
-                string path = "C:\\Users\\Ing.practicante\\Documents\\AYUDAVISUAL.xls";
+                string path = "C:\\Users\\Ing.practicante\\Documents\\AYUDAVISUAL1.xls";
                 //Creamos una instancia de la aplicación.
                 Excel.Application ExcelApp = new Excel.Application();
 
@@ -177,9 +178,13 @@ namespace View.Services
 
                     while (aux <= rowCount)
                     {
+                      
+
                         Documento objDocumento = new Documento();
                         Archivo objArchivo = new Archivo();
+                       
                         Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+
                         //Alta del documento
                         proceso = range.Cells[aux, 2].Value2.ToString();
 
@@ -187,37 +192,51 @@ namespace View.Services
                         objDocumento.id_dep = DataManagerControlDocumentos.GetID_Dep(proceso);
                         objDocumento.nombre = range.Cells[aux, 3].Value2.ToString();
                         objDocumento.id_tipo_documento =1004;
-                        objDocumento.usuario = "sistema";
+                        objDocumento.usuario = usuario;
                         objDocumento.descripcion = range.Cells[aux, 5].Value2.ToString();
                         fecha = range.Cells[aux, 6].Value2;
-                        DateTime f= DateTime.FromOADate(fecha);
-                        // objDocumento.fecha_emision = DateTime.Parse(fecha);
-                        //DateTime.ParseExact("24/01/2013", "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                        objDocumento.fecha_emision = DateTime.FromOADate(fecha);
+                        objDocumento.fecha_actualizacion = DateTime.FromOADate(range.Cells[aux, 7].Value2);
                         objDocumento.id_estatus = 5;
 
-                        //Alta de Versión
+                        int id_Documento = DataManagerControlDocumentos.InsertDocumentos(objDocumento);
 
-                        //objVersion.id_documento =?;
-                        objVersion.id_estatus_version = 1;
-                        objVersion.id_usuario_autorizo="sistema";
-                        objVersion.id_usuario_autorizo = "sistema";
-                        objVersion.no_version= range.Cells[aux, 10].Value2.ToString();
-                        objVersion.fecha_version = DateTime.Now;
-                        objVersion.no_copias = Convert.ToInt32(range.Cells[aux, 9].Value2.ToString());
+                        if ( id_Documento != 0)
+                        {
+                            //Alta de Versión
 
-                        //Alta del Archivo
-                        url = range.Cells[aux, 4].Cells.Hyperlinks[1].Address;
-                        url = url.Replace("..\\..\\M0051722\\AppData\\Roaming\\", "");
-                        url= url.Replace("..\\..\\", "");
-                        url = string.Concat("Z:\\", url);
-                        //string u="\\agufileserv2\INGENIERIA\RESPRUTAS\MANUELITO\manuelito\MANUELITO\CIT\AYUDAS VISUALES (FISICAS)";
+                            objVersion.id_documento =id_Documento;
+                            objVersion.id_estatus_version = 1;
+                            objVersion.id_usuario_autorizo = usuario;
+                            objVersion.id_usuario = usuario;
+                            objVersion.no_version = range.Cells[aux, 10].Value2.ToString();
+                            objVersion.no_copias = Convert.ToInt32(range.Cells[aux, 9].Value2.ToString());
+                            objVersion.fecha_version= DateTime.FromOADate(range.Cells[aux, 7].Value2);
 
-                        objArchivo.ext= System.IO.Path.GetExtension(url);
+                            int id_version = DataManagerControlDocumentos.SetVersion(objVersion);
 
-                        objArchivo.nombre = System.IO.Path.GetFileNameWithoutExtension(url);
-                       
-                        objArchivo.archivo= File.ReadAllBytes(url);
+                            if (id_version!=0) {
+                                //Alta del Archivo
 
+                                objArchivo.id_version = id_version;
+                                url = range.Cells[aux, 4].Cells.Hyperlinks[1].Address;
+                                url = url.Replace("..\\..\\M0051722\\AppData\\Roaming\\", "");
+                                url = url.Replace("../../M0051722/AppData/Roaming/", "");
+                                url = url.Replace("..\\..\\", "");
+
+                                url = string.Concat("Z://", url);
+                                //string u="\\agufileserv2\INGENIERIA\RESPRUTAS\MANUELITO\manuelito\MANUELITO\CIT\AYUDAS VISUALES (FISICAS)";
+
+                                objArchivo.ext = System.IO.Path.GetExtension(url);
+
+                                objArchivo.nombre = System.IO.Path.GetFileNameWithoutExtension(url);
+
+                                objArchivo.archivo = File.ReadAllBytes(url);
+
+                              int archivo= await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                            }
+                           
+                        }
                         aux++;
                     }
 
@@ -227,8 +246,8 @@ namespace View.Services
                 }
             catch(Exception er)
             {
-                
 
+                er.ToString();
             }
         }
     }
