@@ -426,20 +426,6 @@ namespace View.Services.ViewModel
             frm.ShowDialog();
         }
 
-        //Test
-        public ICommand ImportAV
-        {
-            get
-            {
-                return new RelayCommand(o => importAyudaVisual());
-            }
-        }
-        //Test
-        private void importAyudaVisual()
-        {
-            ImportExcel.ImportAV(usuario.NombreUsuario);
-        }
-
         /// <summary>
         /// Método que muestra la ventana para agregar un documento
         /// si el usuario no tiene una versión muestra la ventana para generar versión

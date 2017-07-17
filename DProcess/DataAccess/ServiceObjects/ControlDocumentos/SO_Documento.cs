@@ -104,53 +104,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return 0;
             }
         }
-        /// <summary>
-        /// Método para insertar documentos desde un archivo excel 
-        /// </summary>
-        /// <param name="id_tipo_documento"></param>
-        /// <param name="id_dep"></param>
-        /// <param name="nombre"></param>
-        /// <param name="descripcion"></param>
-        /// <param name="fecha_emision"></param>
-        /// <param name="id_estatus"></param>
-        /// <param name="id_usuario"></param>
-        /// <returns></returns>
-        public int InsertDocumentos(int id_tipo_documento, int id_dep, string nombre, string descripcion, DateTime fecha_emision,DateTime fecha_actualizacion ,int id_estatus, string id_usuario)
-        {
-            try
-            {
-                //Se establece conexión a la BD.
-                using (var Conexion = new EntitiesControlDocumentos())
-                {
-                    //Se  crea un objeto de tipo usuarios, el cual se va agregar a la tabla 
-                    TBL_DOCUMENTO obj = new TBL_DOCUMENTO();
-
-                    //Se asiganan los valores.
-                    obj.ID_TIPO_DOCUMENTO = id_tipo_documento;
-                    obj.ID_DEPARTAMENTO = id_dep;
-                    obj.NOMBRE = nombre;
-                    obj.DESCRIPCION = descripcion;
-                    obj.FECHA_CREACION = fecha_emision;
-                    obj.FECHA_ACTUALIZACION = fecha_actualizacion;
-                    obj.FECHA_EMISION = fecha_emision;
-                    obj.ID_ESTATUS_DOCUMENTO = id_estatus;
-                    obj.ID_USUARIO = id_usuario;
-
-                    //Agrega el objeto a la tabla.
-                    Conexion.TBL_DOCUMENTO.Add(obj);
-                    //Se guardan los cambios
-                    Conexion.SaveChanges();
-
-                    //Retorna el código del documento insertado
-                    return obj.ID_DOCUMENTO;
-                }
-            }
-            catch (Exception er)
-            {
-                //Si hay error regresa una cadena vacía.
-                return 0;
-            }
-        }
+       
         /// <summary>
         /// Método para actualizar un registro de la tabla TBL_documento
         /// </summary>

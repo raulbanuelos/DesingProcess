@@ -176,36 +176,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 //Si se genera un error retornamos un cero.
                 return 0;
             }
-        }
-
-        /// <summary>
-        /// Método que obtiene el id del departamento a partir del nombre
-        /// Se usa para importar a Excel
-        /// </summary>
-        /// <param name="nombre_dep"></param>
-        /// <returns></returns>
-        public int GetID_Departamento(string nombre_dep)
-        {
-            try
-            {
-                //Relizamos la conexión a través de Entity Framework.
-                using (var Conexion = new EntitiesControlDocumentos())
-                {
-                    //Realizamos la consulta y e resultado lo guardamos en una variable local.
-                    int idDep = (from d in Conexion.TBL_DEPARTAMENTO
-                                 where d.NOMBRE_DEPARTAMENTO.Equals(nombre_dep)
-                                 select d.ID_DEPARTAMENTO).ToList().FirstOrDefault();
-
-                    //Retornamos el resultado de la consulta.
-                    return idDep;
-                }
-            }
-            catch (Exception)
-            {
-                //Si se genera un error retornamos un cero.
-                return 0;
-            }
-        }
+        }  
 
     }
 }

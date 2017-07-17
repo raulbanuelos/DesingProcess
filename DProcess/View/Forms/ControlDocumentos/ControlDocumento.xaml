@@ -54,10 +54,6 @@
             <Button ToolTip="Agregar Departamento" Command="{Binding AgregarDepartamento}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="PlusBox" />
             </Button>
-
-            <Button ToolTip="Agregar Departamento" Command="{Binding ImportAV}" Cursor="Hand">
-                <materialDesign:PackIcon Kind="PlusBox" />
-            </Button>
         </ToolBar>
 
         <Label x:Name="label" Content="Matriz de Control de Documentos" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="1"/>
@@ -82,9 +78,9 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </ComboBox>
-
+                <Label FontSize="20" FontWeight="Bold" Content="" VerticalAlignment="Center" HorizontalAlignment="Right" Width="341"/>
             </StackPanel>
-
+            
         </StackPanel>
 
         <DataGrid x:Name="dataGrid" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
