@@ -136,6 +136,123 @@ namespace View.Services
         }
 
         /// <summary>
+        /// Método que obtiene el valor mínimo de tolerancia de una propiedad.
+        /// Generalmente en el plano puede venir de dos opciones: como tolerancia o como valor mínimo y máximo. 
+        /// <para>
+        /// Ejemplo.
+        ///     Para la propiedad h1:
+        /// </para>
+        /// <para>
+        /// 1ra Opción:
+        ///             h1 Tol Min: En esta opción se obtiene directamente el valor de la lista de propiedades.
+        /// </para>
+        ///             
+        /// <para>
+        /// 2da Opción:
+        ///             H1 Tol:     En esta opción se da por descontado que la tolerancia es la misma para mínima y maxima. Por lo el método busca el valor de Tol y el valor
+        ///                         de la propiedad y después lo calcula.
+        /// </para>
+        /// </summary>
+        /// <param name="NombrePropiedad"></param>
+        /// <param name="Lista"></param>
+        /// <returns></returns>
+        public static double GetValorPropiedadMin(string NombrePropiedad, ObservableCollection<Propiedad> Lista)
+        {
+
+            //Obtenemos el valor de la propiedad.
+            double valorPropiedad = GetValorPropiedad(NombrePropiedad, Lista);
+
+            //Buscamos la propiedad con la concatenacion de " Tol Min" y contamos los registros encontrados.
+            int a = Lista.Where(x => x.Nombre == NombrePropiedad + " Tol Min").ToList().Count;
+
+            //Comparamos si existe el valor con la concatenación de " Tol Min"
+            if (a > 0)
+            {
+                //Obtenemos el valor de la propiedad y lo retornamos.
+                return GetValorPropiedad(NombrePropiedad + " Tol Min", Lista);
+            }
+            else
+            {
+                //Buscamos la propiedad con la concatenación de " Tol" y contamos los registros encontrados.
+                a = Lista.Where(x => x.Nombre == NombrePropiedad + " Tol").ToList().Count;
+
+                //Comparamos si existe el valor con la concatenación de " Tol"
+                if (a > 0)
+                {
+                    //Obtenemos el valore de la propiedad con la concatenación de " Tol".
+                    double tolerancia = GetValorPropiedad(NombrePropiedad + " Tol", Lista);
+                   
+                    //Calculamos el valor mínimo y lo retornamos.
+                    return valorPropiedad - tolerancia;
+                }
+                else {
+                    //Si no se encontraron las toleracias retornamos el valor de la propiedad.
+                    return valorPropiedad;
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene el valor mínimo de tolerancia de una propiedad.
+        /// Generalmente en el plano puede venir de dos opciones: como tolerancia o como valor mínimo y máximo. 
+        /// <para>
+        /// Ejemplo.
+        ///     Para la propiedad h1:
+        /// </para>
+        /// <para>
+        /// 1ra Opción:
+        ///             h1 Tol Max: En esta opción se obtiene directamente el valor de la lista de propiedades.
+        /// </para>
+        ///             
+        /// <para>
+        /// 2da Opción:
+        ///             H1 Tol:     En esta opción se da por descontado que la tolerancia es la misma para mínima y maxima. Por lo el método busca el valor de Tol y el valor
+        ///                         de la propiedad y después lo calcula.
+        /// </para>
+        /// </summary>
+        /// <param name="NombrePropiedad"></param>
+        /// <param name="Lista"></param>
+        /// <returns></returns>
+        public static double GetValorPropiedadMax(string NombrePropiedad, ObservableCollection<Propiedad> Lista)
+        {
+
+            //Obtenemos el valor de la propiedad.
+            double valorPropiedad = GetValorPropiedad(NombrePropiedad, Lista);
+
+            //Buscamos la propiedad con la concatenacion de " Tol Min" y contamos los registros encontrados.
+            int a = Lista.Where(x => x.Nombre == NombrePropiedad + " Tol Max").ToList().Count;
+
+            //Comparamos si existe el valor con la concatenación de " Tol Min"
+            if (a > 0)
+            {
+                //Obtenemos el valor de la propiedad y lo retornamos.
+                return GetValorPropiedad(NombrePropiedad + " Tol Max", Lista);
+            }
+            else
+            {
+                //Buscamos la propiedad con la concatenación de " Tol" y contamos los registros encontrados.
+                a = Lista.Where(x => x.Nombre == NombrePropiedad + " Tol").ToList().Count;
+
+                //Comparamos si existe el valor con la concatenación de " Tol"
+                if (a > 0)
+                {
+                    //Obtenemos el valore de la propiedad con la concatenación de " Tol".
+                    double tolerancia = GetValorPropiedad(NombrePropiedad + " Tol", Lista);
+
+                    //Calculamos el valor máximo y lo retornamos.
+                    return valorPropiedad + tolerancia;
+                }
+                else
+                {
+                    //Si no se encontraron las toleracias retornamos el valor de la propiedad.
+                    return valorPropiedad;
+                }
+
+            }
+        }
+
+        /// <summary>
         /// Método que busca el valor de una propiedad Bool.
         /// </summary>
         /// <param name="NombrePropiedad">Cadena que representa el nombre de la propiedad que re requiere obtener el valor.</param>

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 
 namespace DataAccess.ServiceObjects.Operaciones.Premaquinado
 {
@@ -23,12 +24,38 @@ namespace DataAccess.ServiceObjects.Operaciones.Premaquinado
         /// <param name="Proceso">Cadena que representa cual es el proceso que eligió el usuario. (Doble, Sencillo, Cuádruple).</param>
         /// <param name="H1">Double que representa el width nominal del anillo.</param>
         /// <returns>Double que representa el width que será en la operación de First Rough Grind.</returns>
-        public double GetWidthOperacion(string Proceso, double H1)
+        public double? GetWidthOperacion(string Proceso, double H1)
         {
-            double widthOperacion = 0;
+            double? widthOperacion = 0;
 
             //Realizar la consulta con Entity Framework. Tomar como referencia la consulta que
             //se encuentra en el método getWidthFirstRoughGrind ubicado en la clase DataStore.
+
+            try
+            {
+                if (Proceso == "Doble")
+                {
+                    using (var Conexion = new EntitiesPreMaquinado())
+                    {
+                        widthOperacion = (from tabla in Conexion.SplitterSpacerChart
+                                            where tabla.Nominal_split == H1 && tabla.Proceso == Proceso
+                                            select tabla.Grind_width).First();
+                    }
+                }
+                else
+                {
+                    using (var Conexion = new EntitiesPreMaquinado())
+                    {
+                        widthOperacion = (from tabla in Conexion.SPlitterSpacerChart2
+                                            where tabla.RingWidth == H1 && tabla.Proceso == Proceso
+                                             select tabla.GrindWidth).First();
+                    }
+                }
+            }
+            catch (System.Exception)
+            {
+                return 0;
+            }
 
             return widthOperacion;
         }

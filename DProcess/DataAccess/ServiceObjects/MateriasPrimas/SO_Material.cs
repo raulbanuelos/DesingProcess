@@ -12,7 +12,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
     public class SO_Material
     {
         #region Propiedades
-        string StrinDeConexion = string.Empty;
+        string StrinDeConexion = @"data source=MXAGSQLSRV01\SQLINTERTEL12;initial catalog=RGP2-PBA;user id=shruser;password=sOHR2011";
         #endregion
 
         #region Constructores

@@ -61,7 +61,7 @@ namespace View.Services
 
                
                         //Se empieza a leer el documento en la fila 3
-                        int aux = 3;
+                        int aux = 2;
                         string componente, MaxA, MaxB;
 
                         //Asigamos el nombre de la hoja a la tabla

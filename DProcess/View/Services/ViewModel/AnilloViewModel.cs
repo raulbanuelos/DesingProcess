@@ -788,9 +788,54 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => abrirPlano());
             }
         }
+
+        public ICommand CalcularRuta
+        {
+            get
+            {
+                return new RelayCommand(o => calcularRuta());
+            }
+        }
         #endregion
 
         #region Methods
+
+        private void calcularRuta()
+        {
+
+            //Comenzamos a simular el anillo
+
+            ModelAnillo.D1 = new Propiedad { DescripcionCorta = "D1", DescripcionLarga = "Diámetro nominal", Imagen = null, Nombre = "D1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 4.32 };
+            ModelAnillo.H1 = new Propiedad { DescripcionCorta = "H1", DescripcionLarga = "Width nominal", Imagen = null, Nombre = "H1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.0780 };
+
+            PropiedadCadena especificacion = new PropiedadCadena();
+            especificacion.DescripcionCorta = "MATERIAL";
+            especificacion.DescripcionLarga = "Especificación de material";
+            especificacion.Imagen = null;
+            especificacion.Nombre = "Material MAHLE";
+            especificacion.Valor = "SPR-128";
+
+            ModelAnillo.MaterialBase = new MateriaPrima {Especificacion = especificacion};
+
+
+            ModelAnillo.PerfilLateral.Propiedades.Add(new Propiedad { DescripcionCorta = "h1", DescripcionLarga = "Width", Imagen = null, Nombre = "h1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.0775 });
+            ModelAnillo.PerfilLateral.Propiedades.Add(new Propiedad { DescripcionCorta = "h1 Tol", DescripcionLarga = "Width", Imagen = null, Nombre = "h1 Tol", TipoDato = "Distance", Unidad = "Inch (in)", Valor = .0005 });
+
+            ModelAnillo.PerfilOD.PropiedadesCadena.Add(new PropiedadCadena { DescripcionCorta = "Proceso",DescripcionLarga = "Proceso", Imagen = null, Nombre = "Proceso", Valor = "Doble"});
+
+            //Terminamos de simular el anillo
+
+            if (ModelAnillo.MaterialBase.TipoDeMaterial == "HIERRO GRIS")
+            {
+                Operaciones = Router.CalcularHierroGris(ModelAnillo);
+            }
+            
+            //int i = Operaciones.Count - 1;
+            //int c = 0;
+            //double widthFinal = (Module.GetValorPropiedad("H1Min", PerfilLateral.Propiedades) + Module.GetValorPropiedad("H1Max",PerfilLateral.Propiedades)) / 2;
+
+            
+        }
 
         private void abrirPlano()
         {

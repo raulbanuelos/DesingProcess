@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Model;
 using Model.Interfaces;
+using View.Services.Operaciones.Gasolina.PreMaquinado;
 
 namespace View.Services
 {
@@ -20,7 +21,55 @@ namespace View.Services
             //Declaramos una lista observable la cual guardará las operaciones y será la que retornemos en el método.
             ObservableCollection<IOperacion> ListaOperaciones = new ObservableCollection<IOperacion>();
 
+            //Agregamos las operaciones necesarias. Se sigue el diagrama de flujo del archivo de excel ubicado en resprutas\RrrrUUUUUULLL\Diagrama de flujo Router.xlsx
+            ListaOperaciones.Add(new FirstRoughGrind(elAnillo));
 
+
+            if (Module.GetValorPropiedadString("Proceso", elAnillo.PerfilOD.PropiedadesCadena) != "Sencillo")
+            {
+                ListaOperaciones.Add(new Splitter(elAnillo));
+
+            }
+
+
+            //Empieza cálculo de width
+            int i = ListaOperaciones.Count - 1;
+            int c = 0;
+            double widthMin = Module.GetValorPropiedadMin("h1", _ElAnillo.PerfilLateral.Propiedades);
+            double widthMax = Module.GetValorPropiedadMax("h1", _ElAnillo.PerfilLateral.Propiedades);
+            double widthFinal = (widthMin + widthMax) / 2;
+
+            SubjectWidth subjectWidth = new SubjectWidth();
+            bool banUltimaOperacionWidth = true;
+            while (i >= 0)
+            {
+                if (ListaOperaciones[i] is IObserverWidth)
+                {
+                    if (banUltimaOperacionWidth)
+                    {
+                        subjectWidth.Subscribe(ListaOperaciones[i] as IObserverWidth, widthFinal);
+                        banUltimaOperacionWidth = false;
+                    }
+                    else
+                    {
+                        subjectWidth.Subscribe(ListaOperaciones[i] as IObserverWidth);
+                        subjectWidth.Notify(c);
+                    }
+                    c += 1;                 
+                }
+                i = i - 1;
+            }
+
+            //Termina cálculo de width
+
+
+            //Asignamos el número de operación a cada operación. (Saltando de 10 en 10).
+            int noOperacion = 0;
+            foreach (IOperacion operacion in ListaOperaciones)
+            {
+                noOperacion += 10;
+                operacion.NoOperacion = noOperacion;
+            }
 
             //Retornamos la lista generada.
             return ListaOperaciones;

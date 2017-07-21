@@ -25,7 +25,7 @@ namespace DataAccess.ServiceObjects.Operaciones.Premaquinado
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<SplitterSpacerChart> SplitterSpacerChart { get; set; }
         public virtual DbSet<SPlitterSpacerChart2> SPlitterSpacerChart2 { get; set; }
+        public virtual DbSet<SplitterSpacerChart> SplitterSpacerChart { get; set; }
     }
 }
