@@ -176,7 +176,31 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 //Si se genera un error retornamos un cero.
                 return 0;
             }
-        }  
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nombre_dep"></param>
+        /// <returns></returns>
+        public int GetID_Departamento(string nombre_dep)
+        {
+            try
+            {
+                using(var Conexion= new EntitiesControlDocumentos())
+                {
+                    int id_dep = (from d in Conexion.TBL_DEPARTAMENTO
+                                  where d.NOMBRE_DEPARTAMENTO.Equals(nombre_dep)
+                                  select d.ID_DEPARTAMENTO).ToList().FirstOrDefault();
+
+                    return id_dep;
+                }
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
 
     }
 }

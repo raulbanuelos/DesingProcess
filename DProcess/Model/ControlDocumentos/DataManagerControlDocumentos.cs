@@ -1527,5 +1527,37 @@ namespace Model.ControlDocumentos
         }
         #endregion
 
+        //excel
+
+        /// <summary>
+        /// Método que regresa el id del departamento
+        /// Se usa para importar a excel
+        /// </summary>
+        /// <param name="nombre_dep"></param>
+        /// <returns></returns>
+        public static int GetID_Dep(string nombre_dep)
+         {
+             //Se inicializan los servicios.
+             SO_Departamento ServiceDepartamento = new SO_Departamento();
+
+             return ServiceDepartamento.GetID_Departamento(nombre_dep);
+
+         }
+
+
+        /// <summary>
+        /// Método para insertar documentos a la base de datos
+        /// Se usa para importar desde excel
+        /// </summary>
+        /// <param name="documento"></param>
+        /// <returns></returns>
+         public static int InsertDocumentos(Documento documento)
+         {
+             //Se inician los servicios de Documento.
+             SO_Documento ServiceDocumento = new SO_Documento();
+
+             return ServiceDocumento.InsertDocumentos(documento.id_tipo_documento, documento.id_dep, documento.nombre, documento.descripcion, documento.fecha_emision, documento.fecha_actualizacion, documento.id_estatus,
+                                                 documento.usuario);
+         }
     }
 }

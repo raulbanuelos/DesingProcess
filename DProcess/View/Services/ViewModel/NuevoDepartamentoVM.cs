@@ -104,8 +104,7 @@ namespace View.Services.ViewModel
                         objDep.fecha_creacion = DateTime.Now;
 
                         //Ejecuta el método para validar si existe el departamento
-                        int val = DataManagerControlDocumentos.ValidateDepartamento(objDep);
-
+                        int val = DataManagerControlDocumentos.ValidateDepartamento(objDep);                     
                         //Si no existe
                         if (val == 0)
                         {

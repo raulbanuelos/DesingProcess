@@ -78,9 +78,12 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </ComboBox>
-                <Label FontSize="20" FontWeight="Bold" Content="" VerticalAlignment="Center" HorizontalAlignment="Right" Width="341"/>
+                <StackPanel Width="439" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Total:" FontSize="14" HorizontalAlignment="Center" Width="43"/>
+                    <Label FontSize="14" FontWeight="Bold" Content="{Binding Lista.Count}"  HorizontalAlignment="Right" />
+                </StackPanel>
             </StackPanel>
-            
+
         </StackPanel>
 
         <DataGrid x:Name="dataGrid" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">

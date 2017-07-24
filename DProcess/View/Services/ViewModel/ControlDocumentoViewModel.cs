@@ -203,7 +203,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private int num_pendientes { get; set; }
+        private int num_pendientes { get; set; }    
 
         #endregion
 
@@ -402,6 +402,8 @@ namespace View.Services.ViewModel
             NuevoTipoDocumentoVM context = new NuevoTipoDocumentoVM();
             frmTipo.DataContext = context;
             frmTipo.ShowDialog();
+
+            initControlDocumentos();
         }
 
         /// <summary>
@@ -571,7 +573,8 @@ namespace View.Services.ViewModel
 
                 frm.ShowDialog();
 
-                initControlDocumentos();
+                //initControlDocumentos();
+                GetDataGrid(string.Empty);
             }
         }
         #endregion
@@ -589,7 +592,7 @@ namespace View.Services.ViewModel
             {
                 SelectedTipoDocumento = _ListaTipoDocumento[0];
             }
-            GetDataGrid(string.Empty);
+            GetDataGrid(string.Empty);       
         }
 
         /// <summary>
