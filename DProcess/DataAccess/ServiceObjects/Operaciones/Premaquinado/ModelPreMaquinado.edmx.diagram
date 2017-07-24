@@ -5,8 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="072a7ae518934767818d5f43dc95a435" Name="Diagram1">
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Operaciones.Premaquinado.SplitterSpacerChart" Width="2.75" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Operaciones.Premaquinado.SPlitterSpacerChart2" Width="2.375" PointX="6.375" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Operaciones.Premaquinado.SplitterSpacerChart" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

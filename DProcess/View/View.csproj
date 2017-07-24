@@ -190,10 +190,13 @@
     <Compile Include="Services\ExportToExcel.cs" />
     <Compile Include="Services\ImportExcel.cs" />
     <Compile Include="Services\Module.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\CalculaPlacaModelo.cs" />
     <Compile Include="Services\Operaciones\Gasolina\DegreaseRings.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\FirstRoughGrind.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\Splitter.cs" />
     <Compile Include="Services\Operaciones\Gasolina\Rolado\CoilRings.cs" />
     <Compile Include="Services\Operaciones\Generica\OperacionGenericaWidth.cs" />
+    <Compile Include="Services\Operaciones\Router.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\Rolado\CentroTrabajo495.cs" />
     <Compile Include="Services\ViewModel\AnilloViewModel.cs" />
     <Compile Include="Services\ViewModel\CollarAutoFinTurnViewModel.cs" />

@@ -85,7 +85,7 @@
                         </Button>
                         <Separator />
 
-                        <Button ToolTip="Run" Cursor="Hand">
+                        <Button ToolTip="Run" Cursor="Hand" Command="{Binding CalcularRuta}">
                             <materialDesign:PackIcon Kind="PlayCircle" />
                         </Button>
 

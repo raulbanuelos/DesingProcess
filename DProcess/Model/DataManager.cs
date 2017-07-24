@@ -34,6 +34,8 @@ namespace Model
         /// <returns>Tipo de material de la especificación(HIERRO GRIS, HIERRO DUCTIL, ETC.)</returns>
         public static string GetTipoMaterial(string EspecificacionMaterial)
         {
+            string tipoMaterial = string.Empty;
+
             SO_Material ServiceMaterial = new SO_Material();
 
             DataSet InformacionBD = ServiceMaterial.GetTipoMaterial(EspecificacionMaterial);
@@ -41,10 +43,16 @@ namespace Model
             //Verificamos que el objeto recibido sea distinto de vacío.
             if (InformacionBD != null)
             {
-                //Leer el dataset para obtener el registro.
+                if (InformacionBD.Tables.Count > 0 && InformacionBD.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow element in InformacionBD.Tables[0].Rows)
+                    {
+                        tipoMaterial = element["tipo_material"].ToString();
+                    }
+                }
             }
 
-            return string.Empty;
+            return tipoMaterial;
         }
         #endregion
 
@@ -58,9 +66,8 @@ namespace Model
         /// <param name="proceso">Proceso por el cual el usuario elige se va a procesar el anillo(Doble, Sencillo, Cuadruple).</param>
         /// <param name="H1">Double que representa el width nominal del anillo.</param>
         /// <returns>Double que representa el width de la operación.</returns>
-        public static double GetWidthFirstRoughGrind(string proceso, double H1)
+        public static double? GetWidthFirstRoughGrind(string proceso, double H1)
         {
-
             //Inicializamos los servicios de SO_FirstRoughGrind
             SO_FirstRoughGrind ServiceFirstRoughGrind = new SO_FirstRoughGrind();
 
@@ -123,6 +130,44 @@ namespace Model
         }
         #endregion
 
+        #region Splitter Casting
+
+        /// <summary>
+        /// Método que obtiene el tiempo ciclo de la operación de splitter casting.
+        /// </summary>
+        /// <param name="especificacionMaterial"></param>
+        /// <returns></returns>
+        public static double GetCycleTimeSplitter(string especificacionMaterial)
+        {
+            double tiempoCiclo = 0;
+
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
+
+            //Ejecutamos el método para obtener el tiempo ciclo. El resultado lo guardamos en un DataSet
+            DataSet informacionBD = ServiceSplitter.GetCycleTime(especificacionMaterial);
+
+            //Verificamos que la información obtenida no sea nula.
+            if (informacionBD != null)
+            {
+
+                //Verificamos que contenga al menos una tabla y que esa tabla contenga al menos un registro.
+                if (informacionBD.Tables.Count > 0 && informacionBD.Tables[0].Rows.Count > 0)
+                {
+                    //Itermamos la información obtenida.
+                    foreach (DataRow item in informacionBD.Tables[0].Rows)
+                    {
+                        tiempoCiclo = Convert.ToDouble(item["TiempoCiclo"]);
+                    }
+                }
+            }
+
+            //Retornamos la información obtenida.
+            return tiempoCiclo;
+
+        } 
+        #endregion
+
         #endregion
 
         #region Herramentales
@@ -180,7 +225,7 @@ namespace Model
             //Retornamos la lista.
             return ListaResultante;
         }
-
+        
         /// <summary>
         /// Método que obtiene el maestro de herramentales a partir de un criterio de busqueda.
         /// </summary>
