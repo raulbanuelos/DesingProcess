@@ -75,7 +75,7 @@ namespace IMPORTEXCEL
                            objVersion.no_copias = 0;
                            objVersion.fecha_version = DateTime.FromOADate(range.Cells[aux, 7].Value2);
 
-                            int id_version = 1805;// DataManagerControlDocumentos.SetVersion(objVersion);
+                            int id_version = 1116;// DataManagerControlDocumentos.SetVersion(objVersion);
 
                            if (id_version != 0)
                            {
@@ -84,7 +84,7 @@ namespace IMPORTEXCEL
                                objArchivo.id_version = id_version;
                                url =string.Concat(range.Cells[aux, 4].Value2.ToString(),range.Cells[aux, 6].Value2.ToString());
 
-                               url = string.Concat("C:\\Users\\Ing.practicante\\Documents\\OHSAS\\", url,".doc");
+                               url = string.Concat("C:\\Users\\Ing.practicante\\Documents\\ESPECIFICOS\\", url,".doc");
                              
                                objArchivo.ext = System.IO.Path.GetExtension(url);
 

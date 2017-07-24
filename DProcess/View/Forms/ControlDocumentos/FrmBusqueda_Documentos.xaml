@@ -1,0 +1,57 @@
+﻿<Controls:MetroWindow x:Class="View.Forms.ControlDocumentos.FrmBusqueda_Documentos"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
+        mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
+        Title="Buscar Documentos" Height="500" Width="1000" WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="100*"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+            <ColumnDefinition Width="950"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" Width="403" HorizontalAlignment="Left" Height="51">
+                <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="Buscar..." Text="{Binding TextoBusqueda}" TextAlignment="Center" Width="350" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Height="46">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction
+									Command="{Binding BuscarDocumentos}"
+                                    CommandParameter="{Binding ElementName=txt_busqueda, Path=Text}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+            </StackPanel>
+        </StackPanel>
+
+        <DataGrid x:Name="dataGrid" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding ListaDocumentos}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="Número documento"/>
+                <DataGridTextColumn Binding="{Binding descripcion}" ClipboardContentBinding="{x:Null}" Header="Nombre"/>
+                <DataGridTextColumn Binding="{Binding version.no_version}" ClipboardContentBinding="{x:Null}" Header="Versión"/>
+                <DataGridTextColumn Binding="{Binding Departamento}" ClipboardContentBinding="{x:Null}" Header="Responsable"/>
+                <DataGridTextColumn Binding="{Binding tipo.tipo_documento}" ClipboardContentBinding="{x:Null}" Header="Tipo de documento"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
+            <Label Content="Total:" FontSize="14" Width="46"></Label>
+            <Label Content="{Binding ListaDocumentos.Count}"></Label>
+        </StackPanel>
+    </Grid>
+</Controls:MetroWindow>

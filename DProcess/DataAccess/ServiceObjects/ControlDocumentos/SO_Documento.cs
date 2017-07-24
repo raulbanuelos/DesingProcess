@@ -245,7 +245,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
-        /// Método para obtener los registros para el llenado de la tabla ControlDocumento.
+        /// Método para obtener los registros por tipo de documento para el llenado de la tabla ControlDocumento.
         /// </summary>
         /// <returns></returns>
         public IList GetDataGrid(int idTipoDocumento,string textoBusqueda)
@@ -306,6 +306,76 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             catch (Exception er)
             {
                 //Si existe algún error, se regresa nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método para obtener todos los documentos que están aprobados
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public IList GetGridDocumentos(string texto)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Si el texto es nulo, realiza la consulta de todos los documentos aprobados
+                    if (string.IsNullOrEmpty(texto))
+                    {
+                        var Lista= (from d in Conexion.TBL_DOCUMENTO
+                                    join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                    join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
+                                    join b in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals b.ID_DEPARTAMENTO
+                                    join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
+                                    where  d.ID_ESTATUS_DOCUMENTO == 5 && v.ID_ESTATUS_VERSION == 1
+                                    select new
+                                    {
+                                        d.ID_DOCUMENTO,
+                                        d.NOMBRE,
+                                        FECHA_ACTUALIZACION = v.FECHA_VERSION,
+                                        d.ID_DEPARTAMENTO,
+                                        v.No_VERSION,
+                                        v.ID_VERSION,
+                                        v.NO_COPIAS,
+                                        DESCRIPCION = d.DESCRIPCION,
+                                        b.NOMBRE_DEPARTAMENTO,
+                                        d.FECHA_EMISION,
+                                        t.TIPO_DOCUMENTO
+                                    }).OrderBy(x => x.ID_DOCUMENTO).Distinct().ToList();
+
+                        return Lista;
+                    }
+                    else
+                    {
+                        var Lista = (from d in Conexion.TBL_DOCUMENTO
+                                     join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                     join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
+                                     join b in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals b.ID_DEPARTAMENTO
+                                     join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
+                                     where d.ID_ESTATUS_DOCUMENTO == 5 && v.ID_ESTATUS_VERSION == 1 && (d.NOMBRE.Contains(texto) || d.DESCRIPCION.Contains(texto))
+                                     select new
+                                     {
+                                         d.ID_DOCUMENTO,
+                                         d.NOMBRE,
+                                         FECHA_ACTUALIZACION = v.FECHA_VERSION,
+                                         d.ID_DEPARTAMENTO,
+                                         v.No_VERSION,
+                                         v.ID_VERSION,
+                                         v.NO_COPIAS,
+                                         DESCRIPCION = d.DESCRIPCION,
+                                         b.NOMBRE_DEPARTAMENTO,
+                                         d.FECHA_EMISION,
+                                         t.TIPO_DOCUMENTO
+                                     }).OrderBy(x => x.ID_DOCUMENTO).Distinct().ToList();
+
+                        return Lista;
+                    }
+                }
+
+            }catch(Exception er)
+            {
                 return null;
             }
         }

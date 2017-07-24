@@ -338,7 +338,8 @@ namespace Model.ControlDocumentos
         } 
 
         /// <summary>
-        /// Método que obtiene los datos para llenar la informacion en un datagrid
+        /// Método que obtiene los documentos liberados de acuerdo al tipo de documento
+        /// Llena el grid de ControlDocumento
         /// </summary>
         /// <param name="idTipoDocumento"></param>
         /// <param name="textoBusqueda"></param>
@@ -376,6 +377,55 @@ namespace Model.ControlDocumentos
                     obj.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
                     obj.Departamento = (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
                     obj.fecha_emision = (DateTime)tipo.GetProperty("FECHA_EMISION").GetValue(item, null);
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //regresamos la lista.
+            return Lista;
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los documentos liberados
+        /// Llena el DataGrid del Frm_Busqueda_documentos
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Documento> GetGridDocumentos(string texto)
+        {
+            //Se inicializan los servicios de Documento.
+            SO_Documento ServiceDocumento = new SO_Documento();
+
+            //Se crea una lista de tipo documento, la cual se va a retornar
+            ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
+
+            //obtenemos todo de la BD.
+            IList ObjDocumento = ServiceDocumento.GetGridDocumentos(texto);
+
+            //Verificamos que la informacion no esté vacía.
+            if (ObjDocumento != null)
+            {
+                foreach (var item in ObjDocumento)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    Documento obj = new Documento();
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+                    obj.id_dep = (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
+                    obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    obj.version.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    obj.version.no_copias = (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
+                    obj.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    obj.Departamento = (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
+                    obj.fecha_emision = (DateTime)tipo.GetProperty("FECHA_EMISION").GetValue(item, null);
+                    obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
+
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }
@@ -611,6 +661,38 @@ namespace Model.ControlDocumentos
 
             //Se ejecuta el método y retornamos el resultado
             return ServicioDocumento.UpdateEstatus_Documento(obj.id_documento,obj.id_estatus);
+        }
+
+        //excel
+
+        /// <summary>
+        /// Método que regresa el id del departamento
+        /// Se usa para importar a excel
+        /// </summary>
+        /// <param name="nombre_dep"></param>
+        /// <returns></returns>
+        public static int GetID_Dep(string nombre_dep)
+        {
+            //Se inicializan los servicios.
+            SO_Departamento ServiceDepartamento = new SO_Departamento();
+
+            return ServiceDepartamento.GetID_Departamento(nombre_dep);
+
+        }
+        
+        /// <summary>
+        /// Método para insertar documentos a la base de datos
+        /// Se usa para importar desde excel
+        /// </summary>
+        /// <param name="documento"></param>
+        /// <returns></returns>
+        public static int InsertDocumentos(Documento documento)
+        {
+            //Se inician los servicios de Documento.
+            SO_Documento ServiceDocumento = new SO_Documento();
+
+            return ServiceDocumento.InsertDocumentos(documento.id_tipo_documento, documento.id_dep, documento.nombre, documento.descripcion, documento.fecha_emision, documento.fecha_actualizacion, documento.id_estatus,
+                                                documento.usuario);
         }
         #endregion
 
@@ -1527,37 +1609,6 @@ namespace Model.ControlDocumentos
         }
         #endregion
 
-        //excel
-
-        /// <summary>
-        /// Método que regresa el id del departamento
-        /// Se usa para importar a excel
-        /// </summary>
-        /// <param name="nombre_dep"></param>
-        /// <returns></returns>
-        public static int GetID_Dep(string nombre_dep)
-         {
-             //Se inicializan los servicios.
-             SO_Departamento ServiceDepartamento = new SO_Departamento();
-
-             return ServiceDepartamento.GetID_Departamento(nombre_dep);
-
-         }
-
-
-        /// <summary>
-        /// Método para insertar documentos a la base de datos
-        /// Se usa para importar desde excel
-        /// </summary>
-        /// <param name="documento"></param>
-        /// <returns></returns>
-         public static int InsertDocumentos(Documento documento)
-         {
-             //Se inician los servicios de Documento.
-             SO_Documento ServiceDocumento = new SO_Documento();
-
-             return ServiceDocumento.InsertDocumentos(documento.id_tipo_documento, documento.id_dep, documento.nombre, documento.descripcion, documento.fecha_emision, documento.fecha_actualizacion, documento.id_estatus,
-                                                 documento.usuario);
-         }
+        
     }
 }
