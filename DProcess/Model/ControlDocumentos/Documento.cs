@@ -13,6 +13,7 @@ namespace Model.ControlDocumentos
         public int id_documento { get; set; }
         public int id_tipo_documento { get; set; }
         public string  usuario { get; set; }
+        public string usuario_autorizo { get; set; }
         public int id_estatus { get; set; }
         public int id_dep { get; set; }
         public string nombre { get; set; }
@@ -36,6 +37,7 @@ namespace Model.ControlDocumentos
             id_documento = 0;
             id_tipo_documento = 0;
             usuario = string.Empty;
+            usuario_autorizo = string.Empty;
             id_estatus = 0;
             id_dep = 0;
             nombre = string.Empty;

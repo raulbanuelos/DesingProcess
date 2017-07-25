@@ -12,14 +12,14 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace View.Services
 {
-   public static class ImportExcel
+   public  static class ImportExcel
     {
        
         /// <summary>
         /// Método para importar a un archivo excel, la información de collarBk
         /// </summary>
         /// <returns></returns>
-        public  static string ImportCollarBK()
+        public async static Task<string> ImportCollarBK()
         {
             try
             {
@@ -137,7 +137,7 @@ namespace View.Services
                     ExcelWork.Close();
                     
                     //Se manda a llamar a la función para crear el archivo de Excel
-                    string e = ExportToExcel.Export(ds);
+                  string e =await ExportToExcel.Export(ds);
 
                 }
                 //Si no hay error retorna nulo

@@ -547,9 +547,15 @@ namespace View.Services.ViewModel
             //Incializamos los servicios de dialog.
             DialogService dialog = new DialogService();
 
+            //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
+            ProgressDialogController Progress;
+
             //Si la lista de documentos es diferente de cero
             if (Lista.Count != 0)
             {
+                //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
+                Progress = await dialog.SendProgressAsync("Por favor espere", "Generando archivo excel...");
+
                 //Se añade las columnas
                 table.Columns.Add("Numero de Documento");
                 table.Columns.Add("Nombre de Documento");
@@ -581,12 +587,19 @@ namespace View.Services.ViewModel
                 ds.Tables.Add(table);
 
                 //Ejecutamos el método para exportar el archivo
-                string e = ExportToExcel.Export(ds);
+                string e = await ExportToExcel.Export(ds);
 
                 if (e != null)
                 {
-                    await dialog.SendMessage("Alerta", e);
+                    //Cerramos el mensaje de espera
+                    await Progress.CloseAsync();
+
+                    //Mostramos mensaje de error
+                    await dialog.SendMessage("Alerta", "Error al generar el archivo excel");
                 }
+
+                //Ejecutamos el método para cerrar el mensaje de espera.
+                await Progress.CloseAsync();
             }
             
         }

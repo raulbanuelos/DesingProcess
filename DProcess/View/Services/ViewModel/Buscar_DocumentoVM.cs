@@ -1,8 +1,10 @@
-﻿using Model.ControlDocumentos;
+﻿using MahApps.Metro.Controls.Dialogs;
+using Model.ControlDocumentos;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +12,7 @@ using System.Windows.Input;
 
 namespace View.Services.ViewModel
 {
-   public class Buscar_DocumentoVM : INotifyPropertyChanged
+    public class Buscar_DocumentoVM : INotifyPropertyChanged
     {
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -71,6 +73,87 @@ namespace View.Services.ViewModel
                 return new RelayCommand(param => GetGrid((string)param));
             }
         }
-        #endregion
+
+        /// <summary>
+        /// Comando para exportar el datagrid a un archivo excel
+        /// </summary>
+        public ICommand GetExcel
+        {
+            get
+            {
+                return new RelayCommand(o => getExcel());
+            }
+        }
+        /// <summary>
+        /// Método que generar un archivo excel a partir de la lista de documentos
+        /// </summary>
+        private async void getExcel()
+        {
+            DataSet ds = new DataSet();
+
+            //inicializamos objeto de Datatable
+            DataTable table = new DataTable();
+
+            //Incializamos los servicios de dialog.
+            DialogService dialog = new DialogService();
+
+            //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
+            ProgressDialogController Progress;
+
+            //Si la lista de documentos contiene algún registro
+            if (ListaDocumentos.Count != 0)
+            {
+                //Ejecutamos el método para enviar un mensaje de espera mientras el archivo de excel se genera
+                Progress = await dialog.SendProgressAsync("Por favor espere", "Generando archivo excel...");
+
+                //Se añade las columnas
+                table.Columns.Add("Numero de Documento");
+                table.Columns.Add("Nombre de Documento");
+                table.Columns.Add("Version");
+                table.Columns.Add("Responsable");
+                table.Columns.Add("Tipo de Documento");
+                table.Columns.Add("Usuario Elaboró");
+                table.Columns.Add("Usuario Autorizó");
+
+                //Iteramos la lista de documentos
+                foreach (var item in ListaDocumentos)
+                {
+                    //Se crea una nueva fila
+                    DataRow newRow = table.NewRow();
+
+                    //Se añaden los valores a las columnas
+                    newRow["Numero de Documento"] = item.nombre;
+                    newRow["Nombre de Documento"] = item.descripcion;
+                    newRow["Version"] = item.version.no_version;
+                    newRow["Responsable"] = item.Departamento;
+                    newRow["Tipo de Documento"] = item.tipo.tipo_documento;
+                    newRow["Usuario Elaboró"] = item.usuario;
+                    newRow["Usuario Autorizó"] = item.usuario_autorizo;
+
+                    //Agregamos la fila a la tabla
+                    table.Rows.Add(newRow);
+                }
+                //Se agrega la tabla al dataset
+                ds.Tables.Add(table);
+
+                //Ejecutamos el método para exportar el archivo
+                string e = await ExportToExcel.Export(ds);
+
+                //Si hay un error
+                if (e != null)
+                {
+                    //Cerramos el mensaje de espera
+                    await Progress.CloseAsync();
+
+                    //Mostramos mensaje de error
+                    await dialog.SendMessage("Alerta", "Error al generar el archivo");
+                }
+                //Ejecutamos el método para cerrar el mensaje de espera.
+                await Progress.CloseAsync();
+            }
+        }
+
+            #endregion
+        }
     }
-}
+

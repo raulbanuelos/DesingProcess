@@ -425,6 +425,8 @@ namespace Model.ControlDocumentos
                     obj.Departamento = (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
                     obj.fecha_emision = (DateTime)tipo.GetProperty("FECHA_EMISION").GetValue(item, null);
                     obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.usuario = (string)tipo.GetProperty("USUARIO_ELABORO").GetValue(item, null);
+                    obj.usuario_autorizo = (string)tipo.GetProperty("USUARIO_AUTORIZO").GetValue(item, null);
 
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);

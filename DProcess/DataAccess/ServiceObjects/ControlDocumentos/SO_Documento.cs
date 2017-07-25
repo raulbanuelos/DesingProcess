@@ -326,6 +326,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     {
                         var Lista= (from d in Conexion.TBL_DOCUMENTO
                                     join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                    join u in Conexion.Usuarios on v.ID_USUARIO_AUTORIZO equals u.Usuario
+                                    join us in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals us.Usuario
                                     join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
                                     join b in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals b.ID_DEPARTAMENTO
                                     join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
@@ -342,7 +344,9 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                         DESCRIPCION = d.DESCRIPCION,
                                         b.NOMBRE_DEPARTAMENTO,
                                         d.FECHA_EMISION,
-                                        t.TIPO_DOCUMENTO
+                                        t.TIPO_DOCUMENTO,
+                                        USUARIO_AUTORIZO= u.Nombre + " " + u.APaterno + " " + u.AMaterno,
+                                        USUARIO_ELABORO=us.Nombre + " " + us.APaterno + " " + us.AMaterno
                                     }).OrderBy(x => x.ID_DOCUMENTO).Distinct().ToList();
 
                         return Lista;
@@ -351,6 +355,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     {
                         var Lista = (from d in Conexion.TBL_DOCUMENTO
                                      join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                     join u in Conexion.Usuarios on v.ID_USUARIO_AUTORIZO equals u.Usuario
+                                     join us in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals us.Usuario
                                      join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
                                      join b in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals b.ID_DEPARTAMENTO
                                      join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
@@ -367,7 +373,9 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                          DESCRIPCION = d.DESCRIPCION,
                                          b.NOMBRE_DEPARTAMENTO,
                                          d.FECHA_EMISION,
-                                         t.TIPO_DOCUMENTO
+                                         t.TIPO_DOCUMENTO,
+                                         USUARIO_AUTORIZO = u.Nombre + " " + u.APaterno + " " + u.AMaterno,
+                                         USUARIO_ELABORO = us.Nombre + " " + us.APaterno + " " + us.AMaterno
                                      }).OrderBy(x => x.ID_DOCUMENTO).Distinct().ToList();
 
                         return Lista;

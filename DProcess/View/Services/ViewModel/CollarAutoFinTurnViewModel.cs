@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using MahApps.Metro.Controls.Dialogs;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -111,12 +112,28 @@ namespace View.Services.ViewModel
 
         private async void leerExcel()
         {
-            string e=ImportExcel.ImportCollarBK();
+            //Incializamos los servicios de dialog.
+            DialogService dialog = new DialogService();
+
+            //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
+            ProgressDialogController Progress;
+
+            //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
+            Progress = await dialog.SendProgressAsync("Por favor espere", "Generando archivo excel...");
+
+            string e= await ImportExcel.ImportCollarBK();
 
             if (e != null)
             {
+                //Cerramos el mensaje de espera
+                await Progress.CloseAsync();
+
+                //Mostramos mensaje de error
                 await dialogService.SendMessage("Alerta", "Error al leer el archivo");
             }
+
+            //Ejecutamos el método para cerrar el mensaje de espera.
+            await Progress.CloseAsync();
         }
 
         /// <summary>
