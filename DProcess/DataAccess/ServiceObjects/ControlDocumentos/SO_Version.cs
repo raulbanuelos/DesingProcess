@@ -304,7 +304,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
-        /// Método que retorna todas las versiones de un documento.
+        /// Método que retorna el id de todas las versiones de un documento.
         /// </summary>
         /// <param name="id_documento"></param>
         /// <returns></returns>
@@ -399,7 +399,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
-        /// Método para actualizar el estatus de una versiónm.
+        /// Método para actualizar el estatus de una versión.
         /// </summary>
         /// <param name="id_version"></param>
         /// <param name="id_estatus"></param>
@@ -428,6 +428,51 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             {
                 //Si encuentra error devuelve cero.
                 return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene una lista de las versiones liberadas de un documento correspondiente
+        /// </summary>
+        /// <param name="id_doc"></param>
+        /// <returns></returns>
+        public IList GetVersiones(int id_doc)
+        {
+            try
+            {
+                //Se establece la conexion 
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Se realiza la consulta, el resultado se guarda en una lista
+                    var ListaVersion = (from d in Conexion.TBL_DOCUMENTO
+                                        join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                        join u in Conexion.Usuarios on v.ID_USUARIO_AUTORIZO equals u.Usuario
+                                        join us in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals us.Usuario
+                                        join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
+                                        where d.ID_DOCUMENTO == id_doc 
+                                        select new
+                                        {
+                                            v.ID_VERSION,
+                                            v.No_VERSION,
+                                            v.FECHA_VERSION,
+                                            v.NO_COPIAS,
+                                            USUARIO_AUTORIZO = u.Nombre + " " + u.APaterno + " " + u.AMaterno,
+                                            USUARIO_ELABORO = us.Nombre + " " + us.APaterno + " " + us.AMaterno,
+                                            a.ARCHIVO,
+                                            a.NOMBRE_ARCHIVO,
+                                            a.EXT,
+                                            a.ID_ARCHIVO
+                                        }).OrderBy(x => x.ID_VERSION).Distinct().ToList();
+
+                    //Retornamos la lista
+                    return ListaVersion;
+                }
+
+            }
+            catch (Exception er)
+            {
+                //Si hay error, se regresa nulo
+                return null;
             }
         }
 

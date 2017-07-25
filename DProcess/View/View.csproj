@@ -147,6 +147,9 @@
     <Compile Include="Forms\ControlDocumentos\FrmValidarDocumento.xaml.cs">
       <DependentUpon>FrmValidarDocumento.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmVersiones.xaml.cs">
+      <DependentUpon>FrmVersiones.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DataBase\PDataBase.xaml.cs">
       <DependentUpon>PDataBase.xaml</DependentUpon>
     </Compile>
@@ -231,6 +234,7 @@
     <Compile Include="Services\ViewModel\RelayCommand.cs" />
     <Compile Include="Services\ViewModel\UsuarioViewModel.cs" />
     <Compile Include="Services\ViewModel\ValidarDocumentoViewM.cs" />
+    <Compile Include="Services\ViewModel\VersionesVM.cs" />
     <Compile Include="UserControls\DProcessPropiedad.xaml.cs">
       <DependentUpon>DProcessPropiedad.xaml</DependentUpon>
     </Compile>
@@ -308,6 +312,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmValidarDocumento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmVersiones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

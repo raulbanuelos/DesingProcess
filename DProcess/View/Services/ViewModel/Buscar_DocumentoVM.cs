@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using View.Forms.ControlDocumentos;
 
 namespace View.Services.ViewModel
 {
@@ -39,6 +40,20 @@ namespace View.Services.ViewModel
             {
                 _ListaDocumentos = value;
                 NotifyChange("ListaDocumentos");
+            }
+        }
+
+        private Documento selectedDocumento;
+        public Documento SelectedDocumento
+        {
+            get
+            {
+                return selectedDocumento;
+            }
+            set
+            {
+                selectedDocumento = value;
+                NotifyChange("SelectedDocumento");
             }
         }
         #endregion
@@ -84,6 +99,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => getExcel());
             }
         }
+
         /// <summary>
         /// Método que generar un archivo excel a partir de la lista de documentos
         /// </summary>
@@ -153,6 +169,33 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando para ver las versiones de un documento
+        /// </summary>
+        public ICommand verDocumento
+        {
+            get
+            {
+                return new RelayCommand(o => abrirDocumento());
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void abrirDocumento()
+        {
+            if (selectedDocumento != null)
+            {
+                FrmVersiones frm = new FrmVersiones();
+
+                VersionesVM context = new VersionesVM(selectedDocumento);
+
+                frm.DataContext = context;
+
+                frm.ShowDialog();
+            }
+        }
             #endregion
         }
     }
