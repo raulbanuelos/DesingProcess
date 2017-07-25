@@ -88,6 +88,67 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
             }
         }
 
+        /// <summary>
+        /// Método que obtiene los valores de CSTG_SM_OD y RISE de una placa modelo.
+        /// </summary>
+        /// <param name="CodigoPlacaModelo"></param>
+        /// <returns></returns>
+        public IList GetCSTGSMOD(string CodigoPlacaModelo)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesMateriaPrima())
+                {
+                    //Realizamos la consulta. El resultado lo guardamos en una variable anónima.
+                    var lista = (from p in Conexion.Pattern2
+                                 where p.codigo == CodigoPlacaModelo
+                                 select new {
+                                     p.CSTG_SM_OD,
+                                     p.RISE
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si ocurre algún error, retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene el valor de PATT_SM_ID
+        /// </summary>
+        /// <param name="CodigoPlacaModelo"></param>
+        /// <returns></returns>
+        public IList GetPATTSMID(string CodigoPlacaModelo)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesMateriaPrima())
+                {
+                    //Realizamos la consulta. El resultado lo guardamos en una variable anónima.
+                    var lista = (from p in Conexion.Pattern2
+                                 where p.codigo == CodigoPlacaModelo
+                                 select new
+                                 {
+                                     p.PATT_SM_ID
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si ocurre algún error, retornamos un nulo.
+                return null;
+            }
+        }
         #endregion
     }
 }

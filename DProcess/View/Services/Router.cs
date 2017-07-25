@@ -31,38 +31,6 @@ namespace View.Services
 
             }
 
-
-            //Empieza cálculo de width
-            int i = ListaOperaciones.Count - 1;
-            int c = 0;
-            double widthMin = Module.GetValorPropiedadMin("h1", _ElAnillo.PerfilLateral.Propiedades);
-            double widthMax = Module.GetValorPropiedadMax("h1", _ElAnillo.PerfilLateral.Propiedades);
-            double widthFinal = (widthMin + widthMax) / 2;
-
-            SubjectWidth subjectWidth = new SubjectWidth();
-            bool banUltimaOperacionWidth = true;
-            while (i >= 0)
-            {
-                if (ListaOperaciones[i] is IObserverWidth)
-                {
-                    if (banUltimaOperacionWidth)
-                    {
-                        subjectWidth.Subscribe(ListaOperaciones[i] as IObserverWidth, widthFinal);
-                        banUltimaOperacionWidth = false;
-                    }
-                    else
-                    {
-                        subjectWidth.Subscribe(ListaOperaciones[i] as IObserverWidth);
-                        subjectWidth.Notify(c);
-                    }
-                    c += 1;                 
-                }
-                i = i - 1;
-            }
-
-            //Termina cálculo de width
-
-
             //Asignamos el número de operación a cada operación. (Saltando de 10 en 10).
             int noOperacion = 0;
             foreach (IOperacion operacion in ListaOperaciones)

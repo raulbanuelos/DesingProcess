@@ -825,16 +825,99 @@ namespace View.Services.ViewModel
 
             //Terminamos de simular el anillo
 
+            Anillo anilloProcesado = new Anillo();
+            DescripcionGeneral = string.Format("{0:0.00000}", D1.Valor) + " X " + string.Format("{0:0.00000}", H1.Valor) + " " + TipoAnillo;
+
             if (ModelAnillo.MaterialBase.TipoDeMaterial == "HIERRO GRIS")
             {
                 Operaciones = Router.CalcularHierroGris(ModelAnillo);
-            }
-            
-            //int i = Operaciones.Count - 1;
-            //int c = 0;
-            //double widthFinal = (Module.GetValorPropiedad("H1Min", PerfilLateral.Propiedades) + Module.GetValorPropiedad("H1Max",PerfilLateral.Propiedades)) / 2;
+                //Ingresar calculo de placa modelo.
 
+                //anilloProcesado.PropiedadesAdquiridasProceso.Add(); agregar la propiedad de PIECE el cual se genera del calculo de placa modelo.
+            }
+
+            //Empieza cálculo de width
+            int i = Operaciones.Count - 1;
+            int c = 0;
+            double widthMin = Module.GetValorPropiedadMin("h1", ModelAnillo.PerfilLateral.Propiedades,true);
+            double widthMax = Module.GetValorPropiedadMax("h1", ModelAnillo.PerfilLateral.Propiedades,true);
+            double widthFinal = (widthMin + widthMax) / 2;
+
+            SubjectWidth subjectWidth = new SubjectWidth();
+            bool banUltimaOperacionWidth = true;
+            while (i >= 0)
+            {
+                if (Operaciones[i] is IObserverWidth)
+                {
+                    if (banUltimaOperacionWidth)
+                    {
+                        subjectWidth.Subscribe(Operaciones[i] as IObserverWidth, widthFinal);
+                        banUltimaOperacionWidth = false;
+                    }
+                    else
+                    {
+                        subjectWidth.Subscribe(Operaciones[i] as IObserverWidth);
+                        subjectWidth.Notify(c);
+                    }
+                    c += 1;
+                }
+                i = i - 1;
+            }
+
+            //Termina cálculo de width
+
+            /*
+             * Cálculo de diámetro
+             */
+
+            /*
+             * Cálculo de thickness
+             */
+
+            anilloProcesado.Activo = ModelAnillo.Activo;
+            anilloProcesado.cliente = ModelAnillo.cliente;
+            anilloProcesado.Codigo = ModelAnillo.Codigo;
+            anilloProcesado.CondicionesDeEmpaque = ModelAnillo.CondicionesDeEmpaque;
+            anilloProcesado.CustomerDocNo = ModelAnillo.CustomerDocNo;
+            anilloProcesado.CustomerPartNumber = ModelAnillo.CustomerPartNumber;
+            anilloProcesado.CustomerRevisionLevel = ModelAnillo.CustomerRevisionLevel;
+            anilloProcesado.DescripcionGeneral = ModelAnillo.DescripcionGeneral;
+            anilloProcesado.HardnessMax = ModelAnillo.HardnessMax;
+            anilloProcesado.HardnessMin = ModelAnillo.HardnessMin;
+            anilloProcesado.Imagen = ModelAnillo.Imagen;
+            anilloProcesado.Mass = ModelAnillo.Mass;
+            anilloProcesado.MaterialBase = ModelAnillo.MaterialBase;
+            anilloProcesado.NivelRevicion = ModelAnillo.NivelRevicion;
+            anilloProcesado.NoPlano = ModelAnillo.NoPlano;
+            anilloProcesado.Operaciones = ModelAnillo.Operaciones;
+            anilloProcesado.PerfilID = new Perfil();
+            anilloProcesado.PerfilOD = new Perfil();
+            anilloProcesado.PerfilPuntas = new Perfil();
+            anilloProcesado.PerfilLateral = new Perfil();
+            anilloProcesado.Size = ModelAnillo.Size;
+            anilloProcesado.Tension = ModelAnillo.Tension;
+            anilloProcesado.TensionTol = ModelAnillo.TensionTol;
+            anilloProcesado.TipoAnillo = ModelAnillo.TipoAnillo;
             
+
+            //Realizamos las operaciones
+            bool ban = true;
+            Anillo aProcesado = new Anillo();
+            foreach (IOperacion element in Operaciones)
+            {
+                if (ban)
+                {
+                    element.CrearOperacion(anilloProcesado, ModelAnillo);
+                    aProcesado = element.anilloProcesado;
+                    ban = false;
+                }
+                else
+                {
+                    element.CrearOperacion(aProcesado, ModelAnillo);
+                    aProcesado = element.anilloProcesado;
+                }
+            }
+
         }
 
         private void abrirPlano()

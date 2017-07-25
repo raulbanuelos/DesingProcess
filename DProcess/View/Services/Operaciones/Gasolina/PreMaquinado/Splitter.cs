@@ -191,16 +191,21 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             TextoProceso += "*SPLIT";
             TextoProceso += "" + Convert.ToString(WidthOperacion) + " +- .004 CYC TIME " + timeSplitter + " +- 2 SEG." + "\n";
 
+            double od, id;
+
+            od = DataManager.GetODSplitterCasting(elPlano.MaterialBase.Codigo);
+            id = DataManager.GetIDSplitterCasting(elPlano.MaterialBase.Codigo);
+
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
 
-            //Ejecutamos el méotodo para calcular los tiempos estándar.
+            //Ejecutamos el método para calcular los tiempos estándar.
             CalcularTiemposEstandar();
         }
 
         public void BuscarHerramentales()
         {
-            
+
         }
 
         /// <summary>

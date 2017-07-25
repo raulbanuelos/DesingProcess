@@ -165,7 +165,53 @@ namespace Model
             //Retornamos la información obtenida.
             return tiempoCiclo;
 
-        } 
+        }
+
+        public static double GetIDSplitterCasting(string codigo)
+        {
+            double id = 0;
+
+            SO_Material ServicioMaterial = new SO_Material();
+
+            IList informacionBD = ServicioMaterial.GetPATTSMID(codigo);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    id = (double)tipo.GetProperty("PATT_SM_ID").GetValue(item, null);
+                }
+            }
+
+            return id;
+        }
+
+        public static double GetODSplitterCasting(string codigo)
+        {
+            double od = 0;
+
+            SO_Material ServicioMaterial = new SO_Material();
+
+            IList informacionBD = ServicioMaterial.GetCSTGSMOD(codigo);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    double cstg_sm_od = (double)tipo.GetProperty("CSTG_SM_OD").GetValue(item, null);
+                    double rise = (double)tipo.GetProperty("RISE").GetValue(item, null);
+
+                    od = Math.Round(cstg_sm_od + ((rise - 0.005) * 2), 3);
+                }
+            }
+
+            return od;
+        }
+
         #endregion
 
         #endregion
@@ -225,7 +271,7 @@ namespace Model
             //Retornamos la lista.
             return ListaResultante;
         }
-        
+
         /// <summary>
         /// Método que obtiene el maestro de herramentales a partir de un criterio de busqueda.
         /// </summary>
