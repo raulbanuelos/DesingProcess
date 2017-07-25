@@ -56,7 +56,11 @@
                 <DataGridTextColumn Binding="{Binding usuario}" ClipboardContentBinding="{x:Null}" Header="Usuario Elaboró"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding usuario_autorizo}" ClipboardContentBinding="{x:Null}" Header="Usuario Autorizó"></DataGridTextColumn>
             </DataGrid.Columns>
-
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding verDocumento}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </DataGrid>
         <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
             <Label Content="Total:" FontSize="14" Width="46"></Label>

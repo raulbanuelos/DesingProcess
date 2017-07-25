@@ -634,7 +634,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 //Si hay error, se regresa nulo
                 return null;
             }
-        }
+        }     
 
         /// <summary>
         /// Método que modifica el estatus del documento
@@ -708,8 +708,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
        
-
-
         /// <summary>
         /// Método para obtener todos los documentos aprobados pendientes por liberar
         /// </summary>

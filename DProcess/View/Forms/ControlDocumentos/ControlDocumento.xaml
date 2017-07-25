@@ -44,12 +44,13 @@
             <Button ToolTip="Generar Número de Documento" Command="{Binding Generador}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="FileDocument" />
             </Button>
+            
             <Separator></Separator>
-            <Button ToolTip="Buscar Documento"  Cursor="Hand" Command="{Binding IrBusquedaDocumento}">
+            <Button ToolTip="Buscar Documento"  Cursor="Hand" Command="{Binding IrBusquedaDocumento}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}">
                 <materialDesign:PackIcon Kind="FileFind"/>
             </Button>
 
-            <Separator></Separator>
+            <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
             <Button ToolTip="Agregar Tipo" Command="{Binding AgregarTipo}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="FolderPlus" />
             </Button>

@@ -1265,7 +1265,7 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// Método que retorna todas las versiones de un documento.
+        /// Método que retorna el id de las versiones de un documento.
         /// </summary>
         /// <param name="id_documento"></param>
         /// <returns></returns>
@@ -1302,6 +1302,52 @@ namespace Model.ControlDocumentos
             //Retornamos la lista.
             return Lista;
         }
+
+        /// <summary>
+        /// Método que retorna toda la información de las versiones de un documento
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Version> GetVersiones_Documento(int id_documento)
+        {
+            //Inicializamos los servicios de version.
+            SO_Version ServiceVersion = new SO_Version();
+
+            //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
+            ObservableCollection<Version> Lista = new ObservableCollection<Version>();
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList ObjVersion = ServiceVersion.GetVersiones(id_documento);
+
+            //Comparamos que la información de la base de datos no sea nulo.
+            if (ObjVersion != null)
+            {
+
+                //Iteramos la información recibida.
+                foreach (var item in ObjVersion)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos on objeto de tipo version que contendrá la información de un registro.
+                    Version obj = new Version();
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    obj.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    obj.fecha_version= (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
+                    obj.no_copias = (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
+                    obj.nombre_usuario_autorizo= (string)tipo.GetProperty("USUARIO_AUTORIZO").GetValue(item, null);
+                    obj.nombre_usuario_elaboro = (string)tipo.GetProperty("USUARIO_ELABORO").GetValue(item, null);
+                    obj.archivo.nombre = (string)tipo.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //Retornamos la lista.
+            return Lista;
+        }
+
 
         /// <summary>
         /// Método para obtener el id de los archivos de una versión
