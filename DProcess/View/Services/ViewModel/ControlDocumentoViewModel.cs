@@ -203,8 +203,21 @@ namespace View.Services.ViewModel
             }
         }
 
-        private int num_pendientes { get; set; }    
+        private int num_pendientes { get; set; }
 
+        private string _textoBuscar;
+        public string TextoBuscar
+        {
+            get
+            {
+                return _textoBuscar;
+            }
+            set
+            {
+                _textoBuscar = value;
+                NotifyChange("TextoBuscar");
+            }
+        }
         #endregion
 
         #region Commands
@@ -405,7 +418,28 @@ namespace View.Services.ViewModel
 
             initControlDocumentos();
         }
+        /// <summary>
+        /// Comando para abrir ventana de búsqueda de documentos
+        /// </summary>
+        public ICommand IrBusquedaDocumento
+        {
+            get{
+                return new RelayCommand(o => irBusquedaDocumento());
+            }
+        }
 
+        /// <summary>
+        /// Método que muestra la ventana de todos los documentos 
+        /// </summary>
+        private void irBusquedaDocumento()
+        {
+            FrmBusqueda_Documentos frmBusqueda = new FrmBusqueda_Documentos();
+            Buscar_DocumentoVM context = new Buscar_DocumentoVM();
+            frmBusqueda.DataContext = context;
+
+            frmBusqueda.ShowDialog();
+
+        }
         /// <summary>
         /// Comando para agregar un nuevo departamento
         /// </summary>
@@ -574,6 +608,7 @@ namespace View.Services.ViewModel
                 frm.ShowDialog();
 
                 //initControlDocumentos();
+                TextoBuscar = string.Empty;
                 GetDataGrid(string.Empty);
             }
         }

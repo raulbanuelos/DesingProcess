@@ -44,6 +44,10 @@
             <Button ToolTip="Generar Número de Documento" Command="{Binding Generador}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="FileDocument" />
             </Button>
+            <Separator></Separator>
+            <Button ToolTip="Buscar Documento"  Cursor="Hand" Command="{Binding IrBusquedaDocumento}">
+                <materialDesign:PackIcon Kind="FileFind"/>
+            </Button>
 
             <Separator></Separator>
             <Button ToolTip="Agregar Tipo" Command="{Binding AgregarTipo}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
@@ -61,7 +65,7 @@
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical">
             <TextBlock TextWrapping="WrapWithOverflow" TextAlignment="Center"  x:Name="label1" Text="MAHLE COMPONENTES DE MOTOR DE MEXICO S. DE R. L. DE C.V." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="28"/>
             <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
-                <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="Buscar..." Text="{Binding TextoBusqueda}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+                <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="Buscar..." Text="{Binding TextoBuscar}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="TextChanged">
                             <i:InvokeCommandAction
