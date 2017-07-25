@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DataAccess.ServiceObjects.Operaciones.Premaquinado
+namespace DataAccess.ServiceObjects.Tooling
 {
     using System;
     using System.Collections.Generic;

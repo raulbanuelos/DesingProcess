@@ -22,6 +22,7 @@ namespace View.Services.ViewModel
 
         #region Attributes
         private Anillo ModelAnillo;
+        private CalculaMateriaPrima calcularMateriaPrima;
         #endregion
 
         #region Properties
@@ -816,12 +817,15 @@ namespace View.Services.ViewModel
             especificacion.Valor = "SPR-128";
 
             ModelAnillo.MaterialBase = new MateriaPrima {Especificacion = especificacion};
-
+            ModelAnillo.FreeGap = new Propiedad { DescripcionCorta = "Free Gap", DescripcionLarga = "Free Gap", Imagen = null, Nombre = "Total Free Gap Max", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.696 };
 
             ModelAnillo.PerfilLateral.Propiedades.Add(new Propiedad { DescripcionCorta = "h1", DescripcionLarga = "Width", Imagen = null, Nombre = "h1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.0775 });
             ModelAnillo.PerfilLateral.Propiedades.Add(new Propiedad { DescripcionCorta = "h1 Tol", DescripcionLarga = "Width", Imagen = null, Nombre = "h1 Tol", TipoDato = "Distance", Unidad = "Inch (in)", Valor = .0005 });
 
             ModelAnillo.PerfilOD.PropiedadesCadena.Add(new PropiedadCadena { DescripcionCorta = "Proceso",DescripcionLarga = "Proceso", Imagen = null, Nombre = "Proceso", Valor = "Doble"});
+            ModelAnillo.PerfilOD.Propiedades.Add(new Propiedad { DescripcionCorta = "CLOSING STRESS", DescripcionLarga = "CLOSING STRESS", Imagen = null, Nombre = "CLOSING STRESS", Valor = 33400});
+
+            ModelAnillo.MaterialBase.Especificacion = new PropiedadCadena { DescripcionCorta = "MATERIAL:", DescripcionLarga = "MATERIAL BASE DEL ANILLO", Imagen = null, Nombre = "Material MAHLE", Valor = "SPR-128" };
 
             //Terminamos de simular el anillo
 
@@ -832,6 +836,8 @@ namespace View.Services.ViewModel
             {
                 Operaciones = Router.CalcularHierroGris(ModelAnillo);
                 //Ingresar calculo de placa modelo.
+                calcularMateriaPrima = new CalculaMateriaPrima(ModelAnillo);
+                //ModelAnillo.MaterialBase = calcularMateriaPrima.CalcularPlacaModelo();
 
                 //anilloProcesado.PropiedadesAdquiridasProceso.Add(); agregar la propiedad de PIECE el cual se genera del calculo de placa modelo.
             }
@@ -898,7 +904,9 @@ namespace View.Services.ViewModel
             anilloProcesado.Tension = ModelAnillo.Tension;
             anilloProcesado.TensionTol = ModelAnillo.TensionTol;
             anilloProcesado.TipoAnillo = ModelAnillo.TipoAnillo;
-            
+            anilloProcesado.PropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+            anilloProcesado.PropiedadesBoolAdquiridasProceso = new ObservableCollection<PropiedadBool>();
+            anilloProcesado.PropiedadesCadenaAdquiridasProceso = new ObservableCollection<PropiedadCadena>();
 
             //Realizamos las operaciones
             bool ban = true;
@@ -917,7 +925,6 @@ namespace View.Services.ViewModel
                     aProcesado = element.anilloProcesado;
                 }
             }
-
         }
 
         private void abrirPlano()

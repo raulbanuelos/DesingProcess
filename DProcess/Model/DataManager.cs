@@ -5,7 +5,7 @@ using System.Data;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using DataAccess.ServiceObjects;
-using DataAccess.ServiceObjects.Operaciones.Premaquinado;
+using DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado;
 using DataAccess.ServiceObjects.MateriasPrimas;
 using DataAccess.ServiceObjects.Usuario;
 using DataAccess.ServiceObjects.Unidades;
@@ -167,48 +167,75 @@ namespace Model
 
         }
 
+        /// <summary>
+        /// Método que obtiene el valor de PATT_SM_ID de la tabla de Placas modelo.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
         public static double GetIDSplitterCasting(string codigo)
         {
+            //Declaramos una variable la cual será la que retornemos en el método.
             double id = 0;
 
+            //Inicializamos los servicios de SO_Material.
             SO_Material ServicioMaterial = new SO_Material();
 
+            //Ejecutamos el método para obtener la inforamción.
             IList informacionBD = ServicioMaterial.GetPATTSMID(codigo);
 
+            //Verficamos que el resultado de la busqueda sea diferente de nulo.
             if (informacionBD != null)
             {
+                //Iteramos la lista resultante.
                 foreach (var item in informacionBD)
                 {
+                    //Obtenemos el tipo del elemento iterado.
                     System.Type tipo = item.GetType();
 
+                    //Obtenermos el valor de la columna PATT_SM_ID y lo asignamos a la variable.
                     id = (double)tipo.GetProperty("PATT_SM_ID").GetValue(item, null);
                 }
             }
 
+            //Retornamos el valor.
             return id;
         }
 
+        /// <summary>
+        /// Método que calcula el valor OD de la placa modelo.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
         public static double GetODSplitterCasting(string codigo)
         {
+            //Declaramos una variable la cual será la que retornemos en el método.
             double od = 0;
-
+            
+            //Inicializamos los servicios de SO_Material.
             SO_Material ServicioMaterial = new SO_Material();
 
+            //Ejecutamos el método y el resultado lo guardamos en una lista anónima.
             IList informacionBD = ServicioMaterial.GetCSTGSMOD(codigo);
 
+            //Verificamos que el resultado sea diferente de nulo.
             if (informacionBD != null)
             {
+                //Iteramos cada elemento de la lista resultante.
                 foreach (var item in informacionBD)
                 {
+                    //Obtenemos el tipo del elemento iterado.
                     System.Type tipo = item.GetType();
-
+                    
+                    //Obtenemos los valores necesarios de cada columna.
                     double cstg_sm_od = (double)tipo.GetProperty("CSTG_SM_OD").GetValue(item, null);
                     double rise = (double)tipo.GetProperty("RISE").GetValue(item, null);
 
+                    //Calculamos el OD.
                     od = Math.Round(cstg_sm_od + ((rise - 0.005) * 2), 3);
                 }
             }
 
+            //Retornamos el valor calculado.
             return od;
         }
 
@@ -566,6 +593,40 @@ namespace Model
 
             return dataTableResultante;
         }
+
+        /// <summary>
+        /// Método que obtiene el criterio a partir de un nombre recibido en el parámetro.
+        /// </summary>
+        /// <param name="NombreCriterio"></param>
+        /// <returns></returns>
+        public static double GetCriterio(string NombreCriterio)
+        {
+            //Inicializamos los servicios de SO_CriteriosAnillos.
+            SO_CriteriosAnillos ServicioCriterios = new SO_CriteriosAnillos();
+
+            //Ejecutamos el método para obtener los criterios. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioCriterios.GetCriterio(NombreCriterio);
+
+            //Declaramos una variable la cual será la que retornemos en el método.
+            double criterio = 0;
+
+            //Verificamos si el objeto resultante de la consulta es diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la lista.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Mapeamos el valor de la columna buscada en la variable local.
+                    criterio = (double)tipo.GetProperty(NombreCriterio).GetValue(item, null);
+                }
+            }
+
+            //Retornamos el criterio.
+            return criterio;
+        }
         #endregion
 
         #region Métodos Genéricos
@@ -626,15 +687,24 @@ namespace Model
             return ListaResultante;
         }
 
+        /// <summary>
+        /// Método que convierte una Lista de datos de cadena a una Observable collection.
+        /// </summary>
+        /// <param name="lista"></param>
+        /// <returns></returns>
         public static ObservableCollection<string> ConvertTo(List<string> lista)
         {
+            //Declaramos una colección de strigns, que será la que retornamos en el método.
             ObservableCollection<string> ListaResultante = new ObservableCollection<string>();
 
+            //Iteramos cada elemento de la lista.
             foreach (string item in lista)
             {
+                //Agregamos el elemento iterado a la colección.
                 ListaResultante.Add(item);
             }
 
+            //Retornamos la colección generada.
             return ListaResultante;
         }
 

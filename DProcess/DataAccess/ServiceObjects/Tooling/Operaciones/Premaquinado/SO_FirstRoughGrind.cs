@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Linq;
 
-namespace DataAccess.ServiceObjects.Operaciones.Premaquinado
+namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
 {
     public class SO_FirstRoughGrind
     {
@@ -35,7 +35,7 @@ namespace DataAccess.ServiceObjects.Operaciones.Premaquinado
             {
                 if (Proceso == "Doble")
                 {
-                    using (var Conexion = new EntitiesPreMaquinado())
+                    using (var Conexion = new EntitiesTooling())
                     {
                         widthOperacion = (from tabla in Conexion.SplitterSpacerChart
                                             where tabla.Nominal_split == H1 && tabla.Proceso == Proceso
@@ -44,7 +44,7 @@ namespace DataAccess.ServiceObjects.Operaciones.Premaquinado
                 }
                 else
                 {
-                    using (var Conexion = new EntitiesPreMaquinado())
+                    using (var Conexion = new EntitiesTooling())
                     {
                         widthOperacion = (from tabla in Conexion.SPlitterSpacerChart2
                                             where tabla.RingWidth == H1 && tabla.Proceso == Proceso
@@ -62,9 +62,6 @@ namespace DataAccess.ServiceObjects.Operaciones.Premaquinado
 
         public IList GetGuideBarFirstRoughGrind(double A)
         {
-
-            IList ListaHerramental = new ArrayList();
-
             //Realizar la consulta con EntityFramework basando la consulta con el siguiente query
             //SELECT H.Codigo, H.A, M.Descripcion,M.Activo,C.Descripcion AS Clasificacion,C.UnidadMedida,C.Costo,C.CantidadUtilizar,C.VidaUtil,C.idClasificacion, C.ListaCotasRevisar,C.VerificacionAnual
             //--, HE.ID_PLANO,HE.NO_PLANO
@@ -73,9 +70,30 @@ namespace DataAccess.ServiceObjects.Operaciones.Premaquinado
             //INNER JOIN dbo.ClasificacionHerramental AS C ON C.idClasificacion = M.idClasificacionHerramental
             //--LEFT JOIN dbo.PLANO_HERRAMENTAL AS HE ON M.idPlano = HE.ID_PLANO
             //WHERE H.A = .125
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var Lista = (from h in Conexion.GuideBarFirstRoughGrind
+                                 join m in Conexion.MaestroHerramentales on h.Codigo equals m.Codigo
+                                 join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                 where h.A == A
+                                 select new
+                                 {
+                                     h.Codigo,h.A, m.Descripcion,m.Activo,
+                                     Clasificacion = c.Descripcion,c.UnidadMedida,
+                                     c.Costo,c.CantidadUtilizar,c.VidaUtil,c.idClasificacion,
+                                     c.ListaCotasRevisar, c.VerificacionAnual
 
+                                 }).ToList();
 
-            return ListaHerramental;
+                    return Lista;
+                }
+            }
+            catch (System.Exception)
+            {
+                return null;
+            }
         }
 
         #endregion

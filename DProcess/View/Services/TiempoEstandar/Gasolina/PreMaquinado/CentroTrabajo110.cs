@@ -75,15 +75,16 @@ namespace View.Services.TiempoEstandar.Gasolina.PreMaquinado
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
+            Alertas = new List<string>();
 
             //Inicializamos los datos requeridos para el cálculo.
             Propiedad rpm1_110 = new Propiedad { Nombre = "RPM1_110", TipoDato = "Cantidad", DescripcionLarga = "Cantidad de RMP primer corte en operación FIRST ROUGH GRIND", Imagen = null, DescripcionCorta = "RPM 1er corte (First Rough grind):" };
             PropiedadesRequeridadas.Add(rpm1_110);
 
-            Propiedad rpm2_100 = new Propiedad { Nombre = "RMP2_110", TipoDato = "Cantidad", DescripcionLarga = "Cantidad de RMP segundo corte en operación FIRST ROUGH GRIND", Imagen = null, DescripcionCorta = "RPM 2do corte (First Rough grind):" };
+            Propiedad rpm2_100 = new Propiedad { Nombre = "RPM2_110", TipoDato = "Cantidad", DescripcionLarga = "Cantidad de RMP segundo corte en operación FIRST ROUGH GRIND", Imagen = null, DescripcionCorta = "RPM 2do corte (First Rough grind):" };
             PropiedadesRequeridadas.Add(rpm2_100);
 
-            PropiedadCadena espeMaterial = new PropiedadCadena { Nombre = "EspecMaterial", DescripcionCorta = "Material:", DescripcionLarga = "Especificación de materia prima (MF012-S,SPR-128,ETC)" };
+            PropiedadCadena espeMaterial = new PropiedadCadena { Nombre = "Material MAHLE", DescripcionCorta = "Material:", DescripcionLarga = "Especificación de materia prima (MF012-S,SPR-128,ETC)" };
             PropiedadesRequeridasCadena.Add(espeMaterial);
 
         }
@@ -120,7 +121,7 @@ namespace View.Services.TiempoEstandar.Gasolina.PreMaquinado
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
-            PropiedadesRequeridasCadena.Add(anillo.MaterialBase.Especificacion);
+            //PropiedadesRequeridasCadena.Add(anillo.MaterialBase.Especificacion);
 
             //Ejecutamos el método para calcular los tiempos estándar.
             Calcular();
@@ -137,8 +138,9 @@ namespace View.Services.TiempoEstandar.Gasolina.PreMaquinado
             //Obtenermos el valor específico de las propiedades requeridas.
             double rpm1 = Module.GetValorPropiedad("RPM1_110", PropiedadesRequeridadas);
             double rpm2 = Module.GetValorPropiedad("RPM2_110", PropiedadesRequeridadas);
-            string tipoMaterial = Module.GetValorPropiedadString("EspecMaterial", PropiedadesRequeridasCadena);
-
+            string materialMahle = Module.GetValorPropiedadString("Material MAHLE", PropiedadesRequeridasCadena);
+            string tipoMaterial = DataManager.GetTipoMaterial(materialMahle);
+            
             double t_ciclo2 = 0;
             double t_ciclo1 = 0;
             double ciclo_carga = 0;

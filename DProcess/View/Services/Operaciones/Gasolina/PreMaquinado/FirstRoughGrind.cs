@@ -132,6 +132,8 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+            AlertasOperacion = new ObservableCollection<string>();
+            NotasOperacion = new ObservableCollection<string>();
 
             //Ejecutamos el método para calcular el width y el meterial a remover.
             CalcularWidth();
@@ -159,7 +161,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             //Agregamos las propiedades que se obtiene el anillo durante el proceso.
             Propiedad rpm1_110 = new Propiedad { Nombre = "RPM1_110", TipoDato = "Cantidad", DescripcionLarga = "Cantidad de RPM primer corte en operación FIRST ROUGH GRIND", Imagen = null, DescripcionCorta = "RPM 1er corte (First Rough grind):", Valor = 15 };
             anilloProcesado.PropiedadesAdquiridasProceso.Add(rpm1_110);
-            Propiedad rpm2_100 = new Propiedad { Nombre = "RMP2_110", TipoDato = "Cantidad", DescripcionLarga = "Cantidad de RPM segundo corte en operación FIRST ROUGH GRIND", Imagen = null, DescripcionCorta = "RPM 2do corte (First Rough grind):", Valor = 20 };
+            Propiedad rpm2_100 = new Propiedad { Nombre = "RPM2_110", TipoDato = "Cantidad", DescripcionLarga = "Cantidad de RPM segundo corte en operación FIRST ROUGH GRIND", Imagen = null, DescripcionCorta = "RPM 2do corte (First Rough grind):", Valor = 20 };
             anilloProcesado.PropiedadesAdquiridasProceso.Add(rpm2_100);
 
             //Ejecutamos el método para calculo de Herramentales.
@@ -233,7 +235,6 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         /// </summary>
         private void CalcularWidth()
         {
-
             //Obtenemos el valor de la propiedad Proceso que ingresó el usuario.
             string proceso = Module.GetValorPropiedadString("Proceso", elPlano.PerfilOD.PropiedadesCadena);
 

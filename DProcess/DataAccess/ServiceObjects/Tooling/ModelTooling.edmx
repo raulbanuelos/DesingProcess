@@ -34,6 +34,62 @@
           <Property Name="DimB" Type="float" />
           <Property Name="DimB_Unidad" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="CriteriosAnillos">
+          <Key>
+            <PropertyRef Name="ID_CRITERIO" />
+          </Key>
+          <Property Name="ID_CRITERIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpacerMin" Type="float" />
+          <Property Name="SpacerMax" Type="float" />
+          <Property Name="FGGuideBar" Type="float" />
+          <Property Name="CTAnilloPatronMin" Type="float" />
+          <Property Name="CTAnilloPatronMax" Type="float" />
+          <Property Name="CTCollarDimEMin" Type="float" />
+          <Property Name="CTCollarDimEMax" Type="float" />
+          <Property Name="CTCollarDimFMin" Type="float" />
+          <Property Name="CTCollarDimFMax" Type="float" />
+          <Property Name="BoreBushingMin" Type="float" />
+          <Property Name="BoreBushingMax" Type="float" />
+          <Property Name="FinMillBushignMin" Type="float" />
+          <Property Name="FinMillBushignMax" Type="float" />
+          <Property Name="AFTSleeveMin" Type="float" />
+          <Property Name="AFTSleeveMax" Type="float" />
+          <Property Name="Diskus1Min" Type="float" />
+          <Property Name="Diskus1Max" Type="float" />
+          <Property Name="Diskus2Min" Type="float" />
+          <Property Name="Diskus2Max" Type="float" />
+          <Property Name="CriterioDiskus" Type="float" />
+          <Property Name="CriterioSIM" Type="float" />
+          <Property Name="SIMBushingMin" Type="float" />
+          <Property Name="SIMBushingMax" Type="float" />
+          <Property Name="SIMPusherMin" Type="float" />
+          <Property Name="SIMPusherMax" Type="float" />
+          <Property Name="DiaFrank" Type="float" />
+          <Property Name="LapBarrelMin" Type="float" />
+          <Property Name="LapBarrelMax" Type="float" />
+          <Property Name="AFTBarmMax" Type="float" />
+          <Property Name="AFTBarmMin" Type="float" />
+          <Property Name="ScotchbriteCollarMin" Type="float" />
+          <Property Name="ScotchbriteCollarMax" Type="float" />
+          <Property Name="CromoBushingMin" Type="float" />
+          <Property Name="CromoBushingMax" Type="float" />
+          <Property Name="CromoCollarMin" Type="float" />
+          <Property Name="CromoCollarMax" Type="float" />
+          <Property Name="MolyCamisaMin" Type="float" />
+          <Property Name="MolyCamisaMax" Type="float" />
+          <Property Name="MolyCollarMin" Type="float" />
+          <Property Name="MolyCollarMax" Type="float" />
+          <Property Name="MolyProteSupMin" Type="float" />
+          <Property Name="MolyProteSupMax" Type="float" />
+        </EntityType>
+        <EntityType Name="GuideBarFirstRoughGrind">
+          <Key>
+            <PropertyRef Name="ID_GUIDE_BAR" />
+          </Key>
+          <Property Name="ID_GUIDE_BAR" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="A" Type="float" />
+        </EntityType>
         <EntityType Name="MaestroHerramentales">
           <Key>
             <PropertyRef Name="Codigo" />
@@ -59,6 +115,38 @@
           <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
           <Property Name="USUARIO_CREACION" Type="varchar" MaxLength="50" />
           <Property Name="USUARIO_ACTUALIZACION" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SplitterSpacerChart">
+          <Key>
+            <PropertyRef Name="ident" />
+          </Key>
+          <Property Name="Nominal_split" Type="float" />
+          <Property Name="Jaw_Block_Length" Type="float" />
+          <Property Name="Jaw_Block_min" Type="float" />
+          <Property Name="Jaw_Block_max" Type="float" />
+          <Property Name="Thrust_shoe_width" Type="float" />
+          <Property Name="Cutter_spacer" Type="float" />
+          <Property Name="Castings_per_chuck" Type="float" />
+          <Property Name="Split_width" Type="float" />
+          <Property Name="Split_min" Type="float" />
+          <Property Name="Split_max" Type="float" />
+          <Property Name="Grind_width" Type="float" />
+          <Property Name="Proceso" Type="varchar" MaxLength="50" />
+          <Property Name="ident" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SPlitterSpacerChart2">
+          <Key>
+            <PropertyRef Name="ident" />
+          </Key>
+          <Property Name="Proceso" Type="varchar" MaxLength="50" />
+          <Property Name="RingWidth" Type="float" />
+          <Property Name="SplitWidth" Type="float" />
+          <Property Name="GrindWidth" Type="float" />
+          <Property Name="CutterSpacer1" Type="float" />
+          <Property Name="CantidadSpacer1" Type="float" />
+          <Property Name="CutterSpacer2" Type="float" />
+          <Property Name="CantidadSpacer2" Type="float" />
+          <Property Name="ident" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <Association Name="fk_Clasificacion_MaestroHerramentales">
           <End Role="ClasificacionHerramental" Type="Self.ClasificacionHerramental" Multiplicity="0..1" />
@@ -86,6 +174,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GuideBarFirstRoughGrind_MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GuideBarFirstRoughGrind" Type="Self.GuideBarFirstRoughGrind" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="GuideBarFirstRoughGrind">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_Plano_MaestroHerramentales">
           <End Role="PLANO_HERRAMENTAL" Type="Self.PLANO_HERRAMENTAL" Multiplicity="0..1" />
           <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="*" />
@@ -101,8 +203,12 @@
         <EntityContainer Name="DataAccessServiceObjectsToolingStoreContainer">
           <EntitySet Name="ClasificacionHerramental" EntityType="Self.ClasificacionHerramental" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CollarBK" EntityType="Self.CollarBK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CriteriosAnillos" EntityType="Self.CriteriosAnillos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GuideBarFirstRoughGrind" EntityType="Self.GuideBarFirstRoughGrind" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MaestroHerramentales" EntityType="Self.MaestroHerramentales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PLANO_HERRAMENTAL" EntityType="Self.PLANO_HERRAMENTAL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SplitterSpacerChart" EntityType="Self.SplitterSpacerChart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SPlitterSpacerChart2" EntityType="Self.SPlitterSpacerChart2" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="fk_Clasificacion_MaestroHerramentales" Association="Self.fk_Clasificacion_MaestroHerramentales">
             <End Role="ClasificacionHerramental" EntitySet="ClasificacionHerramental" />
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -110,6 +216,10 @@
           <AssociationSet Name="FK_CollarBK_MaestroHerramentales" Association="Self.FK_CollarBK_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="CollarBK" EntitySet="CollarBK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GuideBarFirstRoughGrind_MaestroHerramentales" Association="Self.FK_GuideBarFirstRoughGrind_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="GuideBarFirstRoughGrind" EntitySet="GuideBarFirstRoughGrind" />
           </AssociationSet>
           <AssociationSet Name="fk_Plano_MaestroHerramentales" Association="Self.fk_Plano_MaestroHerramentales">
             <End Role="PLANO_HERRAMENTAL" EntitySet="PLANO_HERRAMENTAL" />
@@ -153,6 +263,7 @@
           <NavigationProperty Name="ClasificacionHerramental" Relationship="Self.fk_Clasificacion_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="ClasificacionHerramental" />
           <NavigationProperty Name="PLANO_HERRAMENTAL" Relationship="Self.fk_Plano_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="PLANO_HERRAMENTAL" />
           <NavigationProperty Name="CollarBK" Relationship="DataAccess.ServiceObjects.Tooling.FK_CollarBK_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CollarBK" />
+          <NavigationProperty Name="GuideBarFirstRoughGrind" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarFirstRoughGrind_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="GuideBarFirstRoughGrind" />
         </EntityType>
         <EntityType Name="PLANO_HERRAMENTAL">
           <Key>
@@ -208,6 +319,14 @@
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="CollarBK" EntitySet="CollarBK" />
           </AssociationSet>
+          <EntitySet Name="CriteriosAnillos" EntityType="DataAccess.ServiceObjects.Tooling.CriteriosAnillos" />
+          <EntitySet Name="SplitterSpacerChart" EntityType="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart" />
+          <EntitySet Name="SPlitterSpacerChart2" EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" />
+          <EntitySet Name="GuideBarFirstRoughGrind" EntityType="DataAccess.ServiceObjects.Tooling.GuideBarFirstRoughGrind" />
+          <AssociationSet Name="FK_GuideBarFirstRoughGrind_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarFirstRoughGrind_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="GuideBarFirstRoughGrind" EntitySet="GuideBarFirstRoughGrind" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CollarBK">
           <Key>
@@ -233,6 +352,109 @@
               <PropertyRef Name="Codigo" />
             </Principal>
             <Dependent Role="CollarBK">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CriteriosAnillos">
+          <Key>
+            <PropertyRef Name="ID_CRITERIO" />
+          </Key>
+          <Property Name="ID_CRITERIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpacerMin" Type="Double" />
+          <Property Name="SpacerMax" Type="Double" />
+          <Property Name="FGGuideBar" Type="Double" />
+          <Property Name="CTAnilloPatronMin" Type="Double" />
+          <Property Name="CTAnilloPatronMax" Type="Double" />
+          <Property Name="CTCollarDimEMin" Type="Double" />
+          <Property Name="CTCollarDimEMax" Type="Double" />
+          <Property Name="CTCollarDimFMin" Type="Double" />
+          <Property Name="CTCollarDimFMax" Type="Double" />
+          <Property Name="BoreBushingMin" Type="Double" />
+          <Property Name="BoreBushingMax" Type="Double" />
+          <Property Name="FinMillBushignMin" Type="Double" />
+          <Property Name="FinMillBushignMax" Type="Double" />
+          <Property Name="AFTSleeveMin" Type="Double" />
+          <Property Name="AFTSleeveMax" Type="Double" />
+          <Property Name="Diskus1Min" Type="Double" />
+          <Property Name="Diskus1Max" Type="Double" />
+          <Property Name="Diskus2Min" Type="Double" />
+          <Property Name="Diskus2Max" Type="Double" />
+          <Property Name="CriterioDiskus" Type="Double" />
+          <Property Name="CriterioSIM" Type="Double" />
+          <Property Name="SIMBushingMin" Type="Double" />
+          <Property Name="SIMBushingMax" Type="Double" />
+          <Property Name="SIMPusherMin" Type="Double" />
+          <Property Name="SIMPusherMax" Type="Double" />
+          <Property Name="DiaFrank" Type="Double" />
+          <Property Name="LapBarrelMin" Type="Double" />
+          <Property Name="LapBarrelMax" Type="Double" />
+          <Property Name="AFTBarmMax" Type="Double" />
+          <Property Name="AFTBarmMin" Type="Double" />
+          <Property Name="ScotchbriteCollarMin" Type="Double" />
+          <Property Name="ScotchbriteCollarMax" Type="Double" />
+          <Property Name="CromoBushingMin" Type="Double" />
+          <Property Name="CromoBushingMax" Type="Double" />
+          <Property Name="CromoCollarMin" Type="Double" />
+          <Property Name="CromoCollarMax" Type="Double" />
+          <Property Name="MolyCamisaMin" Type="Double" />
+          <Property Name="MolyCamisaMax" Type="Double" />
+          <Property Name="MolyCollarMin" Type="Double" />
+          <Property Name="MolyCollarMax" Type="Double" />
+          <Property Name="MolyProteSupMin" Type="Double" />
+          <Property Name="MolyProteSupMax" Type="Double" />
+        </EntityType>
+        <EntityType Name="SplitterSpacerChart">
+          <Key>
+            <PropertyRef Name="ident" />
+          </Key>
+          <Property Name="Nominal_split" Type="Double" />
+          <Property Name="Jaw_Block_Length" Type="Double" />
+          <Property Name="Jaw_Block_min" Type="Double" />
+          <Property Name="Jaw_Block_max" Type="Double" />
+          <Property Name="Thrust_shoe_width" Type="Double" />
+          <Property Name="Cutter_spacer" Type="Double" />
+          <Property Name="Castings_per_chuck" Type="Double" />
+          <Property Name="Split_width" Type="Double" />
+          <Property Name="Split_min" Type="Double" />
+          <Property Name="Split_max" Type="Double" />
+          <Property Name="Grind_width" Type="Double" />
+          <Property Name="Proceso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ident" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="SPlitterSpacerChart2">
+          <Key>
+            <PropertyRef Name="ident" />
+          </Key>
+          <Property Name="Proceso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RingWidth" Type="Double" />
+          <Property Name="SplitWidth" Type="Double" />
+          <Property Name="GrindWidth" Type="Double" />
+          <Property Name="CutterSpacer1" Type="Double" />
+          <Property Name="CantidadSpacer1" Type="Double" />
+          <Property Name="CutterSpacer2" Type="Double" />
+          <Property Name="CantidadSpacer2" Type="Double" />
+          <Property Name="ident" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="GuideBarFirstRoughGrind">
+          <Key>
+            <PropertyRef Name="ID_GUIDE_BAR" />
+          </Key>
+          <Property Name="ID_GUIDE_BAR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="A" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarFirstRoughGrind_MaestroHerramentales" FromRole="GuideBarFirstRoughGrind" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_GuideBarFirstRoughGrind_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.GuideBarFirstRoughGrind" Role="GuideBarFirstRoughGrind" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="GuideBarFirstRoughGrind">
               <PropertyRef Name="Codigo" />
             </Dependent>
           </ReferentialConstraint>
@@ -299,6 +521,98 @@
                 <ScalarProperty Name="Plano" ColumnName="Plano" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="ID_COLLAR_BK" ColumnName="ID_COLLAR_BK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CriteriosAnillos">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.CriteriosAnillos">
+              <MappingFragment StoreEntitySet="CriteriosAnillos">
+                <ScalarProperty Name="MolyProteSupMax" ColumnName="MolyProteSupMax" />
+                <ScalarProperty Name="MolyProteSupMin" ColumnName="MolyProteSupMin" />
+                <ScalarProperty Name="MolyCollarMax" ColumnName="MolyCollarMax" />
+                <ScalarProperty Name="MolyCollarMin" ColumnName="MolyCollarMin" />
+                <ScalarProperty Name="MolyCamisaMax" ColumnName="MolyCamisaMax" />
+                <ScalarProperty Name="MolyCamisaMin" ColumnName="MolyCamisaMin" />
+                <ScalarProperty Name="CromoCollarMax" ColumnName="CromoCollarMax" />
+                <ScalarProperty Name="CromoCollarMin" ColumnName="CromoCollarMin" />
+                <ScalarProperty Name="CromoBushingMax" ColumnName="CromoBushingMax" />
+                <ScalarProperty Name="CromoBushingMin" ColumnName="CromoBushingMin" />
+                <ScalarProperty Name="ScotchbriteCollarMax" ColumnName="ScotchbriteCollarMax" />
+                <ScalarProperty Name="ScotchbriteCollarMin" ColumnName="ScotchbriteCollarMin" />
+                <ScalarProperty Name="AFTBarmMin" ColumnName="AFTBarmMin" />
+                <ScalarProperty Name="AFTBarmMax" ColumnName="AFTBarmMax" />
+                <ScalarProperty Name="LapBarrelMax" ColumnName="LapBarrelMax" />
+                <ScalarProperty Name="LapBarrelMin" ColumnName="LapBarrelMin" />
+                <ScalarProperty Name="DiaFrank" ColumnName="DiaFrank" />
+                <ScalarProperty Name="SIMPusherMax" ColumnName="SIMPusherMax" />
+                <ScalarProperty Name="SIMPusherMin" ColumnName="SIMPusherMin" />
+                <ScalarProperty Name="SIMBushingMax" ColumnName="SIMBushingMax" />
+                <ScalarProperty Name="SIMBushingMin" ColumnName="SIMBushingMin" />
+                <ScalarProperty Name="CriterioSIM" ColumnName="CriterioSIM" />
+                <ScalarProperty Name="CriterioDiskus" ColumnName="CriterioDiskus" />
+                <ScalarProperty Name="Diskus2Max" ColumnName="Diskus2Max" />
+                <ScalarProperty Name="Diskus2Min" ColumnName="Diskus2Min" />
+                <ScalarProperty Name="Diskus1Max" ColumnName="Diskus1Max" />
+                <ScalarProperty Name="Diskus1Min" ColumnName="Diskus1Min" />
+                <ScalarProperty Name="AFTSleeveMax" ColumnName="AFTSleeveMax" />
+                <ScalarProperty Name="AFTSleeveMin" ColumnName="AFTSleeveMin" />
+                <ScalarProperty Name="FinMillBushignMax" ColumnName="FinMillBushignMax" />
+                <ScalarProperty Name="FinMillBushignMin" ColumnName="FinMillBushignMin" />
+                <ScalarProperty Name="BoreBushingMax" ColumnName="BoreBushingMax" />
+                <ScalarProperty Name="BoreBushingMin" ColumnName="BoreBushingMin" />
+                <ScalarProperty Name="CTCollarDimFMax" ColumnName="CTCollarDimFMax" />
+                <ScalarProperty Name="CTCollarDimFMin" ColumnName="CTCollarDimFMin" />
+                <ScalarProperty Name="CTCollarDimEMax" ColumnName="CTCollarDimEMax" />
+                <ScalarProperty Name="CTCollarDimEMin" ColumnName="CTCollarDimEMin" />
+                <ScalarProperty Name="CTAnilloPatronMax" ColumnName="CTAnilloPatronMax" />
+                <ScalarProperty Name="CTAnilloPatronMin" ColumnName="CTAnilloPatronMin" />
+                <ScalarProperty Name="FGGuideBar" ColumnName="FGGuideBar" />
+                <ScalarProperty Name="SpacerMax" ColumnName="SpacerMax" />
+                <ScalarProperty Name="SpacerMin" ColumnName="SpacerMin" />
+                <ScalarProperty Name="ID_CRITERIO" ColumnName="ID_CRITERIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SplitterSpacerChart">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart">
+              <MappingFragment StoreEntitySet="SplitterSpacerChart">
+                <ScalarProperty Name="ident" ColumnName="ident" />
+                <ScalarProperty Name="Proceso" ColumnName="Proceso" />
+                <ScalarProperty Name="Grind_width" ColumnName="Grind_width" />
+                <ScalarProperty Name="Split_max" ColumnName="Split_max" />
+                <ScalarProperty Name="Split_min" ColumnName="Split_min" />
+                <ScalarProperty Name="Split_width" ColumnName="Split_width" />
+                <ScalarProperty Name="Castings_per_chuck" ColumnName="Castings_per_chuck" />
+                <ScalarProperty Name="Cutter_spacer" ColumnName="Cutter_spacer" />
+                <ScalarProperty Name="Thrust_shoe_width" ColumnName="Thrust_shoe_width" />
+                <ScalarProperty Name="Jaw_Block_max" ColumnName="Jaw_Block_max" />
+                <ScalarProperty Name="Jaw_Block_min" ColumnName="Jaw_Block_min" />
+                <ScalarProperty Name="Jaw_Block_Length" ColumnName="Jaw_Block_Length" />
+                <ScalarProperty Name="Nominal_split" ColumnName="Nominal_split" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SPlitterSpacerChart2">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2">
+              <MappingFragment StoreEntitySet="SPlitterSpacerChart2">
+                <ScalarProperty Name="ident" ColumnName="ident" />
+                <ScalarProperty Name="CantidadSpacer2" ColumnName="CantidadSpacer2" />
+                <ScalarProperty Name="CutterSpacer2" ColumnName="CutterSpacer2" />
+                <ScalarProperty Name="CantidadSpacer1" ColumnName="CantidadSpacer1" />
+                <ScalarProperty Name="CutterSpacer1" ColumnName="CutterSpacer1" />
+                <ScalarProperty Name="GrindWidth" ColumnName="GrindWidth" />
+                <ScalarProperty Name="SplitWidth" ColumnName="SplitWidth" />
+                <ScalarProperty Name="RingWidth" ColumnName="RingWidth" />
+                <ScalarProperty Name="Proceso" ColumnName="Proceso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GuideBarFirstRoughGrind">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.GuideBarFirstRoughGrind">
+              <MappingFragment StoreEntitySet="GuideBarFirstRoughGrind">
+                <ScalarProperty Name="A" ColumnName="A" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="ID_GUIDE_BAR" ColumnName="ID_GUIDE_BAR" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

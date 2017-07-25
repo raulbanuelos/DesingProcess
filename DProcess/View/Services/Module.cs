@@ -279,7 +279,7 @@ namespace View.Services
                         double tolerancia = ConvertTo("Distance", propiedad.Unidad, "Inch (in)", propiedad.Valor);
 
                         //Calculamos el valor mínimo y lo retornamos.
-                        return valorPropiedad - tolerancia;
+                        return valorPropiedad + tolerancia;
                     }
                     else
                     {
@@ -529,6 +529,12 @@ namespace View.Services
                         element.Valor = propiedad.Valor;
                     }
                 }
+            }
+
+            //Verificamos si se requiere la propiedad de Especificación de material.
+            if (ListaPropiedades.Where(x => x.Nombre == "Material MAHLE").ToList().Count > 0)
+            {
+                ListaPropiedades.Where(x => x.Nombre == "Material MAHLE").First().Valor = anillo.MaterialBase.Especificacion.Valor;
             }
 
             //Retornamos la lista de propiedades cadena con los valores.

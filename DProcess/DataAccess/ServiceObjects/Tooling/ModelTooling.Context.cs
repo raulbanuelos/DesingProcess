@@ -29,5 +29,9 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<MaestroHerramentales> MaestroHerramentales { get; set; }
         public virtual DbSet<PLANO_HERRAMENTAL> PLANO_HERRAMENTAL { get; set; }
         public virtual DbSet<CollarBK> CollarBK { get; set; }
+        public virtual DbSet<CriteriosAnillos> CriteriosAnillos { get; set; }
+        public virtual DbSet<SplitterSpacerChart> SplitterSpacerChart { get; set; }
+        public virtual DbSet<SPlitterSpacerChart2> SPlitterSpacerChart2 { get; set; }
+        public virtual DbSet<GuideBarFirstRoughGrind> GuideBarFirstRoughGrind { get; set; }
     }
 }

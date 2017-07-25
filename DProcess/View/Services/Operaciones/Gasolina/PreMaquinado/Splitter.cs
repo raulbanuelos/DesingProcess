@@ -25,9 +25,10 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+            NotasOperacion = new ObservableCollection<string>();
+            AlertasOperacion = new ObservableCollection<string>();
             
             CalcularWidth();
-
         } 
 
         #endregion
