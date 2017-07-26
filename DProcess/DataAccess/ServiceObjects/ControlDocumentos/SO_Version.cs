@@ -351,7 +351,10 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                  where a.ID_VERSION== id_version
                                  select new
                                  {
-                                     a.ID_ARCHIVO
+                                     a.ID_ARCHIVO,
+                                     a.NOMBRE_ARCHIVO,
+                                     a.EXT,
+                                     a.ARCHIVO
                                  }).ToList();
                     //se retorna la lista
                     return Lista;
@@ -458,10 +461,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                             v.NO_COPIAS,
                                             USUARIO_AUTORIZO = u.Nombre + " " + u.APaterno + " " + u.AMaterno,
                                             USUARIO_ELABORO = us.Nombre + " " + us.APaterno + " " + us.AMaterno,
-                                            a.ARCHIVO,
-                                            a.NOMBRE_ARCHIVO,
-                                            a.EXT,
-                                            a.ID_ARCHIVO
                                         }).OrderBy(x => x.ID_VERSION).Distinct().ToList();
 
                     //Retornamos la lista

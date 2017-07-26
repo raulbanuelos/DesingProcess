@@ -1339,7 +1339,7 @@ namespace Model.ControlDocumentos
                     obj.no_copias = (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
                     obj.nombre_usuario_autorizo= (string)tipo.GetProperty("USUARIO_AUTORIZO").GetValue(item, null);
                     obj.nombre_usuario_elaboro = (string)tipo.GetProperty("USUARIO_ELABORO").GetValue(item, null);
-                    obj.archivo.nombre = (string)tipo.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
+                   
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }
@@ -1350,7 +1350,7 @@ namespace Model.ControlDocumentos
 
 
         /// <summary>
-        /// Método para obtener el id de los archivos de una versión
+        /// Método para obtener los archivos de una versión
         /// </summary>
         /// <param name="id_version"></param>
         /// <returns></returns>
@@ -1380,6 +1380,9 @@ namespace Model.ControlDocumentos
 
                     //Asignamos los valores correspondientes.
                     obj.id_archivo = (int)tipo.GetProperty("ID_ARCHIVO").GetValue(item, null);
+                    obj.ext = (string)tipo.GetProperty("EXT").GetValue(item, null);
+                    obj.archivo = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
+                    obj.nombre= (string)tipo.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }
