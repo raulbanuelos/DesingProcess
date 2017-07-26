@@ -265,7 +265,7 @@ namespace View.Services.ViewModel
             if (isSelected == true)
             {
                 //Si el documento no tiene una versión liberada
-                if (version.Equals("1"))
+                if (version.Equals("1") || version.Equals("0"))
                 {
                     //Actualiza el estatus de la versión y del documento a pendiente por liberar
                     selectedDocumento.id_estatus = 4;
@@ -298,7 +298,7 @@ namespace View.Services.ViewModel
             }else
             {
                 //Si el documento no tiene una versión liberada
-                if (version.Equals("1"))
+                if (version.Equals("1")|| version.Equals("0"))
                 {
                     //Actualiza el estatus de la versión y del documento a pendiente por corregir
                     selectedDocumento.id_estatus = 3;
@@ -321,7 +321,7 @@ namespace View.Services.ViewModel
                 }
                 else
                 {
-                    //si es un documento con versión .
+                    //si es un documento con versión una versión anterior liberada .
                     //Estatus pendiente por corregir.
                     objVersion.id_estatus_version = 4;
                     //Se llama a la función para actualizar el estatus de la versión

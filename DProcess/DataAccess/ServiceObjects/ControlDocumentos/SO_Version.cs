@@ -267,7 +267,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 //Si hubo algún error retornamos una cadena vacía.
                 return 0;
@@ -452,7 +452,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                         join u in Conexion.Usuarios on v.ID_USUARIO_AUTORIZO equals u.Usuario
                                         join us in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals us.Usuario
                                         join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
-                                        where d.ID_DOCUMENTO == id_doc 
+                                        where d.ID_DOCUMENTO == id_doc && (v.ID_ESTATUS_VERSION==1 | v.ID_ESTATUS_VERSION==2)
                                         select new
                                         {
                                             v.ID_VERSION,

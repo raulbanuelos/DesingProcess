@@ -115,6 +115,7 @@ namespace View.Services.ViewModel
         /// </summary>
         private void abrirArchivo()
         {
+            //Si se ha seleccionado algún archivo
             if (SelectedArchivo !=null)
             {
                 int id_archivo = SelectedArchivo.id_archivo;
@@ -129,21 +130,34 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Método que genera el nombre temporal del archivp
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         private string GetPathTempFile(Archivo item)
         {
             //Se guarda la ruta del directorio temporal.
             var tempFolder = Path.GetTempPath();
 
             string filename = string.Empty;
+
+            //Realiza la acción hasta que el archivo se haya abierto
             do
             {
+                //Genera un número aleatorio
                 string aleatorio = Module.GetRandomString(5);
+                //Crea la ruta temporal con el nombre del archivo y el número generado, y la extensión
                 filename = Path.Combine(tempFolder, item.nombre  + "_" + aleatorio + item.ext);
             } while (File.Exists(filename));
 
+            //Retorna la ruta del archivo
             return filename;
         }
 
+        /// <summary>
+        /// Comando que muestra una lista de todos los archivos de la versión seleccionada
+        /// </summary>
         public ICommand verArchivos
         {
             get
@@ -152,10 +166,15 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Método que obtiene todos los archivos de la versión seleccionada
+        /// </summary>
         private void listarArchivos()
         {
+            //Si se seleccionó una versión
             if (SelectedVersion != null)
             {
+                //Ejecuta el método para obtener los archivos, se asignan a la lista
                 ListaArchivos = DataManagerControlDocumentos.GetArchivos(SelectedVersion.id_version);
             }
         }

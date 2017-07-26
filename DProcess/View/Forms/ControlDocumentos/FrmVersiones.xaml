@@ -18,12 +18,11 @@
                         <ColumnDefinition Width="170"></ColumnDefinition>
                         <ColumnDefinition Width="40"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <ToggleButton         Style="{StaticResource MaterialDesignActionToggleButton}"
-                                           ToolTip="{Binding Path=nombre}">
-                        <ToggleButton.Content>
+                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}" ToolTip="{Binding Path=nombre}">
+                        <Button.Content>
                             <materialDesign:PackIcon Kind="File" />
-                        </ToggleButton.Content>
-                    </ToggleButton>
+                        </Button.Content>
+                    </Button>
                     <TextBlock FontWeight="Bold" Text="{Binding Path=nombre}" Grid.Column="1"></TextBlock>
                     <TextBlock FontWeight="Bold" Text="{Binding Path=ext}" Grid.Column="2" ></TextBlock>
                     

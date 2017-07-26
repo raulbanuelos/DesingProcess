@@ -1037,14 +1037,15 @@ namespace View.Services.ViewModel
                     obj.id_documento = id_documento;
 
                     //Se manda a llamar a la función.
-                    int n = DataManagerControlDocumentos.DeleteDocumento(obj);  
+                    int n = DataManagerControlDocumentos.DeleteDocumento(obj);
+
+                    await dialog.SendMessage("", "Registro eliminado!");
                 }
                 else
                 {
                     await dialog.SendMessage("Alert", "No se puedo eliminar la versión");
                 }
-
-                     await dialog.SendMessage("", "Registro eliminado!");
+    
                     //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                     var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
@@ -1093,7 +1094,7 @@ namespace View.Services.ViewModel
                     if (ValidaSelected())
                     {
                         //Si es la primer versión del documento
-                        if (version.Equals("1"))
+                        if (version.Equals("1") || version.Equals("0"))
                         {
                             //Se crea un objeto de tipo Documento.
                             Documento obj = new Documento();
@@ -1351,9 +1352,12 @@ namespace View.Services.ViewModel
             var tempFolder = Path.GetTempPath();
 
             string filename = string.Empty;
+            //Realiza la acción hasta que el archivo se haya abierto
             do
             {
+                //Genera un número aleatorio
                 string aleatorio = Module.GetRandomString(5);
+                //Crea la ruta temporal con el nombre del archivo y el número generado, y la extensión
                 filename = Path.Combine(tempFolder, item.nombre + item.numero + "_" + aleatorio + item.ext);
             } while (File.Exists(filename));
 
@@ -1462,7 +1466,7 @@ namespace View.Services.ViewModel
                     if (!string.IsNullOrEmpty(num_copias))
                     {
                         //si el documento sólo tiene una versión, se modifica el estatus del documento y la versión, se cambia el estatus a liberado
-                        if (version.Equals("1"))
+                        if (version.Equals("1") || version.Equals("0"))
                         {
                             //Estatus de documento liberado
                             objDocumento.id_estatus = 5;
@@ -1579,6 +1583,97 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando que regresa a la versión anterior
+        /// elimina la versión actual
+        /// </summary>
+        public ICommand RegresarVersion
+        {
+            get
+            {
+                return new RelayCommand(o => regresarVersion());
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private async void regresarVersion()
+        {
+            //Incializamos los servicios de dialog.
+            DialogService dialog = new DialogService();
+
+            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = "SI";
+            setting.NegativeButtonText = "NO";
+
+            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Deseas regresar a la versión anterior?", setting, MessageDialogStyle.AffirmativeAndNegative);
+             //
+            if (result == MessageDialogResult.Affirmative)
+            {
+                //Obtiene el id de la última versión
+
+               int last_id= DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
+                //Si tiene una versión anterior
+                if (last_id !=0)
+                {
+                    //Elimina los documentos de la lista 
+                    foreach (var item in _ListaDocumentos)
+                    {
+                        //Manda a la función para eliminar los archivos
+                        int n = DataManagerControlDocumentos.DeleteArchivo(item);
+                    }
+                    
+                    Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+                    //Se asigna el id 
+                    objVersion.id_version = idVersion;
+
+                    //Mandamos a llamar a la  función para eliminar la versión.
+                    int delete_version = DataManagerControlDocumentos.DeleteVersion(objVersion);
+
+                    if(delete_version != 0)
+                    {
+                        //Creamos un objeto para la versión anterior 
+                        Model.ControlDocumentos.Version lastVersion = new Model.ControlDocumentos.Version();
+
+                        //asigamos el id de la version anterior, cambiamos el estatus a liberado
+                        lastVersion.id_version = last_id;
+                        lastVersion.id_estatus_version = 1;
+
+                        //Ejecutamos el método para actualizar el estatus de la versión.
+                        int update = DataManagerControlDocumentos.Update_EstatusVersion(lastVersion);
+
+                        if(update != 0)
+                        {
+                            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                            //Verificamos que la pantalla sea diferente de nulo.
+                            if (window != null)
+                            {
+                                //Cerramos la pantalla
+                                window.Close();
+                            }
+                        }
+                        else
+                        {
+                            await dialog.SendMessage("Error", "No se pudo eliminar el documento..");
+                        }
+                    }
+                    else
+                    {
+                        await dialog.SendMessage("Error", "No se pudo eliminar la versión..");
+                    }
+
+                }
+                else
+                {
+                    await dialog.SendMessage("Alerta", "El documento no tiene versión anterior..");
+                }
+            }
+            }
         #endregion
 
         #region Methods
