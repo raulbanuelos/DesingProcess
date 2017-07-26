@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-namespace DataAccess.ServiceObjects.Operaciones.Premaquinado
+namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
 {
     public class SO_SplitterCasting
     {
@@ -34,7 +34,7 @@ namespace DataAccess.ServiceObjects.Operaciones.Premaquinado
             //Realizar la consulta con Entity Framework. Tomar como referencia la consutla que
             //se encuentra en el método getWidthSplitterCastings ubicado en la clase DataStore.
 
-            using (var Contexto = new EntitiesPreMaquinado())
+            using (var Contexto = new EntitiesTooling())
             {
                 if (Proceso == "Doble")
                 {

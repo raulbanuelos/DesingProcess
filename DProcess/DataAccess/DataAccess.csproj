@@ -167,29 +167,11 @@
     <Compile Include="ServiceObjects\MateriasPrimas\TubosHD.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
-    <Compile Include="ServiceObjects\Operaciones\Premaquinado\ModelPreMaquinado.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelPreMaquinado.Context.tt</DependentUpon>
+    <Compile Include="ServiceObjects\Tooling\GuideBarFirstRoughGrind.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
-    <Compile Include="ServiceObjects\Operaciones\Premaquinado\ModelPreMaquinado.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelPreMaquinado.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ServiceObjects\Operaciones\Premaquinado\ModelPreMaquinado.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelPreMaquinado.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="ServiceObjects\Operaciones\Premaquinado\SO_FirstRoughGrind.cs" />
-    <Compile Include="ServiceObjects\Operaciones\Premaquinado\SO_SplitterCasting.cs" />
-    <Compile Include="ServiceObjects\Operaciones\Premaquinado\SplitterSpacerChart.cs">
-      <DependentUpon>ModelPreMaquinado.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ServiceObjects\Operaciones\Premaquinado\SPlitterSpacerChart2.cs">
-      <DependentUpon>ModelPreMaquinado.tt</DependentUpon>
-    </Compile>
+    <Compile Include="ServiceObjects\Tooling\Operaciones\Premaquinado\SO_FirstRoughGrind.cs" />
+    <Compile Include="ServiceObjects\Tooling\Operaciones\Premaquinado\SO_SplitterCasting.cs" />
     <Compile Include="ServiceObjects\Perfiles\Arquetipo.cs">
       <DependentUpon>ModelPerfiles.tt</DependentUpon>
     </Compile>
@@ -255,6 +237,9 @@
     <Compile Include="ServiceObjects\Tooling\CollarBK.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\CriteriosAnillos.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\MaestroHerramentales.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -278,7 +263,14 @@
     </Compile>
     <Compile Include="ServiceObjects\Tooling\SO_BK.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_ClasificacionHerramental.cs" />
+    <Compile Include="ServiceObjects\Tooling\SO_CriteriosAnillos.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_MaestroHerramental.cs" />
+    <Compile Include="ServiceObjects\Tooling\SplitterSpacerChart.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\SPlitterSpacerChart2.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Unidades\ModelUnidades.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -367,16 +359,6 @@
       <DependentUpon>ModelMateriasPrimas.edmx</DependentUpon>
       <LastGenOutput>ModelMateriasPrimas.cs</LastGenOutput>
     </Content>
-    <Content Include="ServiceObjects\Operaciones\Premaquinado\ModelPreMaquinado.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelPreMaquinado.edmx</DependentUpon>
-      <LastGenOutput>ModelPreMaquinado.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="ServiceObjects\Operaciones\Premaquinado\ModelPreMaquinado.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelPreMaquinado.edmx</DependentUpon>
-      <LastGenOutput>ModelPreMaquinado.cs</LastGenOutput>
-    </Content>
     <Content Include="ServiceObjects\Perfiles\ModelPerfiles.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelPerfiles.edmx</DependentUpon>
@@ -458,13 +440,6 @@
     </None>
     <None Include="ServiceObjects\MateriasPrimas\ModelMateriasPrimas.edmx.diagram">
       <DependentUpon>ModelMateriasPrimas.edmx</DependentUpon>
-    </None>
-    <EntityDeploy Include="ServiceObjects\Operaciones\Premaquinado\ModelPreMaquinado.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelPreMaquinado.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="ServiceObjects\Operaciones\Premaquinado\ModelPreMaquinado.edmx.diagram">
-      <DependentUpon>ModelPreMaquinado.edmx</DependentUpon>
     </None>
     <EntityDeploy Include="ServiceObjects\Usuario\ModelUsuario.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

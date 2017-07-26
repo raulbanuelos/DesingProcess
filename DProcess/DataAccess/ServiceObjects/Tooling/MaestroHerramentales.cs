@@ -18,6 +18,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public MaestroHerramentales()
         {
             this.CollarBK = new HashSet<CollarBK>();
+            this.GuideBarFirstRoughGrind = new HashSet<GuideBarFirstRoughGrind>();
         }
     
         public string Codigo { get; set; }
@@ -34,5 +35,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual PLANO_HERRAMENTAL PLANO_HERRAMENTAL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CollarBK> CollarBK { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GuideBarFirstRoughGrind> GuideBarFirstRoughGrind { get; set; }
     }
 }

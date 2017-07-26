@@ -13,6 +13,11 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.fk_Plano_MaestroHerramentales" ManuallyRouted="false" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CollarBK" Width="1.5" PointX="12.125" PointY="1.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CollarBK_MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CriteriosAnillos" Width="2.125" PointX="6.75" PointY="4.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuideBarFirstRoughGrind" Width="1.5" PointX="10.5" PointY="4.875" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarFirstRoughGrind_MaestroHerramentales" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

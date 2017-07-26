@@ -48,8 +48,8 @@ namespace View.Services
 
             double promedioWidth = (widthMin + widthMax) / 2;
 
-            //double closingStress = Module.getValorPropiedad("CLOSING STRESS", _elAnillo.PerfilOD.Propiedades); //Verificar como se llama la propiedad en el archivo RDCT
-            double closingStress = 0;
+            double closingStress = Module.GetValorPropiedad("CLOSING STRESS", _elAnillo.PerfilOD.Propiedades); //Verificar como se llama la propiedad en el archivo RDCT.
+
             if ((closingStress <= 30000) && (promedioWidth > 0.035) && (promedioWidth < 0.07))
             {
                 _piece = FreeGap / 0.96;
