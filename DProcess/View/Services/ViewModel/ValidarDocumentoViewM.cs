@@ -261,11 +261,13 @@ namespace View.Services.ViewModel
             Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
             objVersion.id_version = SelectedDocumento.version.id_version;
 
+            int last_id = DataManagerControlDocumentos.GetID_LastVersion(SelectedDocumento.id_documento, SelectedDocumento.version.id_version);
+
             // Si el checkbox es verdadero
             if (isSelected == true)
             {
-                //Si el documento no tiene una versión liberada
-                if (version.Equals("1") || version.Equals("0"))
+                //Si el documento no tiene otra versión
+                if (last_id ==0)
                 {
                     //Actualiza el estatus de la versión y del documento a pendiente por liberar
                     selectedDocumento.id_estatus = 4;
@@ -288,7 +290,7 @@ namespace View.Services.ViewModel
                 }
                 else
                 {
-                    //si es un documento con versión liberada.
+                    //si es un documento con versión anterior liberada.
                     objVersion.id_estatus_version = 5;
 
                     //Se llama a la función para actualizar el estatus de la versión
@@ -297,8 +299,8 @@ namespace View.Services.ViewModel
 
             }else
             {
-                //Si el documento no tiene una versión liberada
-                if (version.Equals("1")|| version.Equals("0"))
+                //Si el documento no tiene una versión anterior liberada
+                if (last_id ==0 )
                 {
                     //Actualiza el estatus de la versión y del documento a pendiente por corregir
                     selectedDocumento.id_estatus = 3;

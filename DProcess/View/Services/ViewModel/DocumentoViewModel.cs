@@ -475,6 +475,7 @@ namespace View.Services.ViewModel
 
             BotonGuardar = "Guardar";
             BttnGuardar = false;
+            EnabledEliminar = false;
             IsEnabled = false;
 
             //si es personal del cit
@@ -484,12 +485,17 @@ namespace View.Services.ViewModel
                 BttnEliminar = band;
                 IsEnabled = true;
                 BttnArchivos = true;
+                EnabledEliminar = true;
+                //Mostramos la lista de validaciones dependiento el tipo
+                ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
+
             } //si es ventana para corregir archivos.
             if (band==false)
             {
                 IsEnabled = true;
                 BttnArchivos = true;
                 BttnModificar = true;
+                EnabledEliminar = true;
                 //Mostramos la lista de validaciones dependiento el tipo
                 ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
                 Fecha = selectedDocumento.version.fecha_version;
@@ -543,6 +549,7 @@ namespace View.Services.ViewModel
             BotonGuardar = "Guardar";
             BttnGuardar = true;
             BttnArchivos = true;
+            EnabledEliminar = true;
             Version = "1";
             User = Modelusuario;
             usuario = User.NombreUsuario;
@@ -827,12 +834,12 @@ namespace View.Services.ViewModel
                     {
                         //Si no cumple con la validación.
                         //Ejecutamos el método para enviar un mensaje de alerta al usuario.
-                        await dialog.SendMessage("Alerta", "Se debe llenar todos los campos..");
+                        await dialog.SendMessage("Alerta", "Verifica que el archivo cumpla con todos los requisitos..");
                     }
                 }
                 else
-                {
-                    await dialog.SendMessage("Alerta", "Verifica que el archivo cumpla con todos los requisitos..");
+                {                  
+                    await dialog.SendMessage("Alerta", "Se debe llenar todos los campos..");
                 }
             }
         }
@@ -922,6 +929,9 @@ namespace View.Services.ViewModel
             BotonGuardar = "Guardar";
             IsEnabled = false;
             BttnArchivos = false;
+            EnabledEliminar = false;
+            ListaValidaciones.Clear();
+            ListaDocumentos.Clear();
 
             //Si es administrador del CIT
             if (Module.UsuarioIsRol(User.Roles, 2))
@@ -930,14 +940,13 @@ namespace View.Services.ViewModel
                 BttnModificar = true;
                 IsEnabled = true;
                 BttnArchivos = true;
+                EnabledEliminar = true;
+                ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
             }
             BttnVersion = true;
             BttnGuardar = false;
             NombreEnabled = false;
             BttnCancelar = false;
-
-            ListaValidaciones.Clear();
-            ListaDocumentos.Clear();
 
             //Obtenemos los archvios de la versión anterior
             ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetArchivos(id_documento, idVersion);
@@ -1091,10 +1100,12 @@ namespace View.Services.ViewModel
                 if (ValidarValores())
                 {
                     //Validamos que los campos ésten seleccionados
-                    if (ValidaSelected())
-                    {
-                        //Si es la primer versión del documento
-                        if (version.Equals("1") || version.Equals("0"))
+                     if (ValidaSelected())
+                     {
+
+                    int last_id = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
+                    //Si es la primer versión del documento
+                    if (last_id == 0 )
                         {
                             //Se crea un objeto de tipo Documento.
                             Documento obj = new Documento();
@@ -1163,7 +1174,7 @@ namespace View.Services.ViewModel
                         }
                         else
                         {
-                            //modificacion de la version, cuando es más de una versión 
+                            //modificacion de la version, cuando el documento tiene más de una versión 
                             int update_version = modificaVersion();
                             if (update_version != 0)
                             {
@@ -1208,13 +1219,14 @@ namespace View.Services.ViewModel
                     else
                     {
                         //Si los campos están vacíos, manda un mensaje.
-                        await dialog.SendMessage("RGP: Alerta", "Se debe llenar todos los campos");
+                        await dialog.SendMessage("RGP: Alerta", "Verifica que el archivo cumpla con todos los requisitos");
                     }
                     }
                     else
                     {
-                        await dialog.SendMessage("RGP: Alerta", "Verifica que el archivo cumpla con todos los requisitos");
-                    }
+                        
+                        await dialog.SendMessage("RGP: Alerta", "Se debe llenar todos los campos");
+                }
                 }
             }
 
@@ -1294,6 +1306,7 @@ namespace View.Services.ViewModel
                     NombreEnabled = false;
                     BttnArchivos = true;
                     BttnCancelar = true;
+                    EnabledEliminar = true;
                     IsEnabled = true;
                     usuario = User.NombreUsuario;
                 }
@@ -1465,8 +1478,12 @@ namespace View.Services.ViewModel
 
                     if (!string.IsNullOrEmpty(num_copias))
                     {
+                        //Ejecutamos el método para obtener el id de la versión anterior
+
+                        int last_version = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
+
                         //si el documento sólo tiene una versión, se modifica el estatus del documento y la versión, se cambia el estatus a liberado
-                        if (version.Equals("1") || version.Equals("0"))
+                        if (last_version == 0)
                         {
                             //Estatus de documento liberado
                             objDocumento.id_estatus = 5;
@@ -1647,6 +1664,8 @@ namespace View.Services.ViewModel
 
                         if(update != 0)
                         {
+                            await dialog.SendMessage("Información", "Cambios realizados correctamente");
+
                             //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 

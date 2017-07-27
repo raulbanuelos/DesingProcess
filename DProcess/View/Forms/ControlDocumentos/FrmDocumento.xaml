@@ -39,18 +39,29 @@
             <Border Margin="5" BorderThickness="1" BorderBrush="#FF2196F3" CornerRadius="4" Width="445" Height="100">
                 <Grid Margin="3">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition ></ColumnDefinition>
                         <ColumnDefinition Width="110">
                         </ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <!--Columna0-->
-                    <TextBlock Text="Nombre: " FontSize="14" Grid.Column="0" HorizontalAlignment="Left"></TextBlock>
-                    <TextBlock FontWeight="Bold" Text="{Binding Path=nombre}" TextWrapping="WrapWithOverflow" TextAlignment="Center" Grid.Column="0" HorizontalAlignment="Right" Padding="2"></TextBlock>
-                    <TextBlock Text="Extensión: " FontSize="14" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-                    <TextBlock Text="{Binding Path=ext}" HorizontalAlignment="Right" Padding="2" Grid.Column="0" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
-                    <Button  Grid.Column="0" Content="Eliminar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#FFE27B7B" BorderBrush="#FFD36B6B" Command="{Binding Path=DataContext.EliminarItem,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"  
-                             Visibility="{Binding EnabledEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"/>
-                    <Button  Grid.Column="0" Content="Ver" Width="80" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Command="{Binding Path=DataContext.VerArchivo,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" ></Button>
+                    <Grid Grid.Column="0" Width="320" Height="100">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"></ColumnDefinition>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Nombre: " FontSize="14" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left"></TextBlock>
+                        <TextBlock FontWeight="Bold" Text="{Binding Path=nombre}" TextWrapping="WrapWithOverflow" TextAlignment="Center" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Padding="2"></TextBlock>
+                        <TextBlock Text="Extensión: " FontSize="14" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="{Binding Path=ext}" HorizontalAlignment="Right" Padding="2" Grid.Column="1" Grid.Row="1" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                        <Button  Grid.Column="1" Grid.Row="2" Content="Eliminar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#FFE27B7B" BorderBrush="#FFD36B6B" Command="{Binding Path=DataContext.EliminarItem,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" 
+                                 Visibility="{Binding Path=DataContext.EnabledEliminar, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Converter={StaticResource BoolToVis}}" />
+                        <Button  Grid.Column="0" Grid.Row="2" Content="Ver" Width="80" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Command="{Binding Path=DataContext.VerArchivo,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" ></Button>
+                    </Grid>
                     <!--Columna1-->
                     <Image Name="img_icono" Source="{Binding Path=ruta}" Grid.Column="1" HorizontalAlignment="Stretch" Width="70" VerticalAlignment="Stretch"></Image>
                 </Grid>
@@ -141,8 +152,8 @@
             <Button x:Name="bttn_eliminar" Content="Eliminar" Canvas.Left="451" Canvas.Top="12" Width="90" Height="40"  Command="{Binding Eliminar}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
             <Button x:Name="bttn_cambios" Content="Modificar" Height="40" Canvas.Left="555" Canvas.Top="12" Width="93"  Command="{Binding Modificar}" Visibility="{Binding BttnModificar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
             <Button x:Name="bttn_generar" Content="Generar Versión" Height="40" Canvas.Left="660" Canvas.Top="12" FontSize="12" Width="120"  Command="{Binding GenerarVersion}" Visibility="{Binding BttnVersion, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
-            <Button Content="Versión Anterior" Height="40" FontSize="12" Width="122" Canvas.Left="316" Canvas.Top="12" Command="{Binding RegresarVersion}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"></Button>
-            <Button x:Name="button1" Content="Liberar" Height="40" Canvas.Left="213" Canvas.Top="12" Width="90"  Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" Command="{Binding LiberarDocumento}" />
+            <Button Content="Regresar Versión Anterior" Height="40" FontSize="12" Width="173" Canvas.Left="265" Canvas.Top="12" Command="{Binding RegresarVersion}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"></Button>
+            <Button  Content="Liberar" Height="40" Canvas.Left="158" Canvas.Top="12" Width="90"  Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" Command="{Binding LiberarDocumento}" />
         </Canvas>
         <!--Barra-->
         <Grid Height="609" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Width="326">

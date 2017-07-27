@@ -623,6 +623,7 @@ namespace View.Services.ViewModel
                 //initControlDocumentos();
                 TextoBuscar = string.Empty;
                 GetDataGrid(string.Empty);
+                initSnack();
             }
         }
         #endregion
