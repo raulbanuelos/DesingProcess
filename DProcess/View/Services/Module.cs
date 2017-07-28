@@ -175,8 +175,13 @@ namespace View.Services
             {
                 if (ConvertToInch)
                 {
-                    Propiedad propiedad = GetPropiedad(NombrePropiedad + " Tol Min", Lista);
-                    return ConvertTo("Distance", propiedad.Unidad, "Inch (in)", propiedad.Valor);
+                    Propiedad propiedadMin = GetPropiedad(NombrePropiedad + " Tol Min", Lista);
+                    Propiedad propiedad = GetPropiedad(NombrePropiedad, Lista);
+
+                    double valorToleranciaInchMin = ConvertTo("Distance", propiedadMin.Unidad, "Inch (in)", propiedadMin.Valor);
+                    double valorPropiedadInch = ConvertTo("Distance", propiedad.Unidad, "Inch (in)", propiedad.Valor);
+
+                    return valorPropiedadInch - valorToleranciaInchMin;
                 }
                 else
                 {
@@ -254,8 +259,13 @@ namespace View.Services
             {
                 if (ConvertToInch)
                 {
-                    Propiedad propiedad = GetPropiedad(NombrePropiedad + " Tol Max", Lista);
-                    return ConvertTo("Distance", propiedad.Unidad, "Inch (in)", propiedad.Valor);
+                    Propiedad propiedadMax = GetPropiedad(NombrePropiedad + " Tol Max", Lista);
+                    Propiedad propiedad = GetPropiedad(NombrePropiedad, Lista);
+
+                    double valorToleranciaInchMax = ConvertTo("Distance", propiedadMax.Unidad, "Inch (in)", propiedadMax.Valor);
+                    double valorPropiedadInch = ConvertTo("Distance", propiedad.Unidad, "Inch (in)", propiedad.Valor);
+
+                    return valorPropiedadInch + valorToleranciaInchMax;
                 }
                 else
                 {

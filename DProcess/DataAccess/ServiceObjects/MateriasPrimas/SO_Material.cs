@@ -60,6 +60,32 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
             return InformacionBD;
         }
 
+        public DataSet GetCamTurnConstant(string especMaterial, string tipoAnillo, string ringShape)
+        {
+            DataSet informacionBD = new DataSet();
+            try
+            {
+                if (StrinDeConexion != string.Empty)
+                {
+                    Desing_SQL ConexionSQL = new Desing_SQL();
+
+                    Dictionary<string, object> parametros = new Dictionary<string, object>();
+
+                    parametros.Add("espec_material", especMaterial);
+                    parametros.Add("tipo_anillo",tipoAnillo);
+                    parametros.Add("ring_shape", ringShape);
+
+                    informacionBD = ConexionSQL.EjecutarStoredProcedure("SP_RGP_GetCamTurnConstant",parametros);
+                }
+            }
+            catch (Exception)
+            {
+                return informacionBD;
+            }
+            
+            return informacionBD;
+        }
+
         /// <summary>
         /// Método que obtiene la lista de materias primas que pertenecen a un grupo determinado.
         /// </summary>

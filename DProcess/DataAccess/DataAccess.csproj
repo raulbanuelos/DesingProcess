@@ -114,6 +114,9 @@
     <Compile Include="ServiceObjects\ControlDocumentos\Usuarios.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\castings_widths.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\MateriasPrimas\Cliente.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>

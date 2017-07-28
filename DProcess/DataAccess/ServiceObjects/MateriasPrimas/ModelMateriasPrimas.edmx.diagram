@@ -19,6 +19,7 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Esp_MP_Anillos" Width="1.5" PointX="15.5" PointY="3" />
         <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Esp_MP_Anillos_material" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Coating" Width="2.625" PointX="11" PointY="4.625" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.castings_widths" Width="2.875" PointX="19" PointY="3.125" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

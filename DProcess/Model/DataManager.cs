@@ -831,7 +831,6 @@ namespace Model
             //Ejecutamos el método para insertar el registro, Retornamos el nuevo código de placa modelo.
             return ServicePatter.SetPattern(pattern.codigo.Valor, pattern.medida.Valor, pattern.diametro.Valor, pattern.customer.IdCliente, Convert.ToString(pattern.mounting.Valor), pattern.on_14_rd_gate.Valor, pattern.button.Valor, pattern.cone.Valor, pattern.M_Circle.Valor, pattern.ring_w_min.Valor, pattern.ring_w_max.Valor, pattern.date_ordered.Valor, pattern.B_Dia.Valor, pattern.fin_Dia.Valor, pattern.turn_allow.Valor, pattern.cstg_sm_od.Valor, pattern.shrink_allow.Valor, pattern.patt_sm_od.Valor, pattern.piece_in_patt.Valor, pattern.bore_allow.Valor, pattern.patt_sm_id.Valor, pattern.patt_thickness.Valor, pattern.joint.Valor, pattern.nick.Valor, pattern.nick_draf.Valor, pattern.nick_depth.Valor, pattern.side_relief.Valor, pattern.cam.Valor, pattern.cam_roll.Valor, pattern.rise.Valor, pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.tipo.Valor), pattern.mounted.Valor, pattern.ordered.Valor, pattern.Checked.Valor, pattern.date_checked.Valor, pattern.esp_inst.Valor, pattern.factor_k.Valor, pattern.rise_built.Valor, pattern.ring_th_min.Valor, pattern.ring_th_max.Valor, pattern.estado.Valor, pattern.plato.Valor, pattern.detalle.Valor, pattern.diseno.Valor);
         }
-
     
         /// <summary>
         /// Método que modifica un registro de la tabla Pattern2.
@@ -867,6 +866,7 @@ namespace Model
             //Ejecutamos el método para insertar el registro, Retornamos la cantidad de registros eliminados.
             return ServicePattern.DeletePattern(pattern.codigo.Valor);
         }
+
         /// <summary>
         /// Método que agrega un nuevo registro,en base a otro registro existente
         /// </summary>
@@ -912,6 +912,254 @@ namespace Model
             number += 1;
             //retorna el nuevo string, concatenado con el número.
             return code = string.Concat("BC-", number.ToString());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="elAnillo"></param>
+        /// <param name="RingShape"></param>
+        /// <returns></returns>
+        public static double GetCamTurnConstant(Anillo elAnillo, string RingShape)
+        {
+            double valor = 0;
+
+            SO_Material ServicioMaterial = new SO_Material();
+
+            DataSet informacionBD = ServicioMaterial.GetCamTurnConstant(elAnillo.MaterialBase.Especificacion.Valor, elAnillo.TipoAnillo, RingShape);
+
+            if (informacionBD != null)
+            {
+                if (informacionBD.Tables.Count > 0 && informacionBD.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow element in informacionBD.Tables[0].Rows)
+                    {
+                        valor = Convert.ToDouble(element["valor"].ToString());
+                    }
+                }
+            }
+
+            return valor;
+        }
+
+        public static List<string> GetProbablesPlacas(double diameter)
+        {
+
+            SO_Pattern ServicePattern = new SO_Pattern();
+
+            List<string> listaPattern = new List<string>();
+
+            IList informacionBD = ServicePattern.GetProbablyPattern(diameter);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    string pattern = "";
+
+                    pattern = (string)tipo.GetProperty("codigo").GetValue(item, null);
+
+                    listaPattern.Add(pattern);
+                }
+            }
+
+            return listaPattern;
+        }
+
+        public static bool aprobarPlacaModelo(string codigoPlaca, double diameter, double piece_, double ts, double bs, double stock_thick, double min_piece, double max_piece, double a4, double widthAnillo, string Proceso)
+        {
+            SO_Pattern ServicioPattern = new SO_Pattern();
+
+            Pattern2 pattern = ServicioPattern.GetPattern(codigoPlaca);
+
+            double path_width, q;
+            double size1 = 0;
+            double piece1 = 0;
+            double rise1 = 0;
+            double turn1 = 0;
+            double pattern1 = 0;
+            double pattern_width = 0;
+            double fin_dia1 = 0;
+
+            if (pattern != null)
+            {
+                pattern_width = Convert.ToDouble(pattern.DIAMETRO);
+                path_width = Convert.ToDouble(pattern.DIAMETRO);
+                q = Convert.ToDouble(pattern.DIAMETRO);
+                size1 = Convert.ToDouble(pattern.MEDIDA);
+                turn1 = Convert.ToDouble(pattern.TURN_ALLOW);
+                piece1 = Convert.ToDouble(pattern.PIECE_IN_PATT);
+                rise1 = Convert.ToDouble(pattern.RISE);
+                fin_dia1 = Convert.ToDouble(pattern.CSTG_SM_OD);
+                pattern1 = Convert.ToDouble(pattern.PATT_THICKNESS);
+
+                double size2, size3, size4, size5, size6, size7;
+                double piece2, piece3, piece4, piece5, piece6, piece7;
+                double rise2, rise3, rise4, rise5, rise6, rise7;
+                double turn2, turn3, turn4, turn5, turn6, turn7;
+                double pattern2, pattern3, pattern4, pattern5, pattern6;
+
+                size3 = Math.Round(diameter * 1, 3);
+                size2 = Math.Round(size3 - size1, 3);
+                size4 = 0;
+                size5 = (1 * size4) + size3;
+                size6 = 0;
+                size7 = size5 + (1 * size6);
+
+                if (size3 > size1)
+                {
+                    piece2 = Math.Round(Math.Abs((size2 * 1)) * Math.PI * (-1), 4);
+                }
+                else
+                {
+                    piece2 = Math.Round(Math.Abs((size2 * 1)) * Math.PI, 4);
+                }
+
+                piece3 = Math.Round(piece2 + (1 * piece1), 3);
+                piece4 = Math.Round(piece_ - piece3, 3);
+                piece5 = Math.Round((1 * piece3) + piece4, 3);
+                piece6 = 0;
+                piece7 = piece6 + piece5 * 1;
+                //---Calculos de rise
+                rise2 = 0;
+                rise3 = rise2 * 1 + rise1;
+                rise4 = 0;
+                rise5 = rise4 * 1 + rise3;
+                rise6 = 0;
+                rise7 = rise6 * 1 + rise5;
+
+                //---- Calculo de turn
+                turn2 = 0;
+                turn3 = turn2 + (turn1 * 1);
+                if (piece5 > piece3)
+                {
+                    turn4 = Math.Round((-1) * Math.Abs(piece4 / Math.PI), 3);
+                }
+                else
+                {
+                    turn4 = Math.Round(Math.Abs(piece4 / Math.PI), 3);
+                }
+                turn5 = Math.Round(1 * turn4 + turn3, 3);
+                turn6 = 0;
+                turn7 = 1 * turn6 + turn5;
+                ts = turn7;
+
+                //--- Calculo de pattern
+                pattern2 = Math.Round(stock_thick * (-1), 3);
+                pattern3 = Math.Round(pattern1 + (pattern2 * 1), 3);
+                pattern4 = Math.Round(pattern3 * 2, 3);
+                pattern5 = Math.Round(turn7 * (-1), 3);
+                pattern6 = Math.Round(pattern5 + pattern4 * 1, 3);
+                bs = pattern6;
+
+                //---- Calculos de fin dia
+                double fin_dia2, fin_dia3, fin_dia4, fin_dia5, fin_dia6, fin_dia7;
+                fin_dia2 = 0;
+                fin_dia3 = fin_dia2 + fin_dia1 * 1;
+                //piece
+                if (piece4 > piece3)
+                {
+                    fin_dia4 = Math.Round(Math.Abs(piece4 / Math.PI) * (-1), 3);
+                }
+                else
+                {
+                    fin_dia4 = Math.Round(Math.Abs(piece4 / Math.PI), 3);
+                }
+                fin_dia5 = Math.Round(fin_dia4 + fin_dia3 * 1, 3);
+                fin_dia6 = 0;
+                fin_dia7 = Math.Round(fin_dia6 + fin_dia5 * 1, 3);
+
+                //---------validacion, criterios q se deben de cumplir para poder seleccionar la materia prima
+                bool size_b, turn_b, piece_b, pattern_b;
+                if (size3 == size7)
+                {
+                    size_b = true;
+                }
+                else
+                {
+                    size_b = false;
+                }
+
+                double ts_min, ts_max, bs_min, bs_max;
+                ts_min = 0.055;
+                ts_max = 0.09;
+                bs_min = 0.055;
+                bs_max = 0.1;
+
+                if ((turn7 >= ts_min) && (turn7 <= ts_max))
+                {
+                    turn_b = true;
+                }
+                else
+                {
+                    turn_b = false;
+                }
+
+                if ((piece7 >= min_piece) && (piece7 <= max_piece) && (piece4 >= (-1) * a4) && (piece4 <= a4))
+                {
+                    piece_b = true;
+                }
+                else
+                {
+                    piece_b = false;
+                }
+
+                if ((pattern6 >= bs_min) && (pattern6 <= bs_max))
+                {
+                    pattern_b = true;
+                }
+                else
+                {
+                    pattern_b = false;
+                }
+
+                bool mp_aprobado = false;
+                if ((size_b == true) && (turn_b == true) && (piece_b == true) && (pattern_b == true))
+                {
+                    mp_aprobado = true;
+                }
+                else
+                {
+                    mp_aprobado = false;
+                }
+
+                bool prueba_width = false;
+
+                prueba_width = aprobarWidthPlacaModelo(pattern_width, widthAnillo, Proceso);
+                return (mp_aprobado && prueba_width);
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
+
+        private static bool aprobarWidthPlacaModelo(double pattern_width, double widthAnillo, string proceso)
+        {
+            SO_Pattern ServicePattern = new SO_Pattern();
+
+            IList informacionBD = ServicePattern.GetIdealWidthPlacaModelo(pattern_width, proceso);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    double p_min = (double)tipo.GetProperty("Minimum_casting_width").GetValue(item,null);
+
+                    double p_ideal = (double)tipo.GetProperty("ideal_casting_Width").GetValue(item,null);
+
+                    if ((p_min <= pattern_width) && (p_ideal >= pattern_width))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         #endregion Pattern

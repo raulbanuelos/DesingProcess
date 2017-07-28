@@ -35,5 +35,6 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         public virtual DbSet<material> material { get; set; }
         public virtual DbSet<Esp_MP_Anillos> Esp_MP_Anillos { get; set; }
         public virtual DbSet<Coating> Coating { get; set; }
+        public virtual DbSet<castings_widths> castings_widths { get; set; }
     }
 }

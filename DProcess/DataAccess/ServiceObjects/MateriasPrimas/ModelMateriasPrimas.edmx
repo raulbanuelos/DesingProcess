@@ -5,6 +5,17 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DataAccess.ServiceObjects.MateriasPrimas.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="castings_widths">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="Nominal_Ring_Width_min" Type="float" />
+          <Property Name="Nominal_Ring_Width_max" Type="float" />
+          <Property Name="Minimum_casting_width" Type="float" />
+          <Property Name="ideal_casting_Width" Type="float" />
+          <Property Name="tipo" Type="nvarchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="id_cliente" />
@@ -204,6 +215,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DataAccessServiceObjectsMateriasPrimasStoreContainer">
+          <EntitySet Name="castings_widths" EntityType="Self.castings_widths" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Coating" EntityType="Self.Coating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cuffs" EntityType="Self.cuffs" Schema="dbo" store:Type="Tables" />
@@ -381,6 +393,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
             <End Role="Esp_MP_Anillos" EntitySet="Esp_MP_Anillos" />
           </AssociationSet>
           <EntitySet Name="Coating" EntityType="DataAccess.ServiceObjects.MateriasPrimas.Coating" />
+          <EntitySet Name="castings_widths" EntityType="DataAccess.ServiceObjects.MateriasPrimas.castings_widths" />
         </EntityContainer>
         <EntityType Name="Tipo_Materia_Prima">
           <Key>
@@ -483,6 +496,17 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           </Key>
           <Property Name="ident" Type="Int32" Nullable="false" />
           <Property Name="NombreCoating" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="castings_widths">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Nominal_Ring_Width_min" Type="Double" />
+          <Property Name="Nominal_Ring_Width_max" Type="Double" />
+          <Property Name="Minimum_casting_width" Type="Double" />
+          <Property Name="ideal_casting_Width" Type="Double" />
+          <Property Name="tipo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -641,6 +665,18 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
               <MappingFragment StoreEntitySet="Coating">
                 <ScalarProperty Name="NombreCoating" ColumnName="NombreCoating" />
                 <ScalarProperty Name="ident" ColumnName="ident" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="castings_widths">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.castings_widths">
+              <MappingFragment StoreEntitySet="castings_widths">
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="ideal_casting_Width" ColumnName="ideal_casting_Width" />
+                <ScalarProperty Name="Minimum_casting_width" ColumnName="Minimum_casting_width" />
+                <ScalarProperty Name="Nominal_Ring_Width_max" ColumnName="Nominal_Ring_Width_max" />
+                <ScalarProperty Name="Nominal_Ring_Width_min" ColumnName="Nominal_Ring_Width_min" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

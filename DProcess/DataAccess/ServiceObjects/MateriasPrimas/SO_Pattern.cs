@@ -388,6 +388,68 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
 
         }
 
+        public IList GetProbablyPattern(double diameter)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesMateriaPrima())
+                {
+                    var Lista = (from a in Conexion.Pattern2
+                                 where a.MEDIDA <= diameter + 0.020 && a.MEDIDA >= diameter + 0.020
+                                 select a.codigo).ToList();
+
+                    return Lista;
+
+                }
+            }
+            catch (Exception er)
+            {
+                return null;
+            }
+        }
+
+        public Pattern2 GetPattern(string codigoPlacaModelo)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesMateriaPrima())
+                {
+                    var pattern = (from p in Conexion.Pattern2
+                                 where p.codigo == codigoPlacaModelo
+                                 select p).FirstOrDefault();
+
+                    return pattern;
+                }
+            }
+            catch (Exception er)
+            {
+                return null;
+            }
+        }
+
+        public IList GetIdealWidthPlacaModelo(double size_w,string proceso)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesMateriaPrima())
+                {
+                    var Lista = (from a in Conexion.castings_widths
+                                 where a.Nominal_Ring_Width_min <= size_w && a.Nominal_Ring_Width_max >= size_w && a.tipo == proceso
+                                 select new
+                                 {
+                                     a.Minimum_casting_width,
+                                     a.ideal_casting_Width
+                                 }).ToList();
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                return null;
+            }
+
+        }
+
         #endregion
 
     }
