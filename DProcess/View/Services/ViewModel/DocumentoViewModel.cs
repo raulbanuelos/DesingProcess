@@ -1546,7 +1546,7 @@ namespace View.Services.ViewModel
                             objVersion.fecha_version = fecha;
                             objVersion.id_estatus_version = 1;
                             objVersion.no_copias = Convert.ToInt32(num_copias);
-
+                            
                             //Ejecutamos el método para modificar el estatus de la versión. El resultado lo guardamos en una variable local.
                             int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion);
 
