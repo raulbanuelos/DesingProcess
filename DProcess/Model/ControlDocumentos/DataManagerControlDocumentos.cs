@@ -1660,6 +1660,79 @@ namespace Model.ControlDocumentos
         }
         #endregion
 
-        
+        #region Bloqueo
+        /// <summary>
+        /// Método que obtiene la información del registro de bloqueo que tenga estado bloqueado
+        /// o estado igual 1
+        /// </summary>
+        /// <returns></returns>
+        public static Bloqueo GetBloqueo()
+        {
+            //Se inicializan los servicios del Bloqueo
+            SO_Bloqueo ServiceBloqueo = new SO_Bloqueo();
+            
+            //Creamos un objeto de tipo bloqueo
+            Bloqueo obj = new Bloqueo();
+
+            //Obtenemos la información de la BD.
+            IList Lista = ServiceBloqueo.GetBloqueo();
+
+            //Si existe un registro con estado bloqueado
+            if (Lista!= null)
+            {
+                //Iteramos la lista
+                foreach (var item in Lista)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Asiganmos los valores correspondientes
+                    obj.id_bloqueo = (int)tipo.GetProperty("ID_BLOQUEO").GetValue(item, null);
+                    obj.fecha_fin = (DateTime)tipo.GetProperty("FECHA_FIN").GetValue(item, null);
+                    obj.fecha_inicio = (DateTime)tipo.GetProperty("FECHA_INICIO").GetValue(item, null);
+                    obj.observaciones = (string)tipo.GetProperty("OBSERVACIONES").GetValue(item, null);
+                    obj.estado = (int)tipo.GetProperty("ESTADO").GetValue(item, null);
+                }
+            }
+            //Retornamos el objeto de tipo bloqueo
+            return obj;
+        }
+
+        /// <summary>
+        /// Método que inserta un registro a la tabla bloqueo
+        /// </summary>
+        /// <param name="fecha_i"></param>
+        /// <param name="fecha_f"></param>
+        /// <param name="observaciones"></param>
+        /// <returns></returns>
+        public static int SetBloqueo(DateTime fecha_i, DateTime fecha_f, string observaciones)
+        {
+            //inicializamos los servicios de SO_Bloqueo
+            SO_Bloqueo ServiceBloqueo = new SO_Bloqueo();
+
+            //Ejecutamos el método para insertar el registro
+           return ServiceBloqueo.SetBloqueo(fecha_i, fecha_f, observaciones);
+
+        }
+
+        /// <summary>
+        /// Método para modificar el registro de la table bloqueo
+        /// </summary>
+        /// <param name="id_bloqueo"></param>
+        /// <param name="fecha_i"></param>
+        /// <param name="fecha_f"></param>
+        /// <param name="estado"></param>
+        /// <returns></returns>
+        public static int UpdateBloqueo(int id_bloqueo,DateTime fecha_i, DateTime fecha_f, int estado)
+        {
+            //inicializamos los servicios de SO_Bloqueo
+            SO_Bloqueo ServiceBloqueo = new SO_Bloqueo();
+
+            //Ejecutamos el método para insertar el registro
+            return ServiceBloqueo.UpdateBloqueo(id_bloqueo,fecha_i,fecha_f,estado);
+
+        }
+        #endregion
+
     }
 }

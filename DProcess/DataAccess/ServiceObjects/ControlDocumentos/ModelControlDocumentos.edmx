@@ -15,6 +15,16 @@
           <Property Name="NOMBRE_ARCHIVO" Type="varchar" MaxLength="100" />
           <Property Name="EXT" Type="varchar" MaxLength="5" />
         </EntityType>
+        <EntityType Name="TBL_BLOQUEO">
+          <Key>
+            <PropertyRef Name="ID_BLOQUEO" />
+          </Key>
+          <Property Name="ID_BLOQUEO" Type="int" Nullable="false" />
+          <Property Name="FECHA_INICIO" Type="date" Nullable="false" />
+          <Property Name="FECHA_FIN" Type="date" Nullable="false" />
+          <Property Name="ESTADO" Type="int" Nullable="false" />
+          <Property Name="OBSERVACIONES" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
         <EntityType Name="TBL_CONF_DOCUMENTO">
           <Key>
             <PropertyRef Name="ID_CONF_DOCUMENTO" />
@@ -308,6 +318,7 @@
         </Association>
         <EntityContainer Name="DataAccessServiceObjectsControlDocumentosStoreContainer">
           <EntitySet Name="TBL_ARCHIVO" EntityType="Self.TBL_ARCHIVO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_BLOQUEO" EntityType="Self.TBL_BLOQUEO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_CONF_DOCUMENTO" EntityType="Self.TBL_CONF_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_DEPARTAMENTO" EntityType="Self.TBL_DEPARTAMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_DOCUMENTO" EntityType="Self.TBL_DOCUMENTO" Schema="dbo" store:Type="Tables" />
@@ -451,6 +462,7 @@
             <End Role="TBL_VALIDACION_DOCUMENTO" EntitySet="TBL_VALIDACION_DOCUMENTO" />
             <End Role="TR_VALIDACION_TIPO_DOCUMENTO" EntitySet="TR_VALIDACION_TIPO_DOCUMENTO" />
           </AssociationSet>
+          <EntitySet Name="TBL_BLOQUEO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_BLOQUEO" />
           </EntityContainer>
         <EntityType Name="TBL_TIPO_DOCUMENTO">
           <Key>
@@ -781,6 +793,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_BLOQUEO">
+          <Key>
+            <PropertyRef Name="ID_BLOQUEO" />
+          </Key>
+          <Property Name="ID_BLOQUEO" Type="Int32" Nullable="false" />
+          <Property Name="FECHA_INICIO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FECHA_FIN" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ESTADO" Type="Int32" Nullable="false" />
+          <Property Name="OBSERVACIONES" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -930,6 +952,17 @@
                 <ScalarProperty Name="ID_TIPO_DOCUMENTO" ColumnName="ID_TIPO_DOCUMENTO" />
                 <ScalarProperty Name="ID_VALIDACION_DOCUMENTO" ColumnName="ID_VALIDACION_DOCUMENTO" />
                 <ScalarProperty Name="ID_VALIDACION_TIPO_DOCUMENTO" ColumnName="ID_VALIDACION_TIPO_DOCUMENTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_BLOQUEO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TBL_BLOQUEO">
+              <MappingFragment StoreEntitySet="TBL_BLOQUEO">
+                <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="FECHA_FIN" ColumnName="FECHA_FIN" />
+                <ScalarProperty Name="FECHA_INICIO" ColumnName="FECHA_INICIO" />
+                <ScalarProperty Name="ID_BLOQUEO" ColumnName="ID_BLOQUEO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

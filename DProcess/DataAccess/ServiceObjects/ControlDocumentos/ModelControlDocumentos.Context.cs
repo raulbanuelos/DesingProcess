@@ -38,5 +38,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<TBL_VALIDACION_DOCUMENTO> TBL_VALIDACION_DOCUMENTO { get; set; }
         public virtual DbSet<TR_VALIDACION_TIPO_DOCUMENTO> TR_VALIDACION_TIPO_DOCUMENTO { get; set; }
+        public virtual DbSet<TBL_BLOQUEO> TBL_BLOQUEO { get; set; }
     }
 }

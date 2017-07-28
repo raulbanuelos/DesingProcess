@@ -45,6 +45,7 @@
     <Compile Include="ClasificacionHerramental.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="ControlDocumentos\Archivo.cs" />
+    <Compile Include="ControlDocumentos\Bloqueo.cs" />
     <Compile Include="ControlDocumentos\DataManagerControlDocumentos.cs" />
     <Compile Include="ControlDocumentos\Departamento.cs" />
     <Compile Include="ControlDocumentos\Documento.cs" />

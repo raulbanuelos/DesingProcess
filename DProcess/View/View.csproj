@@ -120,6 +120,9 @@
     <Compile Include="Forms\ControlDocumentos\ControlDocumento.xaml.cs">
       <DependentUpon>ControlDocumento.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmBloqueo.xaml.cs">
+      <DependentUpon>FrmBloqueo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmBusqueda_Documentos.xaml.cs">
       <DependentUpon>FrmBusqueda_Documentos.xaml</DependentUpon>
     </Compile>
@@ -206,6 +209,7 @@
     <Compile Include="Services\Operaciones\Router.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\Rolado\CentroTrabajo495.cs" />
     <Compile Include="Services\ViewModel\AnilloViewModel.cs" />
+    <Compile Include="Services\ViewModel\BloqueoVM.cs" />
     <Compile Include="Services\ViewModel\Buscar_DocumentoVM.cs" />
     <Compile Include="Services\ViewModel\CollarAutoFinTurnViewModel.cs" />
     <Compile Include="Services\ViewModel\ControlDocumentoViewModel.cs" />
@@ -276,6 +280,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Forms\ControlDocumentos\ControlDocumento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmBloqueo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

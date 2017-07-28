@@ -463,6 +463,28 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
+        /// Comando para visualizar la ventana de bloqueo
+        /// </summary>
+        public ICommand IrBloquear
+        {
+            get
+            {
+                return new RelayCommand(o => irBloquear());
+            }
+        }
+
+        /// <summary>
+        /// Método que muestra la ventana para agregaro o modificar un bloqueo
+        /// </summary>
+        private void irBloquear()
+        {
+            FrmBloqueo frame = new FrmBloqueo();
+            BloqueoVM context = new BloqueoVM();
+            frame.DataContext = context;
+            frame.ShowDialog();
+        }
+
+        /// <summary>
         /// Método que muestra la ventana para agregar un documento
         /// si el usuario no tiene una versión muestra la ventana para generar versión
         /// </summary>

@@ -1,0 +1,38 @@
+﻿<Controls:MetroWindow x:Class="View.Forms.ControlDocumentos.FrmBloqueo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
+        Title="" Height="370" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+            <ColumnDefinition Width="380"></ColumnDefinition>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="290"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="1" Grid.Row="1" >
+            <DatePicker materialDesign:HintAssist.Hint="Fecha Inicio" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  BorderBrush="#89535353" FontSize="18" Margin="10,21,0,229"
+                         DisplayDateStart="{x:Static System:DateTime.Today}" SelectedDate="{Binding FechaInicio}"/>
+            <DatePicker materialDesign:HintAssist.Hint="Fecha Final" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  BorderBrush="#89535353" FontSize="18" Margin="10,77,0,173" 
+                        DisplayDateStart="{x:Static System:DateTime.Today}" SelectedDate="{Binding FechaFin}"/>
+            <TextBox materialDesign:HintAssist.Hint="Observaciones" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   BorderBrush="#89535353" FontSize="18" Margin="10,122,0,102" />
+
+            <Canvas Margin="0,235,0,10">
+                <Button Content="Guardar" Height="40"  Width="90"  Command="{Binding GuardarBloqueo}" Canvas.Left="10" Canvas.Top="3"/>
+                <Button Content="Modificar" Height="40" Width="93" Command="{Binding Modificar }" Canvas.Left="134" Canvas.Top="3" ></Button>
+                <Button Content="Desbloquear" Height="40" Width="112" Command="{Binding Desbloquear }" Canvas.Left="258" Canvas.Top="3" ></Button>
+            </Canvas>
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>

@@ -147,7 +147,7 @@
         </Canvas>
         <!--Botones-->
         <Canvas Height="64"  Grid.Column="1" Grid.Row="2" Margin="0,25,0,46"  >
-            <Button x:Name="bttn_guardar" Content="{Binding BotonGuardar}" Height="40" Canvas.Top="12" Width="90" Canvas.Left="880" Command="{Binding GuardarControl}"  Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" />
+            <Button x:Name="bttn_guardar" Content="{Binding BotonGuardar}" Height="40" Canvas.Top="12" Width="89" Canvas.Left="880" Command="{Binding GuardarControl}"  Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" />
             <Button x:Name="bttn_cancelar" Content="Cancelar" Height="40" Canvas.Left="785" Canvas.Top="12" Width="90" Command="{Binding Cancelar}"  Visibility="{Binding BttnCancelar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
             <Button x:Name="bttn_eliminar" Content="Eliminar" Canvas.Left="451" Canvas.Top="12" Width="90" Height="40"  Command="{Binding Eliminar}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
             <Button x:Name="bttn_cambios" Content="Modificar" Height="40" Canvas.Left="555" Canvas.Top="12" Width="93"  Command="{Binding Modificar}" Visibility="{Binding BttnModificar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
