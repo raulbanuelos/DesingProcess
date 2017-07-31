@@ -12,7 +12,7 @@ namespace Model.ControlDocumentos
         public int id_bloqueo { get; set; }
         public DateTime fecha_inicio { get; set; }
         public DateTime fecha_fin { get; set; }
-        public int estado { get; set; }
+        public bool estado { get; set; }
         public string observaciones { get; set; }
 
 

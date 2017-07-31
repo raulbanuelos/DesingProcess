@@ -19,10 +19,10 @@
           <Key>
             <PropertyRef Name="ID_BLOQUEO" />
           </Key>
-          <Property Name="ID_BLOQUEO" Type="int" Nullable="false" />
+          <Property Name="ID_BLOQUEO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FECHA_INICIO" Type="date" Nullable="false" />
           <Property Name="FECHA_FIN" Type="date" Nullable="false" />
-          <Property Name="ESTADO" Type="int" Nullable="false" />
+          <Property Name="ESTADO" Type="bit" Nullable="false" />
           <Property Name="OBSERVACIONES" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_CONF_DOCUMENTO">
@@ -463,6 +463,7 @@
             <End Role="TR_VALIDACION_TIPO_DOCUMENTO" EntitySet="TR_VALIDACION_TIPO_DOCUMENTO" />
           </AssociationSet>
           <EntitySet Name="TBL_BLOQUEO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_BLOQUEO" />
+         
           </EntityContainer>
         <EntityType Name="TBL_TIPO_DOCUMENTO">
           <Key>
@@ -797,12 +798,13 @@
           <Key>
             <PropertyRef Name="ID_BLOQUEO" />
           </Key>
-          <Property Name="ID_BLOQUEO" Type="Int32" Nullable="false" />
+          <Property Name="ID_BLOQUEO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FECHA_INICIO" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="FECHA_FIN" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ESTADO" Type="Int32" Nullable="false" />
+          <Property Name="ESTADO" Type="Boolean" Nullable="false" />
           <Property Name="OBSERVACIONES" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
+       
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -966,6 +968,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -12,6 +12,8 @@ using Model;
 using View.Forms.Index;
 using View.Forms.Shared;
 using View.Services.ViewModel;
+using Model.ControlDocumentos;
+using System;
 
 namespace View.Forms.LogIn
 {
@@ -56,6 +58,9 @@ namespace View.Forms.LogIn
                         //Enviamos un mensaje de bienvenida al usuario.
 						MessageDialogResult message = await this.ShowMessageAsync("Welcome",usuarioConectado.Nombre);
 
+                        //Ejecutamos el método para desbloquear el sistema, si se venció la fecha final
+                        DataManagerControlDocumentos.DesbloquearSistema(DateTime.Now);
+
                         //Una vez que el usuario hizo clic en aceptar el mensaje de bienvenida, se procede con la codificación de la presentación de la pantalla inicial.
 
                         //Creamos un objeto de tipo Home, la cual es la pantalla inicial del sistema.
@@ -80,6 +85,7 @@ namespace View.Forms.LogIn
 
                         //Ejecutamos el método el cual despliega la pantalla.
                         masterPage.ShowDialog();
+
                     }
 				}
 				else{

@@ -17,7 +17,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public int ID_BLOQUEO { get; set; }
         public System.DateTime FECHA_INICIO { get; set; }
         public System.DateTime FECHA_FIN { get; set; }
-        public int ESTADO { get; set; }
+        public bool ESTADO { get; set; }
         public string OBSERVACIONES { get; set; }
     }
 }

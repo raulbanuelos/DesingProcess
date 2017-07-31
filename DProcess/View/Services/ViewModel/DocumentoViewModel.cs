@@ -1269,59 +1269,76 @@ namespace View.Services.ViewModel
             //Incializamos los servicios de dialog.
             DialogService dialog = new DialogService();
 
-            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
-            MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
+            Bloqueo objBloqueo = new Bloqueo();
 
-            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Deseas generar una nueva versión?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            //Método que obtiene un registro si se encuentra activo
+            objBloqueo = DataManagerControlDocumentos.GetBloqueo();
 
-            if (result == MessageDialogResult.Affirmative)
+            //Si no encuentra ningún registro con estado bloqueado
+            //O es administrador del Cit, sólo los administradores del Cit pueden generar una versión cuando el sistema se encentre bloqueado
+            if (objBloqueo.id_bloqueo == 0 ||  Module.UsuarioIsRol(User.Roles, 2))
             {
-                //Ejecutamos el método que obtiene las versiones de un documentos que no están liberadas u obsoletas
-                ObservableCollection<Model.ControlDocumentos.Version> ListaEstatus = DataManagerControlDocumentos.GetStatus_Version(id_documento);
+                //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+                MetroDialogSettings setting = new MetroDialogSettings();
+                setting.AffirmativeButtonText = "SI";
+                setting.NegativeButtonText = "NO";
 
-                //Si el documento no tiene versiones pendientes 
-                if (ListaEstatus.Count == 0)
+                //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+                MessageDialogResult result = await dialog.SendMessage("Attention", "¿Deseas generar una nueva versión?", setting, MessageDialogStyle.AffirmativeAndNegative);
+
+                if (result == MessageDialogResult.Affirmative)
                 {
-                    //Obtiene la últuma version del documento.
-                    Version = DataManagerControlDocumentos.GetLastVersion(id_documento);
+                    //Ejecutamos el método que obtiene las versiones de un documentos que no están liberadas u obsoletas
+                    ObservableCollection<Model.ControlDocumentos.Version> ListaEstatus = DataManagerControlDocumentos.GetStatus_Version(id_documento);
 
-                    //Manda un mensaje al usuario, donde muestra la versión nueva.
-                    await dialog.SendMessage("Información", "La nueva versión del documento es la número " + Version);
-
-                    //Limpiamos todos lo textbox, y se cambia el content del botón de guardar.
-                    Fecha = DateTime.Now;
-                    //usuarioAutorizo = null;
-                    ListaDocumentos.Clear();
-                    ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
-
-                    //Oculta y muestra los botones
-                    BotonGuardar = "Guardar Version";
-                    BttnGuardar = true;
-                    BttnEliminar = false;
-                    BttnModificar = false;
-                    BttnVersion = false;
-                    NombreEnabled = false;
-                    BttnArchivos = true;
-                    BttnCancelar = true;
-                    EnabledEliminar = true;
-                    IsEnabled = true;
-                    usuario = User.NombreUsuario;
-                }
-                else
-                {
-                    //Si el documento tiene una versión pendiente por liberar
-                    Model.ControlDocumentos.Version obj = new Model.ControlDocumentos.Version();
-                    foreach (var item in ListaEstatus)
+                    //Si el documento no tiene versiones pendientes 
+                    if (ListaEstatus.Count == 0)
                     {
-                        obj.no_version = item.no_version;
-                        obj.estatus = item.estatus;
+                        //Obtiene la últuma version del documento.
+                        Version = DataManagerControlDocumentos.GetLastVersion(id_documento);
+
+                        //Manda un mensaje al usuario, donde muestra la versión nueva.
+                        await dialog.SendMessage("Información", "La nueva versión del documento es la número " + Version);
+
+                        //Limpiamos todos lo textbox, y se cambia el content del botón de guardar.
+                        Fecha = DateTime.Now;
+                        //usuarioAutorizo = null;
+                        ListaDocumentos.Clear();
+                        ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
+
+                        //Oculta y muestra los botones
+                        BotonGuardar = "Guardar Version";
+                        BttnGuardar = true;
+                        BttnEliminar = false;
+                        BttnModificar = false;
+                        BttnVersion = false;
+                        NombreEnabled = false;
+                        BttnArchivos = true;
+                        BttnCancelar = true;
+                        EnabledEliminar = true;
+                        IsEnabled = true;
+                        usuario = User.NombreUsuario;
                     }
-                    //Muestra mensaje 
-                    await dialog.SendMessage("No se puede crear una nueva versión", " Versión número " + obj.no_version + " tiene estado: " + obj.estatus);
+                    else
+                    {
+                        //Si el documento tiene una versión pendiente por liberar
+                        Model.ControlDocumentos.Version obj = new Model.ControlDocumentos.Version();
+                        foreach (var item in ListaEstatus)
+                        {
+                            obj.no_version = item.no_version;
+                            obj.estatus = item.estatus;
+                        }
+                        //Muestra mensaje 
+                        await dialog.SendMessage("No se puede crear una nueva versión", " Versión número " + obj.no_version + " tiene estado: " + obj.estatus);
+                    }
                 }
+            }
+            else
+            {
+                //El sistema se encuentra bloqueado
+
+                await dialog.SendMessage("Sistema Bloqueado", objBloqueo.observaciones);
+
             }
         }
 
@@ -1598,6 +1615,14 @@ namespace View.Services.ViewModel
                     await dialog.SendMessage("Alerta", "Campos inválidos, ingrese números..");
                 }
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void SaveFile()
+        {
+            string path = "";
         }
 
         /// <summary>

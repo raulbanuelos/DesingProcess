@@ -551,7 +551,7 @@ namespace Model.ControlDocumentos
             SO_Documento ServiceDocumento = new SO_Documento();
 
             // Se ejecuta el método y retonamos el número generado.
-            return ServiceDocumento.GetNumero(numero);
+            return ServiceDocumento.GetNumero(numero, tipoDocumento.abreviatura);
         }
 
         /// <summary>
@@ -1691,11 +1691,31 @@ namespace Model.ControlDocumentos
                     obj.fecha_fin = (DateTime)tipo.GetProperty("FECHA_FIN").GetValue(item, null);
                     obj.fecha_inicio = (DateTime)tipo.GetProperty("FECHA_INICIO").GetValue(item, null);
                     obj.observaciones = (string)tipo.GetProperty("OBSERVACIONES").GetValue(item, null);
-                    obj.estado = (int)tipo.GetProperty("ESTADO").GetValue(item, null);
+                    obj.estado = (bool)tipo.GetProperty("ESTADO").GetValue(item, null);
                 }
             }
             //Retornamos el objeto de tipo bloqueo
             return obj;
+        }
+
+        /// <summary>
+        /// Método que desbloquea el sistema si llega a la fecha final
+        /// </summary>
+        /// <param name="fecha_final"></param>
+        /// <returns></returns>
+        public static void DesbloquearSistema(DateTime fecha_final)
+        {
+            //inicializamos los servicios de SO_Bloqueo
+            SO_Bloqueo ServiceBloqueo = new SO_Bloqueo();
+
+            int id= ServiceBloqueo.GetID_Bloqueo(fecha_final);
+
+            if (id !=0) {
+
+                ServiceBloqueo.UpdateEstado(id);
+            }
+            //Ejecutamos el método que obtiene el id del registro activo
+         
         }
 
         /// <summary>
@@ -1705,13 +1725,13 @@ namespace Model.ControlDocumentos
         /// <param name="fecha_f"></param>
         /// <param name="observaciones"></param>
         /// <returns></returns>
-        public static int SetBloqueo(DateTime fecha_i, DateTime fecha_f, string observaciones)
+        public static int SetBloqueo(Bloqueo obj)
         {
             //inicializamos los servicios de SO_Bloqueo
             SO_Bloqueo ServiceBloqueo = new SO_Bloqueo();
 
             //Ejecutamos el método para insertar el registro
-           return ServiceBloqueo.SetBloqueo(fecha_i, fecha_f, observaciones);
+           return ServiceBloqueo.SetBloqueo(obj.fecha_inicio, obj.fecha_fin, obj.observaciones);
 
         }
 
@@ -1723,15 +1743,31 @@ namespace Model.ControlDocumentos
         /// <param name="fecha_f"></param>
         /// <param name="estado"></param>
         /// <returns></returns>
-        public static int UpdateBloqueo(int id_bloqueo,DateTime fecha_i, DateTime fecha_f, int estado)
+        public static int UpdateBloqueo(Bloqueo obj)
         {
             //inicializamos los servicios de SO_Bloqueo
             SO_Bloqueo ServiceBloqueo = new SO_Bloqueo();
 
-            //Ejecutamos el método para insertar el registro
-            return ServiceBloqueo.UpdateBloqueo(id_bloqueo,fecha_i,fecha_f,estado);
+            //Ejecutamos el método para modificar un registro
+            return ServiceBloqueo.UpdateBloqueo(obj.id_bloqueo, obj.fecha_inicio, obj.fecha_fin, obj.observaciones);
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateEstado(Bloqueo obj)
+        {
+            //inicializamos los servicios de SO_Bloqueo
+            SO_Bloqueo ServiceBloqueo = new SO_Bloqueo();
+
+            //Ejecutamos el método para desbloquear un registro
+            return ServiceBloqueo.UpdateEstado(obj.id_bloqueo);
+
+        }
+
         #endregion
 
     }

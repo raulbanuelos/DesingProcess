@@ -490,72 +490,104 @@ namespace View.Services.ViewModel
         /// </summary>
         private async void irNuevoDocumento()
         {
+            Bloqueo obj = new Bloqueo();
+
+            //Método que obtiene un registro si se encuentra activo
+            obj = DataManagerControlDocumentos.GetBloqueo();
+
+            //Si el sistema no está bloqueado
+            //O es administrador del CIT, sólo los administradores pueden crear un documento cuando el sistema esté bloqueado
+            if (obj.id_bloqueo ==0 || Module.UsuarioIsRol(usuario.Roles, 2))
+            { 
             //Obtenermos la cantidad de números de documentosque tiene el usuario sin versión.
             int num_documentos = DataManagerControlDocumentos.GetDocumento_SinVersion(usuario.NombreUsuario).Count;
 
-            //Si el número de documento es menor que cero
-            if (num_documentos > 0)
-            {
-                //Creamos un objeto de la ventana
-                FrmDocumento frm = new FrmDocumento();
+                //Si el número de documento es menor que cero
+                if (num_documentos > 0)
+                {
+                    //Creamos un objeto de la ventana
+                    FrmDocumento frm = new FrmDocumento();
 
-                DocumentoViewModel context = new DocumentoViewModel(usuario);
+                    DocumentoViewModel context = new DocumentoViewModel(usuario);
 
-                frm.DataContext = context;
+                    frm.DataContext = context;
 
-                //Mostramos la ventana
-                frm.ShowDialog();
+                    //Mostramos la ventana
+                    frm.ShowDialog();
 
-                initControlDocumentos();
+                    initControlDocumentos();
+                }
+                else
+                {
+                    //El usuario no tiene documentos sin verisón 
+                    DialogService dialogService = new DialogService();
+
+                    //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
+                    MetroDialogSettings setting = new MetroDialogSettings();
+                    setting.AffirmativeButtonText = "Crear un nuevo número";
+                    setting.NegativeButtonText = "Cancelar";
+
+                    //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
+                    MessageDialogResult result = await dialogService.SendMessage("Atención", "Usted no tiene ningún número de documento disponible", setting, MessageDialogStyle.AffirmativeAndNegative);
+                    switch (result)
+                    {
+                        case MessageDialogResult.Negative:
+                            break;
+                        case MessageDialogResult.Affirmative:
+                            FrmGenerador_Numero frmGenerador = new FrmGenerador_Numero();
+
+                            GeneradorViewModel context = new GeneradorViewModel { ModelUsuario = usuario };
+
+                            frmGenerador.DataContext = context;
+
+                            frmGenerador.ShowDialog();
+
+                            break;
+                        case MessageDialogResult.FirstAuxiliary:
+                            break;
+                        case MessageDialogResult.SecondAuxiliary:
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
             else
             {
-                //El usuario no tiene documentos sin verisón 
-                DialogService dialogService = new DialogService();
-
-                //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
-                MetroDialogSettings setting = new MetroDialogSettings();
-                setting.AffirmativeButtonText = "Crear un nuevo número";
-                setting.NegativeButtonText = "Cancelar";
-
-                //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
-                MessageDialogResult result = await dialogService.SendMessage("Atención", "Usted no tiene ningún número de documento disponible", setting, MessageDialogStyle.AffirmativeAndNegative);
-                switch (result)
-                {
-                    case MessageDialogResult.Negative:
-                        break;
-                    case MessageDialogResult.Affirmative:
-                        FrmGenerador_Numero frmGenerador = new FrmGenerador_Numero();
-
-                        GeneradorViewModel context = new GeneradorViewModel { ModelUsuario = usuario };
-
-                        frmGenerador.DataContext = context;
-
-                        frmGenerador.ShowDialog();
-
-                        break;
-                    case MessageDialogResult.FirstAuxiliary:
-                        break;
-                    case MessageDialogResult.SecondAuxiliary:
-                        break;
-                    default:
-                        break;
-                }
+                //Si el sistema está bloqueado
+                   DialogService dialog = new DialogService();
+                   await dialog.SendMessage("Sistema Bloqueado", obj.observaciones);
             }
         }
 
         /// <summary>
         /// Método que muestra la ventana para gener un número de documento
         /// </summary>
-        private void GenerarNumero()
+        private async void GenerarNumero()
         {
-            FrmGenerador_Numero frmGenerador = new FrmGenerador_Numero();
+            Bloqueo obj = new Bloqueo();
 
-            GeneradorViewModel context = new GeneradorViewModel { ModelUsuario = usuario };
+            //Método que obtiene un registro si se encuentra activo
+            obj = DataManagerControlDocumentos.GetBloqueo();
 
-            frmGenerador.DataContext = context;
+            //Si el sistema no está bloqueado
+            //O es administrador del CIT, sólo los administradores pueden generar un número cuando el sistema esté bloqueado
+            if (obj.id_bloqueo == 0 || Module.UsuarioIsRol(usuario.Roles, 2))
+            {
+                FrmGenerador_Numero frmGenerador = new FrmGenerador_Numero();
 
-            frmGenerador.ShowDialog();
+                GeneradorViewModel context = new GeneradorViewModel { ModelUsuario = usuario };
+
+                frmGenerador.DataContext = context;
+
+                frmGenerador.ShowDialog();
+            }
+            else
+            {
+                //Si el sistema está bloqueado
+                DialogService dialog = new DialogService();
+                await dialog.SendMessage("Sistema Bloqueado", obj.observaciones);
+            }
         }
 
         /// <summary>
@@ -783,11 +815,11 @@ namespace View.Services.ViewModel
             usuario = modelUsuario;
             initControlDocumentos();
             initSnack();
-            //Si el usuario es administrador del CIT muestra los botones para agregar tipode Documento
-            //Y departamento
+            //Si el usuario es administrador del CIT muestra los botones para agregar tipo de documento,
+            //departamento, buscar documento y bloquear Sistema
             if (Module.UsuarioIsRol(usuario.Roles, 2))
             {
-                BttnEnabled = true;
+                BttnEnabled = true;               
             }
         }
         #endregion

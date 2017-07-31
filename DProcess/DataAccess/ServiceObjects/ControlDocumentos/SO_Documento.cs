@@ -434,7 +434,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// </summary>
         /// <param name="nombre"></param>
         /// <returns></returns>
-        public string GetNumero(string nombre)
+        public string GetNumero(string nombre, string abrev)
         {
             string lastNumber;
             try
@@ -469,6 +469,12 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 
                         //Concatenamos el nombre con el nuevo número
                         lastNumber = string.Concat(nombre,"-",number.ToString("D4"));
+                    }
+                    //Si el documento es de tipo procedimiento o formato
+                    if(abrev.Contains("3571"))
+                    {
+                        //Si agrega -es al final del número generado anteriror
+                        lastNumber = string.Concat(lastNumber, "-es");
                     }
 
                 }
