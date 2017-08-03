@@ -434,7 +434,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// </summary>
         /// <param name="nombre"></param>
         /// <returns></returns>
-        public string GetNumero(string nombre, string abrev)
+        public string GetNumero(string nombre, int id_tipo)
         {
             string lastNumber;
             try
@@ -471,7 +471,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                         lastNumber = string.Concat(nombre,"-",number.ToString("D4"));
                     }
                     //Si el documento es de tipo procedimiento o formato
-                    if(abrev.Contains("3571"))
+                    if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
                     {
                         //Si agrega -es al final del número generado anteriror
                         lastNumber = string.Concat(lastNumber, "-es");
