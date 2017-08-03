@@ -9,31 +9,11 @@ using System.Threading.Tasks;
 
 namespace View.Services.Operaciones.Gasolina.PreMaquinado
 {
-    public class Splitter : IOperacion, IObserverWidth
+    public class SecondRoughGrind : IOperacion, IObserverWidth
     {
+        #region Propiedades
 
-        #region Constructors
-
-        public Splitter(Anillo _elAnillo)
-        {
-            NombreOperacion = "SPLITTER CASTINGS";
-            CentroCostos = "32014170";
-            CentroTrabajo = "130";
-            ControlKey = "MA42";
-            elPlano = _elAnillo;
-
-            ListaHerramentales = new ObservableCollection<Herramental>();
-            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
-            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-            NotasOperacion = new ObservableCollection<string>();
-            AlertasOperacion = new ObservableCollection<string>();
-            
-            CalcularWidth();
-        } 
-
-        #endregion
-
-        #region Properties of IOperacion
+        #region Propiedades de IOperacion
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -128,7 +108,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         public Anillo elPlano { get; set; }
         #endregion
 
-        #region Properties of IObserverWidth
+        #region Propiedades de IObserverWidth
         /// <summary>
         /// Double que representa la medida del width del anillo en la operación.
         /// </summary>
@@ -142,75 +122,52 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
 
         #endregion
 
-        #region Methods
+        #endregion
 
-        private void CalcularWidth()
+        #region Constructors
+        public SecondRoughGrind(Anillo plano)
         {
-            string proceso = Module.GetValorPropiedadString("Proceso", elPlano.PerfilOD.PropiedadesCadena);
-
-            WidthOperacion = DataManager.GetWidthSplitterCasting(proceso, elPlano.H1.Valor);
-
-            if (WidthOperacion == 0)
-            {
-                AlertasOperacion.Add("No se encontró el width de la operación. Favor de checar la tabla SplitterSpacerChart. Cálculo de width en la hoja de ruta incorrecto.");
-            }
-            else
-            {
-                double? widthFirstRoughGrind = DataManager.GetWidthFirstRoughGrind(proceso, elPlano.H1.Valor);
-
-                if (widthFirstRoughGrind != null && widthFirstRoughGrind > 0)
-                {
-                    MatRemoverWidth = Convert.ToDouble(widthFirstRoughGrind) - WidthOperacion;
-                }
-                else
-                {
-                    AlertasOperacion.Add("No se encontró el width de la operación First Rough Grind. Favor de checar la tabla SplitterSpacerChart. Cálculo de width en la hoja de ruta incorrecto.");
-                }
-            }
+            //Asignamos los valores por default a las propiedades.
+            NombreOperacion = "SECOND ROUGH GRIND";
+            CentroCostos = "32012524";
+            CentroTrabajo = "112";
+            ControlKey = "MA42";
+            elPlano = plano;
+            ListaHerramentales = new ObservableCollection<Herramental>();
+            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
+            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+            AlertasOperacion = new ObservableCollection<string>();
+            NotasOperacion = new ObservableCollection<string>();
+            
         }
+        #endregion
 
-
-        #region Methods of IOperacion
-        /// <summary>
-        /// Método en el cual se calcula la operación.
-        /// </summary>
-        /// <param name="ElAnilloProcesado">Anillo que presenta el anillo como se recibe de la operación anterior.</param>
-        /// <param name="elPlano">Anillo que representa el plano que ingresó el usuario.</param>
-        public void CrearOperacion(Anillo ElAnilloProcesado, Anillo _elPlano)
+            #region Methods
+            #region Métodos de IOperacion
+            /// <summary>
+            /// Método en el cual se calcula la operación.
+            /// </summary>
+            /// <param name="ElAnilloProcesado">Anillo que presenta el anillo como se recibe de la operación anterior.</param>
+            /// <param name="elPlano">Anillo que representa el plano que ingresó el usuario.</param>
+        public void CrearOperacion(Anillo ElAnilloProcesado, Anillo elPlano)
         {
-
+            //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
-            elPlano = _elPlano;
 
-            double timeSplitter = DataManager.GetCycleTimeSplitter(elPlano.MaterialBase.Especificacion.Valor);
-
-            if (timeSplitter == 0)
-            {
-                AlertasOperacion.Add("No se encontró el tiempo ciclo de la operación. Favor de verificar la tabla TiempoCicloSplitter");
-            }
-
-            TextoProceso += "*SPLIT \n";
-            TextoProceso += "" + Convert.ToString(WidthOperacion) + " +- .004 CYC TIME " + timeSplitter + " +- 2 SEG." + "\n";
-
-            double od, id;
-
-            od = DataManager.GetODSplitterCasting(elPlano.MaterialBase.Codigo);
-            id = DataManager.GetIDSplitterCasting(elPlano.MaterialBase.Codigo);
-            double diff = od - id;
-            TextoProceso += "O.D " + od + " I.D " + id + " DIFF. " + diff + "\n";
+            //Agregamos el texto con las instrucciones de la operación.
+            TextoProceso = "(1)(" + WidthOperacion + " +- 0.0005) \n";
+            TextoProceso += "CHUCK RPM 15+-5 \n";
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
 
-            //Ejecutamos el método para calcular los tiempos estándar.
+            //Ejecutamos el méotodo para calcular los tiempos estándar.
             CalcularTiemposEstandar();
         }
 
         public void BuscarHerramentales()
         {
-
-
-
+            ListaHerramentales.Add(DataManager.GetGuideBarSecondRoughGrind(WidthOperacion));
         }
 
         /// <summary>
@@ -222,7 +179,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         }
         #endregion
 
-        #region Methods of IObserverWidth
+        #region Métodos de IObserverWidth
 
         /// <summary>
         /// Método que actualiza el valor del width en la operación.
@@ -232,13 +189,18 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         /// <param name="WidthAfterOperacion"></param>
         public void UpdateState(ISubjectWidth sender, double MaterialRemoverAfterOperacion, double WidthAfterOperacion)
         {
-
             //Actualizamos el width de la operación.
             WidthOperacion = WidthAfterOperacion + MaterialRemoverAfterOperacion;
+
+            string proceso = Module.GetValorPropiedadString("Proceso", elPlano.PerfilOD.PropiedadesCadena);
+            if (proceso != "Sencillo")
+            {
+                double widthSplitter = DataManager.GetWidthSplitterCasting(proceso, Module.ConvertTo("Distance", elPlano.H1.Unidad, "Inch (in)", elPlano.H1.Valor));
+                MatRemoverWidth = widthSplitter - WidthOperacion;
+            }
         }
 
-        #endregion
-
+        #endregion 
         #endregion
     }
 }

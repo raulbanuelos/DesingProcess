@@ -17,7 +17,6 @@ namespace View.Services
             Anillo _ElAnillo;
             _ElAnillo = elAnillo;
 
-
             //Declaramos una lista observable la cual guardará las operaciones y será la que retornemos en el método.
             ObservableCollection<IOperacion> ListaOperaciones = new ObservableCollection<IOperacion>();
 
@@ -28,8 +27,10 @@ namespace View.Services
             if (Module.GetValorPropiedadString("Proceso", elAnillo.PerfilOD.PropiedadesCadena) != "Sencillo")
             {
                 ListaOperaciones.Add(new Splitter(elAnillo));
-
+                ListaOperaciones.Add(new SecondRoughGrind(elAnillo));
             }
+            ListaOperaciones.Add(new FinishGrind(elAnillo));
+
 
             //Asignamos el número de operación a cada operación. (Saltando de 10 en 10).
             int noOperacion = 0;

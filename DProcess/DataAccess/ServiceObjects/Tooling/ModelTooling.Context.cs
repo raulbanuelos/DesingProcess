@@ -33,5 +33,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<SplitterSpacerChart> SplitterSpacerChart { get; set; }
         public virtual DbSet<SPlitterSpacerChart2> SPlitterSpacerChart2 { get; set; }
         public virtual DbSet<GuideBarFirstRoughGrind> GuideBarFirstRoughGrind { get; set; }
+        public virtual DbSet<GuideBarSecondRoughGrind> GuideBarSecondRoughGrind { get; set; }
+        public virtual DbSet<CutterSpacerSplitter> CutterSpacerSplitter { get; set; }
     }
 }

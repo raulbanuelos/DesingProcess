@@ -168,6 +168,9 @@
     <Compile Include="Forms\Modals\frmViewUnidades.xaml.cs">
       <DependentUpon>frmViewUnidades.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RawMaterial\frmSelectRawMaterial.xaml.cs">
+      <DependentUpon>frmSelectRawMaterial.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RawMaterial\PPattern.xaml.cs">
       <DependentUpon>PPattern.xaml</DependentUpon>
     </Compile>
@@ -200,9 +203,10 @@
     <Compile Include="Services\ExportToExcel.cs" />
     <Compile Include="Services\ImportExcel.cs" />
     <Compile Include="Services\Module.cs" />
-    <Compile Include="Services\Operaciones\Gasolina\CalculaPlacaModelo.cs" />
     <Compile Include="Services\Operaciones\Gasolina\DegreaseRings.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\FinishGrind.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\FirstRoughGrind.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\SecondRoughGrind.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\Splitter.cs" />
     <Compile Include="Services\Operaciones\Gasolina\Rolado\CoilRings.cs" />
     <Compile Include="Services\Operaciones\Generica\OperacionGenericaWidth.cs" />
@@ -344,6 +348,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\Modals\frmViewUnidades.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\RawMaterial\frmSelectRawMaterial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

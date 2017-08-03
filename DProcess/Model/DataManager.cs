@@ -54,6 +54,113 @@ namespace Model
 
             return tipoMaterial;
         }
+
+        /// <summary>
+        /// Método que obtiene el valor de compensado del Piece.
+        /// </summary>
+        /// <param name="anillo"></param>
+        /// <param name="piece"></param>
+        /// <returns></returns>
+        public static double GetCompensacionPiece(Anillo anillo, double piece)
+        {
+            //Inicializamos los servicios de SO_CompesacionPiece.
+            SO_CompesacionPiece ServicioCompensacion = new SO_CompesacionPiece();
+
+            //Obtenemos los valores necesarios que se requieren.
+            string idMaterial = GetIdMaterial(anillo.MaterialBase.Especificacion.Valor);
+            int idTipoAnillo = GetIdTipoAnillo(anillo.TipoAnillo);
+            
+            //Declaramos una variable la cual será la que retornemos en el método.
+            double compensacion = 0;
+
+            //Ejecutamos el método para obtener el valor de compensación.
+            IList inforamcionBD =  ServicioCompensacion.GetCompensacion(idMaterial, idTipoAnillo);
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (inforamcionBD != null)
+            {
+                //Iteramos la lista obtenida.
+                foreach (var item in inforamcionBD)
+                {
+                    //Obtenemos el typo del item iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Obtenemos el valor.
+                    compensacion = (double)tipo.GetProperty("Compensacion").GetValue(item, null);
+                }
+            }
+
+            //Realizamos la compensación y retornamos el resultado.
+            return Math.Round(piece / compensacion, 3);
+        }
+
+        /// <summary>
+        /// Método que obtiene el ID de una especificación de material. El ID es la especificación MAHLE. Ejemplo SPR-128, su ID es MF012-S
+        /// </summary>
+        /// <param name="especMaterial"></param>
+        /// <returns></returns>
+        public static string GetIdMaterial(string especMaterial)
+        {
+            //Declaramos una variable la cual será la que retornemos en el método.
+            string idMaterial = string.Empty;
+
+            //Inicializamos los servicios de SO_Material.
+            SO_Material ServicioMaterial = new SO_Material();
+
+            //Ejecutamos el método para obtener la información.
+            IList informacionBD =  ServicioMaterial.GetIdEspecficacionMaterial(especMaterial);
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos cada elemento de la información obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Obtenemos el valor.
+                    idMaterial = (string)tipo.GetProperty("IdMaterial").GetValue(item,null);
+                }
+            }
+
+            //Retornamos el valor.
+            return idMaterial;
+        }
+
+        /// <summary>
+        /// Método que obtiene el id del tipo de anillo.
+        /// </summary>
+        /// <param name="tipoAnillo"></param>
+        /// <returns></returns>
+        public static int GetIdTipoAnillo(string tipoAnillo)
+        {
+            //Incializamos los serivicios de SO_TipoAnillo.
+            SO_TipoAnillo ServicioTipoAnillo = new SO_TipoAnillo();
+
+            //Ejecutamos el método para obtener la inforamación de base de datos.
+            IList informacionBD = ServicioTipoAnillo.GetTipoAnillo(tipoAnillo);
+
+            //Declaramos un entero el cual será el que retornemos en el método.
+            int idTipoAnillo = 0;
+
+            //Verificamos que la información de base de datos sea direferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la lista obtenida de la consulta.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Obtenemos el valor.
+                    idTipoAnillo = (int)tipo.GetProperty("IdTipoAnillo").GetValue(item,null);
+                }
+            }
+
+            //Retornamos el valor.
+            return idTipoAnillo;
+        }
         #endregion
 
         #region Operaciones
@@ -83,13 +190,11 @@ namespace Model
         /// <returns>Double que representa el width de la splitter.</returns>
         public static double GetWidthSplitterCasting(string proceso, double H1)
         {
-
             //Inicializamos los servicios de SO_FirstRoughGrind
             SO_SplitterCasting ServiceSplitterCasting = new SO_SplitterCasting();
 
             //Ejecutamos el método para obtener el width de la operación y retornamos el resultado.
             return ServiceSplitterCasting.GetWidthSplitterCastings(H1, proceso);
-
         }
 
         /// <summary>
@@ -114,11 +219,13 @@ namespace Model
                 //Iteramos la lista resultante de la consulta.
                 foreach (var elemento in InformacionBD)
                 {
+                    System.Type tipo = elemento.GetType();
+
                     //Ejecutamos el método para obtener la información del herramental.
                     herramental = ReadInformacionHerramentalEncontrado(InformacionBD);
 
                     //Asignamos los valores restantes a las propiedades.
-                    herramental.DescripcionRuta = "";
+                    herramental.DescripcionRuta = "GUIDE BAR  " + (double)tipo.GetProperty("DimA").GetValue(elemento,null);
                 }
             }
             else
@@ -128,6 +235,51 @@ namespace Model
 
             return herramental;
         }
+        #endregion
+
+        #region Second Rough Grind
+
+        /// <summary>
+        /// Método el cual obtiene el herramental ideal de Guide bar
+        /// </summary>
+        /// <param name="widthOperacion"></param>
+        /// <returns></returns>
+        public static Herramental GetGuideBarSecondRoughGrind(double widthOperacion)
+        {
+            //Inicializamos los servicios de SO_SecondRoughGrind.
+            SO_SecondRoughGrind ServiceSecondRoughGrind = new SO_SecondRoughGrind();
+
+            //Ejecutamos el método para obtener la información de base de datos.
+            IList informacionBD = ServiceSecondRoughGrind.GetGuideBar(widthOperacion);
+
+            //Declaramos un objeto de tipo Herramental el cual será el que retornemos en el método.
+            Herramental herramental = new Herramental();
+
+            //Verificamos que ls informacion resultante sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la lista resultante.
+                foreach (var elemento in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = elemento.GetType();
+
+                    //Ejecutamos el método para convertir la información en un objeto de tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                    //Agregamos la descripción para la hoja de ruta.
+                    herramental.DescripcionRuta = "GUIDE BAR   " + (string)tipo.GetProperty("EspesorBarraGuia").GetValue(elemento,null);
+                }
+            }
+            else
+            {
+                //Si no se encontro herramental.
+            }
+
+            //Retornamos el herramental.
+            return herramental;
+        }
+
         #endregion
 
         #region Splitter Casting
@@ -197,6 +349,9 @@ namespace Model
                 }
             }
 
+            //Realizamos la formula.
+            id = Math.Round((id) - (Convert.ToDouble(id) * 0.015), 3);
+
             //Retornamos el valor.
             return id;
         }
@@ -239,6 +394,282 @@ namespace Model
             return od;
         }
 
+        /// <summary>
+        /// Método el cual obtiene la lista de herramentales de Spacer.
+        /// </summary>
+        /// <param name="proceso"></param>
+        /// <param name="h1"></param>
+        /// <returns></returns>
+        public static List<Herramental> GetSpacerSplitterCastings(string proceso, double h1)
+        {
+            //Incializamos los servicios de SO_SplitterCasting.
+            SO_SplitterCasting ServicioSplitter = new SO_SplitterCasting();
+
+            //Declaramos una lista de herramentales la cual será la que retornemos en el método.
+            List<Herramental> ListaResultante = new List<Herramental>();
+
+            //Declaramos los valores requeridos.
+            double spacer, spacerMin, spacerMax, criMinSpacer, criMaxSpacer;
+
+            //Obtenemos la medida del spacer.
+            spacer = GetMedidaSpacerSplitter(proceso, h1);
+
+            //Obtenemos los criterios mínimo y máximo para el spacer.
+            criMinSpacer = GetCriterio("SpacerMin");
+            criMaxSpacer = GetCriterio("SpacerMax");
+
+            //Calculoamos los valores mínimo y máximo.
+            spacerMin = spacer - criMinSpacer;
+            spacerMax = spacer + criMaxSpacer;
+
+            //Ejecutamos el método para obtener el o los spacer.
+            IList informacionBD =  ServicioSplitter.GetSpacer(proceso, spacerMin, spacerMax);
+
+            //Verificamos que la información obtenida sea direfente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la inforamción obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Leemos la lista para convertirla en lisa de herramentales.
+                    ListaResultante = ReadInformacionHerramentalEncontrado(informacionBD, true);
+                }
+            }
+            else
+            {
+                //Si no se encontró herramental.
+            }
+
+            //Retornamos la lista.
+            return ListaResultante;
+        }
+
+        /// <summary>
+        /// Método el cual obtiene la médida del Spacer de la operación splitter.
+        /// </summary>
+        /// <param name="proceso"></param>
+        /// <param name="h1"></param>
+        /// <returns></returns>
+        public static double GetMedidaSpacerSplitter(string proceso, double h1)
+        {
+            //Declaramos una variable la cual será la que retornemos en el método.
+            double medidaSpacer = 0;
+
+            //Inicializamos los servicios de SO_SplitterCasting.
+            SO_SplitterCasting ServicioSplitter = new SO_SplitterCasting();
+
+            //Ejecutamos el método para obtener la información de la base datos.
+            IList informacionBD = ServicioSplitter.GetMedidaSpacer(proceso, h1);
+
+            //Verificamos que la información resultante sea direfente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos cada elemento de la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Obtenemos el valor.
+                    medidaSpacer = (double)tipo.GetProperty("Cutter_Spacer").GetValue(item,null);
+                }
+            }
+
+            //Retornamos el valor.
+            return medidaSpacer;
+        }
+
+        #endregion
+
+        #region Auto Finish Turn
+        /// <summary>
+        /// Método que obtiene los collars de Auto Fin Turn a partir de los parámetros recibidos.
+        /// </summary>
+        /// <param name="maxA"></param>
+        /// <param name="minB"></param>
+        /// <returns></returns>
+        public static DataTable GetCollarBK(double maxA, double minB)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServicioBk = new SO_BK();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioBk.GetCollar(maxA, minB);
+
+            //Verificamos que la lista sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la lista.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.Unidad = (string)tipo.GetProperty("DIM_A_UNIDAD").GetValue(item, null);
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DIM_A").GetValue(item, null);
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    herramental.Propiedades.Add(propiedadDimA);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.Unidad = (string)tipo.GetProperty("DIM_B_UNIDAD").GetValue(item, null);
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DIM_B").GetValue(item, null);
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    PropiedadCadena propiedadParte = new PropiedadCadena();
+                    propiedadParte.DescripcionCorta = "Parte";
+                    propiedadParte.Valor = (string)tipo.GetProperty("PARTE").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propiedadParte);
+
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CollarBK");
+        }
+
+        /// <summary>
+        /// Método que obtiene los collars de Auto Fin Turn a partir de los parámetros recibidos.
+        /// </summary>
+        /// <param name="busqueda"></param>
+        /// <returns></returns>
+        public static DataTable GetCollarBK(string busqueda)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServicioBk = new SO_BK();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioBk.GetAllCollar(busqueda);
+
+            //Verificamos que la lista sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la lista.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.Unidad = (string)tipo.GetProperty("DIM_A_UNIDAD").GetValue(item, null);
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DIM_A").GetValue(item, null);
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    herramental.Propiedades.Add(propiedadDimA);
+
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.Unidad = (string)tipo.GetProperty("DIM_B_UNIDAD").GetValue(item, null);
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DIM_B").GetValue(item, null);
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    PropiedadCadena propiedadParte = new PropiedadCadena();
+                    propiedadParte.DescripcionCorta = "Parte";
+                    propiedadParte.Valor = (string)tipo.GetProperty("PARTE").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propiedadParte);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CollarBK");
+        }
+
+        /// <summary>
+        /// Método que selecciona los mejores collar´s, a partir de una tabla recibida en el parámetro.
+        /// </summary>
+        /// <param name="datatable"></param>
+        /// <returns></returns>
+        public static DataTable SelectBestCollar(DataTable datatable)
+        {
+            //Incializamos los servicios de BK.
+            SO_BK ServicioBK = new SO_BK();
+
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable dtResultante = new DataTable();
+
+            //Agregamos las columnas de code y descripction a la tabla.
+            dtResultante.Columns.Add("Code");
+            dtResultante.Columns.Add("Description");
+
+            //Iteramos los registros del data table. (Este for solo será de un ciclo.)
+            foreach (DataRow row in datatable.Rows)
+            {
+                //Obtenemos los valores del item iterado.
+                string codigo = row["CODE"].ToString();
+                string descripcion = row["DESCRIPTION"].ToString();
+                double dima = Convert.ToDouble(row["Dim A"].ToString());
+                double dimb = Convert.ToDouble(row["Dim B"].ToString());
+                string parte = row["Parte"].ToString();
+
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = dtResultante.NewRow();
+                dr["Code"] = codigo;
+                dr["Description"] = descripcion;
+
+                //Agregamnos el datarow al datatable resultante.
+                dtResultante.Rows.Add(dr);
+
+                //Ejecutamos el método para buscar la otra parte del collarin. El resultado lo guardamos en una lista anónima.
+                IList informacionBD = ServicioBK.GetCollar(dima, dimb, parte);
+
+                //Verificamos que la lista sea diferente de nulo.
+                if (informacionBD != null)
+                {
+                    //Iteramos la lista.(Este for solo será de un ciclo.)
+                    foreach (var item in informacionBD)
+                    {
+                        //Obtenemos el tipo del elemento iterado.
+                        System.Type tipo = item.GetType();
+
+                        //Creacion un DataRow en la datatable resultante.
+                        DataRow dr1 = dtResultante.NewRow();
+
+                        //Mapeamos los valores correspondientes de codigo y descripión.
+                        dr1["Code"] = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                        dr1["Description"] = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+
+                        //Agregamos el datarow a la datatable resultante.
+                        dtResultante.Rows.Add(dr1);
+
+                        //Salimos del ciclo-
+                        break;
+                    }
+                }
+
+                //Salimos del ciclo.
+                break;
+            }
+
+            //Retornamos el datatable resultante.
+            return dtResultante;
+        }
         #endregion
 
         #endregion
@@ -344,195 +775,6 @@ namespace Model
         }
 
         /// <summary>
-        /// Método que obtiene los collars de Auto Fin Turn a partir de los parámetros recibidos.
-        /// </summary>
-        /// <param name="maxA"></param>
-        /// <param name="minB"></param>
-        /// <returns></returns>
-        public static DataTable GetCollarBK(double maxA, double minB)
-        {
-            //Inicializamos los servicios de BK.
-            SO_BK ServicioBk = new SO_BK();
-
-            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
-            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
-            
-            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
-            IList informacionBD = ServicioBk.GetCollar(maxA, minB);
-
-            //Verificamos que la lista sea diferente de nulo.
-            if (informacionBD != null)
-            {
-                //Iteramos la lista.
-                foreach (var item in informacionBD)
-                {
-                    //Obtenemos el tipo del elemento iterado.
-                    System.Type tipo = item.GetType();
-
-                    //Declaramos un objeto de tipo Herramental.
-                    Herramental herramental = new Herramental();
-
-                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
-                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
-
-                    Propiedad propiedadDimA = new Propiedad();
-                    propiedadDimA.Unidad = (string)tipo.GetProperty("DIM_A_UNIDAD").GetValue(item, null);
-                    propiedadDimA.Valor = (double)tipo.GetProperty("DIM_A").GetValue(item, null);
-                    propiedadDimA.DescripcionCorta = "Dim A";
-                    herramental.Propiedades.Add(propiedadDimA);
-
-                    Propiedad propiedadDimB = new Propiedad();
-                    propiedadDimB.Unidad = (string)tipo.GetProperty("DIM_B_UNIDAD").GetValue(item, null);
-                    propiedadDimB.Valor = (double)tipo.GetProperty("DIM_B").GetValue(item, null);
-                    propiedadDimB.DescripcionCorta = "Dim B";
-                    herramental.Propiedades.Add(propiedadDimB);
-
-                    PropiedadCadena propiedadParte = new PropiedadCadena();
-                    propiedadParte.DescripcionCorta = "Parte";
-                    propiedadParte.Valor = (string)tipo.GetProperty("PARTE").GetValue(item, null);
-                    herramental.PropiedadesCadena.Add(propiedadParte);
-                    
-
-                    //Agregamos el objeto a la lista resultante.
-                    ListaResultante.Add(herramental);
-                }
-            }
-
-            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
-            return ConverToObservableCollectionHerramental_DataSet(ListaResultante,"CollarBK");
-        }
-
-        /// <summary>
-        /// Método que obtiene los collars de Auto Fin Turn a partir de los parámetros recibidos.
-        /// </summary>
-        /// <param name="busqueda"></param>
-        /// <returns></returns>
-        public static DataTable GetCollarBK(string busqueda)
-        {
-            //Inicializamos los servicios de BK.
-            SO_BK ServicioBk = new SO_BK();
-
-            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
-            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
-
-            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
-            IList informacionBD = ServicioBk.GetAllCollar(busqueda);
-
-            //Verificamos que la lista sea diferente de nulo.
-            if (informacionBD != null)
-            {
-                //Iteramos la lista.
-                foreach (var item in informacionBD)
-                {
-                    //Obtenemos el tipo del elemento iterado.
-                    System.Type tipo = item.GetType();
-
-                    //Declaramos un objeto de tipo Herramental.
-                    Herramental herramental = new Herramental();
-
-                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
-                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
-
-                    Propiedad propiedadDimA = new Propiedad();
-                    propiedadDimA.Unidad = (string)tipo.GetProperty("DIM_A_UNIDAD").GetValue(item, null);
-                    propiedadDimA.Valor = (double)tipo.GetProperty("DIM_A").GetValue(item, null);
-                    propiedadDimA.DescripcionCorta = "Dim A";
-                    herramental.Propiedades.Add(propiedadDimA);
-
-
-                    Propiedad propiedadDimB = new Propiedad();
-                    propiedadDimB.Unidad = (string)tipo.GetProperty("DIM_B_UNIDAD").GetValue(item, null);
-                    propiedadDimB.Valor = (double)tipo.GetProperty("DIM_B").GetValue(item, null);
-                    propiedadDimB.DescripcionCorta = "Dim B";
-                    herramental.Propiedades.Add(propiedadDimB);
-
-                    PropiedadCadena propiedadParte = new PropiedadCadena();
-                    propiedadParte.DescripcionCorta = "Parte";
-                    propiedadParte.Valor = (string)tipo.GetProperty("PARTE").GetValue(item, null);
-                    herramental.PropiedadesCadena.Add(propiedadParte);
-
-                    //Agregamos el objeto a la lista resultante.
-                    ListaResultante.Add(herramental);
-                }
-            }
-
-            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
-            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CollarBK");
-        }
-
-        /// <summary>
-        /// Método que selecciona los mejores collar´s, a partir de una tabla recibida en el parámetro.
-        /// </summary>
-        /// <param name="datatable"></param>
-        /// <returns></returns>
-        public static DataTable SelectBestCollar(DataTable datatable)
-        {
-            //Incializamos los servicios de BK.
-            SO_BK ServicioBK = new SO_BK();
-
-            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
-            DataTable dtResultante = new DataTable();
-
-            //Agregamos las columnas de code y descripction a la tabla.
-            dtResultante.Columns.Add("Code");
-            dtResultante.Columns.Add("Description");
-
-            //Iteramos los registros del data table. (Este for solo será de un ciclo.)
-            foreach (DataRow row in datatable.Rows)
-            {
-                //Obtenemos los valores del item iterado.
-                string codigo = row["CODE"].ToString();
-                string descripcion = row["DESCRIPTION"].ToString();
-                double dima = Convert.ToDouble(row["Dim A"].ToString());
-                double dimb = Convert.ToDouble(row["Dim B"].ToString());
-                string parte = row["Parte"].ToString();
-
-                //Mapeamos los valores de código y descripción en un datarow.
-                DataRow dr = dtResultante.NewRow();
-                dr["Code"] = codigo;
-                dr["Description"] = descripcion;
-                
-                //Agregamnos el datarow al datatable resultante.
-                dtResultante.Rows.Add(dr);
-               
-                //Ejecutamos el método para buscar la otra parte del collarin. El resultado lo guardamos en una lista anónima.
-                IList informacionBD = ServicioBK.GetCollar(dima, dimb, parte);
-
-                //Verificamos que la lista sea diferente de nulo.
-                if (informacionBD != null)
-                {
-                    //Iteramos la lista.(Este for solo será de un ciclo.)
-                    foreach (var item in informacionBD)
-                    {
-                        //Obtenemos el tipo del elemento iterado.
-                        System.Type tipo = item.GetType();
-                        
-                        //Creacion un DataRow en la datatable resultante.
-                        DataRow dr1 = dtResultante.NewRow();
-
-                        //Mapeamos los valores correspondientes de codigo y descripión.
-                        dr1["Code"] = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
-                        dr1["Description"] = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
-
-                        //Agregamos el datarow a la datatable resultante.
-                        dtResultante.Rows.Add(dr1);
-
-                        //Salimos del ciclo-
-                        break;
-                    }
-                }
-
-                //Salimos del ciclo.
-                break;
-            }
-
-            //Retornamos el datatable resultante.
-            return dtResultante;
-        }
-
-        /// <summary>
         /// Método que convierte una lista de tipo ObservableCollection a un DataSet
         /// </summary>
         /// <param name="lista"></param>
@@ -632,6 +874,56 @@ namespace Model
         #region Métodos Genéricos
 
         /// <summary>
+        /// Método que transforma un objeto de tipo IList a List<Herramental>.
+        /// </summary>
+        /// <param name="Informacion"></param>
+        /// <param name="p">Solo para cuando se requiera obtener en formato de lista</param>
+        /// <returns></returns>
+        public static List<Herramental> ReadInformacionHerramentalEncontrado(IList Informacion, bool p = true)
+        {
+            //Declaramos un objeto de tipo Herramental, que será el que retornemos en el método.
+            List<Herramental> ListaHerramental = new List<Herramental>();
+
+            //Verificamos que el valor del parámetro recibido sea diferente de nulo.
+            if (Informacion != null)
+            {
+                //Iteramos la lista recibida.
+                foreach (var elemento in Informacion)
+                {
+
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = elemento.GetType();
+
+                    //Incializamos el objeto herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Asingamos los valores correspondientes a cada propiedad del objeto herramental.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(elemento, null);
+                    herramental.Encontrado = true;
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(elemento, null);
+                    herramental.Activo = (bool)tipo.GetProperty("Activo").GetValue(elemento, null);
+                    herramental.clasificacionHerramental.CantidadUtilizar = (int)tipo.GetProperty("CantidadUtilizar").GetValue(elemento, null);
+                    herramental.clasificacionHerramental.Costo = (double)tipo.GetProperty("Costo").GetValue(elemento, null);
+                    herramental.clasificacionHerramental.Descripcion = (string)tipo.GetProperty("Clasificacion").GetValue(elemento, null);
+                    herramental.clasificacionHerramental.IdClasificacion = (int)tipo.GetProperty("idClasificacion").GetValue(elemento, null);
+                    herramental.clasificacionHerramental.ListaCotasRevizar = new ObservableCollection<string>(tipo.GetProperty("ListaCotasRevisar").GetValue(elemento, null).ToString().Split(','));
+                    herramental.clasificacionHerramental.UnidadMedida = (string)tipo.GetProperty("UnidadMedida").GetValue(elemento, null);
+                    herramental.clasificacionHerramental.VerificacionAnual = (bool)tipo.GetProperty("VerificacionAnual").GetValue(elemento, null);
+                    herramental.clasificacionHerramental.VidaUtil = (int)tipo.GetProperty("VidaUtil").GetValue(elemento, null);
+
+                    //Falta agregar la columna plano.
+                    herramental.Plano = string.Empty;
+                    herramental.Propiedades = new ObservableCollection<Propiedad>();
+
+                    ListaHerramental.Add(herramental);
+                }
+            }
+
+            //Retornamos el objeto herramental.
+            return ListaHerramental;
+        }
+
+        /// <summary>
         /// Método que transforma un objeto de tipo IList a Herramental.
         /// </summary>
         /// <param name="Informacion"></param>
@@ -667,7 +959,7 @@ namespace Model
                     herramental.clasificacionHerramental.UnidadMedida = (string)tipo.GetProperty("UnidadMedida").GetValue(elemento, null);
                     herramental.clasificacionHerramental.VerificacionAnual = (bool)tipo.GetProperty("VerificacionAnual").GetValue(elemento, null);
                     herramental.clasificacionHerramental.VidaUtil = (int)tipo.GetProperty("VidaUtil").GetValue(elemento, null);
-
+                    
                     //Falta agregar la columna plano.
                     herramental.Plano = string.Empty;
                     herramental.Propiedades = new ObservableCollection<Propiedad>();
@@ -915,59 +1207,96 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Méto el cual obtiene el valor de CamTurnCosntant.
         /// </summary>
         /// <param name="elAnillo"></param>
         /// <param name="RingShape"></param>
         /// <returns></returns>
         public static double GetCamTurnConstant(Anillo elAnillo, string RingShape)
         {
+            //Declaramos una variable la cual será la que retornemos en el método.
             double valor = 0;
 
+            //Incializamos los servicios de SO_Material.
             SO_Material ServicioMaterial = new SO_Material();
 
+            //Ejecutamos el método para obtener el valor, el resultado lo guardamos en un DataSet.
             DataSet informacionBD = ServicioMaterial.GetCamTurnConstant(elAnillo.MaterialBase.Especificacion.Valor, elAnillo.TipoAnillo, RingShape);
 
+            //Verificamos que el dataset sea diferente de nulo.
             if (informacionBD != null)
             {
+                //Verificamos que el dataset contenga al menos una tabla y que la tabla 0 contenga al menos un registro.
                 if (informacionBD.Tables.Count > 0 && informacionBD.Tables[0].Rows.Count > 0)
                 {
+                    //Iteramos los elementos de la tabla 0.
                     foreach (DataRow element in informacionBD.Tables[0].Rows)
                     {
+                        //Obtenemos el valor y lo asignamos a la variable local.
                         valor = Convert.ToDouble(element["valor"].ToString());
                     }
                 }
             }
 
+            //Retornamos el valor.
             return valor;
         }
 
+        /// <summary>
+        /// Método que obtiene un listado de códigos de placas modelos probables.
+        /// </summary>
+        /// <param name="diameter"></param>
+        /// <returns></returns>
         public static List<string> GetProbablesPlacas(double diameter)
         {
-
+            //Inicializamos los servicios de SO_Pattern.
             SO_Pattern ServicePattern = new SO_Pattern();
 
+            //Declaramos una lista de string la cual será la que retornemos en el método.
             List<string> listaPattern = new List<string>();
 
+            //Ejecutamos el método para obtener la inforamción de la base de datos. El resutlado lo asigamos a una lista anónima.
             IList informacionBD = ServicePattern.GetProbablyPattern(diameter);
 
+            //Verificamos que la lista sea diferente de nulo.
             if (informacionBD != null)
             {
+                //Iteramos cada elemento de la lista.
                 foreach (var item in informacionBD)
                 {
+                    //Obtenemos el tipo del elemento iterado.
                     System.Type tipo = item.GetType();
 
+                    //Declaramos una variable en la cual guadaremos el código de la placa modelo.
                     string pattern = "";
 
-                    pattern = (string)tipo.GetProperty("codigo").GetValue(item, null);
+                    //Obtenemos el código de la placa modelo.
+                    pattern = (string)tipo.GetProperty("Codigo").GetValue(item, null);
 
+                    //Agregamos el código de la placa modelo a la lista.
                     listaPattern.Add(pattern);
                 }
             }
 
+            //Retornamos la lista.
             return listaPattern;
         }
 
+        /// <summary>
+        /// Método el cual aprueba la placa modelo para ver si puede ser utilizada para el desarrollo de un componente.
+        /// </summary>
+        /// <param name="codigoPlaca"></param>
+        /// <param name="diameter"></param>
+        /// <param name="piece_"></param>
+        /// <param name="ts"></param>
+        /// <param name="bs"></param>
+        /// <param name="stock_thick"></param>
+        /// <param name="min_piece"></param>
+        /// <param name="max_piece"></param>
+        /// <param name="a4"></param>
+        /// <param name="widthAnillo"></param>
+        /// <param name="Proceso"></param>
+        /// <returns></returns>
         public static bool aprobarPlacaModelo(string codigoPlaca, double diameter, double piece_, double ts, double bs, double stock_thick, double min_piece, double max_piece, double a4, double widthAnillo, string Proceso)
         {
             SO_Pattern ServicioPattern = new SO_Pattern();
@@ -1000,6 +1329,7 @@ namespace Model
                 double rise2, rise3, rise4, rise5, rise6, rise7;
                 double turn2, turn3, turn4, turn5, turn6, turn7;
                 double pattern2, pattern3, pattern4, pattern5, pattern6;
+
 
                 size3 = Math.Round(diameter * 1, 3);
                 size2 = Math.Round(size3 - size1, 3);
@@ -1137,11 +1467,18 @@ namespace Model
             
         }
 
+        /// <summary>
+        /// Método el cual aprueba el width de la placa modelo.
+        /// </summary>
+        /// <param name="pattern_width"></param>
+        /// <param name="widthAnillo"></param>
+        /// <param name="proceso"></param>
+        /// <returns></returns>
         private static bool aprobarWidthPlacaModelo(double pattern_width, double widthAnillo, string proceso)
         {
             SO_Pattern ServicePattern = new SO_Pattern();
 
-            IList informacionBD = ServicePattern.GetIdealWidthPlacaModelo(pattern_width, proceso);
+            IList informacionBD = ServicePattern.GetIdealWidthPlacaModelo(widthAnillo, proceso);
 
             if (informacionBD != null)
             {
@@ -1206,7 +1543,6 @@ namespace Model
             //Se retorna la lista 
             return Lista;
         }
-
 
         /// <summary>
         /// Método para insertar un nuevo registro en la tabla Cuffs.
@@ -1431,6 +1767,11 @@ namespace Model
         #endregion
 
         #region Especificaciones
+
+        /// <summary>
+        /// Método el cual obtiene todas las especificaciones de materia prima.
+        /// </summary>
+        /// <returns></returns>
         public static ObservableCollection<string> GetAllEspecificacionesMateriaPrima()
         {
             SO_Especificaciones ServicioEspecificaciones = new SO_Especificaciones();
@@ -1539,7 +1880,6 @@ namespace Model
             return ConvertTo(ListaResultante);
         }
 
-
         #endregion
 
         #endregion
@@ -1637,9 +1977,15 @@ namespace Model
             return ListaResultante;
 
         }
+
         #endregion
 
         #region Clientes
+
+        /// <summary>
+        /// Método el cual obtiene una lista de todos los clientes.
+        /// </summary>
+        /// <returns></returns>
         public static ObservableCollection<Cliente> GetAllClientes()
         {
             SO_Cliente ServicioCliente = new SO_Cliente();
@@ -1667,6 +2013,7 @@ namespace Model
 
             return ListaResultante;
         }
+
         #endregion
 
         #region Usuario
@@ -1756,6 +2103,7 @@ namespace Model
             });
 
         }
+
         /// <summary>
         /// Método que obtiene los roles de usuario
         /// </summary>
@@ -1834,6 +2182,7 @@ namespace Model
             //Retornamos la lista resultante.
             return ListaResultante;
         }
+
         #endregion
 
     }

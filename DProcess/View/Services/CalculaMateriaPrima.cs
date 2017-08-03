@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using View.Forms.RawMaterial;
+using View.Services.ViewModel;
 
 namespace View.Services
 {
@@ -171,7 +173,34 @@ namespace View.Services
                 }
             }
 
+            MateriaPrimaViewModel contexto = new MateriaPrimaViewModel();
+            contexto.Title = "Patterns";
+            contexto.TittleGroupBox = "Select a pattern";
+            foreach (string element in placasAprobadas)
+            {
+                MateriaPrima mPattern = new MateriaPrima();
+                mPattern.Codigo = element;
+                contexto.listaOpcionales.Add(mPattern);
+            }
 
+            frmSelectRawMaterial fSelecciona = new frmSelectRawMaterial();
+            fSelecciona.DataContext = contexto;
+
+            if (contexto.listaOpcionales.Count > 0)
+            {
+                if (Convert.ToBoolean(fSelecciona.ShowDialog()))
+                {
+                    codigoPlacaModelo = fSelecciona.cbo_pattern.Text;
+                    respuesta = '1';
+                }
+                else
+                {
+                    respuesta = '2';
+                }
+            }
+            else {
+                respuesta = '3';
+            }
 
             return respuesta;
         }
@@ -228,7 +257,8 @@ namespace View.Services
             {
                 _piece = FreeGap / .86;
             }
-            return _piece;
+
+            return DataManager.GetCompensacionPiece(_elAnillo, _piece);
         }
         #endregion
     }

@@ -135,10 +135,6 @@ namespace View.Services
             return valor;
         }
 
-
-
-
-
         /// <summary>
         /// Método que obtiene el valor mínimo de tolerancia de una propiedad. Además si así lo requerimos lo podemos convertir en Pulgadas.
         /// Generalmente en el plano puede venir de dos opciones: como tolerancia o como valor mínimo y máximo. 
@@ -679,6 +675,27 @@ namespace View.Services
             const string chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        /// <summary>
+        /// Método que retorna el texto que va en la parte de toolign en la lista de ruta a partir de la lista de herramentales.
+        /// </summary>
+        /// <param name="ListaHerramentales"></param>
+        /// <returns></returns>
+        public static string GetTextoListaHerramentales(ObservableCollection<Herramental> ListaHerramentales)
+        {
+            //Declaramos una cadena que será la que retornemos en el método.
+            string textoHerramientas = string.Empty;
+
+            //Iteramos la lista de herramentales.
+            foreach (Herramental herramental in ListaHerramentales)
+            {
+                //Obtenemos la descripción de la hoja de ruta.
+                textoHerramientas += herramental.DescripcionRuta + "\n";
+            }
+
+            //Retornamos el texto.
+            return textoHerramientas;
         }
     }
 }
