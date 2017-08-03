@@ -516,6 +516,7 @@ namespace View.Services.ViewModel
                     frm.ShowDialog();
 
                     initControlDocumentos();
+                    initSnack();
                 }
                 else
                 {

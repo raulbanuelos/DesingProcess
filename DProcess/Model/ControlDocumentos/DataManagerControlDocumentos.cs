@@ -551,7 +551,7 @@ namespace Model.ControlDocumentos
             SO_Documento ServiceDocumento = new SO_Documento();
 
             // Se ejecuta el método y retonamos el número generado.
-            return ServiceDocumento.GetNumero(numero, tipoDocumento.abreviatura);
+            return ServiceDocumento.GetNumero(numero, tipoDocumento.id_tipo);
         }
 
         /// <summary>

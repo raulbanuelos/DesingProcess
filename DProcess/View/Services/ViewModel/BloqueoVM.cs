@@ -303,6 +303,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando que cambie la fecha final, cuando se cambie la fecha de Inicio
+        /// </summary>
         public ICommand CambiarFecha
         {
             get
@@ -311,11 +314,15 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Método que asigna la fecha de inicio que se seleccionó a la fecha final
+        /// </summary>
         private void cambiaFecha()
         {
             FechaFin = FechaInicio;
         }
-        //Método que valida los campos 
+
+        //Método que valida los campos no estén vacíos
         private bool Valida()
         {
             if (_fechaFin != null & _fechaInicio != null & !string.IsNullOrEmpty(_observaciones))
