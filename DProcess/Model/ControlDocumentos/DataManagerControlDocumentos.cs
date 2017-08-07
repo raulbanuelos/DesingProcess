@@ -677,7 +677,7 @@ namespace Model.ControlDocumentos
         {
             //Se inicializan los servicios.
             SO_Departamento ServiceDepartamento = new SO_Departamento();
-
+             
             return ServiceDepartamento.GetID_Departamento(nombre_dep);
 
         }

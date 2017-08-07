@@ -44,16 +44,19 @@ namespace IMPORTEXCEL
                    {
                        Documento objDocumento = new Documento();
                        Archivo objArchivo = new Archivo();
+                       TipoDocumento objTipo = new TipoDocumento();
+                       objTipo.abreviatura = "";
 
                        Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
 
                        //Alta del documento
                        proceso = range.Cells[aux, 2].Value2.ToString();
-
+                        
                        //Obtenemos el id del proceso
                        objDocumento.id_dep = DataManagerControlDocumentos.GetID_Dep(proceso);
                        objDocumento.nombre = range.Cells[aux, 4].Value2.ToString();
-                       objDocumento.id_tipo_documento = 1003;
+                        //objTipo.tipo_documento = range.Cells[aux, 3].Value2.ToString();
+                        objDocumento.id_tipo_documento = 1005;
                        objDocumento.usuario = usuario;
                        objDocumento.descripcion = range.Cells[aux, 5].Value2.ToString();
                        fecha = range.Cells[aux, 7].Value2;
@@ -61,7 +64,7 @@ namespace IMPORTEXCEL
                        objDocumento.fecha_actualizacion = DateTime.FromOADate(fecha);
                        objDocumento.id_estatus = 5;
 
-                        int id_Documento = 1;//  DataManagerControlDocumentos.InsertDocumentos(objDocumento);
+                        int id_Documento = DataManagerControlDocumentos.InsertDocumentos(objDocumento);
 
                        if (id_Documento != 0)
                        {
@@ -75,13 +78,13 @@ namespace IMPORTEXCEL
                            objVersion.no_copias = 0;
                            objVersion.fecha_version = DateTime.FromOADate(range.Cells[aux, 7].Value2);
 
-                            int id_version = 1116;// DataManagerControlDocumentos.SetVersion(objVersion);
+                           int id_version = DataManagerControlDocumentos.SetVersion(objVersion);
 
                            if (id_version != 0)
                            {
                                //Alta del Archivo
 
-                               objArchivo.id_version = id_version;
+                             /*  objArchivo.id_version = id_version;
                                url =string.Concat(range.Cells[aux, 4].Value2.ToString(),range.Cells[aux, 6].Value2.ToString());
 
                                url = string.Concat("C:\\Users\\Ing.practicante\\Documents\\ESPECIFICOS\\", url,".doc");
@@ -92,7 +95,7 @@ namespace IMPORTEXCEL
 
                                objArchivo.archivo = File.ReadAllBytes(url);
 
-                              int archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                              int archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);*/
                            }
 
                        }
@@ -118,7 +121,7 @@ namespace IMPORTEXCEL
         {
             try
             {
-                string path = "C:\\Users\\Ing.practicante\\Documents\\AYUDAVISUAL1.xls";
+                string path = "C:\\Users\\Ing.practicante\\Documents\\HIIS.xls";
                 //Creamos una instancia de la aplicación.
                 Excel.Application ExcelApp = new Excel.Application();
 
@@ -138,16 +141,15 @@ namespace IMPORTEXCEL
 
                     string url, proceso;
                     Double fecha;
-                    string f;
 
                     while (aux <= rowCount)
                     {
-
-
                         Documento objDocumento = new Documento();
                         Archivo objArchivo = new Archivo();
 
                         Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+                        TipoDocumento objTipo = new TipoDocumento();
+                        objTipo.abreviatura = "";
 
                         //Alta del documento
                         proceso = range.Cells[aux, 2].Value2.ToString();
@@ -155,7 +157,9 @@ namespace IMPORTEXCEL
                         //Obtenemos el id del proceso
                         objDocumento.id_dep = DataManagerControlDocumentos.GetID_Dep(proceso);
                         objDocumento.nombre = range.Cells[aux, 3].Value2.ToString();
-                        objDocumento.id_tipo_documento = 1004;
+                        //objDocumento.id_tipo_documento = 1004;
+                        objTipo.tipo_documento = range.Cells[aux, 11].Value2.ToString();
+                        objDocumento.id_tipo_documento = DataManagerControlDocumentos.ValidateTipo(objTipo); 
                         objDocumento.usuario = usuario;
                         objDocumento.descripcion = range.Cells[aux, 5].Value2.ToString();
                         fecha = range.Cells[aux, 6].Value2;
@@ -163,8 +167,7 @@ namespace IMPORTEXCEL
                         objDocumento.fecha_actualizacion = DateTime.FromOADate(range.Cells[aux, 7].Value2);
                         objDocumento.id_estatus = 5;
 
-                        int id_Documento = 325;
-                        //DataManagerControlDocumentos.InsertDocumentos(objDocumento);
+                        int id_Documento = 1;// DataManagerControlDocumentos.InsertDocumentos(objDocumento);
 
                         if (id_Documento != 0)
                         {
@@ -178,7 +181,7 @@ namespace IMPORTEXCEL
                             objVersion.no_copias = Convert.ToInt32(range.Cells[aux, 9].Value2.ToString());
                             objVersion.fecha_version = DateTime.FromOADate(range.Cells[aux, 7].Value2);
 
-                            int id_version = DataManagerControlDocumentos.SetVersion(objVersion);
+                            int id_version = 4470; // DataManagerControlDocumentos.SetVersion(objVersion);
 
                             if (id_version != 0)
                             {
@@ -190,7 +193,7 @@ namespace IMPORTEXCEL
                                 url = url.Replace("../../M0051722/AppData/Roaming/", "");
                                 url = url.Replace("..\\..\\", "");
 
-                                url = string.Concat("Z://", url);
+                                url = string.Concat(@"Z:\", url);
                                 //string u="\\agufileserv2\INGENIERIA\RESPRUTAS\MANUELITO\manuelito\MANUELITO\CIT\AYUDAS VISUALES (FISICAS)";
 
                                 objArchivo.ext = System.IO.Path.GetExtension(url);
