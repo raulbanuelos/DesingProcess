@@ -4,20 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e1e9c6e9823045bc8a3f97fca9e18867" Name="Diagram1" ZoomLevel="124">
+      <Diagram DiagramId="e1e9c6e9823045bc8a3f97fca9e18867" Name="Diagram1" ZoomLevel="67">
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ClasificacionHerramental" Width="2.75" PointX="1.5" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Width="4.125" PointX="5.625" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.PLANO_HERRAMENTAL" Width="2.75" PointX="0.75" PointY="5" IsExpanded="true" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.fk_Clasificacion_MaestroHerramentales" ManuallyRouted="false" >
         </AssociationConnector>
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.fk_Plano_MaestroHerramentales" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CollarBK" Width="1.5" PointX="12.125" PointY="1.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CollarBK" Width="1.5" PointX="14.75" PointY="1.375" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CollarBK_MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CriteriosAnillos" Width="2.125" PointX="6.75" PointY="4.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CriteriosAnillos" Width="2.125" PointX="5.125" PointY="5.5" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart" Width="1.5" PointX="0.75" PointY="8.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" Width="1.5" PointX="2.75" PointY="8.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuideBarFirstRoughGrind" Width="1.5" PointX="10.5" PointY="4.875" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarFirstRoughGrind_MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" Width="2.25" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuideBarFirstRoughGrind" Width="1.5" PointX="10.125" PointY="0.75" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarFirstRoughGrind_MaestroHerramentales" ManuallyRouted="false" >
+        </AssociationConnector>
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuideBarSecondRoughGrind" Width="2.75" PointX="13.625" PointY="7.625" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarSecondRoughGrind_MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CutterSpacerSplitter" Width="2.75" PointX="10.5" PointY="3.875" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CutterSpacerSplitter_MaestroHerramentales" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

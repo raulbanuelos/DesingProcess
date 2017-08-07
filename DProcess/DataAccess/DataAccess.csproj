@@ -40,6 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -127,6 +128,9 @@
     <Compile Include="ServiceObjects\MateriasPrimas\Coating.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\Compensacion_Piece.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\MateriasPrimas\cuffs.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
@@ -159,12 +163,17 @@
     </Compile>
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Cliente.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Coating.cs" />
+    <Compile Include="ServiceObjects\MateriasPrimas\SO_CompesacionPiece.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Cuffs.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Especificaciones.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Pattern.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_TipoDocumento.cs" />
+    <Compile Include="ServiceObjects\MateriasPrimas\SO_TipoAnillo.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_TubosCL.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_TubosHD.cs" />
+    <Compile Include="ServiceObjects\MateriasPrimas\Tipo_Anillo.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\MateriasPrimas\Tipo_Materia_Prima.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
@@ -174,10 +183,17 @@
     <Compile Include="ServiceObjects\MateriasPrimas\TubosHD.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\CutterSpacerSplitter.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\GuideBarFirstRoughGrind.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\GuideBarSecondRoughGrind.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\Operaciones\Premaquinado\SO_FirstRoughGrind.cs" />
+    <Compile Include="ServiceObjects\Tooling\Operaciones\Premaquinado\SO_SecondRoughGrind.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Premaquinado\SO_SplitterCasting.cs" />
     <Compile Include="ServiceObjects\Perfiles\Arquetipo.cs">
       <DependentUpon>ModelPerfiles.tt</DependentUpon>

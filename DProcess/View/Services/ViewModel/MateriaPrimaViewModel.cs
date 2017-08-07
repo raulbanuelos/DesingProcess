@@ -100,6 +100,12 @@ namespace View.Services.ViewModel
         }
         #endregion
 
+        #region Properties
+        public ObservableCollection<MateriaPrima> listaOpcionales { get; set; }
+        public string Title { get; set; }
+        public string TittleGroupBox { get; set; }
+        #endregion
+
         #region Events INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
@@ -110,6 +116,13 @@ namespace View.Services.ViewModel
             if (PropertyChanged != null)
                 foreach (var id in ids)
                     PropertyChanged(this, new PropertyChangedEventArgs(id));
+        }
+        #endregion
+
+        #region Constructors
+        public MateriaPrimaViewModel()
+        {
+            listaOpcionales = new ObservableCollection<MateriaPrima>();
         }
         #endregion
     }

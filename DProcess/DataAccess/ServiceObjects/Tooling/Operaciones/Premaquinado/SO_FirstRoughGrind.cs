@@ -6,7 +6,6 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
     public class SO_FirstRoughGrind
     {
         #region Propiedades
-        string StrinDeConexion = string.Empty;
         #endregion
 
         #region Constructores
@@ -33,31 +32,41 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
 
             try
             {
+                //Si el Proceso es Doble, la consulta la realizamos en la tabla SplitterSpacerChart
                 if (Proceso == "Doble")
                 {
+                    //Realizamos la consulta a través de EntityFramework.
                     using (var Conexion = new EntitiesTooling())
                     {
+                        //Realizamos la consulta y el resultado lo guardamos en la variable local.
                         widthOperacion = (from tabla in Conexion.SplitterSpacerChart
                                             where tabla.Nominal_split == H1 && tabla.Proceso == Proceso
                                             select tabla.Grind_width).First();
+
+                        //Retornamos el resultado de la consulta.
+                        return widthOperacion;
                     }
                 }
                 else
                 {
+                    //Realizamos la consulta a través de EntityFramework.
                     using (var Conexion = new EntitiesTooling())
                     {
+                        //Realizamos la consulta y el resultado lo guardamos en la variable local.
                         widthOperacion = (from tabla in Conexion.SPlitterSpacerChart2
                                             where tabla.RingWidth == H1 && tabla.Proceso == Proceso
                                              select tabla.GrindWidth).First();
+
+                        //Retornamos el resultado de la consulta.
+                        return widthOperacion;
                     }
                 }
             }
             catch (System.Exception)
             {
+                //Si ocurre algún error retornamos un cero.
                 return 0;
             }
-
-            return widthOperacion;
         }
 
         public IList GetGuideBarFirstRoughGrind(double A)
@@ -72,26 +81,30 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
             //WHERE H.A = .125
             try
             {
+                //Realizamos la consulta a través de EntityFramework.
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                     var Lista = (from h in Conexion.GuideBarFirstRoughGrind
                                  join m in Conexion.MaestroHerramentales on h.Codigo equals m.Codigo
                                  join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
-                                 where h.A == A
+                                 where h.A == A && m.Activo == true
                                  select new
                                  {
-                                     h.Codigo,h.A, m.Descripcion,m.Activo,
+                                     h.Codigo, DimA = h.A, m.Descripcion,m.Activo,
                                      Clasificacion = c.Descripcion,c.UnidadMedida,
                                      c.Costo,c.CantidadUtilizar,c.VidaUtil,c.idClasificacion,
                                      c.ListaCotasRevisar, c.VerificacionAnual
 
                                  }).ToList();
 
+                    //Retornamos el resultado de la consulta.
                     return Lista;
                 }
             }
             catch (System.Exception)
             {
+                //Si ocurre algún error retornamos un nulo.
                 return null;
             }
         }

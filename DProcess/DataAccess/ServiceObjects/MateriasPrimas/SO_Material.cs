@@ -12,22 +12,27 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
     public class SO_Material
     {
         #region Propiedades
-        string StrinDeConexion = @"data source=MXAGSQLSRV01\SQLINTERTEL12;initial catalog=RGP2-PBA;user id=shruser;password=sOHR2011";
+        //Cadena de conexión
+        string StrinDeConexion = string.Empty;
         #endregion
 
         #region Constructores
-        public SO_Material(string stringDeConexion)
-        {
-            StrinDeConexion = stringDeConexion;
-        }
 
+        //Constructor por default.
         public SO_Material()
         {
+            //Obtenemos la cadena de conexión.
+            StrinDeConexion = System.Configuration.ConfigurationManager.AppSettings["CadenaConexion"];
         }
 
         #endregion
 
         #region Métodos
+        /// <summary>
+        /// Método el cual obtiene el tipo de material de una especificación de material.
+        /// </summary>
+        /// <param name="EspecificacionMaterial"></param>
+        /// <returns></returns>
         public DataSet GetTipoMaterial(string EspecificacionMaterial)
         {
             //Delcaramos un objeto DataSet que será el que reciba la información de la consulta de la base de datos.
@@ -60,30 +65,78 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
             return InformacionBD;
         }
 
+        /// <summary>
+        /// Método el cual obtiene el id de material prima de una especificación.
+        /// </summary>
+        /// <param name="material"></param>
+        /// <returns></returns>
+        public IList GetIdEspecficacionMaterial(string material)
+        {
+            try
+            {
+                //Estabecemos la conexión a través de Entity Framework.
+                using (var Conexion = new EntitiesMateriaPrima())
+                {
+                    //Realizamos la consulta, el resultado lo asignamos a una variable anónima.
+                    var Lista = (from a in Conexion.Esp_MP_Anillos
+                                 where a.id_material == material || a.Odl_Mahle == material || a.Ref1 == material || a.Ref2 == material || a.Ref3 == material || a.Ref4 == material || a.Ref5 == material || a.Ref6 == material || a.Ref7 == material || a.Ref8 == material || a.Ref9 == material || a.Ref10 == material || a.Ref11 == material || a.Ref12 == material
+                                 select new
+                                 {
+                                     IdMaterial = a.id_material
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurre algún error, retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método el cual obtiene el valor de camTurnConstant.
+        /// </summary>
+        /// <param name="especMaterial"></param>
+        /// <param name="tipoAnillo"></param>
+        /// <param name="ringShape"></param>
+        /// <returns></returns>
         public DataSet GetCamTurnConstant(string especMaterial, string tipoAnillo, string ringShape)
         {
+            //Declaramos un DataSet el cual será el que retornemos en el método.
             DataSet informacionBD = new DataSet();
             try
             {
+                //Verificamos si la cadena de conexión es diferente de vacío.
                 if (StrinDeConexion != string.Empty)
                 {
+                    //Declaramos un objeto el cual será el que ejecute el procedimiento.
                     Desing_SQL ConexionSQL = new Desing_SQL();
 
+                    //Declaramos un objeto Dictionary el cual contendrá los parámetros.
                     Dictionary<string, object> parametros = new Dictionary<string, object>();
 
+                    //Asignamos los parámetros y sus valores.
                     parametros.Add("espec_material", especMaterial);
-                    parametros.Add("tipo_anillo",tipoAnillo);
+                    parametros.Add("tipo_anillo", tipoAnillo);
                     parametros.Add("ring_shape", ringShape);
 
-                    informacionBD = ConexionSQL.EjecutarStoredProcedure("SP_RGP_GetCamTurnConstant",parametros);
+                    //Ejecutamos el método para ejecutar el procedimiento almacenado.
+                    return informacionBD = ConexionSQL.EjecutarStoredProcedure("SP_RGP_GetCamTurnConstant", parametros);
+                }
+                else
+                {
+                    //Si la cadena de conexión no fué encontrada, retornamos el DataSet vacío.
+                    return informacionBD;
                 }
             }
             catch (Exception)
             {
+                //Si ocurre algún error retornamos el DataSet vacío.
                 return informacionBD;
             }
-            
-            return informacionBD;
         }
 
         /// <summary>

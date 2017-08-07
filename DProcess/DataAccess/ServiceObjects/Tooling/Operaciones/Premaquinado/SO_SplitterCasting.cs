@@ -1,5 +1,6 @@
 ﻿using DataAccess.SQLServer;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -89,6 +90,100 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
             catch (Exception)
             {
                 //Si ocurre algún error, retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método el cual obtiene el herramental spacer ideal.
+        /// </summary>
+        /// <param name="proceso"></param>
+        /// <param name="spacerMin"></param>
+        /// <param name="spacerMax"></param>
+        /// <returns></returns>
+        public IList GetSpacer(string proceso, double spacerMin, double spacerMax)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from a in Conexion.CutterSpacerSplitter
+                                 join m in Conexion.MaestroHerramentales on a.Codigo equals m.Codigo
+                                 join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                 where a.B >= spacerMin && a.B <= spacerMax && m.Activo == true
+                                 select new
+                                 {
+                                     a.Codigo,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     Clasificacion = c.Descripcion,
+                                     c.UnidadMedida,
+                                     c.Costo,
+                                     c.CantidadUtilizar,
+                                     c.VidaUtil,
+                                     c.idClasificacion,
+                                     c.ListaCotasRevisar,
+                                     c.VerificacionAnual
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene la medida idela del spacer.
+        /// </summary>
+        /// <param name="proceso"></param>
+        /// <param name="h1"></param>
+        /// <returns></returns>
+        public IList GetMedidaSpacer(string proceso, double h1)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Comparamos si el proceso es Doble la consulta la realizamos en la tabla SplitterSpacerChart
+                    if (proceso == "Doble")
+                    {
+                        //Realizamos la consulta, el resultado lo asignamos a una variable anónima.
+                        var Lista = (from a in Conexion.SplitterSpacerChart
+                                     where a.Nominal_split == h1 && a.Proceso == proceso
+                                     select new
+                                     {
+                                         Cutter_Spacer = a.Cutter_spacer
+                                     }).ToList();
+
+                        //Retornamos el resultado de la consulta.
+                        return Lista;
+                    }
+                    else
+                    {
+                        //Realizamos la consulta, el resultado lo asignamos a una variable anónima.
+                        var Lista = (from a in Conexion.SPlitterSpacerChart2
+                                     where a.RingWidth == h1 && a.Proceso == proceso
+                                     select new
+                                     {
+                                         Cutter_Spacer = a.CutterSpacer1
+                                     }).ToList();
+
+                        //Retornamos el resultado de la consulta.
+                        return Lista;
+                    }
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurre algún error retornamos un nulo.
                 return null;
             }
         }

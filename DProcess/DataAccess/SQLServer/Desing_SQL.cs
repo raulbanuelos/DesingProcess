@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Configuration;
 namespace DataAccess.SQLServer
 {
     internal class Desing_SQL
@@ -19,9 +20,8 @@ namespace DataAccess.SQLServer
         /// </summary>
         public Desing_SQL()
         {
-            //Obtenemos la cadena de conexión hacia la base de datos.
-            //StringDeConexion = System.Configuration.ConfigurationManager.ConnectionStrings["ConexionRGP"].ConnectionString;
-            StringDeConexion = @"Data Source=MXAGSQLSRV01\SQLINTERTEL12;Network Library=DBMSSOCN;Initial Catalog=RGP2-PBA;User ID=shruser;Password=sOHR2011";
+            //Obtenemos la cadena de conexión
+            StringDeConexion = System.Configuration.ConfigurationManager.AppSettings["CadenaConexion"];
         }
         #endregion
 

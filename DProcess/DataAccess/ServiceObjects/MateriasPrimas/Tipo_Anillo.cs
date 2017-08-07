@@ -12,19 +12,19 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
     using System;
     using System.Collections.Generic;
     
-    public partial class material
+    public partial class Tipo_Anillo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public material()
+        public Tipo_Anillo()
         {
             this.Compensacion_Piece = new HashSet<Compensacion_Piece>();
         }
     
-        public string id { get; set; }
-        public string descripcion { get; set; }
-        public Nullable<bool> Recomendado { get; set; }
+        public int Id_Tipo { get; set; }
+        public string Tipo { get; set; }
+        public string Recubrimiento { get; set; }
+        public int Diseno { get; set; }
     
-        public virtual Esp_MP_Anillos Esp_MP_Anillos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Compensacion_Piece> Compensacion_Piece { get; set; }
     }

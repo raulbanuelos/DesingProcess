@@ -388,51 +388,79 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
 
         }
 
+        /// <summary>
+        /// Método que obtiene la lista de placas modelos probables a partir de la dimención diámetro.
+        /// </summary>
+        /// <param name="diameter"></param>
+        /// <returns></returns>
         public IList GetProbablyPattern(double diameter)
         {
             try
             {
+                //Establecemos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                     var Lista = (from a in Conexion.Pattern2
-                                 where a.MEDIDA <= diameter + 0.020 && a.MEDIDA >= diameter + 0.020
-                                 select a.codigo).ToList();
+                                 where a.MEDIDA <= diameter + 0.020 && a.MEDIDA >= diameter - 0.020
+                                 select new
+                                 {
+                                     Codigo = a.codigo
+                                 }).ToList();
 
+                    //Retornamos el resultado de la consulta.
                     return Lista;
-
                 }
             }
             catch (Exception er)
             {
+                //Si ocurre algún error retornamos un nulo.
                 return null;
             }
         }
 
+        /// <summary>
+        /// Método el cual retorna la información de la placa modelo a partir del código de la placa modelo.
+        /// </summary>
+        /// <param name="codigoPlacaModelo"></param>
+        /// <returns></returns>
         public Pattern2 GetPattern(string codigoPlacaModelo)
         {
             try
             {
+                //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
+                    //Realizamos la consulta y el resultado lo asignamos en una variable anónima.
                     var pattern = (from p in Conexion.Pattern2
                                  where p.codigo == codigoPlacaModelo
                                  select p).FirstOrDefault();
 
+                    //Retornamos el resultado de la consulta.
                     return pattern;
                 }
             }
             catch (Exception er)
             {
+                //Si ocurre algún error, retornamos un nulo.
                 return null;
             }
         }
 
+        /// <summary>
+        /// Método que obtiene el width ideal para la placa modelo.
+        /// </summary>
+        /// <param name="size_w"></param>
+        /// <param name="proceso"></param>
+        /// <returns></returns>
         public IList GetIdealWidthPlacaModelo(double size_w,string proceso)
         {
             try
             {
+                //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                     var Lista = (from a in Conexion.castings_widths
                                  where a.Nominal_Ring_Width_min <= size_w && a.Nominal_Ring_Width_max >= size_w && a.tipo == proceso
                                  select new
@@ -440,11 +468,14 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                                      a.Minimum_casting_width,
                                      a.ideal_casting_Width
                                  }).ToList();
+
+                    //Retornamos el resultado de la consulta.
                     return Lista;
                 }
             }
             catch (Exception er)
             {
+                //Si ocurre algún error retornamos un nulo.
                 return null;
             }
 

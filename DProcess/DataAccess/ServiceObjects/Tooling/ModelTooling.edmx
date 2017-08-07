@@ -82,6 +82,16 @@
           <Property Name="MolyProteSupMin" Type="float" />
           <Property Name="MolyProteSupMax" Type="float" />
         </EntityType>
+        <EntityType Name="CutterSpacerSplitter">
+          <Key>
+            <PropertyRef Name="ID_SPACER_SPLITTER" />
+          </Key>
+          <Property Name="ID_SPACER_SPLITTER" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="A" Type="float" Nullable="false" />
+          <Property Name="B" Type="float" Nullable="false" />
+          <Property Name="Plano" Type="char" MaxLength="10" />
+        </EntityType>
         <EntityType Name="GuideBarFirstRoughGrind">
           <Key>
             <PropertyRef Name="ID_GUIDE_BAR" />
@@ -89,6 +99,16 @@
           <Property Name="ID_GUIDE_BAR" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
           <Property Name="A" Type="float" />
+        </EntityType>
+        <EntityType Name="GuideBarSecondRoughGrind">
+          <Key>
+            <PropertyRef Name="ID_GUIDE_BAR" />
+          </Key>
+          <Property Name="ID_GUIDE_BAR" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="WidthMinProceso" Type="float" />
+          <Property Name="WidthMaxProceso" Type="float" />
+          <Property Name="EspesorBarraGuia" Type="float" />
         </EntityType>
         <EntityType Name="MaestroHerramentales">
           <Key>
@@ -174,6 +194,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CutterSpacerSplitter_MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CutterSpacerSplitter" Type="Self.CutterSpacerSplitter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="CutterSpacerSplitter">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GuideBarFirstRoughGrind_MaestroHerramentales">
           <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -184,6 +218,20 @@
               <PropertyRef Name="Codigo" />
             </Principal>
             <Dependent Role="GuideBarFirstRoughGrind">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GuideBarSecondRoughGrind_MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GuideBarSecondRoughGrind" Type="Self.GuideBarSecondRoughGrind" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="GuideBarSecondRoughGrind">
               <PropertyRef Name="Codigo" />
             </Dependent>
           </ReferentialConstraint>
@@ -204,7 +252,9 @@
           <EntitySet Name="ClasificacionHerramental" EntityType="Self.ClasificacionHerramental" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CollarBK" EntityType="Self.CollarBK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CriteriosAnillos" EntityType="Self.CriteriosAnillos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CutterSpacerSplitter" EntityType="Self.CutterSpacerSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GuideBarFirstRoughGrind" EntityType="Self.GuideBarFirstRoughGrind" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GuideBarSecondRoughGrind" EntityType="Self.GuideBarSecondRoughGrind" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MaestroHerramentales" EntityType="Self.MaestroHerramentales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PLANO_HERRAMENTAL" EntityType="Self.PLANO_HERRAMENTAL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SplitterSpacerChart" EntityType="Self.SplitterSpacerChart" Schema="dbo" store:Type="Tables" />
@@ -217,9 +267,17 @@
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="CollarBK" EntitySet="CollarBK" />
           </AssociationSet>
+          <AssociationSet Name="FK_CutterSpacerSplitter_MaestroHerramentales" Association="Self.FK_CutterSpacerSplitter_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="CutterSpacerSplitter" EntitySet="CutterSpacerSplitter" />
+          </AssociationSet>
           <AssociationSet Name="FK_GuideBarFirstRoughGrind_MaestroHerramentales" Association="Self.FK_GuideBarFirstRoughGrind_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="GuideBarFirstRoughGrind" EntitySet="GuideBarFirstRoughGrind" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GuideBarSecondRoughGrind_MaestroHerramentales" Association="Self.FK_GuideBarSecondRoughGrind_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="GuideBarSecondRoughGrind" EntitySet="GuideBarSecondRoughGrind" />
           </AssociationSet>
           <AssociationSet Name="fk_Plano_MaestroHerramentales" Association="Self.fk_Plano_MaestroHerramentales">
             <End Role="PLANO_HERRAMENTAL" EntitySet="PLANO_HERRAMENTAL" />
@@ -264,6 +322,8 @@
           <NavigationProperty Name="PLANO_HERRAMENTAL" Relationship="Self.fk_Plano_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="PLANO_HERRAMENTAL" />
           <NavigationProperty Name="CollarBK" Relationship="DataAccess.ServiceObjects.Tooling.FK_CollarBK_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CollarBK" />
           <NavigationProperty Name="GuideBarFirstRoughGrind" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarFirstRoughGrind_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="GuideBarFirstRoughGrind" />
+          <NavigationProperty Name="GuideBarSecondRoughGrind" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarSecondRoughGrind_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="GuideBarSecondRoughGrind" />
+          <NavigationProperty Name="CutterSpacerSplitter" Relationship="DataAccess.ServiceObjects.Tooling.FK_CutterSpacerSplitter_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CutterSpacerSplitter" />
         </EntityType>
         <EntityType Name="PLANO_HERRAMENTAL">
           <Key>
@@ -326,6 +386,16 @@
           <AssociationSet Name="FK_GuideBarFirstRoughGrind_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarFirstRoughGrind_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="GuideBarFirstRoughGrind" EntitySet="GuideBarFirstRoughGrind" />
+          </AssociationSet>
+          <EntitySet Name="GuideBarSecondRoughGrind" EntityType="DataAccess.ServiceObjects.Tooling.GuideBarSecondRoughGrind" />
+          <AssociationSet Name="FK_GuideBarSecondRoughGrind_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarSecondRoughGrind_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="GuideBarSecondRoughGrind" EntitySet="GuideBarSecondRoughGrind" />
+          </AssociationSet>
+          <EntitySet Name="CutterSpacerSplitter" EntityType="DataAccess.ServiceObjects.Tooling.CutterSpacerSplitter" />
+          <AssociationSet Name="FK_CutterSpacerSplitter_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_CutterSpacerSplitter_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="CutterSpacerSplitter" EntitySet="CutterSpacerSplitter" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="CollarBK">
@@ -455,6 +525,56 @@
               <PropertyRef Name="Codigo" />
             </Principal>
             <Dependent Role="GuideBarFirstRoughGrind">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="GuideBarSecondRoughGrind">
+          <Key>
+            <PropertyRef Name="ID_GUIDE_BAR" />
+          </Key>
+          <Property Name="ID_GUIDE_BAR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="WidthMinProceso" Type="Double" />
+          <Property Name="WidthMaxProceso" Type="Double" />
+          <Property Name="EspesorBarraGuia" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarSecondRoughGrind_MaestroHerramentales" FromRole="GuideBarSecondRoughGrind" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_GuideBarSecondRoughGrind_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.GuideBarSecondRoughGrind" Role="GuideBarSecondRoughGrind" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="GuideBarSecondRoughGrind">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CutterSpacerSplitter">
+          <Key>
+            <PropertyRef Name="ID_SPACER_SPLITTER" />
+          </Key>
+          <Property Name="ID_SPACER_SPLITTER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="A" Type="Double" Nullable="false" />
+          <Property Name="B" Type="Double" Nullable="false" />
+          <Property Name="Plano" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_CutterSpacerSplitter_MaestroHerramentales" FromRole="CutterSpacerSplitter" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_CutterSpacerSplitter_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.CutterSpacerSplitter" Role="CutterSpacerSplitter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="CutterSpacerSplitter">
               <PropertyRef Name="Codigo" />
             </Dependent>
           </ReferentialConstraint>
@@ -613,6 +733,28 @@
                 <ScalarProperty Name="A" ColumnName="A" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="ID_GUIDE_BAR" ColumnName="ID_GUIDE_BAR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GuideBarSecondRoughGrind">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.GuideBarSecondRoughGrind">
+              <MappingFragment StoreEntitySet="GuideBarSecondRoughGrind">
+                <ScalarProperty Name="EspesorBarraGuia" ColumnName="EspesorBarraGuia" />
+                <ScalarProperty Name="WidthMaxProceso" ColumnName="WidthMaxProceso" />
+                <ScalarProperty Name="WidthMinProceso" ColumnName="WidthMinProceso" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="ID_GUIDE_BAR" ColumnName="ID_GUIDE_BAR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CutterSpacerSplitter">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.CutterSpacerSplitter">
+              <MappingFragment StoreEntitySet="CutterSpacerSplitter">
+                <ScalarProperty Name="Plano" ColumnName="Plano" />
+                <ScalarProperty Name="B" ColumnName="B" />
+                <ScalarProperty Name="A" ColumnName="A" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="ID_SPACER_SPLITTER" ColumnName="ID_SPACER_SPLITTER" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -30,6 +30,15 @@
           <Property Name="ident" Type="int" Nullable="false" />
           <Property Name="NombreCoating" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Compensacion_Piece">
+          <Key>
+            <PropertyRef Name="IdCompensacionPiece" />
+          </Key>
+          <Property Name="IdCompensacionPiece" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdMaterial" Type="char" MaxLength="15" />
+          <Property Name="IdTipoAnillo" Type="int" />
+          <Property Name="Compensacion" Type="float" />
+        </EntityType>
         <EntityType Name="cuffs">
           <Key>
             <PropertyRef Name="no_cuff" />
@@ -133,6 +142,15 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           <Property Name="Detalle" Type="varchar" MaxLength="50" />
           <Property Name="Diseno" Type="bit" />
         </EntityType>
+        <EntityType Name="Tipo_Anillo">
+          <Key>
+            <PropertyRef Name="Id_Tipo" />
+          </Key>
+          <Property Name="Id_Tipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Recubrimiento" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="Diseno" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Tipo_Materia_Prima">
           <Key>
             <PropertyRef Name="id_tipo_mp" />
@@ -162,6 +180,34 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           <Property Name="Molde" Type="varchar" MaxLength="50" />
           <Property Name="RPM" Type="int" />
         </EntityType>
+        <Association Name="FK_Compensacion_Piece_material">
+          <End Role="material" Type="Self.material" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Compensacion_Piece" Type="Self.Compensacion_Piece" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="material">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Compensacion_Piece">
+              <PropertyRef Name="IdMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compensacion_Piece_Tipo_Anillo">
+          <End Role="Tipo_Anillo" Type="Self.Tipo_Anillo" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Compensacion_Piece" Type="Self.Compensacion_Piece" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Anillo">
+              <PropertyRef Name="Id_Tipo" />
+            </Principal>
+            <Dependent Role="Compensacion_Piece">
+              <PropertyRef Name="IdTipoAnillo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Esp_MP_Anillos_material">
           <End Role="material" Type="Self.material" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -218,10 +264,12 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           <EntitySet Name="castings_widths" EntityType="Self.castings_widths" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Coating" EntityType="Self.Coating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Compensacion_Piece" EntityType="Self.Compensacion_Piece" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cuffs" EntityType="Self.cuffs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="material" EntityType="Self.material" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="patt_actualizaciones" EntityType="Self.patt_actualizaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pattern2" EntityType="Self.Pattern2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipo_Anillo" EntityType="Self.Tipo_Anillo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Materia_Prima" EntityType="Self.Tipo_Materia_Prima" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TubosCL" EntityType="Self.TubosCL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TubosHD" EntityType="Self.TubosHD" Schema="dbo" store:Type="Tables" />
@@ -243,6 +291,14 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
     [Esp_MP_Anillos].[Ref12] AS [Ref12]
     FROM [dbo].[Esp_MP_Anillos] AS [Esp_MP_Anillos]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_Compensacion_Piece_material" Association="Self.FK_Compensacion_Piece_material">
+            <End Role="material" EntitySet="material" />
+            <End Role="Compensacion_Piece" EntitySet="Compensacion_Piece" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compensacion_Piece_Tipo_Anillo" Association="Self.FK_Compensacion_Piece_Tipo_Anillo">
+            <End Role="Tipo_Anillo" EntitySet="Tipo_Anillo" />
+            <End Role="Compensacion_Piece" EntitySet="Compensacion_Piece" />
+          </AssociationSet>
           <AssociationSet Name="FK_Esp_MP_Anillos_material" Association="Self.FK_Esp_MP_Anillos_material">
             <End Role="material" EntitySet="material" />
             <End Role="Esp_MP_Anillos" EntitySet="Esp_MP_Anillos" />
@@ -394,6 +450,16 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           </AssociationSet>
           <EntitySet Name="Coating" EntityType="DataAccess.ServiceObjects.MateriasPrimas.Coating" />
           <EntitySet Name="castings_widths" EntityType="DataAccess.ServiceObjects.MateriasPrimas.castings_widths" />
+          <EntitySet Name="Compensacion_Piece" EntityType="DataAccess.ServiceObjects.MateriasPrimas.Compensacion_Piece" />
+          <AssociationSet Name="FK_Compensacion_Piece_material" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_material">
+            <End Role="material" EntitySet="material" />
+            <End Role="Compensacion_Piece" EntitySet="Compensacion_Piece" />
+          </AssociationSet>
+          <EntitySet Name="Tipo_Anillo" EntityType="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Anillo" />
+          <AssociationSet Name="FK_Compensacion_Piece_Tipo_Anillo" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_Tipo_Anillo">
+            <End Role="Tipo_Anillo" EntitySet="Tipo_Anillo" />
+            <End Role="Compensacion_Piece" EntitySet="Compensacion_Piece" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Tipo_Materia_Prima">
           <Key>
@@ -455,6 +521,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Recomendado" Type="Boolean" />
           <NavigationProperty Name="Esp_MP_Anillos" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Esp_MP_Anillos_material" FromRole="material" ToRole="Esp_MP_Anillos" />
+          <NavigationProperty Name="Compensacion_Piece" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_material" FromRole="material" ToRole="Compensacion_Piece" />
         </EntityType>
         <EntityType Name="Esp_MP_Anillos">
           <Key>
@@ -508,6 +575,55 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           <Property Name="ideal_casting_Width" Type="Double" />
           <Property Name="tipo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Compensacion_Piece">
+          <Key>
+            <PropertyRef Name="IdCompensacionPiece" />
+          </Key>
+          <Property Name="IdCompensacionPiece" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdMaterial" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="IdTipoAnillo" Type="Int32" />
+          <Property Name="Compensacion" Type="Double" />
+          <NavigationProperty Name="material" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_material" FromRole="Compensacion_Piece" ToRole="material" />
+          <NavigationProperty Name="Tipo_Anillo" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_Tipo_Anillo" FromRole="Compensacion_Piece" ToRole="Tipo_Anillo" />
+        </EntityType>
+        <Association Name="FK_Compensacion_Piece_material">
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.material" Role="material" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.Compensacion_Piece" Role="Compensacion_Piece" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="material">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Compensacion_Piece">
+              <PropertyRef Name="IdMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Tipo_Anillo">
+          <Key>
+            <PropertyRef Name="Id_Tipo" />
+          </Key>
+          <Property Name="Id_Tipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tipo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Recubrimiento" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="Diseno" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Compensacion_Piece" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_Tipo_Anillo" FromRole="Tipo_Anillo" ToRole="Compensacion_Piece" />
+        </EntityType>
+        <Association Name="FK_Compensacion_Piece_Tipo_Anillo">
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Anillo" Role="Tipo_Anillo" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.Compensacion_Piece" Role="Compensacion_Piece" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Anillo">
+              <PropertyRef Name="Id_Tipo" />
+            </Principal>
+            <Dependent Role="Compensacion_Piece">
+              <PropertyRef Name="IdTipoAnillo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -677,6 +793,26 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
                 <ScalarProperty Name="Nominal_Ring_Width_max" ColumnName="Nominal_Ring_Width_max" />
                 <ScalarProperty Name="Nominal_Ring_Width_min" ColumnName="Nominal_Ring_Width_min" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Compensacion_Piece">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.Compensacion_Piece">
+              <MappingFragment StoreEntitySet="Compensacion_Piece">
+                <ScalarProperty Name="Compensacion" ColumnName="Compensacion" />
+                <ScalarProperty Name="IdTipoAnillo" ColumnName="IdTipoAnillo" />
+                <ScalarProperty Name="IdMaterial" ColumnName="IdMaterial" />
+                <ScalarProperty Name="IdCompensacionPiece" ColumnName="IdCompensacionPiece" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipo_Anillo">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Anillo">
+              <MappingFragment StoreEntitySet="Tipo_Anillo">
+                <ScalarProperty Name="Diseno" ColumnName="Diseno" />
+                <ScalarProperty Name="Recubrimiento" ColumnName="Recubrimiento" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Id_Tipo" ColumnName="Id_Tipo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

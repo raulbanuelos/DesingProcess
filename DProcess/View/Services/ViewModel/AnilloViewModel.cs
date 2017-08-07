@@ -832,6 +832,8 @@ namespace View.Services.ViewModel
 
             ModelAnillo.MaterialBase.Especificacion = new PropiedadCadena { DescripcionCorta = "MATERIAL:", DescripcionLarga = "MATERIAL BASE DEL ANILLO", Imagen = null, Nombre = "Material MAHLE", Valor = "SPR-128" };
 
+            ModelAnillo.TipoAnillo = "RBT10";
+
             //Terminamos de simular el anillo
 
             Anillo anilloProcesado = new Anillo();
@@ -843,8 +845,7 @@ namespace View.Services.ViewModel
                 //Ingresar calculo de placa modelo.
                 calcularMateriaPrima = new CalculaMateriaPrima(ModelAnillo);
                 ModelAnillo.MaterialBase = calcularMateriaPrima.CalcularPlacaModelo();
-
-                //anilloProcesado.PropiedadesAdquiridasProceso.Add(); agregar la propiedad de PIECE el cual se genera del calculo de placa modelo.
+                anilloProcesado.PropiedadesAdquiridasProceso.Add(new Propiedad{ TipoDato = "Distance", DescripcionCorta = "Piece", DescripcionLarga = "Piece", Imagen = null, Nombre = "Piece", Unidad = "Inch (in)", Valor = calcularMateriaPrima.Piece });
             }
 
             //Empieza cálculo de width

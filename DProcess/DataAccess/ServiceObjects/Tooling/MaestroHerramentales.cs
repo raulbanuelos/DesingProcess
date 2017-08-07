@@ -19,6 +19,8 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             this.CollarBK = new HashSet<CollarBK>();
             this.GuideBarFirstRoughGrind = new HashSet<GuideBarFirstRoughGrind>();
+            this.GuideBarSecondRoughGrind = new HashSet<GuideBarSecondRoughGrind>();
+            this.CutterSpacerSplitter = new HashSet<CutterSpacerSplitter>();
         }
     
         public string Codigo { get; set; }
@@ -37,5 +39,9 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual ICollection<CollarBK> CollarBK { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GuideBarFirstRoughGrind> GuideBarFirstRoughGrind { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GuideBarSecondRoughGrind> GuideBarSecondRoughGrind { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CutterSpacerSplitter> CutterSpacerSplitter { get; set; }
     }
 }

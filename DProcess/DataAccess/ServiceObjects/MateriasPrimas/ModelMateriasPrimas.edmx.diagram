@@ -19,7 +19,11 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Esp_MP_Anillos" Width="1.5" PointX="15.5" PointY="3" />
         <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Esp_MP_Anillos_material" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Coating" Width="2.625" PointX="11" PointY="4.625" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.castings_widths" Width="2.875" PointX="19" PointY="3.125" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.castings_widths" Width="2.875" PointX="19.875" PointY="1" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Compensacion_Piece" Width="1.5" PointX="13.125" PointY="1" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_material" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Anillo" Width="1.5" PointX="7.375" PointY="7.875" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_Tipo_Anillo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

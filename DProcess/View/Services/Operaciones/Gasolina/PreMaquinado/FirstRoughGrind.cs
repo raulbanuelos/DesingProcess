@@ -154,14 +154,15 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "*1ST RGH GRIND";
+            TextoProceso = "*1ST RGH GRIND \n";
             TextoProceso += "(2)(" + Convert.ToString(WidthOperacion + .010) + " +- .0005) (" + Convert.ToString(WidthOperacion) + " +- .0005)" + "\n";
-            TextoProceso += "CHUCK RPM 15+-2 " + "\n";
+            TextoProceso += "PRIMER CORTE CHUCK RPM 8 +- 5 " + "\n";
+            TextoProceso += "SEGUNDO CORTE CHUCK RPM 15 +- 5 " + "\n";
 
             //Agregamos las propiedades que se obtiene el anillo durante el proceso.
-            Propiedad rpm1_110 = new Propiedad { Nombre = "RPM1_110", TipoDato = "Cantidad", DescripcionLarga = "Cantidad de RPM primer corte en operación FIRST ROUGH GRIND", Imagen = null, DescripcionCorta = "RPM 1er corte (First Rough grind):", Valor = 15 };
+            Propiedad rpm1_110 = new Propiedad { Nombre = "RPM1_110", TipoDato = "Cantidad", DescripcionLarga = "Cantidad de RPM primer corte en operación FIRST ROUGH GRIND", Imagen = null, DescripcionCorta = "RPM 1er corte (First Rough grind):", Valor = 8 };
             anilloProcesado.PropiedadesAdquiridasProceso.Add(rpm1_110);
-            Propiedad rpm2_100 = new Propiedad { Nombre = "RPM2_110", TipoDato = "Cantidad", DescripcionLarga = "Cantidad de RPM segundo corte en operación FIRST ROUGH GRIND", Imagen = null, DescripcionCorta = "RPM 2do corte (First Rough grind):", Valor = 20 };
+            Propiedad rpm2_100 = new Propiedad { Nombre = "RPM2_110", TipoDato = "Cantidad", DescripcionLarga = "Cantidad de RPM segundo corte en operación FIRST ROUGH GRIND", Imagen = null, DescripcionCorta = "RPM 2do corte (First Rough grind):", Valor = 15 };
             anilloProcesado.PropiedadesAdquiridasProceso.Add(rpm2_100);
 
             //Ejecutamos el método para calculo de Herramentales.
@@ -174,6 +175,9 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         public void BuscarHerramentales()
         {
             ListaHerramentales.Add(DataManager.GetGuideBarFirstRoughGrind(.125));
+
+            TextoProceso += "\nTOOLING\n";
+            TextoProceso += Module.GetTextoListaHerramentales(ListaHerramentales);
         }
 
         /// <summary>
