@@ -99,7 +99,7 @@
           <Key>
             <PropertyRef Name="ID_VALIDACION_DOCUMENTO" />
           </Key>
-          <Property Name="ID_VALIDACION_DOCUMENTO" Type="int" Nullable="false" />
+          <Property Name="ID_VALIDACION_DOCUMENTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="VALIDACION_DOCUMENTO" Type="varchar" MaxLength="50" />
           <Property Name="VALIDACION_DESCRIPCION" Type="varchar" MaxLength="200" />
           <Property Name="FECHA_CREACION" Type="datetime" />

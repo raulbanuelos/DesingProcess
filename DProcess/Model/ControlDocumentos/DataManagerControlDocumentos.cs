@@ -44,7 +44,7 @@ namespace Model.ControlDocumentos
                     obj.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
                     obj.archivo = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
                     obj.ext = (string)tipo.GetProperty("EXT").GetValue(item, null);
-                    obj.nombre= (string)tipo.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
 
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
@@ -65,7 +65,7 @@ namespace Model.ControlDocumentos
             SO_Archivo ServiceArchivo = new SO_Archivo();
 
             //Se ejecuta el método y regresa el id del archivo insertado.
-            return  ServiceArchivo.SetArchivo(archivo.id_version, archivo.archivo, archivo.ext,archivo.nombre);
+            return ServiceArchivo.SetArchivo(archivo.id_version, archivo.archivo, archivo.ext, archivo.nombre);
 
         }
 
@@ -81,7 +81,7 @@ namespace Model.ControlDocumentos
             SO_Archivo ServiceArchivo = new SO_Archivo();
 
             //Se ejecuta el método y regresa los registros modificados.
-            return ServiceArchivo.UpdateArchivo(archivo.id_archivo, archivo.id_version, archivo.archivo, archivo.ext,archivo.nombre);
+            return ServiceArchivo.UpdateArchivo(archivo.id_archivo, archivo.id_version, archivo.archivo, archivo.ext, archivo.nombre);
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace Model.ControlDocumentos
             return ServiceArchivo.DeleteArchivo(archivo.id_archivo);
 
         }
-        
+
         /// <summary>
         /// Método para obtener el archivo de la BD.
         /// </summary>
@@ -127,16 +127,16 @@ namespace Model.ControlDocumentos
                     obj.ext = (string)tipo.GetProperty("EXT").GetValue(item, null);
                 }
             }
-            
+
             //Se guarda la ruta del directorio temporal.
-           var tempFolder = Path.GetTempPath();
+            var tempFolder = Path.GetTempPath();
             //se asigna el nombre del archivo temporal, se concatena el nombre y la extensión.
-           string filename = Path.Combine(tempFolder, "temp"+obj.ext);
+            string filename = Path.Combine(tempFolder, "temp" + obj.ext);
             //Crea un archivo nuevo temporal, escribe en él los bytes extraídos de la BD.
             File.WriteAllBytes(filename, obj.archivo);
 
             //Se inicializa el programa para visualizar el archivo.
-           Process.Start(filename);
+            Process.Start(filename);
         }
 
         #endregion
@@ -174,7 +174,7 @@ namespace Model.ControlDocumentos
                     obj.nombre_dep = (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
                     obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
                     obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
-                    obj.Abreviatura= (string)tipo.GetProperty("ABREVIATURA").GetValue(item, null);
+                    obj.Abreviatura = (string)tipo.GetProperty("ABREVIATURA").GetValue(item, null);
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }
@@ -194,7 +194,7 @@ namespace Model.ControlDocumentos
             SO_Departamento ServiceDepartamento = new SO_Departamento();
 
             //Se ejecuta el método y retorna el id del departamento que fue insertado.
-            return ServiceDepartamento.SetDepartamento(departamento.id_dep, departamento.nombre_dep,departamento.Abreviatura ,departamento.fecha_creacion, departamento.fecha_actualizacion);
+            return ServiceDepartamento.SetDepartamento(departamento.id_dep, departamento.nombre_dep, departamento.Abreviatura, departamento.fecha_creacion, departamento.fecha_actualizacion);
         }
 
         /// <summary>
@@ -237,11 +237,11 @@ namespace Model.ControlDocumentos
             SO_Departamento ServiceDepartamento = new SO_Departamento();
 
             // Se ejecuta el método y retorna número de registros eliminados.
-            return ServiceDepartamento.ValidateDepartamento(departamento.nombre_dep,departamento.Abreviatura);
+            return ServiceDepartamento.ValidateDepartamento(departamento.nombre_dep, departamento.Abreviatura);
 
         }
 
-     
+
         #endregion
 
         #region Documento
@@ -267,7 +267,7 @@ namespace Model.ControlDocumentos
                 {
                     //Obtenemos el tipo.
                     System.Type tipo = item.GetType();
-                    
+
                     //Declaramos un objeto  que contendrá la información de un registro.
                     Documento obj = new Documento();
 
@@ -279,8 +279,8 @@ namespace Model.ControlDocumentos
                     obj.fecha_emision = (DateTime)tipo.GetProperty("FECHA_EMISION").GetValue(item, null);
                     obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
                     obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
-                    obj.usuario= (string)tipo.GetProperty("Usuario").GetValue(item, null);
-                    obj.id_estatus= (int)tipo.GetProperty("ID_ESTATUS_DOCUMENTO").GetValue(item, null);
+                    obj.usuario = (string)tipo.GetProperty("Usuario").GetValue(item, null);
+                    obj.id_estatus = (int)tipo.GetProperty("ID_ESTATUS_DOCUMENTO").GetValue(item, null);
 
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
@@ -301,12 +301,12 @@ namespace Model.ControlDocumentos
             SO_Documento ServiceDocumento = new SO_Documento();
 
             //Se ejecuta el método y retorna el id del documento que fue insertado.
-            return ServiceDocumento.SetDocumento( documento.id_documento, documento.id_tipo_documento,documento.id_dep,documento.nombre, documento.descripcion,
+            return ServiceDocumento.SetDocumento(documento.id_documento, documento.id_tipo_documento, documento.id_dep, documento.nombre, documento.descripcion,
                                                  documento.fecha_creacion, documento.fecha_actualizacion, documento.fecha_emision,
-                                                 documento.id_estatus,documento.usuario );
+                                                 documento.id_estatus, documento.usuario);
         }
 
-       
+
 
         /// <summary>
         /// Método para modificar un registro de la tabla TBL_Documento.
@@ -319,8 +319,8 @@ namespace Model.ControlDocumentos
             SO_Documento ServiceDocumento = new SO_Documento();
 
             // Se ejecuta el método y retorna los registros que se modificaron.
-            return ServiceDocumento.UpdateDocumento(documento.id_documento,documento.id_tipo_documento,documento.id_dep, documento.nombre, documento.descripcion,
-                                                 documento.fecha_actualizacion,documento.id_estatus,documento.fecha_emision);
+            return ServiceDocumento.UpdateDocumento(documento.id_documento, documento.id_tipo_documento, documento.id_dep, documento.nombre, documento.descripcion,
+                                                 documento.fecha_actualizacion, documento.id_estatus, documento.fecha_emision);
         }
 
         /// <summary>
@@ -335,7 +335,7 @@ namespace Model.ControlDocumentos
 
             // Se ejecuta el método y retorna los registros que se eliminaron.
             return ServiceDocumento.DeleteDocumento(documento.id_documento);
-        } 
+        }
 
         /// <summary>
         /// Método que obtiene los documentos liberados de acuerdo al tipo de documento
@@ -344,7 +344,7 @@ namespace Model.ControlDocumentos
         /// <param name="idTipoDocumento"></param>
         /// <param name="textoBusqueda"></param>
         /// <returns></returns>
-        public static ObservableCollection<Documento> GetDataGrid(int idTipoDocumento,string textoBusqueda)
+        public static ObservableCollection<Documento> GetDataGrid(int idTipoDocumento, string textoBusqueda)
         {
             //Se inicializan los servicios de Documento.
             SO_Documento ServiceDocumento = new SO_Documento();
@@ -353,7 +353,7 @@ namespace Model.ControlDocumentos
             ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
 
             //obtenemos todo de la BD.
-            IList ObjDocumento = ServiceDocumento.GetDataGrid(idTipoDocumento,textoBusqueda);
+            IList ObjDocumento = ServiceDocumento.GetDataGrid(idTipoDocumento, textoBusqueda);
 
             //Verificamos que la informacion no esté vacía.
             if (ObjDocumento != null)
@@ -369,11 +369,11 @@ namespace Model.ControlDocumentos
                     //Asignamos los valores correspondientes.
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
-                    obj.fecha_actualizacion=(DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
-                    obj.id_dep= (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
-                    obj.version.no_version= (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
-                    obj.version.id_version=(int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
-                    obj.version.no_copias= (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
+                    obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+                    obj.id_dep = (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
+                    obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    obj.version.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    obj.version.no_copias = (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
                     obj.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
                     obj.Departamento = (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
                     obj.fecha_emision = (DateTime)tipo.GetProperty("FECHA_EMISION").GetValue(item, null);
@@ -442,7 +442,7 @@ namespace Model.ControlDocumentos
         /// <param name="id_documento"></param>
         /// <param name="id_version"></param>
         /// <returns></returns>
-        public static ObservableCollection<Documento> GetArchivos(int id_documento,int id_version)
+        public static ObservableCollection<Documento> GetArchivos(int id_documento, int id_version)
         {
             //Se inicializan los servicios de Documento.
             SO_Documento ServiceDocumento = new SO_Documento();
@@ -451,7 +451,7 @@ namespace Model.ControlDocumentos
             ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
 
             //obtenemos todo de la BD.
-            IList ObjDocumento = ServiceDocumento.GetTipo(id_documento,id_version);
+            IList ObjDocumento = ServiceDocumento.GetTipo(id_documento, id_version);
 
             //Verificamos que la informacion no esté vacía.
             if (ObjDocumento != null)
@@ -466,13 +466,13 @@ namespace Model.ControlDocumentos
 
                     //Asignamos los valores correspondientes.
                     obj.id_documento = id_documento;
-                    obj.nombre= (string)tipo.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
                     obj.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
-                    obj.tipo.tipo_documento= (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
                     obj.version.archivo.id_archivo = (int)tipo.GetProperty("ID_ARCHIVO").GetValue(item, null);
-                    obj.version.archivo.ext= (string)tipo.GetProperty("EXT").GetValue(item, null);
+                    obj.version.archivo.ext = (string)tipo.GetProperty("EXT").GetValue(item, null);
                     obj.version.archivo.archivo = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
-                    obj.Departamento= (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
+                    obj.Departamento = (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }
@@ -542,9 +542,9 @@ namespace Model.ControlDocumentos
         /// <param name="tipoDocumento"></param>
         /// <param name="departamento"></param>
         /// <returns></returns>
-        public static string GetNumero(TipoDocumento tipoDocumento,Departamento departamento)
+        public static string GetNumero(TipoDocumento tipoDocumento, Departamento departamento)
         {
-           //concatenamos la abreviatura del tipo y del departamento.
+            //concatenamos la abreviatura del tipo y del departamento.
             string numero = string.Concat(tipoDocumento.abreviatura, departamento.Abreviatura);
 
             //Se inician los servicios de Documento.
@@ -586,8 +586,8 @@ namespace Model.ControlDocumentos
                     obj.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
                     obj.descripcion = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
-                    obj.id_dep= (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
-                    obj.Departamento= (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
+                    obj.id_dep = (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
+                    obj.Departamento = (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
                     obj.id_estatus = (int)tipo.GetProperty("ID_ESTATUS_DOCUMENTO").GetValue(item, null);
 
                     //Agregamos el objeto a la lista resultante.
@@ -640,7 +640,7 @@ namespace Model.ControlDocumentos
                     documento.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     documento.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
                     documento.version.no_copias = (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
-                    documento.id_dep= (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
+                    documento.id_dep = (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
 
                 }
             }
@@ -648,7 +648,7 @@ namespace Model.ControlDocumentos
             //Retornamos el objeto
             return documento;
         }
-        
+
 
         /// <summary>
         /// Método para actualizar el estado de un documento
@@ -662,7 +662,7 @@ namespace Model.ControlDocumentos
             SO_Documento ServicioDocumento = new SO_Documento();
 
             //Se ejecuta el método y retornamos el resultado
-            return ServicioDocumento.UpdateEstatus_Documento(obj.id_documento,obj.id_estatus);
+            return ServicioDocumento.UpdateEstatus_Documento(obj.id_documento, obj.id_estatus);
         }
 
         //excel
@@ -677,11 +677,11 @@ namespace Model.ControlDocumentos
         {
             //Se inicializan los servicios.
             SO_Departamento ServiceDepartamento = new SO_Departamento();
-             
+
             return ServiceDepartamento.GetID_Departamento(nombre_dep);
 
         }
-        
+
         /// <summary>
         /// Método para insertar documentos a la base de datos
         /// Se usa para importar desde excel
@@ -832,7 +832,7 @@ namespace Model.ControlDocumentos
             SO_Rol ServiceRol = new SO_Rol();
 
             //Se ejecuta el método y retorna el id del rol
-            return ServiceRol.SetRol_Usuario(rol.id_rol,rol.id_usuario);
+            return ServiceRol.SetRol_Usuario(rol.id_rol, rol.id_usuario);
         }
         #endregion
 
@@ -945,7 +945,7 @@ namespace Model.ControlDocumentos
             SO_TipoDocumento ServiceTipo = new SO_TipoDocumento();
 
             // Se ejecuta el método y retorna los registros que se eliminaron.
-            return ServiceTipo.ValidateTipo(tipo.tipo_documento,tipo.abreviatura);
+            return ServiceTipo.ValidateTipo(tipo.tipo_documento, tipo.abreviatura);
         }
         #endregion  
 
@@ -955,7 +955,7 @@ namespace Model.ControlDocumentos
         /// Método para obtener todos los registros de la tabla Usuarios.
         /// </summary>
         /// <returns></returns>
-        public static ObservableCollection<Usuarios> GetUsuarios(){
+        public static ObservableCollection<Usuarios> GetUsuarios() {
 
 
             //Inicializamos los servicios de usuarios.
@@ -968,7 +968,7 @@ namespace Model.ControlDocumentos
             IList ObjUsuarios = ServiceUsuarios.GetUsuario();
 
             //Comparamos que la información de la base de datos no sea nulo
-            if (ObjUsuarios!=null)
+            if (ObjUsuarios != null)
 
             {
                 //Iteramos la información recibida.
@@ -997,7 +997,7 @@ namespace Model.ControlDocumentos
             }
             //Retornamos la lista.
             return Lista;
-            }
+        }
 
         /// <summary>
         /// Método para insertar un registro en la tabla Usuarios.
@@ -1010,7 +1010,7 @@ namespace Model.ControlDocumentos
             SO_Usuarios ServiceUsuarios = new SO_Usuarios();
 
             //Se ejecuta el método y retorna el usuario que fue insertado.
-            return ServiceUsuarios.SetUsuario(usuarios.usuario,usuarios.password, usuarios.nombre, usuarios.APaterno, usuarios.AMaterno,
+            return ServiceUsuarios.SetUsuario(usuarios.usuario, usuarios.password, usuarios.nombre, usuarios.APaterno, usuarios.AMaterno,
                                               usuarios.estado, usuarios.usql, usuarios.psql, usuarios.bloqueado);
 
         }
@@ -1057,7 +1057,7 @@ namespace Model.ControlDocumentos
             SO_Usuarios ServiceUsuarios = new SO_Usuarios();
 
             //Se ejecuta el método y retorna número de registros eliminados.
-            return ServiceUsuarios.ValidateUsuarios(usuarios.nombre,usuarios.APaterno,usuarios.AMaterno,usuarios.usuario);
+            return ServiceUsuarios.ValidateUsuarios(usuarios.nombre, usuarios.APaterno, usuarios.AMaterno, usuarios.usuario);
         }
 
         /// <summary>
@@ -1080,7 +1080,7 @@ namespace Model.ControlDocumentos
         /// <param name="id_usuario"></param>
         /// <param name="pass"></param>
         /// <returns></returns>
-        public static int UpdatePass(string id_usuario,string pass)
+        public static int UpdatePass(string id_usuario, string pass)
         {
             //Se inician los servicios de Usuarios.
             SO_Usuarios ServiceUsuarios = new SO_Usuarios();
@@ -1124,7 +1124,7 @@ namespace Model.ControlDocumentos
                     obj.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     obj.id_usuario = (string)tipo.GetProperty("ID_USUARIO_ELABORO").GetValue(item, null);
-                    obj.id_usuario_autorizo= (string)tipo.GetProperty("ID_USUARIO_AUTORIZO").GetValue(item, null);
+                    obj.id_usuario_autorizo = (string)tipo.GetProperty("ID_USUARIO_AUTORIZO").GetValue(item, null);
                     obj.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     obj.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
                     obj.no_copias = (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
@@ -1147,7 +1147,7 @@ namespace Model.ControlDocumentos
             SO_Version ServiceVersion = new SO_Version();
 
             //Se ejecuta el método y regresa el id de la versión
-            return ServiceVersion.SetVersion(version.id_version, version.id_usuario,version.id_usuario_autorizo,version.id_documento, version.no_version, version.fecha_version, version.no_copias,version.id_estatus_version);
+            return ServiceVersion.SetVersion(version.id_version, version.id_usuario, version.id_usuario_autorizo, version.id_documento, version.no_version, version.fecha_version, version.no_copias, version.id_estatus_version);
         }
 
         /// <summary>
@@ -1161,7 +1161,7 @@ namespace Model.ControlDocumentos
             SO_Version ServiceVersion = new SO_Version();
 
             // Se ejecuta el método y retorna los registros que se modificarion
-            return ServiceVersion.UpdateVersion(version.id_version, version.id_usuario,version.id_usuario_autorizo, version.id_documento, version.no_version, version.fecha_version, version.no_copias, version.id_estatus_version);
+            return ServiceVersion.UpdateVersion(version.id_version, version.id_usuario, version.id_usuario_autorizo, version.id_documento, version.no_version, version.fecha_version, version.no_copias, version.id_estatus_version);
         }
 
         /// <summary>
@@ -1196,7 +1196,7 @@ namespace Model.ControlDocumentos
             //Comparamos que la información de la base de datos no sea nulo.
             if (ObjVersion != null)
             {
-               
+
                 //Iteramos la información recibida.
                 foreach (var item in ObjVersion)
                 {
@@ -1204,15 +1204,15 @@ namespace Model.ControlDocumentos
                     System.Type tipo = item.GetType();
 
                     //Declaramos on objeto de tipo version que contendrá la información de un registro.
-                    
+
 
                     //Asignamos los valores correspondientes.
                     obj.id_usuario = (string)tipo.GetProperty("ID_USUARIO_ELABORO").GetValue(item, null);
                     obj.id_usuario_autorizo = (string)tipo.GetProperty("ID_USUARIO_AUTORIZO").GetValue(item, null);
-                    obj.nombre_usuario_elaboro= (string)tipo.GetProperty("USUARIO_ELABORO").GetValue(item, null);
+                    obj.nombre_usuario_elaboro = (string)tipo.GetProperty("USUARIO_ELABORO").GetValue(item, null);
                     obj.nombre_usuario_autorizo = (string)tipo.GetProperty("USUARIO_AUTORIZO").GetValue(item, null);
                     //Agregamos el objeto a la lista resultante.
-                   
+
                 }
             }
             return obj;
@@ -1229,7 +1229,7 @@ namespace Model.ControlDocumentos
             SO_Version ServiceVersion = new SO_Version();
 
             //convierte a entero para poder agregarle uno al valor.
-            int version= Convert.ToInt32( ServiceVersion.GetLastVersion(id_documento));
+            int version = Convert.ToInt32(ServiceVersion.GetLastVersion(id_documento));
             //se agrega uno.
             version++;
 
@@ -1242,7 +1242,7 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="id_documento"></param>
         /// <returns></returns>
-        public static int GetID_LastVersion(int id_documento,int id_version)
+        public static int GetID_LastVersion(int id_documento, int id_version)
         {
             //Inicializamos los servicios de version.
             SO_Version ServiceVersion = new SO_Version();
@@ -1261,7 +1261,7 @@ namespace Model.ControlDocumentos
             SO_Version ServiceVersion = new SO_Version();
 
             //Retorna el id de la versión si ya existe.
-            return ServiceVersion.ValidateVersion(obj.id_documento,obj.no_version );
+            return ServiceVersion.ValidateVersion(obj.id_documento, obj.no_version);
         }
 
         /// <summary>
@@ -1335,11 +1335,11 @@ namespace Model.ControlDocumentos
                     //Asignamos los valores correspondientes.
                     obj.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
                     obj.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
-                    obj.fecha_version= (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
+                    obj.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
                     obj.no_copias = (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
-                    obj.nombre_usuario_autorizo= (string)tipo.GetProperty("USUARIO_AUTORIZO").GetValue(item, null);
+                    obj.nombre_usuario_autorizo = (string)tipo.GetProperty("USUARIO_AUTORIZO").GetValue(item, null);
                     obj.nombre_usuario_elaboro = (string)tipo.GetProperty("USUARIO_ELABORO").GetValue(item, null);
-                   
+
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }
@@ -1376,13 +1376,13 @@ namespace Model.ControlDocumentos
                     System.Type tipo = item.GetType();
 
                     //Declaramos un objeto de tipo archivo que contendrá la información de un registro.
-                   Archivo obj = new Archivo();
+                    Archivo obj = new Archivo();
 
                     //Asignamos los valores correspondientes.
                     obj.id_archivo = (int)tipo.GetProperty("ID_ARCHIVO").GetValue(item, null);
                     obj.ext = (string)tipo.GetProperty("EXT").GetValue(item, null);
                     obj.archivo = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
-                    obj.nombre= (string)tipo.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }
@@ -1570,7 +1570,7 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static int  Update_EstatusVersion(Version obj)
+        public static int Update_EstatusVersion(Version obj)
         {
             //Inicializamos los servicios de version.
             SO_Version ServiceVersion = new SO_Version();
@@ -1606,8 +1606,8 @@ namespace Model.ControlDocumentos
                 {
                     System.Type tipo = item.GetType();
                     //Asignamos los valores correspondientes
-                    obj.id_version= (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
-                    obj.no_version= (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    obj.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    obj.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     obj.estatus = (string)tipo.GetProperty("ESTATUS_VERSION").GetValue(item, null);
 
                     //Agregamos el objeto a la lista resultante
@@ -1622,8 +1622,53 @@ namespace Model.ControlDocumentos
 
         #region ValidacionDocumento
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id_tipo"></param>
+        /// <returns></returns>
         public static ObservableCollection<ValidacionDocumento> GetValidacion_Documento(int id_tipo)
+        {
+            //Se inicializan los servicios de Documento.
+            SO_Validacion ServiceValidacion = new SO_Validacion();
+
+            //Se crea una lista de tipo documento, la cual se va a retornar
+            ObservableCollection<ValidacionDocumento> Lista = new ObservableCollection<ValidacionDocumento>();
+
+            //obtenemos todo de la BD.
+            IList ObjValidacion = ServiceValidacion.GetTR_Validacion(id_tipo);
+
+            //Verificamos que la informacion no esté vacía.
+            if (ObjValidacion != null)
+            {
+                foreach (var item in ObjValidacion)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    ValidacionDocumento obj = new ValidacionDocumento();
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_validacion = (int)tipo.GetProperty("ID_VALIDACION_DOCUMENTO").GetValue(item, null);
+                    obj.validacion_documento = (string)tipo.GetProperty("VALIDACION_DOCUMENTO").GetValue(item, null);
+                    obj.validacion_descripcion = (string)tipo.GetProperty("VALIDACION_DESCRIPCION").GetValue(item, null);
+                    obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //regresamos la lista.
+            return Lista;
+        }
+
+        /// <summary>
+        /// Método que obtiene las validaciones que no tengan relación con un tipo de documento
+        /// </summary>
+        /// <param name="id_tipo"></param>
+        /// <returns></returns>
+        public static ObservableCollection<ValidacionDocumento> GetV_Tipo(int id_tipo)
         {
             //Se inicializan los servicios de Documento.
             SO_Validacion ServiceValidacion = new SO_Validacion();
@@ -1657,6 +1702,110 @@ namespace Model.ControlDocumentos
             }
             //regresamos la lista.
             return Lista;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<ValidacionDocumento> GetValidaciones()
+        {
+            //Se inicializan los servicios de Documento.
+            SO_Validacion ServiceValidacion = new SO_Validacion();
+
+            //Se crea una lista de tipo documento, la cual se va a retornar
+            ObservableCollection<ValidacionDocumento> Lista = new ObservableCollection<ValidacionDocumento>();
+
+            //obtenemos todo de la BD.
+            IList ObjValidacion = ServiceValidacion.GetValidaciones();
+
+            //Verificamos que la informacion no esté vacía.
+            if (ObjValidacion != null)
+            {
+                foreach (var item in ObjValidacion)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    ValidacionDocumento obj = new ValidacionDocumento();
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_validacion = (int)tipo.GetProperty("ID_VALIDACION_DOCUMENTO").GetValue(item, null);
+                    obj.validacion_documento = (string)tipo.GetProperty("VALIDACION_DOCUMENTO").GetValue(item, null);
+                    obj.validacion_descripcion = (string)tipo.GetProperty("VALIDACION_DESCRIPCION").GetValue(item, null);
+                    obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //regresamos la lista.
+            return Lista;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetValidacion(ValidacionDocumento obj)
+        {
+            //Se inicializan los servicios de Validacion.
+            SO_Validacion ServiceValidacion = new SO_Validacion();
+
+            return ServiceValidacion.SetValidacion(obj.validacion_documento, obj.validacion_descripcion);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id_validacion"></param>
+        /// <param name="id_tipo"></param>
+        /// <returns></returns>
+        public static int SearchValidacion(int id_validacion, int id_tipo)
+        {
+            //Se inicializan los servicios de Validacion.
+            SO_Validacion ServiceValidacion = new SO_Validacion();
+
+            return ServiceValidacion.SearchValidacion(id_validacion,id_tipo);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetRelacion(ValidacionDocumento obj)
+        {
+            //Se inicializan los servicios de Validacion.
+            SO_Validacion ServiceValidacion = new SO_Validacion();
+
+            return ServiceValidacion.SetRelacion(obj.id_tipo, obj.id_validacion);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="descripcion"></param>
+        /// <returns></returns>
+        public static int GetIDValidacion(string descripcion) {
+            //Se inicializan los servicios de Validacion.
+            SO_Validacion ServiceValidacion = new SO_Validacion();
+
+            return ServiceValidacion.GetID_Validacion(descripcion);
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro de la tabla Validacion documento
+        /// </summary>
+        /// <param name="id_validacion"></param>
+        /// <returns></returns>
+        public static int DeleteValidacion(int id_validacion)
+        {
+            //Se inicializan los servicios de Validacion.
+            SO_Validacion ServiceValidacion = new SO_Validacion();
+
+            return ServiceValidacion.DeleteValidacion(id_validacion);
         }
         #endregion
 

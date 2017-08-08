@@ -56,7 +56,7 @@ namespace IMPORTEXCEL
                        objDocumento.id_dep = DataManagerControlDocumentos.GetID_Dep(proceso);
                        objDocumento.nombre = range.Cells[aux, 4].Value2.ToString();
                         //objTipo.tipo_documento = range.Cells[aux, 3].Value2.ToString();
-                        objDocumento.id_tipo_documento = 1005;
+                       objDocumento.id_tipo_documento = 1003;
                        objDocumento.usuario = usuario;
                        objDocumento.descripcion = range.Cells[aux, 5].Value2.ToString();
                        fecha = range.Cells[aux, 7].Value2;
@@ -64,7 +64,7 @@ namespace IMPORTEXCEL
                        objDocumento.fecha_actualizacion = DateTime.FromOADate(fecha);
                        objDocumento.id_estatus = 5;
 
-                        int id_Documento = DataManagerControlDocumentos.InsertDocumentos(objDocumento);
+                        int id_Documento = 1;// DataManagerControlDocumentos.InsertDocumentos(objDocumento);
 
                        if (id_Documento != 0)
                        {
@@ -78,24 +78,24 @@ namespace IMPORTEXCEL
                            objVersion.no_copias = 0;
                            objVersion.fecha_version = DateTime.FromOADate(range.Cells[aux, 7].Value2);
 
-                           int id_version = DataManagerControlDocumentos.SetVersion(objVersion);
+                            int id_version = 4970;// DataManagerControlDocumentos.SetVersion(objVersion);
 
                            if (id_version != 0)
                            {
-                               //Alta del Archivo
+                                //Alta del Archivo
 
-                             /*  objArchivo.id_version = id_version;
-                               url =string.Concat(range.Cells[aux, 4].Value2.ToString(),range.Cells[aux, 6].Value2.ToString());
+                                  objArchivo.id_version = id_version;
+                                  url =string.Concat(range.Cells[aux, 4].Value2.ToString(),range.Cells[aux, 6].Value2.ToString());
 
-                               url = string.Concat("C:\\Users\\Ing.practicante\\Documents\\ESPECIFICOS\\", url,".doc");
-                             
-                               objArchivo.ext = System.IO.Path.GetExtension(url);
+                                  url = string.Concat("C:\\Users\\Ing.practicante\\Documents\\ESPECIFICOS\\", url,".doc");
 
-                               objArchivo.nombre = System.IO.Path.GetFileNameWithoutExtension(url);
+                                  objArchivo.ext = System.IO.Path.GetExtension(url);
 
-                               objArchivo.archivo = File.ReadAllBytes(url);
+                                  objArchivo.nombre = System.IO.Path.GetFileNameWithoutExtension(url);
 
-                              int archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);*/
+                                  objArchivo.archivo = File.ReadAllBytes(url);
+
+                                int archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
                            }
 
                        }
@@ -181,7 +181,7 @@ namespace IMPORTEXCEL
                             objVersion.no_copias = Convert.ToInt32(range.Cells[aux, 9].Value2.ToString());
                             objVersion.fecha_version = DateTime.FromOADate(range.Cells[aux, 7].Value2);
 
-                            int id_version = 4470; // DataManagerControlDocumentos.SetVersion(objVersion);
+                            int id_version = 5629; //DataManagerControlDocumentos.SetVersion(objVersion);
 
                             if (id_version != 0)
                             {
