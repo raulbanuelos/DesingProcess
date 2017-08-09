@@ -1617,9 +1617,7 @@ namespace View.Services.ViewModel
                                 //si se actualizó correctamente
                                 if (update != 0)
                                 {
-
-                                    //string file= SaveFile(); //Se comenta esta línea para que no se este guardado en la ruta
-                                    string file = null;
+                                    string file= SaveFile();
 
                                     if (file == null)
                                     {
