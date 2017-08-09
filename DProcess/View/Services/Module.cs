@@ -697,5 +697,16 @@ namespace View.Services
             //Retornamos el texto.
             return textoHerramientas;
         }
+
+        /// <summary>
+        /// Método que indica si una cadena es un número.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static bool IsNumeric(string s)
+        {
+            float output;
+            return float.TryParse(s, out output);
+        }
     }
 }
