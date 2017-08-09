@@ -1218,6 +1218,29 @@ namespace Model.ControlDocumentos
             return obj;
         }
 
+        #region Modificaciones
+        #region Raúl Bañuelos
+        #region 09 AGO 2017
+        //Descripción: Se agrega la funcionalidad de cuando la última versión sea una letra(A,B,C,etc) se genere la versión 1.
+        //Desarrollador: Raúl Bañuelos.
+        /*Código anterior
+         * public static string GetLastVersion(int id_documento)
+            {
+                //Inicializamos los servicios de version.
+                SO_Version ServiceVersion = new SO_Version();
+
+                //convierte a entero para poder agregarle uno al valor.
+                int version = Convert.ToInt32(ServiceVersion.GetLastVersion(id_documento));
+                //se agrega uno.
+                version++;
+
+                //etorna el nuevo valor de la versión, convertido a string.
+                return Convert.ToString(version);
+            }
+         */
+        #endregion
+        #endregion
+        #endregion
         /// <summary>
         /// Método para obetener la última versión de un documento.
         /// </summary>
@@ -1228,13 +1251,34 @@ namespace Model.ControlDocumentos
             //Inicializamos los servicios de version.
             SO_Version ServiceVersion = new SO_Version();
 
-            //convierte a entero para poder agregarle uno al valor.
-            int version = Convert.ToInt32(ServiceVersion.GetLastVersion(id_documento));
+            //Declaramos un entero el cual será el que contenga la última versión.
+            int version = 0;
+
+            //Obtenemos la última versión.
+            string ultimaVersión = ServiceVersion.GetLastVersion(id_documento);
+
+            //Verificamos que la última versión sea numérica, si es así la obtenemos. Si no es numérica, se generará la versión 1.
+            if (IsNumeric(ultimaVersión))
+            {
+                version = Convert.ToInt32(ultimaVersión);
+            }
+
             //se agrega uno.
             version++;
 
             //etorna el nuevo valor de la versión, convertido a string.
             return Convert.ToString(version);
+        }
+
+        /// <summary>
+        /// Método que indica si una cadena es un número.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static bool IsNumeric(string s)
+        {
+            float output;
+            return float.TryParse(s, out output);
         }
 
         /// <summary>
