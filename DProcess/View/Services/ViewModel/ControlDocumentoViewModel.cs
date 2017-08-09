@@ -485,7 +485,7 @@ namespace View.Services.ViewModel
         }
         
         /// <summary>
-        /// 
+        /// Comando para abrir la ventana de Validación tipo documento
         /// </summary>
         public ICommand IrValidacionTipoDocumento
         {
@@ -496,7 +496,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Método que muestra la ventana para agregar validación de documento
         /// </summary>
         private void irvalidacionTipo()
         {

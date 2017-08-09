@@ -6,7 +6,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
-        Title="Pendientes Liberar" Height="500" Width="550" WindowStartupLocation="CenterScreen"
+        Title="Pendientes Liberar" Height="500" Width="670" WindowStartupLocation="CenterScreen"
        ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>

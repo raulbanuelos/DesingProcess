@@ -11,6 +11,7 @@ namespace Model.ControlDocumentos
         #region Propiedades
         public int id_validacion { get; set; }
         public int id_tipo { get; set; }
+        public int id_val_tipo { get; set; }
         public string validacion_documento { get; set; }
         public string validacion_descripcion { get; set; }
         public DateTime fecha_creacion { get; set; }

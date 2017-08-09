@@ -12,6 +12,7 @@
          BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
         <DataTemplate x:Key="ListCheck">
             <Border x:Name="Border" Padding="8" BorderThickness="0 0 0 1" Width="280"  BorderBrush="{DynamicResource MaterialDesignDivider}">
                 <Grid >
@@ -63,8 +64,17 @@
         <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical">
             <TextBox  materialDesign:HintAssist.Hint="Validación " Text="{Binding Validacion}" TextAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" Margin="10,0,0,0"/>
             <TextBox materialDesign:HintAssist.Hint="Descripción " Text="{Binding Descripcion}" TextAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Margin="10,0,0,0" ></TextBox>
-            <Button Height="44" Content="Guardar Relación" Command="{Binding GuardarValidacion}" FontSize="12" Margin="0,0,291,0" />
+            <Button Height="39" Content="Guardar" Command="{Binding GuardarValidacion}" FontSize="12" Margin="250,10,0,0" Width="75"/>
         </StackPanel>
-       
+
+        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" Margin="221,10,10,10">
+            <Button Content="Quitar Relación"  Height="40" FontSize="12" Command="{Binding QuitarRelacion}" Visibility="{Binding Enabled, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Grid.Row="3" Orientation="Horizontal" Margin="140,0,0,0">
+            <Button Content="Relacionar"  Height="40" FontSize="12" Command="{Binding GuardarR}" Visibility="{Binding Enabled, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" ></Button>
+            <Button Content="Eliminar Validación" Height="40" FontSize="12" Command="{Binding EliminarValidacion}"  Width="79" Margin="20,10"/>
+        </StackPanel>
+
     </Grid>
 </Controls:MetroWindow>

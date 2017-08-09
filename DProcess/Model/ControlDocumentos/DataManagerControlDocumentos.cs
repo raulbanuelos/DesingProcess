@@ -1623,13 +1623,13 @@ namespace Model.ControlDocumentos
         #region ValidacionDocumento
 
         /// <summary>
-        /// 
+        /// Método que obtiene las relaciones de validación documento, dependiendo del tipo de documento
         /// </summary>
         /// <param name="id_tipo"></param>
         /// <returns></returns>
         public static ObservableCollection<ValidacionDocumento> GetValidacion_Documento(int id_tipo)
         {
-            //Se inicializan los servicios de Documento.
+            //Se inicializan los servicios de ValidacionDocumento
             SO_Validacion ServiceValidacion = new SO_Validacion();
 
             //Se crea una lista de tipo documento, la cual se va a retornar
@@ -1641,6 +1641,7 @@ namespace Model.ControlDocumentos
             //Verificamos que la informacion no esté vacía.
             if (ObjValidacion != null)
             {
+                //Iteramos la lista resultante
                 foreach (var item in ObjValidacion)
                 {
                     //Obtenemos el tipo.
@@ -1654,7 +1655,7 @@ namespace Model.ControlDocumentos
                     obj.validacion_documento = (string)tipo.GetProperty("VALIDACION_DOCUMENTO").GetValue(item, null);
                     obj.validacion_descripcion = (string)tipo.GetProperty("VALIDACION_DESCRIPCION").GetValue(item, null);
                     obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
-
+                    obj.id_val_tipo = (int)tipo.GetProperty("ID_VALIDACION_TIPO_DOCUMENTO").GetValue(item, null);
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }
@@ -1664,24 +1665,25 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// Método que obtiene las validaciones que no tengan relación con un tipo de documento
+        /// Método que obtiene las relaciones de validacion tipo de documento, dependiendo del id de la validación
         /// </summary>
-        /// <param name="id_tipo"></param>
+        /// <param name="id_val"></param>
         /// <returns></returns>
-        public static ObservableCollection<ValidacionDocumento> GetV_Tipo(int id_tipo)
+        public static ObservableCollection<ValidacionDocumento> GetR_Val_Tipo(int id_val)
         {
-            //Se inicializan los servicios de Documento.
+            //Se inicializan los servicios de ValidacionDocumento.
             SO_Validacion ServiceValidacion = new SO_Validacion();
 
             //Se crea una lista de tipo documento, la cual se va a retornar
             ObservableCollection<ValidacionDocumento> Lista = new ObservableCollection<ValidacionDocumento>();
 
             //obtenemos todo de la BD.
-            IList ObjValidacion = ServiceValidacion.GetValidacion(id_tipo);
+            IList ObjValidacion = ServiceValidacion.GetR_Val_Tipo(id_val);
 
             //Verificamos que la informacion no esté vacía.
             if (ObjValidacion != null)
             {
+                //Iteramos la lista resultante
                 foreach (var item in ObjValidacion)
                 {
                     //Obtenemos el tipo.
@@ -1691,11 +1693,7 @@ namespace Model.ControlDocumentos
                     ValidacionDocumento obj = new ValidacionDocumento();
 
                     //Asignamos los valores correspondientes.
-                    obj.id_validacion = (int)tipo.GetProperty("ID_VALIDACION_DOCUMENTO").GetValue(item, null);
-                    obj.validacion_documento = (string)tipo.GetProperty("VALIDACION_DOCUMENTO").GetValue(item, null);
-                    obj.validacion_descripcion = (string)tipo.GetProperty("VALIDACION_DESCRIPCION").GetValue(item, null);
-                    obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
-
+                    obj.id_val_tipo = (int)tipo.GetProperty("ID_VALIDACION_TIPO_DOCUMENTO").GetValue(item, null);
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }
@@ -1703,13 +1701,14 @@ namespace Model.ControlDocumentos
             //regresamos la lista.
             return Lista;
         }
+        
         /// <summary>
-        /// 
+        /// Método que obtiene todas las validaciones de documento
         /// </summary>
         /// <returns></returns>
         public static ObservableCollection<ValidacionDocumento> GetValidaciones()
         {
-            //Se inicializan los servicios de Documento.
+            //Se inicializan los servicios de ValidacionDocumetno.
             SO_Validacion ServiceValidacion = new SO_Validacion();
 
             //Se crea una lista de tipo documento, la cual se va a retornar
@@ -1721,6 +1720,7 @@ namespace Model.ControlDocumentos
             //Verificamos que la informacion no esté vacía.
             if (ObjValidacion != null)
             {
+                //Iteramos la lista
                 foreach (var item in ObjValidacion)
                 {
                     //Obtenemos el tipo.
@@ -1744,7 +1744,7 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// 
+        /// Método que guarda un registro en la tabla validacion documento
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -1753,11 +1753,12 @@ namespace Model.ControlDocumentos
             //Se inicializan los servicios de Validacion.
             SO_Validacion ServiceValidacion = new SO_Validacion();
 
+            //Ejecutamos el método que guarda el registro
             return ServiceValidacion.SetValidacion(obj.validacion_documento, obj.validacion_descripcion);
         }
 
         /// <summary>
-        /// 
+        /// Método que verifica si existe una relación de tipo de documento con la validación
         /// </summary>
         /// <param name="id_validacion"></param>
         /// <param name="id_tipo"></param>
@@ -1767,11 +1768,12 @@ namespace Model.ControlDocumentos
             //Se inicializan los servicios de Validacion.
             SO_Validacion ServiceValidacion = new SO_Validacion();
 
+            //Ejecutamos el método para buscar el registro
             return ServiceValidacion.SearchValidacion(id_validacion,id_tipo);
         }
 
         /// <summary>
-        /// 
+        /// Método que guarda la relación entre validación y tipo de documento
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -1780,11 +1782,12 @@ namespace Model.ControlDocumentos
             //Se inicializan los servicios de Validacion.
             SO_Validacion ServiceValidacion = new SO_Validacion();
 
+            //Ejecutamos el método para guardar el registro
             return ServiceValidacion.SetRelacion(obj.id_tipo, obj.id_validacion);
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene el id la validación 
         /// </summary>
         /// <param name="descripcion"></param>
         /// <returns></returns>
@@ -1792,6 +1795,7 @@ namespace Model.ControlDocumentos
             //Se inicializan los servicios de Validacion.
             SO_Validacion ServiceValidacion = new SO_Validacion();
 
+            //Ejecutamos el método
             return ServiceValidacion.GetID_Validacion(descripcion);
         }
 
@@ -1805,7 +1809,21 @@ namespace Model.ControlDocumentos
             //Se inicializan los servicios de Validacion.
             SO_Validacion ServiceValidacion = new SO_Validacion();
 
+            //Ejecutamos el método para eliminar el registro
             return ServiceValidacion.DeleteValidacion(id_validacion);
+        }
+
+        /// <summary>
+        /// Método para eliminar la relación de la tabla validación y un tipo de documento
+        /// </summary>
+        /// <param name="id_val_tipo"></param>
+        /// <returns></returns>
+        public static int DeleteTR_Validacion(int id_val_tipo)
+        {
+            //Se inicializan los servicios de Validacion.
+            SO_Validacion ServiceValidacion = new SO_Validacion();
+            //Ejecutamos el método
+            return ServiceValidacion.DeleteRelacion_Validacion(id_val_tipo);
         }
         #endregion
 
