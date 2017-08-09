@@ -1444,7 +1444,7 @@ namespace View.Services.ViewModel
                 setting.NegativeButtonText = "NO";
 
                 //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-                MessageDialogResult result = await dialogService.SendMessage("Attention", "¿Deseas eliminar el archivo?", setting, MessageDialogStyle.AffirmativeAndNegative);
+                MessageDialogResult result = await dialogService.SendMessage("Attention", "¿Desea eliminar el archivo?", setting, MessageDialogStyle.AffirmativeAndNegative);
 
                 if (item != null & result == MessageDialogResult.Affirmative)
                 {

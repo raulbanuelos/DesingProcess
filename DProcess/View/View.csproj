@@ -152,6 +152,9 @@
     <Compile Include="Forms\ControlDocumentos\FrmPendientes_Liberar.xaml.cs">
       <DependentUpon>FrmPendientes_Liberar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmValidacion_Tipo.xaml.cs">
+      <DependentUpon>FrmValidacion_Tipo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmValidarDocumento.xaml.cs">
       <DependentUpon>FrmValidarDocumento.xaml</DependentUpon>
     </Compile>
@@ -246,6 +249,7 @@
     <Compile Include="Services\ViewModel\PatternViewModel.cs" />
     <Compile Include="Services\ViewModel\RelayCommand.cs" />
     <Compile Include="Services\ViewModel\UsuarioViewModel.cs" />
+    <Compile Include="Services\ViewModel\ValidacionTipoVM.cs" />
     <Compile Include="Services\ViewModel\ValidarDocumentoViewM.cs" />
     <Compile Include="Services\ViewModel\VersionesVM.cs" />
     <Compile Include="UserControls\DProcessPropiedad.xaml.cs">
@@ -325,6 +329,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmPendientes_Liberar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmValidacion_Tipo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

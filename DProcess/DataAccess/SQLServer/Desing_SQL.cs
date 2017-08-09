@@ -42,7 +42,7 @@ namespace DataAccess.SQLServer
             {
 
                 //Verificamos que la cadena de conexión sea válida y que el nombre del procedimiento sea direfenre de vacío.
-                if (this.StringDeConexion != string.Empty && !string.IsNullOrEmpty(nombreProcedimientoAlmacenado))
+                if (StringDeConexion != string.Empty && !string.IsNullOrEmpty(nombreProcedimientoAlmacenado))
                 {
 
                     //Declaramos la conexión con el string definido.
@@ -70,7 +70,7 @@ namespace DataAccess.SQLServer
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ER)
             {
                 //Registrar el error.
             }

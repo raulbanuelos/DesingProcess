@@ -483,6 +483,29 @@ namespace View.Services.ViewModel
             frame.DataContext = context;
             frame.ShowDialog();
         }
+        
+        /// <summary>
+        /// Comando para abrir la ventana de Validación tipo documento
+        /// </summary>
+        public ICommand IrValidacionTipoDocumento
+        {
+            get
+            {
+                return new RelayCommand(o => irvalidacionTipo());
+            }
+        }
+
+        /// <summary>
+        /// Método que muestra la ventana para agregar validación de documento
+        /// </summary>
+        private void irvalidacionTipo()
+        {
+            FrmValidacion_Tipo frame = new FrmValidacion_Tipo();
+            ValidacionTipoVM context = new ValidacionTipoVM();
+            frame.DataContext = context;
+            frame.ShowDialog();
+
+        }
 
         /// <summary>
         /// Método que muestra la ventana para agregar un documento
