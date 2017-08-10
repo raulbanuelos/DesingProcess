@@ -363,7 +363,7 @@ namespace View.Services.ViewModel
             frm.DataContext = context;
 
             frm.ShowDialog();
-
+                      
             initSnack();
         }
 
@@ -379,7 +379,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método que muestra la ventada de documentos pendientes por aprobar
+        /// Método que muestra la ventada de documentos liberados, pendientes por aprobar de todos los usuarios
         /// </summary>
         private void irDocumentosAprobados()
         {
@@ -391,7 +391,8 @@ namespace View.Services.ViewModel
 
             frm.ShowDialog();
 
-            initControlDocumentos();
+            TextoBuscar = string.Empty;
+            GetDataGrid(string.Empty);
             initSnack();
         }
 

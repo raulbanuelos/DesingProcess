@@ -7,13 +7,13 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
-        Title="" Height="500" Width="770" WindowStartupLocation="CenterScreen"
+        Title="" Height="500" Width="900" WindowStartupLocation="CenterScreen"
                       ResizeMode="NoResize">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </Window.Resources>
     <Grid>
-        <DataGrid x:Name="dataGrid"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding ListaDocumentosValidar}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
+        <DataGrid x:Name="dataGrid"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,5,0,0" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding ListaDocumentosValidar}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}" Width="846">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding id_documento}" ClipboardContentBinding="{x:Null}" Header="id documento"/>
                 <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre"/>
