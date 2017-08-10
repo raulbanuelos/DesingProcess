@@ -8,7 +8,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="Validar Documento" Height="800" Width="1000"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
+        Title="" Height="800" Width="1000"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.Resources>
         <DataTemplate x:Key="Lista">
@@ -76,7 +76,7 @@
                     <TextBox materialDesign:HintAssist.Hint="Usuario Aurotizó" Text="{Binding Usuario.nombre_usuario_autorizo}" Width="390" Height="50" FontSize="18" IsReadOnly="True"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Height="50">
-                    <TextBox materialDesign:HintAssist.Hint="Nombre del documento" Text="{Binding SelectedDocumento.descripcion}" Width="390" Height="50" FontSize="16" IsReadOnly="True"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="Descripción" Text="{Binding SelectedDocumento.descripcion}" Width="390" Height="50" FontSize="16" IsReadOnly="True"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                 </StackPanel>
 
             </StackPanel>

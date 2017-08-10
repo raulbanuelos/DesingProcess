@@ -95,7 +95,7 @@
             <DatePicker x:Name="txt_fecha" materialDesign:HintAssist.Hint="Fecha" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40" Canvas.Left="11" Canvas.Top="141" Width="420" DisplayDateEnd="{x:Static System:DateTime.Today}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"
                         IsEnabled="{Binding IsEnabled}"/>
             <!--Descripción-->
-            <TextBox Text="{Binding Descripcion}"  materialDesign:HintAssist.Hint="Nombre del Documento" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Canvas.Left="12" Canvas.Top="415"  Height="50"  Width="420" BorderBrush="#89535353" FontSize="18"  IsEnabled="{Binding IsEnabled}"></TextBox>
+            <TextBox Text="{Binding Descripcion}"  materialDesign:HintAssist.Hint="Descripción" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Canvas.Left="12" Canvas.Top="415"  Height="50"  Width="420" BorderBrush="#89535353" FontSize="18"  IsEnabled="{Binding IsEnabled}"></TextBox>
             <!--Buttons-->
             <Button x:Name="button"  Height="40" Width="75" RenderTransformOrigin="0.495,0.578" BorderBrush="#89DCDCDC" Canvas.Left="887" Canvas.Top="687"  Command="{Binding LlenarLista}" Background="#89F2F5F7" ToolTip="Abrir archivo"
                     Visibility="{Binding BttnArchivos, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}">

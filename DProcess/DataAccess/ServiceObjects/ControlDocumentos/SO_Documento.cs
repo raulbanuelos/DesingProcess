@@ -35,7 +35,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      d.ID_DOCUMENTO,
                                      t.ID_TIPO_DOCUMENTO,
                                      d.NOMBRE,
-                                     d.DESCRIPCION,
+                                    // d.DESCRIPCION,
                                      //d.VERSION_ACTUAL,
                                      d.FECHA_EMISION,
                                      d.FECHA_CREACION,
@@ -65,8 +65,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_actualizacion"></param>
         /// <param name="fecha_emision"></param>
         /// <returns></returns>
-        public int SetDocumento(int id_documento, int id_tipo_documento,int id_dep, string nombre, string descripcion, DateTime fecha_creacion, DateTime fecha_actualizacion, DateTime fecha_emision,
-                                 int id_estatus, string id_usuario)
+        public int SetDocumento( int id_tipo_documento,int id_dep, string nombre,int id_estatus, string id_usuario)
         {
             try
             {
@@ -77,15 +76,11 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     TBL_DOCUMENTO obj = new TBL_DOCUMENTO();
 
                     //Se asiganan los valores.
-                    obj.ID_DOCUMENTO = id_documento;
                     obj.ID_TIPO_DOCUMENTO = id_tipo_documento;
                     obj.ID_DEPARTAMENTO = id_dep;
                     obj.NOMBRE = nombre;
                     //obj.DESCRIPCION = descripcion;
-                    //obj.VERSION_ACTUAL = version_actual;
                     obj.FECHA_CREACION = DateTime.Now;
-                    //obj.FECHA_ACTUALIZACION = fecha_actualizacion;
-                    //obj.FECHA_EMISION = fecha_emision;
                     obj.ID_ESTATUS_DOCUMENTO = id_estatus;
                     obj.ID_USUARIO = id_usuario;
 
@@ -117,7 +112,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_actualizacion"></param>
         /// <param name="fecha_emision"></param>
         /// <returns></returns>
-        public int UpdateDocumento(int id_documento, int id_tipo_documento,int id_dep, string nombre, string descripcion, DateTime fecha_actualizacion,int id_estatus,DateTime fecha_emision)
+        public int UpdateDocumento(int id_documento, int id_tipo_documento,int id_dep, DateTime fecha_actualizacion,int id_estatus,DateTime fecha_emision)
         {
             try
             {
@@ -128,10 +123,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     TBL_DOCUMENTO obj = Conexion.TBL_DOCUMENTO.Where(x => x.ID_DOCUMENTO == id_documento).FirstOrDefault();
 
                     //Asignamos los  parámetros recibidos a cada uno de los valores de los objetos.
-                    //obj.NOMBRE = nombre;
                     obj.ID_TIPO_DOCUMENTO = id_tipo_documento;
                     obj.ID_DEPARTAMENTO = id_dep;
-                    obj.DESCRIPCION = descripcion;
                     obj.FECHA_ACTUALIZACION = fecha_actualizacion;
                     obj.FECHA_EMISION = fecha_emision;
                     obj.ID_ESTATUS_DOCUMENTO = id_estatus;
@@ -151,7 +144,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
-        /// 
+        /// Método que modifica la fecha de actualización de un documento
         /// </summary>
         /// <param name="id_documento"></param>
         /// <param name="version_actual"></param>
@@ -229,7 +222,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
                     //Realizamos la consulta para obtener todos los registros,donde el nombre o la descripción  del documento debe de contener la palabra recibida.
-                    var Lista = Conexion.TBL_DOCUMENTO.Where(d => d.NOMBRE.Contains(keyword) || d.DESCRIPCION.Contains(keyword)).ToList();
+                    var Lista = Conexion.TBL_DOCUMENTO.Where(d => d.NOMBRE.Contains(keyword)).ToList();
 
                     //Renornamos el resultado de la consulta.
                     return Lista;
@@ -272,7 +265,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                          v.No_VERSION,
                                          v.ID_VERSION,
                                          v.NO_COPIAS,
-                                         DESCRIPCION = d.DESCRIPCION,
+                                         DESCRIPCION = v.DESCRIPCION,
                                          b.NOMBRE_DEPARTAMENTO,
                                          d.FECHA_EMISION
                                      }).OrderBy(x => x.ID_DOCUMENTO).Distinct().ToList();
@@ -285,7 +278,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                      join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
                                      join b in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals b.ID_DEPARTAMENTO
-                                     where d.ID_TIPO_DOCUMENTO == idTipoDocumento && d.ID_ESTATUS_DOCUMENTO == 5 && v.ID_ESTATUS_VERSION == 1  && (d.NOMBRE.Contains(textoBusqueda) || d.DESCRIPCION.Contains(textoBusqueda))
+                                     where d.ID_TIPO_DOCUMENTO == idTipoDocumento && d.ID_ESTATUS_DOCUMENTO == 5 && v.ID_ESTATUS_VERSION == 1  && (d.NOMBRE.Contains(textoBusqueda) || v.DESCRIPCION.Contains(textoBusqueda))
                                      select new
                                      {
                                          d.ID_DOCUMENTO,
@@ -295,7 +288,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                          v.No_VERSION,
                                          v.ID_VERSION,
                                          v.NO_COPIAS,
-                                         DESCRIPCION = d.DESCRIPCION,
+                                         DESCRIPCION = v.DESCRIPCION,
                                          b.NOMBRE_DEPARTAMENTO,
                                          d.FECHA_EMISION
                                      }).OrderBy(x => x.ID_DOCUMENTO).Distinct().ToList();
@@ -341,7 +334,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                         v.No_VERSION,
                                         v.ID_VERSION,
                                         v.NO_COPIAS,
-                                        DESCRIPCION = d.DESCRIPCION,
+                                        DESCRIPCION = v.DESCRIPCION,
                                         b.NOMBRE_DEPARTAMENTO,
                                         d.FECHA_EMISION,
                                         t.TIPO_DOCUMENTO,
@@ -360,7 +353,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
                                      join b in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals b.ID_DEPARTAMENTO
                                      join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
-                                     where d.ID_ESTATUS_DOCUMENTO == 5 && v.ID_ESTATUS_VERSION == 1 && (d.NOMBRE.Contains(texto) || d.DESCRIPCION.Contains(texto))
+                                     where d.ID_ESTATUS_DOCUMENTO == 5 && v.ID_ESTATUS_VERSION == 1 && (d.NOMBRE.Contains(texto) || v.DESCRIPCION.Contains(texto))
                                      select new
                                      {
                                          d.ID_DOCUMENTO,
@@ -370,7 +363,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                          v.No_VERSION,
                                          v.ID_VERSION,
                                          v.NO_COPIAS,
-                                         DESCRIPCION = d.DESCRIPCION,
+                                         DESCRIPCION = v.DESCRIPCION,
                                          b.NOMBRE_DEPARTAMENTO,
                                          d.FECHA_EMISION,
                                          t.TIPO_DOCUMENTO,
@@ -619,7 +612,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      d.ID_DEPARTAMENTO,
                                      d.ID_ESTATUS_DOCUMENTO,
                                      d.NOMBRE,
-                                     d.DESCRIPCION,
+                                     v.DESCRIPCION,
                                      d.FECHA_EMISION,
                                      d.FECHA_CREACION,
                                      d.FECHA_ACTUALIZACION,
@@ -802,7 +795,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="id_estatus"></param>
         /// <param name="id_usuario"></param>
         /// <returns></returns>
-        public int InsertDocumentos(int id_tipo_documento, int id_dep, string nombre, string descripcion, DateTime fecha_emision, DateTime fecha_actualizacion, int id_estatus, string id_usuario)
+        public int InsertDocumentos(int id_tipo_documento, int id_dep, string nombre, DateTime fecha_emision, DateTime fecha_actualizacion, int id_estatus, string id_usuario)
         {
             try
             {
@@ -816,7 +809,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.ID_TIPO_DOCUMENTO = id_tipo_documento;
                     obj.ID_DEPARTAMENTO = id_dep;
                     obj.NOMBRE = nombre;
-                    obj.DESCRIPCION = descripcion;
                     obj.FECHA_CREACION = fecha_emision;
                     obj.FECHA_ACTUALIZACION = fecha_actualizacion;
                     obj.FECHA_EMISION = fecha_emision;

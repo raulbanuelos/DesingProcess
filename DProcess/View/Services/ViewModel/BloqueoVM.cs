@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace View.Services.ViewModel
 {
@@ -209,48 +210,59 @@ namespace View.Services.ViewModel
         /// </summary>
         private async void modificar()
         {
-            //Valida que todos los campos estén llenos
-            if (Valida() & id_bloqueo !=0)
+            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = "SI";
+            setting.NegativeButtonText = "NO";
+
+            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+
+            if (result == MessageDialogResult.Affirmative)
             {
-
-                //Declaramos un objeto de tipo Bloqueo
-                Bloqueo obj = new Bloqueo();
-
-                //Asignamos los valores, sólo se modifica el rango y observaciones
-                obj.fecha_inicio = _fechaInicio;
-                obj.fecha_fin = _fechaFin;
-                obj.observaciones = _observaciones;
-                obj.id_bloqueo = id_bloqueo;
-
-                //Ejecutamos el método para modificar el registro
-                int update = DataManagerControlDocumentos.UpdateBloqueo(obj);
-
-                //Si se modificó correctamente
-                if (update !=0)
+                //Valida que todos los campos estén llenos
+                if (Valida() & id_bloqueo != 0)
                 {
-                    await dialog.SendMessage("Información", "Los cambios fueron guardados correctamente...");
 
-                    //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                    var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+                    //Declaramos un objeto de tipo Bloqueo
+                    Bloqueo obj = new Bloqueo();
 
-                    //Verificamos que la pantalla sea diferente de nulo.
-                    if (window != null)
+                    //Asignamos los valores, sólo se modifica el rango y observaciones
+                    obj.fecha_inicio = _fechaInicio;
+                    obj.fecha_fin = _fechaFin;
+                    obj.observaciones = _observaciones;
+                    obj.id_bloqueo = id_bloqueo;
+
+                    //Ejecutamos el método para modificar el registro
+                    int update = DataManagerControlDocumentos.UpdateBloqueo(obj);
+
+                    //Si se modificó correctamente
+                    if (update != 0)
                     {
-                        //Cerramos la pantalla
-                        window.Close();
+                        await dialog.SendMessage("Información", "Los cambios fueron guardados correctamente...");
+
+                        //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                        var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                        //Verificamos que la pantalla sea diferente de nulo.
+                        if (window != null)
+                        {
+                            //Cerramos la pantalla
+                            window.Close();
+                        }
                     }
+                    else
+                    {
+                        //Si hubo error al realizar la modificación
+                        await dialog.SendMessage("Alert", "Error al modificar el registro...");
+                    }
+
                 }
                 else
                 {
-                    //Si hubo error al realizar la modificación
-                    await dialog.SendMessage("Alert", "Error al modificar el registro...");
+                    //Si los campos se encuentran vacíos
+                    await dialog.SendMessage("Información", "Se debe de llenar todos los campos...");
                 }
-
-            }
-            else
-            {
-                //Si los campos se encuentran vacíos
-                await dialog.SendMessage("Información", "Se deben de llenar todos los campos...");
             }
         }
 
@@ -270,35 +282,47 @@ namespace View.Services.ViewModel
         /// </summary>
         private async void desbloquear()
         {
-            if (id_bloqueo !=0)
+
+            if (id_bloqueo != 0)
             {
-                //Declaramos un objeto de tipo Bloqueo
-                Bloqueo obj = new Bloqueo();
+                //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+                MetroDialogSettings setting = new MetroDialogSettings();
+                setting.AffirmativeButtonText = "SI";
+                setting.NegativeButtonText = "NO";
 
-                //Asignamos los valores
-                obj.id_bloqueo = id_bloqueo;
+                //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+                MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea desbloquear el sistema?", setting, MessageDialogStyle.AffirmativeAndNegative);
 
-                //Ejecutamos el método para modificar el estado a desbloqueado
-                int desbloq=DataManagerControlDocumentos.UpdateEstado(obj);
-
-                //Si se realizó el cambio
-                if (desbloq !=0)
+                if (result == MessageDialogResult.Affirmative)
                 {
-                    await dialog.SendMessage("Información", "Los cambios fueron realizados correctamente...");
+                    //Declaramos un objeto de tipo Bloqueo
+                    Bloqueo obj = new Bloqueo();
 
-                    //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                    var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+                    //Asignamos los valores
+                    obj.id_bloqueo = id_bloqueo;
 
-                    //Verificamos que la pantalla sea diferente de nulo.
-                    if (window != null)
+                    //Ejecutamos el método para modificar el estado a desbloqueado
+                    int desbloq = DataManagerControlDocumentos.UpdateEstado(obj);
+
+                    //Si se realizó el cambio
+                    if (desbloq != 0)
                     {
-                        //Cerramos la pantalla
-                        window.Close();
+                        await dialog.SendMessage("Información", "Los cambios fueron realizados correctamente...");
+
+                        //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                        var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                        //Verificamos que la pantalla sea diferente de nulo.
+                        if (window != null)
+                        {
+                            //Cerramos la pantalla
+                            window.Close();
+                        }
                     }
-                }
-                else
-                {
-                    await dialog.SendMessage("Alert", "Error al realizar los cambios...");
+                    else
+                    {
+                        await dialog.SendMessage("Alert", "Error al realizar los cambios...");
+                    }
                 }
             }
         }

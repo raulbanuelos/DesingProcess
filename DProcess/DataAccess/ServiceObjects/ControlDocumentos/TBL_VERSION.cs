@@ -26,6 +26,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public string ID_USUARIO_AUTORIZO { get; set; }
         public int ID_DOCUMENTO { get; set; }
         public string No_VERSION { get; set; }
+        public string DESCRIPCION { get; set; }
         public Nullable<System.DateTime> FECHA_VERSION { get; set; }
         public Nullable<int> NO_COPIAS { get; set; }
     

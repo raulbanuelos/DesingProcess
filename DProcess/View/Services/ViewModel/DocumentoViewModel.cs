@@ -670,7 +670,6 @@ namespace View.Services.ViewModel
                             obj.nombre = nombre;
                             obj.id_tipo_documento = _id_tipo;
                             obj.id_dep = _id_dep;
-                            obj.descripcion = descripcion;
                             obj.fecha_actualizacion = DateTime.Now;
                             obj.fecha_emision = fecha;
                             obj.id_estatus = 2;
@@ -689,6 +688,7 @@ namespace View.Services.ViewModel
                                 objVersion.fecha_version = fecha;
                                 objVersion.id_estatus_version = 3;
                                 objVersion.no_copias = 0;
+                                objVersion.descripcion_v = Descripcion;
 
                                 //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
                                 int id_version = DataManagerControlDocumentos.SetVersion(objVersion);
@@ -748,7 +748,7 @@ namespace View.Services.ViewModel
                     {
                         //Si no cumple con la validación.
                         //Ejecutamos el método para enviar un mensaje de alerta al usuario.
-                        await dialog.SendMessage("Alerta", "Verifica que el archivo  cumpla con todos los requisitos..");
+                        await dialog.SendMessage("Alerta", "Verifique que el archivo cumpla con todos los requisitos..");
                     }
                 }
                 else
@@ -759,7 +759,7 @@ namespace View.Services.ViewModel
             else
             {
                 //Si se genera una versión nueva
-                //Ejecutamos el método para valirdar los valores.
+                //Ejecutamos el método para validar los valores.
 
                 if (ValidarValores())
                 {
@@ -782,6 +782,7 @@ namespace View.Services.ViewModel
                             objVersion.fecha_version = fecha;
                             objVersion.id_estatus_version = 3;
                             objVersion.no_copias = 0;
+                            objVersion.descripcion_v = Descripcion;
 
                             //valida que la version en el documento no se repita
                             int validacion = DataManagerControlDocumentos.ValidateVersion(objVersion);
@@ -850,7 +851,7 @@ namespace View.Services.ViewModel
                     {
                         //Si no cumple con la validación.
                         //Ejecutamos el método para enviar un mensaje de alerta al usuario.
-                        await dialog.SendMessage("Alerta", "Verifica que el archivo cumpla con todos los requisitos..");
+                        await dialog.SendMessage("Alerta", "Verifique que el archivo cumpla con todos los requisitos..");
                     }
                 }
                 else
@@ -1017,7 +1018,7 @@ namespace View.Services.ViewModel
             setting.NegativeButtonText = "NO";
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Deseas eliminar el registro?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea eliminar el registro?", setting, MessageDialogStyle.AffirmativeAndNegative);
 
             //Si el id es diferente de cero
             if (id_documento != 0 & result==MessageDialogResult.Affirmative)
@@ -1108,7 +1109,7 @@ namespace View.Services.ViewModel
             setting.NegativeButtonText = "NO";
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Deseas guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
 
             if (result == MessageDialogResult.Affirmative)
             {
@@ -1131,7 +1132,6 @@ namespace View.Services.ViewModel
                                 obj.id_documento = id_documento;
                                 obj.id_dep = _id_dep;
                                 obj.id_tipo_documento = _id_tipo;
-                                obj.descripcion = Descripcion;
                                 obj.fecha_emision = fecha;
                                 obj.fecha_actualizacion = DateTime.Now;
                                 obj.id_estatus = 5;
@@ -1241,7 +1241,7 @@ namespace View.Services.ViewModel
                     else
                     {
                         //Si los campos están vacíos, manda un mensaje.
-                        await dialog.SendMessage("RGP: Alerta", "Verifica que el archivo cumpla con todos los requisitos");
+                        await dialog.SendMessage("RGP: Alerta", "Verifique que el archivo cumpla con todos los requisitos");
                     }
                     }
                     else
@@ -1267,8 +1267,9 @@ namespace View.Services.ViewModel
             objVersion.fecha_version = fecha;
             objVersion.id_estatus_version = 3;
             objVersion.no_copias = 0;
+            objVersion.descripcion_v = Descripcion;
 
-            //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
+            //Ejecutamos el método para guardar la versión. El resultado lo retornamos
             return DataManagerControlDocumentos.UpdateVersion(objVersion);
         }
 
@@ -1306,7 +1307,7 @@ namespace View.Services.ViewModel
                 setting.NegativeButtonText = "NO";
 
                 //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-                MessageDialogResult result = await dialog.SendMessage("Attention", "¿Deseas generar una nueva versión?", setting, MessageDialogStyle.AffirmativeAndNegative);
+                MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea generar una nueva versión?", setting, MessageDialogStyle.AffirmativeAndNegative);
 
                 if (result == MessageDialogResult.Affirmative)
                 {
@@ -1542,6 +1543,7 @@ namespace View.Services.ViewModel
                                 objVersion.fecha_version = fecha;
                                 objVersion.id_estatus_version = 1;
                                 objVersion.no_copias = Convert.ToInt32(num_copias);
+                                objVersion.descripcion_v = Descripcion;
 
                                 //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
                                 int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion);
@@ -1549,6 +1551,7 @@ namespace View.Services.ViewModel
                                 //Si la versión se actualizó correctamente.
                                 if (update_version != 0)
                                 {
+                                    //Guardamos el documento si es procedimiento o formato
                                     string file=SaveFile();
 
                                     if (file == null)
@@ -1595,6 +1598,7 @@ namespace View.Services.ViewModel
                             objVersion.fecha_version = fecha;
                             objVersion.id_estatus_version = 1;
                             objVersion.no_copias = Convert.ToInt32(num_copias);
+                            objVersion.descripcion_v = Descripcion;
                             
                             //Ejecutamos el método para modificar el estatus de la versión. El resultado lo guardamos en una variable local.
                             int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion);
@@ -1617,6 +1621,7 @@ namespace View.Services.ViewModel
                                 //si se actualizó correctamente
                                 if (update != 0)
                                 {
+                                    //Guardamos el documento, si es procedimiento o formato
                                     string file= SaveFile();
 
                                     if (file == null)
@@ -1653,7 +1658,7 @@ namespace View.Services.ViewModel
                 }
                 else
                 {
-                    await dialog.SendMessage("Alerta", "Campos inválidos, ingrese números..");
+                    await dialog.SendMessage("Alerta", "Campos inválidos, ingrese sólo números..");
                 }
             }
         }
@@ -1701,11 +1706,11 @@ namespace View.Services.ViewModel
 
                     }
                 }
-                //Si no hay erro se retorna nulo
+                //Si no hay error se retorna nulo
                return null;
             } catch (Exception er)
             {
-                //Si hay error se retorna el erro
+                //Si hay error se retorna el error
                 return er.ToString();
             }
         }
@@ -1736,7 +1741,7 @@ namespace View.Services.ViewModel
             setting.NegativeButtonText = "NO";
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Deseas regresar a la versión anterior?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea regresar a la versión anterior?", setting, MessageDialogStyle.AffirmativeAndNegative);
              //
             if (result == MessageDialogResult.Affirmative)
             {
@@ -1813,7 +1818,7 @@ namespace View.Services.ViewModel
         /// <returns></returns>
         private bool ValidarValores()
         {
-            if (nombre != null & version != null & fecha != null & descripcion != null & id_tipo != 0 & _ListaDocumentos.Count != 0 & _usuario!=null & _id_dep!=0 & usuarioAutorizo!=null)
+            if (nombre != null & version != null & fecha != null & !string.IsNullOrEmpty(descripcion) & id_tipo != 0 & _ListaDocumentos.Count != 0 & _usuario!=null & _id_dep!=0 & usuarioAutorizo!=null)
                 return true;
             else 
                 return false;

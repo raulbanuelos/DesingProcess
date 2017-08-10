@@ -275,7 +275,7 @@ namespace Model.ControlDocumentos
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     obj.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
-                    obj.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    //obj.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
                     obj.fecha_emision = (DateTime)tipo.GetProperty("FECHA_EMISION").GetValue(item, null);
                     obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
                     obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
@@ -301,11 +301,9 @@ namespace Model.ControlDocumentos
             SO_Documento ServiceDocumento = new SO_Documento();
 
             //Se ejecuta el método y retorna el id del documento que fue insertado.
-            return ServiceDocumento.SetDocumento(documento.id_documento, documento.id_tipo_documento, documento.id_dep, documento.nombre, documento.descripcion,
-                                                 documento.fecha_creacion, documento.fecha_actualizacion, documento.fecha_emision,
-                                                 documento.id_estatus, documento.usuario);
+            return ServiceDocumento.SetDocumento(documento.id_tipo_documento, documento.id_dep, documento.nombre,
+                                                    documento.id_estatus, documento.usuario);
         }
-
 
 
         /// <summary>
@@ -319,7 +317,7 @@ namespace Model.ControlDocumentos
             SO_Documento ServiceDocumento = new SO_Documento();
 
             // Se ejecuta el método y retorna los registros que se modificaron.
-            return ServiceDocumento.UpdateDocumento(documento.id_documento, documento.id_tipo_documento, documento.id_dep, documento.nombre, documento.descripcion,
+            return ServiceDocumento.UpdateDocumento(documento.id_documento, documento.id_tipo_documento, documento.id_dep,
                                                  documento.fecha_actualizacion, documento.id_estatus, documento.fecha_emision);
         }
 
@@ -693,7 +691,7 @@ namespace Model.ControlDocumentos
             //Se inician los servicios de Documento.
             SO_Documento ServiceDocumento = new SO_Documento();
 
-            return ServiceDocumento.InsertDocumentos(documento.id_tipo_documento, documento.id_dep, documento.nombre, documento.descripcion, documento.fecha_emision, documento.fecha_actualizacion, documento.id_estatus,
+            return ServiceDocumento.InsertDocumentos(documento.id_tipo_documento, documento.id_dep, documento.nombre, documento.fecha_emision, documento.fecha_actualizacion, documento.id_estatus,
                                                 documento.usuario);
         }
         #endregion
@@ -1147,7 +1145,8 @@ namespace Model.ControlDocumentos
             SO_Version ServiceVersion = new SO_Version();
 
             //Se ejecuta el método y regresa el id de la versión
-            return ServiceVersion.SetVersion(version.id_version, version.id_usuario, version.id_usuario_autorizo, version.id_documento, version.no_version, version.fecha_version, version.no_copias, version.id_estatus_version);
+            return ServiceVersion.SetVersion(version.id_usuario, version.id_usuario_autorizo, version.id_documento, version.no_version,
+                                             version.fecha_version, version.no_copias, version.id_estatus_version, version.descripcion_v);
         }
 
         /// <summary>
@@ -1161,7 +1160,8 @@ namespace Model.ControlDocumentos
             SO_Version ServiceVersion = new SO_Version();
 
             // Se ejecuta el método y retorna los registros que se modificarion
-            return ServiceVersion.UpdateVersion(version.id_version, version.id_usuario, version.id_usuario_autorizo, version.id_documento, version.no_version, version.fecha_version, version.no_copias, version.id_estatus_version);
+            return ServiceVersion.UpdateVersion(version.id_version, version.id_usuario, version.id_usuario_autorizo, version.id_documento, 
+                                                version.no_version, version.fecha_version, version.no_copias, version.id_estatus_version, version.descripcion_v);
         }
 
         /// <summary>
@@ -1383,6 +1383,7 @@ namespace Model.ControlDocumentos
                     obj.no_copias = (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
                     obj.nombre_usuario_autorizo = (string)tipo.GetProperty("USUARIO_AUTORIZO").GetValue(item, null);
                     obj.nombre_usuario_elaboro = (string)tipo.GetProperty("USUARIO_ELABORO").GetValue(item, null);
+                    obj.descripcion_v = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
 
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);

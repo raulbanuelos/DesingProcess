@@ -21,6 +21,7 @@ namespace Model.ControlDocumentos
         public string estatus { get; set;  }
         public string nombre_usuario_autorizo { get; set; }
         public string nombre_usuario_elaboro { get; set; }
+        public string descripcion_v { get; set; }
         #endregion
 
         #region Constructores

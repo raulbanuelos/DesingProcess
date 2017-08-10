@@ -124,7 +124,7 @@ namespace View.Services.ViewModel
 
                 //Se añade las columnas
                 table.Columns.Add("Numero de Documento");
-                table.Columns.Add("Nombre de Documento");
+                table.Columns.Add("Descripción");
                 table.Columns.Add("Version");
                 table.Columns.Add("Responsable");
                 table.Columns.Add("Tipo de Documento");
@@ -139,7 +139,7 @@ namespace View.Services.ViewModel
 
                     //Se añaden los valores a las columnas
                     newRow["Numero de Documento"] = item.nombre;
-                    newRow["Nombre de Documento"] = item.descripcion;
+                    newRow["Descripción"] = item.descripcion;
                     newRow["Version"] = item.version.no_version;
                     newRow["Responsable"] = item.Departamento;
                     newRow["Tipo de Documento"] = item.tipo.tipo_documento;
