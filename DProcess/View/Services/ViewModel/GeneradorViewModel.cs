@@ -129,6 +129,7 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Método que genera un nuevo número y crea un nuevo documento con el número generado
         /// </summary>
+        [STAThread]
         private async void generarNumero()
         {
             //Incializamos los servicios de dialog.
@@ -156,8 +157,12 @@ namespace View.Services.ViewModel
 
                     if (id_doc != 0)
                     {
+
+                        //Copiamos el número generado al portapapeles.
+                        Clipboard.SetText(numero);
+
                         //Muestra mensaje con el número que se generó.
-                        await dialog.SendMessage("Información", "Se generó el número " + numero);
+                        await dialog.SendMessage("Información", "Se generó el número: " + numero + "\n\n" + "Se copió el número al portapapeles.");
 
                         //Obtememos la ventana actual
                         var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
