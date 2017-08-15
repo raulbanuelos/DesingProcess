@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Model.ControlDocumentos;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +22,7 @@ namespace IMPORTEXCEL
     /// </summary>
     public partial class MainWindow : Window
     {
+        ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
         public MainWindow()
         {
             InitializeComponent();
@@ -29,7 +32,8 @@ namespace IMPORTEXCEL
         {
             
             Import.ImportAV("´ª´µ¦®¢");
-           
+
+            //dataGrid.DataContext = Lista;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Model.ControlDocumentos;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,12 +12,14 @@ namespace IMPORTEXCEL
 {
    public static class Import
     {
+
         /// <summary>
         /// Importa formatos o documentos sin hiperlink
         /// </summary>
         /// <param name="usuario"></param>
          public async static void ImportAV(string usuario)
        {
+            ObservableCollection<Documento> Lista= new ObservableCollection<Documento>();
            try
            {
                string path = "C:\\Users\\Ing.practicante\\Documents\\HIIS.xls";
@@ -54,12 +57,11 @@ namespace IMPORTEXCEL
                         
                        //Obtenemos el id del proceso
                        objDocumento.id_dep = DataManagerControlDocumentos.GetID_Dep(proceso);
-                       objDocumento.nombre = range.Cells[aux, 4].Value2.ToString();
+                       objDocumento.nombre = range.Cells[aux, 3].Value2.ToString();
                         //objTipo.tipo_documento = range.Cells[aux, 3].Value2.ToString();
-                       objDocumento.id_tipo_documento = 1003;
+                       objDocumento.id_tipo_documento = 1005;
                        objDocumento.usuario = usuario;
-                       objDocumento.descripcion = range.Cells[aux, 5].Value2.ToString();
-                       fecha = range.Cells[aux, 7].Value2;
+                       fecha = range.Cells[aux, 6].Value2;
                        objDocumento.fecha_emision = DateTime.FromOADate(fecha);
                        objDocumento.fecha_actualizacion = DateTime.FromOADate(fecha);
                        objDocumento.id_estatus = 5;
@@ -74,28 +76,39 @@ namespace IMPORTEXCEL
                            objVersion.id_estatus_version = 1;
                            objVersion.id_usuario_autorizo = usuario;
                            objVersion.id_usuario = usuario;
-                           objVersion.no_version = range.Cells[aux, 6].Value2.ToString();
+                           objVersion.no_version = range.Cells[aux, 5].Value2.ToString();
                            objVersion.no_copias = 0;
-                           objVersion.fecha_version = DateTime.FromOADate(range.Cells[aux, 7].Value2);
+                           objVersion.descripcion_v = range.Cells[aux, 4].Value2.ToString();
+                           objVersion.fecha_version = DateTime.FromOADate(range.Cells[aux, 6].Value2);
 
-                            int id_version = 4970;// DataManagerControlDocumentos.SetVersion(objVersion);
+                            int id_version = 5736;// DataManagerControlDocumentos.SetVersion(objVersion);
 
                            if (id_version != 0)
                            {
                                 //Alta del Archivo
 
                                   objArchivo.id_version = id_version;
-                                  url =string.Concat(range.Cells[aux, 4].Value2.ToString(),range.Cells[aux, 6].Value2.ToString());
+                                  url =string.Concat(range.Cells[aux, 3].Value2.ToString(),range.Cells[aux, 5].Value2.ToString());
 
                                   url = string.Concat("C:\\Users\\Ing.practicante\\Documents\\ESPECIFICOS\\", url,".doc");
+                                //si el archivo existe
 
-                                  objArchivo.ext = System.IO.Path.GetExtension(url);
+                                if ( File.Exists(url)){
+                                    objArchivo.ext = System.IO.Path.GetExtension(url);
 
-                                  objArchivo.nombre = System.IO.Path.GetFileNameWithoutExtension(url);
+                                    objArchivo.nombre = System.IO.Path.GetFileNameWithoutExtension(url);
 
-                                  objArchivo.archivo = File.ReadAllBytes(url);
+                                    objArchivo.archivo = File.ReadAllBytes(url);
 
-                                int archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                                    int archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                                }
+                                else
+                                {
+                                    string nombre = objDocumento.nombre;
+                                    objDocumento.descripcion = range.Cells[aux, 4].Value2.ToString();
+                                    objDocumento.version.no_version = range.Cells[aux, 5].Value2.ToString();
+                                    Lista.Add(objDocumento);
+                                }
                            }
 
                        }
@@ -105,6 +118,7 @@ namespace IMPORTEXCEL
                }
 
                ExcelWork.Close();
+                int numero =Lista.Count;
            }
            catch (Exception er)
            {
