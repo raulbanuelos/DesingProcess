@@ -8,6 +8,14 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Button x:Name="button" Content="IMPORTAR" HorizontalAlignment="Left" Height="34" Margin="50,58,0,0" VerticalAlignment="Top" Width="85" Click="button_Click"/>
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="188" Margin="17,115,0,0" VerticalAlignment="Top" Width="456" AutoGenerateColumns="False" ItemsSource="{Binding}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nombre" Binding="{Binding nombre}"></DataGridTextColumn>
+                <DataGridTextColumn Header="descripcion" Binding="{Binding descripcion}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Version" Binding="{Binding version.no_version}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Fecha" Binding="{Binding fecha_emision}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </Window>
