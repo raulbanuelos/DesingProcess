@@ -4,9 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Model.ControlDocumentos
@@ -693,6 +695,151 @@ namespace Model.ControlDocumentos
 
             return ServiceDocumento.InsertDocumentos(documento.id_tipo_documento, documento.id_dep, documento.nombre, documento.fecha_emision, documento.fecha_actualizacion, documento.id_estatus,
                                                 documento.usuario);
+        }
+        
+        /// <summary>
+        /// Método para obtener las coincidencias de una descripción
+        /// </summary>
+        /// <param name="doc"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Documento> ValidateDescripcion(Documento doc)
+        {
+            //Se inicializa los servicios de documento
+            SO_Documento ServiceDocumento = new SO_Documento();
+
+            //Se crea una lista de tipo documento, la cual se va a retornar
+            ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
+
+            string descripcion = DeleteAccents(doc.descripcion);
+
+            //obtenemos un vector sin espacios de la descripción
+            string[] aux = descripcion.Split(' ');
+
+            // obtenemos todo de la BD.
+            IList ObjDocumento = ServiceDocumento.ValidateDescripcion(doc.id_tipo_documento, doc.id_dep);
+
+            if (ObjDocumento != null)
+            {
+                //Iteramos la lista que se obtuvo
+                foreach (var item in ObjDocumento)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos el objeto 
+                    Documento obj = new Documento();
+                    int cont = 0;
+
+                    //Asigamos los valores
+                    obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.version.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    obj.version.descripcion_v = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    obj.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
+
+                    //Se manda a llamar a la función para eliminar acentos
+                    string descVersion = DeleteAccents(obj.version.descripcion_v);
+
+                    //Se obtiene un vector sin espacios
+                    string[] vec = descVersion.Split(' ');
+
+                    //Recorremos el vector de la descripción que se va a dar de alta
+                    for (int i = 0; i < aux.Length; i++)
+                    {
+                        //Recorremos el vector de la descripción de la versión que se obtuvo
+                        for (int k = 0; k < vec.Length; k++)
+                        {
+                            //Comparamos si son iguales las palabras ignorando las mayúsculas
+                            if (aux[i].Equals(vec[k], StringComparison.InvariantCultureIgnoreCase) || Compara(aux[i],vec[k]))
+                            {
+                                //Incrementamos el contador
+                                cont++;
+                                break;
+                            }
+                        }
+                    }
+
+                    //calculamos el porcentaje de coincidencia
+                    int porcentaje = (cont * 100)/ vec.Length;
+
+                    //si el porcentaje es mayor a 80%, la descripción se parece y agregamos el objeto a la lista
+                    if (porcentaje >= 80)
+                    {
+                        //Se agrega el objeto a la lista
+                        Lista.Add(obj);
+                    }
+                   
+                }
+            }
+            return Lista;
+        }
+
+        /// <summary>
+        /// Función que compara dos palabras
+        /// </summary>
+        /// <param name="w1"></param>
+        /// <param name="w2"></param>
+        /// <returns></returns>
+        private static bool Compara(string w1, string w2)
+        {
+            //inicializa el contador
+            int contador = 0;
+
+            //recorre la primera palabara
+            for (int i = 0; i < w1.Length; i++)
+            {
+                //recorre la segunda palabra
+                for (int j = 0; j < w2.Length; j++)
+                {
+                    //realiza la comparación ignorado mayúsculas y minúsculas
+                    if(w1[i].ToString().Equals(w2[j].ToString(),StringComparison.InvariantCultureIgnoreCase))
+                     {
+                        //si son iguales el caractér en la posición i y en la posición j
+                        //suma el contador y rompe el ciclo
+                        contador++;
+                        break;
+                     }
+
+                }
+            }
+
+            //calculamos el porcentaje de coincidencia
+            int porciento = (contador * 100) / w1.Length;
+
+            //si el porcentaje es mayor a 80%, la palabra es parecida, retorna verdadero
+            if (porciento >= 80)
+                return true;
+            else
+                return false;
+       
+        }
+
+        /// <summary>
+        /// Función que devuelve una cadena sin acentos
+        /// </summary>
+        /// <param name="palabra"></param>
+        /// <returns></returns>
+        private static string DeleteAccents(string palabra)
+        {
+            //normalizamos la cadena
+            string descripcion = palabra.Normalize(NormalizationForm.FormD);
+
+            //Inicializamos una variable de la clase Stringbuilder
+            var stringBuilder = new StringBuilder();
+
+            //recorremos la cadena, para eliminar los acentos
+            foreach (var c in descripcion)
+            {
+                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                {
+                    stringBuilder.Append(c);
+                }
+            }
+
+            //se guarda el resultado de la cadena sin acentos
+            return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }
         #endregion
 

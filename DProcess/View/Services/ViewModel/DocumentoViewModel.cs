@@ -649,7 +649,8 @@ namespace View.Services.ViewModel
             //Verificamos que el botón contenga la leyenda Guardar, esto indica que el registro es nuevo.
             if (BotonGuardar == "Guardar")
             { 
-                //Ejecutamos el método para verificar que todos los campos contengan valores.
+                //Ejecutamos el método para verificar que todos los campos contengan valores.                
+
                 if (ValidarValores())
                 {
                     if (ValidaSelected())
@@ -673,6 +674,9 @@ namespace View.Services.ViewModel
                             obj.fecha_actualizacion = DateTime.Now;
                             obj.fecha_emision = fecha;
                             obj.id_estatus = 2;
+
+                            obj.descripcion = Descripcion;
+                            DataManagerControlDocumentos.ValidateDescripcion(obj);
 
                             //Ejecutamos el método para guardar el documento. El resultado lo guardamos en una variable local.
                             int update = DataManagerControlDocumentos.UpdateDocumento(obj);

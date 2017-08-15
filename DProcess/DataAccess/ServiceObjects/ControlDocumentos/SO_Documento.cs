@@ -830,5 +830,40 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return 0;
             }
         }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id_tipo_doc"></param>
+        /// <param name="id_dep"></param>
+        /// <returns></returns>
+        public IList ValidateDescripcion(int id_tipo_doc, int id_dep)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    var Lista = (from d in Conexion.TBL_DOCUMENTO
+                                 join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                 where d.ID_DEPARTAMENTO == id_dep && d.ID_TIPO_DOCUMENTO == id_tipo_doc && v.ID_ESTATUS_VERSION == 1 && d.ID_ESTATUS_DOCUMENTO == 5
+                                 select new
+                                 {
+                                     d.ID_DOCUMENTO,
+                                     d.NOMBRE,
+                                     v.DESCRIPCION,
+                                     v.ID_VERSION,
+                                     v.No_VERSION,
+                                     v.FECHA_VERSION
+                                 }).ToList();
+
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+
+                return null;
+            }
+        }
     }
 }
