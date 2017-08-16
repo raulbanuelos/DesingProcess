@@ -676,7 +676,11 @@ namespace View.Services.ViewModel
                             obj.id_estatus = 2;
 
                             obj.descripcion = Descripcion;
-                            DataManagerControlDocumentos.ValidateDescripcion(obj);
+                            ObservableCollection<Documento> ListaDocumentosSimilares =  DataManagerControlDocumentos.ValidateDescripcion(obj);
+                            if (ListaDocumentosSimilares.Count > 0)
+                            {
+                                //Mostrar al usuario la lista de documentos
+                            }
 
                             //Ejecutamos el método para guardar el documento. El resultado lo guardamos en una variable local.
                             int update = DataManagerControlDocumentos.UpdateDocumento(obj);
