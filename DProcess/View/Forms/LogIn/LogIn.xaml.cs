@@ -14,6 +14,7 @@ using View.Forms.Shared;
 using View.Services.ViewModel;
 using Model.ControlDocumentos;
 using System;
+using View.Services;
 
 namespace View.Forms.LogIn
 {
@@ -35,8 +36,18 @@ namespace View.Forms.LogIn
             //Comparamos si el resultado es distinto de nulo. Si es igual a nulo quiere decir que el usuario cancelo la captura o cerró inesperadamente la pantalla.
 			if(result != null)
 			{
+
+                //Incializamos los servicios de dialog.
+                DialogService dialog = new DialogService();
+
+                //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
+                ProgressDialogController AsyncProgress;
+
+                //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
+                AsyncProgress = await dialog.SendProgressAsync("Log In", "");
+
                 //Declaramos un objeto con el cual se realiza la encriptación
-				Encriptacion encriptar = new Encriptacion();
+                Encriptacion encriptar = new Encriptacion();
 
                 //Ejecutamos el método para encriptar tanto el usuario como la contraseña y los guardamos en variables locales respectivamente.
 				string usuario = encriptar.encript(result.Username);
@@ -48,8 +59,11 @@ namespace View.Forms.LogIn
                 //Verificamos el resultado, si es direfente de nulo quiere decir que el logueo fué correcto, si es igual a nulo quiere decir que el usuario no existe con las credenciales proporcionadas.
 				if (usuarioConectado != null) {
 
+                    //Ejecutamos el método para cerrar el mensaje de espera.
+                    await AsyncProgress.CloseAsync();
+
                     //Verificamos si el usuario no esta bloqueado.
-					if (usuarioConectado.Block) {
+                    if (usuarioConectado.Block) {
 
                         //Enviamos un mensaje para indicar que el usuario está bloqueado.
                         MessageDialogResult message = await this.ShowMessageAsync("Information","This user is not active");
@@ -89,9 +103,11 @@ namespace View.Forms.LogIn
                     }
 				}
 				else{
+                    //Ejecutamos el método para cerrar el mensaje de espera.
+                    await AsyncProgress.CloseAsync();
 
                     //Enviamos un mensaje indicando que las credenciales escritas son incorrectas.
-					MessageDialogResult message = await this.ShowMessageAsync("Alert","Your user/password are incorrects");
+                    MessageDialogResult message = await this.ShowMessageAsync("Alert","Your user/password are incorrects");
 				}
 			}
 		}

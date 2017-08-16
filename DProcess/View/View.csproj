@@ -164,6 +164,9 @@
     <Compile Include="Forms\ControlDocumentos\FrmVersiones.xaml.cs">
       <DependentUpon>FrmVersiones.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\Frm_DocumentosSimilares.xaml.cs">
+      <DependentUpon>Frm_DocumentosSimilares.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DataBase\PDataBase.xaml.cs">
       <DependentUpon>PDataBase.xaml</DependentUpon>
     </Compile>
@@ -230,6 +233,7 @@
     <Compile Include="Services\ViewModel\ControlDocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\DimensionsViewModel.cs" />
     <Compile Include="Services\ViewModel\DocumentosPendientesViewM.cs" />
+    <Compile Include="Services\ViewModel\Documentos_SimilaresVM.cs" />
     <Compile Include="Services\ViewModel\DocumentoValidarViewModel.cs" />
     <Compile Include="Services\ViewModel\DocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\GeneradorViewModel.cs" />
@@ -344,6 +348,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmVersiones.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\Frm_DocumentosSimilares.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

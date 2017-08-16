@@ -830,22 +830,26 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return 0;
             }
         }
-        
+
         /// <summary>
-        /// 
+        /// Método que obtiene todos los documentos liberados de un tipo de documento y departamente en específico
+        /// Obtiene los documentos diferentes al documento recibido
         /// </summary>
         /// <param name="id_tipo_doc"></param>
         /// <param name="id_dep"></param>
+        /// <param name="id_doc"></param>
         /// <returns></returns>
-        public IList ValidateDescripcion(int id_tipo_doc, int id_dep)
+        public IList ValidateDescripcion(int id_tipo_doc, int id_dep, int id_doc)
         {
             try
             {
+                //Se inician los servicios de Entity Control Documento
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
+                    //Realizamos la consulta para obtener los documentos liberados
                     var Lista = (from d in Conexion.TBL_DOCUMENTO
                                  join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
-                                 where d.ID_DEPARTAMENTO == id_dep && d.ID_TIPO_DOCUMENTO == id_tipo_doc && v.ID_ESTATUS_VERSION == 1 && d.ID_ESTATUS_DOCUMENTO == 5
+                                 where d.ID_DEPARTAMENTO == id_dep && d.ID_TIPO_DOCUMENTO == id_tipo_doc && v.ID_ESTATUS_VERSION == 1 && d.ID_ESTATUS_DOCUMENTO == 5 && d.ID_DOCUMENTO != id_doc
                                  select new
                                  {
                                      d.ID_DOCUMENTO,
@@ -855,13 +859,13 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      v.No_VERSION,
                                      v.FECHA_VERSION
                                  }).ToList();
-
+                    //retornamos la lista
                     return Lista;
                 }
             }
             catch (Exception er)
             {
-
+                //si hay error retornamos nulo
                 return null;
             }
         }

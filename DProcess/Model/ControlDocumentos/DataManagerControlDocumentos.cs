@@ -702,7 +702,7 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="doc"></param>
         /// <returns></returns>
-        public static ObservableCollection<Documento> ValidateDescripcion(Documento doc)
+        public static ObservableCollection<Documento> ValidateDocumentosSimilares(Documento doc)
         {
             //Se inicializa los servicios de documento
             SO_Documento ServiceDocumento = new SO_Documento();
@@ -716,7 +716,7 @@ namespace Model.ControlDocumentos
             string[] aux = descripcion.Split(' ');
 
             // obtenemos todo de la BD.
-            IList ObjDocumento = ServiceDocumento.ValidateDescripcion(doc.id_tipo_documento, doc.id_dep);
+            IList ObjDocumento = ServiceDocumento.ValidateDescripcion(doc.id_tipo_documento, doc.id_dep, doc.id_documento);
 
             if (ObjDocumento != null)
             {
@@ -741,7 +741,7 @@ namespace Model.ControlDocumentos
                     //Se manda a llamar a la función para eliminar acentos
                     string descVersion = DeleteAccents(obj.version.descripcion_v);
 
-                    //Se obtiene un vector sin espacios
+                    //Se obtiene un vector sin espacios, de la descripcion de la versión
                     string[] vec = descVersion.Split(' ');
 
                     //Recorremos el vector de la descripción que se va a dar de alta
@@ -760,11 +760,22 @@ namespace Model.ControlDocumentos
                         }
                     }
 
+                    int resta = 0;
+                    //Si la descripcion que se va a dar de alta es mayor a la descripción de la versión iterada
+                    if (aux.Length > vec.Length)
+                    {
+                        //restamos el tamaño del vector auxiliar menos el tamaño del vector vec
+                        resta = aux.Length - vec.Length;
+                    }
+                    //si es mayor el vector de la descripción iterada
+                    else
+                        resta = vec.Length - aux.Length;
+
                     //calculamos el porcentaje de coincidencia
                     int porcentaje = (cont * 100)/ vec.Length;
 
-                    //si el porcentaje es mayor a 80%, la descripción se parece y agregamos el objeto a la lista
-                    if (porcentaje >= 80)
+                    //si el porcentaje es mayor a 80% y si tiene una diferencia mayor a 4 palabras, la descripción se parece y agregamos el objeto a la lista
+                    if (porcentaje >= 80 && resta <=4)
                     {
                         //Se agrega el objeto a la lista
                         Lista.Add(obj);
@@ -804,6 +815,9 @@ namespace Model.ControlDocumentos
                 }
             }
 
+            if (w1.Length == 0)
+                return false;
+            
             //calculamos el porcentaje de coincidencia
             int porciento = (contador * 100) / w1.Length;
 
