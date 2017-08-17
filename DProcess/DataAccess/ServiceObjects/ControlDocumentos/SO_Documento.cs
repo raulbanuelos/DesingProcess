@@ -329,7 +329,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                     {
                                         d.ID_DOCUMENTO,
                                         d.NOMBRE,
-                                        FECHA_ACTUALIZACION = v.FECHA_VERSION,
+                                        v.FECHA_VERSION,
                                         d.ID_DEPARTAMENTO,
                                         v.No_VERSION,
                                         v.ID_VERSION,

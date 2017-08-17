@@ -55,6 +55,7 @@
                 <DataGridTextColumn Binding="{Binding tipo.tipo_documento}" ClipboardContentBinding="{x:Null}" Header="Tipo de documento"/>
                 <DataGridTextColumn Binding="{Binding usuario}" ClipboardContentBinding="{x:Null}" Header="Usuario Elaboró"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding usuario_autorizo}" ClipboardContentBinding="{x:Null}" Header="Usuario Autorizó"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding version.fecha_version,StringFormat={}{0:yyyy-MM-dd}}" Header="Fecha de Revisión"></DataGridTextColumn>
             </DataGrid.Columns>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">

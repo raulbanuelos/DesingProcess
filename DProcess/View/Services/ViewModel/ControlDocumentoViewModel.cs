@@ -417,7 +417,8 @@ namespace View.Services.ViewModel
             frmTipo.DataContext = context;
             frmTipo.ShowDialog();
 
-            initControlDocumentos();
+            TextoBuscar = string.Empty;
+            GetDataGrid(string.Empty);
         }
         /// <summary>
         /// Comando para abrir ventana de búsqueda de documentos

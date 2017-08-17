@@ -108,7 +108,7 @@
                 <DataGridTextColumn Binding="{Binding version.no_copias}" ClipboardContentBinding="{x:Null}" Header="Copias"/>
                 <DataGridTextColumn Binding="{Binding Departamento}" ClipboardContentBinding="{x:Null}" Header="Responsable"/>
                 <DataGridTextColumn Binding="{Binding fecha_emision, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="Fecha de Emisión"/>
-                <DataGridTextColumn Binding="{Binding fecha_actualizacion, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="Fecha revisión"/>
+                <DataGridTextColumn Binding="{Binding fecha_actualizacion, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="Fecha Revisión"/>
             </DataGrid.Columns>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">

@@ -93,7 +93,7 @@
             <TextBox x:Name="txt_version"  materialDesign:HintAssist.Hint="Versión" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Canvas.Left="11" TextWrapping="Wrap" Canvas.Top="76" Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding Version}" IsEnabled="{Binding VersionEnabled}"/>
             <!--Date-->
             <DatePicker x:Name="txt_fecha" materialDesign:HintAssist.Hint="Fecha" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40" Canvas.Left="11" Canvas.Top="141" Width="420" DisplayDateEnd="{x:Static System:DateTime.Today}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"
-                        IsEnabled="{Binding IsEnabled}"/>
+                        IsEnabled="{Binding IsEnabled}"  DisplayDateStart="{Binding Path=FechaInicio, Mode=OneWay, NotifyOnSourceUpdated=True}"/>
             <!--Descripción-->
             <TextBox Text="{Binding Descripcion}"  materialDesign:HintAssist.Hint="Descripción" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Canvas.Left="12" Canvas.Top="415"  Height="50"  Width="420" BorderBrush="#89535353" FontSize="18"  IsEnabled="{Binding IsEnabled}"></TextBox>
             <!--Buttons-->

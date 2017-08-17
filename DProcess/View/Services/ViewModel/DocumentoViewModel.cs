@@ -453,6 +453,21 @@ namespace View.Services.ViewModel
             }
         }
 
+
+
+        private DateTime _FechaInicio = DateTime.Now.AddMonths(-1);
+        public DateTime FechaInicio
+        {
+            get
+            {
+                return _FechaInicio;
+            }
+            set
+            {
+                _FechaInicio = value;
+                NotifyChange("FechaInicio");
+            }
+        }
         #endregion
 
         #region Constructor
