@@ -417,6 +417,7 @@ namespace View.Services.ViewModel
             frmTipo.DataContext = context;
             frmTipo.ShowDialog();
 
+            _ListaTipoDocumento = DataManagerControlDocumentos.GetTipo();
             TextoBuscar = string.Empty;
             GetDataGrid(string.Empty);
         }
