@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using System.Globalization;
 
 namespace View.Services.ViewModel
 {
@@ -92,47 +93,54 @@ namespace View.Services.ViewModel
             {
                 if (!string.IsNullOrEmpty(_abreviatura) & !string.IsNullOrEmpty(_tipoDocumento))
                 {
-                    //Creamos un objeto de tipo TipoDcouemtno
-                    TipoDocumento obj = new TipoDocumento();
-
-                    //Asiganmos los valores al objeto
-                    obj.tipo_documento = _tipoDocumento;
-                    obj.abreviatura = _abreviatura;
-                    obj.fecha_actualizacion = DateTime.Now;
-                    obj.fecha_creacion = DateTime.Now;
-
-                    //Validamos que no exista el tipo de documento
-                    int val = DataManagerControlDocumentos.ValidateTipo(obj);
-
-                    //Si el tipo no existe
-                    if (val == 0)
+                    if (_abreviatura.Length <= 6)
                     {
-                        //Ejecutamos el método para insertar el tipo de documento
-                        int n = DataManagerControlDocumentos.SetTipo(obj);
+                        //Creamos un objeto de tipo TipoDcouemtno
+                        TipoDocumento obj = new TipoDocumento();
 
-                        if (n != 0)
+                        //Asiganmos los valores al objeto
+                        obj.tipo_documento = _tipoDocumento.ToUpper();
+                        obj.abreviatura = _abreviatura.ToUpper();
+                        obj.fecha_actualizacion = DateTime.Now;
+                        obj.fecha_creacion = DateTime.Now;
+
+                        //Validamos que no exista el tipo de documento
+                        int val = DataManagerControlDocumentos.ValidateTipo(obj);
+
+                        //Si el tipo no existe
+                        if (val == 0)
                         {
-                            await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
-                            //Obtenemos la ventana actual.
-                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+                            //Ejecutamos el método para insertar el tipo de documento
+                            int n = DataManagerControlDocumentos.SetTipo(obj);
 
-                            //Verificamos que la pantalla sea diferente de nulo.
-                            if (window != null)
+                            if (n != 0)
                             {
-                                //Cerramos la pantalla
-                                window.Close();
+                                await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+                                //Obtenemos la ventana actual.
+                                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                                //Verificamos que la pantalla sea diferente de nulo.
+                                if (window != null)
+                                {
+                                    //Cerramos la pantalla
+                                    window.Close();
+                                }
+                            }
+                            else
+                            {
+                                //Si existe un error al dar de alta el tipo
+                                await dialog.SendMessage("RGP: Alerta", "Error al registrar el tipo de documento");
                             }
                         }
                         else
                         {
-                            //Si existe un error al dar de alta el tipo
-                            await dialog.SendMessage("RGP: Alerta", "Error al registrar el tipo de documento");
+                            //Si el documento existe
+                            await dialog.SendMessage("RGP: Alerta", "El tipo de documento ya existe..");
                         }
                     }
                     else
                     {
-                        //Si el documento existe
-                        await dialog.SendMessage("RGP: Alerta", "El tipo de documento ya existe..");
+                        await dialog.SendMessage("Alerta", "La abreviatura debe tener menos de 7 caracteres..");
                     }
                 }
                 else

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using View.Forms.ControlDocumentos;
 
 namespace View.Services.ViewModel
 {
@@ -82,35 +83,6 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _validacion;
-        public string Validacion {
-            get
-            {
-                return _validacion;
-            }
-            set
-            {
-                _validacion = value;
-                NotifyChange("Validacion");
-            }
-
-        }
-
-        private string _descripcion;
-        public string Descripcion
-        {
-            get
-            {
-                return _descripcion;
-            }
-            set
-            {
-                _descripcion = value;
-                NotifyChange("Descripcion");
-            }
-
-        }
-
         private ValidacionDocumento _selectedValidacion;
         public ValidacionDocumento SelectedValidacion
         {
@@ -158,17 +130,6 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Comando para guardar validaciones de documento
-        /// </summary>
-        public ICommand GuardarValidacion
-        {
-            get
-            {
-                return new RelayCommand(o => guardarValidacion());
-            }
-        }
-
-        /// <summary>
         /// Comando para guardar relación de una validación con un tipo de documento
         /// </summary>
         public ICommand GuardarR
@@ -198,6 +159,14 @@ namespace View.Services.ViewModel
             get
             {
                 return new RelayCommand(o => eliminarRelacion());
+            }
+        }
+
+        public ICommand irNuevaValidacion
+        {
+            get
+            {
+                return new RelayCommand(o => NuevaValidacion());
             }
         }
         #endregion
@@ -247,65 +216,7 @@ namespace View.Services.ViewModel
                 }
             }
         }
-        /// <summary>
-        /// Método que guarda un registro en la tabla de validaciones
-        /// </summary>
-        private async void guardarValidacion()
-        {
-            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
-            MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
-
-            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
-
-            //Si el resultado es afirmativo
-            if (result == MessageDialogResult.Affirmative)
-            {
-                //Si no están vacíos los campos
-                if (!string.IsNullOrEmpty(_descripcion) && !string.IsNullOrEmpty(_validacion))
-                {
-
-                    ValidacionDocumento obj = new ValidacionDocumento();
-
-                    //Asiganmos los valores al objeto
-                    obj.validacion_descripcion = _descripcion;
-                    obj.validacion_documento = _validacion;
-
-                    //Verificamos que no se repita la validación de documento
-                    int idV = DataManagerControlDocumentos.GetIDValidacion(_validacion);
-
-                    //Si la validación no existe                
-                    if (idV ==0) {
-                        //Ejecutamos el métoodo para guardar el registro
-                        int validacion = DataManagerControlDocumentos.SetValidacion(obj);
-
-                        //Si se guardo correctamente el registro
-                        if (validacion != 0)
-                        {
-                            //Inicializa la Lista
-                            ListaValidaciones = DataManagerControlDocumentos.GetValidaciones();
-                        }
-                        else
-                        {
-                            //Muestra mensaje de error
-                            await dialog.SendMessage("Alerta", "Error al registrar la validación");
-                        }
-                    }
-                    else
-                    {
-                        await dialog.SendMessage("Alerta", "La validación ya existe ");
-                    }
-                }
-                else
-                {
-                    await dialog.SendMessage("Alerta", "Se debe llenar todos los campos");
-                }
-            }
-        }
- 
-
+       
         /// <summary>
         /// Método que guarda la relación de validación y tipo de documento
         /// </summary>
@@ -500,6 +411,20 @@ namespace View.Services.ViewModel
                     await dialog.SendMessage("Alerta", "Se debe seleccionar al menos una validación");
                 }
             }
+        }
+
+        private void NuevaValidacion()
+        {
+            FrmNuevo_ValidacionDocumento frm = new FrmNuevo_ValidacionDocumento();
+            NuevoValidacionDocumento_VM context = new NuevoValidacionDocumento_VM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+
+            if(_SelectedTipoDocumento !=null)
+            //Inicializamos las listas, para mostrarlas 
+            InitComp(_SelectedTipoDocumento.id_tipo);
+            else
+                ListaValidaciones = DataManagerControlDocumentos.GetValidaciones();
         }
 
         /// <summary>

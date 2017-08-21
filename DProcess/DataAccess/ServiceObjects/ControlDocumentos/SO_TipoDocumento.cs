@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,11 +28,11 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                  orderby t.TIPO_DOCUMENTO ascending
                                  select new
                                  {
-                                  t.ID_TIPO_DOCUMENTO,
-                                  t.TIPO_DOCUMENTO,
-                                  t.ABREBIATURA,
-                                  t.FECHA_CREACION,
-                                  t.FECHA_ACTUALIZACION
+                                     t.ID_TIPO_DOCUMENTO,
+                                     t.TIPO_DOCUMENTO,
+                                     t.ABREBIATURA,
+                                     t.FECHA_CREACION,
+                                     t.FECHA_ACTUALIZACION
                                  }).ToList();
                     //se retorna la lista
                     return Lista;
@@ -53,7 +54,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_creacion"></param>
         /// <param name="fecha_actualizacion"></param>
         /// <returns>Si encuentra un error, retorna cero.</returns>
-        public int SetTipo(int id_tipo,string tipo_documento,string abreviatura,DateTime fecha_creacion,DateTime fecha_actualizacion)
+        public int SetTipo(int id_tipo, string tipo_documento, string abreviatura, DateTime fecha_creacion, DateTime fecha_actualizacion)
         {
             try
             {
@@ -61,7 +62,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
                     //Se  crea un objeto de tipo usuarios, el cual se va agregar a la tabla 
-                    TBL_TIPO_DOCUMENTO  obj = new TBL_TIPO_DOCUMENTO();
+                    TBL_TIPO_DOCUMENTO obj = new TBL_TIPO_DOCUMENTO();
 
                     //Se asiganan los valores.
                     obj.ID_TIPO_DOCUMENTO = id_tipo;
@@ -187,7 +188,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// </summary>
         /// <param name="tipo_documento"></param>
         /// <returns></returns>
-        public int ValidateTipo(string tipo_documento,string abrev)
+        public int ValidateTipo(string tipo_documento, string abrev)
         {
             try
             {
@@ -196,19 +197,18 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 {
                     //Realizamos la consulta y e resultado lo guardamos en una variable local.
                     int IdTipoDocumento = (from t in Conexion.TBL_TIPO_DOCUMENTO
-                                           where t.TIPO_DOCUMENTO.Equals(tipo_documento) || t.ABREBIATURA.Equals(abrev)
+                                           where t.TIPO_DOCUMENTO.Contains(tipo_documento) || t.ABREBIATURA.Equals(abrev)
                                            select t.ID_TIPO_DOCUMENTO).ToList().FirstOrDefault();
 
                     //Retornamos el resultado de la consulta.
                     return IdTipoDocumento;
                 }
             }
-            catch (Exception)
+            catch (Exception ER)
             {
                 //Si se genera un error retornamos un cero.
                 return 0;
             }
-        }  
-
-    }
+        }
+    }     
 }

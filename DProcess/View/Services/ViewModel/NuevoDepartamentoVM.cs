@@ -98,8 +98,8 @@ namespace View.Services.ViewModel
                         Departamento objDep = new Departamento();
 
                         //Asiganmos los valores al objeto.
-                        objDep.nombre_dep = _nombreDep;
-                        objDep.Abreviatura = _abreviatura;
+                        objDep.nombre_dep = _nombreDep.ToUpper();
+                        objDep.Abreviatura = _abreviatura.ToUpper();
                         objDep.fecha_actualizacion = DateTime.Now;
                         objDep.fecha_creacion = DateTime.Now;
 
@@ -135,7 +135,7 @@ namespace View.Services.ViewModel
                         else
                         {
                             //Si el nombre del departamento existe
-                            await dialog.SendMessage("Alerta", "El nombre de departamento ya existe..");
+                            await dialog.SendMessage("Alerta", "El departamento ya existe..");
                         }
                     }
                     else

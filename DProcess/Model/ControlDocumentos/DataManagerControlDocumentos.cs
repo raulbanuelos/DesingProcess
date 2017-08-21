@@ -238,8 +238,39 @@ namespace Model.ControlDocumentos
             //Se inicializan los servicios.
             SO_Departamento ServiceDepartamento = new SO_Departamento();
 
-            // Se ejecuta el método y retorna número de registros eliminados.
-            return ServiceDepartamento.ValidateDepartamento(departamento.nombre_dep, departamento.Abreviatura);
+            //obtenemos todo de la BD.
+            IList ObjDepartamento = ServiceDepartamento.GetDepartamento();
+
+            //Verificamos que la informacion no esté vacía.
+            if (ObjDepartamento != null)
+            {
+                foreach (var item in ObjDepartamento)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    Departamento obj = new Departamento();
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_dep = (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
+                    obj.nombre_dep = (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
+                    obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
+                    obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+                    obj.Abreviatura = (string)tipo.GetProperty("ABREVIATURA").GetValue(item, null);
+            
+                    //Quitamamos los acentos del nombre de departamento iterado
+                    string nombreSinAcentos = DeleteAccents(obj.nombre_dep);
+
+                    //Compara el objeto iterado con el objeto que se recibió
+                    if (nombreSinAcentos.Contains(DeleteAccents(departamento.nombre_dep)) || obj.Abreviatura.Equals(departamento.Abreviatura))
+                    {
+                        //Si el nombre del deptarmento o la abreviatura son iguales, devuleve el id
+                        return obj.id_dep;
+                    }
+                }
+            }
+            //regremos cero, si no encontro registros.
+            return 0;
 
         }
 
@@ -418,7 +449,7 @@ namespace Model.ControlDocumentos
                     //Asignamos los valores correspondientes.
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
-                    obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+                    obj.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
                     obj.id_dep = (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
                     obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     obj.version.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
@@ -1101,12 +1132,46 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="tipo"></param>
         /// <returns></returns>
-        public static int ValidateTipo(TipoDocumento tipo)
+        public static int ValidateTipo(TipoDocumento tipoDoc)
         {
             SO_TipoDocumento ServiceTipo = new SO_TipoDocumento();
 
-            // Se ejecuta el método y retorna los registros que se eliminaron.
-            return ServiceTipo.ValidateTipo(tipo.tipo_documento, tipo.abreviatura);
+            //obtenemos todo de la BD.
+            IList ObjTipo = ServiceTipo.GetTipo();
+
+            //Verificamos que la informacion no esté vacía.
+            if (ObjTipo != null)
+            {
+                foreach (var item in ObjTipo)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    TipoDocumento obj = new TipoDocumento();
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_tipo = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.abreviatura = (string)tipo.GetProperty("ABREBIATURA").GetValue(item, null);
+                    obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
+                    obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+
+                    //Quita los acentos del tipo de documento
+                    string tipoSinAcento = DeleteAccents(obj.tipo_documento);
+
+                    //compara las cadenas sin acentos
+                    if (tipoSinAcento.Contains(DeleteAccents(tipoDoc.tipo_documento)) || obj.abreviatura.Equals(tipoDoc.abreviatura))
+                    {
+                        //si el tipo de documento o la abreviatura son iguales, devuelve el id
+                       
+                        return obj.id_tipo;
+                    }
+                  
+                }
+            }
+            //regresamos cero, no encontró ninguna coincidencia
+            return 0;
         }
         #endregion  
 
@@ -1999,12 +2064,12 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="descripcion"></param>
         /// <returns></returns>
-        public static int GetIDValidacion(string descripcion) {
+        public static int GetIDValidacion(string validacion_doc) {
             //Se inicializan los servicios de Validacion.
             SO_Validacion ServiceValidacion = new SO_Validacion();
 
             //Ejecutamos el método
-            return ServiceValidacion.GetID_Validacion(descripcion);
+            return ServiceValidacion.GetID_Validacion(validacion_doc);
         }
 
         /// <summary>

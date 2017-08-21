@@ -58,6 +58,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 {
                     //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
                     var Lista = (from v in Conexion.TBL_VALIDACION_DOCUMENTO
+                                 orderby v.ID_VALIDACION_DOCUMENTO ascending
                                  select new
                                  {
                                      v.ID_VALIDACION_DOCUMENTO,
@@ -277,7 +278,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 {
                     //Realizamos la consulta y se guardan en una VARIABLE, para retornar el resultado.
                     var id = (from v in Conexion.TBL_VALIDACION_DOCUMENTO
-                              where v.VALIDACION_DOCUMENTO == validacion
+                              where v.VALIDACION_DOCUMENTO.Equals(validacion)
                               select v.ID_VALIDACION_DOCUMENTO).FirstOrDefault();
 
                     //Retornamos el id
