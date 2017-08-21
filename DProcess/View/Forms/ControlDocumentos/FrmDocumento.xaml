@@ -14,25 +14,6 @@
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
-        <DataTemplate x:Key="ListCheck">
-            <Border x:Name="Border" Padding="8" BorderThickness="0 0 0 1" Width="280"  BorderBrush="{DynamicResource MaterialDesignDivider}">
-                <Grid >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
-                        <ColumnDefinition ></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <ToggleButton   IsChecked="{Binding Path=selected}"
-                                         Style="{StaticResource MaterialDesignActionToggleButton}"
-                                          Content="X" ToolTip="{Binding Path=validacion_descripcion}" />
-                    <TextBlock FontWeight="Bold" Text="{Binding Path=validacion_documento}" Grid.Column="1"></TextBlock>
-                </Grid>
-            </Border>
-            <DataTemplate.Triggers>
-                <DataTrigger Binding="{Binding selected}" Value="True"  >
-                    <Setter TargetName="Border" Property="Background" Value="{DynamicResource MaterialDesignSelection}" />
-                </DataTrigger>
-            </DataTemplate.Triggers>
-        </DataTemplate>
 
         <!--Lista de Archivos-->
         <DataTemplate x:Key="Lista">
@@ -93,23 +74,19 @@
             <TextBox x:Name="txt_version"  materialDesign:HintAssist.Hint="Versión" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Canvas.Left="11" TextWrapping="Wrap" Canvas.Top="76" Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding Version}" IsEnabled="{Binding VersionEnabled}"/>
             <!--Date-->
             <DatePicker x:Name="txt_fecha" materialDesign:HintAssist.Hint="Fecha" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40" Canvas.Left="11" Canvas.Top="141" Width="420" DisplayDateEnd="{x:Static System:DateTime.Today}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"
-                        IsEnabled="{Binding IsEnabled}"  DisplayDateStart="{Binding Path=FechaInicio, Mode=OneWay, NotifyOnSourceUpdated=True}"/>
+                        IsEnabled="{Binding EnabledFecha}"/>
             <!--Descripción-->
-            <TextBox Text="{Binding Descripcion}"  materialDesign:HintAssist.Hint="Descripción" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Canvas.Left="12" Canvas.Top="415"  Height="50"  Width="420" BorderBrush="#89535353" FontSize="18"  IsEnabled="{Binding IsEnabled}"></TextBox>
-            <!--Buttons-->
-            <Button x:Name="button"  Height="40" Width="75" RenderTransformOrigin="0.495,0.578" BorderBrush="#89DCDCDC" Canvas.Left="887" Canvas.Top="687"  Command="{Binding LlenarLista}" Background="#89F2F5F7" ToolTip="Abrir archivo"
+            <TextBox Text="{Binding Descripcion}"  materialDesign:HintAssist.Hint="Descripción" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Canvas.Left="12" Canvas.Top="415"  Height="50"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
+                     IsEnabled="{Binding IsEnabled}" SpellCheck.IsEnabled="True" Language="es-ES" ></TextBox>
+            <!--Button Adjuntar-->
+            <Button x:Name="button" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Canvas.Left="922" Canvas.Top="687"  Command="{Binding LlenarLista}"  ToolTip="Adjuntar Archivo"
                     Visibility="{Binding BttnArchivos, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}">
-                <Rectangle Width="36" Height="35" Canvas.Top="226"  Canvas.Left="89">
-                    <Rectangle.Fill>
-                        <ImageBrush ImageSource="/View;component/Images/folder.png"/>
-                    </Rectangle.Fill>
-                </Rectangle>
+                <materialDesign:PackIcon Kind="Paperclip" Height="24" Width="24" />
             </Button>
 
             <!--ListView Archivos-->
             <ListBox Name="listBox" Height="619" Canvas.Left="481" Canvas.Top="56" Width="481" ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" BorderThickness="1" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" >
             </ListBox>
-            <Label x:Name="label5" Content="Lista de Documentos" Height="36" Canvas.Left="481" Canvas.Top="10" Width="196" FontSize="18" FontWeight="Bold" RenderTransformOrigin="0.194,0.5"/>
             <!--Tipo de Documento-->
             <ComboBox x:Name="comboBox" materialDesign:HintAssist.Hint="Tipo de Documento" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Canvas.Left="10" Canvas.Top="186" Width="420"  BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}" FontSize="18" IsEnabled="{Binding VersionEnabled}"  />
             <!--Nombre del departamento-->
@@ -155,9 +132,5 @@
             <Button Content="Regresar Versión Anterior" Height="40" FontSize="12" Width="173" Canvas.Left="265" Canvas.Top="12" Command="{Binding RegresarVersion}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"></Button>
             <Button  Content="Liberar" Height="40" Canvas.Left="158" Canvas.Top="12" Width="90"  Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" Command="{Binding LiberarDocumento}" />
         </Canvas>
-        <!--Barra-->
-        <Grid Height="609" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Width="326">
-            <ListBox Canvas.Left="666" ItemsSource="{Binding ListaValidaciones}" ItemTemplate="{StaticResource ListCheck}"  Background="White" Foreground="#DD040404"  Height="609" VerticalAlignment="Top" Margin="0,-10,0,0" />
-        </Grid>
     </Grid>
 </Controls:MetroWindow>

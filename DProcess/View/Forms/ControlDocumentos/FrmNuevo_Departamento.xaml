@@ -14,8 +14,8 @@
     <Grid>
         <Grid HorizontalAlignment="Left" Height="274" Margin="10,10,0,0" VerticalAlignment="Top" Width="457">
             <Label x:Name="label" Content="Agregar Departamento" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Height="53" Margin="19,10,0,0" VerticalAlignment="Top" Width="334"/>
-            <TextBox x:Name="textBox" materialDesign:HintAssist.Hint="Nombre de Departamento"  HorizontalAlignment="Left" Height="50" Margin="19,68,0,0" TextWrapping="Wrap" Text="{Binding NombreDep}" VerticalAlignment="Top" Width="400"   BorderBrush="#899B9999" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-            <TextBox x:Name="textBox1" materialDesign:HintAssist.Hint="Abreviatura" HorizontalAlignment="Left" Height="50"  Text="{Binding Abreviatura}" VerticalAlignment="Top" Width="400" BorderBrush="#899B9999" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="23,132,0,0"/>
+            <TextBox x:Name="textBox" materialDesign:HintAssist.Hint="Nombre de Departamento"  HorizontalAlignment="Left" Height="50" Margin="19,68,0,0" TextWrapping="Wrap" Text="{Binding NombreDep}" VerticalAlignment="Top" Width="400"   BorderBrush="#899B9999" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" CharacterCasing="Upper"/>
+            <TextBox x:Name="textBox1" materialDesign:HintAssist.Hint="Abreviatura" HorizontalAlignment="Left" Height="50"  Text="{Binding Abreviatura}" VerticalAlignment="Top" Width="400" BorderBrush="#899B9999" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="23,132,0,0" CharacterCasing="Upper"/>
             <Button x:Name="button" Content="Guardar" Height="40" Width="90" Command="{Binding Guardar}" Margin="333,208,34,26"/>
         </Grid>
     </Grid>
