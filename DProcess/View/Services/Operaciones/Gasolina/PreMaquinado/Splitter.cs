@@ -168,8 +168,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
                 }
             }
         }
-
-
+        
         #region Methods of IOperacion
         /// <summary>
         /// Método en el cual se calcula la operación.
@@ -208,9 +207,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
 
         public void BuscarHerramentales()
         {
-
-
-
+            
         }
 
         /// <summary>

@@ -405,9 +405,11 @@ namespace Model.ControlDocumentos
                     obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     obj.version.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
                     obj.version.no_copias = (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
-                    obj.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    obj.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null).ToString().ToUpper();
                     obj.Departamento = (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
                     obj.fecha_emision = (DateTime)tipo.GetProperty("FECHA_EMISION").GetValue(item, null);
+                    obj.version.nombre_usuario_elaboro = (string)tipo.GetProperty("USUARIO_ELABORO").GetValue(item, null);
+                    obj.version.nombre_usuario_autorizo = (string)tipo.GetProperty("USUARIO_AUTORIZO").GetValue(item, null);
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }

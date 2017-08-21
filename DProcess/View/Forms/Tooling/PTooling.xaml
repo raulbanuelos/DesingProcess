@@ -51,7 +51,7 @@
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical">
 
             <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
-                <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="Search..." TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+                <TextBox SpellCheck.IsEnabled="True" AcceptsReturn="True" Name="txt_busqueda" materialDesign:HintAssist.Hint="Search..." TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="TextChanged">
                             <i:InvokeCommandAction
