@@ -667,8 +667,10 @@ namespace View.Services.ViewModel
             setting.AffirmativeButtonText = "SI";
             setting.NegativeButtonText = "NO";
 
-            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Los datos son correctos?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            string mensaje= "Nombre: " + nombre + "\nVersión: " + version +"\nFecha: "+ fecha + "\nDescripción: "+ descripcion;
+
+            //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
+            MessageDialogResult result = await dialog.SendMessage("El documento se guardara con los datos:", mensaje, setting, MessageDialogStyle.AffirmativeAndNegative);
             //Verificamos que el botón contenga la leyenda Guardar, esto indica que el registro es nuevo.
             if (BotonGuardar == "Guardar")
             {
@@ -676,7 +678,6 @@ namespace View.Services.ViewModel
                 if (result == MessageDialogResult.Affirmative)
                 {
                     //Ejecutamos el método para verificar que todos los campos contengan valores.                
-
                     if (ValidarValores())
                     {
                             //Valída que si es procedimiento o formato sólo tenga un archivo en la lista de Archivos
@@ -734,7 +735,7 @@ namespace View.Services.ViewModel
                                                 //Declaramos un objeto de tipo Archivo.
                                                 Archivo objArchivo = new Archivo();
 
-                                                //Mapeamos los valores al objeto creado.
+                                                //Mapeamos los valores al objeto creado, se guarda el archivo con el nombre del documento y la versión
                                                 objArchivo.id_version = id_version;
                                                 objArchivo.archivo = item.archivo;
                                                 objArchivo.ext = item.ext;
@@ -774,9 +775,7 @@ namespace View.Services.ViewModel
                                 else
                                 {
                                     // si existen archivos similares 
-
                                     VerDocumentosSimilares(ListDocSimilares);
-
                                 }
                             } // fin de valida tipo
                             else
@@ -813,7 +812,6 @@ namespace View.Services.ViewModel
 
                                     //Declaramos un objeto de tipo Version.
                                     Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
-
                                     //Mapeamos los valores al objeto de versión.
                                     objVersion.no_version = version;
                                     objVersion.id_documento = id_documento;
@@ -838,10 +836,8 @@ namespace View.Services.ViewModel
                                             //Iteramos la lista de documentos.
                                             foreach (var item in _ListaDocumentos)
                                             {
-
                                                 Archivo objArchivo = new Archivo();
-
-                                                //Mapeamos los valores al objeto creado.
+                                                //Mapeamos los valores al objeto creado, se guarda el archivo con el nombre del documento y la versión
                                                 objArchivo.id_version = id_version;
                                                 objArchivo.archivo = item.archivo;
                                                 objArchivo.ext = item.ext;
@@ -919,21 +915,18 @@ namespace View.Services.ViewModel
             //Incializamos los servicios de dialog.
             DialogService dialog = new DialogService();
 
+            //Si la lista no tiene otro archivo adjunto
             if (ListaDocumentos.Count == 0)
             {
                 //Abre la ventana de explorador de archivos
                 Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
-                //Filtar los dpocumentos por extensión 
-                //Si es procedimiento o formatos
+                //Filtar los documentos por extensión 
+                //Si es procedimiento o formatos, sólo mostrar documentos word
                 if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
-                {
                     dlg.Filter = "Word (97-2003)|*.doc";
-                }
                 else
-                {
                     dlg.Filter = "Word (97-2003)|*.doc|PDF Files (.pdf)|*.pdf";
-                }
 
                 // Mostrar el explorador de archivos
                 Nullable<bool> result = dlg.ShowDialog();
@@ -969,13 +962,14 @@ namespace View.Services.ViewModel
                         //Si es archivo de word asigna la imagen correspondiente.
                         obj.ruta = @"/Images/w.png";
                     }
-                    //Se agrega el objeto a la lista
+                    //Se agrega el objeto a la lista, quitamos el boton de archivos
                     ListaDocumentos.Add(obj);
                     BttnArchivos = false;
                 }
             }
             else
             {
+                //Si tiene un archivo adjunto, se muestra el mensaje
                 await dialog.SendMessage("Alerta", "Sólo se admite adjuntar un archivo..");
             }
         }
@@ -1026,7 +1020,6 @@ namespace View.Services.ViewModel
             foreach (var item in Lista)
             {
                 Archivo objArchivo = new Archivo();
-
                 objArchivo.nombre = item.nombre;
                 objArchivo.id_archivo = item.version.archivo.id_archivo;
                 objArchivo.archivo = item.version.archivo.archivo;
@@ -1081,12 +1074,10 @@ namespace View.Services.ViewModel
                 //Elimina los documentos de la lista 
                 foreach (var item in _ListaDocumentos)
                 {
-
                   int n = DataManagerControlDocumentos.DeleteArchivo(item);
                 }
 
-                Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
-                //Se asigna el id 
+                Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version(); 
                 objVersion.id_version = idVersion;
                 //Mandamos a llamar a la  función para eliminar la versión.
                 int version = DataManagerControlDocumentos.DeleteVersion(objVersion);
@@ -1099,7 +1090,6 @@ namespace View.Services.ViewModel
                 {
                     //De cada versión obetemos los correspondientes archivos.
                     ListaArchivo = DataManagerControlDocumentos.GetArchivos(item.id_version);
-
                     //Iteramos la lista de archivos
                     foreach (var archivo in ListaArchivo)
                     {
@@ -1113,23 +1103,19 @@ namespace View.Services.ViewModel
                 if (version != 0)
                 {
                     Documento obj = new Documento();
-
                     //se le asigna el id al objeto
                     obj.id_documento = id_documento;
 
                     //Se manda a llamar a la función.
                     int n = DataManagerControlDocumentos.DeleteDocumento(obj);
-
                     await dialog.SendMessage("", "Registro eliminado!");
                 }
                 else
                 {
                     await dialog.SendMessage("Alert", "No se puedo eliminar la versión");
-                }
-    
+                }   
                     //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                     var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
                     //Verificamos que la pantalla sea diferente de nulo.
                     if (window != null)
                     {
@@ -1176,7 +1162,6 @@ namespace View.Services.ViewModel
                         {
                             //Valída si existe documentos que se aprecezcan al documento a subir, el resultado se guarda en una variable local.
                             ObservableCollection<Documento> ListDocSimilares = ValidaSimilares();
-
                             //si no existe archivos similares, guarda el documento. Si existe archivos similares, muestra un mensaje
                             if (ListDocSimilares == null)
                             {
@@ -1186,7 +1171,6 @@ namespace View.Services.ViewModel
                                 {
                                     //Se crea un objeto de tipo Documento.
                                     Documento obj = new Documento();
-
                                     //Se asignan los valores.
                                     obj.id_documento = id_documento;
                                     obj.id_dep = _id_dep;
@@ -1197,11 +1181,10 @@ namespace View.Services.ViewModel
 
                                     //Ejecuta el método para modificar el documento actual
                                     int n = DataManagerControlDocumentos.UpdateDocumento(obj);
-
                                     //Si se realizo la modificacion
                                     if (n != 0)
                                     {
-                                        //Se ejecuta el metodo que modifica la version actual
+                                        //Se ejecuta el metodo que modifica la version actual, el resultado lo guardamos en una variable local
                                         int update_version = modificaVersion();
 
                                         //si se modifico correctamente
@@ -1211,8 +1194,7 @@ namespace View.Services.ViewModel
                                             {
                                                 //Declaramos un objeto de tipo Archivo.
                                                 Archivo objArchivo = new Archivo();
-
-                                                //Mapeamos los valores al objeto creado, concatenamos el nombre del documento con la versión
+                                                //Mapeamos los valores al objeto creado, se guarda el archivo con el nombre del documento y la versión
                                                 objArchivo.id_version = idVersion;
                                                 objArchivo.archivo = item.archivo;
                                                 objArchivo.ext = item.ext;
@@ -1235,7 +1217,6 @@ namespace View.Services.ViewModel
                                                 //Cerramos la pantalla
                                                 window.Close();
                                             }
-
                                         }
                                         else
                                         {
@@ -1258,9 +1239,7 @@ namespace View.Services.ViewModel
                                         {
                                             //Declaramos un objeto de tipo Archivo.
                                             Archivo objArchivo = new Archivo();
-
-                                            //Mapeamos los valores al objeto creado.
-                                            //Concatenamos el nombre del documento y la versión
+                                            //Asiganmos los valores, el nombre se guarda con el nombre de documento y versión
                                             objArchivo.id_version = idVersion;
                                             objArchivo.archivo = item.archivo;
                                             objArchivo.ext = item.ext;
@@ -1300,7 +1279,6 @@ namespace View.Services.ViewModel
                         {
                             await dialog.SendMessage("Alerta", "Para el tipo de documento sólo se puede subir un archivo");
                         }
-
                     }
                     else
                     {
@@ -1383,7 +1361,6 @@ namespace View.Services.ViewModel
 
                         //Limpiamos todos lo textbox, y se cambia el content del botón de guardar.
                         Fecha = DateTime.Now;
-                        //usuarioAutorizo = null;
                         ListaDocumentos.Clear();
                        // ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
 
@@ -1417,9 +1394,7 @@ namespace View.Services.ViewModel
             else
             {
                 //El sistema se encuentra bloqueado
-
                 await dialog.SendMessage("Sistema Bloqueado", objBloqueo.observaciones);
-
             }
         }
 
@@ -1446,7 +1421,6 @@ namespace View.Services.ViewModel
 
                 //Crea un archivo nuevo temporal, escribe en él los bytes extraídos de la BD.
                 File.WriteAllBytes(filename, item.archivo);
-
                 //Se inicializa el programa para visualizar el archivo.
                 Process.Start(filename);
             }
@@ -1461,7 +1435,6 @@ namespace View.Services.ViewModel
         {
             //Se guarda la ruta del directorio temporal.
             var tempFolder = Path.GetTempPath();
-
             string filename = string.Empty;
             //Realiza la acción hasta que el archivo se haya abierto
             do
@@ -1512,7 +1485,6 @@ namespace View.Services.ViewModel
                     ListaDocumentos.Remove(item);
                     //Se elimina de la base de datos.
                     int n = DataManagerControlDocumentos.DeleteArchivo(item);
-
                     BttnArchivos = true;
                 }
             }
@@ -1566,8 +1538,7 @@ namespace View.Services.ViewModel
             //Formulario para ingresar el número de copias, 
             string num_copias = await window.ShowInputAsync("Ingresar número de copias", "Número de Copias", null);
 
-            //bool result= Regex.IsMatch(num_copias, @"^\d+$");
-            //Comprueba que el número de copias sólo contenga números.
+            //Comprueba que el número de copias sea diferente de nulo y sólo contenga números.
             if (num_copias != null)
             {
                 if (Regex.IsMatch(num_copias, @"^\d+$"))
@@ -1581,7 +1552,6 @@ namespace View.Services.ViewModel
                     if (!string.IsNullOrEmpty(num_copias))
                     {
                         //Ejecutamos el método para obtener el id de la versión anterior
-
                         int last_version = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
 
                         //si el documento sólo tiene una versión, se modifica el estatus del documento y la versión, se cambia el estatus a liberado
@@ -1615,7 +1585,6 @@ namespace View.Services.ViewModel
                                 {
                                     //Guardamos el documento si es procedimiento o formato
                                     string file=SaveFile();
-
                                     if (file == null)
                                     {
                                         await dialog.SendMessage("Información", "Documento y versión liberados..");
@@ -1629,7 +1598,6 @@ namespace View.Services.ViewModel
                                             //Cerramos la pantalla
                                             frame.Close();
                                         }
-
                                     }
                                     else
                                     {
@@ -1897,22 +1865,6 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método para validar que todos los checkbox de la lista de Validaciones estén seleccionados
-        /// </summary>
-        /// <returns></returns>
-        private bool ValidaSelected()
-        {
-            //Itera la lista de Validaciones
-            foreach (var item in ListaValidaciones)
-            {
-                //Si hay un elemento que no está seleccionado, retorna falso
-                if (!item.selected)
-                    return false;
-            }
-            return true;
-        }
-
-        /// <summary>
         /// Método que valida el tipo de documento
         /// si es de tipo OHSAS, ESPECIFICOS O ISO, valida que en la ListaDocumentos sólo tenga un archivo
         /// </summary>
@@ -1929,10 +1881,8 @@ namespace View.Services.ViewModel
                     return true;
             }
             else
-            {
                 //si no es de tipo procedimiento o formato, retorna verdadero
                 return true;
-            }
         }
 
         /// <summary>
@@ -1942,7 +1892,6 @@ namespace View.Services.ViewModel
         private  ObservableCollection<Documento> ValidaSimilares()
         {
             Documento ObjDocumento = new Documento();
-
             ObjDocumento.id_tipo_documento = _id_tipo;
             ObjDocumento.id_dep = _id_dep;
             ObjDocumento.descripcion = Descripcion;

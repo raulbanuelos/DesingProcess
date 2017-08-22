@@ -8,26 +8,31 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="" Height="800" Width="1000"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
+        Title="" Height="700" Width="980"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.Resources>
         <DataTemplate x:Key="Lista">
-            <Border Margin="5" BorderThickness="1" BorderBrush="#FF2196F3" CornerRadius="4" Width="445" Height="100">
-                <Grid Margin="3">
+            <Border  Padding="6" BorderThickness="0 0 0 1" BorderBrush="{DynamicResource MaterialDesignDivider}" Width="400">
+                <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="110">
+                        <ColumnDefinition Width="70" ></ColumnDefinition>
+                        <ColumnDefinition >
                         </ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <!--Columna0-->
-                    <TextBlock Text="Nombre: " FontSize="14" Grid.Column="0" HorizontalAlignment="Left"></TextBlock>
-                    <TextBlock FontWeight="Bold" Text="{Binding Path=nombre}" TextWrapping="WrapWithOverflow" TextAlignment="Center" Grid.Column="0" HorizontalAlignment="Right" Padding="2"></TextBlock>
-                    <TextBlock Text="Extensión: " FontSize="14" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-                    <TextBlock Text="{Binding Path=ext}" HorizontalAlignment="Right" Padding="2" Grid.Column="0" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
-                    <Button  Grid.Column="0" Content="Ver" Width="80" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Command="{Binding Path=DataContext.VerArchivo,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"></Button>
-
                     <!--Columna1-->
-                    <Image Name="img_icono" Source="{Binding Path=ruta}" Grid.Column="1" HorizontalAlignment="Stretch" Width="70" VerticalAlignment="Stretch"></Image>
+                    <Grid Grid.Column="1" Width="305">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170"></ColumnDefinition>
+                            <ColumnDefinition Width="40"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition Width="45"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontWeight="Bold" Text="{Binding Path=nombre}" TextWrapping="WrapWithOverflow"  Grid.Column="0" ></TextBlock>
+                        <TextBlock Text="{Binding Path=ext}" Grid.Column="1"  FontWeight="Bold" ></TextBlock>
+                        <Button  Grid.Column="2" Content="{materialDesign:PackIcon Eye}" Style="{StaticResource MaterialDesignFlatButton}" ToolTip="Ver Archivo" Command="{Binding Path=DataContext.VerArchivo,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"/>
+                    </Grid>
+                    <!--Columna0-->
+                    <Image Name="img_icono" Source="{Binding Path=ruta}" Grid.Column="0" HorizontalAlignment="Stretch" Width="45" VerticalAlignment="Stretch"></Image>
                 </Grid>
             </Border>
         </DataTemplate>
@@ -44,68 +49,89 @@
             <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="1" Grid.Row="1" ShowGridLines="False">
+        <Grid Grid.Column="1" Grid.Row="1" ShowGridLines="False" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="450"></ColumnDefinition>
+                <ColumnDefinition Width="450"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical">
-                <StackPanel Orientation="Horizontal" Height="50">
-                    <TextBox materialDesign:HintAssist.Hint="Número de documento" Text="{Binding SelectedDocumento.nombre}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="390" IsReadOnly="True"></TextBox>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="350"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel  Orientation="Vertical" Margin="10">
+                    <StackPanel Orientation="Horizontal" Height="50">
+                        <TextBox materialDesign:HintAssist.Hint="Número de documento" Text="{Binding SelectedDocumento.nombre}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="420" IsReadOnly="True"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="50">
+                        <TextBox materialDesign:HintAssist.Hint="Versión" Text="{Binding SelectedDocumento.version.no_version}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="420" IsReadOnly="True"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
+                        <DatePicker materialDesign:HintAssist.Hint="Fecha" Width="420" FontSize="18" SelectedDate="{Binding SelectedDocumento.version.fecha_version}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" IsEnabled="False"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="50">
+                        <TextBox materialDesign:HintAssist.Hint="Descripción" Text="{Binding SelectedDocumento.descripcion}" Width="420" Height="50" FontSize="16" IsReadOnly="True"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Height="50">
-                    <TextBox materialDesign:HintAssist.Hint="Versión" Text="{Binding SelectedDocumento.version.no_version}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="390" IsReadOnly="True"></TextBox>
+                
+                <!--Lista de Archivo-->
+                <StackPanel Grid.Row="1" Margin="10" >
+                    <ListBox Height="188"  Background="White" Foreground="#DD040404" ItemTemplate="{StaticResource Lista}" ItemsSource="{Binding ListaArchivos}" SelectedItem="{Binding SelectedItem}"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <DatePicker materialDesign:HintAssist.Hint="Fecha" Width="390" FontSize="18" SelectedDate="{Binding SelectedDocumento.version.fecha_version}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" IsEnabled="False"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Height="50" >
-                    <TextBox  materialDesign:HintAssist.Hint="Tipo de documento" Text="{Binding  SelectedDocumento.tipo.tipo_documento}"   Width="390" IsReadOnly="True" Height="50" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Height="50" >
-                    <TextBox materialDesign:HintAssist.Hint="Nombre del Departamento/Proceso" Text="{Binding SelectedDocumento.Departamento}" Width="390" Height="50" FontSize="18" IsReadOnly="True"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                </StackPanel >
-                <StackPanel Orientation="Horizontal" Height="50">
-                    <TextBox materialDesign:HintAssist.Hint="Usuario Elaboró" Text="{Binding Usuario.nombre_usuario_elaboro}" Width="390" Height="50" FontSize="18" IsReadOnly="True"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Height="50">
-                    <TextBox materialDesign:HintAssist.Hint="Usuario Aurotizó" Text="{Binding Usuario.nombre_usuario_autorizo}" Width="390" Height="50" FontSize="18" IsReadOnly="True"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Height="50">
-                    <TextBox materialDesign:HintAssist.Hint="Descripción" Text="{Binding SelectedDocumento.descripcion}" Width="390" Height="50" FontSize="16" IsReadOnly="True"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="80"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel  Orientation="Vertical" Margin="10">
+                    <StackPanel Orientation="Horizontal" Height="50" >
+                        <TextBox  materialDesign:HintAssist.Hint="Tipo de documento" Text="{Binding  SelectedDocumento.tipo.tipo_documento}"   Width="420" IsReadOnly="True" Height="50" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="50" >
+                        <TextBox materialDesign:HintAssist.Hint="Nombre del Departamento/Proceso" Text="{Binding SelectedDocumento.Departamento}" Width="420" Height="50" FontSize="18" IsReadOnly="True"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    </StackPanel >
+                    <StackPanel Orientation="Horizontal" Height="50">
+                        <TextBox materialDesign:HintAssist.Hint="Usuario Elaboró" Text="{Binding Usuario.nombre_usuario_elaboro}" Width="420" Height="50" FontSize="18" IsReadOnly="True"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="50">
+                        <TextBox materialDesign:HintAssist.Hint="Usuario Aurotizó" Text="{Binding Usuario.nombre_usuario_autorizo}" Width="420" Height="50" FontSize="18" IsReadOnly="True"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    </StackPanel>
                 </StackPanel>
 
-            </StackPanel>
-            <StackPanel Grid.Column="1" Margin="10,657,464,0" Orientation="Horizontal">
-                <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" VerticalAlignment="Center"
-                          ToolTip="Liberado" Height="84"  Width="76" Margin="0,-15,0,0" IsChecked="{Binding IsSelected}" >
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Checked">
-                            <i:InvokeCommandAction
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="290"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel  Orientation="Horizontal">
+                        <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" VerticalAlignment="Top"
+                          ToolTip="Liberado" Height="70"  Width="60"  IsChecked="{Binding IsSelected}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Checked">
+                                    <i:InvokeCommandAction
 									Command="{Binding Checked}"
                                     />
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="Unchecked">
-                            <i:InvokeCommandAction
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="Unchecked">
+                                    <i:InvokeCommandAction
 									Command="{Binding Unchecked}"
                                     />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
 
-                </ToggleButton>
-            </StackPanel>
-
-            <!---->
-            <StackPanel Grid.Column="1" HorizontalAlignment="Left" Height="604" VerticalAlignment="Top" Width="543" Margin="5,57,0,0" RenderTransformOrigin="0.5,0.5">
-                <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="601" Margin="25,0,0,0" Width="495" BorderBrush="#FFB8B6B6" BorderThickness="1" Background="White" Foreground="#DD040404" ItemTemplate="{StaticResource Lista}" ItemsSource="{Binding ListaArchivos}" SelectedItem="{Binding SelectedItem}"/>
-            </StackPanel>
-            <Button x:Name="button" Content="Guardar" Grid.Column="1" HorizontalAlignment="Left" Height="40" Margin="433,666,0,0" VerticalAlignment="Top" Width="90"
-                    Command="{Binding Guardar}"/>
-            <Label Content="{Binding Estatus}" FontSize="15" FontWeight="Bold" Grid.Column="1" HorizontalAlignment="Left" Height="31" Margin="78,668,0,0" VerticalAlignment="Top" Width="310" IsEnabled="False"/>
+                        </ToggleButton>
+                    </StackPanel>
+                    <Button x:Name="button" Content="Guardar"  HorizontalAlignment="Left" Height="40" Width="90" Grid.Column="2" VerticalAlignment="Top"
+                    Command="{Binding Guardar}" Margin="5,10,0,0" />
+                <Label Content="{Binding Estatus}" FontSize="15" FontWeight="Bold"  HorizontalAlignment="Left" Height="31" Grid.Column="1" VerticalAlignment="Top" Width="281" IsEnabled="False" Margin="0,19,0,0" />
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
 </Controls:MetroWindow>

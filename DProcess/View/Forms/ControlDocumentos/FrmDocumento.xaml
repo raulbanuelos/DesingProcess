@@ -9,7 +9,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="" Height="920" Width="1400"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
+        Title="" Height="680" Width="980"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Window.Resources>
@@ -17,34 +17,31 @@
 
         <!--Lista de Archivos-->
         <DataTemplate x:Key="Lista">
-            <Border Margin="5" BorderThickness="1" BorderBrush="#FF2196F3" CornerRadius="4" Width="445" Height="100">
-                <Grid Margin="3">
+            <Border  Padding="6" BorderThickness="0 0 0 1" BorderBrush="{DynamicResource MaterialDesignDivider}" Width="400">
+                <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition ></ColumnDefinition>
-                        <ColumnDefinition Width="110">
+                        <ColumnDefinition Width="70" ></ColumnDefinition>
+                        <ColumnDefinition >
                         </ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <!--Columna0-->
-                    <Grid Grid.Column="0" Width="320" Height="100">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120"></ColumnDefinition>
-                            <ColumnDefinition Width="200"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="20"></RowDefinition>
-                            <RowDefinition Height="30"></RowDefinition>
-                            <RowDefinition Height="40"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <TextBlock Text="Nombre: " FontSize="14" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left"></TextBlock>
-                        <TextBlock FontWeight="Bold" Text="{Binding Path=nombre}" TextWrapping="WrapWithOverflow" TextAlignment="Center" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Padding="2"></TextBlock>
-                        <TextBlock Text="Extensión: " FontSize="14" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-                        <TextBlock Text="{Binding Path=ext}" HorizontalAlignment="Right" Padding="2" Grid.Column="1" Grid.Row="1" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
-                        <Button  Grid.Column="1" Grid.Row="2" Content="Eliminar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#FFE27B7B" BorderBrush="#FFD36B6B" Command="{Binding Path=DataContext.EliminarItem,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" 
-                                 Visibility="{Binding Path=DataContext.EnabledEliminar, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Converter={StaticResource BoolToVis}}" />
-                        <Button  Grid.Column="0" Grid.Row="2" Content="Ver" Width="80" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Command="{Binding Path=DataContext.VerArchivo,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" ></Button>
-                    </Grid>
                     <!--Columna1-->
-                    <Image Name="img_icono" Source="{Binding Path=ruta}" Grid.Column="1" HorizontalAlignment="Stretch" Width="70" VerticalAlignment="Stretch"></Image>
+                    <Grid Grid.Column="1" Width="305">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170"></ColumnDefinition>
+                            <ColumnDefinition Width="40"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition Width="45"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontWeight="Bold" Text="{Binding Path=nombre}" TextWrapping="WrapWithOverflow"  Grid.Column="0" ></TextBlock>
+                        <TextBlock Text="{Binding Path=ext}" Grid.Column="1"  FontWeight="Bold" ></TextBlock>
+
+                        <Button  Grid.Column="3" Content="{materialDesign:PackIcon Close}" Style="{StaticResource MaterialDesignFlatButton}" ToolTip="Eliminar Archivo" Command="{Binding Path=DataContext.EliminarItem,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" 
+                                 Visibility="{Binding Path=DataContext.EnabledEliminar, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Converter={StaticResource BoolToVis}}" />
+
+                        <Button  Grid.Column="2" Content="{materialDesign:PackIcon Eye}" Style="{StaticResource MaterialDesignFlatButton}" ToolTip="Ver Archivo" Command="{Binding Path=DataContext.VerArchivo,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"/>
+                    </Grid>
+                    <!--Columna0-->
+                    <Image Name="img_icono" Source="{Binding Path=ruta}" Grid.Column="0" HorizontalAlignment="Stretch" Width="45" VerticalAlignment="Stretch"></Image>
                 </Grid>
             </Border>
         </DataTemplate>
@@ -53,84 +50,112 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="135"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="380"/>
+            <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
-        <Canvas HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Height="727" VerticalAlignment="Top" Width="980" Grid.RowSpan="2">
-            <!--Nombre Documento-->
-            <ComboBox x:Name="comboBox4" materialDesign:HintAssist.Hint="Número de Documento" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Canvas.Left="11" Canvas.Top="21" Width="420"  Background="White" BorderBrush="#89535353" FontSize="18" ItemsSource="{Binding ListaNumeroDocumento}" DisplayMemberPath="nombre"  SelectedItem="{Binding SelectedDocumento}" IsEnabled="{Binding NombreEnabled}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction
+
+        <Grid Grid.Row="1" Grid.Column="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="450"></ColumnDefinition>
+                <ColumnDefinition Width="450"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="250"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Vertical">
+                    <!--Nombre Documento-->
+                    <ComboBox Grid.Column="0" materialDesign:HintAssist.Hint="Número de Documento" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420"  Background="White" BorderBrush="#89535353" FontSize="18" ItemsSource="{Binding ListaNumeroDocumento}" DisplayMemberPath="nombre"  SelectedItem="{Binding SelectedDocumento}" IsEnabled="{Binding NombreEnabled}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction
 									Command="{Binding CambiarCombo}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </ComboBox>
-            <!--Version-->
-            <TextBox x:Name="txt_version"  materialDesign:HintAssist.Hint="Versión" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Canvas.Left="11" TextWrapping="Wrap" Canvas.Top="76" Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding Version}" IsEnabled="{Binding VersionEnabled}"/>
-            <!--Date-->
-            <DatePicker x:Name="txt_fecha" materialDesign:HintAssist.Hint="Fecha" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40" Canvas.Left="11" Canvas.Top="141" Width="420" DisplayDateEnd="{x:Static System:DateTime.Today}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"
-                        IsEnabled="{Binding EnabledFecha}"/>
-            <!--Descripción-->
-            <TextBox Text="{Binding Descripcion}"  materialDesign:HintAssist.Hint="Descripción" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Canvas.Left="12" Canvas.Top="415"  Height="50"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
+                    <!--Version-->
+                    <TextBox  materialDesign:HintAssist.Hint="Versión" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding Version}" IsEnabled="{Binding VersionEnabled}"/>
+                    <!--Date-->
+                    <StackPanel Orientation="Horizontal" Height="50" Margin="15,5,0,0">
+                        <DatePicker materialDesign:HintAssist.Hint="Fecha" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{x:Static System:DateTime.Today}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"
+                        IsEnabled="{Binding EnabledFecha}" />
+                    </StackPanel>
+                    <!--Descripción-->
+                    <TextBox Text="{Binding Descripcion}"  materialDesign:HintAssist.Hint="Descripción" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="49"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
                      IsEnabled="{Binding IsEnabled}" SpellCheck.IsEnabled="True" Language="es-ES" ></TextBox>
+
+                </StackPanel>
+                <!--Lista de Archivos-->
+                <ListBox Grid.Row="1" ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" Margin="5" />
+            </Grid>
+               
             <!--Button Adjuntar-->
-            <Button x:Name="button" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Canvas.Left="922" Canvas.Top="687"  Command="{Binding LlenarLista}"  ToolTip="Adjuntar Archivo"
-                    Visibility="{Binding BttnArchivos, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}">
+            <Button x:Name="button" Grid.Column="1" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding LlenarLista}"  ToolTip="Adjuntar Archivo"
+                    Visibility="{Binding BttnArchivos, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" Margin="390,222,20,236" RenderTransformOrigin="0.413,1.775"  >
                 <materialDesign:PackIcon Kind="Paperclip" Height="24" Width="24" />
             </Button>
-
-            <!--ListView Archivos-->
-            <ListBox Name="listBox" Height="619" Canvas.Left="481" Canvas.Top="56" Width="481" ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" BorderThickness="1" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" >
-            </ListBox>
-            <!--Tipo de Documento-->
-            <ComboBox x:Name="comboBox" materialDesign:HintAssist.Hint="Tipo de Documento" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Canvas.Left="10" Canvas.Top="186" Width="420"  BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}" FontSize="18" IsEnabled="{Binding VersionEnabled}"  />
-            <!--Nombre del departamento-->
-            <ComboBox x:Name="comboBox1" materialDesign:HintAssist.Hint="Nombre del Departamento/Proceso" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Canvas.Left="11" Canvas.Top="241" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaDepartamento}" DisplayMemberPath="nombre_dep" SelectedValuePath="id_dep" SelectedValue="{Binding id_dep}" IsEnabled="{Binding VersionEnabled}"/>
-            <!--Usuario-->
-            <ComboBox x:Name="comboBox2" materialDesign:HintAssist.Hint="Usuario Elaboró" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Canvas.Left="11" Canvas.Top="296" Width="420"  BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaUsuarios}"  SelectedValuePath="usuario" SelectedValue="{Binding usuario}" Background="White" IsEnabled="{Binding VersionEnabled}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{0} {1}">
-                                    <Binding Path="nombre" />
-                                    <Binding Path="APaterno" />
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <ComboBox x:Name="comboBox3" materialDesign:HintAssist.Hint="Usuario Autorizó" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  Height="50" Canvas.Left="12" Canvas.Top="351" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" ItemsSource="{Binding Path=ListaUsuarios}"  SelectedValuePath="usuario" SelectedValue="{Binding usuarioAutorizo}"
+            
+            <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0,0,10,276">
+                <!--Tipo de Documento-->
+                <ComboBox x:Name="comboBox" materialDesign:HintAssist.Hint="Tipo de Documento" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420"  BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}" FontSize="18" IsEnabled="{Binding VersionEnabled}"  />
+                <!--Nombre del departamento-->
+                <ComboBox x:Name="comboBox1" materialDesign:HintAssist.Hint="Nombre del Departamento/Proceso" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaDepartamento}" DisplayMemberPath="nombre_dep" SelectedValuePath="id_dep" SelectedValue="{Binding id_dep}" IsEnabled="{Binding VersionEnabled}"/>
+                <!--Usuario-->
+                <ComboBox x:Name="comboBox2" materialDesign:HintAssist.Hint="Usuario Elaboró" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420"  BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaUsuarios}"  SelectedValuePath="usuario" SelectedValue="{Binding usuario}" Background="White" IsEnabled="{Binding VersionEnabled}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1}">
+                                        <Binding Path="nombre" />
+                                        <Binding Path="APaterno" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <ComboBox  materialDesign:HintAssist.Hint="Usuario Autorizó" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  Height="51" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" ItemsSource="{Binding Path=ListaUsuarios}"  SelectedValuePath="usuario" SelectedValue="{Binding usuarioAutorizo}"
                        IsEnabled="{Binding IsEnabled}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{0} {1}">
-                                    <Binding Path="nombre" />
-                                    <Binding Path="APaterno" />
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-        </Canvas>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1}">
+                                        <Binding Path="nombre" />
+                                        <Binding Path="APaterno" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+
         <!--Botones-->
-        <Canvas Height="64"  Grid.Column="1" Grid.Row="2" Margin="0,25,0,46"  >
-            <Button x:Name="bttn_guardar" Content="{Binding BotonGuardar}" Height="40" Canvas.Top="12" Width="89" Canvas.Left="880" Command="{Binding GuardarControl}"  Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" />
-            <Button x:Name="bttn_cancelar" Content="Cancelar" Height="40" Canvas.Left="785" Canvas.Top="12" Width="90" Command="{Binding Cancelar}"  Visibility="{Binding BttnCancelar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
-            <Button x:Name="bttn_eliminar" Content="Eliminar" Canvas.Left="451" Canvas.Top="12" Width="90" Height="40"  Command="{Binding Eliminar}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
-            <Button x:Name="bttn_cambios" Content="Modificar" Height="40" Canvas.Left="555" Canvas.Top="12" Width="93"  Command="{Binding Modificar}" Visibility="{Binding BttnModificar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
-            <Button x:Name="bttn_generar" Content="Generar Versión" Height="40" Canvas.Left="660" Canvas.Top="12" FontSize="12" Width="120"  Command="{Binding GenerarVersion}" Visibility="{Binding BttnVersion, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
-            <Button Content="Regresar Versión Anterior" Height="40" FontSize="12" Width="173" Canvas.Left="265" Canvas.Top="12" Command="{Binding RegresarVersion}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"></Button>
-            <Button  Content="Liberar" Height="40" Canvas.Left="158" Canvas.Top="12" Width="90"  Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" Command="{Binding LiberarDocumento}" />
-        </Canvas>
+        <Grid Grid.Column="1" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="180"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="130"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Content="{Binding BotonGuardar}" Height="40"  Width="88" Grid.Column="6" Command="{Binding GuardarControl}"  Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" />
+            <Button Content="Cancelar" Height="40"  Width="90" Grid.Column="5" Command="{Binding Cancelar}"  Visibility="{Binding BttnCancelar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
+            <Button Content="Generar Versión" Height="40" FontSize="12" Width="120" Grid.Column="4" Command="{Binding GenerarVersion}" Visibility="{Binding BttnVersion, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
+            <Button Content="Modificar" Height="40" Width="94" Grid.Column="3"  Command="{Binding Modificar}" Visibility="{Binding BttnModificar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
+            <Button Content="Eliminar" Width="90" Grid.Column="2" Height="40"  Command="{Binding Eliminar}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
+            <Button Content="Regresar Versión Anterior" Height="40" FontSize="12" Width="173" Grid.Column="1" Command="{Binding RegresarVersion}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"></Button>
+            <Button  Content="Liberar" Height="40" Width="90"  Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" Command="{Binding LiberarDocumento}" />
+        </Grid>
     </Grid>
 </Controls:MetroWindow>
