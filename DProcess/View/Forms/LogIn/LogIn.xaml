@@ -13,13 +13,13 @@
                             <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_resource_group}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Routing Generation Program" />
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="PROCESS DESIGN ENGINEERING PROGRAM" />
                 </StackPanel>
             </Button>
         </Controls:WindowCommands>
     </Controls:MetroWindow.LeftWindowCommands>
 
-    <Controls:MetroWindow.RightWindowCommands>
+    <!--<Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
             <Button>
                 <StackPanel Orientation="Horizontal">
@@ -32,7 +32,7 @@
                 </StackPanel>
             </Button>
         </Controls:WindowCommands>
-    </Controls:MetroWindow.RightWindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>-->
 
     <Canvas Margin="50,350">
         <Button Name="btn_ingresar" Click="Btn_ingresar_Click" Height="65" Width="65" >
