@@ -149,6 +149,6 @@
             </materialDesign:Snackbar>
 
         </Grid>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Source="/View;component/Images/logo-mahle.png" Grid.Column="1"  Grid.Row="1" Margin="1407,15,0,0"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="65" VerticalAlignment="Top" Source="/View;component/Images/MahleRight.png" Grid.Column="1"  Grid.Row="1" Margin="1407,15,0,0" Width="184"/>
     </Grid>
 </Page>

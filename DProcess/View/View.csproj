@@ -544,6 +544,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="if_6_1320812.ico" />
+    <Resource Include="Images\MahleRight.png" />
   </ItemGroup>
   <ItemGroup>
     <FileAssociation Include=".ico">
