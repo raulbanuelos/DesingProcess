@@ -184,6 +184,34 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
+        /// Retorna el nombre del tipo de acuerdo al id
+        /// </summary>
+        /// <param name="id_tipoDoc"></param>
+        /// <returns></returns>
+        public string GetNombreTipo(int id_tipoDoc)
+        {
+            try
+            {
+                //Relizamos la conexión a través de Entity Framework.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta y e resultado lo guardamos en una variable local.
+                    string TipoDocumento = (from t in Conexion.TBL_TIPO_DOCUMENTO
+                                           where t.ID_TIPO_DOCUMENTO == id_tipoDoc
+                                           select t.TIPO_DOCUMENTO).ToList().FirstOrDefault();
+
+                    //Retornamos el resultado de la consulta.
+                    return TipoDocumento;
+                }
+            }
+            catch (Exception)
+            {
+                //Si se genera un error retornamos un cero.
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Método para validar si existe el tipo.
         /// </summary>
         /// <param name="tipo_documento"></param>

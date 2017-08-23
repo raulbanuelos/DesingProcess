@@ -39,12 +39,6 @@
             <Button ToolTip="Exportar a Excel" Command="{Binding Exportar}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="FileExcel" />
             </Button>
-
-            <Separator></Separator>
-            <Button ToolTip="Generar Número de Documento" Command="{Binding Generador}" Cursor="Hand">
-                <materialDesign:PackIcon Kind="FileDocument" />
-            </Button>
-
             <Separator></Separator>
             <Button ToolTip="Buscar Documento"  Cursor="Hand" Command="{Binding IrBusquedaDocumento}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}">
                 <materialDesign:PackIcon Kind="FileFind"/>
@@ -67,6 +61,10 @@
             <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
             <Button ToolTip="Validación Documento" Command="{Binding IrValidacionTipoDocumento}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="FormatListBulletedType"/>
+            </Button>
+            <Separator Visibility="Hidden"></Separator>
+            <Button ToolTip="Generar Número de Documento" Command="{Binding Generador}" Cursor="Hand" Visibility="Hidden">
+                <materialDesign:PackIcon Kind="FileDocument" />
             </Button>
         </ToolBar>
 

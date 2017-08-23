@@ -466,13 +466,15 @@ namespace View.Services.ViewModel
                 NotifyChange("EnabledFecha");
             }
         }
-
+ 
+        private string NombreUsuarioElaboro, NombreUsuarioAut,NombreTipo,NombreDepto, auxNomUsElaboro;
         #endregion
 
         #region Constructor
         public DocumentoViewModel(Documento selectedDocumento, bool band,Usuario Modelusuario)
         {
-            //Contructor para generar una versión, o modificar el documetnto
+            //Contructor para generar una versión, o modificar el documento
+            //Variables auxiliar guarda la información para cuando se genera una versión nueva 
             //Inicializa los combobox 
             Inicializar();
             //Asiganmos los valores para que se muestren 
@@ -486,7 +488,9 @@ namespace View.Services.ViewModel
             id_documento = selectedDocumento.id_documento;
             idVersion = selectedDocumento.version.id_version;
             id_dep = selectedDocumento.id_dep;
+            NombreDepto = selectedDocumento.Departamento;
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
+            NombreTipo = DataManagerControlDocumentos.GetNombretipo(id_tipo);
 
             BotonGuardar = "Guardar";
             BttnGuardar = false;
@@ -528,8 +532,14 @@ namespace View.Services.ViewModel
             Model.ControlDocumentos.Version UsuarioObj = DataManagerControlDocumentos.GetIdUsuario(idVersion);
             usuario = UsuarioObj.id_usuario;
             auxUsuario = usuario;
+            //Variable para moestrar en mensaje de comprobación
+            NombreUsuarioElaboro = UsuarioObj.nombre_usuario_elaboro;
+            auxNomUsElaboro = NombreUsuarioElaboro;
+
+            //información del usuario que autorizó, se guarda en variables auxiliar para mostrar en mensaje
             usuarioAutorizo = UsuarioObj.id_usuario_autorizo;
-            auxUsuario_Autorizo = usuarioAutorizo;  
+            auxUsuario_Autorizo = usuarioAutorizo;
+            NombreUsuarioAut = UsuarioObj.nombre_usuario_elaboro;
             
             //Método que obtiene los archivos de un documento y de la versión
             ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetArchivos(id_documento,idVersion);
@@ -569,9 +579,22 @@ namespace View.Services.ViewModel
             Version = "1";
             User = Modelusuario;
             usuario = User.NombreUsuario;
+            NombreUsuarioElaboro = User.Nombre + " " + User.ApellidoPaterno;
             auxUsuario = usuario;
-            NombreEnabled = true;
+
+            //Obetenemos la lista de los documentos sin versión del usuario
             ListaNumeroDocumento = DataManagerControlDocumentos.GetDocumento_SinVersion(User.NombreUsuario);
+
+            //Mostramos el primer documento, sólo se admite un documento sin version por usuario
+            if (ListaNumeroDocumento.Count > 0)
+                SelectedDocumento = ListaNumeroDocumento[0];
+
+            //Inicializamos los campos de tipo de documento y departamento
+            id_dep = _selectedDocumento.id_dep;
+            id_tipo = _selectedDocumento.id_tipo_documento;
+            nombre = _selectedDocumento.nombre;
+            NombreDepto = _selectedDocumento.Departamento;
+            NombreTipo = _selectedDocumento.tipo.tipo_documento;
 
             Inicializar();
         }
@@ -667,7 +690,8 @@ namespace View.Services.ViewModel
             setting.AffirmativeButtonText = "SI";
             setting.NegativeButtonText = "NO";
 
-            string mensaje= "Nombre: " + nombre + "\nVersión: " + version +"\nFecha: "+ fecha + "\nDescripción: "+ descripcion;
+            string mensaje= "Nombre: " + nombre + "\nVersión: " + version +"\nFecha: "+ fecha.ToShortDateString() + "\nDescripción: "+ descripcion +
+                            "\nTipo de Documento: " + NombreTipo + "\nDepartamento: " + NombreDepto +"\nUsuario Elaboró: " + NombreUsuarioElaboro + "\nUsuario Autorizó: " + NombreUsuarioAut;
 
             //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
             MessageDialogResult result = await dialog.SendMessage("El documento se guardara con los datos:", mensaje, setting, MessageDialogStyle.AffirmativeAndNegative);
@@ -990,6 +1014,7 @@ namespace View.Services.ViewModel
         private void cancelar()
         {
             usuario = auxUsuario;
+            NombreUsuarioElaboro = auxNomUsElaboro;
             usuarioAutorizo = auxUsuario_Autorizo;
             Version = auxversion;
             Fecha = auxFecha;
@@ -1149,8 +1174,11 @@ namespace View.Services.ViewModel
             setting.AffirmativeButtonText = "SI";
             setting.NegativeButtonText = "NO";
 
-            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            string mensaje = "Nombre: " + nombre + "\nVersión: " + version + "\nFecha: " + fecha.ToShortDateString() + "\nDescripción: " + descripcion +
+                            "\nTipo de Documento: " + NombreTipo + "\nDepartamento: " + NombreDepto + "\nUsuario Elaboró: " + NombreUsuarioElaboro + "\nUsuario Autorizó: " + NombreUsuarioAut;
+
+            //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
+            MessageDialogResult result = await dialog.SendMessage("El documento se guardara con los datos:", mensaje, setting, MessageDialogStyle.AffirmativeAndNegative);
 
             if (result == MessageDialogResult.Affirmative)
             {
@@ -1376,6 +1404,7 @@ namespace View.Services.ViewModel
                         EnabledEliminar = true;
                         IsEnabled = true;
                         usuario = User.NombreUsuario;
+                        NombreUsuarioElaboro = User.Nombre + " " + User.ApellidoPaterno;
                     }
                     else
                     {
@@ -1512,6 +1541,8 @@ namespace View.Services.ViewModel
                 id_dep = _selectedDocumento.id_dep;
                 id_tipo = _selectedDocumento.id_tipo_documento;
                 nombre = _selectedDocumento.nombre;
+                NombreDepto = _selectedDocumento.Departamento;
+                NombreTipo = _selectedDocumento.tipo.tipo_documento;
                 //ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
             }
         }
@@ -1838,10 +1869,25 @@ namespace View.Services.ViewModel
                 }
             }
             }
+
+        public ICommand CambiarUsuario
+        {
+            get
+            {
+                return new RelayCommand(o => getUsuarioAutorizo());
+            }
+        }
         #endregion
 
         #region Methods
 
+        private void getUsuarioAutorizo()
+        {
+            if (usuarioAutorizo !=null)
+            {
+                NombreUsuarioAut = DataManagerControlDocumentos.GetNombreUsuario(usuarioAutorizo);
+            }
+        }
         /// <summary>
         /// Método que retorna un true si todos los campos contienen un valor.
         /// </summary>

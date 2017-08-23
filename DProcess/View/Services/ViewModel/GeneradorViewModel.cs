@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using View.Forms.ControlDocumentos;
 
 namespace View.Services.ViewModel
 {
@@ -163,6 +164,12 @@ namespace View.Services.ViewModel
 
                         //Muestra mensaje con el número que se generó.
                         await dialog.SendMessage("Información", "Se generó el número: " + numero + "\n\n" + "Se copió el número al portapapeles.");
+
+                        //Muestra la ventana para crear un nuevo documento
+                        FrmDocumento frm = new FrmDocumento();
+                        DocumentoViewModel context = new DocumentoViewModel(ModelUsuario);
+                        frm.DataContext = context;
+                        frm.ShowDialog();
 
                         //Obtememos la ventana actual
                         var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();

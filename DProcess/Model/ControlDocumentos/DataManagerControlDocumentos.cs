@@ -618,7 +618,7 @@ namespace Model.ControlDocumentos
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     obj.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
-                    obj.descripcion = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
                     obj.id_dep = (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
                     obj.Departamento = (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
                     obj.id_estatus = (int)tipo.GetProperty("ID_ESTATUS_DOCUMENTO").GetValue(item, null);
@@ -1045,6 +1045,20 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
+        /// Retorna el nombre del tipo de documento
+        /// </summary>
+        /// <param name="id_tipo"></param>
+        /// <returns></returns>
+        public static string GetNombretipo(int id_tipo)
+        {
+            //Inicializamos los servicios de Tipo de Documento.
+            SO_TipoDocumento ServicioTipoDocumento = new SO_TipoDocumento();
+
+            //Ejecutamos el método y el resultado lo retornamos.
+            return ServicioTipoDocumento.GetNombreTipo(id_tipo);
+        }
+
+        /// <summary>
         /// Método para obtener los registros de la tabla.
         /// </summary>
         /// <returns></returns>
@@ -1314,6 +1328,21 @@ namespace Model.ControlDocumentos
             //Se ejecuta el método y retorna número de registros eliminados.
             return ServiceUsuarios.UpdatePass(id_usuario, pass);
         }
+
+        /// <summary>
+        /// Método que obtiene el nombre de usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public static string GetNombreUsuario(string usuario)
+        {
+            //Se inician los servicios de Usuarios.
+            SO_Usuarios ServiceUsuarios = new SO_Usuarios();
+
+            //Se ejecuta el método y retorna número de registros eliminados.
+            return ServiceUsuarios.GetNombreUsuario(usuario);
+        }
+        
         #endregion
 
         #region version
