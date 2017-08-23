@@ -32,7 +32,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      t.TIPO_DOCUMENTO,
                                      t.ABREBIATURA,
                                      t.FECHA_CREACION,
-                                     t.FECHA_ACTUALIZACION
+                                     t.FECHA_ACTUALIZACION,
+                                     t.NUMERO_MATRIZ
                                  }).ToList();
                     //se retorna la lista
                     return Lista;
@@ -54,7 +55,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_creacion"></param>
         /// <param name="fecha_actualizacion"></param>
         /// <returns>Si encuentra un error, retorna cero.</returns>
-        public int SetTipo(int id_tipo, string tipo_documento, string abreviatura, DateTime fecha_creacion, DateTime fecha_actualizacion)
+        public int SetTipo(int id_tipo, string tipo_documento, string abreviatura, DateTime fecha_creacion, DateTime fecha_actualizacion, string num_matriz)
         {
             try
             {
@@ -70,6 +71,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.ABREBIATURA = abreviatura;
                     obj.FECHA_ACTUALIZACION = fecha_actualizacion;
                     obj.FECHA_CREACION = fecha_creacion;
+                    obj.NUMERO_MATRIZ = num_matriz;
+
                     //Agrega el objeto a la tabla.
                     Conexion.TBL_TIPO_DOCUMENTO.Add(obj);
                     //Se guardan los cambios

@@ -14,6 +14,7 @@ namespace Model.ControlDocumentos
         public string abreviatura { get; set; }
         public DateTime fecha_creacion { get; set; }
         public DateTime fecha_actualizacion { get; set; }
+        public string num_matriz { get; set; }
         #endregion
     }
 }

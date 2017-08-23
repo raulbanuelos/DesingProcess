@@ -1089,7 +1089,7 @@ namespace Model.ControlDocumentos
                     obj.abreviatura = (string)tipo.GetProperty("ABREBIATURA").GetValue(item, null);
                     obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
                     obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
-
+                    obj.num_matriz = (string)tipo.GetProperty("NUMERO_MATRIZ").GetValue(item, null);
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }
@@ -1109,7 +1109,7 @@ namespace Model.ControlDocumentos
             SO_TipoDocumento ServiceTipo = new SO_TipoDocumento();
 
             //Se ejecuta el método y retorna el id del tipo que fue insertado.
-            return ServiceTipo.SetTipo(tipo.id_tipo, tipo.tipo_documento, tipo.abreviatura, tipo.fecha_creacion, tipo.fecha_actualizacion);
+            return ServiceTipo.SetTipo(tipo.id_tipo, tipo.tipo_documento, tipo.abreviatura, tipo.fecha_creacion, tipo.fecha_actualizacion, tipo.num_matriz);
         }
 
         /// <summary>
@@ -1176,11 +1176,9 @@ namespace Model.ControlDocumentos
                     //compara las cadenas sin acentos
                     if (tipoSinAcento.Contains(DeleteAccents(tipoDoc.tipo_documento)) || obj.abreviatura.Equals(tipoDoc.abreviatura))
                     {
-                        //si el tipo de documento o la abreviatura son iguales, devuelve el id
-                       
+                        //si el tipo de documento o la abreviatura son iguales, devuelve el id                      
                         return obj.id_tipo;
-                    }
-                  
+                    }                 
                 }
             }
             //regresamos cero, no encontró ninguna coincidencia

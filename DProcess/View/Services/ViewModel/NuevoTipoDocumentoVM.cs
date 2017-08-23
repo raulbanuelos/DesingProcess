@@ -58,6 +58,18 @@ namespace View.Services.ViewModel
                 NotifyChange("Abreviatura");
             }
         }
+        private string numMatriz;
+        public string NumMatriz {
+            get
+            {
+                return numMatriz;
+            }
+            set
+            {
+                numMatriz = value;
+                NotifyChange("NumMatriz");
+            }
+        }
         #endregion
 
         #region Icommands
@@ -91,7 +103,7 @@ namespace View.Services.ViewModel
             //Si el resultado es afirmativo
             if (result == MessageDialogResult.Affirmative)
             {
-                if (!string.IsNullOrEmpty(_abreviatura) & !string.IsNullOrEmpty(_tipoDocumento))
+                if (!string.IsNullOrEmpty(_abreviatura) & !string.IsNullOrEmpty(_tipoDocumento) & !string.IsNullOrEmpty(numMatriz))
                 {
                     if (_abreviatura.Length <= 6)
                     {
@@ -101,6 +113,7 @@ namespace View.Services.ViewModel
                         //Asiganmos los valores al objeto
                         obj.tipo_documento = _tipoDocumento.ToUpper();
                         obj.abreviatura = _abreviatura.ToUpper();
+                        obj.num_matriz = numMatriz;
                         obj.fecha_actualizacion = DateTime.Now;
                         obj.fecha_creacion = DateTime.Now;
 
