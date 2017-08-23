@@ -347,7 +347,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                         d.FECHA_EMISION,
                                         t.TIPO_DOCUMENTO,
                                         USUARIO_AUTORIZO= u.Nombre + " " + u.APaterno + " " + u.AMaterno,
-                                        USUARIO_ELABORO=us.Nombre + " " + us.APaterno + " " + us.AMaterno
+                                        USUARIO_ELABORO=us.Nombre + " " + us.APaterno + " " + us.AMaterno,
                                     }).OrderBy(x => x.ID_DOCUMENTO).Distinct().ToList();
 
                         return Lista;
@@ -376,7 +376,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                          d.FECHA_EMISION,
                                          t.TIPO_DOCUMENTO,
                                          USUARIO_AUTORIZO = u.Nombre + " " + u.APaterno + " " + u.AMaterno,
-                                         USUARIO_ELABORO = us.Nombre + " " + us.APaterno + " " + us.AMaterno
+                                         USUARIO_ELABORO = us.Nombre + " " + us.APaterno + " " + us.AMaterno,
+                                         v.FECHA_VERSION
                                      }).OrderBy(x => x.ID_DOCUMENTO).Distinct().ToList();
 
                         return Lista;
