@@ -617,7 +617,7 @@ namespace Model.ControlDocumentos
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     obj.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
-                    obj.descripcion = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
                     obj.id_dep = (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
                     obj.Departamento = (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
                     obj.id_estatus = (int)tipo.GetProperty("ID_ESTATUS_DOCUMENTO").GetValue(item, null);
@@ -1044,6 +1044,20 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
+        /// Retorna el nombre del tipo de documento
+        /// </summary>
+        /// <param name="id_tipo"></param>
+        /// <returns></returns>
+        public static string GetNombretipo(int id_tipo)
+        {
+            //Inicializamos los servicios de Tipo de Documento.
+            SO_TipoDocumento ServicioTipoDocumento = new SO_TipoDocumento();
+
+            //Ejecutamos el método y el resultado lo retornamos.
+            return ServicioTipoDocumento.GetNombreTipo(id_tipo);
+        }
+
+        /// <summary>
         /// Método para obtener los registros de la tabla.
         /// </summary>
         /// <returns></returns>
@@ -1075,7 +1089,7 @@ namespace Model.ControlDocumentos
                     obj.abreviatura = (string)tipo.GetProperty("ABREBIATURA").GetValue(item, null);
                     obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
                     obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
-
+                    obj.num_matriz = (string)tipo.GetProperty("NUMERO_MATRIZ").GetValue(item, null);
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }
@@ -1095,7 +1109,7 @@ namespace Model.ControlDocumentos
             SO_TipoDocumento ServiceTipo = new SO_TipoDocumento();
 
             //Se ejecuta el método y retorna el id del tipo que fue insertado.
-            return ServiceTipo.SetTipo(tipo.id_tipo, tipo.tipo_documento, tipo.abreviatura, tipo.fecha_creacion, tipo.fecha_actualizacion);
+            return ServiceTipo.SetTipo(tipo.id_tipo, tipo.tipo_documento, tipo.abreviatura, tipo.fecha_creacion, tipo.fecha_actualizacion, tipo.num_matriz);
         }
 
         /// <summary>
@@ -1162,11 +1176,9 @@ namespace Model.ControlDocumentos
                     //compara las cadenas sin acentos
                     if (tipoSinAcento.Contains(DeleteAccents(tipoDoc.tipo_documento)) || obj.abreviatura.Equals(tipoDoc.abreviatura))
                     {
-                        //si el tipo de documento o la abreviatura son iguales, devuelve el id
-                       
+                        //si el tipo de documento o la abreviatura son iguales, devuelve el id                      
                         return obj.id_tipo;
-                    }
-                  
+                    }                 
                 }
             }
             //regresamos cero, no encontró ninguna coincidencia
@@ -1313,6 +1325,21 @@ namespace Model.ControlDocumentos
             //Se ejecuta el método y retorna número de registros eliminados.
             return ServiceUsuarios.UpdatePass(id_usuario, pass);
         }
+
+        /// <summary>
+        /// Método que obtiene el nombre de usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public static string GetNombreUsuario(string usuario)
+        {
+            //Se inician los servicios de Usuarios.
+            SO_Usuarios ServiceUsuarios = new SO_Usuarios();
+
+            //Se ejecuta el método y retorna número de registros eliminados.
+            return ServiceUsuarios.GetNombreUsuario(usuario);
+        }
+        
         #endregion
 
         #region version

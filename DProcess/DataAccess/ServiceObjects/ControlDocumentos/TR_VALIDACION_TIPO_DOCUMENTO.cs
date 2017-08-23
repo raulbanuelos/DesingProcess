@@ -18,7 +18,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public Nullable<int> ID_VALIDACION_DOCUMENTO { get; set; }
         public Nullable<int> ID_TIPO_DOCUMENTO { get; set; }
     
-        public virtual TBL_TIPO_DOCUMENTO TBL_TIPO_DOCUMENTO { get; set; }
         public virtual TBL_VALIDACION_DOCUMENTO TBL_VALIDACION_DOCUMENTO { get; set; }
+        public virtual TBL_TIPO_DOCUMENTO TBL_TIPO_DOCUMENTO { get; set; }
     }
 }

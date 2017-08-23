@@ -301,5 +301,33 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        /// <summary>
+        /// Obtiene el nombre completo del usuario 
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public string GetNombreUsuario(string usuario)
+        {
+            try
+            {
+                //Establecemos la conexión a través de Entity Framework.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta.
+                    string nombre = (from u in Conexion.Usuarios
+                                     where u.Usuario.Equals(usuario)
+                                     select u.Nombre +" "+ u.APaterno ).FirstOrDefault();
+
+                    //Retornamos el resultado de la consulta.
+                    return nombre;
+                }
+            }
+            catch (Exception)
+            {
+                //Si se generó algún error, retornamos un nulo.
+                return null;
+            }
+        }
+
     }
 }

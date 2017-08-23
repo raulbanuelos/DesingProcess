@@ -729,6 +729,7 @@ namespace View.Services.ViewModel
                 initSnack();
             }
         }
+
         #endregion
 
         #region Methods

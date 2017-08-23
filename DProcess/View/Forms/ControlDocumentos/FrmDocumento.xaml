@@ -95,47 +95,62 @@
             </Grid>
                
             <!--Button Adjuntar-->
-            <Button x:Name="button" Grid.Column="1" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding LlenarLista}"  ToolTip="Adjuntar Archivo"
-                    Visibility="{Binding c, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" Margin="390,222,20,236" RenderTransformOrigin="0.413,1.775"  >
-                <materialDesign:PackIcon Kind="Paperclip" Height="24" Width="24" />
-            </Button>
-            
-            <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0,0,10,276">
-                <!--Tipo de Documento-->
-                <ComboBox x:Name="comboBox" materialDesign:HintAssist.Hint="Tipo de Documento" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420"  BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}" FontSize="18" IsEnabled="{Binding VersionEnabled}"  />
-                <!--Nombre del departamento-->
-                <ComboBox x:Name="comboBox1" materialDesign:HintAssist.Hint="Nombre del Departamento/Proceso" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaDepartamento}" DisplayMemberPath="nombre_dep" SelectedValuePath="id_dep" SelectedValue="{Binding id_dep}" IsEnabled="{Binding VersionEnabled}"/>
-                <!--Usuario-->
-                <ComboBox x:Name="comboBox2" materialDesign:HintAssist.Hint="Usuario Elaboró" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420"  BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaUsuarios}"  SelectedValuePath="usuario" SelectedValue="{Binding usuario}" Background="White" IsEnabled="{Binding VersionEnabled}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock>
-                                <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}{0} {1}">
-                                        <Binding Path="nombre" />
-                                        <Binding Path="APaterno" />
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <ComboBox  materialDesign:HintAssist.Hint="Usuario Autorizó" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  Height="51" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" ItemsSource="{Binding Path=ListaUsuarios}"  SelectedValuePath="usuario" SelectedValue="{Binding usuarioAutorizo}"
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="230"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="250"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Vertical">
+                    <!--Tipo de Documento-->
+                    <ComboBox  materialDesign:HintAssist.Hint="Tipo de Documento" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420"  BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}" FontSize="18" IsEnabled="{Binding VersionEnabled}" >
+                    </ComboBox>
+                    <!--Nombre del departamento-->
+                    <ComboBox  materialDesign:HintAssist.Hint="Nombre del Departamento/Proceso" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaDepartamento}" DisplayMemberPath="nombre_dep" SelectedValuePath="id_dep" SelectedValue="{Binding id_dep}" IsEnabled="{Binding VersionEnabled}"/>
+                    <!--Usuario-->
+                    <ComboBox  materialDesign:HintAssist.Hint="Usuario Elaboró" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420"  BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaUsuarios}"  SelectedValuePath="usuario" SelectedValue="{Binding usuario}" Background="White" IsEnabled="{Binding VersionEnabled}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="nombre" />
+                                            <Binding Path="APaterno" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ComboBox  materialDesign:HintAssist.Hint="Usuario Autorizó" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  Height="51" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" ItemsSource="{Binding Path=ListaUsuarios}"  SelectedValuePath="usuario" SelectedValue="{Binding usuarioAutorizo}"
                        IsEnabled="{Binding IsEnabled}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock>
-                                <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}{0} {1}">
-                                        <Binding Path="nombre" />
-                                        <Binding Path="APaterno" />
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </StackPanel>
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="nombre" />
+                                            <Binding Path="APaterno" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction
+									Command="{Binding CambiarUsuario}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
+                </StackPanel>
+                <Button  Grid.Row="1" HorizontalAlignment="Right" Margin="10" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding LlenarLista}"  ToolTip="Adjuntar Archivo"
+                    Visibility="{Binding BttnArchivos, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"  >
+                    <materialDesign:PackIcon Kind="Paperclip" Height="24" Width="24" />
+                </Button>
+
+            </Grid>
         </Grid>
 
         <!--Botones-->

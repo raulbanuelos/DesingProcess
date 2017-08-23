@@ -32,7 +32,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      t.TIPO_DOCUMENTO,
                                      t.ABREBIATURA,
                                      t.FECHA_CREACION,
-                                     t.FECHA_ACTUALIZACION
+                                     t.FECHA_ACTUALIZACION,
+                                     t.NUMERO_MATRIZ
                                  }).ToList();
                     //se retorna la lista
                     return Lista;
@@ -54,7 +55,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_creacion"></param>
         /// <param name="fecha_actualizacion"></param>
         /// <returns>Si encuentra un error, retorna cero.</returns>
-        public int SetTipo(int id_tipo, string tipo_documento, string abreviatura, DateTime fecha_creacion, DateTime fecha_actualizacion)
+        public int SetTipo(int id_tipo, string tipo_documento, string abreviatura, DateTime fecha_creacion, DateTime fecha_actualizacion, string num_matriz)
         {
             try
             {
@@ -70,6 +71,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.ABREBIATURA = abreviatura;
                     obj.FECHA_ACTUALIZACION = fecha_actualizacion;
                     obj.FECHA_CREACION = fecha_creacion;
+                    obj.NUMERO_MATRIZ = num_matriz;
+
                     //Agrega el objeto a la tabla.
                     Conexion.TBL_TIPO_DOCUMENTO.Add(obj);
                     //Se guardan los cambios
@@ -180,6 +183,34 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             {
                 //Si se genera un error retornamos un cero.
                 return 0;
+            }
+        }
+
+        /// <summary>
+        /// Retorna el nombre del tipo de acuerdo al id
+        /// </summary>
+        /// <param name="id_tipoDoc"></param>
+        /// <returns></returns>
+        public string GetNombreTipo(int id_tipoDoc)
+        {
+            try
+            {
+                //Relizamos la conexión a través de Entity Framework.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta y e resultado lo guardamos en una variable local.
+                    string TipoDocumento = (from t in Conexion.TBL_TIPO_DOCUMENTO
+                                           where t.ID_TIPO_DOCUMENTO == id_tipoDoc
+                                           select t.TIPO_DOCUMENTO).ToList().FirstOrDefault();
+
+                    //Retornamos el resultado de la consulta.
+                    return TipoDocumento;
+                }
+            }
+            catch (Exception)
+            {
+                //Si se genera un error retornamos un cero.
+                return null;
             }
         }
 

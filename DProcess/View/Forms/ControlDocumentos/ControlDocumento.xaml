@@ -17,8 +17,8 @@
     <Grid ShowGridLines="False" Margin="0" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="85"/>
-            <RowDefinition Height="85"/>
-            <RowDefinition Height="130"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="145"/>
             <RowDefinition Height="110*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
@@ -38,11 +38,6 @@
 
             <Button ToolTip="Exportar a Excel" Command="{Binding Exportar}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="FileExcel" />
-            </Button>
-
-            <Separator></Separator>
-            <Button ToolTip="Generar Número de Documento" Command="{Binding Generador}" Cursor="Hand">
-                <materialDesign:PackIcon Kind="FileDocument" />
             </Button>
 
             <Separator></Separator>
@@ -71,6 +66,11 @@
             <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
             <Button ToolTip="Ver recursos" Command="{Binding IrRecursos}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="LinkVariant" />
+            </Button>
+
+            <Separator Visibility="Hidden"></Separator>
+            <Button ToolTip="Generar Número de Documento" Command="{Binding Generador}" Cursor="Hand" Visibility="Hidden">
+                <materialDesign:PackIcon Kind="FileDocument" />
             </Button>
         </ToolBar>
 
@@ -101,7 +101,10 @@
                     <Label FontSize="14" FontWeight="Bold" Content="{Binding Lista.Count}"  HorizontalAlignment="Right" />
                 </StackPanel>
             </StackPanel>
-
+            <StackPanel Width="300" Orientation="Horizontal" Margin="10 0 0 0" HorizontalAlignment="Left">
+                <Label Content="Número de Matriz:" FontSize="14" Width="130"></Label>
+                <Label Content="{Binding SelectedTipoDocumento.num_matriz}" HorizontalAlignment="Right" Width="149" FontSize="14"></Label>
+            </StackPanel>
         </StackPanel>
 
         <DataGrid x:Name="dataGrid" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
