@@ -29,7 +29,7 @@
     <PublisherName>Diseño del proceso</PublisherName>
     <SuiteName>Diseño del proceso</SuiteName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>16</ApplicationRevision>
+    <ApplicationRevision>19</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -67,7 +67,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>if_6_1320812.ico</ApplicationIcon>
+    <ApplicationIcon>iconDProcess.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Encriptar">
@@ -543,15 +546,15 @@
     <Resource Include="Images\AddDep.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="if_6_1320812.ico" />
+    <Content Include="iconDProcess.ico" />
     <Resource Include="Images\MahleRight.png" />
   </ItemGroup>
   <ItemGroup>
     <FileAssociation Include=".ico">
       <Visible>False</Visible>
-      <Description>if_6_1320812</Description>
+      <Description>iconDProcess</Description>
       <Progid>ico</Progid>
-      <DefaultIcon>if_6_1320812.ico</DefaultIcon>
+      <DefaultIcon>iconDProcess.ico</DefaultIcon>
     </FileAssociation>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
