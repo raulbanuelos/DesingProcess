@@ -68,6 +68,10 @@
             <Button ToolTip="Validación Documento" Command="{Binding IrValidacionTipoDocumento}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="FormatListBulletedType"/>
             </Button>
+            <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
+            <Button ToolTip="Ver recursos" Command="{Binding IrRecursos}" Cursor="Hand">
+                <materialDesign:PackIcon Kind="LinkVariant" />
+            </Button>
         </ToolBar>
 
         <Label x:Name="label" Content="Matriz de Control de Documentos" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="1"/>

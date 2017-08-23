@@ -96,7 +96,7 @@
                
             <!--Button Adjuntar-->
             <Button x:Name="button" Grid.Column="1" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding LlenarLista}"  ToolTip="Adjuntar Archivo"
-                    Visibility="{Binding BttnArchivos, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" Margin="390,222,20,236" RenderTransformOrigin="0.413,1.775"  >
+                    Visibility="{Binding c, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" Margin="390,222,20,236" RenderTransformOrigin="0.413,1.775"  >
                 <materialDesign:PackIcon Kind="Paperclip" Height="24" Width="24" />
             </Button>
             
