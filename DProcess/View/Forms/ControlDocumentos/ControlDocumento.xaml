@@ -39,6 +39,12 @@
             <Button ToolTip="Exportar a Excel" Command="{Binding Exportar}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="FileExcel" />
             </Button>
+
+            <Separator></Separator>
+            <Button ToolTip="Generar Número de Documento" Command="{Binding Generador}" Cursor="Hand">
+                <materialDesign:PackIcon Kind="FileDocument" />
+            </Button>
+
             <Separator></Separator>
             <Button ToolTip="Buscar Documento"  Cursor="Hand" Command="{Binding IrBusquedaDocumento}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}">
                 <materialDesign:PackIcon Kind="FileFind"/>
@@ -62,9 +68,9 @@
             <Button ToolTip="Validación Documento" Command="{Binding IrValidacionTipoDocumento}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="FormatListBulletedType"/>
             </Button>
-            <Separator Visibility="Hidden"></Separator>
-            <Button ToolTip="Generar Número de Documento" Command="{Binding Generador}" Cursor="Hand" Visibility="Hidden">
-                <materialDesign:PackIcon Kind="FileDocument" />
+            <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
+            <Button ToolTip="Ver recursos" Command="{Binding IrRecursos}" Cursor="Hand">
+                <materialDesign:PackIcon Kind="LinkVariant" />
             </Button>
         </ToolBar>
 
@@ -105,6 +111,10 @@
                 <DataGridTextColumn Binding="{Binding version.no_version}" ClipboardContentBinding="{x:Null}" Header="Versión"/>
                 <DataGridTextColumn Binding="{Binding fecha_emision, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="Fecha de Emisión"/>
                 <DataGridTextColumn Binding="{Binding fecha_actualizacion, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="Fecha revisión"/>
+                <DataGridTextColumn Binding="{Binding Departamento}" ClipboardContentBinding="{x:Null}" Header="Área"/>
+                <DataGridTextColumn Binding="{Binding version.nombre_usuario_elaboro}" ClipboardContentBinding="{x:Null}" Header="Usuario elaboró"/>
+                <DataGridTextColumn Binding="{Binding version.nombre_usuario_autorizo}" ClipboardContentBinding="{x:Null}" Header="Usuario autorizó"/>
+                <DataGridTextColumn Binding="{Binding version.no_copias}" ClipboardContentBinding="{x:Null}" Header="Número de copias"/>
             </DataGrid.Columns>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">

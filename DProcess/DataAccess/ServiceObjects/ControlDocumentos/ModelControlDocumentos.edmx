@@ -75,6 +75,17 @@
           <Property Name="FECHA_CREACION" Type="datetime" />
           <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
         </EntityType>
+        <EntityType Name="TBL_RECURSO_TIPO_DOCUMENTO">
+          <Key>
+            <PropertyRef Name="ID_RECURSO_TIPO_DOCUMENTO" />
+          </Key>
+          <Property Name="ID_RECURSO_TIPO_DOCUMENTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_TIPO_DOCUMENTO" Type="int" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ARCHIVO" Type="varbinary(max)" Nullable="false" />
+          <Property Name="NOMBRE_ARCHVO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EXT" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
         <EntityType Name="TBL_ROL">
           <Key>
             <PropertyRef Name="ID_ROL" />
@@ -220,6 +231,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBL_RECURSO_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO">
+          <End Role="TBL_TIPO_DOCUMENTO" Type="Self.TBL_TIPO_DOCUMENTO" Multiplicity="1" />
+          <End Role="TBL_RECURSO_TIPO_DOCUMENTO" Type="Self.TBL_RECURSO_TIPO_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_TIPO_DOCUMENTO">
+              <PropertyRef Name="ID_TIPO_DOCUMENTO" />
+            </Principal>
+            <Dependent Role="TBL_RECURSO_TIPO_DOCUMENTO">
+              <PropertyRef Name="ID_TIPO_DOCUMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBL_VERSION_TBL_DOCUMENTOS">
           <End Role="TBL_DOCUMENTO" Type="Self.TBL_DOCUMENTO" Multiplicity="1" />
           <End Role="TBL_VERSION" Type="Self.TBL_VERSION" Multiplicity="*" />
@@ -324,6 +347,7 @@
           <EntitySet Name="TBL_DOCUMENTO" EntityType="Self.TBL_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ESTATUS_DOCUMENTO" EntityType="Self.TBL_ESTATUS_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ESTATUS_VERSION" EntityType="Self.TBL_ESTATUS_VERSION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_RECURSO_TIPO_DOCUMENTO" EntityType="Self.TBL_RECURSO_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ROL" EntityType="Self.TBL_ROL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_TIPO_DOCUMENTO" EntityType="Self.TBL_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_VALIDACION_DOCUMENTO" EntityType="Self.TBL_VALIDACION_DOCUMENTO" Schema="dbo" store:Type="Tables" />
@@ -354,6 +378,10 @@
           <AssociationSet Name="FK_TBL_DOCUMENTO_Usuarios" Association="Self.FK_TBL_DOCUMENTO_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TBL_DOCUMENTO" EntitySet="TBL_DOCUMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_RECURSO_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO" Association="Self.FK_TBL_RECURSO_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO">
+            <End Role="TBL_TIPO_DOCUMENTO" EntitySet="TBL_TIPO_DOCUMENTO" />
+            <End Role="TBL_RECURSO_TIPO_DOCUMENTO" EntitySet="TBL_RECURSO_TIPO_DOCUMENTO" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_VERSION_TBL_DOCUMENTOS" Association="Self.FK_TBL_VERSION_TBL_DOCUMENTOS">
             <End Role="TBL_DOCUMENTO" EntitySet="TBL_DOCUMENTO" />
@@ -463,6 +491,11 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
           </AssociationSet>
+          <EntitySet Name="TBL_RECURSO_TIPO_DOCUMENTO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_RECURSO_TIPO_DOCUMENTO" />
+          <AssociationSet Name="FK_TBL_RECURSO_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_RECURSO_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO">
+            <End Role="TBL_TIPO_DOCUMENTO" EntitySet="TBL_TIPO_DOCUMENTO" />
+            <End Role="TBL_RECURSO_TIPO_DOCUMENTO" EntitySet="TBL_RECURSO_TIPO_DOCUMENTO" />
+          </AssociationSet>
          
           </EntityContainer>
         <EntityType Name="TBL_TIPO_DOCUMENTO">
@@ -477,6 +510,7 @@
           <NavigationProperty Name="TBL_CONF_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_CONF_DOCUMENTO_TBL_TIPO_DOCUMENTO" FromRole="TBL_TIPO_DOCUMENTO" ToRole="TBL_CONF_DOCUMENTO" />
           <NavigationProperty Name="TR_VALIDACION_TIPO_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO" FromRole="TBL_TIPO_DOCUMENTO" ToRole="TR_VALIDACION_TIPO_DOCUMENTO" />
           <NavigationProperty Name="TBL_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_TIPO_DOCUMENTO" FromRole="TBL_TIPO_DOCUMENTO" ToRole="TBL_DOCUMENTO" />
+          <NavigationProperty Name="TBL_RECURSO_TIPO_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_RECURSO_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO" FromRole="TBL_TIPO_DOCUMENTO" ToRole="TBL_RECURSO_TIPO_DOCUMENTO" />
         </EntityType>
         <EntityType Name="TBL_ARCHIVO">
           <Key>
@@ -804,6 +838,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_RECURSO_TIPO_DOCUMENTO">
+          <Key>
+            <PropertyRef Name="ID_RECURSO_TIPO_DOCUMENTO" />
+          </Key>
+          <Property Name="ID_RECURSO_TIPO_DOCUMENTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_TIPO_DOCUMENTO" Type="Int32" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ARCHIVO" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="NOMBRE_ARCHVO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EXT" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_TIPO_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_RECURSO_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO" FromRole="TBL_RECURSO_TIPO_DOCUMENTO" ToRole="TBL_TIPO_DOCUMENTO" />
+        </EntityType>
+        <Association Name="FK_TBL_RECURSO_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO">
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_TIPO_DOCUMENTO" Role="TBL_TIPO_DOCUMENTO" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_RECURSO_TIPO_DOCUMENTO" Role="TBL_RECURSO_TIPO_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_TIPO_DOCUMENTO">
+              <PropertyRef Name="ID_TIPO_DOCUMENTO" />
+            </Principal>
+            <Dependent Role="TBL_RECURSO_TIPO_DOCUMENTO">
+              <PropertyRef Name="ID_TIPO_DOCUMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
        
         </Schema>
     </edmx:ConceptualModels>
@@ -965,6 +1023,18 @@
                 <ScalarProperty Name="ID_USUARIO_ELABORO" ColumnName="ID_USUARIO_ELABORO" />
                 <ScalarProperty Name="ID_ESTATUS_VERSION" ColumnName="ID_ESTATUS_VERSION" />
                 <ScalarProperty Name="ID_VERSION" ColumnName="ID_VERSION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_RECURSO_TIPO_DOCUMENTO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TBL_RECURSO_TIPO_DOCUMENTO">
+              <MappingFragment StoreEntitySet="TBL_RECURSO_TIPO_DOCUMENTO">
+                <ScalarProperty Name="EXT" ColumnName="EXT" />
+                <ScalarProperty Name="NOMBRE_ARCHVO" ColumnName="NOMBRE_ARCHVO" />
+                <ScalarProperty Name="ARCHIVO" ColumnName="ARCHIVO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="ID_TIPO_DOCUMENTO" ColumnName="ID_TIPO_DOCUMENTO" />
+                <ScalarProperty Name="ID_RECURSO_TIPO_DOCUMENTO" ColumnName="ID_RECURSO_TIPO_DOCUMENTO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

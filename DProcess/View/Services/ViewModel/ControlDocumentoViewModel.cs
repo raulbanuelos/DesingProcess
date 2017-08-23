@@ -499,6 +499,28 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
+        /// Comando para abrir la ventana de recursos
+        /// </summary>
+        public ICommand IrRecursos
+        {
+            get
+            {
+                return new RelayCommand(o => irRecursos());
+            }
+        }
+
+        private void irRecursos()
+        {
+            RecursoViewModel contexto = new RecursoViewModel(usuario);
+
+            FrmRecursosTipoDocumento p = new FrmRecursosTipoDocumento();
+
+            p.DataContext = contexto;
+
+            p.Show();
+        }
+
+        /// <summary>
         /// Método que muestra la ventana para agregar validación de documento
         /// </summary>
         private void irvalidacionTipo()

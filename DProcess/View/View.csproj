@@ -158,6 +158,9 @@
     <Compile Include="Forms\ControlDocumentos\FrmPendientes_Liberar.xaml.cs">
       <DependentUpon>FrmPendientes_Liberar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmRecursosTipoDocumento.xaml.cs">
+      <DependentUpon>FrmRecursosTipoDocumento.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmValidacion_Tipo.xaml.cs">
       <DependentUpon>FrmValidacion_Tipo.xaml</DependentUpon>
     </Compile>
@@ -252,6 +255,7 @@
     <Compile Include="Services\ViewModel\PropiedadViewModel.cs" />
     <Compile Include="Services\ViewModel\CuffViewModel.cs" />
     <Compile Include="Services\ViewModel\PUserViewModel.cs" />
+    <Compile Include="Services\ViewModel\RecursoViewModel.cs" />
     <Compile Include="Services\ViewModel\ToolingViewModel.cs" />
     <Compile Include="Services\ViewModel\TubosCLViewModel.cs" />
     <Compile Include="Services\ViewModel\TubosHDViewModel.cs" />
@@ -344,6 +348,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmPendientes_Liberar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmRecursosTipoDocumento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
