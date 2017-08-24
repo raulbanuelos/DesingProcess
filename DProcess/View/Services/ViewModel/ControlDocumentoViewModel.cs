@@ -870,7 +870,7 @@ namespace View.Services.ViewModel
             if (Module.UsuarioIsRol(usuario.Roles, 2))
             {
                 BttnEnabled = true;               
-            }
+            }              
         }
         #endregion
     }

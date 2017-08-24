@@ -878,5 +878,53 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
+
+        /// <summary>
+        /// Método que obtiene los documentos de un usuario que el año de actualización sea mayor al período de actualizacion
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public IList GetDocumentos_Vencidos(string usuario)
+        {
+            try
+            {
+                //Se inician los servicios de Entity Control Documento
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Se realiza la consulta
+                    var Lista = (from d in Conexion.TBL_DOCUMENTO
+                                 join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                 join u in Conexion.Usuarios on d.ID_USUARIO equals u.Usuario
+                                 join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
+                                 join dep in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals dep.ID_DEPARTAMENTO
+                                 join c in Conexion.TBL_CONF_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals c.ID_TIPO_DOCUMENTO
+                                 where d.ID_USUARIO.Equals(usuario) && d.ID_ESTATUS_DOCUMENTO ==5 && v.ID_ESTATUS_VERSION ==1 &&((DateTime.Now.Year - d.FECHA_ACTUALIZACION.Value.Year) >= c.PERIODO_ANIOS_ACTUALIZACION)
+                                 select new
+                                 {
+                                     d.ID_DOCUMENTO,
+                                     d.ID_TIPO_DOCUMENTO,
+                                     d.ID_DEPARTAMENTO,
+                                     d.NOMBRE,
+                                     d.ID_USUARIO,
+                                     d.FECHA_EMISION,
+                                     d.FECHA_ACTUALIZACION,
+                                     v.No_VERSION,
+                                     v.ID_VERSION,
+                                     v.DESCRIPCION,
+                                     t.TIPO_DOCUMENTO,
+                                     dep.NOMBRE_DEPARTAMENTO,
+                                     c.PERIODO_ANIOS_ACTUALIZACION
+                                 }).ToList();
+                    //Retorna la lista 
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //si hay error regresa nulo
+                return null;
+            }
+        }
+
     }
 }

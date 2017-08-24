@@ -59,10 +59,7 @@
             <Button ToolTip="Bloquear Sistema" Command="{Binding IrBloquear }" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="TimerOff" />
             </Button>
-            <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
-            <Button ToolTip="Validación Documento" Command="{Binding IrValidacionTipoDocumento}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
-                <materialDesign:PackIcon Kind="FormatListBulletedType"/>
-            </Button>
+            
             <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
             <Button ToolTip="Ver recursos" Command="{Binding IrRecursos}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="LinkVariant" />
@@ -71,6 +68,10 @@
             <Separator Visibility="Hidden"></Separator>
             <Button ToolTip="Generar Número de Documento" Command="{Binding Generador}" Cursor="Hand" Visibility="Hidden">
                 <materialDesign:PackIcon Kind="FileDocument" />
+            </Button>
+            <Separator Visibility="Hidden"></Separator>
+            <Button ToolTip="Validación Documento" Command="{Binding IrValidacionTipoDocumento}" Visibility="Hidden" Cursor="Hand">
+                <materialDesign:PackIcon Kind="FormatListBulletedType"/>
             </Button>
         </ToolBar>
 
