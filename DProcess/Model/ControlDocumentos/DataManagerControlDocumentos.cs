@@ -936,7 +936,17 @@ namespace Model.ControlDocumentos
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static DateTime Get_DateTime()
+        {
+            //Se inicializa los servicios de documento
+            SO_Documento ServiceDocumento = new SO_Documento();
 
+            return ServiceDocumento.Get_DateTime();
+        }
         #endregion
 
         #region Rol

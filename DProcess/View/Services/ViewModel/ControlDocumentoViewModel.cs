@@ -566,7 +566,8 @@ namespace View.Services.ViewModel
                     //Mostramos la ventana
                     frm.ShowDialog();
 
-                    initControlDocumentos();
+                    TextoBuscar = string.Empty;
+                    GetDataGrid(string.Empty);
                     initSnack();
                 }
                 else
@@ -602,6 +603,7 @@ namespace View.Services.ViewModel
                         default:
                             break;
                     }
+                    initSnack();
                 }
             }
             else
@@ -756,7 +758,7 @@ namespace View.Services.ViewModel
         /// </summary>
         private void initSnack()
         {
-            int num_validar,num_aprobados,pendientes_liberar;
+            int num_validar,num_aprobados,pendientes_liberar,documentos_vencidos;
             
             //id_rol=2 mostrar todos los snackbar
             //id_rol=3 solo mostrar pendientes por corregir 
@@ -772,8 +774,11 @@ namespace View.Services.ViewModel
 
                 //Método para obtener todos los documentos que están aprobados pero están pendientes por liberar
                 num_aprobados = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar().Count;
-
+                //Obtiene los documentos pendientes por liberar, y que el usuario debe entregar en físico
                 pendientes_liberar = DataManagerControlDocumentos.GetPendientes_Liberar(usuario.NombreUsuario).Count;
+
+                //Método para obtener los documentos vencidos de un usuario
+                documentos_vencidos = DataManagerControlDocumentos.GetDocumentos_Vencidos(usuario.NombreUsuario).Count;
 
                 //Muestra los snackBar si hay documentos en la lista
                 if (num_validar > 0)
@@ -825,6 +830,8 @@ namespace View.Services.ViewModel
                 num_pendientes = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario).Count;
                 //Método para obetener los documentos que tiene pendientes  por liberar del usuario. 
                 pendientes_liberar = DataManagerControlDocumentos.GetPendientes_Liberar(usuario.NombreUsuario).Count;
+                 //Método para obtener los documentos vencidos de un usuario
+                documentos_vencidos = DataManagerControlDocumentos.GetDocumentos_Vencidos(usuario.NombreUsuario).Count;
 
                 //Si hay documentos pendientes, muestra snackbar
                 if (num_pendientes > 0)

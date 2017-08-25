@@ -51,6 +51,7 @@
     <Compile Include="ControlDocumentos\Documento.cs" />
     <Compile Include="ControlDocumentos\EstatusDocumento.cs" />
     <Compile Include="ControlDocumentos\Rol.cs" />
+    <Compile Include="ControlDocumentos\Sistema.cs" />
     <Compile Include="ControlDocumentos\TipoDocumento.cs" />
     <Compile Include="ControlDocumentos\Usuarios.cs" />
     <Compile Include="ControlDocumentos\ValidacionDocumento.cs" />

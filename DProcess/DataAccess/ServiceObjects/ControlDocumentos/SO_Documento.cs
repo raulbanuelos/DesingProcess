@@ -1,6 +1,8 @@
-﻿using System;
+﻿using DataAccess.SQLServer;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.SqlServer;
 using System.Linq;
@@ -926,5 +928,34 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        /// <summary>
+        /// Método que devuelve la fecha del servidor 
+        /// </summary>
+        /// <returns></returns>
+        public DateTime Get_DateTime()
+        {
+            try
+            {
+                DataSet data = null;
+                //Se crea conexion a la BD.
+                Desing_SQL conexion = new Desing_SQL();
+
+                //Se inicializa un dictionario que contiene propiedades de tipo string y un objeto.
+                Dictionary<string, object> parametros = new Dictionary<string, object>();
+
+                //se ejecuta el procedimiento que regresa la fecha del servidor
+                data = conexion.EjecutarStoredProcedure("GET_DATETIME", parametros);
+
+                DateTime dt = Convert.ToDateTime(data.Tables[0].Rows[0][0].ToString());
+                //data.Tables[0].Rows[0].ItemArray[0].ToString();
+
+                return dt;
+            }
+            catch (Exception er)
+            {
+                return DateTime.Now;
+            }
+
+        }
     }
 }

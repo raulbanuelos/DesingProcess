@@ -583,6 +583,7 @@ namespace View.Services.ViewModel
             NombreUsuarioElaboro = User.Nombre + " " + User.ApellidoPaterno;
             auxUsuario = usuario;
 
+            DateTime fecha_servidor = DataManagerControlDocumentos.Get_DateTime();
             //Obetenemos la lista de los documentos sin versión del usuario
             ListaNumeroDocumento = DataManagerControlDocumentos.GetDocumento_SinVersion(User.NombreUsuario);
 
