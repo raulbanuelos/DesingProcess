@@ -8,7 +8,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
-        Title="" Height="720" Width="1250" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="" Height="650" Width="1050" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <DataTemplate x:Key="ListArchivos">
             <Border x:Name="Border" Padding="8" BorderThickness="0 0 0 1" Width="290"  BorderBrush="{DynamicResource MaterialDesignDivider}">
@@ -43,14 +43,14 @@
             <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="1" Text=""></TextBlock>
-        <DataGrid x:Name="dataGrid" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding Lista}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedVersion,Mode=TwoWay}" Width="905" Margin="5,5,0,0">
+        <DataGrid x:Name="dataGrid" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding Lista}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedVersion,Mode=TwoWay}" Width="705" Margin="5,5,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding no_version }" ClipboardContentBinding="{x:Null}" Header="Número de Versión"/>
                 <DataGridTextColumn Binding="{Binding descripcion_v}" Header="Descripción"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding no_copias }" ClipboardContentBinding="{x:Null}" Header="Número de Copias"/>
                 <DataGridTextColumn Binding="{Binding fecha_version, StringFormat={}{0:yyyy-MM-dd} }" ClipboardContentBinding="{x:Null}" Header="Fecha"/>
                 <DataGridTextColumn Binding="{Binding nombre_usuario_elaboro }" ClipboardContentBinding="{x:Null}" Header="Usuario Elaboró"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding nombre_usuario_autorizo }" ClipboardContentBinding="{x:Null}" Header="Usuario Autorizó"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding no_copias }" ClipboardContentBinding="{x:Null}" Header="Número de Copias"/>
             </DataGrid.Columns>
 
             <i:Interaction.Triggers>

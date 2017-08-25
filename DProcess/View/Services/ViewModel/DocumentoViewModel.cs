@@ -188,7 +188,7 @@ namespace View.Services.ViewModel
         }
 
         private int idVersion;
-
+        // variables auxiliar, guarda la información  cuando se genera una nueva versión
         private string auxversion, auxUsuario,auxUsuario_Autorizo, auxDescripcion;
 
         private DateTime auxFecha;
@@ -466,7 +466,7 @@ namespace View.Services.ViewModel
                 NotifyChange("EnabledFecha");
             }
         }
- 
+        //Variables para guardar la información del documento, y mostar mensaje de confirmación
         private string NombreUsuarioElaboro, NombreUsuarioAut,NombreTipo,NombreDepto, auxNomUsElaboro;
         #endregion
 
@@ -1839,6 +1839,9 @@ namespace View.Services.ViewModel
             }
             }
 
+        /// <summary>
+        /// Comando para obtener el nombre completo del usuario que autorizo
+        /// </summary>
         public ICommand CambiarUsuario
         {
             get
@@ -1849,7 +1852,10 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Methods
-
+        /// <summary>
+        /// Método que obtiene el nombre completo del usuario de acuerdo al id
+        /// Se guarda el nombre completo para mostrar en mensaje de la información del documento
+        /// </summary>
         private void getUsuarioAutorizo()
         {
             if (usuarioAutorizo !=null)

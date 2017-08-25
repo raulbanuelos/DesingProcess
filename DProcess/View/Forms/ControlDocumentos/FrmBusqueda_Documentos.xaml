@@ -8,20 +8,20 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
-        Title="" Height="1000" Width="1500" WindowStartupLocation="CenterScreen"
+        Title="" Height="850" Width="1050" WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="70"></RowDefinition>
             <RowDefinition Height="100*"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30"></ColumnDefinition>
-            <ColumnDefinition Width="1440"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="1000"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
 
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="1">
@@ -32,7 +32,7 @@
             </ToolBar>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="5,5,999,5">
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="5">
             <StackPanel Orientation="Horizontal" Width="403" HorizontalAlignment="Left" Height="51">
                 <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="Buscar..." Text="{Binding TextoBusqueda}" TextAlignment="Center" Width="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Height="46">
                     <i:Interaction.Triggers>
@@ -46,16 +46,16 @@
             </StackPanel>
         </StackPanel>
 
-        <DataGrid x:Name="dataGrid" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding ListaDocumentos}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
+        <DataGrid x:Name="dataGrid" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,5,0,0" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding ListaDocumentos}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}" Width="991">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="Número documento"/>
                 <DataGridTextColumn Binding="{Binding descripcion}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
                 <DataGridTextColumn Binding="{Binding version.no_version}" ClipboardContentBinding="{x:Null}" Header="Versión"/>
-                <DataGridTextColumn Binding="{Binding Departamento}" ClipboardContentBinding="{x:Null}" Header="Responsable"/>
+                <DataGridTextColumn Binding="{Binding version.fecha_version,StringFormat={}{0:yyyy-MM-dd}}" Header="Fecha de Revisión"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Departamento}" ClipboardContentBinding="{x:Null}" Header="Área"/>
                 <DataGridTextColumn Binding="{Binding tipo.tipo_documento}" ClipboardContentBinding="{x:Null}" Header="Tipo de documento"/>
                 <DataGridTextColumn Binding="{Binding usuario}" ClipboardContentBinding="{x:Null}" Header="Usuario Elaboró"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding usuario_autorizo}" ClipboardContentBinding="{x:Null}" Header="Usuario Autorizó"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding version.fecha_version,StringFormat={}{0:yyyy-MM-dd}}" Header="Fecha de Revisión"></DataGridTextColumn>
             </DataGrid.Columns>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">

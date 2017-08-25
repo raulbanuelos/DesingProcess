@@ -887,6 +887,56 @@ namespace Model.ControlDocumentos
             //se guarda el resultado de la cadena sin acentos
             return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }
+
+        /// <summary>
+        /// Obtiene los documentos vencidos de un usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Documento> GetDocumentos_Vencidos(string usuario)
+        {
+            //Se inicializa los servicios de documento
+            SO_Documento ServiceDocumento = new SO_Documento();
+
+            //Se crea una lista de tipo documento, la cual se va a retornar
+            ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
+
+            IList ListaResul = ServiceDocumento.GetDocumentos_Vencidos(usuario);
+
+            //Si la lista es diferente de nulo
+            if (ListaResul != null)
+            {
+                //Iteramos la lista
+                foreach (var item in ListaResul)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos el objeto 
+                    Documento obj = new Documento();
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    obj.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.id_dep = (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.fecha_emision = (DateTime)tipo.GetProperty("FECHA_EMISION").GetValue(item, null);
+                    obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+                    obj.version.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    obj.version.descripcion_v = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.Departamento = (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
+                    //Regresamos la lista
+                    Lista.Add(obj);                    
+                }
+            }
+            //Regresamos la lista
+            return Lista;
+
+        }
+
+
         #endregion
 
         #region Rol

@@ -143,6 +143,9 @@
     <Compile Include="Forms\ControlDocumentos\FrmDocumentosValidar.xaml.cs">
       <DependentUpon>FrmDocumentosValidar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmDocumentos_Vencidos.xaml.cs">
+      <DependentUpon>FrmDocumentos_Vencidos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmGenerador_Numero.xaml.cs">
       <DependentUpon>FrmGenerador_Numero.xaml</DependentUpon>
     </Compile>
@@ -327,6 +330,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmDocumentosValidar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmDocumentos_Vencidos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
