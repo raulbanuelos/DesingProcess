@@ -509,6 +509,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void irRecursos()
         {
             RecursoViewModel contexto = new RecursoViewModel(usuario);
@@ -869,7 +872,7 @@ namespace View.Services.ViewModel
             //departamento, buscar documento y bloquear Sistema
             if (Module.UsuarioIsRol(usuario.Roles, 2))
             {
-                BttnEnabled = true;               
+                BttnEnabled = true;
             }
         }
         #endregion

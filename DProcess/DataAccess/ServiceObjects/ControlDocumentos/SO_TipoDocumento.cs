@@ -39,7 +39,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Lista;
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 //Si hay algún error, se retorna un nulo.
                 return null;
