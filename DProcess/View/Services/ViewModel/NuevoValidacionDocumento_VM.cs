@@ -99,6 +99,7 @@ namespace View.Services.ViewModel
                     //Asiganmos los valores al objeto
                     obj.validacion_descripcion = _descripcion.ToUpper();
                     obj.validacion_documento = _validacion.ToUpper();
+                    obj.fecha_creacion = DataManagerControlDocumentos.Get_DateTime();
 
                     //Verificamos que no se repita la validación de documento
                     int idV = DataManagerControlDocumentos.GetIDValidacion(_validacion);

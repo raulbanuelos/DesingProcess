@@ -114,7 +114,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="validacion_documento"></param>
         /// <param name="descripcion"></param>
         /// <returns></returns>
-        public int SetValidacion(string validacion_documento,string descripcion)
+        public int SetValidacion(string validacion_documento,string descripcion, DateTime date_now)
         {
             try
             {
@@ -125,8 +125,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     //Asigamos los valores
                     obj.VALIDACION_DOCUMENTO = validacion_documento;
                     obj.VALIDACION_DESCRIPCION = descripcion;
-                    obj.FECHA_ACTUALIZACION = DateTime.Now;
-                    obj.FECHA_CREACION = DateTime.Now;
+                    obj.FECHA_ACTUALIZACION = date_now;
+                    obj.FECHA_CREACION = date_now;
 
                     //Añadimos el objeto 
                     Conexion.TBL_VALIDACION_DOCUMENTO.Add(obj);

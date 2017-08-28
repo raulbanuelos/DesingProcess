@@ -28,7 +28,7 @@
 
         <Grid Grid.Column="1" Grid.Row="1" >
             <DatePicker materialDesign:HintAssist.Hint="Fecha Inicio" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  BorderBrush="#89535353" FontSize="18" Margin="10,21,0,229"
-                         DisplayDateStart="{x:Static System:DateTime.Today}" SelectedDate="{Binding FechaInicio, UpdateSourceTrigger=PropertyChanged}">
+                         DisplayDateStart="{Binding Path=DateNow, Mode=OneWay, NotifyOnSourceUpdated=True}" SelectedDate="{Binding FechaInicio, UpdateSourceTrigger=PropertyChanged}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectedDateChanged">
                         <i:InvokeCommandAction
@@ -38,7 +38,8 @@
             </DatePicker>
             <DatePicker materialDesign:HintAssist.Hint="Fecha Final" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  BorderBrush="#89535353" FontSize="18" Margin="10,77,0,173" 
                         DisplayDateStart="{Binding Path=FechaInicio, Mode=OneWay, NotifyOnSourceUpdated=True}" SelectedDate="{Binding FechaFin, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox materialDesign:HintAssist.Hint="Observaciones" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   BorderBrush="#89535353" FontSize="18" Margin="10,122,0,102" Text="{Binding Observaciones}" />
+            <TextBox materialDesign:HintAssist.Hint="Observaciones" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   BorderBrush="#89535353" FontSize="18" Margin="10,122,0,102" Text="{Binding Observaciones}"
+                     CharacterCasing="Upper" SpellCheck.IsEnabled="True"/>
 
             <Canvas Margin="0,235,0,10">
                 <Button Content="Guardar" Height="40"  Width="90"  Command="{Binding GuardarBloqueo}" Canvas.Left="283" Canvas.Top="3" Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"/>

@@ -61,7 +61,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private DateTime fecha = DateTime.Now;
+        private DateTime fecha = DataManagerControlDocumentos.Get_DateTime();
         public DateTime Fecha
         {
             get
@@ -466,6 +466,19 @@ namespace View.Services.ViewModel
                 NotifyChange("EnabledFecha");
             }
         }
+
+        private DateTime _FechaFin;
+        public DateTime FechaFin {
+            get
+            {
+                return _FechaFin;
+            }
+            set
+            {
+                _FechaFin = value;
+                NotifyChange("FechaFin");
+            }
+        }
         //Variables para guardar la información del documento, y mostar mensaje de confirmación
         private string NombreUsuarioElaboro, NombreUsuarioAut,NombreTipo,NombreDepto, auxNomUsElaboro;
         #endregion
@@ -490,6 +503,8 @@ namespace View.Services.ViewModel
             idVersion = selectedDocumento.version.id_version;
             id_dep = selectedDocumento.id_dep;
             NombreDepto = selectedDocumento.Departamento;
+            //Obtenemos la fecha del servidor
+            FechaFin = DataManagerControlDocumentos.Get_DateTime();
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
             NombreTipo = DataManagerControlDocumentos.GetNombretipo(id_tipo);
 
@@ -582,8 +597,9 @@ namespace View.Services.ViewModel
             usuario = User.NombreUsuario;
             NombreUsuarioElaboro = User.Nombre + " " + User.ApellidoPaterno;
             auxUsuario = usuario;
+            //Obtenemos la fecha del servidor
+            FechaFin = DataManagerControlDocumentos.Get_DateTime();
 
-            DateTime fecha_servidor = DataManagerControlDocumentos.Get_DateTime();
             //Obetenemos la lista de los documentos sin versión del usuario
             ListaNumeroDocumento = DataManagerControlDocumentos.GetDocumento_SinVersion(User.NombreUsuario);
 
@@ -615,6 +631,8 @@ namespace View.Services.ViewModel
             Nombre = selectedDocumento.nombre;
             User = new Usuario();
             Version = selectedDocumento.version.no_version;
+            //Obetenemos la fecha del servidor
+            FechaFin = DataManagerControlDocumentos.Get_DateTime();
             Fecha = selectedDocumento.version.fecha_version;
             Descripcion = selectedDocumento.descripcion;
             id_documento = selectedDocumento.id_documento;
@@ -727,7 +745,7 @@ namespace View.Services.ViewModel
                             obj.nombre = nombre;
                             obj.id_tipo_documento = _id_tipo;
                             obj.id_dep = _id_dep;
-                            obj.fecha_actualizacion = DateTime.Now;
+                            obj.fecha_actualizacion = _FechaFin;
                             obj.fecha_emision = fecha;
                             obj.id_estatus = 2;
 
@@ -1180,7 +1198,7 @@ namespace View.Services.ViewModel
                             obj.id_dep = _id_dep;
                             obj.id_tipo_documento = _id_tipo;
                             obj.fecha_emision = fecha;
-                            obj.fecha_actualizacion = DateTime.Now;
+                            obj.fecha_actualizacion = _FechaFin;
                             obj.id_estatus = 2;
 
                             //Ejecuta el método para modificar el documento actual
@@ -1358,7 +1376,7 @@ namespace View.Services.ViewModel
                         await dialog.SendMessage("Información", "La nueva versión del documento es la número " + Version);
 
                         //Limpiamos todos lo textbox, y se cambia el content del botón de guardar.
-                        Fecha = DateTime.Now;
+                        Fecha = _FechaFin;
                         ListaDocumentos.Clear();
                        // ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
 
