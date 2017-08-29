@@ -73,6 +73,7 @@
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Bloqueo.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Departamento.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Documento.cs" />
+    <Compile Include="ServiceObjects\ControlDocumentos\SO_EstatusVersion.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_HistorialVersion.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_RecursoTipoDocumento.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Rol.cs" />

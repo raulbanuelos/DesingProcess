@@ -15,11 +15,10 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
     public partial class TBL_HISTORIAL_VERSION
     {
         public int ID_HISTORIAL_VERSION { get; set; }
-        public Nullable<int> ID_VERSION { get; set; }
+        public string NOMBRE_DOCUMENTO { get; set; }
+        public string NO_VERSION { get; set; }
         public Nullable<System.DateTime> FECHA { get; set; }
         public string DESCRIPCION { get; set; }
         public string NOMBRE_USUARIO { get; set; }
-    
-        public virtual TBL_VERSION TBL_VERSION { get; set; }
     }
 }

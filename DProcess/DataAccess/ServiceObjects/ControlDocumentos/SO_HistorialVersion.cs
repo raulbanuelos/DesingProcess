@@ -8,7 +8,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 {
     public class SO_HistorialVersion
     {
-        public int Insert(int idVersion, DateTime fecha, string descripcion, string nombreUsuario)
+        public int Insert(int idVersion, DateTime fecha, string descripcion, string nombreUsuario,string nombreDocumento, string version)
         {
             try
             {
@@ -16,7 +16,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 {
                     TBL_HISTORIAL_VERSION registro = new TBL_HISTORIAL_VERSION();
 
-                    registro.ID_VERSION = idVersion;
+                    registro.NOMBRE_DOCUMENTO = nombreDocumento;
+                    registro.NO_VERSION = version;
                     registro.FECHA = fecha;
                     registro.DESCRIPCION = descripcion;
                     registro.NOMBRE_USUARIO = nombreUsuario;

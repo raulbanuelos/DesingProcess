@@ -125,7 +125,7 @@ namespace View.Services.ViewModel
              // Si el estatus es aprobado pendiente por liberar, se muestra la pantalla para liberar el documento seleccionado
                 else if (Estatus.Contains("aprobados"))
                 {
-                    DocumentoViewModel viewM = new DocumentoViewModel(documento);
+                    DocumentoViewModel viewM = new DocumentoViewModel(documento,usuario);
                     FrmDocumento frm = new FrmDocumento();
 
                     frm.DataContext = viewM;

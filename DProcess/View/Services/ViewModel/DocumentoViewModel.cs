@@ -484,14 +484,14 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Constructor
-        public DocumentoViewModel(Documento selectedDocumento, bool band,Usuario Modelusuario)
+        public DocumentoViewModel(Documento selectedDocumento, bool band,Usuario ModelUsuario)
         {
             //Contructor para generar una versión, o modificar el documento
             //Variables auxiliar guarda la información para cuando se genera una versión nueva 
             //Inicializa los combobox 
             Inicializar();
             //Asiganmos los valores para que se muestren 
-            User = Modelusuario;
+            User = ModelUsuario;
             Nombre = selectedDocumento.nombre;
             Version = selectedDocumento.version.no_version;
             Fecha = selectedDocumento.fecha_actualizacion;
@@ -585,7 +585,7 @@ namespace View.Services.ViewModel
             } 
         }
 
-        public DocumentoViewModel(Usuario Modelusuario)
+        public DocumentoViewModel(Usuario ModelUsuario)
         {
             //Constructor para crear un nuevo documento
             BotonGuardar = "Guardar";
@@ -593,7 +593,7 @@ namespace View.Services.ViewModel
             BttnArchivos = true;
             EnabledEliminar = true;
             Version = "1";
-            User = Modelusuario;
+            User = ModelUsuario;
             usuario = User.NombreUsuario;
             NombreUsuarioElaboro = User.Nombre + " " + User.ApellidoPaterno;
             auxUsuario = usuario;
@@ -617,7 +617,7 @@ namespace View.Services.ViewModel
             Inicializar();
         }
 
-        public DocumentoViewModel(Documento selectedDocumento)
+        public DocumentoViewModel(Documento selectedDocumento, Usuario ModelUsuario)
         {
             //Contructor para liberar documentos
             //Inicializa los combobox 
@@ -629,7 +629,7 @@ namespace View.Services.ViewModel
 
             //Asiganmos los valores para que se muestren 
             Nombre = selectedDocumento.nombre;
-            User = new Usuario();
+            User = ModelUsuario;
             Version = selectedDocumento.version.no_version;
             //Obetenemos la fecha del servidor
             FechaFin = DataManagerControlDocumentos.Get_DateTime();
@@ -766,7 +766,7 @@ namespace View.Services.ViewModel
                                 objVersion.descripcion_v = Descripcion;
 
                                 //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
-                                int id_version = DataManagerControlDocumentos.SetVersion(objVersion);
+                                int id_version = DataManagerControlDocumentos.SetVersion(objVersion,obj.nombre);
 
                                 //si se guardó correctamente el registro en la tabla versión.
                                 if (id_version != 0)
@@ -854,7 +854,7 @@ namespace View.Services.ViewModel
                             if (validacion == 0)
                             {
                                 //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
-                                int id_version = DataManagerControlDocumentos.SetVersion(objVersion);
+                                int id_version = DataManagerControlDocumentos.SetVersion(objVersion,nombre);
 
                                 //si se realizo guardo la versión 
                                 if (id_version != 0)
@@ -1322,7 +1322,7 @@ namespace View.Services.ViewModel
             objVersion.descripcion_v = Descripcion;
 
             //Ejecutamos el método para guardar la versión. El resultado lo retornamos
-            return DataManagerControlDocumentos.UpdateVersion(objVersion);
+            return DataManagerControlDocumentos.UpdateVersion(objVersion,User,nombre);
         }
 
         /// <summary>
@@ -1597,7 +1597,7 @@ namespace View.Services.ViewModel
                                 objVersion.descripcion_v = Descripcion;
 
                                 //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
-                                int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion);
+                                int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion,User,nombre);
 
                                 //Si la versión se actualizó correctamente.
                                 if (update_version != 0)
@@ -1650,7 +1650,7 @@ namespace View.Services.ViewModel
                             objVersion.descripcion_v = Descripcion;
                             
                             //Ejecutamos el método para modificar el estatus de la versión. El resultado lo guardamos en una variable local.
-                            int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion);
+                            int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion,User,nombre);
 
                             //si fue modificado correctamente.
                             if (update_version != 0)
@@ -1665,7 +1665,7 @@ namespace View.Services.ViewModel
                                 lastVersion.id_estatus_version = 2;
 
                                 //Ejecutamos el método para actualizar el estatus de la versión.
-                                int update = DataManagerControlDocumentos.Update_EstatusVersion(lastVersion);
+                                int update = DataManagerControlDocumentos.Update_EstatusVersion(lastVersion,User,nombre);
 
                                 //si se actualizó correctamente
                                 if (update != 0)
@@ -1824,7 +1824,7 @@ namespace View.Services.ViewModel
                         lastVersion.id_estatus_version = 1;
 
                         //Ejecutamos el método para actualizar el estatus de la versión.
-                        int update = DataManagerControlDocumentos.Update_EstatusVersion(lastVersion);
+                        int update = DataManagerControlDocumentos.Update_EstatusVersion(lastVersion,User,nombre);
 
                         if(update != 0)
                         {

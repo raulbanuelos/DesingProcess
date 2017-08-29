@@ -11,11 +11,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using Model;
 
 namespace View.Services.ViewModel
 {
     public class ValidarDocumentoViewM : INotifyPropertyChanged
     {
+        #region Attributes
+        private Usuario _usuarioLogueado; 
+        #endregion
+
         #region Propiedades
         private ObservableCollection<Archivo> _ListaArchivos = new ObservableCollection<Archivo>();
         public ObservableCollection<Archivo> ListaArchivos
@@ -108,8 +113,10 @@ namespace View.Services.ViewModel
 
         #region Constructores
 
-        public ValidarDocumentoViewM(Documento documento)
+        public ValidarDocumentoViewM(Documento documento, Usuario usuarioLogueado)
         {
+
+            _usuarioLogueado = usuarioLogueado;
             //Obtenemos la información del documento y de la versión
             SelectedDocumento = DataManagerControlDocumentos.GetDocumento(documento.id_documento, documento.version.no_version);
 
@@ -260,6 +267,7 @@ namespace View.Services.ViewModel
             string version = SelectedDocumento.version.no_version;
             Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
             objVersion.id_version = SelectedDocumento.version.id_version;
+            objVersion.no_version = SelectedDocumento.version.no_version;
 
             int last_id = DataManagerControlDocumentos.GetID_LastVersion(SelectedDocumento.id_documento, SelectedDocumento.version.id_version);
 
@@ -340,7 +348,7 @@ namespace View.Services.ViewModel
         public async void UpdateVersion(Model.ControlDocumentos.Version objVersion)
         {
             //Se llama al método para actualizar el estatus de la version
-            int update_version = DataManagerControlDocumentos.Update_EstatusVersion(objVersion);
+            int update_version = DataManagerControlDocumentos.Update_EstatusVersion(objVersion,_usuarioLogueado, SelectedDocumento.nombre);
 
             if (update_version!=0)
             {
