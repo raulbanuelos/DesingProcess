@@ -1447,10 +1447,16 @@ namespace Model.ControlDocumentos
         {
             //Inicializamos los servicios
             SO_Version ServiceVersion = new SO_Version();
+            SO_HistorialVersion ServiceHistorial = new SO_HistorialVersion();
 
             //Se ejecuta el método y regresa el id de la versión
-            return ServiceVersion.SetVersion(version.id_usuario, version.id_usuario_autorizo, version.id_documento, version.no_version,
+            int i = ServiceVersion.SetVersion(version.id_usuario, version.id_usuario_autorizo, version.id_documento, version.no_version,
                                              version.fecha_version, version.no_copias, version.id_estatus_version, version.descripcion_v);
+            
+            //Se registra en el historial la acción.
+            ServiceHistorial.Insert(i, DateTime.Now, "Se crea la versión " + version.no_version, GetNombreUsuario(version.id_usuario));
+
+            return i;
         }
 
         /// <summary>

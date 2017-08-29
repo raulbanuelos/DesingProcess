@@ -75,6 +75,16 @@
           <Property Name="FECHA_CREACION" Type="datetime" />
           <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
         </EntityType>
+        <EntityType Name="TBL_HISTORIAL_VERSION">
+          <Key>
+            <PropertyRef Name="ID_HISTORIAL_VERSION" />
+          </Key>
+          <Property Name="ID_HISTORIAL_VERSION" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_VERSION" Type="int" />
+          <Property Name="FECHA" Type="datetime" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="50" />
+          <Property Name="NOMBRE_USUARIO" Type="varchar" MaxLength="200" />
+        </EntityType>
         <EntityType Name="TBL_RECURSO_TIPO_DOCUMENTO">
           <Key>
             <PropertyRef Name="ID_RECURSO_TIPO_DOCUMENTO" />
@@ -232,6 +242,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBL_HISTORIAL_VERSION_TBL_VERSION">
+          <End Role="TBL_VERSION" Type="Self.TBL_VERSION" Multiplicity="0..1" />
+          <End Role="TBL_HISTORIAL_VERSION" Type="Self.TBL_HISTORIAL_VERSION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_VERSION">
+              <PropertyRef Name="ID_VERSION" />
+            </Principal>
+            <Dependent Role="TBL_HISTORIAL_VERSION">
+              <PropertyRef Name="ID_VERSION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBL_RECURSO_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO">
           <End Role="TBL_TIPO_DOCUMENTO" Type="Self.TBL_TIPO_DOCUMENTO" Multiplicity="1" />
           <End Role="TBL_RECURSO_TIPO_DOCUMENTO" Type="Self.TBL_RECURSO_TIPO_DOCUMENTO" Multiplicity="*" />
@@ -348,6 +370,7 @@
           <EntitySet Name="TBL_DOCUMENTO" EntityType="Self.TBL_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ESTATUS_DOCUMENTO" EntityType="Self.TBL_ESTATUS_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ESTATUS_VERSION" EntityType="Self.TBL_ESTATUS_VERSION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_HISTORIAL_VERSION" EntityType="Self.TBL_HISTORIAL_VERSION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_RECURSO_TIPO_DOCUMENTO" EntityType="Self.TBL_RECURSO_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ROL" EntityType="Self.TBL_ROL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_TIPO_DOCUMENTO" EntityType="Self.TBL_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
@@ -379,6 +402,10 @@
           <AssociationSet Name="FK_TBL_DOCUMENTO_Usuarios" Association="Self.FK_TBL_DOCUMENTO_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TBL_DOCUMENTO" EntitySet="TBL_DOCUMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_HISTORIAL_VERSION_TBL_VERSION" Association="Self.FK_TBL_HISTORIAL_VERSION_TBL_VERSION">
+            <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
+            <End Role="TBL_HISTORIAL_VERSION" EntitySet="TBL_HISTORIAL_VERSION" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_RECURSO_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO" Association="Self.FK_TBL_RECURSO_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO">
             <End Role="TBL_TIPO_DOCUMENTO" EntitySet="TBL_TIPO_DOCUMENTO" />
@@ -496,6 +523,11 @@
           <AssociationSet Name="FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO">
             <End Role="TBL_TIPO_DOCUMENTO" EntitySet="TBL_TIPO_DOCUMENTO" />
             <End Role="TR_VALIDACION_TIPO_DOCUMENTO" EntitySet="TR_VALIDACION_TIPO_DOCUMENTO" />
+          </AssociationSet>
+          <EntitySet Name="TBL_HISTORIAL_VERSION" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_HISTORIAL_VERSION" />
+          <AssociationSet Name="FK_TBL_HISTORIAL_VERSION_TBL_VERSION" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_HISTORIAL_VERSION_TBL_VERSION">
+            <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
+            <End Role="TBL_HISTORIAL_VERSION" EntitySet="TBL_HISTORIAL_VERSION" />
           </AssociationSet>
          
           </EntityContainer>
@@ -692,6 +724,7 @@
           <NavigationProperty Name="TBL_ESTATUS_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_TBL_ESTATUS_VERSION" FromRole="TBL_VERSION" ToRole="TBL_ESTATUS_VERSION" />
           <NavigationProperty Name="Usuarios" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios" FromRole="TBL_VERSION" ToRole="Usuarios" />
           <NavigationProperty Name="Usuarios1" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios1" FromRole="TBL_VERSION" ToRole="Usuarios" />
+          <NavigationProperty Name="TBL_HISTORIAL_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_HISTORIAL_VERSION_TBL_VERSION" FromRole="TBL_VERSION" ToRole="TBL_HISTORIAL_VERSION" />
         </EntityType>
         <Association Name="FK_TBL_ARCHIVO_TBL_VERSION">
           <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" Role="TBL_VERSION" Multiplicity="1" />
@@ -861,6 +894,29 @@
             </Principal>
             <Dependent Role="TR_VALIDACION_TIPO_DOCUMENTO">
               <PropertyRef Name="ID_TIPO_DOCUMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBL_HISTORIAL_VERSION">
+          <Key>
+            <PropertyRef Name="ID_HISTORIAL_VERSION" />
+          </Key>
+          <Property Name="ID_HISTORIAL_VERSION" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_VERSION" Type="Int32" />
+          <Property Name="FECHA" Type="DateTime" Precision="3" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRE_USUARIO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_HISTORIAL_VERSION_TBL_VERSION" FromRole="TBL_HISTORIAL_VERSION" ToRole="TBL_VERSION" />
+        </EntityType>
+        <Association Name="FK_TBL_HISTORIAL_VERSION_TBL_VERSION">
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" Role="TBL_VERSION" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_HISTORIAL_VERSION" Role="TBL_HISTORIAL_VERSION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_VERSION">
+              <PropertyRef Name="ID_VERSION" />
+            </Principal>
+            <Dependent Role="TBL_HISTORIAL_VERSION">
+              <PropertyRef Name="ID_VERSION" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1038,6 +1094,17 @@
                 <ScalarProperty Name="ABREBIATURA" ColumnName="ABREBIATURA" />
                 <ScalarProperty Name="TIPO_DOCUMENTO" ColumnName="TIPO_DOCUMENTO" />
                 <ScalarProperty Name="ID_TIPO_DOCUMENTO" ColumnName="ID_TIPO_DOCUMENTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_HISTORIAL_VERSION">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TBL_HISTORIAL_VERSION">
+              <MappingFragment StoreEntitySet="TBL_HISTORIAL_VERSION">
+                <ScalarProperty Name="NOMBRE_USUARIO" ColumnName="NOMBRE_USUARIO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="ID_VERSION" ColumnName="ID_VERSION" />
+                <ScalarProperty Name="ID_HISTORIAL_VERSION" ColumnName="ID_HISTORIAL_VERSION" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

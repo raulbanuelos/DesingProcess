@@ -35,6 +35,8 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_TIPO_DOCUMENTO" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_RECURSO_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_HISTORIAL_VERSION" Width="2.75" PointX="24.125" PointY="4.125" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_HISTORIAL_VERSION_TBL_VERSION" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

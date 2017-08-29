@@ -698,7 +698,7 @@ namespace View.Services.ViewModel
             if (ValidarValores())
             {
                 //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
-                MessageDialogResult result = await dialog.SendMessage("El documento se guardara con los datos:", mensaje, setting, MessageDialogStyle.AffirmativeAndNegative);
+                MessageDialogResult result = await dialog.SendMessage("El documento se guardará con los datos:", mensaje, setting, MessageDialogStyle.AffirmativeAndNegative);
                
                 //Verificamos que el botón contenga la leyenda Guardar, esto indica que el registro es nuevo.
                 if (BotonGuardar == "Guardar")
