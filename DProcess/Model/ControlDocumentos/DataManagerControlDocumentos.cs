@@ -335,7 +335,7 @@ namespace Model.ControlDocumentos
 
             //Se ejecuta el método y retorna el id del documento que fue insertado.
             return ServiceDocumento.SetDocumento(documento.id_tipo_documento, documento.id_dep, documento.nombre,
-                                                    documento.id_estatus, documento.usuario);
+                                                    documento.id_estatus, documento.usuario, documento.fecha_creacion);
         }
 
 
@@ -564,8 +564,9 @@ namespace Model.ControlDocumentos
             //Se inician los servicios de Documento.
             SO_Documento ServiceDocumento = new SO_Documento();
 
+            DateTime fecha_sist = Get_DateTime();
             // Se ejecuta el método y retorna los registros que se modificaron.
-            return ServiceDocumento.UpdateFecha_Actualizacion(id_doc);
+            return ServiceDocumento.UpdateFecha_Actualizacion(id_doc, fecha_sist);
         }
 
         /// <summary>
@@ -746,6 +747,8 @@ namespace Model.ControlDocumentos
 
             //obtenemos un vector sin espacios de la descripción
             string[] aux = descripcion.Split(' ');
+            //Ejecutamos el método para eliminar palabras de menos de 3 caracteres
+            aux = (RemoveChacters(aux));
 
             // obtenemos todo de la BD.
             IList ObjDocumento = ServiceDocumento.ValidateDescripcion(doc.id_tipo_documento, doc.id_dep, doc.id_documento);
@@ -775,6 +778,8 @@ namespace Model.ControlDocumentos
 
                     //Se obtiene un vector sin espacios, de la descripcion de la versión
                     string[] vec = descVersion.Split(' ');
+                    //Ejecutamos el método para eliminar palabras de menos de 3 caracteres
+                    vec = RemoveChacters(vec);
 
                     //Recorremos el vector de la descripción que se va a dar de alta
                     for (int i = 0; i < aux.Length; i++)
@@ -828,7 +833,7 @@ namespace Model.ControlDocumentos
         {
             //inicializa el contador
             int contador = 0;
-
+          
             //recorre la primera palabara
             for (int i = 0; i < w1.Length; i++)
             {
@@ -847,15 +852,48 @@ namespace Model.ControlDocumentos
                 }
             }
 
+            //Si el caractér es un espacio
             if (w1.Length == 0)
                 return false;
-            
+
+            int tam = 0;
+
+            //si la primer palabra es mayor a la segunda, guarda el tamaño de la segunda palabra
+            if (w1.Length > w2.Length)
+                tam = w2.Length;
+            else
+                //Si es más chica la primer palabra guardamos su tamaño
+                tam = w1.Length;
+
             //calculamos el porcentaje de coincidencia
             int porciento = (contador * 100) / w1.Length;
 
-            //si el porcentaje es mayor a 80%, la palabra es parecida, retorna verdadero
-            if (porciento >= 80)
-                return true;
+            //si el porcentaje es mayor a 80%, la palabra es parecida
+            if (porciento >= 80 )
+            {
+                int aux = 0;
+                int contador2=0;
+                //Se agrega nueva validación, para mayor presicion de coicidencia
+                //Mientras el auxiliar sea menor al tamaño guardado
+                do
+                {
+                    //si la letras coinciden en la misma posicion, sumamos el contador
+                    if (w1[aux] == w2[aux])
+                        contador2++;
+
+                    //Sumamos el auxiliar
+                        aux++;
+                } while (aux < tam);
+
+                //Calculamos de nuevo el porcentaje de coincidencia de las palabras 
+                int porciento2 = (contador2 * 100) / tam;
+
+                //si el porcentaje es mayor a 80
+                if (porciento2 >= 80)
+                    return true;
+                else
+                    return false;
+            }
             else
                 return false;
        
@@ -889,6 +927,26 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
+        /// Método que elimina de un vector las palabras que tengan menos de 3 caracteres
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <returns></returns>
+        private static string [] RemoveChacters(string[] vector)
+        {
+            //recorre todo el vector
+            for (int i = 0; i < vector.Length; i++)
+            {
+                //si el vector en la posicion i su tamaño es menor o igual a 3, se reemplaza por cadena vacia
+                if (vector[i].Length <= 3)
+                    vector[i]=string.Empty;
+            }
+            //Eliminamos las cadenas vacías del vector resultante
+           vector=vector.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            //Retornamos el vector sin las palabras de menos de 3 caracteres
+            return vector;
+        }
+
+        /// <summary>
         /// Obtiene los documentos vencidos de un usuario
         /// </summary>
         /// <param name="usuario"></param>
@@ -901,7 +959,8 @@ namespace Model.ControlDocumentos
             //Se crea una lista de tipo documento, la cual se va a retornar
             ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
 
-            IList ListaResul = ServiceDocumento.GetDocumentos_Vencidos(usuario);
+            DateTime fecha_sist = Get_DateTime();
+            IList ListaResul = ServiceDocumento.GetDocumentos_Vencidos(usuario, fecha_sist);
 
             //Si la lista es diferente de nulo
             if (ListaResul != null)
@@ -936,7 +995,17 @@ namespace Model.ControlDocumentos
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static DateTime Get_DateTime()
+        {
+            //Se inicializa los servicios de documento
+            SO_Documento ServiceDocumento = new SO_Documento();
 
+            return ServiceDocumento.Get_DateTime();
+        }
         #endregion
 
         #region Rol
@@ -2109,7 +2178,7 @@ namespace Model.ControlDocumentos
             SO_Validacion ServiceValidacion = new SO_Validacion();
 
             //Ejecutamos el método que guarda el registro
-            return ServiceValidacion.SetValidacion(obj.validacion_documento, obj.validacion_descripcion);
+            return ServiceValidacion.SetValidacion(obj.validacion_documento, obj.validacion_descripcion, obj.fecha_creacion);
         }
 
         /// <summary>
@@ -2230,13 +2299,14 @@ namespace Model.ControlDocumentos
             //inicializamos los servicios de SO_Bloqueo
             SO_Bloqueo ServiceBloqueo = new SO_Bloqueo();
 
+            //Obtiene el id si se encuentra el sistema bloqueado
             int id= ServiceBloqueo.GetID_Bloqueo(fecha_final);
 
+            //Si el id es diferente de cero
             if (id !=0) {
-
+                //Actualiza el estado a desbloqueado
                 ServiceBloqueo.UpdateEstado(id);
             }
-            //Ejecutamos el método que obtiene el id del registro activo
          
         }
 

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using DataAccess.SQLServer;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.SqlServer;
 using System.Linq;
@@ -65,7 +67,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="fecha_actualizacion"></param>
         /// <param name="fecha_emision"></param>
         /// <returns></returns>
-        public int SetDocumento( int id_tipo_documento,int id_dep, string nombre,int id_estatus, string id_usuario)
+        public int SetDocumento( int id_tipo_documento,int id_dep, string nombre,int id_estatus, string id_usuario, DateTime fecha_creacion)
         {
             try
             {
@@ -80,7 +82,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.ID_DEPARTAMENTO = id_dep;
                     obj.NOMBRE = nombre;
                     //obj.DESCRIPCION = descripcion;
-                    obj.FECHA_CREACION = DateTime.Now;
+                    obj.FECHA_CREACION = fecha_creacion;
                     obj.ID_ESTATUS_DOCUMENTO = id_estatus;
                     obj.ID_USUARIO = id_usuario;
 
@@ -149,7 +151,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="id_documento"></param>
         /// <param name="version_actual"></param>
         /// <returns></returns>
-        public int UpdateFecha_Actualizacion(int id_documento)
+        public int UpdateFecha_Actualizacion(int id_documento, DateTime fecha_actualizacion)
         {
 
             try
@@ -161,7 +163,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     TBL_DOCUMENTO obj = Conexion.TBL_DOCUMENTO.Where(x => x.ID_DOCUMENTO == id_documento).FirstOrDefault();
 
                     //Se modifica el id de la version con la original
-                    obj.FECHA_ACTUALIZACION= DateTime.Now;
+                    obj.FECHA_ACTUALIZACION= fecha_actualizacion;
 
                     //Se cambia el estado de registro a modificado.
                     Conexion.Entry(obj).State = EntityState.Modified;
@@ -884,7 +886,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public IList GetDocumentos_Vencidos(string usuario)
+        public IList GetDocumentos_Vencidos(string usuario, DateTime fecha_sistema)
         {
             try
             {
@@ -898,7 +900,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                  join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
                                  join dep in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals dep.ID_DEPARTAMENTO
                                  join c in Conexion.TBL_CONF_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals c.ID_TIPO_DOCUMENTO
-                                 where d.ID_USUARIO.Equals(usuario) && d.ID_ESTATUS_DOCUMENTO ==5 && v.ID_ESTATUS_VERSION ==1 &&((DateTime.Now.Year - d.FECHA_ACTUALIZACION.Value.Year) >= c.PERIODO_ANIOS_ACTUALIZACION)
+                                 where d.ID_USUARIO.Equals(usuario) && d.ID_ESTATUS_DOCUMENTO ==5 && v.ID_ESTATUS_VERSION ==1 &&((fecha_sistema.Year - d.FECHA_ACTUALIZACION.Value.Year) >= c.PERIODO_ANIOS_ACTUALIZACION)
                                  select new
                                  {
                                      d.ID_DOCUMENTO,
@@ -926,5 +928,34 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        /// <summary>
+        /// Método que devuelve la fecha del servidor 
+        /// </summary>
+        /// <returns></returns>
+        public DateTime Get_DateTime()
+        {
+            try
+            {
+                DataSet data = null;
+                //Se crea conexion a la BD.
+                Desing_SQL conexion = new Desing_SQL();
+
+                //Se inicializa un dictionario que contiene propiedades de tipo string y un objeto.
+                Dictionary<string, object> parametros = new Dictionary<string, object>();
+
+                //se ejecuta el procedimiento que regresa la fecha del servidor
+                data = conexion.EjecutarStoredProcedure("GET_DATETIME", parametros);
+
+                DateTime dt = Convert.ToDateTime(data.Tables[0].Rows[0][0].ToString());
+                //data.Tables[0].Rows[0].ItemArray[0].ToString();
+
+                return dt;
+            }
+            catch (Exception er)
+            {
+                return DateTime.Now;
+            }
+
+        }
     }
 }

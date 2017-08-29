@@ -245,6 +245,7 @@
     <Compile Include="Services\ViewModel\ControlDocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\DimensionsViewModel.cs" />
     <Compile Include="Services\ViewModel\DocumentosPendientesViewM.cs" />
+    <Compile Include="Services\ViewModel\DocumentosVencidosVM.cs" />
     <Compile Include="Services\ViewModel\Documentos_SimilaresVM.cs" />
     <Compile Include="Services\ViewModel\DocumentoValidarViewModel.cs" />
     <Compile Include="Services\ViewModel\DocumentoViewModel.cs" />

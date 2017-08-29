@@ -29,7 +29,7 @@ namespace View.Services.ViewModel
 
         #region Propiedades
 
-        private DateTime _fechaInicio= DateTime.Now;
+        private DateTime _fechaInicio= DataManagerControlDocumentos.Get_DateTime();
         public DateTime FechaInicio {
             get
             {
@@ -42,7 +42,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private DateTime _fechaFin = DateTime.Now;
+        private DateTime _fechaFin = DataManagerControlDocumentos.Get_DateTime();
         public DateTime FechaFin
         {
             get
@@ -96,6 +96,19 @@ namespace View.Services.ViewModel
             }
         }
 
+        private DateTime _dateNow = DataManagerControlDocumentos.Get_DateTime();
+        public DateTime DateNow
+        {
+            get
+            {
+                return _dateNow;
+            }
+            set
+            {
+                _dateNow = value;
+                NotifyChange("DateNow");
+            }
+        }
         private int id_bloqueo { get; set; }
         
         private DialogService dialog = new DialogService();

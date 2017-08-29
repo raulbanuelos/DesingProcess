@@ -72,8 +72,10 @@ namespace View.Forms.LogIn
                         //Enviamos un mensaje de bienvenida al usuario.
 						MessageDialogResult message = await this.ShowMessageAsync("Welcome",usuarioConectado.Nombre);
 
+                        //Obtenemos la fecha del servidor
+                        DateTime date_now = DataManagerControlDocumentos.Get_DateTime();
                         //Ejecutamos el método para desbloquear el sistema, si se venció la fecha final
-                        DataManagerControlDocumentos.DesbloquearSistema(DateTime.Now);
+                        DataManagerControlDocumentos.DesbloquearSistema(date_now);
 
                         //Una vez que el usuario hizo clic en aceptar el mensaje de bienvenida, se procede con la codificación de la presentación de la pantalla inicial.
 

@@ -82,7 +82,7 @@
                     <TextBox  materialDesign:HintAssist.Hint="Versión" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding Version}" IsEnabled="{Binding VersionEnabled}"/>
                     <!--Date-->
                     <StackPanel Orientation="Horizontal" Height="50" Margin="15,5,0,0">
-                        <DatePicker materialDesign:HintAssist.Hint="Fecha" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{x:Static System:DateTime.Today}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"
+                        <DatePicker materialDesign:HintAssist.Hint="Fecha" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"
                         IsEnabled="{Binding EnabledFecha}" />
                     </StackPanel>
                     <!--Descripción-->

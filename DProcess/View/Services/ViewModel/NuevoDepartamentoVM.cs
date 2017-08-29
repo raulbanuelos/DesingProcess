@@ -100,8 +100,8 @@ namespace View.Services.ViewModel
                         //Asiganmos los valores al objeto.
                         objDep.nombre_dep = _nombreDep.ToUpper();
                         objDep.Abreviatura = _abreviatura.ToUpper();
-                        objDep.fecha_actualizacion = DateTime.Now;
-                        objDep.fecha_creacion = DateTime.Now;
+                        objDep.fecha_actualizacion = DataManagerControlDocumentos.Get_DateTime();
+                        objDep.fecha_creacion = DataManagerControlDocumentos.Get_DateTime();
 
                         //Ejecuta el método para validar si existe el departamento
                         int val = DataManagerControlDocumentos.ValidateDepartamento(objDep);                     

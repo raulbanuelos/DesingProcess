@@ -152,6 +152,7 @@ namespace View.Services.ViewModel
                     objDocumento.id_dep = selectedDepartamento.id_dep;
                     objDocumento.usuario = NombreUsuario;
                     objDocumento.id_estatus = 1;
+                    objDocumento.fecha_creacion = DataManagerControlDocumentos.Get_DateTime();
 
                     //Ejecutamos el método para registrar un nuevo documento
                     int id_doc = DataManagerControlDocumentos.SetDocumento(objDocumento);

@@ -114,8 +114,8 @@ namespace View.Services.ViewModel
                         obj.tipo_documento = _tipoDocumento.ToUpper();
                         obj.abreviatura = _abreviatura.ToUpper();
                         obj.num_matriz = numMatriz;
-                        obj.fecha_actualizacion = DateTime.Now;
-                        obj.fecha_creacion = DateTime.Now;
+                        obj.fecha_actualizacion = DataManagerControlDocumentos.Get_DateTime();
+                        obj.fecha_creacion = DataManagerControlDocumentos.Get_DateTime();
 
                         //Validamos que no exista el tipo de documento
                         int val = DataManagerControlDocumentos.ValidateTipo(obj);
