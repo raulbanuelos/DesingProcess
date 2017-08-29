@@ -862,7 +862,7 @@ namespace Model.ControlDocumentos
             if (w1.Length > w2.Length)
                 tam = w2.Length;
             else
-                //Si es más chica la primer palabra guardamos su tamaño
+                //Si el tamaño de la primer palabra es mas pequeño se guarda el tamaño
                 tam = w1.Length;
 
             //calculamos el porcentaje de coincidencia
@@ -873,7 +873,7 @@ namespace Model.ControlDocumentos
             {
                 int aux = 0;
                 int contador2=0;
-                //Se agrega nueva validación, para mayor presicion de coicidencia
+                //Se agrega nueva validación, para mayor presicion de coicidencia de las palabras
                 //Mientras el auxiliar sea menor al tamaño guardado
                 do
                 {
