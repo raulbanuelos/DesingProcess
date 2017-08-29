@@ -18,7 +18,7 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_VALIDACION_DOCUMENTO" Width="2.375" PointX="4.875" PointY="2.375" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TR_VALIDACION_TIPO_DOCUMENTO" Width="3.125" PointX="8.25" PointY="7.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_VALIDACION_DOCUMENTO" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_BLOQUEO" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_BLOQUEO" Width="1.5" PointX="26.375" PointY="4.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_DOCUMENTO" Width="1.5" PointX="19.625" PointY="5.375" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" Width="1.5" PointX="21.875" PointY="3.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_ARCHIVO_TBL_VERSION" />
@@ -35,6 +35,7 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_TIPO_DOCUMENTO" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_RECURSO_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_HISTORIAL_VERSION" Width="3.375" PointX="8.375" PointY="3.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

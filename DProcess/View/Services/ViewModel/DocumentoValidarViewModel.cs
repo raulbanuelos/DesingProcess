@@ -71,7 +71,7 @@ namespace View.Services.ViewModel
                 
                 FrmValidarDocumento p = new FrmValidarDocumento();
 
-                ValidarDocumentoViewM context = new ValidarDocumentoViewM(SelectedDocumento);
+                ValidarDocumentoViewM context = new ValidarDocumentoViewM(SelectedDocumento,usuario);
 
                 p.DataContext = context;
 

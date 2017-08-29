@@ -75,6 +75,17 @@
           <Property Name="FECHA_CREACION" Type="datetime" />
           <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
         </EntityType>
+        <EntityType Name="TBL_HISTORIAL_VERSION">
+          <Key>
+            <PropertyRef Name="ID_HISTORIAL_VERSION" />
+          </Key>
+          <Property Name="ID_HISTORIAL_VERSION" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE_DOCUMENTO" Type="varchar" MaxLength="50" />
+          <Property Name="NO_VERSION" Type="varchar" MaxLength="10" />
+          <Property Name="FECHA" Type="datetime" />
+          <Property Name="DESCRIPCION" Type="varchar(max)" />
+          <Property Name="NOMBRE_USUARIO" Type="varchar" MaxLength="200" />
+        </EntityType>
         <EntityType Name="TBL_RECURSO_TIPO_DOCUMENTO">
           <Key>
             <PropertyRef Name="ID_RECURSO_TIPO_DOCUMENTO" />
@@ -348,6 +359,7 @@
           <EntitySet Name="TBL_DOCUMENTO" EntityType="Self.TBL_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ESTATUS_DOCUMENTO" EntityType="Self.TBL_ESTATUS_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ESTATUS_VERSION" EntityType="Self.TBL_ESTATUS_VERSION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_HISTORIAL_VERSION" EntityType="Self.TBL_HISTORIAL_VERSION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_RECURSO_TIPO_DOCUMENTO" EntityType="Self.TBL_RECURSO_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ROL" EntityType="Self.TBL_ROL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_TIPO_DOCUMENTO" EntityType="Self.TBL_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
@@ -497,6 +509,7 @@
             <End Role="TBL_TIPO_DOCUMENTO" EntitySet="TBL_TIPO_DOCUMENTO" />
             <End Role="TR_VALIDACION_TIPO_DOCUMENTO" EntitySet="TR_VALIDACION_TIPO_DOCUMENTO" />
           </AssociationSet>
+          <EntitySet Name="TBL_HISTORIAL_VERSION" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_HISTORIAL_VERSION" />
          
           </EntityContainer>
         <EntityType Name="TBL_ARCHIVO">
@@ -864,6 +877,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_HISTORIAL_VERSION">
+          <Key>
+            <PropertyRef Name="ID_HISTORIAL_VERSION" />
+          </Key>
+          <Property Name="ID_HISTORIAL_VERSION" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE_DOCUMENTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NO_VERSION" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA" Type="DateTime" Precision="3" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRE_USUARIO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
        
         </Schema>
     </edmx:ConceptualModels>
@@ -1038,6 +1062,18 @@
                 <ScalarProperty Name="ABREBIATURA" ColumnName="ABREBIATURA" />
                 <ScalarProperty Name="TIPO_DOCUMENTO" ColumnName="TIPO_DOCUMENTO" />
                 <ScalarProperty Name="ID_TIPO_DOCUMENTO" ColumnName="ID_TIPO_DOCUMENTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_HISTORIAL_VERSION">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TBL_HISTORIAL_VERSION">
+              <MappingFragment StoreEntitySet="TBL_HISTORIAL_VERSION">
+                <ScalarProperty Name="NOMBRE_USUARIO" ColumnName="NOMBRE_USUARIO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="NO_VERSION" ColumnName="NO_VERSION" />
+                <ScalarProperty Name="NOMBRE_DOCUMENTO" ColumnName="NOMBRE_DOCUMENTO" />
+                <ScalarProperty Name="ID_HISTORIAL_VERSION" ColumnName="ID_HISTORIAL_VERSION" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

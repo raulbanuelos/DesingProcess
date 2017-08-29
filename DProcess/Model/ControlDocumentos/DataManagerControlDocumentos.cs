@@ -1512,14 +1512,20 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="version"></param>
         /// <returns></returns>
-        public static int SetVersion(Version version)
+        public static int SetVersion(Version version,string nombreDocumento)
         {
             //Inicializamos los servicios
             SO_Version ServiceVersion = new SO_Version();
+            SO_HistorialVersion ServiceHistorial = new SO_HistorialVersion();
 
             //Se ejecuta el método y regresa el id de la versión
-            return ServiceVersion.SetVersion(version.id_usuario, version.id_usuario_autorizo, version.id_documento, version.no_version,
+            int i = ServiceVersion.SetVersion(version.id_usuario, version.id_usuario_autorizo, version.id_documento, version.no_version,
                                              version.fecha_version, version.no_copias, version.id_estatus_version, version.descripcion_v);
+            
+            //Se registra en el historial la acción.
+            ServiceHistorial.Insert(i, Get_DateTime(), "Se crea la versión " + version.no_version, GetNombreUsuario(version.id_usuario),nombreDocumento,version.no_version);
+
+            return i;
         }
 
         /// <summary>
@@ -1527,14 +1533,22 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="version"></param>
         /// <returns></returns>
-        public static int UpdateVersion(Version version)
+        public static int UpdateVersion(Version version,Usuario usuarioLogueado,string nombreDocumento)
         {
             //Inicializamos los servicios
             SO_Version ServiceVersion = new SO_Version();
+            SO_HistorialVersion ServiceHistorial = new SO_HistorialVersion();
+            SO_EstatusVersion ServiceEstatusVersion = new SO_EstatusVersion();
 
             // Se ejecuta el método y retorna los registros que se modificarion
-            return ServiceVersion.UpdateVersion(version.id_version, version.id_usuario, version.id_usuario_autorizo, version.id_documento, 
+            int i = ServiceVersion.UpdateVersion(version.id_version, version.id_usuario, version.id_usuario_autorizo, version.id_documento, 
                                                 version.no_version, version.fecha_version, version.no_copias, version.id_estatus_version, version.descripcion_v);
+
+            string estatusVersion = ServiceEstatusVersion.GetEstatusVersion(version.id_estatus_version);
+
+            ServiceHistorial.Insert(version.id_version, Get_DateTime(), "Se cambia el estatus a: " + estatusVersion, usuarioLogueado.Nombre + " " + usuarioLogueado.ApellidoPaterno + " " + usuarioLogueado.ApellidoMaterno,nombreDocumento,version.no_version);
+
+            return i;
         }
 
         /// <summary>
@@ -1988,13 +2002,21 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static int Update_EstatusVersion(Version obj)
+        public static int Update_EstatusVersion(Version obj, Usuario usuario,string nombreDocumento)
         {
             //Inicializamos los servicios de version.
             SO_Version ServiceVersion = new SO_Version();
+            SO_HistorialVersion ServiceHistorial = new SO_HistorialVersion();
+            SO_EstatusVersion ServiceEstatusVersion = new SO_EstatusVersion();
 
             //Ejecutamos el método y retornamos el resultado
-            return ServiceVersion.UpdateEstatus_Version(obj.id_version, obj.id_estatus_version);
+            int i = ServiceVersion.UpdateEstatus_Version(obj.id_version, obj.id_estatus_version);
+
+            string estatusVersion = ServiceEstatusVersion.GetEstatusVersion(obj.id_estatus_version);
+
+            ServiceHistorial.Insert(obj.id_version, Get_DateTime(), "Se cambia el estatus a: " + estatusVersion, usuario.Nombre + " " + usuario.ApellidoPaterno + " " + usuario.ApellidoMaterno,nombreDocumento, obj.no_version);
+
+            return i;
         }
 
         /// <summary>
