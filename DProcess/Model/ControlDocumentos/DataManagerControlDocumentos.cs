@@ -747,6 +747,8 @@ namespace Model.ControlDocumentos
 
             //obtenemos un vector sin espacios de la descripción
             string[] aux = descripcion.Split(' ');
+            //Ejecutamos el método para eliminar palabras de menos de 3 caracteres
+            aux = (RemoveChacters(aux));
 
             // obtenemos todo de la BD.
             IList ObjDocumento = ServiceDocumento.ValidateDescripcion(doc.id_tipo_documento, doc.id_dep, doc.id_documento);
@@ -776,6 +778,8 @@ namespace Model.ControlDocumentos
 
                     //Se obtiene un vector sin espacios, de la descripcion de la versión
                     string[] vec = descVersion.Split(' ');
+                    //Ejecutamos el método para eliminar palabras de menos de 3 caracteres
+                    vec = RemoveChacters(vec);
 
                     //Recorremos el vector de la descripción que se va a dar de alta
                     for (int i = 0; i < aux.Length; i++)
@@ -829,7 +833,7 @@ namespace Model.ControlDocumentos
         {
             //inicializa el contador
             int contador = 0;
-
+          
             //recorre la primera palabara
             for (int i = 0; i < w1.Length; i++)
             {
@@ -920,6 +924,26 @@ namespace Model.ControlDocumentos
 
             //se guarda el resultado de la cadena sin acentos
             return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+        }
+
+        /// <summary>
+        /// Método que elimina de un vector las palabras que tengan menos de 3 caracteres
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <returns></returns>
+        private static string [] RemoveChacters(string[] vector)
+        {
+            //recorre todo el vector
+            for (int i = 0; i < vector.Length; i++)
+            {
+                //si el vector en la posicion i su tamaño es menor o igual a 3, se reemplaza por cadena vacia
+                if (vector[i].Length <= 3)
+                    vector[i]=string.Empty;
+            }
+            //Eliminamos las cadenas vacías del vector resultante
+           vector=vector.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            //Retornamos el vector sin las palabras de menos de 3 caracteres
+            return vector;
         }
 
         /// <summary>
