@@ -323,7 +323,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                  where v.ID_DOCUMENTO== id_documento
                                  select new
                                  {
-                                     v.ID_VERSION
+                                     v.ID_VERSION,
+                                     v.No_VERSION
                                  }).ToList();
                     //se retorna la lista
                     return Lista;

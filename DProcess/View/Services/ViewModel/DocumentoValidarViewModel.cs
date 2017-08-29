@@ -48,10 +48,16 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Constructors
+        /// <summary>
+        /// VM de ventana que muestra la lista de los documentos que el adminsitrador debe de validar
+        /// </summary>
+        /// <param name="_usuario"></param>
         public DocumentoValidarViewModel(Usuario _usuario)
         {
+            //ViewModel de la ventana que muestra la lista de los documentos que el administrador debe de validar
             usuario = _usuario;
             init();
+            
             
         }
         #endregion
@@ -59,7 +65,7 @@ namespace View.Services.ViewModel
         #region Methods
         /// <summary>
         /// Método que muestra la ventana con la información del documento seleccionado
-        /// 
+        /// Se muestra ventana para validar el documento
         /// </summary>
         private void abrirDocumento()
         {
@@ -87,7 +93,7 @@ namespace View.Services.ViewModel
         /// </summary>
         private void init()
         {
-            //Ejecutamos el método para obtener la lista de documentos pendientes por validar
+            //Ejecutamos el método para obtener la lista de documentos que el administrador tiene pendientes por validar
             ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentosValidar(usuario.NombreUsuario);
         }
         #endregion

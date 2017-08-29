@@ -1074,7 +1074,7 @@ namespace View.Services.ViewModel
             }
         }
         /// <summary>
-        /// Método para eliminar el registro de un documento
+        /// Método para eliminar el registro de un documento, con todas las versiones
         /// Elimina los registros de todos las versiones de un documento
         /// </summary>
         private async void eliminar()
@@ -1101,8 +1101,10 @@ namespace View.Services.ViewModel
 
                 Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version(); 
                 objVersion.id_version = idVersion;
+                objVersion.no_version = Version;
+                string mensaje_historial = "Se elimina versión " + Version;
                 //Mandamos a llamar a la  función para eliminar la versión.
-                int version = DataManagerControlDocumentos.DeleteVersion(objVersion);
+                int version = DataManagerControlDocumentos.DeleteVersion(objVersion, mensaje_historial, User,nombre);
 
                 //Obetenemos las versiones del documento
                 ListaVersiones = DataManagerControlDocumentos.GetVersiones(id_documento);
@@ -1118,8 +1120,8 @@ namespace View.Services.ViewModel
                         //Eliminamos el archivo
                         int a = DataManagerControlDocumentos.DeleteArchivo(archivo);
                     }
-                    //Mandamos a llamar la funcion para eliminar la version.
-                   int v = DataManagerControlDocumentos.DeleteVersion(item);
+                    //Mandamos a llamar la funcion para eliminar la version iterada
+                   int v = DataManagerControlDocumentos.DeleteVersion(item, mensaje_historial, User,nombre);
                 }
                 //Si se elimino correctamente la versión
                 if (version != 0)
@@ -1810,11 +1812,14 @@ namespace View.Services.ViewModel
                     Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
                     //Se asigna el id 
                     objVersion.id_version = idVersion;
+                    objVersion.no_version = version;
+
+                    string mensaje = "Se elimina versión " + Version + ",Se regresa a versión anterior";
 
                     //Mandamos a llamar a la  función para eliminar la versión.
-                    int delete_version = DataManagerControlDocumentos.DeleteVersion(objVersion);
+                    int delete_version = DataManagerControlDocumentos.DeleteVersion(objVersion, mensaje,User,nombre);
 
-                    if(delete_version != 0)
+                    if (delete_version != 0)
                     {
                         //Creamos un objeto para la versión anterior 
                         Model.ControlDocumentos.Version lastVersion = new Model.ControlDocumentos.Version();

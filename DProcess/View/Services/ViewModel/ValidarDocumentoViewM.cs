@@ -112,7 +112,12 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Constructores
-
+        /// <summary>
+        /// ViewModel de ventana FrmValidarDocumento donde el administrador válida un documento
+        /// Cambia el estatus Corregir o aprobado
+        /// </summary>
+        /// <param name="documento"></param>
+        /// <param name="usuarioLogueado"></param>
         public ValidarDocumentoViewM(Documento documento, Usuario usuarioLogueado)
         {
 

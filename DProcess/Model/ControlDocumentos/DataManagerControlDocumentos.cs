@@ -674,6 +674,7 @@ namespace Model.ControlDocumentos
                     documento.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
                     documento.version.no_copias = (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
                     documento.id_dep = (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
+                    documento.Departamento = (string)tipo.GetProperty("DEPARTAMENTO").GetValue(item, null);
 
                 }
             }
@@ -1556,13 +1557,18 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="version"></param>
         /// <returns></returns>
-        public static int DeleteVersion(Version version)
+        public static int DeleteVersion(Version version,string descrip_histotial, Usuario UsuarioLog,string nombreDoc)
         {
-            //Inicializamos los servicios
+            //Inicializamos los servicios de versión e Historial
             SO_Version ServiceVersion = new SO_Version();
+            SO_HistorialVersion ServiceHistorial = new SO_HistorialVersion();
 
             // Se ejecuta el método y retorna los registros que se eliminaron.
-            return ServiceVersion.DeleteVersion(version.id_version);
+            int delete= ServiceVersion.DeleteVersion(version.id_version);
+            //
+            ServiceHistorial.Insert(version.id_version,Get_DateTime() ,descrip_histotial,UsuarioLog.Nombre +" "+ UsuarioLog.ApellidoPaterno +" " +UsuarioLog.ApellidoMaterno,nombreDoc,version.no_version);
+
+            return delete;
         }
 
         /// <summary>
@@ -1726,6 +1732,7 @@ namespace Model.ControlDocumentos
 
                     //Asignamos los valores correspondientes.
                     obj.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    obj.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }
@@ -1824,7 +1831,7 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// Método que obtiene las versiones que están pendientes por aprobar de todos los usuarios
+        /// Método que obtiene las versiones que el administrador tiene pendientes por aprobar de todos los usuarios
         /// </summary>
         /// <param name="nombreUsuario"></param>
         /// <returns></returns>
@@ -1837,7 +1844,7 @@ namespace Model.ControlDocumentos
             SO_Documento ServicioDocumento = new SO_Documento();
 
             //Ejecutamos el método para obtener la información de la base de datos.
-            IList informacionBD = ServicioDocumento.GetDocumentosValidar(nombreUsuario);
+            IList informacionBD = ServicioDocumento.GetDocumentosValidar();
 
             //Si la lista es diferente de nulo
             if (informacionBD != null)

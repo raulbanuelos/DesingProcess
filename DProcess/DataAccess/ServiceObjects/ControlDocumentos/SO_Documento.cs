@@ -562,11 +562,10 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
-        /// Método que obtiene las versiones que están pendientes por aprobar
+        /// Método que obtiene las versiones que esten pendientes por corregir por el administrador
         /// </summary>
-        /// <param name="nombreUsuario"></param>
         /// <returns></returns>
-        public IList GetDocumentosValidar(string nombreUsuario)
+        public IList GetDocumentosValidar()
         {
             try
             {
@@ -614,6 +613,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     //Se realiza la consulta
                     var lista = (from d in Conexion.TBL_DOCUMENTO
                                  join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                 join dep in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals dep.ID_DEPARTAMENTO
                                  where v.No_VERSION == version && d.ID_DOCUMENTO == idDocumento
                                  select new
                                  {
@@ -633,7 +633,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      v.ID_USUARIO_AUTORIZO,
                                      v.No_VERSION,
                                      v.FECHA_VERSION,
-                                     v.NO_COPIAS
+                                     v.NO_COPIAS,
+                                     DEPARTAMENTO=dep.NOMBRE_DEPARTAMENTO
                                  }).ToList();
                     //Se retorna la lista
                     return lista;

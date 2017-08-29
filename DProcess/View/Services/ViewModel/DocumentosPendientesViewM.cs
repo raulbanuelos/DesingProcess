@@ -111,7 +111,7 @@ namespace View.Services.ViewModel
                 //Se ejecuta el método que obtiene la información del documento seleccionado
                 documento = DataManagerControlDocumentos.GetDocumento(SelectedDocumento.id_documento, SelectedDocumento.version.no_version);
 
-                //Si el estatus es pendiente por corregir, se muestra ña ventana para modificar el documento
+                //Si el estatus es pendiente por corregir, se muestra la ventana para modificar el documento
                 if (Estatus.Contains("pendiente"))
                 {
                     DocumentoViewModel viewM = new DocumentoViewModel(documento, false,usuario);
