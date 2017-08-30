@@ -32,7 +32,7 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
@@ -60,7 +60,7 @@
             </i:Interaction.Triggers>
         </DataGrid>
 
-        <ListBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding ListaArchivos}" ItemTemplate="{StaticResource ListArchivos}"  Background="White" Foreground="#DD040404" Margin="5,10,0,167" SelectedItem="{Binding Path=SelectedArchivo}">
+        <ListBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding ListaArchivos}" ItemTemplate="{StaticResource ListArchivos}"  Background="White" Foreground="#DD040404" Margin="5,10,0,10" SelectedItem="{Binding Path=SelectedArchivo}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding AbrirArchivo}" />

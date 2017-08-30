@@ -281,6 +281,33 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
+        /// Método que obtiene el número de versión con el id de la version
+        /// </summary>
+        /// <param name="id_version"></param>
+        /// <returns></returns>
+        public string GetNum_Version(int id_version)
+        {
+            try
+            {
+                //Se establece la conexión a la BD.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Se obtiene el número de la versión
+                    var numero = (from v in Conexion.TBL_VERSION
+                                  where v.ID_VERSION == id_version
+                                  select v.No_VERSION).First();
+                    //Retornamos el valor.
+                    return numero;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hubo algún error retornamos una cadena vacía.
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Método para validar si la versión recibida existe.
         /// </summary>
         /// <param name="id_documento"></param>

@@ -64,6 +64,11 @@
             <Button ToolTip="Ver recursos" Command="{Binding IrRecursos}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="LinkVariant" />
             </Button>
+            
+            <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
+            <Button ToolTip="Ver historial" Command="{Binding IrHistorial}" Cursor="Hand">
+                <materialDesign:PackIcon Kind="History" />
+            </Button>
 
             <Separator Visibility="Hidden"></Separator>
             <Button ToolTip="Generar Número de Documento" Command="{Binding Generador}" Cursor="Hand" Visibility="Hidden">

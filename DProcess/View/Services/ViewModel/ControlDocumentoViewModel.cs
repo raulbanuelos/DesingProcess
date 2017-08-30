@@ -523,6 +523,21 @@ namespace View.Services.ViewModel
             p.Show();
         }
 
+        public ICommand IrHistorial
+        {
+            get
+            {
+                return new RelayCommand(o => irHistorial());
+            }
+        }
+
+        private void irHistorial()
+        {
+            FrmHistorial frm = new FrmHistorial();
+            HistorialVM context = new HistorialVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
         /// <summary>
         /// Método que muestra la ventana para agregar validación de documento
         /// </summary>

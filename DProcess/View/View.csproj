@@ -149,6 +149,9 @@
     <Compile Include="Forms\ControlDocumentos\FrmGenerador_Numero.xaml.cs">
       <DependentUpon>FrmGenerador_Numero.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmHistorial.xaml.cs">
+      <DependentUpon>FrmHistorial.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmNuevoTipo.xaml.cs">
       <DependentUpon>FrmNuevoTipo.xaml</DependentUpon>
     </Compile>
@@ -250,6 +253,7 @@
     <Compile Include="Services\ViewModel\DocumentoValidarViewModel.cs" />
     <Compile Include="Services\ViewModel\DocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\GeneradorViewModel.cs" />
+    <Compile Include="Services\ViewModel\HistorialVM.cs" />
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
     <Compile Include="Services\ViewModel\NuevoDepartamentoVM.cs" />
     <Compile Include="Services\ViewModel\NuevoTipoDocumentoVM.cs" />
@@ -339,6 +343,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmGenerador_Numero.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmHistorial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

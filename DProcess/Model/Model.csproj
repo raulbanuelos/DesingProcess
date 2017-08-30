@@ -50,6 +50,7 @@
     <Compile Include="ControlDocumentos\Departamento.cs" />
     <Compile Include="ControlDocumentos\Documento.cs" />
     <Compile Include="ControlDocumentos\EstatusDocumento.cs" />
+    <Compile Include="ControlDocumentos\HistorialVersion.cs" />
     <Compile Include="ControlDocumentos\Rol.cs" />
     <Compile Include="ControlDocumentos\TipoDocumento.cs" />
     <Compile Include="ControlDocumentos\Usuarios.cs" />

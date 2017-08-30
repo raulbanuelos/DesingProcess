@@ -548,14 +548,14 @@ namespace View.Services.ViewModel
             Model.ControlDocumentos.Version UsuarioObj = DataManagerControlDocumentos.GetIdUsuario(idVersion);
             usuario = UsuarioObj.id_usuario;
             auxUsuario = usuario;
-            //Variable para moestrar en mensaje de comprobación
+            //Variable para mostrar en mensaje de comprobación
             NombreUsuarioElaboro = UsuarioObj.nombre_usuario_elaboro;
             auxNomUsElaboro = NombreUsuarioElaboro;
 
             //información del usuario que autorizó, se guarda en variables auxiliar para mostrar en mensaje
             usuarioAutorizo = UsuarioObj.id_usuario_autorizo;
             auxUsuario_Autorizo = usuarioAutorizo;
-            NombreUsuarioAut = UsuarioObj.nombre_usuario_elaboro;
+            NombreUsuarioAut = UsuarioObj.nombre_usuario_autorizo;
             
             //Método que obtiene los archivos de un documento y de la versión
             ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetArchivos(id_documento,idVersion);
@@ -1665,6 +1665,8 @@ namespace View.Services.ViewModel
                                 //asigamos el id y el estatus obsoleto
                                 lastVersion.id_version = last_id;
                                 lastVersion.id_estatus_version = 2;
+                                //Se obtienen el número de versión de la version anterior
+                                lastVersion.no_version = DataManagerControlDocumentos.GetNum_Version(last_id);
 
                                 //Ejecutamos el método para actualizar el estatus de la versión.
                                 int update = DataManagerControlDocumentos.Update_EstatusVersion(lastVersion,User,nombre);
@@ -1827,6 +1829,7 @@ namespace View.Services.ViewModel
                         //asigamos el id de la version anterior, cambiamos el estatus a liberado
                         lastVersion.id_version = last_id;
                         lastVersion.id_estatus_version = 1;
+                        lastVersion.no_version = DataManagerControlDocumentos.GetNum_Version(last_id);
 
                         //Ejecutamos el método para actualizar el estatus de la versión.
                         int update = DataManagerControlDocumentos.Update_EstatusVersion(lastVersion,User,nombre);
@@ -1893,7 +1896,7 @@ namespace View.Services.ViewModel
         /// <returns></returns>
         private bool ValidarValores()
         {
-            if (nombre != null & version != null & fecha != null & !string.IsNullOrEmpty(descripcion) & id_tipo != 0 & _ListaDocumentos.Count != 0 & _usuario!=null & _id_dep!=0 & usuarioAutorizo!=null)
+            if (nombre != null & version != null & fecha != null & !string.IsNullOrEmpty(descripcion) & id_tipo != 0 & _ListaDocumentos.Count != 0 & _usuario!=null & _id_dep!=0 & usuarioAutorizo!=null & !string.IsNullOrWhiteSpace(descripcion))
                 return true;
             else 
                 return false;

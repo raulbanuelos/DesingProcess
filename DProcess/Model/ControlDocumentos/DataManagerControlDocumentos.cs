@@ -1557,7 +1557,7 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="version"></param>
         /// <returns></returns>
-        public static int DeleteVersion(Version version,string descrip_histotial, Usuario UsuarioLog,string nombreDoc)
+        public static int DeleteVersion(Version version,string descrip_historial, Usuario UsuarioLog,string nombreDoc)
         {
             //Inicializamos los servicios de versión e Historial
             SO_Version ServiceVersion = new SO_Version();
@@ -1565,8 +1565,8 @@ namespace Model.ControlDocumentos
 
             // Se ejecuta el método y retorna los registros que se eliminaron.
             int delete= ServiceVersion.DeleteVersion(version.id_version);
-            //
-            ServiceHistorial.Insert(version.id_version,Get_DateTime() ,descrip_histotial,UsuarioLog.Nombre +" "+ UsuarioLog.ApellidoPaterno +" " +UsuarioLog.ApellidoMaterno,nombreDoc,version.no_version);
+            //Ejecutamos el método para insertar en el historial cuando una version se eliminó
+            ServiceHistorial.Insert(version.id_version,Get_DateTime() ,descrip_historial,UsuarioLog.Nombre +" "+ UsuarioLog.ApellidoPaterno +" " +UsuarioLog.ApellidoMaterno,nombreDoc,version.no_version);
 
             return delete;
         }
@@ -1684,7 +1684,22 @@ namespace Model.ControlDocumentos
             //Inicializamos los servicios de version.
             SO_Version ServiceVersion = new SO_Version();
 
+            //Ejecutamos la función que obtienen el id y la retornamos
             return ServiceVersion.GetLastVersion_Id(id_documento, id_version);
+        }
+
+        /// <summary>
+        /// Método que obtiene el número de versión de un id
+        /// </summary>
+        /// <param name="id_version"></param>
+        /// <returns></returns>
+        public static string GetNum_Version(int id_version)
+        {
+            //Inicializamos los servicios de version.
+            SO_Version ServiceVersion = new SO_Version();
+
+            //Ejecutamos el método y retornamos el valor
+            return ServiceVersion.GetNum_Version(id_version);
         }
 
         /// <summary>
@@ -2464,5 +2479,81 @@ namespace Model.ControlDocumentos
         }
         #endregion
 
+
+        #region Historial
+        /// <summary>
+        /// Método que obtiene todos los registro del historial, los filtra por numero de documento
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public static ObservableCollection<HistorialVersion> GetHistorial(string texto)
+        {
+            //Se inicializan los servicios de Historial
+            SO_HistorialVersion ServiceHistorial = new SO_HistorialVersion();
+
+            //Lista que se va a retornar
+            ObservableCollection<HistorialVersion> ListaR = new ObservableCollection<HistorialVersion>();
+            //Obtenemos el resultado de la consulta
+            IList Lista = ServiceHistorial.GetHistorial(texto);
+            //Si la lista es diferente de nulo
+            if (Lista !=null)
+            {
+                //Iteramos la lista
+                foreach (var item in Lista)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+                    //Declaramos el objeto de tipo historial
+                    HistorialVersion obj = new HistorialVersion();
+
+                    //Asiganmos los valores al objeto
+                    obj.nombre_documento = (string)tipo.GetProperty("NOMBRE_DOCUMENTO").GetValue(item, null);
+                    obj.no_version = (string)tipo.GetProperty("NO_VERSION").GetValue(item, null);
+
+                    ListaR.Add(obj);
+                }
+            }
+            //Retornamos la lista
+            return ListaR;
+        }
+
+        /// <summary>
+        /// Obtiene la información del historial de la version de un documento
+        /// </summary>
+        /// <param name="documento"></param>
+        /// <param name="no_version"></param>
+        /// <returns></returns>
+        public static ObservableCollection<HistorialVersion> GetHistorial_Version(string documento,string no_version)
+        {
+            //Se inicializan los servicios de Historial
+            SO_HistorialVersion ServiceHistorial = new SO_HistorialVersion();
+            //Lista que se va a retornar
+            ObservableCollection<HistorialVersion> ListaR = new ObservableCollection<HistorialVersion>();
+            //Obtenemos el resultado de la consulta
+            IList Lista = ServiceHistorial.GetHistorial_version(documento, no_version);
+            //Si la lista es diferente de nulo
+            if (Lista != null)
+            {
+                //Iteramos la lista
+                foreach (var item in Lista)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    HistorialVersion obj = new HistorialVersion();
+                    //Asiganmos los valores al objeto
+                    obj.id_historial = (int)tipo.GetProperty("ID_HISTORIAL_VERSION").GetValue(item, null);
+                    obj.fecha = (DateTime)tipo.GetProperty("FECHA").GetValue(item, null);
+                    obj.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    obj.Nombre_usuario = (string)tipo.GetProperty("NOMBRE_USUARIO").GetValue(item, null);
+
+                    ListaR.Add(obj);
+                }
+            }
+            //Retornamos la lista
+            return ListaR;
+        }
+
+        #endregion
     }
 }
