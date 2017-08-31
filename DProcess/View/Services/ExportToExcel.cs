@@ -63,10 +63,10 @@ namespace View.Services
                                 //  ExcelWoorkSheet.Columns.AutoFit();
                                 ExcelWoorkSheet.Cells[1, i + 1].EntireColumn.ColumnWidth = 25;
 
-                                //if (table.Columns[i].DataType == Type.GetType("System.DateTime"))
-                                //{
-                                //    ExcelWoorkSheet.Cells[1, i + 1].EntireColumn.NumberFormat = "dd MM / yyyy";
-                                //}
+                                if (table.Columns[i].DataType == Type.GetType("System.DateTime"))
+                                {
+                                    ExcelWoorkSheet.Cells[1, i + 1].EntireColumn.NumberFormat = "dd/mm/yyyy";
+                                }
                             }
                             //Reccorre el número de filas de la tabla.
                             for (int j = 0; j < table.Rows.Count; j++)
@@ -78,9 +78,9 @@ namespace View.Services
                                     if (table.Rows[j].ItemArray[k].GetType() == Type.GetType("System.DateTime"))
                                     {
                                         string str = table.Rows[j].ItemArray[k].ToString();
-                                        DateTime dt = DateTime.Parse(str);
-                                      
-                                        ExcelWoorkSheet.Cells[j + 2, k + 1] = dt.ToShortDateString();
+                                        DateTime dt = Convert.ToDateTime(str);
+                                        ExcelWoorkSheet.Cells[j + 2, k + 1] = table.Rows[j].ItemArray[k];//dt.ToOADate();
+
                                     }
                                     else
                                     {
