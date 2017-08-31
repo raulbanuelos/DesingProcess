@@ -74,12 +74,12 @@ namespace View.Services
                                 //Recorre el número de columnas de la tabla.
                                 for (int k = 0; k < table.Columns.Count; k++)
                                 {
-
+                                    //Si el valor es de tipo fecha 
                                     if (table.Rows[j].ItemArray[k].GetType() == Type.GetType("System.DateTime"))
                                     {
                                         string str = table.Rows[j].ItemArray[k].ToString();
                                         DateTime dt = Convert.ToDateTime(str);
-                                        ExcelWoorkSheet.Cells[j + 2, k + 1] = table.Rows[j].ItemArray[k];//dt.ToOADate();
+                                        ExcelWoorkSheet.Cells[j + 2, k + 1].Value = table.Rows[j].ItemArray[k];//dt.ToOADate();
 
                                     }
                                     else
