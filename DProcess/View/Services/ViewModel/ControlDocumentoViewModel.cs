@@ -8,6 +8,7 @@ using System.Data;
 using Model;
 using MahApps.Metro.Controls.Dialogs;
 using Encriptar;
+using System.Globalization;
 
 namespace View.Services.ViewModel
 {
@@ -685,8 +686,8 @@ namespace View.Services.ViewModel
                 table.Columns.Add("Version");
                 table.Columns.Add("Copias");
                 table.Columns.Add("Responsable");
-                table.Columns.Add("Fecha de Emision");
-                table.Columns.Add("Fecha de Revision");
+                table.Columns.Add("Fecha de Emision", typeof(DateTime));
+                table.Columns.Add("Fecha de Revision", typeof(DateTime));
 
                 //Iteramos la lista de documentos
                 foreach (var item in Lista)
@@ -700,9 +701,9 @@ namespace View.Services.ViewModel
                     newRow["Version"] = item.version.no_version;
                     newRow["Copias"] = item.version.no_copias;
                     newRow["Responsable"] = item.Departamento;
-                    newRow["Fecha de Emision"] = item.fecha_emision.ToShortDateString();
-                    newRow["Fecha de Revision"] = item.fecha_actualizacion.ToShortDateString();
-
+                    newRow["Fecha de Emision"] = item.fecha_emision;
+                    newRow["Fecha de Revision"] = item.fecha_actualizacion;
+                   
                     //Agregamos la fila a la tabla
                     table.Rows.Add(newRow);
                 }

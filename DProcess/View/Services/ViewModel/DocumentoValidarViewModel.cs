@@ -49,7 +49,7 @@ namespace View.Services.ViewModel
 
         #region Constructors
         /// <summary>
-        /// VM de ventana que muestra la lista de los documentos que el adminsitrador debe de validar
+        /// ViewModel de ventana que muestra la lista de los documentos que el adminsitrador debe de validar
         /// </summary>
         /// <param name="_usuario"></param>
         public DocumentoValidarViewModel(Usuario _usuario)

@@ -103,7 +103,7 @@ namespace View.Services.ViewModel
             //Si el resultado es afirmativo
             if (result == MessageDialogResult.Affirmative)
             {
-                if (!string.IsNullOrEmpty(_abreviatura) & !string.IsNullOrEmpty(_tipoDocumento) )
+                if (!string.IsNullOrEmpty(_abreviatura) & !string.IsNullOrEmpty(_tipoDocumento) & !string.IsNullOrWhiteSpace(_tipoDocumento) & !string.IsNullOrWhiteSpace(_abreviatura))
                 {
                     if (_abreviatura.Length <= 6)
                     {

@@ -9,7 +9,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
-        Title="" Height="370" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Bloqueo" Height="370" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>

@@ -122,6 +122,8 @@ namespace View.Services.ViewModel
         {
             //Obtiene coincidencias del parametro
             GetHistorial(parametro);
+
+            if(ListaHistorial !=null)
             ListaHistorial.Clear();
         }
         #endregion

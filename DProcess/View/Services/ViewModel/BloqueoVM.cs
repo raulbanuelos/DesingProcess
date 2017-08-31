@@ -164,46 +164,58 @@ namespace View.Services.ViewModel
         /// </summary>
         private async void guardar()
         {
-            //Valida los campos no están vacíos
-            if (Valida())
-            {  
-                //Declaramos un objeto de tipo Bloqueo
-                Bloqueo obj = new Bloqueo();
+            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = "SI";
+            setting.NegativeButtonText = "NO";
 
-                //Asignamos los valores 
-                obj.fecha_inicio = _fechaInicio;
-                obj.fecha_fin = _fechaFin;
-                obj.observaciones = _observaciones;
+            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
 
-                //Ejecutamos el método para dar de alta el bloqueo
-                int id = DataManagerControlDocumentos.SetBloqueo(obj);
-
-                //Si se agregó correctamente el registro
-                if (id != 0)
+            //Si el resultado es afirmativo
+            if (result == MessageDialogResult.Affirmative)
+            {
+                //Valida los campos no están vacíos
+                if (Valida())
                 {
-                    await dialog.SendMessage("Información", "Los datos fueron guardados correctamente...");
+                    //Declaramos un objeto de tipo Bloqueo
+                    Bloqueo obj = new Bloqueo();
 
-                    //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                    var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+                    //Asignamos los valores 
+                    obj.fecha_inicio = _fechaInicio;
+                    obj.fecha_fin = _fechaFin;
+                    obj.observaciones = _observaciones;
 
-                    //Verificamos que la pantalla sea diferente de nulo.
-                    if (window != null)
+                    //Ejecutamos el método para dar de alta el bloqueo
+                    int id = DataManagerControlDocumentos.SetBloqueo(obj);
+
+                    //Si se agregó correctamente el registro
+                    if (id != 0)
                     {
-                        //Cerramos la pantalla
-                        window.Close();
+                        await dialog.SendMessage("Información", "Los datos fueron guardados correctamente...");
+
+                        //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                        var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                        //Verificamos que la pantalla sea diferente de nulo.
+                        if (window != null)
+                        {
+                            //Cerramos la pantalla
+                            window.Close();
+                        }
                     }
+                    else
+                    {
+                        //Si hubo error al dar de alta
+                        await dialog.SendMessage("Alert", "Error al registrar el bloqueo...");
+                    }
+
                 }
                 else
                 {
-                    //Si hubo error al dar de alta
-                    await dialog.SendMessage("Alert", "Error al registrar el bloqueo...");
+                    //Si están vacíos los campos
+                    await dialog.SendMessage("Información", "Se deben de llenar todos los campos...");
                 }
-
-            }
-            else
-            {
-                //Si están vacíos los campos
-                await dialog.SendMessage("Información", "Se deben de llenar todos los campos...");
             }
         }
 
@@ -362,7 +374,7 @@ namespace View.Services.ViewModel
         //Método que valida los campos no estén vacíos
         private bool Valida()
         {
-            if (_fechaFin != null & _fechaInicio != null & !string.IsNullOrEmpty(_observaciones))
+            if (_fechaFin != null & _fechaInicio != null & !string.IsNullOrEmpty(_observaciones) & !string.IsNullOrWhiteSpace(_observaciones))
                 return true;
             else
                 return false;

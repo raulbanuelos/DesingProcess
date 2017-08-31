@@ -8,7 +8,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
-        Title="" Height="700" Width="1100" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Documentos Similares" Height="700" Width="1100" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <DataTemplate x:Key="ListFiles">
             <Border x:Name="Border" Padding="8" BorderThickness="0 0 0 1" Width="290"  BorderBrush="{DynamicResource MaterialDesignDivider}">

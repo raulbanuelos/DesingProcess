@@ -8,7 +8,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
-        Title="" Height="650" Width="1050" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Versiones" Height="650" Width="1050" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <DataTemplate x:Key="ListArchivos">
             <Border x:Name="Border" Padding="8" BorderThickness="0 0 0 1" Width="290"  BorderBrush="{DynamicResource MaterialDesignDivider}">

@@ -91,7 +91,7 @@ namespace View.Services.ViewModel
             if (result == MessageDialogResult.Affirmative)
             {
                 //Si los campos son diferentes de nulo vacío
-                if (!string.IsNullOrEmpty(_nombreDep) & !string.IsNullOrEmpty(_abreviatura))
+                if (!string.IsNullOrEmpty(_nombreDep) & !string.IsNullOrEmpty(_abreviatura) & !string.IsNullOrWhiteSpace(_abreviatura) & !string.IsNullOrWhiteSpace(_nombreDep))
                 {
                     if (_abreviatura.Length <= 6) {
                         //Creamos un objeto de tipo departamento

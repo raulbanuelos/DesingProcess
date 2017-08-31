@@ -8,7 +8,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="" Height="700" Width="980"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
+        Title="Validar Documento" Height="700" Width="980"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.Resources>
         <DataTemplate x:Key="Lista">

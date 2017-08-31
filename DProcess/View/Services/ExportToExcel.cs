@@ -62,6 +62,11 @@ namespace View.Services
                                 //Establece automáticamente el tamaño de la columna.
                                 //  ExcelWoorkSheet.Columns.AutoFit();
                                 ExcelWoorkSheet.Cells[1, i + 1].EntireColumn.ColumnWidth = 25;
+
+                                //if (table.Columns[i].DataType == Type.GetType("System.DateTime"))
+                                //{
+                                //    ExcelWoorkSheet.Cells[1, i + 1].EntireColumn.NumberFormat = "dd MM / yyyy";
+                                //}
                             }
                             //Reccorre el número de filas de la tabla.
                             for (int j = 0; j < table.Rows.Count; j++)
@@ -69,8 +74,20 @@ namespace View.Services
                                 //Recorre el número de columnas de la tabla.
                                 for (int k = 0; k < table.Columns.Count; k++)
                                 {
-                                    //Llenamos la hoja de calculo con la información de la tabla.
-                                    ExcelWoorkSheet.Cells[j + 2, k + 1] = table.Rows[j].ItemArray[k].ToString();
+
+                                    if (table.Rows[j].ItemArray[k].GetType() == Type.GetType("System.DateTime"))
+                                    {
+                                        string str = table.Rows[j].ItemArray[k].ToString();
+                                        DateTime dt = DateTime.Parse(str);
+                                      
+                                        ExcelWoorkSheet.Cells[j + 2, k + 1] = dt.ToShortDateString();
+                                    }
+                                    else
+                                    {
+                                        //Llenamos la hoja de calculo con la información de la tabla.
+                                        ExcelWoorkSheet.Cells[j + 2, k + 1] = table.Rows[j].ItemArray[k].ToString();
+                                    }
+                                    
                                     //Alinea el texto en el centro.
                                     ExcelWoorkSheet.Cells[j + 2, k + 1].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                                     //Dibuja los Bordes
