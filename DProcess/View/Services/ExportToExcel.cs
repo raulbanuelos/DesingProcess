@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Excel = Microsoft.Office.Interop.Excel;
 
+
 namespace View.Services
 {
     public static class ExportToExcel
@@ -26,8 +27,16 @@ namespace View.Services
                     {
                         //Creamos una instancia de la aplicación.
                         Excel.Application ExcelApp = new Excel.Application();
-                       
 
+                        //Devuelve información sobre la configuración internacional y el país o región actual.
+                        //Devuleve el símbolo del día, mes y año dependiento de la configuración internacional
+                        var yearCode =ExcelApp.International[Excel.XlApplicationInternational.xlYearCode];
+                        var monthcode = ExcelApp.International[Excel.XlApplicationInternational.xlMonthCode];
+                        var daycode= ExcelApp.International[Excel.XlApplicationInternational.xlDayCode];
+
+                        //Se concatena los valores para obtener el formato de la fecha 
+                        string formato = daycode + daycode + "/" + monthcode + monthcode + "/" + yearCode + yearCode + yearCode + yearCode;
+                        
                         //Crea un nuevo documento.
                         Excel.Workbook ExcelWork = ExcelApp.Workbooks.Add();
                         
@@ -68,7 +77,7 @@ namespace View.Services
                                 if (table.Columns[i].DataType == Type.GetType("System.DateTime"))
                                 {
                                     //Establecemos el formato de fecha a toda la columna
-                                    ExcelWoorkSheet.Cells[1, i + 1].EntireColumn.NumberFormat = "dd/mm/aaaa";
+                                    ExcelWoorkSheet.Cells[1, i + 1].EntireColumn.NumberFormat = formato;
                                 }
                             }
                             //Reccorre el número de filas de la tabla.

@@ -681,6 +681,7 @@ namespace View.Services.ViewModel
                 Progress = await dialog.SendProgressAsync("Por favor espere", "Generando archivo excel...");
 
                 //Se añade las columnas, se especifíca el tipo fecha para dar formato a la columna
+                //Se tien que especificar el tipo, si no la fecha se escribe mal en Excel
                 table.Columns.Add("Numero de Documento");
                 table.Columns.Add("Descripción");
                 table.Columns.Add("Version");
