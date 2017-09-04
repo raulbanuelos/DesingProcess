@@ -592,6 +592,7 @@ namespace View.Services.ViewModel
             BttnGuardar = true;
             BttnArchivos = true;
             EnabledEliminar = true;
+            NombreEnabled = true;
             Version = "1";
             User = ModelUsuario;
             usuario = User.NombreUsuario;
@@ -604,15 +605,15 @@ namespace View.Services.ViewModel
             ListaNumeroDocumento = DataManagerControlDocumentos.GetDocumento_SinVersion(User.NombreUsuario);
 
             //Mostramos el primer documento, sólo se admite un documento sin version por usuario
-            if (ListaNumeroDocumento.Count > 0)
-                SelectedDocumento = ListaNumeroDocumento[0];
+            //if (ListaNumeroDocumento.Count > 0)
+            //    SelectedDocumento = ListaNumeroDocumento[0];
 
             //Inicializamos los campos de tipo de documento y departamento
-            id_dep = _selectedDocumento.id_dep;
-            id_tipo = _selectedDocumento.id_tipo_documento;
-            nombre = _selectedDocumento.nombre;
-            NombreDepto = _selectedDocumento.Departamento;
-            NombreTipo = _selectedDocumento.tipo.tipo_documento;
+            //id_dep = _selectedDocumento.id_dep;
+            //id_tipo = _selectedDocumento.id_tipo_documento;
+            //nombre = _selectedDocumento.nombre;
+            //NombreDepto = _selectedDocumento.Departamento;
+            //NombreTipo = _selectedDocumento.tipo.tipo_documento;
 
             Inicializar();
         }

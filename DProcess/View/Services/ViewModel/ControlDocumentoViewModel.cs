@@ -558,6 +558,7 @@ namespace View.Services.ViewModel
         private async void irNuevoDocumento()
         {
             Bloqueo obj = new Bloqueo();
+            DialogService dialogService = new DialogService();
 
             //Método que obtiene un registro si se encuentra activo
             obj = DataManagerControlDocumentos.GetBloqueo();
@@ -572,16 +573,39 @@ namespace View.Services.ViewModel
                 //Si el número de documento es menor que cero
                 if (num_documentos > 0)
                 {
-                    //Creamos un objeto de la ventana
-                    FrmDocumento frm = new FrmDocumento();
+                    //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
+                    MetroDialogSettings setting = new MetroDialogSettings();
+                    setting.NegativeButtonText = "Crear un nuevo número";
+                    setting.AffirmativeButtonText = "Editar documentos existentes";
 
-                    DocumentoViewModel context = new DocumentoViewModel(usuario);
+                    //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
+                    MessageDialogResult result = await dialogService.SendMessage("Atención", "Usted tiene documentos disponibles", setting, MessageDialogStyle.AffirmativeAndNegative);
 
-                    frm.DataContext = context;
-
-                    //Mostramos la ventana
-                    frm.ShowDialog();
-
+                    switch (result)
+                    {
+                        case MessageDialogResult.Negative:
+                            //Ventana para generar un nuevo número de documento
+                            FrmGenerador_Numero frmGenerador = new FrmGenerador_Numero();
+                            GeneradorViewModel Datacontext = new GeneradorViewModel { ModelUsuario = usuario };
+                            frmGenerador.DataContext = Datacontext;
+                            frmGenerador.ShowDialog();
+                            break;
+                        case MessageDialogResult.Affirmative:
+                            //Creamos un objeto de la ventana
+                            FrmDocumento frm = new FrmDocumento();
+                            DocumentoViewModel context = new DocumentoViewModel(usuario);
+                            frm.DataContext = context;                        
+                            //Mostramos la ventana
+                            frm.ShowDialog();
+                            break;
+                        case MessageDialogResult.FirstAuxiliary:
+                            break;
+                        case MessageDialogResult.SecondAuxiliary:
+                            break;
+                        default:
+                            break;
+                    }
+                   
                     TextoBuscar = string.Empty;
                     GetDataGrid(string.Empty);
                     initSnack();
@@ -589,8 +613,7 @@ namespace View.Services.ViewModel
                 else
                 {
                     //El usuario no tiene documentos sin verisón 
-                    DialogService dialogService = new DialogService();
-
+                   
                     //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
                     MetroDialogSettings setting = new MetroDialogSettings();
                     setting.AffirmativeButtonText = "Crear un nuevo número";
