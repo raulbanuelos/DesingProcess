@@ -26,10 +26,11 @@ namespace View.Services
                     {
                         //Creamos una instancia de la aplicación.
                         Excel.Application ExcelApp = new Excel.Application();
+                       
 
                         //Crea un nuevo documento.
                         Excel.Workbook ExcelWork = ExcelApp.Workbooks.Add();
-
+                        
                         //Iteramos el dataset.
                         foreach (DataTable table in data.Tables)
                         {
@@ -63,9 +64,11 @@ namespace View.Services
                                 //  ExcelWoorkSheet.Columns.AutoFit();
                                 ExcelWoorkSheet.Cells[1, i + 1].EntireColumn.ColumnWidth = 25;
 
+                                //Si la columna es de tipo fecha 
                                 if (table.Columns[i].DataType == Type.GetType("System.DateTime"))
                                 {
-                                    ExcelWoorkSheet.Cells[1, i + 1].EntireColumn.NumberFormat = "dd/mm/yyyy";
+                                    //Establecemos el formato de fecha a toda la columna
+                                    ExcelWoorkSheet.Cells[1, i + 1].EntireColumn.NumberFormat = "dd/mm/aaaa";
                                 }
                             }
                             //Reccorre el número de filas de la tabla.
@@ -77,14 +80,12 @@ namespace View.Services
                                     //Si el valor es de tipo fecha 
                                     if (table.Rows[j].ItemArray[k].GetType() == Type.GetType("System.DateTime"))
                                     {
-                                        string str = table.Rows[j].ItemArray[k].ToString();
-                                        DateTime dt = Convert.ToDateTime(str);
-                                        ExcelWoorkSheet.Cells[j + 2, k + 1].Value = table.Rows[j].ItemArray[k];//dt.ToOADate();
-
+                                        //Asignamos a la celda la fecha de la tabla 
+                                        ExcelWoorkSheet.Cells[j + 2, k + 1].Value = table.Rows[j].ItemArray[k];
                                     }
                                     else
                                     {
-                                        //Llenamos la hoja de calculo con la información de la tabla.
+                                        //si no es de tipo fecha, convertimos en string el valor de la tabla y lo asignamos a la celda
                                         ExcelWoorkSheet.Cells[j + 2, k + 1] = table.Rows[j].ItemArray[k].ToString();
                                     }
                                     

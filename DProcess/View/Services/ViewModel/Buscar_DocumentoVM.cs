@@ -122,11 +122,13 @@ namespace View.Services.ViewModel
                 //Ejecutamos el método para enviar un mensaje de espera mientras el archivo de excel se genera
                 Progress = await dialog.SendProgressAsync("Por favor espere", "Generando archivo excel...");
 
-                //Se añade las columnas
+                //Se añade las columnas, se especifíca el tipo fecha para dar formato a la columna
+                //Se tien que especificar el tipo, si no la fecha se escribe mal en Excel
                 table.Columns.Add("Numero de Documento");
                 table.Columns.Add("Descripción");
                 table.Columns.Add("Version");
-                table.Columns.Add("Responsable");
+                table.Columns.Add("Fecha de Revisión", typeof(DateTime));
+                table.Columns.Add("Área");
                 table.Columns.Add("Tipo de Documento");
                 table.Columns.Add("Usuario Elaboró");
                 table.Columns.Add("Usuario Autorizó");
@@ -141,7 +143,8 @@ namespace View.Services.ViewModel
                     newRow["Numero de Documento"] = item.nombre;
                     newRow["Descripción"] = item.descripcion;
                     newRow["Version"] = item.version.no_version;
-                    newRow["Responsable"] = item.Departamento;
+                    newRow["Fecha de Revisión"] = item.version.fecha_version;
+                    newRow["Área"] = item.Departamento;
                     newRow["Tipo de Documento"] = item.tipo.tipo_documento;
                     newRow["Usuario Elaboró"] = item.usuario;
                     newRow["Usuario Autorizó"] = item.usuario_autorizo;

@@ -680,14 +680,14 @@ namespace View.Services.ViewModel
                 //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
                 Progress = await dialog.SendProgressAsync("Por favor espere", "Generando archivo excel...");
 
-                //Se añade las columnas
+                //Se añade las columnas, se especifíca el tipo fecha para dar formato a la columna
                 table.Columns.Add("Numero de Documento");
                 table.Columns.Add("Descripción");
                 table.Columns.Add("Version");
-                table.Columns.Add("Copias");
-                table.Columns.Add("Responsable");
                 table.Columns.Add("Fecha de Emision", typeof(DateTime));
-                table.Columns.Add("Fecha de Revision", typeof(DateTime));
+                table.Columns.Add("Fecha de Revision", typeof(DateTime));                
+                table.Columns.Add("Área");
+                table.Columns.Add("Copias");
 
                 //Iteramos la lista de documentos
                 foreach (var item in Lista)
@@ -699,11 +699,11 @@ namespace View.Services.ViewModel
                     newRow["Numero de Documento"] = item.nombre;
                     newRow["Descripción"] = item.descripcion;
                     newRow["Version"] = item.version.no_version;
-                    newRow["Copias"] = item.version.no_copias;
-                    newRow["Responsable"] = item.Departamento;
                     newRow["Fecha de Emision"] = item.fecha_emision;
                     newRow["Fecha de Revision"] = item.fecha_actualizacion;
-                   
+                    newRow["Área"] = item.Departamento;
+                    newRow["Copias"] = item.version.no_copias;
+
                     //Agregamos la fila a la tabla
                     table.Rows.Add(newRow);
                 }
