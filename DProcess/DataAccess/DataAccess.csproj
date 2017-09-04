@@ -295,12 +295,37 @@
     </Compile>
     <Compile Include="ServiceObjects\Tooling\SO_BK.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_ClasificacionHerramental.cs" />
+    <Compile Include="ServiceObjects\Tooling\SO_COIL.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_CriteriosAnillos.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_MaestroHerramental.cs" />
     <Compile Include="ServiceObjects\Tooling\SplitterSpacerChart.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\SPlitterSpacerChart2.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_COIL_CENTER_GUIDE.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_COIL_FEED_ROLLER.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_EXIT_GUIDE.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_EXTERNAL_GUIDE_ROLLER_1PIECE.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_SHIM_OF_THE_CUT_SYSTEM.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Unidades\ModelUnidades.Context.cs">

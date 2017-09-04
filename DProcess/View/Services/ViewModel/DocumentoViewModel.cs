@@ -956,37 +956,45 @@ namespace View.Services.ViewModel
                 // Si fue seleccionado un documento 
                 if (result == true)
                 {
-                    //Se obtiene el nombre del documento
-                    string filename = dlg.FileName;
-
-                    //Se crea el objeto de tipo archivo
-                    Archivo obj = new Archivo();
-
-                    //Se convierte el archvio a tipo byte y se le asigna al objeto
-                    obj.archivo = File.ReadAllBytes(filename);
-
-                    //Obtiene la extensión del documento y se le asigna al objeto
-                    obj.ext = System.IO.Path.GetExtension(filename);
-
-                    //Se obtiene sólo el nombre, sin extensión.
-                    obj.nombre = System.IO.Path.GetFileNameWithoutExtension(filename);
-
-                    obj.numero = ListaDocumentos.Count + 1;
-
-                    //Si el archivo tiene extensión pdf
-                    if (obj.ext == ".pdf")
+                    try
                     {
-                        //asigna la imagen del pdf al objeto
-                        obj.ruta = @"/Images/p.png";
+                        //Se obtiene el nombre del documento
+                        string filename = dlg.FileName;
+
+                        //Se crea el objeto de tipo archivo
+                        Archivo obj = new Archivo();
+
+                        //Se convierte el archvio a tipo byte y se le asigna al objeto
+
+                        obj.archivo = File.ReadAllBytes(filename);
+
+                        //Obtiene la extensión del documento y se le asigna al objeto
+                        obj.ext = System.IO.Path.GetExtension(filename);
+
+                        //Se obtiene sólo el nombre, sin extensión.
+                        obj.nombre = System.IO.Path.GetFileNameWithoutExtension(filename);
+
+                        obj.numero = ListaDocumentos.Count + 1;
+
+                        //Si el archivo tiene extensión pdf
+                        if (obj.ext == ".pdf")
+                        {
+                            //asigna la imagen del pdf al objeto
+                            obj.ruta = @"/Images/p.png";
+                        }
+                        else
+                        {
+                            //Si es archivo de word asigna la imagen correspondiente.
+                            obj.ruta = @"/Images/w.png";
+                        }
+                        //Se agrega el objeto a la lista, quitamos el boton de archivos
+                        ListaDocumentos.Add(obj);
+                        BttnArchivos = false;
                     }
-                    else
+                    catch (IOException er)
                     {
-                        //Si es archivo de word asigna la imagen correspondiente.
-                        obj.ruta = @"/Images/w.png";
+                        await dialog.SendMessage("Alerta", "Cierre el archivo para continuar..");
                     }
-                    //Se agrega el objeto a la lista, quitamos el boton de archivos
-                    ListaDocumentos.Add(obj);
-                    BttnArchivos = false;
                 }
             }
             else
@@ -1432,17 +1440,26 @@ namespace View.Services.ViewModel
         /// Método para ver el archivo que está en la lista de documetnos
         /// </summary>
         /// <param name="item"></param>
-        private  void verArchivo(Archivo item)
+        private async void verArchivo(Archivo item)
         {
+            //Incializamos los servicios de dialog.
+            DialogService dialog = new DialogService();
             if (item != null)
             {
-                //se asigna el nombre del archivo temporal, se concatena el nombre del archivo, la posicion de la lista y la extensión.
-                string filename = GetPathTempFile(item);
+                try
+                {
+                    //se asigna el nombre del archivo temporal, se concatena el nombre del archivo, la posicion de la lista y la extensión.
+                    string filename = GetPathTempFile(item);
 
-                //Crea un archivo nuevo temporal, escribe en él los bytes extraídos de la BD.
-                File.WriteAllBytes(filename, item.archivo);
-                //Se inicializa el programa para visualizar el archivo.
-                Process.Start(filename);
+                    //Crea un archivo nuevo temporal, escribe en él los bytes extraídos de la BD.
+                    File.WriteAllBytes(filename, item.archivo);
+                    //Se inicializa el programa para visualizar el archivo.
+                    Process.Start(filename);
+                }
+                catch (Exception)
+                {
+                    await dialog.SendMessage("Alerta", "Error al abrir el archivo...");
+                }
             }
         }
 

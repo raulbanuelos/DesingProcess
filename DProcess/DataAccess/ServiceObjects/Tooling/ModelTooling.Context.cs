@@ -35,5 +35,13 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<GuideBarFirstRoughGrind> GuideBarFirstRoughGrind { get; set; }
         public virtual DbSet<GuideBarSecondRoughGrind> GuideBarSecondRoughGrind { get; set; }
         public virtual DbSet<CutterSpacerSplitter> CutterSpacerSplitter { get; set; }
+        public virtual DbSet<TBL_COIL_CENTER_GUIDE> TBL_COIL_CENTER_GUIDE { get; set; }
+        public virtual DbSet<TBL_COIL_FEED_ROLLER> TBL_COIL_FEED_ROLLER { get; set; }
+        public virtual DbSet<TBL_EXIT_GUIDE> TBL_EXIT_GUIDE { get; set; }
+        public virtual DbSet<TBL_EXTERNAL_GUIDE_ROLLER_1PIECE> TBL_EXTERNAL_GUIDE_ROLLER_1PIECE { get; set; }
+        public virtual DbSet<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1> TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1 { get; set; }
+        public virtual DbSet<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2> TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2 { get; set; }
+        public virtual DbSet<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3> TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3 { get; set; }
+        public virtual DbSet<TBL_SHIM_OF_THE_CUT_SYSTEM> TBL_SHIM_OF_THE_CUT_SYSTEM { get; set; }
     }
 }

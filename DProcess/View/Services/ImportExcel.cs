@@ -144,6 +144,10 @@ namespace View.Services
                     return null;
                
             }
+            catch (IOException er)
+            {
+                return er.ToString();
+            }
             catch (Exception er)
             {
                 //Si hay error, retorna el error

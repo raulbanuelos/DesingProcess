@@ -191,30 +191,37 @@ namespace View.Services.ViewModel
             //Verificamos si el usuario eligió un documento.
             if (result == true)
             {
-                //Obtenemos el nombre del archivo y lo asignamos a una variable.
-                string fileName = dialog.FileName;
-
-                //Declaramos un objeto de tipo Archivo.
-                Archivo obj = new Archivo();
-
-                //Asignamos el archivo que seleccionó el usuario al objeto declarado.
-                obj.archivo = File.ReadAllBytes(fileName);
-                obj.ext = System.IO.Path.GetExtension(fileName);
-                obj.nombre = System.IO.Path.GetFileNameWithoutExtension(fileName);
-
-                //Insertamos el archivo.
-                int r = DataManagerControlDocumentos.InsertRecurso(obj.archivo, obj.nombre, obj.ext, obj.nombre, SelectedTipoDocumento.id_tipo);
-
-                //Enviamos un mensaje dependiendo la respuesta.
-                if (r > 0)
+                try
                 {
-                    await ServiceDialog.SendMessage("Información", "Archivo agregado correctamente");
-                    Consultar();
-                }
-                    
-                else
-                    await ServiceDialog.SendMessage("Alerta", "Error al guardar el archivo");
+                    //Obtenemos el nombre del archivo y lo asignamos a una variable.
+                    string fileName = dialog.FileName;
 
+                    //Declaramos un objeto de tipo Archivo.
+                    Archivo obj = new Archivo();
+
+                    //Asignamos el archivo que seleccionó el usuario al objeto declarado.
+                    obj.archivo = File.ReadAllBytes(fileName);
+                    obj.ext = System.IO.Path.GetExtension(fileName);
+                    obj.nombre = System.IO.Path.GetFileNameWithoutExtension(fileName);
+
+                    //Insertamos el archivo.
+                    int r = DataManagerControlDocumentos.InsertRecurso(obj.archivo, obj.nombre, obj.ext, obj.nombre, SelectedTipoDocumento.id_tipo);
+
+                    //Enviamos un mensaje dependiendo la respuesta.
+                    if (r > 0)
+                    {
+                        await ServiceDialog.SendMessage("Información", "Archivo agregado correctamente");
+                        Consultar();
+                    }
+
+                    else
+                        await ServiceDialog.SendMessage("Alerta", "Error al guardar el archivo");
+
+                }
+                catch (IOException)
+                {
+                    await ServiceDialog.SendMessage("Alerta", "Cierre el archivo para continuar..");
+                }
             }
         }
 

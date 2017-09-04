@@ -21,6 +21,14 @@ namespace DataAccess.ServiceObjects.Tooling
             this.GuideBarFirstRoughGrind = new HashSet<GuideBarFirstRoughGrind>();
             this.GuideBarSecondRoughGrind = new HashSet<GuideBarSecondRoughGrind>();
             this.CutterSpacerSplitter = new HashSet<CutterSpacerSplitter>();
+            this.TBL_COIL_CENTER_GUIDE = new HashSet<TBL_COIL_CENTER_GUIDE>();
+            this.TBL_COIL_FEED_ROLLER = new HashSet<TBL_COIL_FEED_ROLLER>();
+            this.TBL_EXIT_GUIDE = new HashSet<TBL_EXIT_GUIDE>();
+            this.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE = new HashSet<TBL_EXTERNAL_GUIDE_ROLLER_1PIECE>();
+            this.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1 = new HashSet<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1>();
+            this.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2 = new HashSet<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2>();
+            this.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3 = new HashSet<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3>();
+            this.TBL_SHIM_OF_THE_CUT_SYSTEM = new HashSet<TBL_SHIM_OF_THE_CUT_SYSTEM>();
         }
     
         public string Codigo { get; set; }
@@ -43,5 +51,21 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual ICollection<GuideBarSecondRoughGrind> GuideBarSecondRoughGrind { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CutterSpacerSplitter> CutterSpacerSplitter { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_COIL_CENTER_GUIDE> TBL_COIL_CENTER_GUIDE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_COIL_FEED_ROLLER> TBL_COIL_FEED_ROLLER { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_EXIT_GUIDE> TBL_EXIT_GUIDE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_EXTERNAL_GUIDE_ROLLER_1PIECE> TBL_EXTERNAL_GUIDE_ROLLER_1PIECE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1> TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2> TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3> TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_SHIM_OF_THE_CUT_SYSTEM> TBL_SHIM_OF_THE_CUT_SYSTEM { get; set; }
     }
 }

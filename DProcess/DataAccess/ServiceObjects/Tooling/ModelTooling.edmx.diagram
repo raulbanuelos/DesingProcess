@@ -23,6 +23,22 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarSecondRoughGrind_MaestroHerramentales" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CutterSpacerSplitter" Width="2.75" PointX="10.5" PointY="3.875" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CutterSpacerSplitter_MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_COIL_CENTER_GUIDE" Width="1.5" PointX="10.5" PointY="17.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_COIL_FEED_ROLLER" Width="1.5" PointX="10.5" PointY="21.625" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXIT_GUIDE" Width="1.5" PointX="10.5" PointY="10.375" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" Width="1.5" PointX="10.5" PointY="7.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" Width="1.5" PointX="10.5" PointY="14.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" Width="1.5" PointX="10.5" PointY="28.875" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" Width="1.5" PointX="10.5" PointY="25.375" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_SHIM_OF_THE_CUT_SYSTEM" Width="1.5" PointX="10.5" PointY="32.375" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_CENTER_GUIDE_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_FEED_ROLLER_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXIT_GUIDE_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
