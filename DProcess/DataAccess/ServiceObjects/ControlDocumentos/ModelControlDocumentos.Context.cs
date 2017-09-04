@@ -41,5 +41,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public virtual DbSet<TBL_RECURSO_TIPO_DOCUMENTO> TBL_RECURSO_TIPO_DOCUMENTO { get; set; }
         public virtual DbSet<TBL_TIPO_DOCUMENTO> TBL_TIPO_DOCUMENTO { get; set; }
         public virtual DbSet<TBL_HISTORIAL_VERSION> TBL_HISTORIAL_VERSION { get; set; }
+        public virtual DbSet<TBL_VALIDACION_VERSION> TBL_VALIDACION_VERSION { get; set; }
     }
 }

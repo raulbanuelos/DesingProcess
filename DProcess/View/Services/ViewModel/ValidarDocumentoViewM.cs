@@ -298,7 +298,7 @@ namespace View.Services.ViewModel
                     else
                     {
                         //Se muestra que hubo un error al actualizar el documento
-                        await dialog.SendMessage("Alerta", "Error al actualizar el estatus del documento ..");
+                        await dialog.SendMessage("Alerta", "Error al actualizar el estátus del documento ..");
                     }
                 }
                 else

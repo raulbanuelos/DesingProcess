@@ -18,6 +18,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public TBL_VERSION()
         {
             this.TBL_ARCHIVO = new HashSet<TBL_ARCHIVO>();
+            this.TBL_VALIDACION_VERSION = new HashSet<TBL_VALIDACION_VERSION>();
         }
     
         public int ID_VERSION { get; set; }
@@ -36,5 +37,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public virtual TBL_ESTATUS_VERSION TBL_ESTATUS_VERSION { get; set; }
         public virtual Usuarios Usuarios { get; set; }
         public virtual Usuarios Usuarios1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_VALIDACION_VERSION> TBL_VALIDACION_VERSION { get; set; }
     }
 }

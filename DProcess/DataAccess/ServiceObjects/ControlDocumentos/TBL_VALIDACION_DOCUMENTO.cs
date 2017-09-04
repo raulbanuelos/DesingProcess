@@ -18,6 +18,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public TBL_VALIDACION_DOCUMENTO()
         {
             this.TR_VALIDACION_TIPO_DOCUMENTO = new HashSet<TR_VALIDACION_TIPO_DOCUMENTO>();
+            this.TBL_VALIDACION_VERSION = new HashSet<TBL_VALIDACION_VERSION>();
         }
     
         public int ID_VALIDACION_DOCUMENTO { get; set; }
@@ -28,5 +29,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TR_VALIDACION_TIPO_DOCUMENTO> TR_VALIDACION_TIPO_DOCUMENTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_VALIDACION_VERSION> TBL_VALIDACION_VERSION { get; set; }
     }
 }

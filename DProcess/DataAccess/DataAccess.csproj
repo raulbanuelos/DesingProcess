@@ -116,6 +116,9 @@
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_VALIDACION_DOCUMENTO.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\TBL_VALIDACION_VERSION.cs">
+      <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_VERSION.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
