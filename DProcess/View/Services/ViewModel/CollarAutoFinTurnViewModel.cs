@@ -125,9 +125,7 @@ namespace View.Services.ViewModel
 
             if (e != null)
             {
-                //Cerramos el mensaje de espera
-                await Progress.CloseAsync();
-
+              
                 //Mostramos mensaje de error
                 await dialogService.SendMessage("Alerta", "Error al leer el archivo");
             }

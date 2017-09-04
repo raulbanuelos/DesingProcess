@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Excel = Microsoft.Office.Interop.Excel;
 
+
 namespace View.Services
 {
     public static class ExportToExcel
@@ -27,9 +28,18 @@ namespace View.Services
                         //Creamos una instancia de la aplicación.
                         Excel.Application ExcelApp = new Excel.Application();
 
+                        //Devuelve información sobre la configuración internacional y el país o región actual.
+                        //Devuleve el símbolo del día, mes y año dependiento de la configuración internacional
+                        var yearCode =ExcelApp.International[Excel.XlApplicationInternational.xlYearCode];
+                        var monthcode = ExcelApp.International[Excel.XlApplicationInternational.xlMonthCode];
+                        var daycode= ExcelApp.International[Excel.XlApplicationInternational.xlDayCode];
+
+                        //Se concatena los valores para obtener el formato de la fecha 
+                        string formato = daycode + daycode + "/" + monthcode + monthcode + "/" + yearCode + yearCode + yearCode + yearCode;
+                        
                         //Crea un nuevo documento.
                         Excel.Workbook ExcelWork = ExcelApp.Workbooks.Add();
-
+                        
                         //Iteramos el dataset.
                         foreach (DataTable table in data.Tables)
                         {
@@ -63,10 +73,12 @@ namespace View.Services
                                 //  ExcelWoorkSheet.Columns.AutoFit();
                                 ExcelWoorkSheet.Cells[1, i + 1].EntireColumn.ColumnWidth = 25;
 
-                                //if (table.Columns[i].DataType == Type.GetType("System.DateTime"))
-                                //{
-                                //    ExcelWoorkSheet.Cells[1, i + 1].EntireColumn.NumberFormat = "dd MM / yyyy";
-                                //}
+                                //Si la columna es de tipo fecha 
+                                if (table.Columns[i].DataType == Type.GetType("System.DateTime"))
+                                {
+                                    //Establecemos el formato de fecha a toda la columna
+                                    ExcelWoorkSheet.Cells[1, i + 1].EntireColumn.NumberFormat = formato;
+                                }
                             }
                             //Reccorre el número de filas de la tabla.
                             for (int j = 0; j < table.Rows.Count; j++)
@@ -74,17 +86,15 @@ namespace View.Services
                                 //Recorre el número de columnas de la tabla.
                                 for (int k = 0; k < table.Columns.Count; k++)
                                 {
-
+                                    //Si el valor es de tipo fecha 
                                     if (table.Rows[j].ItemArray[k].GetType() == Type.GetType("System.DateTime"))
                                     {
-                                        string str = table.Rows[j].ItemArray[k].ToString();
-                                        DateTime dt = DateTime.Parse(str);
-                                      
-                                        ExcelWoorkSheet.Cells[j + 2, k + 1] = dt.ToShortDateString();
+                                        //Asignamos a la celda la fecha de la tabla 
+                                        ExcelWoorkSheet.Cells[j + 2, k + 1].Value = table.Rows[j].ItemArray[k];
                                     }
                                     else
                                     {
-                                        //Llenamos la hoja de calculo con la información de la tabla.
+                                        //si no es de tipo fecha, convertimos en string el valor de la tabla y lo asignamos a la celda
                                         ExcelWoorkSheet.Cells[j + 2, k + 1] = table.Rows[j].ItemArray[k].ToString();
                                     }
                                     

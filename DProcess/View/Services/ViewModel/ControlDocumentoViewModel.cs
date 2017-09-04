@@ -558,6 +558,7 @@ namespace View.Services.ViewModel
         private async void irNuevoDocumento()
         {
             Bloqueo obj = new Bloqueo();
+            DialogService dialogService = new DialogService();
 
             //Método que obtiene un registro si se encuentra activo
             obj = DataManagerControlDocumentos.GetBloqueo();
@@ -572,16 +573,39 @@ namespace View.Services.ViewModel
                 //Si el número de documento es menor que cero
                 if (num_documentos > 0)
                 {
-                    //Creamos un objeto de la ventana
-                    FrmDocumento frm = new FrmDocumento();
+                    //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
+                    MetroDialogSettings setting = new MetroDialogSettings();
+                    setting.NegativeButtonText = "Crear un nuevo número";
+                    setting.AffirmativeButtonText = "Editar documentos existentes";
 
-                    DocumentoViewModel context = new DocumentoViewModel(usuario);
+                    //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
+                    MessageDialogResult result = await dialogService.SendMessage("Atención", "Usted tiene documentos disponibles", setting, MessageDialogStyle.AffirmativeAndNegative);
 
-                    frm.DataContext = context;
-
-                    //Mostramos la ventana
-                    frm.ShowDialog();
-
+                    switch (result)
+                    {
+                        case MessageDialogResult.Negative:
+                            //Ventana para generar un nuevo número de documento
+                            FrmGenerador_Numero frmGenerador = new FrmGenerador_Numero();
+                            GeneradorViewModel Datacontext = new GeneradorViewModel { ModelUsuario = usuario };
+                            frmGenerador.DataContext = Datacontext;
+                            frmGenerador.ShowDialog();
+                            break;
+                        case MessageDialogResult.Affirmative:
+                            //Creamos un objeto de la ventana
+                            FrmDocumento frm = new FrmDocumento();
+                            DocumentoViewModel context = new DocumentoViewModel(usuario);
+                            frm.DataContext = context;                        
+                            //Mostramos la ventana
+                            frm.ShowDialog();
+                            break;
+                        case MessageDialogResult.FirstAuxiliary:
+                            break;
+                        case MessageDialogResult.SecondAuxiliary:
+                            break;
+                        default:
+                            break;
+                    }
+                   
                     TextoBuscar = string.Empty;
                     GetDataGrid(string.Empty);
                     initSnack();
@@ -589,8 +613,7 @@ namespace View.Services.ViewModel
                 else
                 {
                     //El usuario no tiene documentos sin verisón 
-                    DialogService dialogService = new DialogService();
-
+                   
                     //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
                     MetroDialogSettings setting = new MetroDialogSettings();
                     setting.AffirmativeButtonText = "Crear un nuevo número";
@@ -680,14 +703,15 @@ namespace View.Services.ViewModel
                 //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
                 Progress = await dialog.SendProgressAsync("Por favor espere", "Generando archivo excel...");
 
-                //Se añade las columnas
+                //Se añade las columnas, se especifíca el tipo fecha para dar formato a la columna
+                //Se tien que especificar el tipo, si no la fecha se escribe mal en Excel
                 table.Columns.Add("Numero de Documento");
                 table.Columns.Add("Descripción");
                 table.Columns.Add("Version");
-                table.Columns.Add("Copias");
-                table.Columns.Add("Responsable");
                 table.Columns.Add("Fecha de Emision", typeof(DateTime));
-                table.Columns.Add("Fecha de Revision", typeof(DateTime));
+                table.Columns.Add("Fecha de Revision", typeof(DateTime));                
+                table.Columns.Add("Área");
+                table.Columns.Add("Copias");
 
                 //Iteramos la lista de documentos
                 foreach (var item in Lista)
@@ -699,11 +723,11 @@ namespace View.Services.ViewModel
                     newRow["Numero de Documento"] = item.nombre;
                     newRow["Descripción"] = item.descripcion;
                     newRow["Version"] = item.version.no_version;
-                    newRow["Copias"] = item.version.no_copias;
-                    newRow["Responsable"] = item.Departamento;
                     newRow["Fecha de Emision"] = item.fecha_emision;
                     newRow["Fecha de Revision"] = item.fecha_actualizacion;
-                   
+                    newRow["Área"] = item.Departamento;
+                    newRow["Copias"] = item.version.no_copias;
+
                     //Agregamos la fila a la tabla
                     table.Rows.Add(newRow);
                 }
