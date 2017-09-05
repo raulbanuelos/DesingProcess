@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -119,6 +120,30 @@ namespace DataAccess.ServiceObjects.Tooling
             {
                 //Si hay error retorna cero
                 return 0;
+            }
+        }
+
+        public IList GetCOIL_FEED_ROLLER(double width)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var Lista = (from a in Conexion.TBL_COIL_FEED_ROLLER
+                                 join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 where a.WIRE_WIDTH_MIN > width && a.WIRE_WIDTH_MAX <= width
+                                 select new {
+                                     CODIGO = b.Codigo,
+                                     DESCRIPCION = b.Descripcion,
+                                     a.DIMA,a.DIMB,a.DIMC,a.DIMD,a.CODE
+                                 }).ToList();
+
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
 

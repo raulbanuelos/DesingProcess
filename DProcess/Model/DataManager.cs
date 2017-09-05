@@ -952,6 +952,49 @@ namespace Model
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="widthAlambre">Milimetros</param>
+        /// <returns></returns>
+        public static DataTable GetCOIL_Feed_Roller(double widthAlambre)
+        {
+            SO_COIL ServicioCoil = new SO_COIL();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioCoil.GetCOIL_FEED_ROLLER(widthAlambre);
+
+            if (informacionBD  != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.Unidad = "Milimeters (mm)";
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    herramental.Propiedades.Add(propiedadDimA);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Feed_Roller");
+        }
+
+        /// <summary>
         /// Método que inserta un registro a la tabla TBL_COIL_CENTER_GUIDE
         /// </summary>
         /// <param name="obj"></param>
