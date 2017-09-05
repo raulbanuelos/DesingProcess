@@ -984,6 +984,23 @@ namespace Model
                     propiedadDimA.DescripcionCorta = "Dim A";
                     herramental.Propiedades.Add(propiedadDimA);
 
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.Unidad = "Milimeters (mm)";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    Propiedad propiedadDimC = new Propiedad();
+                    propiedadDimC.Unidad = "Milimeters (mm)";
+                    propiedadDimC.Valor= (double)tipo.GetProperty("DIMC").GetValue(item, null);
+                    propiedadDimC.DescripcionCorta = "Dim C";
+                    herramental.Propiedades.Add(propiedadDimC);
+
+                    Propiedad propiedadDimD = new Propiedad();
+                    propiedadDimD.Unidad = "Milimeters (mm)";
+                    propiedadDimD.Valor = (double)tipo.GetProperty("DIMD").GetValue(item, null);
+                    propiedadDimD.DescripcionCorta = "Dim D";
+                    herramental.Propiedades.Add(propiedadDimD);
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
 
@@ -1033,6 +1050,56 @@ namespace Model
             return ServiceCoil.DeleteCOIL_CENTER_GUIDE(obj.ID);
         }
 
+        public static DataTable GetCOIL_CENTER_GUIDE(double widthAlambre,double radial)
+        {
+            SO_COIL ServicioCoil = new SO_COIL();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioCoil.GetCOIL_CENTER_GUIDE(widthAlambre,radial);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.Unidad = "Milimeters (mm)";
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    herramental.Propiedades.Add(propiedadDimA);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.Unidad = "Milimeters (mm)";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    Propiedad propiedadDimC = new Propiedad();
+                    propiedadDimC.Unidad = "Milimeters (mm)";
+                    propiedadDimC.Valor = (double)tipo.GetProperty("DIMC").GetValue(item, null);
+                    propiedadDimC.DescripcionCorta = "Dim C";
+                    herramental.Propiedades.Add(propiedadDimC);
+                   
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Center_Guide");
+        }
+
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXIT_GUIDE
         /// </summary>
@@ -1070,6 +1137,57 @@ namespace Model
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.DeleteExit_GUIDE(obj.ID);
         }
+
+        public static DataTable GetEXIT_GUIDE(double widthAlambre, double radial)
+        {
+            SO_COIL ServicioCoil = new SO_COIL();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioCoil.GetEXIT_GUIDE(widthAlambre, radial);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.Unidad = "Milimeters (mm)";
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    herramental.Propiedades.Add(propiedadDimA);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.Unidad = "Milimeters (mm)";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    Propiedad propiedadDimC = new Propiedad();
+                    propiedadDimC.Unidad = "Milimeters (mm)";
+                    propiedadDimC.Valor = (double)tipo.GetProperty("DIMC").GetValue(item, null);
+                    propiedadDimC.DescripcionCorta = "Dim C";
+                    herramental.Propiedades.Add(propiedadDimC);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Exit_Guide");
+        }
+
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
         /// </summary>
@@ -1107,6 +1225,49 @@ namespace Model
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.DeleteExternal_GR_1P(obj.ID);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="widthAlambre"></param>
+        /// <returns></returns>
+        public static DataTable GetEXTERNAL_GR_1P(double widthAlambre)
+        {
+            SO_COIL ServicioCoil = new SO_COIL();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioCoil.GetEXTERNAL_GR_1P(widthAlambre);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.Unidad = "Milimeters (mm)";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "External_GR_1P");
+        }
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
         /// </summary>
@@ -1142,6 +1303,61 @@ namespace Model
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.DeleteExternal_GR_3P_1(obj.ID);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="widthAlambre"></param>
+        /// <returns></returns>
+        public static DataTable GetTEXTERNAL_GR_3P_1(double widthAlambre)
+        {
+            SO_COIL ServicioCoil = new SO_COIL();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioCoil.GetEXTERNAL_GR_3P_1(widthAlambre);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.Unidad = "Milimeters (mm)";
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    herramental.Propiedades.Add(propiedadDimA);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.Unidad = "Milimeters (mm)";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    Propiedad propiedadDimC = new Propiedad();
+                    propiedadDimC.Unidad = "Milimeters (mm)";
+                    propiedadDimC.Valor = (double)tipo.GetProperty("DIMC").GetValue(item, null);
+                    propiedadDimC.DescripcionCorta = "Dim C";
+                    herramental.Propiedades.Add(propiedadDimC);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "External_GR_3P_1");
         }
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
@@ -1180,6 +1396,55 @@ namespace Model
             return ServiceCoil.DeleteExternal_GR_3P_2(obj.ID);
         }
 
+        public static DataTable GetTEXTERNAL_GR_3P_2(double widthAlambre)
+        {
+            SO_COIL ServicioCoil = new SO_COIL();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioCoil.GetEXTERNAL_GR_3P_2(widthAlambre);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.Unidad = "Milimeters (mm)";
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    herramental.Propiedades.Add(propiedadDimA);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.Unidad = "Milimeters (mm)";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    Propiedad propiedadDimC = new Propiedad();
+                    propiedadDimC.Unidad = "Milimeters (mm)";
+                    propiedadDimC.Valor = (double)tipo.GetProperty("DIMC").GetValue(item, null);
+                    propiedadDimC.DescripcionCorta = "Dim C";
+                    herramental.Propiedades.Add(propiedadDimC);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "External_GR_3P_2");
+        }
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3
         /// </summary>
@@ -1217,6 +1482,55 @@ namespace Model
             return ServiceCoil.DeleteExternal_GR_3P_3(obj.ID);
         }
 
+        public static DataTable GetTEXTERNAL_GR_3P_3(double widthAlambre)
+        {
+            SO_COIL ServicioCoil = new SO_COIL();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioCoil.GetEXTERNAL_GR_3P_3(widthAlambre);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.Unidad = "Milimeters (mm)";
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    herramental.Propiedades.Add(propiedadDimA);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.Unidad = "Milimeters (mm)";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    Propiedad propiedadDimC = new Propiedad();
+                    propiedadDimC.Unidad = "Milimeters (mm)";
+                    propiedadDimC.Valor = (double)tipo.GetProperty("DIMC").GetValue(item, null);
+                    propiedadDimC.DescripcionCorta = "Dim C";
+                    herramental.Propiedades.Add(propiedadDimC);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "External_GR_3P_3");
+        }
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_SHIM_OF_THE_CUT_SYSTEM
         /// </summary>
@@ -1253,6 +1567,45 @@ namespace Model
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.DeleteSHIM_OF_THE_CUT_SYSTEM(obj.ID);
         }
+
+        public static DataTable GetSHIM_CSYSTEM(double widthAlambre)
+        {
+            SO_COIL ServicioCoil = new SO_COIL();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioCoil.GetSHIM_CSYSTEM(widthAlambre);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.Unidad = "Milimeters (mm)";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
+                    propiedadDimB.DescripcionCorta = "Dim A";
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Shim_CSystem");
+        }
+
         #endregion
         #endregion
 

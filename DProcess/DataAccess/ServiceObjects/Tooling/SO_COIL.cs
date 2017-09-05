@@ -122,7 +122,11 @@ namespace DataAccess.ServiceObjects.Tooling
                 return 0;
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="width"></param>
+        /// <returns></returns>
         public IList GetCOIL_FEED_ROLLER(double width)
         {
             try
@@ -266,6 +270,34 @@ namespace DataAccess.ServiceObjects.Tooling
             }
         }
 
+        public IList GetCOIL_CENTER_GUIDE(double width, double radial)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var Lista = (from a in Conexion.TBL_COIL_CENTER_GUIDE
+                                 join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 where ( a.WIRE_WIDTH_MIN > width && a.WIRE_WIDTH_MAX <= width) && (a.RADIAL_WIRE_MIN > radial && a.RADIAL_WIRE_MAX <= radial)
+                                 select new
+                                 {
+                                     CODIGO = b.Codigo,
+                                     DESCRIPCION = b.Descripcion,
+                                     a.DIMA,
+                                     a.DIMB,
+                                     a.DIMC,
+                                     a.CODE
+                                 }).ToList();
+
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXIT_GUIDE
         /// </summary>
@@ -388,6 +420,40 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="radial"></param>
+        /// <returns></returns>
+        public IList GetEXIT_GUIDE(double width, double radial)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var Lista = (from a in Conexion.TBL_EXIT_GUIDE
+                                 join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 where (a.WIRE_WIDTH_MIN > width && a.WIDE_WIDTH_MAX <= width) && (a.RADIAL_WIRE_MIN > radial && a.RADIAL_WIRE_MAX <= radial)
+                                 select new
+                                 {
+                                     CODIGO = b.Codigo,
+                                     DESCRIPCION = b.Descripcion,
+                                     a.DIMA,
+                                     a.DIMB,
+                                     a.DIMC,
+                                     a.CODE
+                                 }).ToList();
+
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
         /// </summary>
         /// <param name="codigo"></param>
@@ -491,6 +557,36 @@ namespace DataAccess.ServiceObjects.Tooling
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        public IList GetEXTERNAL_GR_1P(double width)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var Lista = (from a in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
+                                 join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 where a.WIRE_WIDTH_MIN > width && a.WIDE_WIDTH_MAX <= width
+                                 select new
+                                 {
+                                     CODIGO = b.Codigo,
+                                     DESCRIPCION = b.Descripcion,
+                                     a.DIMB,
+                                     a.CODE
+                                 }).ToList();
+
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
         /// </summary>
@@ -603,6 +699,38 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        public IList GetEXTERNAL_GR_3P_1(double width)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var Lista = (from a in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
+                                 join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 where a.WIRE_WIDTH_MIN > width && a.WIDE_WIDTH_MAX <= width
+                                 select new
+                                 {
+                                     CODIGO = b.Codigo,
+                                     DESCRIPCION = b.Descripcion,
+                                     a.DIMA,
+                                     a.DIMB,
+                                     a.DIMC,
+                                     a.CODE
+                                 }).ToList();
+
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
         /// </summary>
         /// <param name="codigo"></param>
@@ -709,6 +837,34 @@ namespace DataAccess.ServiceObjects.Tooling
             {
                 //Si hay error retorna cero
                 return 0;
+            }
+        }
+
+        public IList GetEXTERNAL_GR_3P_2(double width)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var Lista = (from a in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
+                                 join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 where a.WIRE_WIDTH_MIN > width && a.WIDE_WIDTH_MAX <= width
+                                 select new
+                                 {
+                                     CODIGO = b.Codigo,
+                                     DESCRIPCION = b.Descripcion,
+                                     a.DIMA,
+                                     a.DIMB,
+                                     a.DIMC,
+                                     a.CODE
+                                 }).ToList();
+
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
         /// <summary>
@@ -820,6 +976,33 @@ namespace DataAccess.ServiceObjects.Tooling
             }
         }
 
+        public IList GetEXTERNAL_GR_3P_3(double width)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var Lista = (from a in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3
+                                 join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 where a.WIRE_WIDTH_MIN > width && a.WIDE_WIDTH_MAX <= width
+                                 select new
+                                 {
+                                     CODIGO = b.Codigo,
+                                     DESCRIPCION = b.Descripcion,
+                                     a.DIMA,
+                                     a.DIMB,
+                                     a.DIMC,
+                                     a.CODE
+                                 }).ToList();
+
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_SHIM_OF_THE_CUT_SYSTEM
         /// </summary>
@@ -920,6 +1103,37 @@ namespace DataAccess.ServiceObjects.Tooling
             {
                 //Si hay error retorna cero
                 return 0;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        public IList GetSHIM_CSYSTEM(double width)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var Lista = (from a in Conexion.TBL_SHIM_OF_THE_CUT_SYSTEM
+                                 join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 where a.WIRE_WIDTH_MIN > width && a.WIDE_WIDTH_MAX <= width
+                                 select new
+                                 {
+                                     CODIGO = b.Codigo,
+                                     DESCRIPCION = b.Descripcion,
+                                     a.DIMA,
+                                     a.CODE
+                                 }).ToList();
+
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
     }

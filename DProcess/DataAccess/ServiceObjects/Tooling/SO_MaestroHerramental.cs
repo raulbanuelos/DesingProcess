@@ -71,6 +71,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     obj.Activo = activo;
                     obj.idClasificacionHerramental = id_clasificacion;
                     obj.idPlano = plano;
+
                     //Agrega el objeto a la tabla.
                     Conexion.MaestroHerramentales.Add(obj);
                     //Guardamos los cambios
