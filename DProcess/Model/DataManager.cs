@@ -730,6 +730,7 @@ namespace Model
             return ListaResultante;
         }
 
+        #region MaestroHerramentales
         /// <summary>
         /// Método que obtiene el maestro de herramentales a partir de un criterio de busqueda.
         /// </summary>
@@ -773,6 +774,47 @@ namespace Model
             //Retornamos la lista.
             return ListaResultante;
         }
+
+        /// <summary>
+        /// Método para insertar un registro a la tabla MAESTROHERRAMENTALES
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static string SetMaestroHerramentales(MaestroHerramental obj)
+        {
+            //Inicializamos los servicios de SO_MaestroHerramental.
+            SO_MaestroHerramental ServiceHerramental = new SO_MaestroHerramental();
+            //Ejecutamos el metodo y retornamos el valor
+            return ServiceHerramental.SetMaestroHerramentales(obj.descripcion, obj.fecha_creacion, obj.fecha_cambio, obj.usuario_creacion, obj.usuario_creacion, obj.activo, obj.id_clasificacion, obj.id_plano);
+        }
+
+        /// <summary>
+        /// Método para modificar un registro de la tabla MAESTROHERRAMENTALES
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateMaestroHerramental(MaestroHerramental obj)
+        {
+            //Inicializamos los servicios de SO_MaestroHerramental.
+            SO_MaestroHerramental ServiceHerramental = new SO_MaestroHerramental();
+            //Ejecutamos el metodo y retornamos el valor
+            return ServiceHerramental.UpdateMaestroHerramentales(obj.Codigo,obj.descripcion, obj.fecha_creacion, obj.fecha_cambio, obj.usuario_creacion, obj.usuario_creacion, obj.activo, obj.id_clasificacion, obj.id_plano);
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro de la tabla MAESTROHERRAMENTALES
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int DeleteMaestroHerramental(MaestroHerramental obj)
+        {
+            //Inicializamos los servicios de SO_MaestroHerramental.
+            SO_MaestroHerramental ServiceHerramental = new SO_MaestroHerramental();
+            //Ejecutamos el metodo y retornamos el valor
+            return ServiceHerramental.DeleteMaestroHerramentales(obj.Codigo);
+
+        }
+        #endregion
 
         /// <summary>
         /// Método que convierte una lista de tipo ObservableCollection a un DataSet
@@ -869,6 +911,306 @@ namespace Model
             //Retornamos el criterio.
             return criterio;
         }
+
+        #region Coil
+        /// <summary>
+        /// Método que inserta un registro en la tabla de tbl_coil_feed_roller
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetCOIL_FEED_ROLLER(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.SetCOIL_FEED_ROLLER(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.dimD, obj.wire_width_min, obj.wire_width_max);
+        }
+
+        /// <summary>
+        /// Método que modifica un registro en la tabla tbl_coil_feed_roller
+        /// </summary>
+        /// <param name="obj"></param>
+        public static int UpdateCOIL_FEED_ROLLER(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.UpdateCOIL_FEED_ROLLER(obj.ID,obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.dimD, obj.wire_width_min, obj.wire_width_max);
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro de la tabls tbl_coil_feed_roller
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int DeleteCOIL_FEED_ROLLER(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.DeleteCOIL_CENTER_GUIDE(obj.ID);
+        }
+
+        /// <summary>
+        /// Método que inserta un registro a la tabla TBL_COIL_CENTER_GUIDE
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetCOIL_CENTER_GUIDE(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.SetCOIL_CENTER_GUIDE(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max, obj.radial_wire_min, obj.radial_wire_max);
+        }
+
+        /// <summary>
+        /// Método que modifica un registro de la tabla TBL_COIL_CENTER_GUIDE
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateCOIL_CENTER_GUIDE(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.UpdateCOIL_CENTER_GUIDE(obj.ID,obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max, obj.radial_wire_min, obj.radial_wire_max);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla TBL_COIL_CENTER_GUIDE
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int DeleteCOIL_CENTER_GUIDE(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.DeleteCOIL_CENTER_GUIDE(obj.ID);
+        }
+
+        /// <summary>
+        /// Método que inserta un registro a la tabla TBL_EXIT_GUIDE
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetExit_GUIDE(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.SetExit_GUIDE(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max, obj.radial_wire_min, obj.radial_wire_max);
+        }
+        /// <summary>
+        /// Método que modifica un registro de la tabla TBL_EXIT_GUIDE
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateExit_GUIDE(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.UpdateCOIL_CENTER_GUIDE(obj.ID,obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max, obj.radial_wire_min, obj.radial_wire_max);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla TBL_EXIT_GUIDE
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int DeleteExit_GUIDE(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.DeleteExit_GUIDE(obj.ID);
+        }
+        /// <summary>
+        /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetExternal_GR_1P(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.SetExternal_GR_1P(obj.codigo, obj.code, obj.dimB, obj.wire_width_min, obj.wire_width_max);
+        }
+        /// <summary>
+        ///  Método que modifica un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateExternal_GR_1P(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.UpdateExternal_GR_1P(obj.ID,obj.codigo, obj.code, obj.dimB, obj.wire_width_min, obj.wire_width_max);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int DeleteExternal_GR_1P(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.DeleteExternal_GR_1P(obj.ID);
+        }
+        /// <summary>
+        /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetExternal_GR_3P_1(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.SetExternal_GR_3P_1(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC,obj.wire_width_min,obj.wire_width_max);
+        }
+        /// <summary>
+        /// Método que modifica un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateExternal_GR_3P_1(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.UpdateExternal_GR_3P_1(obj.ID,obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max);
+        }
+        /// <summary>
+        ///  Método que elimina un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int DeleteExternal_GR_3P_1(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.DeleteExternal_GR_3P_1(obj.ID);
+        }
+        /// <summary>
+        /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetExternal_GR_3P_2(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.SetExternal_GR_3P_2(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min,obj.wire_width_max);
+        }
+        /// <summary>
+        /// Método que modifica un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateExternal_GR_3P_2(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.UpdateExternal_GR_3P_2(obj.ID, obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max);
+        }
+        /// <summary>
+        /// Método que elimina un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int DeleteExternal_GR_3P_2(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.DeleteExternal_GR_3P_2(obj.ID);
+        }
+
+        /// <summary>
+        /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetExternal_GR_3P_3(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.SetExternal_GR_3P_3(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max);
+        }
+        /// <summary>
+        /// Método que modifica un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateExternal_GR_3P_3(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.UpdateExternal_GR_3P_3(obj.ID, obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max);
+        }
+        /// <summary>
+        /// Método que elimina un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int DeleteExternal_GR_3P_3(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.DeleteExternal_GR_3P_3(obj.ID);
+        }
+
+        /// <summary>
+        /// Método que inserta un registro a la tabla TBL_SHIM_OF_THE_CUT_SYSTEM
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetSHIM_OF_THE_CUT_SYSTEM(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.SetSHIM_OF_THE_CUT_SYSTEM(obj.codigo, obj.code, obj.dimA, obj.wire_width_min, obj.wire_width_max);
+        }
+        /// <summary>
+        /// Método que modifica un registro de la tabla TBL_SHIM_OF_THE_CUT_SYSTEM
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateSHIM_OF_THE_CUT_SYSTEM(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.UpdateSHIM_OF_THE_CUT_SYSTEM(obj.ID,obj.codigo, obj.code, obj.dimA, obj.wire_width_min, obj.wire_width_max);
+        }
+        /// <summary>
+        /// Método que elimina un registro de la tabla TBL_SHIM_OF_THE_CUT_SYSTEM
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int DelteSHIM_OF_THE_CUT_SYSTEM(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.DeleteSHIM_OF_THE_CUT_SYSTEM(obj.ID);
+        }
+        #endregion
         #endregion
 
         #region Métodos Genéricos

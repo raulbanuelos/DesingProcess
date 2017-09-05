@@ -31,7 +31,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Activities" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,6 +48,7 @@
     <Compile Include="Arquetipo.cs" />
     <Compile Include="ClasificacionHerramental.cs" />
     <Compile Include="Cliente.cs" />
+    <Compile Include="Coil.cs" />
     <Compile Include="ControlDocumentos\Archivo.cs" />
     <Compile Include="ControlDocumentos\Bloqueo.cs" />
     <Compile Include="ControlDocumentos\DataManagerControlDocumentos.cs" />
@@ -70,6 +75,7 @@
     <Compile Include="Interfaces\ISubjectThickness.cs" />
     <Compile Include="Interfaces\ISubjectWidth.cs" />
     <Compile Include="Itens.cs" />
+    <Compile Include="MaestroHerramental.cs" />
     <Compile Include="MateriaPrima.cs" />
     <Compile Include="Pattern.cs" />
     <Compile Include="Perfil.cs" />

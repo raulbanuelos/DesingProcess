@@ -10,7 +10,7 @@ namespace DataAccess.ServiceObjects.Tooling
     public class SO_COIL
     {
         /// <summary>
-        /// 
+        /// Método que inserta un registro en la tabla TBL_COIL_FEED_ROLLER
         /// </summary>
         /// <param name="codigo"></param>
         /// <param name="code"></param>
@@ -24,10 +24,13 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Establecemos la conexión a través de EntityFramework.
                 using (var conexion = new EntitiesTooling())
                 {
+                    //Se  crea un objeto, el cual se va agregar a la tabla 
                     TBL_COIL_FEED_ROLLER obj = new TBL_COIL_FEED_ROLLER();
 
+                    //Se asiganan los valores.
                     obj.CODIGO = codigo;
                     obj.CODE = code;
                     obj.DIMA = dimA;
@@ -37,20 +40,21 @@ namespace DataAccess.ServiceObjects.Tooling
                     obj.WIRE_WIDTH_MAX = W_Max;
                     obj.WIRE_WIDTH_MIN = W_Min;
 
+                    //Agrega el objeto a la tabla.
                     conexion.TBL_COIL_FEED_ROLLER.Add(obj);
                     conexion.SaveChanges();
-
+                    //Retorna el id del registro insertado
                     return obj.ID_COIL_FEED_ROLLER;
                 }
             }
             catch (Exception)
             {
-
+                //Si hay error regresa cero
                 return 0;
             }
         }
         /// <summary>
-        /// 
+        /// Método que modifica un registro de la tabla TBL_COIL_FEED_ROLLER
         /// </summary>
         /// <param name="id_coil"></param>
         /// <param name="codigo"></param>
@@ -64,11 +68,12 @@ namespace DataAccess.ServiceObjects.Tooling
         public int UpdateCOIL_FEED_ROLLER(int id_coil,string codigo, string code, float dimA, float dimB, float dimC,float dimD ,float W_Min, float W_Max)
         {
             try
-            {
+            {   //Se establece la conexión a la base de datos.
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Se obtiene el objeto que se va a modificar.
                     TBL_COIL_FEED_ROLLER obj = Conexion.TBL_COIL_FEED_ROLLER.Where(x => x.ID_COIL_FEED_ROLLER == id_coil).FirstOrDefault();
-
+                    //Asiganmos los valores
                     obj.CODIGO = codigo;
                     obj.CODE = code;
                     obj.DIMA = dimA;
@@ -78,19 +83,20 @@ namespace DataAccess.ServiceObjects.Tooling
                     obj.WIRE_WIDTH_MAX = W_Max;
                     obj.WIRE_WIDTH_MIN = W_Min;
 
+                    //Se cambia el estado de registro a modificado.
                     Conexion.Entry(obj).State = EntityState.Modified;
-
+                    //Se guardan los cambios y se retorna el número de registros afectados.
                     return Conexion.SaveChanges();
                 }
             }
             catch (Exception)
             {
-
+                //Si encuentra error devuelve cero.
                 return 0;
             }
         }
         /// <summary>
-        /// 
+        /// Método que elimina un registro de la tabla TBL_COIL_FEED_ROLLER
         /// </summary>
         /// <param name="id_coil"></param>
         /// <returns></returns>
@@ -98,24 +104,26 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                // Se inicializa la conexión a la base de datos.
                 using (var Conexion= new EntitiesTooling())
                 {
+                    //Se obtiene el objeto que se va a eliminar.
                     TBL_COIL_FEED_ROLLER obj = Conexion.TBL_COIL_FEED_ROLLER.Where(x => x.ID_COIL_FEED_ROLLER == id_coil).FirstOrDefault();
-
+                    //Se estable el estado del registro a eliminado.
                     Conexion.Entry(obj).State = EntityState.Deleted;
-
+                    //Se guardan los cambios y retorna el número de registros afectados.
                     return Conexion.SaveChanges();
                 }
             }
             catch (Exception)
             {
-
+                //Si hay error retorna cero
                 return 0;
             }
         }
 
         /// <summary>
-        /// 
+        /// Método que inserta un registro a la tabla TBL_COIL_CENTER_GUIDE
         /// </summary>
         /// <param name="codigo"></param>
         /// <param name="code"></param>
@@ -130,11 +138,12 @@ namespace DataAccess.ServiceObjects.Tooling
         public int SetCOIL_CENTER_GUIDE(string codigo, string code,float dimA,float dimB, float dimC, float W_Min,float W_Max,float R_Mn,float R_Max)
         {
             try
-            {
+            { //Establecemos la conexión a través de EntityFramework.
                 using (var conexion = new EntitiesTooling())
-                {
+                {   
+                    //Se  crea un objeto, el cual se va agregar a la tabla 
                     TBL_COIL_CENTER_GUIDE obj = new TBL_COIL_CENTER_GUIDE();
-
+                    //Se asiganan los valores.
                     obj.CODIGO = codigo;
                     obj.CODE = code;
                     obj.DIMA = dimA;
@@ -145,21 +154,22 @@ namespace DataAccess.ServiceObjects.Tooling
                     obj.RADIAL_WIRE_MIN = R_Mn;
                     obj.RADIAL_WIRE_MAX = R_Max;
 
+                    //Agrega el objeto a la tabla.
                     conexion.TBL_COIL_CENTER_GUIDE.Add(obj);
                     conexion.SaveChanges();
-
+                    //Retorna el id del registro insertado
                     return obj.ID_COIL_CENTER_GUIDE;
                 }
             }
             catch (Exception)
             {
-
+                //Si hay error regresa cero
                 return 0;
             }
         }
 
         /// <summary>
-        /// 
+        /// Método que modifica un registro de la tabla TBL_COIL_CENTER_GUIDE
         /// </summary>
         /// <param name="id_coil"></param>
         /// <param name="codigo"></param>
@@ -176,10 +186,12 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Se establece la conexión a la base de datos.
                 using (var conexion = new EntitiesTooling())
                 {
+                    //Se obtiene el objeto que se va a modificar.
                     TBL_COIL_CENTER_GUIDE obj = conexion.TBL_COIL_CENTER_GUIDE.Where(x => x.ID_COIL_CENTER_GUIDE == id_coil).FirstOrDefault();
-
+                    //Asiganmos los valores
                     obj.CODIGO = codigo;
                     obj.CODE = code;
                     obj.DIMA = dimA;
@@ -189,20 +201,21 @@ namespace DataAccess.ServiceObjects.Tooling
                     obj.WIRE_WIDTH_MIN = W_Min;
                     obj.RADIAL_WIRE_MIN = R_Mn;
                     obj.RADIAL_WIRE_MAX = R_Max;
-
+                    //Se cambia el estado de registro a modificado.
                     conexion.Entry(obj).State = EntityState.Modified;
 
+                    //Se guardan los cambios y se retorna el número de registros afectados.
                     return conexion.SaveChanges();
                 }
             }
             catch (Exception)
             {
-
+                //Si encuentra error devuelve cero.
                 return 0;
             }
         }
         /// <summary>
-        /// 
+        /// Método que elimina un registro de la tabla TBL_COIL_CENTER_GUIDE
         /// </summary>
         /// <param name="id_coil"></param>
         /// <returns></returns>
@@ -210,24 +223,26 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                // Se inicializa la conexión a la base de datos.
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Se obtiene el objeto que se va a eliminar.
                     TBL_COIL_CENTER_GUIDE obj = Conexion.TBL_COIL_CENTER_GUIDE.Where(x => x.ID_COIL_CENTER_GUIDE == id_coil).FirstOrDefault();
-
+                    //Se estable el estado del registro a eliminado.
                     Conexion.Entry(obj).State = EntityState.Deleted;
-
+                    //Se guardan los cambios y retorna el número de registros afectados.
                     return Conexion.SaveChanges();
                 }
             }
             catch (Exception)
             {
-
+                //Si hay error retorna cero
                 return 0;
             }
         }
 
         /// <summary>
-        /// 
+        /// Método que inserta un registro a la tabla TBL_EXIT_GUIDE
         /// </summary>
         /// <param name="codigo"></param>
         /// <param name="code"></param>
@@ -241,12 +256,13 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <returns></returns>
         public int SetExit_GUIDE(string codigo, string code, float dimA, float dimB, float dimC, float W_Min, float W_Max, float R_Mn, float R_Max)
         {
-            try
-            {
+            try { 
+                //Establecemos la conexión a través de EntityFramework.
                 using (var conexion = new EntitiesTooling())
                 {
+                    //Se  crea un objeto, el cual se va agregar a la tabla 
                     TBL_EXIT_GUIDE obj = new TBL_EXIT_GUIDE();
-
+                    //Se asiganan los valores.
                     obj.CODIGO = codigo;
                     obj.CODE = code;
                     obj.DIMA = dimA;
@@ -257,21 +273,22 @@ namespace DataAccess.ServiceObjects.Tooling
                     obj.RADIAL_WIRE_MIN = R_Mn;
                     obj.RADIAL_WIRE_MAX = R_Max;
 
+                    //Agrega el objeto a la tabla.
                     conexion.TBL_EXIT_GUIDE.Add(obj);
                     conexion.SaveChanges();
-
+                    //Retorna el id del registro insertado
                     return obj.ID_EXIT_GUIDE;
                 }
             }
             catch (Exception)
             {
-
+                //Si hay error regresa cero
                 return 0;
             }
         }
 
         /// <summary>
-        /// 
+        /// Método que modifica un registro de la tabla TBL_EXIT_GUIDE
         /// </summary>
         /// <param name="id_exit"></param>
         /// <param name="codigo"></param>
@@ -288,10 +305,12 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Se establece la conexión a la base de datos.
                 using (var conexion = new EntitiesTooling())
                 {
+                    //Se obtiene el objeto que se va a modificar.
                     TBL_EXIT_GUIDE obj = conexion.TBL_EXIT_GUIDE.Where(x => x.ID_EXIT_GUIDE == id_exit).FirstOrDefault();
-
+                    //Asiganmos los valores
                     obj.CODIGO = codigo;
                     obj.CODE = code;
                     obj.DIMA = dimA;
@@ -302,20 +321,21 @@ namespace DataAccess.ServiceObjects.Tooling
                     obj.RADIAL_WIRE_MIN = R_Mn;
                     obj.RADIAL_WIRE_MAX = R_Max;
 
+                    //Se cambia el estado de registro a modificado.
                     conexion.Entry(obj).State = EntityState.Modified;
-
+                    //Se guardan los cambios y se retorna el número de registros afectados.
                     return conexion.SaveChanges();
                 }
             }
             catch (Exception)
             {
-
+                //Si encuentra error devuelve cero.
                 return 0;
             }
         }
 
         /// <summary>
-        /// 
+        /// Método que elimina un registro de la tabla TBL_EXIT_GUIDE
         /// </summary>
         /// <param name="id_exit"></param>
         /// <returns></returns>
@@ -323,24 +343,27 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                // Se inicializa la conexión a la base de datos.
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Se obtiene el objeto que se va a eliminar.
                     TBL_EXIT_GUIDE obj = Conexion.TBL_EXIT_GUIDE.Where(x => x.ID_EXIT_GUIDE == id_exit).FirstOrDefault();
 
-                    Conexion.Entry(obj).State = EntityState.Deleted;
-
+                    //Se estable el estado del registro a eliminado.
+                     Conexion.Entry(obj).State = EntityState.Deleted;
+                    //Se guardan los cambios y retorna el número de registros afectados.
                     return Conexion.SaveChanges();
                 }
             }
             catch (Exception)
             {
-
+                //Si hay error retorna cero
                 return 0;
             }
         }
 
         /// <summary>
-        /// 
+        /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
         /// </summary>
         /// <param name="codigo"></param>
         /// <param name="code"></param>
@@ -351,32 +374,34 @@ namespace DataAccess.ServiceObjects.Tooling
         public int SetExternal_GR_1P(string codigo, string code, float dimB, float W_Min, float W_Max)
         {
             try
-            {
+            {   //Establecemos la conexión a través de EntityFramework.
                 using (var conexion = new EntitiesTooling())
                 {
+                    //Se  crea un objeto, el cual se va agregar a la tabla 
                     TBL_EXTERNAL_GUIDE_ROLLER_1PIECE obj = new TBL_EXTERNAL_GUIDE_ROLLER_1PIECE();
-
+                    //Se asiganan los valores.
                     obj.CODIGO = codigo;
                     obj.CODE = code;
                     obj.DIMB = dimB;
                     obj.WIDE_WIDTH_MAX = W_Max;
                     obj.WIRE_WIDTH_MIN = W_Min;
 
+                    //Agrega el objeto a la tabla.
                     conexion.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE.Add(obj);
                     conexion.SaveChanges();
-
+                    //Retorna el id del registro insertado
                     return obj.ID_EGR_1P;
                 }
             }
             catch (Exception)
             {
-
+                //Si hay error regresa cero
                 return 0;
             }
         }
 
         /// <summary>
-        /// 
+        /// Método que modifica un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
         /// </summary>
         /// <param name="id_external"></param>
         /// <param name="codigo"></param>
@@ -389,30 +414,32 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Se establece la conexión a la base de datos.
                 using (var conexion = new EntitiesTooling())
                 {
+                    //Se obtiene el objeto que se va a modificar.
                     TBL_EXTERNAL_GUIDE_ROLLER_1PIECE obj = conexion.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE.Where(x => x.ID_EGR_1P == id_external).FirstOrDefault();
-
+                    //Asiganmos los valores
                     obj.CODIGO = codigo;
                     obj.CODE = code;
                     obj.DIMB = dimB;
                     obj.WIDE_WIDTH_MAX = W_Max;
                     obj.WIRE_WIDTH_MIN = W_Min;
-
+                    //Se cambia el estado de registro a modificado.
                     conexion.Entry(obj).State = EntityState.Modified;
-
+                    //Se guardan los cambios y se retorna el número de registros afectados.
                     return conexion.SaveChanges();
                 }
             }
             catch (Exception)
             {
-
+                //Si encuentra error devuelve cero.
                 return 0;
             }
         }
 
         /// <summary>
-        /// 
+        /// Método que elimina un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
         /// </summary>
         /// <param name="id_external"></param>
         /// <returns></returns>
@@ -420,24 +447,27 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                // Se inicializa la conexión a la base de datos.
                 using (var Conexion = new EntitiesTooling())
                 {
+                    // Se obtiene el objeto que se va a eliminar.
                     TBL_EXTERNAL_GUIDE_ROLLER_1PIECE obj = Conexion.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE.Where(x => x.ID_EGR_1P == id_external).FirstOrDefault();
 
+                    //Se estable el estado del registro a eliminado.
                     Conexion.Entry(obj).State = EntityState.Deleted;
-
+                    //Se guardan los cambios y retorna el número de registros afectados.
                     return Conexion.SaveChanges();
                 }
             }
             catch (Exception)
             {
-
+                //Si hay error retorna cero
                 return 0;
             }
         }
 
         /// <summary>
-        /// 
+        /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
         /// </summary>
         /// <param name="codigo"></param>
         /// <param name="code"></param>
@@ -446,36 +476,109 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="dimC"></param>
         /// <param name="DimD"></param>
         /// <returns></returns>
-        public int SetExternal_GR_3P_1(string codigo, string code, float dimA, float dimB, float dimC, float DimD)
+        public int SetExternal_GR_3P_1(string codigo, string code, float dimA, float dimB, float dimC, float W_Min, float W_Max)
         {
             try
-            {
+            {   //Establecemos la conexión a través de EntityFramework.
                 using (var conexion = new EntitiesTooling())
                 {
+                    //Se  crea un objeto, el cual se va agregar a la tabla 
                     TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1 obj = new TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1();
-
+                    //Se asiganan los valores.
                     obj.CODIGO = codigo;
                     obj.CODE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
                     obj.DIMC = dimC;
-                    obj.DIMC = DimD;
+                    obj.WIRE_WIDTH_MIN = W_Min;
+                    obj.WIDE_WIDTH_MAX = W_Max;
 
+                    //Agrega el objeto a la tabla.
                     conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1.Add(obj);
                     conexion.SaveChanges();
-
+                    //Retorna el id del registro insertado
                     return obj.ID_EGR_3P_1;
                 }
             }
             catch (Exception)
             {
-
+                //Si hay error regresa cero
                 return 0;
             }
         }
 
         /// <summary>
-        /// 
+        /// Método que modifica un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
+        /// </summary>
+        /// <param name="id_ext"></param>
+        /// <param name="codigo"></param>
+        /// <param name="code"></param>
+        /// <param name="dimA"></param>
+        /// <param name="dimB"></param>
+        /// <param name="dimC"></param>
+        /// <param name="W_Min"></param>
+        /// <param name="W_Max"></param>
+        /// <returns></returns>
+        public int UpdateExternal_GR_3P_1(int id_ext, string codigo, string code, float dimA, float dimB, float dimC, float W_Min, float W_Max)
+        {
+            try
+            {
+                //Se establece la conexión a la base de datos.
+                using (var Conexion = new EntitiesTooling())
+                {   
+                    //Se obtiene el objeto que se va a modificar.
+                    TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1 obj = Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1.Where(x => x.ID_EGR_3P_1 == id_ext).FirstOrDefault();
+
+                    //Asiganmos los valores
+                    obj.CODIGO = codigo;
+                    obj.CODE = code;
+                    obj.DIMA = dimA;
+                    obj.DIMB = dimB;
+                    obj.DIMC = dimC;
+                    obj.WIDE_WIDTH_MAX = W_Max;
+                    obj.WIRE_WIDTH_MIN = W_Min;
+
+                    //Se cambia el estado de registro a modificado.
+                    Conexion.Entry(obj).State = EntityState.Modified;
+                    //Se guardan los cambios y se retorna el número de registros afectados.
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si encuentra error devuelve cero.
+                return 0;
+            }
+        }
+        /// <summary>
+        ///  Método que elimina un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
+        /// </summary>
+        /// <param name="id_external"></param>
+        /// <returns></returns>
+        public int DeleteExternal_GR_3P_1(int id_external)
+        {
+            try
+            {
+                // Se inicializa la conexión a la base de datos.
+                using (var Conexion= new EntitiesTooling())
+                {
+                    // Se obtiene el objeto que se va a eliminar.
+                    TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1 obj = Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1.Where(x => x.ID_EGR_3P_1 == id_external).FirstOrDefault();
+                    //Se estable el estado del registro a eliminado.
+                    Conexion.Entry(obj).State = EntityState.Deleted;
+                    //Se guardan los cambios y retorna el número de registros afectados.
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna cero
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
         /// </summary>
         /// <param name="codigo"></param>
         /// <param name="code"></param>
@@ -484,36 +587,107 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="dimC"></param>
         /// <param name="DimD"></param>
         /// <returns></returns>
-        public int SetExternal_GR_3P_2(string codigo, string code, float dimA, float dimB, float dimC, float DimD)
+        public int SetExternal_GR_3P_2(string codigo, string code, float dimA, float dimB, float dimC, float W_Min, float W_Max)
         {
             try
-            {
+            {   //Establecemos la conexión a través de EntityFramework.
                 using (var conexion = new EntitiesTooling())
                 {
+                    //Se  crea un objeto, el cual se va agregar a la tabla 
                     TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2 obj = new TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2();
-
+                    //Se asiganan los valores.
                     obj.CODIGO = codigo;
                     obj.CODE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
                     obj.DIMC = dimC;
-                    obj.DIMC = DimD;
+                    obj.WIRE_WIDTH_MIN = W_Min;
+                    obj.WIDE_WIDTH_MAX = W_Max;
 
+                    //Agrega el objeto a la tabla.
                     conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2.Add(obj);
                     conexion.SaveChanges();
-
+                    //Retorna el id del registro insertado
                     return obj.ID_EGR_3P_2;
                 }
             }
             catch (Exception)
             {
+                //Si hay error regresa cero
+                return 0;
+            }
+        }
+        /// <summary>
+        /// Método que modifica un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
+        /// </summary>
+        /// <param name="id_ext"></param>
+        /// <param name="codigo"></param>
+        /// <param name="code"></param>
+        /// <param name="dimA"></param>
+        /// <param name="dimB"></param>
+        /// <param name="dimC"></param>
+        /// <param name="W_Min"></param>
+        /// <param name="W_Max"></param>
+        /// <returns></returns>
+        public int UpdateExternal_GR_3P_2(int id_ext, string codigo, string code, float dimA, float dimB, float dimC, float W_Min, float W_Max)
+        {
+            try
+            {
+                //Se establece la conexión a la base de datos.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Se obtiene el objeto que se va a modificar.
+                    TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2 obj = Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2.Where(x => x.ID_EGR_3P_2 == id_ext).FirstOrDefault();
 
+                    //Asiganmos los valores
+                    obj.CODIGO = codigo;
+                    obj.CODE = code;
+                    obj.DIMA = dimA;
+                    obj.DIMB = dimB;
+                    obj.DIMC = dimC;
+                    obj.WIDE_WIDTH_MAX = W_Max;
+                    obj.WIRE_WIDTH_MIN = W_Min;
+                    //Se cambia el estado de registro a modificado.
+                    Conexion.Entry(obj).State = EntityState.Modified;
+                    //Se guardan los cambios y se retorna el número de registros afectados.
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si encuentra error devuelve cero.
                 return 0;
             }
         }
 
         /// <summary>
-        /// 
+        ///  Método que elimina un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
+        /// </summary>
+        /// <param name="id_external"></param>
+        /// <returns></returns>
+        public int DeleteExternal_GR_3P_2(int id_external)
+        {
+            try
+            {
+                // Se inicializa la conexión a la base de datos.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    // Se obtiene el objeto que se va a eliminar.
+                    TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2 obj = Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2.Where(x => x.ID_EGR_3P_2 == id_external).FirstOrDefault();
+                    //Se estable el estado del registro a eliminado.
+                    Conexion.Entry(obj).State = EntityState.Deleted;
+                    //Se guardan los cambios y retorna el número de registros afectados.
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna cero
+                return 0;
+            }
+        }
+        /// <summary>
+        /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3
         /// </summary>
         /// <param name="codigo"></param>
         /// <param name="code"></param>
@@ -522,30 +696,204 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="dimC"></param>
         /// <param name="DimD"></param>
         /// <returns></returns>
-        public int SetExternal_GR_3P_3(string codigo, string code, float dimA, float dimB, float dimC, float DimD)
+        public int SetExternal_GR_3P_3(string codigo, string code, float dimA, float dimB, float dimC, float W_Min, float W_Max)
         {
             try
-            {
+            {   //Establecemos la conexión a través de EntityFramework.
                 using (var conexion = new EntitiesTooling())
                 {
+                    //Se  crea un objeto, el cual se va agregar a la tabla 
                     TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3 obj = new TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3();
-
+                    //Se asiganan los valores.
                     obj.CODIGO = codigo;
                     obj.CODE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
                     obj.DIMC = dimC;
-                    obj.DIMC = DimD;
+                    obj.WIRE_WIDTH_MIN = W_Min;
+                    obj.WIDE_WIDTH_MAX = W_Max;
 
+                    //Agrega el objeto a la tabla.
                     conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3.Add(obj);
                     conexion.SaveChanges();
-
+                    //Retorna el id del registro insertado
                     return obj.ID_EGR_3P_3;
                 }
             }
             catch (Exception)
             {
+                //Si hay error regresa cero
+                return 0;
+            }
+        }
+        /// <summary>
+        /// Método que modifica un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3
+        /// </summary>
+        /// <param name="id_ext"></param>
+        /// <param name="codigo"></param>
+        /// <param name="code"></param>
+        /// <param name="dimA"></param>
+        /// <param name="dimB"></param>
+        /// <param name="dimC"></param>
+        /// <param name="W_Min"></param>
+        /// <param name="W_Max"></param>
+        /// <returns></returns>
+        public int UpdateExternal_GR_3P_3(int id_ext, string codigo, string code, float dimA, float dimB, float dimC, float W_Min, float W_Max)
+        {
+            try
+            {
+                //Se establece la conexión a la base de datos.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Se obtiene el objeto que se va a modificar.
+                    TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3 obj = Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3.Where(x => x.ID_EGR_3P_3 == id_ext).FirstOrDefault();
+                    //Asiganmos los valores
+                    obj.CODIGO = codigo;
+                    obj.CODE = code;
+                    obj.DIMA = dimA;
+                    obj.DIMB = dimB;
+                    obj.DIMC = dimC;
+                    obj.WIDE_WIDTH_MAX = W_Max;
+                    obj.WIRE_WIDTH_MIN = W_Min;
+                    //Se cambia el estado de registro a modificado.
+                    Conexion.Entry(obj).State = EntityState.Modified;
+                    //Se guardan los cambios y se retorna el número de registros afectados.
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si encuentra error devuelve cero.
+                return 0;
+            }
+        }
 
+        /// <summary>
+        /// Método que elimina un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3
+        /// </summary>
+        /// <param name="id_external"></param>
+        /// <returns></returns>
+        public int DeleteExternal_GR_3P_3(int id_external)
+        {
+            try
+            {
+                // Se inicializa la conexión a la base de datos.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    // Se obtiene el objeto que se va a eliminar.
+                    TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3 obj = Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3.Where(x => x.ID_EGR_3P_3 == id_external).FirstOrDefault();
+                    //Se estable el estado del registro a eliminado.
+                    Conexion.Entry(obj).State = EntityState.Deleted;
+                    //Se guardan los cambios y retorna el número de registros afectados.
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna cero
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que inserta un registro a la tabla TBL_SHIM_OF_THE_CUT_SYSTEM
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="code"></param>
+        /// <param name="dimA"></param>
+        /// <param name="W_Min"></param>
+        /// <param name="W_Max"></param>
+        /// <returns></returns>
+        public int SetSHIM_OF_THE_CUT_SYSTEM(string codigo, string code, float dimA, float W_Min, float W_Max)
+        {
+            try
+            {   //Establecemos la conexión a través de EntityFramework.
+                using (var conexion = new EntitiesTooling())
+                {
+                    //Se  crea un objeto, el cual se va agregar a la tabla 
+                    TBL_SHIM_OF_THE_CUT_SYSTEM obj = new TBL_SHIM_OF_THE_CUT_SYSTEM();
+                    //Se asiganan los valores.
+                    obj.CODIGO = codigo;
+                    obj.CODE = code;
+                    obj.DIMA = dimA;
+                    obj.WIDE_WIDTH_MAX = W_Max;
+                    obj.WIRE_WIDTH_MIN = W_Min;
+
+                    //Agrega el objeto a la tabla.
+                    conexion.TBL_SHIM_OF_THE_CUT_SYSTEM.Add(obj);
+                    //Se guardan los cambios
+                    conexion.SaveChanges();
+                    //Retorna el id del registro insertado
+                    return obj.ID_SHIM_OTCS;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error regresa cero
+                return 0;
+            }
+        }
+        /// <summary>
+        /// Método que modifica un registro de la tabla TBL_SHIM_OF_THE_CUT_SYSTEM
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="codigo"></param>
+        /// <param name="code"></param>
+        /// <param name="dimA"></param>
+        /// <param name="W_Min"></param>
+        /// <param name="W_Max"></param>
+        /// <returns></returns>
+        public int UpdateSHIM_OF_THE_CUT_SYSTEM(int id,string codigo, string code, float dimA, float W_Min, float W_Max)
+        {
+            try
+            {
+                //Se establece la conexión a la base de datos.
+                using (var conexion = new EntitiesTooling())
+                {
+                    //Se obtiene el objeto que se va a modificar.
+                    TBL_SHIM_OF_THE_CUT_SYSTEM obj = conexion.TBL_SHIM_OF_THE_CUT_SYSTEM.Where(x => x.ID_SHIM_OTCS == id).FirstOrDefault();
+                    //Asiganmos los valores
+                    obj.CODIGO = codigo;
+                    obj.CODE = code;
+                    obj.DIMA = dimA;
+                    obj.WIDE_WIDTH_MAX = W_Max;
+                    obj.WIRE_WIDTH_MIN = W_Min;
+                    //Se cambia el estado de registro a modificado.
+                    conexion.Entry(obj).State = EntityState.Modified;
+                    //Se guardan los cambios y se retorna el número de registros afectados.
+                    return conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si encuentra error devuelve cero.
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla TBL_SHIM_OF_THE_CUT_SYSTEM
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int DeleteSHIM_OF_THE_CUT_SYSTEM(int id)
+        {
+            try
+            {
+                // Se inicializa la conexión a la base de datos.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    // Se obtiene el objeto que se va a eliminar.
+                    TBL_SHIM_OF_THE_CUT_SYSTEM obj = Conexion.TBL_SHIM_OF_THE_CUT_SYSTEM.Where(x => x.ID_SHIM_OTCS == id).FirstOrDefault();
+                    //Se estable el estado del registro a eliminado.
+                    Conexion.Entry(obj).State = EntityState.Deleted;
+                    //Se guardan los cambios y retorna el número de registros afectados.
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna cero
                 return 0;
             }
         }
