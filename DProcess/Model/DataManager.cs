@@ -965,11 +965,13 @@ namespace Model
 
             //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
             IList informacionBD = ServicioCoil.GetCOIL_FEED_ROLLER(widthAlambre);
-
+            //Si la lista es diferente de nulo
             if (informacionBD  != null)
             {
+                //iteramos la lista
                 foreach (var item in informacionBD)
                 {
+                    //Obtenemos el tipo
                     Type tipo = item.GetType();
 
                     Herramental herramental = new Herramental();
@@ -977,6 +979,11 @@ namespace Model
                     //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
                     herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+
+                    PropiedadCadena propCode = new PropiedadCadena();
+                    propCode.Nombre  = "Code";
+                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propCode);
 
                     Propiedad propiedadDimA = new Propiedad();
                     propiedadDimA.Unidad = "Milimeters (mm)";
@@ -1059,11 +1066,13 @@ namespace Model
 
             //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
             IList informacionBD = ServicioCoil.GetCOIL_CENTER_GUIDE(widthAlambre,radial);
-
+            //Si la lista es diferente de nulo
             if (informacionBD != null)
             {
+                //Iteramos la lista
                 foreach (var item in informacionBD)
                 {
+                    //obtenemos el tipo
                     Type tipo = item.GetType();
 
                     Herramental herramental = new Herramental();
@@ -1071,7 +1080,13 @@ namespace Model
                     //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
                     herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    //Code
+                    PropiedadCadena propCode = new PropiedadCadena();
+                    propCode.Nombre = "Code";
+                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propCode);
 
+                    //Dimesiones
                     Propiedad propiedadDimA = new Propiedad();
                     propiedadDimA.Unidad = "Milimeters (mm)";
                     propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
@@ -1147,11 +1162,13 @@ namespace Model
 
             //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
             IList informacionBD = ServicioCoil.GetEXIT_GUIDE(widthAlambre, radial);
-
+            //si la lista es diferente de nulo
             if (informacionBD != null)
             {
+                //Iteramo sla lista 
                 foreach (var item in informacionBD)
                 {
+                    //Obetenemos el tipo
                     Type tipo = item.GetType();
 
                     Herramental herramental = new Herramental();
@@ -1160,6 +1177,13 @@ namespace Model
                     herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
 
+                    //Code
+                    PropiedadCadena propCode = new PropiedadCadena();
+                    propCode.Nombre = "Code";
+                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propCode);
+                    
+                    //Dimensiones 
                     Propiedad propiedadDimA = new Propiedad();
                     propiedadDimA.Unidad = "Milimeters (mm)";
                     propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
@@ -1240,11 +1264,13 @@ namespace Model
 
             //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
             IList informacionBD = ServicioCoil.GetEXTERNAL_GR_1P(widthAlambre);
-
+            //Si la lista es diferente de nulo
             if (informacionBD != null)
             {
+                //iteramos la lista
                 foreach (var item in informacionBD)
                 {
+                    //Obtenemos el tipo
                     Type tipo = item.GetType();
 
                     Herramental herramental = new Herramental();
@@ -1253,6 +1279,13 @@ namespace Model
                     herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
 
+                    //Code
+                    PropiedadCadena propCode = new PropiedadCadena();
+                    propCode.Nombre = "Code";
+                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propCode);
+                    
+                    //Dimensiones
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.Unidad = "Milimeters (mm)";
                     propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
@@ -1320,10 +1353,13 @@ namespace Model
             //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
             IList informacionBD = ServicioCoil.GetEXTERNAL_GR_3P_1(widthAlambre);
 
+            //Si la lista es diferente de nulo
             if (informacionBD != null)
             {
+                //Iteramos la lista
                 foreach (var item in informacionBD)
                 {
+                    //Obtenemos el tipo
                     Type tipo = item.GetType();
 
                     Herramental herramental = new Herramental();
@@ -1332,6 +1368,13 @@ namespace Model
                     herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
 
+                    //Code
+                    PropiedadCadena propCode = new PropiedadCadena();
+                    propCode.Nombre = "Code";
+                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propCode);
+
+                    //dimensiones
                     Propiedad propiedadDimA = new Propiedad();
                     propiedadDimA.Unidad = "Milimeters (mm)";
                     propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
@@ -1406,10 +1449,13 @@ namespace Model
             //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
             IList informacionBD = ServicioCoil.GetEXTERNAL_GR_3P_2(widthAlambre);
 
+            //Si la lista es diferente de nulo
             if (informacionBD != null)
             {
+                //Iteramos la lista
                 foreach (var item in informacionBD)
                 {
+                    //Obtenemos el tipo
                     Type tipo = item.GetType();
 
                     Herramental herramental = new Herramental();
@@ -1418,6 +1464,13 @@ namespace Model
                     herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
 
+                    //Code
+                    PropiedadCadena propCode = new PropiedadCadena();
+                    propCode.Nombre = "Code";
+                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propCode);
+                    
+                    //Dimensiones
                     Propiedad propiedadDimA = new Propiedad();
                     propiedadDimA.Unidad = "Milimeters (mm)";
                     propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
@@ -1492,10 +1545,13 @@ namespace Model
             //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
             IList informacionBD = ServicioCoil.GetEXTERNAL_GR_3P_3(widthAlambre);
 
+            //Si la lista es diferente de nulo
             if (informacionBD != null)
             {
+                //Iteramos la lista
                 foreach (var item in informacionBD)
                 {
+                    //Obetenemos el tipo
                     Type tipo = item.GetType();
 
                     Herramental herramental = new Herramental();
@@ -1504,6 +1560,13 @@ namespace Model
                     herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
 
+                    //Code
+                    PropiedadCadena propCode = new PropiedadCadena();
+                    propCode.Nombre = "Code";
+                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propCode);
+
+                    //Dimensiones
                     Propiedad propiedadDimA = new Propiedad();
                     propiedadDimA.Unidad = "Milimeters (mm)";
                     propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
@@ -1578,10 +1641,13 @@ namespace Model
             //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
             IList informacionBD = ServicioCoil.GetSHIM_CSYSTEM(widthAlambre);
 
+            //Si la lista que se obtuvo es diferente de nullo
             if (informacionBD != null)
             {
+                //Iteramos la lista
                 foreach (var item in informacionBD)
                 {
+                    //Obtenemos el tipo
                     Type tipo = item.GetType();
 
                     Herramental herramental = new Herramental();
@@ -1590,6 +1656,13 @@ namespace Model
                     herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
 
+                    //Code
+                    PropiedadCadena propCode = new PropiedadCadena();
+                    propCode.Nombre = "Code";
+                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propCode);
+
+                    //Dimensiones
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.Unidad = "Milimeters (mm)";
                     propiedadDimB.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
