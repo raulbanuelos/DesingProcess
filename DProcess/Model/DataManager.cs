@@ -982,7 +982,7 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.Nombre  = "Code";
+                    propCode.DescripcionCorta  = "Code";
                     propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
@@ -1025,7 +1025,7 @@ namespace Model
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
-        public static ObservableCollection<Herramental> GetAllCOIL_Feed_Roller(string texto)
+        public static DataTable GetAllCOIL_Feed_Roller(string texto)
         {
             SO_COIL ServicioCoil = new SO_COIL();
 
@@ -1051,7 +1051,7 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.Nombre = "Code";
+                    propCode.DescripcionCorta = "Code";
                     propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
@@ -1079,14 +1079,27 @@ namespace Model
                     propiedadDimD.Valor = (double)tipo.GetProperty("DIMD").GetValue(item, null);
                     propiedadDimD.DescripcionCorta = "Dim D";
                     herramental.Propiedades.Add(propiedadDimD);
+
+                    Propiedad propWMin = new Propiedad();
+                    propWMin.Unidad = "Milimeters (mm)";
+                    propWMin.Valor= (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
+                    propWMin.DescripcionCorta = "WIRE WIDTH MIN";
+                    herramental.Propiedades.Add(propWMin);
+
+                    Propiedad propWMax = new Propiedad();
+                    propWMax.Unidad = "Milimeters (mm)";
+                    propWMax.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MAX").GetValue(item, null);
+                    propWMax.DescripcionCorta = "WIRE WIDTH MAX";
+                    herramental.Propiedades.Add(propWMax);
+
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
 
                 }
             }
 
-            //Retornamos la lista resultante
-            return ListaResultante;
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Feed_Roller");
         }
 
 
@@ -1160,7 +1173,7 @@ namespace Model
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.Nombre = "Code";
+                    propCode.DescripcionCorta = "Code";
                     propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
@@ -1198,7 +1211,7 @@ namespace Model
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
-        public static ObservableCollection<Herramental> GetALLCOIL_CENTER_GUIDE(string texto)
+        public static DataTable GetALLCOIL_CENTER_GUIDE(string texto)
         {
             SO_COIL ServicioCoil = new SO_COIL();
 
@@ -1223,7 +1236,7 @@ namespace Model
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.Nombre = "Code";
+                    propCode.DescripcionCorta = "Code";
                     propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
@@ -1246,13 +1259,38 @@ namespace Model
                     propiedadDimC.DescripcionCorta = "Dim C";
                     herramental.Propiedades.Add(propiedadDimC);
 
+                    //Tamaño
+                    Propiedad propWMin = new Propiedad();
+                    propWMin.Unidad = "Milimeters (mm)";
+                    propWMin.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
+                    propWMin.DescripcionCorta = "WIRE WIDTH MIN";
+                    herramental.Propiedades.Add(propWMin);
+
+                    Propiedad propWMax = new Propiedad();
+                    propWMax.Unidad = "Milimeters (mm)";
+                    propWMax.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MAX").GetValue(item, null);
+                    propWMax.DescripcionCorta = "WIRE WIDTH MAX";
+                    herramental.Propiedades.Add(propWMax);
+
+                    Propiedad propR_Min = new Propiedad();
+                    propR_Min.Unidad = "Milimeters (mm)";
+                    propR_Min.Valor = (double)tipo.GetProperty("RADIAL_WIRE_MIN").GetValue(item, null);
+                    propR_Min.DescripcionCorta = "RADIAL WIRE MIN";
+                    herramental.Propiedades.Add(propR_Min);
+
+                    Propiedad propR_MAX = new Propiedad();
+                    propR_MAX.Unidad = "Milimeters (mm)";
+                    propR_MAX.Valor = (double)tipo.GetProperty("RADIAL_WIRE_MAX").GetValue(item, null);
+                    propR_MAX.DescripcionCorta = "RADIAL WIRE MAX";
+                    herramental.Propiedades.Add(propR_MAX);
+
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
 
                 }
             }
-            //Retornamos la lista resultante
-            return ListaResultante;
+            ///Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Center_Guide");
         }
 
         /// <summary>
@@ -1325,7 +1363,7 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.Nombre = "Code";
+                    propCode.DescripcionCorta = "Code";
                     propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
                     
@@ -1363,7 +1401,7 @@ namespace Model
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
-        public static ObservableCollection<Herramental> GetAllEXIT_GUIDE(string texto)
+        public static DataTable GetAllEXIT_GUIDE(string texto)
         {
             SO_COIL ServicioCoil = new SO_COIL();
 
@@ -1389,7 +1427,7 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.Nombre = "Code";
+                    propCode.DescripcionCorta = "Code";
                     propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
@@ -1412,13 +1450,38 @@ namespace Model
                     propiedadDimC.DescripcionCorta = "Dim C";
                     herramental.Propiedades.Add(propiedadDimC);
 
+                    Propiedad propWMin = new Propiedad();
+                    propWMin.Unidad = "Milimeters (mm)";
+                    propWMin.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
+                    propWMin.DescripcionCorta = "WIRE WIDTH MIN";
+                    herramental.Propiedades.Add(propWMin);
+
+                    Propiedad propWMax = new Propiedad();
+                    propWMax.Unidad = "Milimeters (mm)";
+                    propWMax.Valor = (double)tipo.GetProperty("WIDE_WIDTH_MAX").GetValue(item, null);
+                    propWMax.DescripcionCorta = "WIRE WIDTH MAX";
+                    herramental.Propiedades.Add(propWMax);
+
+                    Propiedad propR_Min = new Propiedad();
+                    propR_Min.Unidad = "Milimeters (mm)";
+                    propR_Min.Valor = (double)tipo.GetProperty("RADIAL_WIRE_MIN").GetValue(item, null);
+                    propR_Min.DescripcionCorta = "RADIAL WIRE MIN";
+                    herramental.Propiedades.Add(propR_Min);
+
+                    Propiedad propR_MAX = new Propiedad();
+                    propR_MAX.Unidad = "Milimeters (mm)";
+                    propR_MAX.Valor = (double)tipo.GetProperty("RADIAL_WIRE_MAX").GetValue(item, null);
+                    propR_MAX.DescripcionCorta = "RADIAL WIRE MAX";
+                    herramental.Propiedades.Add(propR_MAX);
+
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
 
                 }
             }
 
-            return ListaResultante;
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Exit_Guide");
         }
 
         /// <summary>
@@ -1490,7 +1553,7 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.Nombre = "Code";
+                    propCode.DescripcionCorta = "Code";
                     propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
                     
@@ -1516,7 +1579,7 @@ namespace Model
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
-        public static ObservableCollection<Herramental> GetAllEXTERNAL_GR_1P(string texto)
+        public static DataTable GetAllEXTERNAL_GR_1P(string texto)
         {
             SO_COIL ServicioCoil = new SO_COIL();
 
@@ -1542,7 +1605,7 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.Nombre = "Code";
+                    propCode.DescripcionCorta = "Code";
                     propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
@@ -1553,13 +1616,27 @@ namespace Model
                     propiedadDimB.DescripcionCorta = "Dim B";
                     herramental.Propiedades.Add(propiedadDimB);
 
+                    //Tamaño
+                    Propiedad propWMin = new Propiedad();
+                    propWMin.Unidad = "Milimeters (mm)";
+                    propWMin.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
+                    propWMin.DescripcionCorta = "WIRE WIDTH MIN";
+                    herramental.Propiedades.Add(propWMin);
+
+                    Propiedad propWMax = new Propiedad();
+                    propWMax.Unidad = "Milimeters (mm)";
+                    propWMax.Valor = (double)tipo.GetProperty("WIDE_WIDTH_MAX").GetValue(item, null);
+                    propWMax.DescripcionCorta = "WIRE WIDTH MAX";
+                    herramental.Propiedades.Add(propWMax);                  
+
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
 
                 }
             }
-            //rEGRESAMOS LA LISTA RESULTANTE
-            return ListaResultante;
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "External_GR_1P");
         }
 
         /// <summary>
@@ -1631,7 +1708,7 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.Nombre = "Code";
+                    propCode.DescripcionCorta = "Code";
                     propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
@@ -1669,7 +1746,7 @@ namespace Model
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
-        public static ObservableCollection<Herramental> GetAllEXTERNAL_GR_3P_1(string texto)
+        public static DataTable GetAllEXTERNAL_GR_3P_1(string texto)
         {
             SO_COIL ServicioCoil = new SO_COIL();
 
@@ -1696,7 +1773,7 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.Nombre = "Code";
+                    propCode.DescripcionCorta = "Code";
                     propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
@@ -1719,13 +1796,27 @@ namespace Model
                     propiedadDimC.DescripcionCorta = "Dim C";
                     herramental.Propiedades.Add(propiedadDimC);
 
+                    //Tamaño
+                    Propiedad propWMin = new Propiedad();
+                    propWMin.Unidad = "Milimeters (mm)";
+                    propWMin.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
+                    propWMin.DescripcionCorta = "WIRE WIDTH MIN";
+                    herramental.Propiedades.Add(propWMin);
+
+                    Propiedad propWMax = new Propiedad();
+                    propWMax.Unidad = "Milimeters (mm)";
+                    propWMax.Valor = (double)tipo.GetProperty("WIDE_WIDTH_MAX").GetValue(item, null);
+                    propWMax.DescripcionCorta = "WIRE WIDTH MAX";
+                    herramental.Propiedades.Add(propWMax);
+
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
 
                 }
             }
-            //Regresa la lista resultante
-            return ListaResultante;
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "External_GR_3P_1");
         }
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
@@ -1796,7 +1887,7 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.Nombre = "Code";
+                    propCode.DescripcionCorta = "Code";
                     propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
                     
@@ -1834,7 +1925,7 @@ namespace Model
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
-        public static ObservableCollection<Herramental> GetAllEXTERNAL_GR_3P_2(string texto)
+        public static DataTable GetAllEXTERNAL_GR_3P_2(string texto)
         {
             SO_COIL ServicioCoil = new SO_COIL();
 
@@ -1861,7 +1952,7 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.Nombre = "Code";
+                    propCode.DescripcionCorta = "Code";
                     propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
@@ -1884,13 +1975,26 @@ namespace Model
                     propiedadDimC.DescripcionCorta = "Dim C";
                     herramental.Propiedades.Add(propiedadDimC);
 
+                    //Tamaño
+                    Propiedad propWMin = new Propiedad();
+                    propWMin.Unidad = "Milimeters (mm)";
+                    propWMin.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
+                    propWMin.DescripcionCorta = "WIRE WIDTH MIN";
+                    herramental.Propiedades.Add(propWMin);
+
+                    Propiedad propWMax = new Propiedad();
+                    propWMax.Unidad = "Milimeters (mm)";
+                    propWMax.Valor = (double)tipo.GetProperty("WIDE_WIDTH_MAX").GetValue(item, null);
+                    propWMax.DescripcionCorta = "WIRE WIDTH MAX";
+                    herramental.Propiedades.Add(propWMax);
+
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
 
                 }
             }
-            //Regresa la lista
-            return ListaResultante;
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "External_GR_3P_2");
         }
 
         /// <summary>
@@ -1962,7 +2066,7 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.Nombre = "Code";
+                    propCode.DescripcionCorta = "Code";
                     propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
@@ -2000,7 +2104,7 @@ namespace Model
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
-        public static ObservableCollection<Herramental> GetAllEXTERNAL_GR_3P_3(string texto)
+        public static DataTable GetAllEXTERNAL_GR_3P_3(string texto)
         {
             SO_COIL ServicioCoil = new SO_COIL();
 
@@ -2027,7 +2131,7 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.Nombre = "Code";
+                    propCode.DescripcionCorta = "Code";
                     propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
@@ -2050,13 +2154,26 @@ namespace Model
                     propiedadDimC.DescripcionCorta = "Dim C";
                     herramental.Propiedades.Add(propiedadDimC);
 
+                    //Tamaño
+                    Propiedad propWMin = new Propiedad();
+                    propWMin.Unidad = "Milimeters (mm)";
+                    propWMin.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
+                    propWMin.DescripcionCorta = "WIRE WIDTH MIN";
+                    herramental.Propiedades.Add(propWMin);
+
+                    Propiedad propWMax = new Propiedad();
+                    propWMax.Unidad = "Milimeters (mm)";
+                    propWMax.Valor = (double)tipo.GetProperty("WIDE_WIDTH_MAX").GetValue(item, null);
+                    propWMax.DescripcionCorta = "WIRE WIDTH MAX";
+                    herramental.Propiedades.Add(propWMax);
+
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
 
                 }
             }
-            //Retornamos la lista
-            return ListaResultante;
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "External_GR_3P_3");
         }
 
         /// <summary>
@@ -2128,7 +2245,7 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.Nombre = "Code";
+                    propCode.DescripcionCorta = "Code";
                     propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
@@ -2154,7 +2271,7 @@ namespace Model
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
-        public static ObservableCollection<Herramental> GetAllSHIM_OF_THE_CSYSTEM(string texto)
+        public static DataTable GetAllSHIM_OF_THE_CSYSTEM(string texto)
         {
             SO_COIL ServicioCoil = new SO_COIL();
 
@@ -2181,7 +2298,7 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.Nombre = "Code";
+                    propCode.DescripcionCorta = "Code";
                     propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
@@ -2192,13 +2309,26 @@ namespace Model
                     propiedadDimB.DescripcionCorta = "Dim A";
                     herramental.Propiedades.Add(propiedadDimB);
 
+                    //Tamaño
+                    Propiedad propWMin = new Propiedad();
+                    propWMin.Unidad = "Milimeters (mm)";
+                    propWMin.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
+                    propWMin.DescripcionCorta = "WIRE WIDTH MIN";
+                    herramental.Propiedades.Add(propWMin);
+
+                    Propiedad propWMax = new Propiedad();
+                    propWMax.Unidad = "Milimeters (mm)";
+                    propWMax.Valor = (double)tipo.GetProperty("WIDE_WIDTH_MAX").GetValue(item, null);
+                    propWMax.DescripcionCorta = "WIRE WIDTH MAX";
+                    herramental.Propiedades.Add(propWMax);
+
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
 
                 }
             }
-            //Retornamos la lista
-            return ListaResultante;
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Shim_CSystem");
         }
         #endregion
         #endregion

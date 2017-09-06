@@ -218,6 +218,9 @@
     <Compile Include="Forms\Tooling\PTooling.xaml.cs">
       <DependentUpon>PTooling.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\WCoil.xaml.cs">
+      <DependentUpon>WCoil.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\WCollarBK.xaml.cs">
       <DependentUpon>WCollarBK.xaml</DependentUpon>
     </Compile>
@@ -244,6 +247,7 @@
     <Compile Include="Services\ViewModel\AnilloViewModel.cs" />
     <Compile Include="Services\ViewModel\BloqueoVM.cs" />
     <Compile Include="Services\ViewModel\Buscar_DocumentoVM.cs" />
+    <Compile Include="Services\ViewModel\CoilFeedRoller_VM.cs" />
     <Compile Include="Services\ViewModel\CollarAutoFinTurnViewModel.cs" />
     <Compile Include="Services\ViewModel\ControlDocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\DimensionsViewModel.cs" />
@@ -435,6 +439,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\Tooling\PTooling.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WCoil.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

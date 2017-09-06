@@ -178,7 +178,9 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.DIMB,
                                      c.DIMC,
                                      c.DIMD,
-                                     c.CODE
+                                     c.CODE,
+                                     c.WIRE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -369,7 +371,11 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.DIMA,
                                      c.DIMB,
                                      c.DIMC,
-                                     c.CODE
+                                     c.CODE,
+                                     c.WIRE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN,
+                                     c.RADIAL_WIRE_MAX,
+                                     c.RADIAL_WIRE_MIN
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -563,7 +569,11 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.DIMA,
                                      c.DIMB,
                                      c.DIMC,
-                                     c.CODE
+                                     c.CODE,
+                                     c.WIRE_WIDTH_MIN,
+                                     c.WIDE_WIDTH_MAX,
+                                     c.RADIAL_WIRE_MIN,
+                                     c.RADIAL_WIRE_MAX
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -735,7 +745,9 @@ namespace DataAccess.ServiceObjects.Tooling
                                      CODIGO = m.Codigo,
                                      DESCRIPCION = m.Descripcion,
                                      c.DIMB,
-                                     c.CODE
+                                     c.CODE,
+                                     c.WIDE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -918,7 +930,9 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.DIMA,
                                      c.DIMB,
                                      c.DIMC,
-                                     c.CODE
+                                     c.CODE,
+                                     c.WIRE_WIDTH_MIN,
+                                     c.WIDE_WIDTH_MAX
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -1101,7 +1115,9 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.DIMA,
                                      c.DIMB,
                                      c.DIMC,
-                                     c.CODE
+                                     c.CODE,
+                                     c.WIRE_WIDTH_MIN,
+                                     c.WIDE_WIDTH_MAX
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -1281,7 +1297,9 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.DIMA,
                                      c.DIMB,
                                      c.DIMC,
-                                     c.CODE
+                                     c.CODE,
+                                     c.WIDE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -1451,7 +1469,9 @@ namespace DataAccess.ServiceObjects.Tooling
                                      CODIGO = m.Codigo,
                                      DESCRIPCION = m.Descripcion,
                                      c.DIMA,
-                                     c.CODE
+                                     c.CODE,
+                                     c.WIRE_WIDTH_MIN,
+                                     c.WIDE_WIDTH_MAX
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
