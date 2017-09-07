@@ -221,6 +221,9 @@
     <Compile Include="Forms\Tooling\WCoil.xaml.cs">
       <DependentUpon>WCoil.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\WCoil_D.xaml.cs">
+      <DependentUpon>WCoil_D.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\WCollarBK.xaml.cs">
       <DependentUpon>WCollarBK.xaml</DependentUpon>
     </Compile>
@@ -258,6 +261,10 @@
     <Compile Include="Services\ViewModel\DocumentoValidarViewModel.cs" />
     <Compile Include="Services\ViewModel\DocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\ExitGuide_VM.cs" />
+    <Compile Include="Services\ViewModel\External_GR_1P.cs" />
+    <Compile Include="Services\ViewModel\External_GR_3P_1VM.cs" />
+    <Compile Include="Services\ViewModel\External_GR_3P_2VM.cs" />
+    <Compile Include="Services\ViewModel\External_GR_3P_3VM.cs" />
     <Compile Include="Services\ViewModel\GeneradorViewModel.cs" />
     <Compile Include="Services\ViewModel\HistorialVM.cs" />
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
@@ -273,6 +280,7 @@
     <Compile Include="Services\ViewModel\CuffViewModel.cs" />
     <Compile Include="Services\ViewModel\PUserViewModel.cs" />
     <Compile Include="Services\ViewModel\RecursoViewModel.cs" />
+    <Compile Include="Services\ViewModel\ShimCutSystem_VM.cs" />
     <Compile Include="Services\ViewModel\ToolingViewModel.cs" />
     <Compile Include="Services\ViewModel\TubosCLViewModel.cs" />
     <Compile Include="Services\ViewModel\TubosHDViewModel.cs" />
@@ -445,6 +453,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\WCoil.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WCoil_D.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
