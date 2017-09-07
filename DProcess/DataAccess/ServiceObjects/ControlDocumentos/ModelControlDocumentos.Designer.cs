@@ -1,4 +1,4 @@
-﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\M0051722\Source\Repos\DesingProcess\DProcess\DataAccess\ServiceObjects\ControlDocumentos\ModelControlDocumentos.edmx'. 
+﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\Ing.practicante\Source\Repos\DesingProcess2\DProcess\DataAccess\ServiceObjects\ControlDocumentos\ModelControlDocumentos.edmx'. 
 // Para habilitar la generación de código heredada, cambie el valor de la propiedad del diseñador 'Estrategia de generación de código'
 // por 'ObjectContext heredado'. Esta propiedad está disponible en la ventana Propiedades cuando se abre
 // el modelo en el diseñador.

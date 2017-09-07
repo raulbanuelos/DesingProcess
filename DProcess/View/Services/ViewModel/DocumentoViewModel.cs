@@ -1106,10 +1106,14 @@ namespace View.Services.ViewModel
             //Si el id es diferente de cero
             if (id_documento != 0 & result==MessageDialogResult.Affirmative)
             {
+                Documento objDoc_Eliminado = new Documento();
                 //Elimina los documentos de la lista 
                 foreach (var item in _ListaDocumentos)
                 {
-                  int n = DataManagerControlDocumentos.DeleteArchivo(item);
+                  
+                    objDoc_Eliminado.version.archivo.archivo = item.archivo;
+                    objDoc_Eliminado.version.archivo.ext = item.ext;
+                    int n = DataManagerControlDocumentos.DeleteArchivo(item);
                 }
 
                 Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version(); 
@@ -1117,7 +1121,7 @@ namespace View.Services.ViewModel
                 objVersion.no_version = Version;
                 string mensaje_historial = "Se elimina versión " + Version;
                 //Mandamos a llamar a la  función para eliminar la versión.
-                int version = DataManagerControlDocumentos.DeleteVersion(objVersion, mensaje_historial, User,nombre);
+                int Dversion = DataManagerControlDocumentos.DeleteVersion(objVersion, mensaje_historial, User,nombre);
 
                 //Obetenemos las versiones del documento
                 ListaVersiones = DataManagerControlDocumentos.GetVersiones(id_documento);
@@ -1137,7 +1141,7 @@ namespace View.Services.ViewModel
                    int v = DataManagerControlDocumentos.DeleteVersion(item, mensaje_historial, User,nombre);
                 }
                 //Si se elimino correctamente la versión
-                if (version != 0)
+                if (Dversion != 0)
                 {
                     Documento obj = new Documento();
                     //se le asigna el id al objeto
@@ -1145,7 +1149,19 @@ namespace View.Services.ViewModel
 
                     //Se manda a llamar a la función.
                     int n = DataManagerControlDocumentos.DeleteDocumento(obj);
-                    await dialog.SendMessage("", "Registro eliminado!");
+
+                    if (n !=0)
+                    {
+                        objDoc_Eliminado.nombre = nombre;
+                        objDoc_Eliminado.version.no_version = Version;
+
+                        int docElim = DataManagerControlDocumentos.SetDocumento_Eliminado(objDoc_Eliminado);
+                        await dialog.SendMessage("", "Registro eliminado!");
+                    }
+                    else
+                    {
+                        await dialog.SendMessage("Alerta", "No se puedo eliminar el documento");
+                    }                  
                 }
                 else
                 {

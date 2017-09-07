@@ -123,7 +123,7 @@ namespace DataAccess.ServiceObjects.Tooling
             }
         }
         /// <summary>
-        /// 
+        /// Método que obtiene un registro que cumpla con el rango del width
         /// </summary>
         /// <param name="width"></param>
         /// <returns></returns>
@@ -131,8 +131,10 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Establecemos la conexion
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Ejecutamos la consulta y lo guardamos en una variable
                     var Lista = (from a in Conexion.TBL_COIL_FEED_ROLLER
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  where a.WIRE_WIDTH_MIN > width && a.WIRE_WIDTH_MAX <= width
@@ -141,12 +143,52 @@ namespace DataAccess.ServiceObjects.Tooling
                                      DESCRIPCION = b.Descripcion,
                                      a.DIMA,a.DIMB,a.DIMC,a.DIMD,a.CODE
                                  }).ToList();
-
+                    //Retornamos la lista
                     return Lista;
                 }
             }
             catch (Exception)
             {
+                //Si hay error retorna nulo
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros, se filtran por el código o descripción
+        /// </summary>
+        /// <param name="textoBusq"></param>
+        /// <returns></returns>
+        public IList GetAllCOIL_FEED_ROLLER(string textoBusq)
+        {
+            try
+            {
+                //Establecemos la conexion
+                using (var Conexion= new EntitiesTooling())
+                {
+                    //Ejecutamos la consulta y guardamos el resultado en una variable
+                    var Lista = (from c in Conexion.TBL_COIL_FEED_ROLLER
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where c.CODIGO.Contains(textoBusq) || m.Descripcion.Contains(textoBusq)
+                                 select new
+                                 {
+                                     CODIGO = m.Codigo,
+                                     DESCRIPCION = m.Descripcion,
+                                     c.DIMA,
+                                     c.DIMB,
+                                     c.DIMC,
+                                     c.DIMD,
+                                     c.CODE,
+                                     c.WIRE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN
+                                 }).ToList();
+                    //Retornamos la lista
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna nulo
                 return null;
             }
         }
@@ -270,12 +312,20 @@ namespace DataAccess.ServiceObjects.Tooling
             }
         }
 
+        /// <summary>
+        /// Método que obtiene un registro que cumpla con el rango del width y el rango de radial
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="radial"></param>
+        /// <returns></returns>
         public IList GetCOIL_CENTER_GUIDE(double width, double radial)
         {
             try
             {
+                //Establecemos la conexion
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Ejecutamos la consulta y lo guardamos en una variable
                     var Lista = (from a in Conexion.TBL_COIL_CENTER_GUIDE
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  where ( a.WIRE_WIDTH_MIN > width && a.WIRE_WIDTH_MAX <= width) && (a.RADIAL_WIRE_MIN > radial && a.RADIAL_WIRE_MAX <= radial)
@@ -288,12 +338,52 @@ namespace DataAccess.ServiceObjects.Tooling
                                      a.DIMC,
                                      a.CODE
                                  }).ToList();
-
+                    //Retornamos la lista
                     return Lista;
                 }
             }
             catch (Exception)
             {
+                //Si hay error retorna nulo
+                return null;
+            }
+        }
+        /// <summary>
+        /// Método que obtiene todos los registros, se filtran por el código o descripción
+        /// </summary>
+        /// <param name="textoBusq"></param>
+        /// <returns></returns>
+        public IList GetAllCOIL_CENTER_GUIDE(string textoBusq)
+        {
+            try
+            {
+                //Establecemos la conexion
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Ejecutamos la consulta y guardamos el resultado en una variable
+                    var Lista = (from c in Conexion.TBL_COIL_CENTER_GUIDE
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where c.CODIGO.Contains(textoBusq) || m.Descripcion.Contains(textoBusq)
+                                 select new
+                                 {
+                                     CODIGO = m.Codigo,
+                                     DESCRIPCION = m.Descripcion,
+                                     c.DIMA,
+                                     c.DIMB,
+                                     c.DIMC,
+                                     c.CODE,
+                                     c.WIRE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN,
+                                     c.RADIAL_WIRE_MAX,
+                                     c.RADIAL_WIRE_MIN
+                                 }).ToList();
+                    //Retornamos la lista
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna nulo
                 return null;
             }
         }
@@ -420,7 +510,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene un registro que cumpla con el rango del width y el rango de radial
         /// </summary>
         /// <param name="width"></param>
         /// <param name="radial"></param>
@@ -429,8 +519,10 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Establecemos la conexion
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Ejecutamos la consulta y lo guardamos en una variable
                     var Lista = (from a in Conexion.TBL_EXIT_GUIDE
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  where (a.WIRE_WIDTH_MIN > width && a.WIDE_WIDTH_MAX <= width) && (a.RADIAL_WIRE_MIN > radial && a.RADIAL_WIRE_MAX <= radial)
@@ -443,12 +535,53 @@ namespace DataAccess.ServiceObjects.Tooling
                                      a.DIMC,
                                      a.CODE
                                  }).ToList();
-
+                    //Retornamos la lista
                     return Lista;
                 }
             }
             catch (Exception)
             {
+                //Si hay error retorna nulo
+                return null;
+            }
+        }
+
+        /// <summary>
+        ///  Método que obtiene todos los registros, se filtran por el código o descripción
+        /// </summary>
+        /// <param name="textoBusq"></param>
+        /// <returns></returns>
+        public IList GetAllEXIT_GUIDE(string textoBusq)
+        {
+            try
+            {
+                //Establecemos la conexion
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Ejecutamos la consulta y guardamos el resultado en una variable
+                    var Lista = (from c in Conexion.TBL_EXIT_GUIDE
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where c.CODIGO.Contains(textoBusq) || m.Descripcion.Contains(textoBusq)
+                                 select new
+                                 {
+                                     CODIGO = m.Codigo,
+                                     DESCRIPCION = m.Descripcion,
+                                     c.DIMA,
+                                     c.DIMB,
+                                     c.DIMC,
+                                     c.CODE,
+                                     c.WIRE_WIDTH_MIN,
+                                     c.WIDE_WIDTH_MAX,
+                                     c.RADIAL_WIRE_MIN,
+                                     c.RADIAL_WIRE_MAX
+                                 }).ToList();
+                    //Retornamos la lista
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna nulo
                 return null;
             }
         }
@@ -558,7 +691,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene un registro que cumpla con el rango del width
         /// </summary>
         /// <param name="width"></param>
         /// <returns></returns>
@@ -566,8 +699,10 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Establecemos la conexion
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Ejecutamos la consulta y lo guardamos en una variable
                     var Lista = (from a in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  where a.WIRE_WIDTH_MIN > width && a.WIDE_WIDTH_MAX <= width
@@ -578,12 +713,49 @@ namespace DataAccess.ServiceObjects.Tooling
                                      a.DIMB,
                                      a.CODE
                                  }).ToList();
-
+                    //Retornamos la lista
                     return Lista;
                 }
             }
             catch (Exception)
             {
+                //Si hay error retorna nulo
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros, se filtran por el código o descripción
+        /// </summary>
+        /// <param name="textoBusq"></param>
+        /// <returns></returns>
+        public IList GetAllEXTERNAL_GR_1P(string textoBusq)
+        {
+            try
+            {
+                //Establecemos la conexion
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Ejecutamos la consulta y guardamos el resultado en una variable
+                    var Lista = (from c in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where c.CODIGO.Contains(textoBusq) || m.Descripcion.Contains(textoBusq)
+                                 select new
+                                 {
+                                     CODIGO = m.Codigo,
+                                     DESCRIPCION = m.Descripcion,
+                                     c.DIMB,
+                                     c.CODE,
+                                     c.WIDE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN
+                                 }).ToList();
+                    //Retornamos la lista
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna nulo
                 return null;
             }
         }
@@ -699,7 +871,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene un registro que cumpla con el rango del width
         /// </summary>
         /// <param name="width"></param>
         /// <returns></returns>
@@ -707,8 +879,10 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Establecemos la conexion
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Ejecutamos la consulta y lo guardamos en una variable
                     var Lista = (from a in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  where a.WIRE_WIDTH_MIN > width && a.WIDE_WIDTH_MAX <= width
@@ -722,14 +896,56 @@ namespace DataAccess.ServiceObjects.Tooling
                                      a.CODE
                                  }).ToList();
 
+                    //Retornamos la lista
                     return Lista;
                 }
             }
             catch (Exception)
             {
+                //Si hay error retorna nulo
                 return null;
             }
         }
+
+        /// <summary>
+        /// Método que obtiene todos los registros, se filtran por el código o descripción
+        /// </summary>
+        /// <param name="textoBusq"></param>
+        /// <returns></returns>
+        public IList GetAllEXTERNAL_GR_3P_1(string textoBusq)
+        {
+            try
+            {
+                //Establecemos la conexion
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Ejecutamos la consulta y guardamos el resultado en una variable
+                    var Lista = (from c in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where c.CODIGO.Contains(textoBusq) || m.Descripcion.Contains(textoBusq)
+                                 select new
+                                 {
+                                     CODIGO = m.Codigo,
+                                     DESCRIPCION = m.Descripcion,
+                                     c.DIMA,
+                                     c.DIMB,
+                                     c.DIMC,
+                                     c.CODE,
+                                     c.WIRE_WIDTH_MIN,
+                                     c.WIDE_WIDTH_MAX
+                                 }).ToList();
+                    //Retornamos la lista
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna nulo
+                return null;
+            }
+        }
+
+
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
         /// </summary>
@@ -840,12 +1056,19 @@ namespace DataAccess.ServiceObjects.Tooling
             }
         }
 
+        /// <summary>
+        /// Método que obtiene un registro que cumpla con el rango del width
+        /// </summary>
+        /// <param name="width"></param>
+        /// <returns></returns>
         public IList GetEXTERNAL_GR_3P_2(double width)
         {
             try
             {
+                //Establecemos la conexion
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Ejecutamos la consulta y lo guardamos en una variable
                     var Lista = (from a in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  where a.WIRE_WIDTH_MIN > width && a.WIDE_WIDTH_MAX <= width
@@ -858,12 +1081,51 @@ namespace DataAccess.ServiceObjects.Tooling
                                      a.DIMC,
                                      a.CODE
                                  }).ToList();
-
+                    //Retornamos la lista
                     return Lista;
                 }
             }
             catch (Exception)
             {
+                //Si hay error retorna nulo
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros, se filtran por el código o descripción
+        /// </summary>
+        /// <param name="textoBusq"></param>
+        /// <returns></returns>
+        public IList GetAllEXTERNAL_GR_3P_2(string textoBusq)
+        {
+            try
+            {
+                //Establecemos la conexion
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Ejecutamos la consulta y guardamos el resultado en una variable
+                    var Lista = (from c in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where c.CODIGO.Contains(textoBusq) || m.Descripcion.Contains(textoBusq)
+                                 select new
+                                 {
+                                     CODIGO = m.Codigo,
+                                     DESCRIPCION = m.Descripcion,
+                                     c.DIMA,
+                                     c.DIMB,
+                                     c.DIMC,
+                                     c.CODE,
+                                     c.WIRE_WIDTH_MIN,
+                                     c.WIDE_WIDTH_MAX
+                                 }).ToList();
+                    //Retornamos la lista
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna nulo
                 return null;
             }
         }
@@ -976,12 +1238,19 @@ namespace DataAccess.ServiceObjects.Tooling
             }
         }
 
+        /// <summary>
+        /// Método que obtiene un registro que cumpla con el rango del width
+        /// </summary>
+        /// <param name="width"></param>
+        /// <returns></returns>
         public IList GetEXTERNAL_GR_3P_3(double width)
         {
             try
             {
+                //Establecemos la conexion
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Ejecutamos la consulta y lo guardamos en una variable
                     var Lista = (from a in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  where a.WIRE_WIDTH_MIN > width && a.WIDE_WIDTH_MAX <= width
@@ -994,12 +1263,51 @@ namespace DataAccess.ServiceObjects.Tooling
                                      a.DIMC,
                                      a.CODE
                                  }).ToList();
-
+                    //Retornamos la lista
                     return Lista;
                 }
             }
             catch (Exception)
             {
+                //Si hay error retorna nulo
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros, se filtran por el código o descripción
+        /// </summary>
+        /// <param name="textoBusq"></param>
+        /// <returns></returns>
+        public IList GetAllEXTERNAL_GR_3P_3(string textoBusq)
+        {
+            try
+            {
+                //Establecemos la conexion
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Ejecutamos la consulta y guardamos el resultado en una variable
+                    var Lista = (from c in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where c.CODIGO.Contains(textoBusq) || m.Descripcion.Contains(textoBusq)
+                                 select new
+                                 {
+                                     CODIGO = m.Codigo,
+                                     DESCRIPCION = m.Descripcion,
+                                     c.DIMA,
+                                     c.DIMB,
+                                     c.DIMC,
+                                     c.CODE,
+                                     c.WIDE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN
+                                 }).ToList();
+                    //Retornamos la lista
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna nulo
                 return null;
             }
         }
@@ -1107,7 +1415,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene un registro que cumpla con el rango del width
         /// </summary>
         /// <param name="width"></param>
         /// <returns></returns>
@@ -1115,8 +1423,10 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Establecemos la conexion
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Ejecutamos la consulta y lo guardamos en una variable
                     var Lista = (from a in Conexion.TBL_SHIM_OF_THE_CUT_SYSTEM
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  where a.WIRE_WIDTH_MIN > width && a.WIDE_WIDTH_MAX <= width
@@ -1127,12 +1437,49 @@ namespace DataAccess.ServiceObjects.Tooling
                                      a.DIMA,
                                      a.CODE
                                  }).ToList();
-
+                    //Retornamos la lista
                     return Lista;
                 }
             }
             catch (Exception)
             {
+                //Si hay error retorna nulo
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros, se filtran por el código o descripción
+        /// </summary>
+        /// <param name="textoBusq"></param>
+        /// <returns></returns>
+        public IList GetAllSHIM_CUT_SYSTEM(string textoBusq)
+        {
+            try
+            {
+                //Establecemos la conexion
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Ejecutamos la consulta y guardamos el resultado en una variable
+                    var Lista = (from c in Conexion.TBL_SHIM_OF_THE_CUT_SYSTEM
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where c.CODIGO.Contains(textoBusq) || m.Descripcion.Contains(textoBusq)
+                                 select new
+                                 {
+                                     CODIGO = m.Codigo,
+                                     DESCRIPCION = m.Descripcion,
+                                     c.DIMA,
+                                     c.CODE,
+                                     c.WIRE_WIDTH_MIN,
+                                     c.WIDE_WIDTH_MAX
+                                 }).ToList();
+                    //Retornamos la lista
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna nulo
                 return null;
             }
         }

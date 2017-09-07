@@ -40,6 +40,7 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_VALIDACION_VERSION" Width="2.875" PointX="13" PointY="4.125" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VALIDACION_VERSION_TBL_VALIDACION_DOCUMENTO" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VALIDACION_VERSION_TBL_VERSION" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_DOCUMENTO_ELIMINADO" Width="1.5" PointX="0.75" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
