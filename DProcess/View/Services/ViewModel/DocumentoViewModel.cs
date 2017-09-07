@@ -729,6 +729,8 @@ namespace View.Services.ViewModel
                         //Valída si existe documentos que se aprecezcan al documento a subir, el resultado se guarda en una variable local.
                         ObservableCollection<Documento> ListDocSimilares = ValidaSimilares();
 
+                        ListDocSimilares = null;
+
                         //Si la lista es igual a nulo, no existen documentos similares. Si existe archivos similares, muestra un mensaje
                         if (ListDocSimilares == null)
                         {
@@ -830,6 +832,8 @@ namespace View.Services.ViewModel
                     {
                         //Valída si existe documentos que se aprecezcan al documento a subir, el resultado se guarda en una variable local.
                         ObservableCollection<Documento> ListDocSimilares = ValidaSimilares();
+
+                        ListDocSimilares = null;
 
                         //si no existe archivos similares, guarda el documento. Si existe archivos similares, muestra un mensaje
                         if (ListDocSimilares == null)
@@ -1195,6 +1199,9 @@ namespace View.Services.ViewModel
 
                     //Valída si existe documentos que se aprecezcan al documento a subir, el resultado se guarda en una variable local.
                     ObservableCollection<Documento> ListDocSimilares = ValidaSimilares();
+
+                    ListDocSimilares = null;
+
                     //si no existe archivos similares, guarda el documento. Si existe archivos similares, muestra un mensaje
                     if (ListDocSimilares == null)
                     {
