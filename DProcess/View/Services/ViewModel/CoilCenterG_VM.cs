@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace View.Services.ViewModel
 {
-   public class CoilFeedRoller_VM : INotifyPropertyChanged
+    public class CoilCenterG_VM : INotifyPropertyChanged
     {
         #region Attributtes
         DialogService dialog;
@@ -44,6 +44,13 @@ namespace View.Services.ViewModel
             set { _width = value; NotifyChange("Width"); }
         }
 
+        private double _radial;
+        public double Radial
+        {
+            get { return _radial; }
+            set { _radial = value; NotifyChange("Radial"); }
+        }
+
         private DataTable _listaOptimos;
         public DataTable ListaOptimos
         {
@@ -68,7 +75,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(parametro => BuscarCoil_Feed((string)parametro));
+                return new RelayCommand(parametro => BuscarCoil_Center((string)parametro));
             }
         }
 
@@ -89,9 +96,9 @@ namespace View.Services.ViewModel
         /// 
         /// </summary>
         /// <param name="texto"></param>
-        private void BuscarCoil_Feed(string texto)
+        private void BuscarCoil_Center(string texto)
         {
-            ListaHerramentales = DataManager.GetAllCOIL_Feed_Roller(texto);
+            ListaHerramentales = DataManager.GetALLCOIL_CENTER_GUIDE(texto);
         }
         /// <summary>
         /// 
@@ -101,15 +108,15 @@ namespace View.Services.ViewModel
             ListaOptimos = new DataTable();
             ListaMejores = new DataTable();
 
-            ListaOptimos = DataManager.GetCOIL_Feed_Roller(Width);
+            ListaOptimos = DataManager.GetCOIL_CENTER_GUIDE(_width,_radial);
         }
         #endregion
 
         #region Constructor
 
-        public CoilFeedRoller_VM()
+        public CoilCenterG_VM()
         {
-            BuscarCoil_Feed(string.Empty);
+            BuscarCoil_Center(string.Empty);
             dialog = new DialogService();
         }
         #endregion

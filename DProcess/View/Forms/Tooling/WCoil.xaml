@@ -87,7 +87,7 @@
                                 <GroupBox Header="The best option" Margin="10" Width="550">
                                     <Grid>
 
-                                        <DataGrid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="True" ItemsSource="{Binding ListaMejoresHerramentales}" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
+                                        <DataGrid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="True" ItemsSource="{Binding ListaMejores}" IsReadOnly="True" >
 
                                         </DataGrid>
 
@@ -95,6 +95,11 @@
                                 </GroupBox>
 
                             </StackPanel>
+
+                            <DataGrid Grid.Row="1" VerticalAlignment="Top"  HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="True" ItemsSource="{Binding ListaOptimos}" IsReadOnly="True">
+
+                            </DataGrid>
+
                         </Grid>
                     </Grid>
                 </TabItem.Content>

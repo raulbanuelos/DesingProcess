@@ -57,6 +57,17 @@
           <Property Name="FECHA_CREACION" Type="datetime" />
           <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
         </EntityType>
+        <EntityType Name="TBL_DOCUMENTO_ELIMINADO">
+          <Key>
+            <PropertyRef Name="ID_ELIMINADO" />
+          </Key>
+          <Property Name="ID_ELIMINADO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NUM_DOCUMENTO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NO_VERSION" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ARCHIVO" Type="varbinary(max)" />
+          <Property Name="EXT" Type="varchar" MaxLength="10" />
+          <Property Name="FECHA_ELIMINO" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="TBL_ESTATUS_DOCUMENTO">
           <Key>
             <PropertyRef Name="ID_ESTATUS_DOCUMENTO" />
@@ -392,6 +403,7 @@
           <EntitySet Name="TBL_CONF_DOCUMENTO" EntityType="Self.TBL_CONF_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_DEPARTAMENTO" EntityType="Self.TBL_DEPARTAMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_DOCUMENTO" EntityType="Self.TBL_DOCUMENTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_DOCUMENTO_ELIMINADO" EntityType="Self.TBL_DOCUMENTO_ELIMINADO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ESTATUS_DOCUMENTO" EntityType="Self.TBL_ESTATUS_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ESTATUS_VERSION" EntityType="Self.TBL_ESTATUS_VERSION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_HISTORIAL_VERSION" EntityType="Self.TBL_HISTORIAL_VERSION" Schema="dbo" store:Type="Tables" />
@@ -563,6 +575,7 @@
             <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
             <End Role="TBL_VALIDACION_VERSION" EntitySet="TBL_VALIDACION_VERSION" />
           </AssociationSet>
+          <EntitySet Name="TBL_DOCUMENTO_ELIMINADO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_DOCUMENTO_ELIMINADO" />
          
           </EntityContainer>
         <EntityType Name="TBL_ARCHIVO">
@@ -980,6 +993,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_DOCUMENTO_ELIMINADO">
+          <Key>
+            <PropertyRef Name="ID_ELIMINADO" />
+          </Key>
+          <Property Name="ID_ELIMINADO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NUM_DOCUMENTO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NO_VERSION" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ARCHIVO" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="EXT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_ELIMINO" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
        
         </Schema>
     </edmx:ConceptualModels>
@@ -1178,6 +1202,18 @@
                 <ScalarProperty Name="ID_VALIDACION_DOCUMENTO" ColumnName="ID_VALIDACION_DOCUMENTO" />
                 <ScalarProperty Name="ID_VERSION" ColumnName="ID_VERSION" />
                 <ScalarProperty Name="ID_VALIDACION_VERSION" ColumnName="ID_VALIDACION_VERSION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_DOCUMENTO_ELIMINADO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TBL_DOCUMENTO_ELIMINADO">
+              <MappingFragment StoreEntitySet="TBL_DOCUMENTO_ELIMINADO">
+                <ScalarProperty Name="FECHA_ELIMINO" ColumnName="FECHA_ELIMINO" />
+                <ScalarProperty Name="EXT" ColumnName="EXT" />
+                <ScalarProperty Name="ARCHIVO" ColumnName="ARCHIVO" />
+                <ScalarProperty Name="NO_VERSION" ColumnName="NO_VERSION" />
+                <ScalarProperty Name="NUM_DOCUMENTO" ColumnName="NUM_DOCUMENTO" />
+                <ScalarProperty Name="ID_ELIMINADO" ColumnName="ID_ELIMINADO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

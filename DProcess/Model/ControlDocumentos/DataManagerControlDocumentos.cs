@@ -2555,5 +2555,62 @@ namespace Model.ControlDocumentos
         }
 
         #endregion
+
+        #region Documento Eliminado
+
+        /// <summary>
+        /// Método que obtiene todos los registros de la tabla 
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Documento> GetAllDocumento_Eliminado(string texto)
+        {
+            //Inicializamos los servicios
+            SO_Documento_Eliminado ServiceDoc_Eliminado = new SO_Documento_Eliminado();
+
+            //Se crea una lista de tipo documento, la cual se va a retornar
+            ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
+
+            //obtenemos todo de la BD.
+            IList ListaResul = ServiceDoc_Eliminado.GetAllDocumento_Eliminado(texto);
+
+            if (ListaResul !=null)
+            {
+                //Iteramos la lista 
+                foreach (var item in ListaResul)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    Documento obj = new Documento();
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_documento= (int)tipo.GetProperty("ID_ELIMINADO").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NUM_DOCUMENTO").GetValue(item, null);
+                    obj.version.no_version= (string)tipo.GetProperty("NO_VERSION").GetValue(item, null);
+                    obj.fecha_actualizacion= (DateTime)tipo.GetProperty("FECHA_ELIMINO").GetValue(item, null);
+                    
+                    //Agregamos el objeto a la lista.
+                    Lista.Add(obj);
+                }
+            }
+            //regresamos la lista.
+            return Lista;
+        }
+        
+        /// <summary>
+        /// Métdo que inserta un registro a la tabla
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetDocumento_Eliminado(Documento obj)
+        {
+            //Inicializamos los servicios
+            SO_Documento_Eliminado ServiceDoc_Eliminado = new SO_Documento_Eliminado();
+            //Ejecutamos el método 
+            return ServiceDoc_Eliminado.SetDocumento_Eliminado(obj.nombre, obj.version.no_version, Get_DateTime(), obj.version.archivo.archivo,obj.version.archivo.ext);
+        }
+        #endregion
     }
 }

@@ -74,7 +74,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 //Se establece conexión a la BD.
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
-                    //Se  crea un objeto de tipo usuarios, el cual se va agregar a la tabla 
+                    //Se  crea un objeto de tipo documento, el cual se va agregar a la tabla 
                     TBL_DOCUMENTO obj = new TBL_DOCUMENTO();
 
                     //Se asiganan los valores.

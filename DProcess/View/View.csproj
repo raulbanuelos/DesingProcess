@@ -247,6 +247,7 @@
     <Compile Include="Services\ViewModel\AnilloViewModel.cs" />
     <Compile Include="Services\ViewModel\BloqueoVM.cs" />
     <Compile Include="Services\ViewModel\Buscar_DocumentoVM.cs" />
+    <Compile Include="Services\ViewModel\CoilCenterG_VM.cs" />
     <Compile Include="Services\ViewModel\CoilFeedRoller_VM.cs" />
     <Compile Include="Services\ViewModel\CollarAutoFinTurnViewModel.cs" />
     <Compile Include="Services\ViewModel\ControlDocumentoViewModel.cs" />
@@ -256,6 +257,7 @@
     <Compile Include="Services\ViewModel\Documentos_SimilaresVM.cs" />
     <Compile Include="Services\ViewModel\DocumentoValidarViewModel.cs" />
     <Compile Include="Services\ViewModel\DocumentoViewModel.cs" />
+    <Compile Include="Services\ViewModel\ExitGuide_VM.cs" />
     <Compile Include="Services\ViewModel\GeneradorViewModel.cs" />
     <Compile Include="Services\ViewModel\HistorialVM.cs" />
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
