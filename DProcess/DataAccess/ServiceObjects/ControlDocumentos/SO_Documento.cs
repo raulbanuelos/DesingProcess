@@ -463,9 +463,18 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     }
                     else
                     {
-                       //si encontro algún número
-                       //Extraemos el número del registro que se obtuvo
-                       string resultString = Regex.Match(lastNumber, @"\d+").Value;
+                        //si encontro algún número
+                        //Extraemos el número del registro que se obtuvo
+                        string resultString = string.Empty;
+                        if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
+                        {
+                            string a = lastNumber.Substring(lastNumber.Length - 7, 7);
+                            resultString = Regex.Match(a, @"\d+").Value;
+                        }
+                             
+                        else
+                            resultString = Regex.Match(lastNumber, @"\d+").Value;
+
 
                         //Sumamos uno al número 
                         int number = Int32.Parse(resultString);
