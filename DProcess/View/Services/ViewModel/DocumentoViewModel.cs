@@ -479,6 +479,10 @@ namespace View.Services.ViewModel
                 NotifyChange("FechaFin");
             }
         }
+
+        private int widthButton=0;
+        public int WidthButton { get { return widthButton; } set { widthButton = value; NotifyChange("WidthButton"); } }
+
         //Variables para guardar la información del documento, y mostar mensaje de confirmación
         private string NombreUsuarioElaboro, NombreUsuarioAut,NombreTipo,NombreDepto, auxNomUsElaboro;
         #endregion
@@ -627,6 +631,7 @@ namespace View.Services.ViewModel
             EnabledEliminar = false;
             BttnArchivos = false;
             BttnLiberar = true;
+            WidthButton = 155;
 
             //Asiganmos los valores para que se muestren 
             Nombre = selectedDocumento.nombre;
@@ -1575,6 +1580,118 @@ namespace View.Services.ViewModel
                 NombreDepto = _selectedDocumento.Departamento;
                 NombreTipo = _selectedDocumento.tipo.tipo_documento;
                 //ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
+            }
+        }
+
+        public ICommand RegresarCorregir
+        {
+            get
+            {
+                return new RelayCommand(o => regresarCorregir());
+            }
+        }
+
+        private async void regresarCorregir()
+        {
+            DialogService dialog = new DialogService();
+           
+            Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+
+            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = "SI";
+            setting.NegativeButtonText = "NO";
+
+            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea regresar a estatus pendiente por corregir?", setting, MessageDialogStyle.AffirmativeAndNegative);
+
+            if (result == MessageDialogResult.Affirmative)
+            {
+                //Ejecutamos el método para obtener el id de la versión anterior
+                int last_version = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
+
+                //si el documento sólo tiene una versión, se modifica el estatus del documento y la versión, se cambia el estatus a pendiente por corregir
+                if (last_version == 0)
+                {
+                    Documento objDocumento = new Documento();
+                    //Asiganmos el id del documento al objeto
+                    objDocumento.id_documento = id_documento;
+                    //Estatus de documento pendiente por corregir
+                    objDocumento.id_estatus = 3;
+
+                    //Ejecutamos el método para actualizar el estatus del documento.
+                    int update_documento = DataManagerControlDocumentos.Update_EstatusDocumento(objDocumento);
+
+                    if (update_documento != 0)
+                    {
+                        //Asigamos los valores
+                        objVersion.id_version = idVersion;
+                        objVersion.no_version = version;
+                        objVersion.id_documento = id_documento;
+                        objVersion.id_usuario = _usuario;
+                        objVersion.id_usuario_autorizo = _usuarioAutorizo;
+                        objVersion.fecha_version = fecha;
+                        objVersion.id_estatus_version = 4;
+                        objVersion.no_copias = 0;
+                        objVersion.descripcion_v = Descripcion;
+
+                        //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
+                        int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
+
+                        if (update_version != 0)
+                        {
+                            await dialog.SendMessage("Información", "Se cambio estatus a pendiente por corregir..");
+
+                            var frame = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                            //Verificamos que la pantalla sea diferente de nulo.
+                            if (frame != null)
+                                //Cerramos la pantalla
+                                frame.Close();
+                        }
+                        else
+                        {
+                            await dialog.SendMessage("Alerta", "Error al actualizar el estatus de la versión..");
+                        }
+                    }
+                    else
+                    {
+                        await dialog.SendMessage("Alerta", "Error al actualizar el estatus del documento..");
+                    }
+                }
+                else
+                {
+                    //si el documento tiene más de un versión, sólo se modifica el estatus de la versión a pendiente por corregir
+
+                    objVersion.id_version = idVersion;
+                    objVersion.no_version = version;
+                    objVersion.id_documento = id_documento;
+                    objVersion.id_usuario = _usuario;
+                    objVersion.id_usuario_autorizo = _usuarioAutorizo;
+                    objVersion.fecha_version = fecha;
+                    objVersion.id_estatus_version = 4;
+                    objVersion.no_copias = 0;
+                    objVersion.descripcion_v = Descripcion;
+
+                    //Ejecutamos el método para modificar el estatus de la versión. El resultado lo guardamos en una variable local.
+                    int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
+
+                    if (update_version != 0)
+                    {
+                        await dialog.SendMessage("Información", "Se cambio estatus a pendiente por corregir..");
+
+                        var frame = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                        //Verificamos que la pantalla sea diferente de nulo.
+                        if (frame != null)
+                            //Cerramos la pantalla
+                            frame.Close();
+                    }
+                    else
+                    {
+                        await dialog.SendMessage("Alerta", "Error al actualizar el estatus de la versión..");
+                    }
+                }
             }
         }
         /// <summary>

@@ -94,14 +94,19 @@ namespace View.Services.ViewModel
             ListaHerramentales = DataManager.GetAllCOIL_Feed_Roller(texto);
         }
         /// <summary>
-        /// 
+        /// Método que busca el óptimo con la dimensión
         /// </summary>
-        private void buscarOptimos()
+        private async void buscarOptimos()
         {
             ListaOptimos = new DataTable();
             ListaMejores = new DataTable();
 
             ListaOptimos = DataManager.GetCOIL_Feed_Roller(Width);
+            ListaMejores = DataManager.SelectBestCoil(ListaOptimos);
+
+            if(ListaMejores.Rows.Count ==0)
+                //Enviamos un mensaje si no hay herramentales.
+                await dialog.SendMessage("Alerta", "No se encontró herramental con estas caracteristicas");
         }
         #endregion
 

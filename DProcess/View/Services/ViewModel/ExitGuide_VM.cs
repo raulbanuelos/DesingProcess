@@ -103,12 +103,18 @@ namespace View.Services.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        private void buscarOptimos()
+        private async void buscarOptimos()
         {
             ListaOptimos = new DataTable();
             ListaMejores = new DataTable();
 
             ListaOptimos = DataManager.GetEXIT_GUIDE(_width, _radial);
+
+            ListaMejores = DataManager.SelectBestCoil(ListaOptimos);
+
+            if (ListaMejores.Rows.Count == 0)
+                //Enviamos un mensaje si no hay herramentales.
+                await dialog.SendMessage("Alerta", "No se encontró herramental con estas caracteristicas");
         }
         #endregion
 
