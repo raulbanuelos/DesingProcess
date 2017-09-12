@@ -442,7 +442,8 @@ namespace View.Services.ViewModel
             frmBusqueda.DataContext = context;
 
             frmBusqueda.ShowDialog();
-
+            TextoBuscar = string.Empty;
+            GetDataGrid(string.Empty);
         }
         /// <summary>
         /// Comando para agregar un nuevo departamento

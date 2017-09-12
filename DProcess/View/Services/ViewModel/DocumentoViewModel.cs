@@ -608,18 +608,22 @@ namespace View.Services.ViewModel
             //Obetenemos la lista de los documentos sin versión del usuario
             ListaNumeroDocumento = DataManagerControlDocumentos.GetDocumento_SinVersion(User.NombreUsuario);
 
-            //Mostramos el primer documento, sólo se admite un documento sin version por usuario
-            //if (ListaNumeroDocumento.Count > 0)
-            //    SelectedDocumento = ListaNumeroDocumento[0];
+            //si es personal del CIT, la campo de fecha es editable
+            if (Module.UsuarioIsRol(User.Roles, 2))
+                EnabledFecha = true;
 
-            //Inicializamos los campos de tipo de documento y departamento
-            //id_dep = _selectedDocumento.id_dep;
-            //id_tipo = _selectedDocumento.id_tipo_documento;
-            //nombre = _selectedDocumento.nombre;
-            //NombreDepto = _selectedDocumento.Departamento;
-            //NombreTipo = _selectedDocumento.tipo.tipo_documento;
+                //Mostramos el primer documento, sólo se admite un documento sin version por usuario
+                //if (ListaNumeroDocumento.Count > 0)
+                //    SelectedDocumento = ListaNumeroDocumento[0];
 
-            Inicializar();
+                //Inicializamos los campos de tipo de documento y departamento
+                //id_dep = _selectedDocumento.id_dep;
+                //id_tipo = _selectedDocumento.id_tipo_documento;
+                //nombre = _selectedDocumento.nombre;
+                //NombreDepto = _selectedDocumento.Departamento;
+                //NombreTipo = _selectedDocumento.tipo.tipo_documento;
+
+                Inicializar();
         }
 
         public DocumentoViewModel(Documento selectedDocumento, Usuario ModelUsuario)
