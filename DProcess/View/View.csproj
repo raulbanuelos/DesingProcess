@@ -143,6 +143,9 @@
     <Compile Include="Forms\ControlDocumentos\FrmDocumentosValidar.xaml.cs">
       <DependentUpon>FrmDocumentosValidar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmDocumentos_Eliminados.xaml.cs">
+      <DependentUpon>FrmDocumentos_Eliminados.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmDocumentos_Vencidos.xaml.cs">
       <DependentUpon>FrmDocumentos_Vencidos.xaml</DependentUpon>
     </Compile>
@@ -260,6 +263,7 @@
     <Compile Include="Services\ViewModel\Documentos_SimilaresVM.cs" />
     <Compile Include="Services\ViewModel\DocumentoValidarViewModel.cs" />
     <Compile Include="Services\ViewModel\DocumentoViewModel.cs" />
+    <Compile Include="Services\ViewModel\Documento_EliminadoVM.cs" />
     <Compile Include="Services\ViewModel\ExitGuide_VM.cs" />
     <Compile Include="Services\ViewModel\External_GR_1P.cs" />
     <Compile Include="Services\ViewModel\External_GR_3P_1VM.cs" />
@@ -349,6 +353,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmDocumentosValidar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmDocumentos_Eliminados.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

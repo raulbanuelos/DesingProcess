@@ -28,6 +28,7 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Propiedades
+        DialogService dialog = new DialogService();
 
         private ObservableCollection<Model.ControlDocumentos.Version> _Lista;
         public ObservableCollection<Model.ControlDocumentos.Version> Lista
@@ -113,20 +114,28 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Método que abre el archivo de una versión
         /// </summary>
-        private void abrirArchivo()
+        private async void abrirArchivo()
         {
-            //Si se ha seleccionado algún archivo
-            if (SelectedArchivo !=null)
+            try
             {
-                int id_archivo = SelectedArchivo.id_archivo;
-                //se asigna el nombre del archivo temporal, se concatena el nombre del archivo, la posicion de la lista y la extensión.
-                string filename = GetPathTempFile(SelectedArchivo);
+                //Si se ha seleccionado algún archivo
+                if (SelectedArchivo != null)
+                {
+                    int id_archivo = SelectedArchivo.id_archivo;
+                    //se asigna el nombre del archivo temporal, se concatena el nombre del archivo, la posicion de la lista y la extensión.
+                    string filename = GetPathTempFile(SelectedArchivo);
 
-                //Crea un archivo nuevo temporal, escribe en él los bytes extraídos de la BD.
-                File.WriteAllBytes(filename, SelectedArchivo.archivo);
+                    //Crea un archivo nuevo temporal, escribe en él los bytes extraídos de la BD.
+                    File.WriteAllBytes(filename, SelectedArchivo.archivo);
 
-                //Se inicializa el programa para visualizar el archivo.
-                Process.Start(filename);
+                    //Se inicializa el programa para visualizar el archivo.
+                    Process.Start(filename);
+                }
+            }
+            catch (IOException er)
+            {
+                //Si hubo error al abrir el archivo muestra un mensaje 
+                await dialog.SendMessage("Alerta", "Error al abrir el archivo...");
             }
         }
 
