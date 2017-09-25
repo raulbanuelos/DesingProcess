@@ -182,6 +182,9 @@ namespace View.Services.ViewModel
             //Inicializamos los servici de Dialog.
             DialogService ServiceDialog = new DialogService();
 
+            //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
+            ProgressDialogController AsyncProgress;
+
             //Declaramos un objeto de tipo OpenFileDialog.
             Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
 
@@ -198,31 +201,64 @@ namespace View.Services.ViewModel
 
                     //Declaramos un objeto de tipo Archivo.
                     Archivo obj = new Archivo();
+                    //Si el archivo no está en uso
+                    if (!IsFileInUse(fileName)) {
+                        //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
+                        AsyncProgress = await ServiceDialog.SendProgressAsync("Por favor espere", "Adjuntando archivo...");
 
-                    //Asignamos el archivo que seleccionó el usuario al objeto declarado.
-                    obj.archivo = File.ReadAllBytes(fileName);
-                    obj.ext = System.IO.Path.GetExtension(fileName);
-                    obj.nombre = System.IO.Path.GetFileNameWithoutExtension(fileName);
+                        //Asignamos el archivo que seleccionó el usuario al objeto declarado.
+                        obj.archivo = await Task.Run(() => File.ReadAllBytes(fileName));
+                        obj.ext = System.IO.Path.GetExtension(fileName);
+                        obj.nombre = System.IO.Path.GetFileNameWithoutExtension(fileName);
 
-                    //Insertamos el archivo.
-                    int r = DataManagerControlDocumentos.InsertRecurso(obj.archivo, obj.nombre, obj.ext, obj.nombre, SelectedTipoDocumento.id_tipo);
+                        //Insertamos el archivo.
+                        int r = DataManagerControlDocumentos.InsertRecurso(obj.archivo, obj.nombre, obj.ext, obj.nombre, SelectedTipoDocumento.id_tipo);
 
-                    //Enviamos un mensaje dependiendo la respuesta.
-                    if (r > 0)
-                    {
-                        await ServiceDialog.SendMessage("Información", "Archivo agregado correctamente");
-                        Consultar();
+                        //Ejecutamos el método para cerrar el mensaje de espera.
+                        await AsyncProgress.CloseAsync();
+
+                        //Enviamos un mensaje dependiendo la respuesta.
+                        if (r > 0)
+                        {
+                            await ServiceDialog.SendMessage("Información", "Archivo agregado correctamente");
+                            Consultar();
+                        }
+
+                        else
+                            await ServiceDialog.SendMessage("Alerta", "Error al guardar el archivo");
                     }
-
                     else
-                        await ServiceDialog.SendMessage("Alerta", "Error al guardar el archivo");
-
+                    {
+                        await ServiceDialog.SendMessage("Alerta", "Cierre el archivo para continuar..");
+                    }
                 }
                 catch (IOException)
                 {
                     await ServiceDialog.SendMessage("Alerta", "Cierre el archivo para continuar..");
                 }
             }
+        }
+
+        /// <summary>
+        /// Método que verifica si un archivo está siendo usado por otro programa 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public bool IsFileInUse(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentException("'path' cannot be null or empty.", "path");
+            try
+            {
+                using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read)) { }
+            }
+            catch (IOException)
+            {
+                //si el archivo está abierto, retorna verdadero
+                return true;
+            }
+            //Si el archivo no está en uso retorna falso
+            return false;
         }
 
         /// <summary>

@@ -41,6 +41,20 @@ namespace View.Services.ViewModel
                 NotifyChange("SelectedDocumento");
             }
         }
+
+        private string _titulo;
+        public string Titulo
+        {
+            get
+            {
+                return _titulo;
+            }
+            set
+            {
+                _titulo = value;
+                NotifyChange("Titulo");
+            }
+        }
         #endregion
 
         #region Attributes
@@ -95,6 +109,7 @@ namespace View.Services.ViewModel
         {
             //Ejecutamos el método para obtener la lista de documentos que el administrador tiene pendientes por validar
             ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentosValidar(usuario.NombreUsuario);
+            _titulo = "DOCUMENTOS PENDIENTES POR VALIDAR";
         }
         #endregion
 

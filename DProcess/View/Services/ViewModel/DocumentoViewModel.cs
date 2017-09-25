@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using View.Forms.ControlDocumentos;
@@ -950,6 +951,9 @@ namespace View.Services.ViewModel
             //Incializamos los servicios de dialog.
             DialogService dialog = new DialogService();
 
+            //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
+            ProgressDialogController AsyncProgress; 
+
             //Si la lista no tiene otro archivo adjunto
             if (ListaDocumentos.Count == 0)
             {
@@ -976,36 +980,49 @@ namespace View.Services.ViewModel
 
                         //Se crea el objeto de tipo archivo
                         Archivo obj = new Archivo();
-
-                        //Se convierte el archvio a tipo byte y se le asigna al objeto
-
-                        obj.archivo = File.ReadAllBytes(filename);
-
-                        //Obtiene la extensión del documento y se le asigna al objeto
-                        obj.ext = System.IO.Path.GetExtension(filename);
-
-                        //Se obtiene sólo el nombre, sin extensión.
-                        obj.nombre = System.IO.Path.GetFileNameWithoutExtension(filename);
-
-                        obj.numero = ListaDocumentos.Count + 1;
-
-                        //Si el archivo tiene extensión pdf
-                        if (obj.ext == ".pdf")
+                        //Si el archivo no está en uso
+                        if (!IsFileInUse(filename))
                         {
-                            //asigna la imagen del pdf al objeto
-                            obj.ruta = @"/Images/p.png";
+                            //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
+                            AsyncProgress = await dialog.SendProgressAsync("Por favor espere", "Adjuntando archivo...");
+
+                            //Se convierte el archvio a tipo byte y se le asigna al objeto
+                            obj.archivo =await Task.Run(()=> File.ReadAllBytes(filename));
+
+                            //Obtiene la extensión del documento y se le asigna al objeto
+                            obj.ext = System.IO.Path.GetExtension(filename);
+
+                            //Se obtiene sólo el nombre, sin extensión.
+                            obj.nombre = System.IO.Path.GetFileNameWithoutExtension(filename);
+
+                            obj.numero = ListaDocumentos.Count + 1;
+
+                            //Si el archivo tiene extensión pdf
+                            if (obj.ext == ".pdf")
+                            {
+                                //asigna la imagen del pdf al objeto
+                                obj.ruta = @"/Images/p.png";
+                            }
+                            else
+                            {
+                                //Si es archivo de word asigna la imagen correspondiente.
+                                obj.ruta = @"/Images/w.png";
+                            }
+
+                            //Se agrega el objeto a la lista, ocultamos el botón de archivos
+                            ListaDocumentos.Add(obj);
+                            BttnArchivos = false;
+                            //Ejecutamos el método para cerrar el mensaje de espera.
+                            await AsyncProgress.CloseAsync();  
                         }
                         else
                         {
-                            //Si es archivo de word asigna la imagen correspondiente.
-                            obj.ruta = @"/Images/w.png";
-                        }
-                        //Se agrega el objeto a la lista, quitamos el boton de archivos
-                        ListaDocumentos.Add(obj);
-                        BttnArchivos = false;
+                            //Si el archivo está abierto
+                            await dialog.SendMessage("Alerta", "Cierre el archivo para continuar..");
+                        }                                        
                     }
                     catch (IOException er)
-                    {
+                    {                       
                         await dialog.SendMessage("Alerta", "Cierre el archivo para continuar..");
                     }
                 }
@@ -1015,6 +1032,28 @@ namespace View.Services.ViewModel
                 //Si tiene un archivo adjunto, se muestra el mensaje
                 await dialog.SendMessage("Alerta", "Sólo se admite adjuntar un archivo..");
             }
+        }
+
+        /// <summary>
+        /// Método que verifica si un archivo está siendo usado por otro programa 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public bool IsFileInUse(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentException("'path' cannot be null or empty.", "path");
+            try
+            {               
+                using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read)) { }
+            }
+            catch (IOException)
+            {
+                //si el archivo está abierto, retorna verdadero
+                return true;
+            }
+            //Si el archivo no está en uso retorna falso
+            return false;
         }
 
         /// <summary>
