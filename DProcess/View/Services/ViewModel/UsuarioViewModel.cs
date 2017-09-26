@@ -402,7 +402,7 @@ namespace View.Services.ViewModel
         {
             PTooling pantallaTooling = new PTooling();
 
-            ToolingViewModel vm = new ToolingViewModel();
+            ToolingViewModel vm = new ToolingViewModel(ModelUsuario);
 
             pantallaTooling.DataContext = vm;
 
