@@ -146,7 +146,7 @@
           <Property Name="Jaw_Block_max" Type="float" />
           <Property Name="Thrust_shoe_width" Type="float" />
           <Property Name="Cutter_spacer" Type="float" Nullable="false" />
-          <Property Name="Castings_per_chuck" Type="float" />
+          <Property Name="Castings_per_chuck" Type="int" Nullable="false" />
           <Property Name="Split_width" Type="float" />
           <Property Name="Split_min" Type="float" />
           <Property Name="Split_max" Type="float" />
@@ -165,7 +165,7 @@
           <Property Name="CutterSpacer1" Type="float" Nullable="false" />
           <Property Name="CantidadSpacer1" Type="float" />
           <Property Name="CutterSpacer2" Type="float" />
-          <Property Name="CantidadSpacer2" Type="float" />
+          <Property Name="CantidadSpacer2" Type="int" Nullable="false" />
           <Property Name="ident" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_COIL_CENTER_GUIDE">
@@ -1055,7 +1055,7 @@
           <Property Name="Jaw_Block_max" Type="Double" />
           <Property Name="Thrust_shoe_width" Type="Double" />
           <Property Name="Cutter_spacer" Type="Double" Nullable="false" />
-          <Property Name="Castings_per_chuck" Type="Double" />
+          <Property Name="Castings_per_chuck" Type="Int32" Nullable="false" />
           <Property Name="Split_width" Type="Double" />
           <Property Name="Split_min" Type="Double" />
           <Property Name="Split_max" Type="Double" />
@@ -1074,7 +1074,7 @@
           <Property Name="CutterSpacer1" Type="Double" Nullable="false" />
           <Property Name="CantidadSpacer1" Type="Double" />
           <Property Name="CutterSpacer2" Type="Double" />
-          <Property Name="CantidadSpacer2" Type="Double" />
+          <Property Name="CantidadSpacer2" Type="Int32" Nullable="false" />
           <Property Name="ident" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
       </Schema>

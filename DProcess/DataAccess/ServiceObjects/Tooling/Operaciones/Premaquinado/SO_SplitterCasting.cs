@@ -93,7 +93,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                 return null;
             }
         }
-
+        
         /// <summary>
         /// Método el cual obtiene el herramental spacer ideal.
         /// </summary>
@@ -101,7 +101,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
         /// <param name="spacerMin"></param>
         /// <param name="spacerMax"></param>
         /// <returns></returns>
-        public IList GetSpacer(string proceso, double spacerMin, double spacerMax)
+        public IList GetSpacer(double spacerMin, double spacerMax)
         {
             try
             {
@@ -189,6 +189,39 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
         }
 
         /// <summary>
+        /// Método que obtiene la cantidad de espaciadores utilizados para cuando el proceso es Doble.
+        /// </summary>
+        /// <param name="proceso"></param>
+        /// <param name="h1"></param>
+        /// <returns></returns>
+        public IList GetCantidadSpacerDoble(string proceso, double h1)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta, el resultado lo asignamos a una variable anónima.
+                    var Lista = (from a in Conexion.SplitterSpacerChart
+                                 where a.Nominal_split == h1 && a.Proceso == proceso
+                                 select new
+                                 {
+                                     CantidadSpacer = a.Castings_per_chuck
+
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Método que obtiene la medida ideal del spacer cuando el proceso es distinto a Doble.
         /// </summary>
         /// <param name="proceso"></param>
@@ -220,6 +253,37 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
             }
         }
 
+        /// <summary>
+        /// Método que obtiene la cantidad de espaciadores utilizados para cuando el proceso es distinto de Doble.
+        /// </summary>
+        /// <param name="proceso"></param>
+        /// <param name="h1"></param>
+        /// <returns></returns>
+        public IList GetCantidadSpacer(string proceso, double h1)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta, el resultado lo asignamos a una variable anónima.
+                    var Lista = (from a in Conexion.SPlitterSpacerChart2
+                                 where a.RingWidth == h1 && a.Proceso == proceso
+                                 select new
+                                 {
+                                     CantidadSpacer = a.CantidadSpacer1
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
         #endregion
     }
 }
