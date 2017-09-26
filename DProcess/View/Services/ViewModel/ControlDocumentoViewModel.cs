@@ -525,6 +525,9 @@ namespace View.Services.ViewModel
             p.Show();
         }
 
+        /// <summary>
+        /// Comando para abrir la ventana de historial
+        /// </summary>
         public ICommand IrHistorial
         {
             get
@@ -533,6 +536,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Método que muestra la ventana de historial de los documentos
+        /// </summary>
         private void irHistorial()
         {
             FrmHistorial frm = new FrmHistorial();
@@ -540,6 +546,29 @@ namespace View.Services.ViewModel
             frm.DataContext = context;
             frm.ShowDialog();
         }
+
+        /// <summary>
+        /// Comando para abrir la ventana de documentos eliminados
+        /// </summary>
+        public ICommand irDocEliminado
+        {
+            get
+            {
+                return new RelayCommand(o =>irEliminados());
+            }
+        }
+
+        /// <summary>
+        /// Método que muestra todos los documentos eliminados con su archivo
+        /// </summary>
+        private void irEliminados()
+        {
+            FrmDocumentos_Eliminados frm = new FrmDocumentos_Eliminados();
+            Documento_EliminadoVM context = new Documento_EliminadoVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
         /// <summary>
         /// Método que muestra la ventana para agregar validación de documento
         /// </summary>

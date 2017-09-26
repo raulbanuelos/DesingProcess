@@ -2610,6 +2610,45 @@ namespace Model.ControlDocumentos
             //Ejecutamos el método 
             return ServiceDoc_Eliminado.SetDocumento_Eliminado(obj.nombre, obj.version.no_version, Get_DateTime(), obj.version.archivo.archivo,obj.version.archivo.ext);
         }
+
+        /// <summary>
+        /// Obtiene la lista de los archivos de un documento eliminado
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Archivo> GetArchivo_DocumentoEliminado(int id_documento)
+        {
+            //Inicializamos los servicios
+            SO_Documento_Eliminado ServiceDoc_Eliminado = new SO_Documento_Eliminado();
+
+            //Se crea una lista de tipo documento, la cual se va a retornar
+            ObservableCollection<Archivo> Lista = new ObservableCollection<Archivo>();
+
+            //obtenemos todo de la BD.
+            IList ListaResul = ServiceDoc_Eliminado.GetArchivo(id_documento);
+
+            if (ListaResul !=null)
+            {
+                //Iteramos la lista 
+                foreach (var item in ListaResul)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    Archivo obj = new Archivo();
+
+                    obj.archivo = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
+                    obj.ext = (string)tipo.GetProperty("EXT").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.fecha_elimino=(DateTime)tipo.GetProperty("FECHA_ELIMINO").GetValue(item, null);
+
+                    //Agregamos a la lista
+                    Lista.Add(obj);
+                }           
+             }
+            //Retornamos la lista
+            return Lista;
+        }
         #endregion
     }
 }

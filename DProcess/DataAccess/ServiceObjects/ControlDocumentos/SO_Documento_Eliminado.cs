@@ -29,8 +29,10 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                  select new
                                  {
                                      d.ID_ELIMINADO,
-                                     d.NUM_DOCUMENTO, d.NO_VERSION, d.FECHA_ELIMINO,d.ARCHIVO,d.EXT
-                                 }).ToList();
+                                     d.NUM_DOCUMENTO,
+                                     d.NO_VERSION,
+                                     d.FECHA_ELIMINO
+                                 }).OrderBy(x => x.NUM_DOCUMENTO).ToList();
                     //Retornamos la lista
                     return Lista;
                 }
@@ -78,6 +80,38 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             {
                 //si hay error, retorna cero
                 return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene el archivo de un documento en especifico
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <returns></returns>
+        public IList GetArchivo(int id_documento)
+        {
+            try
+            {
+                using (var Conexion= new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta y el resultado lo guardamos en una lista
+                    var Lista = (from d in Conexion.TBL_DOCUMENTO_ELIMINADO
+                                 where d.ID_ELIMINADO == id_documento
+                                 select new
+                                 {
+                                     d.ARCHIVO,
+                                     d.EXT,
+                                     NOMBRE = d.NUM_DOCUMENTO+d.NO_VERSION,
+                                     d.FECHA_ELIMINO
+                                 }).ToList();
+                    //retorna la lista
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error, retorna nulo
+                return null;
             }
         }
     }

@@ -70,6 +70,11 @@
                 <materialDesign:PackIcon Kind="History" />
             </Button>
 
+            <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
+            <Button ToolTip="Ver Documentos Eliminados" Command="{Binding irDocEliminado}" Cursor="Hand">
+                <materialDesign:PackIcon Kind="DeleteVariant"/>
+            </Button>
+
             <Separator Visibility="Hidden"></Separator>
             <Button ToolTip="Generar Número de Documento" Command="{Binding Generador}" Cursor="Hand" Visibility="Hidden">
                 <materialDesign:PackIcon Kind="FileDocument" />
