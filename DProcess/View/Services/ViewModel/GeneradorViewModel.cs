@@ -136,7 +136,7 @@ namespace View.Services.ViewModel
             //Incializamos los servicios de dialog.
             DialogService dialog = new DialogService();
 
-            if (selectedTipoDocumento!=null & selectedDepartamento!=null) {
+            if (selectedTipoDocumento!=null & selectedDepartamento != null) {
                 //Ejecutamos el método para generar el número
                 string numero = DataManagerControlDocumentos.GetNumero(selectedTipoDocumento, selectedDepartamento);
 

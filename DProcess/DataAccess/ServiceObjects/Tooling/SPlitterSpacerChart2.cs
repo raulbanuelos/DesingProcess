@@ -18,7 +18,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public Nullable<double> RingWidth { get; set; }
         public Nullable<double> SplitWidth { get; set; }
         public Nullable<double> GrindWidth { get; set; }
-        public Nullable<double> CutterSpacer1 { get; set; }
+        public double CutterSpacer1 { get; set; }
         public Nullable<double> CantidadSpacer1 { get; set; }
         public Nullable<double> CutterSpacer2 { get; set; }
         public Nullable<double> CantidadSpacer2 { get; set; }

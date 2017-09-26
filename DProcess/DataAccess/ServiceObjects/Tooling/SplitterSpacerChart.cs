@@ -19,7 +19,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public Nullable<double> Jaw_Block_min { get; set; }
         public Nullable<double> Jaw_Block_max { get; set; }
         public Nullable<double> Thrust_shoe_width { get; set; }
-        public Nullable<double> Cutter_spacer { get; set; }
+        public double Cutter_spacer { get; set; }
         public Nullable<double> Castings_per_chuck { get; set; }
         public Nullable<double> Split_width { get; set; }
         public Nullable<double> Split_min { get; set; }

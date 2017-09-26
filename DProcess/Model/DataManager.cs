@@ -394,6 +394,15 @@ namespace Model
             return od;
         }
 
+        public static Herramental GetSpacerSplitterCastings2(double spacer2)
+        {
+            Herramental herramental = new Herramental();
+
+
+
+            return herramental;
+        }
+
         /// <summary>
         /// Método el cual obtiene la lista de herramentales de Spacer.
         /// </summary>
@@ -432,7 +441,15 @@ namespace Model
                 foreach (var item in informacionBD)
                 {
                     //Leemos la lista para convertirla en lisa de herramentales.
-                    ListaResultante = ReadInformacionHerramentalEncontrado(informacionBD, true);
+                    Herramental herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                    ListaResultante.Add(herramental);
+
+                    if (proceso != "Doble")
+                    {
+                        double spacer2 = GetMedidaSpacerSplitter2(proceso, h1);
+
+                    }
                 }
             }
             else
@@ -442,6 +459,41 @@ namespace Model
 
             //Retornamos la lista.
             return ListaResultante;
+        }
+
+        /// <summary>
+        /// Método el cual obtiene la médida del Spacer de la operación splitter.
+        /// </summary>
+        /// <param name="proceso"></param>
+        /// <param name="h1"></param>
+        /// <returns></returns>
+        public static double GetMedidaSpacerSplitter2(string proceso, double h1)
+        {
+            //Declaramos una variable la cual será la que almacene la medida del spacer.
+            double medidaSpacer = 0;
+
+            //Inicializamos los servicios de SO_SplitterCasting.
+            SO_SplitterCasting ServicioSplitter = new SO_SplitterCasting();
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList informacionBD = ServicioSplitter.GetMedidaSpacer2(proceso, h1);
+
+            //Verificamos que la información obtenida
+            if (informacionBD != null)
+            {
+                //Itermamos la información obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Obtenemos el valor de la propiedad.
+                    medidaSpacer = (double)tipo.GetProperty("Cutter_Spacer").GetValue(item, null);
+                }
+            }
+            
+            //Retornamos el valor obtenido.
+            return medidaSpacer;
         }
 
         /// <summary>
@@ -478,7 +530,6 @@ namespace Model
             //Retornamos el valor.
             return medidaSpacer;
         }
-
         #endregion
 
         #region Auto Finish Turn
@@ -1101,7 +1152,6 @@ namespace Model
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Feed_Roller");
         }
-
 
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_COIL_CENTER_GUIDE
