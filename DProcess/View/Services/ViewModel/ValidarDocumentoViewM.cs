@@ -173,19 +173,28 @@ namespace View.Services.ViewModel
         /// Método que visualiza el archivo seleccioando de la Lista
         /// </summary>
         /// <param name="item"></param>
-        private  void verArchivo(Archivo item)
+        private async void verArchivo(Archivo item)
         {
-            //Si hay un archivo seleccionado
-            if (item != null)
+            //Incializamos los servicios de dialog.
+            DialogService dialog = new DialogService();
+            try
             {
-                //se asigna el nombre del archivo temporal, se concatena el nombre del archivo, la posicion de la lista y la extensión.
-                string filename = GetPathTempFile(item);
+                //Si hay un archivo seleccionado
+                if (item != null)
+                {
+                    //se asigna el nombre del archivo temporal, se concatena el nombre del archivo, la posicion de la lista y la extensión.
+                    string filename = GetPathTempFile(item);
 
-                //Crea un archivo nuevo temporal, escribe en él los bytes extraídos de la BD.
-                File.WriteAllBytes(filename, item.archivo);
+                    //Crea un archivo nuevo temporal, escribe en él los bytes extraídos de la BD.
+                    File.WriteAllBytes(filename, item.archivo);
 
-                //Se inicializa el programa para visualizar el archivo.
-                Process.Start(filename);
+                    //Se inicializa el programa para visualizar el archivo.
+                    Process.Start(filename);
+                }
+            }
+            catch (Exception er)
+            {
+                await dialog.SendMessage("Alerta", "Error al abrir el archivo...");
             }
         }
 
