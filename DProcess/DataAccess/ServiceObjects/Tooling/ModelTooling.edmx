@@ -145,7 +145,7 @@
           <Property Name="Jaw_Block_min" Type="float" />
           <Property Name="Jaw_Block_max" Type="float" />
           <Property Name="Thrust_shoe_width" Type="float" />
-          <Property Name="Cutter_spacer" Type="float" />
+          <Property Name="Cutter_spacer" Type="float" Nullable="false" />
           <Property Name="Castings_per_chuck" Type="float" />
           <Property Name="Split_width" Type="float" />
           <Property Name="Split_min" Type="float" />
@@ -162,7 +162,7 @@
           <Property Name="RingWidth" Type="float" />
           <Property Name="SplitWidth" Type="float" />
           <Property Name="GrindWidth" Type="float" />
-          <Property Name="CutterSpacer1" Type="float" />
+          <Property Name="CutterSpacer1" Type="float" Nullable="false" />
           <Property Name="CantidadSpacer1" Type="float" />
           <Property Name="CutterSpacer2" Type="float" />
           <Property Name="CantidadSpacer2" Type="float" />
@@ -629,8 +629,6 @@
             <End Role="CollarBK" EntitySet="CollarBK" />
           </AssociationSet>
           <EntitySet Name="CriteriosAnillos" EntityType="DataAccess.ServiceObjects.Tooling.CriteriosAnillos" />
-          <EntitySet Name="SplitterSpacerChart" EntityType="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart" />
-          <EntitySet Name="SPlitterSpacerChart2" EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" />
           <EntitySet Name="GuideBarFirstRoughGrind" EntityType="DataAccess.ServiceObjects.Tooling.GuideBarFirstRoughGrind" />
           <AssociationSet Name="FK_GuideBarFirstRoughGrind_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarFirstRoughGrind_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -686,6 +684,8 @@
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="TBL_SHIM_OF_THE_CUT_SYSTEM" EntitySet="TBL_SHIM_OF_THE_CUT_SYSTEM" />
           </AssociationSet>
+          <EntitySet Name="SplitterSpacerChart" EntityType="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart" />
+          <EntitySet Name="SPlitterSpacerChart2" EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" />
         </EntityContainer>
         <EntityType Name="CollarBK">
           <Key>
@@ -762,38 +762,6 @@
           <Property Name="MolyCollarMax" Type="Double" />
           <Property Name="MolyProteSupMin" Type="Double" />
           <Property Name="MolyProteSupMax" Type="Double" />
-        </EntityType>
-        <EntityType Name="SplitterSpacerChart">
-          <Key>
-            <PropertyRef Name="ident" />
-          </Key>
-          <Property Name="Nominal_split" Type="Double" />
-          <Property Name="Jaw_Block_Length" Type="Double" />
-          <Property Name="Jaw_Block_min" Type="Double" />
-          <Property Name="Jaw_Block_max" Type="Double" />
-          <Property Name="Thrust_shoe_width" Type="Double" />
-          <Property Name="Cutter_spacer" Type="Double" />
-          <Property Name="Castings_per_chuck" Type="Double" />
-          <Property Name="Split_width" Type="Double" />
-          <Property Name="Split_min" Type="Double" />
-          <Property Name="Split_max" Type="Double" />
-          <Property Name="Grind_width" Type="Double" />
-          <Property Name="Proceso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ident" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
-        <EntityType Name="SPlitterSpacerChart2">
-          <Key>
-            <PropertyRef Name="ident" />
-          </Key>
-          <Property Name="Proceso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RingWidth" Type="Double" />
-          <Property Name="SplitWidth" Type="Double" />
-          <Property Name="GrindWidth" Type="Double" />
-          <Property Name="CutterSpacer1" Type="Double" />
-          <Property Name="CantidadSpacer1" Type="Double" />
-          <Property Name="CutterSpacer2" Type="Double" />
-          <Property Name="CantidadSpacer2" Type="Double" />
-          <Property Name="ident" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="GuideBarFirstRoughGrind">
           <Key>
@@ -1077,6 +1045,38 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SplitterSpacerChart">
+          <Key>
+            <PropertyRef Name="ident" />
+          </Key>
+          <Property Name="Nominal_split" Type="Double" />
+          <Property Name="Jaw_Block_Length" Type="Double" />
+          <Property Name="Jaw_Block_min" Type="Double" />
+          <Property Name="Jaw_Block_max" Type="Double" />
+          <Property Name="Thrust_shoe_width" Type="Double" />
+          <Property Name="Cutter_spacer" Type="Double" Nullable="false" />
+          <Property Name="Castings_per_chuck" Type="Double" />
+          <Property Name="Split_width" Type="Double" />
+          <Property Name="Split_min" Type="Double" />
+          <Property Name="Split_max" Type="Double" />
+          <Property Name="Grind_width" Type="Double" />
+          <Property Name="Proceso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ident" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="SPlitterSpacerChart2">
+          <Key>
+            <PropertyRef Name="ident" />
+          </Key>
+          <Property Name="Proceso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RingWidth" Type="Double" />
+          <Property Name="SplitWidth" Type="Double" />
+          <Property Name="GrindWidth" Type="Double" />
+          <Property Name="CutterSpacer1" Type="Double" Nullable="false" />
+          <Property Name="CantidadSpacer1" Type="Double" />
+          <Property Name="CutterSpacer2" Type="Double" />
+          <Property Name="CantidadSpacer2" Type="Double" />
+          <Property Name="ident" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1188,40 +1188,6 @@
                 <ScalarProperty Name="SpacerMax" ColumnName="SpacerMax" />
                 <ScalarProperty Name="SpacerMin" ColumnName="SpacerMin" />
                 <ScalarProperty Name="ID_CRITERIO" ColumnName="ID_CRITERIO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SplitterSpacerChart">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart">
-              <MappingFragment StoreEntitySet="SplitterSpacerChart">
-                <ScalarProperty Name="ident" ColumnName="ident" />
-                <ScalarProperty Name="Proceso" ColumnName="Proceso" />
-                <ScalarProperty Name="Grind_width" ColumnName="Grind_width" />
-                <ScalarProperty Name="Split_max" ColumnName="Split_max" />
-                <ScalarProperty Name="Split_min" ColumnName="Split_min" />
-                <ScalarProperty Name="Split_width" ColumnName="Split_width" />
-                <ScalarProperty Name="Castings_per_chuck" ColumnName="Castings_per_chuck" />
-                <ScalarProperty Name="Cutter_spacer" ColumnName="Cutter_spacer" />
-                <ScalarProperty Name="Thrust_shoe_width" ColumnName="Thrust_shoe_width" />
-                <ScalarProperty Name="Jaw_Block_max" ColumnName="Jaw_Block_max" />
-                <ScalarProperty Name="Jaw_Block_min" ColumnName="Jaw_Block_min" />
-                <ScalarProperty Name="Jaw_Block_Length" ColumnName="Jaw_Block_Length" />
-                <ScalarProperty Name="Nominal_split" ColumnName="Nominal_split" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SPlitterSpacerChart2">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2">
-              <MappingFragment StoreEntitySet="SPlitterSpacerChart2">
-                <ScalarProperty Name="ident" ColumnName="ident" />
-                <ScalarProperty Name="CantidadSpacer2" ColumnName="CantidadSpacer2" />
-                <ScalarProperty Name="CutterSpacer2" ColumnName="CutterSpacer2" />
-                <ScalarProperty Name="CantidadSpacer1" ColumnName="CantidadSpacer1" />
-                <ScalarProperty Name="CutterSpacer1" ColumnName="CutterSpacer1" />
-                <ScalarProperty Name="GrindWidth" ColumnName="GrindWidth" />
-                <ScalarProperty Name="SplitWidth" ColumnName="SplitWidth" />
-                <ScalarProperty Name="RingWidth" ColumnName="RingWidth" />
-                <ScalarProperty Name="Proceso" ColumnName="Proceso" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1366,6 +1332,40 @@
                 <ScalarProperty Name="CODE" ColumnName="CODE" />
                 <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="ID_SHIM_OTCS" ColumnName="ID_SHIM_OTCS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SplitterSpacerChart">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart">
+              <MappingFragment StoreEntitySet="SplitterSpacerChart">
+                <ScalarProperty Name="ident" ColumnName="ident" />
+                <ScalarProperty Name="Proceso" ColumnName="Proceso" />
+                <ScalarProperty Name="Grind_width" ColumnName="Grind_width" />
+                <ScalarProperty Name="Split_max" ColumnName="Split_max" />
+                <ScalarProperty Name="Split_min" ColumnName="Split_min" />
+                <ScalarProperty Name="Split_width" ColumnName="Split_width" />
+                <ScalarProperty Name="Castings_per_chuck" ColumnName="Castings_per_chuck" />
+                <ScalarProperty Name="Cutter_spacer" ColumnName="Cutter_spacer" />
+                <ScalarProperty Name="Thrust_shoe_width" ColumnName="Thrust_shoe_width" />
+                <ScalarProperty Name="Jaw_Block_max" ColumnName="Jaw_Block_max" />
+                <ScalarProperty Name="Jaw_Block_min" ColumnName="Jaw_Block_min" />
+                <ScalarProperty Name="Jaw_Block_Length" ColumnName="Jaw_Block_Length" />
+                <ScalarProperty Name="Nominal_split" ColumnName="Nominal_split" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SPlitterSpacerChart2">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2">
+              <MappingFragment StoreEntitySet="SPlitterSpacerChart2">
+                <ScalarProperty Name="ident" ColumnName="ident" />
+                <ScalarProperty Name="CantidadSpacer2" ColumnName="CantidadSpacer2" />
+                <ScalarProperty Name="CutterSpacer2" ColumnName="CutterSpacer2" />
+                <ScalarProperty Name="CantidadSpacer1" ColumnName="CantidadSpacer1" />
+                <ScalarProperty Name="CutterSpacer1" ColumnName="CutterSpacer1" />
+                <ScalarProperty Name="GrindWidth" ColumnName="GrindWidth" />
+                <ScalarProperty Name="SplitWidth" ColumnName="SplitWidth" />
+                <ScalarProperty Name="RingWidth" ColumnName="RingWidth" />
+                <ScalarProperty Name="Proceso" ColumnName="Proceso" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -140,7 +140,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
         }
 
         /// <summary>
-        /// Método que obtiene la medida idela del spacer.
+        /// Método que obtiene la medida ideal del spacer.
         /// </summary>
         /// <param name="proceso"></param>
         /// <param name="h1"></param>
@@ -179,6 +179,38 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                         //Retornamos el resultado de la consulta.
                         return Lista;
                     }
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene la medida ideal del spacer cuando el proceso es distinto a Doble.
+        /// </summary>
+        /// <param name="proceso"></param>
+        /// <param name="h1"></param>
+        /// <returns></returns>
+        public IList GetMedidaSpacer2(string proceso, double h1)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta, el resultado lo asignamos a una variable anónima.
+                    var Lista = (from a in Conexion.SPlitterSpacerChart2
+                                 where a.RingWidth == h1 && a.Proceso == proceso
+                                 select new
+                                 {
+                                     Cutter_Spacer = a.CutterSpacer2
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
                 }
             }
             catch (Exception er)

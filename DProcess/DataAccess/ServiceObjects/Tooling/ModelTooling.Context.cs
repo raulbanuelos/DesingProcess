@@ -30,8 +30,6 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<PLANO_HERRAMENTAL> PLANO_HERRAMENTAL { get; set; }
         public virtual DbSet<CollarBK> CollarBK { get; set; }
         public virtual DbSet<CriteriosAnillos> CriteriosAnillos { get; set; }
-        public virtual DbSet<SplitterSpacerChart> SplitterSpacerChart { get; set; }
-        public virtual DbSet<SPlitterSpacerChart2> SPlitterSpacerChart2 { get; set; }
         public virtual DbSet<GuideBarFirstRoughGrind> GuideBarFirstRoughGrind { get; set; }
         public virtual DbSet<GuideBarSecondRoughGrind> GuideBarSecondRoughGrind { get; set; }
         public virtual DbSet<CutterSpacerSplitter> CutterSpacerSplitter { get; set; }
@@ -43,5 +41,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2> TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2 { get; set; }
         public virtual DbSet<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3> TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3 { get; set; }
         public virtual DbSet<TBL_SHIM_OF_THE_CUT_SYSTEM> TBL_SHIM_OF_THE_CUT_SYSTEM { get; set; }
+        public virtual DbSet<SplitterSpacerChart> SplitterSpacerChart { get; set; }
+        public virtual DbSet<SPlitterSpacerChart2> SPlitterSpacerChart2 { get; set; }
     }
 }

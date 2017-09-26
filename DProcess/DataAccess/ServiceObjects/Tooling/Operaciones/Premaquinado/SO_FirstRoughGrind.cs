@@ -91,11 +91,18 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                                  where h.A == A && m.Activo == true
                                  select new
                                  {
-                                     h.Codigo, DimA = h.A, m.Descripcion,m.Activo,
-                                     Clasificacion = c.Descripcion,c.UnidadMedida,
-                                     c.Costo,c.CantidadUtilizar,c.VidaUtil,c.idClasificacion,
-                                     c.ListaCotasRevisar, c.VerificacionAnual
-
+                                     h.Codigo,
+                                     DimA = h.A,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     Clasificacion = c.Descripcion,
+                                     c.UnidadMedida,
+                                     c.Costo,
+                                     c.CantidadUtilizar,
+                                     c.VidaUtil,
+                                     c.idClasificacion,
+                                     c.ListaCotasRevisar,
+                                     c.VerificacionAnual
                                  }).ToList();
 
                     //Retornamos el resultado de la consulta.
