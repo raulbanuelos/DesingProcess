@@ -860,6 +860,8 @@ namespace Model
             return ListaResultante;
         }
 
+       
+
         #region MaestroHerramentales
         /// <summary>
         /// Método que obtiene el maestro de herramentales a partir de un criterio de busqueda.
@@ -915,7 +917,7 @@ namespace Model
             //Inicializamos los servicios de SO_MaestroHerramental.
             SO_MaestroHerramental ServiceHerramental = new SO_MaestroHerramental();
             //Ejecutamos el metodo y retornamos el valor
-            return ServiceHerramental.SetMaestroHerramentales(obj.descripcion, obj.fecha_creacion, obj.fecha_cambio, obj.usuario_creacion, obj.usuario_creacion, obj.activo, obj.id_clasificacion, obj.id_plano);
+            return ServiceHerramental.SetMaestroHerramentales(obj.descripcion, obj.fecha_creacion, obj.fecha_cambio, obj.usuario_creacion, obj.usuario_creacion, obj.activo, obj.id_clasificacion, obj.id_plano, obj.Codigo);
         }
 
         /// <summary>
@@ -928,7 +930,7 @@ namespace Model
             //Inicializamos los servicios de SO_MaestroHerramental.
             SO_MaestroHerramental ServiceHerramental = new SO_MaestroHerramental();
             //Ejecutamos el metodo y retornamos el valor
-            return ServiceHerramental.UpdateMaestroHerramentales(obj.Codigo,obj.descripcion, obj.fecha_creacion, obj.fecha_cambio, obj.usuario_creacion, obj.usuario_creacion, obj.activo, obj.id_clasificacion, obj.id_plano);
+            return ServiceHerramental.UpdateMaestroHerramentales(obj.Codigo,obj.descripcion, obj.fecha_cambio, obj.usuario_cambio, obj.activo, obj.id_clasificacion, obj.id_plano);
         }
 
         /// <summary>
@@ -943,6 +945,51 @@ namespace Model
             //Ejecutamos el metodo y retornamos el valor
             return ServiceHerramental.DeleteMaestroHerramentales(obj.Codigo);
 
+        }
+
+        /// <summary>
+        /// Método que verifica si un código ya existe
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static string GetCodigoMaestro(string codigo)
+        {
+            //Inicializamos los servicios de SO_MaestroHerramental.
+            SO_MaestroHerramental ServiceHerramental = new SO_MaestroHerramental();
+            //Ejecutamos el metodo y retornamos el valor
+            return ServiceHerramental.GetCodigoMaestro(codigo);
+        }
+
+        /// <summary>
+        /// Método que obtiene todas las propiedades de un maestro herrametal
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static MaestroHerramental GetPropiedadesHerramental(string codigo)
+        {
+            //Inicializamos los servicios de SO_MaestroHerramental.
+            SO_MaestroHerramental ServiceHerramental = new SO_MaestroHerramental();
+            //Declaramos un objeto de tipo maestro herramental
+            MaestroHerramental obj = new MaestroHerramental();
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList InformacionBD = ServiceHerramental.GetPropiedadesHerramental(codigo);
+
+            //Si la lista no es nula
+            if (InformacionBD !=null)
+            {
+                //iteramos la lista
+                foreach (var item in InformacionBD)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();                 
+                    //Mapeamos los valores
+                    obj.id_clasificacion = (int)tipo.GetProperty("idClasificacionHerramental").GetValue(item, null);
+                    obj.id_plano = 0; //(int)tipo.GetProperty("idPlano").GetValue(item, null);
+                    obj.activo= (bool)tipo.GetProperty("Activo").GetValue(item, null);
+                }
+            }
+            //Retornamos el objeto
+            return obj;
         }
         #endregion
 
@@ -2493,7 +2540,7 @@ namespace Model
 
         #region Plano
         /// <summary>
-        /// 
+        /// Método que obtiene todos los registros del plano
         /// </summary>
         /// <returns></returns>
         public static ObservableCollection<Plano> GetPlano_Herramental()

@@ -44,6 +44,18 @@ namespace View.Services.ViewModel
                 NotifyChange("TextoBusqueda");
             }
         }
+
+        private Herramental _SelectedMHerramental;
+        public Herramental SelectedMHerramental { get
+            {
+                return _SelectedMHerramental;
+            }
+            set
+            {
+                _SelectedMHerramental = value;
+                NotifyChange("SelectedMHerramental");
+            }
+        }
         #endregion
 
         #region INotifyPropertyChanged Métodos
@@ -171,6 +183,27 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => irShimCS());
             }
         }
+
+        /// <summary>
+        /// Comando para agregar un nuevo herramental
+        /// </summary>
+        public ICommand IrNuevoMaestro
+        {
+            get
+            {
+                return new RelayCommand(o => nuevoMaestro());
+            }
+        }
+        /// <summary>
+        /// Comando para ver la informacion de un herramental
+        /// </summary>
+        public ICommand VerDetalleHerramental
+        {
+            get
+            {
+                return new RelayCommand(o => verHerramental());
+            }
+        }
         #endregion
 
         #region Methods
@@ -272,6 +305,34 @@ namespace View.Services.ViewModel
             ShimCutSystem_VM vm = new ShimCutSystem_VM();
             wcoil.DataContext = vm;
             wcoil.ShowDialog();
+        }
+        /// <summary>
+        /// Método que muestra la ventana para agregar un nuevo registro de maestro herramental
+        /// </summary>
+        private void nuevoMaestro()
+        {
+            WMaestroHerramental wmaestro = new WMaestroHerramental();
+            NuevoMaestroHerramental_VM vm = new NuevoMaestroHerramental_VM(usuario);
+            wmaestro.DataContext = vm;
+            wmaestro.ShowDialog();
+            buscarTooling(string.Empty);
+        }
+
+        /// <summary>
+        /// Método que muestra la ventana para ver el  herramental seleccionado
+        /// </summary>
+        private void verHerramental()
+        {
+            //Si se seleccionó un herramental
+            if (SelectedMHerramental!= null)
+            {
+                WMaestroHerramental wHerramental = new WMaestroHerramental();
+                NuevoMaestroHerramental_VM vm = new NuevoMaestroHerramental_VM(usuario,SelectedMHerramental);
+                wHerramental.DataContext = vm;
+                wHerramental.ShowDialog();
+                //Obtiene la lista de herramentales
+                buscarTooling(string.Empty);
+            }
         }
         #endregion
     }
