@@ -38,6 +38,7 @@ namespace DataAccess.ServiceObjects.Tooling
             }
             catch (Exception er)
             {
+                //Si hay error, retorna nulo
                 return null;
             }
         }
@@ -53,7 +54,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="id_clasificacion"></param>
         /// <param name="plano"></param>
         /// <returns></returns>
-        public string SetMaestroHerramentales(string descripcion,string fecha_creacion,string fecha_cambio,string usuario_creacion,string usuario_cambio,bool activo,int id_clasificacion,int plano)
+        public string SetMaestroHerramentales(string descripcion,string fecha_creacion,string fecha_cambio,string usuario_creacion,string usuario_cambio,bool activo,int id_clasificacion,int plano, string codigo)
         {
             try
             {
@@ -70,7 +71,8 @@ namespace DataAccess.ServiceObjects.Tooling
                     obj.UsuarioCambio = usuario_cambio;
                     obj.Activo = activo;
                     obj.idClasificacionHerramental = id_clasificacion;
-                    obj.idPlano = plano;
+                    obj.idPlano = null;
+                    obj.Codigo = codigo;
 
                     //Agrega el objeto a la tabla.
                     Conexion.MaestroHerramentales.Add(obj);
@@ -81,7 +83,7 @@ namespace DataAccess.ServiceObjects.Tooling
 
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 //retorna nulo si hay error
                 return null;
@@ -100,7 +102,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="id_clasificacion"></param>
         /// <param name="plano"></param>
         /// <returns></returns>
-        public int UpdateMaestroHerramentales(string codigo,string descripcion,string fecha_creacion, string fecha_cambio, string usuario_creacion, string usuario_cambio, bool activo, int id_clasificacion, int plano)
+        public int UpdateMaestroHerramentales(string codigo,string descripcion, string fecha_cambio, string usuario_cambio, bool activo, int id_clasificacion, int plano)
         {
             try
             {
@@ -111,13 +113,11 @@ namespace DataAccess.ServiceObjects.Tooling
                     MaestroHerramentales obj = Conexion.MaestroHerramentales.Where(x => x.Codigo.Equals(codigo)).FirstOrDefault();
                     //Se asiganan los valores.
                     obj.Descripcion = descripcion;
-                    obj.FechaCreacion = fecha_creacion;
                     obj.FechaCambio = fecha_cambio;
-                    obj.UsuarioCreacion = usuario_creacion;
                     obj.UsuarioCambio = usuario_cambio;
                     obj.Activo = activo;
                     obj.idClasificacionHerramental = id_clasificacion;
-                    obj.idPlano = plano;
+                    obj.idPlano = null;
 
                     //Se cambia el estado de registro a modificado.
                     Conexion.Entry(obj).State = EntityState.Modified;
@@ -127,7 +127,7 @@ namespace DataAccess.ServiceObjects.Tooling
 
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 //retorna nulo si hay error
                 return 0;
@@ -161,6 +161,65 @@ namespace DataAccess.ServiceObjects.Tooling
             {
                 //retorna nulo si hay error
                 return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que comprueba si existe un código igual
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public string GetCodigoMaestro(string codigo)
+        {
+            try
+            { //Establecemos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Se ejecuta el comando para verificar si el código existe
+                    var id = (from m in Conexion.MaestroHerramentales
+                              where m.Codigo.Equals(codigo)
+                              select m.Codigo).FirstOrDefault();
+                    return id;
+                }
+
+            }
+            catch (Exception er)
+            {
+                //Si hay error regresa nulo
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene toda la información de un maestro herramental 
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetPropiedadesHerramental(string codigo)
+        {
+            try
+            {
+                //Establecemos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Se ejecuta el comando para obtener la información del herramental
+                    var Lista = (from m in Conexion.MaestroHerramentales
+                                 where m.Codigo.Equals(codigo)
+                                 select new
+                                 {
+                                     m.Descripcion,
+                                     m.Activo,
+                                     m.idClasificacionHerramental,
+                                     m.idPlano
+                                 }).ToList();
+                    //Retornamos la lista
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //si hay error, retorna nulo
+                return null;
             }
         }
     }

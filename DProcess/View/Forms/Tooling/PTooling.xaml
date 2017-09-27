@@ -57,7 +57,7 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        
+
         <Label x:Name="label" Content="Tooling Master" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="1"/>
 
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical">
@@ -73,18 +73,18 @@
                     </i:Interaction.Triggers>
                 </TextBox>
 
-                
+
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Total: "></Label>
                 <Label Content="{Binding MaestroHerramentales.Count}"></Label>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                
+                <Button   HorizontalAlignment="Right" Margin="10" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding IrNuevoMaestro}"   Height="25" Width="35">
+                    <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
+                </Button>
             </StackPanel>
         </StackPanel>
-        
-        <DataGrid x:Name="dataGrid" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding MaestroHerramentales}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
+
+        <DataGrid x:Name="dataGrid" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding MaestroHerramentales}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedMHerramental,Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Codigo}" ClipboardContentBinding="{x:Null}" Header="Code"/>
                 <DataGridTextColumn Binding="{Binding DescripcionGeneral}" ClipboardContentBinding="{x:Null}" Header="Description"/>
@@ -93,8 +93,7 @@
             </DataGrid.Columns>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
-                    <i:InvokeCommandAction Command="{Binding VerDetalleHerramental}"
-                             CommandParameter="{Binding Codigo}" />
+                    <i:InvokeCommandAction Command="{Binding VerDetalleHerramental}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </DataGrid>
