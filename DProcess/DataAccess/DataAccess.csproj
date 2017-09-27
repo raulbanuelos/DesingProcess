@@ -305,6 +305,7 @@
     <Compile Include="ServiceObjects\Tooling\SO_COIL.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_CriteriosAnillos.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_MaestroHerramental.cs" />
+    <Compile Include="ServiceObjects\Tooling\SO_Plano.cs" />
     <Compile Include="ServiceObjects\Tooling\SplitterSpacerChart.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>

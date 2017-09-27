@@ -2490,6 +2490,50 @@ namespace Model
         }
 
         #endregion
+
+        #region Plano
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<Plano> GetPlano_Herramental()
+        {
+            //Inicializamos los servicios de clasificación.
+            SO_Plano ServicePlano = new SO_Plano();
+
+            //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
+            ObservableCollection<Plano> ListaResultante = new ObservableCollection<Plano>();
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList InformacionBD = ServicePlano.GetPlanoHerramental();
+
+            //si la lista es diferente de nulo
+            if (InformacionBD !=null)
+            {
+                //iteramos la lista
+                foreach (var item in InformacionBD)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    Plano obj = new Plano();
+
+                    //Asignamos los valores
+                    obj.idPlano = (int)tipo.GetProperty("ID_PLANO").GetValue(item, null);
+                    obj.NoPlano = (string)tipo.GetProperty("NO_PLANO").GetValue(item, null);
+                    obj.FechaActualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+                    obj.FechaCreacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
+                    obj.UsuarioActualizacion=(string)tipo.GetProperty("USUARIO_ACTUALIZACION").GetValue(item, null);
+                    obj.UsuarioCreacion= (string)tipo.GetProperty("USUARIO_CREACION").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista
+                    ListaResultante.Add(obj);
+                }
+            }
+            //Retornamos la lista
+            return ListaResultante;
+        }
+        #endregion
         #endregion
 
         #region Métodos Genéricos

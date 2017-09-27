@@ -230,6 +230,9 @@
     <Compile Include="Forms\Tooling\WCollarBK.xaml.cs">
       <DependentUpon>WCollarBK.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\WMaestroHerramental.xaml.cs">
+      <DependentUpon>WMaestroHerramental.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\UserControls\NumericEntry.xaml.cs">
       <DependentUpon>NumericEntry.xaml</DependentUpon>
     </Compile>
@@ -273,6 +276,7 @@
     <Compile Include="Services\ViewModel\HistorialVM.cs" />
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
     <Compile Include="Services\ViewModel\NuevoDepartamentoVM.cs" />
+    <Compile Include="Services\ViewModel\NuevoMaestroHerramental_VM.cs" />
     <Compile Include="Services\ViewModel\NuevoTipoDocumentoVM.cs" />
     <Compile Include="Services\ViewModel\NuevoUsuarioVM.cs" />
     <Compile Include="Services\ViewModel\NuevoValidacionDocumento_VM.cs" />
@@ -469,6 +473,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\WCollarBK.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WMaestroHerramental.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
