@@ -242,7 +242,7 @@ namespace View.Services.ViewModel
                             obj.id_plano = 0;
 
                             //Ejecutamos el método para insertar el maestro herramental
-                            string codigo_maestro = "PRUEBA01"; //DataManager.SetMaestroHerramentales(obj);
+                            string codigo_maestro = DataManager.SetMaestroHerramentales(obj);
 
                             //si el herramental se insertó correctamente
                             if (codigo_maestro != null)
@@ -297,6 +297,7 @@ namespace View.Services.ViewModel
                         obj.usuario_cambio = encriptar.desencript(usuario.NombreUsuario);
                         obj.id_clasificacion = SelectedClasificacion.IdClasificacion;
                         obj.id_plano = 0;
+
                         //Ejecutamos el método para actualizar el registro
                         int update = DataManager.UpdateMaestroHerramental(obj);
 
