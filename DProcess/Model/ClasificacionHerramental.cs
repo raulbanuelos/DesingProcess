@@ -44,6 +44,8 @@ namespace Model
         /// Colección de tipo cadena que representa las cotas mas importantes que re revizan.
         /// </summary>
         public ObservableCollection<string> ListaCotasRevizar { get; set; }
+
+        public string objetoXML { get; set; }
         #endregion
 
         #region Constructores 

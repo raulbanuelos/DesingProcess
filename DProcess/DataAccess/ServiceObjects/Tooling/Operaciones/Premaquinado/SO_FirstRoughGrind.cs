@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 
 namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
@@ -113,6 +114,38 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que inserta un resitro a la tabla GuideBarFirstRoughGrind
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="dimA"></param>
+        /// <returns></returns>
+        public int SetFirstRG(string codigo, double dimA)
+        {
+            try
+            {
+                //Realizamos la consulta a través de EntityFramework.
+                using (var conexion = new EntitiesTooling())
+                {
+                    GuideBarFirstRoughGrind obj = new GuideBarFirstRoughGrind();
+
+                    obj.Codigo = codigo;
+                    obj.A = dimA; 
+
+                    //Guardamos los cambios 
+                    conexion.GuideBarFirstRoughGrind.Add(obj);
+                    conexion.SaveChanges();
+
+                    return obj.ID_GUIDE_BAR;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurre algún error retornamos 0
+                return 0;
             }
         }
 

@@ -52,5 +52,38 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                 return null;
             }
         }
+        /// <summary>
+        /// Método que inserta un resitro a la tabla GuideBarSecondRoughGrind
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="dimA"></param>
+        /// <returns></returns>
+        public int SetSecondRG(string codigo, double min,double max, double espesor)
+        {
+            try
+            {
+                //Realizamos la consulta a través de EntityFramework.
+                using (var conexion = new EntitiesTooling())
+                {
+                    GuideBarSecondRoughGrind obj = new GuideBarSecondRoughGrind();
+
+                    obj.Codigo = codigo;
+                    obj.WidthMinProceso = min;
+                    obj.WidthMaxProceso = max;
+                    obj.EspesorBarraGuia = espesor;
+
+                    //Guardamos los cambios 
+                    conexion.GuideBarSecondRoughGrind.Add(obj);
+                    conexion.SaveChanges();
+
+                    return obj.ID_GUIDE_BAR;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurre algún error retornamos 0
+                return 0;
+            }
+        }
     }
 }

@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="View.Forms.Tooling.ControlExitGuide"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View.Forms.Tooling"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="450">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <TextBox x:Name="code" materialDesign:HintAssist.Hint="Code" HorizontalAlignment="Left" Text="{Binding Code}"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" CharacterCasing="Upper"></TextBox>
+            <TextBox x:Name="dimA" materialDesign:HintAssist.Hint="Dim A" HorizontalAlignment="Left" Text="{Binding DimA}"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  PreviewTextInput="NumberValidation"></TextBox>
+            <TextBox x:Name="dimB" materialDesign:HintAssist.Hint="Dim B" HorizontalAlignment="Left" Text="{Binding DimB}"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  PreviewTextInput="NumberValidation" ></TextBox>
+            <TextBox x:Name="dimC" materialDesign:HintAssist.Hint="Dim C" HorizontalAlignment="Left" Text="{Binding DimC}"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation" ></TextBox>
+            <TextBox x:Name="WMin" materialDesign:HintAssist.Hint="Wire width min" HorizontalAlignment="Left" Text="{Binding WMin}"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation" ></TextBox>
+            <TextBox x:Name="WMax" materialDesign:HintAssist.Hint="Wire width max" HorizontalAlignment="Left" Text="{Binding WMax}"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation" ></TextBox>
+            <TextBox x:Name="RMin" materialDesign:HintAssist.Hint="Radial width min" HorizontalAlignment="Left" Text="{Binding RMin}"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation" ></TextBox>
+            <TextBox x:Name="Rmax" materialDesign:HintAssist.Hint="Radial width max" HorizontalAlignment="Left" Text="{Binding RMax}"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation" ></TextBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -67,6 +67,7 @@
     <Compile Include="FO_Item.cs" />
     <Compile Include="Herramental.cs" />
     <Compile Include="Interfaces\ICentroTrabajo.cs" />
+    <Compile Include="Interfaces\IControlTooling.cs" />
     <Compile Include="Interfaces\IObserverDiametro.cs" />
     <Compile Include="Interfaces\IObserverThickness.cs" />
     <Compile Include="Interfaces\IObserverWidth.cs" />

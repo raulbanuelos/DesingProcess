@@ -21,7 +21,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="W_Min"></param>
         /// <param name="W_Max"></param>
         /// <returns></returns>
-        public int SetCOIL_FEED_ROLLER(string codigo, string code,float dimA,float dimB, float dimC, float DimD,float W_Min,float W_Max)
+        public int SetCOIL_FEED_ROLLER(string codigo, string code,double dimA,double dimB, double dimC, double DimD,double W_Min,double W_Max)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="W_Min"></param>
         /// <param name="W_Max"></param>
         /// <returns></returns>
-        public int UpdateCOIL_FEED_ROLLER(int id_coil,string codigo, string code, float dimA, float dimB, float dimC,float dimD ,float W_Min, float W_Max)
+        public int UpdateCOIL_FEED_ROLLER(int id_coil,string codigo, string code, double dimA, double dimB, double dimC,double dimD ,double W_Min, double W_Max)
         {
             try
             {   //Se establece la conexión a la base de datos.
@@ -206,7 +206,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="R_Mn"></param>
         /// <param name="R_Max"></param>
         /// <returns></returns>
-        public int SetCOIL_CENTER_GUIDE(string codigo, string code,float dimA,float dimB, float dimC, float W_Min,float W_Max,float R_Mn,float R_Max)
+        public int SetCOIL_CENTER_GUIDE(string codigo, string code,double dimA,double dimB, double dimC, double W_Min,double W_Max,double R_Mn,double R_Max)
         {
             try
             { //Establecemos la conexión a través de EntityFramework.
@@ -232,7 +232,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     return obj.ID_COIL_CENTER_GUIDE;
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 //Si hay error regresa cero
                 return 0;
@@ -253,7 +253,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="R_Mn"></param>
         /// <param name="R_Max"></param>
         /// <returns></returns>
-        public int UpdateCOIL_CENTER_GUIDE(int id_coil,string codigo, string code, float dimA, float dimB, float dimC, float W_Min, float W_Max, float R_Mn, float R_Max)
+        public int UpdateCOIL_CENTER_GUIDE(int id_coil,string codigo, string code, double dimA, double dimB, double dimC, double W_Min, double W_Max, double R_Mn, double R_Max)
         {
             try
             {
@@ -401,7 +401,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="R_Mn"></param>
         /// <param name="R_Max"></param>
         /// <returns></returns>
-        public int SetExit_GUIDE(string codigo, string code, float dimA, float dimB, float dimC, float W_Min, float W_Max, float R_Mn, float R_Max)
+        public int SetExit_GUIDE(string codigo, string code, double dimA, double dimB, double dimC, double W_Min, double W_Max, double R_Mn, double R_Max)
         {
             try { 
                 //Establecemos la conexión a través de EntityFramework.
@@ -448,7 +448,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="R_Mn"></param>
         /// <param name="R_Max"></param>
         /// <returns></returns>
-        public int UpdateExit_GUIDE(int id_exit, string codigo, string code, float dimA, float dimB, float dimC, float W_Min, float W_Max, float R_Mn, float R_Max)
+        public int UpdateExit_GUIDE(int id_exit, string codigo, string code, double dimA, double dimB, double dimC, double W_Min, double W_Max, double R_Mn, double R_Max)
         {
             try
             {
@@ -595,7 +595,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="W_Min"></param>
         /// <param name="W_Max"></param>
         /// <returns></returns>
-        public int SetExternal_GR_1P(string codigo, string code, float dimB, float W_Min, float W_Max)
+        public int SetExternal_GR_1P(string codigo, string code, double dimB, double W_Min, double W_Max)
         {
             try
             {   //Establecemos la conexión a través de EntityFramework.
@@ -634,7 +634,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="W_Min"></param>
         /// <param name="W_Max"></param>
         /// <returns></returns>
-        public int UpdateExternal_GR_1P(int id_external,string codigo, string code, float dimB, float W_Min, float W_Max)
+        public int UpdateExternal_GR_1P(int id_external,string codigo, string code, double dimB, double W_Min, double W_Max)
         {
             try
             {
@@ -769,7 +769,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="dimC"></param>
         /// <param name="DimD"></param>
         /// <returns></returns>
-        public int SetExternal_GR_3P_1(string codigo, string code, float dimA, float dimB, float dimC, float W_Min, float W_Max)
+        public int SetExternal_GR_3P_1(string codigo, string code, double dimA, double dimB, double dimC, double W_Min, double W_Max)
         {
             try
             {   //Establecemos la conexión a través de EntityFramework.
@@ -812,7 +812,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="W_Min"></param>
         /// <param name="W_Max"></param>
         /// <returns></returns>
-        public int UpdateExternal_GR_3P_1(int id_ext, string codigo, string code, float dimA, float dimB, float dimC, float W_Min, float W_Max)
+        public int UpdateExternal_GR_3P_1(int id_ext, string codigo, string code, double dimA, double dimB, double dimC, double W_Min, double W_Max)
         {
             try
             {
@@ -956,7 +956,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="dimC"></param>
         /// <param name="DimD"></param>
         /// <returns></returns>
-        public int SetExternal_GR_3P_2(string codigo, string code, float dimA, float dimB, float dimC, float W_Min, float W_Max)
+        public int SetExternal_GR_3P_2(string codigo, string code, double dimA, double dimB, double dimC, double W_Min, double W_Max)
         {
             try
             {   //Establecemos la conexión a través de EntityFramework.
@@ -998,7 +998,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="W_Min"></param>
         /// <param name="W_Max"></param>
         /// <returns></returns>
-        public int UpdateExternal_GR_3P_2(int id_ext, string codigo, string code, float dimA, float dimB, float dimC, float W_Min, float W_Max)
+        public int UpdateExternal_GR_3P_2(int id_ext, string codigo, string code, double dimA, double dimB, double dimC, double W_Min, double W_Max)
         {
             try
             {
@@ -1139,7 +1139,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="dimC"></param>
         /// <param name="DimD"></param>
         /// <returns></returns>
-        public int SetExternal_GR_3P_3(string codigo, string code, float dimA, float dimB, float dimC, float W_Min, float W_Max)
+        public int SetExternal_GR_3P_3(string codigo, string code, double dimA, double dimB, double dimC, double W_Min, double W_Max)
         {
             try
             {   //Establecemos la conexión a través de EntityFramework.
@@ -1181,7 +1181,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="W_Min"></param>
         /// <param name="W_Max"></param>
         /// <returns></returns>
-        public int UpdateExternal_GR_3P_3(int id_ext, string codigo, string code, float dimA, float dimB, float dimC, float W_Min, float W_Max)
+        public int UpdateExternal_GR_3P_3(int id_ext, string codigo, string code, double dimA, double dimB, double dimC, double W_Min, double W_Max)
         {
             try
             {
@@ -1320,7 +1320,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="W_Min"></param>
         /// <param name="W_Max"></param>
         /// <returns></returns>
-        public int SetSHIM_OF_THE_CUT_SYSTEM(string codigo, string code, float dimA, float W_Min, float W_Max)
+        public int SetSHIM_OF_THE_CUT_SYSTEM(string codigo, string code, double dimA, double W_Min, double W_Max)
         {
             try
             {   //Establecemos la conexión a través de EntityFramework.
@@ -1359,7 +1359,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="W_Min"></param>
         /// <param name="W_Max"></param>
         /// <returns></returns>
-        public int UpdateSHIM_OF_THE_CUT_SYSTEM(int id,string codigo, string code, float dimA, float W_Min, float W_Max)
+        public int UpdateSHIM_OF_THE_CUT_SYSTEM(int id,string codigo, string code, double dimA, double W_Min, double W_Max)
         {
             try
             {

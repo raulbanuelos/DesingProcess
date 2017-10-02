@@ -11,6 +11,11 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using MahApps.Metro.Controls;
+using System.Windows.Controls;
+using View.Forms.Tooling;
+using Model.Interfaces;
+using Spring.Context;
+using Spring.Context.Support;
 
 namespace View.Services.ViewModel
 {
@@ -33,6 +38,10 @@ namespace View.Services.ViewModel
         public Usuario usuario;
         DialogService dialog = new DialogService();
         Encriptacion encriptar = new Encriptacion();
+        IControlTooling tooling;
+        IApplicationContext ctx;
+        XmlApplicationContext file;
+
         #endregion
 
         #region Propiedades
@@ -157,6 +166,18 @@ namespace View.Services.ViewModel
                 NotifyChange("IdPlano");
             }
         }
+
+        private IControlTooling _controlador;
+        public IControlTooling Controlador { get
+            {
+                return _controlador;
+            }
+            set
+            {
+                _controlador = value;
+                NotifyChange("Controlador");
+            }
+        }
         private bool bandCambios;
         #endregion
 
@@ -169,6 +190,14 @@ namespace View.Services.ViewModel
             get
             {
                 return new RelayCommand(o => guardar());
+            }
+        }
+
+        public ICommand MostrarControl
+        {
+            get
+            {
+                return new RelayCommand(o => nuevoControl());
             }
         }
         #endregion
@@ -193,7 +222,7 @@ namespace View.Services.ViewModel
                 {
                     MaestroHerramental obj = new MaestroHerramental();
                     // si la bandera de cambios es falsa, se va agregar un nuevo herramental
-                    if (!bandCambios) {
+                    if (bandCambios==false & Controlador.ValidaError()) {
                         
                         //Si no se repite el código
                         if (DataManager.GetCodigoMaestro(Codigo) == null) {
@@ -211,22 +240,32 @@ namespace View.Services.ViewModel
                             obj.usuario_creacion = encriptar.desencript(usuario.NombreUsuario);
                             obj.id_clasificacion = SelectedClasificacion.IdClasificacion;
                             obj.id_plano = 0;
+
                             //Ejecutamos el método para insertar el maestro herramental
-                            string codigo_maestro = DataManager.SetMaestroHerramentales(obj);
+                            string codigo_maestro = "PRUEBA01"; //DataManager.SetMaestroHerramentales(obj);
+
                             //si el herramental se insertó correctamente
                             if (codigo_maestro != null)
                             {
-                                //Se muestra un mensaje en pantalla
-                                await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
-
-                                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                                //Verificamos que la pantalla sea diferente de nulo.
-                                if (window != null)
+                                if (Controlador.Guardar(codigo_maestro) != 0)
                                 {
-                                    //Cerramos la pantalla
-                                    window.Close();
+                                    //Se muestra un mensaje en pantalla
+                                    await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+
+                                    //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                                    var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                                    //Verificamos que la pantalla sea diferente de nulo.
+                                    if (window != null)
+                                    {
+                                        //Cerramos la pantalla
+                                        window.Close();
+                                    }
+                                }
+                                else
+                                {
+                                    //Se muestra un mensaje en pantalla
+                                    await dialog.SendMessage("Alerta", "Error al guardar el maestro herramental...");
                                 }
                             }
                             else
@@ -303,6 +342,27 @@ namespace View.Services.ViewModel
                 return true;
             else
                 return false;
+        }
+
+        private void nuevoControl()
+        {
+            if (SelectedClasificacion != null)
+            {
+                try
+                {
+
+                    file = new XmlApplicationContext("C:\\Users\\Ing.practicante\\Documents\\ClasificacionHerramental.xml");
+                    ctx = file;
+                    string objetoXML = SelectedClasificacion.objetoXML;
+                    Controlador =(IControlTooling) ctx.GetObject(objetoXML);
+                    Controlador.Inicializa();
+                }
+                catch (Exception er)
+                {
+
+                    throw;
+                }
+            }
         }
         #endregion
         #region Constructor
