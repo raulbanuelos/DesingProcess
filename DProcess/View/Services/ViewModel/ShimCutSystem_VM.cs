@@ -68,7 +68,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(parametro => BuscarExternal_GR((string)parametro));
+                return new RelayCommand(parametro => BuscarShim((string)parametro));
             }
         }
 
@@ -89,7 +89,7 @@ namespace View.Services.ViewModel
         /// 
         /// </summary>
         /// <param name="texto"></param>
-        private void BuscarExternal_GR(string texto)
+        private void BuscarShim(string texto)
         {
             ListaHerramentales = DataManager.GetAllSHIM_OF_THE_CSYSTEM(texto);
         }
@@ -110,5 +110,10 @@ namespace View.Services.ViewModel
         }
         #endregion
 
+        public ShimCutSystem_VM()
+        {
+            BuscarShim(string.Empty);
+            dialog = new DialogService();
+        }
     }
 }

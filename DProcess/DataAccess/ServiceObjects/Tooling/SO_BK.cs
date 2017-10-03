@@ -123,5 +123,45 @@ namespace DataAccess.ServiceObjects.Tooling
                 return null;
             }
         }
+
+        /// <summary>
+        /// Método que inserta un registro a la tabla
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="plano"></param>
+        /// <param name="parte"></param>
+        /// <param name="dimA"></param>
+        /// <param name="dimA_unidad"></param>
+        /// <param name="dimB"></param>
+        /// <param name="dimB_unidad"></param>
+        /// <returns></returns>
+        public int SetCollar(string codigo, string plano, string parte,double dimA, string dimA_unidad, double dimB, string dimB_unidad)
+        {
+            try
+            {
+                using (var Conexion= new EntitiesTooling())
+                {
+                    CollarBK obj = new CollarBK();
+
+                    obj.Codigo = codigo;
+                    obj.Plano = plano;
+                    obj.Parte = parte;
+                    obj.DimA = dimA;
+                    obj.DimA_Unidad = dimA_unidad;
+                    obj.DimB = dimB;
+                    obj.DimB_Unidad = dimB_unidad;
+
+                    Conexion.CollarBK.Add(obj);
+                    Conexion.SaveChanges();
+
+                    return obj.ID_COLLAR_BK;
+                }
+            }
+            catch (Exception)
+            {
+                //retornamos cero si hubo un error
+                return 0;
+            }
+        }
     }
 }

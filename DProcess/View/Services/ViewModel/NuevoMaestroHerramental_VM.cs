@@ -11,6 +11,11 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using MahApps.Metro.Controls;
+using System.Windows.Controls;
+using View.Forms.Tooling;
+using Model.Interfaces;
+using Spring.Context;
+using Spring.Context.Support;
 
 namespace View.Services.ViewModel
 {
@@ -33,6 +38,10 @@ namespace View.Services.ViewModel
         public Usuario usuario;
         DialogService dialog = new DialogService();
         Encriptacion encriptar = new Encriptacion();
+        IControlTooling tooling;
+        IApplicationContext ctx;
+        XmlApplicationContext file;
+
         #endregion
 
         #region Propiedades
@@ -157,6 +166,18 @@ namespace View.Services.ViewModel
                 NotifyChange("IdPlano");
             }
         }
+
+        private IControlTooling _controlador;
+        public IControlTooling Controlador { get
+            {
+                return _controlador;
+            }
+            set
+            {
+                _controlador = value;
+                NotifyChange("Controlador");
+            }
+        }
         private bool bandCambios;
         #endregion
 
@@ -169,6 +190,14 @@ namespace View.Services.ViewModel
             get
             {
                 return new RelayCommand(o => guardar());
+            }
+        }
+
+        public ICommand MostrarControl
+        {
+            get
+            {
+                return new RelayCommand(o => nuevoControl());
             }
         }
         #endregion
@@ -184,39 +213,101 @@ namespace View.Services.ViewModel
             setting.AffirmativeButtonText = "SI";
             setting.NegativeButtonText = "NO";
             //Valida que los campos esten completos
-            if (ValidaValores())
+            if (ValidaValores() & Controlador.ValidaError())
             {
-                //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
-                MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
-                //Si el resultado es verdadero
-                if (result == MessageDialogResult.Affirmative)
+                if (Controlador.ValidaRangos())
                 {
-                    MaestroHerramental obj = new MaestroHerramental();
-                    // si la bandera de cambios es falsa, se va agregar un nuevo herramental
-                    if (!bandCambios) {
-                        
-                        //Si no se repite el código
-                        if (DataManager.GetCodigoMaestro(Codigo) == null) {
-                            //se asigna el valor del checkbox
+                    //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
+                    MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+                    //Si el resultado es verdadero
+                    if (result == MessageDialogResult.Affirmative)
+                    {
+                        MaestroHerramental obj = new MaestroHerramental();
+                        // si la bandera de cambios es falsa, se va agregar un nuevo herramental
+                        if (bandCambios == false)
+                        {
+                            //Si no se repite el código
+                            if (DataManager.GetCodigoMaestro(Codigo) == null)
+                            {
+                                //se asigna el valor del checkbox
+                                if (IsSelected)
+                                    obj.activo = true;
+                                else
+                                    obj.activo = false;
+                                //Asignamos los valores
+                                obj.Codigo = Codigo;
+                                obj.descripcion = Descripcion;
+                                obj.fecha_creacion = DateTime.Now.ToShortDateString();
+                                obj.fecha_cambio = DateTime.Now.ToShortDateString();
+                                obj.usuario_cambio = encriptar.desencript(usuario.NombreUsuario);
+                                obj.usuario_creacion = encriptar.desencript(usuario.NombreUsuario);
+                                obj.id_clasificacion = SelectedClasificacion.IdClasificacion;
+                                obj.id_plano = 0;
+
+                                //Ejecutamos el método para insertar el maestro herramental
+                                string codigo_maestro = DataManager.SetMaestroHerramentales(obj);
+
+                                //si el herramental se insertó correctamente
+                                if (codigo_maestro != null)
+                                {
+                                    if (Controlador.Guardar(codigo_maestro) != 0)
+                                    {
+                                        //Se muestra un mensaje en pantalla
+                                        await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+
+                                        //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                                        var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                                        //Verificamos que la pantalla sea diferente de nulo.
+                                        if (window != null)
+                                        {
+                                            //Cerramos la pantalla
+                                            window.Close();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //Se muestra un mensaje en pantalla
+                                        await dialog.SendMessage("Alerta", "Error al guardar el maestro herramental...");
+                                    }
+                                }
+                                else
+                                {
+                                    //si hay erro al guardar el archivo, muestra un mensaje
+                                    await dialog.SendMessage("Alerta", "Error al guardar el maestro herramental...");
+                                }
+                            }
+                            else
+                            {
+                                //si el código ya existe
+                                await dialog.SendMessage("Alerta", "El código de maestro herramental ya existe...");
+                            }
+                        }
+                        else
+                        {
+                            // la band es verdera, se haran cambios a un resgistro
+
+                            //si el check box se seleccionó, el herramental está activo
                             if (IsSelected)
                                 obj.activo = true;
                             else
                                 obj.activo = false;
+
                             //Asignamos los valores
-                            obj.Codigo = Codigo;
+                            obj.Codigo = codigo;
                             obj.descripcion = Descripcion;
-                            obj.fecha_creacion = DateTime.Now.ToShortDateString();
                             obj.fecha_cambio = DateTime.Now.ToShortDateString();
                             obj.usuario_cambio = encriptar.desencript(usuario.NombreUsuario);
-                            obj.usuario_creacion = encriptar.desencript(usuario.NombreUsuario);
                             obj.id_clasificacion = SelectedClasificacion.IdClasificacion;
                             obj.id_plano = 0;
-                            //Ejecutamos el método para insertar el maestro herramental
-                            string codigo_maestro = DataManager.SetMaestroHerramentales(obj);
-                            //si el herramental se insertó correctamente
-                            if (codigo_maestro != null)
+
+                            //Ejecutamos el método para actualizar el registro
+                            int update = DataManager.UpdateMaestroHerramental(obj);
+
+                            //Si se actualizó correctamente
+                            if (update != 0)
                             {
-                                //Se muestra un mensaje en pantalla
+                                //Se muestra en pantalla, mensaje de cambios guardados
                                 await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
 
                                 //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
@@ -232,57 +323,14 @@ namespace View.Services.ViewModel
                             else
                             {
                                 //si hay erro al guardar el archivo, muestra un mensaje
-                                await dialog.SendMessage("Alerta", "Error al guardar el maestro herramental...");
+                                await dialog.SendMessage("Alerta", "Error al guardar los cambios...");
                             }
                         }
-                        else
-                        {
-                            //si el código ya existe
-                            await dialog.SendMessage("Alerta", "El código de maestro herramental ya existe...");
-                        }
                     }
-                    else
-                    {
-                        // la band es verdera, se haran cambios a un resgistro
-
-                        //si el check box se seleccionó, el herramental está activo
-                        if (IsSelected)
-                            obj.activo = true;
-                        else
-                            obj.activo = false;
-
-                        //Asignamos los valores
-                        obj.Codigo = codigo;
-                        obj.descripcion = Descripcion;
-                        obj.fecha_cambio = DateTime.Now.ToShortDateString();
-                        obj.usuario_cambio = encriptar.desencript(usuario.NombreUsuario);
-                        obj.id_clasificacion = SelectedClasificacion.IdClasificacion;
-                        obj.id_plano = 0;
-                        //Ejecutamos el método para actualizar el registro
-                        int update = DataManager.UpdateMaestroHerramental(obj);
-
-                        //Si se actualizó correctamente
-                        if (update !=0)
-                        {
-                            //Se muestra en pantalla, mensaje de cambios guardados
-                            await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
-
-                            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                            //Verificamos que la pantalla sea diferente de nulo.
-                            if (window != null)
-                            {
-                                //Cerramos la pantalla
-                                window.Close();
-                            }
-                        }
-                        else
-                        {
-                            //si hay erro al guardar el archivo, muestra un mensaje
-                            await dialog.SendMessage("Alerta", "Error al guardar los cambios...");
-                        }
-                    }
+                }
+                else
+                {
+                    await dialog.SendMessage("Alerta", "Error de rangos...");
                 }
             }
             else
@@ -290,7 +338,7 @@ namespace View.Services.ViewModel
                 //si todos los campos no estan llenos
                 await dialog.SendMessage("Alerta", "Se deben llenar todos los campos...");
             }
-        }
+            }
 
         /// <summary>
         /// Método que valida los valores, si está completos retorna verdadero
@@ -303,6 +351,27 @@ namespace View.Services.ViewModel
                 return true;
             else
                 return false;
+        }
+
+        private async void nuevoControl()
+        {
+            if (SelectedClasificacion != null)
+            {
+                try
+                {
+
+                    file = new XmlApplicationContext("C:\\Users\\Ing.practicante\\Documents\\ClasificacionHerramental.xml");
+                    ctx = file;
+                    string objetoXML = SelectedClasificacion.objetoXML;
+                    Controlador =(IControlTooling) ctx.GetObject(objetoXML);
+                    Controlador.Inicializa();
+                }
+                catch (Exception er)
+                {
+
+                    await dialog.SendMessage("Información", "");
+                }
+            }
         }
         #endregion
         #region Constructor

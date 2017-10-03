@@ -73,6 +73,14 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging, Version=3.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.0.0\lib\net40\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.0.0\lib\net40\Common.Logging.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Encriptar">
       <HintPath>Z:\RrrrUUUUUULLL\Encriptar.dll</HintPath>
     </Reference>
@@ -94,6 +102,10 @@
     </Reference>
     <Reference Include="MaterialDesignThemes.Wpf, Version=2.3.0.823, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.2.3.0.823\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Spring.Core, Version=2.0.1.45000, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spring.Core.2.0.1\lib\net45\Spring.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -217,6 +229,42 @@
     </Compile>
     <Compile Include="Forms\Shared\Layout.xaml.cs">
       <DependentUpon>Layout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlCoilCG.xaml.cs">
+      <DependentUpon>ControlCoilCG.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlCoilFR.xaml.cs">
+      <DependentUpon>ControlCoilFR.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlCollarBK.xaml.cs">
+      <DependentUpon>ControlCollarBK.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlExitGuide.xaml.cs">
+      <DependentUpon>ControlExitGuide.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlExternalGR1P.xaml.cs">
+      <DependentUpon>ControlExternalGR1P.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlExternalGR3P_1.xaml.cs">
+      <DependentUpon>ControlExternalGR3P_1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlExternalGR3P_2.xaml.cs">
+      <DependentUpon>ControlExternalGR3P_2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlExternalGR3P_3.xaml.cs">
+      <DependentUpon>ControlExternalGR3P_3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlGuideBarFirstRG.xaml.cs">
+      <DependentUpon>ControlGuideBarFirstRG.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlGuideBarSecondRG.xaml.cs">
+      <DependentUpon>ControlGuideBarSecondRG.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlShimOTCS.xaml.cs">
+      <DependentUpon>ControlShimOTCS.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\CutterSpacerS.xaml.cs">
+      <DependentUpon>CutterSpacerS.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\PTooling.xaml.cs">
       <DependentUpon>PTooling.xaml</DependentUpon>
@@ -459,6 +507,54 @@
     <Page Include="Forms\Shared\Layout.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\Tooling\ControlCoilCG.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlCoilFR.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlCollarBK.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlExitGuide.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlExternalGR1P.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlExternalGR3P_1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlExternalGR3P_2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlExternalGR3P_3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlGuideBarFirstRG.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlGuideBarSecondRG.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlShimOTCS.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\CutterSpacerS.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\PTooling.xaml">
       <SubType>Designer</SubType>

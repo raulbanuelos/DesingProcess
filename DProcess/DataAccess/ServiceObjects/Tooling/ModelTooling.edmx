@@ -174,7 +174,7 @@
           </Key>
           <Property Name="ID_COIL_CENTER_GUIDE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CODIGO" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="CODE" Type="varchar" MaxLength="50" />
+          <Property Name="DETALLE" Type="varchar" MaxLength="50" />
           <Property Name="DIMA" Type="float" />
           <Property Name="DIMB" Type="float" />
           <Property Name="DIMC" Type="float" />
@@ -189,7 +189,7 @@
           </Key>
           <Property Name="ID_COIL_FEED_ROLLER" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CODIGO" Type="char" MaxLength="18" />
-          <Property Name="CODE" Type="varchar" MaxLength="50" />
+          <Property Name="DETALLE" Type="varchar" MaxLength="50" />
           <Property Name="DIMA" Type="float" />
           <Property Name="DIMB" Type="float" />
           <Property Name="DIMC" Type="float" />
@@ -203,7 +203,7 @@
           </Key>
           <Property Name="ID_EXIT_GUIDE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CODIGO" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="CODE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DETALLE" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DIMA" Type="float" />
           <Property Name="DIMB" Type="float" />
           <Property Name="DIMC" Type="float" />
@@ -218,7 +218,7 @@
           </Key>
           <Property Name="ID_EGR_1P" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CODIGO" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="CODE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DETALLE" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DIMB" Type="float" />
           <Property Name="WIRE_WIDTH_MIN" Type="float" />
           <Property Name="WIDE_WIDTH_MAX" Type="float" />
@@ -229,7 +229,7 @@
           </Key>
           <Property Name="ID_EGR_3P_1" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CODIGO" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="CODE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DETALLE" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DIMA" Type="float" />
           <Property Name="DIMB" Type="float" />
           <Property Name="DIMC" Type="float" />
@@ -242,7 +242,7 @@
           </Key>
           <Property Name="ID_EGR_3P_2" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CODIGO" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="CODE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DETALLE" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DIMA" Type="float" />
           <Property Name="DIMB" Type="float" />
           <Property Name="DIMC" Type="float" />
@@ -255,7 +255,7 @@
           </Key>
           <Property Name="ID_EGR_3P_3" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CODIGO" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="CODE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DETALLE" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DIMA" Type="float" />
           <Property Name="DIMB" Type="float" />
           <Property Name="DIMC" Type="float" />
@@ -268,7 +268,7 @@
           </Key>
           <Property Name="ID_SHIM_OTCS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CODIGO" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="CODE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DETALLE" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DIMA" Type="float" />
           <Property Name="WIRE_WIDTH_MIN" Type="float" />
           <Property Name="WIDE_WIDTH_MAX" Type="float" />
@@ -565,10 +565,10 @@
           <NavigationProperty Name="GuideBarFirstRoughGrind" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarFirstRoughGrind_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="GuideBarFirstRoughGrind" />
           <NavigationProperty Name="GuideBarSecondRoughGrind" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarSecondRoughGrind_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="GuideBarSecondRoughGrind" />
           <NavigationProperty Name="CutterSpacerSplitter" Relationship="DataAccess.ServiceObjects.Tooling.FK_CutterSpacerSplitter_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CutterSpacerSplitter" />
+          <NavigationProperty Name="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" />
           <NavigationProperty Name="TBL_COIL_CENTER_GUIDE" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_CENTER_GUIDE_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_COIL_CENTER_GUIDE" />
           <NavigationProperty Name="TBL_COIL_FEED_ROLLER" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_FEED_ROLLER_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_COIL_FEED_ROLLER" />
           <NavigationProperty Name="TBL_EXIT_GUIDE" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXIT_GUIDE_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXIT_GUIDE" />
-          <NavigationProperty Name="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" />
           <NavigationProperty Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" />
           <NavigationProperty Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" />
           <NavigationProperty Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" />
@@ -644,10 +644,14 @@
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="CutterSpacerSplitter" EntitySet="CutterSpacerSplitter" />
           </AssociationSet>
+          <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" />
+          <AssociationSet Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" EntitySet="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" />
+          </AssociationSet>
           <EntitySet Name="TBL_COIL_CENTER_GUIDE" EntityType="DataAccess.ServiceObjects.Tooling.TBL_COIL_CENTER_GUIDE" />
           <EntitySet Name="TBL_COIL_FEED_ROLLER" EntityType="DataAccess.ServiceObjects.Tooling.TBL_COIL_FEED_ROLLER" />
           <EntitySet Name="TBL_EXIT_GUIDE" EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXIT_GUIDE" />
-          <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" />
           <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" />
           <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" />
           <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" />
@@ -663,10 +667,6 @@
           <AssociationSet Name="FK_TBL_EXIT_GUIDE_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXIT_GUIDE_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="TBL_EXIT_GUIDE" EntitySet="TBL_EXIT_GUIDE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" EntitySet="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -836,13 +836,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE">
+          <Key>
+            <PropertyRef Name="ID_EGR_1P" />
+          </Key>
+          <Property Name="ID_EGR_1P" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DETALLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIMB" Type="Double" />
+          <Property Name="WIRE_WIDTH_MIN" Type="Double" />
+          <Property Name="WIDE_WIDTH_MAX" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales" FromRole="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" Role="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="TBL_COIL_CENTER_GUIDE">
           <Key>
             <PropertyRef Name="ID_COIL_CENTER_GUIDE" />
           </Key>
           <Property Name="ID_COIL_CENTER_GUIDE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DETALLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DIMA" Type="Double" />
           <Property Name="DIMB" Type="Double" />
           <Property Name="DIMC" Type="Double" />
@@ -858,7 +882,7 @@
           </Key>
           <Property Name="ID_COIL_FEED_ROLLER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CODIGO" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DETALLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DIMA" Type="Double" />
           <Property Name="DIMB" Type="Double" />
           <Property Name="DIMC" Type="Double" />
@@ -873,7 +897,7 @@
           </Key>
           <Property Name="ID_EXIT_GUIDE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="CODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DETALLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DIMA" Type="Double" />
           <Property Name="DIMB" Type="Double" />
           <Property Name="DIMC" Type="Double" />
@@ -883,25 +907,13 @@
           <Property Name="RADIAL_WIRE_MAX" Type="Double" />
           <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXIT_GUIDE_MaestroHerramentales" FromRole="TBL_EXIT_GUIDE" ToRole="MaestroHerramentales" />
         </EntityType>
-        <EntityType Name="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE">
-          <Key>
-            <PropertyRef Name="ID_EGR_1P" />
-          </Key>
-          <Property Name="ID_EGR_1P" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="CODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DIMB" Type="Double" />
-          <Property Name="WIRE_WIDTH_MIN" Type="Double" />
-          <Property Name="WIDE_WIDTH_MAX" Type="Double" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales" FromRole="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" ToRole="MaestroHerramentales" />
-        </EntityType>
         <EntityType Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1">
           <Key>
             <PropertyRef Name="ID_EGR_3P_1" />
           </Key>
           <Property Name="ID_EGR_3P_1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="CODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DETALLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DIMA" Type="Double" />
           <Property Name="DIMB" Type="Double" />
           <Property Name="DIMC" Type="Double" />
@@ -915,7 +927,7 @@
           </Key>
           <Property Name="ID_EGR_3P_2" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="CODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DETALLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DIMA" Type="Double" />
           <Property Name="DIMB" Type="Double" />
           <Property Name="DIMC" Type="Double" />
@@ -929,7 +941,7 @@
           </Key>
           <Property Name="ID_EGR_3P_3" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="CODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DETALLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DIMA" Type="Double" />
           <Property Name="DIMB" Type="Double" />
           <Property Name="DIMC" Type="Double" />
@@ -943,7 +955,7 @@
           </Key>
           <Property Name="ID_SHIM_OTCS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="CODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DETALLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DIMA" Type="Double" />
           <Property Name="WIRE_WIDTH_MIN" Type="Double" />
           <Property Name="WIDE_WIDTH_MAX" Type="Double" />
@@ -981,18 +993,6 @@
               <PropertyRef Name="Codigo" />
             </Principal>
             <Dependent Role="TBL_EXIT_GUIDE">
-              <PropertyRef Name="CODIGO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
-          <End Type="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" Role="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE">
               <PropertyRef Name="CODIGO" />
             </Dependent>
           </ReferentialConstraint>
@@ -1222,6 +1222,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE">
+              <MappingFragment StoreEntitySet="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE">
+                <ScalarProperty Name="WIDE_WIDTH_MAX" ColumnName="WIDE_WIDTH_MAX" />
+                <ScalarProperty Name="WIRE_WIDTH_MIN" ColumnName="WIRE_WIDTH_MIN" />
+                <ScalarProperty Name="DIMB" ColumnName="DIMB" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_EGR_1P" ColumnName="ID_EGR_1P" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TBL_COIL_CENTER_GUIDE">
             <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_COIL_CENTER_GUIDE">
               <MappingFragment StoreEntitySet="TBL_COIL_CENTER_GUIDE">
@@ -1232,7 +1244,7 @@
                 <ScalarProperty Name="DIMC" ColumnName="DIMC" />
                 <ScalarProperty Name="DIMB" ColumnName="DIMB" />
                 <ScalarProperty Name="DIMA" ColumnName="DIMA" />
-                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
                 <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="ID_COIL_CENTER_GUIDE" ColumnName="ID_COIL_CENTER_GUIDE" />
               </MappingFragment>
@@ -1247,7 +1259,7 @@
                 <ScalarProperty Name="DIMC" ColumnName="DIMC" />
                 <ScalarProperty Name="DIMB" ColumnName="DIMB" />
                 <ScalarProperty Name="DIMA" ColumnName="DIMA" />
-                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
                 <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="ID_COIL_FEED_ROLLER" ColumnName="ID_COIL_FEED_ROLLER" />
               </MappingFragment>
@@ -1263,21 +1275,9 @@
                 <ScalarProperty Name="DIMC" ColumnName="DIMC" />
                 <ScalarProperty Name="DIMB" ColumnName="DIMB" />
                 <ScalarProperty Name="DIMA" ColumnName="DIMA" />
-                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
                 <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="ID_EXIT_GUIDE" ColumnName="ID_EXIT_GUIDE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE">
-              <MappingFragment StoreEntitySet="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE">
-                <ScalarProperty Name="WIDE_WIDTH_MAX" ColumnName="WIDE_WIDTH_MAX" />
-                <ScalarProperty Name="WIRE_WIDTH_MIN" ColumnName="WIRE_WIDTH_MIN" />
-                <ScalarProperty Name="DIMB" ColumnName="DIMB" />
-                <ScalarProperty Name="CODE" ColumnName="CODE" />
-                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
-                <ScalarProperty Name="ID_EGR_1P" ColumnName="ID_EGR_1P" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1289,7 +1289,7 @@
                 <ScalarProperty Name="DIMC" ColumnName="DIMC" />
                 <ScalarProperty Name="DIMB" ColumnName="DIMB" />
                 <ScalarProperty Name="DIMA" ColumnName="DIMA" />
-                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
                 <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="ID_EGR_3P_1" ColumnName="ID_EGR_3P_1" />
               </MappingFragment>
@@ -1303,7 +1303,7 @@
                 <ScalarProperty Name="DIMC" ColumnName="DIMC" />
                 <ScalarProperty Name="DIMB" ColumnName="DIMB" />
                 <ScalarProperty Name="DIMA" ColumnName="DIMA" />
-                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
                 <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="ID_EGR_3P_2" ColumnName="ID_EGR_3P_2" />
               </MappingFragment>
@@ -1317,7 +1317,7 @@
                 <ScalarProperty Name="DIMC" ColumnName="DIMC" />
                 <ScalarProperty Name="DIMB" ColumnName="DIMB" />
                 <ScalarProperty Name="DIMA" ColumnName="DIMA" />
-                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
                 <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="ID_EGR_3P_3" ColumnName="ID_EGR_3P_3" />
               </MappingFragment>
@@ -1329,7 +1329,7 @@
                 <ScalarProperty Name="WIDE_WIDTH_MAX" ColumnName="WIDE_WIDTH_MAX" />
                 <ScalarProperty Name="WIRE_WIDTH_MIN" ColumnName="WIRE_WIDTH_MIN" />
                 <ScalarProperty Name="DIMA" ColumnName="DIMA" />
-                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
                 <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="ID_SHIM_OTCS" ColumnName="ID_SHIM_OTCS" />
               </MappingFragment>

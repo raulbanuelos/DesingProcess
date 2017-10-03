@@ -16,7 +16,7 @@ namespace DataAccess.ServiceObjects.Tooling
     {
         public int ID_EGR_3P_1 { get; set; }
         public string CODIGO { get; set; }
-        public string CODE { get; set; }
+        public string DETALLE { get; set; }
         public Nullable<double> DIMA { get; set; }
         public Nullable<double> DIMB { get; set; }
         public Nullable<double> DIMC { get; set; }

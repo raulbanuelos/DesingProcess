@@ -235,6 +235,19 @@ namespace Model
 
             return herramental;
         }
+
+        /// <summary>
+        /// Método que inserta un registro de Guide Bar First Rough Grind.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetFirstRG(Herramental obj)
+        {
+            //Inicializamos los servicios de la operación Guide Bar First Rough Grind.
+            SO_FirstRoughGrind ServiceFirstRoughGrind = new SO_FirstRoughGrind();
+
+           return ServiceFirstRoughGrind.SetFirstRG(obj.Codigo, obj.Propiedades[0].Valor);
+        }
         #endregion
 
         #region Second Rough Grind
@@ -278,6 +291,20 @@ namespace Model
 
             //Retornamos el herramental.
             return herramental;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetSecondtRG(Herramental obj)
+        {
+            //Inicializamos los servicios de SO_SecondRoughGrind.
+            SO_SecondRoughGrind ServiceSecondRoughGrind = new SO_SecondRoughGrind();
+
+            //Método que inserta un resitro a la tabla GuideBarSecondRoughGrind
+            return ServiceSecondRoughGrind.SetSecondRG(obj.Codigo, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.Propiedades[2].Valor);
         }
 
         #endregion
@@ -610,9 +637,18 @@ namespace Model
             return medidaSpacer;
         }
 
-        public static Herramental GetCutterSplitterCasting(double v)
+        /// <summary>
+        /// Método que inserta un registro de cutter spacer splitter
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetCutterSpacerS(Herramental obj)
         {
-            throw new NotImplementedException();
+            //Inicializamos los servicios de SO_SplitterCasting.
+            SO_SplitterCasting ServicioSplitter = new SO_SplitterCasting();
+
+           return ServicioSplitter.SetCutterSpacerS(obj.Codigo, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.Plano);
+            
         }
         #endregion
 
@@ -805,6 +841,20 @@ namespace Model
             //Retornamos el datatable resultante.
             return dtResultante;
         }
+
+        /// <summary>
+        /// Método que inserta un registro collarBK
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetCollarBK(Herramental obj)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServicioBk = new SO_BK();
+
+            //Ejecutamos el método
+            return ServicioBk.SetCollar(obj.Codigo, obj.Plano, obj.PropiedadesCadena[0].Valor, obj.Propiedades[0].Valor, obj.Propiedades[0].Unidad, obj.Propiedades[1].Valor, obj.Propiedades[1].Unidad);
+        }
         #endregion
 
         #endregion
@@ -846,6 +896,7 @@ namespace Model
                     obj.UnidadMedida = (string)tipo.GetProperty("UnidadMedida").GetValue(item, null);
                     obj.VerificacionAnual = (bool)tipo.GetProperty("VerificacionAnual").GetValue(item, null);
                     obj.VidaUtil = (int)tipo.GetProperty("VidaUtil").GetValue(item, null);
+                    obj.objetoXML = (string)tipo.GetProperty("ObjetoXML").GetValue(item, null);
 
                     //Obtenemos el valor de la columna ListaCotasRevisar y la asignamos a una cadena.
                     string cotasRevisar = (string)tipo.GetProperty("ListaCotasRevisar").GetValue(item, null);
@@ -1164,8 +1215,8 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.DescripcionCorta  = "Code";
-                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    propCode.DescripcionCorta  = "Detalle";
+                    propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
                     //Dimensiones
@@ -1233,8 +1284,8 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.DescripcionCorta = "Code";
-                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    propCode.DescripcionCorta = "Detalle";
+                    propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
                     //Dimensiones
@@ -1265,13 +1316,13 @@ namespace Model
                     Propiedad propWMin = new Propiedad();
                     propWMin.Unidad = "Milimeters (mm)";
                     propWMin.Valor= (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
-                    propWMin.DescripcionCorta = "WIRE WIDTH MIN";
+                    propWMin.DescripcionCorta = "Wire width min";
                     herramental.Propiedades.Add(propWMin);
 
                     Propiedad propWMax = new Propiedad();
                     propWMax.Unidad = "Milimeters (mm)";
                     propWMax.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MAX").GetValue(item, null);
-                    propWMax.DescripcionCorta = "WIRE WIDTH MAX";
+                    propWMax.DescripcionCorta = "Wire width max";
                     herramental.Propiedades.Add(propWMax);
 
                     //Agregamos el objeto a la lista resultante.
@@ -1354,8 +1405,8 @@ namespace Model
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.DescripcionCorta = "Code";
-                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    propCode.DescripcionCorta = "Detalle";
+                    propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
                     //Dimesiones
@@ -1417,8 +1468,8 @@ namespace Model
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.DescripcionCorta = "Code";
-                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    propCode.DescripcionCorta = "Detalle";
+                    propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
                     //Dimesiones
@@ -1444,25 +1495,25 @@ namespace Model
                     Propiedad propWMin = new Propiedad();
                     propWMin.Unidad = "Milimeters (mm)";
                     propWMin.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
-                    propWMin.DescripcionCorta = "WIRE WIDTH MIN";
+                    propWMin.DescripcionCorta = "Wire width min";
                     herramental.Propiedades.Add(propWMin);
 
                     Propiedad propWMax = new Propiedad();
                     propWMax.Unidad = "Milimeters (mm)";
                     propWMax.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MAX").GetValue(item, null);
-                    propWMax.DescripcionCorta = "WIRE WIDTH MAX";
+                    propWMax.DescripcionCorta = "Wire width max";
                     herramental.Propiedades.Add(propWMax);
 
                     Propiedad propR_Min = new Propiedad();
                     propR_Min.Unidad = "Milimeters (mm)";
                     propR_Min.Valor = (double)tipo.GetProperty("RADIAL_WIRE_MIN").GetValue(item, null);
-                    propR_Min.DescripcionCorta = "RADIAL WIRE MIN";
+                    propR_Min.DescripcionCorta = "Radial wire min";
                     herramental.Propiedades.Add(propR_Min);
 
                     Propiedad propR_MAX = new Propiedad();
                     propR_MAX.Unidad = "Milimeters (mm)";
                     propR_MAX.Valor = (double)tipo.GetProperty("RADIAL_WIRE_MAX").GetValue(item, null);
-                    propR_MAX.DescripcionCorta = "RADIAL WIRE MAX";
+                    propR_MAX.DescripcionCorta = "Radial wire max";
                     herramental.Propiedades.Add(propR_MAX);
 
                     //Agregamos el objeto a la lista resultante.
@@ -1544,8 +1595,8 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.DescripcionCorta = "Code";
-                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    propCode.DescripcionCorta = "Detalle";
+                    propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
                     
                     //Dimensiones 
@@ -1608,8 +1659,8 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.DescripcionCorta = "Code";
-                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    propCode.DescripcionCorta = "Detalle";
+                    propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
                     //Dimensiones 
@@ -1634,25 +1685,25 @@ namespace Model
                     Propiedad propWMin = new Propiedad();
                     propWMin.Unidad = "Milimeters (mm)";
                     propWMin.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
-                    propWMin.DescripcionCorta = "WIRE WIDTH MIN";
+                    propWMin.DescripcionCorta = "Wire width min";
                     herramental.Propiedades.Add(propWMin);
 
                     Propiedad propWMax = new Propiedad();
                     propWMax.Unidad = "Milimeters (mm)";
                     propWMax.Valor = (double)tipo.GetProperty("WIDE_WIDTH_MAX").GetValue(item, null);
-                    propWMax.DescripcionCorta = "WIRE WIDTH MAX";
+                    propWMax.DescripcionCorta = "Wire width min";
                     herramental.Propiedades.Add(propWMax);
 
                     Propiedad propR_Min = new Propiedad();
                     propR_Min.Unidad = "Milimeters (mm)";
                     propR_Min.Valor = (double)tipo.GetProperty("RADIAL_WIRE_MIN").GetValue(item, null);
-                    propR_Min.DescripcionCorta = "RADIAL WIRE MIN";
+                    propR_Min.DescripcionCorta = "Radial wire min";
                     herramental.Propiedades.Add(propR_Min);
 
                     Propiedad propR_MAX = new Propiedad();
                     propR_MAX.Unidad = "Milimeters (mm)";
                     propR_MAX.Valor = (double)tipo.GetProperty("RADIAL_WIRE_MAX").GetValue(item, null);
-                    propR_MAX.DescripcionCorta = "RADIAL WIRE MAX";
+                    propR_MAX.DescripcionCorta = "Radial wire max";
                     herramental.Propiedades.Add(propR_MAX);
 
                     //Agregamos el objeto a la lista resultante.
@@ -1734,8 +1785,8 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.DescripcionCorta = "Code";
-                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    propCode.DescripcionCorta = "Detalle";
+                    propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
                     
                     //Dimensiones
@@ -1786,8 +1837,8 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.DescripcionCorta = "Code";
-                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    propCode.DescripcionCorta = "Detalle";
+                    propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
                     //Dimensiones
@@ -1801,13 +1852,13 @@ namespace Model
                     Propiedad propWMin = new Propiedad();
                     propWMin.Unidad = "Milimeters (mm)";
                     propWMin.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
-                    propWMin.DescripcionCorta = "WIRE WIDTH MIN";
+                    propWMin.DescripcionCorta = "Wire width min";
                     herramental.Propiedades.Add(propWMin);
 
                     Propiedad propWMax = new Propiedad();
                     propWMax.Unidad = "Milimeters (mm)";
                     propWMax.Valor = (double)tipo.GetProperty("WIDE_WIDTH_MAX").GetValue(item, null);
-                    propWMax.DescripcionCorta = "WIRE WIDTH MAX";
+                    propWMax.DescripcionCorta = "Wire width max";
                     herramental.Propiedades.Add(propWMax);                  
 
                     //Agregamos el objeto a la lista resultante.
@@ -1889,8 +1940,8 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.DescripcionCorta = "Code";
-                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    propCode.DescripcionCorta = "Detalle";
+                    propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
                     //dimensiones
@@ -1954,8 +2005,8 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.DescripcionCorta = "Code";
-                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    propCode.DescripcionCorta = "Detalle";
+                    propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
                     //dimensiones
@@ -1981,13 +2032,13 @@ namespace Model
                     Propiedad propWMin = new Propiedad();
                     propWMin.Unidad = "Milimeters (mm)";
                     propWMin.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
-                    propWMin.DescripcionCorta = "WIRE WIDTH MIN";
+                    propWMin.DescripcionCorta = "Wire width min";
                     herramental.Propiedades.Add(propWMin);
 
                     Propiedad propWMax = new Propiedad();
                     propWMax.Unidad = "Milimeters (mm)";
                     propWMax.Valor = (double)tipo.GetProperty("WIDE_WIDTH_MAX").GetValue(item, null);
-                    propWMax.DescripcionCorta = "WIRE WIDTH MAX";
+                    propWMax.DescripcionCorta = "Wire width max";
                     herramental.Propiedades.Add(propWMax);
 
                     //Agregamos el objeto a la lista resultante.
@@ -2068,8 +2119,8 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.DescripcionCorta = "Code";
-                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    propCode.DescripcionCorta = "Detalle";
+                    propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
                     
                     //Dimensiones
@@ -2133,8 +2184,8 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.DescripcionCorta = "Code";
-                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    propCode.DescripcionCorta = "Detalle";
+                    propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
                     //Dimensiones
@@ -2160,13 +2211,13 @@ namespace Model
                     Propiedad propWMin = new Propiedad();
                     propWMin.Unidad = "Milimeters (mm)";
                     propWMin.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
-                    propWMin.DescripcionCorta = "WIRE WIDTH MIN";
+                    propWMin.DescripcionCorta = "Wire width min";
                     herramental.Propiedades.Add(propWMin);
 
                     Propiedad propWMax = new Propiedad();
                     propWMax.Unidad = "Milimeters (mm)";
                     propWMax.Valor = (double)tipo.GetProperty("WIDE_WIDTH_MAX").GetValue(item, null);
-                    propWMax.DescripcionCorta = "WIRE WIDTH MAX";
+                    propWMax.DescripcionCorta = "Wire width max";
                     herramental.Propiedades.Add(propWMax);
 
                     //Agregamos el objeto a la lista resultante.
@@ -2247,8 +2298,8 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.DescripcionCorta = "Code";
-                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    propCode.DescripcionCorta = "Detalle";
+                    propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
                     //Dimensiones
@@ -2312,8 +2363,8 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.DescripcionCorta = "Code";
-                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    propCode.DescripcionCorta = "Detalle";
+                    propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
                     //Dimensiones
@@ -2339,13 +2390,13 @@ namespace Model
                     Propiedad propWMin = new Propiedad();
                     propWMin.Unidad = "Milimeters (mm)";
                     propWMin.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
-                    propWMin.DescripcionCorta = "WIRE WIDTH MIN";
+                    propWMin.DescripcionCorta = "Wire width min";
                     herramental.Propiedades.Add(propWMin);
 
                     Propiedad propWMax = new Propiedad();
                     propWMax.Unidad = "Milimeters (mm)";
                     propWMax.Valor = (double)tipo.GetProperty("WIDE_WIDTH_MAX").GetValue(item, null);
-                    propWMax.DescripcionCorta = "WIRE WIDTH MAX";
+                    propWMax.DescripcionCorta = "Wire width max";
                     herramental.Propiedades.Add(propWMax);
 
                     //Agregamos el objeto a la lista resultante.
@@ -2426,8 +2477,8 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.DescripcionCorta = "Code";
-                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    propCode.DescripcionCorta = "Detalle";
+                    propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
                     //Dimensiones
@@ -2479,8 +2530,8 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.DescripcionCorta = "Code";
-                    propCode.Valor = (string)tipo.GetProperty("CODE").GetValue(item, null);
+                    propCode.DescripcionCorta = "Detalle";
+                    propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
                     //Dimensiones
@@ -2494,13 +2545,13 @@ namespace Model
                     Propiedad propWMin = new Propiedad();
                     propWMin.Unidad = "Milimeters (mm)";
                     propWMin.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
-                    propWMin.DescripcionCorta = "WIRE WIDTH MIN";
+                    propWMin.DescripcionCorta = "Wire width min";
                     herramental.Propiedades.Add(propWMin);
 
                     Propiedad propWMax = new Propiedad();
                     propWMax.Unidad = "Milimeters (mm)";
                     propWMax.Valor = (double)tipo.GetProperty("WIDE_WIDTH_MAX").GetValue(item, null);
-                    propWMax.DescripcionCorta = "WIRE WIDTH MAX";
+                    propWMax.DescripcionCorta = "Wire width max";
                     herramental.Propiedades.Add(propWMax);
 
                     //Agregamos el objeto a la lista resultante.
@@ -2531,7 +2582,7 @@ namespace Model
             {
                 //Mapeamos los valores de código y descripción en un datarow.
                 DataRow dr = DataR.NewRow();
-                dr["Code"] = row["CODE"].ToString();
+                dr["Code"] = row["DETALLE"].ToString();
                 dr["Description"] = row["DESCRIPTION"].ToString();
 
                 //Agregamnos el datarow al datatable resultante.
