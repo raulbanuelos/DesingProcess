@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 using System.Data;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace DProcess.Model.Test
 {
@@ -41,6 +42,30 @@ namespace DProcess.Model.Test
             {
                 Assert.AreEqual(e1.Current, e2.Current);
             }
+        }
+
+        [TestMethod]
+        public void GetSpacerSplitterCastingsTest()
+        {
+            // Arrange
+            string proceso = "Doble";
+            double h1 = 0.078;
+
+            //Act
+            List<Herramental> ListaResultante = DataManager.GetSpacerSplitterCastings(proceso, h1);
+
+            //Assert
+            ObservableCollection<string> ListaCotas = new ObservableCollection<string>();
+            ListaCotas.Add("");
+
+            string codigoEsperado = "1004647           ";
+            int herramentalesEsperados = 1;
+
+            
+            Assert.AreEqual(herramentalesEsperados, ListaResultante.Count);
+
+            Assert.AreEqual(codigoEsperado, ListaResultante[0].Codigo);
+            
         }
     }
 }

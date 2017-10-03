@@ -37,8 +37,8 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2_MaestroHerramentales" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3_MaestroHerramentales" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart" Width="1.5" PointX="4.75" PointY="7.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart" Width="3" PointX="0.5" PointY="8.875" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" Width="1.5" PointX="4.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

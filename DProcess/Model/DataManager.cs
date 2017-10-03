@@ -196,7 +196,7 @@ namespace Model
             //Ejecutamos el método para obtener el width de la operación y retornamos el resultado.
             return ServiceSplitterCasting.GetWidthSplitterCastings(H1, proceso);
         }
-
+        
         /// <summary>
         /// Método que obtiene el herramental Barra Guia de la operación First Rough Grind.
         /// </summary>
@@ -421,15 +421,6 @@ namespace Model
             return od;
         }
 
-        public static Herramental GetSpacerSplitterCastings2(double spacer2)
-        {
-            Herramental herramental = new Herramental();
-
-
-
-            return herramental;
-        }
-
         /// <summary>
         /// Método el cual obtiene la lista de herramentales de Spacer.
         /// </summary>
@@ -446,9 +437,11 @@ namespace Model
 
             //Declaramos los valores requeridos.
             double spacer, spacerMin, spacerMax, criMinSpacer, criMaxSpacer;
+            int noSpacer, noSpacer2;
 
             //Obtenemos la medida del spacer.
             spacer = GetMedidaSpacerSplitter(proceso, h1);
+            noSpacer = GetCantidadSpacerSplitterCasting(proceso,h1);
 
             //Obtenemos los criterios mínimo y máximo para el spacer.
             criMinSpacer = GetCriterio("SpacerMin");
@@ -459,7 +452,7 @@ namespace Model
             spacerMax = spacer + criMaxSpacer;
 
             //Ejecutamos el método para obtener el o los spacer.
-            IList informacionBD =  ServicioSplitter.GetSpacer(proceso, spacerMin, spacerMax);
+            IList informacionBD =  ServicioSplitter.GetSpacer(spacerMin, spacerMax);
 
             //Verificamos que la información obtenida sea direfente de nulo.
             if (informacionBD != null)
@@ -470,13 +463,21 @@ namespace Model
                     //Leemos la lista para convertirla en lisa de herramentales.
                     Herramental herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
+                    herramental.DescripcionRuta = "SPACER " + spacer + " No. SPACERS " + noSpacer;
+
                     ListaResultante.Add(herramental);
 
                     if (proceso != "Doble")
                     {
                         double spacer2 = GetMedidaSpacerSplitter2(proceso, h1);
+                        noSpacer2 = GetCantidadSpacerSplitterCasting(proceso, h1);
+                        Herramental herramental2 = GetSpacer2SplitterCasting(spacer2);
 
+                        herramental2.DescripcionRuta = "SPACER " + spacer2 + " No. SPACERS " + noSpacer2;
+
+                        ListaResultante.Add(herramental2);
                     }
+                    break;
                 }
             }
             else
@@ -486,6 +487,84 @@ namespace Model
 
             //Retornamos la lista.
             return ListaResultante;
+        }
+
+        /// <summary>
+        /// Método que obtiene la cantidad de espaciadores de la operación splitter.
+        /// </summary>
+        /// <param name="proceso"></param>
+        /// <param name="h1"></param>
+        /// <returns></returns>
+        public static int GetCantidadSpacerSplitterCasting(string proceso, double h1)
+        {
+            //Declaramos un entero el cual será el que retornemos en el método.
+            int cantidad = 0;
+
+            //Inicializamos los servicios de splitter.
+            SO_SplitterCasting ServicioSplitter = new SO_SplitterCasting();
+
+            //Declaramos una lista anónima la cual contendra la información de la base de datos.
+            IList informacionBD;
+
+            //Verificamos si el proceso es double.
+            if (proceso == "Doble")
+                informacionBD = ServicioSplitter.GetCantidadSpacerDoble(proceso, h1);
+            else
+                informacionBD = ServicioSplitter.GetCantidadSpacer(proceso, h1);
+
+            //Validamos si la información obtenida es diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Obtenemos el valor y lo asignamos a la variable local.
+                    cantidad = (int)tipo.GetProperty("CantidadSpacer").GetValue(item, null);
+                }
+            }
+
+            //Retornamos el resultado.
+            return cantidad;
+        }
+
+        /// <summary>
+        /// Método que obtiene el 2do herramental spacer, esto cuendo el proseso es distinto de doble.
+        /// </summary>
+        /// <param name="spacer"></param>
+        /// <returns></returns>
+        public static Herramental GetSpacer2SplitterCasting(double spacer)
+        {
+            Herramental herramental = new Herramental();
+
+            SO_SplitterCasting ServicioSplitter = new SO_SplitterCasting();
+
+            double spacerMin, spacerMax;
+            spacerMin = GetCriterio("SpacerMin");
+            spacerMax = GetCriterio("SpacerMax");
+
+            spacerMin = spacer - spacerMin;
+            spacerMax = spacer + spacerMax;
+
+
+            IList informacionBD = ServicioSplitter.GetSpacer(spacerMin, spacerMax);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    herramental = new Herramental();
+
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                }
+            }
+
+            return herramental;
         }
 
         /// <summary>

@@ -11,6 +11,9 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
 {
     public class Splitter : IOperacion, IObserverWidth
     {
+        #region Attibutes
+        string proceso;
+        #endregion
 
         #region Constructors
 
@@ -146,7 +149,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
 
         private void CalcularWidth()
         {
-            string proceso = Module.GetValorPropiedadString("Proceso", elPlano.PerfilOD.PropiedadesCadena);
+            proceso = Module.GetValorPropiedadString("Proceso", elPlano.PerfilOD.PropiedadesCadena);
 
             WidthOperacion = DataManager.GetWidthSplitterCasting(proceso, elPlano.H1.Valor);
 
@@ -207,7 +210,12 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
 
         public void BuscarHerramentales()
         {
-            
+            foreach (var item in DataManager.GetSpacerSplitterCastings(proceso, elPlano.H1.Valor))
+            {
+                ListaHerramentales.Add(item);
+            }
+
+            ListaHerramentales.Add(DataManager.GetCutterSplitterCasting(0.031));
         }
 
         /// <summary>
