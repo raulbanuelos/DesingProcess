@@ -64,10 +64,27 @@ namespace View.Forms.Tooling
         {
             var textBox = sender as TextBox;
             if (textBox == null) return;
+            string text = textBox.Text;
+            Regex regex = new Regex("[^0-9.]+");
 
-            string text = textBox.Text;     
-                Regex regex = new Regex("[^0-9.]+");
-                e.Handled = regex.IsMatch(e.Text);
+            if (regex.IsMatch(e.Text))
+            {
+                for (int i = 0; i < text.Length; i++)
+                {
+                    var c = text[i];
+                    if (c == '.')
+                    {
+                        if (text.Contains("."))
+                            e.Handled = true;
+                        else
+                            e.Handled = false;
+                    }
+                    else
+                    {
+                        e.Handled = regex.IsMatch(e.Text);
+                    }
+                }
+            }          
         } 
         
         private void KeyValidation(object sender, KeyEventArgs e)

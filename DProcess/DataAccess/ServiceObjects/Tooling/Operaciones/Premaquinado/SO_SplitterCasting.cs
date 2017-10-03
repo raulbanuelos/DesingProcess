@@ -232,6 +232,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
         {
             try
             {
+                //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion= new EntitiesTooling())
                 {
                     CutterSpacerSplitter obj = new CutterSpacerSplitter();
