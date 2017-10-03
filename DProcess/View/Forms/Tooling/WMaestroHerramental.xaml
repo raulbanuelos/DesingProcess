@@ -31,7 +31,7 @@
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="5">
                 <TextBox materialDesign:HintAssist.Hint="Código" HorizontalAlignment="Left" Text="{Binding Codigo}"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" CharacterCasing="Upper"  BorderBrush="#899B9999" IsEnabled="{Binding EnabledCodigo}"></TextBox>
                 <TextBox materialDesign:HintAssist.Hint="Descripción" HorizontalAlignment="Left" Text="{Binding Descripcion}" Height="50" TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" CharacterCasing="Upper" BorderBrush="#899B9999"></TextBox>
-                <ComboBox materialDesign:HintAssist.Hint="Clasificación Herramental" FontSize="17" Height="50" Width="430" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaClasificacion}"  DisplayMemberPath="Descripcion" SelectedItem="{Binding SelectedClasificacion}" SelectedValuePath="IdClasificacion" SelectedValue="{Binding Id_clasificacion}">
+                <ComboBox Name="combo1" materialDesign:HintAssist.Hint="Clasificación Herramental" FontSize="17" Height="50" Width="430" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaClasificacion}"  DisplayMemberPath="Descripcion" SelectedItem="{Binding SelectedClasificacion}" SelectedValuePath="IdClasificacion" SelectedValue="{Binding Id_clasificacion}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
                             <i:InvokeCommandAction

@@ -51,6 +51,10 @@ namespace View.Forms.Tooling
            InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public bool ValidaError()
         {
             if (!string.IsNullOrEmpty(code.Text) &!string.IsNullOrEmpty(dimA.Text) & !string.IsNullOrEmpty(dimA.Text) & !string.IsNullOrEmpty(dimB.Text) & !string.IsNullOrWhiteSpace(dimC.Text) &
@@ -60,39 +64,54 @@ namespace View.Forms.Tooling
                 return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NumberValidation(object sender, TextCompositionEventArgs e)
         {
             var textBox = sender as TextBox;
             if (textBox == null) return;
             string text = textBox.Text;
             Regex regex = new Regex("[^0-9.]+");
-
-            if (regex.IsMatch(e.Text))
+            //Valida si el caracter es un número o punto, si el texto ya contiene un punto no permite escribir otro punto
+            if (!regex.IsMatch(e.Text))
             {
-                for (int i = 0; i < text.Length; i++)
+                if (e.Text.Equals("."))
                 {
-                    var c = text[i];
-                    if (c == '.')
-                    {
-                        if (text.Contains("."))
-                            e.Handled = true;
-                        else
-                            e.Handled = false;
-                    }
+                    if (text.Contains("."))
+                        e.Handled = true;
                     else
-                    {
-                        e.Handled = regex.IsMatch(e.Text);
-                    }
+                        e.Handled = false;
                 }
+                else
+                {
+                    e.Handled = regex.IsMatch(e.Text);
+                }
+            }
+            else
+            {
+                e.Handled = true;
             }          
         } 
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void KeyValidation(object sender, KeyEventArgs e)
          {
+            //si la tecla presionada es un espacio no la escribe
             if (e.Key == Key.Space)
-                e.Handled = false;
+                e.Handled = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public bool ValidaRangos()
         {
             double wmin, wmax, rmin, rmax;
@@ -101,7 +120,7 @@ namespace View.Forms.Tooling
             rmin = double.Parse(RMin.Text, CultureInfo.InvariantCulture.NumberFormat);
             rmax = double.Parse(Rmax.Text, CultureInfo.InvariantCulture.NumberFormat);
 
-            if (wmin < wmax)
+            if (wmin < wmax && rmin<rmax)
                 return true;
             else
                 return false;

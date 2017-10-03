@@ -9,7 +9,7 @@
              d:DesignHeight="100" d:DesignWidth="450">
     <Grid>
         <StackPanel Orientation="Vertical">
-            <TextBox x:Name="dimA" materialDesign:HintAssist.Hint="Dim A" HorizontalAlignment="Left"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation"  ></TextBox>
+            <TextBox x:Name="dimA" materialDesign:HintAssist.Hint="Dim A" HorizontalAlignment="Left"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation" PreviewKeyDown="KeyValidation" ></TextBox>
         </StackPanel>
     </Grid>
 </UserControl>

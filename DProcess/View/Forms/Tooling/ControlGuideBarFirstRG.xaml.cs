@@ -29,6 +29,11 @@ namespace View.Forms.Tooling
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
         public int Guardar(string codigo)
         {
             Herramental obj = new Herramental();
@@ -40,6 +45,9 @@ namespace View.Forms.Tooling
             return DataManager.SetFirstRG(obj);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Inicializa()
         {
             InitializeComponent();
@@ -57,17 +65,57 @@ namespace View.Forms.Tooling
                 return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public bool ValidaRangos()
         {
             return false;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NumberValidation(object sender, TextCompositionEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(e.Text))
+            var textBox = sender as TextBox;
+            if (textBox == null) return;
+            string text = textBox.Text;
+            Regex regex = new Regex("[^0-9.]+");
+            //Valida si el caracter es un número o punto, si el texto ya contiene un punto no permite escribir otro punto
+            if (!regex.IsMatch(e.Text))
             {
-                Regex regex = new Regex("[^0-9.]+");
-                e.Handled = regex.IsMatch(e.Text);
+                if (e.Text.Equals("."))
+                {
+                    if (text.Contains("."))
+                        e.Handled = true;
+                    else
+                        e.Handled = false;
+                }
+                else
+                {
+                    e.Handled = regex.IsMatch(e.Text);
+                }
             }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void KeyValidation(object sender, KeyEventArgs e)
+        {
+            //si la tecla presionada es un espacio no la escribe
+            if (e.Key == Key.Space)
+                e.Handled = true;
         }
     }
 }

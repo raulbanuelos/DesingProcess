@@ -9,9 +9,9 @@
              d:DesignHeight="200" d:DesignWidth="450">
     <Grid>
         <StackPanel Orientation="Vertical">
-            <TextBox x:Name="Wmin" materialDesign:HintAssist.Hint="Width min" HorizontalAlignment="Left"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation"  ></TextBox>
-            <TextBox x:Name="WMax" materialDesign:HintAssist.Hint="Width max" HorizontalAlignment="Left"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation"  ></TextBox>
-            <TextBox x:Name="espesor" materialDesign:HintAssist.Hint="Espesor" HorizontalAlignment="Left"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation"  ></TextBox>
+            <TextBox x:Name="Wmin" materialDesign:HintAssist.Hint="Width min" HorizontalAlignment="Left"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation" PreviewKeyDown="KeyValidation" ></TextBox>
+            <TextBox x:Name="WMax" materialDesign:HintAssist.Hint="Width max" HorizontalAlignment="Left"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation" PreviewKeyDown="KeyValidation" ></TextBox>
+            <TextBox x:Name="espesor" materialDesign:HintAssist.Hint="Espesor" HorizontalAlignment="Left"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation" PreviewKeyDown="KeyValidation" ></TextBox>
         </StackPanel>
     </Grid>
 </UserControl>
