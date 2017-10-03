@@ -284,6 +284,34 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                 return null;
             }
         }
+
+        public int SetCutterSpacerS(string codigo, double a, double b, string plano)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    CutterSpacerSplitter obj = new CutterSpacerSplitter();
+
+                    obj.Codigo = codigo;
+                    obj.A = a;
+                    obj.B = b;
+                    obj.Plano = plano;
+
+                    Conexion.CutterSpacerSplitter.Add(obj);
+                    Conexion.SaveChanges();
+
+                    return obj.ID_SPACER_SPLITTER;
+                }
+            }
+            catch (Exception)
+            {
+
+                return 0;
+            }
+        }
+
         #endregion
     }
 }
