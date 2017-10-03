@@ -16,7 +16,7 @@ namespace DataAccess.ServiceObjects.Tooling
     {
         public int ID_EGR_1P { get; set; }
         public string CODIGO { get; set; }
-        public string CODE { get; set; }
+        public string DETALLE { get; set; }
         public Nullable<double> DIMB { get; set; }
         public Nullable<double> WIRE_WIDTH_MIN { get; set; }
         public Nullable<double> WIDE_WIDTH_MAX { get; set; }

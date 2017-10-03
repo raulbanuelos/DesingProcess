@@ -62,16 +62,32 @@ namespace View.Forms.Tooling
 
         private void NumberValidation(object sender, TextCompositionEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(e.Text)) {
+            var textBox = sender as TextBox;
+            if (textBox == null) return;
+
+            string text = textBox.Text;     
                 Regex regex = new Regex("[^0-9.]+");
                 e.Handled = regex.IsMatch(e.Text);
-            }
         } 
         
         private void KeyValidation(object sender, KeyEventArgs e)
          {
             if (e.Key == Key.Space)
                 e.Handled = false;
-        }      
+        }
+
+        public bool ValidaRangos()
+        {
+            double wmin, wmax, rmin, rmax;
+            wmin = double.Parse(WMin.Text, CultureInfo.InvariantCulture.NumberFormat);
+            wmax = double.Parse(WMax.Text, CultureInfo.InvariantCulture.NumberFormat);
+            rmin = double.Parse(RMin.Text, CultureInfo.InvariantCulture.NumberFormat);
+            rmax = double.Parse(Rmax.Text, CultureInfo.InvariantCulture.NumberFormat);
+
+            if (wmin < wmax)
+                return true;
+            else
+                return false;
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace DataAccess.ServiceObjects.Tooling
     {
         public int ID_SHIM_OTCS { get; set; }
         public string CODIGO { get; set; }
-        public string CODE { get; set; }
+        public string DETALLE { get; set; }
         public Nullable<double> DIMA { get; set; }
         public Nullable<double> WIRE_WIDTH_MIN { get; set; }
         public Nullable<double> WIDE_WIDTH_MAX { get; set; }

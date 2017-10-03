@@ -33,7 +33,7 @@ namespace DataAccess.ServiceObjects.Tooling
 
                     //Se asiganan los valores.
                     obj.CODIGO = codigo;
-                    obj.CODE = code;
+                    obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
                     obj.DIMC = dimC;
@@ -76,7 +76,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     TBL_COIL_FEED_ROLLER obj = Conexion.TBL_COIL_FEED_ROLLER.Where(x => x.ID_COIL_FEED_ROLLER == id_coil).FirstOrDefault();
                     //Asiganmos los valores
                     obj.CODIGO = codigo;
-                    obj.CODE = code;
+                    obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
                     obj.DIMC = dimC;
@@ -141,7 +141,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                  select new {
                                      CODIGO = b.Codigo,
                                      DESCRIPCION = b.Descripcion,
-                                     a.DIMA,a.DIMB,a.DIMC,a.DIMD,a.CODE
+                                     a.DIMA,a.DIMB,a.DIMC,a.DIMD,a.DETALLE
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -178,7 +178,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.DIMB,
                                      c.DIMC,
                                      c.DIMD,
-                                     c.CODE,
+                                     c.DETALLE,
                                      c.WIRE_WIDTH_MAX,
                                      c.WIRE_WIDTH_MIN
                                  }).ToList();
@@ -216,7 +216,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     TBL_COIL_CENTER_GUIDE obj = new TBL_COIL_CENTER_GUIDE();
                     //Se asiganan los valores.
                     obj.CODIGO = codigo;
-                    obj.CODE = code;
+                    obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
                     obj.DIMC = dimC;
@@ -264,7 +264,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     TBL_COIL_CENTER_GUIDE obj = conexion.TBL_COIL_CENTER_GUIDE.Where(x => x.ID_COIL_CENTER_GUIDE == id_coil).FirstOrDefault();
                     //Asiganmos los valores
                     obj.CODIGO = codigo;
-                    obj.CODE = code;
+                    obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
                     obj.DIMC = dimC;
@@ -336,7 +336,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      a.DIMA,
                                      a.DIMB,
                                      a.DIMC,
-                                     a.CODE
+                                     a.DETALLE
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -371,7 +371,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.DIMA,
                                      c.DIMB,
                                      c.DIMC,
-                                     c.CODE,
+                                     c.DETALLE,
                                      c.WIRE_WIDTH_MAX,
                                      c.WIRE_WIDTH_MIN,
                                      c.RADIAL_WIRE_MAX,
@@ -411,7 +411,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     TBL_EXIT_GUIDE obj = new TBL_EXIT_GUIDE();
                     //Se asiganan los valores.
                     obj.CODIGO = codigo;
-                    obj.CODE = code;
+                    obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
                     obj.DIMC = dimC;
@@ -459,7 +459,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     TBL_EXIT_GUIDE obj = conexion.TBL_EXIT_GUIDE.Where(x => x.ID_EXIT_GUIDE == id_exit).FirstOrDefault();
                     //Asiganmos los valores
                     obj.CODIGO = codigo;
-                    obj.CODE = code;
+                    obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
                     obj.DIMC = dimC;
@@ -533,7 +533,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      a.DIMA,
                                      a.DIMB,
                                      a.DIMC,
-                                     a.CODE
+                                     a.DETALLE
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -569,7 +569,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.DIMA,
                                      c.DIMB,
                                      c.DIMC,
-                                     c.CODE,
+                                     c.DETALLE,
                                      c.WIRE_WIDTH_MIN,
                                      c.WIDE_WIDTH_MAX,
                                      c.RADIAL_WIRE_MIN,
@@ -605,7 +605,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     TBL_EXTERNAL_GUIDE_ROLLER_1PIECE obj = new TBL_EXTERNAL_GUIDE_ROLLER_1PIECE();
                     //Se asiganan los valores.
                     obj.CODIGO = codigo;
-                    obj.CODE = code;
+                    obj.DETALLE = code;
                     obj.DIMB = dimB;
                     obj.WIDE_WIDTH_MAX = W_Max;
                     obj.WIRE_WIDTH_MIN = W_Min;
@@ -645,7 +645,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     TBL_EXTERNAL_GUIDE_ROLLER_1PIECE obj = conexion.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE.Where(x => x.ID_EGR_1P == id_external).FirstOrDefault();
                     //Asiganmos los valores
                     obj.CODIGO = codigo;
-                    obj.CODE = code;
+                    obj.DETALLE = code;
                     obj.DIMB = dimB;
                     obj.WIDE_WIDTH_MAX = W_Max;
                     obj.WIRE_WIDTH_MIN = W_Min;
@@ -711,7 +711,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      CODIGO = b.Codigo,
                                      DESCRIPCION = b.Descripcion,
                                      a.DIMB,
-                                     a.CODE
+                                     a.DETALLE
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -745,7 +745,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      CODIGO = m.Codigo,
                                      DESCRIPCION = m.Descripcion,
                                      c.DIMB,
-                                     c.CODE,
+                                     c.DETALLE,
                                      c.WIDE_WIDTH_MAX,
                                      c.WIRE_WIDTH_MIN
                                  }).ToList();
@@ -779,7 +779,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1 obj = new TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1();
                     //Se asiganan los valores.
                     obj.CODIGO = codigo;
-                    obj.CODE = code;
+                    obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
                     obj.DIMC = dimC;
@@ -824,7 +824,7 @@ namespace DataAccess.ServiceObjects.Tooling
 
                     //Asiganmos los valores
                     obj.CODIGO = codigo;
-                    obj.CODE = code;
+                    obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
                     obj.DIMC = dimC;
@@ -893,7 +893,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      a.DIMA,
                                      a.DIMB,
                                      a.DIMC,
-                                     a.CODE
+                                     a.DETALLE
                                  }).ToList();
 
                     //Retornamos la lista
@@ -930,7 +930,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.DIMA,
                                      c.DIMB,
                                      c.DIMC,
-                                     c.CODE,
+                                     c.DETALLE,
                                      c.WIRE_WIDTH_MIN,
                                      c.WIDE_WIDTH_MAX
                                  }).ToList();
@@ -966,7 +966,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2 obj = new TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2();
                     //Se asiganan los valores.
                     obj.CODIGO = codigo;
-                    obj.CODE = code;
+                    obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
                     obj.DIMC = dimC;
@@ -1010,7 +1010,7 @@ namespace DataAccess.ServiceObjects.Tooling
 
                     //Asiganmos los valores
                     obj.CODIGO = codigo;
-                    obj.CODE = code;
+                    obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
                     obj.DIMC = dimC;
@@ -1079,7 +1079,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      a.DIMA,
                                      a.DIMB,
                                      a.DIMC,
-                                     a.CODE
+                                     a.DETALLE
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -1115,7 +1115,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.DIMA,
                                      c.DIMB,
                                      c.DIMC,
-                                     c.CODE,
+                                     c.DETALLE,
                                      c.WIRE_WIDTH_MIN,
                                      c.WIDE_WIDTH_MAX
                                  }).ToList();
@@ -1149,7 +1149,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3 obj = new TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3();
                     //Se asiganan los valores.
                     obj.CODIGO = codigo;
-                    obj.CODE = code;
+                    obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
                     obj.DIMC = dimC;
@@ -1192,7 +1192,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3 obj = Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3.Where(x => x.ID_EGR_3P_3 == id_ext).FirstOrDefault();
                     //Asiganmos los valores
                     obj.CODIGO = codigo;
-                    obj.CODE = code;
+                    obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
                     obj.DIMC = dimC;
@@ -1261,7 +1261,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      a.DIMA,
                                      a.DIMB,
                                      a.DIMC,
-                                     a.CODE
+                                     a.DETALLE
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -1297,7 +1297,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.DIMA,
                                      c.DIMB,
                                      c.DIMC,
-                                     c.CODE,
+                                     c.DETALLE,
                                      c.WIDE_WIDTH_MAX,
                                      c.WIRE_WIDTH_MIN
                                  }).ToList();
@@ -1330,7 +1330,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     TBL_SHIM_OF_THE_CUT_SYSTEM obj = new TBL_SHIM_OF_THE_CUT_SYSTEM();
                     //Se asiganan los valores.
                     obj.CODIGO = codigo;
-                    obj.CODE = code;
+                    obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.WIDE_WIDTH_MAX = W_Max;
                     obj.WIRE_WIDTH_MIN = W_Min;
@@ -1370,7 +1370,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     TBL_SHIM_OF_THE_CUT_SYSTEM obj = conexion.TBL_SHIM_OF_THE_CUT_SYSTEM.Where(x => x.ID_SHIM_OTCS == id).FirstOrDefault();
                     //Asiganmos los valores
                     obj.CODIGO = codigo;
-                    obj.CODE = code;
+                    obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.WIDE_WIDTH_MAX = W_Max;
                     obj.WIRE_WIDTH_MIN = W_Min;
@@ -1435,7 +1435,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      CODIGO = b.Codigo,
                                      DESCRIPCION = b.Descripcion,
                                      a.DIMA,
-                                     a.CODE
+                                     a.DETALLE
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -1469,7 +1469,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      CODIGO = m.Codigo,
                                      DESCRIPCION = m.Descripcion,
                                      c.DIMA,
-                                     c.CODE,
+                                     c.DETALLE,
                                      c.WIRE_WIDTH_MIN,
                                      c.WIDE_WIDTH_MAX
                                  }).ToList();
@@ -1477,7 +1477,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     return Lista;
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 //Si hay error retorna nulo
                 return null;

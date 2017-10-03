@@ -60,6 +60,11 @@ namespace View.Forms.Tooling
                 return false;
         }
 
+        public bool ValidaRangos()
+        {
+            return false;
+        }
+
         //KeyEventArgs k 
         private void NumberValidation(object sender, TextCompositionEventArgs e)
         {     

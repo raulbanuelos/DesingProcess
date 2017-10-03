@@ -59,6 +59,11 @@ namespace View.Forms.Tooling
                 return false;
         }
 
+        public bool ValidaRangos()
+        {
+            return false;
+        }
+
         private void NumberValidation(object sender, TextCompositionEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(e.Text))

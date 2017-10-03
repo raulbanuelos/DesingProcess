@@ -11,5 +11,6 @@ namespace Model.Interfaces
         int Guardar(string codigo);
         bool ValidaError();
         void Inicializa();
+        bool ValidaRangos();
     }
 }

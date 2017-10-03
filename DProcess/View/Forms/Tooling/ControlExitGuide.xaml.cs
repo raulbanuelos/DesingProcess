@@ -59,6 +59,10 @@ namespace View.Forms.Tooling
             else
                 return false;
         }
+        public bool ValidaRangos()
+        {
+            return false;
+        }
 
         private void NumberValidation(object sender, TextCompositionEventArgs e)
         {
