@@ -78,10 +78,10 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                 Dictionary<string, object> parametros = new Dictionary<string, object>();
 
                 //Agregamos los parámertros necesarios del procedimiento.
-                parametros.Add("EspecificacionMaterial",EspecificacionMaterial);
+                parametros.Add("EspecificacionMaterial", EspecificacionMaterial);
 
                 //LLamamos al método para ejecutar el procedimiento, el resultado lo asignamos a la variable local.
-                datos = conexion.EjecutarStoredProcedure("SP_RGP_GetCycleTimeSplitterCasting",parametros);
+                datos = conexion.EjecutarStoredProcedure("SP_RGP_GetCycleTimeSplitterCasting", parametros);
 
                 //Retornamos el resultado de la consulta.
                 return datos;
@@ -101,7 +101,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
         /// <param name="spacerMin"></param>
         /// <param name="spacerMax"></param>
         /// <returns></returns>
-        public IList GetSpacer(string proceso, double spacerMin, double spacerMax)
+        public IList GetSpacer(double spacerMin, double spacerMax)
         {
             try
             {
@@ -189,6 +189,39 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
         }
 
         /// <summary>
+        /// Método que obtiene la cantidad de espaciadores utilizados para cuando el proceso es Doble.
+        /// </summary>
+        /// <param name="proceso"></param>
+        /// <param name="h1"></param>
+        /// <returns></returns>
+        public IList GetCantidadSpacerDoble(string proceso, double h1)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta, el resultado lo asignamos a una variable anónima.
+                    var Lista = (from a in Conexion.SplitterSpacerChart
+                                 where a.Nominal_split == h1 && a.Proceso == proceso
+                                 select new
+                                 {
+                                     CantidadSpacer = a.Castings_per_chuck
+
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Método que obtiene la medida ideal del spacer cuando el proceso es distinto a Doble.
         /// </summary>
         /// <param name="proceso"></param>
@@ -221,37 +254,34 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
         }
 
         /// <summary>
-        /// Método que inserta un registro a la tabla CutterSpacer
+        /// Método que obtiene la cantidad de espaciadores utilizados para cuando el proceso es distinto de Doble.
         /// </summary>
-        /// <param name="codigo"></param>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="plano"></param>
+        /// <param name="proceso"></param>
+        /// <param name="h1"></param>
         /// <returns></returns>
-        public int SetCutterSpacerS(string codigo, double a, double b,string plano)
+        public IList GetCantidadSpacer(string proceso, double h1)
         {
             try
             {
                 //Realizamos la conexión a través de EntityFramework.
-                using (var Conexion= new EntitiesTooling())
+                using (var Conexion = new EntitiesTooling())
                 {
-                    CutterSpacerSplitter obj = new CutterSpacerSplitter();
+                    //Realizamos la consulta, el resultado lo asignamos a una variable anónima.
+                    var Lista = (from a in Conexion.SPlitterSpacerChart2
+                                 where a.RingWidth == h1 && a.Proceso == proceso
+                                 select new
+                                 {
+                                     CantidadSpacer = a.CantidadSpacer1
+                                 }).ToList();
 
-                    obj.Codigo = codigo;
-                    obj.A = a;
-                    obj.B = b;
-                    obj.Plano = plano;
-
-                    Conexion.CutterSpacerSplitter.Add(obj);
-                    Conexion.SaveChanges();
-
-                    return obj.ID_SPACER_SPLITTER;
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
-
-                return 0;
+                //Si ocurre algún error retornamos un nulo.
+                return null;
             }
         }
 
