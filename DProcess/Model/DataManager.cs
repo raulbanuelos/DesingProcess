@@ -196,7 +196,7 @@ namespace Model
             //Ejecutamos el método para obtener el width de la operación y retornamos el resultado.
             return ServiceSplitterCasting.GetWidthSplitterCastings(H1, proceso);
         }
-
+        
         /// <summary>
         /// Método que obtiene el herramental Barra Guia de la operación First Rough Grind.
         /// </summary>
@@ -608,6 +608,11 @@ namespace Model
 
             //Retornamos el valor.
             return medidaSpacer;
+        }
+
+        public static Herramental GetCutterSplitterCasting(double v)
+        {
+            throw new NotImplementedException();
         }
         #endregion
 
