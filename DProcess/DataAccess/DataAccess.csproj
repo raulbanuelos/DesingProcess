@@ -199,6 +199,18 @@
     <Compile Include="ServiceObjects\MateriasPrimas\TubosHD.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\ChuckSplitter.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\ClasificacionHerramental.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\CollarBK.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\CriteriosAnillos.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\CutterSpacerSplitter.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -209,6 +221,9 @@
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\GuideBarSecondRoughGrind.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\MaestroHerramentales.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\Operaciones\Premaquinado\SO_FirstRoughGrind.cs" />
@@ -273,18 +288,6 @@
     </Compile>
     <Compile Include="ServiceObjects\SO_CentroTrabajo.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Material.cs" />
-    <Compile Include="ServiceObjects\Tooling\ClasificacionHerramental.cs">
-      <DependentUpon>ModelTooling.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ServiceObjects\Tooling\CollarBK.cs">
-      <DependentUpon>ModelTooling.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ServiceObjects\Tooling\CriteriosAnillos.cs">
-      <DependentUpon>ModelTooling.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ServiceObjects\Tooling\MaestroHerramentales.cs">
-      <DependentUpon>ModelTooling.tt</DependentUpon>
-    </Compile>
     <Compile Include="ServiceObjects\Tooling\ModelTooling.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

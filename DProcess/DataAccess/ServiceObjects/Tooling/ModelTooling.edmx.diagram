@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e1e9c6e9823045bc8a3f97fca9e18867" Name="Diagram1" ZoomLevel="88">
+      <Diagram DiagramId="e1e9c6e9823045bc8a3f97fca9e18867" Name="Diagram1" ZoomLevel="97">
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ClasificacionHerramental" Width="2.75" PointX="1.5" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Width="4.125" PointX="5.625" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.PLANO_HERRAMENTAL" Width="2.75" PointX="0.75" PointY="5" IsExpanded="true" />
@@ -39,6 +39,8 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart" Width="3" PointX="0.5" PointY="8.875" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" Width="1.5" PointX="4.375" PointY="7.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ChuckSplitter" Width="1.5" PointX="10.5" PointY="39.875" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_ChuckSplitter_MaestroHerramentales" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CutterSplitter" Width="1.5" PointX="10.5" PointY="37" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CutterSplitter_MaestroHerramentales" />
       </Diagram>
