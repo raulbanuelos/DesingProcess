@@ -269,6 +269,9 @@
     <Compile Include="Forms\Tooling\PTooling.xaml.cs">
       <DependentUpon>PTooling.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\WBusquedaHerramenal.xaml.cs">
+      <DependentUpon>WBusquedaHerramenal.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\WCoil.xaml.cs">
       <DependentUpon>WCoil.xaml</DependentUpon>
     </Compile>
@@ -304,6 +307,7 @@
     <Compile Include="Services\ViewModel\AnilloViewModel.cs" />
     <Compile Include="Services\ViewModel\BloqueoVM.cs" />
     <Compile Include="Services\ViewModel\Buscar_DocumentoVM.cs" />
+    <Compile Include="Services\ViewModel\Busqueda_HerramentalVM.cs" />
     <Compile Include="Services\ViewModel\CoilCenterG_VM.cs" />
     <Compile Include="Services\ViewModel\CoilFeedRoller_VM.cs" />
     <Compile Include="Services\ViewModel\CollarAutoFinTurnViewModel.cs" />
@@ -557,6 +561,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\PTooling.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WBusquedaHerramenal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
