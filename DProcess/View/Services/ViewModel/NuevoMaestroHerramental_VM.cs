@@ -38,7 +38,6 @@ namespace View.Services.ViewModel
         public Usuario usuario;
         DialogService dialog = new DialogService();
         Encriptacion encriptar = new Encriptacion();
-        IControlTooling tooling;
         IApplicationContext ctx;
         XmlApplicationContext file;
 
@@ -178,6 +177,9 @@ namespace View.Services.ViewModel
                 NotifyChange("Controlador");
             }
         }
+
+        private string _textCombo;
+        public string textCombo { get { return _textCombo; } set { _textCombo = value; NotifyChange("textCombo"); } }
         private bool bandCambios;
         #endregion
 
@@ -193,11 +195,25 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand MostrarControl
         {
             get
             {
                 return new RelayCommand(o => nuevoControl());
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICommand IrClasificacionH
+        {
+            get
+            {
+                return new RelayCommand(o => irClasificacionH());
             }
         }
         #endregion
@@ -353,33 +369,56 @@ namespace View.Services.ViewModel
                 return false;
         }
 
+        /// <summary>
+        /// Método que abre la ventana para buscar un registro  clasificacion herramental
+        /// </summary>
+        private void irClasificacionH()
+        {
+            WBusquedaHerramenal frm = new WBusquedaHerramenal();
+            Busqueda_HerramentalVM context = new Busqueda_HerramentalVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+            //Se obtiene el objeto seleccionado, de la ventana de búsqueda
+           SelectedClasificacion= context.SelectedClasificacion;
+            //Se asigna al id para moestrar en el combobox
+           Id_clasificacion = SelectedClasificacion.IdClasificacion;
+
+        }
+        /// <summary>
+        /// Método que muestra el control dependiendo de la clasificacion de herramental
+        /// </summary>
         private async void nuevoControl()
         {
+            //Si selecciono algun herramental
             if (SelectedClasificacion != null)
             {
                 try
                 {
-
-                    file = new XmlApplicationContext("C:\\Users\\Ing.practicante\\Documents\\ClasificacionHerramental.xml");
+                    //Se obtiene el archivo
+                    file = new XmlApplicationContext(@"\\agufileserv2\INGENIERIA\RESPRUTAS\NUEVO SOFTWARE RUTAS\raul\nueva\RoutingGenerationProgram\ClasificacionHerramental.xml");
                     ctx = file;
                     string objetoXML = SelectedClasificacion.objetoXML;
+                    //Se obtiene el objeto dependiendo del id asignado
                     Controlador =(IControlTooling) ctx.GetObject(objetoXML);
-                    Controlador.Inicializa();
+                    //Inicializa el controlador
+                    Controlador.Inicializa();                  
                 }
                 catch (Exception er)
                 {
-
+                    //si hay error, o no encuentra el objeto muestra un mensaje en pantalla
                     await dialog.SendMessage("Información", "");
                 }
             }
         }
+
+
         #endregion
         #region Constructor
         public NuevoMaestroHerramental_VM(Usuario ModelUsuario)
         {
             usuario = ModelUsuario;
             ListaPlano = DataManager.GetPlano_Herramental();
-            ListaClasificacion = DataManager.GetClasificacionHerramental();
+            ListaClasificacion = DataManager.GetClasificacionHerramental(string.Empty);
             //Bandera en falso si se va a dar de alta un herramental
             bandCambios = false;
         }
@@ -389,7 +428,7 @@ namespace View.Services.ViewModel
             //Constructor para ver detalles de un herramental y cambiar la información
             usuario = ModelUsuario;
             ListaPlano = DataManager.GetPlano_Herramental();
-            ListaClasificacion = DataManager.GetClasificacionHerramental();
+            ListaClasificacion = DataManager.GetClasificacionHerramental(string.Empty);
             //Obtiene las propiedades del herramental
             MaestroHerramental ObjHerramental = DataManager.GetPropiedadesHerramental(MHerramental.Codigo);
            

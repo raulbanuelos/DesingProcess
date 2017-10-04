@@ -147,7 +147,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// Método que obtiene todas las clasificaciones de herramental.
         /// </summary>
         /// <returns>Lista anónima que contiene la información de la tabla ClasificacionHerramental, si se genera algún error retornamos un nulo.</returns>
-        public IList GetClasificacionHerramental()
+        public IList GetClasificacionHerramental(string texto)
         {
             try
             {
@@ -156,6 +156,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 {
                     //Realizamos la consulta para obtener todos los registros, los ordenamos por la descripcion.
                     var lista = (from h in Conexion.ClasificacionHerramental
+                                 where h.Descripcion.Contains(texto)
                                  select h).OrderBy(x => x.Descripcion).ToList();
 
                     //Renornamos el resultado de la consulta.

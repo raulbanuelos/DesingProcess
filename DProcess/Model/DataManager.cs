@@ -865,7 +865,7 @@ namespace Model
         /// Método que obtiene todos los registros de la tabla ClasificacionHerramental.
         /// </summary>
         /// <returns>Lista observable con todos los registros, si se genera algún error retorna el objeto vacío.</returns>
-        public static ObservableCollection<ClasificacionHerramental> GetClasificacionHerramental()
+        public static ObservableCollection<ClasificacionHerramental> GetClasificacionHerramental(string texto)
         {
             //Inicializamos los servicios de clasificación.
             SO_ClasificacionHerramental ServiceClasificacion = new SO_ClasificacionHerramental();
@@ -874,7 +874,7 @@ namespace Model
             ObservableCollection<ClasificacionHerramental> ListaResultante = new ObservableCollection<ClasificacionHerramental>();
 
             //Ejecutamos el método para obtener la información de la base de datos.
-            IList InformacionBD = ServiceClasificacion.GetClasificacionHerramental();
+            IList InformacionBD = ServiceClasificacion.GetClasificacionHerramental(texto);
 
             //Comparamos que la información de la base de datos no sea nulo.
             if (InformacionBD != null)
