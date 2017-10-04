@@ -196,7 +196,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Comando que muestra el controlador de los herramentales
         /// </summary>
         public ICommand MostrarControl
         {
@@ -207,7 +207,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Comando que muestra la ventana para buscar un herramental
         /// </summary>
         public ICommand IrClasificacionH
         {

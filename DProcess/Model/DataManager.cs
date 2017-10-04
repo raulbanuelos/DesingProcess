@@ -646,9 +646,31 @@ namespace Model
         {
             //Inicializamos los servicios de SO_SplitterCasting.
             SO_SplitterCasting ServicioSplitter = new SO_SplitterCasting();
-
-           return ServicioSplitter.SetCutterSpacerS(obj.Codigo, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.Plano);
+            //Ejecutamos el método, devolvemos el resultado
+            return ServicioSplitter.SetCutterSpacerS(obj.Codigo,obj.Propiedades[0].Valor,obj.Propiedades[1].Valor,obj.Plano);
             
+        }
+
+        /// <summary>
+        /// Método que modifica un registro de cutter Spacer Splitter
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateCutterSpacerS(SplitterCasting obj)
+        {
+            //Inicializamos los servicios de SO_SplitterCasting.
+            SO_SplitterCasting ServicioSplitter = new SO_SplitterCasting();
+
+            //Ejecutamos el método, devolvemos el resultado
+            return ServicioSplitter.UpdateCutterSpacerS(obj.ID, obj.codigo, obj.A, obj.B,obj.plano);
+        }
+
+        public static int DeleteCutterSpacerS(int id)
+        {
+            //Inicializamos los servicios de SO_SplitterCasting.
+            SO_SplitterCasting ServicioSplitter = new SO_SplitterCasting();
+            //Ejecutamos el método, devolvemos el resultado
+            return ServicioSplitter.DeleteCutterSpacerS(id);
         }
         #endregion
 

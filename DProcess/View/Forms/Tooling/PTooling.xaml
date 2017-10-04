@@ -49,11 +49,15 @@
                     <MenuItem Header="Exit guide" Cursor="Hand" Command="{Binding IrExitGuide}"/>
                     <MenuItem Header="External guide roller 1 piece" Cursor="Hand" Command="{Binding IrExternalGR1P}"/>
                     <MenuItem Header="External guide roller 3 pieces">
-                        <MenuItem Header="DRAWING 2487-110-00-4" Cursor="Hand" Command="{Binding ExternalGR3P_1}"/>
-                        <MenuItem Header="DRAWING 2487-111-00-4" Cursor="Hand" Command="{Binding ExternalGR3P_2}"/>
-                        <MenuItem Header="DRAWING 2487-112-00-4" Cursor="Hand" Command="{Binding ExternalGR3P_3}"/>
+                        <MenuItem Header="Drawing 2487-110-00-4" Cursor="Hand" Command="{Binding ExternalGR3P_1}"/>
+                        <MenuItem Header="Drawing 2487-111-00-4" Cursor="Hand" Command="{Binding ExternalGR3P_2}"/>
+                        <MenuItem Header="Drawing 2487-112-00-4" Cursor="Hand" Command="{Binding ExternalGR3P_3}"/>
                     </MenuItem>
                     <MenuItem Header="Shim of the cut system" Cursor="Hand" Command="{Binding IrShimCS}"/>
+                </MenuItem>
+                <MenuItem Header="Splitter" Cursor="Hand">
+                    <MenuItem Header="Cutter Spacer Splitter" />
+                    <MenuItem Header="Cutter Splitter" />
                 </MenuItem>
             </MenuItem>
         </Menu>

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
 {
@@ -95,7 +96,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
         }
 
         /// <summary>
-        /// Método el cual obtiene el herramental spacer ideal.
+        /// Método el cual obtiene el herramental spacer ideal de la tabla CutterSpacerSplitter
         /// </summary>
         /// <param name="proceso"></param>
         /// <param name="spacerMin"></param>
@@ -284,7 +285,14 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                 return null;
             }
         }
-
+        /// <summary>
+        /// Método que da de alta un registro a la tabla CutterSpacerSplitter
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="plano"></param>
+        /// <returns></returns>
         public int SetCutterSpacerS(string codigo, double a, double b, string plano)
         {
             try
@@ -292,26 +300,131 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                 //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Declaramos el objeto de la tabla
                     CutterSpacerSplitter obj = new CutterSpacerSplitter();
 
+                    //Asignamos los valores
                     obj.Codigo = codigo;
                     obj.A = a;
                     obj.B = b;
                     obj.Plano = plano;
 
+                    //Guardamos los cambios
                     Conexion.CutterSpacerSplitter.Add(obj);
                     Conexion.SaveChanges();
-
+                    //Retornamos el id
                     return obj.ID_SPACER_SPLITTER;
                 }
             }
             catch (Exception)
             {
-
+                //Si hubo error, retornamos cero
                 return 0;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="codigo"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="plano"></param>
+        /// <returns></returns>
+        public int UpdateCutterSpacerS(int id,string codigo,double a,double b, string plano)
+        {
+            try
+            {
+                //Se establece la conexión a la base de datos.
+                using (var conexion= new EntitiesTooling())
+                {
+                    //Se obtiene el objeto que se va a modificar.
+                    CutterSpacerSplitter obj = conexion.CutterSpacerSplitter.Where(x => x.ID_SPACER_SPLITTER == id).FirstOrDefault();
+
+                    //Asiganmos los valores
+                    obj.Codigo = codigo;
+                    obj.A = a;
+                    obj.B = b;
+                    obj.Plano = plano;
+
+                    //Se cambia el estado de registro a modificado.
+                    conexion.Entry(obj).State = EntityState.Modified;
+                    //Se guardan los cambios y se retorna el número de registros afectados.
+                    return conexion.SaveChanges();
+                }
+            }
+            catch (Exception er)
+            {
+                //Si encuentra error devuelve cero.
+                return 0; ;
+            }
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla CutterSpacerSplitter
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int DeleteCutterSpacerS(int id)
+        {
+            try
+            {
+                // Se inicializa la conexión a la base de datos.
+                using (var Conexion= new EntitiesTooling())
+                {
+                    //Se obtiene el objeto que se va a eliminar.
+                    CutterSpacerSplitter obj = Conexion.CutterSpacerSplitter.Where(x => x.ID_SPACER_SPLITTER == id).FirstOrDefault();
+
+                    //eliminamos el registro
+                    Conexion.Entry(obj).State = EntityState.Deleted;
+                    //Se guardan los cambios y retorna el número de registros afectados.
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna cero
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros de Cutter Spacer Splitter
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public IList GetAllCutterSpacerS(string texto)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from a in Conexion.CutterSpacerSplitter
+                                 join m in Conexion.MaestroHerramentales on a.Codigo equals m.Codigo  
+                                 where a.Codigo.Contains(texto) || m.Descripcion.Contains(texto)                           
+                                 select new
+                                 {
+                                     a.Codigo,
+                                     a.A,
+                                     a.B,
+                                     m.Descripcion,
+                                     m.Activo,
+
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
         #endregion
     }
 }
