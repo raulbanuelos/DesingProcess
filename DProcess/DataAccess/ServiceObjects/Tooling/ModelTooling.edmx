@@ -92,6 +92,15 @@
           <Property Name="B" Type="float" Nullable="false" />
           <Property Name="Plano" Type="char" MaxLength="10" />
         </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.CutterSplitter' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="CutterSplitter">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="Diametro" Type="float" />
+        </EntityType>
         <EntityType Name="GuideBarFirstRoughGrind">
           <Key>
             <PropertyRef Name="ID_GUIDE_BAR" />
@@ -313,6 +322,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CutterSplitter_MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CutterSplitter" Type="Self.CutterSplitter" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="CutterSplitter">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GuideBarFirstRoughGrind_MaestroHerramentales">
           <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -468,6 +491,12 @@
           <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" EntityType="Self.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" EntityType="Self.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_SHIM_OF_THE_CUT_SYSTEM" EntityType="Self.TBL_SHIM_OF_THE_CUT_SYSTEM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CutterSplitter" EntityType="Self.CutterSplitter" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CutterSplitter].[Codigo] AS [Codigo], 
+    [CutterSplitter].[Diametro] AS [Diametro]
+    FROM [dbo].[CutterSplitter] AS [CutterSplitter]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="fk_Clasificacion_MaestroHerramentales" Association="Self.fk_Clasificacion_MaestroHerramentales">
             <End Role="ClasificacionHerramental" EntitySet="ClasificacionHerramental" />
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -479,6 +508,10 @@
           <AssociationSet Name="FK_CutterSpacerSplitter_MaestroHerramentales" Association="Self.FK_CutterSpacerSplitter_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="CutterSpacerSplitter" EntitySet="CutterSpacerSplitter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CutterSplitter_MaestroHerramentales" Association="Self.FK_CutterSplitter_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="CutterSplitter" EntitySet="CutterSplitter" />
           </AssociationSet>
           <AssociationSet Name="FK_GuideBarFirstRoughGrind_MaestroHerramentales" Association="Self.FK_GuideBarFirstRoughGrind_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -573,6 +606,7 @@
           <NavigationProperty Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" />
           <NavigationProperty Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" />
           <NavigationProperty Name="TBL_SHIM_OF_THE_CUT_SYSTEM" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_SHIM_OF_THE_CUT_SYSTEM" />
+          <NavigationProperty Name="CutterSplitter" Relationship="DataAccess.ServiceObjects.Tooling.FK_CutterSplitter_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CutterSplitter" />
         </EntityType>
         <EntityType Name="PLANO_HERRAMENTAL">
           <Key>
@@ -686,6 +720,11 @@
           </AssociationSet>
           <EntitySet Name="SplitterSpacerChart" EntityType="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart" />
           <EntitySet Name="SPlitterSpacerChart2" EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" />
+          <EntitySet Name="CutterSplitter" EntityType="DataAccess.ServiceObjects.Tooling.CutterSplitter" />
+          <AssociationSet Name="FK_CutterSplitter_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_CutterSplitter_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="CutterSplitter" EntitySet="CutterSplitter" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CollarBK">
           <Key>
@@ -1077,6 +1116,28 @@
           <Property Name="CantidadSpacer2" Type="Int32" Nullable="false" />
           <Property Name="ident" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
+        <EntityType Name="CutterSplitter">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="Diametro" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_CutterSplitter_MaestroHerramentales" FromRole="CutterSplitter" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_CutterSplitter_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.CutterSplitter" Role="CutterSplitter" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="CutterSplitter">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1366,6 +1427,14 @@
                 <ScalarProperty Name="SplitWidth" ColumnName="SplitWidth" />
                 <ScalarProperty Name="RingWidth" ColumnName="RingWidth" />
                 <ScalarProperty Name="Proceso" ColumnName="Proceso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CutterSplitter">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.CutterSplitter">
+              <MappingFragment StoreEntitySet="CutterSplitter">
+                <ScalarProperty Name="Diametro" ColumnName="Diametro" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

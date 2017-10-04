@@ -202,6 +202,9 @@
     <Compile Include="ServiceObjects\Tooling\CutterSpacerSplitter.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\CutterSplitter.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\GuideBarFirstRoughGrind.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>

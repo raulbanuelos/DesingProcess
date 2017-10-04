@@ -196,7 +196,7 @@ namespace Model
             //Ejecutamos el método para obtener el width de la operación y retornamos el resultado.
             return ServiceSplitterCasting.GetWidthSplitterCastings(H1, proceso);
         }
-        
+
         /// <summary>
         /// Método que obtiene el herramental Barra Guia de la operación First Rough Grind.
         /// </summary>
@@ -650,6 +650,29 @@ namespace Model
            return ServicioSplitter.SetCutterSpacerS(obj.Codigo, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.Plano);
             
         }
+
+        public static Herramental GetCutterSplitterCasting(double medida)
+        {
+            SO_SplitterCasting ServicioSplitter = new SO_SplitterCasting();
+
+            Herramental herramental = new Herramental();
+
+            IList informacionBD = ServicioSplitter.GetCutter(medida);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                    herramental.DescripcionRuta = "CUTTERS " + (double)tipo.GetProperty("Diametro").GetValue(item, null);
+                }
+            }
+
+            return herramental;
+        }
         #endregion
 
         #region Auto Finish Turn
@@ -915,9 +938,7 @@ namespace Model
             //Retornamos la lista.
             return ListaResultante;
         }
-
-       
-
+        
         #region MaestroHerramentales
         /// <summary>
         /// Método que obtiene el maestro de herramentales a partir de un criterio de busqueda.

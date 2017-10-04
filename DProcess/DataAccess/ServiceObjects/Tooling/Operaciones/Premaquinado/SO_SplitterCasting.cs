@@ -285,6 +285,14 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
             }
         }
 
+        /// <summary>
+        /// Método que guarda en la base de datos un objeto de tipo CutterSpacerSplitter
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="plano"></param>
+        /// <returns></returns>
         public int SetCutterSpacerS(string codigo, double a, double b, string plano)
         {
             try
@@ -292,6 +300,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                 //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Declaramos un objeto de tipo CutterSpacerSplitter el cual será el que guardemos.
                     CutterSpacerSplitter obj = new CutterSpacerSplitter();
 
                     obj.Codigo = codigo;
@@ -302,13 +311,58 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     Conexion.CutterSpacerSplitter.Add(obj);
                     Conexion.SaveChanges();
 
+                    //Retornamos el id del nuevo registro.
                     return obj.ID_SPACER_SPLITTER;
                 }
             }
             catch (Exception)
             {
-
+                //Si ocurre algún error, retornamos un cero.
                 return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene el cutter a utilizar.
+        /// </summary>
+        /// <param name="medida"></param>
+        /// <returns></returns>
+        public IList GetCutter(double medida)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta, el resultado lo asignamos a una variable anónima.
+                    var Lista = (from a in Conexion.CutterSplitter
+                                 join m in Conexion.MaestroHerramentales on a.Codigo equals m.Codigo
+                                 join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                 where a.Diametro == medida
+                                 select new
+                                 {
+                                     a.Codigo,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     Clasificacion = c.Descripcion,
+                                     c.UnidadMedida,
+                                     c.Costo,
+                                     c.CantidadUtilizar,
+                                     c.VidaUtil,
+                                     c.idClasificacion,
+                                     c.ListaCotasRevisar,
+                                     c.VerificacionAnual,
+                                     Diametro = a.Diametro
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si ocurre algún error, retornamos un nulo.
+                return null;
             }
         }
 
