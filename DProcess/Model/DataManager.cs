@@ -196,7 +196,7 @@ namespace Model
             //Ejecutamos el método para obtener el width de la operación y retornamos el resultado.
             return ServiceSplitterCasting.GetWidthSplitterCastings(H1, proceso);
         }
-        
+
         /// <summary>
         /// Método que obtiene el herramental Barra Guia de la operación First Rough Grind.
         /// </summary>
@@ -671,6 +671,43 @@ namespace Model
             SO_SplitterCasting ServicioSplitter = new SO_SplitterCasting();
             //Ejecutamos el método, devolvemos el resultado
             return ServicioSplitter.DeleteCutterSpacerS(id);
+        }
+
+        /// <summary>
+        /// Método que obtiene el herramental cutter de la operacion splitter casting
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public static Herramental GetCutterSplitterCasting(double v)
+        {
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
+
+            //Declaramos un objeto de tipo herramental el cual será el que retornemos en el método.
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList informacionBD = ServiceSplitter.GetCutter(v);
+
+            //Comparamos si la inforamción obtenida es diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos cada registro.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                    //Agregamos la descripción que va en la hoja de ruta.
+                    herramental.DescripcionRuta = "CUTTERS " + (double)tipo.GetProperty("Diametro").GetValue(item,null);
+                }
+            }
+
+            //Retornamos el objeto construido.
+            return herramental;
         }
         #endregion
 
