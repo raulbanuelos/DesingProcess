@@ -43,5 +43,6 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<TBL_SHIM_OF_THE_CUT_SYSTEM> TBL_SHIM_OF_THE_CUT_SYSTEM { get; set; }
         public virtual DbSet<SplitterSpacerChart> SplitterSpacerChart { get; set; }
         public virtual DbSet<SPlitterSpacerChart2> SPlitterSpacerChart2 { get; set; }
+        public virtual DbSet<CutterSplitter> CutterSplitter { get; set; }
     }
 }

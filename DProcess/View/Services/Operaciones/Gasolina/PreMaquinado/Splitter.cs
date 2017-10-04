@@ -215,7 +215,14 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
                 ListaHerramentales.Add(item);
             }
 
-            //ListaHerramentales.Add(DataManager.GetCutterSplitterCasting(0.031));
+            ListaHerramentales.Add(DataManager.GetCutterSplitterCasting(0.031));
+
+            TextoProceso += "\nTOOLING\n";
+
+            foreach (var Herramental in ListaHerramentales)
+            {
+                TextoProceso += Herramental.DescripcionRuta + "\n";
+            }
         }
 
         /// <summary>

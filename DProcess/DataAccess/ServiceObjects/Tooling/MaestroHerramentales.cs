@@ -67,5 +67,6 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual ICollection<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3> TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_SHIM_OF_THE_CUT_SYSTEM> TBL_SHIM_OF_THE_CUT_SYSTEM { get; set; }
+        public virtual CutterSplitter CutterSplitter { get; set; }
     }
 }
