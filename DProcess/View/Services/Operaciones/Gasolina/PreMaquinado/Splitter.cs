@@ -217,6 +217,8 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
 
             //ListaHerramentales.Add(DataManager.GetCutterSplitterCasting(0.031));
 
+
+
             TextoProceso += "\nTOOLING\n";
 
             foreach (var Herramental in ListaHerramentales)

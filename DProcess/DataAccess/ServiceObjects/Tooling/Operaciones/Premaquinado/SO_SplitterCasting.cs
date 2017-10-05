@@ -424,7 +424,51 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                 //Si ocurre algún error retornamos un nulo.
                 return null;
             }
-        }      
+        }
+
+        /// <summary>
+        /// Método que obtiene el herramental cutter de la operación.
+        /// </summary>
+        /// <param name="medida"></param>
+        /// <returns></returns>
+        public IList GetCutter(double medida)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from a in Conexion.CutterSplitter
+                                 join m in Conexion.MaestroHerramentales on a.Codigo equals m.Codigo
+                                 join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                 where a.Diametro == medida
+                                 select new
+                                 {
+                                     a.Codigo,
+                                     Diametro = a.Diametro,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     Clasificacion = c.Descripcion,
+                                     c.UnidadMedida,
+                                     c.Costo,
+                                     c.CantidadUtilizar,
+                                     c.VidaUtil,
+                                     c.idClasificacion,
+                                     c.ListaCotasRevisar,
+                                     c.VerificacionAnual
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception er) 
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
         #endregion
     }
 }
