@@ -469,6 +469,121 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                 return null;
             }
         }
+
+        /// <summary>
+        /// Método que obtiene el herramental Chuck de la operación.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IList GetChuck(double id)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from a in Conexion.ChuckSplitter
+                                 join m in Conexion.MaestroHerramentales on a.Codigo equals m.Codigo
+                                 join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                 where id >= a.DiaMin && id <= a.DiaMax
+                                 select new
+                                 {
+                                     a.Codigo,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     Clasificacion = c.Descripcion,
+                                     c.UnidadMedida,
+                                     c.Costo,
+                                     c.CantidadUtilizar,
+                                     c.VidaUtil,
+                                     c.idClasificacion,
+                                     c.ListaCotasRevisar,
+                                     c.VerificacionAnual,
+                                     TipoEnsamble = a.TipoEnsamble
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que indica si un componente (dependiendo de id de splitter) debe de llevar el herramental uretano.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IList GetHasUretano(double id)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la conexíon a través de EntityFramework.
+                    var Lista = (from a in Conexion.UretanoSplitter
+                                 where id >= a.DiaMin && id <= a.DiaMax
+                                 select a).ToList();
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene el herramental Uretano.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IList GetUretano(double id)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from a in Conexion.UretanoSplitter
+                                 join m in Conexion.MaestroHerramentales on a.Codigo equals m.Codigo
+                                 join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                 where id >= a.DiaMin && id <= a.DiaMax
+                                 select new
+                                 {
+                                     a.Codigo,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     Clasificacion = c.Descripcion,
+                                     c.UnidadMedida,
+                                     c.Costo,
+                                     c.CantidadUtilizar,
+                                     c.VidaUtil,
+                                     c.idClasificacion,
+                                     c.ListaCotasRevisar,
+                                     c.VerificacionAnual,
+                                     Detalle = a.Detalle,
+                                     Color = a.Color
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
         #endregion
     }
 }

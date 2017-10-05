@@ -67,5 +67,22 @@ namespace DProcess.Model.Test
             Assert.AreEqual(codigoEsperado, ListaResultante[0].Codigo);
             
         }
+
+        [TestMethod]
+        public void GetHasUretanoSplitterTest()
+        {
+            //Arrange 
+            double id = 3.500;
+
+            //Act
+            bool result = DataManager.GetHasUretanoSplitter(id);
+
+            //Assert
+            bool debe = true;
+
+            Assert.AreEqual(debe, result);
+
+
+        }
     }
 }
