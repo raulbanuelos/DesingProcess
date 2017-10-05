@@ -304,6 +304,7 @@
     <Compile Include="Services\Operaciones\Gasolina\Rolado\CoilRings.cs" />
     <Compile Include="Services\Operaciones\Generica\OperacionGenericaWidth.cs" />
     <Compile Include="Services\Operaciones\Router.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo130.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\Rolado\CentroTrabajo495.cs" />
     <Compile Include="Services\ViewModel\AnilloViewModel.cs" />
     <Compile Include="Services\ViewModel\BloqueoVM.cs" />

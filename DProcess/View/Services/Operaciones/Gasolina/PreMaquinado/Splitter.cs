@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using View.Services.TiempoEstandar.Gasolina.PreMaquinado;
 
 namespace View.Services.Operaciones.Gasolina.PreMaquinado
 {
@@ -236,7 +237,33 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         /// </summary>
         public void CalcularTiemposEstandar()
         {
-            
+            try
+            {
+                CentroTrabajo130 objTiempo = new CentroTrabajo130();
+
+                objTiempo.Calcular(anilloProcesado);
+
+                TiempoLabor = objTiempo.TiempoLabor;
+                TiempoMachine = objTiempo.TiempoMachine;
+                TiempoSetup = objTiempo.TiempoSetup;
+
+                //Verificamos si no se generaron alertas durante el calculo de tiempos.
+                if (objTiempo.Alertas.Count > 0)
+                {
+                    AlertasOperacion.Add("Error en calculo de tiempo estándar");
+                    AlertasOperacion.CopyTo(objTiempo.Alertas.ToArray(), 0);
+                }
+                else
+                {
+                    NotasOperacion.Add("Tiempos estándar calculados correctamente.");
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurrio algún error, lo agregamos a la lista de alertas de la operación.
+                AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
+            }
+
         }
         #endregion
 
