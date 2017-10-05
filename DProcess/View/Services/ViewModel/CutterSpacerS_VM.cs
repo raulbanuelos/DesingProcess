@@ -113,23 +113,29 @@ namespace View.Services.ViewModel
         /// </summary>
         private async void bestCutterSpacer()
         {
+            //Valida que los campos no estén vacíos.
             if (!string.IsNullOrEmpty(_proceso) & !string.IsNullOrWhiteSpace(_proceso) & _width!=0)
             {
-
+                //Obtiene la lista de herramentales
                 foreach (var item in DataManager.GetSpacerSplitterCastings(_proceso, _width))
                 {
+                    //Se agrega a una lista tipo ObservableCollection
                     ListaResultante.Add(item);
                 }
 
+                //Obtenemos el datatable, para mostrarlo en la ventana
                 ListaOptimos = DataManager.ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Spacer Optimos");
-                ListaMejorCutter = ListaOptimos;
+                //Obtenemos el mejor herramental
+                ListaMejorCutter = DataManager.SelectBestSpacer(ListaOptimos);
 
+                //Si la lista tiene información
                 if (ListaMejorCutter.Rows.Count ==0)
                     //Enviamos un mensaje si no hay herramentales.
                     await dialog.SendMessage("Alerta", "No se encontró herramental con estas características..");
             }
             else
             {
+                //Si están vacíos muestra un mensaje en pantalla
                 await dialog.SendMessage("Alerta", "Se debe llenar todos los campos...");
             }
         }
@@ -144,7 +150,7 @@ namespace View.Services.ViewModel
             dialog = new DialogService();
             ListaResultante = new ObservableCollection<Herramental>();
             ListaProcesos = new ObservableCollection<string>();
-
+            //Agregamos la información de la lista de procesos
             ListaProcesos.Add("Sencillo");
             ListaProcesos.Add("Doble");
             ListaProcesos.Add("Triple");

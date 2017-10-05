@@ -184,7 +184,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definid
           <Property Name="SplitWidth" Type="float" />
           <Property Name="GrindWidth" Type="float" />
           <Property Name="CutterSpacer1" Type="float" Nullable="false" />
-          <Property Name="CantidadSpacer1" Type="float" />
+          <Property Name="CantidadSpacer1" Type="int" />
           <Property Name="CutterSpacer2" Type="float" />
           <Property Name="CantidadSpacer2" Type="int" Nullable="false" />
           <Property Name="ident" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
@@ -785,7 +785,6 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definid
             <End Role="TBL_SHIM_OF_THE_CUT_SYSTEM" EntitySet="TBL_SHIM_OF_THE_CUT_SYSTEM" />
           </AssociationSet>
           <EntitySet Name="SplitterSpacerChart" EntityType="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart" />
-          <EntitySet Name="SPlitterSpacerChart2" EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" />
           <EntitySet Name="ChuckSplitter" EntityType="DataAccess.ServiceObjects.Tooling.ChuckSplitter" />
           <AssociationSet Name="FK_ChuckSplitter_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_ChuckSplitter_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -801,6 +800,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definid
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="UretanoSplitter" EntitySet="UretanoSplitter" />
           </AssociationSet>
+          <EntitySet Name="SPlitterSpacerChart2" EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" />
         </EntityContainer>
         <EntityType Name="CollarBK">
           <Key>
@@ -1178,20 +1178,6 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definid
           <Property Name="Proceso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ident" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-        <EntityType Name="SPlitterSpacerChart2">
-          <Key>
-            <PropertyRef Name="ident" />
-          </Key>
-          <Property Name="Proceso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RingWidth" Type="Double" />
-          <Property Name="SplitWidth" Type="Double" />
-          <Property Name="GrindWidth" Type="Double" />
-          <Property Name="CutterSpacer1" Type="Double" Nullable="false" />
-          <Property Name="CantidadSpacer1" Type="Double" />
-          <Property Name="CutterSpacer2" Type="Double" />
-          <Property Name="CantidadSpacer2" Type="Int32" Nullable="false" />
-          <Property Name="ident" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
         <EntityType Name="ChuckSplitter">
           <Key>
             <PropertyRef Name="Codigo" />
@@ -1268,6 +1254,20 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definid
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SPlitterSpacerChart2">
+          <Key>
+            <PropertyRef Name="ident" />
+          </Key>
+          <Property Name="Proceso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RingWidth" Type="Double" />
+          <Property Name="SplitWidth" Type="Double" />
+          <Property Name="GrindWidth" Type="Double" />
+          <Property Name="CutterSpacer1" Type="Double" Nullable="false" />
+          <Property Name="CantidadSpacer1" Type="Int32" />
+          <Property Name="CutterSpacer2" Type="Double" />
+          <Property Name="CantidadSpacer2" Type="Int32" Nullable="false" />
+          <Property Name="ident" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1545,21 +1545,6 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definid
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SPlitterSpacerChart2">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2">
-              <MappingFragment StoreEntitySet="SPlitterSpacerChart2">
-                <ScalarProperty Name="ident" ColumnName="ident" />
-                <ScalarProperty Name="CantidadSpacer2" ColumnName="CantidadSpacer2" />
-                <ScalarProperty Name="CutterSpacer2" ColumnName="CutterSpacer2" />
-                <ScalarProperty Name="CantidadSpacer1" ColumnName="CantidadSpacer1" />
-                <ScalarProperty Name="CutterSpacer1" ColumnName="CutterSpacer1" />
-                <ScalarProperty Name="GrindWidth" ColumnName="GrindWidth" />
-                <ScalarProperty Name="SplitWidth" ColumnName="SplitWidth" />
-                <ScalarProperty Name="RingWidth" ColumnName="RingWidth" />
-                <ScalarProperty Name="Proceso" ColumnName="Proceso" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ChuckSplitter">
             <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.ChuckSplitter">
               <MappingFragment StoreEntitySet="ChuckSplitter">
@@ -1589,6 +1574,21 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definid
                 <ScalarProperty Name="Medidas" ColumnName="Medidas" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="ID_URETANO_SPLITTER" ColumnName="ID_URETANO_SPLITTER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SPlitterSpacerChart2">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2">
+              <MappingFragment StoreEntitySet="SPlitterSpacerChart2">
+                <ScalarProperty Name="ident" ColumnName="ident" />
+                <ScalarProperty Name="CantidadSpacer2" ColumnName="CantidadSpacer2" />
+                <ScalarProperty Name="CutterSpacer2" ColumnName="CutterSpacer2" />
+                <ScalarProperty Name="CantidadSpacer1" ColumnName="CantidadSpacer1" />
+                <ScalarProperty Name="CutterSpacer1" ColumnName="CutterSpacer1" />
+                <ScalarProperty Name="GrindWidth" ColumnName="GrindWidth" />
+                <ScalarProperty Name="SplitWidth" ColumnName="SplitWidth" />
+                <ScalarProperty Name="RingWidth" ColumnName="RingWidth" />
+                <ScalarProperty Name="Proceso" ColumnName="Proceso" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

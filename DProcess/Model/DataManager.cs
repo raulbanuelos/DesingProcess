@@ -492,6 +492,35 @@ namespace Model
         }
 
         /// <summary>
+        /// Método que obtiene el mejor herramental para cutter Spacer
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable SelectBestSpacer(DataTable dt)
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Description");
+
+            //Sólo se hace la iteración una vez
+            foreach (DataRow row in dt.Rows)
+            {
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = DataR.NewRow();
+                dr["Code"] = row["Code"].ToString();
+                dr["Description"] = row["Description"].ToString();
+
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+                break;
+            }
+            return DataR;
+        }
+
+        /// <summary>
         /// Método que obtiene la cantidad de espaciadores de la operación splitter.
         /// </summary>
         /// <param name="proceso"></param>
