@@ -196,7 +196,7 @@ namespace Model
             //Ejecutamos el método para obtener el width de la operación y retornamos el resultado.
             return ServiceSplitterCasting.GetWidthSplitterCastings(H1, proceso);
         }
-
+        
         /// <summary>
         /// Método que obtiene el herramental Barra Guia de la operación First Rough Grind.
         /// </summary>
@@ -765,6 +765,117 @@ namespace Model
 
                     //Agregamos la descripción que va en la hoja de ruta.
                     herramental.DescripcionRuta = "CUTTERS " + (double)tipo.GetProperty("Diametro").GetValue(item,null);
+                }
+            }
+
+            //Retornamos el objeto construido.
+            return herramental;
+        }
+
+        /// <summary>
+        /// Método que obtiene el herramental Chuck de la operación Splitter.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static Herramental GetChuckSplitter(double id)
+        {
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
+
+            //Declaramos un objeto de tipo herramental el cual será el que retornemos en el método.
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList informacionBD = ServiceSplitter.GetChuck(id);
+
+            //Comparamos si la inforamción obtenida es diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos cada registro.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                    //Agregamos la descripción que va en la hoja de ruta.
+                    herramental.DescripcionRuta = "CHUCK DET. " + (string)tipo.GetProperty("TipoEnsamble").GetValue(item,null);
+
+                }
+            }
+
+            //Retornamos el objeto construido.
+            return herramental;
+        }
+
+        /// <summary>
+        /// Método que indica si el componente debe de llevar uretano.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static bool GetHasUretanoSplitter(double id)
+        {
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
+
+            //Declaramos una bandera la cual será la que retornemos en el método.
+            bool respuesta = false;
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList informacionBD = ServiceSplitter.GetHasUretano(id);
+
+            //Comparamos si el resultado es diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos los resultados obtenidos.
+                foreach (var item in informacionBD)
+                {
+                    //Asignamos un valor true a la bandera, lo cual significa que si existe un valor.
+                    respuesta = true;
+                }
+            }
+
+            //Retornamos el valor obtenido.
+            return respuesta;
+        }
+
+        /// <summary>
+        /// Método que obtiene el Herramental Uretano de la operación Splitter Casting
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static Herramental GetUretanoSplitter(double id)
+        {
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServicioSplitter = new SO_SplitterCasting();
+
+            //Declaramos un objeto de tipo herramental el cual será el que retornemos en el método.
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList informacionBD = ServicioSplitter.GetUretano(id);
+
+            //Comparamos si la inforamción obtenida es diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos cada registro.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                    //Obtenemos los valores de Detalle y color del herramental.
+                    string detalle, color;
+                    detalle = (string)tipo.GetProperty("Detalle").GetValue(item, null);
+                    color = (string)tipo.GetProperty("Color").GetValue(item, null);
+
+                    //Agregamos la descripción que va en la hoja de ruta.
+                    herramental.DescripcionRuta = "URETANOS DET. " + detalle + " " + color;
                 }
             }
 

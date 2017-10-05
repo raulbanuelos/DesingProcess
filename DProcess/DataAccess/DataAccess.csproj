@@ -342,6 +342,9 @@
     <Compile Include="ServiceObjects\Tooling\TBL_SHIM_OF_THE_CUT_SYSTEM.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\UretanoSplitter.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Unidades\ModelUnidades.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

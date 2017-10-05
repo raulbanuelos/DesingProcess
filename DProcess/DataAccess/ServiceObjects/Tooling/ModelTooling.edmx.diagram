@@ -43,6 +43,8 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_ChuckSplitter_MaestroHerramentales" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CutterSplitter" Width="1.5" PointX="10.5" PointY="37" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CutterSplitter_MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.UretanoSplitter" Width="1.5" PointX="10.5" PointY="42.75" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_UretanoSplitter_MaestroHerramentales" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

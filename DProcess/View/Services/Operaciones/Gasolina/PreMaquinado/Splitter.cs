@@ -13,6 +13,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
     {
         #region Attibutes
         string proceso;
+        double od, id;
         #endregion
 
         #region Constructors
@@ -193,9 +194,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
 
             TextoProceso += "*SPLIT \n";
             TextoProceso += "" + Convert.ToString(WidthOperacion) + " +- .004 CYC TIME " + timeSplitter + " +- 2 SEG." + "\n";
-
-            double od, id;
-
+            
             od = DataManager.GetODSplitterCasting(elPlano.MaterialBase.Codigo);
             id = DataManager.GetIDSplitterCasting(elPlano.MaterialBase.Codigo);
             double diff = od - id;
@@ -217,7 +216,12 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
 
             ListaHerramentales.Add(DataManager.GetCutterSplitterCasting(0.031));
 
+            ListaHerramentales.Add(DataManager.GetChuckSplitter(id));
 
+            if (DataManager.GetHasUretanoSplitter(id))
+            {
+                ListaHerramentales.Add(DataManager.GetUretanoSplitter(id));
+            }
 
             TextoProceso += "\nTOOLING\n";
 

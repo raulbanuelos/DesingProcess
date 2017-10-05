@@ -31,6 +31,7 @@ namespace DataAccess.ServiceObjects.Tooling
             this.TBL_SHIM_OF_THE_CUT_SYSTEM = new HashSet<TBL_SHIM_OF_THE_CUT_SYSTEM>();
             this.ChuckSplitter = new HashSet<ChuckSplitter>();
             this.CutterSplitter = new HashSet<CutterSplitter>();
+            this.UretanoSplitter = new HashSet<UretanoSplitter>();
         }
     
         public string Codigo { get; set; }
@@ -73,5 +74,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual ICollection<ChuckSplitter> ChuckSplitter { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CutterSplitter> CutterSplitter { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UretanoSplitter> UretanoSplitter { get; set; }
     }
 }
