@@ -421,6 +421,8 @@ namespace Model
             return od;
         }
 
+        //Cutter Spacer Splitter
+
         /// <summary>
         /// Método el cual obtiene la lista de herramentales de Spacer.
         /// </summary>
@@ -665,6 +667,11 @@ namespace Model
             return ServicioSplitter.UpdateCutterSpacerS(obj.ID, obj.codigo, obj.A, obj.B,obj.plano);
         }
 
+        /// <summary>
+        ///  Método que elimina un registro de cutter Spacer Splitter
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static int DeleteCutterSpacerS(int id)
         {
             //Inicializamos los servicios de SO_SplitterCasting.
@@ -672,6 +679,61 @@ namespace Model
             //Ejecutamos el método, devolvemos el resultado
             return ServicioSplitter.DeleteCutterSpacerS(id);
         }
+
+        /// <summary>
+        /// Método que obtiene todos los registros de Cutter Spacer Splitter
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public static DataTable GetAllCutterSpacer(string texto)
+        {
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
+
+            ObservableCollection<Herramental> Lista = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método que busca los herramentales de Cutter a partir del texto de búsqueda. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServiceSplitter.GetAllCutterSpacerS(texto);
+
+            //Si la lista es diferente de nulo
+            if (informacionBD != null)
+            {
+                //iteramos la lista
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                   // herramental.Encontrado = (bool)tipo.GetProperty("Activo").GetValue(item, null);
+
+                    //Dim A
+                    Propiedad dimA = new Propiedad();
+                    dimA.Valor = (double)tipo.GetProperty("A").GetValue(item, null);
+                    dimA.Unidad = "Milimeters (mm)";
+                    dimA.DescripcionCorta = "Dim A";
+                    herramental.Propiedades.Add(dimA);
+
+                    //DimB
+                    Propiedad dimB = new Propiedad();
+                    dimB.Valor= (double)tipo.GetProperty("B").GetValue(item, null);
+                    dimB.Unidad = "Milimeters (mm)";
+                    dimB.DescripcionCorta = "Dim B";
+                    herramental.Propiedades.Add(dimB);
+
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(Lista, "CutterSpacerSplitter");
+        }
+
+        //Cutter Splitter
 
         /// <summary>
         /// Método que obtiene el herramental cutter de la operacion splitter casting
@@ -819,6 +881,95 @@ namespace Model
 
             //Retornamos el objeto construido.
             return herramental;
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros de Cutter Splitter
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+       public static DataTable GetAllCutterSplitter(string texto)
+        {
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
+
+            ObservableCollection<Herramental> Lista = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método que busca los herramentales de Cutter a partir del texto de búsqueda. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServiceSplitter.GetAllCutter(texto);
+
+            //Si la lista es diferente de nulo
+            if (informacionBD != null)
+            {
+                //iteramos la lista
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    //herramental.Encontrado = (bool)tipo.GetProperty("Activo").GetValue(item, null);
+
+                    //Diametro
+                    Propiedad diametro = new Propiedad();
+                    diametro.Valor= (double)tipo.GetProperty("Diametro").GetValue(item, null);
+                    diametro.Unidad = "Milimeters (mm)";
+                    diametro.DescripcionCorta = "Diametro";
+                    herramental.Propiedades.Add(diametro);
+
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(Lista, "CutterSplitter");
+        }
+
+
+        /// <summary>
+        /// Método que agrega un resgitro de  herramental cutter de la operacion splitter casting
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetCutterSplitterCasting(SplitterCasting obj)
+        {
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
+
+            //Ejecutamos el método
+            return ServiceSplitter.SetCutter(obj.codigo, obj.A);
+        }
+
+        /// <summary>
+        /// Método que actualiza un resgitro de  herramental cutter de la operacion splitter casting
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateCutterSplitterCasting(SplitterCasting obj)
+        {
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
+
+            //Ejecutamos el método 
+            return ServiceSplitter.UpdateCutter(obj.ID, obj.codigo, obj.A);
+        }
+
+        /// <summary>
+        /// Método que elimina un resgitro de  herramental cutter de la operacion splitter casting
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteCutterSplitterCasting(int id)
+        {
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
+
+            //Ejecutamos el método
+            return ServiceSplitter.DeleteCutter(id);
         }
         #endregion
 
@@ -1435,7 +1586,7 @@ namespace Model
             //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
 
-            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
+            //Ejecutamos el método que busca los herramentales a partir del texto de búsqueda. El resultado lo guardamos en una lista anónima.
             IList informacionBD = ServicioCoil.GetAllCOIL_FEED_ROLLER(texto);
             //Si la lista es diferente de nulo
             if (informacionBD != null)

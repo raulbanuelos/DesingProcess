@@ -204,9 +204,58 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => verHerramental());
             }
         }
+
+        /// <summary>
+        /// Comando para abrir la ventana de Cutter Spacer Splitter
+        /// </summary>
+        public ICommand IrCutterSpacer
+        {
+            get
+            {
+                return new RelayCommand(o =>irCutterSpacer());
+            }
+        }
+
+        /// <summary>
+        /// Comando para abrir la ventana de Cutter Splitter
+        /// </summary>
+        public ICommand IrCutterSplitter
+        {
+            get
+            {
+                return new RelayCommand(o => irCutterSplitter());
+            }
+        }
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Método que muestra la ventana de Cutter Spacer splitter
+        /// </summary>
+        private void irCutterSpacer()
+        {
+            WCutterSpacerS frm = new WCutterSpacerS();
+            CutterSpacerS_VM context = new CutterSpacerS_VM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Método que muestra la ventana de Cutter splitter
+        /// </summary>
+        private void irCutterSplitter()
+        {
+            WCutterSplitter frm = new WCutterSplitter();
+            CutterSplitterVM context = new CutterSplitterVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="busqueda"></param>
         private void buscarTooling(string busqueda)
         {
             MaestroHerramentales = DataManager.GetMaestroHerramental(busqueda);

@@ -282,6 +282,12 @@
     <Compile Include="Forms\Tooling\WCollarBK.xaml.cs">
       <DependentUpon>WCollarBK.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\WCutterSpacerS.xaml.cs">
+      <DependentUpon>WCutterSpacerS.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\WCutterSplitter.xaml.cs">
+      <DependentUpon>WCutterSplitter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\WMaestroHerramental.xaml.cs">
       <DependentUpon>WMaestroHerramental.xaml</DependentUpon>
     </Compile>
@@ -314,6 +320,8 @@
     <Compile Include="Services\ViewModel\CoilFeedRoller_VM.cs" />
     <Compile Include="Services\ViewModel\CollarAutoFinTurnViewModel.cs" />
     <Compile Include="Services\ViewModel\ControlDocumentoViewModel.cs" />
+    <Compile Include="Services\ViewModel\CutterSpacerS_VM.cs" />
+    <Compile Include="Services\ViewModel\CutterSplitterVM.cs" />
     <Compile Include="Services\ViewModel\DimensionsViewModel.cs" />
     <Compile Include="Services\ViewModel\DocumentosPendientesViewM.cs" />
     <Compile Include="Services\ViewModel\DocumentosVencidosVM.cs" />
@@ -579,6 +587,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\WCollarBK.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WCutterSpacerS.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WCutterSplitter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
