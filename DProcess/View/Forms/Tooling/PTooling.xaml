@@ -56,8 +56,8 @@
                     <MenuItem Header="Shim of the cut system" Cursor="Hand" Command="{Binding IrShimCS}"/>
                 </MenuItem>
                 <MenuItem Header="Splitter" Cursor="Hand">
-                    <MenuItem Header="Cutter Spacer Splitter" />
-                    <MenuItem Header="Cutter Splitter" />
+                    <MenuItem Header="Cutter Spacer Splitter" Command="{Binding IrCutterSpacer}" />
+                    <MenuItem Header="Cutter Splitter" Command="{Binding IrCutterSplitter}" />
                 </MenuItem>
             </MenuItem>
         </Menu>

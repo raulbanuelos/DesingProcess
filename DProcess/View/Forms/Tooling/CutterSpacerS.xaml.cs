@@ -29,6 +29,11 @@ namespace View.Forms.Tooling
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
         public int Guardar(string codigo)
         {
             Herramental obj = new Herramental();
@@ -46,11 +51,18 @@ namespace View.Forms.Tooling
             
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Inicializa()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public bool ValidaError()
         {
             if(!string.IsNullOrEmpty(plano.Text) & !string.IsNullOrEmpty(dimA.Text) & !string.IsNullOrEmpty(dimB.Text))
@@ -59,11 +71,20 @@ namespace View.Forms.Tooling
                 return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public bool ValidaRangos()
         {
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NumberValidation(object sender, TextCompositionEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(e.Text))

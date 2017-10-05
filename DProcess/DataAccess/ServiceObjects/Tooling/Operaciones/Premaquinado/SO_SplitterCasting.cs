@@ -324,7 +324,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
         }
 
         /// <summary>
-        /// 
+        /// Método que actualiza un registro de la tabla  CutterSpacerSplitter
         /// </summary>
         /// <param name="id"></param>
         /// <param name="codigo"></param>
@@ -464,6 +464,140 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                 }
             }
             catch (Exception er) 
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        ///  Método que da de alta un registro a la tabla CutterSplitter
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="diam"></param>
+        /// <returns></returns>
+        public int SetCutter(string codigo, double diam)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion= new EntitiesTooling())
+                {
+                    //Declaramos el objeto de la tabla
+                    CutterSplitter obj = new CutterSplitter();
+
+                    //Asignamos los valores
+                    obj.Codigo = codigo;
+                    obj.Diametro = diam;
+                    //Guardamos los cambios
+                    Conexion.CutterSplitter.Add(obj);
+                    Conexion.SaveChanges();
+
+                    //Retornamos el id
+                    return obj.ID_CUTTER_SPLITTER;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error, retorna cero
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que actualiza un registro en la tabla CutterSplitter
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="codigo"></param>
+        /// <param name="diam"></param>
+        /// <returns></returns>
+        public int UpdateCutter(int id, string codigo,double diam)
+        {
+            try
+            {
+                //Se establece la conexión a la base de datos.
+                using (var Conexion= new EntitiesTooling())
+                {
+                    //Se obtiene el objeto que se va a modificar.
+                    CutterSplitter obj = Conexion.CutterSplitter.Where(x => x.ID_CUTTER_SPLITTER == id).FirstOrDefault();
+                   
+                    //Asiganmos los valores
+                    obj.Codigo = codigo;
+                    obj.Diametro = diam;
+
+                    //Se cambia el estado de registro a modificado.
+                    Conexion.Entry(obj).State = EntityState.Modified;
+                    //Se guardan los cambios y se retorna el número de registros afectados.
+                    return Conexion.SaveChanges();
+
+                }
+            }
+            catch (Exception)
+            {
+                //Si encuentra error devuelve cero.
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla CutterSplitter
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int DeleteCutter(int id)
+        {
+            try
+            {
+                // Se inicializa la conexión a la base de datos.
+                using (var Conexion= new EntitiesTooling())
+                {
+                    //Se obtiene el objeto que se va a eliminar.
+                    CutterSplitter obj = Conexion.CutterSplitter.Where(x => x.ID_CUTTER_SPLITTER == id).FirstOrDefault();
+
+                    //eliminamos el registro
+                    Conexion.Entry(obj).State = EntityState.Deleted;
+
+                    //Se guardan los cambios y retorna el número de registros afectados.
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna cero
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros de la tabla Cutter Splitter
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public IList GetAllCutter(string texto)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from a in Conexion.CutterSplitter
+                                 join m in Conexion.MaestroHerramentales on a.Codigo equals m.Codigo
+                                 where a.Codigo.Contains(texto) || m.Descripcion.Contains(texto)
+                                 select new
+                                 {
+                                     a.Codigo,
+                                     a.Diametro,
+                                     m.Descripcion,
+                                     m.Activo,
+
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception er)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;

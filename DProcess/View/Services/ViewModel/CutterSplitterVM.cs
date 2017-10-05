@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace View.Services.ViewModel
 {
-    public class ExitGuide_VM : INotifyPropertyChanged
+   public class CutterSplitterVM : INotifyPropertyChanged
     {
         #region Attributtes
         DialogService dialog;
@@ -30,25 +30,19 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Propiedades
-        private DataTable listaHerramentales;
-        public DataTable ListaHerramentales
+
+        private DataTable _ListaCutterSplitter;
+        public DataTable ListaCutterSplitter
         {
-            get { return listaHerramentales; }
-            set { listaHerramentales = value; NotifyChange("ListaHerramentales"); }
+            get { return _ListaCutterSplitter; }
+            set { _ListaCutterSplitter = value; NotifyChange("ListaCutterSplitter"); }
         }
 
-        private double _width;
-        public double Width
+        private double diam;
+        public double Diam
         {
-            get { return _width; }
-            set { _width = value; NotifyChange("Width"); }
-        }
-
-        private double _radial;
-        public double Radial
-        {
-            get { return _radial; }
-            set { _radial = value; NotifyChange("Radial"); }
+            get { return diam; }
+            set { diam = value; NotifyChange("Diam"); }
         }
 
         private DataTable _listaOptimos;
@@ -59,7 +53,6 @@ namespace View.Services.ViewModel
         }
 
         private DataTable _listaMejores;
-
         public DataTable ListaMejores
         {
             get { return _listaMejores; }
@@ -69,63 +62,60 @@ namespace View.Services.ViewModel
 
         #region Commands
         /// <summary>
-        /// Comando que busca un registro de Coil
+        /// Comando que obtiene los registros buscados
         /// </summary>
-        public ICommand BusquedaCoil
+        public ICommand BusquedaCutter
         {
             get
             {
-                return new RelayCommand(parametro => BuscarExit_Guide((string)parametro));
+                return new RelayCommand(parametro => buscarCutter((string)parametro));
             }
         }
 
         /// <summary>
-        /// Comando que busca los registros de acuerdo al diametro y radial
+        /// Comando que buscar las coincidencias de acuerdo al diametro
         /// </summary>
         public ICommand BuscarOptimos
         {
             get
             {
-                return new RelayCommand(o => buscarOptimos());
+                return new RelayCommand(o => obtieneCutter());
             }
         }
         #endregion
 
-        #region Metodos
+        #region Methods
+
         /// <summary>
-        /// Método que busca la coincidencia de los registros de coil
+        /// Método que obtiene la lista que coincidan con el texto de búsqueda
         /// </summary>
         /// <param name="texto"></param>
-        private void BuscarExit_Guide(string texto)
+        private void buscarCutter(string texto)
         {
-            ListaHerramentales = DataManager.GetAllEXIT_GUIDE(texto);
+            //obetenemos la lista de Cutter Splitter
+            ListaCutterSplitter = DataManager.GetAllCutterSplitter(texto);
         }
+
         /// <summary>
-        /// Método que busca coil que coincidan con los rangos de width y radial
+        /// Método que busca un registro de Cutter de acuerdo al diametro
         /// </summary>
-        private async void buscarOptimos()
+        private void obtieneCutter()
         {
-            ListaOptimos = new DataTable();
-            ListaMejores = new DataTable();
-
-            ListaOptimos = DataManager.GetEXIT_GUIDE(_width, _radial);
-
-            ListaMejores = DataManager.SelectBestCoil(ListaOptimos);
-
-            if (ListaMejores.Rows.Count == 0)
-                //Enviamos un mensaje si no hay herramentales.
-                await dialog.SendMessage("Alerta", "No se encontró herramental con estas caracteristicas");
+            if (diam !=0)
+            {
+               
+            }
         }
         #endregion
 
-        #region constructor
+        #region Constructor
 
-        public ExitGuide_VM()
+        public CutterSplitterVM()
         {
-            BuscarExit_Guide(string.Empty);
+            //Obtiene todos los registros
+            buscarCutter(string.Empty);
             dialog = new DialogService();
         }
         #endregion
-
     }
 }
