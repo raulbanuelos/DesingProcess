@@ -226,6 +226,22 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => irCutterSplitter());
             }
         }
+
+        public ICommand IrChuckSplitter
+        {
+            get
+            {
+                return new RelayCommand(o => irChuckSplitter());
+            }
+        }
+
+        public ICommand IrUretanoSplitter
+        {
+            get
+            {
+                return new RelayCommand(o => irUretanoSplitter());
+            }
+        }
         #endregion
 
         #region Methods
@@ -382,6 +398,28 @@ namespace View.Services.ViewModel
                 //Obtiene la lista de herramentales
                 buscarTooling(string.Empty);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void irChuckSplitter()
+        {
+            WCutterSplitter frm = new WCutterSplitter();
+            ChuckSplitterVM context = new ChuckSplitterVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void irUretanoSplitter()
+        {
+            WCutterSplitter frm = new WCutterSplitter();
+            UretanoSplitterVM context = new UretanoSplitterVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
         }
         #endregion
     }

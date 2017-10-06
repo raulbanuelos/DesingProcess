@@ -316,6 +316,7 @@
     <Compile Include="Services\ViewModel\BloqueoVM.cs" />
     <Compile Include="Services\ViewModel\Buscar_DocumentoVM.cs" />
     <Compile Include="Services\ViewModel\Busqueda_HerramentalVM.cs" />
+    <Compile Include="Services\ViewModel\ChuckSplitterVM.cs" />
     <Compile Include="Services\ViewModel\CoilCenterG_VM.cs" />
     <Compile Include="Services\ViewModel\CoilFeedRoller_VM.cs" />
     <Compile Include="Services\ViewModel\CollarAutoFinTurnViewModel.cs" />
@@ -358,6 +359,7 @@
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo110.cs" />
     <Compile Include="Services\ViewModel\PatternViewModel.cs" />
     <Compile Include="Services\ViewModel\RelayCommand.cs" />
+    <Compile Include="Services\ViewModel\UretanoSplitterVM.cs" />
     <Compile Include="Services\ViewModel\UsuarioViewModel.cs" />
     <Compile Include="Services\ViewModel\ValidacionTipoVM.cs" />
     <Compile Include="Services\ViewModel\ValidarDocumentoViewM.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Data.Entity;
 using System.Linq;
 
 namespace DataAccess.ServiceObjects.Tooling
@@ -160,6 +161,131 @@ namespace DataAccess.ServiceObjects.Tooling
             catch (Exception)
             {
                 //retornamos cero si hubo un error
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public IList GetAllClosingSleeveBK(string texto)
+        {
+            try
+            {
+
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var Lista = (from c in Conexion.ClosingSleeveBK
+                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
+                                 where c.Codigo.Contains(texto) || m.Descripcion.Contains(texto)
+                                 select new
+                                 {
+                                     c.Codigo,
+                                     c.DimB,
+                                     c.Plano,
+                                     c.ID_CLOSINGSLEEVE_BK,
+                                     m.Descripcion,
+                                     m.Activo
+                                 }).ToList();
+
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="dimB"></param>
+        /// <param name="plano"></param>
+        /// <returns></returns>
+        public int SetClosingSleeveBK(string codigo, double dimB, string plano)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    ClosingSleeveBK obj = new ClosingSleeveBK();
+
+                    obj.Codigo = codigo;
+                    obj.DimB = dimB;
+                    obj.Plano = plano;
+
+                    Conexion.ClosingSleeveBK.Add(obj);
+                    Conexion.SaveChanges();
+
+                    return obj.ID_CLOSINGSLEEVE_BK;
+                }
+            }
+            catch (Exception)
+            {
+
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="codigo"></param>
+        /// <param name="dimB"></param>
+        /// <param name="plano"></param>
+        /// <returns></returns>
+        public int UpdateClosingSleeveBK(int id, string codigo, double dimB,string plano)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    ClosingSleeveBK obj = Conexion.ClosingSleeveBK.Where(x => x.ID_CLOSINGSLEEVE_BK == id).FirstOrDefault();
+
+                    obj.Codigo = codigo;
+                    obj.DimB = dimB;
+                    obj.Plano = plano;
+
+                    Conexion.Entry(obj).State= EntityState.Modified;
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int DeleteClosingSleeveBK(int id)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    ClosingSleeveBK obj = Conexion.ClosingSleeveBK.Where(x => x.ID_CLOSINGSLEEVE_BK == id).FirstOrDefault();
+
+
+                    Conexion.Entry(obj).State = EntityState.Deleted;
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+
                 return 0;
             }
         }

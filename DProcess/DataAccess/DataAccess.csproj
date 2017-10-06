@@ -205,6 +205,9 @@
     <Compile Include="ServiceObjects\Tooling\ClasificacionHerramental.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\ClosingSleeveBK.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\CollarBK.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>

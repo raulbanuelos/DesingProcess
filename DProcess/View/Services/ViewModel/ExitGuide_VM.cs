@@ -105,16 +105,23 @@ namespace View.Services.ViewModel
         /// </summary>
         private async void buscarOptimos()
         {
-            ListaOptimos = new DataTable();
-            ListaMejores = new DataTable();
 
-            ListaOptimos = DataManager.GetEXIT_GUIDE(_width, _radial);
+            if (Width != 0 & Radial != 0)
+            {
+                ListaOptimos = new DataTable();
+                ListaMejores = new DataTable();
+                //Obtiene la lista de los mejores herramentales de acuerdo a width y radial
+                ListaOptimos = DataManager.GetEXIT_GUIDE(_width, _radial);
+                //Obtiene el mejor herramental
+                ListaMejores = DataManager.SelectBestCoil(ListaOptimos);
 
-            ListaMejores = DataManager.SelectBestCoil(ListaOptimos);
-
-            if (ListaMejores.Rows.Count == 0)
-                //Enviamos un mensaje si no hay herramentales.
-                await dialog.SendMessage("Alerta", "No se encontró herramental con estas caracteristicas");
+                if (ListaMejores.Rows.Count == 0)
+                    //Enviamos un mensaje si no hay herramentales.
+                    await dialog.SendMessage("Alerta", "No se encontró herramental con estas caracteristicas");
+            }
+             else
+                //Si están vacíos muestra un mensaje en pantalla
+                await dialog.SendMessage("Alerta", "Se debe llenar todos los campos...");
         }
         #endregion
 

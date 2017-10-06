@@ -58,6 +58,8 @@
                 <MenuItem Header="Splitter" Cursor="Hand">
                     <MenuItem Header="Cutter Spacer Splitter" Command="{Binding IrCutterSpacer}" />
                     <MenuItem Header="Cutter Splitter" Command="{Binding IrCutterSplitter}" />
+                    <MenuItem Header="Chuck Splitter" Command="{Binding IrChuckSplitter}"/>
+                    <MenuItem Header="Uretano Splitter" Command="{Binding IrUretanoSplitter}" />
                 </MenuItem>
             </MenuItem>
         </Menu>

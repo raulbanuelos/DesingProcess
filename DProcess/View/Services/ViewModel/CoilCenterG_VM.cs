@@ -69,7 +69,7 @@ namespace View.Services.ViewModel
 
         #region Commands
         /// <summary>
-        /// 
+        /// Comando que busca los registros que coincidan con el texto de búsqueda
         /// </summary>
         public ICommand BusquedaCoil
         {
@@ -80,7 +80,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Comando que buscar las coincidencias de acuerdo al width y radial
         /// </summary>
         public ICommand BuscarOptimos
         {
@@ -93,7 +93,7 @@ namespace View.Services.ViewModel
 
         #region Metodos
         /// <summary>
-        /// 
+        ///  Método que obtiene la lista que coincidan con el texto de búsqueda
         /// </summary>
         /// <param name="texto"></param>
         private void BuscarCoil_Center(string texto)
@@ -101,19 +101,27 @@ namespace View.Services.ViewModel
             ListaHerramentales = DataManager.GetALLCOIL_CENTER_GUIDE(texto);
         }
         /// <summary>
-        /// 
+        ///  Método que busca un registro de Cutter de acuerdo al diametro y radial
         /// </summary>
         private async void buscarOptimos()
         {
-            ListaOptimos = new DataTable();
-            ListaMejores = new DataTable();
 
-            ListaOptimos = DataManager.GetCOIL_CENTER_GUIDE(_width,_radial);
-            ListaMejores = DataManager.SelectBestCoil(ListaOptimos);
+            if (_width != 0 & _radial != 0)
+            {
+                ListaOptimos = new DataTable();
+                ListaMejores = new DataTable();
+                //Obtiene la lista de los herramentales optimos
+                ListaOptimos = DataManager.GetCOIL_CENTER_GUIDE(_width, _radial);
+                //obtiene el mejor herramental
+                ListaMejores = DataManager.SelectBestCoil(ListaOptimos);
 
-            if (ListaMejores.Rows.Count == 0)
-                //Enviamos un mensaje si no hay herramentales.
-                await dialog.SendMessage("Alerta", "No se encontró herramental con estas caracteristicas");
+                if (ListaMejores.Rows.Count == 0)
+                    //Enviamos un mensaje si no hay herramentales.
+                    await dialog.SendMessage("Alerta", "No se encontró herramental con estas caracteristicas");
+            }
+            else
+                //Si están vacíos muestra un mensaje en pantalla
+                await dialog.SendMessage("Alerta", "Se debe llenar todos los campos...");
         }
         #endregion
 

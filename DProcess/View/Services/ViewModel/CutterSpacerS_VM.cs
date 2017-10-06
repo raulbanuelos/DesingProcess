@@ -113,6 +113,9 @@ namespace View.Services.ViewModel
         /// </summary>
         private async void bestCutterSpacer()
         {
+            ListaMejorCutter.Clear();
+            ListaOptimos.Clear();
+
             //Valida que los campos no estén vacíos.
             if (!string.IsNullOrEmpty(_proceso) & !string.IsNullOrWhiteSpace(_proceso) & _width!=0)
             {
@@ -155,6 +158,9 @@ namespace View.Services.ViewModel
             ListaProcesos.Add("Doble");
             ListaProcesos.Add("Triple");
             ListaProcesos.Add("Cuadruple");
+
+            ListaMejorCutter = new DataTable();
+            ListaOptimos = new DataTable();
         }
         #endregion
     }

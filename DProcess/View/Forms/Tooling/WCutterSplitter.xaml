@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:View.Forms.Tooling"
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen" ShowMaxRestoreButton="False"
         mc:Ignorable="d"
-        Title="Cutter Splitter" Height="600" Width="1100">
+        Title="{Binding Titulo}" Height="600" Width="1100">
     <Controls:MetroWindow.Resources>
         <Style x:Key="TabHeader" TargetType="Label">
             <Setter Property="FontSize" Value="28"/>
@@ -45,11 +45,11 @@
                             </i:Interaction.Triggers>
                         </TextBox>
 
-                        <DataGrid Grid.Column="1" Grid.Row="1" HeadersVisibility="Column" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5" FontSize="18" AutoGenerateColumns="True" ItemsSource="{Binding ListaCutterSplitter}" IsReadOnly="True"></DataGrid>
+                        <DataGrid Grid.Column="1" Grid.Row="1" HeadersVisibility="Column" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5" FontSize="18" AutoGenerateColumns="True" ItemsSource="{Binding ListaSplitter}" IsReadOnly="True"></DataGrid>
 
                         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
                             <Label Content="Total: " FontSize="14"></Label>
-                            <Label Content="{Binding ListaCutterSplitter.Count}"></Label>
+                            <Label Content="{Binding ListaSplitter.Count}"></Label>
                         </StackPanel>
                     </Grid>
                 </TabItem.Content>

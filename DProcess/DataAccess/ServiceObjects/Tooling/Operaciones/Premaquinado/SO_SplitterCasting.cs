@@ -649,6 +649,138 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
         }
 
         /// <summary>
+        /// Método que obtiene todos los herramentales chuck de acuerdo al texto
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public IList GetAllChuck(string texto)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion= new EntitiesTooling())
+                {
+                    //Realizamos la consulta
+                    var Lista = (from c in Conexion.ChuckSplitter
+                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
+                                 where c.Codigo.Contains(texto) || m.Descripcion.Contains(texto)
+                                 select new
+                                 {
+                                     c.Codigo,
+                                     c.DiaMin,
+                                     c.DiaMax,
+                                     c.TipoEnsamble,
+                                     m.Descripcion,
+                                     m.Activo
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que da de alta un registro a la tabla Chuck
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="diaMin"></param>
+        /// <param name="diaMax"></param>
+        /// <param name="ensamble"></param>
+        /// <returns></returns>
+        public int  SetChuck(string codigo, double diaMin, double diaMax,string ensamble )
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion= new EntitiesTooling())
+                {
+                    ChuckSplitter obj = new ChuckSplitter();
+                    //Asignamos los valores
+                    obj.Codigo = codigo;
+                    obj.DiaMin = diaMin;
+                    obj.DiaMax = diaMax;
+                    obj.TipoEnsamble = ensamble;
+                    //Se guardan los cambios
+                    Conexion.ChuckSplitter.Add(obj);
+                    Conexion.SaveChanges();
+                    //Retorna el código
+                    return obj.Id_Chuck;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error, retorna nulo
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que modifica un registro de la tabla ChuckSplitter
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="dimMin"></param>
+        /// <param name="dimMax"></param>
+        /// <param name="ensamble"></param>
+        /// <returns></returns>
+        public int UpdateChuck(int id,string codigo, double dimMin,double dimMax,string ensamble)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Obtiene el objeto que se va a modificar
+                    ChuckSplitter obj = Conexion.ChuckSplitter.Where(x => x.Id_Chuck == id).FirstOrDefault();
+
+                    //Asignamos los valores
+                    obj.DiaMin = dimMin;
+                    obj.DiaMax = dimMax;
+                    obj.TipoEnsamble = ensamble;
+
+                    //Guardamos los cambios, y retornamos los registros modificados
+                    Conexion.Entry(obj).State = EntityState.Modified;
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error , retorna cero
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla ChuckSplitter
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public int DeleteChuck(int id)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Obtiene el objeto que se va a modificar
+                    ChuckSplitter obj = Conexion.ChuckSplitter.Where(x => x.Id_Chuck == id).FirstOrDefault();
+                    //Guardamos los cambios, y retornamos los registros modificados
+                    Conexion.Entry(obj).State = EntityState.Deleted;
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error, retornamos cero.
+                return 0;
+            }
+        }
+
+        /// <summary>
         /// Método que indica si un componente (dependiendo de id de splitter) debe de llevar el herramental uretano.
         /// </summary>
         /// <param name="id"></param>
@@ -712,12 +844,158 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     return Lista;
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
             }
         }
+
+        /// <summary>
+        /// Obtiene todos los registros de Uretano Splitter
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public IList GetAllUretano(string texto)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion= new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from u in Conexion.UretanoSplitter
+                                 join m in Conexion.MaestroHerramentales on u.Codigo equals m.Codigo
+                                 where u.Codigo.Contains(texto) || m.Descripcion.Contains(texto)
+                                 select new
+                                 {
+                                     u.Codigo, 
+                                     m.Descripcion,
+                                     m.Activo,
+                                     u.Color,
+                                     u.Detalle,
+                                     u.DiaMin,
+                                     u.DiaMax,
+                                     u.Medidas
+                                 }).ToList();
+                    //retornamos la lista
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error, retorna nulo
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="medidas"></param>
+        /// <param name="color"></param>
+        /// <param name="diaMin"></param>
+        /// <param name="diaMax"></param>
+        /// <param name="detalle"></param>
+        /// <returns></returns>
+        public int SetUretano(string codigo,string medidas,string color,double diaMin, double diaMax, string detalle)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion= new EntitiesTooling())
+                {
+                    UretanoSplitter uretano = new UretanoSplitter();
+
+                    //Asignamos los valores
+                    uretano.Codigo = codigo;
+                    uretano.Medidas = medidas;
+                    uretano.Color = color;
+                    uretano.DiaMin = diaMin;
+                    uretano.DiaMax = diaMax;
+                    uretano.Detalle = detalle;
+
+                    //Se guardan los cambios
+                    Conexion.UretanoSplitter.Add(uretano);
+                    Conexion.SaveChanges();
+
+                    //Retorna el id
+                    return uretano.ID_URETANO_SPLITTER;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error regresa cero
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="codigo"></param>
+        /// <param name="medidas"></param>
+        /// <param name="color"></param>
+        /// <param name="diaMin"></param>
+        /// <param name="diaMax"></param>
+        /// <param name="detalle"></param>
+        /// <returns></returns>
+        public int UpdateUretano(int id,string codigo,string medidas,string color,double diaMin,double diaMax,string detalle)
+        {
+            try
+            {
+                using (var Conexion= new EntitiesTooling())
+                {
+                    UretanoSplitter obj = Conexion.UretanoSplitter.Where(x => x.ID_URETANO_SPLITTER == id).FirstOrDefault();
+
+                    obj.Codigo = codigo;
+                    obj.Medidas = medidas;
+                    obj.Color = color;
+                    obj.DiaMin = diaMin;
+                    obj.DiaMax = diaMax;
+                    obj.Detalle = detalle;
+
+                    //Guardamos los cambios, y retornamos los registros modificados
+                    Conexion.Entry(obj).State = EntityState.Modified;
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int DeleteUretano(int id)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Obtiene el objeto que se va a modificar
+                    UretanoSplitter obj = Conexion.UretanoSplitter.Where(x => x.ID_URETANO_SPLITTER == id).FirstOrDefault();
+                 
+                    //Guardamos los cambios, y retornamos los registros modificados
+                    Conexion.Entry(obj).State = EntityState.Deleted;
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+
+                return 0;
+            }
+        }
+
         #endregion
     }
 }

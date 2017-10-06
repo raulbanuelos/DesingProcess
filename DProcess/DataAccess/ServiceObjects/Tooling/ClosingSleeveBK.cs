@@ -12,13 +12,12 @@ namespace DataAccess.ServiceObjects.Tooling
     using System;
     using System.Collections.Generic;
     
-    public partial class ChuckSplitter
+    public partial class ClosingSleeveBK
     {
-        public int Id_Chuck { get; set; }
+        public int ID_CLOSINGSLEEVE_BK { get; set; }
         public string Codigo { get; set; }
-        public double DiaMin { get; set; }
-        public double DiaMax { get; set; }
-        public string TipoEnsamble { get; set; }
+        public Nullable<double> DimB { get; set; }
+        public string Plano { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }

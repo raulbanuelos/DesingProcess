@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace View.Services.ViewModel
 {
-   public class CutterSplitterVM : INotifyPropertyChanged
+    public class UretanoSplitterVM : INotifyPropertyChanged
     {
         #region Attributtes
         DialogService dialog;
@@ -65,6 +65,10 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Commands
+
+        #endregion
+
+        #region Methods
         /// <summary>
         /// Comando que obtiene los registros buscados
         /// </summary>
@@ -72,7 +76,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(parametro => buscarCutter((string)parametro));
+                return new RelayCommand(parametro => buscaUretanoSplitter((string)parametro));
             }
         }
 
@@ -83,43 +87,41 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(o => obtieneCutter());
+                return new RelayCommand(o => obtieneUretanoSplitter());
             }
         }
         #endregion
 
         #region Methods
-
         /// <summary>
-        /// Método que obtiene la lista que coincidan con el texto de búsqueda
+        /// 
         /// </summary>
         /// <param name="texto"></param>
-        private void buscarCutter(string texto)
+        public void buscaUretanoSplitter(string texto)
         {
-            //obetenemos la lista de Cutter Splitter
-            ListaSplitter = DataManager.GetAllCutterSplitter(texto);
+            ListaSplitter = DataManager.GetAllUretano(texto);
         }
-
         /// <summary>
-        /// Método que busca un registro de Cutter de acuerdo con el width
+        /// 
         /// </summary>
-        private async void obtieneCutter()
+        public async void obtieneUretanoSplitter()
         {
             ListaMejores.Clear();
             ListaOptimos.Clear();
 
             if (diam !=0)
-            {
-                //Obtiene el herramental
-                Herramental obj = DataManager.GetCutterSplitterCasting(diam);
+            {              
                 ObservableCollection<Herramental> ListAux = new ObservableCollection<Herramental>();
-                //se agrega a una lista, para convertirlo a datatable
-                ListAux.Add(obj);
-                //Se convierte la lista en datatable, para mostrarla en pantalla
-                ListaOptimos = DataManager.ConverToObservableCollectionHerramental_DataSet(ListAux,"Cutter Splitter");
+                //Obtenemos el herramental
+                Herramental uretano = DataManager.GetUretanoSplitter(diam);
+                //Agregamos a la lista auxiliar elherramental que se obtuvo
+                ListAux.Add(uretano);
+
+                //Convierte la lista a Datatable, para mostrarla en pantalla
+                ListaOptimos = DataManager.ConverToObservableCollectionHerramental_DataSet(ListAux, "Uretano_Splitter");
                 ListaMejores = ListaOptimos;
 
-                if(obj.Codigo == null)
+                if (uretano.Codigo == null)
                     //Enviamos un mensaje si no hay herramentales.
                     await dialog.SendMessage("Alerta", "No se encontró herramental con estas características..");
             }
@@ -131,12 +133,11 @@ namespace View.Services.ViewModel
 
         #region Constructor
 
-        public CutterSplitterVM()
+        public UretanoSplitterVM()
         {
-            //Obtiene todos los registros
-            buscarCutter(string.Empty);
+            buscaUretanoSplitter(string.Empty);
             dialog = new DialogService();
-            Titulo = "Cutter Splitter";
+            Titulo = "Uretano Splitter";
             ListaMejores = new DataTable();
             ListaOptimos = new DataTable();
         }

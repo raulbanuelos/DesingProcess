@@ -801,6 +801,11 @@ namespace Model
             return herramental;
         }
 
+        /*ChuckSplitter
+         * 
+         * 
+        */
+
         /// <summary>
         /// Método que obtiene el herramental Chuck de la operación Splitter.
         /// </summary>
@@ -838,6 +843,100 @@ namespace Model
             //Retornamos el objeto construido.
             return herramental;
         }
+
+        /// <summary>
+        /// Método que obtiene todos los registros de la tabla ChuckSplitter
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public static DataTable GetAllChuckSplitter(string texto)
+        {
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
+
+            ObservableCollection<Herramental> ListaR = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList informacionBD = ServiceSplitter.GetAllChuck(texto);
+
+            if (informacionBD !=null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+                    Herramental herramental = new Herramental();
+
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+
+                    Propiedad diaMin = new Propiedad();
+                    diaMin.Valor = (double)tipo.GetProperty("DiaMin").GetValue(item, null);
+                    diaMin.Unidad = "Milimeters (mm)";
+                    diaMin.DescripcionCorta = "Diametro Min";
+                    herramental.Propiedades.Add(diaMin);
+
+                    Propiedad diaMax = new Propiedad();
+                    diaMax.Valor= (double)tipo.GetProperty("DiaMax").GetValue(item, null);
+                    diaMax.Unidad= "Milimeters (mm)";
+                    diaMax.DescripcionCorta = "Diametro Max";
+                    herramental.Propiedades.Add(diaMax);
+
+                    PropiedadCadena ensamble = new PropiedadCadena();
+                    ensamble.Valor= (string)tipo.GetProperty("TipoEnsamble").GetValue(item, null);
+                    ensamble.DescripcionCorta = "Tipo Ensamble";
+                    herramental.PropiedadesCadena.Add(ensamble);
+
+                    ListaR.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaR, "ChuckSplitter");
+        }
+
+        /// <summary>
+        /// Método que guarda un registro de herramental ChuckSplitter
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetChuckSplitter(Herramental obj)
+        {
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
+
+            //Ejecutamos el método
+            return ServiceSplitter.SetChuck(obj.Codigo, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor,obj.PropiedadesCadena[0].Valor);
+        }
+
+        /// <summary>
+        /// Método que modifica un registro de la tabla chuck Splitter
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateChuckSplitter(Herramental obj, int id)
+        {
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
+
+            //Ejecutamos el método
+            return ServiceSplitter.UpdateChuck(id,obj.Codigo, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.PropiedadesCadena[0].Valor);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla Chuck Splitter
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static int DeleteChuckSplitter(int id)
+        {
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
+
+            //Ejecutamos el método
+            return ServiceSplitter.DeleteChuck(id);
+        }
+
+        //Uretano Splitter
 
         /// <summary>
         /// Método que indica si el componente debe de llevar uretano.
@@ -913,11 +1012,66 @@ namespace Model
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public static DataTable GetAllUretano(string texto)
+        {
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
+
+            ObservableCollection<Herramental> ListaR = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList informacionBD = ServiceSplitter.GetAllUretano(texto);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+                    Herramental herramental = new Herramental();
+
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+
+                    Propiedad diaMin = new Propiedad();
+                    diaMin.Valor = (double)tipo.GetProperty("DiaMin").GetValue(item, null);
+                    diaMin.Unidad = "Milimeters (mm)";
+                    diaMin.DescripcionCorta = "Diametro Min";
+                    herramental.Propiedades.Add(diaMin);
+
+                    Propiedad diaMax = new Propiedad();
+                    diaMax.Valor = (double)tipo.GetProperty("DiaMax").GetValue(item, null);
+                    diaMax.Unidad = "Milimeters (mm)";
+                    diaMax.DescripcionCorta = "Diametro Max";
+                    herramental.Propiedades.Add(diaMax);
+
+                    PropiedadCadena ensamble = new PropiedadCadena();
+                    ensamble.Valor = (string)tipo.GetProperty("Medidas").GetValue(item, null);
+                    ensamble.DescripcionCorta = "Medidas";
+                    herramental.PropiedadesCadena.Add(ensamble);
+
+                    ListaR.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaR, "UretanoSplitter");
+        }
+
+        /*CutterSplitter
+         * 
+         * 
+         */
+
+        /// <summary>
         /// Método que obtiene todos los registros de Cutter Splitter
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
-       public static DataTable GetAllCutterSplitter(string texto)
+        public static DataTable GetAllCutterSplitter(string texto)
         {
             //Inicializamos los servicios de Splitter.
             SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();

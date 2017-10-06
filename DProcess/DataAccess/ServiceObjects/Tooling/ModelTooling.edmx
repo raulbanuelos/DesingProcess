@@ -5,14 +5,11 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DataAccess.ServiceObjects.Tooling.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="ChuckSplitter">
           <Key>
-            <PropertyRef Name="Codigo" />
-            <PropertyRef Name="DiaMin" />
-            <PropertyRef Name="DiaMax" />
+            <PropertyRef Name="Id_Chuck" />
           </Key>
+          <Property Name="Id_Chuck" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
           <Property Name="DiaMin" Type="float" Nullable="false" />
           <Property Name="DiaMax" Type="float" Nullable="false" />
@@ -33,6 +30,15 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definid
           <Property Name="ObjetoXML" Type="varchar" MaxLength="50" />
           <Property Name="TablaDetalles" Type="varchar" MaxLength="50" />
           <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ClosingSleeveBK">
+          <Key>
+            <PropertyRef Name="ID_CLOSINGSLEEVE_BK" />
+          </Key>
+          <Property Name="ID_CLOSINGSLEEVE_BK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="DimB" Type="float" />
+          <Property Name="Plano" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CollarBK">
           <Key>
@@ -332,6 +338,20 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definid
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ClosingSleeveBK_MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ClosingSleeveBK" Type="Self.ClosingSleeveBK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="ClosingSleeveBK">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CollarBK_MaestroHerramentales">
           <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -525,7 +545,9 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definid
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DataAccessServiceObjectsToolingStoreContainer">
+          <EntitySet Name="ChuckSplitter" EntityType="Self.ChuckSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClasificacionHerramental" EntityType="Self.ClasificacionHerramental" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClosingSleeveBK" EntityType="Self.ClosingSleeveBK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CollarBK" EntityType="Self.CollarBK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CriteriosAnillos" EntityType="Self.CriteriosAnillos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CutterSpacerSplitter" EntityType="Self.CutterSpacerSplitter" Schema="dbo" store:Type="Tables" />
@@ -545,14 +567,6 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definid
           <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" EntityType="Self.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_SHIM_OF_THE_CUT_SYSTEM" EntityType="Self.TBL_SHIM_OF_THE_CUT_SYSTEM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UretanoSplitter" EntityType="Self.UretanoSplitter" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ChuckSplitter" EntityType="Self.ChuckSplitter" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ChuckSplitter].[Codigo] AS [Codigo], 
-    [ChuckSplitter].[DiaMin] AS [DiaMin], 
-    [ChuckSplitter].[DiaMax] AS [DiaMax], 
-    [ChuckSplitter].[TipoEnsamble] AS [TipoEnsamble]
-    FROM [dbo].[ChuckSplitter] AS [ChuckSplitter]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_ChuckSplitter_MaestroHerramentales" Association="Self.FK_ChuckSplitter_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="ChuckSplitter" EntitySet="ChuckSplitter" />
@@ -560,6 +574,10 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definid
           <AssociationSet Name="fk_Clasificacion_MaestroHerramentales" Association="Self.fk_Clasificacion_MaestroHerramentales">
             <End Role="ClasificacionHerramental" EntitySet="ClasificacionHerramental" />
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClosingSleeveBK_MaestroHerramentales" Association="Self.FK_ClosingSleeveBK_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="ClosingSleeveBK" EntitySet="ClosingSleeveBK" />
           </AssociationSet>
           <AssociationSet Name="FK_CollarBK_MaestroHerramentales" Association="Self.FK_CollarBK_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -670,9 +688,10 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definid
           <NavigationProperty Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" />
           <NavigationProperty Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" />
           <NavigationProperty Name="TBL_SHIM_OF_THE_CUT_SYSTEM" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_SHIM_OF_THE_CUT_SYSTEM" />
-          <NavigationProperty Name="ChuckSplitter" Relationship="DataAccess.ServiceObjects.Tooling.FK_ChuckSplitter_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="ChuckSplitter" />
           <NavigationProperty Name="CutterSplitter" Relationship="DataAccess.ServiceObjects.Tooling.FK_CutterSplitter_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CutterSplitter" />
           <NavigationProperty Name="UretanoSplitter" Relationship="DataAccess.ServiceObjects.Tooling.FK_UretanoSplitter_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="UretanoSplitter" />
+          <NavigationProperty Name="ChuckSplitter" Relationship="DataAccess.ServiceObjects.Tooling.FK_ChuckSplitter_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="ChuckSplitter" />
+          <NavigationProperty Name="ClosingSleeveBK" Relationship="DataAccess.ServiceObjects.Tooling.FK_ClosingSleeveBK_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="ClosingSleeveBK" />
         </EntityType>
         <EntityType Name="PLANO_HERRAMENTAL">
           <Key>
@@ -785,11 +804,6 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definid
             <End Role="TBL_SHIM_OF_THE_CUT_SYSTEM" EntitySet="TBL_SHIM_OF_THE_CUT_SYSTEM" />
           </AssociationSet>
           <EntitySet Name="SplitterSpacerChart" EntityType="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart" />
-          <EntitySet Name="ChuckSplitter" EntityType="DataAccess.ServiceObjects.Tooling.ChuckSplitter" />
-          <AssociationSet Name="FK_ChuckSplitter_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_ChuckSplitter_MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="ChuckSplitter" EntitySet="ChuckSplitter" />
-          </AssociationSet>
           <EntitySet Name="CutterSplitter" EntityType="DataAccess.ServiceObjects.Tooling.CutterSplitter" />
           <AssociationSet Name="FK_CutterSplitter_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_CutterSplitter_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -801,6 +815,16 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definid
             <End Role="UretanoSplitter" EntitySet="UretanoSplitter" />
           </AssociationSet>
           <EntitySet Name="SPlitterSpacerChart2" EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" />
+          <EntitySet Name="ChuckSplitter" EntityType="DataAccess.ServiceObjects.Tooling.ChuckSplitter" />
+          <EntitySet Name="ClosingSleeveBK" EntityType="DataAccess.ServiceObjects.Tooling.ClosingSleeveBK" />
+          <AssociationSet Name="FK_ChuckSplitter_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_ChuckSplitter_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="ChuckSplitter" EntitySet="ChuckSplitter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClosingSleeveBK_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_ClosingSleeveBK_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="ClosingSleeveBK" EntitySet="ClosingSleeveBK" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CollarBK">
           <Key>
@@ -1178,32 +1202,6 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definid
           <Property Name="Proceso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ident" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-        <EntityType Name="ChuckSplitter">
-          <Key>
-            <PropertyRef Name="Codigo" />
-            <PropertyRef Name="DiaMin" />
-            <PropertyRef Name="DiaMax" />
-          </Key>
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="DiaMin" Type="Double" Nullable="false" />
-          <Property Name="DiaMax" Type="Double" Nullable="false" />
-          <Property Name="TipoEnsamble" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_ChuckSplitter_MaestroHerramentales" FromRole="ChuckSplitter" ToRole="MaestroHerramentales" />
-        </EntityType>
-        <Association Name="FK_ChuckSplitter_MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DataAccess.ServiceObjects.Tooling.ChuckSplitter" Role="ChuckSplitter" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="ChuckSplitter">
-              <PropertyRef Name="Codigo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="CutterSplitter">
           <Key>
             <PropertyRef Name="ID_CUTTER_SPLITTER" />
@@ -1268,6 +1266,55 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definid
           <Property Name="CantidadSpacer2" Type="Int32" Nullable="false" />
           <Property Name="ident" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
+        <EntityType Name="ChuckSplitter">
+          <Key>
+            <PropertyRef Name="Id_Chuck" />
+          </Key>
+          <Property Name="Id_Chuck" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DiaMin" Type="Double" Nullable="false" />
+          <Property Name="DiaMax" Type="Double" Nullable="false" />
+          <Property Name="TipoEnsamble" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_ChuckSplitter_MaestroHerramentales" FromRole="ChuckSplitter" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <EntityType Name="ClosingSleeveBK">
+          <Key>
+            <PropertyRef Name="ID_CLOSINGSLEEVE_BK" />
+          </Key>
+          <Property Name="ID_CLOSINGSLEEVE_BK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DimB" Type="Double" />
+          <Property Name="Plano" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_ClosingSleeveBK_MaestroHerramentales" FromRole="ClosingSleeveBK" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_ChuckSplitter_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.ChuckSplitter" Role="ChuckSplitter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="ChuckSplitter">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClosingSleeveBK_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.ClosingSleeveBK" Role="ClosingSleeveBK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="ClosingSleeveBK">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1545,16 +1592,6 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definid
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ChuckSplitter">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.ChuckSplitter">
-              <MappingFragment StoreEntitySet="ChuckSplitter">
-                <ScalarProperty Name="TipoEnsamble" ColumnName="TipoEnsamble" />
-                <ScalarProperty Name="DiaMax" ColumnName="DiaMax" />
-                <ScalarProperty Name="DiaMin" ColumnName="DiaMin" />
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CutterSplitter">
             <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.CutterSplitter">
               <MappingFragment StoreEntitySet="CutterSplitter">
@@ -1589,6 +1626,27 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.ChuckSplitter' no tiene definid
                 <ScalarProperty Name="SplitWidth" ColumnName="SplitWidth" />
                 <ScalarProperty Name="RingWidth" ColumnName="RingWidth" />
                 <ScalarProperty Name="Proceso" ColumnName="Proceso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChuckSplitter">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.ChuckSplitter">
+              <MappingFragment StoreEntitySet="ChuckSplitter">
+                <ScalarProperty Name="TipoEnsamble" ColumnName="TipoEnsamble" />
+                <ScalarProperty Name="DiaMax" ColumnName="DiaMax" />
+                <ScalarProperty Name="DiaMin" ColumnName="DiaMin" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Id_Chuck" ColumnName="Id_Chuck" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClosingSleeveBK">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.ClosingSleeveBK">
+              <MappingFragment StoreEntitySet="ClosingSleeveBK">
+                <ScalarProperty Name="Plano" ColumnName="Plano" />
+                <ScalarProperty Name="DimB" ColumnName="DimB" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="ID_CLOSINGSLEEVE_BK" ColumnName="ID_CLOSINGSLEEVE_BK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
