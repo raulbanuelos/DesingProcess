@@ -140,10 +140,13 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion= new EntitiesTooling())
                 {
+                    //Declaramos el objeto
                     CollarBK obj = new CollarBK();
 
+                    //Asignamos los valores
                     obj.Codigo = codigo;
                     obj.Plano = plano;
                     obj.Parte = parte;
@@ -152,9 +155,10 @@ namespace DataAccess.ServiceObjects.Tooling
                     obj.DimB = dimB;
                     obj.DimB_Unidad = dimB_unidad;
 
+                    //Guardamos los cambios
                     Conexion.CollarBK.Add(obj);
                     Conexion.SaveChanges();
-
+                    //Retornamos el id
                     return obj.ID_COLLAR_BK;
                 }
             }
@@ -166,7 +170,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene todos los registros de ClosingSleeve BK
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
@@ -174,9 +178,10 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
-
+                //Realizamos la conexíon a través de EntityFramework.
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                     var Lista = (from c in Conexion.ClosingSleeveBK
                                  join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
                                  where c.Codigo.Contains(texto) || m.Descripcion.Contains(texto)
@@ -189,19 +194,20 @@ namespace DataAccess.ServiceObjects.Tooling
                                      m.Descripcion,
                                      m.Activo
                                  }).ToList();
+                    //Retornamos el resultado de la consulta.
 
                     return Lista;
                 }
             }
             catch (Exception)
             {
-
+                //Si ocurre algún error retornamos un nulo.
                 return null;
             }
         }
 
         /// <summary>
-        /// 
+        /// Método que da de alta un registro a la tabla ClosingSleeve
         /// </summary>
         /// <param name="codigo"></param>
         /// <param name="dimB"></param>
@@ -211,29 +217,34 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Declaramos el objeto de la tabla
                     ClosingSleeveBK obj = new ClosingSleeveBK();
 
+                    //Asignamos los valores
                     obj.Codigo = codigo;
                     obj.DimB = dimB;
                     obj.Plano = plano;
 
+                    //Guardamos los cambios
                     Conexion.ClosingSleeveBK.Add(obj);
                     Conexion.SaveChanges();
 
+                    //Retornamos el id
                     return obj.ID_CLOSINGSLEEVE_BK;
                 }
             }
             catch (Exception)
             {
-
+                //Si hay error, retorna cero
                 return 0;
             }
         }
 
         /// <summary>
-        /// 
+        ///  Método que actualiza un registro en la tabla losing Sleeve BK
         /// </summary>
         /// <param name="id"></param>
         /// <param name="codigo"></param>
@@ -244,14 +255,18 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Se establece la conexión a la base de datos.
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Se obtiene el objeto que se va a modificar.
                     ClosingSleeveBK obj = Conexion.ClosingSleeveBK.Where(x => x.ID_CLOSINGSLEEVE_BK == id).FirstOrDefault();
 
+                    //Asiganmos los valores
                     obj.Codigo = codigo;
                     obj.DimB = dimB;
                     obj.Plano = plano;
 
+                    //Se guardan los cambios y se retorna el número de registros afectados.
                     Conexion.Entry(obj).State= EntityState.Modified;
 
                     return Conexion.SaveChanges();
@@ -259,13 +274,13 @@ namespace DataAccess.ServiceObjects.Tooling
             }
             catch (Exception)
             {
-
+                //Si encuentra error devuelve cero.
                 return 0;
             }
         }
 
         /// <summary>
-        /// 
+        /// Método que elimina un registro de la tabla Closing Sleeve BK
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -273,19 +288,22 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                // Se inicializa la conexión a la base de datos.
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Se obtiene el objeto que se va a eliminar.
                     ClosingSleeveBK obj = Conexion.ClosingSleeveBK.Where(x => x.ID_CLOSINGSLEEVE_BK == id).FirstOrDefault();
 
-
+                    //eliminamos el registro
                     Conexion.Entry(obj).State = EntityState.Deleted;
 
+                    //Se guardan los cambios y retorna el número de registros afectados.
                     return Conexion.SaveChanges();
                 }
             }
             catch (Exception)
             {
-
+                //Si hay error retorna cero
                 return 0;
             }
         }

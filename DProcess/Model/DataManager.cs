@@ -1359,6 +1359,34 @@ namespace Model
             //Ejecutamos el método
             return ServicioBk.SetCollar(obj.Codigo, obj.Plano, obj.PropiedadesCadena[0].Valor, obj.Propiedades[0].Valor, obj.Propiedades[0].Unidad, obj.Propiedades[1].Valor, obj.Propiedades[1].Unidad);
         }
+
+        /// <summary>
+        /// Método que guarda un registro en  la tabla
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+       public static int SetClosingSleeveBK(Herramental obj)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServiceBk = new SO_BK();
+
+            //Ejecutamos el método
+            return ServiceBk.SetClosingSleeveBK(obj.Codigo, obj.Propiedades[0].Valor, obj.Plano);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla Closing Sleeve BK
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteClosingSleeveBK(int id)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServiceBk = new SO_BK();
+
+            //Ejecutamos el método
+            return ServiceBk.DeleteClosingSleeveBK(id);
+        }
         #endregion
 
         #endregion
