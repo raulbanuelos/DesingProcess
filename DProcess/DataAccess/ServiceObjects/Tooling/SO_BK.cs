@@ -170,6 +170,43 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
+        /// Método que obtiene el registro de closing Sleeve con las medidas específicas,
+        /// </summary>
+        /// <param name="sleeveMin"></param>
+        /// <param name="sleeveMax"></param>
+        /// <returns></returns>
+        public IList GetClosingSleeveBK(double sleeveMin, double sleeveMax)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion= new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.ClosingSleeveBK
+                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
+                                 where c.DimB >= sleeveMin && c.DimB <= sleeveMax
+                                 select new
+                                 {
+                                     m.Codigo,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.DimB,
+                                     c.ID_CLOSINGSLEEVE_BK,
+                                     c.Plano,
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error, regresa nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Método que obtiene todos los registros de ClosingSleeve BK
         /// </summary>
         /// <param name="texto"></param>

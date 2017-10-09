@@ -20,61 +20,41 @@ using System.Windows.Shapes;
 namespace View.Forms.Tooling
 {
     /// <summary>
-    /// Lógica de interacción para CutterSpacerS.xaml
+    /// Lógica de interacción para ControlCutterSplitter.xaml
     /// </summary>
-    public partial class CutterSpacerS : UserControl, IControlTooling
+    public partial class ControlCutterSplitter : UserControl, IControlTooling
     {
-        public CutterSpacerS()
+        public ControlCutterSplitter()
         {
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Método que guarda la información
-        /// </summary>
-        /// <param name="codigo"></param>
-        /// <returns></returns>
         public int Guardar(string codigo)
         {
             Herramental obj = new Herramental();
-            Propiedad a = new Propiedad();
-            Propiedad b = new Propiedad();
+            Propiedad diametro = new Propiedad();
 
             obj.Codigo = codigo;
-            obj.Plano = plano.Text;
-            a.Valor= double.Parse(dimA.Text, CultureInfo.InvariantCulture.NumberFormat);
-            b.Valor = double.Parse(dimB.Text, CultureInfo.InvariantCulture.NumberFormat);
-            obj.Propiedades.Add(a);
-            obj.Propiedades.Add(b);
+            diametro.Valor= double.Parse(diam.Text, CultureInfo.InvariantCulture.NumberFormat);
 
-            return DataManager.SetCutterSpacerS(obj);
-            
+            obj.Propiedades.Add(diametro);
+
+            return DataManager.SetCutterSplitterCasting(obj);
         }
 
-        /// <summary>
-        /// Método que inicializa los componentes
-        /// </summary>
         public void Inicializa()
         {
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Método que valida si los campos no estan vacíos.
-        /// </summary>
-        /// <returns></returns>
         public bool ValidaError()
         {
-            if(!string.IsNullOrEmpty(plano.Text) & !string.IsNullOrEmpty(dimA.Text) & !string.IsNullOrEmpty(dimB.Text))
+            if (!string.IsNullOrEmpty(diam.Text))
                 return true;
             else
                 return false;
         }
 
-        /// <summary>
-        /// Método que valida  los rangos.
-        /// </summary>
-        /// <returns></returns>
         public bool ValidaRangos()
         {
             return true;

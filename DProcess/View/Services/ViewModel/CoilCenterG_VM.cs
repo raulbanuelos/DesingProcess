@@ -105,11 +105,11 @@ namespace View.Services.ViewModel
         /// </summary>
         private async void buscarOptimos()
         {
+            ListaOptimos = new DataTable();
+            ListaMejores = new DataTable();
 
             if (_width != 0 & _radial != 0)
-            {
-                ListaOptimos = new DataTable();
-                ListaMejores = new DataTable();
+            {              
                 //Obtiene la lista de los herramentales optimos
                 ListaOptimos = DataManager.GetCOIL_CENTER_GUIDE(_width, _radial);
                 //obtiene el mejor herramental

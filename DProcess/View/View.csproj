@@ -231,6 +231,12 @@
     <Compile Include="Forms\Shared\Layout.xaml.cs">
       <DependentUpon>Layout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlChuckSplitterCasting.xaml.cs">
+      <DependentUpon>ControlChuckSplitterCasting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlClosingSleeveBK.xaml.cs">
+      <DependentUpon>ControlClosingSleeveBK.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlCoilCG.xaml.cs">
       <DependentUpon>ControlCoilCG.xaml</DependentUpon>
     </Compile>
@@ -239,6 +245,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\ControlCollarBK.xaml.cs">
       <DependentUpon>ControlCollarBK.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlCutterSplitter.xaml.cs">
+      <DependentUpon>ControlCutterSplitter.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\ControlExitGuide.xaml.cs">
       <DependentUpon>ControlExitGuide.xaml</DependentUpon>
@@ -264,6 +273,9 @@
     <Compile Include="Forms\Tooling\ControlShimOTCS.xaml.cs">
       <DependentUpon>ControlShimOTCS.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlUretanoSplitter.xaml.cs">
+      <DependentUpon>ControlUretanoSplitter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\CutterSpacerS.xaml.cs">
       <DependentUpon>CutterSpacerS.xaml</DependentUpon>
     </Compile>
@@ -272,6 +284,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\WBusquedaHerramenal.xaml.cs">
       <DependentUpon>WBusquedaHerramenal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\WClosingSleeve.xaml.cs">
+      <DependentUpon>WClosingSleeve.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\WCoil.xaml.cs">
       <DependentUpon>WCoil.xaml</DependentUpon>
@@ -317,6 +332,7 @@
     <Compile Include="Services\ViewModel\Buscar_DocumentoVM.cs" />
     <Compile Include="Services\ViewModel\Busqueda_HerramentalVM.cs" />
     <Compile Include="Services\ViewModel\ChuckSplitterVM.cs" />
+    <Compile Include="Services\ViewModel\ClosingSleeveVM.cs" />
     <Compile Include="Services\ViewModel\CoilCenterG_VM.cs" />
     <Compile Include="Services\ViewModel\CoilFeedRoller_VM.cs" />
     <Compile Include="Services\ViewModel\CollarAutoFinTurnViewModel.cs" />
@@ -524,6 +540,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Forms\Tooling\ControlChuckSplitterCasting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlClosingSleeveBK.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\ControlCoilCG.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -533,6 +557,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\ControlCollarBK.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlCutterSplitter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -568,6 +596,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlUretanoSplitter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\CutterSpacerS.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -577,6 +609,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\WBusquedaHerramenal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WClosingSleeve.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

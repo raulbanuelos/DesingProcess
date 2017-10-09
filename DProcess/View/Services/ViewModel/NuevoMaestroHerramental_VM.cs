@@ -378,10 +378,13 @@ namespace View.Services.ViewModel
             Busqueda_HerramentalVM context = new Busqueda_HerramentalVM();
             frm.DataContext = context;
             frm.ShowDialog();
+
             //Se obtiene el objeto seleccionado, de la ventana de búsqueda
-           SelectedClasificacion= context.SelectedClasificacion;
-            //Se asigna al id para moestrar en el combobox
-           Id_clasificacion = SelectedClasificacion.IdClasificacion;
+            if (context.SelectedClasificacion != null) {
+                SelectedClasificacion = context.SelectedClasificacion;
+                //Se asigna al id para moestrar en el combobox
+                Id_clasificacion = SelectedClasificacion.IdClasificacion;
+            }
 
         }
         /// <summary>

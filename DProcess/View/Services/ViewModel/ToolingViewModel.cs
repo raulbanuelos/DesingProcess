@@ -109,7 +109,7 @@ namespace View.Services.ViewModel
             {
                 return new RelayCommand(o => irCoilFR());
             }
-        } 
+        }
 
         /// <summary>
         /// Comando para abrir la ventana de Coil center guide
@@ -212,7 +212,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(o =>irCutterSpacer());
+                return new RelayCommand(o => irCutterSpacer());
             }
         }
 
@@ -227,6 +227,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando que abre la ventana de ChuckSplitter
+        /// </summary>
         public ICommand IrChuckSplitter
         {
             get
@@ -235,11 +238,22 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando que abre la ventana de Uretano Splitter
+        /// </summary>
         public ICommand IrUretanoSplitter
         {
             get
             {
                 return new RelayCommand(o => irUretanoSplitter());
+            }
+        } 
+
+        public ICommand IrClosingS
+        {
+            get
+            {
+                return new RelayCommand(o => irClosingS());
             }
         }
         #endregion
@@ -401,7 +415,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Método que muestra la ventana de CutterSplitter
         /// </summary>
         public void irChuckSplitter()
         {
@@ -412,12 +426,23 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Método que muestra la ventana de Uretano Splitter
         /// </summary>
         public void irUretanoSplitter()
         {
             WCutterSplitter frm = new WCutterSplitter();
             UretanoSplitterVM context = new UretanoSplitterVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void irClosingS()
+        {
+            WClosingSleeve frm = new WClosingSleeve();
+            ClosingSleeveVM context = new ClosingSleeveVM();
             frm.DataContext = context;
             frm.ShowDialog();
         }

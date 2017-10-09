@@ -1118,13 +1118,13 @@ namespace Model
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static int SetCutterSplitterCasting(SplitterCasting obj)
+        public static int SetCutterSplitterCasting(Herramental obj)
         {
             //Inicializamos los servicios de Splitter.
             SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
 
             //Ejecutamos el método
-            return ServiceSplitter.SetCutter(obj.codigo, obj.A);
+            return ServiceSplitter.SetCutter(obj.Codigo, obj.Propiedades[0].Valor);
         }
 
         /// <summary>
@@ -1361,11 +1361,142 @@ namespace Model
         }
 
         /// <summary>
+        /// Método que obtiene un registro a partir de los parámetros recibidos
+        /// </summary>
+        /// <param name="diafinish"></param>
+        /// <param name="gapfinish"></param>
+        public static DataTable GetClosingSleeve(double diafinish, double gapfinish)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServiceBK = new SO_BK();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Obtenemos el valor de Sleeve
+            double sleeve=Math.Round(diafinish-((gapfinish-.004)/3.1416)+.005,3);
+
+            //Obtenemos el minimo y maximo
+            double sleeveMin = sleeve - GetCriterio("AFTSleeveMin");
+            double sleeveMax = sleeve + GetCriterio("AFTSleeveMax");
+
+            //Se obtiene la informacion de la base de datos
+            IList informacionBD = ServiceBK.GetClosingSleeveBK(sleeveMin, sleeveMax);
+
+            //Si la informacion es diferente de nulo
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.Unidad = "Milimeters (mm)";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimB").GetValue(item, null);
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    //Agrega el objeto a la lista
+                    ListaResultante.Add(herramental);
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "ClosingSleeve");
+        }
+
+        /// <summary>
+        /// Obtiene el mejor registro de best closing BK
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable SelectBestClosingBK(DataTable dt)
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Description");
+            DataR.Columns.Add("Dim B");
+            //Sólo se hace la iteración una vez
+            foreach (DataRow row in dt.Rows)
+            {
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = DataR.NewRow();
+                dr["Code"] = row["Code"].ToString();
+                dr["Description"] = row["Description"].ToString();
+                dr["Dim B"] = row["Dim B"].ToString();
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+                break;
+            }
+            return DataR;
+        }
+
+
+        /// <summary>
+        /// Método que obtiene todos los registros de la tabla ClosingSleeve
+        /// </summary>
+        /// <param name="texto_busqueda"></param>
+        /// <returns></returns>
+        public static DataTable GetAllClosingSleeve(string texto_busqueda)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServicioBk = new SO_BK();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioBk.GetAllClosingSleeveBK(texto_busqueda);
+
+            //Verificamos que la lista sea diferente de nulo.
+
+            if (informacionBD !=null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                     System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+
+                    Propiedad dim = new Propiedad();
+                    dim.Unidad = "Milimeters (mm)";
+                    dim.Valor = (double)tipo.GetProperty("DimB").GetValue(item, null);
+                    dim.DescripcionCorta = "Dim B";
+                    herramental.Propiedades.Add(dim);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "ClosingSleeve");
+        }
+
+        
+        /// <summary>
         /// Método que guarda un registro en  la tabla
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-       public static int SetClosingSleeveBK(Herramental obj)
+        public static int SetClosingSleeveBK(Herramental obj)
         {
             //Inicializamos los servicios de BK.
             SO_BK ServiceBk = new SO_BK();
@@ -3114,7 +3245,7 @@ namespace Model
             {
                 //Mapeamos los valores de código y descripción en un datarow.
                 DataRow dr = DataR.NewRow();
-                dr["Code"] = row["DETALLE"].ToString();
+                dr["Code"] = row["Code"].ToString();
                 dr["Description"] = row["DESCRIPTION"].ToString();
 
                 //Agregamnos el datarow al datatable resultante.

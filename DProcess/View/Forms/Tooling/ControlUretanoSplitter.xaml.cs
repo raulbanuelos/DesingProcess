@@ -2,6 +2,7 @@
 using Model.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -20,64 +21,64 @@ using System.Windows.Shapes;
 namespace View.Forms.Tooling
 {
     /// <summary>
-    /// Lógica de interacción para CutterSpacerS.xaml
+    /// Lógica de interacción para ControlUretanoSplitter.xaml
     /// </summary>
-    public partial class CutterSpacerS : UserControl, IControlTooling
+    public partial class ControlUretanoSplitter : UserControl, IControlTooling
     {
-        public CutterSpacerS()
+        #region Propiedades
+        ObservableCollection<string> ListaColor;
+        #endregion
+        public ControlUretanoSplitter()
         {
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Método que guarda la información
-        /// </summary>
-        /// <param name="codigo"></param>
-        /// <returns></returns>
         public int Guardar(string codigo)
         {
             Herramental obj = new Herramental();
-            Propiedad a = new Propiedad();
-            Propiedad b = new Propiedad();
 
             obj.Codigo = codigo;
-            obj.Plano = plano.Text;
-            a.Valor= double.Parse(dimA.Text, CultureInfo.InvariantCulture.NumberFormat);
-            b.Valor = double.Parse(dimB.Text, CultureInfo.InvariantCulture.NumberFormat);
-            obj.Propiedades.Add(a);
-            obj.Propiedades.Add(b);
 
-            return DataManager.SetCutterSpacerS(obj);
-            
+            Propiedad DMin = new Propiedad();
+            Propiedad DMax = new Propiedad();
+            PropiedadCadena Pmedidas = new PropiedadCadena();
+            PropiedadCadena PDetalle = new PropiedadCadena();
+
+            return 0;
         }
 
-        /// <summary>
-        /// Método que inicializa los componentes
-        /// </summary>
         public void Inicializa()
         {
             InitializeComponent();
+            ListaColor = new ObservableCollection<string>();
+
+            ListaColor.Add("AZUL");
+            ListaColor.Add("ROJO");
+            ListaColor.Add("AMARILLO");
+            ListaColor.Add("VERDE");
+
+            comboColor.ItemsSource = ListaColor;
         }
 
-        /// <summary>
-        /// Método que valida si los campos no estan vacíos.
-        /// </summary>
-        /// <returns></returns>
         public bool ValidaError()
         {
-            if(!string.IsNullOrEmpty(plano.Text) & !string.IsNullOrEmpty(dimA.Text) & !string.IsNullOrEmpty(dimB.Text))
+            if (!string.IsNullOrEmpty(dimMin.Text) & !string.IsNullOrEmpty(dimMax.Text) & !string.IsNullOrEmpty(detalle.Text) & !string.IsNullOrEmpty(medidas.Text) & comboColor.SelectedValue != null)
                 return true;
             else
                 return false;
+
         }
 
-        /// <summary>
-        /// Método que valida  los rangos.
-        /// </summary>
-        /// <returns></returns>
         public bool ValidaRangos()
         {
-            return true;
+            double dmin, dmax;
+            dmin = double.Parse(dimMin.Text, CultureInfo.InvariantCulture.NumberFormat);
+            dmax = double.Parse(dimMax.Text, CultureInfo.InvariantCulture.NumberFormat);
+
+            if (dmin < dmax)
+                return true;
+            else
+                return false;
         }
 
         /// <summary>
