@@ -281,7 +281,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        ///  Método que actualiza un registro en la tabla losing Sleeve BK
+        ///  Método que actualiza un registro en la tabla closing Sleeve BK
         /// </summary>
         /// <param name="id"></param>
         /// <param name="codigo"></param>
@@ -344,5 +344,378 @@ namespace DataAccess.ServiceObjects.Tooling
                 return 0;
             }
         }
+
+        /// <summary>
+        /// Método que obtiene todos los registros de acuerdo a la plabra de búsqueda
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public IList GetAllGuidePlate(string texto)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion= new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from g in Conexion.GuidePlateBK_
+                                 join m in Conexion.MaestroHerramentales on g.Codigo equals m.Codigo
+                                 where g.Codigo.Contains(texto) || m.Descripcion.Contains(texto)
+                                 select new
+                                 {
+                                     m.Codigo,
+                                     m.Descripcion,m.Activo,g.MedidaNominal,g.Width,g.SobreMedida, g.Id_GuidePlate
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que guarda un registro en la tbla.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="medidaN"></param>
+        /// <param name="width"></param>
+        /// <param name="sobreM"></param>
+        /// <returns></returns>
+        public int SetGuidePlate(string codigo, string medidaN, string width, string sobreM)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion= new EntitiesTooling())
+                {
+                    //Declaramos el objeto de la tabla
+                    GuidePlateBK_ guideP = new GuidePlateBK_();
+
+                    //Asignamos los valores
+                    guideP.Codigo = codigo;
+                    guideP.MedidaNominal = medidaN;
+                    guideP.Width = width;
+                    guideP.SobreMedida = sobreM;
+
+                    //Guardamos los cambios
+                    Conexion.GuidePlateBK_.Add(guideP);
+                    Conexion.SaveChanges();
+
+                    //Retornamos el id
+                    return guideP.Id_GuidePlate;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error, retorna cero
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que actualiza un registro en la tabla GuidePlateBK_
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="codigo"></param>
+        /// <param name="medidaN"></param>
+        /// <param name="width"></param>
+        /// <param name="sobreM"></param>
+        /// <returns></returns>
+        public int UpdateGuidePlate(int id,string codigo, string medidaN, string width, string sobreM)
+        {
+            try
+            {
+                //Se establece la conexión a la base de datos.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Se obtiene el objeto que se va a modificar.
+                    GuidePlateBK_ guideP = Conexion.GuidePlateBK_.Where(x => x.Id_GuidePlate == id).FirstOrDefault();
+
+                    //Asiganmos los valores
+                    guideP.Codigo = codigo;
+                    guideP.MedidaNominal = medidaN;
+                    guideP.Width = width;
+                    guideP.SobreMedida = sobreM;
+
+                    //Se guardan los cambios y se retorna el número de registros afectados
+                    Conexion.Entry(guideP).State = EntityState.Modified;
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si encuentra error devuelve cero.
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla GuidePlateBK
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int DeleteGuidePlate(int id)
+        {
+            try
+            {
+                // Se inicializa la conexión a la base de datos.
+                using (var Conexion= new EntitiesTooling())
+                {
+                    //Se obtiene el objeto que se va a eliminar.
+                    GuidePlateBK_ guideP = Conexion.GuidePlateBK_.Where(x => x.Id_GuidePlate == id).FirstOrDefault();
+
+                    //eliminamos el registro
+                    Conexion.Entry(guideP).State = EntityState.Deleted;
+
+                    //Se guardan los cambios y retorna el número de registros afectados.
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna cero
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public IList GetAllGuillotinaBK(string texto)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from g in Conexion.GuillotinaBK_
+                                 join m in Conexion.MaestroHerramentales on g.Codigo equals m.Codigo
+                                 where g.Codigo.Contains(texto) || m.Descripcion.Contains(texto)
+                                 select new
+                                 {
+                                     m.Codigo,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     g.MedidaNominal,
+                                     g.Width,
+                                     g.SobreMedida,
+                                     g.Id_GuillotinaBK
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="medidaN"></param>
+        /// <param name="width"></param>
+        /// <param name="sobreM"></param>
+        /// <returns></returns>
+        public int SetGuillotinaBK(string codigo, string medidaN, string width, string sobreM)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Declaramos el objeto de la tabla
+                    GuillotinaBK_ obj = new GuillotinaBK_();
+
+                    //Asignamos los valores
+                    obj.Codigo = codigo;
+                    obj.MedidaNominal = medidaN;
+                    obj.Width = width;
+                    obj.SobreMedida = sobreM;
+
+                    //Guardamos los cambios
+                    Conexion.GuillotinaBK_.Add(obj);
+                    Conexion.SaveChanges();
+
+                    //Retornamos el id
+                    return obj.Id_GuillotinaBK;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error, retorna cero
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="codigo"></param>
+        /// <param name="medidaN"></param>
+        /// <param name="width"></param>
+        /// <param name="sobreM"></param>
+        /// <returns></returns>
+        public int UpdateGuillotinaBK(int id, string codigo, string medidaN, string width, string sobreM)
+        {
+            try
+            {
+                //Se establece la conexión a la base de datos.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Se obtiene el objeto que se va a modificar.
+                    GuillotinaBK_ obj = Conexion.GuillotinaBK_.Where(x => x.Id_GuillotinaBK == id).FirstOrDefault();
+
+                    //Asiganmos los valores
+                    obj.Codigo = codigo;
+                    obj.MedidaNominal = medidaN;
+                    obj.Width = width;
+                    obj.SobreMedida = sobreM;
+
+                    //Se guardan los cambios y se retorna el número de registros afectados
+                    Conexion.Entry(obj).State = EntityState.Modified;
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si encuentra error devuelve cero.
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int DeleteGuillotinaBK(int id)
+        {
+            try
+            {
+                // Se inicializa la conexión a la base de datos.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Se obtiene el objeto que se va a eliminar.
+                    GuillotinaBK_ obj = Conexion.GuillotinaBK_.Where(x => x.Id_GuillotinaBK == id).FirstOrDefault();
+
+                    //eliminamos el registro
+                    Conexion.Entry(obj).State = EntityState.Deleted;
+
+                    //Se guardan los cambios y retorna el número de registros afectados.
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna cero
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene el herramental de GuillotinaBK.
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="medidaNom"></param>
+        /// <param name="sobreM"></param>
+        /// <returns></returns>
+        public IList GetGuillotinaBK(string width,string medidaNom, string sobreM)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var Lista = (from g in Conexion.GuillotinaBK_
+                                 join m in Conexion.MaestroHerramentales on g.Codigo equals m.Codigo
+                                 where g.Width== width && g.MedidaNominal== medidaNom && g.SobreMedida == sobreM
+                                 select new
+                                 {
+                                     m.Codigo,
+                                     m.Descripcion,
+                                     g.Id_GuillotinaBK,
+                                     g.SobreMedida,
+                                     g.MedidaNominal,
+                                     g.Width,
+                                     m.Activo
+                                 }).ToList();
+
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene la medida nominal y sobremedida para GuillotinaBK
+        /// </summary>
+        /// <param name="d1"></param>
+        /// <returns></returns>
+        public IList GetMedidaGuillotina(double d1)
+        {
+            try
+            {
+                using (var Conexion= new EntitiesTooling())
+                {
+                    var lista = (from c in Conexion.CriDiaGuillBK
+                                 where d1 >= c.RangoMin && d1 <= c.RangoMax
+                                 select new
+                                 {
+                                     MEDIDANOMINAL=c.Dia,
+                                     SOBREMEDIDA=c.SobreMedida
+                                 }).ToList();
+
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene el width para guillotina BK
+        /// </summary>
+        /// <param name="h1"></param>
+        /// <returns></returns>
+        public string GetWidthGuillotina(double h1)
+        {
+            try
+            {
+                using (var Conexion= new EntitiesTooling())
+                {
+                    var width = (from g in Conexion.CriGillBK
+                                 from p in Conexion.CriGPBK
+                                 where h1 >= g.RangoMin && h1 <= g.RangoMax && g.D==p.Width
+                                 select p.Width ).FirstOrDefault();
+                    return width;
+                }
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
     }
 }

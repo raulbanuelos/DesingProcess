@@ -47,5 +47,10 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<SPlitterSpacerChart2> SPlitterSpacerChart2 { get; set; }
         public virtual DbSet<ChuckSplitter> ChuckSplitter { get; set; }
         public virtual DbSet<ClosingSleeveBK> ClosingSleeveBK { get; set; }
+        public virtual DbSet<GuidePlateBK_> GuidePlateBK_ { get; set; }
+        public virtual DbSet<GuillotinaBK_> GuillotinaBK_ { get; set; }
+        public virtual DbSet<CriDiaGuillBK> CriDiaGuillBK { get; set; }
+        public virtual DbSet<CriGillBK> CriGillBK { get; set; }
+        public virtual DbSet<CriGPBK> CriGPBK { get; set; }
     }
 }

@@ -270,6 +270,12 @@
     <Compile Include="Forms\Tooling\ControlGuideBarSecondRG.xaml.cs">
       <DependentUpon>ControlGuideBarSecondRG.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlGuidePlate..xaml.cs">
+      <DependentUpon>ControlGuidePlate..xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlGuillotinaBK.xaml.cs">
+      <DependentUpon>ControlGuillotinaBK.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlShimOTCS.xaml.cs">
       <DependentUpon>ControlShimOTCS.xaml</DependentUpon>
     </Compile>
@@ -302,6 +308,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\WCutterSplitter.xaml.cs">
       <DependentUpon>WCutterSplitter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\WGuillotinaBK.xaml.cs">
+      <DependentUpon>WGuillotinaBK.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\WMaestroHerramental.xaml.cs">
       <DependentUpon>WMaestroHerramental.xaml</DependentUpon>
@@ -352,6 +361,8 @@
     <Compile Include="Services\ViewModel\External_GR_3P_2VM.cs" />
     <Compile Include="Services\ViewModel\External_GR_3P_3VM.cs" />
     <Compile Include="Services\ViewModel\GeneradorViewModel.cs" />
+    <Compile Include="Services\ViewModel\GuidePlateBK_VM.cs" />
+    <Compile Include="Services\ViewModel\GuillotinaBK_VM.cs" />
     <Compile Include="Services\ViewModel\HistorialVM.cs" />
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
     <Compile Include="Services\ViewModel\NuevoDepartamentoVM.cs" />
@@ -592,6 +603,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlGuidePlate..xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlGuillotinaBK.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\ControlShimOTCS.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -633,6 +652,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\WCutterSplitter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WGuillotinaBK.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

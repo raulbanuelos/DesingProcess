@@ -33,6 +33,8 @@ namespace DataAccess.ServiceObjects.Tooling
             this.UretanoSplitter = new HashSet<UretanoSplitter>();
             this.ChuckSplitter = new HashSet<ChuckSplitter>();
             this.ClosingSleeveBK = new HashSet<ClosingSleeveBK>();
+            this.GuidePlateBK_ = new HashSet<GuidePlateBK_>();
+            this.GuillotinaBK_ = new HashSet<GuillotinaBK_>();
         }
     
         public string Codigo { get; set; }
@@ -79,5 +81,9 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual ICollection<ChuckSplitter> ChuckSplitter { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClosingSleeveBK> ClosingSleeveBK { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GuidePlateBK_> GuidePlateBK_ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GuillotinaBK_> GuillotinaBK_ { get; set; }
     }
 }
