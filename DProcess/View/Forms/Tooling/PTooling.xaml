@@ -37,6 +37,7 @@
                 <MenuItem Header="Auto Finish Turn" Cursor="Hand">
                     <MenuItem Header="Collar" Cursor="Hand" Command="{Binding IrCollarBK}"/>
                     <MenuItem Header="Guide plate" Cursor="Hand"/>
+                    <MenuItem  Header="Closing Sleeve" Command="{Binding IrClosingS}"/>
                     <MenuItem Header="Tool turn"  Cursor="Hand"/>
                     <MenuItem Header="Tool bore" Cursor="Hand"/>
                     <MenuItem Header="Tool barm" Cursor="Hand"/>
