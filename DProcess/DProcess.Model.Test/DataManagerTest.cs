@@ -84,5 +84,19 @@ namespace DProcess.Model.Test
 
 
         }
+
+        [TestMethod]
+        public void GetGuideBarFinishGrindTest()
+        {
+            //Arrange
+            double widthOperation = .095;
+
+            //Act
+            Herramental barraGuia = new Herramental();
+            barraGuia = DataManager.GetGuideBarFinishGrind(widthOperation);
+
+            //Assert
+            Assert.AreEqual(barraGuia.Codigo, "1002011           ");
+        }
     }
 }

@@ -54,6 +54,8 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CriDiaGuillBK" Width="1.5" PointX="3.625" PointY="15.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CriGillBK" Width="1.5" PointX="0.75" PointY="13.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CriGPBK" Width="1.5" PointX="2.75" PointY="13.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuideBarFinGrind" Width="1.5" PointX="10.5" PointY="56.25" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarFinGrind_MaestroHerramentales" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

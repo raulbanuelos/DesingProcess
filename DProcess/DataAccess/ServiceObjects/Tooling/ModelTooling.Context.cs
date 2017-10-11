@@ -52,5 +52,6 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<CriDiaGuillBK> CriDiaGuillBK { get; set; }
         public virtual DbSet<CriGillBK> CriGillBK { get; set; }
         public virtual DbSet<CriGPBK> CriGPBK { get; set; }
+        public virtual DbSet<GuideBarFinGrind> GuideBarFinGrind { get; set; }
     }
 }

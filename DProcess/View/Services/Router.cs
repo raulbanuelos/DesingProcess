@@ -2,6 +2,7 @@
 using Model;
 using Model.Interfaces;
 using View.Services.Operaciones.Gasolina.PreMaquinado;
+using View.Services.Operaciones.Gasolina;
 
 namespace View.Services
 {
@@ -30,7 +31,17 @@ namespace View.Services
                 ListaOperaciones.Add(new SecondRoughGrind(elAnillo));
             }
             ListaOperaciones.Add(new FinishGrind(elAnillo));
+            ListaOperaciones.Add(new DegreaseRings(elAnillo));
+            ListaOperaciones.Add(new VisualInspectPremGasoline(elAnillo));
 
+            if (Module.HasPropiedad("CTB",elAnillo.PerfilID.Propiedades))
+            {
+
+            }
+            else
+            {
+
+            }
 
             //Asignamos el número de operación a cada operación. (Saltando de 10 en 10).
             int noOperacion = 0;
