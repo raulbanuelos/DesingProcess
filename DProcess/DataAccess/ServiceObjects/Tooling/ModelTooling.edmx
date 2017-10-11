@@ -152,6 +152,16 @@
           <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
           <Property Name="Diametro" Type="float" />
         </EntityType>
+        <EntityType Name="GuideBarFinGrind">
+          <Key>
+            <PropertyRef Name="ID_GUIDE_BAR_FINISH_GRIND" />
+          </Key>
+          <Property Name="ID_GUIDE_BAR_FINISH_GRIND" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="WidthMinProceso" Type="float" />
+          <Property Name="WidthMaxProceso" Type="float" />
+          <Property Name="EspesorBarraGuia" Type="float" />
+        </EntityType>
         <EntityType Name="GuideBarFirstRoughGrind">
           <Key>
             <PropertyRef Name="ID_GUIDE_BAR" />
@@ -447,6 +457,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GuideBarFinGrind_MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GuideBarFinGrind" Type="Self.GuideBarFinGrind" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="GuideBarFinGrind">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GuideBarFirstRoughGrind_MaestroHerramentales">
           <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -636,6 +660,7 @@
           <EntitySet Name="CriteriosAnillos" EntityType="Self.CriteriosAnillos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CutterSpacerSplitter" EntityType="Self.CutterSpacerSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CutterSplitter" EntityType="Self.CutterSplitter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GuideBarFinGrind" EntityType="Self.GuideBarFinGrind" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GuideBarFirstRoughGrind" EntityType="Self.GuideBarFirstRoughGrind" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GuideBarSecondRoughGrind" EntityType="Self.GuideBarSecondRoughGrind" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GuidePlateBK_" EntityType="Self.GuidePlateBK_" Schema="dbo" store:Type="Tables" />
@@ -676,6 +701,10 @@
           <AssociationSet Name="FK_CutterSplitter_MaestroHerramentales" Association="Self.FK_CutterSplitter_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="CutterSplitter" EntitySet="CutterSplitter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GuideBarFinGrind_MaestroHerramentales" Association="Self.FK_GuideBarFinGrind_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="GuideBarFinGrind" EntitySet="GuideBarFinGrind" />
           </AssociationSet>
           <AssociationSet Name="FK_GuideBarFirstRoughGrind_MaestroHerramentales" Association="Self.FK_GuideBarFirstRoughGrind_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -788,6 +817,7 @@
           <NavigationProperty Name="ClosingSleeveBK" Relationship="DataAccess.ServiceObjects.Tooling.FK_ClosingSleeveBK_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="ClosingSleeveBK" />
           <NavigationProperty Name="GuidePlateBK_" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuidePlateBK__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="GuidePlateBK_" />
           <NavigationProperty Name="GuillotinaBK_" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuillotinaBK__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="GuillotinaBK_" />
+          <NavigationProperty Name="GuideBarFinGrind" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarFinGrind_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="GuideBarFinGrind" />
         </EntityType>
         <EntityType Name="PLANO_HERRAMENTAL">
           <Key>
@@ -934,6 +964,11 @@
           <EntitySet Name="CriDiaGuillBK" EntityType="DataAccess.ServiceObjects.Tooling.CriDiaGuillBK" />
           <EntitySet Name="CriGillBK" EntityType="DataAccess.ServiceObjects.Tooling.CriGillBK" />
           <EntitySet Name="CriGPBK" EntityType="DataAccess.ServiceObjects.Tooling.CriGPBK" />
+          <EntitySet Name="GuideBarFinGrind" EntityType="DataAccess.ServiceObjects.Tooling.GuideBarFinGrind" />
+          <AssociationSet Name="FK_GuideBarFinGrind_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarFinGrind_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="GuideBarFinGrind" EntitySet="GuideBarFinGrind" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CollarBK">
           <Key>
@@ -1507,6 +1542,31 @@
           <Property Name="A" Type="Double" />
           <Property Name="ident" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="GuideBarFinGrind">
+          <Key>
+            <PropertyRef Name="ID_GUIDE_BAR_FINISH_GRIND" />
+          </Key>
+          <Property Name="ID_GUIDE_BAR_FINISH_GRIND" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="WidthMinProceso" Type="Double" />
+          <Property Name="WidthMaxProceso" Type="Double" />
+          <Property Name="EspesorBarraGuia" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarFinGrind_MaestroHerramentales" FromRole="GuideBarFinGrind" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_GuideBarFinGrind_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.GuideBarFinGrind" Role="GuideBarFinGrind" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="GuideBarFinGrind">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1897,6 +1957,17 @@
                 <ScalarProperty Name="A" ColumnName="A" />
                 <ScalarProperty Name="Width" ColumnName="Width" />
                 <ScalarProperty Name="Id_CriGPBK" ColumnName="Id_CriGPBK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GuideBarFinGrind">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.GuideBarFinGrind">
+              <MappingFragment StoreEntitySet="GuideBarFinGrind">
+                <ScalarProperty Name="EspesorBarraGuia" ColumnName="EspesorBarraGuia" />
+                <ScalarProperty Name="WidthMaxProceso" ColumnName="WidthMaxProceso" />
+                <ScalarProperty Name="WidthMinProceso" ColumnName="WidthMinProceso" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="ID_GUIDE_BAR_FINISH_GRIND" ColumnName="ID_GUIDE_BAR_FINISH_GRIND" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
