@@ -220,6 +220,9 @@
     <Compile Include="ServiceObjects\Tooling\CutterSplitter.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\GuideBarFinGrind.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\GuideBarFirstRoughGrind.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -229,6 +232,7 @@
     <Compile Include="ServiceObjects\Tooling\MaestroHerramentales.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\Operaciones\Premaquinado\SO_FinishGrind.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Premaquinado\SO_FirstRoughGrind.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Premaquinado\SO_SecondRoughGrind.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Premaquinado\SO_SplitterCasting.cs" />

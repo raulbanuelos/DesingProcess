@@ -318,14 +318,16 @@
     <Compile Include="Services\ImportExcel.cs" />
     <Compile Include="Services\Module.cs" />
     <Compile Include="Services\Operaciones\Gasolina\DegreaseRings.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Maquinado\CamTurn.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\FinishGrind.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\FirstRoughGrind.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\SecondRoughGrind.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\Splitter.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\VisualInspectPremGasoline.cs" />
     <Compile Include="Services\Operaciones\Gasolina\Rolado\CoilRings.cs" />
     <Compile Include="Services\Operaciones\Generica\OperacionGenericaWidth.cs" />
-    <Compile Include="Services\Operaciones\Router.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo130.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo810.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\Rolado\CentroTrabajo495.cs" />
     <Compile Include="Services\ViewModel\AnilloViewModel.cs" />
     <Compile Include="Services\ViewModel\BloqueoVM.cs" />
@@ -416,9 +418,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\Operaciones\Gasolina\Maquinado\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="Forms\ControlDocumentos\ControlDocumento.xaml">
       <SubType>Designer</SubType>

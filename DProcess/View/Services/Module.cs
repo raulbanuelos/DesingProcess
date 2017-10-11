@@ -4,6 +4,7 @@ using Model;
 using DataAccess.ServiceObjects.Unidades;
 using System;
 using System.Linq;
+using Model.Interfaces;
 
 namespace View.Services
 {
@@ -39,6 +40,17 @@ namespace View.Services
 
             //Retornamos el valor obtenido.
             return valor;
+        }
+
+        /// <summary>
+        /// Método que indica si una lista de propiedades contiene una propiedad en especifico.
+        /// </summary>
+        /// <param name="nombrePropiedad"></param>
+        /// <param name="propiedades"></param>
+        /// <returns></returns>
+        public static bool HasPropiedad(string nombrePropiedad, ObservableCollection<Propiedad> propiedades)
+        {
+            return propiedades.Where(x => x.Nombre == nombrePropiedad).ToList().Count > 0 ? true : false;
         }
 
         /// <summary>
@@ -218,6 +230,11 @@ namespace View.Services
                 }
 
             }
+        }
+
+        internal static double GetDiametroOperacion(string v1, int v2, ObservableCollection<IOperacion> operaciones)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

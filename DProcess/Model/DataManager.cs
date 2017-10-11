@@ -281,7 +281,7 @@ namespace Model
                     herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
                     //Agregamos la descripción para la hoja de ruta.
-                    herramental.DescripcionRuta = "GUIDE BAR   " + (string)tipo.GetProperty("EspesorBarraGuia").GetValue(elemento,null);
+                    herramental.DescripcionRuta = "GUIDE BAR   " + (double)tipo.GetProperty("EspesorBarraGuia").GetValue(elemento,null);
                 }
             }
             else
@@ -1154,6 +1154,50 @@ namespace Model
             //Ejecutamos el método
             return ServiceSplitter.DeleteCutter(id);
         }
+        #endregion
+
+        #region Finish Grid
+
+        /// <summary>
+        /// Método que busca el herramental Guide Bar de la operación Finish Grind
+        /// </summary>
+        /// <param name="widthOperacion"></param>
+        /// <returns></returns>
+        public static Herramental GetGuideBarFinishGrind(double widthOperacion)
+        {
+            //Inicializamos los servicios de Finish Grind.
+            SO_FinishGrind ServicioFinishGrind = new SO_FinishGrind();
+
+            //Declaramos un objeto de tipo Herramental el cual será el que retornemos en el método.
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método para obtener la información de la base de datos. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioFinishGrind.GetGuideBar(widthOperacion);
+
+            //Verificamos que el resultado de la busqueda sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                    //Obtenemos la propiedad EspesorBarraGuia.
+                    double espesorBarraGuia = (double)tipo.GetProperty("EspesorBarraGuia").GetValue(item, null);
+
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "GUIDE BAR   " + espesorBarraGuia;
+                }
+            }
+            
+            //Retornamos el herramental.
+            return herramental;
+        }
+
         #endregion
 
         #region Auto Finish Turn
