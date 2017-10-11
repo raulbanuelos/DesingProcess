@@ -767,6 +767,502 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DataAccess.ServiceObjects.Tooling" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MaestroHerramentales">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCambio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioCambio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" />
+          <Property Name="idClasificacionHerramental" Type="Int32" />
+          <Property Name="idPlano" Type="Int32" />
+          <NavigationProperty Name="UretanoSplitter" Relationship="DataAccess.ServiceObjects.Tooling.FK_UretanoSplitter_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="UretanoSplitter" />
+          <NavigationProperty Name="TBL_EXIT_GUIDE" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXIT_GUIDE_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXIT_GUIDE" />
+          <NavigationProperty Name="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" />
+          <NavigationProperty Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" />
+          <NavigationProperty Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" />
+          <NavigationProperty Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" />
+          <NavigationProperty Name="TBL_COIL_CENTER_GUIDE" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_CENTER_GUIDE_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_COIL_CENTER_GUIDE" />
+          <NavigationProperty Name="TBL_COIL_FEED_ROLLER" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_FEED_ROLLER_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_COIL_FEED_ROLLER" />
+          <NavigationProperty Name="TBL_SHIM_OF_THE_CUT_SYSTEM" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_SHIM_OF_THE_CUT_SYSTEM" />
+          <NavigationProperty Name="GuideBarFinGrind" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarFinGrind_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="GuideBarFinGrind" />
+          <NavigationProperty Name="GuideBarSecondRoughGrind" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarSecondRoughGrind_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="GuideBarSecondRoughGrind" />
+          <NavigationProperty Name="GuidePlateBK_" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuidePlateBK__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="GuidePlateBK_" />
+          <NavigationProperty Name="GuillotinaBK_" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuillotinaBK__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="GuillotinaBK_" />
+          <NavigationProperty Name="ChuckSplitter" Relationship="DataAccess.ServiceObjects.Tooling.FK_ChuckSplitter_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="ChuckSplitter" />
+          <NavigationProperty Name="ClasificacionHerramental" Relationship="DataAccess.ServiceObjects.Tooling.fk_Clasificacion_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="ClasificacionHerramental" />
+          <NavigationProperty Name="CutterSpacerSplitter" Relationship="DataAccess.ServiceObjects.Tooling.FK_CutterSpacerSplitter_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CutterSpacerSplitter" />
+          <NavigationProperty Name="CutterSplitter" Relationship="DataAccess.ServiceObjects.Tooling.FK_CutterSplitter_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CutterSplitter" />
+          <NavigationProperty Name="GuideBarFirstRoughGrind" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarFirstRoughGrind_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="GuideBarFirstRoughGrind" />
+          <NavigationProperty Name="ClosingSleeveBK" Relationship="DataAccess.ServiceObjects.Tooling.FK_ClosingSleeveBK_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="ClosingSleeveBK" />
+          <NavigationProperty Name="CollarBK" Relationship="DataAccess.ServiceObjects.Tooling.FK_CollarBK_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CollarBK" />
+          <NavigationProperty Name="PLANO_HERRAMENTAL" Relationship="DataAccess.ServiceObjects.Tooling.fk_Plano_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="PLANO_HERRAMENTAL" />
+        </EntityType>
+        <EntityContainer Name="EntitiesTooling" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MaestroHerramentales" EntityType="Self.MaestroHerramentales" />
+          <EntitySet Name="UretanoSplitter" EntityType="DataAccess.ServiceObjects.Tooling.UretanoSplitter" />
+          <AssociationSet Name="FK_UretanoSplitter_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_UretanoSplitter_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="UretanoSplitter" EntitySet="UretanoSplitter" />
+          </AssociationSet>
+          <EntitySet Name="TBL_EXIT_GUIDE" EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXIT_GUIDE" />
+          <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" />
+          <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" />
+          <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" />
+          <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" />
+          <AssociationSet Name="FK_TBL_EXIT_GUIDE_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXIT_GUIDE_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_EXIT_GUIDE" EntitySet="TBL_EXIT_GUIDE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" EntitySet="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" EntitySet="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" EntitySet="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" EntitySet="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" />
+          </AssociationSet>
+          <EntitySet Name="TBL_COIL_CENTER_GUIDE" EntityType="DataAccess.ServiceObjects.Tooling.TBL_COIL_CENTER_GUIDE" />
+          <EntitySet Name="TBL_COIL_FEED_ROLLER" EntityType="DataAccess.ServiceObjects.Tooling.TBL_COIL_FEED_ROLLER" />
+          <EntitySet Name="TBL_SHIM_OF_THE_CUT_SYSTEM" EntityType="DataAccess.ServiceObjects.Tooling.TBL_SHIM_OF_THE_CUT_SYSTEM" />
+          <AssociationSet Name="FK_TBL_COIL_CENTER_GUIDE_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_CENTER_GUIDE_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_COIL_CENTER_GUIDE" EntitySet="TBL_COIL_CENTER_GUIDE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COIL_FEED_ROLLER_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_FEED_ROLLER_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_COIL_FEED_ROLLER" EntitySet="TBL_COIL_FEED_ROLLER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_SHIM_OF_THE_CUT_SYSTEM" EntitySet="TBL_SHIM_OF_THE_CUT_SYSTEM" />
+          </AssociationSet>
+          <EntitySet Name="GuideBarFinGrind" EntityType="DataAccess.ServiceObjects.Tooling.GuideBarFinGrind" />
+          <EntitySet Name="GuideBarSecondRoughGrind" EntityType="DataAccess.ServiceObjects.Tooling.GuideBarSecondRoughGrind" />
+          <EntitySet Name="GuidePlateBK_" EntityType="DataAccess.ServiceObjects.Tooling.GuidePlateBK_" />
+          <EntitySet Name="GuillotinaBK_" EntityType="DataAccess.ServiceObjects.Tooling.GuillotinaBK_" />
+          <AssociationSet Name="FK_GuideBarFinGrind_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarFinGrind_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="GuideBarFinGrind" EntitySet="GuideBarFinGrind" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GuideBarSecondRoughGrind_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarSecondRoughGrind_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="GuideBarSecondRoughGrind" EntitySet="GuideBarSecondRoughGrind" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GuidePlateBK__MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_GuidePlateBK__MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="GuidePlateBK_" EntitySet="GuidePlateBK_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GuillotinaBK__MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_GuillotinaBK__MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="GuillotinaBK_" EntitySet="GuillotinaBK_" />
+          </AssociationSet>
+          <EntitySet Name="ChuckSplitter" EntityType="DataAccess.ServiceObjects.Tooling.ChuckSplitter" />
+          <EntitySet Name="ClasificacionHerramental" EntityType="DataAccess.ServiceObjects.Tooling.ClasificacionHerramental" />
+          <AssociationSet Name="FK_ChuckSplitter_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_ChuckSplitter_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="ChuckSplitter" EntitySet="ChuckSplitter" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Clasificacion_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.fk_Clasificacion_MaestroHerramentales">
+            <End Role="ClasificacionHerramental" EntitySet="ClasificacionHerramental" />
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+          </AssociationSet>
+          <EntitySet Name="CutterSpacerSplitter" EntityType="DataAccess.ServiceObjects.Tooling.CutterSpacerSplitter" />
+          <EntitySet Name="CutterSplitter" EntityType="DataAccess.ServiceObjects.Tooling.CutterSplitter" />
+          <EntitySet Name="GuideBarFirstRoughGrind" EntityType="DataAccess.ServiceObjects.Tooling.GuideBarFirstRoughGrind" />
+          <AssociationSet Name="FK_CutterSpacerSplitter_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_CutterSpacerSplitter_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="CutterSpacerSplitter" EntitySet="CutterSpacerSplitter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CutterSplitter_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_CutterSplitter_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="CutterSplitter" EntitySet="CutterSplitter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GuideBarFirstRoughGrind_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarFirstRoughGrind_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="GuideBarFirstRoughGrind" EntitySet="GuideBarFirstRoughGrind" />
+          </AssociationSet>
+          <EntitySet Name="ClosingSleeveBK" EntityType="DataAccess.ServiceObjects.Tooling.ClosingSleeveBK" />
+          <EntitySet Name="CollarBK" EntityType="DataAccess.ServiceObjects.Tooling.CollarBK" />
+          <AssociationSet Name="FK_ClosingSleeveBK_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_ClosingSleeveBK_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="ClosingSleeveBK" EntitySet="ClosingSleeveBK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollarBK_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_CollarBK_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="CollarBK" EntitySet="CollarBK" />
+          </AssociationSet>
+          <EntitySet Name="CriDiaGuillBK" EntityType="DataAccess.ServiceObjects.Tooling.CriDiaGuillBK" />
+          <EntitySet Name="CriGillBK" EntityType="DataAccess.ServiceObjects.Tooling.CriGillBK" />
+          <EntitySet Name="CriGPBK" EntityType="DataAccess.ServiceObjects.Tooling.CriGPBK" />
+          <EntitySet Name="CriteriosAnillos" EntityType="DataAccess.ServiceObjects.Tooling.CriteriosAnillos" />
+          <EntitySet Name="PLANO_HERRAMENTAL" EntityType="DataAccess.ServiceObjects.Tooling.PLANO_HERRAMENTAL" />
+          <EntitySet Name="SplitterSpacerChart" EntityType="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart" />
+          <AssociationSet Name="fk_Plano_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.fk_Plano_MaestroHerramentales">
+            <End Role="PLANO_HERRAMENTAL" EntitySet="PLANO_HERRAMENTAL" />
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+          </AssociationSet>
+          <EntitySet Name="SPlitterSpacerChart2" EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" />
+        </EntityContainer>
+        <EntityType Name="UretanoSplitter">
+          <Key>
+            <PropertyRef Name="ID_URETANO_SPLITTER" />
+          </Key>
+          <Property Name="ID_URETANO_SPLITTER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="Medidas" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Color" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DiaMin" Type="Double" Nullable="false" />
+          <Property Name="DiaMax" Type="Double" Nullable="false" />
+          <Property Name="Detalle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_UretanoSplitter_MaestroHerramentales" FromRole="UretanoSplitter" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_UretanoSplitter_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.UretanoSplitter" Role="UretanoSplitter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="UretanoSplitter">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBL_EXIT_GUIDE">
+          <Key>
+            <PropertyRef Name="ID_EXIT_GUIDE" />
+          </Key>
+          <Property Name="ID_EXIT_GUIDE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DETALLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIMA" Type="Double" />
+          <Property Name="DIMB" Type="Double" />
+          <Property Name="DIMC" Type="Double" />
+          <Property Name="WIRE_WIDTH_MIN" Type="Double" />
+          <Property Name="WIDE_WIDTH_MAX" Type="Double" />
+          <Property Name="RADIAL_WIRE_MIN" Type="Double" />
+          <Property Name="RADIAL_WIRE_MAX" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXIT_GUIDE_MaestroHerramentales" FromRole="TBL_EXIT_GUIDE" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <EntityType Name="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE">
+          <Key>
+            <PropertyRef Name="ID_EGR_1P" />
+          </Key>
+          <Property Name="ID_EGR_1P" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DETALLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIMB" Type="Double" />
+          <Property Name="WIRE_WIDTH_MIN" Type="Double" />
+          <Property Name="WIDE_WIDTH_MAX" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales" FromRole="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <EntityType Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1">
+          <Key>
+            <PropertyRef Name="ID_EGR_3P_1" />
+          </Key>
+          <Property Name="ID_EGR_3P_1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DETALLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIMA" Type="Double" />
+          <Property Name="DIMB" Type="Double" />
+          <Property Name="DIMC" Type="Double" />
+          <Property Name="WIRE_WIDTH_MIN" Type="Double" />
+          <Property Name="WIDE_WIDTH_MAX" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1_MaestroHerramentales" FromRole="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <EntityType Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2">
+          <Key>
+            <PropertyRef Name="ID_EGR_3P_2" />
+          </Key>
+          <Property Name="ID_EGR_3P_2" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DETALLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIMA" Type="Double" />
+          <Property Name="DIMB" Type="Double" />
+          <Property Name="DIMC" Type="Double" />
+          <Property Name="WIRE_WIDTH_MIN" Type="Double" />
+          <Property Name="WIDE_WIDTH_MAX" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2_MaestroHerramentales" FromRole="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <EntityType Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3">
+          <Key>
+            <PropertyRef Name="ID_EGR_3P_3" />
+          </Key>
+          <Property Name="ID_EGR_3P_3" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DETALLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIMA" Type="Double" />
+          <Property Name="DIMB" Type="Double" />
+          <Property Name="DIMC" Type="Double" />
+          <Property Name="WIRE_WIDTH_MIN" Type="Double" />
+          <Property Name="WIDE_WIDTH_MAX" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3_MaestroHerramentales" FromRole="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_TBL_EXIT_GUIDE_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.TBL_EXIT_GUIDE" Role="TBL_EXIT_GUIDE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_EXIT_GUIDE">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" Role="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" Role="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" Role="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" Role="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBL_COIL_CENTER_GUIDE">
+          <Key>
+            <PropertyRef Name="ID_COIL_CENTER_GUIDE" />
+          </Key>
+          <Property Name="ID_COIL_CENTER_GUIDE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DETALLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIMA" Type="Double" />
+          <Property Name="DIMB" Type="Double" />
+          <Property Name="DIMC" Type="Double" />
+          <Property Name="WIRE_WIDTH_MIN" Type="Double" />
+          <Property Name="WIRE_WIDTH_MAX" Type="Double" />
+          <Property Name="RADIAL_WIRE_MIN" Type="Double" />
+          <Property Name="RADIAL_WIRE_MAX" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_CENTER_GUIDE_MaestroHerramentales" FromRole="TBL_COIL_CENTER_GUIDE" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <EntityType Name="TBL_COIL_FEED_ROLLER">
+          <Key>
+            <PropertyRef Name="ID_COIL_FEED_ROLLER" />
+          </Key>
+          <Property Name="ID_COIL_FEED_ROLLER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DETALLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIMA" Type="Double" />
+          <Property Name="DIMB" Type="Double" />
+          <Property Name="DIMC" Type="Double" />
+          <Property Name="DIMD" Type="Double" />
+          <Property Name="WIRE_WIDTH_MIN" Type="Double" Nullable="false" />
+          <Property Name="WIRE_WIDTH_MAX" Type="Double" Nullable="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_FEED_ROLLER_MaestroHerramentales" FromRole="TBL_COIL_FEED_ROLLER" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <EntityType Name="TBL_SHIM_OF_THE_CUT_SYSTEM">
+          <Key>
+            <PropertyRef Name="ID_SHIM_OTCS" />
+          </Key>
+          <Property Name="ID_SHIM_OTCS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DETALLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIMA" Type="Double" />
+          <Property Name="WIRE_WIDTH_MIN" Type="Double" />
+          <Property Name="WIDE_WIDTH_MAX" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales" FromRole="TBL_SHIM_OF_THE_CUT_SYSTEM" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_TBL_COIL_CENTER_GUIDE_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.TBL_COIL_CENTER_GUIDE" Role="TBL_COIL_CENTER_GUIDE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_COIL_CENTER_GUIDE">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COIL_FEED_ROLLER_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.TBL_COIL_FEED_ROLLER" Role="TBL_COIL_FEED_ROLLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_COIL_FEED_ROLLER">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.TBL_SHIM_OF_THE_CUT_SYSTEM" Role="TBL_SHIM_OF_THE_CUT_SYSTEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_SHIM_OF_THE_CUT_SYSTEM">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="GuideBarFinGrind">
+          <Key>
+            <PropertyRef Name="ID_GUIDE_BAR_FINISH_GRIND" />
+          </Key>
+          <Property Name="ID_GUIDE_BAR_FINISH_GRIND" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="WidthMinProceso" Type="Double" />
+          <Property Name="WidthMaxProceso" Type="Double" />
+          <Property Name="EspesorBarraGuia" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarFinGrind_MaestroHerramentales" FromRole="GuideBarFinGrind" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <EntityType Name="GuideBarSecondRoughGrind">
+          <Key>
+            <PropertyRef Name="ID_GUIDE_BAR" />
+          </Key>
+          <Property Name="ID_GUIDE_BAR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="WidthMinProceso" Type="Double" />
+          <Property Name="WidthMaxProceso" Type="Double" />
+          <Property Name="EspesorBarraGuia" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarSecondRoughGrind_MaestroHerramentales" FromRole="GuideBarSecondRoughGrind" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <EntityType Name="GuidePlateBK_">
+          <Key>
+            <PropertyRef Name="Id_GuidePlate" />
+          </Key>
+          <Property Name="Id_GuidePlate" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="MedidaNominal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Width" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SobreMedida" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuidePlateBK__MaestroHerramentales" FromRole="GuidePlateBK_" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <EntityType Name="GuillotinaBK_">
+          <Key>
+            <PropertyRef Name="Id_GuillotinaBK" />
+          </Key>
+          <Property Name="Id_GuillotinaBK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="MedidaNominal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Width" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SobreMedida" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuillotinaBK__MaestroHerramentales" FromRole="GuillotinaBK_" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_GuideBarFinGrind_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.GuideBarFinGrind" Role="GuideBarFinGrind" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="GuideBarFinGrind">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GuideBarSecondRoughGrind_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.GuideBarSecondRoughGrind" Role="GuideBarSecondRoughGrind" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="GuideBarSecondRoughGrind">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GuidePlateBK__MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.GuidePlateBK_" Role="GuidePlateBK_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="GuidePlateBK_">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GuillotinaBK__MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.GuillotinaBK_" Role="GuillotinaBK_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="GuillotinaBK_">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ChuckSplitter">
+          <Key>
+            <PropertyRef Name="Id_Chuck" />
+          </Key>
+          <Property Name="Id_Chuck" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DiaMin" Type="Double" Nullable="false" />
+          <Property Name="DiaMax" Type="Double" Nullable="false" />
+          <Property Name="TipoEnsamble" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_ChuckSplitter_MaestroHerramentales" FromRole="ChuckSplitter" ToRole="MaestroHerramentales" />
+        </EntityType>
         <EntityType Name="ClasificacionHerramental">
           <Key>
             <PropertyRef Name="idClasificacion" />
@@ -782,58 +1278,25 @@
           <Property Name="ObjetoXML" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TablaDetalles" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="Self.fk_Clasificacion_MaestroHerramentales" FromRole="ClasificacionHerramental" ToRole="MaestroHerramentales" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.fk_Clasificacion_MaestroHerramentales" FromRole="ClasificacionHerramental" ToRole="MaestroHerramentales" />
         </EntityType>
-        <EntityType Name="MaestroHerramentales">
-          <Key>
-            <PropertyRef Name="Codigo" />
-          </Key>
-          <Property Name="Codigo" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="FechaCreacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FechaCambio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UsuarioCreacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UsuarioCambio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Activo" Type="Boolean" />
-          <Property Name="idClasificacionHerramental" Type="Int32" />
-          <Property Name="idPlano" Type="Int32" />
-          <NavigationProperty Name="ClasificacionHerramental" Relationship="Self.fk_Clasificacion_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="ClasificacionHerramental" />
-          <NavigationProperty Name="PLANO_HERRAMENTAL" Relationship="Self.fk_Plano_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="PLANO_HERRAMENTAL" />
-          <NavigationProperty Name="CollarBK" Relationship="DataAccess.ServiceObjects.Tooling.FK_CollarBK_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CollarBK" />
-          <NavigationProperty Name="GuideBarFirstRoughGrind" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarFirstRoughGrind_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="GuideBarFirstRoughGrind" />
-          <NavigationProperty Name="GuideBarSecondRoughGrind" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarSecondRoughGrind_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="GuideBarSecondRoughGrind" />
-          <NavigationProperty Name="CutterSpacerSplitter" Relationship="DataAccess.ServiceObjects.Tooling.FK_CutterSpacerSplitter_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CutterSpacerSplitter" />
-          <NavigationProperty Name="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" />
-          <NavigationProperty Name="TBL_COIL_CENTER_GUIDE" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_CENTER_GUIDE_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_COIL_CENTER_GUIDE" />
-          <NavigationProperty Name="TBL_COIL_FEED_ROLLER" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_FEED_ROLLER_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_COIL_FEED_ROLLER" />
-          <NavigationProperty Name="TBL_EXIT_GUIDE" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXIT_GUIDE_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXIT_GUIDE" />
-          <NavigationProperty Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" />
-          <NavigationProperty Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" />
-          <NavigationProperty Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" />
-          <NavigationProperty Name="TBL_SHIM_OF_THE_CUT_SYSTEM" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_SHIM_OF_THE_CUT_SYSTEM" />
-          <NavigationProperty Name="CutterSplitter" Relationship="DataAccess.ServiceObjects.Tooling.FK_CutterSplitter_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CutterSplitter" />
-          <NavigationProperty Name="UretanoSplitter" Relationship="DataAccess.ServiceObjects.Tooling.FK_UretanoSplitter_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="UretanoSplitter" />
-          <NavigationProperty Name="ChuckSplitter" Relationship="DataAccess.ServiceObjects.Tooling.FK_ChuckSplitter_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="ChuckSplitter" />
-          <NavigationProperty Name="ClosingSleeveBK" Relationship="DataAccess.ServiceObjects.Tooling.FK_ClosingSleeveBK_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="ClosingSleeveBK" />
-          <NavigationProperty Name="GuidePlateBK_" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuidePlateBK__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="GuidePlateBK_" />
-          <NavigationProperty Name="GuideBarFinGrind" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarFinGrind_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="GuideBarFinGrind" />
-        </EntityType>
-        <EntityType Name="PLANO_HERRAMENTAL">
-          <Key>
-            <PropertyRef Name="ID_PLANO" />
-          </Key>
-          <Property Name="ID_PLANO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NO_PLANO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="PATH_FILE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="FECHA_CREACION" Type="DateTime" Precision="3" />
-          <Property Name="FECHA_ACTUALIZACION" Type="DateTime" Precision="3" />
-          <Property Name="USUARIO_CREACION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="USUARIO_ACTUALIZACION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="Self.fk_Plano_MaestroHerramentales" FromRole="PLANO_HERRAMENTAL" ToRole="MaestroHerramentales" />
-        </EntityType>
+        <Association Name="FK_ChuckSplitter_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.ChuckSplitter" Role="ChuckSplitter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="ChuckSplitter">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_Clasificacion_MaestroHerramentales">
-          <End Role="ClasificacionHerramental" Type="Self.ClasificacionHerramental" Multiplicity="0..1" />
-          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="*" />
+          <End Type="DataAccess.ServiceObjects.Tooling.ClasificacionHerramental" Role="ClasificacionHerramental" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ClasificacionHerramental">
               <PropertyRef Name="idClasificacion" />
@@ -843,125 +1306,87 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Plano_MaestroHerramentales">
-          <End Role="PLANO_HERRAMENTAL" Type="Self.PLANO_HERRAMENTAL" Multiplicity="0..1" />
-          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="*" />
+        <EntityType Name="CutterSpacerSplitter">
+          <Key>
+            <PropertyRef Name="ID_SPACER_SPLITTER" />
+          </Key>
+          <Property Name="ID_SPACER_SPLITTER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="A" Type="Double" Nullable="false" />
+          <Property Name="B" Type="Double" Nullable="false" />
+          <Property Name="Plano" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_CutterSpacerSplitter_MaestroHerramentales" FromRole="CutterSpacerSplitter" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <EntityType Name="CutterSplitter">
+          <Key>
+            <PropertyRef Name="ID_CUTTER_SPLITTER" />
+          </Key>
+          <Property Name="ID_CUTTER_SPLITTER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="Diametro" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_CutterSplitter_MaestroHerramentales" FromRole="CutterSplitter" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <EntityType Name="GuideBarFirstRoughGrind">
+          <Key>
+            <PropertyRef Name="ID_GUIDE_BAR" />
+          </Key>
+          <Property Name="ID_GUIDE_BAR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="A" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarFirstRoughGrind_MaestroHerramentales" FromRole="GuideBarFirstRoughGrind" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_CutterSpacerSplitter_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.CutterSpacerSplitter" Role="CutterSpacerSplitter" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PLANO_HERRAMENTAL">
-              <PropertyRef Name="ID_PLANO" />
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
             </Principal>
-            <Dependent Role="MaestroHerramentales">
-              <PropertyRef Name="idPlano" />
+            <Dependent Role="CutterSpacerSplitter">
+              <PropertyRef Name="Codigo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="EntitiesTooling" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ClasificacionHerramental" EntityType="Self.ClasificacionHerramental" />
-          <EntitySet Name="MaestroHerramentales" EntityType="Self.MaestroHerramentales" />
-          <EntitySet Name="PLANO_HERRAMENTAL" EntityType="Self.PLANO_HERRAMENTAL" />
-          <AssociationSet Name="fk_Clasificacion_MaestroHerramentales" Association="Self.fk_Clasificacion_MaestroHerramentales">
-            <End Role="ClasificacionHerramental" EntitySet="ClasificacionHerramental" />
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Plano_MaestroHerramentales" Association="Self.fk_Plano_MaestroHerramentales">
-            <End Role="PLANO_HERRAMENTAL" EntitySet="PLANO_HERRAMENTAL" />
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-          </AssociationSet>
-          <EntitySet Name="CollarBK" EntityType="DataAccess.ServiceObjects.Tooling.CollarBK" />
-          <AssociationSet Name="FK_CollarBK_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_CollarBK_MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="CollarBK" EntitySet="CollarBK" />
-          </AssociationSet>
-          <EntitySet Name="CriteriosAnillos" EntityType="DataAccess.ServiceObjects.Tooling.CriteriosAnillos" />
-          <EntitySet Name="GuideBarFirstRoughGrind" EntityType="DataAccess.ServiceObjects.Tooling.GuideBarFirstRoughGrind" />
-          <AssociationSet Name="FK_GuideBarFirstRoughGrind_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarFirstRoughGrind_MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="GuideBarFirstRoughGrind" EntitySet="GuideBarFirstRoughGrind" />
-          </AssociationSet>
-          <EntitySet Name="GuideBarSecondRoughGrind" EntityType="DataAccess.ServiceObjects.Tooling.GuideBarSecondRoughGrind" />
-          <AssociationSet Name="FK_GuideBarSecondRoughGrind_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarSecondRoughGrind_MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="GuideBarSecondRoughGrind" EntitySet="GuideBarSecondRoughGrind" />
-          </AssociationSet>
-          <EntitySet Name="CutterSpacerSplitter" EntityType="DataAccess.ServiceObjects.Tooling.CutterSpacerSplitter" />
-          <AssociationSet Name="FK_CutterSpacerSplitter_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_CutterSpacerSplitter_MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="CutterSpacerSplitter" EntitySet="CutterSpacerSplitter" />
-          </AssociationSet>
-          <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" />
-          <AssociationSet Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" EntitySet="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" />
-          </AssociationSet>
-          <EntitySet Name="TBL_COIL_CENTER_GUIDE" EntityType="DataAccess.ServiceObjects.Tooling.TBL_COIL_CENTER_GUIDE" />
-          <EntitySet Name="TBL_COIL_FEED_ROLLER" EntityType="DataAccess.ServiceObjects.Tooling.TBL_COIL_FEED_ROLLER" />
-          <EntitySet Name="TBL_EXIT_GUIDE" EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXIT_GUIDE" />
-          <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" />
-          <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" />
-          <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" />
-          <EntitySet Name="TBL_SHIM_OF_THE_CUT_SYSTEM" EntityType="DataAccess.ServiceObjects.Tooling.TBL_SHIM_OF_THE_CUT_SYSTEM" />
-          <AssociationSet Name="FK_TBL_COIL_CENTER_GUIDE_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_CENTER_GUIDE_MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="TBL_COIL_CENTER_GUIDE" EntitySet="TBL_COIL_CENTER_GUIDE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TBL_COIL_FEED_ROLLER_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_FEED_ROLLER_MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="TBL_COIL_FEED_ROLLER" EntitySet="TBL_COIL_FEED_ROLLER" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TBL_EXIT_GUIDE_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXIT_GUIDE_MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="TBL_EXIT_GUIDE" EntitySet="TBL_EXIT_GUIDE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1_MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" EntitySet="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2_MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" EntitySet="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3_MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" EntitySet="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="TBL_SHIM_OF_THE_CUT_SYSTEM" EntitySet="TBL_SHIM_OF_THE_CUT_SYSTEM" />
-          </AssociationSet>
-          <EntitySet Name="SplitterSpacerChart" EntityType="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart" />
-          <EntitySet Name="CutterSplitter" EntityType="DataAccess.ServiceObjects.Tooling.CutterSplitter" />
-          <AssociationSet Name="FK_CutterSplitter_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_CutterSplitter_MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="CutterSplitter" EntitySet="CutterSplitter" />
-          </AssociationSet>
-          <EntitySet Name="UretanoSplitter" EntityType="DataAccess.ServiceObjects.Tooling.UretanoSplitter" />
-          <AssociationSet Name="FK_UretanoSplitter_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_UretanoSplitter_MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="UretanoSplitter" EntitySet="UretanoSplitter" />
-          </AssociationSet>
-          <EntitySet Name="SPlitterSpacerChart2" EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" />
-          <EntitySet Name="ChuckSplitter" EntityType="DataAccess.ServiceObjects.Tooling.ChuckSplitter" />
-          <EntitySet Name="ClosingSleeveBK" EntityType="DataAccess.ServiceObjects.Tooling.ClosingSleeveBK" />
-          <AssociationSet Name="FK_ChuckSplitter_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_ChuckSplitter_MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="ChuckSplitter" EntitySet="ChuckSplitter" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ClosingSleeveBK_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_ClosingSleeveBK_MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="ClosingSleeveBK" EntitySet="ClosingSleeveBK" />
-          </AssociationSet>
-          <EntitySet Name="GuidePlateBK_" EntityType="DataAccess.ServiceObjects.Tooling.GuidePlateBK_" />
-          <AssociationSet Name="FK_GuidePlateBK__MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_GuidePlateBK__MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="GuidePlateBK_" EntitySet="GuidePlateBK_" />
-          </AssociationSet>
-          
-          <EntitySet Name="GuideBarFinGrind" EntityType="DataAccess.ServiceObjects.Tooling.GuideBarFinGrind" />
-          <AssociationSet Name="FK_GuideBarFinGrind_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarFinGrind_MaestroHerramentales">
-            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
-            <End Role="GuideBarFinGrind" EntitySet="GuideBarFinGrind" />
-          </AssociationSet>
-        </EntityContainer>
+        <Association Name="FK_CutterSplitter_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.CutterSplitter" Role="CutterSplitter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="CutterSplitter">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GuideBarFirstRoughGrind_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.GuideBarFirstRoughGrind" Role="GuideBarFirstRoughGrind" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="GuideBarFirstRoughGrind">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ClosingSleeveBK">
+          <Key>
+            <PropertyRef Name="ID_CLOSINGSLEEVE_BK" />
+          </Key>
+          <Property Name="ID_CLOSINGSLEEVE_BK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DimB" Type="Double" />
+          <Property Name="Plano" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_ClosingSleeveBK_MaestroHerramentales" FromRole="ClosingSleeveBK" ToRole="MaestroHerramentales" />
+        </EntityType>
         <EntityType Name="CollarBK">
           <Key>
             <PropertyRef Name="ID_COLLAR_BK" />
@@ -976,6 +1401,20 @@
           <Property Name="DimB_Unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_CollarBK_MaestroHerramentales" FromRole="CollarBK" ToRole="MaestroHerramentales" />
         </EntityType>
+        <Association Name="FK_ClosingSleeveBK_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.ClosingSleeveBK" Role="ClosingSleeveBK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="ClosingSleeveBK">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CollarBK_MaestroHerramentales">
           <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -990,6 +1429,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CriDiaGuillBK">
+          <Key>
+            <PropertyRef Name="Id_CriDiaGuillBK" />
+          </Key>
+          <Property Name="Id_CriDiaGuillBK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RangoMin" Type="Double" />
+          <Property Name="RangoMax" Type="Double" />
+          <Property Name="Dia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SobreMedida" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CriGillBK">
+          <Key>
+            <PropertyRef Name="Id_CriGillBK" />
+          </Key>
+          <Property Name="Id_CriGillBK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RangoMin" Type="Double" />
+          <Property Name="RangoMax" Type="Double" />
+          <Property Name="A" Type="Double" />
+          <Property Name="D" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="E" Type="Double" />
+          <Property Name="RangoDiaMin" Type="Double" />
+          <Property Name="RangoDiaMax" Type="Double" />
+          <Property Name="ident" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CriGPBK">
+          <Key>
+            <PropertyRef Name="Id_CriGPBK" />
+          </Key>
+          <Property Name="Id_CriGPBK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Width" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="A" Type="Double" />
+          <Property Name="ident" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="CriteriosAnillos">
           <Key>
             <PropertyRef Name="ID_CRITERIO" />
@@ -1038,288 +1510,19 @@
           <Property Name="MolyProteSupMin" Type="Double" />
           <Property Name="MolyProteSupMax" Type="Double" />
         </EntityType>
-        <EntityType Name="GuideBarFirstRoughGrind">
+        <EntityType Name="PLANO_HERRAMENTAL">
           <Key>
-            <PropertyRef Name="ID_GUIDE_BAR" />
+            <PropertyRef Name="ID_PLANO" />
           </Key>
-          <Property Name="ID_GUIDE_BAR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="A" Type="Double" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarFirstRoughGrind_MaestroHerramentales" FromRole="GuideBarFirstRoughGrind" ToRole="MaestroHerramentales" />
+          <Property Name="ID_PLANO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NO_PLANO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PATH_FILE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_CREACION" Type="DateTime" Precision="3" />
+          <Property Name="FECHA_ACTUALIZACION" Type="DateTime" Precision="3" />
+          <Property Name="USUARIO_CREACION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="USUARIO_ACTUALIZACION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.fk_Plano_MaestroHerramentales" FromRole="PLANO_HERRAMENTAL" ToRole="MaestroHerramentales" />
         </EntityType>
-        <Association Name="FK_GuideBarFirstRoughGrind_MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DataAccess.ServiceObjects.Tooling.GuideBarFirstRoughGrind" Role="GuideBarFirstRoughGrind" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="GuideBarFirstRoughGrind">
-              <PropertyRef Name="Codigo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="GuideBarSecondRoughGrind">
-          <Key>
-            <PropertyRef Name="ID_GUIDE_BAR" />
-          </Key>
-          <Property Name="ID_GUIDE_BAR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="WidthMinProceso" Type="Double" />
-          <Property Name="WidthMaxProceso" Type="Double" />
-          <Property Name="EspesorBarraGuia" Type="Double" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarSecondRoughGrind_MaestroHerramentales" FromRole="GuideBarSecondRoughGrind" ToRole="MaestroHerramentales" />
-        </EntityType>
-        <Association Name="FK_GuideBarSecondRoughGrind_MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DataAccess.ServiceObjects.Tooling.GuideBarSecondRoughGrind" Role="GuideBarSecondRoughGrind" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="GuideBarSecondRoughGrind">
-              <PropertyRef Name="Codigo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="CutterSpacerSplitter">
-          <Key>
-            <PropertyRef Name="ID_SPACER_SPLITTER" />
-          </Key>
-          <Property Name="ID_SPACER_SPLITTER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="A" Type="Double" Nullable="false" />
-          <Property Name="B" Type="Double" Nullable="false" />
-          <Property Name="Plano" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_CutterSpacerSplitter_MaestroHerramentales" FromRole="CutterSpacerSplitter" ToRole="MaestroHerramentales" />
-        </EntityType>
-        <Association Name="FK_CutterSpacerSplitter_MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DataAccess.ServiceObjects.Tooling.CutterSpacerSplitter" Role="CutterSpacerSplitter" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="CutterSpacerSplitter">
-              <PropertyRef Name="Codigo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE">
-          <Key>
-            <PropertyRef Name="ID_EGR_1P" />
-          </Key>
-          <Property Name="ID_EGR_1P" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="DETALLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DIMB" Type="Double" />
-          <Property Name="WIRE_WIDTH_MIN" Type="Double" />
-          <Property Name="WIDE_WIDTH_MAX" Type="Double" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales" FromRole="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" ToRole="MaestroHerramentales" />
-        </EntityType>
-        <Association Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
-          <End Type="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" Role="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE">
-              <PropertyRef Name="CODIGO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="TBL_COIL_CENTER_GUIDE">
-          <Key>
-            <PropertyRef Name="ID_COIL_CENTER_GUIDE" />
-          </Key>
-          <Property Name="ID_COIL_CENTER_GUIDE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="DETALLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DIMA" Type="Double" />
-          <Property Name="DIMB" Type="Double" />
-          <Property Name="DIMC" Type="Double" />
-          <Property Name="WIRE_WIDTH_MIN" Type="Double" />
-          <Property Name="WIRE_WIDTH_MAX" Type="Double" />
-          <Property Name="RADIAL_WIRE_MIN" Type="Double" />
-          <Property Name="RADIAL_WIRE_MAX" Type="Double" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_CENTER_GUIDE_MaestroHerramentales" FromRole="TBL_COIL_CENTER_GUIDE" ToRole="MaestroHerramentales" />
-        </EntityType>
-        <EntityType Name="TBL_COIL_FEED_ROLLER">
-          <Key>
-            <PropertyRef Name="ID_COIL_FEED_ROLLER" />
-          </Key>
-          <Property Name="ID_COIL_FEED_ROLLER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CODIGO" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="DETALLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DIMA" Type="Double" />
-          <Property Name="DIMB" Type="Double" />
-          <Property Name="DIMC" Type="Double" />
-          <Property Name="DIMD" Type="Double" />
-          <Property Name="WIRE_WIDTH_MIN" Type="Double" Nullable="false" />
-          <Property Name="WIRE_WIDTH_MAX" Type="Double" Nullable="false" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_FEED_ROLLER_MaestroHerramentales" FromRole="TBL_COIL_FEED_ROLLER" ToRole="MaestroHerramentales" />
-        </EntityType>
-        <EntityType Name="TBL_EXIT_GUIDE">
-          <Key>
-            <PropertyRef Name="ID_EXIT_GUIDE" />
-          </Key>
-          <Property Name="ID_EXIT_GUIDE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="DETALLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DIMA" Type="Double" />
-          <Property Name="DIMB" Type="Double" />
-          <Property Name="DIMC" Type="Double" />
-          <Property Name="WIRE_WIDTH_MIN" Type="Double" />
-          <Property Name="WIDE_WIDTH_MAX" Type="Double" />
-          <Property Name="RADIAL_WIRE_MIN" Type="Double" />
-          <Property Name="RADIAL_WIRE_MAX" Type="Double" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXIT_GUIDE_MaestroHerramentales" FromRole="TBL_EXIT_GUIDE" ToRole="MaestroHerramentales" />
-        </EntityType>
-        <EntityType Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1">
-          <Key>
-            <PropertyRef Name="ID_EGR_3P_1" />
-          </Key>
-          <Property Name="ID_EGR_3P_1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="DETALLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DIMA" Type="Double" />
-          <Property Name="DIMB" Type="Double" />
-          <Property Name="DIMC" Type="Double" />
-          <Property Name="WIRE_WIDTH_MIN" Type="Double" />
-          <Property Name="WIDE_WIDTH_MAX" Type="Double" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1_MaestroHerramentales" FromRole="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" ToRole="MaestroHerramentales" />
-        </EntityType>
-        <EntityType Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2">
-          <Key>
-            <PropertyRef Name="ID_EGR_3P_2" />
-          </Key>
-          <Property Name="ID_EGR_3P_2" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="DETALLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DIMA" Type="Double" />
-          <Property Name="DIMB" Type="Double" />
-          <Property Name="DIMC" Type="Double" />
-          <Property Name="WIRE_WIDTH_MIN" Type="Double" />
-          <Property Name="WIDE_WIDTH_MAX" Type="Double" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2_MaestroHerramentales" FromRole="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" ToRole="MaestroHerramentales" />
-        </EntityType>
-        <EntityType Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3">
-          <Key>
-            <PropertyRef Name="ID_EGR_3P_3" />
-          </Key>
-          <Property Name="ID_EGR_3P_3" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="DETALLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DIMA" Type="Double" />
-          <Property Name="DIMB" Type="Double" />
-          <Property Name="DIMC" Type="Double" />
-          <Property Name="WIRE_WIDTH_MIN" Type="Double" />
-          <Property Name="WIDE_WIDTH_MAX" Type="Double" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3_MaestroHerramentales" FromRole="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" ToRole="MaestroHerramentales" />
-        </EntityType>
-        <EntityType Name="TBL_SHIM_OF_THE_CUT_SYSTEM">
-          <Key>
-            <PropertyRef Name="ID_SHIM_OTCS" />
-          </Key>
-          <Property Name="ID_SHIM_OTCS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="DETALLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DIMA" Type="Double" />
-          <Property Name="WIRE_WIDTH_MIN" Type="Double" />
-          <Property Name="WIDE_WIDTH_MAX" Type="Double" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales" FromRole="TBL_SHIM_OF_THE_CUT_SYSTEM" ToRole="MaestroHerramentales" />
-        </EntityType>
-        <Association Name="FK_TBL_COIL_CENTER_GUIDE_MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
-          <End Type="DataAccess.ServiceObjects.Tooling.TBL_COIL_CENTER_GUIDE" Role="TBL_COIL_CENTER_GUIDE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="TBL_COIL_CENTER_GUIDE">
-              <PropertyRef Name="CODIGO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TBL_COIL_FEED_ROLLER_MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="0..1" />
-          <End Type="DataAccess.ServiceObjects.Tooling.TBL_COIL_FEED_ROLLER" Role="TBL_COIL_FEED_ROLLER" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="TBL_COIL_FEED_ROLLER">
-              <PropertyRef Name="CODIGO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TBL_EXIT_GUIDE_MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
-          <End Type="DataAccess.ServiceObjects.Tooling.TBL_EXIT_GUIDE" Role="TBL_EXIT_GUIDE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="TBL_EXIT_GUIDE">
-              <PropertyRef Name="CODIGO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1_MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
-          <End Type="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" Role="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1">
-              <PropertyRef Name="CODIGO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2_MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
-          <End Type="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" Role="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2">
-              <PropertyRef Name="CODIGO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3_MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
-          <End Type="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" Role="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3">
-              <PropertyRef Name="CODIGO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
-          <End Type="DataAccess.ServiceObjects.Tooling.TBL_SHIM_OF_THE_CUT_SYSTEM" Role="TBL_SHIM_OF_THE_CUT_SYSTEM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="TBL_SHIM_OF_THE_CUT_SYSTEM">
-              <PropertyRef Name="CODIGO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="SplitterSpacerChart">
           <Key>
             <PropertyRef Name="ident" />
@@ -1338,53 +1541,15 @@
           <Property Name="Proceso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ident" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-        <EntityType Name="CutterSplitter">
-          <Key>
-            <PropertyRef Name="ID_CUTTER_SPLITTER" />
-          </Key>
-          <Property Name="ID_CUTTER_SPLITTER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="Diametro" Type="Double" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_CutterSplitter_MaestroHerramentales" FromRole="CutterSplitter" ToRole="MaestroHerramentales" />
-        </EntityType>
-        <Association Name="FK_CutterSplitter_MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DataAccess.ServiceObjects.Tooling.CutterSplitter" Role="CutterSplitter" Multiplicity="*" />
+        <Association Name="fk_Plano_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.PLANO_HERRAMENTAL" Role="PLANO_HERRAMENTAL" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
+            <Principal Role="PLANO_HERRAMENTAL">
+              <PropertyRef Name="ID_PLANO" />
             </Principal>
-            <Dependent Role="CutterSplitter">
-              <PropertyRef Name="Codigo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="UretanoSplitter">
-          <Key>
-            <PropertyRef Name="ID_URETANO_SPLITTER" />
-          </Key>
-          <Property Name="ID_URETANO_SPLITTER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="Medidas" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Color" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DiaMin" Type="Double" Nullable="false" />
-          <Property Name="DiaMax" Type="Double" Nullable="false" />
-          <Property Name="Detalle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_UretanoSplitter_MaestroHerramentales" FromRole="UretanoSplitter" ToRole="MaestroHerramentales" />
-        </EntityType>
-        <Association Name="FK_UretanoSplitter_MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DataAccess.ServiceObjects.Tooling.UretanoSplitter" Role="UretanoSplitter" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="UretanoSplitter">
-              <PropertyRef Name="Codigo" />
+            <Dependent Role="MaestroHerramentales">
+              <PropertyRef Name="idPlano" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1402,168 +1567,412 @@
           <Property Name="CantidadSpacer2" Type="Int32" Nullable="false" />
           <Property Name="ident" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-        <EntityType Name="ChuckSplitter">
-          <Key>
-            <PropertyRef Name="Id_Chuck" />
-          </Key>
-          <Property Name="Id_Chuck" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="DiaMin" Type="Double" Nullable="false" />
-          <Property Name="DiaMax" Type="Double" Nullable="false" />
-          <Property Name="TipoEnsamble" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_ChuckSplitter_MaestroHerramentales" FromRole="ChuckSplitter" ToRole="MaestroHerramentales" />
-        </EntityType>
-        <EntityType Name="ClosingSleeveBK">
-          <Key>
-            <PropertyRef Name="ID_CLOSINGSLEEVE_BK" />
-          </Key>
-          <Property Name="ID_CLOSINGSLEEVE_BK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="DimB" Type="Double" />
-          <Property Name="Plano" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_ClosingSleeveBK_MaestroHerramentales" FromRole="ClosingSleeveBK" ToRole="MaestroHerramentales" />
-        </EntityType>
-        <Association Name="FK_ChuckSplitter_MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DataAccess.ServiceObjects.Tooling.ChuckSplitter" Role="ChuckSplitter" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="ChuckSplitter">
-              <PropertyRef Name="Codigo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ClosingSleeveBK_MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DataAccess.ServiceObjects.Tooling.ClosingSleeveBK" Role="ClosingSleeveBK" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="ClosingSleeveBK">
-              <PropertyRef Name="Codigo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="GuidePlateBK_">
-          <Key>
-            <PropertyRef Name="Id_GuidePlate" />
-          </Key>
-          <Property Name="Id_GuidePlate" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="MedidaNominal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Width" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SobreMedida" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuidePlateBK__MaestroHerramentales" FromRole="GuidePlateBK_" ToRole="MaestroHerramentales" />
-        </EntityType>
-        <Association Name="FK_GuidePlateBK__MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DataAccess.ServiceObjects.Tooling.GuidePlateBK_" Role="GuidePlateBK_" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="GuidePlateBK_">
-              <PropertyRef Name="Codigo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="GuillotinaBK_">
-          <Key>
-            <PropertyRef Name="Id_GuillotinaBK" />
-          </Key>
-          <Property Name="Id_GuillotinaBK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="MedidaNominal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Width" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SobreMedida" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuillotinaBK__MaestroHerramentales" FromRole="GuillotinaBK_" ToRole="MaestroHerramentales" />
-        </EntityType>
-        <Association Name="FK_GuillotinaBK__MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DataAccess.ServiceObjects.Tooling.GuillotinaBK_" Role="GuillotinaBK_" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="GuillotinaBK_">
-              <PropertyRef Name="Codigo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="CriDiaGuillBK">
-          <Key>
-            <PropertyRef Name="Id_CriDiaGuillBK" />
-          </Key>
-          <Property Name="Id_CriDiaGuillBK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RangoMin" Type="Double" />
-          <Property Name="RangoMax" Type="Double" />
-          <Property Name="Dia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SobreMedida" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="CriGillBK">
-          <Key>
-            <PropertyRef Name="Id_CriGillBK" />
-          </Key>
-          <Property Name="Id_CriGillBK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RangoMin" Type="Double" />
-          <Property Name="RangoMax" Type="Double" />
-          <Property Name="A" Type="Double" />
-          <Property Name="D" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="E" Type="Double" />
-          <Property Name="RangoDiaMin" Type="Double" />
-          <Property Name="RangoDiaMax" Type="Double" />
-          <Property Name="ident" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="CriGPBK">
-          <Key>
-            <PropertyRef Name="Id_CriGPBK" />
-          </Key>
-          <Property Name="Id_CriGPBK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Width" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="A" Type="Double" />
-          <Property Name="ident" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="GuideBarFinGrind">
-          <Key>
-            <PropertyRef Name="ID_GUIDE_BAR_FINISH_GRIND" />
-          </Key>
-          <Property Name="ID_GUIDE_BAR_FINISH_GRIND" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="WidthMinProceso" Type="Double" />
-          <Property Name="WidthMaxProceso" Type="Double" />
-          <Property Name="EspesorBarraGuia" Type="Double" />
-          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuideBarFinGrind_MaestroHerramentales" FromRole="GuideBarFinGrind" ToRole="MaestroHerramentales" />
-        </EntityType>
-        <Association Name="FK_GuideBarFinGrind_MaestroHerramentales">
-          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DataAccess.ServiceObjects.Tooling.GuideBarFinGrind" Role="GuideBarFinGrind" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaestroHerramentales">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="GuideBarFinGrind">
-              <PropertyRef Name="Codigo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DataAccessServiceObjectsToolingStoreContainer" CdmEntityContainer="EntitiesTooling">
+          <EntitySetMapping Name="MaestroHerramentales">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.MaestroHerramentales">
+              <MappingFragment StoreEntitySet="MaestroHerramentales">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechaCambio" ColumnName="FechaCambio" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="UsuarioCambio" ColumnName="UsuarioCambio" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="idClasificacionHerramental" ColumnName="idClasificacionHerramental" />
+                <ScalarProperty Name="idPlano" ColumnName="idPlano" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UretanoSplitter">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.UretanoSplitter">
+              <MappingFragment StoreEntitySet="UretanoSplitter">
+                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+                <ScalarProperty Name="DiaMax" ColumnName="DiaMax" />
+                <ScalarProperty Name="DiaMin" ColumnName="DiaMin" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Medidas" ColumnName="Medidas" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="ID_URETANO_SPLITTER" ColumnName="ID_URETANO_SPLITTER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_EXIT_GUIDE">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_EXIT_GUIDE">
+              <MappingFragment StoreEntitySet="TBL_EXIT_GUIDE">
+                <ScalarProperty Name="RADIAL_WIRE_MAX" ColumnName="RADIAL_WIRE_MAX" />
+                <ScalarProperty Name="RADIAL_WIRE_MIN" ColumnName="RADIAL_WIRE_MIN" />
+                <ScalarProperty Name="WIDE_WIDTH_MAX" ColumnName="WIDE_WIDTH_MAX" />
+                <ScalarProperty Name="WIRE_WIDTH_MIN" ColumnName="WIRE_WIDTH_MIN" />
+                <ScalarProperty Name="DIMC" ColumnName="DIMC" />
+                <ScalarProperty Name="DIMB" ColumnName="DIMB" />
+                <ScalarProperty Name="DIMA" ColumnName="DIMA" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_EXIT_GUIDE" ColumnName="ID_EXIT_GUIDE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE">
+              <MappingFragment StoreEntitySet="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE">
+                <ScalarProperty Name="WIDE_WIDTH_MAX" ColumnName="WIDE_WIDTH_MAX" />
+                <ScalarProperty Name="WIRE_WIDTH_MIN" ColumnName="WIRE_WIDTH_MIN" />
+                <ScalarProperty Name="DIMB" ColumnName="DIMB" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_EGR_1P" ColumnName="ID_EGR_1P" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1">
+              <MappingFragment StoreEntitySet="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1">
+                <ScalarProperty Name="WIDE_WIDTH_MAX" ColumnName="WIDE_WIDTH_MAX" />
+                <ScalarProperty Name="WIRE_WIDTH_MIN" ColumnName="WIRE_WIDTH_MIN" />
+                <ScalarProperty Name="DIMC" ColumnName="DIMC" />
+                <ScalarProperty Name="DIMB" ColumnName="DIMB" />
+                <ScalarProperty Name="DIMA" ColumnName="DIMA" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_EGR_3P_1" ColumnName="ID_EGR_3P_1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2">
+              <MappingFragment StoreEntitySet="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2">
+                <ScalarProperty Name="WIDE_WIDTH_MAX" ColumnName="WIDE_WIDTH_MAX" />
+                <ScalarProperty Name="WIRE_WIDTH_MIN" ColumnName="WIRE_WIDTH_MIN" />
+                <ScalarProperty Name="DIMC" ColumnName="DIMC" />
+                <ScalarProperty Name="DIMB" ColumnName="DIMB" />
+                <ScalarProperty Name="DIMA" ColumnName="DIMA" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_EGR_3P_2" ColumnName="ID_EGR_3P_2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3">
+              <MappingFragment StoreEntitySet="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3">
+                <ScalarProperty Name="WIDE_WIDTH_MAX" ColumnName="WIDE_WIDTH_MAX" />
+                <ScalarProperty Name="WIRE_WIDTH_MIN" ColumnName="WIRE_WIDTH_MIN" />
+                <ScalarProperty Name="DIMC" ColumnName="DIMC" />
+                <ScalarProperty Name="DIMB" ColumnName="DIMB" />
+                <ScalarProperty Name="DIMA" ColumnName="DIMA" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_EGR_3P_3" ColumnName="ID_EGR_3P_3" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_COIL_CENTER_GUIDE">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_COIL_CENTER_GUIDE">
+              <MappingFragment StoreEntitySet="TBL_COIL_CENTER_GUIDE">
+                <ScalarProperty Name="RADIAL_WIRE_MAX" ColumnName="RADIAL_WIRE_MAX" />
+                <ScalarProperty Name="RADIAL_WIRE_MIN" ColumnName="RADIAL_WIRE_MIN" />
+                <ScalarProperty Name="WIRE_WIDTH_MAX" ColumnName="WIRE_WIDTH_MAX" />
+                <ScalarProperty Name="WIRE_WIDTH_MIN" ColumnName="WIRE_WIDTH_MIN" />
+                <ScalarProperty Name="DIMC" ColumnName="DIMC" />
+                <ScalarProperty Name="DIMB" ColumnName="DIMB" />
+                <ScalarProperty Name="DIMA" ColumnName="DIMA" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_COIL_CENTER_GUIDE" ColumnName="ID_COIL_CENTER_GUIDE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_COIL_FEED_ROLLER">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_COIL_FEED_ROLLER">
+              <MappingFragment StoreEntitySet="TBL_COIL_FEED_ROLLER">
+                <ScalarProperty Name="WIRE_WIDTH_MAX" ColumnName="WIRE_WIDTH_MAX" />
+                <ScalarProperty Name="WIRE_WIDTH_MIN" ColumnName="WIRE_WIDTH_MIN" />
+                <ScalarProperty Name="DIMD" ColumnName="DIMD" />
+                <ScalarProperty Name="DIMC" ColumnName="DIMC" />
+                <ScalarProperty Name="DIMB" ColumnName="DIMB" />
+                <ScalarProperty Name="DIMA" ColumnName="DIMA" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_COIL_FEED_ROLLER" ColumnName="ID_COIL_FEED_ROLLER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_SHIM_OF_THE_CUT_SYSTEM">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_SHIM_OF_THE_CUT_SYSTEM">
+              <MappingFragment StoreEntitySet="TBL_SHIM_OF_THE_CUT_SYSTEM">
+                <ScalarProperty Name="WIDE_WIDTH_MAX" ColumnName="WIDE_WIDTH_MAX" />
+                <ScalarProperty Name="WIRE_WIDTH_MIN" ColumnName="WIRE_WIDTH_MIN" />
+                <ScalarProperty Name="DIMA" ColumnName="DIMA" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_SHIM_OTCS" ColumnName="ID_SHIM_OTCS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GuideBarFinGrind">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.GuideBarFinGrind">
+              <MappingFragment StoreEntitySet="GuideBarFinGrind">
+                <ScalarProperty Name="EspesorBarraGuia" ColumnName="EspesorBarraGuia" />
+                <ScalarProperty Name="WidthMaxProceso" ColumnName="WidthMaxProceso" />
+                <ScalarProperty Name="WidthMinProceso" ColumnName="WidthMinProceso" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="ID_GUIDE_BAR_FINISH_GRIND" ColumnName="ID_GUIDE_BAR_FINISH_GRIND" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GuideBarSecondRoughGrind">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.GuideBarSecondRoughGrind">
+              <MappingFragment StoreEntitySet="GuideBarSecondRoughGrind">
+                <ScalarProperty Name="EspesorBarraGuia" ColumnName="EspesorBarraGuia" />
+                <ScalarProperty Name="WidthMaxProceso" ColumnName="WidthMaxProceso" />
+                <ScalarProperty Name="WidthMinProceso" ColumnName="WidthMinProceso" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="ID_GUIDE_BAR" ColumnName="ID_GUIDE_BAR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GuidePlateBK_">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.GuidePlateBK_">
+              <MappingFragment StoreEntitySet="GuidePlateBK_">
+                <ScalarProperty Name="SobreMedida" ColumnName="SobreMedida" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="MedidaNominal" ColumnName="MedidaNominal" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Id_GuidePlate" ColumnName="Id_GuidePlate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GuillotinaBK_">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.GuillotinaBK_">
+              <MappingFragment StoreEntitySet="GuillotinaBK_">
+                <ScalarProperty Name="SobreMedida" ColumnName="SobreMedida" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="MedidaNominal" ColumnName="MedidaNominal" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Id_GuillotinaBK" ColumnName="Id_GuillotinaBK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChuckSplitter">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.ChuckSplitter">
+              <MappingFragment StoreEntitySet="ChuckSplitter">
+                <ScalarProperty Name="TipoEnsamble" ColumnName="TipoEnsamble" />
+                <ScalarProperty Name="DiaMax" ColumnName="DiaMax" />
+                <ScalarProperty Name="DiaMin" ColumnName="DiaMin" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Id_Chuck" ColumnName="Id_Chuck" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClasificacionHerramental">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.ClasificacionHerramental">
+              <MappingFragment StoreEntitySet="ClasificacionHerramental">
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="TablaDetalles" ColumnName="TablaDetalles" />
+                <ScalarProperty Name="ObjetoXML" ColumnName="ObjetoXML" />
+                <ScalarProperty Name="ListaCotasRevisar" ColumnName="ListaCotasRevisar" />
+                <ScalarProperty Name="VerificacionAnual" ColumnName="VerificacionAnual" />
+                <ScalarProperty Name="VidaUtil" ColumnName="VidaUtil" />
+                <ScalarProperty Name="CantidadUtilizar" ColumnName="CantidadUtilizar" />
+                <ScalarProperty Name="Costo" ColumnName="Costo" />
+                <ScalarProperty Name="UnidadMedida" ColumnName="UnidadMedida" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="idClasificacion" ColumnName="idClasificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CutterSpacerSplitter">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.CutterSpacerSplitter">
+              <MappingFragment StoreEntitySet="CutterSpacerSplitter">
+                <ScalarProperty Name="Plano" ColumnName="Plano" />
+                <ScalarProperty Name="B" ColumnName="B" />
+                <ScalarProperty Name="A" ColumnName="A" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="ID_SPACER_SPLITTER" ColumnName="ID_SPACER_SPLITTER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CutterSplitter">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.CutterSplitter">
+              <MappingFragment StoreEntitySet="CutterSplitter">
+                <ScalarProperty Name="Diametro" ColumnName="Diametro" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="ID_CUTTER_SPLITTER" ColumnName="ID_CUTTER_SPLITTER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GuideBarFirstRoughGrind">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.GuideBarFirstRoughGrind">
+              <MappingFragment StoreEntitySet="GuideBarFirstRoughGrind">
+                <ScalarProperty Name="A" ColumnName="A" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="ID_GUIDE_BAR" ColumnName="ID_GUIDE_BAR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClosingSleeveBK">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.ClosingSleeveBK">
+              <MappingFragment StoreEntitySet="ClosingSleeveBK">
+                <ScalarProperty Name="Plano" ColumnName="Plano" />
+                <ScalarProperty Name="DimB" ColumnName="DimB" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="ID_CLOSINGSLEEVE_BK" ColumnName="ID_CLOSINGSLEEVE_BK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CollarBK">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.CollarBK">
+              <MappingFragment StoreEntitySet="CollarBK">
+                <ScalarProperty Name="DimB_Unidad" ColumnName="DimB_Unidad" />
+                <ScalarProperty Name="DimB" ColumnName="DimB" />
+                <ScalarProperty Name="DimA_Unidad" ColumnName="DimA_Unidad" />
+                <ScalarProperty Name="DimA" ColumnName="DimA" />
+                <ScalarProperty Name="Parte" ColumnName="Parte" />
+                <ScalarProperty Name="Plano" ColumnName="Plano" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="ID_COLLAR_BK" ColumnName="ID_COLLAR_BK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CriDiaGuillBK">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.CriDiaGuillBK">
+              <MappingFragment StoreEntitySet="CriDiaGuillBK">
+                <ScalarProperty Name="SobreMedida" ColumnName="SobreMedida" />
+                <ScalarProperty Name="Dia" ColumnName="Dia" />
+                <ScalarProperty Name="RangoMax" ColumnName="RangoMax" />
+                <ScalarProperty Name="RangoMin" ColumnName="RangoMin" />
+                <ScalarProperty Name="Id_CriDiaGuillBK" ColumnName="Id_CriDiaGuillBK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CriGillBK">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.CriGillBK">
+              <MappingFragment StoreEntitySet="CriGillBK">
+                <ScalarProperty Name="ident" ColumnName="ident" />
+                <ScalarProperty Name="RangoDiaMax" ColumnName="RangoDiaMax" />
+                <ScalarProperty Name="RangoDiaMin" ColumnName="RangoDiaMin" />
+                <ScalarProperty Name="E" ColumnName="E" />
+                <ScalarProperty Name="D" ColumnName="D" />
+                <ScalarProperty Name="A" ColumnName="A" />
+                <ScalarProperty Name="RangoMax" ColumnName="RangoMax" />
+                <ScalarProperty Name="RangoMin" ColumnName="RangoMin" />
+                <ScalarProperty Name="Id_CriGillBK" ColumnName="Id_CriGillBK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CriGPBK">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.CriGPBK">
+              <MappingFragment StoreEntitySet="CriGPBK">
+                <ScalarProperty Name="ident" ColumnName="ident" />
+                <ScalarProperty Name="A" ColumnName="A" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Id_CriGPBK" ColumnName="Id_CriGPBK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CriteriosAnillos">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.CriteriosAnillos">
+              <MappingFragment StoreEntitySet="CriteriosAnillos">
+                <ScalarProperty Name="MolyProteSupMax" ColumnName="MolyProteSupMax" />
+                <ScalarProperty Name="MolyProteSupMin" ColumnName="MolyProteSupMin" />
+                <ScalarProperty Name="MolyCollarMax" ColumnName="MolyCollarMax" />
+                <ScalarProperty Name="MolyCollarMin" ColumnName="MolyCollarMin" />
+                <ScalarProperty Name="MolyCamisaMax" ColumnName="MolyCamisaMax" />
+                <ScalarProperty Name="MolyCamisaMin" ColumnName="MolyCamisaMin" />
+                <ScalarProperty Name="CromoCollarMax" ColumnName="CromoCollarMax" />
+                <ScalarProperty Name="CromoCollarMin" ColumnName="CromoCollarMin" />
+                <ScalarProperty Name="CromoBushingMax" ColumnName="CromoBushingMax" />
+                <ScalarProperty Name="CromoBushingMin" ColumnName="CromoBushingMin" />
+                <ScalarProperty Name="ScotchbriteCollarMax" ColumnName="ScotchbriteCollarMax" />
+                <ScalarProperty Name="ScotchbriteCollarMin" ColumnName="ScotchbriteCollarMin" />
+                <ScalarProperty Name="AFTBarmMin" ColumnName="AFTBarmMin" />
+                <ScalarProperty Name="AFTBarmMax" ColumnName="AFTBarmMax" />
+                <ScalarProperty Name="LapBarrelMax" ColumnName="LapBarrelMax" />
+                <ScalarProperty Name="LapBarrelMin" ColumnName="LapBarrelMin" />
+                <ScalarProperty Name="DiaFrank" ColumnName="DiaFrank" />
+                <ScalarProperty Name="SIMPusherMax" ColumnName="SIMPusherMax" />
+                <ScalarProperty Name="SIMPusherMin" ColumnName="SIMPusherMin" />
+                <ScalarProperty Name="SIMBushingMax" ColumnName="SIMBushingMax" />
+                <ScalarProperty Name="SIMBushingMin" ColumnName="SIMBushingMin" />
+                <ScalarProperty Name="CriterioSIM" ColumnName="CriterioSIM" />
+                <ScalarProperty Name="CriterioDiskus" ColumnName="CriterioDiskus" />
+                <ScalarProperty Name="Diskus2Max" ColumnName="Diskus2Max" />
+                <ScalarProperty Name="Diskus2Min" ColumnName="Diskus2Min" />
+                <ScalarProperty Name="Diskus1Max" ColumnName="Diskus1Max" />
+                <ScalarProperty Name="Diskus1Min" ColumnName="Diskus1Min" />
+                <ScalarProperty Name="AFTSleeveMax" ColumnName="AFTSleeveMax" />
+                <ScalarProperty Name="AFTSleeveMin" ColumnName="AFTSleeveMin" />
+                <ScalarProperty Name="FinMillBushignMax" ColumnName="FinMillBushignMax" />
+                <ScalarProperty Name="FinMillBushignMin" ColumnName="FinMillBushignMin" />
+                <ScalarProperty Name="BoreBushingMax" ColumnName="BoreBushingMax" />
+                <ScalarProperty Name="BoreBushingMin" ColumnName="BoreBushingMin" />
+                <ScalarProperty Name="CTCollarDimFMax" ColumnName="CTCollarDimFMax" />
+                <ScalarProperty Name="CTCollarDimFMin" ColumnName="CTCollarDimFMin" />
+                <ScalarProperty Name="CTCollarDimEMax" ColumnName="CTCollarDimEMax" />
+                <ScalarProperty Name="CTCollarDimEMin" ColumnName="CTCollarDimEMin" />
+                <ScalarProperty Name="CTAnilloPatronMax" ColumnName="CTAnilloPatronMax" />
+                <ScalarProperty Name="CTAnilloPatronMin" ColumnName="CTAnilloPatronMin" />
+                <ScalarProperty Name="FGGuideBar" ColumnName="FGGuideBar" />
+                <ScalarProperty Name="SpacerMax" ColumnName="SpacerMax" />
+                <ScalarProperty Name="SpacerMin" ColumnName="SpacerMin" />
+                <ScalarProperty Name="ID_CRITERIO" ColumnName="ID_CRITERIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PLANO_HERRAMENTAL">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.PLANO_HERRAMENTAL">
+              <MappingFragment StoreEntitySet="PLANO_HERRAMENTAL">
+                <ScalarProperty Name="USUARIO_ACTUALIZACION" ColumnName="USUARIO_ACTUALIZACION" />
+                <ScalarProperty Name="USUARIO_CREACION" ColumnName="USUARIO_CREACION" />
+                <ScalarProperty Name="FECHA_ACTUALIZACION" ColumnName="FECHA_ACTUALIZACION" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="PATH_FILE" ColumnName="PATH_FILE" />
+                <ScalarProperty Name="NO_PLANO" ColumnName="NO_PLANO" />
+                <ScalarProperty Name="ID_PLANO" ColumnName="ID_PLANO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SplitterSpacerChart">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart">
+              <MappingFragment StoreEntitySet="SplitterSpacerChart">
+                <ScalarProperty Name="ident" ColumnName="ident" />
+                <ScalarProperty Name="Proceso" ColumnName="Proceso" />
+                <ScalarProperty Name="Grind_width" ColumnName="Grind_width" />
+                <ScalarProperty Name="Split_max" ColumnName="Split_max" />
+                <ScalarProperty Name="Split_min" ColumnName="Split_min" />
+                <ScalarProperty Name="Split_width" ColumnName="Split_width" />
+                <ScalarProperty Name="Castings_per_chuck" ColumnName="Castings_per_chuck" />
+                <ScalarProperty Name="Cutter_spacer" ColumnName="Cutter_spacer" />
+                <ScalarProperty Name="Thrust_shoe_width" ColumnName="Thrust_shoe_width" />
+                <ScalarProperty Name="Jaw_Block_max" ColumnName="Jaw_Block_max" />
+                <ScalarProperty Name="Jaw_Block_min" ColumnName="Jaw_Block_min" />
+                <ScalarProperty Name="Jaw_Block_Length" ColumnName="Jaw_Block_Length" />
+                <ScalarProperty Name="Nominal_split" ColumnName="Nominal_split" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SPlitterSpacerChart2">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2">
+              <MappingFragment StoreEntitySet="SPlitterSpacerChart2">
+                <ScalarProperty Name="ident" ColumnName="ident" />
+                <ScalarProperty Name="CantidadSpacer2" ColumnName="CantidadSpacer2" />
+                <ScalarProperty Name="CutterSpacer2" ColumnName="CutterSpacer2" />
+                <ScalarProperty Name="CantidadSpacer1" ColumnName="CantidadSpacer1" />
+                <ScalarProperty Name="CutterSpacer1" ColumnName="CutterSpacer1" />
+                <ScalarProperty Name="GrindWidth" ColumnName="GrindWidth" />
+                <ScalarProperty Name="SplitWidth" ColumnName="SplitWidth" />
+                <ScalarProperty Name="RingWidth" ColumnName="RingWidth" />
+                <ScalarProperty Name="Proceso" ColumnName="Proceso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->

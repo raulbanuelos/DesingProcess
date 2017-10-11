@@ -247,6 +247,21 @@
     <Compile Include="ServiceObjects\Tooling\MaestroHerramentales.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\ModelTooling.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelTooling.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\ModelTooling.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\ModelTooling.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelTooling.edmx</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\Operaciones\Premaquinado\SO_FinishGrind.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Premaquinado\SO_FirstRoughGrind.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Premaquinado\SO_SecondRoughGrind.cs" />
@@ -310,21 +325,6 @@
     </Compile>
     <Compile Include="ServiceObjects\SO_CentroTrabajo.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Material.cs" />
-    <Compile Include="ServiceObjects\Tooling\ModelTooling.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelTooling.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ServiceObjects\Tooling\ModelTooling.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelTooling.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ServiceObjects\Tooling\ModelTooling.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelTooling.edmx</DependentUpon>
-    </Compile>
     <Compile Include="ServiceObjects\Tooling\PLANO_HERRAMENTAL.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
