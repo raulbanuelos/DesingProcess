@@ -1476,6 +1476,64 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="GuillotinaBK_">
+          <Key>
+            <PropertyRef Name="Id_GuillotinaBK" />
+          </Key>
+          <Property Name="Id_GuillotinaBK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="MedidaNominal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Width" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SobreMedida" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuillotinaBK__MaestroHerramentales" FromRole="GuillotinaBK_" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_GuillotinaBK__MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.GuillotinaBK_" Role="GuillotinaBK_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="GuillotinaBK_">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CriDiaGuillBK">
+          <Key>
+            <PropertyRef Name="Id_CriDiaGuillBK" />
+          </Key>
+          <Property Name="Id_CriDiaGuillBK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RangoMin" Type="Double" />
+          <Property Name="RangoMax" Type="Double" />
+          <Property Name="Dia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SobreMedida" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CriGillBK">
+          <Key>
+            <PropertyRef Name="Id_CriGillBK" />
+          </Key>
+          <Property Name="Id_CriGillBK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RangoMin" Type="Double" />
+          <Property Name="RangoMax" Type="Double" />
+          <Property Name="A" Type="Double" />
+          <Property Name="D" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="E" Type="Double" />
+          <Property Name="RangoDiaMin" Type="Double" />
+          <Property Name="RangoDiaMax" Type="Double" />
+          <Property Name="ident" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CriGPBK">
+          <Key>
+            <PropertyRef Name="Id_CriGPBK" />
+          </Key>
+          <Property Name="Id_CriGPBK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Width" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="A" Type="Double" />
+          <Property Name="ident" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="GuideBarFinGrind">
           <Key>
             <PropertyRef Name="ID_GUIDE_BAR_FINISH_GRIND" />
