@@ -95,7 +95,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Comando que buscar las coincidencias de acuerdo a la dimensión
+        /// Comando que buscar las coincidencias de acuerdo a las dimensiones
         /// </summary>
         public ICommand BuscarOptimos
         {

@@ -249,11 +249,36 @@ namespace View.Services.ViewModel
             }
         } 
 
+        /// <summary>
+        /// Comando que abre la ventana de Closing Sleeve BK.
+        /// </summary>
         public ICommand IrClosingS
         {
             get
             {
                 return new RelayCommand(o => irClosingS());
+            }
+        }
+
+        /// <summary>
+        /// Comando que abre la ventana de Guide Plate BK.
+        /// </summary>
+        public ICommand IrGuidePlate
+        {
+            get
+            {
+                return new RelayCommand(o => irGuideP());
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICommand IrGuillotinaBK
+        {
+            get
+            {
+                return new RelayCommand(o => irGuillotinaBK());
             }
         }
         #endregion
@@ -290,6 +315,7 @@ namespace View.Services.ViewModel
         {
             MaestroHerramentales = DataManager.GetMaestroHerramental(busqueda);
         }
+
         /// <summary>
         /// método que muestra la ventana de collarbk
         /// </summary>
@@ -437,12 +463,34 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Métod que muestra la ventana de Closgin Sleeve BK.
         /// </summary>
         public void irClosingS()
         {
             WClosingSleeve frm = new WClosingSleeve();
             ClosingSleeveVM context = new ClosingSleeveVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Método que muestra la ventana de Guide Plate BK.
+        /// </summary>
+        public void irGuideP()
+        {
+            WGuillotinaBK frm = new WGuillotinaBK();
+            GuidePlateBK_VM context = new GuidePlateBK_VM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Método que muestra la ventana de Guillotina BK
+        /// </summary>
+        public void irGuillotinaBK()
+        {
+            WGuillotinaBK frm = new WGuillotinaBK();
+            GuillotinaBK_VM context = new GuillotinaBK_VM();
             frm.DataContext = context;
             frm.ShowDialog();
         }

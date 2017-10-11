@@ -47,6 +47,13 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ClosingSleeveBK" Width="1.5" PointX="10.5" PointY="39.625" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_ChuckSplitter_MaestroHerramentales" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_ClosingSleeveBK_MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuidePlateBK_" Width="1.5" PointX="10.5" PointY="50.125" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuidePlateBK__MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuillotinaBK_" Width="1.5" PointX="10.5" PointY="53.25" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuillotinaBK__MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CriDiaGuillBK" Width="1.5" PointX="3.625" PointY="15.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CriGillBK" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CriGPBK" Width="1.5" PointX="2.75" PointY="13.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuideBarFinGrind" Width="2.25" PointX="10.5" PointY="50.125" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarFinGrind_MaestroHerramentales" />
       </Diagram>
