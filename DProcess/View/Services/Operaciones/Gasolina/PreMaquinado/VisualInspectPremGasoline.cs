@@ -6,13 +6,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using View.Services.TiempoEstandar.Gasolina.PreMaquinado;
 
 namespace View.Services.Operaciones.Gasolina.PreMaquinado
 {
-    public class FinishGrind : IOperacion, IObserverWidth
+    public class VisualInspectPremGasoline : IOperacion
     {
-        #region Propiedades
-
         #region Propiedades de IOperacion
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
@@ -108,23 +107,21 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         public Anillo elPlano { get; set; }
         #endregion
 
-        #region Propiedades de IObserverWidth
-        /// <summary>
-        /// Double que representa la medida del width del anillo en la operación.
-        /// </summary>
-        public double WidthOperacion { get; set; }
-
-        /// <summary>
-        /// Double que representa el material a remover en la operación.
-        /// Si en la operación se agrega material(por ejemplo cromo lateral) el valor será negativo.
-        /// </summary>
-        public double MatRemoverWidth { get; set; }
-
+        #region Constructors
+        public VisualInspectPremGasoline(Anillo plano)
+        {
+            //Asignamos los valores por default a las propiedades.
+            NombreOperacion = "VISUAL INSPECT. PREM GASOLINE";
+            CentroCostos = "32014190";
+            CentroTrabajo = "810";
+            ControlKey = "MA42";
+            elPlano = plano;
+            ListaHerramentales = new ObservableCollection<Herramental>();
+            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
+            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+            NotasOperacion = new ObservableCollection<string>();
+        }
         #endregion
-
-        #endregion
-
-        #region Métodos
 
         #region Métodos de IOperacion
         /// <summary>
@@ -137,13 +134,14 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
 
+            //Obtenemos el número de piezas por riel.
+            int rsg = Convert.ToInt32(20 / anilloProcesado.H1.Valor);
+
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "*FIN GRIND \n";
-            TextoProceso += "(2)(" + Convert.ToString(WidthOperacion + .0005) + " +- .0003)(" + Convert.ToString(WidthOperacion) + " +- .0003) \n";
-            TextoProceso += "CHUCK RPM 15 +- 5 \n";
-            TextoProceso += "CHUCK RPM 20 +- 5 \n";
-            TextoProceso += "ROUGHNESS 25 Ra MAX. \n";
-            anilloProcesado.H1.Valor = WidthOperacion;
+            TextoProceso = "*VISUAL INSPECT \n";
+            TextoProceso += rsg + "   RSG/STACK \n";
+            TextoProceso += "STACKS DE ACUERDO AL NUMERO \n";
+            TextoProceso += "DE PZAS. DE LA OPERACIÓN ANTERIOR \n";
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
@@ -154,10 +152,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
 
         public void BuscarHerramentales()
         {
-            ListaHerramentales.Add(DataManager.GetGuideBarFinishGrind(WidthOperacion));
 
-            TextoProceso += "\nTOOLING\n";
-            TextoProceso += Module.GetTextoListaHerramentales(ListaHerramentales);
         }
 
         /// <summary>
@@ -165,45 +160,31 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         /// </summary>
         public void CalcularTiemposEstandar()
         {
-            
-        }
-        #endregion
+            try
+            {
+                CentroTrabajo810 objTiempo = new CentroTrabajo810();
 
-        #region Métodos de IObserverWidth
+                objTiempo.Calcular(anilloProcesado);
 
-        /// <summary>
-        /// Método que actualiza el valor del width en la operación.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="MaterialRemoverAfterOperacion"></param>
-        /// <param name="WidthAfterOperacion"></param>
-        public void UpdateState(ISubjectWidth sender, double MaterialRemoverAfterOperacion, double WidthAfterOperacion)
-        {
+                TiempoLabor = objTiempo.TiempoLabor;
+                TiempoMachine = objTiempo.TiempoMachine;
+                TiempoSetup = objTiempo.TiempoSetup;
 
-            //Actualizamos el width de la operación.
-            WidthOperacion = WidthAfterOperacion + MaterialRemoverAfterOperacion;
-        }
-
-        #endregion
-        
-        #endregion
-
-        #region Constructores
-        public FinishGrind(Anillo plano)
-        {
-            //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "FIN. GRD.";
-            CentroCostos = "32012524";
-            CentroTrabajo = "150";
-            ControlKey = "MA42";
-            MatRemoverWidth = 0.0030;
-            elPlano = plano;
-            ListaHerramentales = new ObservableCollection<Herramental>();
-            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
-            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-            AlertasOperacion = new ObservableCollection<string>();
-            NotasOperacion = new ObservableCollection<string>();
-
+                //Verificamos si no se generaron alertas durante el calculo de tiempos.
+                if (objTiempo.Alertas.Count > 0)
+                {
+                    AlertasOperacion.Add("Error en calculo de tiempo estándar");
+                    AlertasOperacion.CopyTo(objTiempo.Alertas.ToArray(), 0);
+                }
+                else
+                {
+                    NotasOperacion.Add("Tiempos estándar calculados correctamente.");
+                }
+            }
+            catch (Exception er)
+            {
+                AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
+            }
         }
         #endregion
     }
