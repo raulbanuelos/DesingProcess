@@ -281,19 +281,30 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         #region Methods of IObserverDiametro
         public void UpdateState(ISubjectDiametro sender, double MaterialRemoverAfterOperacion, double DiametroAfterOperacion, double GapAfterOperacion, bool RemueveGap)
         {
-            throw new NotImplementedException();
+            if (RemueveGap)
+            {
+                double p, q;
+                p = (MaterialRemoverAfterOperacion / Math.PI);
+                q = ((GapAfterOperacion - Gap) / Math.PI);
+                Diameter = Math.Round(p - q + (DiametroAfterOperacion), 3);
+            }
+            else
+            {
+                double p, q;
+                p = Math.Round((Gap / GapAfterOperacion) / 3.1416, 4);
+                q = DiametroAfterOperacion + MaterialRemoverAfterOperacion;
+                Diameter = p + q;
+            }
         }
         #endregion
 
         #region Methods of IOBserverThickness
         public void UpdateState(ISubjectThickness sender, double MaterialRemoverAfterOperacion, double ThicknessAfterOperacion)
         {
-            throw new NotImplementedException();
+            Thickness = ThicknessAfterOperacion + MaterialRemoverAfterOperacion;
         } 
         #endregion
 
         #endregion
-
-
     }
 }
