@@ -4,12 +4,17 @@ using Model;
 using System.Data;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using View.Services.Operaciones.Generica;
+using View.Services;
+using View.Services.Operaciones.Gasolina.Maquinado;
+using Model.Interfaces;
 
 namespace DProcess.Model.Test
 {
     [TestClass]
     public class DataManagerTest
     {
+        #region DataManager
         [TestMethod]
         public void removeDuplicatesTest()
         {
@@ -61,11 +66,11 @@ namespace DProcess.Model.Test
             string codigoEsperado = "1004647           ";
             int herramentalesEsperados = 1;
 
-            
+
             Assert.AreEqual(herramentalesEsperados, ListaResultante.Count);
 
             Assert.AreEqual(codigoEsperado, ListaResultante[0].Codigo);
-            
+
         }
 
         [TestMethod]
@@ -98,5 +103,28 @@ namespace DProcess.Model.Test
             //Assert
             Assert.AreEqual(barraGuia.Codigo, "1002011           ");
         }
+        #endregion
+
+        #region Module
+        
+        [TestMethod]
+        public void GetDiametroOperacion()
+        {
+            //Arrange
+            ObservableCollection<IOperacion> ListaOperaciones = new ObservableCollection<IOperacion>();
+            ListaOperaciones.Add(new CamTurn { NombreOperacion = "OPERACION 1", Diameter = 2.010 });
+            ListaOperaciones.Add(new CamTurn { NombreOperacion = "OPERACION 2", Diameter = 2.005 });
+            ListaOperaciones.Add(new CamTurn { NombreOperacion = "OPERACION 3", Diameter = 2.000 });
+            ListaOperaciones.Add(new CamTurn { NombreOperacion = "OPERACION 4", Diameter = 1.995 });
+            ListaOperaciones.Add(new CamTurn { NombreOperacion = "OPERACION 1", Diameter = 1.990 });
+
+            //Act
+            double a = Module.GetDiametroOperacion("OPERACION 1", 2, ListaOperaciones);
+
+            //Assert
+            Assert.AreEqual(a, 1.990);
+        }
+
+        #endregion
     }
 }

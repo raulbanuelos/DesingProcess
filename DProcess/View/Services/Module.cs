@@ -232,9 +232,33 @@ namespace View.Services
             }
         }
 
-        internal static double GetDiametroOperacion(string v1, int v2, ObservableCollection<IOperacion> operaciones)
+        /// <summary>
+        /// Método que obtiene el diámetro de una operación a partir de una lista de operaciones.
+        /// </summary>
+        /// <param name="NombreOperacion"></param>
+        /// <param name="noPaso"></param>
+        /// <param name="operaciones"></param>
+        /// <returns></returns>
+        public static double GetDiametroOperacion(string NombreOperacion, int noPaso, ObservableCollection<IOperacion> operaciones)
         {
-            throw new NotImplementedException();
+            double diametro = 0;
+            int c = 0;
+            int paso = 0;
+            while (c < operaciones.Count)
+            {
+                if (operaciones[c].NombreOperacion.Equals(NombreOperacion))
+                {
+                    paso += 1;
+                    if (noPaso.Equals(paso))
+                    {
+                        IObserverDiametro operacion = (IObserverDiametro)operaciones[c];
+                        diametro = operacion.Diameter;
+                    }
+                }
+                c += 1;
+            }
+
+            return diametro;
         }
 
         /// <summary>

@@ -334,6 +334,7 @@
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\Splitter.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\VisualInspectPremGasoline.cs" />
     <Compile Include="Services\Operaciones\Gasolina\Rolado\CoilRings.cs" />
+    <Compile Include="Services\Operaciones\Generica\OperacionGenerica.cs" />
     <Compile Include="Services\Operaciones\Generica\OperacionGenericaWidth.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo130.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo810.cs" />

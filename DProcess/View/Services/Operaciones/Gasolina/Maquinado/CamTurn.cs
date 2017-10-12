@@ -25,6 +25,11 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
             NotasOperacion = new ObservableCollection<string>();
         }
+
+        public CamTurn()
+        {
+
+        }
         #endregion
 
         #region Properties
@@ -127,95 +132,51 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         #region Properties of IObserverDiametro
         public double Diameter
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get;
+            set;
         }
 
         public double MatRemoverDiametro
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get;
+            set;
         }
 
         public double Gap
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get;
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set;
         }
 
         public bool RemueveGap
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get;
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set;
         }
         #endregion
 
-        #region Methods of IObserverThickness
+        #region Properties of IObserverThickness
         public double Thickness
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get;
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set;
         }
 
         public double MatRemoverThickness
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get;
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set;
         }
 
         public bool TrabajaOD
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get;
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set;
         } 
         #endregion
 

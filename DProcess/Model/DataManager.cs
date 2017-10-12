@@ -163,7 +163,7 @@ namespace Model
         }
         #endregion
 
-        #region Operaciones
+        #region  Operaciones
 
         #region First Rough Grind
 
