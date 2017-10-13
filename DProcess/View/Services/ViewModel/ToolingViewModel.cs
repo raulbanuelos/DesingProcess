@@ -272,7 +272,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Comando que abre ña ventana de GuillotinaBK
         /// </summary>
         public ICommand IrGuillotinaBK
         {
@@ -463,7 +463,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Métod que muestra la ventana de Closgin Sleeve BK.
+        /// Método que muestra la ventana de Closgin Sleeve BK.
         /// </summary>
         public void irClosingS()
         {

@@ -9,7 +9,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen" ShowMaxRestoreButton="False"
-        Title="WClosingSleeve" Height="600" Width="1100">
+        Title="Closing Sleeve" Height="600" Width="1100">
     <Controls:MetroWindow.Resources>
         <Style x:Key="TabHeader" TargetType="Label">
             <Setter Property="FontSize" Value="28"/>
@@ -63,7 +63,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="10"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="20"></ColumnDefinition>
+                            <ColumnDefinition Width="40"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="10"></RowDefinition>
@@ -92,6 +92,14 @@
                             </StackPanel>
                             <DataGrid Grid.Row="1" VerticalAlignment="Top"  HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="True" ItemsSource="{Binding ListaOptimos}" IsReadOnly="True"></DataGrid>
                         </Grid>
+                        <ToolBarTray Orientation="Vertical" Grid.Column="2" Grid.Row="1">
+                            <ToolBar x:Name="toolBar"  HorizontalAlignment="Left" Height="221" VerticalAlignment="Top" Width="40" Style="{DynamicResource MaterialDesignToolBar}" >
+
+                                <Button ToolTip="Importar Excel" Command="{Binding LeerExcel}" Cursor="Hand" Width="48">
+                                    <materialDesign:PackIcon Kind="FileExcel" />
+                                </Button>
+                            </ToolBar>
+                        </ToolBarTray>
                     </Grid>
                 </TabItem.Content>
             </TabItem>

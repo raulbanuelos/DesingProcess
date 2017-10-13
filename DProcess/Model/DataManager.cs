@@ -1597,7 +1597,7 @@ namespace Model
 
                     PropiedadCadena medida = new PropiedadCadena();
                     medida.Valor= (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
-                    medida.DescripcionCorta = "Medida Nomimal";
+                    medida.DescripcionCorta = "Medida Nominal";
                     herramental.PropiedadesCadena.Add(medida);
 
                     PropiedadCadena width = new PropiedadCadena();
@@ -1615,6 +1615,85 @@ namespace Model
             }
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "GuidePlate");
+        }
+
+        /// <summary>
+        /// Método que obtiene los herramentales óptimos para Guide Plate BK.
+        /// </summary>
+        /// <param name="d1"></param>
+        /// <param name="h1"></param>
+        /// <returns></returns>
+        public static DataTable GetGuidePlate(double d1, double h1)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServicioBk = new SO_BK();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            string medidaN, sobreMedida;
+
+            //Obtenemos el width.
+            string width = ServicioBk.GetWidthGuillotina(h1);
+
+            //Obtenemos la medida nominal y sobremedida.
+            IList informacionBD = ServicioBk.GetMedidaGuillotina(d1);
+
+            //Si la informacion es diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la lista
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Asiganmos los valores.
+                    medidaN = (string)tipo.GetProperty("MEDIDANOMINAL").GetValue(item, null);
+                    sobreMedida = (string)tipo.GetProperty("SOBREMEDIDA").GetValue(item, null);
+
+                    //Con los campos obtenidos, se obtiene el herramental.
+                    IList ListaGuillotina = ServicioBk.GetGuidePlate(width, medidaN, sobreMedida);
+
+                    //Si la lista es diferente de nulo.
+                    if (ListaGuillotina != null)
+                    {
+                        //Iteramos la lista de herramnetal.
+                        foreach (var itemH in ListaGuillotina)
+                        {
+                            System.Type tipo2 = itemH.GetType();
+
+                            //Declaramos un objeto de tipo Herramental.
+                            Herramental herramental = new Herramental();
+
+                            //Asignamos los valores.
+                            herramental.Codigo = (string)tipo2.GetProperty("Codigo").GetValue(itemH, null);
+                            herramental.DescripcionGeneral = (string)tipo2.GetProperty("Descripcion").GetValue(itemH, null);
+
+                            PropiedadCadena medida = new PropiedadCadena();
+                            medida.Valor = (string)tipo2.GetProperty("MedidaNominal").GetValue(itemH, null);
+                            medida.DescripcionCorta = "Medida Nominal";
+                            herramental.PropiedadesCadena.Add(medida);
+
+                            PropiedadCadena Pwidth = new PropiedadCadena();
+                            Pwidth.Valor = (string)tipo2.GetProperty("Width").GetValue(itemH, null);
+                            Pwidth.DescripcionCorta = "Width";
+                            herramental.PropiedadesCadena.Add(Pwidth);
+
+                            PropiedadCadena sobreM = new PropiedadCadena();
+                            sobreM.Valor = (string)tipo2.GetProperty("SobreMedida").GetValue(itemH, null);
+                            sobreM.DescripcionCorta = "Sobre Medida";
+                            herramental.PropiedadesCadena.Add(sobreM);
+
+                            //Agregamos el objeto a la lista.
+                            ListaResultante.Add(herramental);
+                        }
+                    }
+                }
+            }
+
+            //Convertimos la lista resultante en dataTable.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "GuillotinaBK");
         }
 
         /// <summary>
@@ -1641,6 +1720,7 @@ namespace Model
             //Inicializamos los servicios de BK.
             SO_BK ServicioBk = new SO_BK();
 
+            //Ejecutamos el método y retornamos el resultado.
             return ServicioBk.DeleteGuidePlate(id);
         }
 
@@ -1681,7 +1761,7 @@ namespace Model
 
                     PropiedadCadena medida = new PropiedadCadena();
                     medida.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
-                    medida.DescripcionCorta = "Medida Nomimal";
+                    medida.DescripcionCorta = "Medida Nominal";
                     herramental.PropiedadesCadena.Add(medida);
 
                     PropiedadCadena width = new PropiedadCadena();
@@ -1755,7 +1835,7 @@ namespace Model
 
                             PropiedadCadena medida = new PropiedadCadena();
                             medida.Valor = (string)tipo2.GetProperty("MedidaNominal").GetValue(itemH, null);
-                            medida.DescripcionCorta = "Medida Nomimal";
+                            medida.DescripcionCorta = "Medida Nominal";
                             herramental.PropiedadesCadena.Add(medida);
 
                             PropiedadCadena Pwidth = new PropiedadCadena();
@@ -1805,6 +1885,41 @@ namespace Model
 
             //Ejecutamos la función
             return ServicioBk.DeleteGuillotinaBK(id);
+        }
+
+        /// <summary>
+        /// Método que obtiene los mejpres herramnetales de GuidePlate y Guillotina BK.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable SelectBestBK(DataTable dt )
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Description");
+            DataR.Columns.Add("Medida Nominal");
+            DataR.Columns.Add("Width");
+            DataR.Columns.Add("Sobre Medida");
+
+            //Sólo se hace la iteración una vez
+            foreach (DataRow row in dt.Rows)
+            {
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = DataR.NewRow();
+                dr["Code"] = row["Code"].ToString();
+                dr["Description"] = row["DESCRIPTION"].ToString();
+                dr["Medida Nominal"] = row["Medida Nominal"].ToString();
+                dr["Width"] = row["Width"].ToString();
+                dr["Sobre Medida"] = row["Sobre Medida"].ToString();
+
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+                break;
+            }
+            return DataR;
         }
         #endregion
 

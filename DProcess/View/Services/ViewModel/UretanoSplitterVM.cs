@@ -94,7 +94,7 @@ namespace View.Services.ViewModel
 
         #region Methods
         /// <summary>
-        /// 
+        /// Método que obtiene todos los registros de Uretano.
         /// </summary>
         /// <param name="texto"></param>
         public void buscaUretanoSplitter(string texto)
@@ -102,28 +102,34 @@ namespace View.Services.ViewModel
             ListaSplitter = DataManager.GetAllUretano(texto);
         }
         /// <summary>
-        /// 
+        /// Método que obtiene un herramental de acuerdo al díametro
         /// </summary>
         public async void obtieneUretanoSplitter()
         {
             ListaMejores.Clear();
             ListaOptimos.Clear();
+            //
+            if (diam != 0)
+            {
+                //Comprueba si para la medida existe uretano.
+                if (DataManager.GetHasUretanoSplitter(diam)) {
+                    ObservableCollection<Herramental> ListAux = new ObservableCollection<Herramental>();
+                    //Obtenemos el herramental
+                    Herramental uretano = DataManager.GetUretanoSplitter(diam);
+                    //Agregamos a la lista auxiliar elherramental que se obtuvo
+                    ListAux.Add(uretano);
 
-            if (diam !=0)
-            {              
-                ObservableCollection<Herramental> ListAux = new ObservableCollection<Herramental>();
-                //Obtenemos el herramental
-                Herramental uretano = DataManager.GetUretanoSplitter(diam);
-                //Agregamos a la lista auxiliar elherramental que se obtuvo
-                ListAux.Add(uretano);
+                    //Convierte la lista a Datatable, para mostrarla en pantalla
+                    ListaOptimos = DataManager.ConverToObservableCollectionHerramental_DataSet(ListAux, "Uretano_Splitter");
+                    ListaMejores = ListaOptimos;
 
-                //Convierte la lista a Datatable, para mostrarla en pantalla
-                ListaOptimos = DataManager.ConverToObservableCollectionHerramental_DataSet(ListAux, "Uretano_Splitter");
-                ListaMejores = ListaOptimos;
-
-                if (uretano.Codigo == null)
-                    //Enviamos un mensaje si no hay herramentales.
-                    await dialog.SendMessage("Alerta", "No se encontró herramental con estas características..");
+                    if (uretano.Codigo == null)
+                        //Enviamos un mensaje si no hay herramentales.
+                        await dialog.SendMessage("Alerta", "No se encontró herramental con estas características..");
+                }
+                else
+                    //Enviamos un mensaje de no tiene uretano para las dimensiones.
+                    await dialog.SendMessage("Alerta", "Para esta medida no existe uretano..");
             }
             else
                 //Si están vacíos muestra un mensaje en pantalla

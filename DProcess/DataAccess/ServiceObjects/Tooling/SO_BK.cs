@@ -378,6 +378,83 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
+        /// Método que obtiene los herramentales óptimos de Guide Plate BK.
+        /// </summary>
+        /// <param name="_width"></param>
+        /// <param name="medidaN"></param>
+        /// <param name="SobreM"></param>
+        /// <returns></returns>
+        public IList GetGuidePlate(string _width,string medidaN,string SobreM)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion= new EntitiesTooling())
+                {
+                  
+                    if (_width== "5/64" || _width == "3/32")
+                    {
+                        //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                        var Lista = (from g in Conexion.GuidePlateBK_
+                                     join m in Conexion.MaestroHerramentales on g.Codigo equals m.Codigo
+                                     where (g.Width=="5/64" || g.Width=="3/32") && g.MedidaNominal == medidaN && g.SobreMedida == SobreM
+                                     select new
+                                     {
+                                         m.Codigo,
+                                         m.Descripcion,
+                                         g.Width,
+                                         g.MedidaNominal, 
+                                         g.SobreMedida
+
+                                     }).ToList();
+
+                        //Retornamos la lista.
+                        return Lista;
+                    } else if (_width == "5/32")
+                    {
+                        //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                        var Lista = (from g in Conexion.GuidePlateBK_
+                                     join m in Conexion.MaestroHerramentales on g.Codigo equals m.Codigo
+                                     where (g.Width == "5/32" || g.Width == "1/8") && g.MedidaNominal == medidaN && g.SobreMedida == SobreM
+                                     select new
+                                     {
+                                         m.Codigo,
+                                         m.Descripcion,
+                                         g.Width,
+                                         g.MedidaNominal,
+                                         g.SobreMedida
+                                     }).ToList();
+                        //Retornamos la lista.
+                        return Lista;
+                    }
+                    else
+                    {
+                        //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                        var Lista = (from g in Conexion.GuidePlateBK_
+                                    join m in Conexion.MaestroHerramentales on g.Codigo equals m.Codigo
+                                    where g.Width== _width && g.MedidaNominal == medidaN && g.SobreMedida == SobreM
+                                    select new
+                                    {
+                                        m.Codigo,
+                                        m.Descripcion,
+                                        g.Width,
+                                        g.MedidaNominal,
+                                        g.SobreMedida
+                                    }).ToList();
+
+                        //Retornamos la lista.
+                        return Lista;
+                    }                 
+                }
+            }
+            catch (Exception er)
+            {
+
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Método que guarda un registro en la tbla.
         /// </summary>
         /// <param name="codigo"></param>
@@ -484,7 +561,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene todos los registros de GuillotinaBK.
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
@@ -521,7 +598,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que guarda un registro en la tabla Guillotina BK.
         /// </summary>
         /// <param name="codigo"></param>
         /// <param name="medidaN"></param>
@@ -560,7 +637,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que actualiza un registro de la tabla GuillotinaBK_.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="codigo"></param>
@@ -598,7 +675,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que elimina un registro de la tabla GuillotinaBK_.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -637,8 +714,10 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Realizamos la conexíon a través de EntityFramework.
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                     var Lista = (from g in Conexion.GuillotinaBK_
                                  join m in Conexion.MaestroHerramentales on g.Codigo equals m.Codigo
                                  where g.Width== width && g.MedidaNominal== medidaNom && g.SobreMedida == sobreM
@@ -653,18 +732,19 @@ namespace DataAccess.ServiceObjects.Tooling
                                      m.Activo
                                  }).ToList();
 
+                    //Retornamos el resultado de la consulta.
                     return Lista;
                 }
             }
             catch (Exception)
             {
-
+                //Si ocurre algún error retornamos un nulo.
                 return null;
             }
         }
 
         /// <summary>
-        /// Método que obtiene la medida nominal y sobremedida para GuillotinaBK
+        /// Método que obtiene la medida nominal y sobremedida para GuillotinaBK o Guide PlateBK.
         /// </summary>
         /// <param name="d1"></param>
         /// <returns></returns>
@@ -672,8 +752,10 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Realizamos la conexíon a través de EntityFramework.
                 using (var Conexion= new EntitiesTooling())
                 {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                     var lista = (from c in Conexion.CriDiaGuillBK
                                  where d1 >= c.RangoMin && d1 <= c.RangoMax
                                  select new
@@ -682,18 +764,19 @@ namespace DataAccess.ServiceObjects.Tooling
                                      SOBREMEDIDA=c.SobreMedida
                                  }).ToList();
 
+                    //Retornamos la lista.
                     return lista;
                 }
             }
             catch (Exception)
             {
-
+                //Si ocurre algún error retornamos un nulo.
                 return null;
             }
         }
 
         /// <summary>
-        /// Método que obtiene el width para guillotina BK
+        /// Método que obtiene el width para guillotina BK o GuidePlateBK.
         /// </summary>
         /// <param name="h1"></param>
         /// <returns></returns>
@@ -701,18 +784,21 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Realizamos la conexíon a través de EntityFramework.
                 using (var Conexion= new EntitiesTooling())
                 {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                     var width = (from g in Conexion.CriGillBK
                                  from p in Conexion.CriGPBK
                                  where h1 >= g.RangoMin && h1 <= g.RangoMax && g.D==p.Width
                                  select p.Width ).FirstOrDefault();
+                    //Retornamos la lista.
                     return width;
                 }
             }
             catch (Exception)
             {
-
+                // Si ocurre algún error retornamos un nulo.
                 return null;
             }
         }
