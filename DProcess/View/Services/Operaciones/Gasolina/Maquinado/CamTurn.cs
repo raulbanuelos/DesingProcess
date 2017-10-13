@@ -253,7 +253,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
 
-            //Ejecutamos el méotodo para calcular los tiempos estándar.
+            //Ejecutamos el método para calcular los tiempos estándar.
             CalcularTiemposEstandar();
         }
 
@@ -298,11 +298,11 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         }
         #endregion
 
-        #region Methods of IOBserverThickness
+        #region Methods of IObserverThickness
         public void UpdateState(ISubjectThickness sender, double MaterialRemoverAfterOperacion, double ThicknessAfterOperacion)
         {
             Thickness = ThicknessAfterOperacion + MaterialRemoverAfterOperacion;
-        } 
+        }
         #endregion
 
         #endregion
