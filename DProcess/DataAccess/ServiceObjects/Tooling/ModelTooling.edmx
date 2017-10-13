@@ -134,6 +134,15 @@
           <Property Name="MolyProteSupMin" Type="float" />
           <Property Name="MolyProteSupMax" Type="float" />
         </EntityType>
+        <EntityType Name="cutter_angle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dec" Type="float" Nullable="false" />
+          <Property Name="GRADOS" Type="float" Nullable="false" />
+          <Property Name="MINUTOS" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="CutterSpacerSplitter">
           <Key>
             <PropertyRef Name="ID_SPACER_SPLITTER" />
@@ -658,6 +667,7 @@
           <EntitySet Name="CriGillBK" EntityType="Self.CriGillBK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CriGPBK" EntityType="Self.CriGPBK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CriteriosAnillos" EntityType="Self.CriteriosAnillos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cutter_angle" EntityType="Self.cutter_angle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CutterSpacerSplitter" EntityType="Self.CutterSpacerSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CutterSplitter" EntityType="Self.CutterSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GuideBarFinGrind" EntityType="Self.GuideBarFinGrind" Schema="dbo" store:Type="Tables" />
@@ -915,6 +925,7 @@
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
           </AssociationSet>
           <EntitySet Name="SPlitterSpacerChart2" EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" />
+          <EntitySet Name="cutter_angle" EntityType="DataAccess.ServiceObjects.Tooling.cutter_angle" />
         </EntityContainer>
         <EntityType Name="UretanoSplitter">
           <Key>
@@ -1567,6 +1578,15 @@
           <Property Name="CantidadSpacer2" Type="Int32" Nullable="false" />
           <Property Name="ident" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
+        <EntityType Name="cutter_angle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dec" Type="Double" Nullable="false" />
+          <Property Name="GRADOS" Type="Double" Nullable="false" />
+          <Property Name="MINUTOS" Type="Double" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1968,6 +1988,16 @@
                 <ScalarProperty Name="SplitWidth" ColumnName="SplitWidth" />
                 <ScalarProperty Name="RingWidth" ColumnName="RingWidth" />
                 <ScalarProperty Name="Proceso" ColumnName="Proceso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cutter_angle">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.cutter_angle">
+              <MappingFragment StoreEntitySet="cutter_angle">
+                <ScalarProperty Name="MINUTOS" ColumnName="MINUTOS" />
+                <ScalarProperty Name="GRADOS" ColumnName="GRADOS" />
+                <ScalarProperty Name="dec" ColumnName="dec" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

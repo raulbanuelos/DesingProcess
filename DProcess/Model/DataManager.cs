@@ -1200,6 +1200,51 @@ namespace Model
 
         #endregion
 
+
+        #region Cam Turn
+
+        /// <summary>
+        /// Método que obtiene el cutter angle de la operación Cam Turn
+        /// </summary>
+        /// <param name="cutterAngle"></param>
+        /// <returns></returns>
+        public static string GetCutterAngleCamTurn(double cutterAngle)
+        {
+            //Declaramos una variable la cual será la que retornemos en el método.
+            string respuesta = string.Empty;
+
+            //Inicializamos los servicios de CutterAngle.
+            SO_CutterAngle ServiceCutter = new SO_CutterAngle();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceCutter.GetCutterAngle(cutterAngle);
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Obtenemos los valores del elemento y los mapeamos a variables locales.
+                    double grados = (double)tipo.GetProperty("GRADOS").GetValue(item, null);
+                    double minutos = (double)tipo.GetProperty("MINUTOS").GetValue(item, null);
+
+                    //Concatenamos los elementos y los asiganmos a la variable que retornaremos.
+                    respuesta = "CUTTER ANGLE DEG. " + grados + " MIN. " + minutos;
+                }
+            }
+
+            //Retornamos el valor.
+            return respuesta;
+        } 
+
+        #endregion
+
+
+
         #region Auto Finish Turn
         /// <summary>
         /// Método que obtiene los collars de Auto Fin Turn a partir de los parámetros recibidos.

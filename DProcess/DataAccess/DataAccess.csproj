@@ -229,6 +229,9 @@
     <Compile Include="ServiceObjects\Tooling\CutterSplitter.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\cutter_angle.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\GuideBarFinGrind.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -332,6 +335,7 @@
     <Compile Include="ServiceObjects\Tooling\SO_ClasificacionHerramental.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_COIL.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_CriteriosAnillos.cs" />
+    <Compile Include="ServiceObjects\Tooling\SO_CutterAngle.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_MaestroHerramental.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_Plano.cs" />
     <Compile Include="ServiceObjects\Tooling\SplitterSpacerChart.cs">

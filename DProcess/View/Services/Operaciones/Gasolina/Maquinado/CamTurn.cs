@@ -250,6 +250,13 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             TextoProceso += "*RGH. MILL \n";
             TextoProceso += "" + Diameter + "  GA. " + Gap + " +- .0075 \n";
 
+            double valor_pc = Module.GetValorPropiedad("Piece", anilloProcesado.PropiedadesAdquiridasProceso);
+            double cutterAngle = Math.Round(((valor_pc / elPlano.D1.Valor) + 0.0095), 2);
+
+            TextoProceso += DataManager.GetCutterAngleCamTurn(cutterAngle) + "\n";
+
+
+
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
 
