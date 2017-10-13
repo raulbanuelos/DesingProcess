@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using MahApps.Metro.Controls.Dialogs;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -104,6 +105,17 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => buscarOptimos());
             }
         }
+        /// <summary>
+        /// Comando que lee un excel y obtiene los codigos de los herramnetales.
+        /// </summary>
+        public ICommand LeerExcel
+        {
+            get
+            {
+                return new RelayCommand(o => leerExcel());
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -142,6 +154,32 @@ namespace View.Services.ViewModel
             else
                 //Si están vacíos muestra un mensaje en pantalla
                 await dialog.SendMessage("Alerta", "Se debe llenar todos los campos...");
+        }
+
+        /// <summary>
+        ///Método para importar un archivo excel, la información de ClosingSleeve.
+        /// </summary>
+        private async void leerExcel()
+        {       
+
+            //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
+            ProgressDialogController Progress;
+
+            //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
+            Progress = await dialog.SendProgressAsync("Por favor espere", "Generando archivo excel...");
+
+            //Ejecutamos el método para obtener la información del Excel y crear el nuevo archivo excel.
+            string result= await ImportExcel.ImportClosingSleeve();
+
+            //Si hubo un error al leer el archivo o crear un nuevo archivo.
+            if (result != null)
+            {
+                //Mostramos mensaje de error
+                await dialog.SendMessage("Alerta", "Error al leer el archivo");
+            }
+
+            //Ejecutamos el método para cerrar el mensaje de espera.
+            await Progress.CloseAsync();
         }
         #endregion
 

@@ -30,26 +30,29 @@ namespace View.Forms.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que guarda la información registrada.
         /// </summary>
         /// <param name="codigo"></param>
         /// <returns></returns>
         public int Guardar(string codigo)
         {
+            //Declaración del objeto y sus propiedades.
             Herramental obj = new Herramental();
             Propiedad dimB = new Propiedad();
 
+            //Asignamos los valores.
             obj.Codigo = codigo;
             obj.Plano = Plano.Text;
             dimB.Valor= double.Parse(DimB.Text, CultureInfo.InvariantCulture.NumberFormat);
 
+            //Agregamos la propiedad.
             obj.Propiedades.Add(dimB);
-
+            //Mandamos a llamar al método para insertar el objeto y retornamos el resultado.
             return DataManager.SetClosingSleeveBK(obj);
         }
 
         /// <summary>
-        /// 
+        /// Método que inicializa los componentes que se muestran en pantalla.
         /// </summary>
         public void Inicializa()
         {
@@ -57,11 +60,12 @@ namespace View.Forms.Tooling
         }
 
         /// <summary>
-        /// 
+        ///  Método que valída si los campos se encuentran vacíos.
         /// </summary>
         /// <returns></returns>
         public bool ValidaError()
         {
+            //Si los campos no están vacíos, retorna true.
             if (!string.IsNullOrEmpty(Plano.Text) & !string.IsNullOrEmpty(DimB.Text))
                 return true;
             else
@@ -69,16 +73,17 @@ namespace View.Forms.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que valída los rangos.
         /// </summary>
         /// <returns></returns>
         public bool ValidaRangos()
         {
+            //Regresa verdadero por default, no hay rangos que validar.
             return true;
         }
 
         /// <summary>
-        /// Método que válida la entrada del textbox sólo sea número flotante
+        /// Método que válida la entrada del textbox sólo sea número flotante.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -88,10 +93,10 @@ namespace View.Forms.Tooling
             if (textBox == null) return;
             string text = textBox.Text;
             Regex regex = new Regex("[^0-9.]+");
-            //Valida si el caracter es un número o punto, si el texto ya contiene un punto no permite escribir otro punto
+            //Valida si el caracter es un número o punto, si el texto ya contiene un punto no permite escribir otro punto.
             if (!regex.IsMatch(e.Text))
             {
-                //Si el objeto recibido es un punto
+                //Si el objeto recibido es un punto.
                 if (e.Text.Equals("."))
                 {
                     if (text.Contains("."))
@@ -106,19 +111,19 @@ namespace View.Forms.Tooling
             }
             else
             {
-                //Si no es un número o punto no escribe el caracter
+                //Si no es un número o punto no escribe el caracter.
                 e.Handled = true;
             }
         }
 
         /// <summary>
-        /// Método que valida si la tecla recibida es un espacio
+        /// Método que valída si la tecla recibida es un espacio.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void KeyValidation(object sender, KeyEventArgs e)
         {
-            //si la tecla presionada es un espacio no la escribe
+            //si la tecla presionada es un espacio no la escribe.
             if (e.Key == Key.Space)
                 e.Handled = true;
         }

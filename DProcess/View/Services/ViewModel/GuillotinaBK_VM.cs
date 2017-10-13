@@ -64,6 +64,8 @@ namespace View.Services.ViewModel
             set { _h1 = value; NotifyChange("H1"); }
         }
 
+        private string _titulo;
+        public string Titulo { get { return _titulo; } set { _titulo = value; NotifyChange("Titulo"); } }
         #endregion
 
         #region Commands
@@ -79,7 +81,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Comando que buscar las coincidencias de acuerdo a la dimensión.
+        /// Comando que buscar las coincidencias de acuerdo al diámetro nominal y width del anillo.
         /// </summary>
         public ICommand BuscarOptimos
         {
@@ -92,16 +94,17 @@ namespace View.Services.ViewModel
 
         #region Propiedades
         /// <summary>
-        /// Método que obtiene los registros.
+        /// Método que obtiene todos los registros de GuillotinaBK.
         /// </summary>
         /// <param name="texto"></param>
         private void busquedaBK(string texto)
         {
+            //Obtiene los registros que coincidan con la descripción o el código.
             ListaBK = DataManager.GetAllGuillotinaBK(texto);
         }
 
         /// <summary>
-        /// Método que obtiene un herramental de acuerdo a las dimensiones.
+        /// Método que obtiene un herramental de acuerdo a las width y diametro del anillo.
         /// </summary>
         private async void buscarOptimos()
         {
@@ -112,14 +115,18 @@ namespace View.Services.ViewModel
             //Si los parámetros son diferente de cero.
             if (_d1 !=0 & _h1!=0)
             {
+                //obtenemos los herramentales más optimos con las condiciones de diametro y width.
                 ListaOptimos = DataManager.GetGuillotina(_d1, _h1);
+                //Se obtiene el mejor herramental.
+                ListaMejores = DataManager.SelectBestBK(ListaOptimos);
 
-                if(ListaOptimos.Rows.Count == 0)
+                //Si la lista no contiene información.
+                if(ListaMejores.Rows.Count == 0)
                     //Enviamos un mensaje si no hay herramentales.
                     await dialog.SendMessage("Alerta", "No se encontró herramental con estas características..");
             }
             else
-                //Si están vacíos muestra un mensaje en pantalla
+                //Si están vacíos muestra un mensaje en pantalla.
                 await dialog.SendMessage("Alerta", "Se debe llenar todos los campos...");
         }
         #endregion
@@ -128,9 +135,11 @@ namespace View.Services.ViewModel
         public GuillotinaBK_VM()
         {
             dialog = new DialogService();
+            //Se obtiene todos los registros.
             busquedaBK(string.Empty);
             ListaMejores = new DataTable();
             ListaOptimos = new DataTable();
+            Titulo = "Guillotina BK";
         }
         #endregion
     }

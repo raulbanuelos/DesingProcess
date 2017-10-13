@@ -29,10 +29,17 @@ namespace View.Forms.Tooling
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Método que guarda la información registrada.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
         public int Guardar(string codigo)
         {
+            //Declaración del objeto.
             Coil obj = new Coil();
 
+            //Asiganmos los valores.
             obj.codigo = codigo;
             obj.code = code.Text;
             obj.dimA = double.Parse(dimA.Text, CultureInfo.InvariantCulture.NumberFormat);
@@ -42,17 +49,22 @@ namespace View.Forms.Tooling
             obj.wire_width_max = double.Parse(WMax.Text, CultureInfo.InvariantCulture.NumberFormat);
             obj.radial_wire_min = double.Parse(RMin.Text, CultureInfo.InvariantCulture.NumberFormat);
             obj.radial_wire_max = double.Parse(Rmax.Text, CultureInfo.InvariantCulture.NumberFormat);
+
+            //Mandamos a llamar al método para insertar el objeto y retornamos el resultado.
             return DataManager.SetCOIL_CENTER_GUIDE(obj); 
 
         }
 
+        /// <summary>
+        /// Método que inicializa los componentes que se muestran en pantalla.
+        /// </summary>
         public void Inicializa()
         {
            InitializeComponent();
         }
 
         /// <summary>
-        /// 
+        /// Método que valída si los campos se encuentran vacíos.
         /// </summary>
         /// <returns></returns>
         public bool ValidaError()
@@ -65,7 +77,7 @@ namespace View.Forms.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que válida la entrada del textbox sólo sea número flotante.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -94,10 +106,10 @@ namespace View.Forms.Tooling
             {
                 e.Handled = true;
             }          
-        } 
-        
+        }
+
         /// <summary>
-        /// 
+        /// Método que valída si la tecla recibida es un espacio.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -109,7 +121,7 @@ namespace View.Forms.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que valída los rangos.
         /// </summary>
         /// <returns></returns>
         public bool ValidaRangos()
