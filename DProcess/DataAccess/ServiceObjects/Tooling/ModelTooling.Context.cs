@@ -54,5 +54,8 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<SplitterSpacerChart> SplitterSpacerChart { get; set; }
         public virtual DbSet<SPlitterSpacerChart2> SPlitterSpacerChart2 { get; set; }
         public virtual DbSet<cutter_angle> cutter_angle { get; set; }
+        public virtual DbSet<CollarSpacer> CollarSpacer { get; set; }
+        public virtual DbSet<CutterCamTurn> CutterCamTurn { get; set; }
+        public virtual DbSet<WorkCam> WorkCam { get; set; }
     }
 }
