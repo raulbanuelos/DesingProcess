@@ -338,6 +338,7 @@
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\SO_BK.cs" />
+    <Compile Include="ServiceObjects\Tooling\SO_CamTurn.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_ClasificacionHerramental.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_COIL.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_CriteriosAnillos.cs" />

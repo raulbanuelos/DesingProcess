@@ -54,7 +54,9 @@
                 </MenuItem>
 
                 <MenuItem Header="Cam Turn">
-                    
+                    <MenuItem Header="Collar spacer" Cursor="Hand" Command="{Binding IrCollarSpacer}"/>
+                    <MenuItem Header="WorkCam" Cursor="Hand" Command="{Binding IrWorkCam}"/>
+                    <MenuItem Header="Cutter cam turn" Cursor="Hand" Command="{Binding IrCutterCT}"/>
                 </MenuItem>
                 <MenuItem Header="Auto Finish Turn" Cursor="Hand">
                     <MenuItem Header="Collar" Cursor="Hand" Command="{Binding IrCollarBK}"/>

@@ -246,6 +246,12 @@
     <Compile Include="Forms\Tooling\ControlCollarBK.xaml.cs">
       <DependentUpon>ControlCollarBK.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlCollarSpacer.xaml.cs">
+      <DependentUpon>ControlCollarSpacer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlCutterCamTurn..xaml.cs">
+      <DependentUpon>ControlCutterCamTurn..xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlCutterSplitter.xaml.cs">
       <DependentUpon>ControlCutterSplitter.xaml</DependentUpon>
     </Compile>
@@ -282,6 +288,9 @@
     <Compile Include="Forms\Tooling\ControlUretanoSplitter.xaml.cs">
       <DependentUpon>ControlUretanoSplitter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlWorkCam.xaml.cs">
+      <DependentUpon>ControlWorkCam.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\CutterSpacerS.xaml.cs">
       <DependentUpon>CutterSpacerS.xaml</DependentUpon>
     </Compile>
@@ -290,6 +299,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\WBusquedaHerramenal.xaml.cs">
       <DependentUpon>WBusquedaHerramenal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\WCamTurn.xaml.cs">
+      <DependentUpon>WCamTurn.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\WClosingSleeve.xaml.cs">
       <DependentUpon>WClosingSleeve.xaml</DependentUpon>
@@ -348,7 +360,9 @@
     <Compile Include="Services\ViewModel\CoilCenterG_VM.cs" />
     <Compile Include="Services\ViewModel\CoilFeedRoller_VM.cs" />
     <Compile Include="Services\ViewModel\CollarAutoFinTurnViewModel.cs" />
+    <Compile Include="Services\ViewModel\CollarSpacerVM.cs" />
     <Compile Include="Services\ViewModel\ControlDocumentoViewModel.cs" />
+    <Compile Include="Services\ViewModel\CutterCamTurnVM.cs" />
     <Compile Include="Services\ViewModel\CutterSpacerS_VM.cs" />
     <Compile Include="Services\ViewModel\CutterSplitterVM.cs" />
     <Compile Include="Services\ViewModel\DimensionsViewModel.cs" />
@@ -394,6 +408,7 @@
     <Compile Include="Services\ViewModel\ValidacionTipoVM.cs" />
     <Compile Include="Services\ViewModel\ValidarDocumentoViewM.cs" />
     <Compile Include="Services\ViewModel\VersionesVM.cs" />
+    <Compile Include="Services\ViewModel\WorkCamVM.cs" />
     <Compile Include="UserControls\DProcessPropiedad.xaml.cs">
       <DependentUpon>DProcessPropiedad.xaml</DependentUpon>
     </Compile>
@@ -572,6 +587,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlCollarSpacer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlCutterCamTurn..xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\ControlCutterSplitter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -620,6 +643,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlWorkCam.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\CutterSpacerS.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -629,6 +656,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\WBusquedaHerramenal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WCamTurn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
