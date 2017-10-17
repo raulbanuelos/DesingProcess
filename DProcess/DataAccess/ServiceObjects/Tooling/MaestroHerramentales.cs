@@ -36,6 +36,9 @@ namespace DataAccess.ServiceObjects.Tooling
             this.GuideBarFirstRoughGrind = new HashSet<GuideBarFirstRoughGrind>();
             this.ClosingSleeveBK = new HashSet<ClosingSleeveBK>();
             this.CollarBK = new HashSet<CollarBK>();
+            this.CollarSpacer = new HashSet<CollarSpacer>();
+            this.CutterCamTurn = new HashSet<CutterCamTurn>();
+            this.WorkCam = new HashSet<WorkCam>();
         }
     
         public string Codigo { get; set; }
@@ -88,5 +91,11 @@ namespace DataAccess.ServiceObjects.Tooling
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CollarBK> CollarBK { get; set; }
         public virtual PLANO_HERRAMENTAL PLANO_HERRAMENTAL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CollarSpacer> CollarSpacer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CutterCamTurn> CutterCamTurn { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WorkCam> WorkCam { get; set; }
     }
 }

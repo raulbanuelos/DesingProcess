@@ -55,6 +55,12 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.fk_Plano_MaestroHerramentales" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.cutter_angle" Width="1.5" PointX="9.375" PointY="4.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CollarSpacer" Width="1.5" PointX="3" PointY="71.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CutterCamTurn" Width="1.5" PointX="3" PointY="68.625" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.WorkCam" Width="1.5" PointX="3" PointY="65.75" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CollarSpacer_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CutterCamTurn_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_WorkCam_MaestroHerramentales" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

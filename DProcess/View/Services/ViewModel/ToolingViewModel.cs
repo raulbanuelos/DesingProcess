@@ -281,6 +281,30 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => irGuillotinaBK());
             }
         }
+
+        public ICommand IrCollarSpacer
+        {
+            get
+            {
+                return new RelayCommand(o => irCollarSpacer());
+            }
+        }
+
+        public ICommand IrWorkCam
+        {
+            get
+            {
+                return new RelayCommand(o => irWorkcam());
+            }
+        }
+
+        public ICommand IrCutterCT
+        {
+            get
+            {
+                return new RelayCommand(o => ircutterCT());
+            }
+        }
         #endregion
 
         #region Methods
@@ -443,7 +467,7 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Método que muestra la ventana de CutterSplitter
         /// </summary>
-        public void irChuckSplitter()
+        private void irChuckSplitter()
         {
             WCutterSplitter frm = new WCutterSplitter();
             ChuckSplitterVM context = new ChuckSplitterVM();
@@ -454,7 +478,7 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Método que muestra la ventana de Uretano Splitter
         /// </summary>
-        public void irUretanoSplitter()
+        private void irUretanoSplitter()
         {
             WCutterSplitter frm = new WCutterSplitter();
             UretanoSplitterVM context = new UretanoSplitterVM();
@@ -465,7 +489,7 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Método que muestra la ventana de Closgin Sleeve BK.
         /// </summary>
-        public void irClosingS()
+        private void irClosingS()
         {
             WClosingSleeve frm = new WClosingSleeve();
             ClosingSleeveVM context = new ClosingSleeveVM();
@@ -476,7 +500,7 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Método que muestra la ventana de Guide Plate BK.
         /// </summary>
-        public void irGuideP()
+        private void irGuideP()
         {
             WGuillotinaBK frm = new WGuillotinaBK();
             GuidePlateBK_VM context = new GuidePlateBK_VM();
@@ -487,10 +511,43 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Método que muestra la ventana de Guillotina BK
         /// </summary>
-        public void irGuillotinaBK()
+        private void irGuillotinaBK()
         {
             WGuillotinaBK frm = new WGuillotinaBK();
             GuillotinaBK_VM context = new GuillotinaBK_VM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Método que muestra la ventana de CollarSpacer.
+        /// </summary>
+        private void irCollarSpacer()
+        {
+            WCamTurn frm = new WCamTurn();
+            CollarSpacerVM context = new CollarSpacerVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// étodo que muestra la ventana de WorkCam.
+        /// </summary>
+        private void irWorkcam()
+        {
+            WCamTurn frm = new WCamTurn();
+            WorkCamVM context = new WorkCamVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// étodo que muestra la ventana de Cutter Cam turn.
+        /// </summary>
+        private void ircutterCT()
+        {
+            WCamTurn frm = new WCamTurn();
+            CutterCamTurnVM context = new CutterCamTurnVM();
             frm.DataContext = context;
             frm.ShowDialog();
         }

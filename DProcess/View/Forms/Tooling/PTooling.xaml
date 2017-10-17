@@ -34,17 +34,6 @@
             </MenuItem>
 
             <MenuItem Header="_Operations" Cursor="Hand">
-                <MenuItem Header="Auto Finish Turn" Cursor="Hand">
-                    <MenuItem Header="Collar" Cursor="Hand" Command="{Binding IrCollarBK}"/>
-                    <MenuItem Header="Guide plate" Cursor="Hand" Command="{Binding IrGuidePlate}"/>
-                    <MenuItem Header="Guillotina BK" Cursor="Hand" Command="{Binding IrGuillotinaBK}"/>
-                    <MenuItem  Header="Closing sleeve" Command="{Binding IrClosingS}"/>
-                    <MenuItem Header="Tool turn"  Cursor="Hand"/>
-                    <MenuItem Header="Tool bore" Cursor="Hand"/>
-                    <MenuItem Header="Tool barm" Cursor="Hand"/>
-                    <MenuItem Header="Cam" Cursor="Hand"/>
-                    <MenuItem Header="Shield" Cursor="Hand"/>
-                </MenuItem>
                 <MenuItem Header="Coil" Cursor="Hand">
                     <MenuItem Header="Coil feed roller" Cursor="Hand" Command="{Binding IrCoilFR}"/>
                     <MenuItem Header="Coil center guide" Cursor="Hand" Command="{Binding IrCoilCG}"/>
@@ -62,6 +51,23 @@
                     <MenuItem Header="Cutter Splitter" Command="{Binding IrCutterSplitter}" />
                     <MenuItem Header="Chuck Splitter" Command="{Binding IrChuckSplitter}"/>
                     <MenuItem Header="Uretano Splitter" Command="{Binding IrUretanoSplitter}" />
+                </MenuItem>
+
+                <MenuItem Header="Cam Turn">
+                    <MenuItem Header="Collar spacer" Cursor="Hand" Command="{Binding IrCollarSpacer}"/>
+                    <MenuItem Header="WorkCam" Cursor="Hand" Command="{Binding IrWorkCam}"/>
+                    <MenuItem Header="Cutter cam turn" Cursor="Hand" Command="{Binding IrCutterCT}"/>
+                </MenuItem>
+                <MenuItem Header="Auto Finish Turn" Cursor="Hand">
+                    <MenuItem Header="Collar" Cursor="Hand" Command="{Binding IrCollarBK}"/>
+                    <MenuItem Header="Guide plate" Cursor="Hand" Command="{Binding IrGuidePlate}"/>
+                    <MenuItem Header="Guillotina BK" Cursor="Hand" Command="{Binding IrGuillotinaBK}"/>
+                    <MenuItem  Header="Closing sleeve" Command="{Binding IrClosingS}"/>
+                    <MenuItem Header="Tool turn"  Cursor="Hand"/>
+                    <MenuItem Header="Tool bore" Cursor="Hand"/>
+                    <MenuItem Header="Tool barm" Cursor="Hand"/>
+                    <MenuItem Header="Cam" Cursor="Hand"/>
+                    <MenuItem Header="Shield" Cursor="Hand"/>
                 </MenuItem>
             </MenuItem>
         </Menu>

@@ -53,6 +53,19 @@
           <Property Name="DimB" Type="float" />
           <Property Name="DimB_Unidad" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="CollarSpacer">
+          <Key>
+            <PropertyRef Name="Id_CollarSpacer" />
+          </Key>
+          <Property Name="Id_CollarSpacer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="Plano" Type="varchar" MaxLength="50" />
+          <Property Name="MedidaNominal" Type="varchar" MaxLength="50" />
+          <Property Name="DimE" Type="float" />
+          <Property Name="DimF" Type="float" />
+          <Property Name="ident" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="CriDiaGuillBK">
           <Key>
             <PropertyRef Name="Id_CriDiaGuillBK" />
@@ -142,6 +155,17 @@
           <Property Name="dec" Type="float" Nullable="false" />
           <Property Name="GRADOS" Type="float" Nullable="false" />
           <Property Name="MINUTOS" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CutterCamTurn">
+          <Key>
+            <PropertyRef Name="Id_CutterCamTurn" />
+          </Key>
+          <Property Name="Id_CutterCamTurn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="Dimencion" Type="float" />
+          <Property Name="Plano" Type="varchar" MaxLength="50" />
+          <Property Name="ident" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="CutterSpacerSplitter">
           <Key>
@@ -384,6 +408,16 @@
           <Property Name="DiaMax" Type="float" Nullable="false" />
           <Property Name="Detalle" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="WorkCam">
+          <Key>
+            <PropertyRef Name="Id_WorkCam" />
+          </Key>
+          <Property Name="Id_WorkCam" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="MedidaNominal" Type="varchar" MaxLength="50" />
+          <Property Name="ident" Type="int" Nullable="false" />
+        </EntityType>
         <Association Name="FK_ChuckSplitter_MaestroHerramentales">
           <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -434,6 +468,30 @@
               <PropertyRef Name="Codigo" />
             </Principal>
             <Dependent Role="CollarBK">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollarSpacer_MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="0..1" />
+          <End Role="CollarSpacer" Type="Self.CollarSpacer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="CollarSpacer">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CutterCamTurn_MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="0..1" />
+          <End Role="CutterCamTurn" Type="Self.CutterCamTurn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="CutterCamTurn">
               <PropertyRef Name="Codigo" />
             </Dependent>
           </ReferentialConstraint>
@@ -658,16 +716,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WorkCam_MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="0..1" />
+          <End Role="WorkCam" Type="Self.WorkCam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="WorkCam">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DataAccessServiceObjectsToolingStoreContainer">
           <EntitySet Name="ChuckSplitter" EntityType="Self.ChuckSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClasificacionHerramental" EntityType="Self.ClasificacionHerramental" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClosingSleeveBK" EntityType="Self.ClosingSleeveBK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CollarBK" EntityType="Self.CollarBK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CollarSpacer" EntityType="Self.CollarSpacer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CriDiaGuillBK" EntityType="Self.CriDiaGuillBK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CriGillBK" EntityType="Self.CriGillBK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CriGPBK" EntityType="Self.CriGPBK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CriteriosAnillos" EntityType="Self.CriteriosAnillos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cutter_angle" EntityType="Self.cutter_angle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CutterCamTurn" EntityType="Self.CutterCamTurn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CutterSpacerSplitter" EntityType="Self.CutterSpacerSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CutterSplitter" EntityType="Self.CutterSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GuideBarFinGrind" EntityType="Self.GuideBarFinGrind" Schema="dbo" store:Type="Tables" />
@@ -688,6 +760,7 @@
           <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" EntityType="Self.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_SHIM_OF_THE_CUT_SYSTEM" EntityType="Self.TBL_SHIM_OF_THE_CUT_SYSTEM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UretanoSplitter" EntityType="Self.UretanoSplitter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkCam" EntityType="Self.WorkCam" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ChuckSplitter_MaestroHerramentales" Association="Self.FK_ChuckSplitter_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="ChuckSplitter" EntitySet="ChuckSplitter" />
@@ -703,6 +776,14 @@
           <AssociationSet Name="FK_CollarBK_MaestroHerramentales" Association="Self.FK_CollarBK_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="CollarBK" EntitySet="CollarBK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollarSpacer_MaestroHerramentales" Association="Self.FK_CollarSpacer_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="CollarSpacer" EntitySet="CollarSpacer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CutterCamTurn_MaestroHerramentales" Association="Self.FK_CutterCamTurn_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="CutterCamTurn" EntitySet="CutterCamTurn" />
           </AssociationSet>
           <AssociationSet Name="FK_CutterSpacerSplitter_MaestroHerramentales" Association="Self.FK_CutterSpacerSplitter_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -772,6 +853,10 @@
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="UretanoSplitter" EntitySet="UretanoSplitter" />
           </AssociationSet>
+          <AssociationSet Name="FK_WorkCam_MaestroHerramentales" Association="Self.FK_WorkCam_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="WorkCam" EntitySet="WorkCam" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -811,6 +896,9 @@
           <NavigationProperty Name="ClosingSleeveBK" Relationship="DataAccess.ServiceObjects.Tooling.FK_ClosingSleeveBK_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="ClosingSleeveBK" />
           <NavigationProperty Name="CollarBK" Relationship="DataAccess.ServiceObjects.Tooling.FK_CollarBK_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CollarBK" />
           <NavigationProperty Name="PLANO_HERRAMENTAL" Relationship="DataAccess.ServiceObjects.Tooling.fk_Plano_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="PLANO_HERRAMENTAL" />
+          <NavigationProperty Name="CollarSpacer" Relationship="DataAccess.ServiceObjects.Tooling.FK_CollarSpacer_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CollarSpacer" />
+          <NavigationProperty Name="CutterCamTurn" Relationship="DataAccess.ServiceObjects.Tooling.FK_CutterCamTurn_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CutterCamTurn" />
+          <NavigationProperty Name="WorkCam" Relationship="DataAccess.ServiceObjects.Tooling.FK_WorkCam_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="WorkCam" />
         </EntityType>
         <EntityContainer Name="EntitiesTooling" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="MaestroHerramentales" EntityType="Self.MaestroHerramentales" />
@@ -926,6 +1014,21 @@
           </AssociationSet>
           <EntitySet Name="SPlitterSpacerChart2" EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" />
           <EntitySet Name="cutter_angle" EntityType="DataAccess.ServiceObjects.Tooling.cutter_angle" />
+          <EntitySet Name="CollarSpacer" EntityType="DataAccess.ServiceObjects.Tooling.CollarSpacer" />
+          <EntitySet Name="CutterCamTurn" EntityType="DataAccess.ServiceObjects.Tooling.CutterCamTurn" />
+          <EntitySet Name="WorkCam" EntityType="DataAccess.ServiceObjects.Tooling.WorkCam" />
+          <AssociationSet Name="FK_CollarSpacer_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_CollarSpacer_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="CollarSpacer" EntitySet="CollarSpacer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CutterCamTurn_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_CutterCamTurn_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="CutterCamTurn" EntitySet="CutterCamTurn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkCam_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_WorkCam_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="WorkCam" EntitySet="WorkCam" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="UretanoSplitter">
           <Key>
@@ -1587,6 +1690,79 @@
           <Property Name="GRADOS" Type="Double" Nullable="false" />
           <Property Name="MINUTOS" Type="Double" Nullable="false" />
         </EntityType>
+        <EntityType Name="CollarSpacer">
+          <Key>
+            <PropertyRef Name="Id_CollarSpacer" />
+          </Key>
+          <Property Name="Id_CollarSpacer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Plano" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MedidaNominal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DimE" Type="Double" />
+          <Property Name="DimF" Type="Double" />
+          <Property Name="ident" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_CollarSpacer_MaestroHerramentales" FromRole="CollarSpacer" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <EntityType Name="CutterCamTurn">
+          <Key>
+            <PropertyRef Name="Id_CutterCamTurn" />
+          </Key>
+          <Property Name="Id_CutterCamTurn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Dimencion" Type="Double" />
+          <Property Name="Plano" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ident" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_CutterCamTurn_MaestroHerramentales" FromRole="CutterCamTurn" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <EntityType Name="WorkCam">
+          <Key>
+            <PropertyRef Name="Id_WorkCam" />
+          </Key>
+          <Property Name="Id_WorkCam" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MedidaNominal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ident" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_WorkCam_MaestroHerramentales" FromRole="WorkCam" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_CollarSpacer_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.CollarSpacer" Role="CollarSpacer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="CollarSpacer">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CutterCamTurn_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.CutterCamTurn" Role="CutterCamTurn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="CutterCamTurn">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkCam_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.WorkCam" Role="WorkCam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="WorkCam">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1998,6 +2174,43 @@
                 <ScalarProperty Name="GRADOS" ColumnName="GRADOS" />
                 <ScalarProperty Name="dec" ColumnName="dec" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CollarSpacer">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.CollarSpacer">
+              <MappingFragment StoreEntitySet="CollarSpacer">
+                <ScalarProperty Name="ident" ColumnName="ident" />
+                <ScalarProperty Name="DimF" ColumnName="DimF" />
+                <ScalarProperty Name="DimE" ColumnName="DimE" />
+                <ScalarProperty Name="MedidaNominal" ColumnName="MedidaNominal" />
+                <ScalarProperty Name="Plano" ColumnName="Plano" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Id_CollarSpacer" ColumnName="Id_CollarSpacer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CutterCamTurn">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.CutterCamTurn">
+              <MappingFragment StoreEntitySet="CutterCamTurn">
+                <ScalarProperty Name="ident" ColumnName="ident" />
+                <ScalarProperty Name="Plano" ColumnName="Plano" />
+                <ScalarProperty Name="Dimencion" ColumnName="Dimencion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Id_CutterCamTurn" ColumnName="Id_CutterCamTurn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkCam">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.WorkCam">
+              <MappingFragment StoreEntitySet="WorkCam">
+                <ScalarProperty Name="ident" ColumnName="ident" />
+                <ScalarProperty Name="MedidaNominal" ColumnName="MedidaNominal" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Id_WorkCam" ColumnName="Id_WorkCam" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

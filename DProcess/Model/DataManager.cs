@@ -1201,7 +1201,6 @@ namespace Model
 
         #endregion
 
-
         #region Cam Turn
 
         /// <summary>
@@ -1243,39 +1242,158 @@ namespace Model
         }
 
         /// <summary>
-        /// Método que obtiene el time de la operación Cam Turn
+        /// Método que obtiene todos los registros de CollarSpacer
         /// </summary>
-        /// <param name="v"></param>
-        /// <param name="especificacion"></param>
+        /// <param name="texto"></param>
         /// <returns></returns>
-        public static string GetTimeCamTurn(string v, PropiedadCadena especificacion)
+        public static DataTable GetAllCollarSpacer(string texto)
         {
-            //Inicializamos los servicios de SO_CamTurn.
-            SO_CamTurn ServicioCamTurn = new SO_CamTurn();
+            //Inicializamos los servicios de CutterAngle.
+            SO_CamTurn ServiceCam = new SO_CamTurn();
 
-            //Declaramos una varible la cual será la que retornemos en el método.
-            string respuesta = string.Empty;
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceCam.GetAllCollarSpacer(texto);
 
-            //Ejecutamos el método para obtener la inforamción de la base de datos, el resultado lo guardamos en una lista anónima.
-            DataSet informacionBD = ServicioCamTurn.GetTimeCamTurn(v, especificacion.Valor);
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
 
+            //Verificamos que la información obtenida sea diferente de nulo.
             if (informacionBD != null)
             {
-                if (informacionBD.Tables.Count > 0 && informacionBD.Tables[0].Rows.Count > 0)
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
                 {
-                    foreach (DataRow item in informacionBD.Tables[0].Rows)
-                    {
-                        respuesta = item["CAM_TURN"].ToString();
-                    }
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.Plano= (string)tipo.GetProperty("Plano").GetValue(item, null);
+
+                    Propiedad propiedadDimE = new Propiedad();
+                    propiedadDimE.Unidad = "";
+                    propiedadDimE.Valor = (double)tipo.GetProperty("DimE").GetValue(item, null);
+                    propiedadDimE.DescripcionCorta = "Dim E";
+                    herramental.Propiedades.Add(propiedadDimE);
+
+                    Propiedad propiedadDimF = new Propiedad();
+                    propiedadDimF.Unidad = "";
+                    propiedadDimF.Valor = (double)tipo.GetProperty("DimF").GetValue(item, null);
+                    propiedadDimF.DescripcionCorta = "Dim F";
+                    herramental.Propiedades.Add(propiedadDimF);
+
+                    PropiedadCadena propiedadMN = new PropiedadCadena();
+                    propiedadMN.DescripcionCorta = "Medida Nominal";
+                    propiedadMN.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propiedadMN);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
                 }
             }
 
-            //Retornamos el valor.
-            return respuesta;
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CollarSpacer");
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros de WorkCam
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public static DataTable GetAllWorkCam(string texto)
+        {
+            //Inicializamos los servicios de CutterAngle.
+            SO_CamTurn ServiceCam = new SO_CamTurn();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceCam.GetAllWorkCam(texto);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+
+                    PropiedadCadena propiedadMN = new PropiedadCadena();
+                    propiedadMN.DescripcionCorta = "Medida Nominal";
+                    propiedadMN.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propiedadMN);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "WorkCam");
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros de CamTurn.
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public static DataTable GetAllCutterCamTurn(string texto)
+        {
+            //Inicializamos los servicios de CutterAngle.
+            SO_CamTurn ServiceCam = new SO_CamTurn();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceCam.GetAllCutterCamTurn(texto);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.Plano= (string)tipo.GetProperty("Plano").GetValue(item, null);
+
+                    Propiedad propiedadDim = new Propiedad();
+                    propiedadDim.Unidad = "";
+                    propiedadDim.Valor = (double)tipo.GetProperty("Dimencion").GetValue(item, null);
+                    propiedadDim.DescripcionCorta = "Dimensión";
+                    herramental.Propiedades.Add(propiedadDim);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CutterCamTurn");
         }
         #endregion
-
-
 
         #region Auto Finish Turn
         /// <summary>
