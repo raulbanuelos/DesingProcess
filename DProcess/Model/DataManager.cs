@@ -236,7 +236,30 @@ namespace Model
 
             return herramental;
         }
-        
+
+        public static string GetTimeCamTurn(string v, PropiedadCadena especificacion)
+        {
+            DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado.SO_CamTurn ServicioCam = new DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado.SO_CamTurn();
+
+            string respuesta = string.Empty;
+
+            DataSet datos = ServicioCam.GetTimeCamTurn(v, especificacion.Valor);
+
+            if (datos != null)
+            {
+                if (datos.Tables.Count > 0 && datos.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow item in datos.Tables[0].Rows)
+                    {
+                        respuesta = item["CAM_TURN"].ToString();
+
+                    }
+                }
+            }
+
+            return respuesta;
+        }
+
         /// <summary>
         /// Método que inserta un registro de Guide Bar First Rough Grind.
         /// </summary>
@@ -1249,7 +1272,7 @@ namespace Model
         public static DataTable GetAllCollarSpacer(string texto)
         {
             //Inicializamos los servicios de CutterAngle.
-            SO_CamTurn ServiceCam = new SO_CamTurn();
+            DataAccess.ServiceObjects.Tooling.SO_CamTurn ServiceCam = new DataAccess.ServiceObjects.Tooling.SO_CamTurn();
 
             //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
             IList informacionBD = ServiceCam.GetAllCollarSpacer(texto);
@@ -1308,7 +1331,7 @@ namespace Model
         public static DataTable GetAllWorkCam(string texto)
         {
             //Inicializamos los servicios de CutterAngle.
-            SO_CamTurn ServiceCam = new SO_CamTurn();
+            DataAccess.ServiceObjects.Tooling.SO_CamTurn ServiceCam = new DataAccess.ServiceObjects.Tooling.SO_CamTurn();
 
             //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
             IList informacionBD = ServiceCam.GetAllWorkCam(texto);
@@ -1354,7 +1377,7 @@ namespace Model
         public static DataTable GetAllCutterCamTurn(string texto)
         {
             //Inicializamos los servicios de CutterAngle.
-            SO_CamTurn ServiceCam = new SO_CamTurn();
+            DataAccess.ServiceObjects.Tooling.SO_CamTurn ServiceCam = new DataAccess.ServiceObjects.Tooling.SO_CamTurn();
 
             //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
             IList informacionBD = ServiceCam.GetAllCutterCamTurn(texto);
