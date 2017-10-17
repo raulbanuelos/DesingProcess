@@ -535,7 +535,7 @@ namespace View.Services.ViewModel
         /// </summary>
         private void irWorkcam()
         {
-            WCamTurn frm = new WCamTurn();
+            WWorkCamTurn frm = new WWorkCamTurn();
             WorkCamVM context = new WorkCamVM();
             frm.DataContext = context;
             frm.ShowDialog();

@@ -228,6 +228,36 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                 return null;
             }
         }
+
+        /// <summary>
+        /// Método que obtiene la lista de  todo el material.
+        /// </summary>
+        /// <returns></returns>
+        public IList GetMaterial()
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesMateriaPrima())
+                {
+                    //Realizamos la consulta. El resultado lo guardamos en una variable anónima.
+                    var lista = (from m in Conexion.material
+                                 select new
+                                 {
+                                    m.id,
+                                    m.descripcion,m.Recomendado
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si ocurre algún error, retornamos un nulo.
+                return null;
+            }
+        }
         #endregion
     }
 }

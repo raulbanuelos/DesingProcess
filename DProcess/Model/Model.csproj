@@ -77,6 +77,7 @@
     <Compile Include="Interfaces\ISubjectWidth.cs" />
     <Compile Include="Itens.cs" />
     <Compile Include="MaestroHerramental.cs" />
+    <Compile Include="Material.cs" />
     <Compile Include="MateriaPrima.cs" />
     <Compile Include="Pattern.cs" />
     <Compile Include="Perfil.cs" />

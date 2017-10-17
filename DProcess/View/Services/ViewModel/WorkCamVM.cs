@@ -1,6 +1,7 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
@@ -71,21 +72,7 @@ namespace View.Services.ViewModel
                 _ListaMejores = value;
                 NotifyChange("ListaMejores");
             }
-        }
-
-        private double diam;
-        public double Diam
-        {
-            get { return diam; }
-            set { diam = value; NotifyChange("Diam"); }
-        }
-
-        private double gap;
-        public double Gap
-        {
-            get { return gap; }
-            set { gap = value; NotifyChange("Gap"); }
-        }
+        }      
 
         private string titulo;
         public string Titulo
@@ -94,6 +81,19 @@ namespace View.Services.ViewModel
             set { titulo = value; NotifyChange("Titulo"); }
 
         }
+
+        private ObservableCollection<Material> _ListaMaterial;
+        public ObservableCollection<Material> ListaMaterial {
+            get { return _ListaMaterial; }
+            set { _ListaMaterial = value; NotifyChange("ListaMaterial"); } }
+
+        private ObservableCollection<string> _ListaPingG;
+        public ObservableCollection<string> ListaPingG
+        {
+            get { return _ListaPingG; }
+            set { _ListaPingG = value; NotifyChange("ListaPingG"); }
+        }
+
         #endregion
 
         #region Commands
@@ -151,6 +151,8 @@ namespace View.Services.ViewModel
             ListaMejores = new DataTable();
             ListaOptimos = new DataTable();
             Titulo = "Work Cam";
+            ListaMaterial = DataManager.GetMaterial();
+            ListaPingG = new ObservableCollection<string>();
         }
         #endregion
     }

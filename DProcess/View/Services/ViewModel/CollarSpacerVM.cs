@@ -1,6 +1,7 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
@@ -73,18 +74,18 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double diam;
-        public double Diam
+        private double _SmallOD;
+        public double SmallOD
         {
-            get { return diam; }
-            set { diam = value; NotifyChange("Diam"); }
+            get { return _SmallOD; }
+            set { _SmallOD = value; NotifyChange("SmallOD"); }
         }
 
-        private double gap;
-        public double Gap
+        private double _pc;
+        public double PC
         {
-            get { return gap; }
-            set { gap = value; NotifyChange("Gap"); }
+            get { return _pc; }
+            set { _pc = value; NotifyChange("PC"); }
         }
 
         private string titulo;
@@ -94,6 +95,8 @@ namespace View.Services.ViewModel
             set { titulo = value; NotifyChange("Titulo"); }
 
          }
+
+        private ObservableCollection<Herramental> ListaAux;
         #endregion
 
         #region Commands
@@ -135,9 +138,30 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Método que busca los herramentales más óptimos de acuerdo al diam y gap
         /// </summary>
-        private void buscarOptimos()
+        private async void buscarOptimos()
         {
+            //Limpiamos las listas
+            ListaMejores.Clear();
+            ListaOptimos.Clear();
 
+            //Si las variables son diferentes de cero.
+            if (_SmallOD !=0 & _pc !=0)
+            {
+                //Ejecutamos el método para buscar los collarines optimos.
+                ListaAux = DataManager.GetCollarSpacer(_SmallOD,PC);
+                //Convertimos la lista en datatable.
+                ListaOptimos= DataManager.ConverToObservableCollectionHerramental_DataSet(ListaAux, "CollarSpacer");
+                //Ejecutamos el método para seleccionar la mejor opción de collarines.
+                ListaMejores = DataManager.SelectBestCollarSpacer(ListaAux);
+
+                //Verificamos que la cantidad de mejores herramentales sea mayor a cero.
+                if (ListaMejores.Rows.Count ==0)
+                    //Enviamos un mensaje si no hay herramentales.
+                    await dialog.SendMessage("Alerta", "No se encontró herramental con estas características..");
+            }
+            else
+                //Si están vacíos muestra un mensaje en pantalla
+                await dialog.SendMessage("Alerta", "Se debe llenar todos los campos...");
         }
         #endregion
 

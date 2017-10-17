@@ -75,6 +75,42 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
         }
 
         /// <summary>
+        /// Método que obtiene el collarin a partir de los valores mínimos y máximos.
+        /// </summary>
+        /// <param name="dimE_min"></param>
+        /// <param name="dimE_max"></param>
+        /// <param name="dimF_min"></param>
+        /// <param name="dimF_max"></param>
+        /// <returns></returns>
+        public IList GetCollarSpacer(double dimE_min,double dimE_max, double dimF_min,double dimF_max)
+        {
+            try
+            {
+                using (var Conexion= new EntitiesTooling())
+                {
+                    var lista = (from c in Conexion.CollarSpacer
+                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
+                                 where (c.DimE >= dimE_min && c.DimE <= dimE_max) && (c.DimF >= dimF_min && c.DimF <= dimF_max)
+                                 select new
+                                 {
+                                     c.Codigo,
+                                     m.Descripcion,
+                                     c.DimE,
+                                     c.DimF,
+                                     c.MedidaNominal,
+                                     DESCRIPCIONCT= c.Descripcion
+                                 }).ToList();
+                    return lista;
+                }
+            }
+            catch (Exception er)
+            {
+
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Método que guarda un registro en la tbla.
         /// </summary>
         /// <param name="codigo"></param>

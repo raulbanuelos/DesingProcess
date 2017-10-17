@@ -162,6 +162,41 @@ namespace Model
             //Retornamos el valor.
             return idTipoAnillo;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<Material> GetMaterial()
+        {
+            SO_Material ServiceMaterial = new SO_Material();
+            //Ejecutamos el método para obtener la inforamación de base de datos.
+            IList informacionBD = ServiceMaterial.GetMaterial();
+
+            ObservableCollection<Material> ListaR = new ObservableCollection<Material>();
+            //Declaramos un entero el cual será el que retornemos en el método.
+           
+            //Verificamos que la información de base de datos sea direferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la lista obtenida de la consulta.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    Material obj = new Material();
+
+                    //Obtenemos el valor.
+                    obj.id_material = (string)tipo.GetProperty("id").GetValue(item, null);
+                    obj.descripcion=(string)tipo.GetProperty("descripcion").GetValue(item, null);
+                    obj.recomendado= (bool)tipo.GetProperty("Recomendado").GetValue(item, null);
+
+                    ListaR.Add(obj);
+                }
+            }
+            return ListaR;
+        }
         #endregion
 
         #region  Operaciones
@@ -1324,6 +1359,118 @@ namespace Model
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="small_od"></param>
+        /// <param name="pc"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Herramental> GetCollarSpacer(double small_od, double pc)
+        {
+            //Inicializamos los servicios de CamTurn.
+            SO_CamTurn ServiceCam = new SO_CamTurn();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            double dimE_min,dimeE_max,dimF_min,dimF_max;
+
+            dimE_min = small_od - GetCriterio("CTCollarDimEMin");
+            dimeE_max = small_od + GetCriterio("CTCollarDimEMax");
+            dimF_min = pc - GetCriterio("CTCollarDimFMin");
+            dimF_max = pc + GetCriterio("CTCollarDimFMax");
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceCam.GetCollarSpacer(dimE_min, dimeE_max, dimF_min, dimF_max);
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.DescripcionMedidasBusqueda = (string)tipo.GetProperty("DESCRIPCIONCT").GetValue(item, null);
+
+                    Propiedad propiedadDimE = new Propiedad();
+                    propiedadDimE.Unidad = "";
+                    propiedadDimE.Valor = (double)tipo.GetProperty("DimE").GetValue(item, null);
+                    propiedadDimE.DescripcionCorta = "Dim E";
+                    herramental.Propiedades.Add(propiedadDimE);
+
+                    Propiedad propiedadDimF = new Propiedad();
+                    propiedadDimF.Unidad = "";
+                    propiedadDimF.Valor = (double)tipo.GetProperty("DimF").GetValue(item, null);
+                    propiedadDimF.DescripcionCorta = "Dim F";
+                    herramental.Propiedades.Add(propiedadDimF);
+
+                   /* PropiedadCadena propiedadMN = new PropiedadCadena();
+                    propiedadMN.DescripcionCorta = "Medida Nominal";
+                    propiedadMN.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propiedadMN);*/
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ListaResultante;
+        }
+
+        /// <summary>
+        /// Obtiene los dos primeros herramentales  para CollarSpacer CamTurn.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable SelectBestCollarSpacer(ObservableCollection<Herramental> lista)
+        {
+            //Inicializamos los servicios de CamTurn.
+            SO_CamTurn ServiceCam = new SO_CamTurn();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Si la lista es diferente de nulo.
+            if (lista !=null)
+            {
+                //Recorremos la lista, para buscar el collar.
+                foreach (Herramental item in lista)
+                {
+                    //La primera coincidencia con descripción collar lo agrega a la nueva lista.
+                    if (item.DescripcionMedidasBusqueda == "COLLAR")
+                    {
+                        ListaResultante.Add(item);
+                        //Sale del ciclo.
+                        break;
+                    }
+                }
+
+                //Recorremos la lista, para buscar el spacer.
+                foreach (Herramental objeto in lista)
+                {
+                    //La primera coincidencia con descripción spacer lo agrega a la nueva lista.
+                    if (objeto.DescripcionMedidasBusqueda == "SPACER")
+                    {
+                        ListaResultante.Add(objeto);
+                        //Sale del ciclo.
+                        break;
+                    }
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CollarSpacer");
+        }
+
+
+        /// <summary>
         /// Método que inserta un registro en la tabla CollarSpacer
         /// </summary>
         /// <param name="herramental"></param>
@@ -1382,6 +1529,8 @@ namespace Model
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "WorkCam");
         }
 
+
+      
         /// <summary>
         /// Método que inserta un registro en la tabla WorkCam.
         /// </summary>

@@ -1,14 +1,15 @@
-﻿<Controls:MetroWindow x:Class="View.Forms.Tooling.WCamTurn"
+﻿<Controls:MetroWindow x:Class="View.Forms.Tooling.WWorkCamTurn"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Forms.Tooling"
+        mc:Ignorable="d"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"           
-        mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen" 
-        Title="{Binding Titulo}" Height="600" Width="1100">
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen" 
+        Title="Work Cam Turn" Height="600" Width="1100">
     <Controls:MetroWindow.Resources>
         <Style x:Key="TabHeader" TargetType="Label">
             <Setter Property="FontSize" Value="28"/>
@@ -72,15 +73,15 @@
                         </Grid.RowDefinitions>
                         <Grid  Grid.Column="1" Grid.Row="1">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="230"></RowDefinition>
+                                <RowDefinition Height="290"></RowDefinition>
                                 <RowDefinition Height="270"></RowDefinition>
                             </Grid.RowDefinitions>
                             <StackPanel Orientation="Horizontal">
                                 <GroupBox Header="Required data" Margin="10" Width="300">
                                     <StackPanel>
-                                        <TextBox Text="{Binding SmallOD}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Small Od" TextAlignment="Center" Width="280" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
-                                        </TextBox>
-                                        <TextBox Text="{Binding PC}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="PC" TextAlignment="Center" Width="280" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20"/>
+                                        <ComboBox  materialDesign:HintAssist.Hint="Material" FontSize="20" Height="50" Width="280" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaMaterial}" SelectedValue="{Binding Material}" DisplayMemberPath="id_material"></ComboBox>
+                                        <ComboBox  materialDesign:HintAssist.Hint="Proceso" FontSize="20" Height="50" Width="280" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaProcesos}" SelectedValue="{Binding Proceso}"></ComboBox>
+                                        <ComboBox  materialDesign:HintAssist.Hint="Ping Gage" FontSize="20" Height="50" Width="280" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaPingG}" SelectedValue="{Binding Proceso}"></ComboBox>
                                         <Button Content="Start" Command="{Binding BuscarOptimos}" Margin="10" Width="70" HorizontalAlignment="Right"></Button>
                                     </StackPanel>
                                 </GroupBox>
