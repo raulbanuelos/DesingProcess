@@ -265,6 +265,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelTooling.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\Operaciones\Maquinado\SO_CamTurn.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Premaquinado\SO_FinishGrind.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Premaquinado\SO_FirstRoughGrind.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Premaquinado\SO_SecondRoughGrind.cs" />

@@ -28,7 +28,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
 
         public CamTurn()
         {
-
+            
         }
         #endregion
 
@@ -149,11 +149,18 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             set;
         }
 
+        private bool _RemueveGap = false;
         public bool RemueveGap
         {
-            get;
+            get
+            {
+                return _RemueveGap;
+            }
 
-            set;
+            set
+            {
+                _RemueveGap = value;
+            }
         }
         #endregion
 
@@ -255,7 +262,14 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
 
             TextoProceso += DataManager.GetCutterAngleCamTurn(cutterAngle) + "\n";
 
+            string camTurn1 = DataManager.GetTimeCamTurn("CamTurn1", elPlano.MaterialBase.Especificacion) + " \n";
+            TextoProceso += !camTurn1.Equals(string.Empty) ? camTurn1 : ". \n";
 
+            string camturn2 = DataManager.GetTimeCamTurn("CamTurn2", elPlano.MaterialBase.Especificacion) + " \n";
+            TextoProceso += !camturn2.Equals(string.Empty) ? camturn2 : ". \n";
+
+            string camturn3 = DataManager.GetTimeCamTurn("CamTurn3", elPlano.MaterialBase.Especificacion) + " \n";
+            TextoProceso += !camturn3.Equals(string.Empty) ? camturn3 : ". \n";
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();

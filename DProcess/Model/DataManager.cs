@@ -12,6 +12,7 @@ using DataAccess.ServiceObjects.Unidades;
 using DataAccess.ServiceObjects.ControlDocumentos;
 using DataAccess.ServiceObjects.Perfiles;
 using DataAccess.ServiceObjects.Tooling;
+using DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado;
 
 namespace Model
 {
@@ -235,7 +236,7 @@ namespace Model
 
             return herramental;
         }
-
+        
         /// <summary>
         /// Método que inserta un registro de Guide Bar First Rough Grind.
         /// </summary>
@@ -1239,8 +1240,39 @@ namespace Model
 
             //Retornamos el valor.
             return respuesta;
-        } 
+        }
 
+        /// <summary>
+        /// Método que obtiene el time de la operación Cam Turn
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="especificacion"></param>
+        /// <returns></returns>
+        public static string GetTimeCamTurn(string v, PropiedadCadena especificacion)
+        {
+            //Inicializamos los servicios de SO_CamTurn.
+            SO_CamTurn ServicioCamTurn = new SO_CamTurn();
+
+            //Declaramos una varible la cual será la que retornemos en el método.
+            string respuesta = string.Empty;
+
+            //Ejecutamos el método para obtener la inforamción de la base de datos, el resultado lo guardamos en una lista anónima.
+            DataSet informacionBD = ServicioCamTurn.GetTimeCamTurn(v, especificacion.Valor);
+
+            if (informacionBD != null)
+            {
+                if (informacionBD.Tables.Count > 0 && informacionBD.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow item in informacionBD.Tables[0].Rows)
+                    {
+                        respuesta = item["CAM_TURN"].ToString();
+                    }
+                }
+            }
+
+            //Retornamos el valor.
+            return respuesta;
+        }
         #endregion
 
 

@@ -830,6 +830,10 @@ namespace View.Services.ViewModel
             ModelAnillo.PerfilOD.Propiedades.Add(new Propiedad { DescripcionCorta = "CLOSING STRESS", DescripcionLarga = "CLOSING STRESS", Imagen = null, Nombre = "CLOSING STRESS", Valor = 33400});
             ModelAnillo.PerfilOD.PropiedadesCadena.Add(new PropiedadCadena { DescripcionCorta = "RingShape", DescripcionLarga = "RingShape", Imagen = null, Nombre = "RingShape", Valor = "#3" });
 
+            ModelAnillo.PerfilPuntas.Propiedades.Add(new Propiedad { DescripcionCorta = "GapMin", DescripcionLarga = "Gap Min", Imagen = null, Nombre = "GapMin", Valor = 0.011 });
+            ModelAnillo.PerfilPuntas.Propiedades.Add(new Propiedad { DescripcionCorta = "GapMax", DescripcionLarga = "Gap Max", Imagen = null, Nombre = "GapMax", Valor = 0.021 });
+
+
             ModelAnillo.MaterialBase.Especificacion = new PropiedadCadena { DescripcionCorta = "MATERIAL:", DescripcionLarga = "MATERIAL BASE DEL ANILLO", Imagen = null, Nombre = "Material MAHLE", Valor = "SPR-128" };
 
             ModelAnillo.TipoAnillo = "RBT10";
@@ -881,6 +885,36 @@ namespace View.Services.ViewModel
             /*
              * Cálculo de diámetro
              */
+
+            i = Operaciones.Count - 1;
+            c = 0;
+            SubjectDiametro subjectDiametro = new SubjectDiametro();
+            bool banUltimaOperacionDiametro = true;
+            double mediaGap = Math.Round((Module.GetValorPropiedad("GapMin", ModelAnillo.PerfilPuntas.Propiedades) + Module.GetValorPropiedad("GapMax", ModelAnillo.PerfilPuntas.Propiedades))/2, 3);
+            while (i >= 0)
+            {
+                if (Operaciones[i] is IObserverDiametro)
+                {
+                    if (banUltimaOperacionDiametro)
+                    {
+                        var operacion = (IObserverDiametro)Operaciones[i];
+                        operacion.Gap = mediaGap;
+                        subjectDiametro.Subscribe(operacion, D1.Valor);
+                        banUltimaOperacionDiametro = false;
+                    }
+                    else
+                    {
+                        var operacion = (IObserverDiametro)Operaciones[i];
+                        operacion.Gap = mediaGap;
+                        //subjectDiametro.Subscribe(Operaciones[i] as IObserverDiametro);
+                        subjectDiametro.Subscribe(operacion);
+                        subjectDiametro.Notify(c);
+                    }
+                    c += 1;
+                }
+                i = i - 1;
+            }
+            
 
             /*
              * Cálculo de thickness

@@ -3,6 +3,7 @@ using Model;
 using Model.Interfaces;
 using View.Services.Operaciones.Gasolina.PreMaquinado;
 using View.Services.Operaciones.Gasolina;
+using View.Services.Operaciones.Gasolina.Maquinado;
 
 namespace View.Services
 {
@@ -40,7 +41,7 @@ namespace View.Services
             }
             else
             {
-
+                ListaOperaciones.Add(new CamTurn(elAnillo));
             }
 
             //Asignamos el número de operación a cada operación. (Saltando de 10 en 10).
