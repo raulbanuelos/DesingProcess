@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Model;
+using Model.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -19,7 +22,7 @@ namespace View.Forms.Tooling
     /// <summary>
     /// Lógica de interacción para ControlCutterCamTurn.xaml
     /// </summary>
-    public partial class ControlCutterCamTurn : UserControl
+    public partial class ControlCutterCamTurn : UserControl, IControlTooling
     {
         public ControlCutterCamTurn()
         {
@@ -72,6 +75,44 @@ namespace View.Forms.Tooling
             //si la tecla presionada es un espacio no escribe el caracter.
             if (e.Key == Key.Space)
                 e.Handled = true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public int Guardar(string codigo)
+        {
+            Herramental obj = new Herramental();
+            Propiedad dimension = new Propiedad();           
+
+            obj.Codigo = codigo;
+            obj.Plano = plano.Text;
+            obj.DescripcionGeneral = desc.Text;
+            dimension.Valor = double.Parse(dim.Text, CultureInfo.InvariantCulture.NumberFormat);
+            obj.Propiedades.Add(dimension);
+
+            return DataManager.SetCutterCamTurn(obj);
+        }
+
+        public bool ValidaError()
+        {
+            if (!string.IsNullOrEmpty(dim.Text) || !string.IsNullOrEmpty(plano.Text) || !string.IsNullOrEmpty(desc.Text) || !string.IsNullOrWhiteSpace(desc.Text))
+                return true;
+            else
+                return false;
+               
+        }
+
+        public void Inicializa()
+        {
+            InitializeComponent();
+        }
+
+        public bool ValidaRangos()
+        {
+            return true;
         }
     }
 }

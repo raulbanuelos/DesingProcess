@@ -1271,8 +1271,8 @@ namespace Model
         /// <returns></returns>
         public static DataTable GetAllCollarSpacer(string texto)
         {
-            //Inicializamos los servicios de CutterAngle.
-            DataAccess.ServiceObjects.Tooling.SO_CamTurn ServiceCam = new DataAccess.ServiceObjects.Tooling.SO_CamTurn();
+            //Inicializamos los servicios de CamTurn.
+            SO_CamTurn ServiceCam = new SO_CamTurn();
 
             //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
             IList informacionBD = ServiceCam.GetAllCollarSpacer(texto);
@@ -1324,14 +1324,27 @@ namespace Model
         }
 
         /// <summary>
+        /// Método que inserta un registro en la tabla CollarSpacer
+        /// </summary>
+        /// <param name="herramental"></param>
+        /// <returns></returns>
+        public static int SetCollarSpacer(Herramental herramental)
+        {
+            //Inicializamos los servicios de CamTurn.
+            SO_CamTurn ServiceCam = new SO_CamTurn();
+
+            return ServiceCam.SetCollarSpacer(herramental.Codigo, herramental.Plano, herramental.PropiedadesCadena[0].Valor, herramental.PropiedadesCadena[1].Valor, herramental.Propiedades[0].Valor, herramental.Propiedades[1].Valor);
+        }
+
+        /// <summary>
         /// Método que obtiene todos los registros de WorkCam
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
         public static DataTable GetAllWorkCam(string texto)
         {
-            //Inicializamos los servicios de CutterAngle.
-            DataAccess.ServiceObjects.Tooling.SO_CamTurn ServiceCam = new DataAccess.ServiceObjects.Tooling.SO_CamTurn();
+            //Inicializamos los servicios de CamTurn.
+           SO_CamTurn ServiceCam = new SO_CamTurn();
 
             //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
             IList informacionBD = ServiceCam.GetAllWorkCam(texto);
@@ -1370,14 +1383,27 @@ namespace Model
         }
 
         /// <summary>
+        /// Método que inserta un registro en la tabla WorkCam.
+        /// </summary>
+        /// <param name="herramental"></param>
+        /// <returns></returns>
+        public static int SetWorkCam(Herramental herramental)
+        {
+            //Inicializamos los servicios de CamTurn.
+            SO_CamTurn ServiceCam = new SO_CamTurn();
+
+            return ServiceCam.SetWorkCam(herramental.Codigo,  herramental.PropiedadesCadena[0].Valor, herramental.PropiedadesCadena[1].Valor);
+        }
+
+        /// <summary>
         /// Método que obtiene todos los registros de CamTurn.
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
         public static DataTable GetAllCutterCamTurn(string texto)
         {
-            //Inicializamos los servicios de CutterAngle.
-            DataAccess.ServiceObjects.Tooling.SO_CamTurn ServiceCam = new DataAccess.ServiceObjects.Tooling.SO_CamTurn();
+            //Inicializamos los servicios de CamTurn.
+            SO_CamTurn ServiceCam = new SO_CamTurn();
 
             //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
             IList informacionBD = ServiceCam.GetAllCutterCamTurn(texto);
@@ -1415,6 +1441,20 @@ namespace Model
 
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CutterCamTurn");
+        }
+
+        /// <summary>
+        /// Método que inserta un registro en la tabla de CutterCamTurn.
+        /// </summary>
+        /// <param name="herramental"></param>
+        /// <returns></returns>
+        public static int SetCutterCamTurn(Herramental herramental)
+        {
+            //Inicializamos los servicios de CamTurn.
+            SO_CamTurn ServiceCam = new SO_CamTurn();
+
+            //Ejecutamos el método.
+            return ServiceCam.SetCutterCamTurn(herramental.Codigo, herramental.DescripcionGeneral, herramental.Propiedades[0].Valor, herramental.Plano);
         }
         #endregion
 

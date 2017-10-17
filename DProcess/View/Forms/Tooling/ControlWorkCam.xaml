@@ -10,7 +10,7 @@
     <Grid>
         <StackPanel Orientation="Vertical">
             <TextBox x:Name="desc" materialDesign:HintAssist.Hint="Descripción" HorizontalAlignment="Left"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" CharacterCasing="Upper" ></TextBox>
-            <TextBox x:Name="medidaN" materialDesign:HintAssist.Hint="Medida Nominal" HorizontalAlignment="Left"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" CharacterCasing="Upper" ></TextBox>
+            <TextBox x:Name="medidaN" materialDesign:HintAssist.Hint="Medida Nominal" HorizontalAlignment="Left"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" CharacterCasing="Upper" PreviewKeyDown="KeyValidation" ></TextBox>
            
         </StackPanel>
     </Grid>

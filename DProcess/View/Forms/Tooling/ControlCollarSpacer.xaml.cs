@@ -1,6 +1,8 @@
-﻿using Model.Interfaces;
+﻿using Model;
+using Model.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -34,7 +36,25 @@ namespace View.Forms.Tooling
         /// <returns></returns>
         public int Guardar(string codigo)
         {
-            return 0;
+            Herramental obj = new Herramental();
+            Propiedad DimensionE = new Propiedad();
+            Propiedad DimensionF = new Propiedad();
+            PropiedadCadena descripcion = new PropiedadCadena();
+            PropiedadCadena medidaNominal = new PropiedadCadena();
+
+            obj.Codigo = codigo;
+            obj.Plano = plano.Text;
+            DimensionE.Valor = double.Parse(dimE.Text, CultureInfo.InvariantCulture.NumberFormat);
+            DimensionF.Valor = double.Parse(dimF.Text, CultureInfo.InvariantCulture.NumberFormat);
+            medidaNominal.Valor = medidaN.Text;
+            descripcion.Valor = desc.Text;
+
+            obj.Propiedades.Add(DimensionE);
+            obj.Propiedades.Add(DimensionF);
+            obj.PropiedadesCadena.Add(descripcion);
+            obj.PropiedadesCadena.Add(medidaNominal);
+
+            return DataManager.SetCollarSpacer(obj);
         }
 
         /// <summary>
