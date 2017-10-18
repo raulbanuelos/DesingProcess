@@ -271,30 +271,7 @@ namespace Model
 
             return herramental;
         }
-
-        public static string GetTimeCamTurn(string v, PropiedadCadena especificacion)
-        {
-            DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado.SO_CamTurn ServicioCam = new DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado.SO_CamTurn();
-
-            string respuesta = string.Empty;
-
-            DataSet datos = ServicioCam.GetTimeCamTurn(v, especificacion.Valor);
-
-            if (datos != null)
-            {
-                if (datos.Tables.Count > 0 && datos.Tables[0].Rows.Count > 0)
-                {
-                    foreach (DataRow item in datos.Tables[0].Rows)
-                    {
-                        respuesta = item["CAM_TURN"].ToString();
-
-                    }
-                }
-            }
-
-            return respuesta;
-        }
-
+        
         /// <summary>
         /// Método que inserta un registro de Guide Bar First Rough Grind.
         /// </summary>
@@ -1262,6 +1239,43 @@ namespace Model
         #region Cam Turn
 
         /// <summary>
+        /// Método que obtiene el time de la operación Cam Turn
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="especificacion"></param>
+        /// <returns></returns>
+        public static string GetTimeCamTurn(string v, PropiedadCadena especificacion)
+        {
+            //Incializamos los servicios de CamTurn
+            SO_CamTurn ServicioCam = new SO_CamTurn();
+
+            //Declaramos una cadena la cual será la que retornemos en el método.
+            string respuesta = string.Empty;
+
+            //Ejecutamos el método para obtener los datos de la base de datos. El resultado lo guardamos en un dataset.
+            DataSet datos = ServicioCam.GetTimeCamTurn(v, especificacion.Valor);
+
+            //Comparamos que el data set sea diferente de nulo.
+            if (datos != null)
+            {
+                //Comparamos que el dataset contenga al menos una tabla, y que la tabla cero contenga al menos un registro.
+                if (datos.Tables.Count > 0 && datos.Tables[0].Rows.Count > 0)
+                {
+                    //Iteramos el dataset.
+                    foreach (DataRow item in datos.Tables[0].Rows)
+                    {
+                        //Obtenemos el valor y lo asignamos a la variable local.
+                        respuesta = item["CAM_TURN"].ToString();
+
+                    }
+                }
+            }
+
+            //Retornamos la cadena.
+            return respuesta;
+        }
+
+        /// <summary>
         /// Método que obtiene el cutter angle de la operación Cam Turn
         /// </summary>
         /// <param name="cutterAngle"></param>
@@ -1469,7 +1483,6 @@ namespace Model
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CollarSpacer");
         }
 
-
         /// <summary>
         /// Método que inserta un registro en la tabla CollarSpacer
         /// </summary>
@@ -1528,8 +1541,6 @@ namespace Model
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "WorkCam");
         }
-
-
       
         /// <summary>
         /// Método que inserta un registro en la tabla WorkCam.

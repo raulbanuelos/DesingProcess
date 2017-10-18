@@ -882,9 +882,7 @@ namespace View.Services.ViewModel
 
             //Termina cálculo de width
 
-            /*
-             * Cálculo de diámetro
-             */
+            /*Cálculo de diámetro*/
 
             i = Operaciones.Count - 1;
             c = 0;
@@ -914,11 +912,35 @@ namespace View.Services.ViewModel
                 }
                 i = i - 1;
             }
-            
 
-            /*
-             * Cálculo de thickness
-             */
+
+            /* Cálculo de thickness */
+
+            i = Operaciones.Count - 1;
+            c = 0;
+            double mediaThickness = Math.Round((Module.GetValorPropiedad("ThicknessMin", PerfilID.Propiedades) + Module.GetValorPropiedad("ThicknessMax", PerfilID.Propiedades)) / 2,4);
+            SubjectThickness subjectThickness = new SubjectThickness();
+            bool banUltimaOperacionThickness = true;
+            while (i >= 0)
+            {
+                if (Operaciones[i] is IObserverThickness)
+                {
+                    if (banUltimaOperacionThickness)
+                    {
+                        subjectThickness.Subscribe(Operaciones[i] as IObserverThickness, mediaThickness);
+                        banUltimaOperacionThickness = false;
+                    }
+                    else
+                    {
+                        subjectThickness.Subscribe(Operaciones[i] as IObserverThickness);
+                        subjectThickness.Notify(c);
+                    }
+                    c += 1;
+                }
+
+                i = i - 1;
+            }
+            
 
             anilloProcesado.Activo = ModelAnillo.Activo;
             anilloProcesado.cliente = ModelAnillo.cliente;

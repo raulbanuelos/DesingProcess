@@ -11,6 +11,12 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
 {
     public class CamTurn : IOperacion, IObserverDiametro, IObserverThickness
     {
+
+        #region Attributes
+        private double small_od;
+        private double valor_pc;
+        #endregion
+
         #region Constructor
         public CamTurn(Anillo plano)
         {
@@ -249,7 +255,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            double small_od = GetSmallOD();
+            small_od = GetSmallOD();
 
             TextoProceso = "*RGH CAM TURN \n";
             TextoProceso += "SMALL O.D " + small_od + " +- 0.0010 \n";
@@ -257,7 +263,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             TextoProceso += "*RGH. MILL \n";
             TextoProceso += "" + Diameter + "  GA. " + Gap + " +- .0075 \n";
 
-            double valor_pc = Module.GetValorPropiedad("Piece", anilloProcesado.PropiedadesAdquiridasProceso);
+            valor_pc = Module.GetValorPropiedad("Piece", anilloProcesado.PropiedadesAdquiridasProceso);
             double cutterAngle = Math.Round(((valor_pc / elPlano.D1.Valor) + 0.0095), 2);
 
             TextoProceso += DataManager.GetCutterAngleCamTurn(cutterAngle) + "\n";
@@ -280,7 +286,12 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
 
         public void BuscarHerramentales()
         {
+            foreach (Herramental herramental in DataManager.GetCollarSpacer(small_od, valor_pc))
+            {
+                ListaHerramentales.Add(herramental);
+            }
 
+            
         }
 
         /// <summary>
