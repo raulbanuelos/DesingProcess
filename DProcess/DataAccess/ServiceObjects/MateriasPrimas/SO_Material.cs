@@ -244,9 +244,10 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     var lista = (from m in Conexion.material
                                  select new
                                  {
-                                    m.id,
-                                    m.descripcion,m.Recomendado
-                                 }).ToList();
+                                     m.id,
+                                     m.descripcion,
+                                     m.Recomendado
+                                 }).OrderBy(x => x.id).ToList();
 
                     //Retornamos el resultado de la consulta.
                     return lista;

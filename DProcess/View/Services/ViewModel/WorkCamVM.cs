@@ -94,6 +94,31 @@ namespace View.Services.ViewModel
             set { _ListaPingG = value; NotifyChange("ListaPingG"); }
         }
 
+        private ObservableCollection<Anillo> _ListaTipoAnillo;
+        public ObservableCollection<Anillo> ListaTipoAnillo
+        {
+            get { return _ListaTipoAnillo; }
+            set { _ListaTipoAnillo = value; NotifyChange("ListaTipoAnillo"); }
+        }
+
+        private Material _SelectedMaterial;
+        public Material SelectedMaterial {
+            get { return _SelectedMaterial; }
+            set { _SelectedMaterial = value; NotifyChange("SelectedMaterial"); } }
+
+        private Anillo _TipoAnillo;
+        public Anillo TipoAnillo
+        {
+            get { return _TipoAnillo; }
+            set { _TipoAnillo = value; NotifyChange("TipoAnillo"); }
+        }
+
+        private string _PingG;
+        public string PingG
+        {
+            get { return _PingG; }
+            set { _PingG = value; NotifyChange("PingG"); }
+        }
         #endregion
 
         #region Commands
@@ -136,9 +161,26 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Método que busca los herramentales más óptimos de acuerdo a..
         /// </summary>
-        private void buscarOptimos()
+        private async void buscarOptimos()
         {
+            //Se limpian las listas
+            ListaMejores.Clear();
+            ListaOptimos.Clear();
 
+            if (SelectedMaterial!=null & TipoAnillo!=null & !string.IsNullOrEmpty(PingG))
+            {
+                //Obtenemos la lista de los herramentales optimos.
+                ListaOptimos = DataManager.GetWorkCam(SelectedMaterial.id_material,TipoAnillo.TipoAnillo,PingG);
+                ListaMejores = ListaOptimos;
+
+                //Si la lista no tiene información.
+                if (ListaMejores.Rows.Count == 0)
+                    //Enviamos un mensaje si no hay herramentales.
+                    await dialog.SendMessage("Alerta", "No se encontró herramental con estas características..");
+            }
+            else
+                //Si están vacíos muestra un mensaje en pantalla
+                await dialog.SendMessage("Alerta", "Se debe llenar todos los campos...");
         }
         #endregion
 
@@ -152,7 +194,12 @@ namespace View.Services.ViewModel
             ListaOptimos = new DataTable();
             Titulo = "Work Cam";
             ListaMaterial = DataManager.GetMaterial();
+            ListaTipoAnillo = DataManager.GetTipoAnillo();
             ListaPingG = new ObservableCollection<string>();
+            ListaPingG.Add("#1");
+            ListaPingG.Add("#2");
+            ListaPingG.Add("#3");
+            ListaPingG.Add("R");
         }
         #endregion
     }

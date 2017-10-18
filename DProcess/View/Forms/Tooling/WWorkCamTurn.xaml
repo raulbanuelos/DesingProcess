@@ -79,9 +79,9 @@
                             <StackPanel Orientation="Horizontal">
                                 <GroupBox Header="Required data" Margin="10" Width="300">
                                     <StackPanel>
-                                        <ComboBox  materialDesign:HintAssist.Hint="Material" FontSize="20" Height="50" Width="280" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaMaterial}" SelectedValue="{Binding Material}" DisplayMemberPath="id_material"></ComboBox>
-                                        <ComboBox  materialDesign:HintAssist.Hint="Proceso" FontSize="20" Height="50" Width="280" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaProcesos}" SelectedValue="{Binding Proceso}"></ComboBox>
-                                        <ComboBox  materialDesign:HintAssist.Hint="Ping Gage" FontSize="20" Height="50" Width="280" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaPingG}" SelectedValue="{Binding Proceso}"></ComboBox>
+                                        <ComboBox  materialDesign:HintAssist.Hint="Material" FontSize="20" Height="50" Width="280" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaMaterial}" SelectedValue="{Binding SelectedMaterial}" DisplayMemberPath="id_material" IsTextSearchEnabled="True" IsEditable="True"></ComboBox>
+                                        <ComboBox  materialDesign:HintAssist.Hint="Tipo Anillo" FontSize="20" Height="50" Width="280" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaTipoAnillo}" SelectedValue="{Binding TipoAnillo}" DisplayMemberPath="TipoAnillo" IsTextSearchEnabled="True" IsEditable="True"></ComboBox>
+                                        <ComboBox  materialDesign:HintAssist.Hint="Ping Gage" FontSize="20" Height="50" Width="280" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaPingG}" SelectedValue="{Binding PingG}"></ComboBox>
                                         <Button Content="Start" Command="{Binding BuscarOptimos}" Margin="10" Width="70" HorizontalAlignment="Right"></Button>
                                     </StackPanel>
                                 </GroupBox>

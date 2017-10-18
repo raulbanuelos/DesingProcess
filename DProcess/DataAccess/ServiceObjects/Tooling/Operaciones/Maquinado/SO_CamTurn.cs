@@ -255,6 +255,74 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
         }
 
         /// <summary>
+        /// Método que obtiene el CamDetail para la seleccion de herramnetal de  WorkCam.
+        /// </summary>
+        /// <param name="material"></param>
+        /// <param name="anillo"></param>
+        /// <param name="ping"></param>
+        /// <returns></returns>
+        public DataSet GetCam_Detail(string material,string anillo,string ping)
+        {
+            DataSet datos = new DataSet();
+            try
+            {
+              
+                //Se crea conexion a la BD.
+                Desing_SQL conexion = new Desing_SQL();
+
+                //Se inicializa un dictionario que contiene propiedades de tipo string y un objeto.
+                Dictionary<string, object> parametros = new Dictionary<string, object>();
+
+                //se agregan el nombre y el objeto de los parámetros.
+                parametros.Add("material", material);
+                parametros.Add("tipoAnillo", anillo);
+                parametros.Add("pinGage", ping);
+
+                //se ejecuta el procedimiento y se mandan los parámetros añadidos anteriormente.
+                datos = conexion.EjecutarStoredProcedure("SelectCamDetail", parametros);
+
+            }
+            catch (Exception er)
+            {
+                //si hay error, retorna cero.
+                return datos;
+            }
+            //Retorna el número de elementos en la tabla.
+            return datos;
+        }
+
+        /// <summary>
+        /// Obtiene los herramentales óptimos para CamDEtail
+        /// </summary>
+        /// <param name="cam_detail"></param>
+        /// <returns></returns>
+        public IList GetWorkCam(string cam_detail)
+        {
+            try
+            {
+                using (var Conexion= new EntitiesTooling())
+                {
+                    var Lista = (from w in Conexion.WorkCam
+                                 join m in Conexion.MaestroHerramentales on w.Codigo equals m.Codigo
+                                 where w.MedidaNominal.Equals(cam_detail)
+                                 select new
+                                 {
+                                     m.Codigo,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     w.MedidaNominal
+                                 }).ToList();
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Método que guarda un registro en la tbla.
         /// </summary>
         /// <param name="codigo"></param>
