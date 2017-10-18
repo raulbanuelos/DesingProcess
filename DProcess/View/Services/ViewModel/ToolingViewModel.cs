@@ -282,6 +282,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand IrCollarSpacer
         {
             get
@@ -290,6 +293,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand IrWorkCam
         {
             get
@@ -297,12 +303,25 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => irWorkcam());
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand IrCutterCT
         {
             get
             {
                 return new RelayCommand(o => ircutterCT());
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICommand IrBushingBB
+        {
+            get
+            {
+                return new RelayCommand(o => irBushingBB());
             }
         }
         #endregion
@@ -546,8 +565,19 @@ namespace View.Services.ViewModel
         /// </summary>
         private void ircutterCT()
         {
-            WCamTurn frm = new WCamTurn();
+            WCutterCamTurn frm = new WCutterCamTurn();
             CutterCamTurnVM context = new CutterCamTurnVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Método que muestra la ventana de Bushing BatesBore.
+        /// </summary>
+        private void irBushingBB()
+        {
+            WBatesBore frm = new WBatesBore();
+            BushingBatesBoreVM context = new BushingBatesBoreVM();
             frm.DataContext = context;
             frm.ShowDialog();
         }

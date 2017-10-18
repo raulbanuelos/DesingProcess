@@ -164,6 +164,39 @@ namespace Model
         }
 
         /// <summary>
+        /// Método que obtiene todos los registros de tipo de anillo
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<Anillo> GetTipoAnillo()
+        {
+            SO_TipoAnillo ServiceMaterial = new SO_TipoAnillo();
+            //Ejecutamos el método para obtener la inforamación de base de datos.
+            IList informacionBD = ServiceMaterial.GetAllTipoAnillo();
+
+            ObservableCollection<Anillo> ListaR = new ObservableCollection<Anillo>();
+            //Declaramos un entero el cual será el que retornemos en el método.
+
+            //Verificamos que la información de base de datos sea direferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la lista obtenida de la consulta.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    Anillo obj = new Anillo();
+
+                    //Obtenemos el valor.
+                    obj.TipoAnillo = (string)tipo.GetProperty("Tipo").GetValue(item, null);
+                  
+                    ListaR.Add(obj);
+                }
+            }
+            return ListaR;
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
@@ -1543,6 +1576,105 @@ namespace Model
         }
       
         /// <summary>
+        /// Método que obtiene los herramentales óptimos para WorkCam.
+        /// </summary>
+        /// <param name="material"></param>
+        /// <param name="tipoAnillo"></param>
+        /// <param name="pingGage"></param>
+        public static DataTable GetWorkCam(string material,string tipoAnillo,string pingGage)
+        {
+            string cam_detail = string.Empty;
+
+            //Inicializamos los servicios de CamTurn.
+            SO_CamTurn ServiceCamT = new SO_CamTurn();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Obtenemos la propiedad de Cam_Detail.
+            DataSet InformacionBD = ServiceCamT.GetCam_Detail(material, tipoAnillo, pingGage);
+
+            //Verificamos que el objeto recibido sea distinto de vacío.
+            if (InformacionBD != null)
+            {
+                //Si la lista tiene información.
+                if (InformacionBD.Tables.Count > 0 && InformacionBD.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow element in InformacionBD.Tables[0].Rows)
+                    {
+                        cam_detail = element["cam_detail"].ToString();
+                    }
+                }
+
+                //Si la propiedad es diferente de vacío.
+                if (!string.IsNullOrEmpty(cam_detail))
+                {
+                    //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+                    IList ListaBD = ServiceCamT.GetWorkCam(cam_detail);                  
+
+                    //Verificamos que la información obtenida sea diferente de nulo.
+                    if (ListaBD != null)
+                    {
+                        //Itermos la lista obtenida.
+                        foreach (var item in ListaBD)
+                        {
+                            //Obtenemos el tipo del elemento iterado.
+                            System.Type tipo = item.GetType();
+
+                            //Declaramos un objeto de tipo Herramental.
+                            Herramental herramental = new Herramental();
+
+                            //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                            herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                            herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+
+                            PropiedadCadena propiedadMN = new PropiedadCadena();
+                            propiedadMN.DescripcionCorta = "Medida Nominal";
+                            propiedadMN.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                            herramental.PropiedadesCadena.Add(propiedadMN);
+
+                            //Agregamos el objeto a la lista resultante.
+                            ListaResultante.Add(herramental);
+                        }
+                    }
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "WorkCam");
+        }
+
+        /// <summary>
+        /// Método que obtiene el mejor herramental para WorkCam.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable SelectWorkCam(DataTable dt)
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Description");
+            DataR.Columns.Add("Medida Nominal");
+
+            //Sólo se hace la iteración una vez
+            foreach (DataRow row in dt.Rows)
+            {
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = DataR.NewRow();
+                dr["Code"] = row["Code"].ToString();
+                dr["Description"] = row["Description"].ToString();
+                dr["Medida Nominal"] = row["Medida Nominal"].ToString();
+
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+                break;
+            }
+            return DataR;
+        }
+
+        /// <summary>
         /// Método que inserta un registro en la tabla WorkCam.
         /// </summary>
         /// <param name="herramental"></param>
@@ -1601,6 +1733,87 @@ namespace Model
 
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CutterCamTurn");
+        }
+
+        /// <summary>
+        /// Obtiene los herramentales óptimos para Cutter Cam Turn
+        /// </summary>
+        /// <param name="material"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        public static DataTable GetCutterCamTurn(string material, double width)
+        {
+            //Inicializamos los servicios de CamTurn.
+            SO_CamTurn ServiceCam = new SO_CamTurn();            
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            string tipoMaterial = GetTipoMaterial(material);
+
+            IList informacionBD = ServiceCam.GetCutterCam(tipoMaterial, width);
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    
+
+                    Propiedad propiedadDim = new Propiedad();
+                    propiedadDim.Unidad = "";
+                    propiedadDim.Valor = (double)tipo.GetProperty("Dimencion").GetValue(item, null);
+                    propiedadDim.DescripcionCorta = "Dimensión";
+                    herramental.Propiedades.Add(propiedadDim);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CutterCamTurn");
+        }
+
+        /// <summary>
+        /// Método que obtiene el mejor herramental para CutterCamTurn.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable SelectBestCutterCT(DataTable dt)
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Description");
+            DataR.Columns.Add("Dimensión");
+
+            //Sólo se hace la iteración una vez
+            foreach (DataRow row in dt.Rows)
+            {
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = DataR.NewRow();
+                dr["Code"] = row["Code"].ToString();
+                dr["Description"] = row["Description"].ToString();
+                dr["Dimensión"] = row["Dimensión"].ToString();
+
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+                break;
+            }
+            return DataR;
         }
 
         /// <summary>
@@ -2339,6 +2552,152 @@ namespace Model
             }
             return DataR;
         }
+        #endregion
+
+        #region BatesBore
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public static DataTable GetAllBushingBB(string texto)
+        {
+            //Inicializamos los servicios de CamTurn.
+            SO_BatesBore ServiceBatesBore = new SO_BatesBore();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceBatesBore.GetAllBushing(texto);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+
+                    Propiedad propiedadMedidaN = new Propiedad();
+                    propiedadMedidaN.Unidad = "";
+                    propiedadMedidaN.Valor = (double)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    propiedadMedidaN.DescripcionCorta = "Medida Nominal";
+                    herramental.Propiedades.Add(propiedadMedidaN);
+
+                    PropiedadCadena propiedadDimB = new PropiedadCadena();
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    propiedadDimB.Valor = (string)tipo.GetProperty("DimB").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propiedadDimB);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "BushingBB");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="diaBO"></param>
+        /// <returns></returns>
+        public static DataTable GetBushing(double diaBO)
+        {
+            //Inicializamos los servicios de CamTurn.
+            SO_BatesBore ServiceBatesBore = new SO_BatesBore();
+
+            double cri_min = diaBO + GetCriterio("BoreBushingMin");
+            double cri_max = diaBO + GetCriterio("BoreBushingMax");
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceBatesBore.GetBushing(cri_min, cri_max);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+
+                    Propiedad propiedadMedidaN = new Propiedad();
+                    propiedadMedidaN.Unidad = "";
+                    propiedadMedidaN.Valor = (double)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    propiedadMedidaN.DescripcionCorta = "Medida Nominal";
+                    herramental.Propiedades.Add(propiedadMedidaN);
+
+                    PropiedadCadena propiedadDimB = new PropiedadCadena();
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    propiedadDimB.Valor = (string)tipo.GetProperty("DimB").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propiedadDimB);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "BushingBB");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable SelectBestBushing(DataTable dt)
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Description");
+            DataR.Columns.Add("Medida Nominal");
+            DataR.Columns.Add("Dim B");
+
+            //Sólo se hace la iteración una vez
+            foreach (DataRow row in dt.Rows)
+            {
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = DataR.NewRow();
+                dr["Code"] = row["Code"].ToString();
+                dr["Description"] = row["Description"].ToString();
+                dr["Medida Nominal"] = row["Medida Nominal"].ToString();
+                dr["Dim B"] = row["Dim B"].ToString();
+
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+                break;
+            }
+            return DataR;
+        }
+
         #endregion
 
         #endregion

@@ -1,15 +1,14 @@
-﻿<Controls:MetroWindow x:Class="View.Forms.Tooling.WWorkCamTurn"
+﻿<Controls:MetroWindow x:Class="View.Forms.Tooling.WCutterCamTurn"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:View.Forms.Tooling"
-        mc:Ignorable="d"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen" 
-        Title="Work Cam Turn" Height="600" Width="1100">
+        xmlns:local="clr-namespace:View.Forms.Tooling"
+        mc:Ignorable="d"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen" ShowMaxRestoreButton="False"
+        Title="Cutter Cam Turn" Height="600" Width="1100">
     <Controls:MetroWindow.Resources>
         <Style x:Key="TabHeader" TargetType="Label">
             <Setter Property="FontSize" Value="28"/>
@@ -73,15 +72,16 @@
                         </Grid.RowDefinitions>
                         <Grid  Grid.Column="1" Grid.Row="1">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="290"></RowDefinition>
+                                <RowDefinition Height="230"></RowDefinition>
                                 <RowDefinition Height="270"></RowDefinition>
                             </Grid.RowDefinitions>
                             <StackPanel Orientation="Horizontal">
                                 <GroupBox Header="Required data" Margin="10" Width="300">
                                     <StackPanel>
-                                        <ComboBox  materialDesign:HintAssist.Hint="Material" FontSize="20" Height="50" Width="280" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaMaterial}" SelectedValue="{Binding SelectedMaterial}" DisplayMemberPath="id_material" IsTextSearchEnabled="True" IsEditable="True"></ComboBox>
-                                        <ComboBox  materialDesign:HintAssist.Hint="Tipo Anillo" FontSize="20" Height="50" Width="280" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaTipoAnillo}" SelectedValue="{Binding TipoAnillo}" DisplayMemberPath="TipoAnillo" IsTextSearchEnabled="True" IsEditable="True"></ComboBox>
-                                        <ComboBox  materialDesign:HintAssist.Hint="Ping Gage" FontSize="20" Height="50" Width="280" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaPingG}" SelectedValue="{Binding PingG}"></ComboBox>
+                                        <ComboBox Name="combo1" materialDesign:HintAssist.Hint="Material" FontSize="20" Height="50" Width="280" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaMaterial}" SelectedValue="{Binding SelectedMaterial}" DisplayMemberPath="id_material" IsTextSearchEnabled="True" IsEditable="True">
+                                        </ComboBox>
+                                        <TextBox Text="{Binding Width}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Width" TextAlignment="Left" Width="280" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+                                        </TextBox>
                                         <Button Content="Start" Command="{Binding BuscarOptimos}" Margin="10" Width="70" HorizontalAlignment="Right"></Button>
                                     </StackPanel>
                                 </GroupBox>
@@ -92,6 +92,7 @@
                                     </Grid>
                                 </GroupBox>
                             </StackPanel>
+
                             <DataGrid Grid.Row="1" VerticalAlignment="Top"  HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="True" ItemsSource="{Binding ListaOptimos}" IsReadOnly="True"></DataGrid>
                         </Grid>
                     </Grid>

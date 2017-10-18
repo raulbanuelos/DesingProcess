@@ -231,6 +231,9 @@
     <Compile Include="Forms\Shared\Layout.xaml.cs">
       <DependentUpon>Layout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlBushing.xaml.cs">
+      <DependentUpon>ControlBushing.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlChuckSplitterCasting.xaml.cs">
       <DependentUpon>ControlChuckSplitterCasting.xaml</DependentUpon>
     </Compile>
@@ -297,6 +300,9 @@
     <Compile Include="Forms\Tooling\PTooling.xaml.cs">
       <DependentUpon>PTooling.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\WBatesBore.xaml.cs">
+      <DependentUpon>WBatesBore.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\WBusquedaHerramenal.xaml.cs">
       <DependentUpon>WBusquedaHerramenal.xaml</DependentUpon>
     </Compile>
@@ -314,6 +320,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\WCollarBK.xaml.cs">
       <DependentUpon>WCollarBK.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\WCutterCamTurn.xaml.cs">
+      <DependentUpon>WCutterCamTurn.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\WCutterSpacerS.xaml.cs">
       <DependentUpon>WCutterSpacerS.xaml</DependentUpon>
@@ -357,6 +366,7 @@
     <Compile Include="Services\ViewModel\AnilloViewModel.cs" />
     <Compile Include="Services\ViewModel\BloqueoVM.cs" />
     <Compile Include="Services\ViewModel\Buscar_DocumentoVM.cs" />
+    <Compile Include="Services\ViewModel\BushingBatesBoreVM.cs" />
     <Compile Include="Services\ViewModel\Busqueda_HerramentalVM.cs" />
     <Compile Include="Services\ViewModel\ChuckSplitterVM.cs" />
     <Compile Include="Services\ViewModel\ClosingSleeveVM.cs" />
@@ -570,6 +580,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Forms\Tooling\ControlBushing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\ControlChuckSplitterCasting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -658,6 +672,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\WBatesBore.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\WBusquedaHerramenal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -679,6 +697,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\WCollarBK.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WCutterCamTurn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
