@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using MahApps.Metro.Controls.Dialogs;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using View.Forms.RawMaterial;
 using View.Services.ViewModel;
+using System.Windows.Input;
 
 namespace View.Services
 {
@@ -34,51 +36,53 @@ namespace View.Services
         #region Methods
         public MateriaPrima CalcularPlacaModelo()
         {
-            MateriaPrima m = new MateriaPrima();
-            Piece = calculaPiece();
+            
+                MateriaPrima m = new MateriaPrima();
+                Piece = calculaPiece();
 
-            char ban = calcula_materia_prima();
-            bool mayor_a_15 = false;
-            while ((ban == '3') && mayor_a_15 == false)
-            {
-                if (Math.Round(FreeGap + .001, 3) <= Math.Round(_elAnillo.FreeGap.Valor + 0.015, 3))
+                char ban = calcula_materia_prima();
+                bool mayor_a_15 = false;
+                while ((ban == '3') && mayor_a_15 == false)
                 {
-                    FreeGap = Math.Round(FreeGap + .001, 3);
-                    Piece = calculaPiece();
-                    ban = calcula_materia_prima();
+                    if (Math.Round(FreeGap + .001, 3) <= Math.Round(_elAnillo.FreeGap.Valor + 0.015, 3))
+                    {
+                        FreeGap = Math.Round(FreeGap + .001, 3);
+                        Piece = calculaPiece();
+                        ban = calcula_materia_prima();
+                    }
+                    else
+                    {
+                        mayor_a_15 = true;
+                    }
                 }
-                else
-                {
-                    mayor_a_15 = true;
-                }
-            }
 
-            FreeGap = _elAnillo.FreeGap.Valor;
-            bool mayor_a_10 = false;
-            while ((ban == '3') && (mayor_a_10 == false))
-            {
-                if (Math.Round(FreeGap - .001, 3) >= _elAnillo.FreeGap.Valor - .01)
+                FreeGap = _elAnillo.FreeGap.Valor;
+                bool mayor_a_10 = false;
+                while ((ban == '3') && (mayor_a_10 == false))
                 {
-                    FreeGap = Math.Round(FreeGap - .001, 3);
-                    Piece = calculaPiece();
-                    ban = calcula_materia_prima();
+                    if (Math.Round(FreeGap - .001, 3) >= _elAnillo.FreeGap.Valor - .01)
+                    {
+                        FreeGap = Math.Round(FreeGap - .001, 3);
+                        Piece = calculaPiece();
+                        ban = calcula_materia_prima();
+                    }
+                    else
+                    {
+                        mayor_a_10 = true;
+                    }
                 }
-                else
-                {
-                    mayor_a_10 = true;
-                }
-            }
 
-            FreeGap = _elAnillo.FreeGap.Valor;
-            Piece = calculaPiece();
-            if (ban == '3')
-            {
-                //Mensaje de no se encontro materia prima
-            }
-            m.Especificacion = _elAnillo.MaterialBase.Especificacion;
-            m.Codigo = codigoPlacaModelo;
-            m.Activo = true;
-            return m;
+                FreeGap = _elAnillo.FreeGap.Valor;
+                Piece = calculaPiece();
+                if (ban == '3')
+                {
+                codigoPlacaModelo = "CODIFICAR";
+                }
+                m.Especificacion = _elAnillo.MaterialBase.Especificacion;
+                m.Codigo = codigoPlacaModelo;
+                m.Activo = true;
+
+                return m;
             
         }
 

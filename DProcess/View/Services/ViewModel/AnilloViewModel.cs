@@ -15,6 +15,12 @@ using System.Linq;
 using System.Collections.Generic;
 using View.Forms.Routing;
 
+using Model.ControlDocumentos;
+using View.Forms.ControlDocumentos;
+using System.Data;
+using Encriptar;
+using System.Globalization;
+
 namespace View.Services.ViewModel
 {
     public class AnilloViewModel : INotifyPropertyChanged
@@ -23,6 +29,7 @@ namespace View.Services.ViewModel
         #region Attributes
         private Anillo ModelAnillo;
         private CalculaMateriaPrima calcularMateriaPrima;
+        DialogService dialogService;
         #endregion
 
         #region Properties
@@ -628,6 +635,8 @@ namespace View.Services.ViewModel
 
             //Inicializamos el plano;
             newPlano();
+
+            dialogService = new DialogService();
         }
 
         #endregion
@@ -801,7 +810,7 @@ namespace View.Services.ViewModel
 
         #region Methods
 
-        private void calcularRuta()
+        private async void calcularRuta()
         {
 
             //Comenzamos a simular el anillo
@@ -817,7 +826,7 @@ namespace View.Services.ViewModel
             especificacion.Valor = "SPR-128";
 
             ModelAnillo.MaterialBase = new MateriaPrima {Especificacion = especificacion};
-            ModelAnillo.FreeGap = new Propiedad { DescripcionCorta = "Free Gap", DescripcionLarga = "Free Gap", Imagen = null, Nombre = "Total Free Gap Max", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.696 };
+            ModelAnillo.FreeGap = new Propiedad { DescripcionCorta = "Free Gap", DescripcionLarga = "Free Gap", Imagen = null, Nombre = "Total Free Gap Max", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.400 };
 
             ModelAnillo.PerfilID.Propiedades.Add(new Propiedad { DescripcionCorta = "Thickness", DescripcionLarga = "Thickness", Imagen = null, Nombre = "a1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.196 });
             ModelAnillo.PerfilID.Propiedades.Add(new Propiedad { DescripcionCorta = "Thickness Min", DescripcionLarga = "Thickness Min", Imagen = null, Nombre = "a1 Tol Min", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.005 });
@@ -849,6 +858,32 @@ namespace View.Services.ViewModel
                 //Ingresar calculo de placa modelo.
                 calcularMateriaPrima = new CalculaMateriaPrima(ModelAnillo);
                 ModelAnillo.MaterialBase = calcularMateriaPrima.CalcularPlacaModelo();
+                if (ModelAnillo.MaterialBase.Codigo.Equals("CODIFICAR"))
+                {
+                    MetroDialogSettings setting = new MetroDialogSettings();
+                    setting.AffirmativeButtonText = "SI";
+                    setting.NegativeButtonText = "NO";
+                    dialogService = new DialogService();
+
+                    MessageDialogResult result = await dialogService.SendMessage("Atención", "No se encontró ninguna placa modelo para el componente ingresado  ¿Desea generar una placa modelo nueva?", setting, MessageDialogStyle.AffirmativeAndNegative,"Desing Process");
+
+                    switch (result)
+                    {
+                        case MessageDialogResult.Negative:
+                            break;
+                        case MessageDialogResult.Affirmative:
+
+                            break;
+                        case MessageDialogResult.FirstAuxiliary:
+                            break;
+                        case MessageDialogResult.SecondAuxiliary:
+                            break;
+                        default:
+                            break;
+                    }
+
+
+                }
                 anilloProcesado.PropiedadesAdquiridasProceso.Add(new Propiedad{ TipoDato = "Distance", DescripcionCorta = "Piece", DescripcionLarga = "Piece", Imagen = null, Nombre = "Piece", Unidad = "Inch (in)", Valor = calcularMateriaPrima.Piece });
             }
 
