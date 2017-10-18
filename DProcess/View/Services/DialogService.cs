@@ -54,6 +54,34 @@ namespace View.Services
         }
 
         /// <summary>
+        /// Método que muestra un mensaje en una pantalla con un título en específico.
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="message"></param>
+        /// <param name="setting"></param>
+        /// <param name="style"></param>
+        /// <param name="tittleWindow"></param>
+        /// <returns></returns>
+        public async Task<MessageDialogResult> SendMessage(string title, string message, MetroDialogSettings setting, MessageDialogStyle style, string tittleWindow)
+        {
+            //Obtenemos la pantalla con el título en específico., y casteamos para que se tome como tipo MetroWindow.
+            var window = Application.Current.Windows.OfType<MetroWindow>().Where(x => x.Title.Equals(tittleWindow)).FirstOrDefault();
+
+            //Comprobamos que la ventana sea diferente de nulo.
+            if (window != null)
+            {
+                //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
+                MessageDialogResult result = await window.ShowMessageAsync(title, message, style, setting);
+
+                //Retornamos el resultado.
+                return result;
+            }
+            else
+                //Si la ventana no fue encontrada, retornamos un valor Negative.
+                return MessageDialogResult.Negative;
+        }
+
+        /// <summary>
         /// Método que muestra un mesaje modal con progress bar.
         /// </summary>
         /// <param name="title"></param>
