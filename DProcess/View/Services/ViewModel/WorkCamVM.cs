@@ -167,11 +167,13 @@ namespace View.Services.ViewModel
             ListaMejores.Clear();
             ListaOptimos.Clear();
 
+            //Si se seleccionaron los elementos.
             if (SelectedMaterial!=null & TipoAnillo!=null & !string.IsNullOrEmpty(PingG))
             {
                 //Obtenemos la lista de los herramentales optimos.
                 ListaOptimos = DataManager.GetWorkCam(SelectedMaterial.id_material,TipoAnillo.TipoAnillo,PingG);
-                ListaMejores = ListaOptimos;
+                //Obtenemos la lista del mejor herramental.
+                ListaMejores = DataManager.SelectWorkCam(ListaOptimos);
 
                 //Si la lista no tiene información.
                 if (ListaMejores.Rows.Count == 0)

@@ -58,6 +58,10 @@
                     <MenuItem Header="WorkCam" Cursor="Hand" Command="{Binding IrWorkCam}"/>
                     <MenuItem Header="Cutter cam turn" Cursor="Hand" Command="{Binding IrCutterCT}"/>
                 </MenuItem>
+                <MenuItem Header="Bates Bore">
+                    <MenuItem Header="Bushing" Cursor="Hand" Command="{Binding IrBushingBB}"/>
+
+                </MenuItem>
                 <MenuItem Header="Auto Finish Turn" Cursor="Hand">
                     <MenuItem Header="Collar" Cursor="Hand" Command="{Binding IrCollarBK}"/>
                     <MenuItem Header="Guide plate" Cursor="Hand" Command="{Binding IrGuidePlate}"/>

@@ -12,16 +12,13 @@ namespace DataAccess.ServiceObjects.Tooling
     using System;
     using System.Collections.Generic;
     
-    public partial class CollarSpacer
+    public partial class BushingBatesBore_
     {
-        public int Id_CollarSpacer { get; set; }
+        public int Id_Bushing { get; set; }
         public string Codigo { get; set; }
-        public string Descripcion { get; set; }
         public string Plano { get; set; }
-        public string MedidaNominal { get; set; }
-        public Nullable<double> DimE { get; set; }
-        public Nullable<double> DimF { get; set; }
-        public Nullable<int> ident { get; set; }
+        public Nullable<double> MedidaNominal { get; set; }
+        public string DimB { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }

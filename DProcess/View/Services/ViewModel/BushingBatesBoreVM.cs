@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace View.Services.ViewModel
 {
-   public class CutterCamTurnVM : INotifyPropertyChanged
+    public class BushingBatesBoreVM : INotifyPropertyChanged
     {
         #region Attributtes
         DialogService dialog;
@@ -32,17 +32,17 @@ namespace View.Services.ViewModel
 
         #region Propiedades
 
-        private DataTable _ListaCamTurn;
-        public DataTable ListaCamTurn
+        private DataTable _ListaBatesBore;
+        public DataTable ListaBatesBore
         {
             get
             {
-                return _ListaCamTurn;
+                return _ListaBatesBore;
             }
             set
             {
-                _ListaCamTurn = value;
-                NotifyChange("ListaCamTurn");
+                _ListaBatesBore = value;
+                NotifyChange("ListaBatesBore");
             }
         }
 
@@ -74,38 +74,25 @@ namespace View.Services.ViewModel
             }
         }
 
-        private ObservableCollection<Material> _ListaMaterial;
-        public ObservableCollection<Material> ListaMaterial
+        private double _diam;
+        public double Diam
         {
-            get { return _ListaMaterial; }
-            set { _ListaMaterial = value; NotifyChange("ListaMaterial"); }
+            get { return _diam; }
+            set { _diam = value; NotifyChange("Diam"); }
         }
 
-        private double _width;
-        public double Width
-        {
-            get { return _width; }
-            set { _width = value; NotifyChange("Width"); }
-        }
 
-        private Material _SelectedMaterial;
-        public Material SelectedMaterial
-        {
-            get { return _SelectedMaterial; }
-            set { _SelectedMaterial = value; NotifyChange("SelectedMaterial"); }
-
-        }
         #endregion
 
         #region Commands
         /// <summary>
         /// Comando que obtiene los registros buscados
         /// </summary>
-        public ICommand BusquedaCamTurn
+        public ICommand BusquedaBatesBore
         {
             get
             {
-                return new RelayCommand(param => busquedaCamTurn((string)param));
+                return new RelayCommand(param => busquedaBatesBore((string)param));
             }
         }
 
@@ -129,9 +116,9 @@ namespace View.Services.ViewModel
         /// Método que obtiene la lista que coincidan con el texto de búsqueda
         /// </summary>
         /// <param name="texto"></param>
-        private void busquedaCamTurn(string texto)
+        private void busquedaBatesBore(string texto)
         {
-           ListaCamTurn= DataManager.GetAllCutterCamTurn(texto);
+            ListaBatesBore = DataManager.GetAllBushingBB(texto);
         }
 
         /// <summary>
@@ -144,12 +131,12 @@ namespace View.Services.ViewModel
             ListaOptimos.Clear();
 
             //Si los campos son difrentes de nulo o cero.
-            if (SelectedMaterial!=null & Width!=0)
+            if ( Diam != 0)
             {
                 //Obtenemos la lista de los herramentales optimos.
-                ListaOptimos = DataManager.GetCutterCamTurn(SelectedMaterial.id_material, _width);
+                ListaOptimos = DataManager.GetBushing(Diam);
                 //Obtenemos la lista del mejor herramental.
-                ListaMejores = DataManager.SelectBestCutterCT(ListaOptimos);
+                ListaMejores = DataManager.SelectBestBushing(ListaOptimos);
 
                 //Si la lista no tiene información.
                 if (ListaMejores.Rows.Count == 0)
@@ -164,14 +151,12 @@ namespace View.Services.ViewModel
 
         #region Constructor
 
-        public CutterCamTurnVM()
+        public BushingBatesBoreVM()
         {
-            //Obtiene la lista de todos los registros
-            busquedaCamTurn(string.Empty);
-            dialog = new DialogService();
-            ListaMejores = new DataTable();
+            busquedaBatesBore(string.Empty);
             ListaOptimos = new DataTable();
-            ListaMaterial = DataManager.GetMaterial();
+            ListaMejores = new DataTable();
+            dialog = new DialogService();
         }
         #endregion
     }

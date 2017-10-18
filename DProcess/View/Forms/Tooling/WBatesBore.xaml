@@ -1,0 +1,100 @@
+﻿<Controls:MetroWindow x:Class="View.Forms.Tooling.WBatesBore"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Forms.Tooling"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen" ShowMaxRestoreButton="False"
+        mc:Ignorable="d"
+        Title="BatesBore" Height="600" Width="1100">
+    <Controls:MetroWindow.Resources>
+        <Style x:Key="TabHeader" TargetType="Label">
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+    </Controls:MetroWindow.Resources>
+    <Grid>
+        <TabControl>
+            <TabItem>
+                <TabItem.Header>
+                    <Label Content="Data" Style="{StaticResource TabHeader}"></Label>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="15"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <TextBox Name="txt_busqueda"  Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Search..." TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" Margin="5">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction
+									Command="{Binding BusquedaBatesBore}"
+                                    CommandParameter="{Binding ElementName=txt_busqueda, Path=Text}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+
+                        <DataGrid Grid.Column="1" Grid.Row="1" HeadersVisibility="Column" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5" FontSize="18" AutoGenerateColumns="True" ItemsSource="{Binding ListaBatesBore}" IsReadOnly="True"></DataGrid>
+
+                        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+                            <Label Content="Total: " FontSize="14"></Label>
+                            <Label Content="{Binding ListaBatesBore.Count}"></Label>
+                        </StackPanel>
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+            <!--Segunda Pestaña-->
+            <TabItem>
+                <TabItem.Header>
+                    <Label Content="Search" Style="{StaticResource TabHeader}"></Label>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="20"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid  Grid.Column="1" Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="230"></RowDefinition>
+                                <RowDefinition Height="270"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal">
+                                <GroupBox Header="Required data" Margin="10" Width="300">
+                                    <StackPanel>
+                                        <TextBox Text="{Binding Diam}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Diámetro operación anterior" TextAlignment="Center" Width="280" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+                                        </TextBox>
+                                        <Button Content="Start" Command="{Binding BuscarOptimos}" Margin="10" Width="70" HorizontalAlignment="Right"></Button>
+                                    </StackPanel>
+                                </GroupBox>
+
+                                <GroupBox Header="The best option" Margin="10" Width="550">
+                                    <Grid>
+                                        <DataGrid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="True" ItemsSource="{Binding ListaMejores}" IsReadOnly="True" ></DataGrid>
+                                    </Grid>
+                                </GroupBox>
+                            </StackPanel>
+                            <DataGrid Grid.Row="1" VerticalAlignment="Top"  HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="True" ItemsSource="{Binding ListaOptimos}" IsReadOnly="True"></DataGrid>
+                        </Grid>
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Controls:MetroWindow>

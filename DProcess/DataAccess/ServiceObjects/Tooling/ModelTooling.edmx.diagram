@@ -61,6 +61,8 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CollarSpacer_MaestroHerramentales" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CutterCamTurn_MaestroHerramentales" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_WorkCam_MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.BushingBatesBore_" Width="1.5" PointX="3" PointY="75.5" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_BushingBatesBore__MaestroHerramentales" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

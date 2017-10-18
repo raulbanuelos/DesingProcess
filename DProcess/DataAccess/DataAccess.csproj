@@ -199,6 +199,9 @@
     <Compile Include="ServiceObjects\MateriasPrimas\TubosHD.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\BushingBatesBore_.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\ChuckSplitter.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -338,6 +341,7 @@
     <Compile Include="ServiceObjects\Tooling\PLANO_HERRAMENTAL.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\SO_BatesBore.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_BK.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_ClasificacionHerramental.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_COIL.cs" />
