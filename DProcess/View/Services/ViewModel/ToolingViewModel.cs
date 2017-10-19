@@ -272,7 +272,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Comando que abre ña ventana de GuillotinaBK
+        /// Comando que abre la ventana de GuillotinaBK
         /// </summary>
         public ICommand IrGuillotinaBK
         {
@@ -283,7 +283,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Comando que abre la ventana de CollarSpacer.
         /// </summary>
         public ICommand IrCollarSpacer
         {
@@ -294,7 +294,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Comando que abre la ventana de WorkCamTurn.
         /// </summary>
         public ICommand IrWorkCam
         {
@@ -304,7 +304,7 @@ namespace View.Services.ViewModel
             }
         }
         /// <summary>
-        /// 
+        /// Comando que abre la ventana de Cutter Cam Turn.
         /// </summary>
         public ICommand IrCutterCT
         {
@@ -315,7 +315,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Comando que abre la ventana de bushing Bates bore.
         /// </summary>
         public ICommand IrBushingBB
         {

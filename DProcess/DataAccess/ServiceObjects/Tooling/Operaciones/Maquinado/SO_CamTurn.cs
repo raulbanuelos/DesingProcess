@@ -86,6 +86,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
         {
             try
             {
+                //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion= new EntitiesTooling())
                 {
                     var lista = (from c in Conexion.CollarSpacer

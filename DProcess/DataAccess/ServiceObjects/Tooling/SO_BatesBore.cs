@@ -83,7 +83,7 @@ namespace DataAccess.ServiceObjects.Tooling
             }
         }
         /// <summary>
-        /// 
+        /// Método que inserta un registro en la tabla Bushing Bates Bore.
         /// </summary>
         /// <param name="codigo"></param>
         /// <param name="plano"></param>
@@ -121,7 +121,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que modifica un registro de la tabla Bushing Bates Bore.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="codigo"></param>
@@ -158,7 +158,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que elimina un registro de la tabla Bushing BB.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

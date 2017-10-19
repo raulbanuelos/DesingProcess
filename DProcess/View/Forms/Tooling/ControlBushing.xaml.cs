@@ -33,34 +33,37 @@ namespace View.Forms.Tooling
         }
 
         /// <summary>
-        /// 
+        ///  Método que guarda la información registrada.
         /// </summary>
         /// <param name="codigo"></param>
         /// <returns></returns>
         public int Guardar(string codigo)
         {
-            Herramental obj = new Herramental();
-
-            obj.Codigo = codigo;
-            obj.Plano = Plano.Text;
+            //Declaramos el objeto.
+            Herramental obj = new Herramental();     
             Propiedad MedidaNominal = new Propiedad();
             PropiedadCadena DimB = new PropiedadCadena();
-
+            //Asignamos los valores.
+            obj.Codigo = codigo;
+            obj.Plano = Plano.Text;
             DimB.Valor = comboB.SelectedValuePath;
             MedidaNominal.Valor = double.Parse(medidaN.Text, CultureInfo.InvariantCulture.NumberFormat);
-
+            //Agregamos las propiedades.
             obj.Propiedades.Add(MedidaNominal);
             obj.PropiedadesCadena.Add(DimB);
-            return 0;
+
+            //Mandamos a llamar al método para insertar el objeto y retornamos el resultado.
+            return DataManager.SetBushing(obj);
         }
 
         /// <summary>
-        /// 
+        /// Método que inicializa los componentes que se muestran en pantalla.
         /// </summary>
         public void Inicializa()
         {
             InitializeComponent();
             ListaDim = new ObservableCollection<string>();
+            ListaDim.Add("2°");
             ListaDim.Add("4°");
             ListaDim.Add("9°");
             ListaDim.Add("15°");
@@ -69,11 +72,12 @@ namespace View.Forms.Tooling
         }
 
         /// <summary>
-        /// 
+        /// étodo que valída si los campos se encuentran vacíos.
         /// </summary>
         /// <returns></returns>
         public bool ValidaError()
         {
+            //Si los campos no están vacíos, retorna true.
             if (comboB.SelectedValue != null & !string.IsNullOrEmpty(medidaN.Text) & !string.IsNullOrEmpty(Plano.Text))
                 return true;
             else
@@ -81,7 +85,7 @@ namespace View.Forms.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que valída los rangos, como no hay rangos regresa verdadero.
         /// </summary>
         /// <returns></returns>
         public bool ValidaRangos()

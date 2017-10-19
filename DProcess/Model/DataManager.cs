@@ -2557,7 +2557,7 @@ namespace Model
         #region BatesBore
 
         /// <summary>
-        /// 
+        /// Obtiene todos los registros de Bushing, o las coincidencias con el texto de búsqueda.
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
@@ -2610,7 +2610,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método obtiene los herramentales óptimos para Bushing.
         /// </summary>
         /// <param name="diaBO"></param>
         /// <returns></returns>
@@ -2666,7 +2666,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene el mejor herramental.
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
@@ -2696,6 +2696,20 @@ namespace Model
                 break;
             }
             return DataR;
+        }
+
+        /// <summary>
+        /// Método para guardar un registro.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetBushing(Herramental obj)
+        {
+            //Inicializamos los servicios de CamTurn.
+            SO_BatesBore ServiceBatesBore = new SO_BatesBore();
+
+            //Ejecutamos el método y regresa el resultado.
+            return ServiceBatesBore.SetBushing(obj.Codigo, obj.Plano, obj.Propiedades[0].Valor, obj.PropiedadesCadena[0].Valor);
         }
 
         #endregion
