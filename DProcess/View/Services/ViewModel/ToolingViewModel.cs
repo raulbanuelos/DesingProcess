@@ -272,7 +272,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Comando que abre ña ventana de GuillotinaBK
+        /// Comando que abre la ventana de GuillotinaBK
         /// </summary>
         public ICommand IrGuillotinaBK
         {
@@ -283,7 +283,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Comando que abre la ventana de CollarSpacer.
         /// </summary>
         public ICommand IrCollarSpacer
         {
@@ -294,7 +294,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Comando que abre la ventana de WorkCamTurn.
         /// </summary>
         public ICommand IrWorkCam
         {
@@ -304,7 +304,7 @@ namespace View.Services.ViewModel
             }
         }
         /// <summary>
-        /// 
+        /// Comando que abre la ventana de Cutter Cam Turn.
         /// </summary>
         public ICommand IrCutterCT
         {
@@ -315,13 +315,21 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Comando que abre la ventana de bushing Bates bore.
         /// </summary>
         public ICommand IrBushingBB
         {
             get
             {
                 return new RelayCommand(o => irBushingBB());
+            }
+        }
+
+        public ICommand IrBushingFM
+        {
+            get
+            {
+                return new RelayCommand(o => irBushingFM());
             }
         }
         #endregion
@@ -578,6 +586,17 @@ namespace View.Services.ViewModel
         {
             WBatesBore frm = new WBatesBore();
             BushingBatesBoreVM context = new BushingBatesBoreVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void irBushingFM()
+        {
+            WBatesBore frm = new WBatesBore();
+            BushingFinishMill_VM context = new BushingFinishMill_VM();
             frm.DataContext = context;
             frm.ShowDialog();
         }

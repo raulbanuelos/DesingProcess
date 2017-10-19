@@ -1,7 +1,6 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
@@ -11,7 +10,7 @@ using System.Windows.Input;
 
 namespace View.Services.ViewModel
 {
-    public class BushingBatesBoreVM : INotifyPropertyChanged
+    public class BushingFinishMill_VM : INotifyPropertyChanged
     {
         #region Attributtes
         DialogService dialog;
@@ -98,7 +97,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(param => busquedaBatesBore((string)param));
+                return new RelayCommand(param => busquedaFinishMill((string)param));
             }
         }
 
@@ -122,9 +121,9 @@ namespace View.Services.ViewModel
         /// Método que obtiene la lista que coincidan con el texto de búsqueda
         /// </summary>
         /// <param name="texto"></param>
-        private void busquedaBatesBore(string texto)
+        private void busquedaFinishMill(string texto)
         {
-            ListaHerramentales = DataManager.GetAllBushingBB(texto);
+            ListaHerramentales = DataManager.GetAllBushingFM(texto);
         }
 
         /// <summary>
@@ -137,12 +136,12 @@ namespace View.Services.ViewModel
             ListaOptimos.Clear();
 
             //Si los campos son difrentes de nulo o cero.
-            if ( Diam != 0)
+            if (Diam != 0)
             {
                 //Obtenemos la lista de los herramentales optimos.
-                ListaOptimos = DataManager.GetBushing(Diam);
+                ListaOptimos = DataManager.GetBushingFM(Diam);
                 //Obtenemos la lista del mejor herramental.
-                ListaMejores = DataManager.SelectBestBushing(ListaOptimos);
+                ListaMejores = DataManager.SelectBest_BushingFinishMill(ListaOptimos);
 
                 //Si la lista no tiene información.
                 if (ListaMejores.Rows.Count == 0)
@@ -155,15 +154,15 @@ namespace View.Services.ViewModel
         }
         #endregion
 
-        #region Constructor
+        #region Constructor 
 
-        public BushingBatesBoreVM()
+        public BushingFinishMill_VM()
         {
-            busquedaBatesBore(string.Empty);
-            ListaOptimos = new DataTable();
-            ListaMejores = new DataTable();
             dialog = new DialogService();
-            Titulo = "Bushing Bates Bore";
+            ListaMejores = new DataTable();
+            ListaOptimos = new DataTable();
+            busquedaFinishMill(string.Empty);
+            Titulo = "Bushing Finish Mill";
         }
         #endregion
     }

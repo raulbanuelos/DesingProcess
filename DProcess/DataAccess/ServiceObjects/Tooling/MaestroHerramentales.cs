@@ -40,6 +40,7 @@ namespace DataAccess.ServiceObjects.Tooling
             this.CutterCamTurn = new HashSet<CutterCamTurn>();
             this.WorkCam = new HashSet<WorkCam>();
             this.BushingBatesBore_ = new HashSet<BushingBatesBore_>();
+            this.BushingFinishMill = new HashSet<BushingFinishMill>();
         }
     
         public string Codigo { get; set; }
@@ -100,5 +101,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual ICollection<WorkCam> WorkCam { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BushingBatesBore_> BushingBatesBore_ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BushingFinishMill> BushingFinishMill { get; set; }
     }
 }

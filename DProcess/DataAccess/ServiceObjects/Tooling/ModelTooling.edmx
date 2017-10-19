@@ -15,6 +15,15 @@
           <Property Name="MedidaNominal" Type="float" />
           <Property Name="DimB" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="BushingFinishMill">
+          <Key>
+            <PropertyRef Name="Id_BushingFM" />
+          </Key>
+          <Property Name="Id_BushingFM" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="Plano" Type="varchar" MaxLength="50" />
+          <Property Name="DimC" Type="float" />
+        </EntityType>
         <EntityType Name="ChuckSplitter">
           <Key>
             <PropertyRef Name="Id_Chuck" />
@@ -442,6 +451,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BushingFinishMill_MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BushingFinishMill" Type="Self.BushingFinishMill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="BushingFinishMill">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ChuckSplitter_MaestroHerramentales">
           <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -754,6 +777,7 @@
         </Association>
         <EntityContainer Name="DataAccessServiceObjectsToolingStoreContainer">
           <EntitySet Name="BushingBatesBore_" EntityType="Self.BushingBatesBore_" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BushingFinishMill" EntityType="Self.BushingFinishMill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChuckSplitter" EntityType="Self.ChuckSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClasificacionHerramental" EntityType="Self.ClasificacionHerramental" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClosingSleeveBK" EntityType="Self.ClosingSleeveBK" Schema="dbo" store:Type="Tables" />
@@ -789,6 +813,10 @@
           <AssociationSet Name="FK_BushingBatesBore__MaestroHerramentales" Association="Self.FK_BushingBatesBore__MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="BushingBatesBore_" EntitySet="BushingBatesBore_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BushingFinishMill_MaestroHerramentales" Association="Self.FK_BushingFinishMill_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="BushingFinishMill" EntitySet="BushingFinishMill" />
           </AssociationSet>
           <AssociationSet Name="FK_ChuckSplitter_MaestroHerramentales" Association="Self.FK_ChuckSplitter_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -929,6 +957,7 @@
           <NavigationProperty Name="CutterCamTurn" Relationship="DataAccess.ServiceObjects.Tooling.FK_CutterCamTurn_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CutterCamTurn" />
           <NavigationProperty Name="WorkCam" Relationship="DataAccess.ServiceObjects.Tooling.FK_WorkCam_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="WorkCam" />
           <NavigationProperty Name="BushingBatesBore_" Relationship="DataAccess.ServiceObjects.Tooling.FK_BushingBatesBore__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="BushingBatesBore_" />
+          <NavigationProperty Name="BushingFinishMill" Relationship="DataAccess.ServiceObjects.Tooling.FK_BushingFinishMill_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="BushingFinishMill" />
         </EntityType>
         <EntityContainer Name="EntitiesTooling" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="MaestroHerramentales" EntityType="Self.MaestroHerramentales" />
@@ -1063,6 +1092,11 @@
           <AssociationSet Name="FK_BushingBatesBore__MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_BushingBatesBore__MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="BushingBatesBore_" EntitySet="BushingBatesBore_" />
+          </AssociationSet>
+          <EntitySet Name="BushingFinishMill" EntityType="DataAccess.ServiceObjects.Tooling.BushingFinishMill" />
+          <AssociationSet Name="FK_BushingFinishMill_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_BushingFinishMill_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="BushingFinishMill" EntitySet="BushingFinishMill" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="UretanoSplitter">
@@ -1823,6 +1857,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BushingFinishMill">
+          <Key>
+            <PropertyRef Name="Id_BushingFM" />
+          </Key>
+          <Property Name="Id_BushingFM" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="Plano" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DimC" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_BushingFinishMill_MaestroHerramentales" FromRole="BushingFinishMill" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_BushingFinishMill_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.BushingFinishMill" Role="BushingFinishMill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="BushingFinishMill">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2282,6 +2340,16 @@
                 <ScalarProperty Name="Plano" ColumnName="Plano" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="Id_Bushing" ColumnName="Id_Bushing" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BushingFinishMill">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.BushingFinishMill">
+              <MappingFragment StoreEntitySet="BushingFinishMill">
+                <ScalarProperty Name="DimC" ColumnName="DimC" />
+                <ScalarProperty Name="Plano" ColumnName="Plano" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Id_BushingFM" ColumnName="Id_BushingFM" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

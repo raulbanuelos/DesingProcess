@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace DataAccess.ServiceObjects.Tooling
 {
-    public class SO_BatesBore
+    public class SO_FinishMill
     {
         /// <summary>
-        ///  Método que obtiene todos los registros de acuerdo a la plabra de búsqueda
+        /// Método que obtiene todos lso registros de Bushing Finish Mill.
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
-        public IList GetAllBushing(string texto)
+        public IList GetAllBushingFM(string texto)
         {
             try
             {
@@ -23,15 +23,14 @@ namespace DataAccess.ServiceObjects.Tooling
                 using (var Conexion = new EntitiesTooling())
                 {
                     //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
-                    var Lista = (from c in Conexion.BushingBatesBore_
-                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
-                                 where c.Codigo.Contains(texto) || m.Descripcion.Contains(texto)
+                    var Lista = (from b in Conexion.BushingFinishMill
+                                 join m in Conexion.MaestroHerramentales on b.Codigo equals m.Codigo
+                                 where b.Codigo.Contains(texto) || m.Descripcion.Contains(texto)
                                  select new
                                  {
-                                     c.Codigo,
-                                     c.Plano,
-                                     c.MedidaNominal,
-                                     c.DimB,
+                                     b.Codigo,
+                                     b.Plano,
+                                     b.DimC,
                                      m.Descripcion,
                                      m.Activo
                                  }).ToList();
@@ -47,12 +46,12 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// Método que obtiene el collarin a partir de los valores mínimos y máximos.
+        /// Método que obtiene los herramentales óptimos a partir de los valores mínimos y máximos.
         /// </summary>
         /// <param name="diaMin"></param>
         /// <param name="diaMax"></param>
         /// <returns></returns>
-        public IList GetBushing(double diaMin, double diaMax)
+        public IList GetBushingFM(double diaMin, double diaMax)
         {
             try
             {
@@ -60,18 +59,17 @@ namespace DataAccess.ServiceObjects.Tooling
                 using (var Conexion = new EntitiesTooling())
                 {
                     //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
-                    var Lista = (from c in Conexion.BushingBatesBore_
-                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
-                                 where c.MedidaNominal >= diaMin && c.MedidaNominal <= diaMax
+                    var Lista = (from b in Conexion.BushingFinishMill
+                                 join m in Conexion.MaestroHerramentales on b.Codigo equals m.Codigo
+                                 where b.DimC >= diaMin && b.DimC <= diaMax
                                  select new
                                  {
-                                     c.Codigo,
-                                     c.Plano,
-                                     c.MedidaNominal,
-                                     c.DimB,
+                                     b.Codigo,
+                                     b.Plano,
+                                     b.DimC,
                                      m.Descripcion,
                                      m.Activo
-                                 }).OrderBy(x => x.MedidaNominal).ToList();
+                                 }).OrderBy(x => x.DimC).ToList();
                     //Retornamos el resultado de la consulta.
                     return Lista;
                 }
@@ -82,15 +80,17 @@ namespace DataAccess.ServiceObjects.Tooling
                 return null;
             }
         }
+
+
         /// <summary>
-        /// Método que inserta un registro en la tabla Bushing Bates Bore.
+        /// Método que inserta un registro a la tabla BusgingFinish Mill.
         /// </summary>
         /// <param name="codigo"></param>
         /// <param name="plano"></param>
         /// <param name="medidaNom"></param>
         /// <param name="dimB"></param>
         /// <returns></returns>
-        public int SetBushing(string codigo, string plano, double medidaNom, string dimB)
+        public int SetBushingFM(string codigo, string plano, double dimC)
         {
             try
             {
@@ -98,19 +98,19 @@ namespace DataAccess.ServiceObjects.Tooling
                 using (var Conexion = new EntitiesTooling())
                 {
                     //Declaramos el objeto de la tabla.
-                    BushingBatesBore_ obj = new BushingBatesBore_();
+                    BushingFinishMill obj = new BushingFinishMill();
 
                     //Asignamos los valores
                     obj.Codigo = codigo;
                     obj.Plano = plano;
-                    obj.MedidaNominal = medidaNom;
-                    obj.DimB = dimB;
-                  
+                    obj.DimC = dimC;
+
                     //Guardamos los cambios
-                    Conexion.BushingBatesBore_.Add(obj);
+                    Conexion.BushingFinishMill.Add(obj);
                     Conexion.SaveChanges();
+
                     //Retornamos el id
-                    return obj.Id_Bushing;
+                    return obj.Id_BushingFM;
                 }
             }
             catch (Exception)
@@ -121,15 +121,14 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// Método que modifica un registro de la tabla Bushing Bates Bore.
+        /// Método que modifica un registro en la tabla Bushing Finish Mill.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="codigo"></param>
         /// <param name="plano"></param>
-        /// <param name="medidaNom"></param>
-        /// <param name="dimB"></param>
+        /// <param name="dimC"></param>
         /// <returns></returns>
-        public int UpdateBushing(int id, string codigo, string plano, double medidaNom, string dimB)
+        public int UpdateBushingFM(int id, string codigo, string plano, double dimC)
         {
             try
             {
@@ -137,13 +136,12 @@ namespace DataAccess.ServiceObjects.Tooling
                 using (var Conexion = new EntitiesTooling())
                 {
                     //Se obtiene el objeto que se va a modificar.
-                    BushingBatesBore_ obj = Conexion.BushingBatesBore_.Where(x => x.Id_Bushing == id).FirstOrDefault();
+                    BushingFinishMill obj = Conexion.BushingFinishMill.Where(x => x.Id_BushingFM == id).FirstOrDefault();
 
                     //Asiganmos los valores
                     obj.Codigo = codigo;
                     obj.Plano = plano;
-                    obj.MedidaNominal = medidaNom;
-                    obj.DimB = dimB;
+                    obj.DimC = dimC;
 
                     //Se guardan los cambios y se retorna el número de registros afectados
                     Conexion.Entry(obj).State = EntityState.Modified;
@@ -158,11 +156,11 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// Método que elimina un registro de la tabla Bushing BB.
+        /// Método que elimina un registro de la tabla Bushing Finish Mill.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public int DeleteBushing(int id)
+        public int DeleteBushingFM(int id)
         {
             try
             {
@@ -170,7 +168,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 using (var Conexion = new EntitiesTooling())
                 {
                     //Se obtiene el objeto que se va a eliminar.
-                    BushingBatesBore_ obj = Conexion.BushingBatesBore_.Where(x => x.Id_Bushing == id).FirstOrDefault();
+                    BushingFinishMill obj = Conexion.BushingFinishMill.Where(x => x.Id_BushingFM == id).FirstOrDefault();
 
                     //Se guardan los cambios y retorna el número de registros afectados.
                     Conexion.Entry(obj).State = EntityState.Deleted;
