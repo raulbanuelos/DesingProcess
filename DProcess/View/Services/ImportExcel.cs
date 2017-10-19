@@ -27,7 +27,7 @@ namespace View.Services
                 Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
                 //Filtar los dpocumentos por extensión 
-                dlg.Filter = "Excel (97-2003)|*.xlsx";
+                dlg.Filter = "Excel Workbook|*.xlsx";
 
                 // Mostrar el explorador de archivos
                 Nullable<bool> result = dlg.ShowDialog();
@@ -175,7 +175,7 @@ namespace View.Services
                 Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
                 //Filtar los dpocumentos por extensión 
-                dlg.Filter = "Excel (97-2003)|*.xlsx";
+                dlg.Filter = "Excel Workbook|*.xlsx";
 
                 // Mostrar el explorador de archivos
                 Nullable<bool> result = dlg.ShowDialog();
