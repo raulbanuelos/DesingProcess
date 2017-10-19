@@ -2610,7 +2610,7 @@ namespace Model
         }
 
         /// <summary>
-        /// Método obtiene los herramentales óptimos para Bushing.
+        /// Método obtiene los herramentales óptimos para Bushing Bates Bore.
         /// </summary>
         /// <param name="diaBO"></param>
         /// <returns></returns>
@@ -2714,6 +2714,151 @@ namespace Model
 
         #endregion
 
+
+        #region FinishMill
+
+        /// <summary>
+        /// Método que obtiene todos los registros de Bushing Finish Mill.
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public static DataTable GetAllBushingFM(string texto)
+        {
+            //Inicializamos los servicios de Finish Mill.
+            SO_FinishMill ServiceFinishMill = new SO_FinishMill();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceFinishMill.GetAllBushingFM(texto);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim C";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimC").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "BushingFinishMill");
+        }
+
+        /// <summary>
+        /// Método que obtiene los herramentales óptimos para Finish Mill.
+        /// </summary>
+        /// <param name="diaBO"></param>
+        /// <returns></returns>
+        public static DataTable GetBushingFM(double diaBO)
+        {
+            //Inicializamos los servicios de CamTurn.
+            SO_FinishMill ServiceFinishMill = new SO_FinishMill();
+
+            double cri_min = diaBO + GetCriterio("FinMillBushignMin");
+            double cri_max = diaBO + GetCriterio("FinMillBushignMax");
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceFinishMill.GetBushingFM(cri_min, cri_max);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim C";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimC").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "BushingFinishMill");
+        }
+        /// <summary>
+        /// Obtiene el mejor herramental para Bushing Finish Mill.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable SelectBest_BushingFinishMill(DataTable dt)
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Description");
+            DataR.Columns.Add("Dim C");
+
+            //Sólo se hace la iteración una vez
+            foreach (DataRow row in dt.Rows)
+            {
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = DataR.NewRow();
+                dr["Code"] = row["Code"].ToString();
+                dr["Description"] = row["Description"].ToString();
+                dr["Dim C"] = row["Dim C"].ToString();
+
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+                break;
+            }
+            return DataR;
+        }
+
+        /// <summary>
+        /// Método que guarda un registro de Bushing Finish Mill.
+        /// </summary>
+        /// <param name="herramental"></param>
+        /// <returns></returns>
+        public static int SetBushingFM(Herramental herramental)
+        {
+            //Inicializamos los servicios de Finish Mill.
+            SO_FinishMill ServiceFinishMill = new SO_FinishMill();
+
+            //Ejecutamos el método t retornamos el resultado.
+            return ServiceFinishMill.SetBushingFM(herramental.Codigo, herramental.Plano, herramental.Propiedades[0].Valor);
+        }
+        #endregion
         #endregion
 
         #region Herramentales

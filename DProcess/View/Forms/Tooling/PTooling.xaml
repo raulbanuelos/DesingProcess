@@ -60,7 +60,9 @@
                 </MenuItem>
                 <MenuItem Header="Bates Bore">
                     <MenuItem Header="Bushing" Cursor="Hand" Command="{Binding IrBushingBB}"/>
-
+                </MenuItem>
+                <MenuItem Header="Finish Mill">
+                    <MenuItem Header="Bushing" Cursor="Hand" Command="{Binding IrBushingFM}"/>
                 </MenuItem>
                 <MenuItem Header="Auto Finish Turn" Cursor="Hand">
                     <MenuItem Header="Collar" Cursor="Hand" Command="{Binding IrCollarBK}"/>

@@ -324,6 +324,14 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => irBushingBB());
             }
         }
+
+        public ICommand IrBushingFM
+        {
+            get
+            {
+                return new RelayCommand(o => irBushingFM());
+            }
+        }
         #endregion
 
         #region Methods
@@ -578,6 +586,17 @@ namespace View.Services.ViewModel
         {
             WBatesBore frm = new WBatesBore();
             BushingBatesBoreVM context = new BushingBatesBoreVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void irBushingFM()
+        {
+            WBatesBore frm = new WBatesBore();
+            BushingFinishMill_VM context = new BushingFinishMill_VM();
             frm.DataContext = context;
             frm.ShowDialog();
         }

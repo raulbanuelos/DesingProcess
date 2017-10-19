@@ -234,6 +234,9 @@
     <Compile Include="Forms\Tooling\ControlBushing.xaml.cs">
       <DependentUpon>ControlBushing.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlBushing_FinishM.xaml.cs">
+      <DependentUpon>ControlBushing_FinishM.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlChuckSplitterCasting.xaml.cs">
       <DependentUpon>ControlChuckSplitterCasting.xaml</DependentUpon>
     </Compile>
@@ -367,6 +370,7 @@
     <Compile Include="Services\ViewModel\BloqueoVM.cs" />
     <Compile Include="Services\ViewModel\Buscar_DocumentoVM.cs" />
     <Compile Include="Services\ViewModel\BushingBatesBoreVM.cs" />
+    <Compile Include="Services\ViewModel\BushingFinishMill_VM.cs" />
     <Compile Include="Services\ViewModel\Busqueda_HerramentalVM.cs" />
     <Compile Include="Services\ViewModel\ChuckSplitterVM.cs" />
     <Compile Include="Services\ViewModel\ClosingSleeveVM.cs" />
@@ -581,6 +585,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\Tooling\ControlBushing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlBushing_FinishM.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

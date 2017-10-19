@@ -2,7 +2,6 @@
 using Model.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -21,39 +20,34 @@ using System.Windows.Shapes;
 namespace View.Forms.Tooling
 {
     /// <summary>
-    /// Lógica de interacción para ControlBushing.xaml
+    /// Lógica de interacción para ControlBushing_FinishM.xaml
     /// </summary>
-    public partial class ControlBushing : UserControl, IControlTooling
+    public partial class ControlBushing_FinishM : UserControl, IControlTooling
     {
-        ObservableCollection<string> ListaDim;
-
-        public ControlBushing()
+        public ControlBushing_FinishM()
         {
             InitializeComponent();
         }
 
         /// <summary>
-        ///  Método que guarda la información registrada.
+        /// Método que guarda la información registrada.
         /// </summary>
         /// <param name="codigo"></param>
         /// <returns></returns>
         public int Guardar(string codigo)
         {
-            //Declaramos el objeto.
-            Herramental obj = new Herramental();     
-            Propiedad MedidaNominal = new Propiedad();
-            PropiedadCadena DimB = new PropiedadCadena();
+            Herramental obj = new Herramental();
+            Propiedad DimensionC = new Propiedad();
+
             //Asignamos los valores.
             obj.Codigo = codigo;
             obj.Plano = Plano.Text;
-            DimB.Valor = comboB.SelectedValuePath;
-            MedidaNominal.Valor = double.Parse(medidaN.Text, CultureInfo.InvariantCulture.NumberFormat);
+            DimensionC.Valor = double.Parse(dimC.Text, CultureInfo.InvariantCulture.NumberFormat);
             //Agregamos las propiedades.
-            obj.Propiedades.Add(MedidaNominal);
-            obj.PropiedadesCadena.Add(DimB);
+            obj.Propiedades.Add(DimensionC);
 
             //Mandamos a llamar al método para insertar el objeto y retornamos el resultado.
-            return DataManager.SetBushing(obj);
+            return DataManager.SetBushingFM(obj);
         }
 
         /// <summary>
@@ -62,13 +56,6 @@ namespace View.Forms.Tooling
         public void Inicializa()
         {
             InitializeComponent();
-            ListaDim = new ObservableCollection<string>();
-            ListaDim.Add("2°");
-            ListaDim.Add("4°");
-            ListaDim.Add("9°");
-            ListaDim.Add("15°");
-
-            comboB.ItemsSource=ListaDim;
         }
 
         /// <summary>
@@ -77,8 +64,7 @@ namespace View.Forms.Tooling
         /// <returns></returns>
         public bool ValidaError()
         {
-            //Si los campos no están vacíos, retorna true.
-            if (comboB.SelectedValue != null & !string.IsNullOrEmpty(medidaN.Text) & !string.IsNullOrEmpty(Plano.Text))
+            if (!string.IsNullOrEmpty(Plano.Text) & !string.IsNullOrEmpty(dimC.Text))
                 return true;
             else
                 return false;
