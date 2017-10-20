@@ -50,19 +50,11 @@ namespace View.Forms.Tooling
         public void Inicializa()
         {
             InitializeComponent();
-            ListaColor = new ObservableCollection<string>();
-
-            ListaColor.Add("AZUL");
-            ListaColor.Add("ROJO");
-            ListaColor.Add("AMARILLO");
-            ListaColor.Add("VERDE");
-
-            comboColor.ItemsSource = ListaColor;
         }
 
         public bool ValidaError()
         {
-            if (!string.IsNullOrEmpty(dimMin.Text) & !string.IsNullOrEmpty(dimMax.Text) & !string.IsNullOrEmpty(detalle.Text) & !string.IsNullOrEmpty(medidas.Text) & comboColor.SelectedValue != null)
+            if (!string.IsNullOrEmpty(dimMin.Text) & !string.IsNullOrEmpty(dimMax.Text) &  !string.IsNullOrEmpty(medidas.Text) & !string.IsNullOrEmpty(color.Text))
                 return true;
             else
                 return false;
@@ -81,6 +73,20 @@ namespace View.Forms.Tooling
                 return false;
         }
 
+        public int Update()
+        {
+            return 0;
+        }
+
+        public void InicializaCampos(string codigoHerramental)
+        {
+           Herramental obj = DataManager.GetInfoUretanoSplitter(codigoHerramental);
+
+            dimMin.Text = Convert.ToString(obj.Propiedades[0].Valor);
+            dimMax.Text = Convert.ToString(obj.Propiedades[1].Valor);
+            medidas.Text = obj.PropiedadesCadena[0].Valor;
+            color.Text= obj.PropiedadesCadena[1].Valor;
+        }
         /// <summary>
         /// Método que válida la entrada del textbox sólo sea número flotante
         /// </summary>

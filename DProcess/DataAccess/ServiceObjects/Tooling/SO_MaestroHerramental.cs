@@ -204,13 +204,15 @@ namespace DataAccess.ServiceObjects.Tooling
                 {
                     //Se ejecuta el comando para obtener la información del herramental
                     var Lista = (from m in Conexion.MaestroHerramentales
+                                 join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
                                  where m.Codigo.Equals(codigo)
                                  select new
                                  {
                                      m.Descripcion,
                                      m.Activo,
                                      m.idClasificacionHerramental,
-                                     m.idPlano
+                                     m.idPlano,
+                                     c.ObjetoXML
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;

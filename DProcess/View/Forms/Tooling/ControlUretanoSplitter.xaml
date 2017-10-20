@@ -11,9 +11,8 @@
         <StackPanel Orientation="Vertical">
             <TextBox x:Name="dimMin" materialDesign:HintAssist.Hint="Diam Min" HorizontalAlignment="Left"   Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation"  PreviewKeyDown="KeyValidation" ></TextBox>
             <TextBox x:Name="dimMax" materialDesign:HintAssist.Hint="Diam Max" HorizontalAlignment="Left"   Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation"  PreviewKeyDown="KeyValidation" ></TextBox>
-            <TextBox x:Name="detalle" materialDesign:HintAssist.Hint="Detalle" HorizontalAlignment="Left"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  PreviewKeyDown="KeyValidation"></TextBox>
             <TextBox x:Name="medidas" materialDesign:HintAssist.Hint="Medidas" HorizontalAlignment="Left"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  PreviewKeyDown="KeyValidation"></TextBox>
-            <ComboBox x:Name="comboColor" materialDesign:HintAssist.Hint="Color" FontSize="18" Height="50" Width="420" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding ListaProcesos}" SelectedValue="{Binding Proceso}" />
+            <TextBox x:Name="color" materialDesign:HintAssist.Hint="Color" HorizontalAlignment="Left"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  PreviewKeyDown="KeyValidation"></TextBox>
         </StackPanel>
     </Grid>
 </UserControl>

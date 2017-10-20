@@ -141,6 +141,43 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
         }
 
         /// <summary>
+        /// Obtiene la información de un herramental de CutterSpacer a partit del código.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoSpacer(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from a in Conexion.CutterSpacerSplitter
+                                 join m in Conexion.MaestroHerramentales on a.Codigo equals m.Codigo
+                                 where a.Codigo.Equals(codigo) 
+                                 select new
+                                 {
+                                     a.Codigo,
+                                     a.A,
+                                     a.B,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     a.ID_SPACER_SPLITTER
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Método que obtiene la medida ideal del spacer.
         /// </summary>
         /// <param name="proceso"></param>
@@ -343,7 +380,6 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     CutterSpacerSplitter obj = conexion.CutterSpacerSplitter.Where(x => x.ID_SPACER_SPLITTER == id).FirstOrDefault();
 
                     //Asiganmos los valores
-                    obj.Codigo = codigo;
                     obj.A = a;
                     obj.B = b;
                     obj.Plano = plano;
@@ -464,6 +500,42 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                 }
             }
             catch (Exception er) 
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene la información de un herramental de Cutter Splitter partit del código.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoCutter(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from a in Conexion.CutterSplitter
+                                 join m in Conexion.MaestroHerramentales on a.Codigo equals m.Codigo
+                                 where a.Codigo.Equals(codigo)
+                                 select new
+                                 {
+                                     a.Codigo,
+                                     a.Diametro,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     a.ID_CUTTER_SPLITTER
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception er)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -684,6 +756,45 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
             }
         }
 
+
+        /// <summary>
+        /// Obtiene la información de un herramental de Chuck Splitter partir del código.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoChuckS(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from a in Conexion.ChuckSplitter
+                                 join m in Conexion.MaestroHerramentales on a.Codigo equals m.Codigo
+                                 where a.Codigo.Equals(codigo)
+                                 select new
+                                 {
+                                     a.Codigo,
+                                     a.DiaMin,
+                                     a.DiaMax,
+                                     a.TipoEnsamble,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     a.Id_Chuck
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
+
         /// <summary>
         /// Método que da de alta un registro a la tabla Chuck
         /// </summary>
@@ -890,6 +1001,45 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
         }
 
         /// <summary>
+        /// Obtiene la información de un herramental de Uretano Splitter partir del código.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoUretanoS(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from a in Conexion.UretanoSplitter
+                                 join m in Conexion.MaestroHerramentales on a.Codigo equals m.Codigo
+                                 where a.Codigo.Equals(codigo)
+                                 select new
+                                 {
+                                     a.Codigo,
+                                     a.DiaMin,
+                                     a.DiaMax,
+                                     a.Medidas,                                     
+                                     a.Color,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     a.ID_URETANO_SPLITTER
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="codigo"></param>
@@ -914,7 +1064,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     uretano.Color = color;
                     uretano.DiaMin = diaMin;
                     uretano.DiaMax = diaMax;
-                    uretano.Detalle = detalle;
+                    uretano.Detalle = "0";
 
                     //Se guardan los cambios
                     Conexion.UretanoSplitter.Add(uretano);
@@ -950,12 +1100,11 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                 {
                     UretanoSplitter obj = Conexion.UretanoSplitter.Where(x => x.ID_URETANO_SPLITTER == id).FirstOrDefault();
 
-                    obj.Codigo = codigo;
+                   // obj.Codigo = codigo;
                     obj.Medidas = medidas;
                     obj.Color = color;
                     obj.DiaMin = diaMin;
                     obj.DiaMax = diaMax;
-                    obj.Detalle = detalle;
 
                     //Guardamos los cambios, y retornamos los registros modificados
                     Conexion.Entry(obj).State = EntityState.Modified;

@@ -17,5 +17,6 @@ namespace Model
         public bool activo { get; set; }
         public int id_clasificacion { get; set; }
         public int id_plano { get; set; }
+        public string  objetoXML { get; set; }
     }
 }

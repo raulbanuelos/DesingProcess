@@ -112,6 +112,41 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
         }
 
         /// <summary>
+        /// Método que obtiene la información de un herramentla de Collar.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoCollarSpacer(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var lista = (from c in Conexion.CollarSpacer
+                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
+                                 where c.Codigo.Equals(codigo)
+                                 select new
+                                 {
+                                     c.Codigo,
+                                     m.Descripcion,
+                                     c.DimE,
+                                     c.DimF,
+                                     c.MedidaNominal,
+                                     DESCRIPCIONCT = c.Descripcion,
+                                     c.Plano,
+                                     c.Id_CollarSpacer
+                                 }).ToList();
+                    return lista;
+                }
+            }
+            catch (Exception er)
+            {
+
+                return null;
+            }
+        }
+        /// <summary>
         /// Método que guarda un registro en la tbla.
         /// </summary>
         /// <param name="codigo"></param>
@@ -255,6 +290,42 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
             }
         }
 
+        /// <summary>
+        /// Método que obtiene la información de un herramentla de Collar.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+       /* public IList GetInfoWorkCam(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var lista = (from c in Conexion.WorkCam
+                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
+                                 where c.Codigo.Equals(codigo)
+                                 select new
+                                 {
+                                     c.Codigo,
+                                     m.Descripcion,
+                                     c.DimE,
+                                     c.DimF,
+                                     c.MedidaNominal,
+                                     DESCRIPCIONCT = c.Descripcion,
+                                     c.Plano,
+                                     c.Id_CollarSpacer
+                                 }).ToList();
+                    return lista;
+                }
+            }
+            catch (Exception er)
+            {
+
+                return null;
+            }
+        }
+        */
         /// <summary>
         /// Método que obtiene el CamDetail para la seleccion de herramnetal de  WorkCam.
         /// </summary>

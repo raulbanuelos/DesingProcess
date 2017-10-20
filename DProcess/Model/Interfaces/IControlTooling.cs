@@ -12,5 +12,7 @@ namespace Model.Interfaces
         bool ValidaError();
         void Inicializa();
         bool ValidaRangos();
+        void InicializaCampos(string codigoHerramental);
+        int Update();
     }
 }

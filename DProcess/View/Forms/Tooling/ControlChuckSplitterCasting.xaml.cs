@@ -40,17 +40,17 @@ namespace View.Forms.Tooling
             Herramental obj = new Herramental();          
             Propiedad DMin = new Propiedad();
             Propiedad DMax = new Propiedad();
-            PropiedadCadena Pplano = new PropiedadCadena();
+            PropiedadCadena Pensamble = new PropiedadCadena();
 
             //Asignamos los valores.
             obj.Codigo = codigo;
             DMin.Valor= double.Parse(dimMin.Text, CultureInfo.InvariantCulture.NumberFormat);
             DMax.Valor= double.Parse(dimMax.Text, CultureInfo.InvariantCulture.NumberFormat);
-            Pplano.Valor = plano.Text;
+            Pensamble.Valor = ensamble.Text;
             //Agregamos las propiedades.
             obj.Propiedades.Add(DMin);
             obj.Propiedades.Add(DMax);
-            obj.PropiedadesCadena.Add(Pplano);
+            obj.PropiedadesCadena.Add(Pensamble);
 
             //Mandamos a llamar al método para insertar el objeto y retornamos el resultado.
             return DataManager.SetChuckSplitter(obj);
@@ -71,7 +71,7 @@ namespace View.Forms.Tooling
         public bool ValidaError()
         {
             //Si los campos no están vacíos, retorna true.
-            if (!string.IsNullOrEmpty(dimMax.Text) & !string.IsNullOrEmpty(dimMin.Text) & !string.IsNullOrEmpty(plano.Text))
+            if (!string.IsNullOrEmpty(dimMax.Text) & !string.IsNullOrEmpty(dimMin.Text) & !string.IsNullOrEmpty(ensamble.Text))
                 return true;
             else
                 return false;
@@ -92,6 +92,20 @@ namespace View.Forms.Tooling
                 return true;
             else
                 return false;
+        }
+
+        public int Update()
+        {
+            return 0;
+        }
+
+        public void InicializaCampos(string codigoHerramental)
+        {
+            Herramental obj = DataManager.GetInfoChuckSplitter(codigoHerramental);
+
+            dimMin.Text = Convert.ToString(obj.Propiedades[0].Valor);
+            dimMax.Text = Convert.ToString(obj.Propiedades[1].Valor);
+            ensamble.Text = obj.PropiedadesCadena[0].Valor;
         }
 
         /// <summary>

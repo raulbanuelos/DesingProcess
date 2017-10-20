@@ -831,6 +831,55 @@ namespace Model
             return ConverToObservableCollectionHerramental_DataSet(Lista, "CutterSpacerSplitter");
         }
 
+        /// <summary>
+        /// Obtiene la información de Spacer Splitter 
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoCutterSpacer(string codigo)
+        {
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
+
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método que busca los herramentales de Cutter a partir del texto de búsqueda. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServiceSplitter.GetInfoSpacer(codigo);
+
+            //Si la lista es diferente de nulo
+            if (informacionBD != null)
+            {
+                //iteramos la lista
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+             
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_SPACER_SPLITTER").GetValue(item, null);
+
+                    //Dim A
+                    Propiedad dimA = new Propiedad();
+                    dimA.Valor = (double)tipo.GetProperty("A").GetValue(item, null);
+                    dimA.Unidad = "Milimeters (mm)";
+                    dimA.DescripcionCorta = "Dim A";
+                    herramental.Propiedades.Add(dimA);
+
+                    //DimB
+                    Propiedad dimB = new Propiedad();
+                    dimB.Valor = (double)tipo.GetProperty("B").GetValue(item, null);
+                    dimB.Unidad = "Milimeters (mm)";
+                    dimB.DescripcionCorta = "Dim B";
+                    herramental.Propiedades.Add(dimB);
+                  
+                }
+            }
+            return herramental;
+        }
+
         //Cutter Splitter
 
         /// <summary>
@@ -962,6 +1011,59 @@ namespace Model
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaR, "ChuckSplitter");
         }
+
+        /// <summary>
+        ///  Obtiene la información de Chuck Splitter a partir del código.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoChuckSplitter(string codigo)
+        {
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
+
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método que busca los herramentales de Cutter a partir del texto de búsqueda. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServiceSplitter.GetInfoChuckS(codigo);
+
+            //Si la lista es diferente de nulo
+            if (informacionBD != null)
+            {
+                //iteramos la lista
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("Id_Chuck").GetValue(item, null);
+
+                    Propiedad diaMin = new Propiedad();
+                    diaMin.Valor = (double)tipo.GetProperty("DiaMin").GetValue(item, null);
+                    diaMin.Unidad = "Milimeters (mm)";
+                    diaMin.DescripcionCorta = "Diametro Min";
+                    herramental.Propiedades.Add(diaMin);
+
+                    Propiedad diaMax = new Propiedad();
+                    diaMax.Valor = (double)tipo.GetProperty("DiaMax").GetValue(item, null);
+                    diaMax.Unidad = "Milimeters (mm)";
+                    diaMax.DescripcionCorta = "Diametro Max";
+                    herramental.Propiedades.Add(diaMax);
+
+                    PropiedadCadena ensamble = new PropiedadCadena();
+                    ensamble.Valor = (string)tipo.GetProperty("TipoEnsamble").GetValue(item, null);
+                    ensamble.DescripcionCorta = "Tipo Ensamble";
+                    herramental.PropiedadesCadena.Add(ensamble);
+
+                }
+            }
+            return herramental;
+        }
+
 
         /// <summary>
         /// Método que guarda un registro de herramental ChuckSplitter
@@ -1130,6 +1232,63 @@ namespace Model
             return ConverToObservableCollectionHerramental_DataSet(ListaR, "UretanoSplitter");
         }
 
+        /// <summary>
+        ///  Obtiene la información de Uretano Splitter a partir del código.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoUretanoSplitter(string codigo)
+        {
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
+
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método que busca los herramentales de Cutter a partir del texto de búsqueda. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServiceSplitter.GetInfoUretanoS(codigo);
+
+            //Si la lista es diferente de nulo
+            if (informacionBD != null)
+            {
+                //iteramos la lista
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_URETANO_SPLITTER").GetValue(item, null);
+
+                    Propiedad diaMin = new Propiedad();
+                    diaMin.Valor = (double)tipo.GetProperty("DiaMin").GetValue(item, null);
+                    diaMin.Unidad = "Milimeters (mm)";
+                    diaMin.DescripcionCorta = "Diametro Min";
+                    herramental.Propiedades.Add(diaMin);
+
+                    Propiedad diaMax = new Propiedad();
+                    diaMax.Valor = (double)tipo.GetProperty("DiaMax").GetValue(item, null);
+                    diaMax.Unidad = "Milimeters (mm)";
+                    diaMax.DescripcionCorta = "Diametro Max";
+                    herramental.Propiedades.Add(diaMax);
+
+                    PropiedadCadena ensamble = new PropiedadCadena();
+                    ensamble.Valor = (string)tipo.GetProperty("Medidas").GetValue(item, null);
+                    ensamble.DescripcionCorta = "Medidas";
+                    herramental.PropiedadesCadena.Add(ensamble);
+
+                    PropiedadCadena color = new PropiedadCadena();
+                    color.Valor = (string)tipo.GetProperty("Color").GetValue(item, null);
+                    color.DescripcionCorta = "Medidas";
+                    herramental.PropiedadesCadena.Add(color);
+
+                }
+            }
+            return herramental;
+        }
+
+
         /*CutterSplitter
          * 
          * 
@@ -1179,6 +1338,48 @@ namespace Model
             }
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(Lista, "CutterSplitter");
+        }
+
+        /// <summary>
+        /// Obtiene la información de Cutter Splitter .
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoCutterSplitter(string codigo)
+        {
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
+
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método que busca los herramentales de Cutter a partir del texto de búsqueda. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServiceSplitter.GetInfoCutter(codigo);
+
+            //Si la lista es diferente de nulo
+            if (informacionBD != null)
+            {
+                //iteramos la lista
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_CUTTER_SPLITTER").GetValue(item, null);
+
+                    //Diametro
+                    Propiedad diametro = new Propiedad();
+                    diametro.Valor = (double)tipo.GetProperty("Diametro").GetValue(item, null);
+                    diametro.Unidad = "Milimeters (mm)";
+                    diametro.DescripcionCorta = "Diametro";
+                    herramental.Propiedades.Add(diametro);
+
+                }
+            }
+            return herramental;
         }
 
 
@@ -1404,6 +1605,63 @@ namespace Model
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CollarSpacer");
         }
+
+        /// <summary>
+        /// Obtiene la información de Spacer Splitter 
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoCollarSpacer(string codigo)
+        {
+           
+            Herramental herramental = new Herramental();
+
+            //Inicializamos los servicios de CamTurn.
+            SO_CamTurn ServiceCam = new SO_CamTurn();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceCam.GetInfoCollarSpacer(codigo);
+
+            //Si la lista es diferente de nulo
+            if (informacionBD != null)
+            {
+                //iteramos la lista
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("Id_CollarSpacer").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+
+                    Propiedad propiedadDimE = new Propiedad();
+                    propiedadDimE.Unidad = "";
+                    propiedadDimE.Valor = (double)tipo.GetProperty("DimE").GetValue(item, null);
+                    propiedadDimE.DescripcionCorta = "Dim E";
+                    herramental.Propiedades.Add(propiedadDimE);
+
+                    Propiedad propiedadDimF = new Propiedad();
+                    propiedadDimF.Unidad = "";
+                    propiedadDimF.Valor = (double)tipo.GetProperty("DimF").GetValue(item, null);
+                    propiedadDimF.DescripcionCorta = "Dim F";
+                    herramental.Propiedades.Add(propiedadDimF);
+
+                    PropiedadCadena propiedadMN = new PropiedadCadena();
+                    propiedadMN.DescripcionCorta = "Medida Nominal";
+                    propiedadMN.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propiedadMN);
+
+                    PropiedadCadena descripcion = new PropiedadCadena();
+                    descripcion.Valor = (string)tipo.GetProperty("DESCRIPCIONCT").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(descripcion);
+                }
+            }
+            return herramental;
+        }
+
 
         /// <summary>
         /// 
@@ -3044,6 +3302,7 @@ namespace Model
                     obj.id_clasificacion = (int)tipo.GetProperty("idClasificacionHerramental").GetValue(item, null);
                     obj.id_plano = 0; //(int)tipo.GetProperty("idPlano").GetValue(item, null);
                     obj.activo= (bool)tipo.GetProperty("Activo").GetValue(item, null);
+                    obj.objetoXML=(string)tipo.GetProperty("ObjetoXML").GetValue(item, null);
                 }
             }
             //Retornamos el objeto

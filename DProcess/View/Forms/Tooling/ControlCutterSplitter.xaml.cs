@@ -60,6 +60,18 @@ namespace View.Forms.Tooling
             return true;
         }
 
+        public int Update()
+        {
+            return 0;
+        }
+
+        public void InicializaCampos(string codigoHerramental)
+        {
+            Herramental obj = DataManager.GetInfoCutterSplitter(codigoHerramental);
+           
+            diam.Text = Convert.ToString(obj.Propiedades[0].Valor);
+        }
+
         /// <summary>
         /// Método que válida la entrada del textbox sólo sea número flotante
         /// </summary>

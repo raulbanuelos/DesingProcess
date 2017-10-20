@@ -70,6 +70,16 @@ namespace View.Forms.Tooling
                 return false;
         }
 
+        public int Update()
+        {
+            return 0;
+        }
+
+        public void InicializaCampos(string codigoHerramental)
+        {
+
+        }
+
         /// <summary>
         /// 
         /// </summary>

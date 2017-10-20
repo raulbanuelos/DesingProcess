@@ -87,6 +87,21 @@ namespace View.Forms.Tooling
             return true;
         }
 
+        public int Update()
+        {
+            return 0;
+        }
+
+        public void InicializaCampos(string codigoHerramental)
+        {
+            Herramental obj = DataManager.GetInfoCollarSpacer(codigoHerramental);
+
+            dimE.Text = Convert.ToString(obj.Propiedades[0].Valor);
+            dimF.Text = Convert.ToString(obj.Propiedades[1].Valor);
+            medidaN.Text = obj.PropiedadesCadena[0].Valor;
+            desc.Text = obj.PropiedadesCadena[1].Valor;
+            plano.Text = obj.Plano;
+        }
         /// <summary>
         /// Método que válida la entrada del textbox sólo sea número flotante.
         /// </summary>

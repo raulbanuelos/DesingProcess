@@ -139,5 +139,15 @@ namespace View.Forms.Tooling
             if (e.Key == Key.Space)
                 e.Handled = true;
         }
+
+        public int Update()
+        {
+            return 0;
+        }
+
+        public void InicializaCampos(string codigoHerramental)
+        {
+
+        }
     }
 }

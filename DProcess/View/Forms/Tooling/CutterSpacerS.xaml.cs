@@ -80,6 +80,18 @@ namespace View.Forms.Tooling
             return true;
         }
 
+        public int Update()
+        {
+            return 0;
+        }
+
+        public void InicializaCampos(string codigoHerramental)
+        {
+            Herramental obj = DataManager.GetInfoCutterSpacer(codigoHerramental);
+            dimA.Text = Convert.ToString(obj.Propiedades[0].Valor);
+            dimB.Text = Convert.ToString(obj.Propiedades[1].Valor);
+        }
+
         /// <summary>
         /// Método que válida la entrada del textbox sólo sea número flotante
         /// </summary>
@@ -125,5 +137,7 @@ namespace View.Forms.Tooling
             if (e.Key == Key.Space)
                 e.Handled = true;
         }
+
+       
     }
 }

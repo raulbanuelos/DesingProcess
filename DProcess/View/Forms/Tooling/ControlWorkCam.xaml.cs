@@ -68,6 +68,16 @@ namespace View.Forms.Tooling
             return true;
         }
 
+        public int Update()
+        {
+            return 0;
+        }
+
+        public void InicializaCampos(string codigoHerramental)
+        {
+
+        }
+
         /// <summary>
         /// Método que valida si la tecla recibida es un espacio.
         /// </summary>

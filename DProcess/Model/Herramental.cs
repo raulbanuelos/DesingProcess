@@ -44,6 +44,8 @@ namespace Model
         /// Colección de propiedades booleanas que representa las propiedades tipo booleano del herramental.
         /// </summary>
         public ObservableCollection<PropiedadBool> PropiedadesBool { get; set; }
+
+        public int idHerramental { get; set; }
         #endregion
 
         #region Constructores
@@ -60,6 +62,7 @@ namespace Model
             Propiedades = new ObservableCollection<Propiedad>();
             PropiedadesCadena = new ObservableCollection<PropiedadCadena>();
             PropiedadesBool = new ObservableCollection<PropiedadBool>();
+            idHerramental = 0;
         }
 
         #endregion

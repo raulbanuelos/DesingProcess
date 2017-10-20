@@ -414,7 +414,32 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="objetoXML"></param>
+        private async  void CargarControlador(string objetoXML)
+        {
+            if (!string.IsNullOrEmpty(objetoXML)) {
+                try
+                {
+                    //Se obtiene el archivo
+                    file = new XmlApplicationContext(@"\\agufileserv2\INGENIERIA\RESPRUTAS\NUEVO SOFTWARE RUTAS\raul\nueva\RoutingGenerationProgram\ClasificacionHerramental.xml");
+                    ctx = file;
 
+                    //Se obtiene el objeto dependiendo del id asignado
+                    Controlador = (IControlTooling)ctx.GetObject(objetoXML);
+                    //Inicializa el controlador
+                    Controlador.Inicializa();
+                    Controlador.InicializaCampos(codigo);
+                }
+                catch (Exception er)
+                {
+                    //si hay error, o no encuentra el objeto muestra un mensaje en pantalla
+                    await dialog.SendMessage("Información", "");
+                }
+            }
+        }
         #endregion
         #region Constructor
         public NuevoMaestroHerramental_VM(Usuario ModelUsuario)
@@ -442,6 +467,7 @@ namespace View.Services.ViewModel
             EnabledCodigo = false;
             IsSelected = ObjHerramental.activo;
             Id_clasificacion = ObjHerramental.id_clasificacion;
+            CargarControlador(ObjHerramental.objetoXML);
         }
         #endregion
     }
