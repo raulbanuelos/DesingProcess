@@ -23,9 +23,12 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlGuidePlate : UserControl, IControlTooling
     {
+        Herramental obj;
+
         public ControlGuidePlate()
         {
             InitializeComponent();
+            obj = new Herramental();
         }
 
         /// <summary>
@@ -40,6 +43,7 @@ namespace View.Forms.Tooling
             PropiedadCadena Pwidth = new PropiedadCadena();
             PropiedadCadena psobrem = new PropiedadCadena();
 
+            obj.Codigo = codigo;
             Pmedida.Valor = medidaN.Text;
             obj.PropiedadesCadena.Add(Pmedida);
 
@@ -83,12 +87,31 @@ namespace View.Forms.Tooling
 
         public int Update()
         {
-            return 0;
+            Herramental herram = new Herramental();
+            PropiedadCadena Pmedida = new PropiedadCadena();
+            PropiedadCadena Pwidth = new PropiedadCadena();
+            PropiedadCadena psobrem = new PropiedadCadena();
+
+            herram.Codigo = obj.Codigo;
+            herram.idHerramental = obj.idHerramental;
+            Pmedida.Valor = medidaN.Text;
+            herram.PropiedadesCadena.Add(Pmedida);
+
+            Pwidth.Valor = width.Text;
+            herram.PropiedadesCadena.Add(Pwidth);
+
+            psobrem.Valor = SobreMedida.Text;
+            herram.PropiedadesCadena.Add(psobrem);
+
+            return DataManager.UpdateGuidePlate(herram);
         }
 
         public void InicializaCampos(string codigoHerramental)
         {
-
+            obj = DataManager.GetInfoGuidePlateBK(codigoHerramental);
+            medidaN.Text = obj.PropiedadesCadena[0].Valor;
+            width.Text = obj.PropiedadesCadena[1].Valor;
+            SobreMedida.Text = obj.PropiedadesCadena[2].Valor;
         }
 
         /// <summary>

@@ -22,6 +22,8 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlWorkCam : UserControl, IControlTooling
     {
+        Herramental obj;
+
         public ControlWorkCam()
         {
             InitializeComponent();
@@ -70,12 +72,27 @@ namespace View.Forms.Tooling
 
         public int Update()
         {
-            return 0;
+            Herramental herram = new Herramental();
+            PropiedadCadena descripcion = new PropiedadCadena();
+            PropiedadCadena medidaNominal = new PropiedadCadena();
+
+            herram.Codigo = obj.Codigo;
+            herram.idHerramental = obj.idHerramental;
+            descripcion.Valor = desc.Text;
+            medidaNominal.Valor = medidaN.Text;
+
+            herram.PropiedadesCadena.Add(descripcion);
+            herram.PropiedadesCadena.Add(medidaNominal);
+
+            return DataManager.UpdateWorkCam(herram);
         }
 
         public void InicializaCampos(string codigoHerramental)
         {
+            obj = DataManager.GetInfoWorkCam(codigoHerramental);
 
+            desc.Text = obj.DescripcionGeneral;
+            medidaN.Text = obj.PropiedadesCadena[0].Valor;
         }
 
         /// <summary>

@@ -81,6 +81,41 @@ namespace DataAccess.ServiceObjects.Tooling
             }
         }
 
+        /// <summary>
+        /// Método que obtiene lainformación de Bushing Finish Mill.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoBushingFM(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.BushingFinishMill
+                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
+                                 where c.Codigo.Equals(codigo)
+                                 select new
+                                 {
+                                     c.Codigo,
+                                     c.Plano,
+                                     c.DimC,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.Id_BushingFM
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error retornamos nulo.
+                return null;
+            }
+        }
 
         /// <summary>
         /// Método que inserta un registro a la tabla BusgingFinish Mill.
@@ -138,8 +173,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Se obtiene el objeto que se va a modificar.
                     BushingFinishMill obj = Conexion.BushingFinishMill.Where(x => x.Id_BushingFM == id).FirstOrDefault();
 
-                    //Asiganmos los valores
-                    obj.Codigo = codigo;
+                    //Asiganmos los valores                    
                     obj.Plano = plano;
                     obj.DimC = dimC;
 

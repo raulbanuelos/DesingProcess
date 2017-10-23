@@ -24,6 +24,7 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlExitGuide : UserControl, IControlTooling
     {
+        Herramental herramental;
         public ControlExitGuide()
         {
             InitializeComponent();
@@ -90,12 +91,36 @@ namespace View.Forms.Tooling
 
         public int Update()
         {
-            return 0;
+            //Declaración del objeto.
+            Coil obj = new Coil();
+
+            //Asiganmos los valores.
+            obj.codigo = herramental.Codigo;
+            obj.ID = herramental.idHerramental;
+            obj.code = code.Text;
+            obj.dimA = double.Parse(dimA.Text, CultureInfo.InvariantCulture.NumberFormat);
+            obj.dimB = double.Parse(dimB.Text, CultureInfo.InvariantCulture.NumberFormat);
+            obj.dimC = double.Parse(dimC.Text, CultureInfo.InvariantCulture.NumberFormat);
+            obj.wire_width_min = double.Parse(WMin.Text, CultureInfo.InvariantCulture.NumberFormat);
+            obj.wire_width_max = double.Parse(WMax.Text, CultureInfo.InvariantCulture.NumberFormat);
+            obj.radial_wire_min = double.Parse(RMin.Text, CultureInfo.InvariantCulture.NumberFormat);
+            obj.radial_wire_max = double.Parse(Rmax.Text, CultureInfo.InvariantCulture.NumberFormat);
+
+            return DataManager.UpdateExit_GUIDE(obj);
         }
 
         public void InicializaCampos(string codigoHerramental)
         {
+            herramental = DataManager.GetInfoExit_Guide(codigoHerramental);
 
+            code.Text = herramental.PropiedadesCadena[0].Valor;
+            dimA.Text = Convert.ToString(herramental.Propiedades[0].Valor);
+            dimB.Text = Convert.ToString(herramental.Propiedades[1].Valor);
+            dimC.Text = Convert.ToString(herramental.Propiedades[2].Valor);
+            WMin.Text = Convert.ToString(herramental.Propiedades[3].Valor);
+            WMax.Text = Convert.ToString(herramental.Propiedades[4].Valor);
+            RMin.Text = Convert.ToString(herramental.Propiedades[5].Valor);
+            Rmax.Text = Convert.ToString(herramental.Propiedades[6].Valor);
         }
 
         /// <summary>

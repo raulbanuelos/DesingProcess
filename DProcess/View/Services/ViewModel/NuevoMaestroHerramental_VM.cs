@@ -323,17 +323,25 @@ namespace View.Services.ViewModel
                             //Si se actualizó correctamente
                             if (update != 0)
                             {
-                                //Se muestra en pantalla, mensaje de cambios guardados
-                                await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
 
-                                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+                                if (Controlador.Update() != 0) {
+                                    //Se muestra en pantalla, mensaje de cambios guardados
+                                    await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
 
-                                //Verificamos que la pantalla sea diferente de nulo.
-                                if (window != null)
+                                    //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                                    var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                                    //Verificamos que la pantalla sea diferente de nulo.
+                                    if (window != null)
+                                    {
+                                        //Cerramos la pantalla
+                                        window.Close();
+                                    }
+                                }
+                                else
                                 {
-                                    //Cerramos la pantalla
-                                    window.Close();
+                                    //si hay erro al guardar el archivo, muestra un mensaje
+                                    await dialog.SendMessage("Alerta", "Error al actualizar el herramental..");
                                 }
                             }
                             else

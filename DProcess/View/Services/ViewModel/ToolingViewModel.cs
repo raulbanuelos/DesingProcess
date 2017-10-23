@@ -78,10 +78,14 @@ namespace View.Services.ViewModel
             usuario = ModelUsuario;
             maestroHerramental = new ObservableCollection<Herramental>();
             MaestroHerramentales = DataManager.GetMaestroHerramental(TextoBusqueda);
+            TextoBusqueda = "";
         }
         #endregion
 
         #region Commands
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand BuscarTooling
         {
             get
@@ -487,7 +491,9 @@ namespace View.Services.ViewModel
                 wHerramental.DataContext = vm;
                 wHerramental.ShowDialog();
                 //Obtiene la lista de herramentales
+                TextoBusqueda = "";
                 buscarTooling(string.Empty);
+                
             }
         }
 

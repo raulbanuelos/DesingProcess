@@ -24,6 +24,8 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlExternalGR1P : UserControl, IControlTooling
     {
+        Herramental herramental; 
+
         public ControlExternalGR1P()
         {
             InitializeComponent();
@@ -86,12 +88,27 @@ namespace View.Forms.Tooling
 
         public int Update()
         {
-            return 0;
+            Coil obj = new Coil();
+
+            obj.codigo = herramental.Codigo;
+            obj.ID = herramental.idHerramental;
+            obj.code = code.Text;
+            obj.dimB = double.Parse(dimB.Text, CultureInfo.InvariantCulture.NumberFormat);
+            obj.wire_width_min = double.Parse(WMin.Text, CultureInfo.InvariantCulture.NumberFormat);
+            obj.wire_width_max = double.Parse(WMax.Text, CultureInfo.InvariantCulture.NumberFormat);
+
+            return DataManager.UpdateExternal_GR_1P(obj);
         }
 
         public void InicializaCampos(string codigoHerramental)
         {
+            herramental = DataManager.GetInfoExternal_GR1P(codigoHerramental);
 
+            code.Text = herramental.PropiedadesCadena[0].Valor;        
+            dimB.Text = Convert.ToString(herramental.Propiedades[0].Valor);           
+            WMin.Text = Convert.ToString(herramental.Propiedades[1].Valor);
+            WMax.Text = Convert.ToString(herramental.Propiedades[2].Valor);
+           
         }
 
         /// <summary>

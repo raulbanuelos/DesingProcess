@@ -24,6 +24,8 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlCollarBK : UserControl, IControlTooling
     {
+        Herramental obj;
+
         public ControlCollarBK()
         {
             InitializeComponent();
@@ -88,12 +90,37 @@ namespace View.Forms.Tooling
 
         public int Update()
         {
-            return 0;
+            Herramental herram = new Herramental();
+            PropiedadCadena parteC = new PropiedadCadena();
+            Propiedad dim_A = new Propiedad();
+            Propiedad dim_B = new Propiedad();
+
+            herram.Codigo = obj.Codigo;
+            herram.idHerramental = obj.idHerramental;
+            herram.Plano = plano.Text;
+            parteC.Valor = parte.Text;
+            dim_A.Unidad = dimA_unidades.Text;
+            dim_A.Valor = double.Parse(dimA.Text, CultureInfo.InvariantCulture.NumberFormat);
+            dim_B.Unidad = dimB_unidades.Text;
+            dim_B.Valor = double.Parse(dimB.Text, CultureInfo.InvariantCulture.NumberFormat);
+
+            herram.Propiedades.Add(dim_A);
+            herram.Propiedades.Add(dim_B);
+            herram.PropiedadesCadena.Add(parteC);
+
+            return DataManager.UpdateCollarBK(herram);
         }
 
         public void InicializaCampos(string codigoHerramental)
         {
+            obj = DataManager.GetInfoCollarBK(codigoHerramental);
 
+            dimA.Text = Convert.ToString(obj.Propiedades[0].Valor);
+            dimB.Text = Convert.ToString(obj.Propiedades[1].Valor);
+            dimA_unidades.Text = obj.Propiedades[0].Unidad;
+            dimB_unidades.Text = obj.Propiedades[1].Unidad;
+            parte.Text = obj.PropiedadesCadena[0].Valor;
+            plano.Text = obj.Plano;
         }
 
         /// <summary>

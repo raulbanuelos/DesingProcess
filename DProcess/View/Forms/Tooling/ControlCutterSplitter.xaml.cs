@@ -24,6 +24,8 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlCutterSplitter : UserControl, IControlTooling
     {
+        Herramental obj;
+
         public ControlCutterSplitter()
         {
             InitializeComponent();
@@ -62,12 +64,21 @@ namespace View.Forms.Tooling
 
         public int Update()
         {
-            return 0;
+            Herramental herram = new Herramental();
+            Propiedad diametro = new Propiedad();
+
+            herram.Codigo = obj.Codigo;
+            herram.idHerramental = obj.idHerramental;
+            diametro.Valor = double.Parse(diam.Text, CultureInfo.InvariantCulture.NumberFormat);
+
+            herram.Propiedades.Add(diametro);
+
+            return DataManager.UpdateCutterSplitterCasting(herram);
         }
 
         public void InicializaCampos(string codigoHerramental)
         {
-            Herramental obj = DataManager.GetInfoCutterSplitter(codigoHerramental);
+            obj = DataManager.GetInfoCutterSplitter(codigoHerramental);
            
             diam.Text = Convert.ToString(obj.Propiedades[0].Valor);
         }

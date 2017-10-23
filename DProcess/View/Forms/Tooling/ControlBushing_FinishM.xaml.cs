@@ -24,9 +24,14 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlBushing_FinishM : UserControl, IControlTooling
     {
+        #region MyRegion
+       private Herramental obj;
+        private string Codigo;
+        #endregion
         public ControlBushing_FinishM()
         {
             InitializeComponent();
+            obj = new Herramental();
         }
 
         /// <summary>
@@ -81,12 +86,26 @@ namespace View.Forms.Tooling
 
         public int Update()
         {
-            return 0;
+            Herramental herram = new Herramental();
+            Propiedad DimensionC = new Propiedad();
+
+            //Asignamos los valores.
+            herram.Codigo = Codigo;
+            herram.Plano = Plano.Text;
+            herram.idHerramental = obj.idHerramental;
+            DimensionC.Valor = double.Parse(dimC.Text, CultureInfo.InvariantCulture.NumberFormat);
+            //Agregamos las propiedades.
+            herram.Propiedades.Add(DimensionC);
+
+            return DataManager.UpdateBushingFM(herram);
         }
 
         public void InicializaCampos(string codigoHerramental)
         {
-
+            obj = DataManager.GetInfoBushing_FinishMill(codigoHerramental);
+            Codigo = obj.Codigo;
+            Plano.Text = obj.Plano;
+            dimC.Text = Convert.ToString(obj.Propiedades[0].Valor);
         }
 
         /// <summary>

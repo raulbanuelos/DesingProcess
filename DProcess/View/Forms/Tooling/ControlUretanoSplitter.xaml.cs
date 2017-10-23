@@ -26,7 +26,8 @@ namespace View.Forms.Tooling
     public partial class ControlUretanoSplitter : UserControl, IControlTooling
     {
         #region Propiedades
-        ObservableCollection<string> ListaColor;
+        
+        Herramental obj;
         #endregion
         public ControlUretanoSplitter()
         {
@@ -42,9 +43,19 @@ namespace View.Forms.Tooling
             Propiedad DMin = new Propiedad();
             Propiedad DMax = new Propiedad();
             PropiedadCadena Pmedidas = new PropiedadCadena();
-            PropiedadCadena PDetalle = new PropiedadCadena();
+            PropiedadCadena PColor = new PropiedadCadena();
 
-            return 0;
+            DMin.Valor = double.Parse(dimMin.Text, CultureInfo.InvariantCulture.NumberFormat);
+            DMax.Valor = double.Parse(dimMax.Text, CultureInfo.InvariantCulture.NumberFormat);
+            Pmedidas.Valor = medidas.Text;
+            PColor.Valor = color.Text;
+
+            obj.PropiedadesCadena.Add(Pmedidas);
+            obj.PropiedadesCadena.Add(PColor);
+            obj.Propiedades.Add(DMin);
+            obj.Propiedades.Add(DMax);
+
+            return DataManager.SetUretanoSplitter(obj);
         }
 
         public void Inicializa()
@@ -75,12 +86,32 @@ namespace View.Forms.Tooling
 
         public int Update()
         {
-            return 0;
+            Herramental herram = new Herramental();
+
+            herram.Codigo = obj.Codigo;
+            herram.idHerramental = obj.idHerramental;
+
+            Propiedad DMin = new Propiedad();
+            Propiedad DMax = new Propiedad();
+            PropiedadCadena Pmedidas = new PropiedadCadena();
+            PropiedadCadena PColor = new PropiedadCadena();
+
+            DMin.Valor = double.Parse(dimMin.Text, CultureInfo.InvariantCulture.NumberFormat);
+            DMax.Valor = double.Parse(dimMax.Text, CultureInfo.InvariantCulture.NumberFormat);
+            Pmedidas.Valor = medidas.Text;
+            PColor.Valor = color.Text;
+
+            herram.PropiedadesCadena.Add(Pmedidas);
+            herram.PropiedadesCadena.Add(PColor);
+            herram.Propiedades.Add(DMin);
+            herram.Propiedades.Add(DMax);
+
+            return DataManager.UpdateUretanoSplitter(herram);
         }
 
         public void InicializaCampos(string codigoHerramental)
         {
-           Herramental obj = DataManager.GetInfoUretanoSplitter(codigoHerramental);
+           obj = DataManager.GetInfoUretanoSplitter(codigoHerramental);
 
             dimMin.Text = Convert.ToString(obj.Propiedades[0].Valor);
             dimMax.Text = Convert.ToString(obj.Propiedades[1].Valor);

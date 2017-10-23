@@ -291,11 +291,11 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
         }
 
         /// <summary>
-        /// Método que obtiene la información de un herramentla de Collar.
+        /// Método que obtiene la información de un herramentla de Work Cam.
         /// </summary>
         /// <param name="codigo"></param>
         /// <returns></returns>
-       /* public IList GetInfoWorkCam(string codigo)
+        public IList GetInfoWorkCam(string codigo)
         {
             try
             {
@@ -309,12 +309,8 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
                                  {
                                      c.Codigo,
                                      m.Descripcion,
-                                     c.DimE,
-                                     c.DimF,
                                      c.MedidaNominal,
-                                     DESCRIPCIONCT = c.Descripcion,
-                                     c.Plano,
-                                     c.Id_CollarSpacer
+                                     c.Id_WorkCam
                                  }).ToList();
                     return lista;
                 }
@@ -325,7 +321,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
                 return null;
             }
         }
-        */
+        
         /// <summary>
         /// Método que obtiene el CamDetail para la seleccion de herramnetal de  WorkCam.
         /// </summary>
@@ -450,8 +446,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
                     //Se obtiene el objeto que se va a modificar.
                     WorkCam obj = Conexion.WorkCam.Where(x => x.Id_WorkCam == id).FirstOrDefault();
 
-                    //Asiganmos los valores
-                    obj.Codigo = codigo;
+                    //Asiganmos los valores                    
                     obj.Descripcion = descripcion;
                     obj.MedidaNominal = medidaN;
 
@@ -582,6 +577,42 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
                 return null;
             }
         }
+
+        /// <summary>
+        /// Método que obtiene la información del herramental Cutter cam.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoCutterCam(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var lista = (from c in Conexion.CutterCamTurn
+                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
+                                 where c.Codigo.Equals(codigo)
+                                 select new
+                                 {
+                                     c.Codigo,
+                                     m.Descripcion,
+                                     c.Dimencion,
+                                     c.Plano,
+                                     c.Id_CutterCamTurn,
+                                     DESCRIPCIONCM= c.Descripcion,
+                                 }).ToList();
+                    return lista;
+                }
+            }
+            catch (Exception er)
+            {
+
+                return null;
+            }
+        }
+
+
         /// <summary>
         /// Método que guarda un registro en la tbla.
         /// </summary>

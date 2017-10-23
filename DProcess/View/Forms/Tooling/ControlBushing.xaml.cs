@@ -25,11 +25,18 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlBushing : UserControl, IControlTooling
     {
+
+
+        #region Propiedades
         ObservableCollection<string> ListaDim;
+        Herramental obj;
+        private string codigo;
+        #endregion
 
         public ControlBushing()
         {
             InitializeComponent();
+            obj = new Herramental();
         }
 
         /// <summary>
@@ -142,11 +149,30 @@ namespace View.Forms.Tooling
 
         public int Update()
         {
-            return 0;
+            Herramental herram = new Herramental();
+            Propiedad MedidaNominal = new Propiedad();
+            PropiedadCadena DimB = new PropiedadCadena();
+            //Asignamos los valores.
+            herram.Codigo = codigo;
+            herram.idHerramental = obj.idHerramental;
+            herram.Plano = Plano.Text;
+            DimB.Valor = comboB.SelectedValuePath;
+            MedidaNominal.Valor = double.Parse(medidaN.Text, CultureInfo.InvariantCulture.NumberFormat);
+            //Agregamos las propiedades.
+            herram.Propiedades.Add(MedidaNominal);
+            herram.PropiedadesCadena.Add(DimB);
+
+            return DataManager.UpdateBushingBB(herram);
         }
 
         public void InicializaCampos(string codigoHerramental)
         {
+            obj = DataManager.GetInfoBushing_BatesBore(codigoHerramental);
+
+            codigo = obj.Codigo;
+            medidaN.Text =Convert.ToString( obj.Propiedades[0].Valor);
+            Plano.Text = obj.Plano;
+            comboB.SelectedValuePath = obj.PropiedadesCadena[0].Valor;
 
         }
     }

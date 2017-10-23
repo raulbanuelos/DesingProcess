@@ -89,6 +89,46 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
+        /// OBtiene la información de herramental Collar BK.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoCollarBK(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.CollarBK
+                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
+                                 where c.Codigo.Equals(codigo)
+                                 select new
+                                 {
+                                     c.Codigo,
+                                     c.DimB,
+                                     c.Plano,
+                                     c.Parte,
+                                     c.DimA,
+                                     c.DimA_Unidad,
+                                     c.DimB_Unidad,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.ID_COLLAR_BK
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error retornamos nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Método que retorna todos los registros de collarines de Auto Finish Turn.
         /// </summary>
         /// <returns></returns>
@@ -160,6 +200,48 @@ namespace DataAccess.ServiceObjects.Tooling
                     Conexion.SaveChanges();
                     //Retornamos el id
                     return obj.ID_COLLAR_BK;
+                }
+            }
+            catch (Exception)
+            {
+                //retornamos cero si hubo un error
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Modifica un registro de la tabla Collar Bk.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="codigo"></param>
+        /// <param name="plano"></param>
+        /// <param name="parte"></param>
+        /// <param name="dimA"></param>
+        /// <param name="dimA_unidad"></param>
+        /// <param name="dimB"></param>
+        /// <param name="dimB_unidad"></param>
+        /// <returns></returns>
+        public int UpdateCollar(int id,string codigo, string plano, string parte, double dimA, string dimA_unidad, double dimB, string dimB_unidad)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Declaramos el objeto
+                    CollarBK obj = Conexion.CollarBK.Where(x => x.ID_COLLAR_BK == id).FirstOrDefault();
+
+                    //Asignamos los valores
+                    obj.Plano = plano;
+                    obj.Parte = parte;
+                    obj.DimA = dimA;
+                    obj.DimA_Unidad = dimA_unidad;
+                    obj.DimB = dimB;
+                    obj.DimB_Unidad = dimB_unidad;
+
+                    Conexion.Entry(obj).State = EntityState.Modified;
+
+                    return Conexion.SaveChanges();
                 }
             }
             catch (Exception)
@@ -244,6 +326,42 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
+        /// Método que obtiene lainformación de Closing Sleeve BK.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoClosingSleeve(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.ClosingSleeveBK
+                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
+                                 where c.Codigo.Equals(codigo)
+                                 select new
+                                 {
+                                     c.Codigo,
+                                     c.DimB,
+                                     c.Plano,  
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.ID_CLOSINGSLEEVE_BK
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error retornamos nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Método que da de alta un registro a la tabla ClosingSleeve
         /// </summary>
         /// <param name="codigo"></param>
@@ -298,8 +416,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Se obtiene el objeto que se va a modificar.
                     ClosingSleeveBK obj = Conexion.ClosingSleeveBK.Where(x => x.ID_CLOSINGSLEEVE_BK == id).FirstOrDefault();
 
-                    //Asiganmos los valores
-                    obj.Codigo = codigo;
+                    //Asiganmos los valores                 
                     obj.DimB = dimB;
                     obj.Plano = plano;
 
@@ -455,6 +572,44 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
+        /// Método que obtiene lainformación de Guide Plate BK.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoGuidePlate(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.GuidePlateBK_
+                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
+                                 where c.Codigo.Equals(codigo)
+                                 select new
+                                 {
+                                     c.Codigo,
+                                     c.MedidaNominal,
+                                     c.Width,
+                                     c.SobreMedida,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.Id_GuidePlate
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error retornamos nulo.
+                return null;
+            }
+        }
+
+
+        /// <summary>
         /// Método que guarda un registro en la tbla.
         /// </summary>
         /// <param name="codigo"></param>
@@ -598,6 +753,44 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
+        /// Método que obtiene lainformación de Guillotina BK.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoGuillotina(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.GuillotinaBK_
+                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
+                                 where c.Codigo.Equals(codigo)
+                                 select new
+                                 {
+                                     c.Codigo,
+                                     c.MedidaNominal,
+                                     c.Width,
+                                     c.SobreMedida,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.Id_GuillotinaBK
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error retornamos nulo.
+                return null;
+            }
+        }
+
+
+        /// <summary>
         /// Método que guarda un registro en la tabla Guillotina BK.
         /// </summary>
         /// <param name="codigo"></param>
@@ -656,7 +849,6 @@ namespace DataAccess.ServiceObjects.Tooling
                     GuillotinaBK_ obj = Conexion.GuillotinaBK_.Where(x => x.Id_GuillotinaBK == id).FirstOrDefault();
 
                     //Asiganmos los valores
-                    obj.Codigo = codigo;
                     obj.MedidaNominal = medidaN;
                     obj.Width = width;
                     obj.SobreMedida = sobreM;

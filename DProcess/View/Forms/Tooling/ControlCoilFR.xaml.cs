@@ -24,6 +24,7 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlCoilFR : UserControl, IControlTooling
     {
+        Herramental herramental;
         public ControlCoilFR()
         {
             InitializeComponent();
@@ -121,12 +122,32 @@ namespace View.Forms.Tooling
 
         public int Update()
         {
-            return 0;
+            Coil coil = new Coil();
+
+            coil.codigo = herramental.Codigo;
+            coil.ID = herramental.idHerramental;
+            coil.code = code.Text;
+            coil.dimA = double.Parse(dimA.Text, CultureInfo.InvariantCulture.NumberFormat);
+            coil.dimB = double.Parse(dimB.Text, CultureInfo.InvariantCulture.NumberFormat);
+            coil.dimC = double.Parse(dimC.Text, CultureInfo.InvariantCulture.NumberFormat);
+            coil.dimD = double.Parse(dimD.Text, CultureInfo.InvariantCulture.NumberFormat);
+            coil.wire_width_min = double.Parse(WMin.Text, CultureInfo.InvariantCulture.NumberFormat);
+            coil.wire_width_max = double.Parse(WMax.Text, CultureInfo.InvariantCulture.NumberFormat);
+
+            return DataManager.UpdateCOIL_FEED_ROLLER(coil);
         }
 
         public void InicializaCampos(string codigoHerramental)
         {
+            herramental = DataManager.GetInfoCOIL_Feed_Roller(codigoHerramental);
 
+            code.Text = herramental.PropiedadesCadena[0].Valor;
+            dimA.Text = Convert.ToString(herramental.Propiedades[0].Valor);
+            dimB.Text = Convert.ToString(herramental.Propiedades[1].Valor);
+            dimC.Text = Convert.ToString(herramental.Propiedades[2].Valor);
+            dimD.Text = Convert.ToString(herramental.Propiedades[3].Valor);
+            WMin.Text = Convert.ToString(herramental.Propiedades[4].Valor);
+            WMax.Text = Convert.ToString(herramental.Propiedades[5].Valor);
         }
     }
 }

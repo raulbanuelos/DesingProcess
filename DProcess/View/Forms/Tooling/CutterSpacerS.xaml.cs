@@ -24,6 +24,7 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class CutterSpacerS : UserControl, IControlTooling
     {
+        Herramental obj;
         public CutterSpacerS()
         {
             InitializeComponent();
@@ -82,12 +83,24 @@ namespace View.Forms.Tooling
 
         public int Update()
         {
-            return 0;
+            Herramental herram = new Herramental();
+            Propiedad a = new Propiedad();
+            Propiedad b = new Propiedad();
+
+            herram.Codigo = obj.Codigo;
+            herram.idHerramental = obj.idHerramental;
+            herram.Plano = plano.Text;
+            a.Valor = double.Parse(dimA.Text, CultureInfo.InvariantCulture.NumberFormat);
+            b.Valor = double.Parse(dimB.Text, CultureInfo.InvariantCulture.NumberFormat);
+            herram.Propiedades.Add(a);
+            herram.Propiedades.Add(b);
+
+            return DataManager.UpdateCutterSpacerS(herram);
         }
 
         public void InicializaCampos(string codigoHerramental)
         {
-            Herramental obj = DataManager.GetInfoCutterSpacer(codigoHerramental);
+            obj = DataManager.GetInfoCutterSpacer(codigoHerramental);
             dimA.Text = Convert.ToString(obj.Propiedades[0].Valor);
             dimB.Text = Convert.ToString(obj.Propiedades[1].Valor);
         }

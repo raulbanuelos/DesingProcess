@@ -24,9 +24,12 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlChuckSplitterCasting : UserControl, IControlTooling
     {
+        string Codigo;
+        Herramental obj;
         public ControlChuckSplitterCasting()
         {
             InitializeComponent();
+            obj = new Herramental();
         }
 
         /// <summary>
@@ -96,13 +99,29 @@ namespace View.Forms.Tooling
 
         public int Update()
         {
-            return 0;
+            Herramental herram = new Herramental();
+            Propiedad DMin = new Propiedad();
+            Propiedad DMax = new Propiedad();
+            PropiedadCadena Pensamble = new PropiedadCadena();
+
+            //Asignamos los valores.
+            herram.Codigo = Codigo;
+            herram.idHerramental = obj.idHerramental;
+            DMin.Valor = double.Parse(dimMin.Text, CultureInfo.InvariantCulture.NumberFormat);
+            DMax.Valor = double.Parse(dimMax.Text, CultureInfo.InvariantCulture.NumberFormat);
+            Pensamble.Valor = ensamble.Text;
+            //Agregamos las propiedades.
+            herram.Propiedades.Add(DMin);
+            herram.Propiedades.Add(DMax);
+            herram.PropiedadesCadena.Add(Pensamble);
+
+            return DataManager.UpdateChuckSplitter(herram);
         }
 
         public void InicializaCampos(string codigoHerramental)
         {
-            Herramental obj = DataManager.GetInfoChuckSplitter(codigoHerramental);
-
+            obj = DataManager.GetInfoChuckSplitter(codigoHerramental);
+            Codigo = obj.Codigo;
             dimMin.Text = Convert.ToString(obj.Propiedades[0].Valor);
             dimMax.Text = Convert.ToString(obj.Propiedades[1].Valor);
             ensamble.Text = obj.PropiedadesCadena[0].Valor;

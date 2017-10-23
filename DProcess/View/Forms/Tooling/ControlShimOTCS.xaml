@@ -9,10 +9,10 @@
              d:DesignHeight="200" d:DesignWidth="450">
     <Grid>
         <StackPanel Orientation="Vertical">
-            <TextBox x:Name="code" materialDesign:HintAssist.Hint="Code" HorizontalAlignment="Left" Text="{Binding Code}"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" CharacterCasing="Upper"></TextBox>
-            <TextBox x:Name="dimA" materialDesign:HintAssist.Hint="Dim A" HorizontalAlignment="Left" Text="{Binding DimC}"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation" PreviewKeyDown="KeyValidation" ></TextBox>
-            <TextBox x:Name="WMin" materialDesign:HintAssist.Hint="Wire width min" HorizontalAlignment="Left" Text="{Binding WMin}"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation" PreviewKeyDown="KeyValidation" ></TextBox>
-            <TextBox x:Name="WMax" materialDesign:HintAssist.Hint="Wire width max" HorizontalAlignment="Left" Text="{Binding WMax}"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation" PreviewKeyDown="KeyValidation"></TextBox>
+            <TextBox x:Name="code" materialDesign:HintAssist.Hint="Code" HorizontalAlignment="Left"   Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" CharacterCasing="Upper"></TextBox>
+            <TextBox x:Name="dimA" materialDesign:HintAssist.Hint="Dim A" HorizontalAlignment="Left"   Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation" PreviewKeyDown="KeyValidation" ></TextBox>
+            <TextBox x:Name="WMin" materialDesign:HintAssist.Hint="Wire width min" HorizontalAlignment="Left"   Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation" PreviewKeyDown="KeyValidation" ></TextBox>
+            <TextBox x:Name="WMax" materialDesign:HintAssist.Hint="Wire width max" HorizontalAlignment="Left"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation" PreviewKeyDown="KeyValidation"></TextBox>
         </StackPanel>
     </Grid>
 </UserControl>

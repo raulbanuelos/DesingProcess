@@ -24,6 +24,7 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlShimOTCS : UserControl, IControlTooling
     {
+        Herramental herramental;
         public ControlShimOTCS()
         {
             InitializeComponent();
@@ -69,12 +70,30 @@ namespace View.Forms.Tooling
 
         public int Update()
         {
-            return 0;
+            //Declaración del objeto.
+            Coil obj = new Coil();
+
+            //Asiganmos los valores.
+            obj.codigo = herramental.Codigo;
+            obj.ID = herramental.idHerramental;
+            obj.code = code.Text;
+            obj.dimA = double.Parse(dimA.Text, CultureInfo.InvariantCulture.NumberFormat);           
+            obj.wire_width_min = double.Parse(WMin.Text, CultureInfo.InvariantCulture.NumberFormat);
+            obj.wire_width_max = double.Parse(WMax.Text, CultureInfo.InvariantCulture.NumberFormat);
+           
+
+            return DataManager.UpdateSHIM_OF_THE_CUT_SYSTEM(obj);
         }
 
         public void InicializaCampos(string codigoHerramental)
         {
+            herramental = DataManager.GetInfoShim_OTCS(codigoHerramental);
 
+            code.Text = herramental.PropiedadesCadena[0].Valor;
+            dimA.Text = Convert.ToString(herramental.Propiedades[0].Valor);          
+            WMin.Text = Convert.ToString(herramental.Propiedades[1].Valor);
+            WMax.Text = Convert.ToString(herramental.Propiedades[2].Valor);
+           
         }
 
         /// <summary>

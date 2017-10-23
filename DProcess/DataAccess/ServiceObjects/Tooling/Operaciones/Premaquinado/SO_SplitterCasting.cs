@@ -594,7 +594,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     CutterSplitter obj = Conexion.CutterSplitter.Where(x => x.ID_CUTTER_SPLITTER == id).FirstOrDefault();
                    
                     //Asiganmos los valores
-                    obj.Codigo = codigo;
+                   
                     obj.Diametro = diam;
 
                     //Se cambia el estado de registro a modificado.
@@ -1049,7 +1049,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
         /// <param name="diaMax"></param>
         /// <param name="detalle"></param>
         /// <returns></returns>
-        public int SetUretano(string codigo,string medidas,string color,double diaMin, double diaMax, string detalle)
+        public int SetUretano(string codigo,string medidas,string color,double diaMin, double diaMax)
         {
             try
             {
@@ -1092,7 +1092,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
         /// <param name="diaMax"></param>
         /// <param name="detalle"></param>
         /// <returns></returns>
-        public int UpdateUretano(int id,string codigo,string medidas,string color,double diaMin,double diaMax,string detalle)
+        public int UpdateUretano(int id,string codigo,string medidas,string color,double diaMin,double diaMax)
         {
             try
             {
@@ -1100,7 +1100,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                 {
                     UretanoSplitter obj = Conexion.UretanoSplitter.Where(x => x.ID_URETANO_SPLITTER == id).FirstOrDefault();
 
-                   // obj.Codigo = codigo;
+              
                     obj.Medidas = medidas;
                     obj.Color = color;
                     obj.DiaMin = diaMin;

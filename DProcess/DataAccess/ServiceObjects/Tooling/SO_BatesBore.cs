@@ -82,6 +82,44 @@ namespace DataAccess.ServiceObjects.Tooling
                 return null;
             }
         }
+
+        /// <summary>
+        /// Método que obtiene lainformación de BushingBates Bore.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoBushing(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.BushingBatesBore_
+                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
+                                 where c.Codigo.Equals(codigo)
+                                 select new
+                                 {
+                                     c.Codigo,
+                                     c.Plano,
+                                     c.MedidaNominal,
+                                     c.DimB,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.Id_Bushing
+                                 }).OrderBy(x => x.MedidaNominal).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error retornamos nulo.
+                return null;
+            }
+        }
+
         /// <summary>
         /// Método que inserta un registro en la tabla Bushing Bates Bore.
         /// </summary>
@@ -139,8 +177,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Se obtiene el objeto que se va a modificar.
                     BushingBatesBore_ obj = Conexion.BushingBatesBore_.Where(x => x.Id_Bushing == id).FirstOrDefault();
 
-                    //Asiganmos los valores
-                    obj.Codigo = codigo;
+                    //Asiganmos los valores                    
                     obj.Plano = plano;
                     obj.MedidaNominal = medidaNom;
                     obj.DimB = dimB;

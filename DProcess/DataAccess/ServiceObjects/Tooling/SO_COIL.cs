@@ -37,7 +37,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
                     obj.DIMC = dimC;
-                    obj.DIMC = DimD;
+                    obj.DIMD = DimD;
                     obj.WIRE_WIDTH_MAX = W_Max;
                     obj.WIRE_WIDTH_MIN = W_Min;
 
@@ -75,7 +75,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Se obtiene el objeto que se va a modificar.
                     TBL_COIL_FEED_ROLLER obj = Conexion.TBL_COIL_FEED_ROLLER.Where(x => x.ID_COIL_FEED_ROLLER == id_coil).FirstOrDefault();
                     //Asiganmos los valores
-                    obj.CODIGO = codigo;
+                   
                     obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
@@ -194,6 +194,47 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
+        /// Método que obtiene la información de un herramental de Coil Feed Roller.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoCoil_Feed_roller(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.TBL_COIL_FEED_ROLLER
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where c.CODIGO.Equals(codigo)
+                                 select new
+                                 {
+                                     c.CODIGO,
+                                     c.DETALLE,
+                                     c.DIMA,
+                                     c.DIMB,
+                                     c.DIMC,
+                                     c.DIMD,
+                                     c.WIRE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.ID_COIL_FEED_ROLLER
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error retornamos nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Método que inserta un registro a la tabla TBL_COIL_CENTER_GUIDE
         /// </summary>
         /// <param name="codigo"></param>
@@ -263,7 +304,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Se obtiene el objeto que se va a modificar.
                     TBL_COIL_CENTER_GUIDE obj = conexion.TBL_COIL_CENTER_GUIDE.Where(x => x.ID_COIL_CENTER_GUIDE == id_coil).FirstOrDefault();
                     //Asiganmos los valores
-                    obj.CODIGO = codigo;
+                   
                     obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
@@ -389,6 +430,48 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
+        /// Método que obtiene la información de un herramental de Coil Center Guide.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoCoil_Center_G(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.TBL_COIL_CENTER_GUIDE
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where c.CODIGO.Equals(codigo)
+                                 select new
+                                 {
+                                     c.CODIGO,
+                                     c.DETALLE,
+                                     c.DIMA,
+                                     c.DIMB,
+                                     c.DIMC,
+                                     c.WIRE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN,
+                                     c.RADIAL_WIRE_MAX,
+                                     c.RADIAL_WIRE_MIN,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.ID_COIL_CENTER_GUIDE
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error retornamos nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXIT_GUIDE
         /// </summary>
         /// <param name="codigo"></param>
@@ -458,7 +541,6 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Se obtiene el objeto que se va a modificar.
                     TBL_EXIT_GUIDE obj = conexion.TBL_EXIT_GUIDE.Where(x => x.ID_EXIT_GUIDE == id_exit).FirstOrDefault();
                     //Asiganmos los valores
-                    obj.CODIGO = codigo;
                     obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
@@ -585,6 +667,49 @@ namespace DataAccess.ServiceObjects.Tooling
                 return null;
             }
         }
+        
+        
+        /// <summary>
+        /// Método que obtiene la información de un herramental de exit Guide.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoexitG(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.TBL_EXIT_GUIDE
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where c.CODIGO.Equals(codigo)
+                                 select new
+                                 {
+                                     c.CODIGO,
+                                     c.DETALLE,
+                                     c.DIMA,
+                                     c.DIMB,
+                                     c.DIMC,
+                                     c.WIDE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN,
+                                     c.RADIAL_WIRE_MAX,
+                                     c.RADIAL_WIRE_MIN,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.ID_EXIT_GUIDE
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error retornamos nulo.
+                return null;
+            }
+        }
 
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
@@ -644,7 +769,6 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Se obtiene el objeto que se va a modificar.
                     TBL_EXTERNAL_GUIDE_ROLLER_1PIECE obj = conexion.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE.Where(x => x.ID_EGR_1P == id_external).FirstOrDefault();
                     //Asiganmos los valores
-                    obj.CODIGO = codigo;
                     obj.DETALLE = code;
                     obj.DIMB = dimB;
                     obj.WIDE_WIDTH_MAX = W_Max;
@@ -759,6 +883,45 @@ namespace DataAccess.ServiceObjects.Tooling
                 return null;
             }
         }
+
+        /// <summary>
+        /// Método que obtiene la información de un herramental de External Guide Roller 1P
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoExternal_GR1P(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where c.CODIGO.Equals(codigo)
+                                 select new
+                                 {
+                                     c.CODIGO,
+                                     c.DETALLE,
+                                     c.DIMB,
+                                     c.WIDE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.ID_EGR_1P
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error retornamos nulo.
+                return null;
+            }
+        }
+
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
         /// </summary>
@@ -823,7 +986,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1 obj = Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1.Where(x => x.ID_EGR_3P_1 == id_ext).FirstOrDefault();
 
                     //Asiganmos los valores
-                    obj.CODIGO = codigo;
+                  
                     obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
@@ -945,6 +1108,46 @@ namespace DataAccess.ServiceObjects.Tooling
             }
         }
 
+        /// <summary>
+        /// Método que obtiene la información de un herramental de External Guide Roller 3P 1
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoExternal_GR3P_1(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where c.CODIGO.Equals(codigo)
+                                 select new
+                                 {
+                                     c.CODIGO,
+                                     c.DETALLE,
+                                     c.DIMB,
+                                     c.DIMA,
+                                     c.DIMC,
+                                     c.WIDE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.ID_EGR_3P_1
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error retornamos nulo.
+                return null;
+            }
+        }
+
 
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
@@ -1009,7 +1212,6 @@ namespace DataAccess.ServiceObjects.Tooling
                     TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2 obj = Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2.Where(x => x.ID_EGR_3P_2 == id_ext).FirstOrDefault();
 
                     //Asiganmos los valores
-                    obj.CODIGO = codigo;
                     obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
@@ -1129,6 +1331,48 @@ namespace DataAccess.ServiceObjects.Tooling
                 return null;
             }
         }
+
+        /// <summary>
+        /// Método que obtiene la información de un herramental de External Guide Roller 3P 2
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoExternal_GR3P_2(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where c.CODIGO.Equals(codigo)
+                                 select new
+                                 {
+                                     c.CODIGO,
+                                     c.DETALLE,
+                                     c.DIMB,
+                                     c.DIMA,
+                                     c.DIMC,
+                                     c.WIDE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.ID_EGR_3P_2
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error retornamos nulo.
+                return null;
+            }
+        }
+
+
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3
         /// </summary>
@@ -1191,7 +1435,6 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Se obtiene el objeto que se va a modificar.
                     TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3 obj = Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3.Where(x => x.ID_EGR_3P_3 == id_ext).FirstOrDefault();
                     //Asiganmos los valores
-                    obj.CODIGO = codigo;
                     obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
@@ -1311,6 +1554,48 @@ namespace DataAccess.ServiceObjects.Tooling
                 return null;
             }
         }
+
+        /// <summary>
+        /// Método que obtiene la información de un herramental de External Guide Roller 3P 3
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoExternal_GR3P_3(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where c.CODIGO.Equals(codigo)
+                                 select new
+                                 {
+                                     c.CODIGO,
+                                     c.DETALLE,
+                                     c.DIMB,
+                                     c.DIMA,
+                                     c.DIMC,
+                                     c.WIDE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.ID_EGR_3P_3
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error retornamos nulo.
+                return null;
+            }
+        }
+
+
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_SHIM_OF_THE_CUT_SYSTEM
         /// </summary>
@@ -1369,7 +1654,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Se obtiene el objeto que se va a modificar.
                     TBL_SHIM_OF_THE_CUT_SYSTEM obj = conexion.TBL_SHIM_OF_THE_CUT_SYSTEM.Where(x => x.ID_SHIM_OTCS == id).FirstOrDefault();
                     //Asiganmos los valores
-                    obj.CODIGO = codigo;
+                   
                     obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.WIDE_WIDTH_MAX = W_Max;
@@ -1483,5 +1768,44 @@ namespace DataAccess.ServiceObjects.Tooling
                 return null;
             }
         }
+
+        /// <summary>
+        /// Método que obtiene la información de un herramental de Shim Of the Cut Systme
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoShimOTCS(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.TBL_SHIM_OF_THE_CUT_SYSTEM
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where c.CODIGO.Equals(codigo)
+                                 select new
+                                 {
+                                     c.CODIGO,
+                                     c.DETALLE,
+                                     c.DIMA,
+                                     c.WIDE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.ID_SHIM_OTCS
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error retornamos nulo.
+                return null;
+            }
+        }
+
     }
 }

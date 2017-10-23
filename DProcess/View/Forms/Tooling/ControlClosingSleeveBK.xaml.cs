@@ -24,9 +24,11 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlClosingSleeveBK : UserControl, IControlTooling
     {
+        Herramental obj;
         public ControlClosingSleeveBK()
         {
             InitializeComponent();
+            obj = new Herramental();
         }
 
         /// <summary>
@@ -84,12 +86,28 @@ namespace View.Forms.Tooling
 
         public int Update()
         {
-            return 0;
+            //Declaración del objeto y sus propiedades.
+            Herramental herram = new Herramental();
+            Propiedad dimB = new Propiedad();
+
+            //Asignamos los valores.
+            herram.Codigo = obj.Codigo;
+            herram.idHerramental = obj.idHerramental;
+            herram.Plano = Plano.Text;
+            dimB.Valor = double.Parse(DimB.Text, CultureInfo.InvariantCulture.NumberFormat);
+
+            //Agregamos la propiedad.
+            herram.Propiedades.Add(dimB);
+
+            //Mandamos a llamar al método para insertar el objeto y retornamos el resultado.
+            return DataManager.UpdateClosingSleeveBK(herram);
         }
 
         public void InicializaCampos(string codigoHerramental)
         {
-
+            obj = DataManager.GetInfoClosingSleeveBK(codigoHerramental);
+            DimB.Text = Convert.ToString(obj.Propiedades[0].Valor);
+            Plano.Text = obj.Plano;
         }
 
         /// <summary>

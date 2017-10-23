@@ -8,7 +8,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:View.Forms.Tooling" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
         mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        Title="WBusquedaHerramenal" Height="500" Width="550">
+        Title="WBusquedaHerramenal" Height="500" Width="620">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"></RowDefinition>

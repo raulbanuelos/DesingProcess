@@ -24,9 +24,14 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlCutterCamTurn : UserControl, IControlTooling
     {
+
+        #region Propiedades
+        Herramental obj;
+        #endregion
         public ControlCutterCamTurn()
         {
             InitializeComponent();
+            obj = new Herramental();
         }
 
         /// <summary>
@@ -117,11 +122,26 @@ namespace View.Forms.Tooling
 
         public int Update()
         {
-            return 0;
+            Herramental herram = new Herramental();
+            Propiedad dimension = new Propiedad();
+
+            herram.Codigo = obj.Codigo;
+            herram.idHerramental = obj.idHerramental;
+            herram.Plano = plano.Text;
+            herram.DescripcionGeneral = desc.Text;
+            dimension.Valor = double.Parse(dim.Text, CultureInfo.InvariantCulture.NumberFormat);
+            herram.Propiedades.Add(dimension);
+
+            return DataManager.UpdateCutterCamTurn(herram);
         }
 
         public void InicializaCampos(string codigoHerramental)
         {
+            obj = DataManager.GetInfoCutterCam(codigoHerramental);
+
+            dim.Text = Convert.ToString(obj.Propiedades[0].Valor);
+            desc.Text = obj.PropiedadesCadena[0].Valor;
+            plano.Text= obj.Plano;
 
         }
     }
