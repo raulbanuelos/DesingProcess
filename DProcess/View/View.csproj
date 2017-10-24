@@ -237,6 +237,9 @@
     <Compile Include="Forms\Tooling\ControlBushing_FinishM.xaml.cs">
       <DependentUpon>ControlBushing_FinishM.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlCamBK.xaml.cs">
+      <DependentUpon>ControlCamBK.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlChuckSplitterCasting.xaml.cs">
       <DependentUpon>ControlChuckSplitterCasting.xaml</DependentUpon>
     </Compile>
@@ -287,6 +290,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\ControlGuillotinaBK.xaml.cs">
       <DependentUpon>ControlGuillotinaBK.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlShieldBK.xaml.cs">
+      <DependentUpon>ControlShieldBK.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\ControlShimOTCS.xaml.cs">
       <DependentUpon>ControlShimOTCS.xaml</DependentUpon>
@@ -372,6 +378,7 @@
     <Compile Include="Services\ViewModel\BushingBatesBoreVM.cs" />
     <Compile Include="Services\ViewModel\BushingFinishMill_VM.cs" />
     <Compile Include="Services\ViewModel\Busqueda_HerramentalVM.cs" />
+    <Compile Include="Services\ViewModel\CamBK_VM.cs" />
     <Compile Include="Services\ViewModel\ChuckSplitterVM.cs" />
     <Compile Include="Services\ViewModel\ClosingSleeveVM.cs" />
     <Compile Include="Services\ViewModel\CoilCenterG_VM.cs" />
@@ -412,6 +419,7 @@
     <Compile Include="Services\ViewModel\CuffViewModel.cs" />
     <Compile Include="Services\ViewModel\PUserViewModel.cs" />
     <Compile Include="Services\ViewModel\RecursoViewModel.cs" />
+    <Compile Include="Services\ViewModel\ShieldBK_VM.cs" />
     <Compile Include="Services\ViewModel\ShimCutSystem_VM.cs" />
     <Compile Include="Services\ViewModel\ToolingViewModel.cs" />
     <Compile Include="Services\ViewModel\TubosCLViewModel.cs" />
@@ -592,6 +600,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlCamBK.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\ControlChuckSplitterCasting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -657,6 +669,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\ControlGuillotinaBK.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlShieldBK.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

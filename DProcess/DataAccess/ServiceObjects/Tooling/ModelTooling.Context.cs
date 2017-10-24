@@ -59,5 +59,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<WorkCam> WorkCam { get; set; }
         public virtual DbSet<BushingBatesBore_> BushingBatesBore_ { get; set; }
         public virtual DbSet<BushingFinishMill> BushingFinishMill { get; set; }
+        public virtual DbSet<CamBK_> CamBK_ { get; set; }
+        public virtual DbSet<ShieldBK_> ShieldBK_ { get; set; }
     }
 }

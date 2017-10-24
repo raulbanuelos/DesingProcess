@@ -205,6 +205,9 @@
     <Compile Include="ServiceObjects\Tooling\BushingFinishMill.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\CamBK_.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\ChuckSplitter.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -342,6 +345,9 @@
     <Compile Include="ServiceObjects\SO_CentroTrabajo.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Material.cs" />
     <Compile Include="ServiceObjects\Tooling\PLANO_HERRAMENTAL.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\ShieldBK_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\SO_BatesBore.cs" />

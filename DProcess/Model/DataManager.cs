@@ -2515,13 +2515,13 @@ namespace Model
 
             //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
-
+        
             //Obtenemos el valor de Sleeve
-            double sleeve=Math.Round(diafinish-((gapfinish-.004)/3.1416)+.005,3);
+            double sleeve=Math.Round(diafinish-((gapfinish - .004) / 3.1416),3);
 
             //Obtenemos el minimo y maximo
-            double sleeveMin = sleeve - GetCriterio("AFTSleeveMin");
-            double sleeveMax = sleeve + GetCriterio("AFTSleeveMax");
+            double sleeveMin = sleeve + 0.006;
+            double sleeveMax = sleeve + 0.010;
 
             //Se obtiene la informacion de la base de datos
             IList informacionBD = ServiceBK.GetClosingSleeveBK(sleeveMin, sleeveMax);
@@ -3202,6 +3202,296 @@ namespace Model
             }
             return DataR;
         }
+
+        //CamBK
+
+        public static DataTable GetAllCamBK(string texto)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServicioBk = new SO_BK();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioBk.GetAllCamBK(texto);
+
+            //Si la información es diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la lista.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+
+                    Propiedad dimA = new Propiedad();
+                    dimA.Valor = (double)tipo.GetProperty("A").GetValue(item, null);
+                    dimA.DescripcionCorta = "Dim A";
+                    herramental.Propiedades.Add(dimA);
+
+                    Propiedad dimB = new Propiedad();
+                    dimB.Valor = (double)tipo.GetProperty("B").GetValue(item, null);
+                    dimB.DescripcionCorta = "Dim B";
+                    herramental.Propiedades.Add(dimB);
+
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CamBK");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoCamBK(string codigo)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServicioBk = new SO_BK();
+
+            //Declaramos un objeto de tipo Herramental.
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método que busca los herramental. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioBk.GetInfoCamBK(codigo);
+
+            //Si la información es diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la lista.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();                  
+
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental=(int)tipo.GetProperty("Id_CamBK").GetValue(item, null);
+
+                    Propiedad dimA = new Propiedad();
+                    dimA.Valor = (double)tipo.GetProperty("A").GetValue(item, null);
+                    dimA.DescripcionCorta = "Dim A";
+                    herramental.Propiedades.Add(dimA);
+
+                    Propiedad dimB = new Propiedad();
+                    dimB.Valor = (double)tipo.GetProperty("B").GetValue(item, null);
+                    dimB.DescripcionCorta = "Dim B";
+                    herramental.Propiedades.Add(dimB);
+
+                    PropiedadCadena detalle = new PropiedadCadena();
+                    detalle.Valor= (string)tipo.GetProperty("Detalle").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(detalle);
+
+                }
+            }
+            //Retornamos el objeto.
+            return herramental;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetCamBK(Herramental obj)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServicioBk = new SO_BK();
+
+            return ServicioBk.SetCamBK(obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateCamBK(Herramental obj)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServicioBk = new SO_BK();
+
+            return ServicioBk.UpdateCamBK(obj.idHerramental,obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int DeleteCamBK(int id)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServicioBk = new SO_BK();
+
+            return ServicioBk.DeleteCamBK(id);
+        }
+
+        /// <summary>
+        /// Métodoq ue obtiene toda la información de shield Bk.
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public static DataTable GetAllShieldBK(string texto)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServicioBk = new SO_BK();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioBk.GetAllShieldBK(texto);
+
+            //Si la información es diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la lista.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+
+                    Propiedad fMin = new Propiedad();
+                    fMin.Valor = (double)tipo.GetProperty("FractionalMin").GetValue(item, null);
+                    fMin.DescripcionCorta = "Fractional Min";
+                    herramental.Propiedades.Add(fMin);
+
+                    Propiedad fMax = new Propiedad();
+                    fMax.Valor = (double)tipo.GetProperty("FractionalMax").GetValue(item, null);
+                    fMax.DescripcionCorta = "Fractional Max";
+                    herramental.Propiedades.Add(fMax);
+
+                    PropiedadCadena fraccMin = new PropiedadCadena();
+                    fraccMin.Valor= (string)tipo.GetProperty("FracMin").GetValue(item, null);
+                    fraccMin.DescripcionCorta = "Fracc Min";
+                    herramental.PropiedadesCadena.Add(fraccMin);
+
+                    PropiedadCadena fraccMax = new PropiedadCadena();
+                    fraccMax.Valor = (string)tipo.GetProperty("FracMax").GetValue(item, null);
+                    fraccMax.DescripcionCorta = "Fracc Max";
+                    herramental.PropiedadesCadena.Add(fraccMax);
+
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CamBK");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoShielBK(string codigo)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServicioBk = new SO_BK();
+
+            //Declaramos un objeto de tipo Herramental.
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método que busca los herramental. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioBk.GetInfoShieldBK(codigo);
+
+            //Si la información es diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la lista.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("Id_ShieldBK").GetValue(item, null);
+
+                    Propiedad fMin = new Propiedad();
+                    fMin.Valor = (double)tipo.GetProperty("FractionalMin").GetValue(item, null);
+                    fMin.DescripcionCorta = "Fractional Min";
+                    herramental.Propiedades.Add(fMin);
+
+                    Propiedad fMax = new Propiedad();
+                    fMax.Valor = (double)tipo.GetProperty("FractionalMax").GetValue(item, null);
+                    fMax.DescripcionCorta = "Fractional Max";
+                    herramental.Propiedades.Add(fMax);
+
+                    PropiedadCadena fraccMin = new PropiedadCadena();
+                    fraccMin.Valor = (string)tipo.GetProperty("FracMin").GetValue(item, null);
+                    fraccMin.DescripcionCorta = "Fracc Min";
+                    herramental.PropiedadesCadena.Add(fraccMin);
+
+                    PropiedadCadena fraccMax = new PropiedadCadena();
+                    fraccMax.Valor = (string)tipo.GetProperty("FracMax").GetValue(item, null);
+                    fraccMax.DescripcionCorta = "Fracc Max";
+                    herramental.PropiedadesCadena.Add(fraccMax);
+
+                    PropiedadCadena detalle = new PropiedadCadena();
+                    detalle.Valor = (string)tipo.GetProperty("Detalle").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(detalle);
+
+                }
+            }
+            //Retornamos el objeto.
+            return herramental;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetShieldBK(Herramental obj)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServicioBk = new SO_BK();
+
+            return ServicioBk.SetShieldBK(obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.Propiedades[0].Valor, obj.Propiedades[0].Valor, obj.PropiedadesCadena[1].Valor, obj.PropiedadesCadena[2].Valor);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateShieldBK(Herramental obj)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServicioBk = new SO_BK();
+
+            return ServicioBk.UpdateShieldBK(obj.idHerramental,obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.Propiedades[0].Valor, obj.Propiedades[0].Valor, obj.PropiedadesCadena[1].Valor, obj.PropiedadesCadena[2].Valor);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteShieldBK(int id)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServicioBk = new SO_BK();
+
+            return ServicioBk.DeleteShieldBK(id);
+        }
+
         #endregion
 
         #region BatesBore
