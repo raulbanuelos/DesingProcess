@@ -65,6 +65,10 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_BushingBatesBore__MaestroHerramentales" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.BushingFinishMill" Width="1.5" PointX="3" PointY="78.625" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_BushingFinishMill_MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CamBK_" Width="1.5" PointX="3" PointY="85.375" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ShieldBK_" Width="1.5" PointX="3" PointY="82.125" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CamBK__MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_ShieldBK__MaestroHerramentales" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

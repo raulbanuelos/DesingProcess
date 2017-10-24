@@ -251,7 +251,7 @@ namespace View.Services.ViewModel
             {
                 return new RelayCommand(o => irUretanoSplitter());
             }
-        } 
+        }
 
         /// <summary>
         /// Comando que abre la ventana de Closing Sleeve BK.
@@ -329,11 +329,36 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand IrBushingFM
         {
             get
             {
                 return new RelayCommand(o => irBushingFM());
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICommand IrCamBK
+        {
+            get
+            {
+                return new RelayCommand(o => irCamBK());
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICommand IrShieldBK
+        {
+            get
+            {
+                return new RelayCommand(o => irShieldBK());
             }
         }
         #endregion
@@ -603,6 +628,28 @@ namespace View.Services.ViewModel
         {
             WBatesBore frm = new WBatesBore();
             BushingFinishMill_VM context = new BushingFinishMill_VM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void irCamBK()
+        {
+            WClosingSleeve frm = new WClosingSleeve();
+            CamBK_VM context = new CamBK_VM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void irShieldBK()
+        {
+            WClosingSleeve frm = new WClosingSleeve();
+            ShieldBK_VM context = new ShieldBK_VM();
             frm.DataContext = context;
             frm.ShowDialog();
         }

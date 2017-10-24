@@ -995,5 +995,369 @@ namespace DataAccess.ServiceObjects.Tooling
             }
         }
 
+        /// <summary>
+        /// Método que obtiene todos los registros de CAMBK.
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public IList GetAllCamBK(string texto)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.CamBK_
+                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
+                                 where c.Codigo.Contains(texto) || m.Descripcion.Contains(texto)
+                                 select new
+                                 {
+                                     c.Codigo,
+                                     c.Detalle,
+                                     c.A,
+                                     c.B,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.Id_CamBK
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene la infotmación de un herramental de CamBK.
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public IList GetInfoCamBK(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.CamBK_
+                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
+                                 where c.Codigo.Equals(codigo)
+                                 select new
+                                 {
+                                     c.Codigo,
+                                     c.Detalle,
+                                     c.A,
+                                     c.B,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.Id_CamBK
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error retornamos nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que guarda un registro de Cam BK.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="detalle"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public int SetCamBK(string codigo, string detalle, double a, double b)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Declaramos el objeto de la tabla
+                    CamBK_ obj = new CamBK_();
+
+                    //Asignamos los valores
+                    obj.Codigo = codigo;
+                    obj.Detalle = detalle;
+                    obj.A = a;
+                    obj.B = b;
+
+                    //Guardamos los cambios
+                    Conexion.CamBK_.Add(obj);
+                    Conexion.SaveChanges();
+
+                    //Retornamos el id
+                    return obj.Id_CamBK;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error, retorna cero
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que modifica un registro de la tabla Cam BK.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="codigo"></param>
+        /// <param name="detalle"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public int UpdateCamBK(int id,string codigo, string detalle, double a, double b)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Declaramos el objeto de la tabla
+                    CamBK_ obj = Conexion.CamBK_.Where(x => x.Id_CamBK == id).FirstOrDefault();
+
+                    //Asignamos los valores
+                    obj.Detalle = detalle;
+                    obj.A = a;
+                    obj.B = b;
+
+                    //Guardamos los cambios
+                    Conexion.Entry(obj).State = EntityState.Modified;
+                    return  Conexion.SaveChanges();
+
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error, retorna cero
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla CamBK.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int DeleteCamBK(int id)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Declaramos el objeto de la tabla
+                    CamBK_ obj = Conexion.CamBK_.Where(x => x.Id_CamBK == id).FirstOrDefault();
+
+                    //Guardamos los cambios
+                    Conexion.Entry(obj).State = EntityState.Deleted;
+                    return Conexion.SaveChanges();
+
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error, retorna cero
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// OBtiene todos los registros de ShieldBK.
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public IList GetAllShieldBK(string texto)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.ShieldBK_
+                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
+                                 where c.Codigo.Contains(texto) || m.Descripcion.Contains(texto)
+                                 select new
+                                 {
+                                     c.Codigo,
+                                     c.Detalle,
+                                     c.FractionalMax,
+                                     c.FractionalMin,
+                                     c.FracMin,
+                                     c.FracMax,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.Id_ShieldBK
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurre algún error retornamos un nulo.
+                return null;
+            }
+        }
+       
+
+        /// <summary>
+        /// Método que obtiene la información de un herramental Shield BK.
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public IList GetInfoShieldBK(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.ShieldBK_
+                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
+                                 where c.Codigo.Equals(codigo)
+                                 select new
+                                 {
+                                     c.Codigo,
+                                     c.Detalle,
+                                     c.FractionalMax,
+                                     c.FractionalMin,
+                                     c.FracMin,
+                                     c.FracMax,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.Id_ShieldBK
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error retornamos nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que guarda un registro de ShieldBK.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="detalle"></param>
+        /// <param name="fractionalMin"></param>
+        /// <param name="fractionalMax"></param>
+        /// <param name="fraccMin"></param>
+        /// <param name="fraccMax"></param>
+        /// <returns></returns>
+        public int SetShieldBK(string codigo, string detalle, double fractionalMin, double fractionalMax,string fraccMin,string fraccMax)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Declaramos el objeto de la tabla
+                    ShieldBK_ obj = new ShieldBK_();
+
+                    //Asignamos los valores
+                    obj.Codigo = codigo;
+                    obj.Detalle = detalle;
+                    obj.FractionalMin = fractionalMin;
+                    obj.FractionalMax = fractionalMax;
+                    obj.FracMin = fraccMin;
+                    obj.FracMax = fraccMax;
+
+                    //Guardamos los cambios
+                    Conexion.ShieldBK_.Add(obj);
+                    Conexion.SaveChanges();
+
+                    //Retornamos el id
+                    return obj.Id_ShieldBK;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error, retorna cero
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que modifica un registro de Shield BK.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="codigo"></param>
+        /// <param name="detalle"></param>
+        /// <param name="fractionalMin"></param>
+        /// <param name="fractionalMax"></param>
+        /// <param name="fraccMin"></param>
+        /// <param name="fraccMax"></param>
+        /// <returns></returns>
+        public int UpdateShieldBK(int id,string codigo, string detalle, double fractionalMin, double fractionalMax, string fraccMin, string fraccMax)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Declaramos el objeto de la tabla
+                    ShieldBK_ obj = Conexion.ShieldBK_.Where(x => x.Id_ShieldBK == id).FirstOrDefault();
+
+                    //Asignamos los valores                
+                    obj.Detalle = detalle;
+                    obj.FractionalMin = fractionalMin;
+                    obj.FractionalMax = fractionalMax;
+                    obj.FracMin = fraccMin;
+                    obj.FracMax = fraccMax;
+
+                    //Guardamos los cambios
+                    Conexion.Entry(obj).State = EntityState.Modified;
+                    return Conexion.SaveChanges();
+                
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error, retorna cero
+                return 0;
+            }
+        }
+
+        public int DeleteShieldBK(int id)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Declaramos el objeto de la tabla
+                    ShieldBK_ obj = Conexion.ShieldBK_.Where(x => x.Id_ShieldBK == id).FirstOrDefault();
+                
+
+                    //Guardamos los cambios
+                    Conexion.Entry(obj).State = EntityState.Deleted;
+                    return Conexion.SaveChanges();
+
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error, retorna cero
+                return 0;
+            }
+        }
     }
 }

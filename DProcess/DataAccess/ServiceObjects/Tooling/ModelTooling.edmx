@@ -24,6 +24,16 @@
           <Property Name="Plano" Type="varchar" MaxLength="50" />
           <Property Name="DimC" Type="float" />
         </EntityType>
+        <EntityType Name="CamBK_">
+          <Key>
+            <PropertyRef Name="Id_CamBK" />
+          </Key>
+          <Property Name="Id_CamBK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="Detalle" Type="varchar" MaxLength="50" />
+          <Property Name="A" Type="float" />
+          <Property Name="B" Type="float" />
+        </EntityType>
         <EntityType Name="ChuckSplitter">
           <Key>
             <PropertyRef Name="Id_Chuck" />
@@ -278,6 +288,18 @@
           <Property Name="USUARIO_CREACION" Type="varchar" MaxLength="50" />
           <Property Name="USUARIO_ACTUALIZACION" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="ShieldBK_">
+          <Key>
+            <PropertyRef Name="Id_ShieldBK" />
+          </Key>
+          <Property Name="Id_ShieldBK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="FractionalMin" Type="float" />
+          <Property Name="FractionalMax" Type="float" />
+          <Property Name="Detalle" Type="varchar" MaxLength="50" />
+          <Property Name="FracMin" Type="varchar" MaxLength="50" />
+          <Property Name="FracMax" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="SplitterSpacerChart">
           <Key>
             <PropertyRef Name="ident" />
@@ -461,6 +483,20 @@
               <PropertyRef Name="Codigo" />
             </Principal>
             <Dependent Role="BushingFinishMill">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CamBK__MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CamBK_" Type="Self.CamBK_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="CamBK_">
               <PropertyRef Name="Codigo" />
             </Dependent>
           </ReferentialConstraint>
@@ -653,6 +689,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ShieldBK__MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ShieldBK_" Type="Self.ShieldBK_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="ShieldBK_">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBL_COIL_CENTER_GUIDE_MaestroHerramentales">
           <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1" />
           <End Role="TBL_COIL_CENTER_GUIDE" Type="Self.TBL_COIL_CENTER_GUIDE" Multiplicity="*" />
@@ -778,6 +828,7 @@
         <EntityContainer Name="DataAccessServiceObjectsToolingStoreContainer">
           <EntitySet Name="BushingBatesBore_" EntityType="Self.BushingBatesBore_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BushingFinishMill" EntityType="Self.BushingFinishMill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CamBK_" EntityType="Self.CamBK_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChuckSplitter" EntityType="Self.ChuckSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClasificacionHerramental" EntityType="Self.ClasificacionHerramental" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClosingSleeveBK" EntityType="Self.ClosingSleeveBK" Schema="dbo" store:Type="Tables" />
@@ -798,6 +849,7 @@
           <EntitySet Name="GuillotinaBK_" EntityType="Self.GuillotinaBK_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MaestroHerramentales" EntityType="Self.MaestroHerramentales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PLANO_HERRAMENTAL" EntityType="Self.PLANO_HERRAMENTAL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShieldBK_" EntityType="Self.ShieldBK_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SplitterSpacerChart" EntityType="Self.SplitterSpacerChart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SPlitterSpacerChart2" EntityType="Self.SPlitterSpacerChart2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_COIL_CENTER_GUIDE" EntityType="Self.TBL_COIL_CENTER_GUIDE" Schema="dbo" store:Type="Tables" />
@@ -817,6 +869,10 @@
           <AssociationSet Name="FK_BushingFinishMill_MaestroHerramentales" Association="Self.FK_BushingFinishMill_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="BushingFinishMill" EntitySet="BushingFinishMill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CamBK__MaestroHerramentales" Association="Self.FK_CamBK__MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="CamBK_" EntitySet="CamBK_" />
           </AssociationSet>
           <AssociationSet Name="FK_ChuckSplitter_MaestroHerramentales" Association="Self.FK_ChuckSplitter_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -873,6 +929,10 @@
           <AssociationSet Name="fk_Plano_MaestroHerramentales" Association="Self.fk_Plano_MaestroHerramentales">
             <End Role="PLANO_HERRAMENTAL" EntitySet="PLANO_HERRAMENTAL" />
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShieldBK__MaestroHerramentales" Association="Self.FK_ShieldBK__MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="ShieldBK_" EntitySet="ShieldBK_" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_COIL_CENTER_GUIDE_MaestroHerramentales" Association="Self.FK_TBL_COIL_CENTER_GUIDE_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -958,6 +1018,8 @@
           <NavigationProperty Name="WorkCam" Relationship="DataAccess.ServiceObjects.Tooling.FK_WorkCam_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="WorkCam" />
           <NavigationProperty Name="BushingBatesBore_" Relationship="DataAccess.ServiceObjects.Tooling.FK_BushingBatesBore__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="BushingBatesBore_" />
           <NavigationProperty Name="BushingFinishMill" Relationship="DataAccess.ServiceObjects.Tooling.FK_BushingFinishMill_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="BushingFinishMill" />
+          <NavigationProperty Name="CamBK_" Relationship="DataAccess.ServiceObjects.Tooling.FK_CamBK__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CamBK_" />
+          <NavigationProperty Name="ShieldBK_" Relationship="DataAccess.ServiceObjects.Tooling.FK_ShieldBK__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="ShieldBK_" />
         </EntityType>
         <EntityContainer Name="EntitiesTooling" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="MaestroHerramentales" EntityType="Self.MaestroHerramentales" />
@@ -1097,6 +1159,16 @@
           <AssociationSet Name="FK_BushingFinishMill_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_BushingFinishMill_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="BushingFinishMill" EntitySet="BushingFinishMill" />
+          </AssociationSet>
+          <EntitySet Name="CamBK_" EntityType="DataAccess.ServiceObjects.Tooling.CamBK_" />
+          <EntitySet Name="ShieldBK_" EntityType="DataAccess.ServiceObjects.Tooling.ShieldBK_" />
+          <AssociationSet Name="FK_CamBK__MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_CamBK__MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="CamBK_" EntitySet="CamBK_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShieldBK__MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_ShieldBK__MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="ShieldBK_" EntitySet="ShieldBK_" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="UretanoSplitter">
@@ -1881,6 +1953,58 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CamBK_">
+          <Key>
+            <PropertyRef Name="Id_CamBK" />
+          </Key>
+          <Property Name="Id_CamBK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="Detalle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="A" Type="Double" />
+          <Property Name="B" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_CamBK__MaestroHerramentales" FromRole="CamBK_" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <EntityType Name="ShieldBK_">
+          <Key>
+            <PropertyRef Name="Id_ShieldBK" />
+          </Key>
+          <Property Name="Id_ShieldBK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="FractionalMin" Type="Double" />
+          <Property Name="FractionalMax" Type="Double" />
+          <Property Name="Detalle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FracMin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FracMax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_ShieldBK__MaestroHerramentales" FromRole="ShieldBK_" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_CamBK__MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.CamBK_" Role="CamBK_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="CamBK_">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShieldBK__MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.ShieldBK_" Role="ShieldBK_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="ShieldBK_">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2350,6 +2474,30 @@
                 <ScalarProperty Name="Plano" ColumnName="Plano" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="Id_BushingFM" ColumnName="Id_BushingFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CamBK_">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.CamBK_">
+              <MappingFragment StoreEntitySet="CamBK_">
+                <ScalarProperty Name="B" ColumnName="B" />
+                <ScalarProperty Name="A" ColumnName="A" />
+                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Id_CamBK" ColumnName="Id_CamBK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShieldBK_">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.ShieldBK_">
+              <MappingFragment StoreEntitySet="ShieldBK_">
+                <ScalarProperty Name="FracMax" ColumnName="FracMax" />
+                <ScalarProperty Name="FracMin" ColumnName="FracMin" />
+                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+                <ScalarProperty Name="FractionalMax" ColumnName="FractionalMax" />
+                <ScalarProperty Name="FractionalMin" ColumnName="FractionalMin" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Id_ShieldBK" ColumnName="Id_ShieldBK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

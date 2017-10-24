@@ -72,8 +72,8 @@
                     <MenuItem Header="Tool turn"  Cursor="Hand"/>
                     <MenuItem Header="Tool bore" Cursor="Hand"/>
                     <MenuItem Header="Tool barm" Cursor="Hand"/>
-                    <MenuItem Header="Cam" Cursor="Hand"/>
-                    <MenuItem Header="Shield" Cursor="Hand"/>
+                    <MenuItem Header="Cam" Cursor="Hand" Command="{Binding IrCamBK}"/>
+                    <MenuItem Header="Shield" Cursor="Hand" Command="{Binding IrShieldBK}"/>
                 </MenuItem>
             </MenuItem>
         </Menu>
