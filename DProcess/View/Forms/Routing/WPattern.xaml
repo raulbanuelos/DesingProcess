@@ -1,0 +1,149 @@
+﻿<Controls:MetroWindow x:Class="View.Forms.Routing.WPattern"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Forms.Routing"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="WPattern" Height="900" Width="1000" WindowStartupLocation="CenterScreen">
+    <Grid ShowGridLines="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+
+        <Menu Grid.Column="1" Grid.Row="0" IsMainMenu="True">
+            <MenuItem Header="_File">
+                <MenuItem Header="Save">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="ContentSave"></materialDesign:PackIcon>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem Header="Export to SAP">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Export"></materialDesign:PackIcon>
+                    </MenuItem.Icon>
+                </MenuItem>
+                
+                <Separator></Separator>
+
+                <MenuItem Header="Salir">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="ExitToApp"></materialDesign:PackIcon>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+
+            <MenuItem Header="_Tools">
+                <MenuItem Header="Generate Route">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="PlayCircle"></materialDesign:PackIcon>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+
+            <MenuItem Header="_View">
+                <MenuItem Header="Route">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="FilePdf"></materialDesign:PackIcon>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+
+        <DockPanel Grid.Column="1" Grid.Row="1">
+            <Grid DockPanel.Dock="Left">
+                <StackPanel Orientation="Vertical">
+                    
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <TextBox materialDesign:HintAssist.Hint="TIPO" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding TipoAnillo}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="14"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <TextBox materialDesign:HintAssist.Hint="DIAMETER" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding D1}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="14"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <Label Content="X" VerticalAlignment="Bottom"></Label>
+                        <TextBox materialDesign:HintAssist.Hint="WIDTH" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding W1}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="14"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <TextBox materialDesign:HintAssist.Hint="CUSTOMER" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Customer}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="14"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <TextBox materialDesign:HintAssist.Hint="MOUNTING" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Mouting}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="14"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <Label Content=" "></Label>
+                        <TextBox materialDesign:HintAssist.Hint="PLATO" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Plato}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="14"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <TextBox materialDesign:HintAssist.Hint="ON 14 RD GATE" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Mouting}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="10"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <Label Content=" "></Label>
+                        <TextBox materialDesign:HintAssist.Hint="DET. GATE" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Plato}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="14"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <TextBox materialDesign:HintAssist.Hint="BUTTON" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Button}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="14"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <TextBox materialDesign:HintAssist.Hint="1/2 CIRCLE" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding CIRCLE}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="14"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <TextBox materialDesign:HintAssist.Hint="CONE" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding CONE}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="14"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <TextBox materialDesign:HintAssist.Hint="RING TH MIN" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding RingTHMin }"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="10"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <Label Content=" "></Label>
+                        <TextBox materialDesign:HintAssist.Hint="RING TH MAX" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding RingTHMax}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="10"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <TextBox materialDesign:HintAssist.Hint="RING WTH MIN" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding RingWTHMin }"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="10"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <Label Content=" "></Label>
+                        <TextBox materialDesign:HintAssist.Hint="RING WTH MAX" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding RingETHMax}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="10"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <DatePicker Width="175" VerticalAlignment="Bottom" DisplayDate="{Binding DateOrdered}" materialDesign:HintAssist.Hint="Date Ordered" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <TextBox materialDesign:HintAssist.Hint="MOUTEND BY" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding MOUTEND}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="14"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <TextBox materialDesign:HintAssist.Hint="ORDERED BY" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding ORDERED}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="14"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <TextBox materialDesign:HintAssist.Hint="CHECKED BY" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding CHECKED}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="14"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            
+            <StackPanel DockPanel.Dock="Right">
+                <Label Content="Right">
+                    
+                </Label>
+            </StackPanel>
+            
+            <Grid DockPanel.Dock="Bottom">
+                <Label Content="hola"></Label>
+            </Grid>
+            <StackPanel>
+                <Label Content="Center"></Label>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Controls:MetroWindow>
