@@ -517,6 +517,8 @@ namespace View.Services.ViewModel
             BttnGuardar = false;
             EnabledEliminar = false;
             IsEnabled = false;
+            //Si es ventana para generar una nueva versión, band= true
+            BttnVersion = band;
 
             //si es personal del CIT y es ventana para generar una nueva versión
             if (Module.UsuarioIsRol(User.Roles, 2))
@@ -525,23 +527,21 @@ namespace View.Services.ViewModel
                 BttnEliminar = band;
                 IsEnabled = true;
                 EnabledEliminar = true;
-                EnabledFecha = true;
-               // ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
-
-            } //si es ventana para corregir documento con estatus pendiente por corregir
+                EnabledFecha = true;             
+            } 
+            
+            //si es ventana para corregir documento con estatus pendiente por corregir.
             if (band==false)
             {
                 IsEnabled = true;
                 BttnModificar = true;
                 EnabledEliminar = true;
-                EnabledFecha = false;
-                //Mostramos la lista de validaciones dependiento el tipo
-                // ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
+                EnabledFecha = false;              
                 Fecha = selectedDocumento.version.fecha_version;
-            }
-
-            //Si es ventana para generar una nueva versión, band= true
-            BttnVersion = band;
+                //Si es administrador del CIT muestra la fecha.
+                if (Module.UsuarioIsRol(User.Roles, 2))
+                    EnabledFecha = true;
+            }           
       
             //Obtiene el nombre de documento del id
             _ListaNumeroDocumento = DataManagerControlDocumentos.GetNombre_Documento(id_documento);
