@@ -1211,7 +1211,46 @@ namespace DataAccess.ServiceObjects.Tooling
                 return null;
             }
         }
-       
+
+        /// <summary>
+        /// Método que obtiene los herramentales de acuerdo a la dimensión.
+        /// </summary>
+        /// <param name="dimension"></param>
+        /// <returns></returns>
+        public IList GetShieldBK(double dimension)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.ShieldBK_
+                                 join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
+                                 where dimension >= c.FractionalMin & dimension <= c.FractionalMax
+                                 select new
+                                 {
+                                     c.Codigo,
+                                     c.Detalle,
+                                     c.FractionalMax,
+                                     c.FractionalMin,
+                                     c.FracMin,
+                                     c.FracMax,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.Id_ShieldBK
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //si hay error retornamos nulo.
+                return null;
+            }
+        }
+
 
         /// <summary>
         /// Método que obtiene la información de un herramental Shield BK.

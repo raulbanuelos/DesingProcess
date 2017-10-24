@@ -3395,6 +3395,64 @@ namespace Model
         }
 
         /// <summary>
+        /// Método que obtiene los herramentales óptimos para Shield BK.
+        /// </summary>
+        /// <param name="dim"></param>
+        /// <returns></returns>
+        public static DataTable GetShieldBK(double dim)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServicioBk = new SO_BK();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioBk.GetShieldBK(dim);
+
+            //Si la información es diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la lista.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+
+                    Propiedad fMin = new Propiedad();
+                    fMin.Valor = (double)tipo.GetProperty("FractionalMin").GetValue(item, null);
+                    fMin.DescripcionCorta = "Fractional Min";
+                    herramental.Propiedades.Add(fMin);
+
+                    Propiedad fMax = new Propiedad();
+                    fMax.Valor = (double)tipo.GetProperty("FractionalMax").GetValue(item, null);
+                    fMax.DescripcionCorta = "Fractional Max";
+                    herramental.Propiedades.Add(fMax);
+
+                    PropiedadCadena fraccMin = new PropiedadCadena();
+                    fraccMin.Valor = (string)tipo.GetProperty("FracMin").GetValue(item, null);
+                    fraccMin.DescripcionCorta = "Fracc Min";
+                    herramental.PropiedadesCadena.Add(fraccMin);
+
+                    PropiedadCadena fraccMax = new PropiedadCadena();
+                    fraccMax.Valor = (string)tipo.GetProperty("FracMax").GetValue(item, null);
+                    fraccMax.DescripcionCorta = "Fracc Max";
+                    herramental.PropiedadesCadena.Add(fraccMax);
+
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CamBK");
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="codigo"></param>

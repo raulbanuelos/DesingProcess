@@ -345,6 +345,9 @@
     <Compile Include="Forms\Tooling\WMaestroHerramental.xaml.cs">
       <DependentUpon>WMaestroHerramental.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\WShieldBK.xaml.cs">
+      <DependentUpon>WShieldBK.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\WWorkCamTurn.xaml.cs">
       <DependentUpon>WWorkCamTurn.xaml</DependentUpon>
     </Compile>
@@ -741,6 +744,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\WMaestroHerramental.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WShieldBK.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

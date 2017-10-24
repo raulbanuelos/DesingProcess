@@ -66,6 +66,19 @@ namespace View.Services.ViewModel
 
         private string _titulo;
         public string Titulo { get { return _titulo; } set { _titulo = value; NotifyChange("Titulo"); } }
+
+        private string _param1;
+        public string Param1 {
+            get { return _param1; }
+            set { _param1 = value; NotifyChange("Param1"); }
+        }
+
+        private string _param2;
+        public string Param2
+        {
+            get { return _param2; }
+            set { _param2 = value; NotifyChange("Param2"); }
+        }
         #endregion
 
         #region Commands
@@ -140,6 +153,8 @@ namespace View.Services.ViewModel
             ListaMejores = new DataTable();
             ListaOptimos = new DataTable();
             Titulo = "Guillotina BK";
+            Param1 = "Diámetro Nominal";
+            Param2 = "Width Anillo";
         }
         #endregion
     }

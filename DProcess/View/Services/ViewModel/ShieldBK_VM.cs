@@ -74,19 +74,14 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double diam;
-        public double Diam
+        private double dim;
+        public double Dim
         {
-            get { return diam; }
-            set { diam = value; NotifyChange("Diam"); }
+            get { return dim; }
+            set { dim = value; NotifyChange("Dim"); }
         }
 
-        private double gap;
-        public double Gap
-        {
-            get { return gap; }
-            set { gap = value; NotifyChange("Gap"); }
-        }
+      
 
         #endregion
 
@@ -135,14 +130,14 @@ namespace View.Services.ViewModel
             ListaOptimos.Clear();
 
             //Si las variables son diferentes de cero
-            if (diam != 0 & gap != 0)
+            if (dim !=0)
             {
                 //Ejecutamos el método para buscar los collarines optimos.
-
+                ListaOptimos = DataManager.GetShieldBK(dim);
 
                 //Ejecutamos el método para seleccionar la mejor opción de collarines.
 
-
+                ListaMejores = ListaOptimos;
                 //Verificamos que la cantidad de mejores herramentales sea mayor a cero.
                 if (ListaOptimos.Rows.Count == 0)
                     //Enviamos un mensaje si no hay herramentales.

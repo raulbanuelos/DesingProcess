@@ -648,7 +648,7 @@ namespace View.Services.ViewModel
         /// </summary>
         private void irShieldBK()
         {
-            WClosingSleeve frm = new WClosingSleeve();
+            WShieldBK frm = new WShieldBK();
             ShieldBK_VM context = new ShieldBK_VM();
             frm.DataContext = context;
             frm.ShowDialog();
