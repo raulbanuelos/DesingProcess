@@ -85,7 +85,7 @@ namespace View.Forms.Tooling
         /// <returns></returns>
         public bool ValidaRangos()
         {
-            return false;
+            return true;
         }
 
         public int Update()

@@ -872,7 +872,8 @@ namespace View.Services.ViewModel
                         case MessageDialogResult.Negative:
                             break;
                         case MessageDialogResult.Affirmative:
-
+                            WPattern pattern = new WPattern();
+                            pattern.Show();
                             break;
                         case MessageDialogResult.FirstAuxiliary:
                             break;
