@@ -13,6 +13,7 @@
             <TextBox x:Name="dimMax" materialDesign:HintAssist.Hint="Diam Max" HorizontalAlignment="Left"   Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation"  PreviewKeyDown="KeyValidation" ></TextBox>
             <TextBox x:Name="medidas" materialDesign:HintAssist.Hint="Medidas" HorizontalAlignment="Left"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  PreviewKeyDown="KeyValidation"></TextBox>
             <TextBox x:Name="color" materialDesign:HintAssist.Hint="Color" HorizontalAlignment="Left"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  PreviewKeyDown="KeyValidation"></TextBox>
+            <TextBox x:Name="detalle" materialDesign:HintAssist.Hint="Detalle" HorizontalAlignment="Left"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  PreviewKeyDown="KeyValidation"></TextBox>
         </StackPanel>
     </Grid>
 </UserControl>

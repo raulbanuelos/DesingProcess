@@ -81,7 +81,7 @@ namespace View.Forms.Tooling
         }
 
         /// <summary>
-        /// todo que valída los rangos
+        /// Método que valída rangos.
         /// </summary>
         /// <returns></returns>
         public bool ValidaRangos()

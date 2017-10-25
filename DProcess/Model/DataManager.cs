@@ -1283,6 +1283,11 @@ namespace Model
                     color.DescripcionCorta = "Medidas";
                     herramental.PropiedadesCadena.Add(color);
 
+                    PropiedadCadena detalle = new PropiedadCadena();
+                    detalle.Valor = (string)tipo.GetProperty("Detalle").GetValue(item, null);
+                    detalle.DescripcionCorta = "Detalle";
+                    herramental.PropiedadesCadena.Add(detalle);
+
                 }
             }
             return herramental;
@@ -1299,7 +1304,7 @@ namespace Model
             SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
 
             //Ejecutamos el método
-            return ServiceSplitter.SetUretano(obj.Codigo,obj.PropiedadesCadena[0].Valor, obj.PropiedadesCadena[1].Valor, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor);
+            return ServiceSplitter.SetUretano(obj.Codigo,obj.PropiedadesCadena[0].Valor, obj.PropiedadesCadena[1].Valor, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.PropiedadesCadena[2].Valor);
         }
 
         /// <summary>
@@ -1313,7 +1318,7 @@ namespace Model
             SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
 
             //Ejecutamos el método
-            return ServiceSplitter.UpdateUretano(obj.idHerramental,obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.PropiedadesCadena[1].Valor, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor);
+            return ServiceSplitter.UpdateUretano(obj.idHerramental,obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.PropiedadesCadena[1].Valor, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.PropiedadesCadena[2].Valor);
         }
 
         /// <summary>
@@ -4449,7 +4454,7 @@ namespace Model
             //Inicializamos los servicios de coil 
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
-            return ServiceCoil.DeleteCOIL_CENTER_GUIDE(idH);
+            return ServiceCoil.DeleteCOIL_FEED_ROLLER(idH);
         }
 
         /// <summary>

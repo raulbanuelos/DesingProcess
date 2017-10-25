@@ -1025,7 +1025,8 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                                      a.Color,
                                      m.Descripcion,
                                      m.Activo,
-                                     a.ID_URETANO_SPLITTER
+                                     a.ID_URETANO_SPLITTER,
+                                     a.Detalle
                                  }).ToList();
 
                     //Retornamos el resultado de la consulta.
@@ -1049,7 +1050,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
         /// <param name="diaMax"></param>
         /// <param name="detalle"></param>
         /// <returns></returns>
-        public int SetUretano(string codigo,string medidas,string color,double diaMin, double diaMax)
+        public int SetUretano(string codigo,string medidas,string color,double diaMin, double diaMax,string detalle)
         {
             try
             {
@@ -1064,7 +1065,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     uretano.Color = color;
                     uretano.DiaMin = diaMin;
                     uretano.DiaMax = diaMax;
-                    uretano.Detalle = "0";
+                    uretano.Detalle = detalle;
 
                     //Se guardan los cambios
                     Conexion.UretanoSplitter.Add(uretano);
@@ -1092,7 +1093,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
         /// <param name="diaMax"></param>
         /// <param name="detalle"></param>
         /// <returns></returns>
-        public int UpdateUretano(int id,string codigo,string medidas,string color,double diaMin,double diaMax)
+        public int UpdateUretano(int id,string codigo,string medidas,string color,double diaMin,double diaMax,string detalle)
         {
             try
             {
@@ -1105,6 +1106,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     obj.Color = color;
                     obj.DiaMin = diaMin;
                     obj.DiaMax = diaMax;
+                    obj.Detalle = detalle;
 
                     //Guardamos los cambios, y retornamos los registros modificados
                     Conexion.Entry(obj).State = EntityState.Modified;

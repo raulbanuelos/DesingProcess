@@ -44,14 +44,17 @@ namespace View.Forms.Tooling
             Propiedad DMax = new Propiedad();
             PropiedadCadena Pmedidas = new PropiedadCadena();
             PropiedadCadena PColor = new PropiedadCadena();
+            PropiedadCadena Pdetalle = new PropiedadCadena();
 
             DMin.Valor = double.Parse(dimMin.Text, CultureInfo.InvariantCulture.NumberFormat);
             DMax.Valor = double.Parse(dimMax.Text, CultureInfo.InvariantCulture.NumberFormat);
             Pmedidas.Valor = medidas.Text;
             PColor.Valor = color.Text;
+            Pdetalle.Valor = detalle.Text;
 
             obj.PropiedadesCadena.Add(Pmedidas);
             obj.PropiedadesCadena.Add(PColor);
+            obj.PropiedadesCadena.Add(Pdetalle);
             obj.Propiedades.Add(DMin);
             obj.Propiedades.Add(DMax);
 
@@ -95,14 +98,17 @@ namespace View.Forms.Tooling
             Propiedad DMax = new Propiedad();
             PropiedadCadena Pmedidas = new PropiedadCadena();
             PropiedadCadena PColor = new PropiedadCadena();
+            PropiedadCadena Pdetalle = new PropiedadCadena();
 
             DMin.Valor = double.Parse(dimMin.Text, CultureInfo.InvariantCulture.NumberFormat);
             DMax.Valor = double.Parse(dimMax.Text, CultureInfo.InvariantCulture.NumberFormat);
             Pmedidas.Valor = medidas.Text;
             PColor.Valor = color.Text;
+            Pdetalle.Valor = detalle.Text;
 
             herram.PropiedadesCadena.Add(Pmedidas);
             herram.PropiedadesCadena.Add(PColor);
+            herram.PropiedadesCadena.Add(Pdetalle);
             herram.Propiedades.Add(DMin);
             herram.Propiedades.Add(DMax);
 
@@ -116,12 +122,13 @@ namespace View.Forms.Tooling
 
         public void InicializaCampos(string codigoHerramental)
         {
-           obj = DataManager.GetInfoUretanoSplitter(codigoHerramental);
+            obj = DataManager.GetInfoUretanoSplitter(codigoHerramental);
 
             dimMin.Text = Convert.ToString(obj.Propiedades[0].Valor);
             dimMax.Text = Convert.ToString(obj.Propiedades[1].Valor);
             medidas.Text = obj.PropiedadesCadena[0].Valor;
             color.Text= obj.PropiedadesCadena[1].Valor;
+            detalle.Text = obj.PropiedadesCadena[2].Valor;
         }
         /// <summary>
         /// Método que válida la entrada del textbox sólo sea número flotante

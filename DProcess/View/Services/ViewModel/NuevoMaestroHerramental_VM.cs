@@ -488,7 +488,7 @@ namespace View.Services.ViewModel
             //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
             MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
             //Si el resultado es verdadero
-            if (result == MessageDialogResult.Affirmative)
+            if (result == MessageDialogResult.Affirmative & Controlador != null)
             {
                 MaestroHerramental obj = new MaestroHerramental();
 
