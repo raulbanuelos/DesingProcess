@@ -118,6 +118,11 @@ namespace View.Forms.Tooling
             return DataManager.UpdateChuckSplitter(herram);
         }
 
+        public int Delete()
+        {
+            return DataManager.DeleteChuckSplitter(obj.idHerramental);
+        }
+
         public void InicializaCampos(string codigoHerramental)
         {
             obj = DataManager.GetInfoChuckSplitter(codigoHerramental);

@@ -85,6 +85,11 @@ namespace View.Forms.Tooling
             return DataManager.UpdateSHIM_OF_THE_CUT_SYSTEM(obj);
         }
 
+        public int Delete()
+        {
+            return DataManager.DeleteSHIM_OF_THE_CUT_SYSTEM(herramental.idHerramental);
+        }
+
         public void InicializaCampos(string codigoHerramental)
         {
             herramental = DataManager.GetInfoShim_OTCS(codigoHerramental);

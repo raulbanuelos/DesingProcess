@@ -88,6 +88,11 @@ namespace View.Forms.Tooling
             return DataManager.UpdateExternal_GR_3P_2(obj);
         }
 
+        public int Delete()
+        {
+            return DataManager.DeleteExternal_GR_3P_2(herramental.idHerramental);
+        }
+
         public void InicializaCampos(string codigoHerramental)
         {
             herramental = DataManager.GetInfoExternal_GR3P_2(codigoHerramental);

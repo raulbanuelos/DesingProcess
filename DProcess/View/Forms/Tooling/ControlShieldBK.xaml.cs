@@ -100,6 +100,11 @@ namespace View.Forms.Tooling
             return DataManager.SetShieldBK(obj);
         }
 
+        public int Delete()
+        {
+            return DataManager.DeleteShieldBK(herram.idHerramental);
+        }
+
         public bool ValidaError()
         {
             if (!string.IsNullOrEmpty(detalle.Text) & !string.IsNullOrEmpty(fraccMin.Text) & !string.IsNullOrEmpty(fraccMax.Text)

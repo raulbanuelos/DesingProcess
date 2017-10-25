@@ -149,5 +149,11 @@ namespace View.Forms.Tooling
             WMin.Text = Convert.ToString(herramental.Propiedades[4].Valor);
             WMax.Text = Convert.ToString(herramental.Propiedades[5].Valor);
         }
+
+        public int Delete()
+        {
+            return DataManager.DeleteCOIL_FEED_ROLLER(herramental.idHerramental);
+        }
+
     }
 }

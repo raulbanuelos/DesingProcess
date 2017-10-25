@@ -106,6 +106,11 @@ namespace View.Forms.Tooling
             return DataManager.UpdateGuidePlate(herram);
         }
 
+        public int Delete()
+        {
+            return DataManager.DeleteGuidePlate(obj.idHerramental);
+        }
+
         public void InicializaCampos(string codigoHerramental)
         {
             obj = DataManager.GetInfoGuidePlateBK(codigoHerramental);

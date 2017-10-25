@@ -86,6 +86,11 @@ namespace View.Forms.Tooling
             return DataManager.UpdateCamBK(obj);
         }
 
+        public int Delete()
+        {
+            return DataManager.DeleteCamBK(herram.idHerramental);
+        }
+
         public bool ValidaError()
         {
             if (!string.IsNullOrEmpty(detalle.Text) & !string.IsNullOrEmpty(dima.Text) & !string.IsNullOrEmpty(dimb.Text))

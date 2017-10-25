@@ -100,6 +100,11 @@ namespace View.Forms.Tooling
             return DataManager.UpdateBushingFM(herram);
         }
 
+        public int Delete()
+        {
+            return DataManager.DeleteBushingFM(obj.idHerramental);
+        }
+
         public void InicializaCampos(string codigoHerramental)
         {
             obj = DataManager.GetInfoBushing_FinishMill(codigoHerramental);

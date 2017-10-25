@@ -111,6 +111,11 @@ namespace View.Forms.Tooling
             return DataManager.UpdateCollarBK(herram);
         }
 
+        public int Delete()
+        {
+            return DataManager.DeleteCollarBK(obj.idHerramental);
+        }
+
         public void InicializaCampos(string codigoHerramental)
         {
             obj = DataManager.GetInfoCollarBK(codigoHerramental);

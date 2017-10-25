@@ -100,6 +100,11 @@ namespace View.Forms.Tooling
             return DataManager.UpdateExternal_GR_1P(obj);
         }
 
+        public int Delete()
+        {
+            return DataManager.DeleteExternal_GR_1P(herramental.idHerramental);
+        }
+
         public void InicializaCampos(string codigoHerramental)
         {
             herramental = DataManager.GetInfoExternal_GR1P(codigoHerramental);

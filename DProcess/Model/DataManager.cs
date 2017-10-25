@@ -1316,6 +1316,20 @@ namespace Model
             return ServiceSplitter.UpdateUretano(obj.idHerramental,obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.PropiedadesCadena[1].Valor, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteUretanoSplitter(int id)
+        {
+            //Inicializamos los servicios de Splitter.
+            SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
+
+            //Ejecutamos el método
+            return ServiceSplitter.DeleteUretano(id);
+        }
+
         /*CutterSplitter
          * 
          * 
@@ -1815,6 +1829,34 @@ namespace Model
         }
 
         /// <summary>
+        /// Método que modifica un registro en la tabla CollarSpacer
+        /// </summary>
+        /// <param name="herramental"></param>
+        /// <returns></returns>
+        public static int UpdateCollarSpacer(Herramental herramental)
+        {
+            //Inicializamos los servicios de CamTurn.
+            SO_CamTurn ServiceCam = new SO_CamTurn();
+             
+            //Ejecutamos el método, retornamos el resultado.
+            return ServiceCam.UpdateCollarSpcaer(herramental.idHerramental,herramental.Codigo, herramental.Plano, herramental.PropiedadesCadena[0].Valor, herramental.PropiedadesCadena[1].Valor, herramental.Propiedades[0].Valor, herramental.Propiedades[1].Valor);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteCollarSpacer(int id)
+        {
+            //Inicializamos los servicios de CamTurn.
+            SO_CamTurn ServiceCam = new SO_CamTurn();
+
+            //Ejecutamos el método, retornamos el resultado.
+            return ServiceCam.DeleteCollarSpacer(id);
+        }
+
+        /// <summary>
         /// Método que obtiene todos los registros de WorkCam
         /// </summary>
         /// <param name="texto"></param>
@@ -2024,6 +2066,19 @@ namespace Model
             return ServiceCam.UpdateWorkCam(herramental.idHerramental,herramental.Codigo, herramental.PropiedadesCadena[0].Valor, herramental.PropiedadesCadena[1].Valor);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteWorkCam(int id)
+        {
+            //Inicializamos los servicios de CamTurn.
+            SO_CamTurn ServiceCam = new SO_CamTurn();
+
+            return ServiceCam.DeleteWorkCam(id);
+        }
+
 
         /// <summary>
         /// Método que obtiene todos los registros de CamTurn.
@@ -2217,7 +2272,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// étodo que modifica un registro en la tabla de CutterCamTurn.
         /// </summary>
         /// <param name="herramental"></param>
         /// <returns></returns>
@@ -2228,6 +2283,20 @@ namespace Model
 
             //Ejecutamos el método.
             return ServiceCam.UpdateCutterCamTurn(herramental.idHerramental,herramental.Codigo, herramental.DescripcionGeneral, herramental.Propiedades[0].Valor, herramental.Plano);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idH"></param>
+        /// <returns></returns>
+        public static int DeleteCutterCamTurn(int idH)
+        {
+            //Inicializamos los servicios de CamTurn.
+            SO_CamTurn ServiceCam = new SO_CamTurn();
+
+            //Ejecutamos el método.
+            return ServiceCam.DeleteCutterCamTurn(idH);
         }
         #endregion
 
@@ -2504,6 +2573,20 @@ namespace Model
         }
 
         /// <summary>
+        /// Método que elimina un registro de Collar BK.
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public static int DeleteCollarBK(int Id)
+        {
+            //Inicializamos los servicios de BK.
+            SO_BK ServicioBk = new SO_BK();
+
+            //Ejecutamos el método.
+            return ServicioBk.DeleteCollar(Id);
+        }
+
+        /// <summary>
         /// Método que obtiene un registro a partir de los parámetros recibidos
         /// </summary>
         /// <param name="diafinish"></param>
@@ -2712,7 +2795,7 @@ namespace Model
             //Inicializamos los servicios de BK.
             SO_BK ServiceBk = new SO_BK();
 
-            //Ejecutamos el método
+            //Ejecutamos el método, retornamos el resultado.
             return ServiceBk.DeleteClosingSleeveBK(id);
         }
 
@@ -3798,7 +3881,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que actualiza un registro de Bushing Bates Bore.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -3811,6 +3894,19 @@ namespace Model
             return ServiceBatesBore.UpdateBushing(obj.idHerramental,obj.Codigo, obj.Plano, obj.Propiedades[0].Valor, obj.PropiedadesCadena[0].Valor);
         }
 
+        /// <summary>
+        /// Método que elimina un registro de Bushing Bates Bore.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteBushingBB(int id)
+        {
+            // Inicializamos los servicios de CamTurn.
+            SO_BatesBore ServiceBatesBore = new SO_BatesBore();
+
+            //Ejecutamos el método y regresa el resultado.
+            return ServiceBatesBore.DeleteBushing(id);
+        }
         #endregion
 
 
@@ -4001,7 +4097,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que actualiza un registro de la tabla Bushing Finish Mill.
         /// </summary>
         /// <param name="herramental"></param>
         /// <returns></returns>
@@ -4012,6 +4108,20 @@ namespace Model
 
             //Ejecutamos el método t retornamos el resultado.
             return ServiceFinishMill.UpdateBushingFM(herramental.idHerramental,herramental.Codigo, herramental.Plano, herramental.Propiedades[0].Valor);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla Bushing Finish Mill.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteBushingFM(int id)
+        {
+            //Inicializamos los servicios de Finish Mill.
+            SO_FinishMill ServiceFinishMill = new SO_FinishMill();
+
+            //Ejecutamos el método t retornamos el resultado.
+            return ServiceFinishMill.DeleteBushingFM(id);
         }
         #endregion
         #endregion
@@ -4332,14 +4442,14 @@ namespace Model
         /// <summary>
         /// Método para eliminar un registro de la tabls tbl_coil_feed_roller
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="idH"></param>
         /// <returns></returns>
-        public static int DeleteCOIL_FEED_ROLLER(Coil obj)
+        public static int DeleteCOIL_FEED_ROLLER(int idH)
         {
             //Inicializamos los servicios de coil 
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
-            return ServiceCoil.DeleteCOIL_CENTER_GUIDE(obj.ID);
+            return ServiceCoil.DeleteCOIL_CENTER_GUIDE(idH);
         }
 
         /// <summary>
@@ -4600,12 +4710,12 @@ namespace Model
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static int DeleteCOIL_CENTER_GUIDE(Coil obj)
+        public static int DeleteCOIL_CENTER_GUIDE(int id)
         {
             //Inicializamos los servicios de coil 
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
-            return ServiceCoil.DeleteCOIL_CENTER_GUIDE(obj.ID);
+            return ServiceCoil.DeleteCOIL_CENTER_GUIDE(id);
         }
 
         /// <summary>
@@ -4872,12 +4982,12 @@ namespace Model
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static int DeleteExit_GUIDE(Coil obj)
+        public static int DeleteExit_GUIDE(int id)
         {
             //Inicializamos los servicios de coil 
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
-            return ServiceCoil.DeleteExit_GUIDE(obj.ID);
+            return ServiceCoil.DeleteExit_GUIDE(id);
         }
 
         /// <summary>
@@ -5144,12 +5254,12 @@ namespace Model
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static int DeleteExternal_GR_1P(Coil obj)
+        public static int DeleteExternal_GR_1P(int id)
         {
             //Inicializamos los servicios de coil 
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
-            return ServiceCoil.DeleteExternal_GR_1P(obj.ID);
+            return ServiceCoil.DeleteExternal_GR_1P(id);
         }
 
         /// <summary>
@@ -5357,12 +5467,12 @@ namespace Model
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static int DeleteExternal_GR_3P_1(Coil obj)
+        public static int DeleteExternal_GR_3P_1(int id)
         {
             //Inicializamos los servicios de coil 
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
-            return ServiceCoil.DeleteExternal_GR_3P_1(obj.ID);
+            return ServiceCoil.DeleteExternal_GR_3P_1(id);
         }
 
         /// <summary>
@@ -5607,12 +5717,12 @@ namespace Model
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static int DeleteExternal_GR_3P_2(Coil obj)
+        public static int DeleteExternal_GR_3P_2(int id)
         {
             //Inicializamos los servicios de coil 
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
-            return ServiceCoil.DeleteExternal_GR_3P_2(obj.ID);
+            return ServiceCoil.DeleteExternal_GR_3P_2(id);
         }
 
         /// <summary>
@@ -5856,12 +5966,12 @@ namespace Model
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static int DeleteExternal_GR_3P_3(Coil obj)
+        public static int DeleteExternal_GR_3P_3(int id)
         {
             //Inicializamos los servicios de coil 
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
-            return ServiceCoil.DeleteExternal_GR_3P_3(obj.ID);
+            return ServiceCoil.DeleteExternal_GR_3P_3(id);
         }
 
         /// <summary>
@@ -6105,12 +6215,12 @@ namespace Model
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static int DelteSHIM_OF_THE_CUT_SYSTEM(Coil obj)
+        public static int DeleteSHIM_OF_THE_CUT_SYSTEM(int id)
         {
             //Inicializamos los servicios de coil 
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
-            return ServiceCoil.DeleteSHIM_OF_THE_CUT_SYSTEM(obj.ID);
+            return ServiceCoil.DeleteSHIM_OF_THE_CUT_SYSTEM(id);
         }
 
         /// <summary>

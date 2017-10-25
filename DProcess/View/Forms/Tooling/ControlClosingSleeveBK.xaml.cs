@@ -103,6 +103,11 @@ namespace View.Forms.Tooling
             return DataManager.UpdateClosingSleeveBK(herram);
         }
 
+        public int Delete()
+        {
+            return DataManager.DeleteClosingSleeveBK(obj.idHerramental);
+        }
+
         public void InicializaCampos(string codigoHerramental)
         {
             obj = DataManager.GetInfoClosingSleeveBK(codigoHerramental);

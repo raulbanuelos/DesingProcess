@@ -87,6 +87,11 @@ namespace View.Forms.Tooling
             return DataManager.UpdateWorkCam(herram);
         }
 
+        public int Delete()
+        {
+            return DataManager.DeleteWorkCam(obj.idHerramental);
+        }
+
         public void InicializaCampos(string codigoHerramental)
         {
             obj = DataManager.GetInfoWorkCam(codigoHerramental);

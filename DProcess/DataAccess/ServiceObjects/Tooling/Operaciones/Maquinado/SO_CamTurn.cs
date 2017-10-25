@@ -147,7 +147,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
             }
         }
         /// <summary>
-        /// Método que guarda un registro en la tbla.
+        /// Método que guarda un registro de Collar Spacer.
         /// </summary>
         /// <param name="codigo"></param>
         /// <param name="plano"></param>
@@ -155,7 +155,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
         /// <param name="dimE"></param>
         /// <param name="dimF"></param>
         /// <returns></returns>
-        public int SetCollarSpacer(string codigo, string plano, string medidaNom,string descripcion, double dimE, double dimF)
+        public int SetCollarSpacer(string codigo, string plano, string descripcion, string medidaNom, double dimE, double dimF)
         {
             try
             {
@@ -198,7 +198,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
         /// <param name="dimE"></param>
         /// <param name="dimF"></param>
         /// <returns></returns>
-        public int UpdateCollarSpcaer(int id, string codigo, string plano, string medidaNom, double dimE, double dimF)
+        public int UpdateCollarSpcaer(int id, string codigo,string plano ,string descripcion, string medidaNom, double dimE, double dimF)
         {
             try
             {
@@ -212,6 +212,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
                     obj.Codigo = codigo;
                     obj.Plano = plano;
                     obj.MedidaNominal = medidaNom;
+                    obj.Descripcion = descripcion;
                     obj.DimE = dimE;
                     obj.DimF = dimF;
                     obj.ident = 0;

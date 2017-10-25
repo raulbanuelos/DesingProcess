@@ -76,6 +76,11 @@ namespace View.Forms.Tooling
             return DataManager.UpdateCutterSplitterCasting(herram);
         }
 
+        public int Delete()
+        {
+            return DataManager.DeleteCutterSplitterCasting(obj.idHerramental);
+        }
+
         public void InicializaCampos(string codigoHerramental)
         {
             obj = DataManager.GetInfoCutterSplitter(codigoHerramental);

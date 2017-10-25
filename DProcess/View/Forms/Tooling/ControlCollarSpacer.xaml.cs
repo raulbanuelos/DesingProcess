@@ -24,6 +24,8 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlCollarSpacer : UserControl, IControlTooling
     {
+        Herramental obj;
+
         public ControlCollarSpacer()
         {
             InitializeComponent();
@@ -89,12 +91,36 @@ namespace View.Forms.Tooling
 
         public int Update()
         {
-            return 0;
+            Herramental herram = new Herramental();
+            Propiedad DimensionE = new Propiedad();
+            Propiedad DimensionF = new Propiedad();
+            PropiedadCadena descripcion = new PropiedadCadena();
+            PropiedadCadena medidaNominal = new PropiedadCadena();
+
+            herram.Codigo = obj.Codigo;
+            herram.idHerramental = obj.idHerramental;
+            herram.Plano = plano.Text;
+            DimensionE.Valor = double.Parse(dimE.Text, CultureInfo.InvariantCulture.NumberFormat);
+            DimensionF.Valor = double.Parse(dimF.Text, CultureInfo.InvariantCulture.NumberFormat);
+            medidaNominal.Valor = medidaN.Text;
+            descripcion.Valor = desc.Text;
+
+            herram.Propiedades.Add(DimensionE);
+            herram.Propiedades.Add(DimensionF);
+            herram.PropiedadesCadena.Add(descripcion);
+            herram.PropiedadesCadena.Add(medidaNominal);
+
+            return DataManager.UpdateCollarSpacer(herram);
+        }
+
+        public int Delete()
+        {
+            return DataManager.DeleteCollarSpacer(obj.idHerramental);
         }
 
         public void InicializaCampos(string codigoHerramental)
         {
-            Herramental obj = DataManager.GetInfoCollarSpacer(codigoHerramental);
+            obj = DataManager.GetInfoCollarSpacer(codigoHerramental);
 
             dimE.Text = Convert.ToString(obj.Propiedades[0].Valor);
             dimF.Text = Convert.ToString(obj.Propiedades[1].Valor);

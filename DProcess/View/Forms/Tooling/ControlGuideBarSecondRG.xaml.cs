@@ -76,6 +76,11 @@ namespace View.Forms.Tooling
             return 0;
         }
 
+        public int Delete()
+        {
+            return 0;
+        }
+
         public void InicializaCampos(string codigoHerramental)
         {
 

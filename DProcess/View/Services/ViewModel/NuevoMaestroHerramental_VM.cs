@@ -142,6 +142,20 @@ namespace View.Services.ViewModel
             }
         }
 
+        private bool _BttnEliminar = true;
+        public bool BttnEliminar
+        {
+            get
+            {
+                return _BttnEliminar;
+            }
+            set
+            {
+                _BttnEliminar = value;
+                NotifyChange("BttnEliminar");
+            }
+        }
+
         private int _Id_clasificacion;
         public int Id_clasificacion { get
             {
@@ -192,6 +206,17 @@ namespace View.Services.ViewModel
             get
             {
                 return new RelayCommand(o => guardar());
+            }
+        }
+
+        /// <summary>
+        /// Comando que elimina un registro de Maestro herramental
+        /// </summary>
+        public ICommand EliminarMaestro
+        {
+            get
+            {
+                return new RelayCommand(o => eliminar());
             }
         }
 
@@ -448,6 +473,56 @@ namespace View.Services.ViewModel
                 }
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private async void eliminar()
+        {
+            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = "SI";
+            setting.NegativeButtonText = "NO";
+
+
+            //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
+            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            //Si el resultado es verdadero
+            if (result == MessageDialogResult.Affirmative)
+            {
+                MaestroHerramental obj = new MaestroHerramental();
+
+                obj.Codigo = codigo;
+                //Se ejecuta el método de Eliminar maestro herramental.
+                int delete = Controlador.Delete();
+
+                //Si el resultado es diferente de cero.
+                if (delete!=0)
+                {
+                    //Ejecutamos el método de eliminar del controlador.
+                    if(DataManager.DeleteMaestroHerramental(obj) != 0)
+                    {
+                        //Se muestra en pantalla, mensaje de cambios guardados
+                        await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+
+                        //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                        var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                        //Verificamos que la pantalla sea diferente de nulo.
+                        if (window != null)
+                        {
+                            //Cerramos la pantalla
+                            window.Close();
+                        }
+                    }
+                    else
+                        await dialog.SendMessage("Alerta", "Error al eliminar el herramental...");
+                }
+                else
+                    //si hay erro al eliminar el registro, muestra un mensaje
+                    await dialog.SendMessage("Alerta", "Error al eliminar el herramental...");
+            }
+          }
         #endregion
         #region Constructor
         public NuevoMaestroHerramental_VM(Usuario ModelUsuario)
@@ -457,6 +532,7 @@ namespace View.Services.ViewModel
             ListaClasificacion = DataManager.GetClasificacionHerramental(string.Empty);
             //Bandera en falso si se va a dar de alta un herramental
             bandCambios = false;
+            BttnEliminar = false;
         }
 
         public NuevoMaestroHerramental_VM(Usuario ModelUsuario, Herramental MHerramental)
@@ -470,6 +546,7 @@ namespace View.Services.ViewModel
            
             //Asignamos las propiedades 
             bandCambios = true;
+            BttnEliminar = true;
             Codigo = MHerramental.Codigo;
             Descripcion = MHerramental.DescripcionGeneral;
             EnabledCodigo = false;

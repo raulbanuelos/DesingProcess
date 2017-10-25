@@ -109,6 +109,11 @@ namespace View.Forms.Tooling
             return DataManager.UpdateUretanoSplitter(herram);
         }
 
+        public int Delete()
+        {
+            return DataManager.DeleteUretanoSplitter(obj.idHerramental);
+        }
+
         public void InicializaCampos(string codigoHerramental)
         {
            obj = DataManager.GetInfoUretanoSplitter(codigoHerramental);

@@ -109,6 +109,11 @@ namespace View.Forms.Tooling
             return DataManager.UpdateExit_GUIDE(obj);
         }
 
+        public int Delete()
+        {
+            return DataManager.DeleteExit_GUIDE(herramental.idHerramental);
+        }
+
         public void InicializaCampos(string codigoHerramental)
         {
             herramental = DataManager.GetInfoExit_Guide(codigoHerramental);

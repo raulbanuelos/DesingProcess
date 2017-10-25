@@ -91,6 +91,11 @@ namespace View.Forms.Tooling
             return DataManager.UpdateGuillotinaBK(herram);
         }
 
+        public int Delete()
+        {
+            return DataManager.DeleteGuillotinaBK(obj.idHerramental);
+        }
+
         public void InicializaCampos(string codigoHerramental)
         {
             obj = DataManager.GetInfoGuillotinaBK(codigoHerramental);

@@ -175,5 +175,10 @@ namespace View.Forms.Tooling
             comboB.SelectedValuePath = obj.PropiedadesCadena[0].Valor;
 
         }
+
+        public int Delete()
+        {
+            return DataManager.DeleteBushingBB(obj.idHerramental);
+        }
     }
 }

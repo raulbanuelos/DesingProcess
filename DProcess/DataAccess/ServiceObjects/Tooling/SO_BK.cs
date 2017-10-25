@@ -252,6 +252,33 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
+        /// Método que elimina un registro de Collar BK.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int DeleteCollar(int id)
+        {
+            try
+            {
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Declaramos el objeto
+                    CollarBK obj = Conexion.CollarBK.Where(x => x.ID_COLLAR_BK == id).FirstOrDefault();
+
+                    Conexion.Entry(obj).State = EntityState.Deleted;
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //retornamos cero si hubo un error
+                return 0;
+            }
+        }
+
+        /// <summary>
         /// Método que obtiene el registro de closing Sleeve con las medidas específicas,
         /// </summary>
         /// <param name="sleeveMin"></param>

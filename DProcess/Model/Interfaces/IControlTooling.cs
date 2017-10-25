@@ -14,5 +14,6 @@ namespace Model.Interfaces
         bool ValidaRangos();
         void InicializaCampos(string codigoHerramental);
         int Update();
+        int Delete();
     }
 }

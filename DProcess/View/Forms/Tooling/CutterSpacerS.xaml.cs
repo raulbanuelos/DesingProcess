@@ -98,6 +98,11 @@ namespace View.Forms.Tooling
             return DataManager.UpdateCutterSpacerS(herram);
         }
 
+        public int Delete()
+        {
+            return DataManager.DeleteCutterSpacerS(obj.idHerramental);
+        }
+
         public void InicializaCampos(string codigoHerramental)
         {
             obj = DataManager.GetInfoCutterSpacer(codigoHerramental);

@@ -78,6 +78,11 @@ namespace View.Forms.Tooling
                 return false;
         }
 
+        public int Delete()
+        {
+            return DataManager.DeleteCOIL_CENTER_GUIDE(herramental.idHerramental);
+        }
+
         /// <summary>
         /// Método que válida la entrada del textbox sólo sea número flotante.
         /// </summary>

@@ -144,5 +144,10 @@ namespace View.Forms.Tooling
             plano.Text= obj.Plano;
 
         }
+
+        public int Delete()
+        {
+            return DataManager.DeleteCutterCamTurn(obj.idHerramental);
+        }
     }
 }
