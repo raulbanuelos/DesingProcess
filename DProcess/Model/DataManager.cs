@@ -2009,6 +2009,10 @@ namespace Model
                     propiedadMN.DescripcionCorta = "Medida Nominal";
                     propiedadMN.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propiedadMN);
+
+                    PropiedadCadena desc = new PropiedadCadena();
+                    desc.Valor = (string)tipo.GetProperty("DESCRIPCIONWC").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(desc);
                 }
             }
             return herramental;

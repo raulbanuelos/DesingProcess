@@ -130,7 +130,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private bool _EnabledCodigo=true;
+        private bool _EnabledCodigo = true;
         public bool EnabledCodigo { get
             {
                 return _EnabledCodigo;
@@ -139,6 +139,20 @@ namespace View.Services.ViewModel
             {
                 _EnabledCodigo = value;
                 NotifyChange("EnabledCodigo");
+            }
+        }
+
+        private bool _EnabledCombo = true;
+        public bool EnabledCombo
+        {
+            get
+            {
+                return _EnabledCombo;
+            }
+            set
+            {
+                _EnabledCombo = value;
+                NotifyChange("EnabledCombo");
             }
         }
 
@@ -253,47 +267,73 @@ namespace View.Services.ViewModel
             MetroDialogSettings setting = new MetroDialogSettings();
             setting.AffirmativeButtonText = "SI";
             setting.NegativeButtonText = "NO";
-            //Valida que los campos esten completos
-            if (ValidaValores() & Controlador.ValidaError())
+
+            //Si el herramental tiene controlador 
+            if (Controlador != null)
             {
-                if (Controlador.ValidaRangos())
+                //Valida que los campos esten completos
+                if (ValidaValores() & Controlador.ValidaError())
                 {
-                    //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
-                    MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
-                    //Si el resultado es verdadero
-                    if (result == MessageDialogResult.Affirmative)
+                    if (Controlador.ValidaRangos())
                     {
-                        MaestroHerramental obj = new MaestroHerramental();
-                        // si la bandera de cambios es falsa, se va agregar un nuevo herramental
-                        if (bandCambios == false)
+                        //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
+                        MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+                        //Si el resultado es verdadero
+                        if (result == MessageDialogResult.Affirmative)
                         {
-                            //Si no se repite el código
-                            if (DataManager.GetCodigoMaestro(Codigo) == null)
+                            // si la bandera de cambios es falsa, se va agregar un nuevo herramental
+                            if (bandCambios == false)
                             {
-                                //se asigna el valor del checkbox
-                                if (IsSelected)
-                                    obj.activo = true;
-                                else
-                                    obj.activo = false;
-                                //Asignamos los valores
-                                obj.Codigo = Codigo;
-                                obj.descripcion = Descripcion;
-                                obj.fecha_creacion = DateTime.Now.ToShortDateString();
-                                obj.fecha_cambio = DateTime.Now.ToShortDateString();
-                                obj.usuario_cambio = encriptar.desencript(usuario.NombreUsuario);
-                                obj.usuario_creacion = encriptar.desencript(usuario.NombreUsuario);
-                                obj.id_clasificacion = SelectedClasificacion.IdClasificacion;
-                                obj.id_plano = 0;
-
-                                //Ejecutamos el método para insertar el maestro herramental
-                                string codigo_maestro = DataManager.SetMaestroHerramentales(obj);
-
-                                //si el herramental se insertó correctamente
-                                if (codigo_maestro != null)
+                                //Si no se repite el código
+                                if (DataManager.GetCodigoMaestro(Codigo) == null)
                                 {
-                                    if (Controlador.Guardar(codigo_maestro) != 0)
+                                    string codigo_maestro = InsertMaestro();
+
+                                    //si el herramental se insertó correctamente
+                                    if (codigo_maestro != null)
                                     {
-                                        //Se muestra un mensaje en pantalla
+                                        if (Controlador.Guardar(codigo_maestro) != 0)
+                                        {
+                                            //Se muestra un mensaje en pantalla
+                                            await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+
+                                            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                                            //Verificamos que la pantalla sea diferente de nulo.
+                                            if (window != null)
+                                            {
+                                                //Cerramos la pantalla
+                                                window.Close();
+                                            }
+                                        }
+                                        else
+                                        {
+                                            //Se muestra un mensaje en pantalla
+                                            await dialog.SendMessage("Alerta", "Error al guardar el maestro herramental...");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //si hay erro al guardar el archivo, muestra un mensaje
+                                        await dialog.SendMessage("Alerta", "Error al guardar el maestro herramental...");
+                                    }
+                                }
+                                else
+                                {
+                                    //si el código ya existe
+                                    await dialog.SendMessage("Alerta", "El código de maestro herramental ya existe...");
+                                }
+                            }
+                            else
+                            {
+                                // la band es verdera, se haran cambios a un resgistro
+                                //Si se actualizó correctamente
+                                if (ModificaMaestro() != 0)
+                                {
+                                    if (Controlador.Update() != 0)
+                                    {
+                                        //Se muestra en pantalla, mensaje de cambios guardados
                                         await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
 
                                         //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
@@ -308,49 +348,51 @@ namespace View.Services.ViewModel
                                     }
                                     else
                                     {
-                                        //Se muestra un mensaje en pantalla
-                                        await dialog.SendMessage("Alerta", "Error al guardar el maestro herramental...");
+                                        //si hay erro al guardar el archivo, muestra un mensaje
+                                        await dialog.SendMessage("Alerta", "Error al actualizar el herramental..");
                                     }
                                 }
                                 else
                                 {
                                     //si hay erro al guardar el archivo, muestra un mensaje
-                                    await dialog.SendMessage("Alerta", "Error al guardar el maestro herramental...");
+                                    await dialog.SendMessage("Alerta", "Error al guardar los cambios...");
                                 }
                             }
-                            else
-                            {
-                                //si el código ya existe
-                                await dialog.SendMessage("Alerta", "El código de maestro herramental ya existe...");
-                            }
                         }
-                        else
+                    }
+                    else
+                    {
+                        await dialog.SendMessage("Alerta", "Error de rangos...");
+                    }
+                }
+                else
+                {
+                    //si todos los campos no estan llenos
+                    await dialog.SendMessage("Alerta", "Se deben llenar todos los campos...");
+                }
+            }
+            else
+            {
+                //Si el herramental no tien controlador, sólo se guarda el registro de maestro herrammental.
+                if (ValidaValores())
+                {
+                    //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
+                    MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+                    //Si el resultado es verdadero
+                    if (result == MessageDialogResult.Affirmative)
+                    {
+                        // si la bandera de cambios es falsa, se va agregar un nuevo herramental
+                        if (bandCambios == false)
                         {
-                            // la band es verdera, se haran cambios a un resgistro
-
-                            //si el check box se seleccionó, el herramental está activo
-                            if (IsSelected)
-                                obj.activo = true;
-                            else
-                                obj.activo = false;
-
-                            //Asignamos los valores
-                            obj.Codigo = codigo;
-                            obj.descripcion = Descripcion;
-                            obj.fecha_cambio = DateTime.Now.ToShortDateString();
-                            obj.usuario_cambio = encriptar.desencript(usuario.NombreUsuario);
-                            obj.id_clasificacion = SelectedClasificacion.IdClasificacion;
-                            obj.id_plano = 0;
-
-                            //Ejecutamos el método para actualizar el registro
-                            int update = DataManager.UpdateMaestroHerramental(obj);
-
-                            //Si se actualizó correctamente
-                            if (update != 0)
+                            //Si no se repite el código
+                            if (DataManager.GetCodigoMaestro(Codigo) == null)
                             {
+                                string codigo_maestro = InsertMaestro();
 
-                                if (Controlador.Update() != 0) {
-                                    //Se muestra en pantalla, mensaje de cambios guardados
+                                //si el herramental se insertó correctamente
+                                if (codigo_maestro != null)
+                                {
+                                    //Se muestra un mensaje en pantalla
                                     await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
 
                                     //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
@@ -366,7 +408,32 @@ namespace View.Services.ViewModel
                                 else
                                 {
                                     //si hay erro al guardar el archivo, muestra un mensaje
-                                    await dialog.SendMessage("Alerta", "Error al actualizar el herramental..");
+                                    await dialog.SendMessage("Alerta", "Error al guardar los cambios...");
+                                }
+                            }
+                            else
+                            {
+                                //si el código ya existe
+                                await dialog.SendMessage("Alerta", "El código de maestro herramental ya existe...");
+                            }
+                        }
+                        else
+                        {
+                            // la band es verdera, se haran cambios a un resgistro
+
+                            if (ModificaMaestro() != 0)
+                            {
+                                //Se muestra en pantalla, mensaje de cambios guardados
+                                await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+
+                                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                                //Verificamos que la pantalla sea diferente de nulo.
+                                if (window != null)
+                                {
+                                    //Cerramos la pantalla
+                                    window.Close();
                                 }
                             }
                             else
@@ -378,16 +445,61 @@ namespace View.Services.ViewModel
                     }
                 }
                 else
-                {
-                    await dialog.SendMessage("Alerta", "Error de rangos...");
-                }
+                    //si todos los campos no estan llenos
+                    await dialog.SendMessage("Alerta", "Se deben llenar todos los campos...");
             }
+        } 
+
+        /// <summary>
+        /// Método que guarda la información del Maestro Herramnetal.
+        /// </summary>
+        /// <returns></returns>
+        private string InsertMaestro()
+        {
+            MaestroHerramental obj = new MaestroHerramental();
+            //se asigna el valor del checkbox
+            if (IsSelected)
+                obj.activo = true;
             else
-            {
-                //si todos los campos no estan llenos
-                await dialog.SendMessage("Alerta", "Se deben llenar todos los campos...");
-            }
-            }
+                obj.activo = false;
+            //Asignamos los valores
+            obj.Codigo = Codigo;
+            obj.descripcion = Descripcion;
+            obj.fecha_creacion = DateTime.Now.ToShortDateString();
+            obj.fecha_cambio = DateTime.Now.ToShortDateString();
+            obj.usuario_cambio = encriptar.desencript(usuario.NombreUsuario);
+            obj.usuario_creacion = encriptar.desencript(usuario.NombreUsuario);
+            obj.id_clasificacion = SelectedClasificacion.IdClasificacion;
+            obj.id_plano = 0;
+
+            //Ejecutamos el método para insertar el maestro herramental
+            return DataManager.SetMaestroHerramentales(obj);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private int ModificaMaestro()
+        {
+            MaestroHerramental obj = new MaestroHerramental();
+            //si el check box se seleccionó, el herramental está activo
+            if (IsSelected)
+                obj.activo = true;
+            else
+                obj.activo = false;
+
+            //Asignamos los valores
+            obj.Codigo = codigo;
+            obj.descripcion = Descripcion;
+            obj.fecha_cambio = DateTime.Now.ToShortDateString();
+            obj.usuario_cambio = encriptar.desencript(usuario.NombreUsuario);
+            obj.id_clasificacion = SelectedClasificacion.IdClasificacion;
+            obj.id_plano = 0;
+
+            //Ejecutamos el método para actualizar el registro
+            return DataManager.UpdateMaestroHerramental(obj);
+        }
 
         /// <summary>
         /// Método que valida los valores, si está completos retorna verdadero
@@ -484,23 +596,45 @@ namespace View.Services.ViewModel
             setting.AffirmativeButtonText = "SI";
             setting.NegativeButtonText = "NO";
 
-
             //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
             MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
             //Si el resultado es verdadero
-            if (result == MessageDialogResult.Affirmative & Controlador != null)
+            if (result == MessageDialogResult.Affirmative)
             {
                 MaestroHerramental obj = new MaestroHerramental();
-
                 obj.Codigo = codigo;
-                //Se ejecuta el método de Eliminar maestro herramental.
-                int delete = Controlador.Delete();
 
-                //Si el resultado es diferente de cero.
-                if (delete!=0)
+                if (Controlador != null)
                 {
-                    //Ejecutamos el método de eliminar del controlador.
-                    if(DataManager.DeleteMaestroHerramental(obj) != 0)
+                    //Se ejecuta el método de Eliminar el controlador.
+                    if (Controlador.Delete() != 0)
+                    {
+                        //Ejecutamos el método de eliminar maestro herramental.
+                        if (DataManager.DeleteMaestroHerramental(obj) != 0)
+                        {
+                            //Se muestra en pantalla, mensaje de cambios guardados
+                            await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+
+                            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                            //Verificamos que la pantalla sea diferente de nulo.
+                            if (window != null)
+                            {
+                                //Cerramos la pantalla
+                                window.Close();
+                            }
+                        }
+                        else
+                            await dialog.SendMessage("Alerta", "Error al eliminar el herramental...");
+                    }
+                    else
+                        //si hay erro al eliminar el registro, muestra un mensaje
+                        await dialog.SendMessage("Alerta", "Error al eliminar el herramental...");
+                }
+                else
+                {
+                   if (DataManager.DeleteMaestroHerramental(obj) != 0)
                     {
                         //Se muestra en pantalla, mensaje de cambios guardados
                         await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
@@ -518,11 +652,8 @@ namespace View.Services.ViewModel
                     else
                         await dialog.SendMessage("Alerta", "Error al eliminar el herramental...");
                 }
-                else
-                    //si hay erro al eliminar el registro, muestra un mensaje
-                    await dialog.SendMessage("Alerta", "Error al eliminar el herramental...");
             }
-          }
+        }
         #endregion
         #region Constructor
         public NuevoMaestroHerramental_VM(Usuario ModelUsuario)
@@ -533,6 +664,7 @@ namespace View.Services.ViewModel
             //Bandera en falso si se va a dar de alta un herramental
             bandCambios = false;
             BttnEliminar = false;
+            EnabledCombo = true;
         }
 
         public NuevoMaestroHerramental_VM(Usuario ModelUsuario, Herramental MHerramental)
@@ -547,12 +679,16 @@ namespace View.Services.ViewModel
             //Asignamos las propiedades 
             bandCambios = true;
             BttnEliminar = true;
+            EnabledCombo = false;
             Codigo = MHerramental.Codigo;
             Descripcion = MHerramental.DescripcionGeneral;
             EnabledCodigo = false;
             IsSelected = ObjHerramental.activo;
             Id_clasificacion = ObjHerramental.id_clasificacion;
             CargarControlador(ObjHerramental.objetoXML);
+
+            if (Id_clasificacion==0)
+                EnabledCombo = true;
         }
         #endregion
     }

@@ -96,7 +96,7 @@ namespace View.Forms.Tooling
         {
             obj = DataManager.GetInfoWorkCam(codigoHerramental);
 
-            desc.Text = obj.DescripcionGeneral;
+            desc.Text = obj.PropiedadesCadena[1].Valor;
             medidaN.Text = obj.PropiedadesCadena[0].Valor;
         }
 
