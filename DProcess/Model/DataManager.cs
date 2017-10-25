@@ -3204,7 +3204,11 @@ namespace Model
         }
 
         //CamBK
-
+        /// <summary>
+        /// Método que obtiene todos los registros de Cam BK.
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
         public static DataTable GetAllCamBK(string texto)
         {
             //Inicializamos los servicios de BK.
@@ -3228,6 +3232,7 @@ namespace Model
                     //Declaramos un objeto de tipo Herramental.
                     Herramental herramental = new Herramental();
 
+                    //Asignamos los valores.
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
 
@@ -3240,7 +3245,7 @@ namespace Model
                     dimB.Valor = (double)tipo.GetProperty("B").GetValue(item, null);
                     dimB.DescripcionCorta = "Dim B";
                     herramental.Propiedades.Add(dimB);
-
+                    //Agregamos el objeto a la lista.
                     ListaResultante.Add(herramental);
                 }
             }
@@ -3249,7 +3254,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene la información de un herramental Cam Bk. 
         /// </summary>
         /// <param name="codigo"></param>
         /// <returns></returns>
@@ -3273,6 +3278,7 @@ namespace Model
                     //Obtenemos el tipo del elemento iterado.
                     System.Type tipo = item.GetType();                  
 
+                    //Asignamos los valores.
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
                     herramental.idHerramental=(int)tipo.GetProperty("Id_CamBK").GetValue(item, null);
@@ -3298,7 +3304,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que guarda un registro de CamBK.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -3306,12 +3312,12 @@ namespace Model
         {
             //Inicializamos los servicios de BK.
             SO_BK ServicioBk = new SO_BK();
-
+            //Ejecutamos el método y retornamos el resultado.
             return ServicioBk.SetCamBK(obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor);
         }
 
         /// <summary>
-        /// 
+        /// Método que actualiza un herramental de Cam BK.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -3320,11 +3326,12 @@ namespace Model
             //Inicializamos los servicios de BK.
             SO_BK ServicioBk = new SO_BK();
 
+            //Ejecutamos el método y retornamos el resultado.
             return ServicioBk.UpdateCamBK(obj.idHerramental,obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor);
         }
 
         /// <summary>
-        /// 
+        /// Método que elimina un registro de herramental Cam BK.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -3332,7 +3339,7 @@ namespace Model
         {
             //Inicializamos los servicios de BK.
             SO_BK ServicioBk = new SO_BK();
-
+            //Ejecutamos el método y retornamos el resultado.
             return ServicioBk.DeleteCamBK(id);
         }
 
@@ -3364,6 +3371,7 @@ namespace Model
                     //Declaramos un objeto de tipo Herramental.
                     Herramental herramental = new Herramental();
 
+                    //Asignamos los valores.
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
 
@@ -3386,7 +3394,7 @@ namespace Model
                     fraccMax.Valor = (string)tipo.GetProperty("FracMax").GetValue(item, null);
                     fraccMax.DescripcionCorta = "Fracc Max";
                     herramental.PropiedadesCadena.Add(fraccMax);
-
+                    //Agregamos el objeyto a la lista.
                     ListaResultante.Add(herramental);
                 }
             }
@@ -3422,6 +3430,7 @@ namespace Model
                     //Declaramos un objeto de tipo Herramental.
                     Herramental herramental = new Herramental();
 
+                    //Agregamos los valores.
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
 
@@ -3453,7 +3462,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene la información de un herramental Shield BK.
         /// </summary>
         /// <param name="codigo"></param>
         /// <returns></returns>
@@ -3512,7 +3521,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que guarda un registro de ShieldBK.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -3520,12 +3529,12 @@ namespace Model
         {
             //Inicializamos los servicios de BK.
             SO_BK ServicioBk = new SO_BK();
-
+            //Ejecutamos el métood y retornamos el resultado
             return ServicioBk.SetShieldBK(obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.Propiedades[0].Valor, obj.Propiedades[0].Valor, obj.PropiedadesCadena[1].Valor, obj.PropiedadesCadena[2].Valor);
         }
 
         /// <summary>
-        /// 
+        /// Método que actualiza un herramental de Shield BK.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -3533,12 +3542,12 @@ namespace Model
         {
             //Inicializamos los servicios de BK.
             SO_BK ServicioBk = new SO_BK();
-
+            //Ejecutamos el métood y retornamos el resultado
             return ServicioBk.UpdateShieldBK(obj.idHerramental,obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.Propiedades[0].Valor, obj.Propiedades[0].Valor, obj.PropiedadesCadena[1].Valor, obj.PropiedadesCadena[2].Valor);
         }
 
         /// <summary>
-        /// 
+        /// Método que elimina un herramental de Shield BK.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -3546,8 +3555,40 @@ namespace Model
         {
             //Inicializamos los servicios de BK.
             SO_BK ServicioBk = new SO_BK();
-
+            //Ejecutamos el métood y retornamos el resultado
             return ServicioBk.DeleteShieldBK(id);
+        }
+
+        /// <summary>
+        /// Obtiene el mejor herramental para shield BK.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable SelectBestShieldBK(DataTable dt)
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Description");
+            DataR.Columns.Add("Fractional Min");
+            DataR.Columns.Add("Fractional Max");
+
+            //Sólo se hace la iteración una vez
+            foreach (DataRow row in dt.Rows)
+            {
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = DataR.NewRow();
+                dr["Code"] = row["Code"].ToString();
+                dr["Description"] = row["Description"].ToString();
+                dr["Fractional Min"] = row["Fractional Min"].ToString();
+                dr["Fractional Max"] = row["Fractional Max"].ToString();
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+                break;
+            }
+            return DataR;
         }
 
         #endregion

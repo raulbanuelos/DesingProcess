@@ -137,7 +137,7 @@ namespace View.Services.ViewModel
 
                 //Ejecutamos el método para seleccionar la mejor opción de collarines.
 
-                ListaMejores = ListaOptimos;
+                ListaMejores = DataManager.SelectBestShieldBK(ListaOptimos);
                 //Verificamos que la cantidad de mejores herramentales sea mayor a cero.
                 if (ListaOptimos.Rows.Count == 0)
                     //Enviamos un mensaje si no hay herramentales.

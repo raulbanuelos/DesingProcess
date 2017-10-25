@@ -996,7 +996,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// Método que obtiene todos los registros de CAMBK.
+        /// Método que obtiene todos los registros de CAMBK de acuerdo a la palabra de búsqueda.
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
