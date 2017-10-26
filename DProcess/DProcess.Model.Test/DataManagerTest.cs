@@ -103,10 +103,27 @@ namespace DProcess.Model.Test
             //Assert
             Assert.AreEqual(barraGuia.Codigo, "1002011           ");
         }
+
+        [TestMethod]
+        public void GetCotasFabricacionCollarBKTest()
+        {
+            //Arrange
+            double maxA = 2.700;
+            double minB = 2.800;
+
+            //Act
+            string cadena = DataManager.GetCotasFabricacionCollarBK(maxA, minB);
+
+
+            //Assert
+            string cadenaEsperada = "DIM \"A\"= 2.7\nDIM \"B\"= 2.8\nDIM \"C\"= 2.75\nDIM \"D\"= 2.938\n";
+            Assert.AreEqual(cadena, cadenaEsperada);
+
+        }
         #endregion
 
         #region Module
-        
+
         [TestMethod]
         public void GetDiametroOperacion()
         {

@@ -2550,6 +2550,60 @@ namespace Model
         }
 
         /// <summary>
+        /// Método que retorna una cadena de texto la cual contiene las medidas de fabricación para un collarin de bk a partir de las medidas maxA y MinB
+        /// </summary>
+        /// <param name="maxA"></param>
+        /// <param name="minB"></param>
+        /// <returns></returns>
+        public static string GetCotasFabricacionCollarBK(double maxA, double minB)
+        {
+            string medidasFabricacion = string.Empty;
+
+            medidasFabricacion = "DIM \"A\"= " + maxA + "\n";
+            medidasFabricacion += "DIM \"B\"= " + minB + "\n";
+
+            double dimC, dimD, dimE = 0;
+
+            if (maxA >= 2.187 && maxA <= 2.999) 
+            {
+                /*
+                 * Cálculo para el siguiente plano
+                 * PT. 744 RL40-283
+                */
+                dimC = maxA + 0.187;
+                dimD = maxA + 0.3750;
+
+                medidasFabricacion += dimC >= 2.750 ? "DIM \"C\"= " + 2.750 + "\n" : "DIM \"C\"= " + dimC + "\n";
+                medidasFabricacion += dimD >= 2.938 ? "DIM \"D\"= " + 2.938 + "\n" : "DIM \"D\"= " + dimD + "\n";
+
+            }
+            else if(maxA >= 2.938 && maxA <= 3.499)
+            {
+                /*
+                 * Cálculo para el siguiente plano
+                 * PT 746 RL40-284
+                 */
+                dimC = maxA + 0.062;
+                dimD = maxA + 0.375;
+                dimE = minB - 0.125;
+
+                medidasFabricacion += "DIM \"C\"=  " + dimC + "\n";
+                medidasFabricacion += "DIM \"D\"=  " + dimD + "\n";
+                medidasFabricacion += "DIM \"E\"=  " + dimE + "\n";
+                medidasFabricacion += "NOTA: DIMENSIÓN \"E\" MINIMO DEBE SER E=2.770";
+
+            }
+            else if (maxA >= 3.380 && maxA <= 6.783)
+            {
+                medidasFabricacion = "Falta calculo";
+            }
+            else
+                medidasFabricacion = "No se obtubo el calculo para obtener las medidas de fabricación.";
+
+            return medidasFabricacion;
+        }
+
+        /// <summary>
         /// Método que inserta un registro collarBK
         /// </summary>
         /// <param name="obj"></param>

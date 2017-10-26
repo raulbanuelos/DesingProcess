@@ -46,6 +46,11 @@ namespace Model
         public ObservableCollection<PropiedadBool> PropiedadesBool { get; set; }
 
         public int idHerramental { get; set; }
+
+        /// <summary>
+        /// Cadena que representa las medidas con las cuales se deben de fabricar el herramental.
+        /// </summary>
+        public string MedidasFabricacion { get; set; }
         #endregion
 
         #region Constructores
