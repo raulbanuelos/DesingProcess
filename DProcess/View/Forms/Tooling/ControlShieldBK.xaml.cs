@@ -121,7 +121,8 @@ namespace View.Forms.Tooling
 
             if (min < max)
                 return true;
-            else return false;
+            else
+                return false;
         }
 
         /// <summary>

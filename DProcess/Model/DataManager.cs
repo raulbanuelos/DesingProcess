@@ -642,13 +642,14 @@ namespace Model
             SO_SplitterCasting ServicioSplitter = new SO_SplitterCasting();
 
             double spacerMin, spacerMax;
+            //Obtenemos el creterio
             spacerMin = GetCriterio("SpacerMin");
             spacerMax = GetCriterio("SpacerMax");
 
             spacerMin = spacer - spacerMin;
             spacerMax = spacer + spacerMax;
 
-
+            //Se obtiene la información de la base de datos.
             IList informacionBD = ServicioSplitter.GetSpacer(spacerMin, spacerMax);
 
             if (informacionBD != null)
@@ -658,7 +659,7 @@ namespace Model
                     System.Type tipo = item.GetType();
 
                     herramental = new Herramental();
-
+                    //Obtenemos el herramental a partir de la lista.
                     herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
                 }
@@ -877,6 +878,7 @@ namespace Model
                   
                 }
             }
+            //Retornamos el herramnetal.
             return herramental;
         }
 
@@ -1061,6 +1063,7 @@ namespace Model
 
                 }
             }
+            //Retornamos el objeto.
             return herramental;
         }
 
@@ -1183,7 +1186,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene todos los registros de Uretano o las coincidencias con el texto de búsqueda.
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
@@ -1290,11 +1293,12 @@ namespace Model
 
                 }
             }
+            //Retornamos el objeto.
             return herramental;
         }
 
         /// <summary>
-        /// 
+        /// Método que guarda un registro de Uretano Splitter.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -1308,7 +1312,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que elimina un registro de Uretano Splitter.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -1322,7 +1326,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que elimina un registro de Uretano Splitter.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -1710,7 +1714,7 @@ namespace Model
 
 
         /// <summary>
-        /// 
+        /// Método que obtiene los mejores herramentales Collar a partir de small y pc.
         /// </summary>
         /// <param name="small_od"></param>
         /// <param name="pc"></param>
@@ -1848,7 +1852,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que elimina un registro de Collar Spcaer.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -2009,6 +2013,10 @@ namespace Model
                     propiedadMN.DescripcionCorta = "Medida Nominal";
                     propiedadMN.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propiedadMN);
+
+                    PropiedadCadena desc = new PropiedadCadena();
+                    desc.Valor = (string)tipo.GetProperty("DESCRIPCIONWC").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(desc);
                 }
             }
             return herramental;
@@ -2273,7 +2281,7 @@ namespace Model
             SO_CamTurn ServiceCam = new SO_CamTurn();
 
             //Ejecutamos el método.
-            return ServiceCam.SetCutterCamTurn(herramental.Codigo, herramental.DescripcionGeneral, herramental.Propiedades[0].Valor, herramental.Plano);
+            return ServiceCam.SetCutterCamTurn(herramental.Codigo, herramental.PropiedadesCadena[0].Valor, herramental.Propiedades[0].Valor, herramental.Plano);
         }
 
         /// <summary>
@@ -2287,7 +2295,7 @@ namespace Model
             SO_CamTurn ServiceCam = new SO_CamTurn();
 
             //Ejecutamos el método.
-            return ServiceCam.UpdateCutterCamTurn(herramental.idHerramental,herramental.Codigo, herramental.DescripcionGeneral, herramental.Propiedades[0].Valor, herramental.Plano);
+            return ServiceCam.UpdateCutterCamTurn(herramental.idHerramental,herramental.Codigo, herramental.PropiedadesCadena[0].Valor, herramental.Propiedades[0].Valor, herramental.Plano);
         }
 
         /// <summary>

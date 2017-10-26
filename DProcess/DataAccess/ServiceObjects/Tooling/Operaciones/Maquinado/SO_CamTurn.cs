@@ -311,7 +311,8 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
                                      c.Codigo,
                                      m.Descripcion,
                                      c.MedidaNominal,
-                                     c.Id_WorkCam
+                                     c.Id_WorkCam,
+                                     DESCRIPCIONWC=c.Descripcion
                                  }).ToList();
                     return lista;
                 }
