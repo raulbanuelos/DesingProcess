@@ -90,13 +90,15 @@ namespace View.Forms.Tooling
         public int Guardar(string codigo)
         {
             Herramental obj = new Herramental();
-            Propiedad dimension = new Propiedad();           
+            Propiedad dimension = new Propiedad();
+            PropiedadCadena descripcion = new PropiedadCadena();
 
             obj.Codigo = codigo;
             obj.Plano = plano.Text;
-            obj.DescripcionGeneral = desc.Text;
             dimension.Valor = double.Parse(dim.Text, CultureInfo.InvariantCulture.NumberFormat);
+            descripcion.Valor = desc.Text;
             obj.Propiedades.Add(dimension);
+            obj.PropiedadesCadena.Add(descripcion);
 
             return DataManager.SetCutterCamTurn(obj);
         }
@@ -124,13 +126,16 @@ namespace View.Forms.Tooling
         {
             Herramental herram = new Herramental();
             Propiedad dimension = new Propiedad();
+            PropiedadCadena descripcion = new PropiedadCadena();
 
             herram.Codigo = obj.Codigo;
             herram.idHerramental = obj.idHerramental;
             herram.Plano = plano.Text;
-            herram.DescripcionGeneral = desc.Text;
+
+            descripcion.Valor = desc.Text;
             dimension.Valor = double.Parse(dim.Text, CultureInfo.InvariantCulture.NumberFormat);
             herram.Propiedades.Add(dimension);
+            herram.PropiedadesCadena.Add(descripcion);
 
             return DataManager.UpdateCutterCamTurn(herram);
         }

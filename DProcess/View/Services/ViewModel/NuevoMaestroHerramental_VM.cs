@@ -687,6 +687,7 @@ namespace View.Services.ViewModel
             Id_clasificacion = ObjHerramental.id_clasificacion;
             CargarControlador(ObjHerramental.objetoXML);
 
+            //Si el herramemtal no tiene clsificación, se habilita el combobox y se muestra el botón de búsqueda.
             if (Id_clasificacion==0)
                 EnabledCombo = true;
         }
