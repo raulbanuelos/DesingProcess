@@ -361,6 +361,28 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => irShieldBK());
             }
         }
+
+        /// <summary>
+        /// Comando que abre la ventana de bushing Cromo OD.
+        /// </summary>
+        public ICommand IrBushingCromo
+        {
+            get
+            {
+                return new RelayCommand(o => irBushingCromo());
+            }
+        }
+
+        /// <summary>
+        /// Comando que abre la ventana de bushing Cromo OD.
+        /// </summary>
+        public ICommand IrCollarCromo
+        {
+            get
+            {
+                return new RelayCommand(o => irCollarCromo());
+            }
+        }
         #endregion
 
         #region Methods
@@ -621,7 +643,7 @@ namespace View.Services.ViewModel
             frm.ShowDialog();
         }
 
-        /// <summary>
+        /// <summary>Método que muestra la ventana de Bushing Finish Mill.
         /// 
         /// </summary>
         private void irBushingFM()
@@ -633,7 +655,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Método que muestra la ventana de Cam BK.
         /// </summary>
         private void irCamBK()
         {
@@ -644,12 +666,32 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Método que muestra la ventana de Shield BK.
         /// </summary>
         private void irShieldBK()
         {
             WShieldBK frm = new WShieldBK();
             ShieldBK_VM context = new ShieldBK_VM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// Método que muestra la ventana de Bushing Cromo OD.
+        /// </summary>
+        private void irBushingCromo()
+        {
+            WBatesBore frm = new WBatesBore();
+            BushingCromo context = new BushingCromo();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// Método que muestra la ventana de Collar Cromo OD.
+        /// </summary>
+        private void irCollarCromo()
+        {
+            WBatesBore frm = new WBatesBore();
+            CollarCromoVM context = new CollarCromoVM();
             frm.DataContext = context;
             frm.ShowDialog();
         }

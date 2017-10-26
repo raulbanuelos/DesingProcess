@@ -58,12 +58,13 @@
                     <MenuItem Header="WorkCam" Cursor="Hand" Command="{Binding IrWorkCam}"/>
                     <MenuItem Header="Cutter cam turn" Cursor="Hand" Command="{Binding IrCutterCT}"/>
                 </MenuItem>
-                <MenuItem Header="Bates Bore">
+                <MenuItem Header="Bates Bore" Cursor="Hand">
                     <MenuItem Header="Bushing" Cursor="Hand" Command="{Binding IrBushingBB}"/>
                 </MenuItem>
-                <MenuItem Header="Finish Mill">
+                <MenuItem Header="Finish Mill" Cursor="Hand">
                     <MenuItem Header="Bushing" Cursor="Hand" Command="{Binding IrBushingFM}"/>
                 </MenuItem>
+               
                 <MenuItem Header="Auto Finish Turn" Cursor="Hand">
                     <MenuItem Header="Collar" Cursor="Hand" Command="{Binding IrCollarBK}"/>
                     <MenuItem Header="Guide plate" Cursor="Hand" Command="{Binding IrGuidePlate}"/>
@@ -74,6 +75,10 @@
                     <MenuItem Header="Tool barm" Cursor="Hand"/>
                     <MenuItem Header="Cam" Cursor="Hand" Command="{Binding IrCamBK}"/>
                     <MenuItem Header="Shield" Cursor="Hand" Command="{Binding IrShieldBK}"/>
+                </MenuItem>
+                <MenuItem Header="Cromo OD" Cursor="Hand">
+                    <MenuItem Header="Bushing" Cursor="Hand" Command="{Binding IrBushingCromo}"/>
+                    <MenuItem Header="Collar" Cursor="Hand" Command="{Binding IrCollarCromo}"/>
                 </MenuItem>
             </MenuItem>
         </Menu>

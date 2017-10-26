@@ -2019,6 +2019,7 @@ namespace Model
                     herramental.PropiedadesCadena.Add(desc);
                 }
             }
+            //Retornamos el objeto.
             return herramental;
         }
 
@@ -2050,6 +2051,7 @@ namespace Model
                 DataR.Rows.Add(dr);
                 break;
             }
+            //REtornamos la tabla.
             return DataR;
         }
 
@@ -4190,6 +4192,448 @@ namespace Model
             //Ejecutamos el método t retornamos el resultado.
             return ServiceFinishMill.DeleteBushingFM(id);
         }
+        #endregion
+
+        #region Cromo
+        /// <summary>
+        /// Método que obtiene todos los registros de Bushing Cromo.
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public static DataTable GetAllBushingCromo(string texto)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Cromo ServiceCromo = new SO_Cromo();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceCromo.GetAllBushingCromo(texto);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+
+
+                    Propiedad propiedadDimD = new Propiedad();
+                    propiedadDimD.DescripcionCorta = "Dim D";
+                    propiedadDimD.Valor = (double)tipo.GetProperty("DimD").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimD);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "BushingCromo");
+        }
+
+        /// <summary>
+        /// Método que obtiene los herramentales óptimos de Bushing Cromo.
+        /// </summary>
+        /// <param name="diamBO"></param>
+        /// <returns></returns>
+        public static DataTable GetBushingCromo(double diamBO)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Cromo ServiceCromo = new SO_Cromo();
+
+            double dimMin = diamBO - GetCriterio("CromoBushingMin");
+            double dimMax = diamBO + GetCriterio("CromoBushingMax");
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceCromo.GetBushingCromo(dimMin, dimMax);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+
+
+                    Propiedad propiedadDimD = new Propiedad();
+                    propiedadDimD.DescripcionCorta = "Dim D";
+                    propiedadDimD.Valor = (double)tipo.GetProperty("DimD").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimD);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "BushingCromo");
+        }
+
+        /// <summary>
+        /// Método que obtiene la información de un  herramental  Bushing Cromo.
+        /// </summary>
+        /// <param name="codigoHerramental"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoBushingCromo(string codigoHerramental)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Cromo ServiceCromo = new SO_Cromo();
+
+            //Declaramos un objeto de tipo Herramental.
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceCromo.GetInfoBushingCromo(codigoHerramental);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("Id_BushingCromo").GetValue(item, null);
+
+                    Propiedad propiedadDimD = new Propiedad();
+                    propiedadDimD.DescripcionCorta = "Dim D";
+                    propiedadDimD.Valor = (double)tipo.GetProperty("DimD").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimD);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+
+            //Retornamos el objeto.
+            return herramental;
+        }
+
+        /// <summary>
+        /// Método que obtiene el mejor herramental para  Bushing Cromo.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable SelectBest_BushingCromo(DataTable dt)
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Description");
+            DataR.Columns.Add("Dim D");
+
+            //Sólo se hace la iteración una vez
+            foreach (DataRow row in dt.Rows)
+            {
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = DataR.NewRow();
+                dr["Code"] = row["Code"].ToString();
+                dr["Description"] = row["Description"].ToString();
+                dr["Dim D"] = row["Dim D"].ToString();
+
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+                break;
+            }
+            return DataR;
+        }
+
+        /// <summary>
+        /// Método que guarda un regsitro de BushingCromo.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetBushingCromo(Herramental obj)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Cromo ServiceCromo = new SO_Cromo();
+
+            //Ejecutamos el método y retornamos el resultado.
+            return ServiceCromo.SetBushingCromo(obj.Codigo, obj.Propiedades[0].Valor, obj.Plano);
+        }
+
+        /// <summary>
+        /// Método que modifica un registro de la tabla Busging Cromo.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateBushingCromo(Herramental obj)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Cromo ServiceCromo = new SO_Cromo();
+
+            //Ejecutamos el método y retornamos el resultado.
+            return ServiceCromo.UpdateBushingCromo(obj.idHerramental,obj.Codigo, obj.Propiedades[0].Valor, obj.Plano);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla Busging Cromo.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteBusgingCromo(int id)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Cromo ServiceCromo = new SO_Cromo();
+
+            //Ejecutamos el método y retornamos el resultado.
+            return ServiceCromo.DeleteBushingCromo(id);
+        }
+
+        /* Collar
+         *  * 
+         * */
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="texto"></param>
+            /// <returns></returns>
+        public static DataTable GetAllCollarCromo(string texto)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Cromo ServiceCromo = new SO_Cromo();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceCromo.GetAllCollarsCromo(texto);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+
+
+                    Propiedad propiedadDimD = new Propiedad();
+                    propiedadDimD.DescripcionCorta = "Dim A";
+                    propiedadDimD.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimD);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CollarCromo");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="codigoHerramental"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoCollarCromo(string codigoHerramental)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Cromo ServiceCromo = new SO_Cromo();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceCromo.GetInfoCollarsCromo(codigoHerramental);
+
+            //Declaramos un objeto de tipo Herramental.
+            Herramental herramental = new Herramental();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();                 
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("Id_Collar").GetValue(item, null);
+
+                    Propiedad propiedadDimD = new Propiedad();
+                    propiedadDimD.DescripcionCorta = "Dim A";
+                    propiedadDimD.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimD);
+
+                    
+                }
+            }
+
+            return herramental;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable SelectBest_CollarCromo(DataTable dt)
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Description");
+            DataR.Columns.Add("Dim A");
+
+            //Sólo se hace la iteración una vez
+            foreach (DataRow row in dt.Rows)
+            {
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = DataR.NewRow();
+                dr["Code"] = row["Code"].ToString();
+                dr["Description"] = row["Description"].ToString();
+                dr["Dim A"] = row["Dim A"].ToString();
+
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+                break;
+            }
+            return DataR;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="diamBush"></param>
+        /// <returns></returns>
+        public static DataTable GetCollarCromo(double diamBush)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Cromo ServiceCromo = new SO_Cromo();
+
+            double dimMin = diamBush - GetCriterio("CromoCollarMin");
+            double dimMax = diamBush + GetCriterio("CromoCollarMax");
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceCromo.GetCollarsCromo(dimMin, dimMax);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+
+
+                    Propiedad propiedadDimD = new Propiedad();
+                    propiedadDimD.DescripcionCorta = "Dim A";
+                    propiedadDimD.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimD);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CollarCromo");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetCollarCromo(Herramental obj)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Cromo ServiceCromo = new SO_Cromo();
+
+            //Ejecutamos el método y retornamos el resultado.
+            return ServiceCromo.SetCollarsCromo(obj.Codigo, obj.Propiedades[0].Valor, obj.Plano);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateCollarCromo(Herramental obj)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Cromo ServiceCromo = new SO_Cromo();
+
+            //Ejecutamos el método y retornamos el resultado.
+            return ServiceCromo.UpdateCollarsCromo(obj.idHerramental,obj.Codigo, obj.Propiedades[0].Valor, obj.Plano);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteCollarCromo(int id)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Cromo ServiceCromo = new SO_Cromo();
+
+            //Ejecutamos el método y retornamos el resultado.
+            return ServiceCromo.DeleteCollarsCromo(id);
+        }
+
         #endregion
         #endregion
 

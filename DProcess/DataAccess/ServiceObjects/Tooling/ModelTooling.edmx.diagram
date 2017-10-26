@@ -69,6 +69,10 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ShieldBK_" Width="1.5" PointX="3" PointY="82.125" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CamBK__MaestroHerramentales" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_ShieldBK__MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.BushingCromo_" Width="1.5" PointX="3" PointY="88.625" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CollarsCromo_" Width="1.5" PointX="3" PointY="91.375" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_BushingCromo__MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CollarsCromo__MaestroHerramentales" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -15,6 +15,15 @@
           <Property Name="MedidaNominal" Type="float" />
           <Property Name="DimB" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="BushingCromo_">
+          <Key>
+            <PropertyRef Name="Id_BushingCromo" />
+          </Key>
+          <Property Name="Id_BushingCromo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGO" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="DimD" Type="float" Nullable="false" />
+          <Property Name="Plano" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="BushingFinishMill">
           <Key>
             <PropertyRef Name="Id_BushingFM" />
@@ -81,6 +90,15 @@
           <Property Name="DimA_Unidad" Type="varchar" MaxLength="50" />
           <Property Name="DimB" Type="float" />
           <Property Name="DimB_Unidad" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CollarsCromo_">
+          <Key>
+            <PropertyRef Name="Id_Collar" />
+          </Key>
+          <Property Name="Id_Collar" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="DimA" Type="float" Nullable="false" />
+          <Property Name="Plano" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="CollarSpacer">
           <Key>
@@ -473,6 +491,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BushingCromo__MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1" />
+          <End Role="BushingCromo_" Type="Self.BushingCromo_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="BushingCromo_">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BushingFinishMill_MaestroHerramentales">
           <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -551,6 +581,18 @@
               <PropertyRef Name="Codigo" />
             </Principal>
             <Dependent Role="CollarBK">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollarsCromo__MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1" />
+          <End Role="CollarsCromo_" Type="Self.CollarsCromo_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="CollarsCromo_">
               <PropertyRef Name="Codigo" />
             </Dependent>
           </ReferentialConstraint>
@@ -827,12 +869,14 @@
         </Association>
         <EntityContainer Name="DataAccessServiceObjectsToolingStoreContainer">
           <EntitySet Name="BushingBatesBore_" EntityType="Self.BushingBatesBore_" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BushingCromo_" EntityType="Self.BushingCromo_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BushingFinishMill" EntityType="Self.BushingFinishMill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CamBK_" EntityType="Self.CamBK_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChuckSplitter" EntityType="Self.ChuckSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClasificacionHerramental" EntityType="Self.ClasificacionHerramental" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClosingSleeveBK" EntityType="Self.ClosingSleeveBK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CollarBK" EntityType="Self.CollarBK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CollarsCromo_" EntityType="Self.CollarsCromo_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CollarSpacer" EntityType="Self.CollarSpacer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CriDiaGuillBK" EntityType="Self.CriDiaGuillBK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CriGillBK" EntityType="Self.CriGillBK" Schema="dbo" store:Type="Tables" />
@@ -866,6 +910,10 @@
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="BushingBatesBore_" EntitySet="BushingBatesBore_" />
           </AssociationSet>
+          <AssociationSet Name="FK_BushingCromo__MaestroHerramentales" Association="Self.FK_BushingCromo__MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="BushingCromo_" EntitySet="BushingCromo_" />
+          </AssociationSet>
           <AssociationSet Name="FK_BushingFinishMill_MaestroHerramentales" Association="Self.FK_BushingFinishMill_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="BushingFinishMill" EntitySet="BushingFinishMill" />
@@ -889,6 +937,10 @@
           <AssociationSet Name="FK_CollarBK_MaestroHerramentales" Association="Self.FK_CollarBK_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="CollarBK" EntitySet="CollarBK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollarsCromo__MaestroHerramentales" Association="Self.FK_CollarsCromo__MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="CollarsCromo_" EntitySet="CollarsCromo_" />
           </AssociationSet>
           <AssociationSet Name="FK_CollarSpacer_MaestroHerramentales" Association="Self.FK_CollarSpacer_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -1020,6 +1072,8 @@
           <NavigationProperty Name="BushingFinishMill" Relationship="DataAccess.ServiceObjects.Tooling.FK_BushingFinishMill_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="BushingFinishMill" />
           <NavigationProperty Name="CamBK_" Relationship="DataAccess.ServiceObjects.Tooling.FK_CamBK__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CamBK_" />
           <NavigationProperty Name="ShieldBK_" Relationship="DataAccess.ServiceObjects.Tooling.FK_ShieldBK__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="ShieldBK_" />
+          <NavigationProperty Name="BushingCromo_" Relationship="DataAccess.ServiceObjects.Tooling.FK_BushingCromo__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="BushingCromo_" />
+          <NavigationProperty Name="CollarsCromo_" Relationship="DataAccess.ServiceObjects.Tooling.FK_CollarsCromo__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CollarsCromo_" />
         </EntityType>
         <EntityContainer Name="EntitiesTooling" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="MaestroHerramentales" EntityType="Self.MaestroHerramentales" />
@@ -1169,6 +1223,16 @@
           <AssociationSet Name="FK_ShieldBK__MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_ShieldBK__MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="ShieldBK_" EntitySet="ShieldBK_" />
+          </AssociationSet>
+          <EntitySet Name="BushingCromo_" EntityType="DataAccess.ServiceObjects.Tooling.BushingCromo_" />
+          <EntitySet Name="CollarsCromo_" EntityType="DataAccess.ServiceObjects.Tooling.CollarsCromo_" />
+          <AssociationSet Name="FK_BushingCromo__MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_BushingCromo__MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="BushingCromo_" EntitySet="BushingCromo_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollarsCromo__MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_CollarsCromo__MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="CollarsCromo_" EntitySet="CollarsCromo_" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="UretanoSplitter">
@@ -2005,6 +2069,50 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BushingCromo_">
+          <Key>
+            <PropertyRef Name="Id_BushingCromo" />
+          </Key>
+          <Property Name="Id_BushingCromo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DimD" Type="Double" Nullable="false" />
+          <Property Name="Plano" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_BushingCromo__MaestroHerramentales" FromRole="BushingCromo_" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <EntityType Name="CollarsCromo_">
+          <Key>
+            <PropertyRef Name="Id_Collar" />
+          </Key>
+          <Property Name="Id_Collar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DimA" Type="Double" Nullable="false" />
+          <Property Name="Plano" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_CollarsCromo__MaestroHerramentales" FromRole="CollarsCromo_" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_BushingCromo__MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.BushingCromo_" Role="BushingCromo_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="BushingCromo_">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollarsCromo__MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.CollarsCromo_" Role="CollarsCromo_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="CollarsCromo_">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2498,6 +2606,26 @@
                 <ScalarProperty Name="FractionalMin" ColumnName="FractionalMin" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="Id_ShieldBK" ColumnName="Id_ShieldBK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BushingCromo_">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.BushingCromo_">
+              <MappingFragment StoreEntitySet="BushingCromo_">
+                <ScalarProperty Name="Plano" ColumnName="Plano" />
+                <ScalarProperty Name="DimD" ColumnName="DimD" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="Id_BushingCromo" ColumnName="Id_BushingCromo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CollarsCromo_">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.CollarsCromo_">
+              <MappingFragment StoreEntitySet="CollarsCromo_">
+                <ScalarProperty Name="Plano" ColumnName="Plano" />
+                <ScalarProperty Name="DimA" ColumnName="DimA" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Id_Collar" ColumnName="Id_Collar" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
