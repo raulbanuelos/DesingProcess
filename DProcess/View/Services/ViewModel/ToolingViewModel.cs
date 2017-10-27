@@ -84,7 +84,7 @@ namespace View.Services.ViewModel
 
         #region Commands
         /// <summary>
-        /// 
+        /// Comando para buscar un herramental.
         /// </summary>
         public ICommand BuscarTooling
         {
@@ -330,7 +330,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Comando que abre la ventana de Bushing Finish Mill.
         /// </summary>
         public ICommand IrBushingFM
         {
@@ -341,7 +341,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Comando para abrir la ventana de Cam BK.
         /// </summary>
         public ICommand IrCamBK
         {
@@ -352,7 +352,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Comando que abre la ventana de ShieldBK.
         /// </summary>
         public ICommand IrShieldBK
         {
@@ -374,7 +374,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Comando que abre la ventana de bushing Cromo OD.
+        /// Comando que abre la ventana de Collar Cromo OD.
         /// </summary>
         public ICommand IrCollarCromo
         {
@@ -410,7 +410,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Método que buscar los herramentales a partir del texto de búsqueda.
         /// </summary>
         /// <param name="busqueda"></param>
         private void buscarTooling(string busqueda)
@@ -643,8 +643,8 @@ namespace View.Services.ViewModel
             frm.ShowDialog();
         }
 
-        /// <summary>Método que muestra la ventana de Bushing Finish Mill.
-        /// 
+        /// <summary
+        /// >Método que muestra la ventana de Bushing Finish Mill.
         /// </summary>
         private void irBushingFM()
         {
@@ -676,7 +676,8 @@ namespace View.Services.ViewModel
             frm.ShowDialog();
         }
 
-        /// Método que muestra la ventana de Bushing Cromo OD.
+        /// <summary>
+        /// Método que muestra la ventana de bushing Cromo.s
         /// </summary>
         private void irBushingCromo()
         {
@@ -686,7 +687,8 @@ namespace View.Services.ViewModel
             frm.ShowDialog();
         }
 
-        /// Método que muestra la ventana de Collar Cromo OD.
+        /// <summary>
+        /// Método que muestra la ventana Collar Cromo.
         /// </summary>
         private void irCollarCromo()
         {

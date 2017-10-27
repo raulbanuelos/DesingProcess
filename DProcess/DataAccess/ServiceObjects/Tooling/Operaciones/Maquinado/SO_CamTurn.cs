@@ -91,7 +91,8 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
                 {
                     var lista = (from c in Conexion.CollarSpacer
                                  join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
-                                 where (c.DimE >= dimE_min && c.DimE <= dimE_max) && (c.DimF >= dimF_min && c.DimF <= dimF_max)
+                                 join cH in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals cH.idClasificacion
+                                 where (c.DimE >= dimE_min && c.DimE <= dimE_max) && (c.DimF >= dimF_min && c.DimF <= dimF_max) && m.Activo == true
                                  select new
                                  {
                                      c.Codigo,
@@ -99,7 +100,16 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
                                      c.DimE,
                                      c.DimF,
                                      c.MedidaNominal,
-                                     DESCRIPCIONCT= c.Descripcion
+                                     m.Activo,
+                                     DESCRIPCIONCT= c.Descripcion,
+                                     Clasificacion = cH.Descripcion,
+                                     cH.UnidadMedida,
+                                     cH.Costo,
+                                     cH.CantidadUtilizar,
+                                     cH.VidaUtil,
+                                     cH.idClasificacion,
+                                     cH.ListaCotasRevisar,
+                                     cH.VerificacionAnual
                                  }).ToList();
                     return lista;
                 }
@@ -376,13 +386,22 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
                     //Realizamos la consulta. El resultado lo guardamos en una variable anónima.
                     var Lista = (from w in Conexion.WorkCam
                                  join m in Conexion.MaestroHerramentales on w.Codigo equals m.Codigo
-                                 where w.MedidaNominal.Equals(cam_detail)
+                                 join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                 where w.MedidaNominal.Equals(cam_detail) && m.Activo == true
                                  select new
                                  {
                                      m.Codigo,
                                      m.Descripcion,
                                      m.Activo,
-                                     w.MedidaNominal
+                                     w.MedidaNominal,
+                                     Clasificacion = c.Descripcion,
+                                     c.UnidadMedida,
+                                     c.Costo,
+                                     c.CantidadUtilizar,
+                                     c.VidaUtil,
+                                     c.idClasificacion,
+                                     c.ListaCotasRevisar,
+                                     c.VerificacionAnual
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -543,12 +562,22 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
                         //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                         var Lista = (from c in Conexion.CutterCamTurn
                                      join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
-                                     where c.Dimencion == 0.052
+                                     join cH in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals cH.idClasificacion
+                                     where c.Dimencion == 0.052 && m.Activo == true
                                      select new
                                      {
                                          m.Codigo,
                                          m.Descripcion,
-                                         c.Dimencion
+                                         m.Activo,
+                                         c.Dimencion,
+                                         Clasificacion = cH.Descripcion,
+                                         cH.UnidadMedida,
+                                         cH.Costo,
+                                         cH.CantidadUtilizar,
+                                         cH.VidaUtil,
+                                         cH.idClasificacion,
+                                         cH.ListaCotasRevisar,
+                                         cH.VerificacionAnual
                                      }).ToList();
 
                         //Retornamos la lista.
@@ -559,18 +588,25 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
                         //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                         var Lista = (from c in Conexion.CutterCamTurn
                                      join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
-                                     where c.Dimencion == 0.078
+                                     join cH in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals cH.idClasificacion
+                                     where c.Dimencion == 0.078 && m.Activo == true
                                      select new
                                      {
                                          m.Codigo,
                                          m.Descripcion,
-                                         c.Dimencion
+                                         c.Dimencion,
+                                         Clasificacion = cH.Descripcion,
+                                         cH.UnidadMedida,
+                                         cH.Costo,
+                                         cH.CantidadUtilizar,
+                                         cH.VidaUtil,
+                                         cH.idClasificacion,
+                                         cH.ListaCotasRevisar,
+                                         cH.VerificacionAnual
                                      }).ToList();
-
                         //Retornamos la lista.
                         return Lista;
                     }
-
                 }
             }
             catch (Exception)

@@ -23,17 +23,28 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Realizamos la consulta, el resultado lo guardamos en una variable anónima.
                     var Lista = (from a in Conexion.MaestroHerramentales
                                  join b in Conexion.CollarBK on a.Codigo equals b.Codigo
-                                 where b.DimA <= maxA && b.DimB >= minB
+                                 join c in Conexion.ClasificacionHerramental on a.idClasificacionHerramental equals c.idClasificacion
+                                 where b.DimA <= maxA && b.DimB >= minB && a.Activo == true
                                  select new
                                  {
-                                     CODIGO = a.Codigo,
-                                     DESCRIPCION = a.Descripcion,
+                                     Codigo = a.Codigo,
+                                     Descripcion = a.Descripcion,
+                                     a.Activo,
                                      DIM_A = b.DimA,
                                      DIM_B = b.DimB,
                                      DIM_B_UNIDAD = b.DimB_Unidad,
                                      DIM_A_UNIDAD = b.DimA_Unidad,
                                      PARTE = b.Parte,
-                                     PAREDCOLLARIN = b.DimA - b.DimB
+                                     PAREDCOLLARIN = b.DimA - b.DimB,
+                                     Clasificacion = c.Descripcion,
+                                     c.UnidadMedida,
+                                     c.Costo,
+                                     c.CantidadUtilizar,
+                                     c.VidaUtil,
+                                     c.idClasificacion,
+                                     c.ListaCotasRevisar,
+                                     c.VerificacionAnual
+
                                  }
                                  ).OrderByDescending(o => o.PAREDCOLLARIN).ToList();
 
@@ -294,7 +305,8 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                     var Lista = (from c in Conexion.ClosingSleeveBK
                                  join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
-                                 where c.DimB >= sleeveMin && c.DimB <= sleeveMax
+                                 join cH in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals cH.idClasificacion
+                                 where c.DimB >= sleeveMin && c.DimB <= sleeveMax && m.Activo == true
                                  select new
                                  {
                                      m.Codigo,
@@ -303,6 +315,14 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.DimB,
                                      c.ID_CLOSINGSLEEVE_BK,
                                      c.Plano,
+                                     Clasificacion = cH.Descripcion,
+                                     cH.UnidadMedida,
+                                     cH.Costo,
+                                     cH.CantidadUtilizar,
+                                     cH.VidaUtil,
+                                     cH.idClasificacion,
+                                     cH.ListaCotasRevisar,
+                                     cH.VerificacionAnual
                                  }).ToList();
                     //Retornamos el resultado de la consulta.
                     return Lista;
@@ -534,22 +554,30 @@ namespace DataAccess.ServiceObjects.Tooling
             {
                 //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion= new EntitiesTooling())
-                {
-                  
+                {             
                     if (_width== "5/64" || _width == "3/32")
                     {
                         //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                         var Lista = (from g in Conexion.GuidePlateBK_
                                      join m in Conexion.MaestroHerramentales on g.Codigo equals m.Codigo
-                                     where (g.Width=="5/64" || g.Width=="3/32") && g.MedidaNominal == medidaN && g.SobreMedida == SobreM
+                                     join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                     where (g.Width=="5/64" || g.Width=="3/32") && g.MedidaNominal == medidaN && g.SobreMedida == SobreM && m.Activo == true
                                      select new
                                      {
-                                         m.Codigo,
+                                         g.Codigo,
                                          m.Descripcion,
+                                         m.Activo,
                                          g.Width,
                                          g.MedidaNominal, 
-                                         g.SobreMedida
-
+                                         g.SobreMedida,
+                                         Clasificacion = c.Descripcion,
+                                         c.UnidadMedida,
+                                         c.Costo,
+                                         c.CantidadUtilizar,
+                                         c.VidaUtil,
+                                         c.idClasificacion,
+                                         c.ListaCotasRevisar,
+                                         c.VerificacionAnual
                                      }).ToList();
 
                         //Retornamos la lista.
@@ -559,14 +587,24 @@ namespace DataAccess.ServiceObjects.Tooling
                         //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                         var Lista = (from g in Conexion.GuidePlateBK_
                                      join m in Conexion.MaestroHerramentales on g.Codigo equals m.Codigo
-                                     where (g.Width == "5/32" || g.Width == "1/8") && g.MedidaNominal == medidaN && g.SobreMedida == SobreM
+                                     join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                     where (g.Width == "5/32" || g.Width == "1/8") && g.MedidaNominal == medidaN && g.SobreMedida == SobreM && m.Activo == true
                                      select new
                                      {
-                                         m.Codigo,
+                                         g.Codigo,
                                          m.Descripcion,
+                                         m.Activo,
                                          g.Width,
                                          g.MedidaNominal,
-                                         g.SobreMedida
+                                         g.SobreMedida,
+                                         Clasificacion = c.Descripcion,
+                                         c.UnidadMedida,
+                                         c.Costo,
+                                         c.CantidadUtilizar,
+                                         c.VidaUtil,
+                                         c.idClasificacion,
+                                         c.ListaCotasRevisar,
+                                         c.VerificacionAnual
                                      }).ToList();
                         //Retornamos la lista.
                         return Lista;
@@ -576,16 +614,25 @@ namespace DataAccess.ServiceObjects.Tooling
                         //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                         var Lista = (from g in Conexion.GuidePlateBK_
                                     join m in Conexion.MaestroHerramentales on g.Codigo equals m.Codigo
-                                    where g.Width== _width && g.MedidaNominal == medidaN && g.SobreMedida == SobreM
+                                     join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                     where g.Width== _width && g.MedidaNominal == medidaN && g.SobreMedida == SobreM && m.Activo == true
                                     select new
                                     {
-                                        m.Codigo,
+                                        g.Codigo,
                                         m.Descripcion,
+                                        m.Activo,
                                         g.Width,
                                         g.MedidaNominal,
-                                        g.SobreMedida
+                                        g.SobreMedida,
+                                        Clasificacion = c.Descripcion,
+                                        c.UnidadMedida,
+                                        c.Costo,
+                                        c.CantidadUtilizar,
+                                        c.VidaUtil,
+                                        c.idClasificacion,
+                                        c.ListaCotasRevisar,
+                                        c.VerificacionAnual
                                     }).ToList();
-
                         //Retornamos la lista.
                         return Lista;
                     }                 
@@ -593,7 +640,6 @@ namespace DataAccess.ServiceObjects.Tooling
             }
             catch (Exception er)
             {
-
                 return null;
             }
         }
@@ -939,7 +985,8 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                     var Lista = (from g in Conexion.GuillotinaBK_
                                  join m in Conexion.MaestroHerramentales on g.Codigo equals m.Codigo
-                                 where g.Width== width && g.MedidaNominal== medidaNom && g.SobreMedida == sobreM
+                                 join cH in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals cH.idClasificacion
+                                 where g.Width== width && g.MedidaNominal== medidaNom && g.SobreMedida == sobreM && m.Activo == true
                                  select new
                                  {
                                      m.Codigo,
@@ -948,7 +995,15 @@ namespace DataAccess.ServiceObjects.Tooling
                                      g.SobreMedida,
                                      g.MedidaNominal,
                                      g.Width,
-                                     m.Activo
+                                     m.Activo,
+                                     Clasificacion = cH.Descripcion,
+                                     cH.UnidadMedida,
+                                     cH.Costo,
+                                     cH.CantidadUtilizar,
+                                     cH.VidaUtil,
+                                     cH.idClasificacion,
+                                     cH.ListaCotasRevisar,
+                                     cH.VerificacionAnual
                                  }).ToList();
 
                     //Retornamos el resultado de la consulta.
@@ -1254,7 +1309,8 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                     var Lista = (from c in Conexion.ShieldBK_
                                  join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
-                                 where dimension >= c.FractionalMin & dimension <= c.FractionalMax
+                                 join cH in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals cH.idClasificacion
+                                 where dimension >= c.FractionalMin & dimension <= c.FractionalMax && m.Activo == true
                                  select new
                                  {
                                      c.Codigo,
@@ -1265,7 +1321,15 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.FracMax,
                                      m.Descripcion,
                                      m.Activo,
-                                     c.Id_ShieldBK
+                                     c.Id_ShieldBK,
+                                     Clasificacion = cH.Descripcion,
+                                     cH.UnidadMedida,
+                                     cH.Costo,
+                                     cH.CantidadUtilizar,
+                                     cH.VidaUtil,
+                                     cH.idClasificacion,
+                                     cH.ListaCotasRevisar,
+                                     cH.VerificacionAnual
                                  }).ToList();
                     //Retornamos el resultado de la consulta.
                     return Lista;
@@ -1391,8 +1455,7 @@ namespace DataAccess.ServiceObjects.Tooling
 
                     //Guardamos los cambios
                     Conexion.Entry(obj).State = EntityState.Modified;
-                    return Conexion.SaveChanges();
-                
+                    return Conexion.SaveChanges();                
                 }
             }
             catch (Exception)
@@ -1402,6 +1465,11 @@ namespace DataAccess.ServiceObjects.Tooling
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public int DeleteShieldBK(int id)
         {
             try
@@ -1411,12 +1479,10 @@ namespace DataAccess.ServiceObjects.Tooling
                 {
                     //Declaramos el objeto de la tabla
                     ShieldBK_ obj = Conexion.ShieldBK_.Where(x => x.Id_ShieldBK == id).FirstOrDefault();
-                
 
                     //Guardamos los cambios
                     Conexion.Entry(obj).State = EntityState.Deleted;
                     return Conexion.SaveChanges();
-
                 }
             }
             catch (Exception)

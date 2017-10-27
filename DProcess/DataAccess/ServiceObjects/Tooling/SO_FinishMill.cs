@@ -61,14 +61,23 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                     var Lista = (from b in Conexion.BushingFinishMill
                                  join m in Conexion.MaestroHerramentales on b.Codigo equals m.Codigo
-                                 where b.DimC >= diaMin && b.DimC <= diaMax
+                                 join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                 where b.DimC >= diaMin && b.DimC <= diaMax &&  m.Activo == true
                                  select new
                                  {
                                      b.Codigo,
                                      b.Plano,
                                      b.DimC,
                                      m.Descripcion,
-                                     m.Activo
+                                     m.Activo,
+                                     Clasificacion = c.Descripcion,
+                                     c.UnidadMedida,
+                                     c.Costo,
+                                     c.CantidadUtilizar,
+                                     c.VidaUtil,
+                                     c.idClasificacion,
+                                     c.ListaCotasRevisar,
+                                     c.VerificacionAnual
                                  }).OrderBy(x => x.DimC).ToList();
                     //Retornamos el resultado de la consulta.
                     return Lista;

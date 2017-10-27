@@ -52,7 +52,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="diaMin"></param>
         /// <param name="diaMax"></param>
         /// <returns></returns>
-        public IList GetBushing(double diaMin, double diaMax)
+        public IList GetBushingBB(double diaMin, double diaMax)
         {
             try
             {
@@ -62,7 +62,8 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                     var Lista = (from c in Conexion.BushingBatesBore_
                                  join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
-                                 where c.MedidaNominal >= diaMin && c.MedidaNominal <= diaMax
+                                 join cH in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals cH.idClasificacion
+                                 where c.MedidaNominal >= diaMin && c.MedidaNominal <= diaMax && m.Activo == true
                                  select new
                                  {
                                      c.Codigo,
@@ -70,7 +71,15 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.MedidaNominal,
                                      c.DimB,
                                      m.Descripcion,
-                                     m.Activo
+                                     m.Activo,
+                                     Clasificacion = cH.Descripcion,
+                                     cH.UnidadMedida,
+                                     cH.Costo,
+                                     cH.CantidadUtilizar,
+                                     cH.VidaUtil,
+                                     cH.idClasificacion,
+                                     cH.ListaCotasRevisar,
+                                     cH.VerificacionAnual
                                  }).OrderBy(x => x.MedidaNominal).ToList();
                     //Retornamos el resultado de la consulta.
                     return Lista;

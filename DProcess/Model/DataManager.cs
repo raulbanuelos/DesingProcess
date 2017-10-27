@@ -535,9 +535,7 @@ namespace Model
                     Herramental herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
                     herramental.DescripcionRuta = "SPACER " + spacer + " No. SPACERS " + noSpacer;
-
                     ListaResultante.Add(herramental);
-
                     if (proceso != "Doble")
                     {
                         double spacer2 = GetMedidaSpacerSplitter2(proceso, h1);
@@ -545,7 +543,6 @@ namespace Model
                         Herramental herramental2 = GetSpacer2SplitterCasting(spacer2);
 
                         herramental2.DescripcionRuta = "SPACER " + spacer2 + " No. SPACERS " + noSpacer2;
-
                         ListaResultante.Add(herramental2);
                     }
                     break;
@@ -555,7 +552,6 @@ namespace Model
             {
                 //Si no se encontró herramental.
             }
-
             //Retornamos la lista.
             return ListaResultante;
         }
@@ -1512,8 +1508,7 @@ namespace Model
                     //Mapeamos el valor a DescipcionRuta.
                     herramental.DescripcionRuta = "GUIDE BAR   " + espesorBarraGuia;
                 }
-            }
-            
+            }            
             //Retornamos el herramental.
             return herramental;
         }
@@ -1749,9 +1744,8 @@ namespace Model
                     //Declaramos un objeto de tipo Herramental.
                     Herramental herramental = new Herramental();
 
-                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
-                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
                     herramental.DescripcionMedidasBusqueda = (string)tipo.GetProperty("DESCRIPCIONCT").GetValue(item, null);
 
                     Propiedad propiedadDimE = new Propiedad();
@@ -1766,16 +1760,11 @@ namespace Model
                     propiedadDimF.DescripcionCorta = "Dim F";
                     herramental.Propiedades.Add(propiedadDimF);
 
-                   /* PropiedadCadena propiedadMN = new PropiedadCadena();
-                    propiedadMN.DescripcionCorta = "Medida Nominal";
-                    propiedadMN.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
-                    herramental.PropiedadesCadena.Add(propiedadMN);*/
-
+                    herramental.DescripcionRuta = "COLLAR SPACER ";
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
                 }
             }
-
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ListaResultante;
         }
@@ -1959,15 +1948,16 @@ namespace Model
 
                             //Declaramos un objeto de tipo Herramental.
                             Herramental herramental = new Herramental();
-
-                            //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
-                            herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
-                            herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                            //Convertimos la información a tipo Herramental.
+                            herramental = ReadInformacionHerramentalEncontrado(ListaBD);
 
                             PropiedadCadena propiedadMN = new PropiedadCadena();
                             propiedadMN.DescripcionCorta = "Medida Nominal";
                             propiedadMN.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
                             herramental.PropiedadesCadena.Add(propiedadMN);
+
+                            //Mapeamos el valor a DescipcionRuta.
+                            herramental.DescripcionRuta = "WORK CAM MEDIDA NOMINAL "+ propiedadMN.Valor;
 
                             //Agregamos el objeto a la lista resultante.
                             ListaResultante.Add(herramental);
@@ -2172,11 +2162,8 @@ namespace Model
 
                     //Declaramos un objeto de tipo Herramental.
                     Herramental herramental = new Herramental();
-
-                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
-                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
-                    
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
                     Propiedad propiedadDim = new Propiedad();
                     propiedadDim.Unidad = "";
@@ -2184,6 +2171,7 @@ namespace Model
                     propiedadDim.DescripcionCorta = "Dimensión";
                     herramental.Propiedades.Add(propiedadDim);
 
+                    herramental.DescripcionRuta = "CUTTER CAM TURN DIMENSIÓN " + propiedadDim.Valor;
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
                 }
@@ -2345,9 +2333,8 @@ namespace Model
                     //Declaramos un objeto de tipo Herramental.
                     Herramental herramental = new Herramental();
 
-                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
-                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
                     Propiedad propiedadDimA = new Propiedad();
                     propiedadDimA.Unidad = (string)tipo.GetProperty("DIM_A_UNIDAD").GetValue(item, null);
@@ -2366,12 +2353,10 @@ namespace Model
                     propiedadParte.Valor = (string)tipo.GetProperty("PARTE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propiedadParte);
 
-
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
                 }
             }
-
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CollarBK");
         }
@@ -2414,7 +2399,6 @@ namespace Model
                     propiedadDimA.DescripcionCorta = "Dim A";
                     herramental.Propiedades.Add(propiedadDimA);
 
-
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.Unidad = (string)tipo.GetProperty("DIM_B_UNIDAD").GetValue(item, null);
                     propiedadDimB.Valor = (double)tipo.GetProperty("DIM_B").GetValue(item, null);
@@ -2430,7 +2414,6 @@ namespace Model
                     ListaResultante.Add(herramental);
                 }
             }
-
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CollarBK");
         }
@@ -2442,7 +2425,6 @@ namespace Model
         /// <returns></returns>
         public static Herramental GetInfoCollarBK(string codigo)
         {
-
             Herramental herramental = new Herramental();
 
             //Inicializamos los servicios de BK.
@@ -2472,7 +2454,6 @@ namespace Model
                     propiedadDimA.DescripcionCorta = "Dim A";
                     herramental.Propiedades.Add(propiedadDimA);
 
-
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.Unidad = (string)tipo.GetProperty("DimB_Unidad").GetValue(item, null);
                     propiedadDimB.Valor = (double)tipo.GetProperty("DimB").GetValue(item, null);
@@ -2487,7 +2468,6 @@ namespace Model
             }
             return herramental;
         }
-
 
         /// <summary>
         /// Método que selecciona los mejores collar´s, a partir de una tabla recibida en el parámetro.
@@ -2550,7 +2530,6 @@ namespace Model
                         break;
                     }
                 }
-
                 //Salimos del ciclo.
                 break;
             }
@@ -2689,10 +2668,8 @@ namespace Model
                     //Declaramos un objeto de tipo Herramental.
                     Herramental herramental = new Herramental();
 
-
-                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
-                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.Unidad = "Milimeters (mm)";
@@ -2700,11 +2677,12 @@ namespace Model
                     propiedadDimB.DescripcionCorta = "Dim B";
                     herramental.Propiedades.Add(propiedadDimB);
 
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "CLOSING SLEEVE BK  " + propiedadDimB.Valor;
                     //Agrega el objeto a la lista
                     ListaResultante.Add(herramental);
                 }
             }
-
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "ClosingSleeve");
         }
@@ -2738,7 +2716,6 @@ namespace Model
             return DataR;
         }
 
-
         /// <summary>
         /// Método que obtiene todos los registros de la tabla ClosingSleeve
         /// </summary>
@@ -2756,7 +2733,6 @@ namespace Model
             IList informacionBD = ServicioBk.GetAllClosingSleeveBK(texto_busqueda);
 
             //Verificamos que la lista sea diferente de nulo.
-
             if (informacionBD !=null)
             {
                 foreach (var item in informacionBD)
@@ -2792,7 +2768,6 @@ namespace Model
         /// <returns></returns>
         public static Herramental GetInfoClosingSleeveBK(string codigo)
         {
-
             Herramental herramental = new Herramental();
 
             //Inicializamos los servicios de BK.
@@ -2868,7 +2843,6 @@ namespace Model
             return ServiceBk.DeleteClosingSleeveBK(id);
         }
 
-
         //GuidePLate
         /// <summary>
         /// Método que obtiene los registros de GuidePlate de acuerdo al texto de búsqueda.
@@ -2929,7 +2903,6 @@ namespace Model
         /// <returns></returns>
         public static Herramental GetInfoGuidePlateBK(string codigo)
         {
-
             Herramental herramental = new Herramental();
 
             //Inicializamos los servicios de BK.
@@ -2971,7 +2944,6 @@ namespace Model
             return herramental;
         }
 
-
         /// <summary>
         /// Método que obtiene los herramentales óptimos para Guide Plate BK.
         /// </summary>
@@ -2987,7 +2959,6 @@ namespace Model
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
 
             string medidaN, sobreMedida;
-
             //Obtenemos el width.
             string width = ServicioBk.GetWidthGuillotina(h1);
 
@@ -3020,10 +2991,8 @@ namespace Model
 
                             //Declaramos un objeto de tipo Herramental.
                             Herramental herramental = new Herramental();
-
-                            //Asignamos los valores.
-                            herramental.Codigo = (string)tipo2.GetProperty("Codigo").GetValue(itemH, null);
-                            herramental.DescripcionGeneral = (string)tipo2.GetProperty("Descripcion").GetValue(itemH, null);
+                            //Convertimos la información a tipo Herramental.
+                            herramental = ReadInformacionHerramentalEncontrado(ListaGuillotina);
 
                             PropiedadCadena medida = new PropiedadCadena();
                             medida.Valor = (string)tipo2.GetProperty("MedidaNominal").GetValue(itemH, null);
@@ -3040,13 +3009,15 @@ namespace Model
                             sobreM.DescripcionCorta = "Sobre Medida";
                             herramental.PropiedadesCadena.Add(sobreM);
 
+                            //Mapeamos el valor a DescipcionRuta.
+                            herramental.DescripcionRuta = "GUIDE PLATE  " + Pwidth.Valor;
+
                             //Agregamos el objeto a la lista.
                             ListaResultante.Add(herramental);
                         }
                     }
                 }
             }
-
             //Convertimos la lista resultante en dataTable.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "GuillotinaBK");
         }
@@ -3066,7 +3037,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que modifica un registro de Guide Plate.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -3093,10 +3064,7 @@ namespace Model
             return ServicioBk.DeleteGuidePlate(id);
         }
 
-
         //Guillotina BK
-
-
         /// <summary>
         /// Método que obtiene los registros de GuidePlate de acuerdo al texto de búsqueda.
         /// </summary>
@@ -3164,7 +3132,6 @@ namespace Model
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
 
             string medidaN, sobreMedida;
-
             //Obtenemos el width
             string width = ServicioBk.GetWidthGuillotina(h1);
 
@@ -3198,9 +3165,8 @@ namespace Model
                             //Declaramos un objeto de tipo Herramental.
                             Herramental herramental = new Herramental();
 
-                            //Asignamos los valores.
-                            herramental.Codigo = (string)tipo2.GetProperty("Codigo").GetValue(itemH, null);
-                            herramental.DescripcionGeneral = (string)tipo2.GetProperty("Descripcion").GetValue(itemH, null);
+                            //Convertimos la información a tipo Herramental.
+                            herramental = ReadInformacionHerramentalEncontrado(ListaGuillotina);
 
                             PropiedadCadena medida = new PropiedadCadena();
                             medida.Valor = (string)tipo2.GetProperty("MedidaNominal").GetValue(itemH, null);
@@ -3217,13 +3183,15 @@ namespace Model
                             sobreM.DescripcionCorta = "Sobre Medida";
                             herramental.PropiedadesCadena.Add(sobreM);
 
+                            //Mapeamos el valor a DescipcionRuta.
+                            herramental.DescripcionRuta = "GUILLOTINA BK  " + Pwidth.Valor;
+
                             //Agregamos el objeto a la lista.
                             ListaResultante.Add(herramental);
                         }
                     }
                 }
             }
-
             //Convertimos la lista resultante en dataTable.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "GuillotinaBK");
         }
@@ -3235,9 +3203,7 @@ namespace Model
         /// <returns></returns>
         public static Herramental GetInfoGuillotinaBK(string codigo)
         {
-
             Herramental herramental = new Herramental();
-
             //Inicializamos los servicios de BK.
             SO_BK ServicioBk = new SO_BK();
 
@@ -3277,7 +3243,6 @@ namespace Model
             return herramental;
         }
 
-
         /// <summary>
         /// Método que guarda un registro en la tabla GuidePlate.
         /// </summary>
@@ -3293,7 +3258,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que modifica un registro de Guillotina BK.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -3307,7 +3272,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que elimina un registro de Guillotina BK.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -3414,7 +3379,6 @@ namespace Model
         {
             //Inicializamos los servicios de BK.
             SO_BK ServicioBk = new SO_BK();
-
             //Declaramos un objeto de tipo Herramental.
             Herramental herramental = new Herramental();
 
@@ -3582,9 +3546,8 @@ namespace Model
                     //Declaramos un objeto de tipo Herramental.
                     Herramental herramental = new Herramental();
 
-                    //Agregamos los valores.
-                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
                     Propiedad fMin = new Propiedad();
                     fMin.Valor = (double)tipo.GetProperty("FractionalMin").GetValue(item, null);
@@ -3606,6 +3569,8 @@ namespace Model
                     fraccMax.DescripcionCorta = "Fracc Max";
                     herramental.PropiedadesCadena.Add(fraccMax);
 
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "SHIELD BK MIN " + fMin.Valor +" MAX "+ fMax.Valor;
                     ListaResultante.Add(herramental);
                 }
             }
@@ -3742,7 +3707,6 @@ namespace Model
             }
             return DataR;
         }
-
         #endregion
 
         #region BatesBore
@@ -3795,7 +3759,6 @@ namespace Model
                     ListaResultante.Add(herramental);
                 }
             }
-
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "BushingBB");
         }
@@ -3814,7 +3777,7 @@ namespace Model
             double cri_max = diaBO + GetCriterio("BoreBushingMax");
 
             //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
-            IList informacionBD = ServiceBatesBore.GetBushing(cri_min, cri_max);
+            IList informacionBD = ServiceBatesBore.GetBushingBB(cri_min, cri_max);
 
             //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
@@ -3831,10 +3794,8 @@ namespace Model
                     //Declaramos un objeto de tipo Herramental.
                     Herramental herramental = new Herramental();
 
-                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
-                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
-                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
                     Propiedad propiedadMedidaN = new Propiedad();
                     propiedadMedidaN.Unidad = "";
@@ -3847,11 +3808,13 @@ namespace Model
                     propiedadDimB.Valor = (string)tipo.GetProperty("DimB").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propiedadDimB);
 
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "BUSHING BATES BORE " + propiedadDimB.Valor;
+
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
                 }
             }
-
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "BushingBB");
         }
@@ -3863,7 +3826,6 @@ namespace Model
         /// <returns></returns>
         public static Herramental GetInfoBushing_BatesBore(string codigo)
         {
-
             Herramental herramental = new Herramental();
 
             //Inicializamos los servicios de CamTurn.
@@ -3978,7 +3940,6 @@ namespace Model
         }
         #endregion
 
-
         #region FinishMill
 
         /// <summary>
@@ -4059,22 +4020,21 @@ namespace Model
 
                     //Declaramos un objeto de tipo Herramental.
                     Herramental herramental = new Herramental();
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
-                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
-                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
-                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+                    Propiedad propiedadDimC = new Propiedad();
+                    propiedadDimC.DescripcionCorta = "Dim C";
+                    propiedadDimC.Valor = (double)tipo.GetProperty("DimC").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimC);
 
-                    Propiedad propiedadDimB = new Propiedad();
-                    propiedadDimB.DescripcionCorta = "Dim C";
-                    propiedadDimB.Valor = (double)tipo.GetProperty("DimC").GetValue(item, null);
-                    herramental.Propiedades.Add(propiedadDimB);
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "BUSHING FINISH MILL DIM C " + propiedadDimC.Valor;
 
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
                 }
             }
-
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "BushingFinishMill");
         }
@@ -4086,9 +4046,7 @@ namespace Model
         /// <returns></returns>
         public static Herramental GetInfoBushing_FinishMill(string codigo)
         {
-
             Herramental herramental = new Herramental();
-
             //Inicializamos los servicios de CamTurn.
             SO_FinishMill ServiceFinishMill = new SO_FinishMill();
 
@@ -4116,9 +4074,9 @@ namespace Model
                     herramental.Propiedades.Add(propiedadDimB);
                 }
             }
+            //Retornamos el objeto.
             return herramental;
         }
-
 
         /// <summary>
         /// Obtiene el mejor herramental para Bushing Finish Mill.
@@ -4228,7 +4186,6 @@ namespace Model
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
                     herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
 
-
                     Propiedad propiedadDimD = new Propiedad();
                     propiedadDimD.DescripcionCorta = "Dim D";
                     propiedadDimD.Valor = (double)tipo.GetProperty("DimD").GetValue(item, null);
@@ -4238,7 +4195,6 @@ namespace Model
                     ListaResultante.Add(herramental);
                 }
             }
-
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "BushingCromo");
         }
@@ -4274,22 +4230,21 @@ namespace Model
                     //Declaramos un objeto de tipo Herramental.
                     Herramental herramental = new Herramental();
 
-                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
-                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
-                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
-
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
                     Propiedad propiedadDimD = new Propiedad();
                     propiedadDimD.DescripcionCorta = "Dim D";
                     propiedadDimD.Valor = (double)tipo.GetProperty("DimD").GetValue(item, null);
                     herramental.Propiedades.Add(propiedadDimD);
 
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "Bushing Cromo   " + propiedadDimD.Valor;
+
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
                 }
             }
-
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "BushingCromo");
         }
@@ -4337,7 +4292,6 @@ namespace Model
                     ListaResultante.Add(herramental);
                 }
             }
-
             //Retornamos el objeto.
             return herramental;
         }
@@ -4420,7 +4374,7 @@ namespace Model
          * */
 
             /// <summary>
-            /// 
+            /// Método que obtiene todos los registros de Collar Cromo.
             /// </summary>
             /// <param name="texto"></param>
             /// <returns></returns>
@@ -4452,7 +4406,6 @@ namespace Model
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
                     herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
 
-
                     Propiedad propiedadDimD = new Propiedad();
                     propiedadDimD.DescripcionCorta = "Dim A";
                     propiedadDimD.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
@@ -4468,7 +4421,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene la información de un herramental Collar Cromo.
         /// </summary>
         /// <param name="codigoHerramental"></param>
         /// <returns></returns>
@@ -4501,17 +4454,15 @@ namespace Model
                     Propiedad propiedadDimD = new Propiedad();
                     propiedadDimD.DescripcionCorta = "Dim A";
                     propiedadDimD.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
-                    herramental.Propiedades.Add(propiedadDimD);
-
-                    
+                    herramental.Propiedades.Add(propiedadDimD);                   
                 }
             }
-
+            //Regresamos el objeto.
             return herramental;
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene el mejor herramental Collar Cromo.
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
@@ -4538,11 +4489,12 @@ namespace Model
                 DataR.Rows.Add(dr);
                 break;
             }
+            //Retornamos la tabla resultante.
             return DataR;
         }
 
         /// <summary>
-        /// 
+        /// Mpétodo que obtiene los herramentales óptimos de acuerdo al diámetro.
         /// </summary>
         /// <param name="diamBush"></param>
         /// <returns></returns>
@@ -4572,16 +4524,16 @@ namespace Model
                     //Declaramos un objeto de tipo Herramental.
                     Herramental herramental = new Herramental();
 
-                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
-                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
-                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimA);
 
-                    Propiedad propiedadDimD = new Propiedad();
-                    propiedadDimD.DescripcionCorta = "Dim A";
-                    propiedadDimD.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
-                    herramental.Propiedades.Add(propiedadDimD);
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "COLLARS CROMO  " + propiedadDimA.Valor;
 
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
@@ -4593,7 +4545,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que guarda un registro a la tabla CollarsCromo.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -4607,7 +4559,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que modifica un registro de CollarsCromo.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -4621,7 +4573,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Métdo que elimina un registro de CollarsCromo.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -4988,9 +4940,8 @@ namespace Model
 
                     Herramental herramental = new Herramental();
 
-                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
-                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
@@ -5022,12 +4973,15 @@ namespace Model
                     propiedadDimD.Valor = (double)tipo.GetProperty("DIMD").GetValue(item, null);
                     propiedadDimD.DescripcionCorta = "Dim D";
                     herramental.Propiedades.Add(propiedadDimD);
+
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "COIL FEED ROLLER ";
+
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
 
                 }
             }
-
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Feed_Roller");
         }
@@ -5254,10 +5208,9 @@ namespace Model
                     Type tipo = item.GetType();
 
                     Herramental herramental = new Herramental();
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
-                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
-                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
                     propCode.DescripcionCorta = "Detalle";
@@ -5282,13 +5235,14 @@ namespace Model
                     propiedadDimC.Valor = (double)tipo.GetProperty("DIMC").GetValue(item, null);
                     propiedadDimC.DescripcionCorta = "Dim C";
                     herramental.Propiedades.Add(propiedadDimC);
-                   
+
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "COIL CENTER GUIDE";
+
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
-
                 }
             }
-
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Center_Guide");
         }
@@ -5527,9 +5481,8 @@ namespace Model
 
                     Herramental herramental = new Herramental();
 
-                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
-                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
@@ -5556,9 +5509,11 @@ namespace Model
                     propiedadDimC.DescripcionCorta = "Dim C";
                     herramental.Propiedades.Add(propiedadDimC);
 
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "EXIT GUIDE ";
+
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
-
                 }
             }
 
@@ -5797,10 +5752,8 @@ namespace Model
                     Type tipo = item.GetType();
 
                     Herramental herramental = new Herramental();
-
-                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
-                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
@@ -5815,12 +5768,13 @@ namespace Model
                     propiedadDimB.DescripcionCorta = "Dim B";
                     herramental.Propiedades.Add(propiedadDimB);
 
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "EXTERNAL GUIDE ROLLER 1 PIECE DIM "+ propiedadDimB.Valor;
+
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
-
                 }
             }
-
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "External_GR_1P");
         }
@@ -6011,10 +5965,8 @@ namespace Model
                     Type tipo = item.GetType();
 
                     Herramental herramental = new Herramental();
-
-                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
-                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
@@ -6041,12 +5993,13 @@ namespace Model
                     propiedadDimC.DescripcionCorta = "Dim C";
                     herramental.Propiedades.Add(propiedadDimC);
 
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "EXTERNAL GUIDE ROLLER 3 PIECES";
+
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
-
                 }
             }
-
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "External_GR_3P_1");
         }
@@ -6261,10 +6214,8 @@ namespace Model
                     Type tipo = item.GetType();
 
                     Herramental herramental = new Herramental();
-
-                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
-                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
@@ -6291,12 +6242,13 @@ namespace Model
                     propiedadDimC.DescripcionCorta = "Dim C";
                     herramental.Propiedades.Add(propiedadDimC);
 
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "EXTERNAL GUIDE ROLLER 3 PIECES  ";
+
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
-
                 }
             }
-
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "External_GR_3P_2");
         }
@@ -6510,10 +6462,8 @@ namespace Model
                     Type tipo = item.GetType();
 
                     Herramental herramental = new Herramental();
-
-                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
-                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
@@ -6540,12 +6490,13 @@ namespace Model
                     propiedadDimC.DescripcionCorta = "Dim C";
                     herramental.Propiedades.Add(propiedadDimC);
 
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "EXTERNAL GUIDE ROLLER 3 PIECES ";
+
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
-
                 }
             }
-
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "External_GR_3P_3");
         }
@@ -6759,10 +6710,8 @@ namespace Model
                     Type tipo = item.GetType();
 
                     Herramental herramental = new Herramental();
-
-                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
-                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
@@ -6777,12 +6726,13 @@ namespace Model
                     propiedadDimB.DescripcionCorta = "Dim A";
                     herramental.Propiedades.Add(propiedadDimB);
 
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "SHIM OF THE CUT SYSTEM  " + propiedadDimB.Valor;
+
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
-
                 }
             }
-
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Shim_CSystem");
         }
@@ -7054,7 +7004,6 @@ namespace Model
                 //Iteramos la lista recibida.
                 foreach (var elemento in Informacion)
                 {
-
                     //Obtenemos el tipo del elemento iterado.
                     System.Type tipo = elemento.GetType();
 
@@ -7080,7 +7029,6 @@ namespace Model
                     herramental.Propiedades = new ObservableCollection<Propiedad>();
                 }
             }
-
             //Retornamos el objeto herramental.
             return herramental;
         }
@@ -7088,9 +7036,6 @@ namespace Model
         public static ObservableCollection<string> GetAllTreatment()
         {
             ObservableCollection<string> ListaResultante = new ObservableCollection<string>();
-
-            
-
             return ListaResultante;
         }
 

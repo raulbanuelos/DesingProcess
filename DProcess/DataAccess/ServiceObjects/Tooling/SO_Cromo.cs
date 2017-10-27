@@ -46,7 +46,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene los herramentales que se encuentren entre el rango min y max.
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
@@ -61,14 +61,23 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                     var Lista = (from b in Conexion.BushingCromo_
                                  join m in Conexion.MaestroHerramentales on b.CODIGO equals m.Codigo
-                                 where b.DimD >= min && b.DimD <= max
+                                 join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                 where b.DimD >= min && b.DimD <= max && m.Activo == true
                                  select new
                                  {
-                                     b.CODIGO,
+                                     Codigo=b.CODIGO,
                                      b.DimD,
                                      b.Plano,
                                      m.Descripcion,
-                                     m.Activo
+                                     m.Activo,
+                                     Clasificacion = c.Descripcion,
+                                     c.UnidadMedida,
+                                     c.Costo,
+                                     c.CantidadUtilizar,
+                                     c.VidaUtil,
+                                     c.idClasificacion,
+                                     c.ListaCotasRevisar,
+                                     c.VerificacionAnual
                                  }).ToList();
                     //Retornamos el resultado de la consulta.
                     return Lista;
@@ -265,14 +274,23 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                     var Lista = (from c in Conexion.CollarsCromo_
                                  join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
-                                 where c.DimA >= min && c.DimA <= max
+                                 join cl in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals cl.idClasificacion
+                                 where c.DimA >= min && c.DimA <= max && m.Activo == true
                                  select new
                                  {
                                      c.Codigo,
                                      c.DimA,
                                      c.Plano,
                                      m.Descripcion,
-                                     m.Activo
+                                     m.Activo,
+                                     Clasificacion = cl.Descripcion,
+                                     cl.UnidadMedida,
+                                     cl.Costo,
+                                     cl.CantidadUtilizar,
+                                     cl.VidaUtil,
+                                     cl.idClasificacion,
+                                     cl.ListaCotasRevisar,
+                                     cl.VerificacionAnual
                                  }).ToList();
                     //Retornamos el resultado de la consulta.
                     return Lista;

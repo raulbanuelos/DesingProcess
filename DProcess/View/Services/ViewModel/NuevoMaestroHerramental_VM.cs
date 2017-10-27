@@ -477,7 +477,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Método para moficiar el maestro herramental.
         /// </summary>
         /// <returns></returns>
         private int ModificaMaestro()
@@ -533,11 +533,11 @@ namespace View.Services.ViewModel
 
         }
         /// <summary>
-        /// Método que muestra el control dependiendo de la clasificacion de herramental
+        /// Método que muestra el control dependiendo de la clasificacion de herramental.
         /// </summary>
         private async void nuevoControl()
         {
-            //Si selecciono algun herramental
+            //Si selecciono algun herramental.
             if (SelectedClasificacion != null)
             {
                 try
@@ -546,9 +546,9 @@ namespace View.Services.ViewModel
                     file = new XmlApplicationContext(@"\\agufileserv2\INGENIERIA\RESPRUTAS\NUEVO SOFTWARE RUTAS\raul\nueva\RoutingGenerationProgram\ClasificacionHerramental.xml");
                     ctx = file;
                     string objetoXML = SelectedClasificacion.objetoXML;
-                    //Se obtiene el objeto dependiendo del id asignado
+                    //Se obtiene el objeto dependiendo del id asignado.
                     Controlador =(IControlTooling) ctx.GetObject(objetoXML);
-                    //Inicializa el controlador
+                    //Inicializa el controlador.
                     Controlador.Inicializa();                  
                 }
                 catch (Exception er)
@@ -560,7 +560,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Método que muestra el controlador de acuerdo al ObjetoXML recibido.
         /// </summary>
         /// <param name="objetoXML"></param>
         private async  void CargarControlador(string objetoXML)
@@ -576,6 +576,7 @@ namespace View.Services.ViewModel
                     Controlador = (IControlTooling)ctx.GetObject(objetoXML);
                     //Inicializa el controlador
                     Controlador.Inicializa();
+                    //Carga los campos del herramental.
                     Controlador.InicializaCampos(codigo);
                 }
                 catch (Exception er)
@@ -587,7 +588,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Método que elimina el maestro herramental.
         /// </summary>
         private async void eliminar()
         {
