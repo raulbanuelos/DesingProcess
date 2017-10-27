@@ -169,7 +169,8 @@ namespace View.Services.ViewModel
             ListaMejores = new DataTable();
             ListaOptimos = new DataTable();
             busquedaCollarCromo(string.Empty);
-            Titulo = "Collar Cromo"; 
+            Titulo = "Collar Cromo";
+            Texto = "Díametro bushing";
         }
         #endregion
     }

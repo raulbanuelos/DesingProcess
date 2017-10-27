@@ -88,6 +88,13 @@ namespace View.Services.ViewModel
             set { _titulo = value; NotifyChange("Titulo"); }
         }
 
+        private string _texto;
+        public string Texto
+        {
+            get { return _texto; }
+            set { _texto = value; NotifyChange("Texto"); }
+        }
+
         #endregion
 
         #region Commands
@@ -164,6 +171,7 @@ namespace View.Services.ViewModel
             ListaMejores = new DataTable();
             dialog = new DialogService();
             Titulo = "Bushing Bates Bore";
+            Texto = "Diámetro de la operación anterior";
         }
         #endregion
     }

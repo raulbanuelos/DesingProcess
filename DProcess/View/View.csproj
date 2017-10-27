@@ -261,6 +261,9 @@
     <Compile Include="Forms\Tooling\ControlCollarBK.xaml.cs">
       <DependentUpon>ControlCollarBK.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlCollarCromo.xaml.cs">
+      <DependentUpon>ControlCollarCromo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlCollarSpacer.xaml.cs">
       <DependentUpon>ControlCollarSpacer.xaml</DependentUpon>
     </Compile>
@@ -640,6 +643,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\ControlCollarBK.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlCollarCromo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

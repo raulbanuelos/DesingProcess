@@ -78,7 +78,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <GroupBox Header="Required data" Margin="10" Width="300">
                                     <StackPanel>
-                                        <TextBox Text="{Binding Diam}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Diámetro operación anterior" TextAlignment="Center" Width="280" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+                                        <TextBox Text="{Binding Diam}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="{Binding Texto}" TextAlignment="Center" Width="280" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
                                         </TextBox>
                                         <Button Content="Start" Command="{Binding BuscarOptimos}" Margin="10" Width="70" HorizontalAlignment="Right"></Button>
                                     </StackPanel>
