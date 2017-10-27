@@ -87,6 +87,12 @@ namespace View.Services.ViewModel
             set { _titulo = value; NotifyChange("Titulo"); }
         }
 
+        private string _texto;
+        public string Texto
+        {
+            get { return _texto; }
+            set { _texto = value; NotifyChange("Texto"); }
+        }
         #endregion
 
         #region Commands
