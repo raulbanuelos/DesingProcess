@@ -5584,7 +5584,7 @@ namespace Model
                     Propiedad propWMax = new Propiedad();
                     propWMax.Unidad = "Milimeters (mm)";
                     propWMax.Valor = (double)tipo.GetProperty("WIDE_WIDTH_MAX").GetValue(item, null);
-                    propWMax.DescripcionCorta = "Wire width min";
+                    propWMax.DescripcionCorta = "Wire width max";
                     herramental.Propiedades.Add(propWMax);
 
                     Propiedad propR_Min = new Propiedad();
