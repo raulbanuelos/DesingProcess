@@ -3515,7 +3515,7 @@ namespace Model
                 }
             }
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
-            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CamBK");
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "ShieldBK");
         }
 
         /// <summary>
@@ -3575,7 +3575,7 @@ namespace Model
                 }
             }
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
-            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CamBK");
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "ShieldBK");
         }
 
         /// <summary>
@@ -5584,7 +5584,7 @@ namespace Model
                     Propiedad propWMax = new Propiedad();
                     propWMax.Unidad = "Milimeters (mm)";
                     propWMax.Valor = (double)tipo.GetProperty("WIDE_WIDTH_MAX").GetValue(item, null);
-                    propWMax.DescripcionCorta = "Wire width min";
+                    propWMax.DescripcionCorta = "Wire width max";
                     herramental.Propiedades.Add(propWMax);
 
                     Propiedad propR_Min = new Propiedad();
