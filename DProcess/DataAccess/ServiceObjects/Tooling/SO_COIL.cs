@@ -138,7 +138,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     var Lista = (from a in Conexion.TBL_COIL_FEED_ROLLER
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
-                                 where a.WIRE_WIDTH_MIN > width && a.WIRE_WIDTH_MAX <= width && b.Activo == true
+                                 where width > a.WIRE_WIDTH_MIN && width <= a.WIRE_WIDTH_MAX && b.Activo == true
                                  select new
                                  {
                                      Codigo = b.Codigo,
@@ -155,8 +155,8 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.VidaUtil,
                                      c.idClasificacion,
                                      c.ListaCotasRevisar,
-                                     c.VerificacionAnual
-
+                                     c.VerificacionAnual,
+                                     b.Activo
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -385,7 +385,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     var Lista = (from a in Conexion.TBL_COIL_CENTER_GUIDE
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
-                                 where ( a.WIRE_WIDTH_MIN > width && a.WIRE_WIDTH_MAX <= width) && (a.RADIAL_WIRE_MIN > radial && a.RADIAL_WIRE_MAX <= radial) && b.Activo == true
+                                 where width > a.WIRE_WIDTH_MIN && width <= a.WIRE_WIDTH_MAX && radial > a.RADIAL_WIRE_MIN && radial <= a.RADIAL_WIRE_MAX && b.Activo == true
                                  select new
                                  {
                                      Codigo = b.Codigo,
@@ -401,7 +401,8 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.VidaUtil,
                                      c.idClasificacion,
                                      c.ListaCotasRevisar,
-                                     c.VerificacionAnual
+                                     c.VerificacionAnual,
+                                     b.Activo
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -632,7 +633,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     var Lista = (from a in Conexion.TBL_EXIT_GUIDE
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
-                                 where (a.WIRE_WIDTH_MIN > width && a.WIDE_WIDTH_MAX <= width) && (a.RADIAL_WIRE_MIN > radial && a.RADIAL_WIRE_MAX <= radial) && b.Activo == true
+                                 where width > a.WIRE_WIDTH_MIN && width <= a.WIDE_WIDTH_MAX && radial > a.RADIAL_WIRE_MIN && radial <= a.RADIAL_WIRE_MAX && b.Activo == true
                                  select new
                                  {
                                      Codigo = b.Codigo,
@@ -648,7 +649,8 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.VidaUtil,
                                      c.idClasificacion,
                                      c.ListaCotasRevisar,
-                                     c.VerificacionAnual
+                                     c.VerificacionAnual,
+                                     b.Activo
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -862,7 +864,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     var Lista = (from a in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
-                                 where a.WIRE_WIDTH_MIN > width && a.WIDE_WIDTH_MAX <= width && b.Activo == true
+                                 where width > a.WIRE_WIDTH_MIN && width <= a.WIDE_WIDTH_MAX && b.Activo == true
                                  select new
                                  {
                                      Codigo = b.Codigo,
@@ -876,7 +878,8 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.VidaUtil,
                                      c.idClasificacion,
                                      c.ListaCotasRevisar,
-                                     c.VerificacionAnual
+                                     c.VerificacionAnual,
+                                     b.Activo
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -1090,7 +1093,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     var Lista = (from a in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
-                                 where a.WIRE_WIDTH_MIN > width && a.WIDE_WIDTH_MAX <= width && b.Activo == true
+                                 where width > a.WIRE_WIDTH_MIN && width <= a.WIDE_WIDTH_MAX && b.Activo == true
                                  select new
                                  {
                                      Codigo = b.Codigo,
@@ -1106,7 +1109,8 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.VidaUtil,
                                      c.idClasificacion,
                                      c.ListaCotasRevisar,
-                                     c.VerificacionAnual
+                                     c.VerificacionAnual,
+                                     b.Activo
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -1322,7 +1326,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     var Lista = (from a in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
-                                 where a.WIRE_WIDTH_MIN > width && a.WIDE_WIDTH_MAX <= width && b.Activo == true
+                                 where width > a.WIRE_WIDTH_MIN && width <= a.WIDE_WIDTH_MAX  && b.Activo == true
                                  select new
                                  {
                                      Codigo = b.Codigo,
@@ -1338,7 +1342,8 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.VidaUtil,
                                      c.idClasificacion,
                                      c.ListaCotasRevisar,
-                                     c.VerificacionAnual
+                                     c.VerificacionAnual,
+                                     b.Activo
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -1553,7 +1558,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     var Lista = (from a in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
-                                 where a.WIRE_WIDTH_MIN > width && a.WIDE_WIDTH_MAX <= width && b.Activo == true
+                                 where width > a.WIRE_WIDTH_MIN && width <= a.WIDE_WIDTH_MAX && b.Activo == true
                                  select new
                                  {
                                      Codigo= b.Codigo,
@@ -1569,7 +1574,8 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.VidaUtil,
                                      c.idClasificacion,
                                      c.ListaCotasRevisar,
-                                     c.VerificacionAnual
+                                     c.VerificacionAnual,
+                                     b.Activo
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -1779,7 +1785,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     var Lista = (from a in Conexion.TBL_SHIM_OF_THE_CUT_SYSTEM
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
-                                 where a.WIRE_WIDTH_MIN > width && a.WIDE_WIDTH_MAX <= width && b.Activo == true
+                                 where width > a.WIRE_WIDTH_MIN && width <= a.WIDE_WIDTH_MAX && b.Activo == true
                                  select new
                                  {
                                      Codigo = b.Codigo,
@@ -1793,7 +1799,8 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.VidaUtil,
                                      c.idClasificacion,
                                      c.ListaCotasRevisar,
-                                     c.VerificacionAnual
+                                     c.VerificacionAnual,
+                                     b.Activo
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
