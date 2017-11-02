@@ -99,7 +99,7 @@
                 <!--Comienza Panel Lateral Derecho-->
                 <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom">
                     <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
-                        <GroupBox HorizontalAlignment="Right"  VerticalAlignment="Top" Header="Changes" Style="{DynamicResource MaterialDesignGroupBox}"  UseLayoutRounding="True" SnapsToDevicePixels="True">
+                        <GroupBox HorizontalAlignment="Right"  VerticalAlignment="Top" Header="Changes" Style="{DynamicResource MaterialDesignGroupBox}" Width="Auto"  UseLayoutRounding="True" SnapsToDevicePixels="True">
                             <DataGrid ItemsSource="{Binding Customers}" AutoGenerateColumns="False" >
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Revision" />
