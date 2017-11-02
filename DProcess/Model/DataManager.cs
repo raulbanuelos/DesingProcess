@@ -3515,7 +3515,7 @@ namespace Model
                 }
             }
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
-            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CamBK");
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "ShieldBK");
         }
 
         /// <summary>
@@ -3575,7 +3575,7 @@ namespace Model
                 }
             }
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
-            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CamBK");
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "ShieldBK");
         }
 
         /// <summary>
