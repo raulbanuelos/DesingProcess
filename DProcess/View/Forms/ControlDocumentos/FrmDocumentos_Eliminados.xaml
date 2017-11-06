@@ -76,6 +76,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nombre de Documento" Binding="{Binding nombre}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Versión" Binding="{Binding version.no_version}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Fecha" Binding="{Binding fecha_actualizacion, StringFormat={}{0:yyyy-MM-dd}}"></DataGridTextColumn>
                 </DataGrid.Columns>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">

@@ -809,16 +809,16 @@ namespace Model.ControlDocumentos
                     else
                         resta = vec.Length - aux.Length;
 
-                    //calculamos el porcentaje de coincidencia
-                    int porcentaje = (cont * 100)/ vec.Length;
+                        //calculamos el porcentaje de coincidencia
+                        int porcentaje = (cont * 100) / vec.Length;
 
-                    //si el porcentaje es mayor a 80% y si tiene una diferencia mayor a 4 palabras, la descripción se parece y agregamos el objeto a la lista
-                    if (porcentaje >= 80 && resta <=4)
-                    {
-                        //Se agrega el objeto a la lista
-                        Lista.Add(obj);
-                    }
-                   
+                        //si el porcentaje es mayor a 80% y si tiene una diferencia mayor a 4 palabras, la descripción se parece y agregamos el objeto a la lista
+                        if (porcentaje >= 80 && resta <= 4)
+                        {
+                            //Se agrega el objeto a la lista
+                            Lista.Add(obj);
+                        }
+                    
                 }
             }
             return Lista;
