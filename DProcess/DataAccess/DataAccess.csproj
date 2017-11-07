@@ -214,6 +214,9 @@
     <Compile Include="ServiceObjects\Tooling\CamBK_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\CamisaMoly_.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\ChuckSplitter.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -224,6 +227,9 @@
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\CollarBK.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\CollarMoly_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\CollarsCromo_.cs">
@@ -359,6 +365,12 @@
     <Compile Include="ServiceObjects\Tooling\PLANO_HERRAMENTAL.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\ProtectorInfMoly_.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\ProtectorSupMoly_.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\PusherSIM_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -374,6 +386,7 @@
     <Compile Include="ServiceObjects\Tooling\SO_CutterAngle.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_FinishMill.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_MaestroHerramental.cs" />
+    <Compile Include="ServiceObjects\Tooling\SO_Moly.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_Plano.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_Sim.cs" />
     <Compile Include="ServiceObjects\Tooling\SplitterSpacerChart.cs">

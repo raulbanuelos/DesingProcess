@@ -48,6 +48,10 @@ namespace DataAccess.ServiceObjects.Tooling
             this.BushingSIM_ = new HashSet<BushingSIM_>();
             this.PusherSIM_ = new HashSet<PusherSIM_>();
             this.GuillotinaSIM_ = new HashSet<GuillotinaSIM_>();
+            this.CamisaMoly_ = new HashSet<CamisaMoly_>();
+            this.CollarMoly_ = new HashSet<CollarMoly_>();
+            this.ProtectorInfMoly_ = new HashSet<ProtectorInfMoly_>();
+            this.ProtectorSupMoly_ = new HashSet<ProtectorSupMoly_>();
         }
     
         public string Codigo { get; set; }
@@ -124,5 +128,13 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual ICollection<PusherSIM_> PusherSIM_ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GuillotinaSIM_> GuillotinaSIM_ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CamisaMoly_> CamisaMoly_ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CollarMoly_> CollarMoly_ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProtectorInfMoly_> ProtectorInfMoly_ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProtectorSupMoly_> ProtectorSupMoly_ { get; set; }
     }
 }

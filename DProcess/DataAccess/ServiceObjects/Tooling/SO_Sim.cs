@@ -11,7 +11,7 @@ namespace DataAccess.ServiceObjects.Tooling
     public class SO_Sim
     {
         /// <summary>
-        /// 
+        /// Método que obtiene todos los registros de Bushing Sim.
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
@@ -19,8 +19,10 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Establecemos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Realizamos la consulta, el resultado lo guardamos en una variable anónima.
                     var lista = (from b in Conexion.BushingSIM_
                                  join m in Conexion.MaestroHerramentales on b.Codigo equals m.Codigo
                                  where b.Codigo.Contains(texto) || m.Descripcion.Contains(texto)
@@ -33,17 +35,19 @@ namespace DataAccess.ServiceObjects.Tooling
                                      b.Id_Bushing,
                                      m.Activo
                                  }).ToList();
+                    //Retorna la lista
                     return lista;
                 }
             }
             catch (Exception)
             {
+                //Si ocurre algún error, retornamos un nulo.
                 return null;
             }
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene la información de un herramental Bushing Sim.
         /// </summary>
         /// <param name="codigo"></param>
         /// <returns></returns>
@@ -51,8 +55,10 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Establecemos la conexión a través de EntityFramework.
                 using (var conexion = new EntitiesTooling())
                 {
+                    //Realizamos la consulta, el resultado lo guardamos en una variable anónima.
                     var Lista = (from b in conexion.BushingSIM_
                                  join m in conexion.MaestroHerramentales on b.Codigo equals m.Codigo
                                  where b.Codigo.Equals(codigo)
@@ -70,12 +76,13 @@ namespace DataAccess.ServiceObjects.Tooling
             }
             catch (Exception)
             {
+                //Si ocurre algún error, retornamos un nulo.
                 return null;
             }
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene los herramentales óptimos deBushing Sim de acuerdo al min y max.
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
@@ -119,7 +126,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que inserta un registro en la tabla Bushing Sim.
         /// </summary>
         /// <param name="codigo"></param>
         /// <param name="dimB"></param>
@@ -129,28 +136,34 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
-                using (var Conexion= new EntitiesTooling())
+                //Realizamos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
                 {
+                    //Declaramos el objeto.
                     BushingSIM_ obj = new BushingSIM_();
 
+                    //Asiganmos los valores.
                     obj.Codigo = codigo;
                     obj.DimB = dimB;
                     obj.Notas = notas;
 
+                    //Guardamos los cambios.
                     Conexion.BushingSIM_.Add(obj);
                     Conexion.SaveChanges();
 
+                    //Retornamos el id.
                     return obj.Id_Bushing;
                 }
             }
             catch (Exception)
             {
+                //retornamos cero si hubo un error.
                 return 0;
             }
         }
 
         /// <summary>
-        /// 
+        /// Modifica un registro de la tabla Bushing Sim.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="dimB"></param>
@@ -555,7 +568,6 @@ namespace DataAccess.ServiceObjects.Tooling
                 using (var Conexion = new EntitiesTooling())
                 {
                     GuillotinaSIM_ obj = Conexion.GuillotinaSIM_.Where(x => x.Id_Guillotina == id).FirstOrDefault();
-
                     
                     obj.DimA = dimA;
                     obj.WidthMin = WidthMin;

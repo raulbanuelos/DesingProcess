@@ -66,5 +66,9 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<BushingSIM_> BushingSIM_ { get; set; }
         public virtual DbSet<PusherSIM_> PusherSIM_ { get; set; }
         public virtual DbSet<GuillotinaSIM_> GuillotinaSIM_ { get; set; }
+        public virtual DbSet<CamisaMoly_> CamisaMoly_ { get; set; }
+        public virtual DbSet<CollarMoly_> CollarMoly_ { get; set; }
+        public virtual DbSet<ProtectorInfMoly_> ProtectorInfMoly_ { get; set; }
+        public virtual DbSet<ProtectorSupMoly_> ProtectorSupMoly_ { get; set; }
     }
 }

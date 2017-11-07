@@ -4590,7 +4590,7 @@ namespace Model
 
         #region Sim
         /// <summary>
-        /// 
+        /// Método que obtiene todos los registros de Bushing Sim.
         /// </summary>
         /// <param name="textoBusqueda"></param>
         /// <returns></returns>
@@ -4621,7 +4621,7 @@ namespace Model
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
                     
-
+                    //Agregamos las propiedades
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.DescripcionCorta = "Dim B";
                     propiedadDimB.Valor = (double)tipo.GetProperty("DimB").GetValue(item, null);
@@ -4636,7 +4636,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene la información de un herramental Bushing Sim.
         /// </summary>
         /// <param name="codigo"></param>
         /// <returns></returns>
@@ -4668,6 +4668,7 @@ namespace Model
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
                     herramental.idHerramental=(int)tipo.GetProperty("Id_Bushing").GetValue(item, null);
 
+                    //Agreamos las propiedades.
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.DescripcionCorta = "Dim B";
                     propiedadDimB.Valor = (double)tipo.GetProperty("DimB").GetValue(item, null);
@@ -4679,12 +4680,12 @@ namespace Model
                     herramental.PropiedadesCadena.Add(notas);
                 }
             }
-           
+           //Retorna el objeto.
             return herramental;
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene los herramentales óptimos deBushing Sim de acuerdo con el Diametro del anillo.
         /// </summary>
         /// <param name="d1"></param>
         /// <returns></returns>
@@ -4734,7 +4735,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene el mejor herramental para Bushing Sim.
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
@@ -4761,11 +4762,12 @@ namespace Model
                 DataR.Rows.Add(dr);
                 break;
             }
+            //Retorna la tabla resultante.
             return DataR;
         }
 
         /// <summary>
-        /// 
+        /// Método que guarda un registro de la tabla Bushing Sim.
         /// </summary>
         /// <param name="codigo"></param>
         /// <param name="dimB"></param>
@@ -4775,12 +4777,12 @@ namespace Model
         {
             //Inicializamos los servicios de Sim.
             SO_Sim ServiceSim = new SO_Sim();
-
+            //Ejecutamos el métdo y retorna el resultado.
             return ServiceSim.SetBushingSim(obj.Codigo, obj.Propiedades[0].Valor, obj.PropiedadesCadena[0].Valor);
         }
 
         /// <summary>
-        /// 
+        /// Método que modifica un registro de la tabla Bushing Sim.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -4788,12 +4790,12 @@ namespace Model
         {
             //Inicializamos los servicios de Sim.
             SO_Sim ServiceSim = new SO_Sim();
-
+            //Ejecutamos el métdo y retorna el resultado.
             return ServiceSim.UpdateBushingSim(obj.idHerramental, obj.Propiedades[0].Valor, obj.PropiedadesCadena[0].Valor);
         }
 
         /// <summary>
-        /// 
+        /// Método que elimina un registro de la tabla Bushing Sim.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -4801,12 +4803,12 @@ namespace Model
         {
             //Inicializamos los servicios de Sim.
             SO_Sim ServiceSim = new SO_Sim();
-
+            //Ejecutamos el métdo y retorna el resultado.
             return ServiceSim.DeleteBushingSim(id);
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene todos los registros de Pusher Sim.
         /// </summary>
         /// <param name="textoBusqueda"></param>
         /// <returns></returns>
@@ -4851,7 +4853,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene la ifnormación de un herramental Pusher sim.
         /// </summary>
         /// <param name="codigo"></param>
         /// <returns></returns>
@@ -4889,12 +4891,12 @@ namespace Model
                     herramental.Propiedades.Add(propiedadDimD);
                 }
             }
-            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+           //Retornamos el objeto
             return herramental;
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene los registros óptimos para Pusher Sim.
         /// </summary>
         /// <param name="d1"></param>
         /// <returns></returns>
@@ -4944,7 +4946,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene el mejor herramenatl Pusher Sim.
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
@@ -4975,7 +4977,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que guarda un registro de la tabla Pusher Sim.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -4983,12 +4985,12 @@ namespace Model
         {
             //Inicializamos los servicios de Sim.
             SO_Sim ServiceSim = new SO_Sim();
-
+            //Ejecutamos el método y retornamos el resultado.
             return ServiceSim.SetPusher(obj.Codigo, obj.Propiedades[0].Valor);
         }
 
         /// <summary>
-        /// 
+        /// Método que modifica un registro de la tabla Bushing Sim.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -4996,12 +4998,12 @@ namespace Model
         {
             //Inicializamos los servicios de Sim.
             SO_Sim ServiceSim = new SO_Sim();
-
+            //Ejecutamos el método y retornamos el resultado.
             return ServiceSim.UpdatePusher(obj.idHerramental, obj.Propiedades[0].Valor);
         }
 
         /// <summary>
-        /// 
+        /// Método que elimina un registro de la tabla Bushing Sim.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -5009,13 +5011,17 @@ namespace Model
         {
             //Inicializamos los servicios de Sim.
             SO_Sim ServiceSim = new SO_Sim();
-
+            //Ejecutamos el método y retornamos el resultado.
             return ServiceSim.DeletePusher(id);
         }
-        
-         
+
+        /// <summary>
+        /// Método que obtiene todos los registros de Guillotina Sim.
+        /// </summary>
+        /// <param name="textoBusqueda"></param>
+        /// <returns></returns>
         public static DataTable GetAllGuillotinaSim(string textoBusqueda)
-         {
+        {
             //Inicializamos los servicios de Cromo OD.
             SO_Sim ServiceSim = new SO_Sim();
 
@@ -5041,7 +5047,7 @@ namespace Model
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
 
-
+                    //Agregamos las propiedades.
                     Propiedad propiedadDimA = new Propiedad();
                     propiedadDimA.DescripcionCorta = "Dim A";
                     propiedadDimA.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
@@ -5066,7 +5072,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene la información de un herramental Guillotina sim.
         /// </summary>
         /// <param name="codigo"></param>
         /// <returns></returns>
@@ -5118,12 +5124,12 @@ namespace Model
                     herramental.PropiedadesCadena.Add(anillos);
                 }
             }
-            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+           //Retornamos el objeto.
             return herramental;
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene los herramentales óptimos para Guillotina Sim.
         /// </summary>
         /// <param name="h1"></param>
         /// <returns></returns>
@@ -5180,7 +5186,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene el mejor herramental para Guillotina Sim.
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
@@ -5207,11 +5213,12 @@ namespace Model
                 DataR.Rows.Add(dr);
                 break;
             }
+            //Retornamos la tabla resultante.
             return DataR;
         }
 
         /// <summary>
-        /// 
+        /// Método que guarda un registro en la tabla Guillotina Sim.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -5219,12 +5226,12 @@ namespace Model
         {
             //Inicializamos los servicios de Sim.
             SO_Sim ServiceSim = new SO_Sim();
-
+            //Ejecutamos el método, retornamos el resxultado.
             return ServiceSim.SetGuillotinaSim(obj.Codigo, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.Propiedades[2].Valor, Convert.ToInt32(obj.PropiedadesCadena[0].Valor));
         }
 
         /// <summary>
-        /// 
+        /// Método que modifica un registro en la tabla Guillotina Sim.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -5232,12 +5239,12 @@ namespace Model
         {
             //Inicializamos los servicios de Sim.
             SO_Sim ServiceSim = new SO_Sim();
-
+            //Ejecutamos el método, retornamos el resxultado.
             return ServiceSim.UpdateGuillotinaSim(obj.idHerramental, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.Propiedades[2].Valor, Convert.ToInt32(obj.PropiedadesCadena[0].Valor));
         }
 
         /// <summary>
-        /// 
+        /// Método que elimina un registro en la tabla Guillotina Sim.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -5245,7 +5252,7 @@ namespace Model
         {
             //Inicializamos los servicios de Sim.
             SO_Sim ServiceSim = new SO_Sim();
-
+            //Ejecutamos el método, retornamos el resxultado.
             return ServiceSim.DeleteGuillotinaSim(id);
         }
         #endregion
