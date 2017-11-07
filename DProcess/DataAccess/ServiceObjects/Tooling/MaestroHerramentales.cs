@@ -45,6 +45,9 @@ namespace DataAccess.ServiceObjects.Tooling
             this.ShieldBK_ = new HashSet<ShieldBK_>();
             this.BushingCromo_ = new HashSet<BushingCromo_>();
             this.CollarsCromo_ = new HashSet<CollarsCromo_>();
+            this.BushingSIM_ = new HashSet<BushingSIM_>();
+            this.PusherSIM_ = new HashSet<PusherSIM_>();
+            this.GuillotinaSIM_ = new HashSet<GuillotinaSIM_>();
         }
     
         public string Codigo { get; set; }
@@ -115,5 +118,11 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual ICollection<BushingCromo_> BushingCromo_ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CollarsCromo_> CollarsCromo_ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BushingSIM_> BushingSIM_ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PusherSIM_> PusherSIM_ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GuillotinaSIM_> GuillotinaSIM_ { get; set; }
     }
 }

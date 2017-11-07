@@ -240,6 +240,9 @@
     <Compile Include="Forms\Tooling\ControlBushingCromo.xaml.cs">
       <DependentUpon>ControlBushingCromo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlBushingSim.xaml.cs">
+      <DependentUpon>ControlBushingSim.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlBushing_FinishM.xaml.cs">
       <DependentUpon>ControlBushing_FinishM.xaml</DependentUpon>
     </Compile>
@@ -299,6 +302,12 @@
     </Compile>
     <Compile Include="Forms\Tooling\ControlGuillotinaBK.xaml.cs">
       <DependentUpon>ControlGuillotinaBK.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlGuillotinaSim.xaml.cs">
+      <DependentUpon>ControlGuillotinaSim.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlPusherSim.xaml.cs">
+      <DependentUpon>ControlPusherSim.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\ControlShieldBK.xaml.cs">
       <DependentUpon>ControlShieldBK.xaml</DependentUpon>
@@ -390,6 +399,7 @@
     <Compile Include="Services\ViewModel\BushingBatesBoreVM.cs" />
     <Compile Include="Services\ViewModel\BushingCromo.cs" />
     <Compile Include="Services\ViewModel\BushingFinishMill_VM.cs" />
+    <Compile Include="Services\ViewModel\BushingSimVM.cs" />
     <Compile Include="Services\ViewModel\Busqueda_HerramentalVM.cs" />
     <Compile Include="Services\ViewModel\CamBK_VM.cs" />
     <Compile Include="Services\ViewModel\ChuckSplitterVM.cs" />
@@ -418,6 +428,7 @@
     <Compile Include="Services\ViewModel\GeneradorViewModel.cs" />
     <Compile Include="Services\ViewModel\GuidePlateBK_VM.cs" />
     <Compile Include="Services\ViewModel\GuillotinaBK_VM.cs" />
+    <Compile Include="Services\ViewModel\GuillotinaSimVM.cs" />
     <Compile Include="Services\ViewModel\HistorialVM.cs" />
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
     <Compile Include="Services\ViewModel\NuevoDepartamentoVM.cs" />
@@ -432,6 +443,7 @@
     <Compile Include="Services\ViewModel\PropiedadViewModel.cs" />
     <Compile Include="Services\ViewModel\CuffViewModel.cs" />
     <Compile Include="Services\ViewModel\PUserViewModel.cs" />
+    <Compile Include="Services\ViewModel\PusherSimVM.cs" />
     <Compile Include="Services\ViewModel\RecursoViewModel.cs" />
     <Compile Include="Services\ViewModel\ShieldBK_VM.cs" />
     <Compile Include="Services\ViewModel\ShimCutSystem_VM.cs" />
@@ -618,6 +630,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlBushingSim.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\ControlBushing_FinishM.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -695,6 +711,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\ControlGuillotinaBK.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlGuillotinaSim.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlPusherSim.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

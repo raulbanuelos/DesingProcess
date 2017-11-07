@@ -4587,6 +4587,669 @@ namespace Model
         }
 
         #endregion
+
+        #region Sim
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="textoBusqueda"></param>
+        /// <returns></returns>
+        public static DataTable GetAllBushingSim(string textoBusqueda)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceSim.GetAllBushingSim(textoBusqueda);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimB").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "BushingSim");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoBushingSim(string codigo)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            //Declaramos un objeto de tipo Herramental.
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceSim.GetInfoBushingSim(codigo);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental=(int)tipo.GetProperty("Id_Bushing").GetValue(item, null);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimB").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    PropiedadCadena notas = new PropiedadCadena();
+                    notas.DescripcionCorta = "Notas";
+                    notas.Valor= (string )tipo.GetProperty("Notas").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(notas);
+                }
+            }
+           
+            return herramental;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="d1"></param>
+        /// <returns></returns>
+        public static DataTable GetBushingSim(double d1)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            double cri_min = d1 + GetCriterio("SIMBushingMin");
+            double cri_max = d1 + GetCriterio("SIMBushingMax");
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceSim.GetBushingSim(cri_min, cri_max);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimB").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "Bushing Sim  " + propiedadDimB.Valor;
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "BushingSim");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable SelectBest_BushingSim(DataTable dt)
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Description");
+            DataR.Columns.Add("Dim B");
+
+            //Sólo se hace la iteración una vez
+            foreach (DataRow row in dt.Rows)
+            {
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = DataR.NewRow();
+                dr["Code"] = row["Code"].ToString();
+                dr["Description"] = row["Description"].ToString();
+                dr["Dim B"] = row["Dim B"].ToString();
+
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+                break;
+            }
+            return DataR;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="dimB"></param>
+        /// <param name="notas"></param>
+        /// <returns></returns>
+        public static int SetBushingSim(Herramental obj)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            return ServiceSim.SetBushingSim(obj.Codigo, obj.Propiedades[0].Valor, obj.PropiedadesCadena[0].Valor);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateBushingSim(Herramental obj)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            return ServiceSim.UpdateBushingSim(obj.idHerramental, obj.Propiedades[0].Valor, obj.PropiedadesCadena[0].Valor);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteBushingSim(int id)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            return ServiceSim.DeleteBushingSim(id);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="textoBusqueda"></param>
+        /// <returns></returns>
+        public static DataTable GetAllPusherSim(string textoBusqueda)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceSim.GetAllPusherSim(textoBusqueda);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+
+                    Propiedad propiedadDimD = new Propiedad();
+                    propiedadDimD.DescripcionCorta = "Dim D";
+                    propiedadDimD.Valor = (double)tipo.GetProperty("DimD").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimD);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "PusherSim");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoPusherSim(string codigo)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            //Declaramos un objeto de tipo Herramental.
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceSim.GetInfoPusher(codigo);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_Pushing").GetValue(item, null);
+
+                    Propiedad propiedadDimD = new Propiedad();
+                    propiedadDimD.DescripcionCorta = "Dim D";
+                    propiedadDimD.Valor = (double)tipo.GetProperty("DimD").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimD);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return herramental;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="d1"></param>
+        /// <returns></returns>
+        public static DataTable GetPusherSim(double diamBush)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            double pusher_min = diamBush - GetCriterio("SIMPusherMin");
+            double pusher_max = diamBush - GetCriterio("SIMPusherMax");
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceSim.GetPusher(pusher_min, pusher_max);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                    Propiedad propiedadDimD = new Propiedad();
+                    propiedadDimD.DescripcionCorta = "Dim D";
+                    propiedadDimD.Valor = (double)tipo.GetProperty("DimD").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimD);
+
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "Pusher Sim" + propiedadDimD.Valor;
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Pusher Sim");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable SelectBest_PusherSim(DataTable dt)
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Description");
+            DataR.Columns.Add("Dim D");
+
+            //Sólo se hace la iteración una vez
+            foreach (DataRow row in dt.Rows)
+            {
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = DataR.NewRow();
+                dr["Code"] = row["Code"].ToString();
+                dr["Description"] = row["Description"].ToString();
+                dr["Dim D"] = row["Dim D"].ToString();
+
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+                break;
+            }
+            return DataR;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetPusherSim(Herramental obj)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            return ServiceSim.SetPusher(obj.Codigo, obj.Propiedades[0].Valor);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdatePusherSim(Herramental obj)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            return ServiceSim.UpdatePusher(obj.idHerramental, obj.Propiedades[0].Valor);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeletePusherSim(int id)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            return ServiceSim.DeletePusher(id);
+        }
+        
+         
+        public static DataTable GetAllGuillotinaSim(string textoBusqueda)
+         {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceSim.GetAllGuillotinaSim(textoBusqueda);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+
+
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimA);
+
+                    Propiedad propiedadMin = new Propiedad();
+                    propiedadMin.DescripcionCorta = "Width Min";
+                    propiedadMin.Valor = (double)tipo.GetProperty("WidthMin").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadMin);
+
+                    Propiedad propiedadMax = new Propiedad();
+                    propiedadMax.DescripcionCorta = "Width Max";
+                    propiedadMax.Valor = (double)tipo.GetProperty("WidthMax").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadMax);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "GuillotinaSim");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoGuillotinaSim(string codigo)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            //Declaramos un objeto de tipo Herramental.
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceSim.GetInfoGuillotinaSim(codigo);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("Id_Guillotina").GetValue(item, null);
+
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimA);
+
+                    Propiedad propiedadMin = new Propiedad();
+                    propiedadMin.DescripcionCorta = "Width Min";
+                    propiedadMin.Valor = (double)tipo.GetProperty("WidthMin").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadMin);
+
+                    Propiedad propiedadMax = new Propiedad();
+                    propiedadMax.DescripcionCorta = "Width Max";
+                    propiedadMax.Valor = (double)tipo.GetProperty("WidthMax").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadMax);
+
+                    PropiedadCadena anillos = new PropiedadCadena();
+                    anillos.Valor = Convert.ToString((int)tipo.GetProperty("CantidadAnillos").GetValue(item, null));
+                    herramental.PropiedadesCadena.Add(anillos);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return herramental;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="h1"></param>
+        /// <returns></returns>
+        public static DataTable GetGuillotinaSim(double h1)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceSim.GetguillotinaSim(h1);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimA);
+
+                    Propiedad propiedadMin = new Propiedad();
+                    propiedadMin.DescripcionCorta = "Width Min";
+                    propiedadMin.Valor = (double)tipo.GetProperty("WidthMin").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadMin);
+
+                    Propiedad propiedadMax = new Propiedad();
+                    propiedadMax.DescripcionCorta = "Width Max";
+                    propiedadMax.Valor = (double)tipo.GetProperty("WidthMax").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadMax);
+
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "Guillotina Sim " + propiedadDimA.Valor + " Width Min "+ propiedadMin.Valor + " Width Max "+ propiedadMax.Valor;
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Guillotina Sim");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable SelectBest_GuillotinaSim(DataTable dt)
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Description");
+            DataR.Columns.Add("Dim A");
+
+            //Sólo se hace la iteración una vez
+            foreach (DataRow row in dt.Rows)
+            {
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = DataR.NewRow();
+                dr["Code"] = row["Code"].ToString();
+                dr["Description"] = row["Description"].ToString();
+                dr["Dim A"] = row["Dim A"].ToString();
+
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+                break;
+            }
+            return DataR;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetGuillotinaSim(Herramental obj)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            return ServiceSim.SetGuillotinaSim(obj.Codigo, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.Propiedades[2].Valor, Convert.ToInt32(obj.PropiedadesCadena[0].Valor));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateGuillotinaSim(Herramental obj)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            return ServiceSim.UpdateGuillotinaSim(obj.idHerramental, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.Propiedades[2].Valor, Convert.ToInt32(obj.PropiedadesCadena[0].Valor));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteGuillotinaSim(int id)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            return ServiceSim.DeleteGuillotinaSim(id);
+        }
+        #endregion
+
         #endregion
 
         #region Herramentales

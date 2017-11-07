@@ -208,6 +208,9 @@
     <Compile Include="ServiceObjects\Tooling\BushingFinishMill.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\BushingSIM_.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\CamBK_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -266,6 +269,9 @@
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\GuillotinaBK_.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\GuillotinaSIM_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\MaestroHerramentales.cs">
@@ -353,6 +359,9 @@
     <Compile Include="ServiceObjects\Tooling\PLANO_HERRAMENTAL.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\PusherSIM_.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\ShieldBK_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -366,6 +375,7 @@
     <Compile Include="ServiceObjects\Tooling\SO_FinishMill.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_MaestroHerramental.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_Plano.cs" />
+    <Compile Include="ServiceObjects\Tooling\SO_Sim.cs" />
     <Compile Include="ServiceObjects\Tooling\SplitterSpacerChart.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>

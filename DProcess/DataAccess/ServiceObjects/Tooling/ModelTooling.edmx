@@ -33,6 +33,15 @@
           <Property Name="Plano" Type="varchar" MaxLength="50" />
           <Property Name="DimC" Type="float" />
         </EntityType>
+        <EntityType Name="BushingSIM_">
+          <Key>
+            <PropertyRef Name="Id_Bushing" />
+          </Key>
+          <Property Name="Id_Bushing" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="DimB" Type="float" />
+          <Property Name="Notas" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="CamBK_">
           <Key>
             <PropertyRef Name="Id_CamBK" />
@@ -280,6 +289,17 @@
           <Property Name="Width" Type="varchar" MaxLength="50" />
           <Property Name="SobreMedida" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="GuillotinaSIM_">
+          <Key>
+            <PropertyRef Name="Id_Guillotina" />
+          </Key>
+          <Property Name="Id_Guillotina" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="WidthMin" Type="float" />
+          <Property Name="WidthMax" Type="float" />
+          <Property Name="DimA" Type="float" />
+          <Property Name="CantidadAnillos" Type="int" />
+        </EntityType>
         <EntityType Name="MaestroHerramentales">
           <Key>
             <PropertyRef Name="Codigo" />
@@ -305,6 +325,14 @@
           <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
           <Property Name="USUARIO_CREACION" Type="varchar" MaxLength="50" />
           <Property Name="USUARIO_ACTUALIZACION" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PusherSIM_">
+          <Key>
+            <PropertyRef Name="ID_Pushing" />
+          </Key>
+          <Property Name="ID_Pushing" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="DimD" Type="float" />
         </EntityType>
         <EntityType Name="ShieldBK_">
           <Key>
@@ -517,6 +545,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BushingSIM__MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BushingSIM_" Type="Self.BushingSIM_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="BushingSIM_">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CamBK__MaestroHerramentales">
           <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -719,6 +761,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GuillotinaSIM__MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GuillotinaSIM_" Type="Self.GuillotinaSIM_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="GuillotinaSIM_">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_Plano_MaestroHerramentales">
           <End Role="PLANO_HERRAMENTAL" Type="Self.PLANO_HERRAMENTAL" Multiplicity="0..1" />
           <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="*" />
@@ -728,6 +784,20 @@
             </Principal>
             <Dependent Role="MaestroHerramentales">
               <PropertyRef Name="idPlano" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PusherSIM__MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PusherSIM_" Type="Self.PusherSIM_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="PusherSIM_">
+              <PropertyRef Name="Codigo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -871,6 +941,7 @@
           <EntitySet Name="BushingBatesBore_" EntityType="Self.BushingBatesBore_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BushingCromo_" EntityType="Self.BushingCromo_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BushingFinishMill" EntityType="Self.BushingFinishMill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BushingSIM_" EntityType="Self.BushingSIM_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CamBK_" EntityType="Self.CamBK_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChuckSplitter" EntityType="Self.ChuckSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClasificacionHerramental" EntityType="Self.ClasificacionHerramental" Schema="dbo" store:Type="Tables" />
@@ -891,8 +962,10 @@
           <EntitySet Name="GuideBarSecondRoughGrind" EntityType="Self.GuideBarSecondRoughGrind" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GuidePlateBK_" EntityType="Self.GuidePlateBK_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GuillotinaBK_" EntityType="Self.GuillotinaBK_" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GuillotinaSIM_" EntityType="Self.GuillotinaSIM_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MaestroHerramentales" EntityType="Self.MaestroHerramentales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PLANO_HERRAMENTAL" EntityType="Self.PLANO_HERRAMENTAL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PusherSIM_" EntityType="Self.PusherSIM_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShieldBK_" EntityType="Self.ShieldBK_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SplitterSpacerChart" EntityType="Self.SplitterSpacerChart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SPlitterSpacerChart2" EntityType="Self.SPlitterSpacerChart2" Schema="dbo" store:Type="Tables" />
@@ -917,6 +990,10 @@
           <AssociationSet Name="FK_BushingFinishMill_MaestroHerramentales" Association="Self.FK_BushingFinishMill_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="BushingFinishMill" EntitySet="BushingFinishMill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BushingSIM__MaestroHerramentales" Association="Self.FK_BushingSIM__MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="BushingSIM_" EntitySet="BushingSIM_" />
           </AssociationSet>
           <AssociationSet Name="FK_CamBK__MaestroHerramentales" Association="Self.FK_CamBK__MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -978,9 +1055,17 @@
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="GuillotinaBK_" EntitySet="GuillotinaBK_" />
           </AssociationSet>
+          <AssociationSet Name="FK_GuillotinaSIM__MaestroHerramentales" Association="Self.FK_GuillotinaSIM__MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="GuillotinaSIM_" EntitySet="GuillotinaSIM_" />
+          </AssociationSet>
           <AssociationSet Name="fk_Plano_MaestroHerramentales" Association="Self.fk_Plano_MaestroHerramentales">
             <End Role="PLANO_HERRAMENTAL" EntitySet="PLANO_HERRAMENTAL" />
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PusherSIM__MaestroHerramentales" Association="Self.FK_PusherSIM__MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="PusherSIM_" EntitySet="PusherSIM_" />
           </AssociationSet>
           <AssociationSet Name="FK_ShieldBK__MaestroHerramentales" Association="Self.FK_ShieldBK__MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -1074,6 +1159,9 @@
           <NavigationProperty Name="ShieldBK_" Relationship="DataAccess.ServiceObjects.Tooling.FK_ShieldBK__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="ShieldBK_" />
           <NavigationProperty Name="BushingCromo_" Relationship="DataAccess.ServiceObjects.Tooling.FK_BushingCromo__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="BushingCromo_" />
           <NavigationProperty Name="CollarsCromo_" Relationship="DataAccess.ServiceObjects.Tooling.FK_CollarsCromo__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CollarsCromo_" />
+          <NavigationProperty Name="BushingSIM_" Relationship="DataAccess.ServiceObjects.Tooling.FK_BushingSIM__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="BushingSIM_" />
+          <NavigationProperty Name="PusherSIM_" Relationship="DataAccess.ServiceObjects.Tooling.FK_PusherSIM__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="PusherSIM_" />
+          <NavigationProperty Name="GuillotinaSIM_" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuillotinaSIM__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="GuillotinaSIM_" />
         </EntityType>
         <EntityContainer Name="EntitiesTooling" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="MaestroHerramentales" EntityType="Self.MaestroHerramentales" />
@@ -1233,6 +1321,21 @@
           <AssociationSet Name="FK_CollarsCromo__MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_CollarsCromo__MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="CollarsCromo_" EntitySet="CollarsCromo_" />
+          </AssociationSet>
+          <EntitySet Name="BushingSIM_" EntityType="DataAccess.ServiceObjects.Tooling.BushingSIM_" />
+          <EntitySet Name="PusherSIM_" EntityType="DataAccess.ServiceObjects.Tooling.PusherSIM_" />
+          <AssociationSet Name="FK_BushingSIM__MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_BushingSIM__MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="BushingSIM_" EntitySet="BushingSIM_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PusherSIM__MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_PusherSIM__MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="PusherSIM_" EntitySet="PusherSIM_" />
+          </AssociationSet>
+          <EntitySet Name="GuillotinaSIM_" EntityType="DataAccess.ServiceObjects.Tooling.GuillotinaSIM_" />
+          <AssociationSet Name="FK_GuillotinaSIM__MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_GuillotinaSIM__MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="GuillotinaSIM_" EntitySet="GuillotinaSIM_" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="UretanoSplitter">
@@ -2113,6 +2216,79 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BushingSIM_">
+          <Key>
+            <PropertyRef Name="Id_Bushing" />
+          </Key>
+          <Property Name="Id_Bushing" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DimB" Type="Double" />
+          <Property Name="Notas" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_BushingSIM__MaestroHerramentales" FromRole="BushingSIM_" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <EntityType Name="PusherSIM_">
+          <Key>
+            <PropertyRef Name="ID_Pushing" />
+          </Key>
+          <Property Name="ID_Pushing" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DimD" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_PusherSIM__MaestroHerramentales" FromRole="PusherSIM_" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_BushingSIM__MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.BushingSIM_" Role="BushingSIM_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="BushingSIM_">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PusherSIM__MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.PusherSIM_" Role="PusherSIM_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="PusherSIM_">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="GuillotinaSIM_">
+          <Key>
+            <PropertyRef Name="Id_Guillotina" />
+          </Key>
+          <Property Name="Id_Guillotina" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="WidthMin" Type="Double" />
+          <Property Name="WidthMax" Type="Double" />
+          <Property Name="DimA" Type="Double" />
+          <Property Name="CantidadAnillos" Type="Int32" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_GuillotinaSIM__MaestroHerramentales" FromRole="GuillotinaSIM_" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_GuillotinaSIM__MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.Tooling.GuillotinaSIM_" Role="GuillotinaSIM_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="GuillotinaSIM_">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2626,6 +2802,37 @@
                 <ScalarProperty Name="DimA" ColumnName="DimA" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="Id_Collar" ColumnName="Id_Collar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BushingSIM_">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.BushingSIM_">
+              <MappingFragment StoreEntitySet="BushingSIM_">
+                <ScalarProperty Name="Notas" ColumnName="Notas" />
+                <ScalarProperty Name="DimB" ColumnName="DimB" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Id_Bushing" ColumnName="Id_Bushing" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PusherSIM_">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.PusherSIM_">
+              <MappingFragment StoreEntitySet="PusherSIM_">
+                <ScalarProperty Name="DimD" ColumnName="DimD" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="ID_Pushing" ColumnName="ID_Pushing" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GuillotinaSIM_">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.GuillotinaSIM_">
+              <MappingFragment StoreEntitySet="GuillotinaSIM_">
+                <ScalarProperty Name="CantidadAnillos" ColumnName="CantidadAnillos" />
+                <ScalarProperty Name="DimA" ColumnName="DimA" />
+                <ScalarProperty Name="WidthMax" ColumnName="WidthMax" />
+                <ScalarProperty Name="WidthMin" ColumnName="WidthMin" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Id_Guillotina" ColumnName="Id_Guillotina" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

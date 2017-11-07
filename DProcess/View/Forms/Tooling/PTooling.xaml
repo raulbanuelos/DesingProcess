@@ -80,6 +80,11 @@
                     <MenuItem Header="Bushing" Cursor="Hand" Command="{Binding IrBushingCromo}"/>
                     <MenuItem Header="Collar" Cursor="Hand" Command="{Binding IrCollarCromo}"/>
                 </MenuItem>
+                <MenuItem Header="SIM" Cursor="Hand">
+                    <MenuItem Header="Bushing" Cursor="Hand" Command="{Binding IrBushingSIM}"/>
+                    <MenuItem Header="Pusher" Cursor="Hand" Command="{Binding IrPusherSIM}"/>
+                    <MenuItem Header="Guillotina" Cursor="Hand" Command="{Binding IrGuillotinaShim}"/>
+                </MenuItem>
             </MenuItem>
         </Menu>
 

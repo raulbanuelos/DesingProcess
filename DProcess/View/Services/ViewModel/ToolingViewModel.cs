@@ -383,6 +383,34 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => irCollarCromo());
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICommand IrBushingSIM
+        {
+            get
+            {
+                return new RelayCommand(o => irBushingSim());
+            }
+        }
+
+        public ICommand IrPusherSIM
+        {
+            get
+            {
+                return new RelayCommand(o => irPusherSim());
+            }
+        }
+
+
+        public ICommand IrGuillotinaShim
+        {
+            get
+            {
+                return new RelayCommand(o => irGuillotinaShim());
+            }
+        }
         #endregion
 
         #region Methods
@@ -531,16 +559,16 @@ namespace View.Services.ViewModel
         private void verHerramental()
         {
             //Si se seleccionó un herramental
-            if (SelectedMHerramental!= null)
+            if (SelectedMHerramental != null)
             {
                 WMaestroHerramental wHerramental = new WMaestroHerramental();
-                NuevoMaestroHerramental_VM vm = new NuevoMaestroHerramental_VM(usuario,SelectedMHerramental);
+                NuevoMaestroHerramental_VM vm = new NuevoMaestroHerramental_VM(usuario, SelectedMHerramental);
                 wHerramental.DataContext = vm;
                 wHerramental.ShowDialog();
                 //Obtiene la lista de herramentales
                 TextoBusqueda = "";
                 buscarTooling(string.Empty);
-                
+
             }
         }
 
@@ -694,6 +722,36 @@ namespace View.Services.ViewModel
         {
             WBatesBore frm = new WBatesBore();
             CollarCromoVM context = new CollarCromoVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void irBushingSim()
+        {
+            WBatesBore frm = new WBatesBore();
+            BushingSimVM context = new BushingSimVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void irPusherSim()
+        {
+            WBatesBore frm = new WBatesBore();
+            PusherSimVM context = new PusherSimVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        } 
+
+        public void irGuillotinaShim()
+        {
+            WBatesBore frm = new WBatesBore();
+            GuillotinaSimVM context = new GuillotinaSimVM();
             frm.DataContext = context;
             frm.ShowDialog();
         }
