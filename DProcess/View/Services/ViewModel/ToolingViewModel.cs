@@ -385,7 +385,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Comando que abre la ventana de Bushing Sim.
         /// </summary>
         public ICommand IrBushingSIM
         {
@@ -395,6 +395,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando que abre la ventana de Pusher Sim.
+        /// </summary>
         public ICommand IrPusherSIM
         {
             get
@@ -403,12 +406,58 @@ namespace View.Services.ViewModel
             }
         }
 
-
+        /// <summary>
+        /// Comando que abre la ventana de Guillotina Sim.
+        /// </summary>
         public ICommand IrGuillotinaShim
         {
             get
             {
                 return new RelayCommand(o => irGuillotinaShim());
+            }
+        }
+
+        /// <summary>
+        /// Comando que abre la ventana de Camisa Moly.
+        /// </summary>
+        public ICommand IrCamisaMoly
+        {
+            get
+            {
+                return new RelayCommand(o => irCamisa_Moly());
+            }
+        }
+
+        /// <summary>
+        /// Comando que abre la ventana de Collar Moly.
+        /// </summary>
+        public ICommand IrCollarMoly
+        {
+            get
+            {
+                return new RelayCommand(o => irCollar_Moly());
+            }
+        }
+
+        /// <summary>
+        /// Comando que abre la ventana de Protector Inferior _Moly.
+        /// </summary>
+        public ICommand IrProtInfMoly
+        {
+            get
+            {
+                return new RelayCommand(o => irProtectorInf_Moly());
+            }
+        }
+
+        /// <summary>
+        /// Comando que abre la ventana de Protector Superior _Moly.
+        /// </summary>
+        public ICommand IrProtSupMoly
+        {
+            get
+            {
+                return new RelayCommand(o => irProtectorSup_Moly());
             }
         }
         #endregion
@@ -727,7 +776,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Comando que abre la ventana de Bushing Sim.
         /// </summary>
         public void irBushingSim()
         {
@@ -738,7 +787,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Comando que abre la ventana de Pusher Sim.
         /// </summary>
         public void irPusherSim()
         {
@@ -746,12 +795,59 @@ namespace View.Services.ViewModel
             PusherSimVM context = new PusherSimVM();
             frm.DataContext = context;
             frm.ShowDialog();
-        } 
+        }
 
+        /// <summary>
+        /// Comando que abre la ventana de Guillotina Sim.
+        /// </summary>
         public void irGuillotinaShim()
         {
             WBatesBore frm = new WBatesBore();
             GuillotinaSimVM context = new GuillotinaSimVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Comando que abre la ventana de Camisa Moly.
+        /// </summary>
+        public void irCamisa_Moly()
+        {
+            WBatesBore frm = new WBatesBore();
+            CamisaMolyVM context = new CamisaMolyVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Comando que abre la ventana de Collar Moly.
+        /// </summary>
+        public void irCollar_Moly()
+        {
+            WBatesBore frm = new WBatesBore();
+            CollarMolyVM context = new CollarMolyVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Comando que abre la ventana de Protector Superior Moly.
+        /// </summary>
+        public void irProtectorSup_Moly()
+        {
+            WBatesBore frm = new WBatesBore();
+            ProtectorSupMoly_VM context = new ProtectorSupMoly_VM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Comando que abre la ventana de Protector Inferior _Moly.
+        /// </summary>
+        public void irProtectorInf_Moly()
+        {
+            WBatesBore frm = new WBatesBore();
+            ProtectorInfMoly_VM context = new ProtectorInfMoly_VM();
             frm.DataContext = context;
             frm.ShowDialog();
         }

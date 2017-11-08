@@ -71,6 +71,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      b.Id_Bushing,
                                      m.Activo
                                  }).ToList();
+                    //Retornamos la lista.
                     return Lista;
                 }
             }
@@ -173,6 +174,7 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesTooling())
                 {
                     BushingSIM_ obj = Conexion.BushingSIM_.Where(x => x.Id_Bushing == id).FirstOrDefault();
@@ -188,12 +190,13 @@ namespace DataAccess.ServiceObjects.Tooling
             }
             catch (Exception)
             {
+                //Si ocurre algún error, retornamos cero.
                 return 0;
             }
         }
 
         /// <summary>
-        /// 
+        /// Elimina un registro de la tabla Bushing Sim.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -201,6 +204,7 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesTooling())
                 {
                     BushingSIM_ obj = Conexion.BushingSIM_.Where(x => x.Id_Bushing == id).FirstOrDefault();
@@ -213,12 +217,13 @@ namespace DataAccess.ServiceObjects.Tooling
             }
             catch (Exception)
             {
+                //Si ocurre algún error, retornamos cero.
                 return 0;
             }
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene todos los registros de Pusher Sim.
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
@@ -226,8 +231,10 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Realizamos la consulta, el resultado lo guardamos en una variable anónima.
                     var lista = (from b in Conexion.PusherSIM_
                                  join m in Conexion.MaestroHerramentales on b.Codigo equals m.Codigo
                                  where b.Codigo.Contains(texto) || m.Descripcion.Contains(texto)
@@ -257,6 +264,7 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesTooling())
                 {
                     var lista = (from b in Conexion.PusherSIM_
@@ -270,6 +278,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      b.ID_Pushing,
                                      m.Activo
                                  }).ToList();
+                    //Retornamos la lista.
                     return lista;
                 }
             }
@@ -280,7 +289,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene los registros óptimos para Pusher Sim a partir del diametro Bushing.
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
@@ -324,7 +333,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que guarda un registro Pusher Sim.
         /// </summary>
         /// <param name="codigo"></param>
         /// <param name="dimD"></param>
@@ -333,6 +342,7 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion= new EntitiesTooling())
                 {
                     PusherSIM_ obj = new PusherSIM_();
@@ -353,7 +363,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que modifica un registro de la tabla Bushing Sim.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="dimD"></param>
@@ -362,6 +372,7 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesTooling())
                 {
                     PusherSIM_ obj = Conexion.PusherSIM_.Where(x => x.ID_Pushing == id).FirstOrDefault();
@@ -381,7 +392,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que elimina un registro de la tabla Bushing Sim.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -389,13 +400,14 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesTooling())
                 {
                     PusherSIM_ obj = Conexion.PusherSIM_.Where(x => x.ID_Pushing == id).FirstOrDefault();
 
                     //Se guardan los cambios y se retorna el número de registros afectados.
                     Conexion.Entry(obj).State = EntityState.Deleted;
-
+                    //Guardamos los cambios.
                     return Conexion.SaveChanges();
                 }
             }
@@ -414,8 +426,10 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Realizamos la consulta, el resultado lo guardamos en una variable anónima.
                     var lista = (from b in Conexion.GuillotinaSIM_
                                  join m in Conexion.MaestroHerramentales on b.Codigo equals m.Codigo
                                  where b.Codigo.Contains(texto) || m.Descripcion.Contains(texto)
@@ -447,8 +461,10 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesTooling())
                 {
+                    //Realizamos la consulta, el resultado lo guardamos en una variable anónima.
                     var lista = (from b in Conexion.GuillotinaSIM_
                                  join m in Conexion.MaestroHerramentales on b.Codigo equals m.Codigo
                                  where b.Codigo.Equals(codigo)
@@ -473,7 +489,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene los herramentales óptimos para Guillotina Sim.
         /// </summary>
         /// <param name="h1"></param>
         /// <returns></returns>
@@ -518,7 +534,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que guarda un registro en la tabla Guillotina Sim.
         /// </summary>
         /// <param name="codigo"></param>
         /// <param name="dimA"></param>
@@ -530,6 +546,7 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesTooling())
                 {
                     GuillotinaSIM_ obj = new GuillotinaSIM_();
@@ -553,7 +570,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que modifica un registro en la tabla Guillotina Sim.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="dimA"></param>
@@ -565,6 +582,7 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesTooling())
                 {
                     GuillotinaSIM_ obj = Conexion.GuillotinaSIM_.Where(x => x.Id_Guillotina == id).FirstOrDefault();
@@ -585,7 +603,7 @@ namespace DataAccess.ServiceObjects.Tooling
         }
 
         /// <summary>
-        /// 
+        /// Método que elimina un registro en la tabla Guillotina Sim.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -593,6 +611,7 @@ namespace DataAccess.ServiceObjects.Tooling
         {
             try
             {
+                //Realizamos la conexión a través de EntityFramework.
                 using (var Conexion = new EntitiesTooling())
                 {
                     GuillotinaSIM_ obj = Conexion.GuillotinaSIM_.Where(x => x.Id_Guillotina == id).FirstOrDefault();

@@ -249,6 +249,9 @@
     <Compile Include="Forms\Tooling\ControlCamBK.xaml.cs">
       <DependentUpon>ControlCamBK.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlCamisaMoly.xaml.cs">
+      <DependentUpon>ControlCamisaMoly.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlChuckSplitterCasting.xaml.cs">
       <DependentUpon>ControlChuckSplitterCasting.xaml</DependentUpon>
     </Compile>
@@ -266,6 +269,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\ControlCollarCromo.xaml.cs">
       <DependentUpon>ControlCollarCromo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlCollarMoly.xaml.cs">
+      <DependentUpon>ControlCollarMoly.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\ControlCollarSpacer.xaml.cs">
       <DependentUpon>ControlCollarSpacer.xaml</DependentUpon>
@@ -305,6 +311,12 @@
     </Compile>
     <Compile Include="Forms\Tooling\ControlGuillotinaSim.xaml.cs">
       <DependentUpon>ControlGuillotinaSim.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlProtectorInf_Moly.xaml.cs">
+      <DependentUpon>ControlProtectorInf_Moly.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlProtectorSup_Moly.xaml.cs">
+      <DependentUpon>ControlProtectorSup_Moly.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\ControlPusherSim.xaml.cs">
       <DependentUpon>ControlPusherSim.xaml</DependentUpon>
@@ -402,12 +414,14 @@
     <Compile Include="Services\ViewModel\BushingSimVM.cs" />
     <Compile Include="Services\ViewModel\Busqueda_HerramentalVM.cs" />
     <Compile Include="Services\ViewModel\CamBK_VM.cs" />
+    <Compile Include="Services\ViewModel\CamisaMolyVM.cs" />
     <Compile Include="Services\ViewModel\ChuckSplitterVM.cs" />
     <Compile Include="Services\ViewModel\ClosingSleeveVM.cs" />
     <Compile Include="Services\ViewModel\CoilCenterG_VM.cs" />
     <Compile Include="Services\ViewModel\CoilFeedRoller_VM.cs" />
     <Compile Include="Services\ViewModel\CollarAutoFinTurnViewModel.cs" />
     <Compile Include="Services\ViewModel\CollarCromoVM.cs" />
+    <Compile Include="Services\ViewModel\CollarMolyVM.cs" />
     <Compile Include="Services\ViewModel\CollarSpacerVM.cs" />
     <Compile Include="Services\ViewModel\ControlDocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\CutterCamTurnVM.cs" />
@@ -442,6 +456,8 @@
     <Compile Include="Services\ViewModel\PropiedadCadenaViewModel.cs" />
     <Compile Include="Services\ViewModel\PropiedadViewModel.cs" />
     <Compile Include="Services\ViewModel\CuffViewModel.cs" />
+    <Compile Include="Services\ViewModel\ProtectorInfMoly_VM.cs" />
+    <Compile Include="Services\ViewModel\ProtectorSupMoly_VM.cs" />
     <Compile Include="Services\ViewModel\PUserViewModel.cs" />
     <Compile Include="Services\ViewModel\PusherSimVM.cs" />
     <Compile Include="Services\ViewModel\RecursoViewModel.cs" />
@@ -642,6 +658,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlCamisaMoly.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\ControlChuckSplitterCasting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -663,6 +683,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\ControlCollarCromo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlCollarMoly.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -715,6 +739,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\ControlGuillotinaSim.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlProtectorInf_Moly.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlProtectorSup_Moly.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

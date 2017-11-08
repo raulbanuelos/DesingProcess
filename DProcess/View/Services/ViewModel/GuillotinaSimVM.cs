@@ -103,7 +103,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(param => busquedaBushing((string)param));
+                return new RelayCommand(param => busquedaSim((string)param));
             }
         }
 
@@ -125,7 +125,7 @@ namespace View.Services.ViewModel
         /// Método que obtiene la lista que coincidan con el texto de búsqueda
         /// </summary>
         /// <param name="texto"></param>
-        private void busquedaBushing(string texto)
+        private void busquedaSim(string texto)
         {
             ListaHerramentales = DataManager.GetAllGuillotinaSim(texto);
         }
@@ -164,7 +164,7 @@ namespace View.Services.ViewModel
         public GuillotinaSimVM()
         {
             dialog = new DialogService();
-            busquedaBushing(string.Empty);
+            busquedaSim(string.Empty);
             Titulo = "Guillotina Sim";
             Texto = "Width del anillo";
         }

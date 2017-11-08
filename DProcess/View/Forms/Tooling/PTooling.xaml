@@ -85,6 +85,12 @@
                     <MenuItem Header="Pusher" Cursor="Hand" Command="{Binding IrPusherSIM}"/>
                     <MenuItem Header="Guillotina" Cursor="Hand" Command="{Binding IrGuillotinaShim}"/>
                 </MenuItem>
+                <MenuItem Header="Moly" Cursor="Hand">
+                    <MenuItem Header="Camisa" Cursor="Hand" Command="{Binding IrCamisaMoly}"/>
+                    <MenuItem Header="Collar" Cursor="Hand" Command="{Binding IrCollarMoly}"/>
+                    <MenuItem Header="Protector Inferior" Cursor="Hand" Command="{Binding IrProtInfMoly}"/>
+                    <MenuItem Header="Protector Superior" Cursor="Hand" Command="{Binding IrProtSupMoly}"/>
+                </MenuItem>
             </MenuItem>
         </Menu>
 

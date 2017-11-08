@@ -10,8 +10,9 @@ using System.Windows.Input;
 
 namespace View.Services.ViewModel
 {
-    public class BushingSimVM : INotifyPropertyChanged
+    class ProtectorSupMoly_VM : INotifyPropertyChanged
     {
+
         #region Attributtes
         DialogService dialog;
         #endregion
@@ -103,7 +104,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(param => busquedaSim((string)param));
+                return new RelayCommand(param => busquedaMoly((string)param));
             }
         }
 
@@ -117,8 +118,6 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => buscarOptimos());
             }
         }
-
-
         #endregion
 
         #region Methods
@@ -127,9 +126,9 @@ namespace View.Services.ViewModel
         /// Método que obtiene la lista que coincidan con el texto de búsqueda
         /// </summary>
         /// <param name="texto"></param>
-        private void busquedaSim(string texto)
+        private void busquedaMoly(string texto)
         {
-            ListaHerramentales = DataManager.GetAllBushingSim(texto);
+            ListaHerramentales = DataManager.GetAllProtectorSupMoly(texto);
         }
 
         /// <summary>
@@ -145,10 +144,10 @@ namespace View.Services.ViewModel
             if (Diam != 0)
             {
                 //Obtenemos la lista de los herramentales optimos.
-                ListaOptimos = DataManager.GetBushingSim(Diam);
-                //Obtenemos la lista del mejor herramental.
+                ListaOptimos = DataManager.GetProtectorSupMoly(Diam);
 
-                ListaMejores = DataManager.SelectBest_BushingSim(ListaOptimos);
+                //Obtenemos la lista del mejor herramental.
+                ListaMejores = DataManager.SelectBest_Moly(ListaOptimos);
 
                 //Si la lista no tiene información.
                 if (ListaMejores.Rows.Count == 0)
@@ -163,14 +162,13 @@ namespace View.Services.ViewModel
 
         #region Constructor
 
-        public BushingSimVM()
+        public ProtectorSupMoly_VM()
         {
             dialog = new DialogService();
-            busquedaSim(string.Empty);
-            Titulo = "Bushing Sim";
-            Texto = "Diámetro del anillo";
+            busquedaMoly(string.Empty);
+            Titulo = "Protector Superior Moly";
+            Texto = "Medida Collar";
         }
-
         #endregion
     }
 }
