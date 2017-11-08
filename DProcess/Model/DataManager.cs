@@ -531,8 +531,11 @@ namespace Model
                 //Iteramos la inforamción obtenida.
                 foreach (var item in informacionBD)
                 {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
                     //Leemos la lista para convertirla en lisa de herramentales.
-                    Herramental herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    Herramental herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
                     herramental.DescripcionRuta = "SPACER " + spacer + " No. SPACERS " + noSpacer;
                     ListaResultante.Add(herramental);
@@ -656,7 +659,7 @@ namespace Model
 
                     herramental = new Herramental();
                     //Obtenemos el herramental a partir de la lista.
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
                 }
             }
@@ -1745,7 +1748,9 @@ namespace Model
                     Herramental herramental = new Herramental();
 
                     //Convertimos la información a tipo Herramental.
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
+
                     herramental.DescripcionMedidasBusqueda = (string)tipo.GetProperty("DESCRIPCIONCT").GetValue(item, null);
 
                     Propiedad propiedadDimE = new Propiedad();
@@ -1765,7 +1770,7 @@ namespace Model
                     ListaResultante.Add(herramental);
                 }
             }
-            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            
             return ListaResultante;
         }
 
@@ -2334,7 +2339,7 @@ namespace Model
                     Herramental herramental = new Herramental();
 
                     //Convertimos la información a tipo Herramental.
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
                     Propiedad propiedadDimA = new Propiedad();
                     propiedadDimA.Unidad = (string)tipo.GetProperty("DIM_A_UNIDAD").GetValue(item, null);
@@ -3802,7 +3807,7 @@ namespace Model
                     Herramental herramental = new Herramental();
 
                     //Convertimos la información a tipo Herramental.
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
                     Propiedad propiedadMedidaN = new Propiedad();
                     propiedadMedidaN.Unidad = "";
@@ -4028,7 +4033,7 @@ namespace Model
                     //Declaramos un objeto de tipo Herramental.
                     Herramental herramental = new Herramental();
                     //Convertimos la información a tipo Herramental.
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
                     Propiedad propiedadDimC = new Propiedad();
                     propiedadDimC.DescripcionCorta = "Dim C";
@@ -4723,7 +4728,7 @@ namespace Model
                     Herramental herramental = new Herramental();
 
                     //Convertimos la información a tipo Herramental.
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.DescripcionCorta = "Dim B";
@@ -4934,7 +4939,7 @@ namespace Model
                     Herramental herramental = new Herramental();
 
                     //Convertimos la información a tipo Herramental.
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
                     Propiedad propiedadDimD = new Propiedad();
                     propiedadDimD.DescripcionCorta = "Dim D";
@@ -6383,7 +6388,8 @@ namespace Model
                     Herramental herramental = new Herramental();
 
                     //Convertimos la información a tipo Herramental.
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
@@ -6651,7 +6657,7 @@ namespace Model
 
                     Herramental herramental = new Herramental();
                     //Convertimos la información a tipo Herramental.
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
@@ -6924,7 +6930,7 @@ namespace Model
                     Herramental herramental = new Herramental();
 
                     //Convertimos la información a tipo Herramental.
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
