@@ -20,6 +20,10 @@ using View.Forms.ControlDocumentos;
 using System.Data;
 using Encriptar;
 using System.Globalization;
+using PdfSharp.Pdf;
+using PdfSharp.Drawing;
+using System.Diagnostics;
+using PdfSharp;
 
 namespace View.Services.ViewModel
 {
@@ -805,6 +809,34 @@ namespace View.Services.ViewModel
             {
                 return new RelayCommand(o => calcularRuta());
             }
+        }
+
+        public ICommand ViewRoute
+        {
+            get
+            {
+                return new RelayCommand(o => viewRoute());
+            }
+        }
+
+        private void viewRoute()
+        {
+            PdfDocument pdf = new PdfDocument();
+            pdf.Info.Title = ModelAnillo.DescripcionGeneral;
+
+            PdfPage pdfPage = pdf.AddPage();
+            pdfPage.Size = PageSize.A4;
+
+            XGraphics graph = XGraphics.FromPdfPage(pdfPage);
+
+            XFont font = new XFont("Verdana", 20, XFontStyle.Bold);
+            graph.DrawString("This is my first PDF document", font, XBrushes.Black, new XRect(0, 0, pdfPage.Width.Point, pdfPage.Height.Point), XStringFormats.Center);
+
+            string pdfFilename = "firstpageacfgh.pdf";
+            pdf.Save(pdfFilename);
+            Process.Start(pdfFilename);
+
+
         }
         #endregion
 

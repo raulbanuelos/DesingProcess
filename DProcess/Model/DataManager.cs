@@ -2646,16 +2646,22 @@ namespace Model
 
             //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
-        
+
             //Obtenemos el valor de Sleeve
-            double sleeve=Math.Round(diafinish-((gapfinish - .004) / 3.1416),3);
+            //double sleeve=Math.Round(diafinish-((gapfinish - .004) / 3.1416),3);
+            //double sleeve = Math.Round(diafinish - ((gapfinish) / 3.1416), 3);
+            double sleeve = Math.Round(diafinish,3);
 
             //Obtenemos el minimo y maximo
-            double sleeveMin = sleeve + 0.006;
-            double sleeveMax = sleeve + 0.010;
+            //double sleeveMin = sleeve + 0.006;
+            //double sleeveMax = sleeve + 0.013;
+
+            double sleeveMin = sleeve + 0.002;
+            double sleeveMax = sleeve + 0.008;
 
             //Se obtiene la informacion de la base de datos
             IList informacionBD = ServiceBK.GetClosingSleeveBK(sleeveMin, sleeveMax);
+            
 
             //Si la informacion es diferente de nulo
             if (informacionBD != null)
@@ -2669,8 +2675,8 @@ namespace Model
                     Herramental herramental = new Herramental();
 
                     //Convertimos la información a tipo Herramental.
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
-
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD,(string)tipo.GetProperty("Codigo").GetValue(item,null));
+                   
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.Unidad = "Milimeters (mm)";
                     propiedadDimB.Valor = (double)tipo.GetProperty("DimB").GetValue(item, null);
@@ -2709,6 +2715,7 @@ namespace Model
                 dr["Code"] = row["Code"].ToString();
                 dr["Description"] = row["Description"].ToString();
                 dr["Dim B"] = row["Dim B"].ToString();
+
                 //Agregamnos el datarow al datatable resultante.
                 DataR.Rows.Add(dr);
                 break;
@@ -6986,6 +6993,51 @@ namespace Model
 
             //Retornamos el objeto herramental.
             return ListaHerramental;
+        }
+
+        public static Herramental ReadInformacionHerramentalEncontrado(IList Informacion,string codigo)
+        {
+            //Declaramos un objeto de tipo Herramental, que será el que retornemos en el método.
+            Herramental herramental = new Herramental();
+
+            //Verificamos que el valor del parámetro recibido sea diferente de nulo.
+            if (Informacion != null)
+            {
+                //Iteramos la lista recibida.
+                foreach (var elemento in Informacion)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = elemento.GetType();
+
+                    if (codigo == (string)tipo.GetProperty("Codigo").GetValue(elemento,null))
+                    {
+                        //Incializamos el objeto herramental.
+                        herramental = new Herramental();
+
+                        //Asingamos los valores correspondientes a cada propiedad del objeto herramental.
+                        herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(elemento, null);
+                        herramental.Encontrado = true;
+                        herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(elemento, null);
+                        herramental.Activo = (bool)tipo.GetProperty("Activo").GetValue(elemento, null);
+                        herramental.clasificacionHerramental.CantidadUtilizar = (int)tipo.GetProperty("CantidadUtilizar").GetValue(elemento, null);
+                        herramental.clasificacionHerramental.Costo = (double)tipo.GetProperty("Costo").GetValue(elemento, null);
+                        herramental.clasificacionHerramental.Descripcion = (string)tipo.GetProperty("Clasificacion").GetValue(elemento, null);
+                        herramental.clasificacionHerramental.IdClasificacion = (int)tipo.GetProperty("idClasificacion").GetValue(elemento, null);
+                        herramental.clasificacionHerramental.ListaCotasRevizar = new ObservableCollection<string>(tipo.GetProperty("ListaCotasRevisar").GetValue(elemento, null).ToString().Split(','));
+                        herramental.clasificacionHerramental.UnidadMedida = (string)tipo.GetProperty("UnidadMedida").GetValue(elemento, null);
+                        herramental.clasificacionHerramental.VerificacionAnual = (bool)tipo.GetProperty("VerificacionAnual").GetValue(elemento, null);
+                        herramental.clasificacionHerramental.VidaUtil = (int)tipo.GetProperty("VidaUtil").GetValue(elemento, null);
+
+                        //Falta agregar la columna plano.
+                        herramental.Plano = string.Empty;
+                        herramental.Propiedades = new ObservableCollection<Propiedad>();
+                    }
+
+                    
+                }
+            }
+            //Retornamos el objeto herramental.
+            return herramental;
         }
 
         /// <summary>

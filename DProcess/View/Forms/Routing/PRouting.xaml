@@ -93,6 +93,9 @@
                         <Button ToolTip="Calculate dimencions" Cursor="Hand" Command="{Binding OpenCalculateDimencions}">
                             <materialDesign:PackIcon Kind="Sigma" />
                         </Button>
+                        <Button ToolTip="View Route" Cursor="Hand" Command="{Binding ViewRoute }">
+                            <materialDesign:PackIcon Kind="FilePdf" />
+                        </Button>
                     </ToolBar>
                 </Grid>
                 
