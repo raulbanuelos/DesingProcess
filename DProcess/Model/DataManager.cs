@@ -4594,6 +4594,1441 @@ namespace Model
         }
 
         #endregion
+
+        #region Sim
+        /// <summary>
+        /// Método que obtiene todos los registros de Bushing Sim.
+        /// </summary>
+        /// <param name="textoBusqueda"></param>
+        /// <returns></returns>
+        public static DataTable GetAllBushingSim(string textoBusqueda)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceSim.GetAllBushingSim(textoBusqueda);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    
+                    //Agregamos las propiedades
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimB").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "BushingSim");
+        }
+
+        /// <summary>
+        /// Método que obtiene la información de un herramental Bushing Sim.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoBushingSim(string codigo)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            //Declaramos un objeto de tipo Herramental.
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceSim.GetInfoBushingSim(codigo);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental=(int)tipo.GetProperty("Id_Bushing").GetValue(item, null);
+
+                    //Agreamos las propiedades.
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimB").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    PropiedadCadena notas = new PropiedadCadena();
+                    notas.DescripcionCorta = "Notas";
+                    notas.Valor= (string )tipo.GetProperty("Notas").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(notas);
+                }
+            }
+           //Retorna el objeto.
+            return herramental;
+        }
+
+        /// <summary>
+        /// Método que obtiene los herramentales óptimos deBushing Sim de acuerdo con el Diametro del anillo.
+        /// </summary>
+        /// <param name="d1"></param>
+        /// <returns></returns>
+        public static DataTable GetBushingSim(double d1)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            double cri_min = d1 + GetCriterio("SIMBushingMin");
+            double cri_max = d1 + GetCriterio("SIMBushingMax");
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceSim.GetBushingSim(cri_min, cri_max);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimB").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "Bushing Sim  " + propiedadDimB.Valor;
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "BushingSim");
+        }
+
+        /// <summary>
+        /// Método que obtiene el mejor herramental para Bushing Sim.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable SelectBest_BushingSim(DataTable dt)
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Description");
+            DataR.Columns.Add("Dim B");
+
+            //Sólo se hace la iteración una vez
+            foreach (DataRow row in dt.Rows)
+            {
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = DataR.NewRow();
+                dr["Code"] = row["Code"].ToString();
+                dr["Description"] = row["Description"].ToString();
+                dr["Dim B"] = row["Dim B"].ToString();
+
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+                break;
+            }
+            //Retorna la tabla resultante.
+            return DataR;
+        }
+
+        /// <summary>
+        /// Método que guarda un registro de la tabla Bushing Sim.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="dimB"></param>
+        /// <param name="notas"></param>
+        /// <returns></returns>
+        public static int SetBushingSim(Herramental obj)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+            //Ejecutamos el métdo y retorna el resultado.
+            return ServiceSim.SetBushingSim(obj.Codigo, obj.Propiedades[0].Valor, obj.PropiedadesCadena[0].Valor);
+        }
+
+        /// <summary>
+        /// Método que modifica un registro de la tabla Bushing Sim.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateBushingSim(Herramental obj)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+            //Ejecutamos el métdo y retorna el resultado.
+            return ServiceSim.UpdateBushingSim(obj.idHerramental, obj.Propiedades[0].Valor, obj.PropiedadesCadena[0].Valor);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla Bushing Sim.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteBushingSim(int id)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+            //Ejecutamos el métdo y retorna el resultado.
+            return ServiceSim.DeleteBushingSim(id);
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros de Pusher Sim.
+        /// </summary>
+        /// <param name="textoBusqueda"></param>
+        /// <returns></returns>
+        public static DataTable GetAllPusherSim(string textoBusqueda)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceSim.GetAllPusherSim(textoBusqueda);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+
+                    Propiedad propiedadDimD = new Propiedad();
+                    propiedadDimD.DescripcionCorta = "Dim D";
+                    propiedadDimD.Valor = (double)tipo.GetProperty("DimD").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimD);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "PusherSim");
+        }
+
+        /// <summary>
+        /// Método que obtiene la ifnormación de un herramental Pusher sim.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoPusherSim(string codigo)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            //Declaramos un objeto de tipo Herramental.
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceSim.GetInfoPusher(codigo);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_Pushing").GetValue(item, null);
+
+                    Propiedad propiedadDimD = new Propiedad();
+                    propiedadDimD.DescripcionCorta = "Dim D";
+                    propiedadDimD.Valor = (double)tipo.GetProperty("DimD").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimD);
+                }
+            }
+           //Retornamos el objeto
+            return herramental;
+        }
+
+        /// <summary>
+        /// Método que obtiene los registros óptimos para Pusher Sim a partir del diametro Bushing.
+        /// </summary>
+        /// <param name="d1"></param>
+        /// <returns></returns>
+        public static DataTable GetPusherSim(double diamBush)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            double pusher_min = diamBush - GetCriterio("SIMPusherMin");
+            double pusher_max = diamBush - GetCriterio("SIMPusherMax");
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceSim.GetPusher(pusher_min, pusher_max);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                    Propiedad propiedadDimD = new Propiedad();
+                    propiedadDimD.DescripcionCorta = "Dim D";
+                    propiedadDimD.Valor = (double)tipo.GetProperty("DimD").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimD);
+
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "Pusher Sim" + propiedadDimD.Valor;
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Pusher Sim");
+        }
+
+        /// <summary>
+        /// Método que obtiene el mejor herramenatl Pusher Sim.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable SelectBest_PusherSim(DataTable dt)
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Description");
+            DataR.Columns.Add("Dim D");
+
+            //Sólo se hace la iteración una vez
+            foreach (DataRow row in dt.Rows)
+            {
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = DataR.NewRow();
+                dr["Code"] = row["Code"].ToString();
+                dr["Description"] = row["Description"].ToString();
+                dr["Dim D"] = row["Dim D"].ToString();
+
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+                break;
+            }
+            return DataR;
+        }
+
+        /// <summary>
+        /// Método que guarda un registro de la tabla Pusher Sim.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetPusherSim(Herramental obj)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+            //Ejecutamos el método y retornamos el resultado.
+            return ServiceSim.SetPusher(obj.Codigo, obj.Propiedades[0].Valor);
+        }
+
+        /// <summary>
+        /// Método que modifica un registro de Bushing Sim.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdatePusherSim(Herramental obj)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+            //Ejecutamos el método y retornamos el resultado.
+            return ServiceSim.UpdatePusher(obj.idHerramental, obj.Propiedades[0].Valor);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla Bushing Sim.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeletePusherSim(int id)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+            //Ejecutamos el método y retornamos el resultado.
+            return ServiceSim.DeletePusher(id);
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros de Guillotina Sim.
+        /// </summary>
+        /// <param name="textoBusqueda"></param>
+        /// <returns></returns>
+        public static DataTable GetAllGuillotinaSim(string textoBusqueda)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceSim.GetAllGuillotinaSim(textoBusqueda);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+
+                    //Agregamos las propiedades.
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimA);
+
+                    Propiedad propiedadMin = new Propiedad();
+                    propiedadMin.DescripcionCorta = "Width Min";
+                    propiedadMin.Valor = (double)tipo.GetProperty("WidthMin").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadMin);
+
+                    Propiedad propiedadMax = new Propiedad();
+                    propiedadMax.DescripcionCorta = "Width Max";
+                    propiedadMax.Valor = (double)tipo.GetProperty("WidthMax").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadMax);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "GuillotinaSim");
+        }
+
+        /// <summary>
+        /// Método que obtiene la información de un herramental Guillotina sim.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoGuillotinaSim(string codigo)
+        {
+            //Inicializamos los servicios de Cromo OD.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            //Declaramos un objeto de tipo Herramental.
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceSim.GetInfoGuillotinaSim(codigo);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("Id_Guillotina").GetValue(item, null);
+
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimA);
+
+                    Propiedad propiedadMin = new Propiedad();
+                    propiedadMin.DescripcionCorta = "Width Min";
+                    propiedadMin.Valor = (double)tipo.GetProperty("WidthMin").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadMin);
+
+                    Propiedad propiedadMax = new Propiedad();
+                    propiedadMax.DescripcionCorta = "Width Max";
+                    propiedadMax.Valor = (double)tipo.GetProperty("WidthMax").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadMax);
+
+                    PropiedadCadena anillos = new PropiedadCadena();
+                    anillos.Valor = Convert.ToString((int)tipo.GetProperty("CantidadAnillos").GetValue(item, null));
+                    herramental.PropiedadesCadena.Add(anillos);
+                }
+            }
+           //Retornamos el objeto.
+            return herramental;
+        }
+
+        /// <summary>
+        /// Método que obtiene los herramentales óptimos para Guillotina Sim.
+        /// </summary>
+        /// <param name="h1"></param>
+        /// <returns></returns>
+        public static DataTable GetGuillotinaSim(double h1)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceSim.GetguillotinaSim(h1);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimA);
+
+                    Propiedad propiedadMin = new Propiedad();
+                    propiedadMin.DescripcionCorta = "Width Min";
+                    propiedadMin.Valor = (double)tipo.GetProperty("WidthMin").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadMin);
+
+                    Propiedad propiedadMax = new Propiedad();
+                    propiedadMax.DescripcionCorta = "Width Max";
+                    propiedadMax.Valor = (double)tipo.GetProperty("WidthMax").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadMax);
+
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "Guillotina Sim " + propiedadDimA.Valor + " Width Min "+ propiedadMin.Valor + " Width Max "+ propiedadMax.Valor;
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Guillotina Sim");
+        }
+
+        /// <summary>
+        /// Método que obtiene el mejor herramental para Guillotina Sim.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable SelectBest_GuillotinaSim(DataTable dt)
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Description");
+            DataR.Columns.Add("Dim A");
+
+            //Sólo se hace la iteración una vez
+            foreach (DataRow row in dt.Rows)
+            {
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = DataR.NewRow();
+                dr["Code"] = row["Code"].ToString();
+                dr["Description"] = row["Description"].ToString();
+                dr["Dim A"] = row["Dim A"].ToString();
+
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+                break;
+            }
+            //Retornamos la tabla resultante.
+            return DataR;
+        }
+
+        /// <summary>
+        /// Método que guarda un registro en la tabla Guillotina Sim.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetGuillotinaSim(Herramental obj)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+            //Ejecutamos el método, retornamos el resxultado.
+            return ServiceSim.SetGuillotinaSim(obj.Codigo, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.Propiedades[2].Valor, Convert.ToInt32(obj.PropiedadesCadena[0].Valor));
+        }
+
+        /// <summary>
+        /// Método que modifica un registro en la tabla Guillotina Sim.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateGuillotinaSim(Herramental obj)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+            //Ejecutamos el método, retornamos el resxultado.
+            return ServiceSim.UpdateGuillotinaSim(obj.idHerramental, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.Propiedades[2].Valor, Convert.ToInt32(obj.PropiedadesCadena[0].Valor));
+        }
+
+        /// <summary>
+        /// Método que elimina un registro en la tabla Guillotina Sim.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteGuillotinaSim(int id)
+        {
+            //Inicializamos los servicios de Sim.
+            SO_Sim ServiceSim = new SO_Sim();
+            //Ejecutamos el método, retornamos el resxultado.
+            return ServiceSim.DeleteGuillotinaSim(id);
+        }
+        #endregion
+
+        #region Moly
+
+        /// <summary>
+        /// Método que obtiene todos los registros de Camisa Moly.
+        /// </summary>
+        /// <param name="textoBusqueda"></param>
+        /// <returns></returns>
+        public static DataTable GetAllCamisaMoly(string textoBusqueda)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceMoly.GetAllCamisaMoly(textoBusqueda);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+
+                    //Agregamos las propiedades
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim A";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CamisaMoly");
+        }
+
+        /// <summary>
+        /// Método que obtiene la información de un herramental Camisa Moly.
+        /// </summary>
+        /// <param name="textoBusqueda"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoCamisaMoly(string codigo)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceMoly.GetInfoCamisaMoly(codigo);
+       
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("Id_CamisaMoly").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+
+                    //Agregamos las propiedades
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim A";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                }
+            }
+            return herramental;
+        }
+
+        /// <summary>
+        ///  Método que obtiene los herramentales óptimos para Camisa Moly a partir de diametro de operacion anterior.
+        /// </summary>
+        /// <param name="d1"></param>
+        /// <returns></returns>
+        public static DataTable GetCamisaMoly(double dBO)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //dbo=Diametro de operacion anterior.
+            double cri_min = dBO + GetCriterio("MolyCamisaMin");
+            double cri_max = dBO + GetCriterio("MolyCamisaMax");
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceMoly.GetCamisaMoly(cri_min, cri_max);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                    herramental.Plano= (string)tipo.GetProperty("Plano").GetValue(item, null);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim A";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "Camisa Moly Dim A " + propiedadDimB.Valor;
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Camisa_Moly");
+        }
+
+
+        /// <summary>
+        /// Método que guarda un registro de Camisa Moly.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetCamisaMoly(Herramental obj)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //ejeuctamos el método y retornamos el resultado.
+            return ServiceMoly.SetCamisaMoly(obj.Codigo, obj.Plano, obj.Propiedades[0].Valor);
+        }
+
+        /// <summary>
+        /// Método que modifica un registro de Camisa Moly.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateCamisaMoly(Herramental obj)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //ejeuctamos el método y retornamos el resultado.
+            return ServiceMoly.UpdateCamisaMoly(obj.idHerramental, obj.Plano, obj.Propiedades[0].Valor);
+        }
+
+        /// <summary>
+        /// Método que elimna un registro de Camisa Moly.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int DeleteCamisaMoly(int id)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //ejeuctamos el método y retornamos el resultado.
+            return ServiceMoly.DeleteCamisaMoly(id);
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros de Collar Moly.
+        /// </summary>
+        /// <param name="textoBusqueda"></param>
+        /// <returns></returns>
+        public static DataTable GetAllCollarMoly(string textoBusqueda)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceMoly.GetAllCollarMoly(textoBusqueda);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+
+                    //Agregamos las propiedades
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim A";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CollarMoly");
+        }
+
+        /// <summary>
+        /// Método que obtiene los herramentales óptimos para Collar Moly a partir de la medida de camisa.
+        /// </summary>
+        /// <param name="dBO"></param>
+        /// <returns></returns>
+        public static DataTable GetCollarMoly(double D)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //D=Medida de camisa.
+
+            double cri_min = D - GetCriterio("MolyCollarMin");
+            double cri_max = D - GetCriterio("MolyCollarMax");
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceMoly.GetCollarMoly(cri_min, cri_max);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim A";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "Collar Moly Dim A " + propiedadDimB.Valor;
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Collar_Moly");
+        }
+
+        /// <summary>
+        /// Método que obtiene la información de un herramental Collar Moly.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoCollarMoly(string codigo)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceMoly.GetInfoCollarMoly(codigo);
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("Id_CollarMoly").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+
+                    //Agregamos las propiedades
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim A";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+                }
+            }
+            return herramental;
+        }
+
+        /// <summary>
+        /// Método que guarda un registro de Collar Moly.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetCollarMoly(Herramental obj)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //ejeuctamos el método y retornamos el resultado.
+            return ServiceMoly.SetCollarMoly(obj.Codigo, obj.Plano, obj.Propiedades[0].Valor);
+        }
+
+        /// <summary>
+        /// Método que modifica un registro de Collar Moly.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateCollarMoly(Herramental obj)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //ejeuctamos el método y retornamos el resultado.
+            return ServiceMoly.UpdateCollarMoly(obj.idHerramental, obj.Plano, obj.Propiedades[0].Valor);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de Collar Moly.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int DeleteCollarMoly(int id)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //ejeuctamos el método y retornamos el resultado.
+            return ServiceMoly.DeleteCollarMoly(id);
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros de Protector Inferior Moly.
+        /// </summary>
+        /// <param name="textoBusqueda"></param>
+        /// <returns></returns>
+        public static DataTable GetAllProtectorInfMoly(string textoBusqueda)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceMoly.GetAllProtectorInferior(textoBusqueda);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+
+                    //Agregamos las propiedades
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim A";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Protector_Inf_Moly");
+        }
+
+        /// <summary>
+        /// Método que obtiene la información de un herramental Protector Inf Moly.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoProtectorInfMoly(string codigo)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceMoly.GetInfoProtectorInferior(codigo);
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("Id_PIM").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+
+                    //Agregamos las propiedades
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim A";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+                }
+            }
+            return herramental;
+        }
+
+        /// <summary>
+        ///  Método que obtiene los herramentales óptimos para Protector Inferior Moly a partir de medida de collar.
+        /// </summary>
+        /// <param name="D"></param>
+        /// <returns></returns>
+        public static DataTable GetProtectorInfMoly(double D)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //D=Medida de collar.
+
+            double cri_min = D + GetCriterio("MolyProteSupMin");
+            double cri_max = D + GetCriterio("MolyProteSupMax");
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceMoly.GetProtectorInferior(cri_min, cri_max);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim A";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "Protector Inf Moly Dim A " + propiedadDimB.Valor;
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Protector_InfMoly");
+        }
+
+
+        /// <summary>
+        /// Método que guarda un registro de Protector Inferior Moly.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetProtectorInfMoly(Herramental obj)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //ejeuctamos el método y retornamos el resultado.
+            return ServiceMoly.SetProtectoInferior(obj.Codigo, obj.Plano, obj.Propiedades[0].Valor);
+        }
+
+        /// <summary>
+        /// Método que modifica un registro de Protector Inferior Moly.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateProtectorInfMoly(Herramental obj)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //ejeuctamos el método y retornamos el resultado.
+            return ServiceMoly.UpdateProtectorInferior(obj.idHerramental, obj.Plano, obj.Propiedades[0].Valor);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de Protector Inferior Moly.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int DeleteProtectorInfMoly(int id)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //ejeuctamos el método y retornamos el resultado.
+            return ServiceMoly.DeleteProtectorInferior(id);
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros de Protector Inferior Moly.
+        /// </summary>
+        /// <param name="textoBusqueda"></param>
+        /// <returns></returns>
+        public static DataTable GetAllProtectorSupMoly(string textoBusqueda)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceMoly.GetAllProtectorSuperior(textoBusqueda);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+
+                    //Agregamos las propiedades
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim A";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Protector_Sup_Moly");
+        }
+
+        /// <summary>
+        /// Método que obtiene la información de un herramental PRotector Superior.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoProtectorSupMoly(string codigo)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            Herramental herramental = new Herramental();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceMoly.GetInfoProtectorSuperior(codigo);
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("Id_PSM").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+
+                    //Agregamos las propiedades
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim A";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+                }
+            }
+            return herramental;
+        }
+
+        /// <summary>
+        ///  Método que obtiene los herramentales óptimos para Protector Superior a partir de diametro de operacion anterior.
+        /// </summary>
+        /// <param name="D"></param>
+        /// <returns></returns>
+        public static DataTable GetProtectorSupMoly(double D)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //D=Medida de collar.
+
+            double cri_min = D + GetCriterio("MolyProteSupMin");
+            double cri_max = D + GetCriterio("MolyProteSupMax");
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceMoly.GetProtectorSuperior(cri_min, cri_max);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim A";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "Protector Superior Moly Dim A " + propiedadDimB.Valor;
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Protector_SupMoly");
+        }
+
+
+        /// <summary>
+        /// Método que guarda un registro de Protector Superior Moly.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetProtectorSupMoly(Herramental obj)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //ejeuctamos el método y retornamos el resultado.
+            return ServiceMoly.SetProtectoSuperior(obj.Codigo, obj.Plano, obj.Propiedades[0].Valor);
+        }
+
+        /// <summary>
+        /// Método que modifica un registro de Protector Superior Moly.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateProtectorSupMoly(Herramental obj)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //ejeuctamos el método y retornamos el resultado.
+            return ServiceMoly.UpdateProtectorSuperior(obj.idHerramental, obj.Plano, obj.Propiedades[0].Valor);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de Protector Superior Moly.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int DeleteProtectorSupMoly(int id)
+        {
+            //Inicializamos los servicios de Moly.
+            SO_Moly ServiceMoly = new SO_Moly();
+
+            //ejeuctamos el método y retornamos el resultado.
+            return ServiceMoly.DeleteProtectorSuperior(id);
+        }
+
+        /// <summary>
+        /// Método que obtiene el mejor herramental para Moly.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable SelectBest_Moly(DataTable dt)
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Description");
+            DataR.Columns.Add("Dim A");
+
+            //Sólo se hace la iteración una vez
+            foreach (DataRow row in dt.Rows)
+            {
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = DataR.NewRow();
+                dr["Code"] = row["Code"].ToString();
+                dr["Description"] = row["Description"].ToString();
+                dr["Dim A"] = row["Dim A"].ToString();
+
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+                break;
+            }
+            //Retorna la tabla resultante.
+            return DataR;
+        }
+        #endregion
         #endregion
 
         #region Herramentales
