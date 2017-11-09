@@ -6034,6 +6034,218 @@ namespace Model
             return DataR;
         }
         #endregion
+
+        #region Scotchbrite
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="textoBusqueda"></param>
+        /// <returns></returns>
+        public static DataTable GetAllCollarScotch(string textoBusqueda)
+        {
+            //Inicializamos los servicios de Scotchbrite.
+            SO_Scotchbrite ServiceScotch = new SO_Scotchbrite();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceScotch.GetAllCollarS(textoBusqueda);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+
+                    //Agregamos las propiedades
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim F";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimF").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Collar Scotch");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoCollarScotch(string codigo)
+        {
+            //Inicializamos los servicios de Scotchbrite.
+            SO_Scotchbrite ServiceScotch = new SO_Scotchbrite();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceScotch.GetInfoCollarScotch(codigo);
+
+            //Declaramos un objeto de tipo Herramental.
+            Herramental herramental = new Herramental();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental=(int)tipo.GetProperty("Id").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("plano").GetValue(item, null);
+
+                    //Agregamos las propiedades
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim F";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimF").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);                 
+                }
+            }
+            //
+            return herramental;
+        }
+
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="D1"></param>
+       /// <returns></returns>
+        public static DataTable GetCollarScotchbrite(double D1)
+        {
+            //Inicializamos los servicios de Scotchbrite.
+            SO_Scotchbrite ServiceScotch = new SO_Scotchbrite();
+
+            double cri_min = D1 - GetCriterio("ScotchbriteCollarMin");
+            double cri_max = D1 + GetCriterio("ScotchbriteCollarMax");
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServiceScotch.GetCollarScotch(cri_min, cri_max);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo Herramental.
+                    Herramental herramental = new Herramental();
+
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
+
+                    //Agregamos las propiedades
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.DescripcionCorta = "Dim F";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DimF").GetValue(item, null);
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Collar Scotch");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetCollarScotchBrite(Herramental obj)
+        {
+            //Inicializamos los servicios de Scotchbrite.
+            SO_Scotchbrite ServiceScotch = new SO_Scotchbrite();
+
+            //ejeuctamos el método y retornamos el resultado.
+            return ServiceScotch.SetCollarScotch(obj.Codigo, obj.Plano, obj.Propiedades[0].Valor);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateCollarScotchBrite(Herramental obj)
+        {
+            //Inicializamos los servicios de Scotchbrite.
+            SO_Scotchbrite ServiceScotch = new SO_Scotchbrite();
+
+            //ejeuctamos el método y retornamos el resultado.
+            return ServiceScotch.UpdateCollarScotchbrite(obj.idHerramental, obj.Plano, obj.Propiedades[0].Valor);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteCollarScotchBrite(int id)
+        {
+            //Inicializamos los servicios de Scotchbrite.
+            SO_Scotchbrite ServiceScotch = new SO_Scotchbrite();
+
+            //ejeuctamos el método y retornamos el resultado.
+            return ServiceScotch.DeleteCollarScotch(id);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable SelectBest_CollarScotch(DataTable dt)
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Description");
+            DataR.Columns.Add("Dim F");
+
+            //Sólo se hace la iteración una vez
+            foreach (DataRow row in dt.Rows)
+            {
+                //Mapeamos los valores de código y descripción en un datarow.
+                DataRow dr = DataR.NewRow();
+                dr["Code"] = row["Code"].ToString();
+                dr["Description"] = row["Description"].ToString();
+                dr["Dim F"] = row["Dim F"].ToString();
+
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+                break;
+            }
+            //Retorna la tabla resultante.
+            return DataR;
+        }
+        #endregion
         #endregion
 
         #region Herramentales

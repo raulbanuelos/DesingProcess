@@ -232,6 +232,9 @@
     <Compile Include="ServiceObjects\Tooling\CollarMoly_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\CollarScotchbrite_.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\CollarsCromo_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -388,6 +391,7 @@
     <Compile Include="ServiceObjects\Tooling\SO_MaestroHerramental.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_Moly.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_Plano.cs" />
+    <Compile Include="ServiceObjects\Tooling\SO_Scotchbrite.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_Sim.cs" />
     <Compile Include="ServiceObjects\Tooling\SplitterSpacerChart.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>

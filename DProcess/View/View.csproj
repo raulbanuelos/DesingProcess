@@ -282,6 +282,9 @@
     <Compile Include="Forms\Tooling\ControlCollarMoly.xaml.cs">
       <DependentUpon>ControlCollarMoly.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlCollarScotch.xaml.cs">
+      <DependentUpon>ControlCollarScotch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlCollarSpacer.xaml.cs">
       <DependentUpon>ControlCollarSpacer.xaml</DependentUpon>
     </Compile>
@@ -431,6 +434,7 @@
     <Compile Include="Services\ViewModel\CollarAutoFinTurnViewModel.cs" />
     <Compile Include="Services\ViewModel\CollarCromoVM.cs" />
     <Compile Include="Services\ViewModel\CollarMolyVM.cs" />
+    <Compile Include="Services\ViewModel\CollarScotchbrite_VM.cs" />
     <Compile Include="Services\ViewModel\CollarSpacerVM.cs" />
     <Compile Include="Services\ViewModel\ControlDocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\CutterCamTurnVM.cs" />
@@ -696,6 +700,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\ControlCollarMoly.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlCollarScotch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

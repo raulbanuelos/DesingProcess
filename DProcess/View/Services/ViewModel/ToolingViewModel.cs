@@ -460,6 +460,17 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => irProtectorSup_Moly());
             }
         }
+
+        /// <summary>
+        /// Comando que abre la ventana de Collar Scotchbrite.
+        /// </summary>
+        public ICommand IrCollarScotch
+        {
+            get
+            {
+                return new RelayCommand(o => irCollarScotchbrite());
+            }
+        }
         #endregion
 
         #region Methods
@@ -848,6 +859,17 @@ namespace View.Services.ViewModel
         {
             WBatesBore frm = new WBatesBore();
             ProtectorInfMoly_VM context = new ProtectorInfMoly_VM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Comando que abre la ventana de collar scothcbrite.
+        /// </summary>
+        public void irCollarScotchbrite()
+        {
+            WBatesBore frm = new WBatesBore();
+            CollarScotchbrite_VM context = new CollarScotchbrite_VM();
             frm.DataContext = context;
             frm.ShowDialog();
         }
