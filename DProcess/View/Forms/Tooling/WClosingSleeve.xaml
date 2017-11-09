@@ -9,7 +9,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen" ShowMaxRestoreButton="False"
-        Title="Closing Sleeve" Height="600" Width="1100">
+        Title="{Binding Texto}" Height="600" Width="1100">
     <Controls:MetroWindow.Resources>
         <Style x:Key="TabHeader" TargetType="Label">
             <Setter Property="FontSize" Value="28"/>

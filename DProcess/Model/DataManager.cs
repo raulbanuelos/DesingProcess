@@ -4243,7 +4243,7 @@ namespace Model
                     Herramental herramental = new Herramental();
 
                     //Convertimos la información a tipo Herramental.
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
                     Propiedad propiedadDimD = new Propiedad();
                     propiedadDimD.DescripcionCorta = "Dim D";
@@ -4537,7 +4537,7 @@ namespace Model
                     Herramental herramental = new Herramental();
 
                     //Convertimos la información a tipo Herramental.
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
                     Propiedad propiedadDimA = new Propiedad();
                     propiedadDimA.DescripcionCorta = "Dim A";
@@ -5756,7 +5756,7 @@ namespace Model
                     Herramental herramental = new Herramental();
 
                     //Convertimos la información a tipo Herramental.
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
                     herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
 
@@ -5939,7 +5939,7 @@ namespace Model
                     Herramental herramental = new Herramental();
 
                     //Convertimos la información a tipo Herramental.
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
                     herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
 

@@ -81,6 +81,12 @@ namespace View.Services.ViewModel
             get { return gap; }
             set { gap = value; NotifyChange("Gap"); } }
 
+        private string _texto;
+        public string Texto
+        {
+            get { return _texto; }
+            set { _texto = value; NotifyChange("Texto"); }
+        }
         #endregion
 
         #region Commands
@@ -192,6 +198,7 @@ namespace View.Services.ViewModel
             dialog = new DialogService();
             ListaMejores = new DataTable();
             ListaOptimos = new DataTable();
+            Texto = "Closing sleeve bk";
         }
         #endregion
     }

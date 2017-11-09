@@ -87,6 +87,12 @@ namespace View.Services.ViewModel
             set { gap = value; NotifyChange("Gap"); }
         }
 
+        private string _texto;
+        public string Texto
+        {
+            get { return _texto; }
+            set { _texto = value; NotifyChange("Texto"); }
+        }
         #endregion
 
         #region Commands
@@ -161,6 +167,7 @@ namespace View.Services.ViewModel
             ListaMejores = new DataTable();
             ListaOptimos = new DataTable();
             busquedaBK(string.Empty);
+            Texto = "Cam bk";
         }
         #endregion
     }
