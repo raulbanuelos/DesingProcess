@@ -6038,7 +6038,7 @@ namespace Model
         #region Scotchbrite
 
         /// <summary>
-        /// 
+        /// Método que obtiene todos los registros de Collar Scotchbrite.
         /// </summary>
         /// <param name="textoBusqueda"></param>
         /// <returns></returns>
@@ -6084,7 +6084,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// método que obtiene la información de un herramental Collar Scothch a partir del código.
         /// </summary>
         /// <param name="codigo"></param>
         /// <returns></returns>
@@ -6121,12 +6121,12 @@ namespace Model
                     herramental.Propiedades.Add(propiedadDimB);                 
                 }
             }
-            //
+            //Retornamos el objeto.
             return herramental;
         }
 
        /// <summary>
-       /// 
+       /// Método que obtiene los herramentales optimos a partir de díametro del anillo.
        /// </summary>
        /// <param name="D1"></param>
        /// <returns></returns>
@@ -6173,7 +6173,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que guarda un registro de Collar Scotchbrite.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -6187,7 +6187,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que modifica un registro de Collar Scotchbrite.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -6201,7 +6201,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que elimina un registro de Collar Scotchbrite.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -6215,7 +6215,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Méotod que obtiene el mejor herramental Collar ScoctchBrite.
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>

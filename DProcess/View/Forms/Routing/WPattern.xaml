@@ -7,7 +7,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="WPattern" Height="773" Width="992" WindowStartupLocation="CenterScreen"
+        Title="WPattern" Height="800" Width="992" WindowStartupLocation="CenterScreen"
                       BorderThickness="2" BorderBrush="Blue">
     <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
@@ -34,7 +34,7 @@
                         <materialDesign:PackIcon Kind="Export"></materialDesign:PackIcon>
                     </MenuItem.Icon>
                 </MenuItem>
-                
+
                 <Separator></Separator>
 
                 <MenuItem Header="Salir">
@@ -64,13 +64,13 @@
         <DockPanel Grid.Column="1" Grid.Row="1">
             <Grid DockPanel.Dock="Left">
                 <StackPanel Orientation="Vertical">
-                    
+
                     <StackPanel Orientation="Horizontal" Margin=".5">
                         <TextBox materialDesign:HintAssist.Hint="TIPO" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="GASOLINA"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                            
+
                         </TextBox>
                     </StackPanel>
-                    
+
                     <StackPanel Orientation="Horizontal" Margin=".5">
                         <TextBox materialDesign:HintAssist.Hint="DIAMETER" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="3.125"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                         <Label Content="X" VerticalAlignment="Bottom" FontWeight="Bold"/>
@@ -143,7 +143,7 @@
 
                 </StackPanel>
             </Grid>
-            
+
             <StackPanel DockPanel.Dock="Right">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal" Margin=".5">
@@ -191,35 +191,75 @@
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-            
+
             <Grid DockPanel.Dock="Bottom">
-                <Label Content="bottom"></Label>
+
             </Grid>
-            
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="75*"></RowDefinition>
                     <RowDefinition Height="25*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                
-                
-                <Canvas Grid.Column="0" Grid.Row="0">
-
-                    <StackPanel Orientation="Vertical" Margin="320,90" Width="Auto" Height="Auto">
-                        <TextBox materialDesign:HintAssist.Hint="B DIA" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="4.599"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="FIN DIA" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="4.369"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="TURN ALLOW" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="0.082"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="CSTG SM. OD." FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="4.451"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="SHRINK ALLOW" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="0.046"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="PATT. SM. OD." FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="4.497"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="PIECE IN PATT" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="0.721"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="BORE ALLOW" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="0.033"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                <Canvas Grid.Column="1" Grid.Row="0">
+                    <!--Figura 3D-->
+                    <Viewport3D Name="myViewport" ClipToBounds="True" HorizontalAlignment="Left" Width="700" Height="520">
+                        <Viewport3D.Camera>
+                            <PerspectiveCamera
+						Position="0,6,0"
+						LookDirection="0,-6,0"
+						UpDirection="1,0,0" 
+                        x:Name="Camera"/>
+                        </Viewport3D.Camera>
+                        <ContainerUIElement3D>
+                            <ModelUIElement3D>
+                                <Model3DGroup>
+                                    <GeometryModel3D>
+                                        <GeometryModel3D.Transform>
+                                            <RotateTransform3D x:Name="myTransform"/>
+                                        </GeometryModel3D.Transform>
+                                    </GeometryModel3D>
+                                    <DirectionalLight
+						Color="White"
+						Direction="-1,-1,-1" />
+                                </Model3DGroup>
+                            </ModelUIElement3D>
+                        </ContainerUIElement3D>
+                    </Viewport3D>
+                    <StackPanel Width="Auto" Height="Auto" Canvas.Right="280" Canvas.Top="145" Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical" Width="Auto" Height="Auto" Margin="5" >
+                            <TextBox materialDesign:HintAssist.Hint="B DIA" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="4.599"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="FIN DIA" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="4.369"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="TURN ALLOW" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="0.082"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="CSTG SM. OD." FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="4.451"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Width="Auto" Height="Auto" Margin="5">
+                            <TextBox materialDesign:HintAssist.Hint="SHRINK ALLOW" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="0.046"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="PATT. SM. OD." FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="4.497"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="PIECE IN PATT" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="0.721"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="BORE ALLOW" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="0.033"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        </StackPanel>
                     </StackPanel>
-                    
+                    <Canvas Canvas.Top="255" Width="206" Height="270" Canvas.Left="0">
+                        <Line Canvas.Right="55"  X2="0" Y2="235" Stroke="SlateGray" StrokeThickness="2" Height="Auto" Width="20"/>
+                        <Line Canvas.Right="0" Canvas.Top="125"  X2="0" Y2="110" Stroke="SlateGray" StrokeThickness="2" Height="Auto" Width="20"/>
+                        <Line X1="10" Y1="60" X2="110" Y2="60" Stroke="SlateGray" StrokeThickness="2" Width="100" Canvas.Top="150"/>
+                        <Polygon Points="0,0 8,5, 0,10" Stroke="SlateGray" StrokeThickness="2" Height="20" Width="15" Canvas.Left="100"  Canvas.Top="205">
+                        </Polygon>
+                    </Canvas>
+                    <Canvas Canvas.Top="255" Width="210" Height="270" Canvas.Right="0">
+                        <Line Canvas.Left="55"  X2="0" Y2="235" Stroke="SlateGray" StrokeThickness="2" Height="Auto" Width="20"/>
+                        <Line Canvas.Left="0" Canvas.Top="125"  X2="0" Y2="110" Stroke="SlateGray" StrokeThickness="2" Height="Auto" Width="20"/>
+                    </Canvas>
+                    <Canvas Canvas.Right="220" Width="300" Height="100" Canvas.Top="400">
+                        <Line  Canvas.Left="20"  Canvas.Top="40" Y1="20" X2="260" Y2="20" Stroke="SlateGray" StrokeThickness="2" Width="260" Height="30" />
+                        <Line  Canvas.Left="20" Canvas.Top="65" Y1="20" X2="130" Y2="20" Stroke="SlateGray" StrokeThickness="2" Width="130" Height="30" />
+                        <Polygon Points="8,0 0,5, 8,10" Stroke="SlateGray" StrokeThickness="2" Height="20" Width="15" Canvas.Left="12" Canvas.Top="55"></Polygon>
+                        <Polygon Points="0,0 8,5, 0,10" Stroke="SlateGray" StrokeThickness="2" Height="20" Width="15" Canvas.Right="5" Canvas.Top="55"></Polygon>
+                        <Polygon Points="8,0 0,5, 8,10" Stroke="SlateGray" StrokeThickness="2" Height="20" Width="15" Canvas.Left="12" Canvas.Top="80"></Polygon>
+                    </Canvas>
                 </Canvas>
-                
-                
+
                 <StackPanel Grid.Column="0" Grid.Row="1">
                     <Grid ShowGridLines="True">
                         <Grid.ColumnDefinitions>
@@ -242,11 +282,11 @@
                                 <TextBox materialDesign:HintAssist.Hint="(CSTG. LG) O.D." FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="4.543"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                                 <TextBox materialDesign:HintAssist.Hint="(CSTG. SM) I.D." FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="3.978"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                                 <TextBox materialDesign:HintAssist.Hint="DIFF." FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="0.565"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                
+
                             </StackPanel>
                         </GroupBox>
                     </Grid>
-                   
+
                 </StackPanel>
             </Grid>
         </DockPanel>

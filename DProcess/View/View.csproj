@@ -403,6 +403,8 @@
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\ExportToExcel.cs" />
     <Compile Include="Services\ImportExcel.cs" />
+    <Compile Include="Services\MathUtils.cs" />
+    <Compile Include="Services\Matrix3DStack.cs" />
     <Compile Include="Services\Module.cs" />
     <Compile Include="Services\Operaciones\Gasolina\DegreaseRings.cs" />
     <Compile Include="Services\Operaciones\Gasolina\Maquinado\CamTurn.cs" />
@@ -414,9 +416,13 @@
     <Compile Include="Services\Operaciones\Gasolina\Rolado\CoilRings.cs" />
     <Compile Include="Services\Operaciones\Generica\OperacionGenerica.cs" />
     <Compile Include="Services\Operaciones\Generica\OperacionGenericaWidth.cs" />
+    <Compile Include="Services\ParametricSurface.cs" />
+    <Compile Include="Services\RotateSurface.cs" />
+    <Compile Include="Services\ScreenSpaceLines3D.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo130.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo810.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\Rolado\CentroTrabajo495.cs" />
+    <Compile Include="Services\Utility.cs" />
     <Compile Include="Services\ViewModel\AnilloViewModel.cs" />
     <Compile Include="Services\ViewModel\BloqueoVM.cs" />
     <Compile Include="Services\ViewModel\Buscar_DocumentoVM.cs" />

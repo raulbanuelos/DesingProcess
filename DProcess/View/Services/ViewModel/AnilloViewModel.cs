@@ -905,7 +905,7 @@ namespace View.Services.ViewModel
                             break;
                         case MessageDialogResult.Affirmative:
                             WPattern pattern = new WPattern();
-                            pattern.Show();
+                            pattern.ShowDialog();
                             break;
                         case MessageDialogResult.FirstAuxiliary:
                             break;
