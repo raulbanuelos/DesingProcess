@@ -8,7 +8,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="WPattern" Height="800" Width="992" WindowStartupLocation="CenterScreen"
-                      BorderThickness="2" BorderBrush="Blue">
+                      BorderThickness="2" BorderBrush="Blue" ShowMaxRestoreButton="False">
     <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
@@ -195,13 +195,22 @@
             </Grid>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="75*"></RowDefinition>
-                    <RowDefinition Height="25*"></RowDefinition>
+                    <RowDefinition Height="80*"></RowDefinition>
+                    <RowDefinition Height="20*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Canvas Grid.Column="1" Grid.Row="0">
+                <Canvas Grid.Column="1" Grid.Row="0" Background="Transparent">
+                    <!--TextBox-->
+                    <StackPanel Orientation="Horizontal" Canvas.Top="460" Canvas.Right="330">
+                        <TextBox materialDesign:HintAssist.Hint="PATT. SM I.D" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="4.039"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Canvas.Top="480" Canvas.Left="20">
+                        <TextBox materialDesign:HintAssist.Hint="PATT. TICKNESS" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="0.229"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    </StackPanel>
+
                     <!--Figura 3D-->
-                    <Viewport3D Name="myViewport" ClipToBounds="True" HorizontalAlignment="Left" Width="700" Height="520">
+                    <Viewport3D Name="myViewport" ClipToBounds="True" HorizontalAlignment="Left" Width="700" Height="520" >
+
                         <Viewport3D.Camera>
                             <PerspectiveCamera
 						Position="0,6,0"
@@ -224,7 +233,10 @@
                             </ModelUIElement3D>
                         </ContainerUIElement3D>
                     </Viewport3D>
-
+                    <!--Circulo-->
+                    <Ellipse Width="30" Height="30" Fill="White" Canvas.Right="203" Canvas.Top="215"/>
+                    
+                    <!--TextBox adentro del anillo-->
                     <StackPanel Width="Auto" Height="Auto" Canvas.Right="280" Canvas.Top="145" Orientation="Horizontal">
                         <StackPanel Orientation="Vertical" Width="Auto" Height="Auto" Margin="5" >
                             <TextBox materialDesign:HintAssist.Hint="B DIA" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="4.599"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
@@ -239,20 +251,23 @@
                             <TextBox materialDesign:HintAssist.Hint="BORE ALLOW" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="0.033"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                         </StackPanel>
                     </StackPanel>
-                    <Canvas Canvas.Top="255" Width="206" Height="270" Canvas.Left="0">
-                        <Line Canvas.Right="55"  X2="0" Y2="235" Stroke="SlateGray" StrokeThickness="2" Height="Auto" Width="20"/>
-                        <Line Canvas.Right="0" Canvas.Top="125"  X2="0" Y2="110" Stroke="SlateGray" StrokeThickness="2" Height="Auto" Width="20"/>
-                        <Line X1="10" Y1="60" X2="110" Y2="60" Stroke="SlateGray" StrokeThickness="2" Width="100" Canvas.Top="170"/>
-                        <Polygon Points="0,0 8,5, 0,10" Stroke="SlateGray" StrokeThickness="2" Height="14" Width="11" Canvas.Left="100"  Canvas.Top="225">
-                        </Polygon>
+                    <!--Líneas izquierda y flecha-->
+                    <Canvas Canvas.Top="255" Width="206" Height="300" Canvas.Left="0">
+                        <Line Canvas.Right="55"  X2="0" Y2="285" Stroke="SlateGray" StrokeThickness="2" Height="Auto" Width="20"/>
+                        <Line Canvas.Right="0" Canvas.Top="120"  X2="0" Y2="165" Stroke="SlateGray" StrokeThickness="2" Height="Auto" Width="20"/>
+                        <Line X1="10" Y1="20" X2="110" Y2="20" Stroke="SlateGray" StrokeThickness="2" Width="110" Height="30" Canvas.Top="255"/>
+                        <Polygon Points="0,0 8,5, 0,10" Stroke="SlateGray" StrokeThickness="2" Height="14" Width="11" Canvas.Left="110"  Canvas.Top="270"></Polygon>
                     </Canvas>
-                    <Canvas Canvas.Top="255" Width="210" Height="270" Canvas.Right="0">
-                        <Line Canvas.Left="56"  X2="0" Y2="235" Stroke="SlateGray" StrokeThickness="2" Height="Auto" Width="20"/>
-                        <Line Canvas.Left="0" Canvas.Top="125"  X2="0" Y2="110" Stroke="SlateGray" StrokeThickness="2" Height="Auto" Width="20"/>
+                    
+                    <!--Líneas derecha-->
+                    <Canvas Canvas.Top="255" Width="210" Height="300" Canvas.Right="0">
+                        <Line Canvas.Left="56"  X2="0" Y2="285" Stroke="SlateGray" StrokeThickness="2" Height="Auto" Width="20"/>
+                        <Line Canvas.Left="0" Canvas.Top="120"  X2="0" Y2="165" Stroke="SlateGray" StrokeThickness="2" Height="Auto" Width="20"/>
                     </Canvas>
-                    <Canvas Canvas.Right="220" Width="300" Height="100" Canvas.Top="400">
+                    <!--Líneas en medio-->
+                    <Canvas Canvas.Right="220" Width="300" Height="100" Canvas.Top="445">
                         <Line  Canvas.Left="20"  Canvas.Top="40" Y1="20" X2="260" Y2="20" Stroke="SlateGray" StrokeThickness="2" Width="260" Height="30" />
-                        <Line  Canvas.Left="20" Canvas.Top="65" Y1="20" X2="130" Y2="20" Stroke="SlateGray" StrokeThickness="2" Width="130" Height="30" />
+                        <Line  Canvas.Left="20" Canvas.Top="65" Y1="20" X2="110" Y2="20" Stroke="SlateGray" StrokeThickness="2" Width="130" Height="30" />
                         <Polygon Points="8,0 0,5, 8,10" Stroke="SlateGray" StrokeThickness="2" Height="20" Width="15" Canvas.Left="12" Canvas.Top="55"></Polygon>
                         <Polygon Points="0,0 8,5, 0,10" Stroke="SlateGray" StrokeThickness="2" Height="20" Width="15" Canvas.Right="5" Canvas.Top="55"></Polygon>
                         <Polygon Points="8,0 0,5, 8,10" Stroke="SlateGray" StrokeThickness="2" Height="20" Width="15" Canvas.Left="12" Canvas.Top="80"></Polygon>
@@ -276,13 +291,19 @@
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                         </TextBox>
 
-                        <GroupBox Grid.Column="1" Grid.Row="0" Header="SPLITTING DATA" Style="{DynamicResource MaterialDesignGroupBox}">
-                            <StackPanel Orientation="Vertical">
-                                <TextBox materialDesign:HintAssist.Hint="(CSTG. LG) O.D." FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="4.543"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                <TextBox materialDesign:HintAssist.Hint="(CSTG. SM) I.D." FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="3.978"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                <TextBox materialDesign:HintAssist.Hint="DIFF." FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="0.565"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <GroupBox Grid.Column="1" Grid.Row="0" Header="SPLITTING DATA" Style="{DynamicResource MaterialDesignGroupBox}" Grid.ColumnSpan="2" Margin="5,0,232,0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="40"></RowDefinition>
+                                </Grid.RowDefinitions>
 
-                            </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox materialDesign:HintAssist.Hint="(CSTG. LG) O.D." FontWeight="Bold" TextAlignment="Center" Margin="10,0,0,0" Text="4.543"  Height="40"  TextWrapping="Wrap"  Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                    <TextBox materialDesign:HintAssist.Hint="(CSTG. SM) I.D." FontWeight="Bold" TextAlignment="Center" Margin="10,0,0,0" Text="3.978"  Height="40"  TextWrapping="Wrap"  Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                </StackPanel>
+                                <TextBox materialDesign:HintAssist.Hint="DIFF." Grid.Row="1" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Center" Text="0.565"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            </Grid>
                         </GroupBox>
                     </Grid>
 
