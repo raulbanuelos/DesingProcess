@@ -202,8 +202,11 @@ namespace View.Services
                     respuesta = '2';
                 }
             }
-            else {
+            else
+            {
                 respuesta = '3';
+                //Se debe cerrar la ventana, si no la ejecución no termina.
+                fSelecciona.Close();
             }
 
             return respuesta;

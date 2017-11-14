@@ -887,9 +887,11 @@ namespace View.Services.ViewModel
             if (ModelAnillo.MaterialBase.TipoDeMaterial == "HIERRO GRIS")
             {
                 Operaciones = Router.CalcularHierroGris(ModelAnillo);
+
                 //Ingresar calculo de placa modelo.
                 calcularMateriaPrima = new CalculaMateriaPrima(ModelAnillo);
                 ModelAnillo.MaterialBase = calcularMateriaPrima.CalcularPlacaModelo();
+               
                 if (ModelAnillo.MaterialBase.Codigo.Equals("CODIFICAR"))
                 {
                     MetroDialogSettings setting = new MetroDialogSettings();
@@ -905,7 +907,7 @@ namespace View.Services.ViewModel
                             break;
                         case MessageDialogResult.Affirmative:
                             WPattern pattern = new WPattern();
-                            pattern.ShowDialog();
+                            pattern.Show();
                             break;
                         case MessageDialogResult.FirstAuxiliary:
                             break;
@@ -951,6 +953,7 @@ namespace View.Services.ViewModel
             //Termina cálculo de width
 
             /*Cálculo de diámetro*/
+     
 
             i = Operaciones.Count - 1;
             c = 0;
@@ -984,6 +987,7 @@ namespace View.Services.ViewModel
 
             /* Cálculo de thickness */
 
+            
             i = Operaciones.Count - 1;
             c = 0;
             double mediaThickness = Math.Round((Module.GetValorPropiedad("ThicknessMin", PerfilID.Propiedades) + Module.GetValorPropiedad("ThicknessMax", PerfilID.Propiedades)) / 2,4);
@@ -1054,7 +1058,7 @@ namespace View.Services.ViewModel
                     element.CrearOperacion(aProcesado, ModelAnillo);
                     aProcesado = element.anilloProcesado;
                 }
-            }
+            }          
         }
 
         private void abrirPlano()
