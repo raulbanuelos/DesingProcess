@@ -8,7 +8,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="WPattern" Height="800" Width="992" WindowStartupLocation="CenterScreen"
-                      BorderThickness="2" BorderBrush="Blue" ShowMaxRestoreButton="False">
+        ResizeMode="NoResize" BorderThickness="2" BorderBrush="Blue" ShowMaxRestoreButton="False">
     <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
@@ -282,7 +282,7 @@
                         <Line Canvas.Left="0" Canvas.Top="120"  X2="0" Y2="165" Stroke="SlateGray" StrokeThickness="2" Height="Auto" Width="20"/>
                     </Canvas>
                     <!--Líneas en medio-->
-                    <Canvas Canvas.Right="220" Width="300" Height="100" Canvas.Top="445">
+                    <Canvas Canvas.Left="200" Width="300" Height="100" Canvas.Top="445">
                         <Line  Canvas.Left="20"  Canvas.Top="40" Y1="20" X2="260" Y2="20" Stroke="SlateGray" StrokeThickness="2" Width="260" Height="30" />
                         <Line  Canvas.Left="20" Canvas.Top="65" Y1="20" X2="110" Y2="20" Stroke="SlateGray" StrokeThickness="2" Width="130" Height="30" />
                         <Polygon Points="8,0 0,5, 8,10" Stroke="SlateGray" StrokeThickness="2" Height="20" Width="15" Canvas.Left="12" Canvas.Top="55"></Polygon>

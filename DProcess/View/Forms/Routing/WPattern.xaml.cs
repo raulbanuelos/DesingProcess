@@ -28,7 +28,6 @@ namespace View.Forms.Routing
             
             CreateCylinder(new Point3D(0.2, 0.1, 0), 1.1, 1.5, 0.29, 100, Colors.SlateGray, false);
             CreateCylinder2(new Point3D(0, 0,0), 1.1,1.72, 0.17, 100, Colors.SlateGray, false);
-
         }
 
         
@@ -122,6 +121,16 @@ namespace View.Forms.Routing
             }
         }
 
+        /// <summary>
+        /// Método para dibujar el segundo anillo, con diferente vista.
+        /// </summary>
+        /// <param name="center"></param>
+        /// <param name="rin"></param>
+        /// <param name="rout"></param>
+        /// <param name="height"></param>
+        /// <param name="n"></param>
+        /// <param name="color"></param>
+        /// <param name="isWireframe"></param>
         private void CreateCylinder2(Point3D center, double rin, double rout, double height, int n, Color color, bool isWireframe)
         {
             if (n < 2 || rin == rout)
@@ -183,6 +192,5 @@ namespace View.Forms.Routing
                 Utility.CreateTriangleFace(p[2], p[3], p[7], color, isWireframe, viewport2);
             }
         }
-
     }
 }

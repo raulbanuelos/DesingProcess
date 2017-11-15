@@ -284,7 +284,6 @@ namespace Model
             //Verificamos si la información obtenida es diferente de nulo. Se encontró herramental.
             if (InformacionBD != null)
             {
-
                 //Iteramos la lista resultante de la consulta.
                 foreach (var elemento in InformacionBD)
                 {
@@ -301,7 +300,6 @@ namespace Model
             { //Si no se encontró el herramental.
 
             }
-
             return herramental;
         }
         
@@ -357,7 +355,6 @@ namespace Model
             {
                 //Si no se encontro herramental.
             }
-
             //Retornamos el herramental.
             return herramental;
         }
@@ -379,7 +376,6 @@ namespace Model
         #endregion
 
         #region Splitter Casting
-
         /// <summary>
         /// Método que obtiene el tiempo ciclo de la operación de splitter casting.
         /// </summary>
@@ -398,7 +394,6 @@ namespace Model
             //Verificamos que la información obtenida no sea nula.
             if (informacionBD != null)
             {
-
                 //Verificamos que contenga al menos una tabla y que esa tabla contenga al menos un registro.
                 if (informacionBD.Tables.Count > 0 && informacionBD.Tables[0].Rows.Count > 0)
                 {
@@ -409,10 +404,8 @@ namespace Model
                     }
                 }
             }
-
             //Retornamos la información obtenida.
             return tiempoCiclo;
-
         }
 
         /// <summary>
@@ -444,7 +437,6 @@ namespace Model
                     id = (double)tipo.GetProperty("PATT_SM_ID").GetValue(item, null);
                 }
             }
-
             //Realizamos la formula.
             id = Math.Round((id) - (Convert.ToDouble(id) * 0.015), 3);
 
@@ -485,13 +477,11 @@ namespace Model
                     od = Math.Round(cstg_sm_od + ((rise - 0.005) * 2), 3);
                 }
             }
-
             //Retornamos el valor calculado.
             return od;
         }
 
         //Cutter Spacer Splitter
-
         /// <summary>
         /// Método el cual obtiene la lista de herramentales de Spacer.
         /// </summary>
@@ -624,7 +614,6 @@ namespace Model
                     cantidad = (int)tipo.GetProperty("CantidadSpacer").GetValue(item, null);
                 }
             }
-
             //Retornamos el resultado.
             return cantidad;
         }
@@ -660,10 +649,8 @@ namespace Model
                     herramental = new Herramental();
                     //Obtenemos el herramental a partir de la lista.
                     herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
-
                 }
             }
-
             return herramental;
         }
 
@@ -696,8 +683,7 @@ namespace Model
                     //Obtenemos el valor de la propiedad.
                     medidaSpacer = (double)tipo.GetProperty("Cutter_Spacer").GetValue(item, null);
                 }
-            }
-            
+            }            
             //Retornamos el valor obtenido.
             return medidaSpacer;
         }
@@ -732,7 +718,6 @@ namespace Model
                     medidaSpacer = (double)tipo.GetProperty("Cutter_Spacer").GetValue(item,null);
                 }
             }
-
             //Retornamos el valor.
             return medidaSpacer;
         }
@@ -747,8 +732,7 @@ namespace Model
             //Inicializamos los servicios de SO_SplitterCasting.
             SO_SplitterCasting ServicioSplitter = new SO_SplitterCasting();
             //Ejecutamos el método, devolvemos el resultado
-            return ServicioSplitter.SetCutterSpacerS(obj.Codigo,obj.Propiedades[0].Valor,obj.Propiedades[1].Valor,obj.Plano);
-            
+            return ServicioSplitter.SetCutterSpacerS(obj.Codigo,obj.Propiedades[0].Valor,obj.Propiedades[1].Valor,obj.Plano);          
         }
 
         /// <summary>
@@ -854,8 +838,7 @@ namespace Model
                 {
                     //Obtenemos el tipo
                     Type tipo = item.GetType();
-
-             
+           
                     //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
@@ -873,8 +856,7 @@ namespace Model
                     dimB.Valor = (double)tipo.GetProperty("B").GetValue(item, null);
                     dimB.Unidad = "Milimeters (mm)";
                     dimB.DescripcionCorta = "Dim B";
-                    herramental.Propiedades.Add(dimB);
-                  
+                    herramental.Propiedades.Add(dimB);               
                 }
             }
             //Retornamos el herramnetal.
@@ -882,7 +864,6 @@ namespace Model
         }
 
         //Cutter Splitter
-
         /// <summary>
         /// Método que obtiene el herramental cutter de la operacion splitter casting
         /// </summary>
@@ -915,7 +896,6 @@ namespace Model
                     herramental.DescripcionRuta = "CUTTERS " + (double)tipo.GetProperty("Diametro").GetValue(item,null);
                 }
             }
-
             //Retornamos el objeto construido.
             return herramental;
         }
@@ -924,7 +904,6 @@ namespace Model
          * 
          * 
         */
-
         /// <summary>
         /// Método que obtiene el herramental Chuck de la operación Splitter.
         /// </summary>
@@ -955,10 +934,8 @@ namespace Model
 
                     //Agregamos la descripción que va en la hoja de ruta.
                     herramental.DescripcionRuta = "CHUCK DET. " + (string)tipo.GetProperty("TipoEnsamble").GetValue(item,null);
-
                 }
             }
-
             //Retornamos el objeto construido.
             return herramental;
         }
@@ -1037,7 +1014,6 @@ namespace Model
                     //Obtenemos el tipo
                     Type tipo = item.GetType();
 
-
                     //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
@@ -1059,13 +1035,11 @@ namespace Model
                     ensamble.Valor = (string)tipo.GetProperty("TipoEnsamble").GetValue(item, null);
                     ensamble.DescripcionCorta = "Tipo Ensamble";
                     herramental.PropiedadesCadena.Add(ensamble);
-
                 }
             }
             //Retornamos el objeto.
             return herramental;
         }
-
 
         /// <summary>
         /// Método que guarda un registro de herramental ChuckSplitter
@@ -1110,7 +1084,6 @@ namespace Model
         }
 
         //Uretano Splitter
-
         /// <summary>
         /// Método que indica si el componente debe de llevar uretano.
         /// </summary>
@@ -1137,7 +1110,6 @@ namespace Model
                     respuesta = true;
                 }
             }
-
             //Retornamos el valor obtenido.
             return respuesta;
         }
@@ -1179,7 +1151,6 @@ namespace Model
                     herramental.DescripcionRuta = "URETANOS DET. " + detalle + " " + color;
                 }
             }
-
             //Retornamos el objeto construido.
             return herramental;
         }
@@ -1289,7 +1260,6 @@ namespace Model
                     detalle.Valor = (string)tipo.GetProperty("Detalle").GetValue(item, null);
                     detalle.DescripcionCorta = "Detalle";
                     herramental.PropiedadesCadena.Add(detalle);
-
                 }
             }
             //Retornamos el objeto.
@@ -1342,7 +1312,6 @@ namespace Model
          * 
          * 
          */
-
         /// <summary>
         /// Método que obtiene todos los registros de Cutter Splitter
         /// </summary>
@@ -1413,7 +1382,6 @@ namespace Model
                     //Obtenemos el tipo
                     Type tipo = item.GetType();
 
-
                     //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
@@ -1425,12 +1393,10 @@ namespace Model
                     diametro.Unidad = "Milimeters (mm)";
                     diametro.DescripcionCorta = "Diametro";
                     herramental.Propiedades.Add(diametro);
-
                 }
             }
             return herramental;
         }
-
 
         /// <summary>
         /// Método que agrega un resgitro de  herramental cutter de la operacion splitter casting
@@ -5270,7 +5236,6 @@ namespace Model
         #endregion
 
         #region Moly
-
         /// <summary>
         /// Método que obtiene todos los registros de Camisa Moly.
         /// </summary>
@@ -5352,7 +5317,6 @@ namespace Model
                     propiedadDimB.DescripcionCorta = "Dim A";
                     propiedadDimB.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
                     herramental.Propiedades.Add(propiedadDimB);
-
                 }
             }
             return herramental;
@@ -5392,7 +5356,6 @@ namespace Model
 
                     //Convertimos la información a tipo Herramental.
                     herramental = ReadInformacionHerramentalEncontrado(informacionBD);
-
                     herramental.Plano= (string)tipo.GetProperty("Plano").GetValue(item, null);
 
                     Propiedad propiedadDimB = new Propiedad();
@@ -5410,7 +5373,6 @@ namespace Model
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Camisa_Moly");
         }
-
 
         /// <summary>
         /// Método que guarda un registro de Camisa Moly.
@@ -5511,7 +5473,6 @@ namespace Model
             SO_Moly ServiceMoly = new SO_Moly();
 
             //D=Medida de camisa.
-
             double cri_min = D - GetCriterio("MolyCollarMin");
             double cri_max = D - GetCriterio("MolyCollarMax");
 
@@ -5535,7 +5496,6 @@ namespace Model
 
                     //Convertimos la información a tipo Herramental.
                     herramental = ReadInformacionHerramentalEncontrado(informacionBD);
-
                     herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
 
                     Propiedad propiedadDimB = new Propiedad();
@@ -5733,7 +5693,6 @@ namespace Model
             SO_Moly ServiceMoly = new SO_Moly();
 
             //D=Medida de collar.
-
             double cri_min = D + GetCriterio("MolyProteSupMin");
             double cri_max = D + GetCriterio("MolyProteSupMax");
 
@@ -5916,7 +5875,6 @@ namespace Model
             SO_Moly ServiceMoly = new SO_Moly();
 
             //D=Medida de collar.
-
             double cri_min = D + GetCriterio("MolyProteSupMin");
             double cri_max = D + GetCriterio("MolyProteSupMax");
 
@@ -5940,7 +5898,6 @@ namespace Model
 
                     //Convertimos la información a tipo Herramental.
                     herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
-
                     herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
 
                     Propiedad propiedadDimB = new Propiedad();
@@ -6155,7 +6112,6 @@ namespace Model
 
                     //Declaramos un objeto de tipo Herramental.
                     Herramental herramental = new Herramental();
-
                     herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
                     //Agregamos las propiedades
@@ -6300,13 +6256,11 @@ namespace Model
                     ListaResultante.Add(obj);
                 }
             }
-
             //Retornamos la lista.
             return ListaResultante;
         }
 
        
-
         #region MaestroHerramentales
         /// <summary>
         /// Método que obtiene el maestro de herramentales a partir de un criterio de busqueda.
@@ -6347,7 +6301,6 @@ namespace Model
                     }
                 }
             }
-
             //Retornamos la lista.
             return ListaResultante;
         }
@@ -6389,7 +6342,6 @@ namespace Model
             SO_MaestroHerramental ServiceHerramental = new SO_MaestroHerramental();
             //Ejecutamos el metodo y retornamos el valor
             return ServiceHerramental.DeleteMaestroHerramentales(obj.Codigo);
-
         }
 
         /// <summary>
@@ -6495,10 +6447,7 @@ namespace Model
                     dataTableResultante.Rows.Add(dr);
                 }
             }
-
-           
-
-            return dataTableResultante;
+          return dataTableResultante;
         }
 
         /// <summary>
@@ -6530,7 +6479,6 @@ namespace Model
                     criterio = (double)tipo.GetProperty(NombreCriterio).GetValue(item, null);
                 }
             }
-
             //Retornamos el criterio.
             return criterio;
         }
@@ -6639,7 +6587,6 @@ namespace Model
 
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
-
                 }
             }
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
@@ -6720,10 +6667,8 @@ namespace Model
 
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
-
                 }
             }
-
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Feed_Roller");
         }
@@ -6735,7 +6680,6 @@ namespace Model
         /// <returns></returns>
         public static Herramental GetInfoCOIL_Feed_Roller(string codigo)
         {
-
             Herramental herramental = new Herramental();
 
             SO_COIL ServicioCoil = new SO_COIL();
@@ -6987,7 +6931,6 @@ namespace Model
 
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
-
                 }
             }
             ///Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
