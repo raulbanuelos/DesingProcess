@@ -879,6 +879,8 @@ namespace View.Services.ViewModel
 
             ModelAnillo.TipoAnillo = "RBT10";
 
+            cliente = new Cliente { NombreCliente = "MAHLE", IdCliente = 12 };
+
             //Terminamos de simular el anillo
 
             Anillo anilloProcesado = new Anillo();
@@ -907,7 +909,17 @@ namespace View.Services.ViewModel
                             break;
                         case MessageDialogResult.Affirmative:
                             WPattern pattern = new WPattern();
-                            PatternViewModel vm = new PatternViewModel();
+
+                            Pattern nuevaPlaca = new Pattern();
+
+                            nuevaPlaca.ring_w_max = H1;
+
+                            nuevaPlaca.diametro = H1;
+
+                            nuevaPlaca.customer = cliente;
+
+
+                            PatternViewModel vm = new PatternViewModel(nuevaPlaca);
                             pattern.DataContext = vm;
                             pattern.Show();
                             break;

@@ -29,6 +29,19 @@ namespace View.Services.ViewModel
             }
         }
 
+        public Cliente customer
+        {
+            get
+            {
+                return model.customer;
+            }
+            set
+            {
+                model.customer = value;
+                NotifyChange("customer");
+            }
+        }
+
         #endregion
 
         #region INotifyPropertyChanged Métodos
