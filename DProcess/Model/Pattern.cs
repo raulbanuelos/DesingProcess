@@ -57,6 +57,10 @@ namespace Model
         public Propiedad plato { get; set; }
         public PropiedadCadena detalle { get; set; }
         public PropiedadBool diseno { get; set; }
+        public Propiedad peso_cstg { get; set; }
+        public Propiedad cam_lever { get; set; }
+        public Propiedad patt_width { get; set; }
+        public PropiedadCadena Tipo { get; set; }
         #endregion
 
         #region Constructores
