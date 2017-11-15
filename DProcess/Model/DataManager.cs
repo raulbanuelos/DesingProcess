@@ -2592,7 +2592,7 @@ namespace Model
                 medidasFabricacion = "Falta calculo";
             }
             else
-                medidasFabricacion = "No se obtubo el calculo para obtener las medidas de fabricación.";
+                medidasFabricacion = "Calculo no disponible para obtener las medidas de fabricación.";
 
             return medidasFabricacion;
         }
@@ -2662,7 +2662,7 @@ namespace Model
             //double sleeveMax = sleeve + 0.013;
 
             double sleeveMin = sleeve + 0.002;
-            double sleeveMax = sleeve + 0.008;
+            double sleeveMax = sleeve + 0.010;
 
             //Se obtiene la informacion de la base de datos
             IList informacionBD = ServiceBK.GetClosingSleeveBK(sleeveMin, sleeveMax);
