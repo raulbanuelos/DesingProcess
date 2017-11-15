@@ -201,7 +201,7 @@
 
                 <Canvas Grid.Column="1" Grid.Row="0" Background="Transparent">
                     <!--TextBox-->
-                    <StackPanel Orientation="Horizontal" Canvas.Top="460" Canvas.Right="330">
+                    <StackPanel Orientation="Horizontal" Canvas.Top="460" Canvas.Left="320">
                         <TextBox materialDesign:HintAssist.Hint="PATT. SM I.D" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="4.039"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Canvas.Top="480" Canvas.Left="20">
@@ -210,13 +210,8 @@
 
                     <!--Figura 3D-->
                     <Viewport3D Name="myViewport" ClipToBounds="True" HorizontalAlignment="Left" Width="700" Height="520" >
-
                         <Viewport3D.Camera>
-                            <PerspectiveCamera
-						Position="0,6,0"
-						LookDirection="0,-6,0"
-						UpDirection="1,0,0" 
-                        x:Name="Camera"/>
+                            <PerspectiveCamera Position="0,6,0" LookDirection="0,-6,0" UpDirection="1,0,0" x:Name="Camera"/>
                         </Viewport3D.Camera>
                         <ContainerUIElement3D>
                             <ModelUIElement3D>
@@ -226,18 +221,40 @@
                                             <RotateTransform3D x:Name="myTransform"/>
                                         </GeometryModel3D.Transform>
                                     </GeometryModel3D>
-                                    <DirectionalLight
-						Color="White"
-						Direction="-1,-1,-1" />
+                                    <DirectionalLight Color="White" Direction="-1,-1,-1" />
                                 </Model3DGroup>
                             </ModelUIElement3D>
                         </ContainerUIElement3D>
                     </Viewport3D>
+
+                    <Viewport3D Name="viewport2" ClipToBounds="True" Canvas.Right="0" Canvas.Top="10" Width="150" Height="450" >
+                        <Viewport3D.Camera>
+                            <PerspectiveCamera Position="1,0,2" LookDirection="-1,0,-2" UpDirection="1,0,0" x:Name="Camera2"/>
+                        </Viewport3D.Camera>
+                        <ContainerUIElement3D>
+                            <ModelUIElement3D>
+                                <Model3DGroup>
+                                    <GeometryModel3D>
+                                        <GeometryModel3D.Transform>
+                                            <RotateTransform3D x:Name="myTransform2"/>
+                                        </GeometryModel3D.Transform>
+                                    </GeometryModel3D>
+                                    <DirectionalLight Color="White" Direction="-1,-1,-1" />
+                                </Model3DGroup>
+                            </ModelUIElement3D>
+                        </ContainerUIElement3D>
+                    </Viewport3D>
+                    
+                    <!--Flechas superiores-->
+                    <Line X1="10" Y1="20" X2="50" Y2="20" Stroke="SlateGray" StrokeThickness="2" Width="50" Height="30" Canvas.Top="30" Canvas.Right="110"/>
+                    <Polygon Points="0,0 8,5, 0,10" Stroke="SlateGray" StrokeThickness="2" Height="14" Width="11" Canvas.Right="100"  Canvas.Top="45"></Polygon>
+                    <Line X1="10" Y1="20" X2="50" Y2="20" Stroke="SlateGray" StrokeThickness="2" Width="50" Height="30" Canvas.Top="30" Canvas.Right="0"/>
+                    <Polygon Points="8,0 0,5, 8,10" Stroke="SlateGray" StrokeThickness="2" Height="20" Width="15" Canvas.Right="35" Canvas.Top="45"></Polygon>
                     <!--Circulo-->
                     <Ellipse Width="30" Height="30" Fill="White" Canvas.Right="203" Canvas.Top="215"/>
                     
                     <!--TextBox adentro del anillo-->
-                    <StackPanel Width="Auto" Height="Auto" Canvas.Right="280" Canvas.Top="145" Orientation="Horizontal">
+                    <StackPanel Width="Auto" Height="Auto" Canvas.Left="270" Canvas.Top="145" Orientation="Horizontal">
                         <StackPanel Orientation="Vertical" Width="Auto" Height="Auto" Margin="5" >
                             <TextBox materialDesign:HintAssist.Hint="B DIA" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="4.599"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                             <TextBox materialDesign:HintAssist.Hint="FIN DIA" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="4.369"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
