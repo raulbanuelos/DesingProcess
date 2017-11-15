@@ -907,6 +907,8 @@ namespace View.Services.ViewModel
                             break;
                         case MessageDialogResult.Affirmative:
                             WPattern pattern = new WPattern();
+                            PatternViewModel vm = new PatternViewModel();
+                            pattern.DataContext = vm;
                             pattern.Show();
                             break;
                         case MessageDialogResult.FirstAuxiliary:

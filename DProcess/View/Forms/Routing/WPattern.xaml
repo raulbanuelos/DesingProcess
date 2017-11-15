@@ -8,7 +8,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="WPattern" Height="800" Width="992" WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize" BorderThickness="2" BorderBrush="Blue" ShowMaxRestoreButton="False">
+                      BorderThickness="2" BorderBrush="Blue" ShowMaxRestoreButton="False">
     <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
@@ -145,7 +145,7 @@
             <StackPanel DockPanel.Dock="Right">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal" Margin=".5">
-                        <TextBox materialDesign:HintAssist.Hint="PATTERN" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="BC-18828"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="PATTERN" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding codigo.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin=".5">
@@ -246,10 +246,10 @@
                     </Viewport3D>
                     
                     <!--Flechas superiores-->
-                    <Line X1="10" Y1="20" X2="50" Y2="20" Stroke="SlateGray" StrokeThickness="2" Width="50" Height="30" Canvas.Top="30" Canvas.Right="110"/>
-                    <Polygon Points="0,0 8,5, 0,10" Stroke="SlateGray" StrokeThickness="2" Height="14" Width="11" Canvas.Right="100"  Canvas.Top="45"></Polygon>
-                    <Line X1="10" Y1="20" X2="50" Y2="20" Stroke="SlateGray" StrokeThickness="2" Width="50" Height="30" Canvas.Top="30" Canvas.Right="0"/>
-                    <Polygon Points="8,0 0,5, 8,10" Stroke="SlateGray" StrokeThickness="2" Height="20" Width="15" Canvas.Right="35" Canvas.Top="45"></Polygon>
+                    <Line X1="10" Y1="20" X2="50" Y2="20" Stroke="Blue" StrokeThickness="2" Width="50" Height="30" Canvas.Top="30" Canvas.Right="110"/>
+                    <Polygon Points="0,0 8,5, 0,10" Stroke="Blue" StrokeThickness="2" Height="14" Width="11" Canvas.Right="100"  Canvas.Top="45"></Polygon>
+                    <Line X1="10" Y1="20" X2="50" Y2="20" Stroke="Blue" StrokeThickness="2" Width="50" Height="30" Canvas.Top="30" Canvas.Right="0"/>
+                    <Polygon Points="8,0 0,5, 8,10" Stroke="Blue" StrokeThickness="2" Height="20" Width="15" Canvas.Right="35" Canvas.Top="45"></Polygon>
                     <!--Circulo-->
                     <Ellipse Width="30" Height="30" Fill="White" Canvas.Right="203" Canvas.Top="215"/>
                     
@@ -270,24 +270,24 @@
                     </StackPanel>
                     <!--Líneas izquierda y flecha-->
                     <Canvas Canvas.Top="255" Width="206" Height="300" Canvas.Left="0">
-                        <Line Canvas.Right="55"  X2="0" Y2="285" Stroke="SlateGray" StrokeThickness="2" Height="Auto" Width="20"/>
-                        <Line Canvas.Right="0" Canvas.Top="120"  X2="0" Y2="165" Stroke="SlateGray" StrokeThickness="2" Height="Auto" Width="20"/>
-                        <Line X1="10" Y1="20" X2="110" Y2="20" Stroke="SlateGray" StrokeThickness="2" Width="110" Height="30" Canvas.Top="255"/>
-                        <Polygon Points="0,0 8,5, 0,10" Stroke="SlateGray" StrokeThickness="2" Height="14" Width="11" Canvas.Left="110"  Canvas.Top="270"></Polygon>
+                        <Line Canvas.Right="55"  X2="0" Y2="285" Stroke="Blue" StrokeThickness="2" Height="Auto" Width="20"/>
+                        <Line Canvas.Right="0" Canvas.Top="120"  X2="0" Y2="165" Stroke="Blue" StrokeThickness="2" Height="Auto" Width="20"/>
+                        <Line X1="10" Y1="20" X2="110" Y2="20" Stroke="Blue" StrokeThickness="2" Width="110" Height="30" Canvas.Top="255"/>
+                        <Polygon Points="0,0 8,5, 0,10" Stroke="Blue" StrokeThickness="2" Height="14" Width="11" Canvas.Left="110"  Canvas.Top="270"></Polygon>
                     </Canvas>
                     
                     <!--Líneas derecha-->
                     <Canvas Canvas.Top="255" Width="210" Height="300" Canvas.Right="0">
-                        <Line Canvas.Left="56"  X2="0" Y2="285" Stroke="SlateGray" StrokeThickness="2" Height="Auto" Width="20"/>
-                        <Line Canvas.Left="0" Canvas.Top="120"  X2="0" Y2="165" Stroke="SlateGray" StrokeThickness="2" Height="Auto" Width="20"/>
+                        <Line Canvas.Left="56"  X2="0" Y2="285" Stroke="Blue" StrokeThickness="2" Height="Auto" Width="20"/>
+                        <Line Canvas.Left="0" Canvas.Top="120"  X2="0" Y2="165" Stroke="Blue" StrokeThickness="2" Height="Auto" Width="20"/>
                     </Canvas>
                     <!--Líneas en medio-->
-                    <Canvas Canvas.Left="200" Width="300" Height="100" Canvas.Top="445">
-                        <Line  Canvas.Left="20"  Canvas.Top="40" Y1="20" X2="260" Y2="20" Stroke="SlateGray" StrokeThickness="2" Width="260" Height="30" />
-                        <Line  Canvas.Left="20" Canvas.Top="65" Y1="20" X2="110" Y2="20" Stroke="SlateGray" StrokeThickness="2" Width="130" Height="30" />
-                        <Polygon Points="8,0 0,5, 8,10" Stroke="SlateGray" StrokeThickness="2" Height="20" Width="15" Canvas.Left="12" Canvas.Top="55"></Polygon>
-                        <Polygon Points="0,0 8,5, 0,10" Stroke="SlateGray" StrokeThickness="2" Height="20" Width="15" Canvas.Right="5" Canvas.Top="55"></Polygon>
-                        <Polygon Points="8,0 0,5, 8,10" Stroke="SlateGray" StrokeThickness="2" Height="20" Width="15" Canvas.Left="12" Canvas.Top="80"></Polygon>
+                    <Canvas Canvas.Right="220" Width="300" Height="100" Canvas.Top="445">
+                        <Line  Canvas.Left="20"  Canvas.Top="40" Y1="20" X2="260" Y2="20" Stroke="Blue" StrokeThickness="2" Width="260" Height="30" />
+                        <Line  Canvas.Left="20" Canvas.Top="65" Y1="20" X2="110" Y2="20" Stroke="Blue" StrokeThickness="2" Width="130" Height="30" />
+                        <Polygon Points="8,0 0,5, 8,10" Stroke="Blue" StrokeThickness="2" Height="20" Width="15" Canvas.Left="12" Canvas.Top="55"></Polygon>
+                        <Polygon Points="0,0 8,5, 0,10" Stroke="Blue" StrokeThickness="2" Height="20" Width="15" Canvas.Right="5" Canvas.Top="55"></Polygon>
+                        <Polygon Points="8,0 0,5, 8,10" Stroke="Blue" StrokeThickness="2" Height="20" Width="15" Canvas.Left="12" Canvas.Top="80"></Polygon>
                     </Canvas>
                 </Canvas>
 

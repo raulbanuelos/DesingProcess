@@ -54,6 +54,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 return 0;
             }
         }
+        
         /// <summary>
         /// Método que modifica un registro de la tabla TBL_COIL_FEED_ROLLER
         /// </summary>
@@ -96,6 +97,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 return 0;
             }
         }
+        
         /// <summary>
         /// Método que elimina un registro de la tabla TBL_COIL_FEED_ROLLER
         /// </summary>
@@ -122,6 +124,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 return 0;
             }
         }
+        
         /// <summary>
         /// Método que obtiene un registro que cumpla con el rango del width
         /// </summary>
@@ -341,6 +344,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 return 0;
             }
         }
+        
         /// <summary>
         /// Método que elimina un registro de la tabla TBL_COIL_CENTER_GUIDE
         /// </summary>
@@ -414,6 +418,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 return null;
             }
         }
+        
         /// <summary>
         /// Método que obtiene todos los registros, se filtran por el código o descripción
         /// </summary>
@@ -1050,6 +1055,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 return 0;
             }
         }
+        
         /// <summary>
         ///  Método que elimina un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
         /// </summary>
@@ -1241,6 +1247,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 return 0;
             }
         }
+        
         /// <summary>
         /// Método que modifica un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
         /// </summary>
@@ -1474,6 +1481,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 return 0;
             }
         }
+        
         /// <summary>
         /// Método que modifica un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3
         /// </summary>
@@ -1704,6 +1712,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 return 0;
             }
         }
+        
         /// <summary>
         /// Método que modifica un registro de la tabla TBL_SHIM_OF_THE_CUT_SYSTEM
         /// </summary>
