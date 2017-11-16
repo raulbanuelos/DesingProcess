@@ -114,7 +114,9 @@ namespace View.Services
             e = Module.GetValorPropiedadString("RingShape", _elAnillo.PerfilOD.PropiedadesCadena);
             l = Piece;
 
-            m = DataManager.GetCamTurnConstant(_elAnillo, ringShape);
+            string cam_detail;
+
+            m = DataManager.GetCamTurnConstant(_elAnillo, ringShape,out cam_detail);
             n = (l * 64 * m) + 0.005;
             o = n * 0.478;
             double compara = (l - (l * (b - (g / 4)))) / b;

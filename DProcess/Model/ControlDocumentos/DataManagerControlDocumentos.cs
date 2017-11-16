@@ -779,35 +779,38 @@ namespace Model.ControlDocumentos
 
                     //Se obtiene un vector sin espacios, de la descripcion de la versión
                     string[] vec = descVersion.Split(' ');
+
                     //Ejecutamos el método para eliminar palabras de menos de 3 caracteres
                     vec = RemoveChacters(vec);
 
-                    //Recorremos el vector de la descripción que se va a dar de alta
-                    for (int i = 0; i < aux.Length; i++)
+                    if (vec.Length > 0)
                     {
-                        //Recorremos el vector de la descripción de la versión que se obtuvo
-                        for (int k = 0; k < vec.Length; k++)
+                        //Recorremos el vector de la descripción que se va a dar de alta
+                        for (int i = 0; i < aux.Length; i++)
                         {
-                            //Comparamos si son iguales las palabras ignorando las mayúsculas
-                            if (aux[i].Equals(vec[k], StringComparison.InvariantCultureIgnoreCase) || Compara(aux[i],vec[k]))
+                            //Recorremos el vector de la descripción de la versión que se obtuvo
+                            for (int k = 0; k < vec.Length; k++)
                             {
-                                //Incrementamos el contador
-                                cont++;
-                                break;
+                                //Comparamos si son iguales las palabras ignorando las mayúsculas
+                                if (aux[i].Equals(vec[k], StringComparison.InvariantCultureIgnoreCase) || Compara(aux[i], vec[k]))
+                                {
+                                    //Incrementamos el contador
+                                    cont++;
+                                    break;
+                                }
                             }
                         }
-                    }
 
-                    int resta = 0;
-                    //Si la descripcion que se va a dar de alta es mayor a la descripción de la versión iterada
-                    if (aux.Length > vec.Length)
-                    {
-                        //restamos el tamaño del vector auxiliar menos el tamaño del vector vec
-                        resta = aux.Length - vec.Length;
-                    }
-                    //si es mayor el vector de la descripción iterada
-                    else
-                        resta = vec.Length - aux.Length;
+                        int resta = 0;
+                        //Si la descripcion que se va a dar de alta es mayor a la descripción de la versión iterada
+                        if (aux.Length > vec.Length)
+                        {
+                            //restamos el tamaño del vector auxiliar menos el tamaño del vector vec
+                            resta = aux.Length - vec.Length;
+                        }
+                        //si es mayor el vector de la descripción iterada
+                        else
+                            resta = vec.Length - aux.Length;
 
                         //calculamos el porcentaje de coincidencia
                         int porcentaje = (cont * 100) / vec.Length;
@@ -818,7 +821,7 @@ namespace Model.ControlDocumentos
                             //Se agrega el objeto a la lista
                             Lista.Add(obj);
                         }
-                    
+                    }
                 }
             }
             return Lista;
