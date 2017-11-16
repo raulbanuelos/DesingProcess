@@ -42,6 +42,275 @@ namespace View.Services.ViewModel
             }
         }
 
+        public Propiedad medida {
+            get
+            {
+                return model.medida;
+            }
+            set
+            {
+                model.medida = value;
+                NotifyChange("medida");
+            }
+        }
+
+        public Propiedad diametro {
+            get { return model.diametro; }
+            set { model.diametro = value; NotifyChange("diametro"); }
+        }
+
+        public Propiedad mounting {
+            get { return model.mounting; }
+            set { model.mounting = value; NotifyChange("mounting"); }
+        }
+
+        public PropiedadCadena on_14_rd_gate {
+            get { return model.on_14_rd_gate; }
+            set { model.on_14_rd_gate = value; NotifyChange("on_14_rd_gate"); }
+        }
+
+        public PropiedadCadena button {
+            get { return model.button; }
+            set { model.button = value; NotifyChange("button"); }
+        }
+
+        public PropiedadCadena cone {
+            get { return model.cone; }
+            set { model.cone = value; NotifyChange("cone"); }
+        }
+
+        public PropiedadCadena M_Circle {
+            get { return model.M_Circle; }
+            set { model.M_Circle = value; NotifyChange("M_Circle"); }
+        }
+
+        public Propiedad ring_w_min {
+            get { return model.ring_w_min; }
+            set { model.ring_w_min = value; NotifyChange("ring_w_min"); }
+        }
+
+        public Propiedad ring_w_max {
+            get { return model.ring_w_max; }
+            set { model.ring_w_max = value; NotifyChange("ring_w_max"); }
+        }
+
+        public PropiedadCadena date_ordered {
+            get { return model.date_ordered; }
+            set { model.date_ordered = value; NotifyChange("date_ordered"); }
+        }
+
+        public Propiedad B_Dia {
+            get { return model.B_Dia; }
+            set { model.B_Dia = value; NotifyChange("B_Dia"); }
+        }
+
+        public Propiedad fin_Dia
+        {
+            get { return model.fin_Dia; }
+            set { model.fin_Dia = value; NotifyChange("fin_Dia"); }
+        }
+
+        public Propiedad turn_allow
+        {
+            get { return model.turn_allow; }
+            set { model.turn_allow = value; NotifyChange("turn_allow"); }
+        }
+
+        public Propiedad cstg_sm_od
+        {
+            get { return model.cstg_sm_od; }
+            set { model.cstg_sm_od = value; NotifyChange("cstg_sm_od"); }
+        }
+
+        public Propiedad shrink_allow
+        {
+            get { return model.shrink_allow; }
+            set { model.shrink_allow = value; NotifyChange("shrink_allow"); }
+        }
+
+        public Propiedad patt_sm_od
+        {
+            get { return model.patt_sm_od; }
+            set { model.patt_sm_od = value; NotifyChange("patt_sm_od"); }
+        }
+
+        public Propiedad piece_in_patt
+        {
+            get { return model.piece_in_patt; }
+            set { model.piece_in_patt = value; NotifyChange("piece_in_patt"); }
+        }
+
+        public Propiedad bore_allow
+        {
+            get { return model.bore_allow; }
+            set { model.bore_allow = value; NotifyChange("bore_allow"); }
+        }
+
+        public Propiedad patt_sm_id
+        {
+            get { return model.patt_sm_id; }
+            set { model.patt_sm_id = value; NotifyChange("patt_sm_id"); }
+        }
+   
+        public Propiedad patt_thickness {
+            get { return model.patt_thickness; }
+            set { model.patt_thickness = value; NotifyChange("patt_thickness"); }
+        }
+
+        public PropiedadCadena joint {
+            get { return model.joint; }
+            set { model.joint = value; NotifyChange("joint"); }
+        }
+
+        public PropiedadCadena nick {
+            get { return model.nick; }
+            set { model.nick = value; NotifyChange("nick"); }
+        }
+
+        public PropiedadCadena nick_draf {
+            get { return model.nick_draf; }
+            set { model.nick_draf = value; NotifyChange("nick_draf"); }
+        }
+
+        public PropiedadCadena nick_depth
+        {
+            get { return model.nick_depth; }
+            set { model.nick_depth = value; NotifyChange("nick_depth"); }
+        }
+
+       
+        public PropiedadCadena side_relief {
+            get { return model.side_relief; }
+            set { model.side_relief = value; NotifyChange("side_relief"); }
+        }
+
+        public Propiedad cam {
+            get { return model.cam; }
+            set { model.cam = value; NotifyChange("cam"); }
+        }
+
+        public Propiedad cam_roll
+        {
+            get { return model.cam_roll; }
+            set { model.cam_roll = value; NotifyChange("cam_roll"); }
+        }
+        
+        public Propiedad rise {
+            get { return model.rise; }
+            set { model.rise = value; NotifyChange("rise"); }
+        }
+
+        public Propiedad OD
+        {
+            get { return model.OD; }
+            set { model.OD = value; NotifyChange("OD"); }
+        }
+
+        public Propiedad ID
+        {
+            get { return model.ID; }
+            set { model.ID = value; NotifyChange("ID"); }
+        }
+
+        public Propiedad diff
+        {
+            get { return model.diff; }
+            set { model.diff = value; NotifyChange("diff"); }
+        }
+
+        public PropiedadCadena Tipo
+        {
+            get { return model.Tipo; }
+            set { model.Tipo = value; NotifyChange("Tipo"); }
+        }
+
+        public PropiedadCadena mounted
+        {
+            get { return model.mounted; }
+            set { model.mounted = value; NotifyChange("mounted"); }
+        }
+
+        public PropiedadCadena ordered
+        {
+            get { return model.ordered; }
+            set { model.ordered = value; NotifyChange("ordered"); }
+        }
+
+        public PropiedadCadena Checked
+        {
+            get { return model.Checked; }
+            set { model.Checked = value; NotifyChange("Checked"); }
+        }
+
+        public PropiedadCadena date_checked
+        {
+            get { return model.date_checked; }
+            set { model.date_checked = value; NotifyChange("date_checked"); }
+        }
+
+        public PropiedadCadena esp_inst
+        {
+            get { return model.esp_inst; }
+            set { model.esp_inst = value; NotifyChange("esp_inst"); }
+        }
+       
+        public Propiedad factor_k {
+            get { return model.factor_k; }
+            set { model.factor_k = value; NotifyChange("factor_k"); }
+        }
+
+        public Propiedad rise_built
+        {
+            get { return model.rise_built; }
+            set { model.rise_built = value; NotifyChange("rise_built"); }
+        }
+
+        public Propiedad ring_th_min
+        {
+            get { return model.ring_th_min; }
+            set { model.ring_th_min = value; NotifyChange("ring_th_min"); }
+        }
+
+        public Propiedad ring_th_max
+        {
+            get { return model.ring_th_max; }
+            set { model.ring_th_max = value; NotifyChange("ring_th_max"); }
+        }
+ 
+        public PropiedadBool estado {
+            get { return model.estado; }
+            set { model.estado = value; NotifyChange("estado"); }
+        }
+
+        public Propiedad plato
+        {
+            get { return model.plato; }
+            set { model.plato = value; NotifyChange("plato"); }
+        }
+
+        public PropiedadCadena detalle
+        {
+            get { return model.detalle; }
+            set { model.detalle = value; NotifyChange("detalle"); }
+        }
+
+        public Propiedad peso_cstg
+        {
+            get { return model.peso_cstg; }
+            set { model.peso_cstg = value; NotifyChange("peso_cstg"); }
+        }
+
+        public Propiedad cam_lever
+        {
+            get { return model.cam_lever; }
+            set { model.cam_lever = value; NotifyChange("cam_lever"); }
+        }
+
+        public Propiedad patt_width
+        {
+            get { return model.patt_width; }
+            set { model.patt_width = value; NotifyChange("patt_width"); }
+        }
         #endregion
 
         #region INotifyPropertyChanged Métodos

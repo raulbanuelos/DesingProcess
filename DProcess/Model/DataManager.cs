@@ -8794,7 +8794,7 @@ namespace Model
                     obj.OD.Valor = (double)tipo.GetProperty("OD").GetValue(item, null);
                     obj.ID.Valor = (double)tipo.GetProperty("ID").GetValue(item, null);
                     obj.diff.Valor = (double)tipo.GetProperty("DIFF").GetValue(item, null);
-                    obj.tipo.Valor = (double)tipo.GetProperty("TIPO").GetValue(item, null);
+                    obj.Tipo.Valor = (string)tipo.GetProperty("TIPO").GetValue(item, null);
                     obj.mounted.Valor = (string)tipo.GetProperty("mounted").GetValue(item, null);
                     obj.ordered.Valor = (string)tipo.GetProperty("ordered").GetValue(item, null);
                     obj.Checked.Valor = (string)tipo.GetProperty("checked").GetValue(item, null);
