@@ -238,7 +238,8 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         {
             double rise = 0;
             double valor_pc = Module.GetValorPropiedad("Piece", anilloProcesado.PropiedadesAdquiridasProceso);
-            double valor_pin_gage = DataManager.GetCamTurnConstant(elPlano, Module.GetValorPropiedadString("RingShape", elPlano.PerfilOD.PropiedadesCadena));
+            string cam_detail;
+            double valor_pin_gage = DataManager.GetCamTurnConstant(elPlano, Module.GetValorPropiedadString("RingShape", elPlano.PerfilOD.PropiedadesCadena),out cam_detail);
             rise = valor_pc * 64 * valor_pin_gage * Math.Pow(10, -4);
             return Math.Round(rise, 3);
         }

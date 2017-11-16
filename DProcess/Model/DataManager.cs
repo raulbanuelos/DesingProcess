@@ -8920,10 +8920,11 @@ namespace Model
         /// <param name="elAnillo"></param>
         /// <param name="RingShape"></param>
         /// <returns></returns>
-        public static double GetCamTurnConstant(Anillo elAnillo, string RingShape)
+        public static double GetCamTurnConstant(Anillo elAnillo, string RingShape, out string cam_detail)
         {
             //Declaramos una variable la cual será la que retornemos en el método.
             double valor = 0;
+            cam_detail = string.Empty;
 
             //Incializamos los servicios de SO_Material.
             SO_Material ServicioMaterial = new SO_Material();
@@ -8942,6 +8943,7 @@ namespace Model
                     {
                         //Obtenemos el valor y lo asignamos a la variable local.
                         valor = Convert.ToDouble(element["valor"].ToString());
+                        cam_detail = element["cam_detail"].ToString();
                     }
                 }
             }
