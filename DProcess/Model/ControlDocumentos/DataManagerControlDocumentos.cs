@@ -730,9 +730,95 @@ namespace Model.ControlDocumentos
             return ServiceDocumento.InsertDocumentos(documento.id_tipo_documento, documento.id_dep, documento.nombre, documento.fecha_emision, documento.fecha_actualizacion, documento.id_estatus,
                                                 documento.usuario);
         }
+
+        /// <summary>
+        /// Método que compara si hay documetnos con la misma descripción.
+        /// </summary>
+        /// <param name="doc"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Documento> ValidateDocumentosIguales(Documento doc)
+        {
+            //Se inicializa los servicios de documento
+            SO_Documento ServiceDocumento = new SO_Documento();
+
+            //Se crea una lista de tipo documento, la cual se va a retornar
+            ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
+
+            //Eliminamos los acentos de la descripción recibida.
+            string descripcion = DeleteAccents(doc.descripcion);
+
+            //obtenemos un vector sin espacios de la descripción del documento recibido.
+            string[] aux = descripcion.Split(' ');
+
+            // obtenemos todo de la BD.
+            IList ObjDocumento = ServiceDocumento.ValidateDescripcion(doc.id_tipo_documento, doc.id_dep, doc.id_documento);
+
+            //Si la Lista de documetnos es diferente de nulo.
+            if (ObjDocumento != null)
+            {
+                //Iteramos la lista que se obtuvo
+                foreach (var item in ObjDocumento)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos el objeto 
+                    Documento obj = new Documento();
+
+                    //Inicializamos el contador, para contar las palabras iguales.
+                    int cont = 0;
+
+                    //Asigamos los valores
+                    obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.version.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    obj.version.descripcion_v = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    obj.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
+
+                    //Se manda a llamar a la función para eliminar acentos de la descripción de la versión iterada.
+                    string descVersion = DeleteAccents(obj.version.descripcion_v);
+
+                    //Se obtiene un vector sin espacios, de la descripcion de la versión iterada.
+                    string[] vec = descVersion.Split(' ');                  
+
+                    //Si el vector resultante es mayor a cero. 
+                    if (vec.Length > 0)
+                    {
+
+                            //Recorremos el vector de la descripción que se va a dar de alta
+                            for (int i = 0; i < aux.Length; i++)
+                            {
+                                //Recorremos el vector de la descripción de la versión que se obtuvo
+                                for (int k = 0; k < vec.Length; k++)
+                                {
+                                    //Comparamos si son iguales las palabras ignorando las mayúsculas
+                                    if (aux[i].Equals(vec[k], StringComparison.InvariantCultureIgnoreCase))
+                                    {
+                                        //Incrementamos el contador
+                                        cont++;
+                                        break;
+                                    }
+                                }
+                            }
+                            //calculamos el porcentaje de coincidencia
+                            int porcentaje = (cont * 100) / vec.Length;
+
+                            //si el porcentaje es 100% ya que la palabra es igual.
+                            if (porcentaje == 100 )
+                            {
+                                //Se agrega el objeto a la lista
+                                Lista.Add(obj);
+                            }
+                    }
+                }
+            }
+            //Retornamos la lista.
+            return Lista;
+        }
         
         /// <summary>
-        /// Método para obtener las coincidencias de una descripción
+        /// Método para obtener las coincidencias de una descripción de documento.
         /// </summary>
         /// <param name="doc"></param>
         /// <returns></returns>
@@ -744,16 +830,19 @@ namespace Model.ControlDocumentos
             //Se crea una lista de tipo documento, la cual se va a retornar
             ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
 
+            //Eliminamos los acentos a la descripción recibida.
             string descripcion = DeleteAccents(doc.descripcion);
 
             //obtenemos un vector sin espacios de la descripción
             string[] aux = descripcion.Split(' ');
+
             //Ejecutamos el método para eliminar palabras de menos de 3 caracteres
             aux = (RemoveChacters(aux));
 
-            // obtenemos todo de la BD.
+            //Obtenemos todo de la BD.
             IList ObjDocumento = ServiceDocumento.ValidateDescripcion(doc.id_tipo_documento, doc.id_dep, doc.id_documento);
 
+            //Si la lista de Documentos es diferento de nulo.
             if (ObjDocumento != null)
             {
                 //Iteramos la lista que se obtuvo
@@ -764,6 +853,8 @@ namespace Model.ControlDocumentos
 
                     //Declaramos el objeto 
                     Documento obj = new Documento();
+
+                    //Inicializamos el contador, de las palabar similares.
                     int cont = 0;
 
                     //Asigamos los valores
@@ -774,15 +865,16 @@ namespace Model.ControlDocumentos
                     obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     obj.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
 
-                    //Se manda a llamar a la función para eliminar acentos
+                    //Se manda a llamar a la función para eliminar acentos de la versión iterada.
                     string descVersion = DeleteAccents(obj.version.descripcion_v);
 
-                    //Se obtiene un vector sin espacios, de la descripcion de la versión
+                    //Se obtiene un vector sin espacios, de la descripcion de la versión iterada.
                     string[] vec = descVersion.Split(' ');
 
-                    //Ejecutamos el método para eliminar palabras de menos de 3 caracteres
+                    //Ejecutamos el método para eliminar palabras con  menos de 3 caracteres de la descripción de la versión iterada.
                     vec = RemoveChacters(vec);
 
+                    //Si el vector resultante es mayor a cero.
                     if (vec.Length > 0)
                     {
                         //Recorremos el vector de la descripción que se va a dar de alta
@@ -794,7 +886,7 @@ namespace Model.ControlDocumentos
                                 //Comparamos si son iguales las palabras ignorando las mayúsculas
                                 if (aux[i].Equals(vec[k], StringComparison.InvariantCultureIgnoreCase) || Compara(aux[i], vec[k]))
                                 {
-                                    //Incrementamos el contador
+                                    //Incrementamos el contador, rompemos el ciclo.
                                     cont++;
                                     break;
                                 }
@@ -802,6 +894,7 @@ namespace Model.ControlDocumentos
                         }
 
                         int resta = 0;
+
                         //Si la descripcion que se va a dar de alta es mayor a la descripción de la versión iterada
                         if (aux.Length > vec.Length)
                         {
@@ -828,7 +921,7 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// Función que compara dos palabras
+        /// Función que compara dos palabras, para verificar si dos documentos son similares.
         /// </summary>
         /// <param name="w1"></param>
         /// <param name="w2"></param>
@@ -852,7 +945,6 @@ namespace Model.ControlDocumentos
                         contador++;
                         break;
                      }
-
                 }
             }
 
