@@ -892,6 +892,45 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
+        /// Método que verifica si una descripción se repite.
+        /// </summary>
+        /// <param name="id_tipo_doc"></param>
+        /// <param name="id_dep"></param>
+        /// <param name="id_doc"></param>
+        /// <param name="descripcion"></param>
+        /// <returns></returns>
+        public IList ValidateIgualDescripcion(int id_tipo_doc, int id_dep, int id_doc,string descripcion)
+        {
+            try
+            {
+                //Se inician los servicios de Entity Control Documento
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta para obtener los documentos liberados
+                    var Lista = (from d in Conexion.TBL_DOCUMENTO
+                                 join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                 where d.ID_DEPARTAMENTO == id_dep && d.ID_TIPO_DOCUMENTO == id_tipo_doc && v.ID_ESTATUS_VERSION == 1 && d.ID_ESTATUS_DOCUMENTO == 5 && d.ID_DOCUMENTO != id_doc && v.DESCRIPCION.Equals(descripcion)
+                                 select new
+                                 {
+                                     d.ID_DOCUMENTO,
+                                     d.NOMBRE,
+                                     v.DESCRIPCION,
+                                     v.ID_VERSION,
+                                     v.No_VERSION,
+                                     v.FECHA_VERSION
+                                 }).ToList();
+                    //retornamos la lista
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //si hay error retornamos nulo
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Método que obtiene los documentos de un usuario que el año de actualización sea mayor al período de actualizacion
         /// </summary>
         /// <param name="usuario"></param>

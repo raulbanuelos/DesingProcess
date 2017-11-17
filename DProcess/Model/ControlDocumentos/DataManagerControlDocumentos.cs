@@ -732,11 +732,11 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// Método que compara si hay documetnos con la misma descripción.
+        /// Método que valída si una descripción ya existe.
         /// </summary>
         /// <param name="doc"></param>
         /// <returns></returns>
-        public static ObservableCollection<Documento> ValidateDocumentosIguales(Documento doc)
+        public static ObservableCollection<Documento> ValidateDescripcionIgual(Documento doc)
         {
             //Se inicializa los servicios de documento
             SO_Documento ServiceDocumento = new SO_Documento();
@@ -744,14 +744,8 @@ namespace Model.ControlDocumentos
             //Se crea una lista de tipo documento, la cual se va a retornar
             ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
 
-            //Eliminamos los acentos de la descripción recibida.
-            string descripcion = DeleteAccents(doc.descripcion);
-
-            //obtenemos un vector sin espacios de la descripción del documento recibido.
-            string[] aux = descripcion.Split(' ');
-
             // obtenemos todo de la BD.
-            IList ObjDocumento = ServiceDocumento.ValidateDescripcion(doc.id_tipo_documento, doc.id_dep, doc.id_documento);
+            IList ObjDocumento = ServiceDocumento.ValidateIgualDescripcion(doc.id_tipo_documento, doc.id_dep, doc.id_documento, doc.descripcion);
 
             //Si la Lista de documetnos es diferente de nulo.
             if (ObjDocumento != null)
@@ -765,9 +759,6 @@ namespace Model.ControlDocumentos
                     //Declaramos el objeto 
                     Documento obj = new Documento();
 
-                    //Inicializamos el contador, para contar las palabras iguales.
-                    int cont = 0;
-
                     //Asigamos los valores
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
@@ -776,41 +767,8 @@ namespace Model.ControlDocumentos
                     obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     obj.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
 
-                    //Se manda a llamar a la función para eliminar acentos de la descripción de la versión iterada.
-                    string descVersion = DeleteAccents(obj.version.descripcion_v);
-
-                    //Se obtiene un vector sin espacios, de la descripcion de la versión iterada.
-                    string[] vec = descVersion.Split(' ');                  
-
-                    //Si el vector resultante es mayor a cero. 
-                    if (vec.Length > 0)
-                    {
-
-                            //Recorremos el vector de la descripción que se va a dar de alta
-                            for (int i = 0; i < aux.Length; i++)
-                            {
-                                //Recorremos el vector de la descripción de la versión que se obtuvo
-                                for (int k = 0; k < vec.Length; k++)
-                                {
-                                    //Comparamos si son iguales las palabras ignorando las mayúsculas
-                                    if (aux[i].Equals(vec[k], StringComparison.InvariantCultureIgnoreCase))
-                                    {
-                                        //Incrementamos el contador
-                                        cont++;
-                                        break;
-                                    }
-                                }
-                            }
-                            //calculamos el porcentaje de coincidencia
-                            int porcentaje = (cont * 100) / vec.Length;
-
-                            //si el porcentaje es 100% ya que la palabra es igual.
-                            if (porcentaje == 100 )
-                            {
-                                //Se agrega el objeto a la lista
-                                Lista.Add(obj);
-                            }
-                    }
+                    Lista.Add(obj);
+                 
                 }
             }
             //Retornamos la lista.
