@@ -537,12 +537,34 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
+        ///  
+        /// </summary>
+        public ICommand IrHistorialFiltrado
+        {
+            get
+            {
+                return new RelayCommand(o => irHistorialFiltrado());
+            }
+        }
+
+        /// <summary>
         /// Método que muestra la ventana de historial de los documentos
         /// </summary>
         private void irHistorial()
         {
             FrmHistorial frm = new FrmHistorial();
             HistorialVM context = new HistorialVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void irHistorialFiltrado()
+        {
+            FrmHistorial_Filtrado frm = new FrmHistorial_Filtrado();
+            HistorialFiltrado_VM context = new HistorialFiltrado_VM();
             frm.DataContext = context;
             frm.ShowDialog();
         }
