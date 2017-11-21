@@ -193,6 +193,7 @@
             <Grid DockPanel.Dock="Bottom">
 
             </Grid>
+            
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80*"></RowDefinition>
@@ -247,7 +248,7 @@
                     
                     <!--Flechas superiores-->
                     <Line X1="10" Y1="20" X2="50" Y2="20" Stroke="Blue" StrokeThickness="2" Width="50" Height="30" Canvas.Top="30" Canvas.Right="110"/>
-                    <Polygon Points="0,0 8,5, 0,10" Stroke="Blue" StrokeThickness="2" Height="14" Width="11" Canvas.Right="100"  Canvas.Top="45"></Polygon>
+                    <Polygon Points="0,0  8,5, 0,10" Stroke="Blue" StrokeThickness="2" Height="14" Width="11" Canvas.Right="100"  Canvas.Top="45"></Polygon>
                     <Line X1="10" Y1="20" X2="50" Y2="20" Stroke="Blue" StrokeThickness="2" Width="50" Height="30" Canvas.Top="30" Canvas.Right="0"/>
                     <Polygon Points="8,0 0,5, 8,10" Stroke="Blue" StrokeThickness="2" Height="20" Width="15" Canvas.Right="35" Canvas.Top="45"></Polygon>
                     <!--Circulo-->
@@ -323,7 +324,6 @@
                             </Grid>
                         </GroupBox>
                     </Grid>
-
                 </StackPanel>
             </Grid>
         </DockPanel>

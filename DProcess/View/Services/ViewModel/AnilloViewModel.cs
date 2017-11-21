@@ -860,12 +860,19 @@ namespace View.Services.ViewModel
             ModelAnillo.MaterialBase = new MateriaPrima {Especificacion = especificacion};
             ModelAnillo.FreeGap = new Propiedad { DescripcionCorta = "Free Gap", DescripcionLarga = "Free Gap", Imagen = null, Nombre = "Total Free Gap Max", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.400 };
 
-            ModelAnillo.PerfilID.Propiedades.Add(new Propiedad { DescripcionCorta = "Thickness", DescripcionLarga = "Thickness", Imagen = null, Nombre = "a1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.196 });
-            ModelAnillo.PerfilID.Propiedades.Add(new Propiedad { DescripcionCorta = "Thickness Min", DescripcionLarga = "Thickness Min", Imagen = null, Nombre = "a1 Tol Min", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.005 });
-            ModelAnillo.PerfilID.Propiedades.Add(new Propiedad { DescripcionCorta = "Thickness Max", DescripcionLarga = "Thickness Max", Imagen = null, Nombre = "a1 Tol Max", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.005 });
+            Propiedad Thickness = new Propiedad { DescripcionCorta = "Thickness", DescripcionLarga = "Thickness", Imagen = null, Nombre = "a1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.196 };
+            Propiedad ThicknessMin = new Propiedad { DescripcionCorta = "Thickness Min", DescripcionLarga = "Thickness Min", Imagen = null, Nombre = "a1 Tol Min", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.005 };
+            Propiedad ThicknessMax = new Propiedad { DescripcionCorta = "Thickness Max", DescripcionLarga = "Thickness Max", Imagen = null, Nombre = "a1 Tol Max", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.005 };
 
-            ModelAnillo.PerfilLateral.Propiedades.Add(new Propiedad { DescripcionCorta = "h1", DescripcionLarga = "Width", Imagen = null, Nombre = "h1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.0775 });
-            ModelAnillo.PerfilLateral.Propiedades.Add(new Propiedad { DescripcionCorta = "h1 Tol", DescripcionLarga = "Width", Imagen = null, Nombre = "h1 Tol", TipoDato = "Distance", Unidad = "Inch (in)", Valor = .0005 });
+            ModelAnillo.PerfilID.Propiedades.Add(Thickness);
+            ModelAnillo.PerfilID.Propiedades.Add(ThicknessMin);
+            ModelAnillo.PerfilID.Propiedades.Add(ThicknessMax);
+
+            Propiedad h1 = new Propiedad { DescripcionCorta = "h1", DescripcionLarga = "Width", Imagen = null, Nombre = "h1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.0775 };
+            Propiedad h1Tol = new Propiedad { DescripcionCorta = "h1 Tol", DescripcionLarga = "Width", Imagen = null, Nombre = "h1 Tol", TipoDato = "Distance", Unidad = "Inch (in)", Valor = .0005 };
+
+            ModelAnillo.PerfilLateral.Propiedades.Add(h1);
+            ModelAnillo.PerfilLateral.Propiedades.Add(h1Tol);
 
             ModelAnillo.PerfilOD.PropiedadesCadena.Add(new PropiedadCadena { DescripcionCorta = "Proceso",DescripcionLarga = "Proceso", Imagen = null, Nombre = "Proceso", Valor = "Doble"});
             ModelAnillo.PerfilOD.Propiedades.Add(new Propiedad { DescripcionCorta = "CLOSING STRESS", DescripcionLarga = "CLOSING STRESS", Imagen = null, Nombre = "CLOSING STRESS", Valor = 33400});
@@ -911,17 +918,34 @@ namespace View.Services.ViewModel
                             WPattern pattern = new WPattern();
 
                             Pattern nuevaPlaca = new Pattern();
-
-                            nuevaPlaca.ring_w_max = H1;
-
-                            nuevaPlaca.diametro = H1;
-
+                            nuevaPlaca.medida = D1;
+                            //Falta el width
                             nuevaPlaca.customer = cliente;
 
+                            //Begin - Solo para el ejemplo, despues tendremos que cambiar dependiendo si en el plano vienen las tolerancias o los valores mínimos y máximos.
+                            ThicknessMin.Valor = Thickness.Valor - ThicknessMin.Valor;
+                            ThicknessMax.Valor = Thickness.Valor + ThicknessMax.Valor;
+                            //--End
+
+                            nuevaPlaca.ring_th_max = ThicknessMax;
+                            nuevaPlaca.ring_th_min = ThicknessMin;
+
+                            //Begin
+                            double widthMin1 = Module.GetValorPropiedadMin("h1", ModelAnillo.PerfilLateral.Propiedades, true);
+                            double widthMax1 = Module.GetValorPropiedadMax("h1", ModelAnillo.PerfilLateral.Propiedades, true);
+
+                            Propiedad WidthMin = new Propiedad { Valor = widthMin1, DescripcionCorta = "WidthMin", DescripcionLarga = "WidthMin", Imagen = null, Nombre = "WidthMin", TipoDato = "Distance", Unidad = "Inch (in)" };
+                            Propiedad WidthMax = new Propiedad { Valor = widthMax1, DescripcionCorta = "WidthMax", DescripcionLarga = "WidthMax", Imagen = null, Nombre = "WidthMax", TipoDato = "Distance", Unidad = "Inch (in)" };
+                            //End
+
+                            nuevaPlaca.ring_w_max = WidthMax;
+                            nuevaPlaca.ring_w_min = WidthMin;
+                            
 
                             PatternViewModel vm = new PatternViewModel(nuevaPlaca);
                             pattern.DataContext = vm;
                             pattern.Show();
+
                             break;
                         case MessageDialogResult.FirstAuxiliary:
                             break;
