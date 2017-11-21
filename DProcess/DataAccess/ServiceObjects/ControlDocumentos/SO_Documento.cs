@@ -1006,5 +1006,123 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fecha_inicio"></param>
+        /// <param name="fecha_fin"></param>
+        /// <param name="descripcion"></param>
+        /// <param name="id_departamento"></param>
+        /// <param name="id_tipo"></param>
+        /// <returns></returns>
+        public IList GetHistorial_Documentos(DateTime fecha_inicio, DateTime fecha_fin, string descripcion, int id_departamento, int id_tipo)
+        {
+            try
+            {
+                using (var Conexion= new EntitiesControlDocumentos())
+                {
+
+                    if (id_departamento == 0)
+                    {
+                        var Lista = (from h in Conexion.TBL_HISTORIAL_VERSION
+                                     join d in Conexion.TBL_DOCUMENTO on h.NOMBRE_DOCUMENTO equals d.NOMBRE
+                                     join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
+                                     join dep in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals dep.ID_DEPARTAMENTO
+                                     where h.FECHA > fecha_inicio && h.FECHA < fecha_fin && h.DESCRIPCION.Contains(descripcion)
+                                     select new
+                                     {
+                                         d.NOMBRE,
+                                         h.NO_VERSION,
+                                         t.TIPO_DOCUMENTO,
+                                         dep.NOMBRE_DEPARTAMENTO,
+                                         FechaHistorial = h.FECHA,
+                                         h.DESCRIPCION
+                                     }).OrderBy(x => x.FechaHistorial).ToList();
+
+                        return Lista;
+                    }
+                    else
+                    {
+                        var Lista = (from h in Conexion.TBL_HISTORIAL_VERSION
+                                     join d in Conexion.TBL_DOCUMENTO on h.NOMBRE_DOCUMENTO equals d.NOMBRE
+                                     join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
+                                     join dep in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals dep.ID_DEPARTAMENTO
+                                     where h.FECHA > fecha_inicio && h.FECHA < fecha_fin && h.DESCRIPCION.Contains(descripcion) && dep.ID_DEPARTAMENTO == id_departamento
+                                     select new
+                                     {
+                                         d.NOMBRE,
+                                         h.NO_VERSION,
+                                         t.TIPO_DOCUMENTO,
+                                         dep.NOMBRE_DEPARTAMENTO,
+                                         FechaHistorial = h.FECHA,
+                                         h.DESCRIPCION
+                                     }).OrderBy(x => x.FechaHistorial).ToList();
+
+                        return Lista;
+                    }
+                }
+            }
+            catch (Exception er)
+            {
+
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fecha_inicio"></param>
+        /// <param name="fecha_fin"></param>
+        /// <param name="descripcion"></param>
+        /// <param name="id_departamento"></param>
+        /// <param name="id_tipo"></param>
+        /// <returns></returns>
+        public IList GetCountHistorial(DateTime fecha_inicio, DateTime fecha_fin, string descripcion, int id_departamento, int id_tipo)
+        {
+            try
+            {
+                using (var Conexion= new EntitiesControlDocumentos())
+                {
+                    if (id_departamento == 0)
+                    {
+                        var Lista = (from h in Conexion.TBL_HISTORIAL_VERSION
+                                     join d in Conexion.TBL_DOCUMENTO on h.NOMBRE_DOCUMENTO equals d.NOMBRE
+                                     join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
+                                     join dep in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals dep.ID_DEPARTAMENTO
+                                     where h.FECHA > fecha_inicio && h.FECHA < fecha_fin && h.DESCRIPCION.Contains(descripcion)
+                                     select new
+                                     {
+
+                                         FechaHistorial = h.FECHA,
+                                         Cantidad = h.NOMBRE_DOCUMENTO.Count()
+                                     }).ToList();
+
+                        return Lista;
+                    }
+                    else
+                    {
+                        var Lista = (from h in Conexion.TBL_HISTORIAL_VERSION
+                                     join d in Conexion.TBL_DOCUMENTO on h.NOMBRE_DOCUMENTO equals d.NOMBRE
+                                     join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
+                                     join dep in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals dep.ID_DEPARTAMENTO
+                                     where h.FECHA > fecha_inicio && h.FECHA < fecha_fin && h.DESCRIPCION.Contains(descripcion) && dep.ID_DEPARTAMENTO == id_departamento
+                                     select new
+                                     {
+                                         FechaHistorial = h.FECHA,
+                                         Cantidad = h.NOMBRE_DOCUMENTO.Count()
+                                     }).ToList();
+
+                        return Lista;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
     }
 }

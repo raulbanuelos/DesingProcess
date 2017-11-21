@@ -71,6 +71,11 @@
             </Button>
 
             <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
+            <Button ToolTip="Historial" Command="{Binding IrHistorialFiltrado}" Cursor="Hand">
+                <materialDesign:PackIcon Kind="FilterVariant" />
+            </Button>
+            
+            <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
             <Button ToolTip="Ver Documentos Eliminados" Command="{Binding irDocEliminado}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="DeleteVariant"/>
             </Button>

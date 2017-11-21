@@ -1,0 +1,64 @@
+﻿<Controls:MetroWindow x:Class="View.Forms.ControlDocumentos.FrmHistorial_Filtrado"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
+        mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
+        Title="FrmHistorial" Height="700" Width="1150" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="65"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+            <DatePicker materialDesign:HintAssist.Hint="Fecha Inicio" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40" Width="150"  BorderBrush="#89535353" FontSize="18" Margin="10,10,0,0"
+                          SelectedDate="{Binding FechaInicio, UpdateSourceTrigger=PropertyChanged}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectedDateChanged">
+                        <i:InvokeCommandAction
+									Command="{Binding CambiarFecha}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </DatePicker>
+            <DatePicker materialDesign:HintAssist.Hint="Fecha Final" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  BorderBrush="#89535353" FontSize="18" Width="150" Margin="20,10,0,0"
+                        DisplayDateStart="{Binding Path=FechaInicio, Mode=OneWay, NotifyOnSourceUpdated=True}" SelectedDate="{Binding FechaFin, UpdateSourceTrigger=PropertyChanged}"/>
+            <ComboBox Name="combo1" materialDesign:HintAssist.Hint="Estado" FontSize="18" Height="50" Width="200" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaEstatus}"  SelectedItem="{Binding SelectedEstatus}" Margin="20,0,0,0">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction
+									Command="{Binding FiltrarEstatus}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox Name="combo2" materialDesign:HintAssist.Hint="Tipo de documento" FontSize="18" Height="50" Width="250" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento" SelectedItem="{Binding SelectedTipo}"  Margin="10,0,0,0" />
+            <ComboBox Name="combo3" materialDesign:HintAssist.Hint="Departamento" FontSize="18" Height="50" Width="250" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaDepartamento}"  DisplayMemberPath="nombre_dep" SelectedItem="{Binding SelectedDepartamento}"  Margin="20,0,0,0" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+           
+        </StackPanel>
+
+        <DataGrid   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,20,0,0" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding ListaHistorial}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedVersion,Mode=TwoWay}" Width="600" Grid.Column="1" Grid.Row="3">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nombre de Documento" Binding="{Binding nombre}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Versión" Binding="{Binding version.no_version}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Tipo " Binding="{Binding tipo.tipo_documento}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Departamento " Binding="{Binding tipo.Departamento}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Fecha " Binding="{Binding fecha_actualizacion}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Estado " Binding="{Binding descripcion}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        
+        </DataGrid>
+    </Grid>
+</Controls:MetroWindow>

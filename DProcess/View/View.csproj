@@ -177,6 +177,9 @@
     <Compile Include="Forms\ControlDocumentos\FrmHistorial.xaml.cs">
       <DependentUpon>FrmHistorial.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmHistorial_Filtrado.xaml.cs">
+      <DependentUpon>FrmHistorial_Filtrado.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmNuevoTipo.xaml.cs">
       <DependentUpon>FrmNuevoTipo.xaml</DependentUpon>
     </Compile>
@@ -462,6 +465,7 @@
     <Compile Include="Services\ViewModel\GuidePlateBK_VM.cs" />
     <Compile Include="Services\ViewModel\GuillotinaBK_VM.cs" />
     <Compile Include="Services\ViewModel\GuillotinaSimVM.cs" />
+    <Compile Include="Services\ViewModel\HistorialFiltrado_VM.cs" />
     <Compile Include="Services\ViewModel\HistorialVM.cs" />
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
     <Compile Include="Services\ViewModel\NuevoDepartamentoVM.cs" />
@@ -566,6 +570,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmHistorial.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmHistorial_Filtrado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
