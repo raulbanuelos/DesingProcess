@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace View.Services.ViewModel
 {
-    class HistorialFiltrado_VM: INotifyPropertyChanged
+    class HistorialFiltrado_VM : INotifyPropertyChanged
     {
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -114,6 +114,21 @@ namespace View.Services.ViewModel
             get { return _SelectedDepartamento; }
             set { _SelectedDepartamento = value; NotifyChange("SelectedDepartamento"); }
         }
+
+        private int id_tipo;
+        public int ID_Tipo {
+            get { return id_tipo; }
+            set { id_tipo = value; NotifyChange("ID_Tipo"); }
+        }
+
+        private int id_dep;
+        public int ID_dep
+        {
+            get { return id_dep; }
+            set { id_dep = value; NotifyChange("ID_dep"); }
+        }
+
+        DialogService dialog;
         #endregion
 
         #region Commands
@@ -148,22 +163,40 @@ namespace View.Services.ViewModel
             FechaFin = FechaInicio;
         }
 
-        private void filtrar()
+        private async void filtrar()
         {
-            if (ValidaCampos())
+            if (SelectedEstatus != null)
             {
-               
-                ListaHistorial = DataManagerControlDocumentos.GetHistorialDocumentos(FechaInicio,FechaFin,SelectedEstatus,0,0);
+                if (ValidaCampos())
+                {                 
+
+                    ListaHistorial = DataManagerControlDocumentos.GetHistorialDocumentos(FechaInicio, FechaFin, SelectedEstatus, id_dep, id_tipo);
+                    ObservableCollection<HistorialVersion> ListaCount=DataManagerControlDocumentos.GetCountDocumentos(FechaInicio, FechaFin, SelectedEstatus, id_dep, id_tipo);
+                }
+                else
+                {
+                    await dialog.SendMessage("Alerta", "Se debe seleccionar el estatus");
+                }
             }
         }
 
         private void InicializaCampos()
         {
+            Departamento dep = new Departamento();
+            TipoDocumento tipo = new TipoDocumento();
+            dep.id_dep = 0;
+            dep.nombre_dep = "NINGUNO";
+            tipo.id_tipo = 0;
+            tipo.tipo_documento = "NINGUNO";
+           
+                
             ListaDepartamento = DataManagerControlDocumentos.GetDepartamento();
+            ListaDepartamento.Add(dep);
+
             ListaTipo = DataManagerControlDocumentos.GetTipo();
+            ListaTipo.Add(tipo);
             ListaEstatus = new ObservableCollection<string>();
             ListaEstatus.Add("LIBERADO");           
-            ListaEstatus.Add("APROBADO");
             ListaEstatus.Add("OBSOLETO");
             ListaEstatus.Add("PENDIENTE POR CORREGIR");
             ListaEstatus.Add("PENDIENTE POR LIBERAR");
@@ -184,7 +217,10 @@ namespace View.Services.ViewModel
 
         public HistorialFiltrado_VM()
         {
+            ListaDepartamento = new ObservableCollection<Departamento>();
+            ListaTipo = new ObservableCollection<TipoDocumento>();
             InicializaCampos();
+            dialog = new DialogService();
         }
         #endregion
     }

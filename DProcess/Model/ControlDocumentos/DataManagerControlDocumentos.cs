@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -1095,13 +1096,57 @@ namespace Model.ControlDocumentos
                     obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FechaHistorial").GetValue(item, null);
                     obj.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
                  
-                    //Regresamos la lista
+                    //Agregamos el objeto a la lista.
                     Lista.Add(obj);
                 }
             }
+            //Retornamos la lista.
             return Lista;
-
         }
+
+        /// <summary>
+        /// Método que obtiene la fecha y cantidad de docuementos dependiendo del parámetro.
+        /// </summary>
+        /// <param name="fecha_inicio"></param>
+        /// <param name="fecha_fin"></param>
+        /// <param name="estado"></param>
+        /// <param name="id_dep"></param>
+        /// <param name="id_tipo"></param>
+        /// <returns></returns>
+        public static ObservableCollection<HistorialVersion> GetCountDocumentos(DateTime fecha_inicio, DateTime fecha_fin, string estado, int id_dep, int id_tipo)
+        {
+            //Se inicializa los servicios de documento
+            SO_Documento ServiceDocumento = new SO_Documento();
+
+            //Se crea una lista de tipo documento, la cual se va a retornar
+            ObservableCollection<HistorialVersion> Lista = new ObservableCollection<HistorialVersion>();
+
+            //Obtenemos la propiedad de Cam_Detail.
+            DataSet InformacionBD = ServiceDocumento.GetCountHistorial(fecha_inicio, fecha_fin, estado, id_dep, id_tipo);
+
+            //Verificamos que el objeto recibido sea distinto de vacío.
+            if (InformacionBD != null)
+            {
+                //Si la lista tiene información.
+                if (InformacionBD.Tables.Count > 0 && InformacionBD.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow element in InformacionBD.Tables[0].Rows)
+                    {
+                        HistorialVersion obj = new HistorialVersion();
+
+                         obj.fecha = Convert.ToDateTime(element["FECHA"].ToString());
+                         obj.cantidad = Int32.Parse(element["CANTIDAD_LIBERADOS"].ToString());
+
+                        Lista.Add(obj);
+                    }
+                }
+
+            }
+                //Retornamos la lista.
+                return Lista;
+        }
+
+
         #endregion
 
         #region Rol

@@ -15,6 +15,7 @@ namespace Model.ControlDocumentos
         public DateTime fecha { get; set; }
         public string descripcion { get; set; }
         public string  Nombre_usuario { get; set; }
+        public int cantidad { get; set; }
         #endregion
     }
 }

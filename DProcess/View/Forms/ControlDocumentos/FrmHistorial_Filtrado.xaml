@@ -5,60 +5,119 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"       
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
+     
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
         Title="FrmHistorial" Height="700" Width="1150" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Controls:MetroWindow.Resources>
+        <Style x:Key="TabHeader" TargetType="Label">
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+    </Controls:MetroWindow.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="65"></RowDefinition>
-            <RowDefinition Height="5"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="20"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="20"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
-            <DatePicker materialDesign:HintAssist.Hint="Fecha Inicio" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40" Width="150"  BorderBrush="#89535353" FontSize="18" Margin="10,10,0,0"
+        <TabControl>
+            <TabItem>
+                <TabItem.Header>
+                    <Label Content="Tabla" Style="{StaticResource TabHeader}"></Label>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="65"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="27"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+                            <DatePicker materialDesign:HintAssist.Hint="Fecha Inicio" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40" Width="150"  BorderBrush="#89535353" FontSize="18" Margin="10,10,0,0"
                           SelectedDate="{Binding FechaInicio, UpdateSourceTrigger=PropertyChanged}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectedDateChanged">
-                        <i:InvokeCommandAction
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectedDateChanged">
+                                        <i:InvokeCommandAction
 									Command="{Binding CambiarFecha}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </DatePicker>
-            <DatePicker materialDesign:HintAssist.Hint="Fecha Final" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  BorderBrush="#89535353" FontSize="18" Width="150" Margin="20,10,0,0"
-                        DisplayDateStart="{Binding Path=FechaInicio, Mode=OneWay, NotifyOnSourceUpdated=True}" SelectedDate="{Binding FechaFin, UpdateSourceTrigger=PropertyChanged}"/>
-            <ComboBox Name="combo1" materialDesign:HintAssist.Hint="Estado" FontSize="18" Height="50" Width="200" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaEstatus}"  SelectedItem="{Binding SelectedEstatus}" Margin="20,0,0,0">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DatePicker>
+                            <DatePicker materialDesign:HintAssist.Hint="Fecha Final" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  BorderBrush="#89535353" FontSize="18" Width="150" Margin="20,10,0,0"
+                        DisplayDateStart="{Binding Path=FechaInicio, Mode=OneWay, NotifyOnSourceUpdated=True}" SelectedDate="{Binding FechaFin, UpdateSourceTrigger=PropertyChanged}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectedDateChanged">
+                                        <i:InvokeCommandAction
 									Command="{Binding FiltrarEstatus}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </ComboBox>
-            <ComboBox Name="combo2" materialDesign:HintAssist.Hint="Tipo de documento" FontSize="18" Height="50" Width="250" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento" SelectedItem="{Binding SelectedTipo}"  Margin="10,0,0,0" />
-            <ComboBox Name="combo3" materialDesign:HintAssist.Hint="Departamento" FontSize="18" Height="50" Width="250" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaDepartamento}"  DisplayMemberPath="nombre_dep" SelectedItem="{Binding SelectedDepartamento}"  Margin="20,0,0,0" />
-        </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
-           
-        </StackPanel>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
 
-        <DataGrid   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,20,0,0" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding ListaHistorial}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedVersion,Mode=TwoWay}" Width="600" Grid.Column="1" Grid.Row="3">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Nombre de Documento" Binding="{Binding nombre}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Versión" Binding="{Binding version.no_version}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Tipo " Binding="{Binding tipo.tipo_documento}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Departamento " Binding="{Binding tipo.Departamento}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Fecha " Binding="{Binding fecha_actualizacion}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Estado " Binding="{Binding descripcion}"></DataGridTextColumn>
-            </DataGrid.Columns>
+                            </DatePicker>
+                            <ComboBox Name="combo1" materialDesign:HintAssist.Hint="Estado" FontSize="18" Height="50" Width="200" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaEstatus}"  SelectedItem="{Binding SelectedEstatus}" Margin="20,0,0,0">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction
+									Command="{Binding FiltrarEstatus}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                            <ComboBox Name="combo2" materialDesign:HintAssist.Hint="Tipo de documento" FontSize="18" Height="50" Width="250" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento" SelectedItem="{Binding SelectedTipo}"  SelectedValuePath="id_tipo" SelectedValue="{Binding ID_Tipo}"  Margin="10,0,0,0" >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction
+									Command="{Binding FiltrarEstatus}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                            <ComboBox Name="combo3" materialDesign:HintAssist.Hint="Departamento" FontSize="18" Height="50" Width="250" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaDepartamento}"  DisplayMemberPath="nombre_dep" SelectedItem="{Binding SelectedDepartamento}" SelectedValuePath="id_dep" SelectedValue="{Binding ID_dep}"  Margin="20,0,0,0" >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction
+									Command="{Binding FiltrarEstatus}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+
+                        </StackPanel>
+
+                        <DataGrid   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,20,0,0" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding ListaHistorial}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedVersion,Mode=TwoWay}" Width="1085" Grid.Column="1" Grid.Row="3">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nombre de Documento" Binding="{Binding nombre}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Versión" Binding="{Binding version.no_version}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Tipo " Binding="{Binding tipo.tipo_documento}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Departamento " Binding="{Binding Departamento}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Fecha " Binding="{Binding fecha_actualizacion, StringFormat={}{0:yyyy-MM-dd}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Estado " Binding="{Binding descripcion}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+
+                        <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal">
+                            <Label Content="Total:" FontSize="14" Width="46"></Label>
+                            <Label Content="{Binding ListaHistorial.Count}"></Label>
+                        </StackPanel>
+                    </Grid>
+
+                </TabItem.Content>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <Label Content="Gráfica" Style="{StaticResource TabHeader}"></Label>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <Grid>
+                        
+
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
         
-        </DataGrid>
     </Grid>
+    
 </Controls:MetroWindow>
