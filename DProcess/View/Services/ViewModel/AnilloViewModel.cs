@@ -846,8 +846,8 @@ namespace View.Services.ViewModel
 
             //Comenzamos a simular el anillo
 
-            ModelAnillo.D1 = new Propiedad { DescripcionCorta = "D1", DescripcionLarga = "Diámetro nominal", Imagen = null, Nombre = "D1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 4.32 };
-            ModelAnillo.H1 = new Propiedad { DescripcionCorta = "H1", DescripcionLarga = "Width nominal", Imagen = null, Nombre = "H1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.0780 };
+            D1 = new Propiedad { DescripcionCorta = "D1", DescripcionLarga = "Diámetro nominal", Imagen = null, Nombre = "D1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 4.32 };
+            H1 = new Propiedad { DescripcionCorta = "H1", DescripcionLarga = "Width nominal", Imagen = null, Nombre = "H1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.0780 };
 
             Codigo = "RBT10-004";
 
@@ -858,34 +858,37 @@ namespace View.Services.ViewModel
             especificacion.Nombre = "Material MAHLE";
             especificacion.Valor = "SPR-128";
 
-            ModelAnillo.MaterialBase = new MateriaPrima {Especificacion = especificacion};
-            ModelAnillo.FreeGap = new Propiedad { DescripcionCorta = "Free Gap", DescripcionLarga = "Free Gap", Imagen = null, Nombre = "Total Free Gap Max", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.400 };
+            MaterialBase = new MateriaPrima {Especificacion = especificacion};
+            FreeGap = new Propiedad { DescripcionCorta = "Free Gap", DescripcionLarga = "Free Gap", Imagen = null, Nombre = "Total Free Gap Max", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.400 };
 
             Propiedad Thickness = new Propiedad { DescripcionCorta = "Thickness", DescripcionLarga = "Thickness", Imagen = null, Nombre = "a1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.196 };
             Propiedad ThicknessMin = new Propiedad { DescripcionCorta = "Thickness Min", DescripcionLarga = "Thickness Min", Imagen = null, Nombre = "a1 Tol Min", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.005 };
             Propiedad ThicknessMax = new Propiedad { DescripcionCorta = "Thickness Max", DescripcionLarga = "Thickness Max", Imagen = null, Nombre = "a1 Tol Max", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.005 };
 
-            ModelAnillo.PerfilID.Propiedades.Add(Thickness);
-            ModelAnillo.PerfilID.Propiedades.Add(ThicknessMin);
-            ModelAnillo.PerfilID.Propiedades.Add(ThicknessMax);
+            PerfilID.Propiedades.Add(Thickness);
+            PerfilID.Propiedades.Add(ThicknessMin);
+            PerfilID.Propiedades.Add(ThicknessMax);
 
             Propiedad h1 = new Propiedad { DescripcionCorta = "h1", DescripcionLarga = "Width", Imagen = null, Nombre = "h1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.0775 };
             Propiedad h1Tol = new Propiedad { DescripcionCorta = "h1 Tol", DescripcionLarga = "Width", Imagen = null, Nombre = "h1 Tol", TipoDato = "Distance", Unidad = "Inch (in)", Valor = .0005 };
 
-            ModelAnillo.PerfilLateral.Propiedades.Add(h1);
-            ModelAnillo.PerfilLateral.Propiedades.Add(h1Tol);
+            PerfilLateral.Propiedades.Add(h1);
+            PerfilLateral.Propiedades.Add(h1Tol);
 
-            ModelAnillo.PerfilOD.PropiedadesCadena.Add(new PropiedadCadena { DescripcionCorta = "Proceso",DescripcionLarga = "Proceso", Imagen = null, Nombre = "Proceso", Valor = "Doble"});
-            ModelAnillo.PerfilOD.Propiedades.Add(new Propiedad { DescripcionCorta = "CLOSING STRESS", DescripcionLarga = "CLOSING STRESS", Imagen = null, Nombre = "CLOSING STRESS", Valor = 33400});
-            ModelAnillo.PerfilOD.PropiedadesCadena.Add(new PropiedadCadena { DescripcionCorta = "RingShape", DescripcionLarga = "RingShape", Imagen = null, Nombre = "RingShape", Valor = "#3" });
+            PerfilOD.PropiedadesCadena.Add(new PropiedadCadena { DescripcionCorta = "Proceso",DescripcionLarga = "Proceso", Imagen = null, Nombre = "Proceso", Valor = "Doble"});
+            PerfilOD.Propiedades.Add(new Propiedad { DescripcionCorta = "CLOSING STRESS", DescripcionLarga = "CLOSING STRESS", Imagen = null, Nombre = "CLOSING STRESS", Valor = 33400});
+            PerfilOD.PropiedadesCadena.Add(new PropiedadCadena { DescripcionCorta = "RingShape", DescripcionLarga = "RingShape", Imagen = null, Nombre = "RingShape", Valor = "#3" });
 
-            ModelAnillo.PerfilPuntas.Propiedades.Add(new Propiedad { DescripcionCorta = "GapMin", DescripcionLarga = "Gap Min", Imagen = null, Nombre = "GapMin", Valor = 0.011 });
-            ModelAnillo.PerfilPuntas.Propiedades.Add(new Propiedad { DescripcionCorta = "GapMax", DescripcionLarga = "Gap Max", Imagen = null, Nombre = "GapMax", Valor = 0.021 });
+            PerfilPuntas.Propiedades.Add(new Propiedad { DescripcionCorta = "GapMin", DescripcionLarga = "Gap Min", Imagen = null, Nombre = "GapMin", Valor = 0.011 });
+            PerfilPuntas.Propiedades.Add(new Propiedad { DescripcionCorta = "GapMax", DescripcionLarga = "Gap Max", Imagen = null, Nombre = "GapMax", Valor = 0.021 });
 
 
-            ModelAnillo.MaterialBase.Especificacion = new PropiedadCadena { DescripcionCorta = "MATERIAL:", DescripcionLarga = "MATERIAL BASE DEL ANILLO", Imagen = null, Nombre = "Material MAHLE", Valor = "SPR-128" };
+            MaterialBase.Especificacion = new PropiedadCadena { DescripcionCorta = "MATERIAL:", DescripcionLarga = "MATERIAL BASE DEL ANILLO", Imagen = null, Nombre = "Material MAHLE", Valor = "SPR-128" };
+            HardnessMax = new Propiedad { DescripcionCorta = "Hardness Max", DescripcionLarga = "Hardness Max", Imagen = null, Nombre = "HardnessMax", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Dureza), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDureza.RB), Valor = 106 };
+            HardnessMin = new Propiedad { DescripcionCorta = "Hardness Min", DescripcionLarga = "Hardness Min", Imagen = null, Nombre = "HardnessMin", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Dureza), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDureza.RB), Valor = 95 };
 
-            ModelAnillo.TipoAnillo = "RBT10";
+
+            TipoAnillo = "RBT10";
 
             cliente = new Cliente { NombreCliente = "MAHLE", IdCliente = 12 };
 
@@ -900,9 +903,10 @@ namespace View.Services.ViewModel
 
                 //Ingresar calculo de placa modelo.
                 calcularMateriaPrima = new CalculaMateriaPrima(ModelAnillo);
-                ModelAnillo.MaterialBase = calcularMateriaPrima.CalcularPlacaModelo();
-               
-                if (ModelAnillo.MaterialBase.Codigo.Equals("CODIFICAR"))
+                MaterialBase = calcularMateriaPrima.CalcularPlacaModelo();
+
+
+                if (MaterialBase.Codigo.Equals("CODIFICAR"))
                 {
                     MetroDialogSettings setting = new MetroDialogSettings();
                     setting.AffirmativeButtonText = "SI";
@@ -932,8 +936,8 @@ namespace View.Services.ViewModel
                             nuevaPlaca.ring_th_min = ThicknessMin;
 
                             //Begin
-                            double widthMin1 = Module.GetValorPropiedadMin("h1", ModelAnillo.PerfilLateral.Propiedades, true);
-                            double widthMax1 = Module.GetValorPropiedadMax("h1", ModelAnillo.PerfilLateral.Propiedades, true);
+                            double widthMin1 = Module.GetValorPropiedadMin("h1", PerfilLateral.Propiedades, true);
+                            double widthMax1 = Module.GetValorPropiedadMax("h1", PerfilLateral.Propiedades, true);
 
                             Propiedad WidthMin = new Propiedad { Valor = widthMin1, DescripcionCorta = "WidthMin", DescripcionLarga = "WidthMin", Imagen = null, Nombre = "WidthMin", TipoDato = "Distance", Unidad = "Inch (in)" };
                             Propiedad WidthMax = new Propiedad { Valor = widthMax1, DescripcionCorta = "WidthMax", DescripcionLarga = "WidthMax", Imagen = null, Nombre = "WidthMax", TipoDato = "Distance", Unidad = "Inch (in)" };
@@ -947,9 +951,14 @@ namespace View.Services.ViewModel
 
                             //Falta agregar material
                             //nuevaPlaca.Material
-                            nuevaPlaca.Hardness = new PropiedadCadena { DescripcionCorta = "Hardness", DescripcionLarga = "Hardness", Imagen = null, Nombre = "Hardness", Valor = "RB" };
-                            nuevaPlaca.HardnessMin = new Propiedad { DescripcionCorta = "Hardness Min", DescripcionLarga = "Hardness Min", Imagen = null, Nombre = "HardnessMin", TipoDato = DataManager.TipoDato.Cantidad.ToString(), Unidad = "", Valor = 100 };
-                            nuevaPlaca.HardnessMax = new Propiedad { DescripcionCorta = "Hardness Max", DescripcionLarga = "Hardness Max", Imagen = null, Nombre = "HardnessMax", TipoDato = "Unidades", Unidad = "", Valor = 100 };
+
+                            
+                            nuevaPlaca.Hardness = new PropiedadCadena { DescripcionCorta = "Hardness", DescripcionLarga = "Hardness", Imagen = null, Nombre = "Hardness", Valor = EnumEx.GetEnumDescription(DataManager.UnidadDureza.RB) };
+                            nuevaPlaca.HardnessMin = HardnessMin;
+                            nuevaPlaca.HardnessMax = HardnessMax;
+
+                            nuevaPlaca.turn_allow = new Propiedad { DescripcionCorta = "", DescripcionLarga = "", Imagen = null, Nombre = "", TipoDato = "", Unidad = "", Valor = calcularMateriaPrima.TS };
+                            nuevaPlaca.bore_allow = new Propiedad { DescripcionCorta = "", DescripcionLarga = "", Imagen = null, Nombre = "", TipoDato = "", Unidad = "", Valor = calcularMateriaPrima.BS };
 
                             PatternViewModel vm = new PatternViewModel(nuevaPlaca);
                             pattern.DataContext = vm;
@@ -970,8 +979,8 @@ namespace View.Services.ViewModel
             //Empieza cálculo de width
             int i = Operaciones.Count - 1;
             int c = 0;
-            double widthMin = Module.GetValorPropiedadMin("h1", ModelAnillo.PerfilLateral.Propiedades,true);
-            double widthMax = Module.GetValorPropiedadMax("h1", ModelAnillo.PerfilLateral.Propiedades,true);
+            double widthMin = Module.GetValorPropiedadMin("h1", PerfilLateral.Propiedades,true);
+            double widthMax = Module.GetValorPropiedadMax("h1", PerfilLateral.Propiedades,true);
             double widthFinal = (widthMin + widthMax) / 2;
 
             SubjectWidth subjectWidth = new SubjectWidth();
@@ -1136,7 +1145,12 @@ namespace View.Services.ViewModel
                     ModelAnillo = new Anillo();
 
                     //Establecemos a todas las propiedades del modelo anillo los valores por default.
-                    SetUnidadesDefault("Distance", "Inch (in)", "Force", "LBS", "Dureza", "HRC", "Mass", "Gram (g)");
+                    
+                    SetUnidadesDefault(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch),
+                                        EnumEx.GetEnumDescription(DataManager.TipoDato.Force), EnumEx.GetEnumDescription(DataManager.UnidadForce.LBS),
+                                        EnumEx.GetEnumDescription(DataManager.TipoDato.Dureza), EnumEx.GetEnumDescription(DataManager.UnidadDureza.RB),
+                                        EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram));
+                                        
                     break;
                 case MessageDialogResult.Affirmative:
 
@@ -1144,7 +1158,11 @@ namespace View.Services.ViewModel
                     ModelAnillo = new Anillo();
 
                     //Establecemos a todas las propiedades del modelo anillo los valores por default.
-                    SetUnidadesDefault("Distance", "Millimeter (mm)", "Force", "LBS", "Dureza", "HRC", "Mass", "Gram (g)");
+                    SetUnidadesDefault(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter),
+                                        EnumEx.GetEnumDescription(DataManager.TipoDato.Force), EnumEx.GetEnumDescription(DataManager.UnidadForce.LBS),
+                                        EnumEx.GetEnumDescription(DataManager.TipoDato.Dureza), EnumEx.GetEnumDescription(DataManager.UnidadDureza.RB),
+                                        EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram));
+
                     break;
                 case MessageDialogResult.FirstAuxiliary:
                     break;

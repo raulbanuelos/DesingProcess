@@ -216,37 +216,37 @@ namespace View.Services.ViewModel
             DescripcionLarga = _descripcionLarga;
             Valor = 0;
 
-            if (_TipoDato.Equals(DataManager.TipoDato.Distance))
+            if (_TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance)))
             {
-                Unidad = DataManager.UnidadDistance.Inch.ToString();
+                Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
             }
-            else if (_TipoDato.Equals(DataManager.TipoDato.Cantidad))
+            else if (_TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad)))
             {
-                Unidad = DataManager.UnidadCantidad.Unidades.ToString();
+                Unidad = EnumEx.GetEnumDescription(DataManager.UnidadCantidad.Unidades);
             }
-            else if (_TipoDato.Equals(DataManager.TipoDato.Angle))
+            else if (_TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Angle)))
             {
-                Unidad = DataManager.UnidadAngle.Degree.ToString();
+                Unidad = EnumEx.GetEnumDescription(DataManager.UnidadAngle.Degree);
             }
-            else if (_TipoDato.Equals(DataManager.TipoDato.Force))
+            else if (_TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Force)))
             {
-                Unidad = DataManager.UnidadForce.Newton.ToString();
+                Unidad = EnumEx.GetEnumDescription(DataManager.UnidadForce.Newton);
             }
-            else if(_TipoDato.Equals(DataManager.TipoDato.Mass))
+            else if(_TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Mass)))
             {
-                Unidad = DataManager.UnidadMass.Kilogram.ToString();
+                Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Kilogram);
             }
-            else if (_TipoDato.Equals(DataManager.TipoDato.Presion))
+            else if (_TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Presion)))
             {
-                Unidad = DataManager.UnidadPresion.PSI.ToString();
+                Unidad = EnumEx.GetEnumDescription(DataManager.UnidadPresion.PSI);
             }
-            else if(_TipoDato.Equals(DataManager.TipoDato.Tiempo))
+            else if(_TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Tiempo)))
             {
-                Unidad = DataManager.UnidadTiempo.Second.ToString();
+                Unidad = EnumEx.GetEnumDescription(DataManager.UnidadTiempo.Second);
             }
-            else if(_TipoDato.Equals(DataManager.TipoDato.Dureza))
+            else if(_TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Dureza)))
             {
-                Unidad = DataManager.UnidadDureza.HRC.ToString();
+                Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDureza.RB);
             }
         }
         

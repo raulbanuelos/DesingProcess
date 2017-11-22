@@ -98,11 +98,11 @@ namespace Model
 
         public enum UnidadDureza
         {
-            [Description("HRC")]
-            HRC,
+            [Description("RC")]
+            RC,
 
-            [Description("HRB")]
-            HRB
+            [Description("RB")]
+            RB
         }
 
         public enum UnidadForce
@@ -9213,8 +9213,10 @@ namespace Model
         /// <param name="widthAnillo"></param>
         /// <param name="Proceso"></param>
         /// <returns></returns>
-        public static bool aprobarPlacaModelo(string codigoPlaca, double diameter, double piece_, double ts, double bs, double stock_thick, double min_piece, double max_piece, double a4, double widthAnillo, string Proceso)
+        public static bool aprobarPlacaModelo(string codigoPlaca, double diameter, double piece_, double ts, double bs, double stock_thick, double min_piece, double max_piece, double a4, double widthAnillo, string Proceso, out double[] results)
         {
+            results = new double[2];
+
             SO_Pattern ServicioPattern = new SO_Pattern();
 
             Pattern2 pattern = ServicioPattern.GetPattern(codigoPlaca);
@@ -9292,6 +9294,8 @@ namespace Model
                 turn7 = 1 * turn6 + turn5;
                 ts = turn7;
 
+                results[0] = ts;
+
                 //--- Calculo de pattern
                 pattern2 = Math.Round(stock_thick * (-1), 3);
                 pattern3 = Math.Round(pattern1 + (pattern2 * 1), 3);
@@ -9299,6 +9303,8 @@ namespace Model
                 pattern5 = Math.Round(turn7 * (-1), 3);
                 pattern6 = Math.Round(pattern5 + pattern4 * 1, 3);
                 bs = pattern6;
+
+                results[1] = bs;
 
                 //---- Calculos de fin dia
                 double fin_dia2, fin_dia3, fin_dia4, fin_dia5, fin_dia6, fin_dia7;
@@ -9805,9 +9811,9 @@ namespace Model
         /// <summary>
         /// Método que obtiene las unidades correspondientes al tipo de dato recibido.
         /// </summary>
-        /// <param name="TipoDato"></param>
+        /// <param name="_TipoDato"></param>
         /// <returns></returns>
-        public static ObservableCollection<string> GetUnidades(string TipoDato)
+        public static ObservableCollection<string> GetUnidades(string _TipoDato)
         {
             //Inicializamos el servicio de Unidades.
             SO_Unidades ServiceUnidades = new SO_Unidades();
@@ -9819,42 +9825,42 @@ namespace Model
             IList InformacionBD;
 
             //Verificamos de que tipo tendremos que obtener la información.
-            if (TipoDato == "Distance")
+            if (_TipoDato.Equals(EnumEx.GetEnumDescription(TipoDato.Distance)))
             {
                 InformacionBD = ServiceUnidades.GetUnidadesDistancia();
             }
             else {
-                if (TipoDato == "Force")
+                if (_TipoDato.Equals(EnumEx.GetEnumDescription(TipoDato.Force)))
                 {
                     InformacionBD = ServiceUnidades.GetUnidadesForce();
                 }
                 else {
-                    if (TipoDato == "Mass")
+                    if (_TipoDato.Equals(EnumEx.GetEnumDescription(TipoDato.Mass)))
                     {
                         InformacionBD = ServiceUnidades.GetUnidadesMas();
                     }
                     else {
-                        if (TipoDato == "Presion")
+                        if (_TipoDato.Equals(EnumEx.GetEnumDescription(TipoDato.Presion)))
                         {
                             InformacionBD = ServiceUnidades.GetUnidadesPresion();
                         }
                         else {
-                            if (TipoDato == "Tiempo")
+                            if (_TipoDato.Equals(EnumEx.GetEnumDescription(TipoDato.Tiempo)))
                             {
                                 InformacionBD = ServiceUnidades.GetUnidadesTiempo();
                             }
                             else {
-                                if (TipoDato == "Cantidad")
+                                if (_TipoDato.Equals(EnumEx.GetEnumDescription(TipoDato.Cantidad)))
                                 {
                                     InformacionBD = ServiceUnidades.GetUnidadesCantidad();
                                 }
                                 else {
-                                    if (TipoDato == "Angle")
+                                    if (_TipoDato.Equals(EnumEx.GetEnumDescription(TipoDato.Angle)))
                                     {
                                         InformacionBD = ServiceUnidades.GetUnidadesAngle();
                                     }
                                     else {
-                                        if (TipoDato == "Dureza")
+                                        if (_TipoDato.Equals(EnumEx.GetEnumDescription(TipoDato.Dureza)))
                                         {
                                             InformacionBD = ServiceUnidades.GetUnidadesDureza();
                                         }

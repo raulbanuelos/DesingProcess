@@ -186,8 +186,8 @@ namespace View.Services
                     Propiedad propiedadMin = GetPropiedad(NombrePropiedad + " Tol Min", Lista);
                     Propiedad propiedad = GetPropiedad(NombrePropiedad, Lista);
                     
-                    double valorToleranciaInchMin = ConvertTo(DataManager.TipoDato.Distance.ToString(), propiedadMin.Unidad, DataManager.UnidadDistance.Inch.ToString(), propiedadMin.Valor);
-                    double valorPropiedadInch = ConvertTo(DataManager.TipoDato.Distance.ToString(), propiedad.Unidad, DataManager.UnidadDistance.Inch.ToString(), propiedad.Valor);
+                    double valorToleranciaInchMin = ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), propiedadMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), propiedadMin.Valor);
+                    double valorPropiedadInch = ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), propiedad.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), propiedad.Valor);
 
                     return valorPropiedadInch - valorToleranciaInchMin;
                 }
@@ -210,7 +210,7 @@ namespace View.Services
                     {
                         Propiedad propiedad = GetPropiedad(NombrePropiedad + " Tol", Lista);
 
-                        double tolerancia = ConvertTo(DataManager.TipoDato.Distance.ToString(), propiedad.Unidad, DataManager.UnidadDistance.Inch.ToString(), propiedad.Valor);
+                        double tolerancia = ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), propiedad.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), propiedad.Valor);
 
                         //Calculamos el valor mínimo y lo retornamos.
                         return valorPropiedad - tolerancia;
@@ -299,8 +299,8 @@ namespace View.Services
                     Propiedad propiedadMax = GetPropiedad(NombrePropiedad + " Tol Max", Lista);
                     Propiedad propiedad = GetPropiedad(NombrePropiedad, Lista);
 
-                    double valorToleranciaInchMax = ConvertTo(DataManager.TipoDato.Distance.ToString(), propiedadMax.Unidad, DataManager.UnidadDistance.Inch.ToString(), propiedadMax.Valor);
-                    double valorPropiedadInch = ConvertTo(DataManager.TipoDato.Distance.ToString(), propiedad.Unidad, DataManager.UnidadDistance.Inch.ToString(), propiedad.Valor);
+                    double valorToleranciaInchMax = ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), propiedadMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), propiedadMax.Valor);
+                    double valorPropiedadInch = ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), propiedad.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), propiedad.Valor);
 
                     return valorPropiedadInch + valorToleranciaInchMax;
                 }
@@ -323,7 +323,7 @@ namespace View.Services
                     {
                         Propiedad propiedad = GetPropiedad(NombrePropiedad + " Tol", Lista);
 
-                        double tolerancia = ConvertTo(DataManager.TipoDato.Distance.ToString(), propiedad.Unidad, DataManager.UnidadDistance.Inch.ToString(), propiedad.Valor);
+                        double tolerancia = ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), propiedad.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), propiedad.Valor);
 
                         //Calculamos el valor mínimo y lo retornamos.
                         return valorPropiedad + tolerancia;
@@ -639,49 +639,49 @@ namespace View.Services
             double valorUnidadDestino = 0;
 
             //Verificamos que tipo de dato es, y obtenemos en cada una de las opciones el valor equivalente por default.
-            if (TipoDato.Equals(DataManager.TipoDato.Distance.ToString()))
+            if (TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance)))
             {
                 valorUnidadInicial = ServicioUnidades.GetValueInchUnidadDistance(UnidadInicial);
                 valorUnidadDestino = ServicioUnidades.GetValueInchUnidadDistance(UnidadDestino);
             }
             else {
-                if (TipoDato.Equals(DataManager.TipoDato.Force.ToString()))
+                if (TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Force)))
                 {
                     valorUnidadInicial = ServicioUnidades.GetValueLBSUnidadForce(UnidadInicial);
                     valorUnidadDestino = ServicioUnidades.GetValueLBSUnidadForce(UnidadDestino);
                 }
                 else {
-                    if (TipoDato.Equals(DataManager.TipoDato.Mass.ToString()))
+                    if (TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Mass)))
                     {
                         valorUnidadInicial = ServicioUnidades.GetValueGramUnidadMass(UnidadInicial);
                         valorUnidadDestino = ServicioUnidades.GetValueGramUnidadMass(UnidadDestino);
                     }
                     else {
-                        if (TipoDato.Equals(DataManager.TipoDato.Tiempo.ToString()))
+                        if (TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Tiempo)))
                         {
                             valorUnidadInicial = ServicioUnidades.GetValueSegUnidadTiempo(UnidadInicial);
                             valorUnidadDestino = ServicioUnidades.GetValueSegUnidadTiempo(UnidadDestino);
                         }
                         else {
-                            if (TipoDato.Equals(DataManager.TipoDato.Presion.ToString()))
+                            if (TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Presion)))
                             {
                                 valorUnidadInicial = ServicioUnidades.GetValuePSIUnidadPresion(UnidadInicial);
                                 valorUnidadDestino = ServicioUnidades.GetValuePSIUnidadPresion(UnidadDestino);
                             }
                             else {
-                                if (TipoDato.Equals(DataManager.TipoDato.Angle.ToString()))
+                                if (TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Angle)))
                                 {
                                     valorUnidadInicial = ServicioUnidades.GetValueGradosUnidadAngle(UnidadInicial);
                                     valorUnidadDestino = ServicioUnidades.GetValueGradosUnidadAngle(UnidadDestino);
                                 }
                                 else {
-                                    if (TipoDato.Equals(DataManager.TipoDato.Cantidad.ToString()))
+                                    if (TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad)))
                                     {
                                         valorUnidadInicial = ServicioUnidades.GetValueUnidadUnidadCantidad(UnidadInicial);
                                         valorUnidadDestino = ServicioUnidades.GetValueUnidadUnidadCantidad(UnidadDestino);
                                     }
                                     else {
-                                        if (TipoDato.Equals(DataManager.TipoDato.Dureza.ToString()))
+                                        if (TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Dureza)))
                                         {
                                             valorUnidadInicial = ServicioUnidades.GetValueDurezaUnidadDureza(UnidadInicial);
                                             valorUnidadDestino = ServicioUnidades.GetValueDurezaUnidadDureza(UnidadDestino);

@@ -22,6 +22,8 @@ namespace View.Services
         #region Properties
         public double Piece { get; set; }
         public double FreeGap { get; set; }
+        public double TS { get; set; }
+        public double BS { get; set; }
         #endregion
 
         #region Constructors
@@ -171,13 +173,19 @@ namespace View.Services
             List<string> ListaProbablesPlacas = new List<string>();
 
             ListaProbablesPlacas = DataManager.GetProbablesPlacas(diameter);
+
+            double[] resultsAprobar = new double[2];
+
             foreach (string element in ListaProbablesPlacas)
             {
-                if (DataManager.aprobarPlacaModelo(element, diameter, piece_, 0, 0, stock_thick, min_piece, max_piece, a4, widthAnillo, proceso))
+                if (DataManager.aprobarPlacaModelo(element, diameter, piece_, 0, 0, stock_thick, min_piece, max_piece, a4, widthAnillo, proceso,out resultsAprobar))
                 {
                     placasAprobadas.Add(element);
                 }
             }
+
+            TS = resultsAprobar[0];
+            BS = resultsAprobar[1];
 
             MateriaPrimaViewModel contexto = new MateriaPrimaViewModel();
             contexto.Title = "Patterns";

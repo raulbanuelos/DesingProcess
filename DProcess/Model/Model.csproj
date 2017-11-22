@@ -64,6 +64,7 @@
     <Compile Include="Cuffs.cs" />
     <Compile Include="DataManager.cs" />
     <Compile Include="Empaquetado.cs" />
+    <Compile Include="EnumEx.cs" />
     <Compile Include="FO_Item.cs" />
     <Compile Include="Herramental.cs" />
     <Compile Include="Interfaces\ICentroTrabajo.cs" />
