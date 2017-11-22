@@ -567,6 +567,7 @@ namespace View.Services.ViewModel
             HistorialFiltrado_VM context = new HistorialFiltrado_VM();
             frm.DataContext = context;
             frm.ShowDialog();
+            
         }
 
         /// <summary>

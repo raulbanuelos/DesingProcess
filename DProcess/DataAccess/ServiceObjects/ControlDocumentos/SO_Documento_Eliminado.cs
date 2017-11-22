@@ -70,7 +70,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     parametros.Add("fecha_eliminado", fecha_eliminado);
 
                     //se ejecuta el procedimiento y se mandan los parámetros añadidos anteriormente.
-                    datos = conexion.EjecutarStoredProcedure("SET_DOCUMENTO_ELIMINADO", parametros);
+                    datos = conexion.EjecutarStoredProcedure("SP_CIT_Set_DocumentoEliminado", parametros);
 
                     //Retorna el número de elementos en la tabla.
                     return datos.Tables.Count;

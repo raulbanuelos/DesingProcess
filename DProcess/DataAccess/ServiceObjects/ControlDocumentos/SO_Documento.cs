@@ -1142,7 +1142,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 parametros.Add("id_tipo", id_tipo);
 
                 //se ejecuta el procedimiento y se mandan los parámetros añadidos anteriormente.
-                datos = conexion.EjecutarStoredProcedure("SELECT_HISTORIALE", parametros);
+                datos = conexion.EjecutarStoredProcedure("SP_CIT_Get_HistorialCantidad", parametros);
 
             }
             catch (Exception er)

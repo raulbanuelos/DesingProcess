@@ -23,6 +23,8 @@ namespace View.Forms.ControlDocumentos
         public FrmHistorial_Filtrado()
         {
             InitializeComponent();
+           
         }
+        
     }
 }

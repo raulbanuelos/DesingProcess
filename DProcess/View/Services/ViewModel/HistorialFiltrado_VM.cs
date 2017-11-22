@@ -55,6 +55,34 @@ namespace View.Services.ViewModel
             }
         }
 
+        private DateTime _fechaInicioChart = DataManagerControlDocumentos.Get_DateTime();
+        public DateTime FechaInicioChart
+        {
+            get
+            {
+                return _fechaInicioChart;
+            }
+            set
+            {
+                _fechaInicioChart = value;
+                NotifyChange("FechaInicioChart");
+            }
+        }
+
+        private DateTime _fechaFinChart = DataManagerControlDocumentos.Get_DateTime();
+        public DateTime FechaFinChart
+        {
+            get
+            {
+                return _fechaFinChart;
+            }
+            set
+            {
+                _fechaFinChart = value;
+                NotifyChange("FechaFinChart");
+            }
+        }
+
         private DateTime _dateNow = DataManagerControlDocumentos.Get_DateTime();
         public DateTime DateNow
         {
@@ -74,12 +102,20 @@ namespace View.Services.ViewModel
             get { return _ListaEstatus; }
             set { _ListaEstatus = value; NotifyChange("ListaEstatus"); }
         }
-
+            
         private string _SelectedEstatus;
         public string SelectedEstatus
         {
             get { return _SelectedEstatus; }
             set { _SelectedEstatus = value; NotifyChange("SelectedEstatus"); }
+        }
+
+        //Variable para el control de la gráfica.
+        private string _SelectedEstatus_Chart;
+        public string SelectedEstatusChart
+        {
+            get { return _SelectedEstatus_Chart; }
+            set { _SelectedEstatus_Chart = value; NotifyChange("SelectedEstatusChart"); }
         }
 
         private ObservableCollection<TipoDocumento> _ListaTipo;
@@ -103,6 +139,12 @@ namespace View.Services.ViewModel
             set { _ListaHistorial = value; NotifyChange("ListaHistorial"); }
         }
 
+        private ObservableCollection<HistorialVersion> _ListaCount;
+        public ObservableCollection<HistorialVersion> ListaCount {
+            get { return _ListaCount; }
+            set { _ListaCount = value; NotifyChange("ListaCount"); }
+        }
+
         private TipoDocumento _SelectedTipo;
         public TipoDocumento SelectedTipo {
             get { return _SelectedTipo; }
@@ -121,11 +163,40 @@ namespace View.Services.ViewModel
             set { id_tipo = value; NotifyChange("ID_Tipo"); }
         }
 
+        //Variable para el control de filtrado en gráfica.
+        private int id_tipoChart;
+        public int IDTipo_Chart
+        {
+            get { return id_tipoChart; }
+            set { id_tipoChart = value; NotifyChange("IDTipo_Chart"); }
+        }
+
+        //Variable para el control de la gráfica.
+        private int id_depChart;
+        public int IdDep_Chart
+        {
+            get { return id_depChart; }
+            set { id_depChart = value; NotifyChange("IdDep_Chart"); }
+        }
+
         private int id_dep;
         public int ID_dep
         {
             get { return id_dep; }
             set { id_dep = value; NotifyChange("ID_dep"); }
+        }
+
+        private ObservableCollection<KeyValuePair<string, int>> _ListaGrafica;
+        public ObservableCollection<KeyValuePair<string, int>> ListaGrafica {
+            get
+            {
+                return _ListaGrafica;
+            }
+            set
+            {
+                _ListaGrafica = value;
+                NotifyChange("ListaGrafica");
+            }
         }
 
         DialogService dialog;
@@ -144,11 +215,27 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand CambiarFechaChart
+        {
+            get
+            {
+                return new RelayCommand(o => cambiaFechaChart());
+            }
+        }
+
         public ICommand FiltrarEstatus
         {
             get
             {
                 return new RelayCommand(o => filtrar());
+            }
+        }
+
+        public ICommand FiltrarGrafica
+        {
+            get
+            {
+                return new RelayCommand(o => filtrarGrafica());
             }
         }
         #endregion
@@ -163,21 +250,52 @@ namespace View.Services.ViewModel
             FechaFin = FechaInicio;
         }
 
+        private void cambiaFechaChart()
+        {
+            FechaFinChart = FechaInicioChart;
+        }
+
+        /// <summary>
+        /// Método que filtra la información para la tabla.
+        /// </summary>
         private async void filtrar()
         {
+            //Si no se ha seleccionado el estado.
             if (SelectedEstatus != null)
             {
                 if (ValidaCampos())
                 {                 
-
-                    ListaHistorial = DataManagerControlDocumentos.GetHistorialDocumentos(FechaInicio, FechaFin, SelectedEstatus, id_dep, id_tipo);
-                    ObservableCollection<HistorialVersion> ListaCount=DataManagerControlDocumentos.GetCountDocumentos(FechaInicio, FechaFin, SelectedEstatus, id_dep, id_tipo);
+                    //Obtiene la información de los documetnos filtrados, el resultado lo asigna a la lista.
+                    ListaHistorial = DataManagerControlDocumentos.GetHistorialDocumentos(FechaInicio, FechaFin, SelectedEstatus, id_dep, id_tipo);                 
                 }
                 else
                 {
                     await dialog.SendMessage("Alerta", "Se debe seleccionar el estatus");
                 }
             }
+        }
+
+        private void filtrarGrafica()
+        {
+            //Si se ha seleccionado el estado. 
+            if (SelectedEstatusChart != null)
+            {
+                ListaCount = DataManagerControlDocumentos.GetCountDocumentos(FechaInicioChart, FechaFinChart, SelectedEstatusChart, id_depChart, id_tipoChart);
+
+                //La lista no es vacía.
+                if (ListaCount.Count > 0)
+                {
+                    _ListaGrafica.Clear();
+                    foreach (var item in ListaCount)
+                    {
+                        string fecha = item.fecha.ToShortDateString();
+                        int cantidad = item.cantidad;
+                        _ListaGrafica.Add(new KeyValuePair<string, int>(fecha, cantidad));
+                    }
+                }
+
+            }
+
         }
 
         private void InicializaCampos()
@@ -211,6 +329,11 @@ namespace View.Services.ViewModel
                 return false;
                 
         }
+
+        private void ComparaFechaGrafica()
+        {
+            int comp = FechaInicioChart.CompareTo(FechaFinChart);
+        }
         #endregion
 
         #region Constructor
@@ -221,6 +344,7 @@ namespace View.Services.ViewModel
             ListaTipo = new ObservableCollection<TipoDocumento>();
             InicializaCampos();
             dialog = new DialogService();
+            ListaGrafica = new ObservableCollection<KeyValuePair<string, int>>();
         }
         #endregion
     }
