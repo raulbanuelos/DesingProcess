@@ -61,13 +61,19 @@ namespace Model
         public Propiedad cam_lever { get; set; }
         public Propiedad patt_width { get; set; }
         public PropiedadCadena Tipo { get; set; }
+
+        public PropiedadCadena Hardness { get; set; }
+        public Propiedad HardnessMin { get; set; }
+        public Propiedad HardnessMax { get; set; }
+
         #endregion
 
         #region Constructores
 
         public Pattern()
         {
-
+            date_ordered = new PropiedadCadena { DescripcionCorta = "Date Ordered", DescripcionLarga = "Date Ordered", Imagen = null, Nombre = "DateOrdered", Valor = DateTime.Now.ToString() };
+            date_checked = new PropiedadCadena { DescripcionCorta = "Date Checked", DescripcionLarga = "Date Checked", Imagen = null, Nombre = "DateChecked", Valor = DateTime.Now.ToString() };
         }
          
         #endregion

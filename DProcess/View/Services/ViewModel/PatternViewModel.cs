@@ -177,7 +177,6 @@ namespace View.Services.ViewModel
             get { return model.nick_depth; }
             set { model.nick_depth = value; NotifyChange("nick_depth"); }
         }
-
        
         public PropiedadCadena side_relief {
             get { return model.side_relief; }
@@ -310,6 +309,42 @@ namespace View.Services.ViewModel
         {
             get { return model.patt_width; }
             set { model.patt_width = value; NotifyChange("patt_width"); }
+        }
+
+        public PropiedadCadena Hardness {
+            get
+            {
+                return model.Hardness;
+            }
+            set
+            {
+                model.Hardness = value;
+                NotifyChange("Hardness");
+            }
+        }
+
+        public Propiedad HardnessMin {
+            get
+            {
+                return model.HardnessMin;
+            }
+            set
+            {
+                model.HardnessMin = value;
+                NotifyChange("HardnessMin");
+            }
+        }
+
+        public Propiedad HardnessMax {
+            get
+            {
+                return model.HardnessMax;
+            }
+            set
+            {
+                model.HardnessMax = value;
+                NotifyChange("HardnessMax");
+            }
         }
         #endregion
 

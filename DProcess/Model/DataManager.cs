@@ -13,11 +13,217 @@ using DataAccess.ServiceObjects.ControlDocumentos;
 using DataAccess.ServiceObjects.Perfiles;
 using DataAccess.ServiceObjects.Tooling;
 using DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado;
+using System.ComponentModel;
 
 namespace Model
 {
     public static class DataManager
     {
+        #region Emuns
+        public enum TipoDato
+        {
+            [Description("Distance")]
+            Distance,
+
+            [Description("Angle")]
+            Angle,
+
+            [Description("Presion")]
+            Presion,
+
+            [Description("Dureza")]
+            Dureza,
+
+            [Description("Cantidad")]
+            Cantidad,
+
+            [Description("Force")]
+            Force,
+
+            [Description("Mass")]
+            Mass,
+
+            [Description("Tiempo")]
+            Tiempo
+        } 
+
+        public  enum UnidadDistance
+        {
+            [Description("Inch (in)")]
+            Inch,
+
+            [Description("Millimeter (mm)")]
+            Milimeter,
+
+            [Description("centimeter(cm)")]
+            Centimeter
+        }
+
+        public enum UnidadAngle
+        {
+            [Description("degree(°)")]
+            Degree,
+
+            [Description("minute(´)")]
+            Minute,
+
+            [Description("second('')")]
+            Second,
+
+            [Description("radian(rad)")]
+            Radian
+        }
+
+        public enum UnidadCantidad
+        {
+            [Description("Unidades")]
+            Unidades,
+
+            [Description("Decenas")]
+            Decenas,
+
+            [Description("Docenas")]
+            Docenas,
+
+            [Description("Centenas")]
+            Centenas,
+
+            [Description("Par")]
+            Par,
+
+            [Description("Tercia")]
+            Tercia
+        }
+
+        public enum UnidadDureza
+        {
+            [Description("HRC")]
+            HRC,
+
+            [Description("HRB")]
+            HRB
+        }
+
+        public enum UnidadForce
+        {
+            [Description("Dyne")]
+            Dyne,
+
+            [Description("Gram force")]
+            Gramforce,
+
+            [Description("Kilogram force")]
+            KilogramForce,
+
+            [Description("Kilonewton")]
+            Kilonewton,
+
+            [Description("Millinewton")]
+            Millinewton,
+
+            [Description("Newton")]
+            Newton,
+
+            [Description("Ounce-force (ozf)")]
+            OunceForce,
+
+            [Description("LBS")]
+            LBS
+        }
+
+        public enum UnidadMass
+        {
+            [Description("Kilogram (kg)")]
+            Kilogram,
+
+            [Description("Gram (g)")]
+            Gram,
+
+            [Description("Miligram (mg)")]
+            Miligram,
+
+            [Description("Ounce (oz)")]
+            Ounce,
+
+            [Description("Pound (lb)")]
+            Pound
+        }
+
+        public enum UnidadPresion
+        {
+            [Description("Atmosphere")]
+            Atmosphere,
+
+            [Description("Bar")]
+            Bar,
+
+            [Description("Centimeters of mercury")]
+            CentimetersMercury,
+
+            [Description("Dyne/centimeter²")]
+            DyneCentimeter,
+
+            [Description("Inches of mercury")]
+            InchesMercury,
+
+            [Description("Kilogram/centimeter²")]
+            KilogramCentimeter,
+
+            [Description("Kilogram/meter²")]
+            KilogramMeter,
+
+            [Description("Kilopascal")]
+            Kilopascal,
+
+            [Description("Megapascal")]
+            Megapascal,
+
+            [Description("Microbar")]
+            Microbar,
+
+            [Description("Millibar")]
+            Millibar,
+
+            [Description("Millimeters of mercury")]
+            MillimetersMercury,
+
+            [Description("Pascal")]
+            Pascal,
+
+            [Description("Pound/foot²")]
+            PoundFoot,
+
+            [Description("Pound/inch²")]
+            PoundInch,
+
+            [Description("PSI")]
+            PSI,
+
+            [Description("Ton/foot²")]
+            TonFoot,
+
+            [Description("Ton/inch²")]
+            TonInch,
+
+            [Description("Torr")]
+            Torr,
+        }
+
+        public enum UnidadTiempo
+        {
+            [Description("second ('')")]
+            Second,
+
+            [Description("minute (')")]
+            Minute,
+
+            [Description("hour")]
+            Hour
+        }
+
+
+        #endregion
+
         #region Centros de trabajo
         public static double GetTimeSetup(string centroDeTrabajo)
         {

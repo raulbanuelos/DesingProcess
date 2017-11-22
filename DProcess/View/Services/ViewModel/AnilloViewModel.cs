@@ -841,7 +841,6 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Methods
-
         private async void calcularRuta()
         {
 
@@ -849,6 +848,8 @@ namespace View.Services.ViewModel
 
             ModelAnillo.D1 = new Propiedad { DescripcionCorta = "D1", DescripcionLarga = "Diámetro nominal", Imagen = null, Nombre = "D1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 4.32 };
             ModelAnillo.H1 = new Propiedad { DescripcionCorta = "H1", DescripcionLarga = "Width nominal", Imagen = null, Nombre = "H1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.0780 };
+
+            Codigo = "RBT10-004";
 
             PropiedadCadena especificacion = new PropiedadCadena();
             especificacion.DescripcionCorta = "MATERIAL";
@@ -940,7 +941,15 @@ namespace View.Services.ViewModel
 
                             nuevaPlaca.ring_w_max = WidthMax;
                             nuevaPlaca.ring_w_min = WidthMin;
-                            
+
+                            nuevaPlaca.piece_in_patt = new Propiedad { DescripcionCorta = "Piece", DescripcionLarga = "Piece", Imagen = null, Nombre = "Piece", TipoDato = "Distance", Unidad = "Inch (in)", Valor = calcularMateriaPrima.Piece };
+                            nuevaPlaca.esp_inst = new PropiedadCadena { DescripcionCorta = "Especial Instruccions", DescripcionLarga = "Especial Instruccions", Imagen = null, Nombre = "EspecInst", Valor = Codigo + Environment.NewLine + "MATERIAL: " + ModelAnillo.MaterialBase.Especificacion.Valor };
+
+                            //Falta agregar material
+                            //nuevaPlaca.Material
+                            nuevaPlaca.Hardness = new PropiedadCadena { DescripcionCorta = "Hardness", DescripcionLarga = "Hardness", Imagen = null, Nombre = "Hardness", Valor = "RB" };
+                            nuevaPlaca.HardnessMin = new Propiedad { DescripcionCorta = "Hardness Min", DescripcionLarga = "Hardness Min", Imagen = null, Nombre = "HardnessMin", TipoDato = DataManager.TipoDato.Cantidad.ToString(), Unidad = "", Valor = 100 };
+                            nuevaPlaca.HardnessMax = new Propiedad { DescripcionCorta = "Hardness Max", DescripcionLarga = "Hardness Max", Imagen = null, Nombre = "HardnessMax", TipoDato = "Unidades", Unidad = "", Valor = 100 };
 
                             PatternViewModel vm = new PatternViewModel(nuevaPlaca);
                             pattern.DataContext = vm;
@@ -954,8 +963,6 @@ namespace View.Services.ViewModel
                         default:
                             break;
                     }
-
-
                 }
                 anilloProcesado.PropiedadesAdquiridasProceso.Add(new Propiedad{ TipoDato = "Distance", DescripcionCorta = "Piece", DescripcionLarga = "Piece", Imagen = null, Nombre = "Piece", Unidad = "Inch (in)", Valor = calcularMateriaPrima.Piece });
             }

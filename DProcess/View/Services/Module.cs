@@ -185,9 +185,9 @@ namespace View.Services
                 {
                     Propiedad propiedadMin = GetPropiedad(NombrePropiedad + " Tol Min", Lista);
                     Propiedad propiedad = GetPropiedad(NombrePropiedad, Lista);
-
-                    double valorToleranciaInchMin = ConvertTo("Distance", propiedadMin.Unidad, "Inch (in)", propiedadMin.Valor);
-                    double valorPropiedadInch = ConvertTo("Distance", propiedad.Unidad, "Inch (in)", propiedad.Valor);
+                    
+                    double valorToleranciaInchMin = ConvertTo(DataManager.TipoDato.Distance.ToString(), propiedadMin.Unidad, DataManager.UnidadDistance.Inch.ToString(), propiedadMin.Valor);
+                    double valorPropiedadInch = ConvertTo(DataManager.TipoDato.Distance.ToString(), propiedad.Unidad, DataManager.UnidadDistance.Inch.ToString(), propiedad.Valor);
 
                     return valorPropiedadInch - valorToleranciaInchMin;
                 }
@@ -210,7 +210,7 @@ namespace View.Services
                     {
                         Propiedad propiedad = GetPropiedad(NombrePropiedad + " Tol", Lista);
 
-                        double tolerancia = ConvertTo("Distance", propiedad.Unidad, "Inch (in)", propiedad.Valor);
+                        double tolerancia = ConvertTo(DataManager.TipoDato.Distance.ToString(), propiedad.Unidad, DataManager.UnidadDistance.Inch.ToString(), propiedad.Valor);
 
                         //Calculamos el valor mínimo y lo retornamos.
                         return valorPropiedad - tolerancia;
@@ -299,8 +299,8 @@ namespace View.Services
                     Propiedad propiedadMax = GetPropiedad(NombrePropiedad + " Tol Max", Lista);
                     Propiedad propiedad = GetPropiedad(NombrePropiedad, Lista);
 
-                    double valorToleranciaInchMax = ConvertTo("Distance", propiedadMax.Unidad, "Inch (in)", propiedadMax.Valor);
-                    double valorPropiedadInch = ConvertTo("Distance", propiedad.Unidad, "Inch (in)", propiedad.Valor);
+                    double valorToleranciaInchMax = ConvertTo(DataManager.TipoDato.Distance.ToString(), propiedadMax.Unidad, DataManager.UnidadDistance.Inch.ToString(), propiedadMax.Valor);
+                    double valorPropiedadInch = ConvertTo(DataManager.TipoDato.Distance.ToString(), propiedad.Unidad, DataManager.UnidadDistance.Inch.ToString(), propiedad.Valor);
 
                     return valorPropiedadInch + valorToleranciaInchMax;
                 }
@@ -323,7 +323,7 @@ namespace View.Services
                     {
                         Propiedad propiedad = GetPropiedad(NombrePropiedad + " Tol", Lista);
 
-                        double tolerancia = ConvertTo("Distance", propiedad.Unidad, "Inch (in)", propiedad.Valor);
+                        double tolerancia = ConvertTo(DataManager.TipoDato.Distance.ToString(), propiedad.Unidad, DataManager.UnidadDistance.Inch.ToString(), propiedad.Valor);
 
                         //Calculamos el valor mínimo y lo retornamos.
                         return valorPropiedad + tolerancia;
@@ -639,49 +639,49 @@ namespace View.Services
             double valorUnidadDestino = 0;
 
             //Verificamos que tipo de dato es, y obtenemos en cada una de las opciones el valor equivalente por default.
-            if (TipoDato == "Distance")
+            if (TipoDato.Equals(DataManager.TipoDato.Distance.ToString()))
             {
                 valorUnidadInicial = ServicioUnidades.GetValueInchUnidadDistance(UnidadInicial);
                 valorUnidadDestino = ServicioUnidades.GetValueInchUnidadDistance(UnidadDestino);
             }
             else {
-                if (TipoDato == "Force")
+                if (TipoDato.Equals(DataManager.TipoDato.Force.ToString()))
                 {
                     valorUnidadInicial = ServicioUnidades.GetValueLBSUnidadForce(UnidadInicial);
                     valorUnidadDestino = ServicioUnidades.GetValueLBSUnidadForce(UnidadDestino);
                 }
                 else {
-                    if (TipoDato == "Mass")
+                    if (TipoDato.Equals(DataManager.TipoDato.Mass.ToString()))
                     {
                         valorUnidadInicial = ServicioUnidades.GetValueGramUnidadMass(UnidadInicial);
                         valorUnidadDestino = ServicioUnidades.GetValueGramUnidadMass(UnidadDestino);
                     }
                     else {
-                        if (TipoDato == "Tiempo")
+                        if (TipoDato.Equals(DataManager.TipoDato.Tiempo.ToString()))
                         {
                             valorUnidadInicial = ServicioUnidades.GetValueSegUnidadTiempo(UnidadInicial);
                             valorUnidadDestino = ServicioUnidades.GetValueSegUnidadTiempo(UnidadDestino);
                         }
                         else {
-                            if (TipoDato == "Presion")
+                            if (TipoDato.Equals(DataManager.TipoDato.Presion.ToString()))
                             {
                                 valorUnidadInicial = ServicioUnidades.GetValuePSIUnidadPresion(UnidadInicial);
                                 valorUnidadDestino = ServicioUnidades.GetValuePSIUnidadPresion(UnidadDestino);
                             }
                             else {
-                                if (TipoDato == "Angle")
+                                if (TipoDato.Equals(DataManager.TipoDato.Angle.ToString()))
                                 {
                                     valorUnidadInicial = ServicioUnidades.GetValueGradosUnidadAngle(UnidadInicial);
                                     valorUnidadDestino = ServicioUnidades.GetValueGradosUnidadAngle(UnidadDestino);
                                 }
                                 else {
-                                    if (TipoDato == "Cantidad")
+                                    if (TipoDato.Equals(DataManager.TipoDato.Cantidad.ToString()))
                                     {
                                         valorUnidadInicial = ServicioUnidades.GetValueUnidadUnidadCantidad(UnidadInicial);
                                         valorUnidadDestino = ServicioUnidades.GetValueUnidadUnidadCantidad(UnidadDestino);
                                     }
                                     else {
-                                        if (TipoDato == "Dureza")
+                                        if (TipoDato.Equals(DataManager.TipoDato.Dureza.ToString()))
                                         {
                                             valorUnidadInicial = ServicioUnidades.GetValueDurezaUnidadDureza(UnidadInicial);
                                             valorUnidadDestino = ServicioUnidades.GetValueDurezaUnidadDureza(UnidadDestino);

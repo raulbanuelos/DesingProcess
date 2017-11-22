@@ -306,7 +306,7 @@
                         <TextBox TextWrapping="Wrap" AcceptsReturn="True" FontSize="12" 
                                  FontWeight="Bold" Grid.Column="0" Grid.Row="0" Height="75" 
                                  materialDesign:HintAssist.Hint="ESPECIAL INSTRUCTIONS" 
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding esp_inst.Valor}">
                         </TextBox>
 
                         <GroupBox Grid.Column="1" Grid.Row="0" Header="SPLITTING DATA" Style="{DynamicResource MaterialDesignGroupBox}" Grid.ColumnSpan="2" Margin="5,0,232,0">

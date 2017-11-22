@@ -215,36 +215,39 @@ namespace View.Services.ViewModel
             DescripcionCorta = _descripcionCorta;
             DescripcionLarga = _descripcionLarga;
             Valor = 0;
-            switch (_TipoDato)
-            {
-                case "Distance":
-                    Unidad = "Inch (in)";
-                    break;
-                case "Cantidad":
-                    Unidad = "Unidades";
-                    break;
-                case "Angle":
-                    Unidad = "degree(°)";
-                    break;
-                case "Force":
-                    Unidad = "Newton";
-                    break;
-                case "Mass":
-                    Unidad = "Kilogram(kg)";
-                    break;
-                case "Presion":
-                    Unidad = "PSI";
-                    break;
-                case "Tiempo":
-                    Unidad = "second ('')";
-                    break;
-                case "Dureza":
-                    Unidad = "HRC";
-                    break;
-                default:
-                    break;
-            }
 
+            if (_TipoDato.Equals(DataManager.TipoDato.Distance))
+            {
+                Unidad = DataManager.UnidadDistance.Inch.ToString();
+            }
+            else if (_TipoDato.Equals(DataManager.TipoDato.Cantidad))
+            {
+                Unidad = DataManager.UnidadCantidad.Unidades.ToString();
+            }
+            else if (_TipoDato.Equals(DataManager.TipoDato.Angle))
+            {
+                Unidad = DataManager.UnidadAngle.Degree.ToString();
+            }
+            else if (_TipoDato.Equals(DataManager.TipoDato.Force))
+            {
+                Unidad = DataManager.UnidadForce.Newton.ToString();
+            }
+            else if(_TipoDato.Equals(DataManager.TipoDato.Mass))
+            {
+                Unidad = DataManager.UnidadMass.Kilogram.ToString();
+            }
+            else if (_TipoDato.Equals(DataManager.TipoDato.Presion))
+            {
+                Unidad = DataManager.UnidadPresion.PSI.ToString();
+            }
+            else if(_TipoDato.Equals(DataManager.TipoDato.Tiempo))
+            {
+                Unidad = DataManager.UnidadTiempo.Second.ToString();
+            }
+            else if(_TipoDato.Equals(DataManager.TipoDato.Dureza))
+            {
+                Unidad = DataManager.UnidadDureza.HRC.ToString();
+            }
         }
         
         #endregion
