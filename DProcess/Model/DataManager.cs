@@ -20,6 +20,7 @@ namespace Model
     public static class DataManager
     {
         #region Emuns
+
         public enum TipoDato
         {
             [Description("Distance")]
@@ -47,7 +48,7 @@ namespace Model
             Tiempo
         } 
 
-        public  enum UnidadDistance
+        public enum UnidadDistance
         {
             [Description("Inch (in)")]
             Inch,
@@ -220,8 +221,7 @@ namespace Model
             [Description("hour")]
             Hour
         }
-
-
+        
         #endregion
 
         #region Centros de trabajo
