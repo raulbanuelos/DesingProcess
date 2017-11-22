@@ -198,7 +198,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     parametros.Add("nombre", nombre);
 
                     //se ejecuta el procedimiento y se mandan los parámetros añadidos anteriormente.
-                    datos = conexion.EjecutarStoredProcedure("Set_Archivo", parametros);
+                    datos = conexion.EjecutarStoredProcedure("SP_CIT_Set_Archivo", parametros);
 
                     //Retorna el número de elementos en la tabla.
                     return datos.Tables.Count;

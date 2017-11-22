@@ -7,7 +7,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"       
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
-     
+        xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
         Title="FrmHistorial" Height="700" Width="1150" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Controls:MetroWindow.Resources>
@@ -38,7 +38,7 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
                             <DatePicker materialDesign:HintAssist.Hint="Fecha Inicio" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40" Width="150"  BorderBrush="#89535353" FontSize="18" Margin="10,10,0,0"
-                          SelectedDate="{Binding FechaInicio, UpdateSourceTrigger=PropertyChanged}">
+                          SelectedDate="{Binding FechaInicio, UpdateSourceTrigger=PropertyChanged}" DisplayDateEnd="{Binding DateNow}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectedDateChanged">
                                         <i:InvokeCommandAction
@@ -47,7 +47,7 @@
                                 </i:Interaction.Triggers>
                             </DatePicker>
                             <DatePicker materialDesign:HintAssist.Hint="Fecha Final" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  BorderBrush="#89535353" FontSize="18" Width="150" Margin="20,10,0,0"
-                        DisplayDateStart="{Binding Path=FechaInicio, Mode=OneWay, NotifyOnSourceUpdated=True}" SelectedDate="{Binding FechaFin, UpdateSourceTrigger=PropertyChanged}">
+                        DisplayDateStart="{Binding Path=FechaInicio, Mode=OneWay, NotifyOnSourceUpdated=True}" SelectedDate="{Binding FechaFin, UpdateSourceTrigger=PropertyChanged}" DisplayDateEnd="{Binding DateNow}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectedDateChanged">
                                         <i:InvokeCommandAction
@@ -111,8 +111,62 @@
                 </TabItem.Header>
                 <TabItem.Content>
                     <Grid>
-                        
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="65" />
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="15"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
+                            <DatePicker materialDesign:HintAssist.Hint="Fecha Inicio" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40" Width="150"  BorderBrush="#89535353" FontSize="18" Margin="10,10,0,0"
+                          SelectedDate="{Binding FechaInicioChart, UpdateSourceTrigger=PropertyChanged}" DisplayDateEnd="{Binding DateNow}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectedDateChanged">
+                                        <i:InvokeCommandAction
+									Command="{Binding CambiarFechaChart}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DatePicker>
+                            <DatePicker materialDesign:HintAssist.Hint="Fecha Final" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  BorderBrush="#89535353" FontSize="18" Width="150" Margin="20,10,0,0"
+                        DisplayDateStart="{Binding Path=FechaInicioChart, Mode=OneWay, NotifyOnSourceUpdated=True}" SelectedDate="{Binding FechaFinChart, UpdateSourceTrigger=PropertyChanged}" DisplayDateEnd="{Binding DateNow}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectedDateChanged">
+                                        <i:InvokeCommandAction
+									Command="{Binding FiltrarGrafica}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
 
+                            </DatePicker>
+                            <ComboBox  materialDesign:HintAssist.Hint="Estado" FontSize="18" Height="50" Width="200" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaEstatus}"  SelectedItem="{Binding SelectedEstatusChart}" Margin="20,0,0,0">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction
+									Command="{Binding FiltrarGrafica}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                            <ComboBox  materialDesign:HintAssist.Hint="Tipo de documento" FontSize="18" Height="50" Width="250" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento"   SelectedValuePath="id_tipo" SelectedValue="{Binding IDTipo_Chart}"  Margin="10,0,0,0" >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction
+									Command="{Binding FiltrarGrafica}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                            <ComboBox  materialDesign:HintAssist.Hint="Departamento" FontSize="18" Height="50" Width="250" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaDepartamento}"  DisplayMemberPath="nombre_dep"  SelectedValuePath="id_dep" SelectedValue="{Binding IdDep_Chart}"  Margin="20,0,0,0" >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction
+									Command="{Binding FiltrarGrafica}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                        </StackPanel>
+                        <Grid Grid.Row="1">
+                            <chartingToolkit:Chart  Name="lineChart" Title="" VerticalAlignment="Center" Width="1000" Height="500" Background="White" BorderBrush="White">
+                                <chartingToolkit:LineSeries Title="Documentos" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding Path=ListaGrafica, IsAsync=True}" IsSelectionEnabled="True" Background="White"  />
+                            </chartingToolkit:Chart>
+
+                        </Grid>
                     </Grid>
                 </TabItem.Content>
             </TabItem>
