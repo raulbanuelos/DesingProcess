@@ -7,7 +7,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"       
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
-        xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"       
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
         Title="FrmHistorial" Height="700" Width="1150" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Controls:MetroWindow.Resources>
@@ -163,63 +163,39 @@
                         </StackPanel>
                         <Grid Grid.Row="1">
                             <chartingToolkit:Chart  Name="lineChart" Title="" VerticalAlignment="Center" Width="1000" Height="500" Background="White" BorderBrush="White">
-                                <chartingToolkit:LineSeries Title="Documentos" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding Path=ListaGrafica, IsAsync=True}" IsSelectionEnabled="True" Background="White"  />
+                                <chartingToolkit:LineSeries Title="Documentos" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding Path=ListaGrafica, IsAsync=True}" IsSelectionEnabled="True" Background="White" >
 
-                                <chartingToolkit:Chart.LayoutTransform>
-                                    <RotateTransform Angle="90"></RotateTransform>
-                                </chartingToolkit:Chart.LayoutTransform>
-                                <chartingToolkit:Chart.Axes>
-                                    <chartingToolkit:CategoryAxis Orientation="Y" 
-                                  Location="Bottom" 
-                                  Foreground="Black">
-                                        <chartingToolkit:CategoryAxis.AxisLabelStyle>
-                                            <Style TargetType="chartingToolkit:AxisLabel">
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate 
-                                      TargetType="chartingToolkit:AxisLabel">
-                                                            <TextBlock 
-                             Text="{TemplateBinding FormattedContent}" 
-                                               TextAlignment="Center" 
-                                               RenderTransformOrigin="0.5,0.5">
-                                                                <TextBlock.RenderTransform>
-                                                                    <RotateTransform Angle="-90" />
-                                                                </TextBlock.RenderTransform>
-                                                            </TextBlock>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </chartingToolkit:CategoryAxis.AxisLabelStyle>
-                                    </chartingToolkit:CategoryAxis>
+                                    <chartingToolkit:LineSeries.IndependentAxis>
+                                        <chartingToolkit:CategoryAxis Orientation="X">
+                                            <chartingToolkit:CategoryAxis.AxisLabelStyle>
+                                                <Style TargetType="chartingToolkit:AxisLabel">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="chartingToolkit:AxisLabel">
+                                                                <TextBlock Text="{TemplateBinding FormattedContent}">
+                                                                    <TextBlock.LayoutTransform>
+                                                                        <RotateTransform Angle="-90"/>
+                                                                    </TextBlock.LayoutTransform>
+                                                                </TextBlock>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </chartingToolkit:CategoryAxis.AxisLabelStyle>
+                                        </chartingToolkit:CategoryAxis>
+                                    </chartingToolkit:LineSeries.IndependentAxis>
 
-                                    <chartingToolkit:LinearAxis Orientation="X" 
-                                  Location="Left" 
-                                  Foreground="Black">
-                                        <chartingToolkit:LinearAxis.AxisLabelStyle>
-                                            <Style TargetType="chartingToolkit:AxisLabel">
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate 
-                                      TargetType="chartingToolkit:AxisLabel">
-                                                            <TextBlock 
-                             Text="{TemplateBinding FormattedContent}" 
-                                               TextAlignment="Center" 
-                                               RenderTransformOrigin="0.5,0.5">
-                                                                <TextBlock.RenderTransform>
-                                                                    <RotateTransform Angle="-90" />
-                                                                </TextBlock.RenderTransform>
-                                                            </TextBlock>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </chartingToolkit:LinearAxis.AxisLabelStyle>
-                                    </chartingToolkit:LinearAxis>
-                                </chartingToolkit:Chart.Axes>
+                                </chartingToolkit:LineSeries>
 
+
+                                <chartingToolkit:Chart.LegendStyle>
+                                    <Style x:Name="LegendHideStyle" TargetType="Control">
+                                        <Setter Property="Width" Value="0"/>
+                                        <Setter Property="Height" Value="0"/>
+                                    </Style>
+                                </chartingToolkit:Chart.LegendStyle>
                             </chartingToolkit:Chart>
-
+                            
                         </Grid>
                     </Grid>
                 </TabItem.Content>

@@ -965,6 +965,10 @@ namespace View.Services.ViewModel
                             double factork = calcularMateriaPrima.CamTurnConstant * 0.0001;
 
                             nuevaPlaca.factor_k = new Propiedad { DescripcionCorta = "Factor K", DescripcionLarga = "Factor K", Imagen = null, Nombre = "FactorK", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), Valor = factork};
+                            nuevaPlaca.EspecMaterialAnillo = MaterialBase.Especificacion;
+
+                            nuevaPlaca.Proceso = Module.GetPropiedadCadena("Proceso", PerfilOD.PropiedadesCadena);
+                            
 
                             PatternViewModel vm = new PatternViewModel(nuevaPlaca);
                             pattern.DataContext = vm;

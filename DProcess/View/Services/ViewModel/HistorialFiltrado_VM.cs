@@ -277,15 +277,16 @@ namespace View.Services.ViewModel
 
         private void filtrarGrafica()
         {
+            _ListaGrafica.Clear();
             //Si se ha seleccionado el estado. 
+          //  ComparaFechaGrafica();
             if (SelectedEstatusChart != null)
             {
                 ListaCount = DataManagerControlDocumentos.GetCountDocumentos(FechaInicioChart, FechaFinChart, SelectedEstatusChart, id_depChart, id_tipoChart);
 
                 //La lista no es vacía.
                 if (ListaCount.Count > 0)
-                {
-                    _ListaGrafica.Clear();
+                {                  
                     foreach (var item in ListaCount)
                     {
                         string fecha = item.fecha.ToShortDateString();
