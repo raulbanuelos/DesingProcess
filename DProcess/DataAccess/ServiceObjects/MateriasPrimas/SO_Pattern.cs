@@ -1,5 +1,8 @@
-﻿using System;
+﻿using DataAccess.SQLServer;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 
@@ -479,6 +482,39 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                 return null;
             }
 
+        }
+
+        /// <summary>
+        /// Método que ejecuta el procedimiento [SP_RGP_GET_TURN_BORE_ALLOW].
+        /// </summary>
+        /// <param name="tipo"></param>
+        /// <param name="material"></param>
+        /// <returns></returns>
+        public DataSet Get_TurnBoreAllow(string tipo, string material)
+        {
+            DataSet datos = new DataSet();
+            try
+            {
+                //Se crea conexion a la BD.
+                Desing_SQL conexion = new Desing_SQL();
+
+                //Se inicializa un dictionario que contiene propiedades de tipo string y un objeto.
+                Dictionary<string, object> parametros = new Dictionary<string, object>();
+
+                //Agregamos los parámetos.
+                parametros.Add("tipo", tipo);
+                parametros.Add("material", material);
+
+                //se ejecuta el procedimiento y se mandan los parámetros añadidos anteriormente.
+                datos = conexion.EjecutarStoredProcedure("SP_RGP_GET_TURN_BORE_ALLOW", parametros);
+            }
+            catch (Exception)
+            {
+                //Si hay error, retorna la tabla vacía.
+                return datos;
+            }
+            //Retorna la tabla.
+            return datos;
         }
 
         #endregion

@@ -9060,6 +9060,42 @@ namespace Model
         }
 
         /// <summary>
+        /// Método que obtiene el valor de turn y bore allow.
+        /// </summary>
+        /// <param name="tipo"></param>
+        /// <param name="material"></param>
+        /// <returns></returns>
+        public static double[] Get_TurnBoreAllow(string tipo,string material)
+        {
+            //Inicializamos los servicios de SO_Pattern.
+            SO_Pattern ServicePattern = new SO_Pattern();
+
+            //Obtenemos la información de la base de datos.
+            DataSet InfoBD = ServicePattern.Get_TurnBoreAllow(tipo, material);
+
+            //Inicializamos el vector.
+            double[] vector = new double[2];
+
+            //Si la ifnormación de la base de datos es diferente de nulo.
+            if (InfoBD != null)
+            {
+                if(InfoBD.Tables.Count > 0 && InfoBD.Tables[0].Rows.Count > 0){
+
+                    //Recorremos la tabla
+                    foreach (DataRow element in InfoBD.Tables[0].Rows)
+                    {
+                        //Asignamos los valores al vector.
+                        vector[0]= Convert.ToDouble(element["Turn_Allow"].ToString());
+                        vector[1]= Convert.ToDouble(element["Bore_Allow"].ToString());
+                    }
+                }
+            }
+
+            //Retorbamos el vector.
+            return vector;
+        }
+
+        /// <summary>
         /// Método que elimina un registro de la tabla Pattern2
         /// </summary>
         /// <param name="pattern">Cadena que representa el código de placa modelo que se requiere eliminar.</param>

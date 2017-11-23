@@ -537,7 +537,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        ///  
+        ///  Comando para abrir la ventana de historial filtrado.
         /// </summary>
         public ICommand IrHistorialFiltrado
         {
@@ -559,7 +559,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Método que muestra la ventana del historial de documentos filtrado.
         /// </summary>
         private void irHistorialFiltrado()
         {
