@@ -215,6 +215,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando que cambia la fecha final de la gráfica.
+        /// </summary>
         public ICommand CambiarFechaChart
         {
             get
@@ -223,6 +226,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando que filtra la tabla.
+        /// </summary>
         public ICommand FiltrarEstatus
         {
             get
@@ -231,6 +237,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando que filtra la gráfica.
+        /// </summary>
         public ICommand FiltrarGrafica
         {
             get
@@ -243,13 +252,16 @@ namespace View.Services.ViewModel
         #region Methods
 
         /// <summary>
-        /// Método que asigna la fecha de inicio que se seleccionó a la fecha final
+        /// Método que asigna la fecha de inicio que se seleccionó, a la fecha final.
         /// </summary>
         private void cambiaFecha()
         {
             FechaFin = FechaInicio;
         }
 
+        /// <summary>
+        /// Método que asigna la fecha de inicio a la fecha final.
+        /// </summary>
         private void cambiaFechaChart()
         {
             FechaFinChart = FechaInicioChart;
@@ -260,47 +272,71 @@ namespace View.Services.ViewModel
         /// </summary>
         private async void filtrar()
         {
-            //Si no se ha seleccionado el estado.
-            if (SelectedEstatus != null)
-            {
-                if (ValidaCampos())
-                {                 
-                    //Obtiene la información de los documetnos filtrados, el resultado lo asigna a la lista.
-                    ListaHistorial = DataManagerControlDocumentos.GetHistorialDocumentos(FechaInicio, FechaFin, SelectedEstatus, id_dep, id_tipo);                 
-                }
-                else
+            //Valída las fechas.
+            if (ComparaFechaTabla()) {
+                //Si no se ha seleccionado el estado.
+                if (SelectedEstatus != null)
                 {
-                    await dialog.SendMessage("Alerta", "Se debe seleccionar el estatus");
-                }
-            }
-        }
-
-        private void filtrarGrafica()
-        {
-            _ListaGrafica.Clear();
-            //Si se ha seleccionado el estado. 
-          //  ComparaFechaGrafica();
-            if (SelectedEstatusChart != null)
-            {
-                ListaCount = DataManagerControlDocumentos.GetCountDocumentos(FechaInicioChart, FechaFinChart, SelectedEstatusChart, id_depChart, id_tipoChart);
-
-                //La lista no es vacía.
-                if (ListaCount.Count > 0)
-                {                  
-                    foreach (var item in ListaCount)
+                    if (ValidaCampos())
                     {
-                        string fecha = item.fecha.ToShortDateString();
-                        int cantidad = item.cantidad;
-                        _ListaGrafica.Add(new KeyValuePair<string, int>(fecha, cantidad));
+                        //Obtiene la información de los documetnos filtrados, el resultado lo asigna a la lista.
+                        ListaHistorial = DataManagerControlDocumentos.GetHistorialDocumentos(FechaInicio, FechaFin, SelectedEstatus, id_dep, id_tipo);
+                    }
+                    else
+                    {
+                        //Muestra en pantalla el msenaje.
+                        await dialog.SendMessage("Alerta", "Se debe seleccionar el estatus");
                     }
                 }
-
             }
-
+            else
+            {
+                //Muestra mensaje en pantalla.
+                await dialog.SendMessage("Alerta", "El rango de fechas es inválido..");
+            }
         }
 
+        /// <summary>
+        /// Método que filtra los documentos y muestra la gráfica.
+        /// </summary>
+        private async void filtrarGrafica()
+        {
+            //Limpia la lista.
+            _ListaGrafica.Clear();
+          
+            //Compara las fecha.
+            if (ComparaFechaGrafica()) {
+                //Si se ha seleccionado el estado. 
+                if (SelectedEstatusChart != null)
+                {
+                    //Obtiene los documentos de acuerdo a los parámetros, se asigna a la lista.
+                    ListaCount = DataManagerControlDocumentos.GetCountDocumentos(FechaInicioChart, FechaFinChart, SelectedEstatusChart, id_depChart, id_tipoChart);
+
+                    //Si la lista no se encuentra vacía.
+                    if (ListaCount.Count > 0)
+                    {
+                        //Iteramos los objetos de la lista         
+                        foreach (var item in ListaCount)
+                        {
+                            //Agrega a la gráfica los valores de fecha y cantidad de cada item.
+                            _ListaGrafica.Add(new KeyValuePair<string, int>(item.fecha.ToShortDateString(), item.cantidad));
+                        }
+                    }
+                }
+            }
+            else
+            {
+                //Muestra mensaje en pantalla.
+                await dialog.SendMessage("Alerta", "El rango de fechas es inválido..");
+            }
+        }
+
+        /// <summary>
+        /// Método que inicializa las listas.
+        /// </summary>
         private void InicializaCampos()
         {
+            //Objetos de valor nulo.
             Departamento dep = new Departamento();
             TipoDocumento tipo = new TipoDocumento();
             dep.id_dep = 0;
@@ -308,11 +344,14 @@ namespace View.Services.ViewModel
             tipo.id_tipo = 0;
             tipo.tipo_documento = "NINGUNO";
            
-                
+            //Método que obtiene la lista de los departamentos.   
             ListaDepartamento = DataManagerControlDocumentos.GetDepartamento();
+            //Agrega el objeto  nulo.
             ListaDepartamento.Add(dep);
 
+            //Método que obtiene la lista de tipo de documentos.
             ListaTipo = DataManagerControlDocumentos.GetTipo();
+            //Agrega el objeto nulo.
             ListaTipo.Add(tipo);
             ListaEstatus = new ObservableCollection<string>();
             ListaEstatus.Add("LIBERADO");           
@@ -322,8 +361,13 @@ namespace View.Services.ViewModel
             ListaEstatus.Add("PENDIENTE POR APROBACIÓN");
         }
 
+        /// <summary>
+        /// Método que valída los campos.
+        /// </summary>
+        /// <returns></returns>
         private bool ValidaCampos()
         {
+            //Si los combobox no se han seleccionado.
             if (SelectedEstatus != null & _fechaInicio != null & _fechaFin != null)
                 return true;
             else
@@ -331,9 +375,32 @@ namespace View.Services.ViewModel
                 
         }
 
-        private void ComparaFechaGrafica()
+        /// <summary>
+        /// Método que compara las fechas para el filtrado de la gráfica.
+        /// </summary>
+        /// <returns></returns>
+        private bool ComparaFechaGrafica()
         {
-            int comp = FechaInicioChart.CompareTo(FechaFinChart);
+            //Retorna false si la fecha de inicio es mayor a la fecha final.
+            if (FechaInicioChart.CompareTo(FechaFinChart) == 1)
+                return false;
+            else
+                //Si las fechas son iguales, o la fecha de incio es menor a la final.
+                return true; 
+        }
+
+        /// <summary>
+        /// Método que compara las fechas para el filtrado de la tabla.
+        /// </summary>
+        /// <returns></returns>
+        private bool ComparaFechaTabla()
+        {
+            //Retorna false si la fecha de inicio es mayor a la fecha final.
+            if (FechaInicio.CompareTo(FechaFin) == 1)
+                return true;
+            else
+                //Si las fechas son iguales, o la fecha de incio es menor a la final.
+                return false;
         }
         #endregion
 

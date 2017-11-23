@@ -779,7 +779,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 //Se inician los servicios de Entity Control Documento
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
-                    //Se realiza la consulta
+                    //Se realiza la consulta y se asigna a una variebla local.
                     var Lista = (from d in Conexion.TBL_DOCUMENTO
                                  join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                  join u in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals u.Usuario
@@ -1008,7 +1008,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
-        /// 
+        /// Método que obtiene el historial y la información de acuerdo a los parámetros recibidos.
         /// </summary>
         /// <param name="fecha_inicio"></param>
         /// <param name="fecha_fin"></param>
@@ -1020,11 +1020,13 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         {
             try
             {
+                //Se inicializa los servicios de EntityControlDocumetnos.
                 using (var Conexion= new EntitiesControlDocumentos())
                 {
-                    
+                    //Si el id_tipo y el id_departamento son cero, sólo se va a filtrar por estatus.
                     if (id_departamento == 0 && id_tipo == 0)
                     {
+                        //Se realiza la consulta y se asigna a una variable.
                         var Lista = (from h in Conexion.TBL_HISTORIAL_VERSION
                                      join d in Conexion.TBL_DOCUMENTO on h.NOMBRE_DOCUMENTO equals d.NOMBRE
                                      join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
@@ -1040,11 +1042,13 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                          h.DESCRIPCION
                                      }).OrderBy(x => x.FechaHistorial).ToList();
 
+                        //retornamos la lista.
                         return Lista;
                     }
+                    //Si el id del tipo y el departamentos es diferente de cero.
                     else if (id_tipo!=0 & id_departamento!=0)
                     {
-
+                        //Se realiza la consulta y se asigna a una variable.
                         var Lista = (from h in Conexion.TBL_HISTORIAL_VERSION
                                      join d in Conexion.TBL_DOCUMENTO on h.NOMBRE_DOCUMENTO equals d.NOMBRE
                                      join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
@@ -1059,12 +1063,13 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                          FechaHistorial = h.FECHA,
                                          h.DESCRIPCION
                                      }).OrderBy(x => x.FechaHistorial).ToList();
-
+                        //Retornamos la lista.
                         return Lista;
                     }
+                    //Si el id_tipo es cero, sólo se buscara por estatus y departamento.
                      else if (id_tipo == 0)
                     {
-                      
+                            //Se realiza la consulta y se le asigna a una variable.
                             var Lista = (from h in Conexion.TBL_HISTORIAL_VERSION
                                          join d in Conexion.TBL_DOCUMENTO on h.NOMBRE_DOCUMENTO equals d.NOMBRE
                                          join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
@@ -1079,13 +1084,13 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                              FechaHistorial = h.FECHA,
                                              h.DESCRIPCION
                                          }).OrderBy(x => x.FechaHistorial).ToList();
-
-                            return Lista;
-                        
+                        //Retornamos la lista.
+                            return Lista;                      
                     }
+                    //Si el id_tipo no es cero, se busca por tipo y estatus.
                     else
                     {
-                    
+                            //Se realiza la consulta y se asigna a una variable.
                             var Lista = (from h in Conexion.TBL_HISTORIAL_VERSION
                                          join d in Conexion.TBL_DOCUMENTO on h.NOMBRE_DOCUMENTO equals d.NOMBRE
                                          join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
@@ -1100,7 +1105,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                              FechaHistorial = h.FECHA,
                                              h.DESCRIPCION
                                          }).OrderBy(x => x.FechaHistorial).ToList();
-
+                        //Retornamos la lista.
                             return Lista;
                         
                     }                  
@@ -1108,7 +1113,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
             catch (Exception er)
             {
-
+                //Si hay error retorna nulo.
                 return null;
             }
         }
@@ -1127,7 +1132,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             DataSet datos = new DataSet();
             try
             {
-
                 //Se crea conexion a la BD.
                 Desing_SQL conexion = new Desing_SQL();
 
@@ -1143,11 +1147,10 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 
                 //se ejecuta el procedimiento y se mandan los parámetros añadidos anteriormente.
                 datos = conexion.EjecutarStoredProcedure("SP_CIT_Get_HistorialCantidad", parametros);
-
             }
             catch (Exception er)
             {
-                //si hay error, retorna cero.
+                //si hay error, retorna la tabla vacía.
                 return datos;
             }
             //Retorna el número de elementos en la tabla.
