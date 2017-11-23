@@ -9966,10 +9966,43 @@ namespace Model
                     ListaResultante.Add(registro);
                 }
             }
-
-            
-
             return ListaResultante;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetCliente(Cliente obj)
+        {
+            SO_Cliente ServicioCliente = new SO_Cliente();
+
+            return ServicioCliente.SetCliente(obj.NombreCliente);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateCliente(Cliente obj)
+        {
+            SO_Cliente ServicioCliente = new SO_Cliente();
+
+            return ServicioCliente.UpdateCliente(obj.IdCliente,obj.NombreCliente);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteCliente(int id)
+        {
+            SO_Cliente ServicioCliente = new SO_Cliente();
+
+            return ServicioCliente.DeleteCliente(id);
         }
 
         #endregion
