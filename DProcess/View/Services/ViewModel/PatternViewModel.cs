@@ -55,8 +55,15 @@ namespace View.Services.ViewModel
         }
 
         public Propiedad diametro {
-            get { return model.diametro; }
-            set { model.diametro = value; NotifyChange("diametro"); }
+            get
+            {
+                return model.diametro;
+            }
+            set
+            {
+                model.diametro = value;
+                NotifyChange("diametro");
+            }
         }
 
         public Propiedad mounting {
@@ -219,8 +226,8 @@ namespace View.Services.ViewModel
 
         public PropiedadCadena Tipo
         {
-            get { return model.Tipo; }
-            set { model.Tipo = value; NotifyChange("Tipo"); }
+            get { return model.TipoAnillo; }
+            set { model.TipoAnillo = value; NotifyChange("Tipo"); }
         }
 
         public PropiedadCadena mounted
@@ -346,6 +353,54 @@ namespace View.Services.ViewModel
                 NotifyChange("HardnessMax");
             }
         }
+
+        public PropiedadCadena Proceso {
+            get
+            {
+                return model.Proceso;
+            }
+            set
+            {
+                model.Proceso = value;
+                NotifyChange("Proceso");
+            }
+        }
+        public PropiedadCadena EspecMaterialAnillo {
+            get
+            {
+                return model.EspecMaterialAnillo;
+            }
+            set
+            {
+                model.EspecMaterialAnillo = value;
+                NotifyChange("EspecMaterialAnillo");
+            }
+        }
+
+        public PropiedadCadena TipoMaterial {
+            get
+            {
+                return model.TipoMaterial;
+            }
+            set
+            {
+                model.TipoMaterial = value;
+                NotifyChange("TipoMaterial");
+            }
+        }
+
+        public PropiedadCadena TipoAnillo {
+            get
+            {
+                return model.TipoAnillo;
+            }
+            set
+            {
+                model.TipoAnillo = value;
+                NotifyChange("TipoAnillo");
+            }
+        }
+
         #endregion
 
         #region INotifyPropertyChanged Métodos
@@ -371,96 +426,96 @@ namespace View.Services.ViewModel
         public PatternViewModel()
         {
             model = new Pattern();
-            model.codigo = new PropiedadCadena();
-            model.codigo.Valor = "";
-            model.medida = new Propiedad();
-            model.medida.Valor = 0;
-            model.diametro = new Propiedad();
-            model.diametro.Valor = 0;
-            model.detalle = new PropiedadCadena();
-            model.detalle.Valor = "";
-            model.customer = new Cliente();
-            model.customer.NombreCliente = "";
-            model.mounting = new Propiedad();
-            model.mounting.Valor = 0;
-            model.plato = new Propiedad();
-            model.plato.Valor = 0;
-            model.on_14_rd_gate = new PropiedadCadena();
-            model.on_14_rd_gate.Valor = "";
-            model.button = new PropiedadCadena();
-            model.button.Valor = "";
-            model.M_Circle = new PropiedadCadena();
-            model.M_Circle.Valor = "";
-            model.cone = new PropiedadCadena();
-            model.cone.Valor = "";
-            model.ring_th_min = new Propiedad();
-            model.ring_th_min.Valor = 0;
-            model.ring_th_max = new Propiedad();
-            model.ring_th_max.Valor = 0;
-            model.ring_w_min = new Propiedad();
-            model.ring_w_min.Valor = 0;
-            model.ring_w_max = new Propiedad();
-            model.ring_w_max.Valor = 0;
-            model.date_ordered = new PropiedadCadena();
-            model.date_ordered.Valor = "";
-            model.mounted = new PropiedadCadena();
-            model.mounted.Valor = "";
-            model.ordered = new PropiedadCadena();
-            model.ordered.Valor = "";
-            model.Checked = new PropiedadCadena();
-            model.Checked.Valor = "";
-            model.factor_k = new Propiedad();
-            model.factor_k.Valor = 0;
-            model.OD = new Propiedad();
-            model.OD.Valor = 0;
-            model.ID = new Propiedad();
-            model.ID.Valor = 0;
-            model.diff = new Propiedad();
-            model.diff.Valor = 0;
-            model.B_Dia = new Propiedad();
-            model.B_Dia.Valor = 0;
-            model.fin_Dia = new Propiedad();
-            model.fin_Dia.Valor = 0;
-            model.turn_allow = new Propiedad();
-            model.turn_allow.Valor = 0;
-            model.cstg_sm_od = new Propiedad();
-            model.cstg_sm_od.Valor = 0;
-            model.shrink_allow = new Propiedad();
-            model.shrink_allow.Valor = 0;
-            model.patt_sm_od = new Propiedad();
-            model.patt_sm_od.Valor = 0;
-            model.piece_in_patt = new Propiedad();
-            model.piece_in_patt.Valor = 0;
-            model.bore_allow = new Propiedad();
-            model.bore_allow.Valor = 0;
-            model.patt_thickness = new Propiedad();
-            model.patt_thickness.Valor = 0;
-            model.patt_sm_id = new Propiedad();
-            model.patt_sm_id.Valor = 0;
-            model.joint = new PropiedadCadena();
-            model.joint.Valor = "";
-            model.nick = new PropiedadCadena();
-            model.nick.Valor = "";
-            model.nick_draf = new PropiedadCadena();
-            model.nick_draf.Valor = "";
-            model.nick_depth = new PropiedadCadena();
-            model.nick_depth.Valor = "";
-            model.side_relief = new PropiedadCadena();
-            model.side_relief.Valor = "";
-            model.cam = new Propiedad();
-            model.cam.Valor = 0;
-            model.cam_roll = new Propiedad();
-            model.cam_roll.Valor = 0;
-            model.rise_built = new Propiedad();
-            model.rise_built.Valor = 0;
-            model.cam_lever = new Propiedad();
-            model.cam_lever.Valor = 0;
-            model.patt_width = new Propiedad();
-            model.patt_width.Valor = 0;
-            model.peso_cstg = new Propiedad();
-            model.peso_cstg.Valor = 0;
-            model.Tipo = new PropiedadCadena();
-            model.Tipo.Valor = "";
+            codigo = new PropiedadCadena();
+            codigo.Valor = "";
+            medida = new Propiedad();
+            medida.Valor = 0;
+            diametro = new Propiedad();
+            diametro.Valor = 0;
+            detalle = new PropiedadCadena();
+            detalle.Valor = "";
+            customer = new Cliente();
+            customer.NombreCliente = "";
+            mounting = new Propiedad();
+            mounting.Valor = 0;
+            plato = new Propiedad();
+            plato.Valor = 0;
+            on_14_rd_gate = new PropiedadCadena();
+            on_14_rd_gate.Valor = "";
+            button = new PropiedadCadena();
+            button.Valor = "";
+            M_Circle = new PropiedadCadena();
+            M_Circle.Valor = "";
+            cone = new PropiedadCadena();
+            cone.Valor = "";
+            ring_th_min = new Propiedad();
+            ring_th_min.Valor = 0;
+            ring_th_max = new Propiedad();
+            ring_th_max.Valor = 0;
+            ring_w_min = new Propiedad();
+            ring_w_min.Valor = 0;
+            ring_w_max = new Propiedad();
+            ring_w_max.Valor = 0;
+            date_ordered = new PropiedadCadena();
+            date_ordered.Valor = "";
+            mounted = new PropiedadCadena();
+            mounted.Valor = "";
+            ordered = new PropiedadCadena();
+            ordered.Valor = "";
+            Checked = new PropiedadCadena();
+            Checked.Valor = "";
+            factor_k = new Propiedad();
+            factor_k.Valor = 0;
+            OD = new Propiedad();
+            OD.Valor = 0;
+            ID = new Propiedad();
+            ID.Valor = 0;
+            diff = new Propiedad();
+            diff.Valor = 0;
+            B_Dia = new Propiedad();
+            B_Dia.Valor = 0;
+            fin_Dia = new Propiedad();
+            fin_Dia.Valor = 0;
+            turn_allow = new Propiedad();
+            turn_allow.Valor = 0;
+            cstg_sm_od = new Propiedad();
+            cstg_sm_od.Valor = 0;
+            shrink_allow = new Propiedad();
+            shrink_allow.Valor = 0;
+            patt_sm_od = new Propiedad();
+            patt_sm_od.Valor = 0;
+            piece_in_patt = new Propiedad();
+            piece_in_patt.Valor = 0;
+            bore_allow = new Propiedad();
+            bore_allow.Valor = 0;
+            patt_thickness = new Propiedad();
+            patt_thickness.Valor = 0;
+            patt_sm_id = new Propiedad();
+            patt_sm_id.Valor = 0;
+            joint = new PropiedadCadena();
+            joint.Valor = "";
+            nick = new PropiedadCadena();
+            nick.Valor = "";
+            nick_draf = new PropiedadCadena();
+            nick_draf.Valor = "";
+            nick_depth = new PropiedadCadena();
+            nick_depth.Valor = "";
+            side_relief = new PropiedadCadena();
+            side_relief.Valor = "";
+            cam = new Propiedad();
+            cam.Valor = 0;
+            cam_roll = new Propiedad();
+            cam_roll.Valor = 0;
+            rise_built = new Propiedad();
+            rise_built.Valor = 0;
+            cam_lever = new Propiedad();
+            cam_lever.Valor = 0;
+            patt_width = new Propiedad();
+            patt_width.Valor = 0;
+            peso_cstg = new Propiedad();
+            peso_cstg.Valor = 0;
+            TipoAnillo = new PropiedadCadena();
+            TipoAnillo.Valor = "";
             
 
 
@@ -524,6 +579,46 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand Calcular
+        {
+            get{
+                return new RelayCommand(o => calcularPlaca());
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void calcularPlaca()
+        {
+
+            //Constante
+            joint.Valor = "BUTT";
+            nick.Valor = "RAD.";
+            nick_draf.Valor = "4°";
+            nick_depth.Valor = ".045 - .050";
+            side_relief.Valor = "-----";
+            cam.Valor = 8;
+            cam_roll.Valor = 1.622;
+            cam_lever.Valor = 0.074;
+            rise_built.Valor = 0.005;
+
+            //Actualizamos los valores para que se ven reflejados en pantalla.
+            turn_allow = turn_allow;
+            bore_allow = bore_allow;
+            joint = joint;
+            nick = nick;
+            nick_draf = nick_draf;
+            nick_depth = nick_depth;
+            side_relief = side_relief;
+            cam = cam;
+            cam_roll = cam_roll;
+            cam_lever = cam_lever;
+            rise_built = rise_built;
+
+        }
+
         public byte[] FileToByteArray(string fileName)
         {
             try
@@ -558,15 +653,15 @@ namespace View.Services.ViewModel
 
             DialogService dialog = new DialogService();
             int test = 1;
-            if (test!=0)
+            if (test != 0)
             {
                 await dialog.SendMessage("RGP: Confirmación", "Placa modelo registrada con el código: " + test);
-            }else
+            }
+            else
             {
                 await dialog.SendMessage("RGP: Alerta", "Oh, Oh, parece ser que algo salió mal.");
             }
-        }
-
+        } 
         #endregion
     }
 }

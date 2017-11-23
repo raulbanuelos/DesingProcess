@@ -45,7 +45,7 @@
             </MenuItem>
 
             <MenuItem Header="_Tools">
-                <MenuItem Header="Generate Route">
+                <MenuItem Header="Calculate" Command="{Binding Calcular}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="PlayCircle"></materialDesign:PackIcon>
                     </MenuItem.Icon>
@@ -70,9 +70,9 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin=".5">
-                        <TextBox materialDesign:HintAssist.Hint="DIAMETER" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding diametro.valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="DIAMETER" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding diametro.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                         <Label Content="X" VerticalAlignment="Bottom" FontWeight="Bold"/>
-                        <TextBox materialDesign:HintAssist.Hint="WIDTH" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding medida.valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="WIDTH" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding medida.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin=".5">

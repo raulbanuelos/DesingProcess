@@ -60,12 +60,14 @@ namespace Model
         public Propiedad peso_cstg { get; set; }
         public Propiedad cam_lever { get; set; }
         public Propiedad patt_width { get; set; }
-        public PropiedadCadena Tipo { get; set; }
+        public PropiedadCadena TipoAnillo { get; set; }
 
         public PropiedadCadena Hardness { get; set; }
         public Propiedad HardnessMin { get; set; }
         public Propiedad HardnessMax { get; set; }
-
+        public PropiedadCadena Proceso { get; set; }
+        public PropiedadCadena EspecMaterialAnillo { get; set; }
+        public PropiedadCadena TipoMaterial { get; set; }
         #endregion
 
         #region Constructores
@@ -74,6 +76,19 @@ namespace Model
         {
             date_ordered = new PropiedadCadena { DescripcionCorta = "Date Ordered", DescripcionLarga = "Date Ordered", Imagen = null, Nombre = "DateOrdered", Valor = DateTime.Now.ToString() };
             date_checked = new PropiedadCadena { DescripcionCorta = "Date Checked", DescripcionLarga = "Date Checked", Imagen = null, Nombre = "DateChecked", Valor = DateTime.Now.ToString() };
+
+            joint = new PropiedadCadena();
+            turn_allow = new Propiedad();
+            bore_allow = new Propiedad();
+            joint = new PropiedadCadena();
+            nick = new PropiedadCadena();
+            nick_draf = new PropiedadCadena();
+            nick_depth = new PropiedadCadena();
+            side_relief = new PropiedadCadena();
+            cam = new Propiedad();
+            cam_roll = new Propiedad();
+            cam_lever = new Propiedad();
+            rise_built = new Propiedad();
         }
          
         #endregion

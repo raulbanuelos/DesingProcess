@@ -29,7 +29,7 @@
     <PublisherName>Diseño del proceso</PublisherName>
     <SuiteName>Diseño del proceso</SuiteName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>31</ApplicationRevision>
+    <ApplicationRevision>33</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -529,6 +529,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -357,6 +357,17 @@ namespace View.Services
         }
 
         /// <summary>
+        /// Método que retorna la propiedad buscada en una lista.
+        /// </summary>
+        /// <param name="Nombre"></param>
+        /// <param name="Lista"></param>
+        /// <returns></returns>
+        public static PropiedadCadena GetPropiedadCadena(string Nombre, ObservableCollection<PropiedadCadena> Lista)
+        {
+            return Lista.Where(x => x.Nombre == Nombre).First();
+        }
+
+        /// <summary>
         /// Método que busca el valor de una propiedad Bool.
         /// </summary>
         /// <param name="NombrePropiedad">Cadena que representa el nombre de la propiedad que re requiere obtener el valor.</param>
