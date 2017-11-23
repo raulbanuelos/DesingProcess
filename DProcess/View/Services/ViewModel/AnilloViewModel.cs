@@ -923,9 +923,11 @@ namespace View.Services.ViewModel
                             WPattern pattern = new WPattern();
 
                             Pattern nuevaPlaca = new Pattern();
-                            nuevaPlaca.medida = D1;
-                            //Falta el width
+                            
                             nuevaPlaca.customer = cliente;
+                            
+                            nuevaPlaca.diametro = D1;
+                            nuevaPlaca.medida = H1;
 
                             //Begin - Solo para el ejemplo, despues tendremos que cambiar dependiendo si en el plano vienen las tolerancias o los valores mínimos y máximos.
                             ThicknessMin.Valor = Thickness.Valor - ThicknessMin.Valor;
@@ -959,6 +961,10 @@ namespace View.Services.ViewModel
 
                             nuevaPlaca.turn_allow = new Propiedad { DescripcionCorta = "", DescripcionLarga = "", Imagen = null, Nombre = "", TipoDato = "", Unidad = "", Valor = calcularMateriaPrima.TS };
                             nuevaPlaca.bore_allow = new Propiedad { DescripcionCorta = "", DescripcionLarga = "", Imagen = null, Nombre = "", TipoDato = "", Unidad = "", Valor = calcularMateriaPrima.BS };
+                            //DataManager.GetCamTurnConstant()
+                            double factork = calcularMateriaPrima.CamTurnConstant * 0.0001;
+
+                            nuevaPlaca.factor_k = new Propiedad { DescripcionCorta = "Factor K", DescripcionLarga = "Factor K", Imagen = null, Nombre = "FactorK", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), Valor = factork};
 
                             PatternViewModel vm = new PatternViewModel(nuevaPlaca);
                             pattern.DataContext = vm;

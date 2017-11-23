@@ -24,6 +24,7 @@ namespace View.Services
         public double FreeGap { get; set; }
         public double TS { get; set; }
         public double BS { get; set; }
+        public double CamTurnConstant { get; set; }
         #endregion
 
         #region Constructors
@@ -119,6 +120,9 @@ namespace View.Services
             string cam_detail;
 
             m = DataManager.GetCamTurnConstant(_elAnillo, ringShape,out cam_detail);
+
+            CamTurnConstant = m;
+
             n = (l * 64 * m) + 0.005;
             o = n * 0.478;
             double compara = (l - (l * (b - (g / 4)))) / b;

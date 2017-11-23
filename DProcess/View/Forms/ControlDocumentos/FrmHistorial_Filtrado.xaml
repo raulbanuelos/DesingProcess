@@ -164,6 +164,60 @@
                         <Grid Grid.Row="1">
                             <chartingToolkit:Chart  Name="lineChart" Title="" VerticalAlignment="Center" Width="1000" Height="500" Background="White" BorderBrush="White">
                                 <chartingToolkit:LineSeries Title="Documentos" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding Path=ListaGrafica, IsAsync=True}" IsSelectionEnabled="True" Background="White"  />
+
+                                <chartingToolkit:Chart.LayoutTransform>
+                                    <RotateTransform Angle="90"></RotateTransform>
+                                </chartingToolkit:Chart.LayoutTransform>
+                                <chartingToolkit:Chart.Axes>
+                                    <chartingToolkit:CategoryAxis Orientation="Y" 
+                                  Location="Bottom" 
+                                  Foreground="Black">
+                                        <chartingToolkit:CategoryAxis.AxisLabelStyle>
+                                            <Style TargetType="chartingToolkit:AxisLabel">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate 
+                                      TargetType="chartingToolkit:AxisLabel">
+                                                            <TextBlock 
+                             Text="{TemplateBinding FormattedContent}" 
+                                               TextAlignment="Center" 
+                                               RenderTransformOrigin="0.5,0.5">
+                                                                <TextBlock.RenderTransform>
+                                                                    <RotateTransform Angle="-90" />
+                                                                </TextBlock.RenderTransform>
+                                                            </TextBlock>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </chartingToolkit:CategoryAxis.AxisLabelStyle>
+                                    </chartingToolkit:CategoryAxis>
+
+                                    <chartingToolkit:LinearAxis Orientation="X" 
+                                  Location="Left" 
+                                  Foreground="Black">
+                                        <chartingToolkit:LinearAxis.AxisLabelStyle>
+                                            <Style TargetType="chartingToolkit:AxisLabel">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate 
+                                      TargetType="chartingToolkit:AxisLabel">
+                                                            <TextBlock 
+                             Text="{TemplateBinding FormattedContent}" 
+                                               TextAlignment="Center" 
+                                               RenderTransformOrigin="0.5,0.5">
+                                                                <TextBlock.RenderTransform>
+                                                                    <RotateTransform Angle="-90" />
+                                                                </TextBlock.RenderTransform>
+                                                            </TextBlock>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </chartingToolkit:LinearAxis.AxisLabelStyle>
+                                    </chartingToolkit:LinearAxis>
+                                </chartingToolkit:Chart.Axes>
+
                             </chartingToolkit:Chart>
 
                         </Grid>
