@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.ServiceObjects.MateriasPrimas
 {
@@ -211,7 +208,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                 {
                     //Relizamos la consulta y la guardamos en una variable local.
                     var Lista = (from m in Conexion.MoutingDia
-                                 where dimB >= m.Dia_B_min && dimB <= m.Dia_B_min && m.Plato == plato
+                                 where dimB >= m.Dia_B_min && dimB <= m.Dia_B_max && m.Plato == plato
                                  select new
                                  {
                                      m.No_impresiones,
