@@ -78,6 +78,31 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           <Property Name="descripcion" Type="nvarchar" MaxLength="100" />
           <Property Name="Recomendado" Type="bit" />
         </EntityType>
+        <EntityType Name="MoutingDia">
+          <Key>
+            <PropertyRef Name="Id_MountingDia" />
+          </Key>
+          <Property Name="Id_MountingDia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Plato" Type="float" />
+          <Property Name="Dia_B_min" Type="float" />
+          <Property Name="Dia_B_max" Type="float" />
+          <Property Name="No_impresiones" Type="int" />
+          <Property Name="Gate" Type="varchar" MaxLength="50" />
+          <Property Name="Medios_Circulos" Type="varchar" MaxLength="50" />
+          <Property Name="Boton" Type="varchar" MaxLength="50" />
+          <Property Name="Conos" Type="varchar" MaxLength="50" />
+          <Property Name="ord" Type="int" />
+        </EntityType>
+        <EntityType Name="MoutingWidth">
+          <Key>
+            <PropertyRef Name="Id_MountingWidth" />
+          </Key>
+          <Property Name="Id_MountingWidth" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Width_Min" Type="float" />
+          <Property Name="Width_Max" Type="float" />
+          <Property Name="Detalle" Type="char" MaxLength="10" />
+          <Property Name="Altura_Gate" Type="float" />
+        </EntityType>
         <EntityType Name="patt_actualizaciones">
           <Key>
             <PropertyRef Name="id_patt_actualizaciones" />
@@ -267,6 +292,8 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           <EntitySet Name="Compensacion_Piece" EntityType="Self.Compensacion_Piece" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cuffs" EntityType="Self.cuffs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="material" EntityType="Self.material" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MoutingDia" EntityType="Self.MoutingDia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MoutingWidth" EntityType="Self.MoutingWidth" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="patt_actualizaciones" EntityType="Self.patt_actualizaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pattern2" EntityType="Self.Pattern2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Anillo" EntityType="Self.Tipo_Anillo" Schema="dbo" store:Type="Tables" />
@@ -460,6 +487,8 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
             <End Role="Tipo_Anillo" EntitySet="Tipo_Anillo" />
             <End Role="Compensacion_Piece" EntitySet="Compensacion_Piece" />
           </AssociationSet>
+          <EntitySet Name="MoutingDia" EntityType="DataAccess.ServiceObjects.MateriasPrimas.MoutingDia" />
+          <EntitySet Name="MoutingWidth" EntityType="DataAccess.ServiceObjects.MateriasPrimas.MoutingWidth" />
         </EntityContainer>
         <EntityType Name="Tipo_Materia_Prima">
           <Key>
@@ -624,6 +653,31 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="MoutingDia">
+          <Key>
+            <PropertyRef Name="Id_MountingDia" />
+          </Key>
+          <Property Name="Id_MountingDia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Plato" Type="Double" />
+          <Property Name="Dia_B_min" Type="Double" />
+          <Property Name="Dia_B_max" Type="Double" />
+          <Property Name="No_impresiones" Type="Int32" />
+          <Property Name="Gate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Medios_Circulos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Boton" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Conos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ord" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MoutingWidth">
+          <Key>
+            <PropertyRef Name="Id_MountingWidth" />
+          </Key>
+          <Property Name="Id_MountingWidth" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Width_Min" Type="Double" />
+          <Property Name="Width_Max" Type="Double" />
+          <Property Name="Detalle" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Altura_Gate" Type="Double" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -813,6 +867,33 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
                 <ScalarProperty Name="Recubrimiento" ColumnName="Recubrimiento" />
                 <ScalarProperty Name="Tipo" ColumnName="Tipo" />
                 <ScalarProperty Name="Id_Tipo" ColumnName="Id_Tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MoutingDia">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.MoutingDia">
+              <MappingFragment StoreEntitySet="MoutingDia">
+                <ScalarProperty Name="ord" ColumnName="ord" />
+                <ScalarProperty Name="Conos" ColumnName="Conos" />
+                <ScalarProperty Name="Boton" ColumnName="Boton" />
+                <ScalarProperty Name="Medios_Circulos" ColumnName="Medios_Circulos" />
+                <ScalarProperty Name="Gate" ColumnName="Gate" />
+                <ScalarProperty Name="No_impresiones" ColumnName="No_impresiones" />
+                <ScalarProperty Name="Dia_B_max" ColumnName="Dia_B_max" />
+                <ScalarProperty Name="Dia_B_min" ColumnName="Dia_B_min" />
+                <ScalarProperty Name="Plato" ColumnName="Plato" />
+                <ScalarProperty Name="Id_MountingDia" ColumnName="Id_MountingDia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MoutingWidth">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.MoutingWidth">
+              <MappingFragment StoreEntitySet="MoutingWidth">
+                <ScalarProperty Name="Altura_Gate" ColumnName="Altura_Gate" />
+                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+                <ScalarProperty Name="Width_Max" ColumnName="Width_Max" />
+                <ScalarProperty Name="Width_Min" ColumnName="Width_Min" />
+                <ScalarProperty Name="Id_MountingWidth" ColumnName="Id_MountingWidth" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

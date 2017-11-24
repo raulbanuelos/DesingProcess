@@ -38,5 +38,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         public virtual DbSet<castings_widths> castings_widths { get; set; }
         public virtual DbSet<Compensacion_Piece> Compensacion_Piece { get; set; }
         public virtual DbSet<Tipo_Anillo> Tipo_Anillo { get; set; }
+        public virtual DbSet<MoutingDia> MoutingDia { get; set; }
+        public virtual DbSet<MoutingWidth> MoutingWidth { get; set; }
     }
 }

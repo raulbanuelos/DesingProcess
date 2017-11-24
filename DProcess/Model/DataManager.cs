@@ -9918,6 +9918,224 @@ namespace Model
 
         #endregion
 
+        #region MoutingDia
+
+        /// <summary>
+        /// Método que obtiene todos los registros de moutingdia.
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<MoutingDia> GetAllMoutingDia()
+        {
+            SO_MoutingDia ServiceMoutingDia = new SO_MoutingDia();
+
+            ObservableCollection<MoutingDia> ListaResul = new ObservableCollection<MoutingDia>();
+
+            IList InfoBD = ServiceMoutingDia.GetAllMoutingDia();
+
+            if (InfoBD != null)
+            {
+                foreach (var item in InfoBD)
+                {
+                    //Se obtiene el tipo
+                    System.Type tipo = item.GetType();
+
+                    MoutingDia obj = new MoutingDia();
+
+                    obj.id = (int)tipo.GetProperty("Id_MountingDia").GetValue(item, null);
+                    obj.plato= (double)tipo.GetProperty("Plato").GetValue(item, null);
+                    obj.dia_min = (double)tipo.GetProperty("Dia_B_min").GetValue(item, null);
+                    obj.dia_max = (double)tipo.GetProperty("Dia_B_max").GetValue(item, null);
+                    obj.num_impresiones = (int)tipo.GetProperty("No_impresiones").GetValue(item, null);
+                    obj.gate =(string)tipo.GetProperty("Gate").GetValue(item, null);
+                    obj.medios_circulos = (string)tipo.GetProperty("Medios_Circulos").GetValue(item, null);
+                    obj.conos = (string)tipo.GetProperty("Boton").GetValue(item, null);
+                    obj.boton = (string)tipo.GetProperty("Conos").GetValue(item, null);
+                    obj.orden = (int)tipo.GetProperty("ord").GetValue(item, null);
+
+                    ListaResul.Add(obj);
+                }
+            }
+
+            return ListaResul;
+        }
+
+        /// <summary>
+        /// Método que obtiene una lista de campo plato.
+        /// </summary>
+        /// <param name="dimB"></param>
+        public static List<double> GetPlatoMoutingDia(double dimB)
+        {
+            SO_MoutingDia ServiceMoutingDia = new SO_MoutingDia();
+
+            IList InfoBD = ServiceMoutingDia.GetPlato(dimB);
+
+            List<double> ListaResul = new List<double>();
+
+            if (InfoBD != null)
+            {
+                foreach (var item in InfoBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    ListaResul.Add((double)tipo.GetProperty("Plato").GetValue(item, null));
+                }
+            }
+
+            return ListaResul;
+        }
+
+        /// <summary>
+        /// Método que obtiene el vector con los campos de MputingDia de acuerdo al diámetro y plato.
+        /// </summary>
+        /// <param name="dimB"></param>
+        /// <param name="plato"></param>
+        /// <returns></returns>
+        public static string[] GetMoutingDia(double dimB, double plato)
+        {
+            SO_MoutingDia ServiceMoutingDia = new SO_MoutingDia();
+
+            IList InfoBD = ServiceMoutingDia.GetMoutingDia(dimB, plato);
+
+            string[] vector = new string[5];
+
+            if (InfoBD != null)
+            {
+                foreach (var item in InfoBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    vector[0] = Convert.ToString((int)tipo.GetProperty("No_impresiones").GetValue(item, null));
+                    vector[1] = (string)tipo.GetProperty("Gate").GetValue(item, null);
+                    vector[2] = (string)tipo.GetProperty("Medios_Circulos").GetValue(item, null);
+                    vector[3] = (string)tipo.GetProperty("Boton").GetValue(item, null);
+                    vector[4] = (string)tipo.GetProperty("Conos").GetValue(item, null);
+                }
+            }
+
+            return vector;
+        }
+
+        /// <summary>
+        /// Método que guarda un registro en la tbla MoutingDia.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetMoutingDia(MoutingDia obj)
+        {
+            SO_MoutingDia ServiceMoutingDia = new SO_MoutingDia();
+
+            return ServiceMoutingDia.SetMoutingDia(obj.plato, obj.dia_min, obj.dia_max, obj.num_impresiones, obj.gate, obj.medios_circulos, obj.boton, obj.conos, obj.orden);
+        }
+
+        /// <summary>
+        /// Método que modifica un registro de la tabla MoutingDia.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateMoutingDia(MoutingDia obj)
+        {
+            SO_MoutingDia ServiceMoutingDia = new SO_MoutingDia();
+
+            return ServiceMoutingDia.UpdateMoutingDia(obj.id,obj.plato, obj.dia_min, obj.dia_max, obj.num_impresiones, obj.gate, obj.medios_circulos, obj.boton, obj.conos, obj.orden);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla mouting Dia.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteMoutingDia(int id)
+        {
+            SO_MoutingDia ServiceMoutingDia = new SO_MoutingDia();
+
+            return ServiceMoutingDia.DeleteMoutingDia(id);
+        }
+        #endregion
+
+        #region MoutingWidth
+
+        /// <summary>
+        /// Método que obtiene todos los registros de Mouting Width.
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<MoutingWidth> GetAllMoutingWidth()
+        {
+            SO_MotingWidth ServiceMoutingWidth = new SO_MotingWidth();
+
+            ObservableCollection<MoutingWidth> ListaResul = new ObservableCollection<MoutingWidth>();
+
+            IList InfoBD = ServiceMoutingWidth.GetAllMoutingWidth();
+
+            if (InfoBD != null)
+            {
+                foreach (var item in InfoBD)
+                {
+                    //Se obtiene el tipo
+                    System.Type tipo = item.GetType();
+
+                    MoutingWidth obj = new MoutingWidth();
+
+                    obj.id = (int)tipo.GetProperty("Id_MountingWidth").GetValue(item, null);
+                    obj.wmin= (double)tipo.GetProperty("Width_Min").GetValue(item, null);
+                    obj.wmax = (double)tipo.GetProperty("Width_Max").GetValue(item, null);
+                    obj.detalle =(string)tipo.GetProperty("Detalle").GetValue(item, null);
+                    obj.gate = (double)tipo.GetProperty("Altura_Gate").GetValue(item, null);
+
+                    ListaResul.Add(obj);
+                }
+            }
+
+            return ListaResul;
+        }
+
+        /// <summary>
+        /// Método que guarda un registro de mouting width.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetMoutingWidth(MoutingWidth obj)
+        {
+            SO_MotingWidth ServiceMoutingWidth = new SO_MotingWidth();
+
+            return ServiceMoutingWidth.SetMoutingWidth(obj.wmin, obj.wmax, obj.detalle, obj.gate);
+        }
+
+        /// <summary>
+        /// Método que modifica un registro de MoutingWidth.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateMoutingWidth(MoutingWidth obj)
+        {
+            SO_MotingWidth ServiceMoutingWidth = new SO_MotingWidth();
+
+            return ServiceMoutingWidth.UpdateMoutingWidth(obj.id,obj.wmin, obj.wmax, obj.detalle, obj.gate);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de Mouting Width.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteMoutingWidth(int id)
+        {
+            SO_MotingWidth ServiceMoutingWidth = new SO_MotingWidth();
+
+            return ServiceMoutingWidth.DeleteMoutingWidth(id);
+        }
+
+        /// <summary>
+        /// Método que obtiene el detalle de MoutingWidth
+        /// </summary>
+        /// <param name="h1"></param>
+        /// <returns></returns>
+        public static string GetDetalleMoutingWidth(double h1)
+        {
+            SO_MotingWidth ServiceMoutingWidth = new SO_MotingWidth();
+
+            return ServiceMoutingWidth.GetDetalle(h1);            
+        }
+        #endregion
         #endregion
 
         #region Unidades
@@ -10048,38 +10266,44 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Método que guarda un registro de Cliente.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
         public static int SetCliente(Cliente obj)
         {
+            //Declaramos el Servicio de Cliente.
             SO_Cliente ServicioCliente = new SO_Cliente();
 
+            //Ejecutamos el método y retornamos el resultado.
             return ServicioCliente.SetCliente(obj.NombreCliente);
         }
 
         /// <summary>
-        /// 
+        /// Método que modifica un registro de cliente.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
         public static int UpdateCliente(Cliente obj)
         {
+            //Declaramos el Servicio de Cliente.
             SO_Cliente ServicioCliente = new SO_Cliente();
 
+            //Ejecutamos el método y retornamos el resultado.
             return ServicioCliente.UpdateCliente(obj.IdCliente,obj.NombreCliente);
         }
 
         /// <summary>
-        /// 
+        /// Método que elimina un registro de la tbla Cliente.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public static int DeleteCliente(int id)
         {
+            //Declaramos el Servicio de Cliente.
             SO_Cliente ServicioCliente = new SO_Cliente();
 
+            //Ejecutamos el método y retornamos el resultado.
             return ServicioCliente.DeleteCliente(id);
         }
 
