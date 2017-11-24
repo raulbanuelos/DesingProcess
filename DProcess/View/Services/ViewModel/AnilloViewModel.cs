@@ -968,7 +968,7 @@ namespace View.Services.ViewModel
                             nuevaPlaca.EspecMaterialAnillo = MaterialBase.Especificacion;
 
                             nuevaPlaca.Proceso = Module.GetPropiedadCadena("Proceso", PerfilOD.PropiedadesCadena);
-                            
+                            nuevaPlaca.TipoAnillo = new PropiedadCadena { DescripcionCorta = "", DescripcionLarga = "", Imagen = null, Nombre = "TipoAnillo", Valor = TipoAnillo };
 
                             PatternViewModel vm = new PatternViewModel(nuevaPlaca);
                             pattern.DataContext = vm;

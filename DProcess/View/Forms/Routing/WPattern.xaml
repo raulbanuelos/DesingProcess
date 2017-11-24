@@ -134,7 +134,7 @@
                     <StackPanel Orientation="Horizontal" Margin=".5">
                         <TextBox materialDesign:HintAssist.Hint="PESO CASTING (grms/pza)" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding peso_cstg.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
-
+                    
                     <StackPanel Orientation="Horizontal" Margin=".5">
                         <TextBox materialDesign:HintAssist.Hint="FACTOR K" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding factor_k.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
@@ -201,6 +201,14 @@
                 </Grid.RowDefinitions>
 
                 <Canvas Grid.Column="1" Grid.Row="0" Background="Transparent">
+                    <StackPanel Canvas.Left="10" Canvas.Top="10" Orientation="Horizontal">
+                        <RadioButton Cursor="Hand" Padding="0,0,15,0" IsChecked="{Binding diseno.Valor}">
+                            Normal
+                        </RadioButton>
+                        <RadioButton Cursor="Hand">
+                            Redondo
+                        </RadioButton>
+                    </StackPanel>
                     <!--TextBox-->
                     <StackPanel Orientation="Horizontal" Canvas.Top="460" Canvas.Left="320">
                         <TextBox materialDesign:HintAssist.Hint="PATT. SM I.D" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding patt_sm_id.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>

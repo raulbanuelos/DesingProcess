@@ -9137,6 +9137,19 @@ namespace Model
         }
 
         /// <summary>
+        /// Método que obtiene la última placa modelo registrada.
+        /// </summary>
+        /// <returns></returns>
+        public static string GetLastCodePattern()
+        {
+            //Inicializamos los servicios de SO_Pattern.
+            SO_Pattern ServicePattern = new SO_Pattern();
+
+            //Ejecutamos el método y retornamos el valor.
+            return ServicePattern.GetLastCode();
+        }
+
+        /// <summary>
         /// Método que recibe el último código agregado y le suma uno.
         /// </summary>
         /// <param name="LastCode"></param>
@@ -9431,7 +9444,7 @@ namespace Model
         /// <param name="H1"></param>
         /// <param name="proceso"></param>
         /// <returns></returns>
-        private static double GetIdealCastingWidth(double H1, string proceso)
+        public static double GetIdealCastingWidth(double H1, string proceso)
         {
             //Declaramos una variable la cual será la que contenga el valor que retornemos en el método.
             double idealWidth = 0;

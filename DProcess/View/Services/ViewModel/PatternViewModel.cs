@@ -365,6 +365,7 @@ namespace View.Services.ViewModel
                 NotifyChange("Proceso");
             }
         }
+
         public PropiedadCadena EspecMaterialAnillo {
             get
             {
@@ -398,6 +399,19 @@ namespace View.Services.ViewModel
             {
                 model.TipoAnillo = value;
                 NotifyChange("TipoAnillo");
+            }
+        }
+
+        public PropiedadBool diseno
+        {
+            get
+            {
+                return model.diseno;
+            }
+            set
+            {
+                model.diseno = value;
+                NotifyChange("diseno");
             }
         }
 
@@ -516,6 +530,7 @@ namespace View.Services.ViewModel
             peso_cstg.Valor = 0;
             TipoAnillo = new PropiedadCadena();
             TipoAnillo.Valor = "";
+            diseno = new PropiedadBool { Valor = true};
             
 
 
@@ -592,7 +607,6 @@ namespace View.Services.ViewModel
 
         private void calcularPlaca()
         {
-
             //Constante
             joint.Valor = "BUTT";
             nick.Valor = "RAD.";
@@ -604,7 +618,38 @@ namespace View.Services.ViewModel
             cam_lever.Valor = 0.074;
             rise_built.Valor = 0.005;
 
-            //Actualizamos los valores para que se ven reflejados en pantalla.
+            double[] resultsTurnBore = new double[2];
+
+            if (diseno.Valor)
+            {
+                resultsTurnBore = DataManager.Get_TurnBoreAllow(TipoAnillo.Valor, EspecMaterialAnillo.Valor);
+                turn_allow.Valor = resultsTurnBore[0];
+                bore_allow.Valor = resultsTurnBore[1];
+            }
+            else
+            {
+                turn_allow.Valor = 0.1;
+                bore_allow.Valor = 0.105;
+            }
+
+
+            patt_width.Valor =  DataManager.GetIdealCastingWidth(medida.Valor, Proceso.Valor);
+            medida = patt_width;
+
+
+            if (!factor_k.Valor.Equals(0))
+            {
+                codigo.Valor = DataManager.GetNextCodePattern(DataManager.GetLastCodePattern());
+            }
+
+            actualizarValores();
+        }
+
+        /// <summary>
+        /// Método el cual actualiza los valores. (Esto para que se vean reflejados los valores en pantalla.
+        /// </summary>
+        private void actualizarValores()
+        {
             turn_allow = turn_allow;
             bore_allow = bore_allow;
             joint = joint;
@@ -616,7 +661,9 @@ namespace View.Services.ViewModel
             cam_roll = cam_roll;
             cam_lever = cam_lever;
             rise_built = rise_built;
-
+            diseno = diseno;
+            patt_width = patt_width;
+            codigo = codigo;
         }
 
         public byte[] FileToByteArray(string fileName)

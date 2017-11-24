@@ -89,6 +89,9 @@ namespace Model
             cam_roll = new Propiedad();
             cam_lever = new Propiedad();
             rise_built = new Propiedad();
+            diseno = new PropiedadBool { Valor = true };
+            patt_width = new Propiedad();
+            codigo = new PropiedadCadena();
         }
          
         #endregion
