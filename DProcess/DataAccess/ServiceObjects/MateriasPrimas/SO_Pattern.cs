@@ -10,7 +10,11 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
 {
     public class SO_Pattern
     {
-        
+        #region Attributes
+        private string SP_RGP_GET_PESO_ALEANTES = "SP_RGP_GET_PESO_ALEANTES";
+        private string SP_RGP_GET_TURN_BORE_ALLOW = "SP_RGP_GET_TURN_BORE_ALLOW";
+        #endregion
+
         #region Propiedades
         #endregion
 
@@ -506,7 +510,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                 parametros.Add("material", material);
 
                 //se ejecuta el procedimiento y se mandan los parámetros añadidos anteriormente.
-                datos = conexion.EjecutarStoredProcedure("SP_RGP_GET_TURN_BORE_ALLOW", parametros);
+                datos = conexion.EjecutarStoredProcedure(SP_RGP_GET_TURN_BORE_ALLOW, parametros);
             }
             catch (Exception)
             {
@@ -515,6 +519,38 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
             }
             //Retorna la tabla.
             return datos;
+        }
+
+        /// <summary>
+        /// Método que obtiene la suma de los pesos de una determinada especificación de materia prima.
+        /// </summary>
+        /// <param name="especMaterial"></param>
+        /// <returns></returns>
+        public DataSet GetPesoAleantes(string especMaterial)
+        {
+            DataSet datos = new DataSet();
+            try
+            {
+                //Establecemos la conexión a la base de datos.
+                Desing_SQL conexion = new Desing_SQL();
+
+                //Declaramos un diccionario el cual contrendrá los parámetros que recibe el procedimiento alamcenado.
+                Dictionary<string, object> paramentros = new Dictionary<string, object>();
+
+                //Asignamos los parámetros con su valor.
+                paramentros.Add("material", especMaterial);
+
+                //Ejecutamos el procedimiento enviando los parámetros, el resultado lo asignamos a un conjunto de datos.
+                datos = conexion.EjecutarStoredProcedure(SP_RGP_GET_PESO_ALEANTES, paramentros);
+
+                //Retornamos el resultado de la consulta.
+                return datos;
+            }
+            catch (Exception)
+            {
+                //Si ocurre algún error, retornamos un nulo.
+                return null;
+            }
         }
 
         #endregion

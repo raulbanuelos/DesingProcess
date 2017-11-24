@@ -9425,9 +9425,37 @@ namespace Model
             
         }
 
-        private static bool GetIdealCastingWidth(double H1, string proceso)
+        /// <summary>
+        /// Método que obtiene el width ideal de la placa modelo.
+        /// </summary>
+        /// <param name="H1"></param>
+        /// <param name="proceso"></param>
+        /// <returns></returns>
+        private static double GetIdealCastingWidth(double H1, string proceso)
         {
-            return true;
+            //Declaramos una variable la cual será la que contenga el valor que retornemos en el método.
+            double idealWidth = 0;
+
+            //Inicializamos los servicios de SO_Pattern.
+            SO_Pattern ServicePattern = new SO_Pattern();
+
+            //Ejecutamos el método y el resultado lo asignamos a una lista anónima.
+            IList informacionBD = ServicePattern.GetIdealWidthPlacaModelo(H1, proceso);
+
+            //Verificamos que el resultado de la consulta sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la lista resultante de la consulta.
+                foreach (var item in informacionBD)
+                {
+                    //Mapeamos el valor a la variable local.
+                    System.Type tipo = item.GetType();
+                    idealWidth = (double)tipo.GetProperty("ideal_casting_Width").GetValue(item, null);
+                }
+            }
+
+            //Retornamos el valor.
+            return idealWidth;
         }
 
         /// <summary>
@@ -9462,6 +9490,38 @@ namespace Model
             return false;
         }
 
+        /// <summary>
+        /// Método que obtiene la suma de los pesos de una especificación de materia prima.
+        /// </summary>
+        /// <param name="especMaterial"></param>
+        /// <returns></returns>
+        private static double GetPesoAleantes(string especMaterial)
+        {
+            //Inicializamos los servicios de SO_Pattern.
+            SO_Pattern ServicioPattern = new SO_Pattern();
+
+            //Ejecutamos el método y el resutado lo asignamos a un DataSet.
+            DataSet informacionBD = ServicioPattern.GetPesoAleantes(especMaterial);
+
+            //Declaramos una variable la cual será la que retornemos en el método.
+            double sumaAleantes = 0;
+
+            //Comparamos si el resultado de la consulta es diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Verificamos que el resultado contenga al menos una tabla y que la primera tabla contenga al menos un registro.
+                if (informacionBD.Tables.Count > 0 && informacionBD.Tables[0].Rows.Count > 0)
+                {
+                    //Itermos la inforamción resultante.
+                    foreach (DataRow item in informacionBD.Tables[0].Rows)
+                    {
+                        sumaAleantes = Convert.ToDouble(item["Peso"].ToString());
+                    }
+                }
+            }
+
+            return sumaAleantes;
+        }
         #endregion Pattern
 
         #region Cuffs
