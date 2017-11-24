@@ -18,17 +18,19 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         {
             try
             {
+                //Establecemos la conexión al EntityFramework.
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
+                    //Relizamos la consulta y la guardamos en una variable local.
                     var Lista = (from m in Conexion.MoutingWidth
                                  select m).ToList();
-
+                    //Retornamos la lista resultante.
                     return Lista;
                 }
             }
             catch (Exception)
             {
-
+                //Si se genera algún error retorna nulo.
                 return null;
             }
         }
@@ -45,6 +47,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         {
             try
             {
+                //Establecemos la conexión al EntityFramework.
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
                     MoutingWidth  obj = new MoutingWidth();
@@ -56,12 +59,13 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
 
                     Conexion.MoutingWidth.Add(obj);
 
+                    //Guardamos los cambios.
                     return Conexion.SaveChanges();
                 }
             }
             catch (Exception)
             {
-
+                //Si se genera algún error retorna cero.
                 return 0;
             }
         }
@@ -79,6 +83,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         {
             try
             {
+                //Establecemos la conexión al EntityFramework.
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
                     MoutingWidth obj = Conexion.MoutingWidth.Where(x => x.Id_MountingWidth == id).FirstOrDefault();
@@ -88,13 +93,14 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     obj.Detalle = detalle;
                     obj.Altura_Gate = gate;
 
+                    //Guardamos los cambios.
                     Conexion.Entry(obj).State = EntityState.Modified;
                     return Conexion.SaveChanges();
                 }
             }
             catch (Exception)
             {
-
+                //Si se genera algún error retorna cero.
                 return 0;
             }
         }
@@ -108,18 +114,20 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         {
             try
             {
+                //Establecemos la conexión al EntityFramework.
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
                     MoutingWidth obj = Conexion.MoutingWidth.Where(x => x.Id_MountingWidth == id).FirstOrDefault();
 
                     Conexion.Entry(obj).State = EntityState.Deleted;
 
+                    //Guardamos los cambios.
                     return Conexion.SaveChanges();
                 }
             }
             catch (Exception)
             {
-
+                //Si se genera algún error retorna cero.
                 return 0;
             }
         }
@@ -133,17 +141,20 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         {
             try
             {
+                //Establecemos la conexión al EntityFramework.
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
+                    //Relizamos la consulta y la guardamos en una variable local.
                     string detalle = (from m in Conexion.MoutingWidth
                                       where H1 >= m.Width_Min && H1 <= m.Width_Max
                                       select m.Detalle).FirstOrDefault();
+                    //Retornamos la variable.
                     return detalle;
                 }
             }
             catch (Exception)
             {
-
+                //Si se genera algún error retornamos vacío.
                 return string.Empty;
             }
         }

@@ -18,7 +18,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                 //Establecemos la conexión al EntityFramework.
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
-                    //Relizamos la conexión a través de EntityFramework.
+                    //Relizamos la consulta y la guardamos en una variable local.
                     var ListaResultante = (from a in Conexion.Cliente
                                            select a).OrderBy(x => x.Cliente1).ToList();
 

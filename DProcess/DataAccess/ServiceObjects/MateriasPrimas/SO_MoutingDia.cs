@@ -18,9 +18,10 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         {
             try
             {
+                //Establecemos la conexión al EntityFramework.
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
-
+                    //Relizamos la consulta y la guardamos en una variable local.
                     var Lista = (from m in Conexion.MoutingDia
                                  select new
                                  {
@@ -37,12 +38,13 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                                  }
                                 ).ToList();
 
+                    //Retornamos la lista resultante.
                     return Lista;
                 }
             }
             catch (Exception)
             {
-
+                //Si se genera algún error retorna nulo.
                 return null;
             }
         }
@@ -64,6 +66,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         {
             try
             {
+                //Establecemos la conexión al EntityFramework.
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
                     MoutingDia obj = new MoutingDia();
@@ -78,6 +81,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     obj.Conos = conos;
                     obj.ord = ord;
 
+                    //Guardamos los cambios.
                     Conexion.MoutingDia.Add(obj);
 
                     return obj.Id_MountingDia;
@@ -85,7 +89,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
             }
             catch (Exception)
             {
-
+                //Si se genera algún error retorna cero.
                 return 0;
             }
         }
@@ -108,6 +112,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         {
             try
             {
+                //Establecemos la conexión al EntityFramework.
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
                     MoutingDia obj = Conexion.MoutingDia.Where(x => x.Id_MountingDia == id).FirstOrDefault();
@@ -122,13 +127,14 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     obj.Conos = conos;
                     obj.ord = ord;
 
+                    //Guardamos los cambios.
                     Conexion.Entry(obj).State = EntityState.Modified;
                     return Conexion.SaveChanges();
                 }
             }
             catch (Exception)
             {
-
+                //Si se genera algún error retorna cero.
                 return 0;
             }
         }
@@ -142,18 +148,20 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         {
             try
             {
+                //Establecemos la conexión al EntityFramework.
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
                     MoutingDia obj = Conexion.MoutingDia.Where(x => x.Id_MountingDia == id).FirstOrDefault();
 
                     Conexion.Entry(obj).State = EntityState.Deleted;
 
+                    //Guardamos los cambios.
                     return Conexion.SaveChanges();
                 }
             }
             catch (Exception)
             {
-
+                //Si se genera algún error retorna cero.
                 return 0;
             }
         }
@@ -167,20 +175,23 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         {
             try
             {
+                //Establecemos la conexión al EntityFramework.
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
+                    //Relizamos la consulta y la guardamos en una variable local.
                     var Lista = (from m in Conexion.MoutingDia
                                  where dimB >= m.Dia_B_min && dimB <= m.Dia_B_max
                                  select new
                                  {
                                      m.Plato
                                  }).ToList();
+                    //Retornamos la lista resultante.
                     return Lista;
                 }
             }
             catch (Exception)
             {
-
+                //Si se genera algún error retorna nulo.
                 return null;
             }
         }
@@ -195,8 +206,10 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         {
             try
             {
+                //Establecemos la conexión al EntityFramework.
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
+                    //Relizamos la consulta y la guardamos en una variable local.
                     var Lista = (from m in Conexion.MoutingDia
                                  where dimB >= m.Dia_B_min && dimB <= m.Dia_B_min && m.Plato == plato
                                  select new
@@ -207,13 +220,13 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                                      m.Boton,
                                      m.Conos
                                  }).ToList();
-
+                    //Retornamos la lista resultante.
                     return Lista;
                 }
             }
             catch (Exception)
             {
-
+                //Si se genera algún error retorna nulo.
                 return null;
             }
         }
