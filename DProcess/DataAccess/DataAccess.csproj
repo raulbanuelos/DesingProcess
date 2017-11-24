@@ -171,6 +171,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelMateriasPrimas.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\MoutingDia.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\MoutingWidth.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\MateriasPrimas\Pattern2.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
@@ -182,6 +188,8 @@
     <Compile Include="ServiceObjects\MateriasPrimas\SO_CompesacionPiece.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Cuffs.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Especificaciones.cs" />
+    <Compile Include="ServiceObjects\MateriasPrimas\SO_MotingWidth.cs" />
+    <Compile Include="ServiceObjects\MateriasPrimas\SO_MoutingDia.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Pattern.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_TipoDocumento.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_TipoAnillo.cs" />
