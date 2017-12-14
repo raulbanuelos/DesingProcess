@@ -163,8 +163,7 @@
                         </StackPanel>
                         <Grid Grid.Row="1">
                             <chartingToolkit:Chart  Name="lineChart" Title="" VerticalAlignment="Center" Width="1000" Height="500" Background="White" BorderBrush="White">
-                                <chartingToolkit:LineSeries Title="Documentos" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding Path=ListaGrafica, IsAsync=True}" IsSelectionEnabled="True" Background="White" >
-
+                                <chartingToolkit:LineSeries Title="Documentos" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding Path=ListaGrafica, IsAsync=True}" IsSelectionEnabled="True" Background="White">
                                     <chartingToolkit:LineSeries.IndependentAxis>
                                         <chartingToolkit:CategoryAxis Orientation="X">
                                             <chartingToolkit:CategoryAxis.AxisLabelStyle>
@@ -184,9 +183,7 @@
                                             </chartingToolkit:CategoryAxis.AxisLabelStyle>
                                         </chartingToolkit:CategoryAxis>
                                     </chartingToolkit:LineSeries.IndependentAxis>
-
                                 </chartingToolkit:LineSeries>
-
 
                                 <chartingToolkit:Chart.LegendStyle>
                                     <Style x:Name="LegendHideStyle" TargetType="Control">
