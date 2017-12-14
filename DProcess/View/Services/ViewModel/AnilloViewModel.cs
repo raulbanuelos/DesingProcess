@@ -14,12 +14,7 @@ using MahApps.Metro.Controls.Dialogs;
 using System.Linq;
 using System.Collections.Generic;
 using View.Forms.Routing;
-
-using Model.ControlDocumentos;
-using View.Forms.ControlDocumentos;
 using System.Data;
-using Encriptar;
-using System.Globalization;
 using PdfSharp.Pdf;
 using PdfSharp.Drawing;
 using System.Diagnostics;
@@ -969,6 +964,7 @@ namespace View.Services.ViewModel
 
                             nuevaPlaca.Proceso = Module.GetPropiedadCadena("Proceso", PerfilOD.PropiedadesCadena);
                             nuevaPlaca.TipoAnillo = new PropiedadCadena { DescripcionCorta = "", DescripcionLarga = "", Imagen = null, Nombre = "TipoAnillo", Valor = TipoAnillo };
+                            nuevaPlaca.TipoMaterial = new PropiedadCadena { DescripcionCorta = "TipoMaterial", DescripcionLarga = "Tipo Material", Imagen = null, Nombre = "TipoMaterial", Valor = "GASOLINA" };
 
                             PatternViewModel vm = new PatternViewModel(nuevaPlaca);
                             pattern.DataContext = vm;
