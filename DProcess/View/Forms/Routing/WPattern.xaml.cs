@@ -1,18 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
-using System.Windows.Shapes;
 using View.Services;
 
 namespace View.Forms.Routing
@@ -171,26 +160,28 @@ namespace View.Forms.Routing
                 p[5] = pts[i + 1, 1];
                 p[6] = pts[i + 1, 2];
                 p[7] = pts[i + 1, 3];
+
                 // Top surface:
-                Utility.CreateTriangleFace(p[0], p[4], p[3], color,
-                isWireframe, viewport2);
-                Utility.CreateTriangleFace(p[4], p[7], p[3], color,
-                isWireframe, viewport2);
+                Utility.CreateTriangleFace(p[0], p[4], p[3], color, isWireframe, viewport2);
+                Utility.CreateTriangleFace(p[4], p[7], p[3], color, isWireframe, viewport2);
+
                 // Bottom surface:
-                Utility.CreateTriangleFace(p[1], p[5], p[2], color,
-                isWireframe, viewport2);
-                Utility.CreateTriangleFace(p[5], p[6], p[2], color,
-                isWireframe, viewport2);
+                Utility.CreateTriangleFace(p[1], p[5], p[2], color, isWireframe, viewport2);
+                Utility.CreateTriangleFace(p[5], p[6], p[2], color, isWireframe, viewport2);
+
                 // Outer surface:
-                Utility.CreateTriangleFace(p[0], p[1], p[4], color,
-                isWireframe, viewport2);
-                Utility.CreateTriangleFace(p[1], p[5], p[4], color,
-                isWireframe, viewport2);
+                Utility.CreateTriangleFace(p[0], p[1], p[4], color, isWireframe, viewport2);
+                Utility.CreateTriangleFace(p[1], p[5], p[4], color, isWireframe, viewport2);
+
                 // Inner surface:
-                Utility.CreateTriangleFace(p[2], p[7], p[6], color,
-                isWireframe, viewport2);
+                Utility.CreateTriangleFace(p[2], p[7], p[6], color, isWireframe, viewport2);
                 Utility.CreateTriangleFace(p[2], p[3], p[7], color, isWireframe, viewport2);
             }
+        }
+
+        private void btnSalir_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

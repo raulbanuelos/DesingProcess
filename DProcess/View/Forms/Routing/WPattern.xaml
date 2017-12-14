@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="WPattern" Height="800" Width="992" WindowStartupLocation="CenterScreen"
                       BorderThickness="2" BorderBrush="Blue" ShowMaxRestoreButton="False">
-    <Grid ShowGridLines="True">
+    <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
@@ -37,7 +37,7 @@
 
                 <Separator></Separator>
 
-                <MenuItem Header="Salir">
+                <MenuItem Header="Salir" Name="btnSalir" Click="btnSalir_Click">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="ExitToApp"></materialDesign:PackIcon>
                     </MenuItem.Icon>
@@ -136,7 +136,7 @@
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" Margin=".5">
-                        <TextBox materialDesign:HintAssist.Hint="FACTOR K" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding factor_k.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="FACTOR K" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding factor_k.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="{Binding ReadOnlyFactorK}"></TextBox>
                     </StackPanel>
 
                 </StackPanel>
@@ -181,7 +181,7 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin=".5">
-                        <TextBox materialDesign:HintAssist.Hint="CAM LEVER" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding cam_lever.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="CAM LEVER" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding cam_lever.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="{Binding ReadOnlyCamLever}"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin=".5">
@@ -213,6 +213,7 @@
                     <StackPanel Orientation="Horizontal" Canvas.Top="460" Canvas.Left="320">
                         <TextBox materialDesign:HintAssist.Hint="PATT. SM I.D" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding patt_sm_id.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
+                    
                     <StackPanel Orientation="Horizontal" Canvas.Top="480" Canvas.Left="20">
                         <TextBox materialDesign:HintAssist.Hint="PATT. TICKNESS" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding patt_thickness.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
@@ -301,7 +302,7 @@
                 </Canvas>
 
                 <StackPanel Grid.Column="0" Grid.Row="1">
-                    <Grid ShowGridLines="True">
+                    <Grid ShowGridLines="False">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="33*"></ColumnDefinition>
                             <ColumnDefinition Width="33*"></ColumnDefinition>
