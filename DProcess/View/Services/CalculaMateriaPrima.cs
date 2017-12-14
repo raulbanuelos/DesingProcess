@@ -1,13 +1,8 @@
-﻿using MahApps.Metro.Controls.Dialogs;
-using Model;
+﻿using Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using View.Forms.RawMaterial;
 using View.Services.ViewModel;
-using System.Windows.Input;
 
 namespace View.Services
 {
