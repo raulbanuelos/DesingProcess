@@ -2358,8 +2358,6 @@ namespace Model
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "CutterCamTurn");
         }
 
-
-
         /// <summary>
         /// Obtiene la información de un herramental de Cutter Cam Turn.
         /// </summary>
@@ -2404,7 +2402,6 @@ namespace Model
             }
             return herramental;
         }
-
 
         /// <summary>
         /// Método que obtiene el mejor herramental para CutterCamTurn.
@@ -3032,7 +3029,7 @@ namespace Model
         /// Método que obtiene los registros de GuidePlate de acuerdo al texto de búsqueda.
         /// </summary>
         /// <param name="texto"></param>
-          public static DataTable GetAllGuidePlate(string texto)
+        public static DataTable GetAllGuidePlate(string texto)
             {
             //Inicializamos los servicios de BK.
             SO_BK ServicioBk = new SO_BK();
@@ -4557,7 +4554,7 @@ namespace Model
          *  * 
          * */
 
-            /// <summary>
+        /// <summary>
             /// Método que obtiene todos los registros de Collar Cromo.
             /// </summary>
             /// <param name="texto"></param>
@@ -6465,7 +6462,6 @@ namespace Model
             //Retornamos la lista.
             return ListaResultante;
         }
-
        
         #region MaestroHerramentales
         /// <summary>
@@ -6953,7 +6949,6 @@ namespace Model
             return herramental;
         }
 
-
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_COIL_CENTER_GUIDE
         /// </summary>
@@ -7225,7 +7220,6 @@ namespace Model
             return herramental;
         }
 
-
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXIT_GUIDE
         /// </summary>
@@ -7238,6 +7232,7 @@ namespace Model
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.SetExit_GUIDE(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max, obj.radial_wire_min, obj.radial_wire_max);
         }
+
         /// <summary>
         /// Método que modifica un registro de la tabla TBL_EXIT_GUIDE
         /// </summary>
@@ -7511,6 +7506,7 @@ namespace Model
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.SetExternal_GR_1P(obj.codigo, obj.code, obj.dimB, obj.wire_width_min, obj.wire_width_max);
         }
+
         /// <summary>
         ///  Método que modifica un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
         /// </summary>
@@ -7724,6 +7720,7 @@ namespace Model
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.SetExternal_GR_3P_1(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC,obj.wire_width_min,obj.wire_width_max);
         }
+
         /// <summary>
         /// Método que modifica un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
         /// </summary>
@@ -7736,6 +7733,7 @@ namespace Model
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.UpdateExternal_GR_3P_1(obj.ID,obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max);
         }
+
         /// <summary>
         ///  Método que elimina un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
         /// </summary>
@@ -7973,6 +7971,7 @@ namespace Model
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.SetExternal_GR_3P_2(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min,obj.wire_width_max);
         }
+
         /// <summary>
         /// Método que modifica un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
         /// </summary>
@@ -7985,6 +7984,7 @@ namespace Model
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.UpdateExternal_GR_3P_2(obj.ID, obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max);
         }
+
         /// <summary>
         /// Método que elimina un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
         /// </summary>
@@ -8221,6 +8221,7 @@ namespace Model
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.SetExternal_GR_3P_3(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max);
         }
+
         /// <summary>
         /// Método que modifica un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3
         /// </summary>
@@ -8233,6 +8234,7 @@ namespace Model
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.UpdateExternal_GR_3P_3(obj.ID, obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max);
         }
+
         /// <summary>
         /// Método que elimina un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3
         /// </summary>
@@ -8469,6 +8471,7 @@ namespace Model
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.SetSHIM_OF_THE_CUT_SYSTEM(obj.codigo, obj.code, obj.dimA, obj.wire_width_min, obj.wire_width_max);
         }
+
         /// <summary>
         /// Método que modifica un registro de la tabla TBL_SHIM_OF_THE_CUT_SYSTEM
         /// </summary>
@@ -8481,6 +8484,7 @@ namespace Model
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.UpdateSHIM_OF_THE_CUT_SYSTEM(obj.ID,obj.codigo, obj.code, obj.dimA, obj.wire_width_min, obj.wire_width_max);
         }
+
         /// <summary>
         /// Método que elimina un registro de la tabla TBL_SHIM_OF_THE_CUT_SYSTEM
         /// </summary>
@@ -8797,6 +8801,12 @@ namespace Model
             return ListaHerramental;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Informacion"></param>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
         public static Herramental ReadInformacionHerramentalEncontrado(IList Informacion,string codigo)
         {
             //Declaramos un objeto de tipo Herramental, que será el que retornemos en el método.
@@ -8887,6 +8897,10 @@ namespace Model
             return herramental;
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static ObservableCollection<string> GetAllTreatment()
         {
             ObservableCollection<string> ListaResultante = new ObservableCollection<string>();
@@ -9986,6 +10000,11 @@ namespace Model
 
         /// <summary>
         /// Método que obtiene el vector con los campos de MputingDia de acuerdo al diámetro y plato.
+        /// 0 : No_impresiones
+        /// 1 : Gate
+        /// 2 : Medios_Circulos
+        /// 3 : Boton
+        /// 4 : Conos
         /// </summary>
         /// <param name="dimB"></param>
         /// <param name="plato"></param>
@@ -10477,6 +10496,5 @@ namespace Model
         }
 
         #endregion
-
     }
 }
