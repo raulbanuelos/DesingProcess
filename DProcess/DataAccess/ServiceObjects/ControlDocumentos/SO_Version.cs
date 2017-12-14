@@ -260,7 +260,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     //en este caso la última versión del documento correspondiente.
                     var last = (from v in Conexion.TBL_VERSION
                                 join d in Conexion.TBL_DOCUMENTO on v.ID_DOCUMENTO equals d.ID_DOCUMENTO
-                                where v.ID_DOCUMENTO == id_documento & v.ID_VERSION!= idVersion
+                                where v.ID_DOCUMENTO == id_documento & v.ID_VERSION != idVersion
                                 orderby v.ID_VERSION descending
                                 select v.ID_VERSION).First();
 
@@ -280,7 +280,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
-        /// Método que obtiene el número de versión con el id de la version
+        /// Método que obtiene el número de versión con el id de la versión
         /// </summary>
         /// <param name="id_version"></param>
         /// <returns></returns>
@@ -316,12 +316,16 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         {
             try
             {
+                //Se establece la conexión a la BD.
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
+
+                    //Obtenemos el id de la versión.
                     var version = (from v in Conexion.TBL_VERSION
                                    where v.ID_DOCUMENTO == id_documento & v.No_VERSION == no_version
                                    select v.ID_VERSION).ToList().FirstOrDefault();
 
+                    //Retornamos el resultado de la consulta.
                     return version;
                 }
             }
