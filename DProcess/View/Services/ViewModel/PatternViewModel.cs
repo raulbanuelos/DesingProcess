@@ -2,9 +2,9 @@ using System.ComponentModel;
 using Model;
 using System.Windows.Input;
 using System;
-using Model.ControlDocumentos;
-using DataAccess.ServiceObjects.ControlDocumentos;
 using System.IO;
+using System.Collections.Generic;
+using View.Forms.Shared;
 
 namespace View.Services.ViewModel
 {
@@ -12,6 +12,7 @@ namespace View.Services.ViewModel
     {
         #region Atributos
         private Pattern model;
+        private bool calculoOk;
         #endregion
 
         #region Propiedades Pattern
@@ -417,6 +418,23 @@ namespace View.Services.ViewModel
 
         #endregion
 
+        #region Propierties
+        private bool _ReadOnlyFactorK;
+        public bool ReadOnlyFactorK
+        {
+            get { return _ReadOnlyFactorK; }
+            set { _ReadOnlyFactorK = value; NotifyChange("ReadOnlyFactorK"); }
+        }
+
+        private bool _ReadOnlyCamLever;
+        public bool ReadOnlyCamLever
+        {
+            get { return _ReadOnlyCamLever; }
+            set { _ReadOnlyCamLever = value; NotifyChange("ReadOnlyCamLever"); }
+        }
+        
+        #endregion
+
         #region INotifyPropertyChanged Métodos
         void NotifyChange(params string[] ids)
         {
@@ -617,12 +635,10 @@ namespace View.Services.ViewModel
             cam_roll.Valor = 1.622;
             cam_lever.Valor = 0.074;
             rise_built.Valor = 0.005;
-
-            double[] resultsTurnBore = new double[2];
-
+            
             if (diseno.Valor)
             {
-                resultsTurnBore = DataManager.Get_TurnBoreAllow(TipoAnillo.Valor, EspecMaterialAnillo.Valor);
+                double[] resultsTurnBore = DataManager.Get_TurnBoreAllow(TipoAnillo.Valor, EspecMaterialAnillo.Valor);
                 turn_allow.Valor = resultsTurnBore[0];
                 bore_allow.Valor = resultsTurnBore[1];
             }
@@ -632,17 +648,116 @@ namespace View.Services.ViewModel
                 bore_allow.Valor = 0.105;
             }
 
+            if (TipoMaterial.Valor.Equals("GASOLINA") || TipoMaterial.Valor.Equals("SPR-212"))
+                patt_width.Valor = DataManager.GetIdealCastingWidth(medida.Valor, Proceso.Valor);
+            else
+                patt_width.Valor = ring_w_max.Valor * 1 + 0.021;
 
-            patt_width.Valor =  DataManager.GetIdealCastingWidth(medida.Valor, Proceso.Valor);
             medida = patt_width;
 
 
             if (!factor_k.Valor.Equals(0))
             {
                 codigo.Valor = DataManager.GetNextCodePattern(DataManager.GetLastCodePattern());
+
+                //Comparamos si el tipo de material es gasolina.
+                if (TipoMaterial.Valor.Equals("GASOLINA"))
+                {
+                    //Comparamos si el diseño es normal.
+                    if (diseno.Valor)
+                    {
+                        cam_lever.Valor = Math.Round((piece_in_patt.Valor * factor_k.Valor * 64) + 0.005, 3);
+                        ReadOnlyFactorK = false;
+                        ReadOnlyCamLever = true;
+                    }
+                    else //Si el diseño es redondo
+                    {
+                        ReadOnlyFactorK = false;
+                        ReadOnlyCamLever = false;
+                        cam_lever.Valor = Math.Round((piece_in_patt.Valor * factor_k.Valor * 64) - 0.005, 3);
+                    }
+                    fin_Dia.Valor = Math.Round((((((cam_lever.Valor - 0.005) * 0.478) - piece_in_patt.Valor) / -3.1416) + diametro.Valor) - (cam_lever.Valor - 0.005), 3);
+
+                }
+                else if(TipoMaterial.Valor.Equals("SPR-212")) //Si el tipo de material es 
+                {
+                    cam_lever.Valor = Math.Round((piece_in_patt.Valor * factor_k.Valor * 64) + 0.015, 3);
+                    fin_Dia.Valor = Math.Round((((((cam_lever.Valor - 0.015) * 0.478) - piece_in_patt.Valor) / -3.1416) + diametro.Valor) - (cam_lever.Valor - 0.015), 3);
+                }
+                else if(TipoMaterial.Valor.Equals("SUPER DUTY"))
+                {
+                    cam_lever.Valor = Math.Round((piece_in_patt.Valor * factor_k.Valor * 64), 3);
+                    fin_Dia.Valor = Math.Round((((((cam_lever.Valor - 0.005) * 0.478) - piece_in_patt.Valor) / -3.1416) + diametro.Valor) - (cam_lever.Valor - 0.005), 3);
+                }
+                else
+                {
+                    //NOTIFICAR QUE ESTE MATERIAL NO EXISTE!!!
+                    return;
+                }
+
+                cstg_sm_od.Valor = Math.Round(fin_Dia.Valor + (1 * turn_allow.Valor), 3);
+
+                if (TipoMaterial.Valor.Equals("GASOLINA"))
+                {
+                    shrink_allow.Valor = Math.Round(cstg_sm_od.Valor * 0.0104, 3);
+                }
+                else if (TipoMaterial.Valor.Equals("SPR-212"))
+                {
+                    shrink_allow.Valor = 0.02;
+                }
+                else if(TipoMaterial.Valor.Equals("SUPER DUTY"))
+                {
+                    shrink_allow.Valor = Math.Round(cstg_sm_od.Valor * 0.0094, 3);
+                }
+
+                patt_sm_od.Valor = Math.Round(cstg_sm_od.Valor + (1 * shrink_allow.Valor), 3);
+                patt_thickness.Valor = Math.Round((turn_allow.Valor + (1 * bore_allow.Valor)) / 2 + (ring_th_min.Valor + (1 * ring_th_max.Valor)) / 2, 3);
+                patt_sm_id.Valor = Math.Round(patt_sm_od.Valor - (patt_thickness.Valor * 2), 3);
+                OD.Valor = Math.Round(cstg_sm_od.Valor + ((cam_lever.Valor - rise_built.Valor) * 2), 3);
+                ID.Valor = Math.Round(patt_sm_id.Valor - (patt_sm_id.Valor * 0.015), 3);
+                diff.Valor = Math.Round(OD.Valor - ID.Valor, 3);
+                peso_cstg.Valor = Math.Round((((3.1416 / 4) * (Convert.ToDouble(Math.Pow(patt_sm_od.Valor , 2)) - Convert.ToDouble(Math.Pow(patt_sm_id.Valor,2)))) * medida.Valor * 16.387 * 7.2) / 0.95, 3);
+                B_Dia.Valor = Math.Round(patt_sm_od.Valor + (2 * cam_lever.Valor), 4);
+
+                definirPlato();
+                if (calculoOk)
+                {
+                    detalle.Valor = DataManager.GetDetalleMoutingWidth(medida.Valor);
+                    string[] valoresMoutingDia = DataManager.GetMoutingDia(B_Dia.Valor, plato.Valor);
+                    if (valoresMoutingDia.Length.Equals(5) )
+                    {
+                        mounting.Valor = Convert.ToDouble(valoresMoutingDia[0]);
+                        on_14_rd_gate.Valor = valoresMoutingDia[1];
+                        M_Circle.Valor = valoresMoutingDia[2].Equals("Aplica") ? Convert.ToString(Math.Round((patt_sm_id.Valor - .06) / 2, 3)) : M_Circle.Valor = "No Aplica";
+                        button.Valor = valoresMoutingDia[3];
+                        cone.Valor = valoresMoutingDia[4];
+                    }else
+                    {
+                        //Notificar que no se encontraron valores de la tabla MoutingDia.
+                    }
+
+                }else
+                {
+                    //Notificar al usuario que no se completo el calculo.
+                }
+                
             }
 
             actualizarValores();
+        }
+
+        private void definirPlato()
+        {
+            List<double> ListaPlato = DataManager.GetPlatoMoutingDia(B_Dia.Valor);
+
+            ListItemViewModel context = new ListItemViewModel(ListaPlato);
+            WOptionList fmr = new WOptionList();
+            fmr.DataContext = context;
+            if (fmr.ShowDialog().Equals(true))
+            {
+                plato.Valor = Convert.ToDouble(context.SelectedItem);
+                calculoOk = true;
+            }
         }
 
         /// <summary>
@@ -664,6 +779,24 @@ namespace View.Services.ViewModel
             diseno = diseno;
             patt_width = patt_width;
             codigo = codigo;
+            fin_Dia = fin_Dia;
+            cstg_sm_od = cstg_sm_od;
+            shrink_allow = shrink_allow;
+            patt_sm_od = patt_sm_od;
+            patt_thickness = patt_thickness;
+            patt_sm_id = patt_sm_id;
+            OD = OD;
+            ID = ID;
+            diff = diff;
+            peso_cstg = peso_cstg;
+            B_Dia = B_Dia;
+            plato = plato;
+            detalle = detalle;
+            mounting = mounting;
+            on_14_rd_gate = on_14_rd_gate;
+            M_Circle = M_Circle;
+            button = button;
+            cone = cone;
         }
 
         public byte[] FileToByteArray(string fileName)
