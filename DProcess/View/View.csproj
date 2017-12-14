@@ -254,6 +254,9 @@
     <Compile Include="Forms\Shared\Layout.xaml.cs">
       <DependentUpon>Layout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Shared\WOptionList.xaml.cs">
+      <DependentUpon>WOptionList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlBushing.xaml.cs">
       <DependentUpon>ControlBushing.xaml</DependentUpon>
     </Compile>
@@ -475,6 +478,7 @@
     <Compile Include="Services\ViewModel\GuillotinaSimVM.cs" />
     <Compile Include="Services\ViewModel\HistorialFiltrado_VM.cs" />
     <Compile Include="Services\ViewModel\HistorialVM.cs" />
+    <Compile Include="Services\ViewModel\ListItemViewModel.cs" />
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
     <Compile Include="Services\ViewModel\NuevoDepartamentoVM.cs" />
     <Compile Include="Services\ViewModel\NuevoMaestroHerramental_VM.cs" />
@@ -673,6 +677,10 @@
     <Page Include="Forms\Shared\Layout.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\Shared\WOptionList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\ControlBushing.xaml">
       <SubType>Designer</SubType>
