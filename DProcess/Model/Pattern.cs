@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Model
-{ 
+{
 
     public class Pattern : Arquetipo
     {
@@ -92,6 +88,24 @@ namespace Model
             diseno = new PropiedadBool { Valor = true };
             patt_width = new Propiedad();
             codigo = new PropiedadCadena();
+            fin_Dia = new Propiedad();
+            cstg_sm_od = new Propiedad();
+            shrink_allow = new Propiedad();
+            patt_sm_od = new Propiedad();
+            patt_thickness = new Propiedad();
+            patt_sm_id = new Propiedad();
+            OD = new Propiedad();
+            ID = new Propiedad();
+            diff = new Propiedad();
+            peso_cstg = new Propiedad();
+            B_Dia = new Propiedad();
+            plato = new Propiedad();
+            detalle = new PropiedadCadena();
+            mounting = new Propiedad();
+            on_14_rd_gate = new PropiedadCadena();
+            M_Circle = new PropiedadCadena();
+            button = new PropiedadCadena();
+            cone = new PropiedadCadena();
         }
          
         #endregion
