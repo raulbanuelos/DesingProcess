@@ -23,7 +23,7 @@
 
         <Menu Grid.Column="1" Grid.Row="0" IsMainMenu="True">
             <MenuItem Header="_File">
-                <MenuItem Header="Save">
+                <MenuItem Header="Save" Command="{Binding GuardarPattern}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="ContentSave"></materialDesign:PackIcon>
                     </MenuItem.Icon>
@@ -145,7 +145,7 @@
             <StackPanel DockPanel.Dock="Right">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal" Margin=".5">
-                        <TextBox materialDesign:HintAssist.Hint="PATTERN" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding codigo.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="PATTERN" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Codigo}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin=".5">

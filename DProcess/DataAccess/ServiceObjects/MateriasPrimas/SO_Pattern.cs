@@ -131,10 +131,13 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     Pattern2 obj = new Pattern2();
 
                     //Asignamos los  parámetros recibidos a cada uno de los valores de los objetos.
+
+                    
                     obj.codigo = codigo;
                     obj.MEDIDA = medida;
                     obj.DIAMETRO = diametro;
                     obj.CUSTOMER = customer;
+                    obj.Cliente = new Cliente { Cliente1 = "SERVICIO", id_cliente = customer };
                     obj.MOUNTING = mounting;
                     obj.ON_14_RD_GATE = on_14_rd_gate;
                     obj.BUTTON = button;
@@ -178,7 +181,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     obj.Plato = plato;
                     obj.Detalle = detalle;
                     obj.Diseno = diseno;
-
+                    obj.Tipo_Materia_Prima = new Tipo_Materia_Prima { id_tipo_mp = tipo, materia_prima = "GASOLINA" };
                     //Insertamos el objeto a la base de datos.
                     Conexion.Pattern2.Add(obj);
 
@@ -190,7 +193,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
 
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 //Si se encuentra un error se retorna 0.
                 return string.Empty;

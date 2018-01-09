@@ -356,7 +356,7 @@ namespace View.Services.ViewModel
             PRouting pantallaPlano = new PRouting();
 
             //Declaramos un objeto de tipo AnilloViewModel el cual será el contexto de la pantalla.
-            AnilloViewModel contexto = new AnilloViewModel();
+            AnilloViewModel contexto = new AnilloViewModel(Nombre + " " + ApellidoPaterno + " " + ApellidoMaterno);
 
             //Asignamos el contexto a la pantalla del plano.
             pantallaPlano.DataContext = contexto;

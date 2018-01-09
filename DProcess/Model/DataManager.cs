@@ -436,6 +436,57 @@ namespace Model
             }
             return ListaR;
         }
+
+        /// <summary>
+        /// Método que obtiene la lista de materias primas que se utilizan en una placa modelo.
+        /// </summary>
+        /// <param name="especMaterial"></param>
+        /// <param name="pesoPlacaModelo"></param>
+        /// <returns></returns>
+        public static ObservableCollection<MateriaPrima> GetMaterialPrimaPlacaModelo(string especMaterial, double pesoPlacaModelo)
+        {
+            //Inicializamos los servicios de SO_Material
+            SO_Material ServicioMaterial = new SO_Material();
+
+            //Declaramos una colección la cual contendrá la información que retornaremos de este método.
+            ObservableCollection<MateriaPrima> ListaResultante = new ObservableCollection<MateriaPrima>();
+
+            //Declaramos un dataset el cual contendrá la información resultante de la consulta.
+            DataSet informacionBD = new DataSet();
+
+            //Ejecutamos el método para obtener la inforamción, el resultado lo asignamos al data set.
+            informacionBD = ServicioMaterial.GetAleanteEspecificacionMaterial(especMaterial);
+
+            //Obtenemos la suma total de los aleantes de la especificación obtenida en los parámetros.
+            double sumaAleantes = GetPesoAleantes(especMaterial);
+
+            //Verificamos que la información obtenida de la base de datos no sea null.
+            if (informacionBD != null)
+            {
+                //Verificamos que el data set contenga al menos una tabla, y que la tabla cero contenga al menos un registro.
+                if (informacionBD.Tables.Count > 0 && informacionBD.Tables[0].Rows.Count > 0)
+                {
+                    //Iteramos los registros de la tabla cero.
+                    foreach (DataRow item in informacionBD.Tables[0].Rows)
+                    {
+                        //Realizamos el calculo.
+                        MateriaPrima objMateriaPrima = new MateriaPrima();
+                        double peso, cantidad;
+                        peso = Convert.ToDouble(item["Peso"].ToString());
+                        cantidad = peso * sumaAleantes / peso;
+                        objMateriaPrima.Codigo = item["codigo"].ToString();
+                        objMateriaPrima.Cantidad = Math.Round(peso * pesoPlacaModelo / sumaAleantes, 3);
+                        objMateriaPrima.Measurement = "KG";
+                        objMateriaPrima.DescripcionGeneral = item["Nombre"].ToString();
+                        ListaResultante.Add(objMateriaPrima);
+
+                    }
+                }
+            }
+
+            //Retornamos la lista.
+            return ListaResultante;
+        }
         #endregion
 
         #region  Operaciones
@@ -8981,7 +9032,7 @@ namespace Model
                     Pattern obj = new Pattern();
 
                     //Se asignan los valores.
-                    obj.codigo.Valor = (string)tipo.GetProperty("codigo").GetValue(item, null);
+                    obj.Codigo = (string)tipo.GetProperty("codigo").GetValue(item, null);
                     obj.medida.Valor = (double)tipo.GetProperty("DIAMETRO").GetValue(item, null);
                     obj.diametro.Valor = (double)tipo.GetProperty("WIDTH").GetValue(item, null);
                     //obj.customer = (Cliente)tipo.GetProperty("CUSTOMER").GetValue(item, null);
@@ -9049,7 +9100,13 @@ namespace Model
             SO_Pattern ServicePatter = new SO_Pattern();
 
             //Ejecutamos el método para insertar el registro, Retornamos el nuevo código de placa modelo.
-            return ServicePatter.SetPattern(pattern.codigo.Valor, pattern.medida.Valor, pattern.diametro.Valor, pattern.customer.IdCliente, Convert.ToString(pattern.mounting.Valor), pattern.on_14_rd_gate.Valor, pattern.button.Valor, pattern.cone.Valor, pattern.M_Circle.Valor, pattern.ring_w_min.Valor, pattern.ring_w_max.Valor, pattern.date_ordered.Valor, pattern.B_Dia.Valor, pattern.fin_Dia.Valor, pattern.turn_allow.Valor, pattern.cstg_sm_od.Valor, pattern.shrink_allow.Valor, pattern.patt_sm_od.Valor, pattern.piece_in_patt.Valor, pattern.bore_allow.Valor, pattern.patt_sm_id.Valor, pattern.patt_thickness.Valor, pattern.joint.Valor, pattern.nick.Valor, pattern.nick_draf.Valor, pattern.nick_depth.Valor, pattern.side_relief.Valor, pattern.cam.Valor, pattern.cam_roll.Valor, pattern.rise.Valor, pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.tipo.Valor), pattern.mounted.Valor, pattern.ordered.Valor, pattern.Checked.Valor, pattern.date_checked.Valor, pattern.esp_inst.Valor, pattern.factor_k.Valor, pattern.rise_built.Valor, pattern.ring_th_min.Valor, pattern.ring_th_max.Valor, pattern.estado.Valor, pattern.plato.Valor, pattern.detalle.Valor, pattern.diseno.Valor);
+            return ServicePatter.SetPattern(pattern.Codigo, pattern.medida.Valor, pattern.diametro.Valor, pattern.customer.IdCliente, Convert.ToString(pattern.mounting.Valor), 
+                pattern.on_14_rd_gate.Valor, pattern.button.Valor, pattern.cone.Valor, pattern.M_Circle.Valor, pattern.ring_w_min.Valor, pattern.ring_w_max.Valor, pattern.date_ordered.Valor, 
+                pattern.B_Dia.Valor, pattern.fin_Dia.Valor, pattern.turn_allow.Valor, pattern.cstg_sm_od.Valor, pattern.shrink_allow.Valor, pattern.patt_sm_od.Valor, pattern.piece_in_patt.Valor, 
+                pattern.bore_allow.Valor, pattern.patt_sm_id.Valor, pattern.patt_thickness.Valor, pattern.joint.Valor, pattern.nick.Valor, pattern.nick_draf.Valor, pattern.nick_depth.Valor, pattern.side_relief.Valor, 
+                pattern.cam.Valor, pattern.cam_roll.Valor, pattern.cam_lever.Valor, pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.Tipo.Valor), pattern.mounted.Valor, 
+                pattern.ordered.Valor, pattern.Checked.Valor, pattern.date_checked.Valor, pattern.esp_inst.Valor, pattern.factor_k.Valor, pattern.rise_built.Valor, pattern.ring_th_min.Valor, pattern.ring_th_max.Valor, 
+                pattern.estado.Valor, pattern.plato.Valor, pattern.detalle.Valor, pattern.diseno.Valor);
         }
     
         /// <summary>
@@ -9063,12 +9120,12 @@ namespace Model
             SO_Pattern ServicePattern = new SO_Pattern();
 
             //Ejecutamos el método para modificiar el registro,se retorna el número de registros afectados.
-            return ServicePattern.UpdatePattern(pattern.codigo.Valor, pattern.medida.Valor, pattern.diametro.Valor, pattern.customer.IdCliente, Convert.ToString(pattern.mounting.Valor), 
+            return ServicePattern.UpdatePattern(pattern.Codigo, pattern.medida.Valor, pattern.diametro.Valor, pattern.customer.IdCliente, Convert.ToString(pattern.mounting.Valor), 
                                                 pattern.on_14_rd_gate.Valor, pattern.button.Valor, pattern.cone.Valor, pattern.M_Circle.Valor, pattern.ring_w_min.Valor, pattern.ring_w_max.Valor,
                                                 pattern.date_ordered.Valor, pattern.B_Dia.Valor, pattern.fin_Dia.Valor, pattern.turn_allow.Valor, pattern.cstg_sm_od.Valor, pattern.shrink_allow.Valor,
                                                 pattern.patt_sm_od.Valor, pattern.piece_in_patt.Valor, pattern.bore_allow.Valor, pattern.patt_sm_id.Valor, pattern.patt_thickness.Valor, pattern.joint.Valor,
                                                 pattern.nick.Valor, pattern.nick_draf.Valor, pattern.nick_depth.Valor, pattern.side_relief.Valor, pattern.cam.Valor, pattern.cam_roll.Valor, pattern.rise.Valor,
-                                                pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.tipo.Valor), pattern.mounted.Valor, pattern.ordered.Valor, pattern.Checked.Valor,
+                                                pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.Tipo.Valor), pattern.mounted.Valor, pattern.ordered.Valor, pattern.Checked.Valor,
                                                 pattern.date_checked.Valor, pattern.esp_inst.Valor, pattern.factor_k.Valor, pattern.rise_built.Valor, pattern.ring_th_min.Valor, pattern.ring_th_max.Valor, 
                                                 pattern.estado.Valor, pattern.plato.Valor, pattern.detalle.Valor, pattern.diseno.Valor);
         }
@@ -9120,7 +9177,7 @@ namespace Model
             SO_Pattern ServicePattern = new SO_Pattern();
 
             //Ejecutamos el método para insertar el registro, Retornamos la cantidad de registros eliminados.
-            return ServicePattern.DeletePattern(pattern.codigo.Valor);
+            return ServicePattern.DeletePattern(pattern.Codigo);
         }
 
         /// <summary>
@@ -9145,7 +9202,7 @@ namespace Model
                                               pattern.date_ordered.Valor, pattern.B_Dia.Valor, pattern.fin_Dia.Valor, pattern.turn_allow.Valor, pattern.cstg_sm_od.Valor, pattern.shrink_allow.Valor,
                                               pattern.patt_sm_od.Valor, pattern.piece_in_patt.Valor, pattern.bore_allow.Valor, pattern.patt_sm_id.Valor, pattern.patt_thickness.Valor, pattern.joint.Valor,
                                               pattern.nick.Valor, pattern.nick_draf.Valor, pattern.nick_depth.Valor, pattern.side_relief.Valor, pattern.cam.Valor, pattern.cam_roll.Valor, pattern.rise.Valor,
-                                              pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.tipo.Valor), pattern.mounted.Valor, pattern.ordered.Valor, pattern.Checked.Valor,
+                                              pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.Tipo.Valor), pattern.mounted.Valor, pattern.ordered.Valor, pattern.Checked.Valor,
                                               pattern.date_checked.Valor, pattern.esp_inst.Valor, pattern.factor_k.Valor, pattern.rise_built.Valor, pattern.ring_th_min.Valor, pattern.ring_th_max.Valor,
                                               pattern.estado.Valor, pattern.plato.Valor, pattern.detalle.Valor, pattern.diseno.Valor);
         }

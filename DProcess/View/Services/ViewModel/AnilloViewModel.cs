@@ -29,6 +29,7 @@ namespace View.Services.ViewModel
         private Anillo ModelAnillo;
         private CalculaMateriaPrima calcularMateriaPrima;
         DialogService dialogService;
+        private string NombreUsuario;
         #endregion
 
         #region Properties
@@ -611,12 +612,13 @@ namespace View.Services.ViewModel
 
         #region Constructors
 
-        public AnilloViewModel()
+        public AnilloViewModel(string nombreUsuario)
         {
             //Inicializamos el objeto anillo que representa nuestro modelo.
             ModelAnillo = new Anillo();
 
             //Inicializamos los atributos
+            NombreUsuario = nombreUsuario;
             ListaEspecificacionesMateriaPrima = DataManager.GetAllEspecificacionesMateriaPrima();
             ListaClientes = DataManager.GetAllClientes();
             ListaTreatment = DataManager.GetAllTreatment();
@@ -966,7 +968,7 @@ namespace View.Services.ViewModel
                             nuevaPlaca.TipoAnillo = new PropiedadCadena { DescripcionCorta = "", DescripcionLarga = "", Imagen = null, Nombre = "TipoAnillo", Valor = TipoAnillo };
                             nuevaPlaca.TipoMaterial = new PropiedadCadena { DescripcionCorta = "TipoMaterial", DescripcionLarga = "Tipo Material", Imagen = null, Nombre = "TipoMaterial", Valor = "GASOLINA" };
 
-                            PatternViewModel vm = new PatternViewModel(nuevaPlaca);
+                            PatternViewModel vm = new PatternViewModel(nuevaPlaca,NombreUsuario);
                             pattern.DataContext = vm;
                             pattern.Show();
 

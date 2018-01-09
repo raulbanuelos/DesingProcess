@@ -5,6 +5,9 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using View.Forms.Shared;
+using System.Collections.ObjectModel;
+using Model.Interfaces;
+using View.Services.Operaciones.Fundicion;
 
 namespace View.Services.ViewModel
 {
@@ -12,21 +15,26 @@ namespace View.Services.ViewModel
     {
         #region Atributos
         private Pattern model;
+        private Anillo ModelAnillo;
         private bool calculoOk;
+        private string NombreUsuario;
         #endregion
+
+        #region Propierties
 
         #region Propiedades Pattern
 
-        public PropiedadCadena codigo
+        public String Codigo
         {
             get
             {
-                return model.codigo;
+                return model.Codigo;
             }
             set
             {
-                model.codigo = value;
-                NotifyChange("codigo");
+                model.Codigo = value;
+                ModelAnillo.Codigo = value;
+                NotifyChange("Codigo");
             }
         }
 
@@ -225,11 +233,13 @@ namespace View.Services.ViewModel
             set { model.diff = value; NotifyChange("diff"); }
         }
 
-        public PropiedadCadena Tipo
+        private Propiedad _Tipo;
+        public Propiedad Tipo
         {
-            get { return model.TipoAnillo; }
-            set { model.TipoAnillo = value; NotifyChange("Tipo"); }
+            get { return model.Tipo; }
+            set { _Tipo = value; NotifyChange("Tipo"); }
         }
+
 
         public PropiedadCadena mounted
         {
@@ -339,6 +349,7 @@ namespace View.Services.ViewModel
             set
             {
                 model.HardnessMin = value;
+                ModelAnillo.HardnessMin = value;
                 NotifyChange("HardnessMin");
             }
         }
@@ -351,6 +362,7 @@ namespace View.Services.ViewModel
             set
             {
                 model.HardnessMax = value;
+                ModelAnillo.HardnessMax = value;
                 NotifyChange("HardnessMax");
             }
         }
@@ -418,7 +430,524 @@ namespace View.Services.ViewModel
 
         #endregion
 
-        #region Propierties
+        #region Properties of anillo
+        /// <summary>
+        /// Cadena que representa la descripción general del elemento existente en sistema ERP.
+        /// </summary>
+        public string DescripcionGeneral
+        {
+            get
+            {
+                return ModelAnillo.DescripcionGeneral;
+            }
+            set
+            {
+                ModelAnillo.DescripcionGeneral = value;
+                NotifyChange("DescripcionGeneral");
+            }
+        }
+
+        /// <summary>
+        /// Arreglo de Bytes que representa una imagen correspondiente al elemento.
+        /// </summary>
+        public byte[] Imagen
+        {
+            get
+            {
+                return ModelAnillo.Imagen;
+            }
+            set
+            {
+                ModelAnillo.Imagen = value;
+                NotifyChange("Imagen");
+            }
+        }
+
+        /// <summary>
+        /// Booleano que representa si el elemento esta activo: true, o baja: false.
+        /// </summary>
+        public bool Activo
+        {
+            get
+            {
+                return ModelAnillo.Activo;
+            }
+            set
+            {
+                ModelAnillo.Activo = value;
+                NotifyChange("Activo");
+            }
+        }
+
+        /// <summary>
+        /// Perfil que representa el diámetro exterior del anillo.
+        /// </summary>
+        public Perfil PerfilOD
+        {
+            get
+            {
+                return ModelAnillo.PerfilOD;
+            }
+            set
+            {
+                ModelAnillo.PerfilOD = value;
+                NotifyChange("PerfilOD");
+            }
+        }
+
+        /// <summary>
+        /// Perfil que representa el diámetro interior del anillo.
+        /// </summary>
+        public Perfil PerfilID
+        {
+            get
+            {
+                return ModelAnillo.PerfilID;
+            }
+            set
+            {
+                ModelAnillo.PerfilID = value;
+                NotifyChange("PerfilID");
+            }
+        }
+
+        /// <summary>
+        /// Perfil que representa la cara lateral del anillo.
+        /// </summary>
+        public Perfil PerfilLateral
+        {
+            get
+            {
+                return ModelAnillo.PerfilLateral;
+            }
+            set
+            {
+                ModelAnillo.PerfilLateral = value;
+                NotifyChange("PerfilLateral");
+            }
+        }
+
+        /// <summary>
+        /// Perfil que representa las puntas del anillo.
+        /// </summary>
+        public Perfil PerfilPuntas
+        {
+            get
+            {
+                return ModelAnillo.PerfilPuntas;
+            }
+            set
+            {
+                ModelAnillo.PerfilPuntas = value;
+                NotifyChange("PerfilPuntas");
+            }
+        }
+
+        /// <summary>
+        /// Propiedad que representa el diámetro del anillo.
+        /// </summary>
+        public Propiedad D1
+        {
+            get
+            {
+                return ModelAnillo.D1;
+            }
+            set
+            {
+                ModelAnillo.D1 = value;
+                NotifyChange("D1");
+            }
+        }
+
+        /// <summary>
+        /// Propiedad que representa el width del anillo.
+        /// </summary>
+        public Propiedad H1
+        {
+            get
+            {
+                return ModelAnillo.H1;
+            }
+            set
+            {
+                ModelAnillo.H1 = value;
+                NotifyChange("H1");
+            }
+        }
+
+        /// <summary>
+        /// Propiedad que representa el FreeGap del anillo.
+        /// </summary>
+        public Propiedad FreeGap
+        {
+            get
+            {
+                return ModelAnillo.FreeGap;
+            }
+            set
+            {
+                ModelAnillo.FreeGap = value;
+                NotifyChange("FreeGap");
+            }
+        }
+
+        /// <summary>
+        /// Propiedad que representa el peso del anillo.
+        /// </summary>
+        public Propiedad Mass
+        {
+            get
+            {
+                return ModelAnillo.Mass;
+            }
+            set
+            {
+                ModelAnillo.Mass = value;
+                NotifyChange("Mass");
+            }
+        }
+
+        /// <summary>
+        /// Propiedad que representa la tensión del anillo.
+        /// </summary>
+        public Propiedad Tension
+        {
+            get
+            {
+                return ModelAnillo.Tension;
+            }
+            set
+            {
+                ModelAnillo.Tension = value;
+                NotifyChange("Tension");
+            }
+        }
+
+        /// <summary>
+        /// Propiedad que representa la tolerancia de la tensión del anillo.
+        /// </summary>
+        public Propiedad TensionTol
+        {
+            get
+            {
+                return ModelAnillo.TensionTol;
+            }
+            set
+            {
+                ModelAnillo.TensionTol = value;
+                NotifyChange("TensionTol");
+            }
+        }
+
+        /// <summary>
+        /// Propiedad que representa la ovalidad mínima del anillo.
+        /// </summary>
+        public Propiedad OvalityMin
+        {
+            get
+            {
+                return ModelAnillo.OvalityMin;
+            }
+            set
+            {
+                ModelAnillo.OvalityMin = value;
+                NotifyChange("OvalityMin");
+            }
+        }
+
+        /// <summary>
+        /// Propiedad que representa la ovalidad máxima del anillo.
+        /// </summary>
+        public Propiedad OvalityMax
+        {
+            get
+            {
+                return ModelAnillo.OvalityMax;
+            }
+            set
+            {
+                ModelAnillo.OvalityMax = value;
+                NotifyChange("OvalityMax");
+            }
+        }
+
+        /// <summary>
+        /// Materia prima que representa el material base del anillo.
+        /// </summary>
+        public MateriaPrima MaterialBase
+        {
+            get
+            {
+                return ModelAnillo.MaterialBase;
+            }
+            set
+            {
+                ModelAnillo.MaterialBase = value;
+                NotifyChange("MaterialBase");
+            }
+        }
+
+        /// <summary>
+        /// Cadena que representa el número de plano del anillo.
+        /// </summary>
+        public string NoPlano
+        {
+            get
+            {
+                return ModelAnillo.NoPlano;
+            }
+            set
+            {
+                ModelAnillo.NoPlano = value;
+                NotifyChange("NoPlano");
+            }
+        }
+
+        /// <summary>
+        /// Cadena que representa el número de parte del cliente.
+        /// </summary>
+        public string CustomerPartNumber
+        {
+            get
+            {
+                return ModelAnillo.CustomerPartNumber;
+            }
+            set
+            {
+                ModelAnillo.CustomerPartNumber = value;
+                NotifyChange("CustomerPartNumber");
+            }
+        }
+
+        /// <summary>
+        /// Cadena que representa el nivel de revisión del cliente.
+        /// </summary>
+        public string CustomerRevisionLevel
+        {
+            get
+            {
+                return ModelAnillo.CustomerRevisionLevel;
+            }
+            set
+            {
+                ModelAnillo.CustomerRevisionLevel = value;
+                NotifyChange("CustomerRevisionLevel");
+            }
+        }
+
+        /// <summary>
+        /// Cadena que representa la sobre medida del plano.
+        /// </summary>
+        /// <example>
+        /// STD: Estandar.
+        /// +0.030 : Sobre medida.
+        /// </example>
+        public string Size
+        {
+            get
+            {
+                return ModelAnillo.Size;
+            }
+            set
+            {
+                ModelAnillo.Size = value;
+                NotifyChange("Size");
+            }
+        }
+
+        /// <summary>
+        /// Cadena que representa el numero de documento del cliente.
+        /// </summary>
+        public string CustomerDocNo
+        {
+            get
+            {
+                return ModelAnillo.CustomerDocNo;
+            }
+            set
+            {
+                ModelAnillo.CustomerDocNo = value;
+                NotifyChange("CustomerDocNo");
+            }
+        }
+
+        /// <summary>
+        /// Cadena que representa el tratamiento que tiene el anillo.
+        /// </summary>
+        public string Treatment
+        {
+            get
+            {
+                return ModelAnillo.Treatment;
+            }
+            set
+            {
+                ModelAnillo.Treatment = value;
+                NotifyChange("Treatment");
+            }
+        }
+
+        /// <summary>
+        /// Cadena que representa la especificación de tratamiento que tiene el anillo.
+        /// </summary>
+        public string EspecTreatment
+        {
+            get
+            {
+                return ModelAnillo.EspecTreatment;
+            }
+            set
+            {
+                ModelAnillo.EspecTreatment = value;
+                NotifyChange("EspecTreatment");
+            }
+        }
+
+        /// <summary>
+        /// Cadena que representa el texto con la información del anillo general. Esto para sistema ERP.
+        /// </summary>
+        public string Caratula
+        {
+            get
+            {
+                return ModelAnillo.Caratula;
+            }
+            set
+            {
+                ModelAnillo.Caratula = value;
+                NotifyChange("Caratula");
+            }
+        }
+
+        /// <summary>
+        /// Cliente que representa a cual pertenece el anillo.
+        /// </summary>
+        public Cliente cliente
+        {
+            get
+            {
+                return ModelAnillo.cliente;
+            }
+            set
+            {
+                ModelAnillo.cliente = value;
+                NotifyChange("cliente");
+            }
+        }
+
+        /// <summary>
+        /// Empaquetado que representa las condiciones de empaque para inspección final.
+        /// </summary>
+        public Empaquetado CondicionesDeEmpaque
+        {
+            get
+            {
+                return ModelAnillo.CondicionesDeEmpaque;
+            }
+            set
+            {
+                ModelAnillo.CondicionesDeEmpaque = value;
+                NotifyChange("CondicionesDeEmpaque");
+            }
+        }
+
+        /// <summary>
+        /// Revisión del plano.
+        /// </summary>
+        public Revision NivelRevicion
+        {
+            get
+            {
+                return ModelAnillo.NivelRevicion;
+            }
+            set
+            {
+                ModelAnillo.NivelRevicion = value;
+                NotifyChange("NivelRevicion");
+            }
+        }
+
+        /// <summary>
+        /// Colección de tipo propiedad la cual contiene las propiedades que son adquiridas por el anillo durante su proceso.
+        /// </summary>
+        public ObservableCollection<Propiedad> PropiedadesAdquiridasProceso
+        {
+            get
+            {
+                return ModelAnillo.PropiedadesAdquiridasProceso;
+            }
+            set
+            {
+                ModelAnillo.PropiedadesAdquiridasProceso = value;
+                NotifyChange("PropiedadesAdquiridasProceso");
+            }
+        }
+
+        /// <summary>
+        /// Colección de tipo PropiedadBool la cual contiene las propiedades que son adquiridas por el anillo durante su proceso.
+        /// </summary>
+        public ObservableCollection<PropiedadBool> PropiedadesBoolAdquiridasProceso
+        {
+            get
+            {
+                return ModelAnillo.PropiedadesBoolAdquiridasProceso;
+            }
+            set
+            {
+                ModelAnillo.PropiedadesBoolAdquiridasProceso = value;
+                NotifyChange("PropiedadesBoolAdquiridasProceso");
+            }
+        }
+
+        /// <summary>
+        /// Colección de tipo PropiedadCadena la cual contiene las propiedades que son adquiridas por el anillo durante su proceso.
+        /// </summary>
+        public ObservableCollection<PropiedadCadena> PropiedadesCadenaAdquiridasProceso
+        {
+            get
+            {
+                return ModelAnillo.PropiedadesCadenaAdquiridasProceso;
+            }
+            set
+            {
+                ModelAnillo.PropiedadesCadenaAdquiridasProceso = value;
+                NotifyChange("PropiedadesCadenaAdquiridasProceso");
+            }
+        }
+
+        /// <summary>
+        /// Colección de tipo IOPeracion la cual contiene todas las operaciones que se necesitan para procesar el anillo.
+        /// </summary>
+        public ObservableCollection<IOperacion> Operaciones
+        {
+            get
+            {
+                return ModelAnillo.Operaciones;
+            }
+            set
+            {
+                ModelAnillo.Operaciones = value;
+                NotifyChange("Operaciones");
+            }
+        }
+
+        /// <summary>
+        /// Colección de tipo PinturaAnillo la cual contiene todas las franjas de pintura que tiene el anillo.
+        /// </summary>
+        public ObservableCollection<PinturaAnillo> FranjasPintura
+        {
+            get
+            {
+                return ModelAnillo.FranjasPintura;
+            }
+            set
+            {
+                ModelAnillo.FranjasPintura = value;
+                NotifyChange("FranjasPintura");
+            }
+        } //Falta agregar la tabla para ir guardando los datos	
+        #endregion
+
         private bool _ReadOnlyFactorK;
         public bool ReadOnlyFactorK
         {
@@ -450,16 +979,55 @@ namespace View.Services.ViewModel
 
         #region Constructores
 
-        public PatternViewModel(Pattern modelPattern)
+        public PatternViewModel(Pattern modelPattern, string nombreUsuario)
         {
+            NombreUsuario = nombreUsuario;
+
+            //Inicializamos el objeto anillo que representa nuestro modelo.
+            ModelAnillo = new Anillo();
+
+            //Inicializamos el objeto anillo que representa nuestro modelo.
+            Inicializar();
+
             model = modelPattern;
         }
 
         public PatternViewModel()
         {
+            //Inicializamos el objeto anillo que representa nuestro modelo.
+            ModelAnillo = new Anillo();
+
+            Inicializar();
+        }        
+        #endregion
+
+        #region Commands
+
+        /// <summary>
+        /// Comando que responde a la petición de guardar una placa modelo.
+        /// </summary>
+        public ICommand GuardarPattern {
+            get {
+                return new RelayCommand(o => guardarPattern());
+            }
+        }
+
+        public ICommand Calcular
+        {
+            get{
+                return new RelayCommand(o => calcularPlaca());
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void Inicializar()
+        {
+           
             model = new Pattern();
-            codigo = new PropiedadCadena();
-            codigo.Valor = "";
+            Codigo = string.Empty;
             medida = new Propiedad();
             medida.Valor = 0;
             diametro = new Propiedad();
@@ -468,8 +1036,7 @@ namespace View.Services.ViewModel
             detalle.Valor = "";
             customer = new Cliente();
             customer.NombreCliente = "";
-            mounting = new Propiedad();
-            mounting.Valor = 0;
+            mounting = new Propiedad { DescripcionCorta = "Mouting", DescripcionLarga = "Mouting", Imagen = null, Nombre = "MoutingCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram) };
             plato = new Propiedad();
             plato.Valor = 0;
             on_14_rd_gate = new PropiedadCadena();
@@ -544,87 +1111,30 @@ namespace View.Services.ViewModel
             cam_lever.Valor = 0;
             patt_width = new Propiedad();
             patt_width.Valor = 0;
-            peso_cstg = new Propiedad();
-            peso_cstg.Valor = 0;
+            peso_cstg = new Propiedad { DescripcionCorta = "Peso casting", DescripcionLarga = "Peso del casting", Imagen = null, Nombre = "PesoCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram), Valor = 0 };
             TipoAnillo = new PropiedadCadena();
             TipoAnillo.Valor = "";
-            diseno = new PropiedadBool { Valor = true};
-            
-
-
-            //medida = new PropiedadViewModel("DPlacaModelo", "Diámetro", "Diámetro de la placa modelo", "Distance");
-            //diametro = new PropiedadViewModel("WPlacaModelo", "Width", "Width de la placa modelo", "Distance");
-            //customer = new Cliente();
-            //mounting = new PropiedadViewModel("MoutingPlacaModelo", "Mouting", "Número de impresiones de la placa modelo", "Cantidad");
-            //on_14_rd_gate = new PropiedadCadenaViewModel();
-            //button = new PropiedadCadenaViewModel();
-            //cone = new PropiedadCadenaViewModel();
-            //M_Circle = new PropiedadCadenaViewModel();
-            //ring_w_min = new PropiedadViewModel("RingWidthMinPlacaModelo", "Ring Width Min", "Width mínimo del anillo", "Distance");
-            //ring_w_max = new PropiedadViewModel("RingWidthMaxPlacaModelo", "Ring Width Max", "Width máximo del anillo", "Distance");
-            //date_ordered = new PropiedadCadenaViewModel();
-            //B_Dia = new PropiedadViewModel("BDiaPlacaModelo", "B Dia", "Diámetro B de la placa modelo", "Distance");
-            //fin_Dia = new PropiedadViewModel("FinDiaPlacaModelo", "Fin Dia", "", "Distance");
-            //turn_allow = new PropiedadViewModel("TurnAllowPlacaModelo", "Turn allow", "Material permitido a remover en el diámetro exterior", "Distance");
-            //cstg_sm_od = new PropiedadViewModel("CstgSModPlacaModelo", "cstg sm od", "", "Distance");
-            //shrink_allow = new PropiedadViewModel("ShrinkAllowPlacaModelo", "Shrink Allow", "", "Distance");
-            //patt_sm_od = new PropiedadViewModel("PattSMODPlacaModelo", "Patt SM OD", "", "Distance");
-            //piece_in_patt = new PropiedadViewModel("PieceInPattPlacaModelo", "Piece in patt", "", "Distance");
-            //bore_allow = new PropiedadViewModel("BoreAllowPlacaModelo", "Bore Allow", "Material permitido a remover en el diámetro interior", "Distance");
-            //patt_sm_id = new PropiedadViewModel("PattSMIDPlacaModelo", "Patt SM ID", "", "Distance");
-            //patt_thickness = new PropiedadViewModel("PattThicknessPlacaModelo", "Patt thickness", "", "Distance");
-            //joint = new PropiedadCadenaViewModel();
-            //nick = new PropiedadCadenaViewModel();
-            //nick_draf = new PropiedadCadenaViewModel();
-            //nick_depth = new PropiedadCadenaViewModel();
-            //side_relief = new PropiedadCadenaViewModel();
-            //cam = new PropiedadViewModel("CamPlacaModelo", "Cam", "", "Distance");
-            //cam_roll = new PropiedadViewModel("CamRollPlacaModelo", "Cam Roll", "", "Distance");
-            //rise = new PropiedadViewModel("RisePlacaModelo", "Rise", "", "Distance");
-            //OD = new PropiedadViewModel("ODPlacaModelo", "OD", "Diámetro exterior de la placa modelo", "Distance");
-            //ID = new PropiedadViewModel("IDPlacaModelo", "ID", "Diámetro interior de la placa modelo", "Distance");
-            //diff = new PropiedadViewModel("DiffPlacaModelo", "Diff", "Diferencia entre OD e ID", "Distance");
-            ////tipo = new PropiedadViewModel();
-            //mounted = new PropiedadCadenaViewModel();
-            //ordered = new PropiedadCadenaViewModel();
-            //Checked = new PropiedadCadenaViewModel();
-            //date_checked = new PropiedadCadenaViewModel();
-            //esp_inst = new PropiedadCadenaViewModel();
-            //factor_k = new PropiedadViewModel("FactorKPlacaModelo", "Factor K", "", "Distance");
-            //rise_built = new PropiedadViewModel("RiseBuiltPlacaModelo", "Rise built", "", "Distance");
-            //ring_th_min = new PropiedadViewModel("RingThicknessMinPlacaModelo", "Ring Th Min", "Thickness mínimo del anillo", "Distance");
-            //ring_th_max = new PropiedadViewModel("RingThicknessMaxPlacaModelo", "Ring Th Max", "Thickness máximo del anillo", "Distance");
-            //estado = new PropiedadBoolViewModel();
-            //plato = new PropiedadViewModel("PlatoPlacaModelo", "Plato", "Dimensión del plato de la placa modelo", "Distance");
-            //detalle = new PropiedadCadenaViewModel();
-            //diseno = new PropiedadBoolViewModel();
+            diseno = new PropiedadBool { Valor = true };
         }
-        #endregion
-
-        #region Commands
 
         /// <summary>
-        /// Comando que responde a la petición de guardar una placa modelo.
+        /// Método para asignar nombre a las propiedades.
         /// </summary>
-        public ICommand GuardarPattern {
-            get {
-                return new RelayCommand(o => guardarPattern());
-            }
-        }
-
-        public ICommand Calcular
+        private void setNameProperties()
         {
-            get{
-                return new RelayCommand(o => calcularPlaca());
-            }
+            mounting = new Propiedad { DescripcionCorta = "Mouting", DescripcionLarga = "Mouting", Imagen = null, Nombre = "MoutingCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram) };
+            peso_cstg = new Propiedad { DescripcionCorta = "Peso casting", DescripcionLarga = "Peso del casting", Imagen = null, Nombre = "PesoCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram), Valor = 0 };
         }
-
-        #endregion
-
-        #region Methods
 
         private void calcularPlaca()
         {
+            //Ejecutamos el método para asignar el nombre a las propiedades. Esto para poder ser usadas en otras clases como las de los tiempos estandar
+            setNameProperties();
+
+            customer = new Cliente { IdCliente = 1, NombreCliente = "SERVICIO" };
+
+            Tipo = new Propiedad { DescripcionCorta = "TipoMP", DescripcionLarga = "Tipo materia prima", Imagen = null, Nombre = "TipoMP", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadCantidad.Unidades) };
+
             //Constante
             joint.Valor = "BUTT";
             nick.Valor = "RAD.";
@@ -658,7 +1168,7 @@ namespace View.Services.ViewModel
 
             if (!factor_k.Valor.Equals(0))
             {
-                codigo.Valor = DataManager.GetNextCodePattern(DataManager.GetLastCodePattern());
+                Codigo = DataManager.GetNextCodePattern(DataManager.GetLastCodePattern());
 
                 //Comparamos si el tipo de material es gasolina.
                 if (TipoMaterial.Valor.Equals("GASOLINA"))
@@ -731,6 +1241,8 @@ namespace View.Services.ViewModel
                         M_Circle.Valor = valoresMoutingDia[2].Equals("Aplica") ? Convert.ToString(Math.Round((patt_sm_id.Valor - .06) / 2, 3)) : M_Circle.Valor = "No Aplica";
                         button.Valor = valoresMoutingDia[3];
                         cone.Valor = valoresMoutingDia[4];
+
+                        estado = new PropiedadBool { DescripcionCorta = "Estado", DescripcionLarga = "Estado", Imagen = null, Nombre = "Estado", Valor = true };
                     }else
                     {
                         //Notificar que no se encontraron valores de la tabla MoutingDia.
@@ -744,6 +1256,83 @@ namespace View.Services.ViewModel
             }
 
             actualizarValores();
+
+            ModelAnillo.PropiedadesAdquiridasProceso.Add(peso_cstg);
+            ModelAnillo.PropiedadesAdquiridasProceso.Add(mounting);
+
+            calcularOperaciones();
+        }
+
+        private void calcularOperaciones()
+        {
+            Caratula = "";
+            DescripcionGeneral = String.Format("{0:0.00000}", diametro.Valor) + " X " + String.Format("{0:0.00000}", medida.Valor);
+
+            double r_min, r_max, t_min, t_max;
+            r_min = (medida.Valor + .010) - .005;
+            r_max = (medida.Valor + .010) + .005;
+            t_min = (patt_thickness.Valor + .015) - .010;
+            t_max = (patt_thickness.Valor + .015) + .010;
+
+            Caratula = DescripcionGeneral + Environment.NewLine;
+            Caratula += "DATE REVIEW " + String.Format("{0:dd/MM/yyyy}",DateTime.Now) + Environment.NewLine;
+            Caratula += "WIDTH      " + String.Format("{0:0.000}", r_min) + " - " + String.Format("{0:0.000}", r_max) + Environment.NewLine;
+            Caratula += "THICKNESS  " + String.Format("{0:0.000}", t_min) + " - " + String.Format("{0:0.000}", t_max) + Environment.NewLine;
+
+            double a, b, c, sec;
+            a = patt_thickness.Valor * 2.54;
+            b = medida.Valor * 0.254;
+            c = a * b;
+            sec = Math.Round(c * 1000, 2);
+
+            if (sec < 25)
+                Caratula += "CLASIFICACION FINO" + Environment.NewLine;
+            else if(sec >=25 && sec <= 39.9)
+                Caratula += "CLASIFICACION MEDIANO" + Environment.NewLine;
+            else
+                Caratula += "CLASIFICACION GRUESO" + Environment.NewLine;
+
+            Caratula += "IMPRESIONES " + mounting.Valor + Environment.NewLine;
+            Caratula += "MATERIAL   " + EspecMaterialAnillo.Valor + Environment.NewLine;
+            Caratula += "HARDNESS   " + Hardness.Valor + "    " + HardnessMin.Valor + "-" + HardnessMax.Valor + Environment.NewLine;
+            Caratula += "PESO CAST " + peso_cstg.Valor + " G" +Environment.NewLine;
+            Caratula += "" + Environment.NewLine;
+            Caratula += "MODELO    " + Environment.NewLine;
+            Caratula += Codigo + Environment.NewLine;
+            Caratula += DescripcionGeneral + Environment.NewLine;
+            Caratula += "" + Environment.NewLine;
+            Caratula += "CUSTOMER   "  + customer.NombreCliente + Environment.NewLine;
+            Caratula += "CUST. PT." + Environment.NewLine;
+            Caratula += "CHK BY     ." + Environment.NewLine;
+            Caratula += "REVISADO   " + NombreUsuario + Environment.NewLine;
+            Caratula += String.Format("{0:dd/MM/yyyy}", DateTime.Now) + Environment.NewLine;
+            Caratula += "" + Environment.NewLine;
+            Caratula += "NOTAS" + Environment.NewLine;
+
+            Anillo anilloProcesado = new Anillo();
+
+            ModelAnillo.MaterialBase.Especificacion = EspecMaterialAnillo;
+
+            Fusion opeFusion = new Fusion(ModelAnillo);
+            Operaciones.Add(opeFusion);
+
+            bool ban = true;
+            Anillo aProcesado = new Anillo();
+            foreach (IOperacion element in Operaciones)
+            {
+                if (ban)
+                {
+                    element.CrearOperacion(anilloProcesado, ModelAnillo);
+                    aProcesado = element.anilloProcesado;
+                    ban = false;
+                }
+                else
+                {
+                    element.CrearOperacion(aProcesado, ModelAnillo);
+                    aProcesado = element.anilloProcesado;
+                }
+            }
+
         }
 
         private void definirPlato()
@@ -778,7 +1367,7 @@ namespace View.Services.ViewModel
             rise_built = rise_built;
             diseno = diseno;
             patt_width = patt_width;
-            codigo = codigo;
+            Codigo = Codigo;
             fin_Dia = fin_Dia;
             cstg_sm_od = cstg_sm_od;
             shrink_allow = shrink_allow;
@@ -797,6 +1386,11 @@ namespace View.Services.ViewModel
             M_Circle = M_Circle;
             button = button;
             cone = cone;
+            mounted = mounted;
+            ordered = ordered;
+            Checked = Checked;
+            estado = estado;
+            customer = customer;
         }
 
         public byte[] FileToByteArray(string fileName)
@@ -810,6 +1404,7 @@ namespace View.Services.ViewModel
                 return null;
             }
         }
+
         /// <summary>
         /// Método que guarda una placa modelo.
         /// </summary>
@@ -832,16 +1427,36 @@ namespace View.Services.ViewModel
             //    await dialog.SendMessage("RGP: Alerta", "Oh, Oh, parece ser que algo salió mal.");
 
             DialogService dialog = new DialogService();
-            int test = 1;
-            if (test != 0)
+            
+            if (validar())
             {
-                await dialog.SendMessage("RGP: Confirmación", "Placa modelo registrada con el código: " + test);
+                string codigoRegistrado = DataManager.SetPattern(model);
+                if (!codigoRegistrado.Equals(""))
+                    await dialog.SendMessage("RGP: Confirmación", "Placa modelo registrada con el código: " + codigoRegistrado);
+                else
+                    await dialog.SendMessage("RGP: Alerta", "Oh, Oh, parece ser que algo salió mal.");
             }
             else
-            {
-                await dialog.SendMessage("RGP: Alerta", "Oh, Oh, parece ser que algo salió mal.");
-            }
+                await dialog.SendMessage("RGP: Alerta", "Favor de llenar todos los campos");
         } 
+
+        private bool validar()
+        {
+            if (mounted.Valor.Equals(string.Empty))
+            {
+                return false;
+            }
+            else if (Checked.Valor.Equals(string.Empty))
+            {
+                return false;
+            }
+            else if (ordered.Valor.Equals(string.Empty))
+            {
+                return false;
+            }
+            
+            return true;
+        }
         #endregion
     }
 }

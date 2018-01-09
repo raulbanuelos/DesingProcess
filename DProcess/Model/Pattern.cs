@@ -6,7 +6,6 @@ namespace Model
     public class Pattern : Arquetipo
     {
         #region Propiedades 
-        public PropiedadCadena codigo { get; set; }
         public Propiedad medida { get; set; }
         public Propiedad diametro { get; set; }
         public Cliente customer { get; set; }
@@ -39,7 +38,7 @@ namespace Model
         public Propiedad OD { get; set; }
         public Propiedad ID { get; set; }
         public Propiedad diff { get; set; }
-        public Propiedad tipo { get; set; }
+        public Propiedad Tipo { get; set; }
         public PropiedadCadena mounted { get; set; }
         public PropiedadCadena ordered { get; set; }
         public PropiedadCadena Checked { get; set; }
@@ -87,7 +86,6 @@ namespace Model
             rise_built = new Propiedad();
             diseno = new PropiedadBool { Valor = true };
             patt_width = new Propiedad();
-            codigo = new PropiedadCadena();
             fin_Dia = new Propiedad();
             cstg_sm_od = new Propiedad();
             shrink_allow = new Propiedad();
@@ -106,6 +104,13 @@ namespace Model
             M_Circle = new PropiedadCadena();
             button = new PropiedadCadena();
             cone = new PropiedadCadena();
+            mounted = new PropiedadCadena();
+            ordered = new PropiedadCadena();
+            Checked = new PropiedadCadena();
+            estado = new PropiedadBool();
+            Codigo = string.Empty;
+            Tipo = new Propiedad();
+            customer = new Cliente();
         }
          
         #endregion

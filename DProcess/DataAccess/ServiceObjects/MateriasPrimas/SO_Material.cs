@@ -11,6 +11,10 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
 {
     public class SO_Material
     {
+        #region Atributtes
+        private string SP_RGP_GET_ALEANTES_MATERIAPRIMA = "SP_RGP_GET_ALEANTES_MATERIAPRIMA"; 
+        #endregion
+
         #region Propiedades
         //Cadena de conexión
         string StrinDeConexion = string.Empty;
@@ -257,6 +261,44 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
             {
                 //Si ocurre algún error, retornamos un nulo.
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene la lista de aleantes a partir de una especificación de materia prima.
+        /// </summary>
+        /// <param name="especMaterial"></param>
+        /// <returns></returns>
+        public DataSet GetAleanteEspecificacionMaterial(string especMaterial)
+        {
+            //Delcaramos un objeto DataSet que será el que reciba la información de la consulta de la base de datos.
+            DataSet informacionBD = new DataSet();
+
+            try
+            {
+                //Verificamos si la cadena de conexión fue inicializada.
+                if (StrinDeConexion != string.Empty)
+                {
+                    //Declaramos un objeto de tipo Desing_SQL enviando la cadena de conexión.
+                    Desing_SQL ConexionSQL = new Desing_SQL();
+
+                    //Declaramos un diccionario para guardar los parámetros necesarios del procedimiento.
+                    Dictionary<string, object> parametros = new Dictionary<string, object>();
+
+                    //Agregamos los paramentros al diccionario.
+                    parametros.Add("EspecMateriaPrima", especMaterial);
+
+                    //Ejecutamos el método enviando el nombre del procedimiento almacenado y los parámetros.
+                    informacionBD = ConexionSQL.EjecutarStoredProcedure(SP_RGP_GET_ALEANTES_MATERIAPRIMA, parametros);
+                }
+
+                //Retornamos los resultados obtenidos.
+                return informacionBD;
+            }
+            catch (Exception)
+            {
+                //Registrar el error.
+                return informacionBD;
             }
         }
         #endregion
