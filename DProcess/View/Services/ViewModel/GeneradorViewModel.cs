@@ -113,9 +113,86 @@ namespace View.Services.ViewModel
                 NotifyChange("SelectedDepartamento");
             }
         }
+
+        private string nombreDocumento;
+        public string NombreDocumento
+        {
+            get { return nombreDocumento; }
+            set { nombreDocumento = value; NotifyChange("NombreDocumento"); }
+        }
+
         #endregion
 
         #region Commands
+
+        public ICommand Crear {
+            get
+            {
+                return new RelayCommand(o => crearNumeroDocumento());
+            }
+        }
+
+        private async void crearNumeroDocumento()
+        {
+            DialogService dialog = new DialogService();
+
+            if (SelectedTipoDocumento != null && selectedDepartamento != null && !string.IsNullOrEmpty(NombreDocumento))
+            {
+                if (!DataManagerControlDocumentos.ExistDocumento(NombreDocumento))
+                {
+                    Documento documento = new Documento();
+
+                    documento.nombre = NombreDocumento;
+                    documento.id_tipo_documento = selectedTipoDocumento.id_tipo;
+                    documento.id_dep = selectedDepartamento.id_dep;
+                    documento.usuario = NombreUsuario;
+                    documento.id_estatus = 1;
+                    documento.fecha_creacion = DataManagerControlDocumentos.Get_DateTime();
+
+                    //Ejecutamos el método para registrar un nuevo documento
+                    int id_doc = DataManagerControlDocumentos.SetDocumento(documento);
+
+                    if (id_doc != 0)
+                    {
+
+                        //Copiamos el número generado al portapapeles.
+                        Clipboard.SetText(NombreDocumento);
+
+                        //Muestra mensaje con el número que se generó.
+                        await dialog.SendMessage("Información", "Se generó el número: " + NombreDocumento + "\n\n" + "Se copió el número al portapapeles.");
+
+                        //Muestra la ventana para crear un nuevo documento
+                        FrmDocumento frm = new FrmDocumento();
+                        DocumentoViewModel context = new DocumentoViewModel(ModelUsuario);
+                        frm.DataContext = context;
+                        frm.ShowDialog();
+
+                        //Obtememos la ventana actual
+                        var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                        //Verificamos que la pantalla sea diferente de nulo.
+                        if (window != null)
+                        {
+                            //Cerramos la pantalla
+                            window.Close();
+                        }
+                    }
+                    else
+                    {
+                        //No se pudo dar de alta el documento
+                        await dialog.SendMessage("Alerta", "Error al registrar el documento");
+                    }
+                }
+                else
+                {
+                    await dialog.SendMessage("Alerta", "El número de documento está repetido.");
+                }
+            }
+            else
+            {
+                await dialog.SendMessage("Alerta", "Debe de llenar todos los campos");
+            }
+        }
 
         /// <summary>
         /// Comando para generar un nuevo número
@@ -127,6 +204,7 @@ namespace View.Services.ViewModel
              return new RelayCommand(o => generarNumero());
             }
         }
+        
         /// <summary>
         /// Método que genera un nuevo número y crea un nuevo documento con el número generado
         /// </summary>

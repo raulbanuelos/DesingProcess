@@ -612,12 +612,13 @@ namespace View.Services.ViewModel
         {
             Bloqueo obj = new Bloqueo();
             DialogService dialogService = new DialogService();
+            bool isAdministratorCIT = Module.UsuarioIsRol(usuario.Roles, 2);
 
             //Método que obtiene un registro si se encuentra activo
             obj = DataManagerControlDocumentos.GetBloqueo();
 
             //Si el sistema no está bloqueado
-            //O es administrador del CIT, sólo los administradores pueden crear un documento cuando el sistema esté bloqueado
+            //2 es administrador del CIT, sólo los administradores pueden crear un documento cuando el sistema esté bloqueado
             if (obj.id_bloqueo ==0 || Module.UsuarioIsRol(usuario.Roles, 2))
             { 
             //Obtenermos la cantidad de números de documentosque tiene el usuario sin versión.
@@ -631,8 +632,20 @@ namespace View.Services.ViewModel
                     setting.NegativeButtonText = "Crear un nuevo número";
                     setting.AffirmativeButtonText = "Editar documentos existentes";
 
-                    //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
-                    MessageDialogResult result = await dialogService.SendMessage("Atención", "Usted tiene documentos disponibles", setting, MessageDialogStyle.AffirmativeAndNegative);
+                    MessageDialogResult result;
+
+                    if (isAdministratorCIT)
+                    {
+                        //Creamos la opción del botón para generar un número de documento de forma manual.
+                        setting.FirstAuxiliaryButtonText = "Crear numero fijo";
+
+                        //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
+                        result = await dialogService.SendMessage("Atención", "Usted no tiene ningún número de documento disponible", setting, MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary);
+                    }
+                    else
+                        //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
+                        result = await dialogService.SendMessage("Atención", "Usted no tiene ningún número de documento disponible", setting, MessageDialogStyle.AffirmativeAndNegative);
+
 
                     switch (result)
                     {
@@ -652,7 +665,20 @@ namespace View.Services.ViewModel
                             frm.ShowDialog();
                             break;
                         case MessageDialogResult.FirstAuxiliary:
+                            //Mostramos la ventana para crear un documento con el número fijo.
+                            FrmCrear_Numero frmCrear = new FrmCrear_Numero();
+
+                            GeneradorViewModel generadorViewModel = new GeneradorViewModel { ModelUsuario = usuario };
+
+                            frmCrear.DataContext = generadorViewModel;
+
+                            frmCrear.DataContext = generadorViewModel;
+
+                            frmCrear.ShowDialog();
+
                             break;
+
+
                         case MessageDialogResult.SecondAuxiliary:
                             break;
                         default:
@@ -672,8 +698,20 @@ namespace View.Services.ViewModel
                     setting.AffirmativeButtonText = "Crear un nuevo número";
                     setting.NegativeButtonText = "Cancelar";
 
-                    //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
-                    MessageDialogResult result = await dialogService.SendMessage("Atención", "Usted no tiene ningún número de documento disponible", setting, MessageDialogStyle.AffirmativeAndNegative);
+                    MessageDialogResult result;
+
+                    if (isAdministratorCIT)
+                    {
+                        //Creamos la opción del botón para generar un número de documento de forma manual.
+                        setting.FirstAuxiliaryButtonText = "Crear numero fijo";
+
+                        //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
+                        result = await dialogService.SendMessage("Atención", "Usted no tiene ningún número de documento disponible", setting, MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary);
+                    }
+                    else
+                        //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
+                        result = await dialogService.SendMessage("Atención", "Usted no tiene ningún número de documento disponible", setting, MessageDialogStyle.AffirmativeAndNegative);
+                    
                     switch (result)
                     {
                         case MessageDialogResult.Negative:
@@ -689,7 +727,20 @@ namespace View.Services.ViewModel
 
                             break;
                         case MessageDialogResult.FirstAuxiliary:
+
+                            //Mostramos la ventana para crear un documento con el número fijo.
+                            FrmCrear_Numero frmCrear = new FrmCrear_Numero();
+
+                            GeneradorViewModel generadorViewModel = new GeneradorViewModel { ModelUsuario = usuario };
+
+                            frmCrear.DataContext = generadorViewModel;
+
+                            frmCrear.DataContext = generadorViewModel;
+
+                            frmCrear.ShowDialog();
+
                             break;
+
                         case MessageDialogResult.SecondAuxiliary:
                             break;
                         default:
