@@ -339,7 +339,6 @@ namespace Model.ControlDocumentos
                                                     documento.id_estatus, documento.usuario, documento.fecha_creacion);
         }
 
-
         /// <summary>
         /// Método para modificar un registro de la tabla TBL_Documento.
         /// </summary>
@@ -683,8 +682,7 @@ namespace Model.ControlDocumentos
             //Retornamos el objeto
             return documento;
         }
-
-
+        
         /// <summary>
         /// Método para actualizar el estado de un documento
         /// </summary>
@@ -700,6 +698,19 @@ namespace Model.ControlDocumentos
             return ServicioDocumento.UpdateEstatus_Documento(obj.id_documento, obj.id_estatus);
         }
 
+        /// <summary>
+        /// Método que indica si un número de documento existe.
+        /// </summary>
+        /// <param name="numeroDocumento"></param>
+        /// <returns></returns>
+        public static bool ExistDocumento(string numeroDocumento)
+        {
+            //Inicializamos los servicios de SO_Documento.
+            SO_Documento servicioDocumento = new SO_Documento();
+
+            //Ejecutamos el método y retornamos el valor.
+            return servicioDocumento.ExistDocumento(numeroDocumento);
+        }
         //excel
 
         /// <summary>
