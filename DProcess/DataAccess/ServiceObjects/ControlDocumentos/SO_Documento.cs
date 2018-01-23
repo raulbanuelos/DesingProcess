@@ -1156,5 +1156,27 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             //Retorna el número de elementos en la tabla.
             return datos;
         }
+
+        /// <summary>
+        /// Método el cual indica si un número de archivo existe.
+        /// </summary>
+        /// <param name="numeroDocumento"></param>
+        /// <returns></returns>
+        public bool ExistDocumento(string numeroDocumento)
+        {
+            try
+            {
+                //Realizamos la conexión a la base de datos.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta para contar el número de documentos que tengan el mismo número.
+                    return Conexion.TBL_DOCUMENTO.Where(x => x.NOMBRE.Equals(numeroDocumento)).ToList().Count > 0 ? true : false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
