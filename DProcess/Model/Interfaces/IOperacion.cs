@@ -65,6 +65,11 @@ namespace Model.Interfaces
         double TiempoLabor { get; set; }
 
         /// <summary>
+        /// Booleano que representa si una operación esta en ejecucioón(Ejecutando el métod CrearOperacion())
+        /// </summary>
+        bool IsWorking { get; set; }
+
+        /// <summary>
         /// Colección de herramentales que representan los herramentales que si se encuentran codificados en sistema ERP.
         /// </summary>
         ObservableCollection<Herramental> ListaHerramentales { get; set; }
