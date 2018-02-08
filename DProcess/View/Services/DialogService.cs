@@ -19,6 +19,8 @@ namespace View.Services
             //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
+            window.MetroDialogOptions.ColorScheme = MetroDialogColorScheme.Accented;
+
             //Verificamos que la pantalla que obtuvimos sea diferente de nulo.
             if (window != null)
 
@@ -38,6 +40,11 @@ namespace View.Services
         {
             //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+            //Establecemos el color de acentuación para el dialog.
+            window.MetroDialogOptions.ColorScheme = MetroDialogColorScheme.Accented;
+
+            setting.ColorScheme = MetroDialogColorScheme.Accented;
 
             //Comprobamos que la ventana sea diferente de nulo.
             if (window != null)
@@ -67,6 +74,11 @@ namespace View.Services
             //Obtenemos la pantalla con el título en específico., y casteamos para que se tome como tipo MetroWindow.
             var window = Application.Current.Windows.OfType<MetroWindow>().Where(x => x.Title.Equals(tittleWindow)).FirstOrDefault();
 
+            //Establecemos el color de acentuación para el dialog.
+            window.MetroDialogOptions.ColorScheme = MetroDialogColorScheme.Accented;
+
+            setting.ColorScheme = MetroDialogColorScheme.Accented;
+
             //Comprobamos que la ventana sea diferente de nulo.
             if (window != null)
             {
@@ -87,14 +99,16 @@ namespace View.Services
         /// <param name="title"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public async Task<ProgressDialogController> SendProgressAsync(string title,string message)
+        public async Task<ProgressDialogController> SendProgressAsync(string title, string message)
         {
             //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
+            
             //Creamos las configuraciones que va a tener el mensaje.
             MetroDialogSettings settings = new MetroDialogSettings();
-            settings.AnimateShow = true;
+            settings.AnimateShow = false;
+            settings.AnimateHide = false;
+            settings.ColorScheme = MetroDialogColorScheme.Accented;
 
             //Comprobamos que la ventana sea diferente de nulo.
             if (window != null)
@@ -104,7 +118,7 @@ namespace View.Services
 
                 //Ejecutamos el método para indicar que el mensaje no tiene un fin establecido.
                 Controller.SetIndeterminate();
-                
+
                 //Retornamos el resultado.
                 return Controller;
             }
