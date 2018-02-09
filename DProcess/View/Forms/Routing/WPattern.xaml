@@ -58,6 +58,12 @@
                         <materialDesign:PackIcon Kind="FilePdf"></materialDesign:PackIcon>
                     </MenuItem.Icon>
                 </MenuItem>
+
+                <MenuItem Header="Routing" Command="{Binding ViewRouting}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="FilePdf"></materialDesign:PackIcon>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
         </Menu>
 
