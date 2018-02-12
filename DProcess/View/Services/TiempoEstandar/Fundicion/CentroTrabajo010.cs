@@ -149,6 +149,9 @@ namespace View.Services.TiempoEstandar.Fundicion
                 pesoEsqueleto = 19400;
             else if (mouting.Equals(16))
                 pesoEsqueleto = 25000;
+            else
+                Alertas.Add("No se calculo correctamente el tiempo estandar debido a que el número de impreciones de la placa modelo no está dentro de los calculos" + 
+                                Environment.NewLine + "Recomendación:" + Environment.NewLine + "Revice el calculo proporcionado por Ing. Industrial.");
 
             //Evaluamos si mouting es direfente de cero, lo que significará que es una placa modelo. Si no es un cuff.
             if (!mouting.Equals(0))
