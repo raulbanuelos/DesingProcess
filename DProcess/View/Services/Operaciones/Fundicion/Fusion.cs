@@ -27,7 +27,20 @@ namespace View.Services.Operaciones.Fundicion
         /// <summary>
         /// 
         /// </summary>
-        public string TextoSyteline { get; set; }
+        public string TextoSyteline {
+            get
+            {
+                return NombreOperacion + Environment.NewLine + "MET=000 OPR= 00" + Environment.NewLine + TextoProceso + Environment.NewLine + "TOOLING" + Environment.NewLine + TextoHerramienta;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    TextoSyteline = value;
+                }
+                
+            }
+        }
 
         /// <summary>
         /// Cadena que representa el nombre de la operación en ingles.
@@ -68,6 +81,11 @@ namespace View.Services.Operaciones.Fundicion
         /// Double que representa el tiempo de trabajo hombre de la operación.
         /// </summary>
         public double TiempoLabor { get; set; }
+
+        /// <summary>
+        /// Booleano que representa si una operación esta en ejecucioón(Ejecutando el métod CrearOperacion())
+        /// </summary>
+        public bool IsWorking { get; set; }
 
         /// <summary>
         /// Collección que representa la lista de herramentales de la operación.
@@ -129,8 +147,8 @@ namespace View.Services.Operaciones.Fundicion
             //Ejecutamos el méotodo para calcular los tiempos estándar.
             CalcularTiemposEstandar();
 
+            //Agregamos la materia prima para la placa modelo.
             double pesoCasting = Module.GetValorPropiedad("PesoCasting", elPlano.PropiedadesAdquiridasProceso);
-
             ListaMateriaPrima = DataManager.GetMaterialPrimaPlacaModelo(elPlano.MaterialBase.Especificacion.Valor, pesoCasting);
 
         }
@@ -147,7 +165,7 @@ namespace View.Services.Operaciones.Fundicion
         {
             try
             {
-                //Declaramos un objeto del tipo CentroTrabajo110.
+                //Declaramos un objeto del tipo CentroTrabajo010.
                 CentroTrabajo010 objTiempos = new CentroTrabajo010();
 
                 //Ejecutamos el método para calcular los tiempos.
@@ -190,6 +208,14 @@ namespace View.Services.Operaciones.Fundicion
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
             NotasOperacion = new ObservableCollection<string>();
+            AlertasOperacion = new ObservableCollection<string>();
+        }
+        #endregion
+
+        #region Methods override
+        public override string ToString()
+        {
+            return NombreOperacion;
         } 
         #endregion
     }

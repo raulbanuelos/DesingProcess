@@ -6,8 +6,10 @@ using System.IO;
 using System.Collections.Generic;
 using View.Forms.Shared;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Model.Interfaces;
 using View.Services.Operaciones.Fundicion;
+using View.Forms.Routing;
 
 namespace View.Services.ViewModel
 {
@@ -996,7 +998,7 @@ namespace View.Services.ViewModel
         {
             //Inicializamos el objeto anillo que representa nuestro modelo.
             ModelAnillo = new Anillo();
-
+            
             Inicializar();
         }        
         #endregion
@@ -1019,9 +1021,28 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand ViewRouting
+        {
+            get
+            {
+                return new RelayCommand( o => viewRouting());
+            }
+        }
+
         #endregion
 
         #region Methods
+
+        private void viewRouting()
+        {
+            WRouting wRouting = new WRouting();
+
+            RoutingViewModel routingViewModel = new RoutingViewModel(this.ModelAnillo);
+            
+            wRouting.DataContext = routingViewModel;
+
+            wRouting.ShowDialog();
+        }
 
         private void Inicializar()
         {
@@ -1124,6 +1145,21 @@ namespace View.Services.ViewModel
         {
             mounting = new Propiedad { DescripcionCorta = "Mouting", DescripcionLarga = "Mouting", Imagen = null, Nombre = "MoutingCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram) };
             peso_cstg = new Propiedad { DescripcionCorta = "Peso casting", DescripcionLarga = "Peso del casting", Imagen = null, Nombre = "PesoCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram), Valor = 0 };
+            patt_thickness = new Propiedad { DescripcionCorta = "Patt thickness", DescripcionLarga = "Patt thickness", Imagen = null, Nombre = "PattThicknessCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), Valor = 0 };
+            B_Dia = new Propiedad { DescripcionCorta = "B Dia", DescripcionLarga = "B Dia", Imagen = null, Nombre = "BDiaCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), Valor = 0};
+
+            setNamePropertieWidthCasting();
+            
+        }
+
+        private void setNamePropertieWidthCasting()
+        {
+            medida.DescripcionCorta = "Width";
+            medida.DescripcionLarga = "Width Casting";
+            medida.Imagen = null;
+            medida.Nombre = "WidthCasting";
+            medida.TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance);
+            medida.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
         }
 
         private void calcularPlaca()
@@ -1165,6 +1201,7 @@ namespace View.Services.ViewModel
 
             medida = patt_width;
 
+            setNamePropertieWidthCasting();
 
             if (!factor_k.Valor.Equals(0))
             {
@@ -1230,6 +1267,7 @@ namespace View.Services.ViewModel
                 B_Dia.Valor = Math.Round(patt_sm_od.Valor + (2 * cam_lever.Valor), 4);
 
                 definirPlato();
+
                 if (calculoOk)
                 {
                     detalle.Valor = DataManager.GetDetalleMoutingWidth(medida.Valor);
@@ -1259,14 +1297,23 @@ namespace View.Services.ViewModel
 
             ModelAnillo.PropiedadesAdquiridasProceso.Add(peso_cstg);
             ModelAnillo.PropiedadesAdquiridasProceso.Add(mounting);
-
+            ModelAnillo.PropiedadesAdquiridasProceso.Add(patt_thickness);
+            ModelAnillo.PropiedadesAdquiridasProceso.Add(medida);
+            ModelAnillo.PropiedadesAdquiridasProceso.Add(B_Dia);
+            ModelAnillo.PropiedadesBoolAdquiridasProceso = new ObservableCollection<PropiedadBool>();
+            ModelAnillo.PropiedadesCadenaAdquiridasProceso = new ObservableCollection<PropiedadCadena>();
+            
             calcularOperaciones();
         }
 
-        private void calcularOperaciones()
+        private async void calcularOperaciones()
         {
+
+            Operaciones.Clear();
+
             Caratula = "";
-            DescripcionGeneral = String.Format("{0:0.00000}", diametro.Valor) + " X " + String.Format("{0:0.00000}", medida.Valor);
+
+            ModelAnillo.DescripcionGeneral = String.Format("{0:0.00000}", diametro.Valor) + " X " + String.Format("{0:0.00000}", medida.Valor);
 
             double r_min, r_max, t_min, t_max;
             r_min = (medida.Valor + .010) - .005;
@@ -1316,10 +1363,27 @@ namespace View.Services.ViewModel
             Fusion opeFusion = new Fusion(ModelAnillo);
             Operaciones.Add(opeFusion);
 
+            FundicionMoldeo opeMoldeo = new FundicionMoldeo(ModelAnillo);
+            Operaciones.Add(opeMoldeo);
+
+            SacudidoPulido opeSacudido = new SacudidoPulido(ModelAnillo);
+            Operaciones.Add(opeSacudido);
+
+            FundicionEsmeriladoIntExtGas opeFundicionEsmerilado = new FundicionEsmeriladoIntExtGas(ModelAnillo);
+            Operaciones.Add(opeFundicionEsmerilado);
+
             bool ban = true;
             Anillo aProcesado = new Anillo();
+
+            DialogService dialogService = new DialogService();
+            var Controller = await dialogService.SendProgressAsync("Espere un momento", "");
+
+            int totalOperaciones = Operaciones.Count;
+            int i = 0;
+
             foreach (IOperacion element in Operaciones)
             {
+                Controller.SetMessage("Realizando la operación: " + element.NombreOperacion);
                 if (ban)
                 {
                     element.CrearOperacion(anilloProcesado, ModelAnillo);
@@ -1331,8 +1395,17 @@ namespace View.Services.ViewModel
                     element.CrearOperacion(aProcesado, ModelAnillo);
                     aProcesado = element.anilloProcesado;
                 }
-            }
 
+                await Task.Delay(5000);
+
+                Controller.SetProgress( i / totalOperaciones);
+                i += 1;
+            }
+            
+            await Controller.CloseAsync();
+        
+            await dialogService.SendMessage("Proceso finalizado", "La creación de la hoja de ruta a finalizado");
+            
         }
 
         private void definirPlato()

@@ -1053,7 +1053,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      join d in Conexion.TBL_DOCUMENTO on h.NOMBRE_DOCUMENTO equals d.NOMBRE
                                      join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
                                      join dep in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals dep.ID_DEPARTAMENTO
-                                     where DbFunctions.TruncateTime(h.FECHA) >= fecha_inicio && DbFunctions.TruncateTime(h.FECHA) <= fecha_fin && h.DESCRIPCION.Contains(descripcion) && t.ID_TIPO_DOCUMENTO == id_tipo && dep.ID_DEPARTAMENTO == id_departamento
+                                     where DbFunctions.TruncateTime(h.FECHA) >= fecha_inicio && DbFunctions.TruncateTime(h.FECHA) <= fecha_fin && 
+                                     h.DESCRIPCION.Contains(descripcion) && t.ID_TIPO_DOCUMENTO == id_tipo && dep.ID_DEPARTAMENTO == id_departamento
                                      select new
                                      {
                                          d.NOMBRE,

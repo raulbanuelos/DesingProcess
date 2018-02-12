@@ -29,7 +29,7 @@
     <PublisherName>Diseño del proceso</PublisherName>
     <SuiteName>Diseño del proceso</SuiteName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>33</ApplicationRevision>
+    <ApplicationRevision>36</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -93,8 +93,8 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MahApps.Metro, Version=1.2.4.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\MahApps.Metro.dll</HintPath>
+    <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -129,7 +129,7 @@
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
@@ -166,6 +166,9 @@
     </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmBusqueda_Documentos.xaml.cs">
       <DependentUpon>FrmBusqueda_Documentos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmCrear_Numero.xaml.cs">
+      <DependentUpon>FrmCrear_Numero.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmDocumento.xaml.cs">
       <DependentUpon>FrmDocumento.xaml</DependentUpon>
@@ -247,6 +250,9 @@
     </Compile>
     <Compile Include="Forms\Routing\WPattern.xaml.cs">
       <DependentUpon>WPattern.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Routing\WRouting.xaml.cs">
+      <DependentUpon>WRouting.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Routing\WViewPerfiles.xaml.cs">
       <DependentUpon>WViewPerfiles.xaml</DependentUpon>
@@ -420,7 +426,10 @@
     <Compile Include="Services\MathUtils.cs" />
     <Compile Include="Services\Matrix3DStack.cs" />
     <Compile Include="Services\Module.cs" />
+    <Compile Include="Services\Operaciones\Fundicion\FundicionEsmeriladoIntExtGas.cs" />
+    <Compile Include="Services\Operaciones\Fundicion\FundicionMoldeo.cs" />
     <Compile Include="Services\Operaciones\Fundicion\Fusion.cs" />
+    <Compile Include="Services\Operaciones\Fundicion\SacudidoPulido.cs" />
     <Compile Include="Services\Operaciones\Gasolina\DegreaseRings.cs" />
     <Compile Include="Services\Operaciones\Gasolina\Maquinado\CamTurn.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\FinishGrind.cs" />
@@ -435,6 +444,9 @@
     <Compile Include="Services\RotateSurface.cs" />
     <Compile Include="Services\ScreenSpaceLines3D.cs" />
     <Compile Include="Services\TiempoEstandar\Fundicion\CentroTrabajo010.cs" />
+    <Compile Include="Services\TiempoEstandar\Fundicion\CentroTrabajo020.cs" />
+    <Compile Include="Services\TiempoEstandar\Fundicion\CentroTrabajo030.cs" />
+    <Compile Include="Services\TiempoEstandar\Fundicion\CentroTrabajo040.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo130.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo810.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\Rolado\CentroTrabajo495.cs" />
@@ -498,6 +510,7 @@
     <Compile Include="Services\ViewModel\PUserViewModel.cs" />
     <Compile Include="Services\ViewModel\PusherSimVM.cs" />
     <Compile Include="Services\ViewModel\RecursoViewModel.cs" />
+    <Compile Include="Services\ViewModel\RoutingViewModel.cs" />
     <Compile Include="Services\ViewModel\ShieldBK_VM.cs" />
     <Compile Include="Services\ViewModel\ShimCutSystem_VM.cs" />
     <Compile Include="Services\ViewModel\ToolingViewModel.cs" />
@@ -536,7 +549,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -561,6 +576,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmBusqueda_Documentos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmCrear_Numero.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -669,6 +688,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Routing\WPattern.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Routing\WRouting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
