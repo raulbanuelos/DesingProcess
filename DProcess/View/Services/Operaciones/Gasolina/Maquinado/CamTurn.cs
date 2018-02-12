@@ -54,7 +54,17 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         /// <summary>
         /// 
         /// </summary>
-        public string TextoSyteline { get; set; }
+        public string TextoSyteline
+        {
+            get
+            {
+                return NombreOperacion + Environment.NewLine + "MET=000 OPR= 00" + Environment.NewLine + TextoProceso + Environment.NewLine + "TOOLING" + Environment.NewLine + TextoHerramienta;
+            }
+            set
+            {
+                TextoSyteline = value;
+            }
+        }
 
         /// <summary>
         /// Cadena que representa el nombre de la operación en ingles.
@@ -95,6 +105,11 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         /// Double que representa el tiempo de trabajo hombre de la operación.
         /// </summary>
         public double TiempoLabor { get; set; }
+
+        /// <summary>
+        /// Booleano que representa si una operación esta en ejecucioón(Ejecutando el métod CrearOperacion())
+        /// </summary>
+        public bool IsWorking { get; set; }
 
         /// <summary>
         /// Collección que representa la lista de herramentales de la operación.

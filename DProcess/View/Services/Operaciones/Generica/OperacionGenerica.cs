@@ -271,16 +271,18 @@ namespace View.Services.Operaciones.Generica
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string TextoSyteline
         {
             get
             {
-                throw new NotImplementedException();
+                return NombreOperacion + Environment.NewLine + "MET=000 OPR= 00" + Environment.NewLine + TextoProceso + Environment.NewLine + "TOOLING" + Environment.NewLine + TextoHerramienta;
             }
-
             set
             {
-                throw new NotImplementedException();
+                TextoSyteline = value;
             }
         }
 
@@ -335,6 +337,11 @@ namespace View.Services.Operaciones.Generica
                 throw new NotImplementedException();
             }
         }
+
+        /// <summary>
+        /// Booleano que representa si una operación esta en ejecucioón(Ejecutando el métod CrearOperacion())
+        /// </summary>
+        public bool IsWorking { get; set; }
 
         public bool TrabajaOD
         {
