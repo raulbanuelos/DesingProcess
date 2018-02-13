@@ -241,8 +241,7 @@ namespace View.Services.ViewModel
             get { return model.Tipo; }
             set { _Tipo = value; NotifyChange("Tipo"); }
         }
-
-
+        
         public PropiedadCadena mounted
         {
             get { return model.mounted; }
@@ -981,6 +980,11 @@ namespace View.Services.ViewModel
 
         #region Constructores
 
+        /// <summary>
+        /// Constructor que se utiliza para cuando no se encuentra placa modelo para un anillo.
+        /// </summary>
+        /// <param name="modelPattern"></param>
+        /// <param name="nombreUsuario"></param>
         public PatternViewModel(Pattern modelPattern, string nombreUsuario)
         {
             NombreUsuario = nombreUsuario;
@@ -994,6 +998,9 @@ namespace View.Services.ViewModel
             model = modelPattern;
         }
 
+        /// <summary>
+        /// Constructor por default.
+        /// </summary>
         public PatternViewModel()
         {
             //Inicializamos el objeto anillo que representa nuestro modelo.
@@ -1014,6 +1021,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando que responde a la petición de calcula la hoja de ruta.
+        /// </summary>
         public ICommand Calcular
         {
             get{
@@ -1021,6 +1031,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando que responde a la petición de ver la hoja de ruta.
+        /// </summary>
         public ICommand ViewRouting
         {
             get
@@ -1033,17 +1046,27 @@ namespace View.Services.ViewModel
 
         #region Methods
 
+        /// <summary>
+        /// Método que despliqega una pantalla con la información de la Ruta.
+        /// </summary>
         private void viewRouting()
         {
+            //Declaramos un objeto el cual es la pantalla.
             WRouting wRouting = new WRouting();
 
+            //Declaramos el VW de la pantalla, establaciendo el objeto ModelAnillo como su base.
             RoutingViewModel routingViewModel = new RoutingViewModel(this.ModelAnillo);
             
+            //Establecemos el DataContext.
             wRouting.DataContext = routingViewModel;
 
+            //Desplegamos la pantalla-
             wRouting.ShowDialog();
         }
 
+        /// <summary>
+        /// Método que inicializa todas las propiedades de la clase.
+        /// </summary>
         private void Inicializar()
         {
            
@@ -1147,11 +1170,15 @@ namespace View.Services.ViewModel
             peso_cstg = new Propiedad { DescripcionCorta = "Peso casting", DescripcionLarga = "Peso del casting", Imagen = null, Nombre = "PesoCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram), Valor = 0 };
             patt_thickness = new Propiedad { DescripcionCorta = "Patt thickness", DescripcionLarga = "Patt thickness", Imagen = null, Nombre = "PattThicknessCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), Valor = 0 };
             B_Dia = new Propiedad { DescripcionCorta = "B Dia", DescripcionLarga = "B Dia", Imagen = null, Nombre = "BDiaCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), Valor = 0};
+            patt_sm_od = new Propiedad { DescripcionCorta = "Patt sm od", DescripcionLarga = "Patt sm od", Imagen = null, Nombre = "PattSMOD", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch) };
 
             setNamePropertieWidthCasting();
             
         }
 
+        /// <summary>
+        /// Método que inicializa la propiedad WidthCasting
+        /// </summary>
         private void setNamePropertieWidthCasting()
         {
             medida.DescripcionCorta = "Width";
@@ -1162,6 +1189,9 @@ namespace View.Services.ViewModel
             medida.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
         }
 
+        /// <summary>
+        /// Método que calcula los valores de la placa modelo.
+        /// </summary>
         private void calcularPlaca()
         {
             //Ejecutamos el método para asignar el nombre a las propiedades. Esto para poder ser usadas en otras clases como las de los tiempos estandar
@@ -1300,15 +1330,18 @@ namespace View.Services.ViewModel
             ModelAnillo.PropiedadesAdquiridasProceso.Add(patt_thickness);
             ModelAnillo.PropiedadesAdquiridasProceso.Add(medida);
             ModelAnillo.PropiedadesAdquiridasProceso.Add(B_Dia);
+            ModelAnillo.PropiedadesAdquiridasProceso.Add(patt_sm_od);
             ModelAnillo.PropiedadesBoolAdquiridasProceso = new ObservableCollection<PropiedadBool>();
             ModelAnillo.PropiedadesCadenaAdquiridasProceso = new ObservableCollection<PropiedadCadena>();
             
             calcularOperaciones();
         }
 
+        /// <summary>
+        /// Método que calculo la ruta de la placa modelo.
+        /// </summary>
         private async void calcularOperaciones()
         {
-
             Operaciones.Clear();
 
             Caratula = "";
@@ -1372,18 +1405,21 @@ namespace View.Services.ViewModel
             FundicionEsmeriladoIntExtGas opeFundicionEsmerilado = new FundicionEsmeriladoIntExtGas(ModelAnillo);
             Operaciones.Add(opeFundicionEsmerilado);
 
+            InspeccionCasting opeInspeccion = new InspeccionCasting(ModelAnillo);
+            Operaciones.Add(opeInspeccion);
+
             bool ban = true;
             Anillo aProcesado = new Anillo();
 
             DialogService dialogService = new DialogService();
-            var Controller = await dialogService.SendProgressAsync("Espere un momento", "");
+            var Controller = await dialogService.SendProgressAsync(Resources.StringResources.ttlEspereUnMomento, string.Empty);
 
             int totalOperaciones = Operaciones.Count;
             int i = 0;
 
             foreach (IOperacion element in Operaciones)
             {
-                Controller.SetMessage("Realizando la operación: " + element.NombreOperacion);
+                Controller.SetMessage(Resources.StringResources.msgDoingOperation + element.NombreOperacion);
                 if (ban)
                 {
                     element.CrearOperacion(anilloProcesado, ModelAnillo);
@@ -1396,7 +1432,7 @@ namespace View.Services.ViewModel
                     aProcesado = element.anilloProcesado;
                 }
 
-                await Task.Delay(5000);
+                await Task.Delay(3000);
 
                 Controller.SetProgress( i / totalOperaciones);
                 i += 1;
@@ -1404,10 +1440,13 @@ namespace View.Services.ViewModel
             
             await Controller.CloseAsync();
         
-            await dialogService.SendMessage("Proceso finalizado", "La creación de la hoja de ruta a finalizado");
+            await dialogService.SendMessage(Resources.StringResources.ttlDone, Resources.StringResources.msgRoutingReady);
             
         }
 
+        /// <summary>
+        /// Método que despliega una pantalla en la cual el usuario puede elegir la medida de la placa modelo.
+        /// </summary>
         private void definirPlato()
         {
             List<double> ListaPlato = DataManager.GetPlatoMoutingDia(B_Dia.Valor);
@@ -1465,39 +1504,12 @@ namespace View.Services.ViewModel
             estado = estado;
             customer = customer;
         }
-
-        public byte[] FileToByteArray(string fileName)
-        {
-            try
-            {
-                return File.ReadAllBytes(fileName);
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-
+        
         /// <summary>
         /// Método que guarda una placa modelo.
         /// </summary>
         private async void guardarPattern()
         {
-            ////Declaramos un objeto de tipo DialogService.
-            //DialogService dialog = new DialogService();
-
-            ////Ejecutamos el método para insertar el pattern.
-            //string codigoNuevo = DataManager.SetPattern(new Pattern{ Codigo = codigo.Valor});
-
-            ////Comparamos si es distinto de nulo o vacío, si es así indica que se guardó con exito la placa modelo.
-            //if (!string.IsNullOrEmpty(codigoNuevo))
-
-            //    //Mostramos el mensaje de confirmación con el nuevo código registrado.
-            //    await dialog.SendMessage("RGP: Confirmación", "Placa modelo registrada con el código: " + codigoNuevo);
-            //else
-
-            //    //Mostramos
-            //    await dialog.SendMessage("RGP: Alerta", "Oh, Oh, parece ser que algo salió mal.");
 
             DialogService dialog = new DialogService();
             
@@ -1505,28 +1517,26 @@ namespace View.Services.ViewModel
             {
                 string codigoRegistrado = DataManager.SetPattern(model);
                 if (!codigoRegistrado.Equals(""))
-                    await dialog.SendMessage("RGP: Confirmación", "Placa modelo registrada con el código: " + codigoRegistrado);
+                    await dialog.SendMessage(Resources.StringResources.ttlDone, Resources.StringResources.msgPatternInserted + codigoRegistrado);
                 else
-                    await dialog.SendMessage("RGP: Alerta", "Oh, Oh, parece ser que algo salió mal.");
+                    await dialog.SendMessage(Resources.StringResources.ttlAlerta, Resources.StringResources.msgError);
             }
             else
-                await dialog.SendMessage("RGP: Alerta", "Favor de llenar todos los campos");
+                await dialog.SendMessage(Resources.StringResources.ttlAlerta, Resources.StringResources.msgFillFlields);
         } 
 
+        /// <summary>
+        /// Método que valida si los campos son correctos.
+        /// </summary>
+        /// <returns></returns>
         private bool validar()
         {
             if (mounted.Valor.Equals(string.Empty))
-            {
                 return false;
-            }
             else if (Checked.Valor.Equals(string.Empty))
-            {
                 return false;
-            }
             else if (ordered.Valor.Equals(string.Empty))
-            {
                 return false;
-            }
             
             return true;
         }

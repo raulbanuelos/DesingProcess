@@ -10,6 +10,7 @@ using System;
 using View.Forms.DataBase;
 using View.Forms.User;
 using View.Forms.Tooling;
+using System.Threading;
 
 namespace View.Services.ViewModel
 {
@@ -367,12 +368,13 @@ namespace View.Services.ViewModel
 
         private void irDataBase()
         {
-            PDataBase pantallaData = new PDataBase();
+            //PDataBase pantallaData = new PDataBase();
 
-            pantallaData.DataContext = this;
+            //pantallaData.DataContext = this;
 
+            //Pagina = pantallaData;
 
-            Pagina = pantallaData;
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("es-MX");
         }
 
         private void irPerfil()

@@ -6,10 +6,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using View.Services.TiempoEstandar.Fundicion;
 
-namespace View.Services.Operaciones.Gasolina
+namespace View.Services.Operaciones.Fundicion
 {
-    public class DegreaseRings : IOperacion
+    public class InspeccionCasting : IOperacion
     {
         #region Propiedades de IOperacion
         /// <summary>
@@ -132,9 +133,27 @@ namespace View.Services.Operaciones.Gasolina
             //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
 
+            double dia_ext_mayor_min,dia_ext_mayor_max;
+            double tol_ext_mayor = 0.023;
+
+            double b_dia_casting = Module.GetValorPropiedad("BDiaCasting", elPlano.PropiedadesAdquiridasProceso);
+            b_dia_casting = b_dia_casting * 0.9921;
+
+            dia_ext_mayor_min = b_dia_casting - tol_ext_mayor;
+            dia_ext_mayor_max = b_dia_casting + tol_ext_mayor;
+
+            double dia_ext_menor_min, dia_ext_menor_max;
+            double tol_ext_menor = 0.023;
+
+            double od_casting = Module.GetValorPropiedad("PattSMOD", elPlano.PropiedadesAdquiridasProceso);
+            od_casting = od_casting * 0.9934;
+
+            dia_ext_menor_min = Math.Round(od_casting - tol_ext_menor, 5);
+            dia_ext_menor_max = Math.Round(od_casting + tol_ext_menor, 5);
+
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "*DEGREASE";
-            
+            TextoProceso = "DIA.EXT.MAYOR " + String.Format("{0:0.000}", dia_ext_mayor_min) + " - " + String.Format("{0:0.000}", dia_ext_mayor_max) + Environment.NewLine;
+            TextoProceso += "DIA. EXT. MENOR " + String.Format("{0:0.000}", dia_ext_menor_min) + " - " + String.Format("{0:0.000}", dia_ext_menor_max) + Environment.NewLine;
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
@@ -145,7 +164,7 @@ namespace View.Services.Operaciones.Gasolina
 
         public void BuscarHerramentales()
         {
-            
+
         }
 
         /// <summary>
@@ -153,23 +172,61 @@ namespace View.Services.Operaciones.Gasolina
         /// </summary>
         public void CalcularTiemposEstandar()
         {
-            
+            try
+            {
+                //Declaramos un objeto del tipo CentroTrabajo010.
+                CentroTrabajo065 objTiempos = new CentroTrabajo065();
+
+                //Ejecutamos el método para calcular los tiempos.
+                objTiempos.Calcular(elPlano);
+
+                //Mapeamos los valores correspondientes.
+                this.TiempoLabor = objTiempos.TiempoLabor;
+                this.TiempoMachine = objTiempos.TiempoMachine;
+                this.TiempoSetup = objTiempos.TiempoSetup;
+
+                //Verificamos si no se generaron alertas durante el calculo de tiempos.
+                if (objTiempos.Alertas.Count > 0)
+                {
+                    AlertasOperacion.Add("Error en calculo de tiempo estándar");
+                    AlertasOperacion.CopyTo(objTiempos.Alertas.ToArray(), 0);
+                }
+                else
+                {
+                    NotasOperacion.Add("Tiempos estándar calculados correctamente.");
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurrio algún error, lo agregamos a la lista de alertas de la operación.
+                AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
+            }
         }
         #endregion
 
         #region Constructors
-        public DegreaseRings(Anillo plano)
+        public InspeccionCasting(Anillo plano)
         {
             //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "DEGREASE RINGS";
-            CentroCostos = "32012524";
-            CentroTrabajo = "140";
-            ControlKey = "MA42";
+            NombreOperacion = "INSPECCION CASTING";
+            CentroCostos = "32011542";
+            CentroTrabajo = "065";
+            ControlKey = "MA45";
             elPlano = plano;
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+            NotasOperacion = new ObservableCollection<string>();
+            AlertasOperacion = new ObservableCollection<string>();
         }
         #endregion
+
+        #region Methods override
+        public override string ToString()
+        {
+            return NombreOperacion;
+        }
+        #endregion
+
     }
 }

@@ -3,6 +3,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:local="clr-namespace:View.Resources"
       Title="Home">
 
     <Grid Background="{StaticResource FondoInicio}">
@@ -53,7 +54,7 @@
                 </Grid.RowDefinitions>
 
                 <!--Routing Generation Program-->
-                <Controls:Tile Background="#00879D" TiltFactor="2" Title="Routing Generation Program" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="0" Cursor="Hand" Command="{Binding IrRouting}" IsEnabled="{Binding PerfilRGP}">
+                <Controls:Tile Background="#00879D" TiltFactor="2" Title="{x:Static local:StringResources.ttlRouting}" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="0" Cursor="Hand" Command="{Binding IrRouting}" IsEnabled="{Binding PerfilRGP}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
@@ -71,7 +72,7 @@
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <TextBlock Text="Click here to calculate a routing" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <TextBlock Text="{x:Static local:StringResources.ttlRoutingAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
