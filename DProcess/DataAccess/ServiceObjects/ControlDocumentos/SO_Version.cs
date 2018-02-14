@@ -224,7 +224,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     var last = (from v in Conexion.TBL_VERSION
                                 join d in Conexion.TBL_DOCUMENTO on v.ID_DOCUMENTO equals d.ID_DOCUMENTO
                                 where v.ID_DOCUMENTO== id_documento
-                                orderby v.No_VERSION.Length descending
+                                orderby v.No_VERSION descending
                                 select v.No_VERSION).First();
 
                     //Asignamos el resultado obtenido a la variable local.
