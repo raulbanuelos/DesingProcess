@@ -61,6 +61,33 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Diameter.
+        /// </summary>
+        public static string lblDiameter {
+            get {
+                return ResourceManager.GetString("lblDiameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Thickness.
+        /// </summary>
+        public static string lblThickness {
+            get {
+                return ResourceManager.GetString("lblThickness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Width.
+        /// </summary>
+        public static string lblWidth {
+            get {
+                return ResourceManager.GetString("lblWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Working at operation: .
         /// </summary>
         public static string msgDoingOperation {
