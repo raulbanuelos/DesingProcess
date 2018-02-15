@@ -5,38 +5,10 @@ using System.Collections.ObjectModel;
 
 namespace View.Services.Operaciones.Gasolina.Maquinado
 {
-    public class CamTurn : IOperacion, IObserverDiametro, IObserverThickness
+    public class FinishMill : IOperacion, IObserverDiametro
     {
-
-        #region Attributes
-        private double small_od;
-        private double valor_pc;
-        #endregion
-
-        #region Constructor
-        public CamTurn(Anillo plano)
-        {
-            //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "ROUGH CAM TURN";
-            CentroCostos = "32012526";
-            CentroTrabajo = "230";
-            ControlKey = "MA42";
-            elPlano = plano;
-            ListaHerramentales = new ObservableCollection<Herramental>();
-            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
-            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-            NotasOperacion = new ObservableCollection<string>();
-        }
-
-        public CamTurn()
-        {
-            
-        }
-        #endregion
-
         #region Properties
-
-        #region Properties of IOperacion
+        #region Propiedades de IOperacion
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -166,7 +138,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             set;
         }
 
-        private bool _RemueveGap = false;
+        private bool _RemueveGap = true;
         public bool RemueveGap
         {
             get
@@ -180,82 +152,10 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             }
         }
         #endregion
-
-        #region Properties of IObserverThickness
-        public double Thickness
-        {
-            get;
-
-            set;
-        }
-
-        public double MatRemoverThickness
-        {
-            get;
-
-            set;
-        }
-
-        public bool TrabajaOD
-        {
-            get;
-
-            set;
-        } 
-        #endregion
-
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Método que obtiene el calculo del small OD de la operación.
-        /// </summary>
-        /// <returns></returns>
-        private double GetSmallOD()
-        {
-            double small_od = 0;
-            double rise = GetRise();
-            double valor_pc = Module.GetValorPropiedad("Piece", anilloProcesado.PropiedadesAdquiridasProceso);
-            double diaFinishMill = GetDiaFinishMill();
-            double diaBK = GetDiaBK();
-            small_od = (((((rise * 0.478) - valor_pc) / -3.1416) + elPlano.D1.Valor) - rise + (diaFinishMill - diaBK)) + 0.002;
-            return Math.Round(small_od, 4);
-        }
-
-        /// <summary>
-        /// Método que obtiene el valor del diámetro de la operación Finish Mill primer paso.
-        /// </summary>
-        /// <returns></returns>
-        private double GetDiaBK()
-        {
-            return Module.GetDiametroOperacion("FINISH MILL", 1, elPlano.Operaciones);
-        }
-
-        /// <summary>
-        /// Método que obtiene el valor del diámetro de la operación B&K primer paso.
-        /// </summary>
-        /// <returns></returns>
-        private double GetDiaFinishMill()
-        {
-            return Module.GetDiametroOperacion("AUTO. FINISH TURN",1,elPlano.Operaciones);
-        }
-
-        /// <summary>
-        /// Método que calcula y retorna el valor de rise de la operación.
-        /// </summary>
-        /// <returns></returns>
-        private double GetRise()
-        {
-            double rise = 0;
-            double valor_pc = Module.GetValorPropiedad("Piece", anilloProcesado.PropiedadesAdquiridasProceso);
-            string cam_detail;
-            double valor_pin_gage = DataManager.GetCamTurnConstant(elPlano, Module.GetValorPropiedadString("RingShape", elPlano.PerfilOD.PropiedadesCadena),out cam_detail);
-            rise = valor_pc * 64 * valor_pin_gage * Math.Pow(10, -4);
-            return Math.Round(rise, 3);
-        }
-
-        #region Methods of IOperacion
+        #region Métodos de IOperacion
         /// <summary>
         /// Método en el cual se calcula la operación.
         /// </summary>
@@ -267,46 +167,18 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            small_od = GetSmallOD();
-
-            TextoProceso = "*RGH CAM TURN \n";
-            TextoProceso += "SMALL O.D " + small_od + " +- 0.0010 \n";
-            TextoProceso += "RISE " + GetRise() + " +- 0.0010    MIN TH. " + Thickness + "\n";
-            TextoProceso += "*RGH. MILL \n";
-            TextoProceso += "" + Diameter + "  GA. " + Gap + " +- .0075 \n";
-
-            valor_pc = Module.GetValorPropiedad("Piece", anilloProcesado.PropiedadesAdquiridasProceso);
-            double cutterAngle = Math.Round(((valor_pc / elPlano.D1.Valor) + 0.0095), 2);
-
-            TextoProceso += DataManager.GetCutterAngleCamTurn(cutterAngle) + "\n";
-
-            string camTurn1 = DataManager.GetTimeCamTurn("CamTurn1", elPlano.MaterialBase.Especificacion) + " \n";
-            TextoProceso += !camTurn1.Equals(string.Empty) ? camTurn1 : ". \n";
-
-            string camturn2 = DataManager.GetTimeCamTurn("CamTurn2", elPlano.MaterialBase.Especificacion) + " \n";
-            TextoProceso += !camturn2.Equals(string.Empty) ? camturn2 : ". \n";
-
-            string camturn3 = DataManager.GetTimeCamTurn("CamTurn3", elPlano.MaterialBase.Especificacion) + " \n";
-            TextoProceso += !camturn3.Equals(string.Empty) ? camturn3 : ". \n";
+            TextoProceso = String.Format("{0:0000}",Diameter);
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
 
-            //Ejecutamos el método para calcular los tiempos estándar.
+            //Ejecutamos el méotodo para calcular los tiempos estándar.
             CalcularTiemposEstandar();
         }
 
         public void BuscarHerramentales()
         {
-            foreach (Herramental herramental in DataManager.GetCollarSpacer(small_od, valor_pc))
-            {
-                ListaHerramentales.Add(herramental);
-            }
 
-            foreach (var Herramental in ListaHerramentales)
-            {
-                TextoHerramienta += Herramental.DescripcionRuta + "\n";
-            }
         }
 
         /// <summary>
@@ -314,14 +186,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         /// </summary>
         public void CalcularTiemposEstandar()
         {
-            try
-            {
-                
-            }
-            catch (Exception er)
-            {
-                AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
-            }
+
         }
         #endregion
 
@@ -343,21 +208,31 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
                 Diameter = p + q;
             }
         }
-        #endregion
-
-        #region Methods of IObserverThickness
-        public void UpdateState(ISubjectThickness sender, double MaterialRemoverAfterOperacion, double ThicknessAfterOperacion)
-        {
-            Thickness = ThicknessAfterOperacion + MaterialRemoverAfterOperacion;
-        }
-        #endregion
-
-        #endregion
+        #endregion 
 
         #region Methods override
         public override string ToString()
         {
             return NombreOperacion;
+        }
+        #endregion
+        #endregion
+
+        #region Constructors
+        public FinishMill(Anillo plano)
+        {
+            //Asignamos los valores por default a las propiedades.
+            NombreOperacion = "FINISH MILL";
+            CentroCostos = "32012526";
+            CentroTrabajo = "410";
+            ControlKey = "MA42";
+            elPlano = plano;
+            ListaHerramentales = new ObservableCollection<Herramental>();
+            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
+            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+
+            MatRemoverDiametro = 0.050;
+
         }
         #endregion
     }
