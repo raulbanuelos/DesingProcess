@@ -187,5 +187,12 @@ namespace View.Services.Operaciones.Generica
         }
 
         #endregion
+
+        #region Methods override
+        public override string ToString()
+        {
+            return NombreOperacion;
+        }
+        #endregion
     }
 }

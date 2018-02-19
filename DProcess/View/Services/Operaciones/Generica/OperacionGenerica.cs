@@ -393,5 +393,12 @@ namespace View.Services.Operaciones.Generica
         {
             throw new NotImplementedException();
         }
+
+        #region Methods override
+        public override string ToString()
+        {
+            return NombreOperacion;
+        }
+        #endregion
     }
 }
