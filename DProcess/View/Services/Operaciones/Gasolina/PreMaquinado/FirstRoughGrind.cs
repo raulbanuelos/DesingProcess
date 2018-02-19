@@ -190,9 +190,8 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         public void BuscarHerramentales()
         {
             ListaHerramentales.Add(DataManager.GetGuideBarFirstRoughGrind(.125));
-
-            TextoProceso += "\nTOOLING\n";
-            TextoProceso += Module.GetTextoListaHerramentales(ListaHerramentales);
+            
+            TextoHerramienta = Module.GetTextoListaHerramentales(ListaHerramentales);
         }
 
         /// <summary>
@@ -287,6 +286,13 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
            
         }
 
+        #endregion
+
+        #region Methods override
+        public override string ToString()
+        {
+            return NombreOperacion;
+        }
         #endregion
     }
 }

@@ -238,15 +238,11 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             {
                 ListaHerramentales.Add(DataManager.GetUretanoSplitter(id));
             }
-
-            TextoProceso += "\nTOOLING\n";
-
+            
             foreach (var Herramental in ListaHerramentales)
             {
-                TextoProceso += Herramental.DescripcionRuta + "\n";
+                TextoHerramienta += Herramental.DescripcionRuta + "\n";
             }
-
-
         }
 
         /// <summary>
@@ -301,6 +297,13 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
 
         #endregion
 
+        #endregion
+
+        #region Methods override
+        public override string ToString()
+        {
+            return NombreOperacion;
+        }
         #endregion
     }
 }

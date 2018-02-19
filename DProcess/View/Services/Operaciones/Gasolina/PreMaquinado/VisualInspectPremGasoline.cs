@@ -202,5 +202,12 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             }
         }
         #endregion
+
+        #region Methods override
+        public override string ToString()
+        {
+            return NombreOperacion;
+        }
+        #endregion
     }
 }
