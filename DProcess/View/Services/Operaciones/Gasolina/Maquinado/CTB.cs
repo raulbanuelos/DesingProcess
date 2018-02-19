@@ -236,7 +236,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             else
             {
                 double p, q;
-                p = Math.Round((Gap / GapAfterOperacion) / 3.1416, 4);
+                p = Math.Round((Gap - GapAfterOperacion) / 3.1416, 4);
                 q = DiametroAfterOperacion + MaterialRemoverAfterOperacion;
                 Diameter = p + q;
             }

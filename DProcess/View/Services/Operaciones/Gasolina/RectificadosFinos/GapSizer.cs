@@ -3,9 +3,9 @@ using Model.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 
-namespace View.Services.Operaciones.Gasolina.Maquinado
+namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 {
-    public class FinishMill : IOperacion, IObserverDiametro
+    public class GapSizer : IOperacion
     {
         #region Properties
         #region Propiedades de IOperacion
@@ -218,22 +218,19 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         #endregion
         #endregion
 
-        #region Constructors
-        public FinishMill(Anillo plano)
+        public GapSizer(Anillo plano)
         {
             //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "FINISH MILL";
-            CentroCostos = "32012526";
-            CentroTrabajo = "410";
+            NombreOperacion = "GAP SIZER (SIM WET)";
+            CentroCostos = "32012529";
+            CentroTrabajo = "255";
             ControlKey = "MA42";
             elPlano = plano;
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
 
-            MatRemoverDiametro = 0.050;
-            
+            MatRemoverDiametro = 0.012; // <--Significan .004 totales
         }
-        #endregion
     }
 }

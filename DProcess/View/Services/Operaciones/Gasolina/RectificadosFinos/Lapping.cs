@@ -3,12 +3,13 @@ using Model.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 
-namespace View.Services.Operaciones.Gasolina.Maquinado
+namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 {
-    public class FinishMill : IOperacion, IObserverDiametro
+    public class Lapping : IOperacion
     {
         #region Properties
-        #region Propiedades de IOperacion
+
+        #region Properties of IOperacion
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -138,7 +139,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             set;
         }
 
-        private bool _RemueveGap = true;
+        private bool _RemueveGap = false;
         public bool RemueveGap
         {
             get
@@ -152,10 +153,34 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             }
         }
         #endregion
+
+        #region Properties of IObserverThickness
+        public double Thickness
+        {
+            get;
+
+            set;
+        }
+
+        public double MatRemoverThickness
+        {
+            get;
+
+            set;
+        }
+
+        public bool TrabajaOD
+        {
+            get;
+
+            set;
+        }
+        #endregion
+
         #endregion
 
         #region Methods
-        #region Métodos de IOperacion
+        #region Methods of IOperacion
         /// <summary>
         /// Método en el cual se calcula la operación.
         /// </summary>
@@ -167,12 +192,13 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = String.Format("{0:0.00000}", Diameter);
+            TextoProceso = "Diámetro: " + String.Format("{0:0.00000}", Diameter) + Environment.NewLine;
+            TextoProceso += "Thickness: " + String.Format("{0:0.0000}", Thickness);
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
 
-            //Ejecutamos el méotodo para calcular los tiempos estándar.
+            //Ejecutamos el método para calcular los tiempos estándar.
             CalcularTiemposEstandar();
         }
 
@@ -186,7 +212,14 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         /// </summary>
         public void CalcularTiemposEstandar()
         {
+            try
+            {
 
+            }
+            catch (Exception er)
+            {
+                AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
+            }
         }
         #endregion
 
@@ -208,6 +241,13 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
                 Diameter = p + q;
             }
         }
+        #endregion
+
+        #region Methods of IObserverThickness
+        public void UpdateState(ISubjectThickness sender, double MaterialRemoverAfterOperacion, double ThicknessAfterOperacion)
+        {
+            Thickness = ThicknessAfterOperacion + MaterialRemoverAfterOperacion;
+        }
         #endregion 
 
         #region Methods override
@@ -216,24 +256,23 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             return NombreOperacion;
         }
         #endregion
+
         #endregion
 
         #region Constructors
-        public FinishMill(Anillo plano)
+        public Lapping(Anillo plano)
         {
             //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "FINISH MILL";
-            CentroCostos = "32012526";
-            CentroTrabajo = "410";
+            NombreOperacion = "LAPPING (ANILLOS)";
+            CentroCostos = "32012529";
+            CentroTrabajo = "455";
             ControlKey = "MA42";
             elPlano = plano;
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-
-            MatRemoverDiametro = 0.050;
-            
-        }
+            NotasOperacion = new ObservableCollection<string>();
+        } 
         #endregion
     }
 }

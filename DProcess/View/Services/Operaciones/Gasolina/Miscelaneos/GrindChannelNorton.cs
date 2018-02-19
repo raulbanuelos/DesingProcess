@@ -3,11 +3,12 @@ using Model.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 
-namespace View.Services.Operaciones.Gasolina.Maquinado
+namespace View.Services.Operaciones.Gasolina.Miscelaneos
 {
-    public class FinishMill : IOperacion, IObserverDiametro
+    public class GrindChannelNorton : IOperacion
     {
         #region Properties
+
         #region Propiedades de IOperacion
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
@@ -116,45 +117,12 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         /// Anillo que representa el plano ingresado por el usuario.
         /// </summary>
         public Anillo elPlano { get; set; }
-        #endregion
+        #endregion 
 
-        #region Properties of IObserverDiametro
-        public double Diameter
-        {
-            get;
-            set;
-        }
-
-        public double MatRemoverDiametro
-        {
-            get;
-            set;
-        }
-
-        public double Gap
-        {
-            get;
-
-            set;
-        }
-
-        private bool _RemueveGap = true;
-        public bool RemueveGap
-        {
-            get
-            {
-                return _RemueveGap;
-            }
-
-            set
-            {
-                _RemueveGap = value;
-            }
-        }
-        #endregion
         #endregion
 
         #region Methods
+
         #region Métodos de IOperacion
         /// <summary>
         /// Método en el cual se calcula la operación.
@@ -167,7 +135,8 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = String.Format("{0:0.00000}", Diameter);
+            TextoProceso = "*NORTON";
+
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
@@ -190,50 +159,28 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         }
         #endregion
 
-        #region Methods of IObserverDiametro
-        public void UpdateState(ISubjectDiametro sender, double MaterialRemoverAfterOperacion, double DiametroAfterOperacion, double GapAfterOperacion, bool RemueveGap)
-        {
-            if (RemueveGap)
-            {
-                double p, q;
-                p = (MaterialRemoverAfterOperacion / Math.PI);
-                q = ((GapAfterOperacion - Gap) / Math.PI);
-                Diameter = Math.Round(p - q + (DiametroAfterOperacion), 3);
-            }
-            else
-            {
-                double p, q;
-                p = Math.Round((Gap - GapAfterOperacion) / 3.1416, 4);
-                q = DiametroAfterOperacion + MaterialRemoverAfterOperacion;
-                Diameter = p + q;
-            }
-        }
-        #endregion 
-
         #region Methods override
         public override string ToString()
         {
             return NombreOperacion;
         }
         #endregion
+
         #endregion
 
         #region Constructors
-        public FinishMill(Anillo plano)
+        public GrindChannelNorton(Anillo plano)
         {
             //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "FINISH MILL";
-            CentroCostos = "32012526";
-            CentroTrabajo = "410";
+            NombreOperacion = "GRIND CHANNEL(NORTON)";
+            CentroCostos = "32012537";
+            CentroTrabajo = "435";
             ControlKey = "MA42";
             elPlano = plano;
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-
-            MatRemoverDiametro = 0.050;
-            
-        }
+        } 
         #endregion
     }
 }

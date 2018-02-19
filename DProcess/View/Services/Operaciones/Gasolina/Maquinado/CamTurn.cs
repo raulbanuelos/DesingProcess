@@ -229,7 +229,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         /// <returns></returns>
         private double GetDiaBK()
         {
-            return Module.GetDiametroOperacion("FINISH MILL", 1, elPlano.Operaciones);
+            return Module.GetDiametroOperacion("AUTO. FINISH TURN", 1, elPlano.Operaciones);
         }
 
         /// <summary>
@@ -238,7 +238,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         /// <returns></returns>
         private double GetDiaFinishMill()
         {
-            return Module.GetDiametroOperacion("AUTO. FINISH TURN",1,elPlano.Operaciones);
+            return Module.GetDiametroOperacion("FINISH MILL", 1,elPlano.Operaciones);
         }
 
         /// <summary>
@@ -303,6 +303,8 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
                 ListaHerramentales.Add(herramental);
             }
 
+
+
             foreach (var Herramental in ListaHerramentales)
             {
                 TextoHerramienta += Herramental.DescripcionRuta + "\n";
@@ -338,7 +340,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             else
             {
                 double p, q;
-                p = Math.Round((Gap / GapAfterOperacion) / 3.1416, 4);
+                p = Math.Round((Gap - GapAfterOperacion) / 3.1416, 4);
                 q = DiametroAfterOperacion + MaterialRemoverAfterOperacion;
                 Diameter = p + q;
             }

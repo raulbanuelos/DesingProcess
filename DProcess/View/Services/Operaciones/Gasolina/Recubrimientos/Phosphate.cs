@@ -3,11 +3,12 @@ using Model.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 
-namespace View.Services.Operaciones.Gasolina.Maquinado
+namespace View.Services.Operaciones.Gasolina.Recubrimientos
 {
-    public class FinishMill : IOperacion, IObserverDiametro
+    public class Phosphate : IOperacion, IObserverWidth
     {
-        #region Properties
+        #region Propiedades
+
         #region Propiedades de IOperacion
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
@@ -118,43 +119,24 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         public Anillo elPlano { get; set; }
         #endregion
 
-        #region Properties of IObserverDiametro
-        public double Diameter
-        {
-            get;
-            set;
-        }
+        #region Propiedades de IObserverWidth
+        /// <summary>
+        /// Double que representa la medida del width del anillo en la operación.
+        /// </summary>
+        public double WidthOperacion { get; set; }
 
-        public double MatRemoverDiametro
-        {
-            get;
-            set;
-        }
+        /// <summary>
+        /// Double que representa el material a remover en la operación.
+        /// Si en la operación se agrega material(por ejemplo cromo lateral) el valor será negativo.
+        /// </summary>
+        public double MatRemoverWidth { get; set; }
 
-        public double Gap
-        {
-            get;
-
-            set;
-        }
-
-        private bool _RemueveGap = true;
-        public bool RemueveGap
-        {
-            get
-            {
-                return _RemueveGap;
-            }
-
-            set
-            {
-                _RemueveGap = value;
-            }
-        }
-        #endregion
         #endregion
 
-        #region Methods
+        #endregion
+
+        #region Métodos
+
         #region Métodos de IOperacion
         /// <summary>
         /// Método en el cual se calcula la operación.
@@ -167,7 +149,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = String.Format("{0:0.00000}", Diameter);
+            TextoProceso = "*PHOSPHATE \n";
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
@@ -178,7 +160,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
 
         public void BuscarHerramentales()
         {
-
+            
         }
 
         /// <summary>
@@ -190,25 +172,22 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         }
         #endregion
 
-        #region Methods of IObserverDiametro
-        public void UpdateState(ISubjectDiametro sender, double MaterialRemoverAfterOperacion, double DiametroAfterOperacion, double GapAfterOperacion, bool RemueveGap)
+        #region Métodos de IObserverWidth
+
+        /// <summary>
+        /// Método que actualiza el valor del width en la operación.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="MaterialRemoverAfterOperacion"></param>
+        /// <param name="WidthAfterOperacion"></param>
+        public void UpdateState(ISubjectWidth sender, double MaterialRemoverAfterOperacion, double WidthAfterOperacion)
         {
-            if (RemueveGap)
-            {
-                double p, q;
-                p = (MaterialRemoverAfterOperacion / Math.PI);
-                q = ((GapAfterOperacion - Gap) / Math.PI);
-                Diameter = Math.Round(p - q + (DiametroAfterOperacion), 3);
-            }
-            else
-            {
-                double p, q;
-                p = Math.Round((Gap - GapAfterOperacion) / 3.1416, 4);
-                q = DiametroAfterOperacion + MaterialRemoverAfterOperacion;
-                Diameter = p + q;
-            }
+
+            //Actualizamos el width de la operación.
+            WidthOperacion = WidthAfterOperacion + MaterialRemoverAfterOperacion;
         }
-        #endregion 
+
+        #endregion
 
         #region Methods override
         public override string ToString()
@@ -216,24 +195,24 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             return NombreOperacion;
         }
         #endregion
+
         #endregion
 
         #region Constructors
-        public FinishMill(Anillo plano)
+        public Phosphate(Anillo plano)
         {
             //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "FINISH MILL";
-            CentroCostos = "32012526";
-            CentroTrabajo = "410";
+            NombreOperacion = "PHOSPHATE GASOLINE";
+            CentroCostos = "32015021";
+            CentroTrabajo = "750";
             ControlKey = "MA42";
             elPlano = plano;
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-
-            MatRemoverDiametro = 0.050;
-            
-        }
+            AlertasOperacion = new ObservableCollection<string>();
+            NotasOperacion = new ObservableCollection<string>();
+        } 
         #endregion
     }
 }

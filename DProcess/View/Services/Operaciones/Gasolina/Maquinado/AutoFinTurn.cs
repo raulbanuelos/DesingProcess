@@ -240,7 +240,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             else
             {
                 double p, q;
-                p = Math.Round((Gap / GapAfterOperacion) / 3.1416, 4);
+                p = Math.Round((Gap - GapAfterOperacion) / 3.1416, 4);
                 q = DiametroAfterOperacion + MaterialRemoverAfterOperacion;
                 Diameter = p + q;
             }
@@ -277,7 +277,9 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
             NotasOperacion = new ObservableCollection<string>();
 
-            MatRemoverThickness = 0.015;
+            MatRemoverThickness = 0.016;
+
+            MatRemoverDiametro = 0.015;
         } 
         #endregion
     }
