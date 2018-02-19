@@ -1,16 +1,14 @@
 ﻿using Model;
 using Model.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace View.Services.Operaciones.Gasolina
 {
     public class DegreaseRings : IOperacion
     {
+        #region Properties
+
         #region Propiedades de IOperacion
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
@@ -119,7 +117,11 @@ namespace View.Services.Operaciones.Gasolina
         /// Anillo que representa el plano ingresado por el usuario.
         /// </summary>
         public Anillo elPlano { get; set; }
+        #endregion 
+
         #endregion
+
+        #region Methods
 
         #region Métodos de IOperacion
         /// <summary>
@@ -134,7 +136,7 @@ namespace View.Services.Operaciones.Gasolina
 
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "*DEGREASE";
-            
+
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
@@ -145,7 +147,7 @@ namespace View.Services.Operaciones.Gasolina
 
         public void BuscarHerramentales()
         {
-            
+
         }
 
         /// <summary>
@@ -153,8 +155,17 @@ namespace View.Services.Operaciones.Gasolina
         /// </summary>
         public void CalcularTiemposEstandar()
         {
-            
+
         }
+        #endregion
+
+        #region Methods override
+        public override string ToString()
+        {
+            return NombreOperacion;
+        }
+        #endregion 
+
         #endregion
 
         #region Constructors
