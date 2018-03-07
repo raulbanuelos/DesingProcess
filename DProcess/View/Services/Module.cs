@@ -813,7 +813,42 @@ namespace View.Services
                     break;
             }
 
-            fechaR = fecha.Day + "-" + mes + "-" + fecha.Year;
+            string dia = string.Empty;
+            switch (fecha.Day)
+            {
+                case 1:
+                    dia = "01";
+                    break;
+                case 2:
+                    dia = "02";
+                    break;
+                case 3:
+                    dia = "03";
+                    break;
+                case 4:
+                    dia = "04";
+                    break;
+                case 5:
+                    dia = "05";
+                    break;
+                case 6:
+                    dia = "06";
+                    break;
+                case 7:
+                    dia = "07";
+                    break;
+                case 8:
+                    dia = "08";
+                    break;
+                case 9:
+                    dia = "09";
+                    break;
+                default:
+                    dia = fecha.Day.ToString();
+                    break;
+            }
+
+            fechaR = dia + "-" + mes + "-" + fecha.Year;
 
             return fechaR;
         }
