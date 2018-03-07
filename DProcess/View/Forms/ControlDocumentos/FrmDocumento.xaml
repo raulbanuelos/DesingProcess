@@ -97,7 +97,7 @@
             <!--Button Adjuntar-->
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="230"></RowDefinition>
+                    <RowDefinition Height="250"></RowDefinition>
                     <RowDefinition Height="60"></RowDefinition>
                     <RowDefinition Height="250"></RowDefinition>
                 </Grid.RowDefinitions>
@@ -144,6 +144,9 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </ComboBox>
+
+                    <!--Nombre del áreas sealed-->
+                    <ComboBox  materialDesign:HintAssist.Hint="Área frames" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaAreasSealed}" DisplayMemberPath="ValorCadena" SelectedValuePath="Nombre" SelectedValue="{Binding id_areasealed}" IsEnabled="{Binding BttnLiberar}"/>
                 </StackPanel>
                 <Button  Grid.Row="1" HorizontalAlignment="Right" Margin="10" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding LlenarLista}"  ToolTip="Adjuntar Archivo"
                     Visibility="{Binding BttnArchivos, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"  >

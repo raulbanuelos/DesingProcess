@@ -1433,13 +1433,11 @@ namespace View.Services.ViewModel
                 }
 
                 await Task.Delay(3000);
-
-                Controller.SetProgress( i / totalOperaciones);
+                
                 i += 1;
             }
             
             await Controller.CloseAsync();
-        
             await dialogService.SendMessage(Resources.StringResources.ttlDone, Resources.StringResources.msgRoutingReady);
             
         }

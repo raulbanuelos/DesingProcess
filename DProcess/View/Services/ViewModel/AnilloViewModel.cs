@@ -19,6 +19,7 @@ using PdfSharp.Pdf;
 using PdfSharp.Drawing;
 using System.Diagnostics;
 using PdfSharp;
+using System.Threading.Tasks;
 
 namespace View.Services.ViewModel
 {
@@ -816,24 +817,12 @@ namespace View.Services.ViewModel
             }
         }
 
-        private void viewRoute()
+        public ICommand ViewRouting
         {
-            PdfDocument pdf = new PdfDocument();
-            pdf.Info.Title = ModelAnillo.DescripcionGeneral;
-
-            PdfPage pdfPage = pdf.AddPage();
-            pdfPage.Size = PageSize.A4;
-
-            XGraphics graph = XGraphics.FromPdfPage(pdfPage);
-
-            XFont font = new XFont("Verdana", 20, XFontStyle.Bold);
-            graph.DrawString("This is my first PDF document", font, XBrushes.Black, new XRect(0, 0, pdfPage.Width.Point, pdfPage.Height.Point), XStringFormats.Center);
-
-            string pdfFilename = "firstpageacfgh.pdf";
-            pdf.Save(pdfFilename);
-            Process.Start(pdfFilename);
-
-
+            get
+            {
+                return new RelayCommand(o => viewRouting());
+            }
         }
         #endregion
 
@@ -856,7 +845,7 @@ namespace View.Services.ViewModel
             especificacion.Valor = "SPR-128";
 
             MaterialBase = new MateriaPrima {Especificacion = especificacion};
-            FreeGap = new Propiedad { DescripcionCorta = "Free Gap", DescripcionLarga = "Free Gap", Imagen = null, Nombre = "Total Free Gap Max", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.400 };
+            FreeGap = new Propiedad { DescripcionCorta = "Free Gap", DescripcionLarga = "Free Gap", Imagen = null, Nombre = "Total Free Gap Max", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.696 };
 
             Propiedad Thickness = new Propiedad { DescripcionCorta = "Thickness", DescripcionLarga = "Thickness", Imagen = null, Nombre = "a1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.196 };
             Propiedad ThicknessMin = new Propiedad { DescripcionCorta = "Thickness Min", DescripcionLarga = "Thickness Min", Imagen = null, Nombre = "a1 Tol Min", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.005 };
@@ -875,16 +864,15 @@ namespace View.Services.ViewModel
             PerfilOD.PropiedadesCadena.Add(new PropiedadCadena { DescripcionCorta = "Proceso",DescripcionLarga = "Proceso", Imagen = null, Nombre = "Proceso", Valor = "Doble"});
             PerfilOD.Propiedades.Add(new Propiedad { DescripcionCorta = "CLOSING STRESS", DescripcionLarga = "CLOSING STRESS", Imagen = null, Nombre = "CLOSING STRESS", Valor = 33400});
             PerfilOD.PropiedadesCadena.Add(new PropiedadCadena { DescripcionCorta = "RingShape", DescripcionLarga = "RingShape", Imagen = null, Nombre = "RingShape", Valor = "#3" });
-
-            PerfilPuntas.Propiedades.Add(new Propiedad { DescripcionCorta = "GapMin", DescripcionLarga = "Gap Min", Imagen = null, Nombre = "GapMin", Valor = 0.011 });
-            PerfilPuntas.Propiedades.Add(new Propiedad { DescripcionCorta = "GapMax", DescripcionLarga = "Gap Max", Imagen = null, Nombre = "GapMax", Valor = 0.021 });
-
+            
+            PerfilPuntas.Propiedades.Add(new Propiedad { DescripcionCorta = "Gap", DescripcionLarga = "Gap del anillo", Imagen = null, Nombre = "s1", Valor = 0.016, TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch) });
+            PerfilPuntas.Propiedades.Add(new Propiedad { DescripcionCorta = "Gap Tol Max", DescripcionLarga = "Tolerancia máxima en gap del anillo", Imagen = null, Nombre = "s1 Tol Max", Valor = 0.005, TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch) });
+            PerfilPuntas.Propiedades.Add(new Propiedad { DescripcionCorta = "Gap Tol Min", DescripcionLarga = "Tolerancia mínima en gap del anillo", Imagen = null, Nombre = "s1 Tol Min", Valor = 0.005, TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch) });
 
             MaterialBase.Especificacion = new PropiedadCadena { DescripcionCorta = "MATERIAL:", DescripcionLarga = "MATERIAL BASE DEL ANILLO", Imagen = null, Nombre = "Material MAHLE", Valor = "SPR-128" };
             HardnessMax = new Propiedad { DescripcionCorta = "Hardness Max", DescripcionLarga = "Hardness Max", Imagen = null, Nombre = "HardnessMax", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Dureza), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDureza.RB), Valor = 106 };
             HardnessMin = new Propiedad { DescripcionCorta = "Hardness Min", DescripcionLarga = "Hardness Min", Imagen = null, Nombre = "HardnessMin", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Dureza), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDureza.RB), Valor = 95 };
-
-
+            
             TipoAnillo = "RBT10";
 
             cliente = new Cliente { NombreCliente = "MAHLE", IdCliente = 12 };
@@ -896,11 +884,15 @@ namespace View.Services.ViewModel
 
             if (ModelAnillo.MaterialBase.TipoDeMaterial == "HIERRO GRIS")
             {
-                Operaciones = Router.CalcularHierroGris(ModelAnillo);
 
                 //Ingresar calculo de placa modelo.
                 calcularMateriaPrima = new CalculaMateriaPrima(ModelAnillo);
                 MaterialBase = calcularMateriaPrima.CalcularPlacaModelo();
+                
+                //Se cambio el órden.
+                Operaciones = Router.CalcularHierroGris(ModelAnillo);
+
+                
 
 
                 if (MaterialBase.Codigo.Equals("CODIFICAR"))
@@ -981,6 +973,10 @@ namespace View.Services.ViewModel
                             break;
                     }
                 }
+                anilloProcesado.PropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+                anilloProcesado.PropiedadesBoolAdquiridasProceso = new ObservableCollection<PropiedadBool>();
+                anilloProcesado.PropiedadesCadenaAdquiridasProceso = new ObservableCollection<PropiedadCadena>();
+
                 anilloProcesado.PropiedadesAdquiridasProceso.Add(new Propiedad{ TipoDato = "Distance", DescripcionCorta = "Piece", DescripcionLarga = "Piece", Imagen = null, Nombre = "Piece", Unidad = "Inch (in)", Valor = calcularMateriaPrima.Piece });
             }
 
@@ -1021,7 +1017,7 @@ namespace View.Services.ViewModel
             c = 0;
             SubjectDiametro subjectDiametro = new SubjectDiametro();
             bool banUltimaOperacionDiametro = true;
-            double mediaGap = Math.Round((Module.GetValorPropiedad("GapMin", ModelAnillo.PerfilPuntas.Propiedades) + Module.GetValorPropiedad("GapMax", ModelAnillo.PerfilPuntas.Propiedades))/2, 3);
+            double mediaGap = Math.Round(Module.GetValorPropiedad("s1", ModelAnillo.PerfilPuntas.Propiedades), 3);
             while (i >= 0)
             {
                 if (Operaciones[i] is IObserverDiametro)
@@ -1037,7 +1033,6 @@ namespace View.Services.ViewModel
                     {
                         var operacion = (IObserverDiametro)Operaciones[i];
                         operacion.Gap = mediaGap;
-                        //subjectDiametro.Subscribe(Operaciones[i] as IObserverDiametro);
                         subjectDiametro.Subscribe(operacion);
                         subjectDiametro.Notify(c);
                     }
@@ -1052,7 +1047,7 @@ namespace View.Services.ViewModel
             
             i = Operaciones.Count - 1;
             c = 0;
-            double mediaThickness = Math.Round((Module.GetValorPropiedad("ThicknessMin", PerfilID.Propiedades) + Module.GetValorPropiedad("ThicknessMax", PerfilID.Propiedades)) / 2,4);
+            double mediaThickness = Module.GetValorPropiedad("a1", PerfilID.Propiedades);
             SubjectThickness subjectThickness = new SubjectThickness();
             bool banUltimaOperacionThickness = true;
             while (i >= 0)
@@ -1075,7 +1070,6 @@ namespace View.Services.ViewModel
                 i = i - 1;
             }
             
-
             anilloProcesado.Activo = ModelAnillo.Activo;
             anilloProcesado.cliente = ModelAnillo.cliente;
             anilloProcesado.Codigo = ModelAnillo.Codigo;
@@ -1100,15 +1094,53 @@ namespace View.Services.ViewModel
             anilloProcesado.Tension = ModelAnillo.Tension;
             anilloProcesado.TensionTol = ModelAnillo.TensionTol;
             anilloProcesado.TipoAnillo = ModelAnillo.TipoAnillo;
-            anilloProcesado.PropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-            anilloProcesado.PropiedadesBoolAdquiridasProceso = new ObservableCollection<PropiedadBool>();
-            anilloProcesado.PropiedadesCadenaAdquiridasProceso = new ObservableCollection<PropiedadCadena>();
-
+            
             //Realizamos las operaciones
+
             bool ban = true;
             Anillo aProcesado = new Anillo();
+
+            dialogService = new DialogService();
+            var Controller = await dialogService.SendProgressAsync(Resources.StringResources.ttlEspereUnMomento, string.Empty);
+
+            int totalOperaciones = Operaciones.Count;
+            int count = 0;
+
+            double currentWidth = 0.0;
+            double currentThickness = 0.0;
+            double currentDiameter = 0.0;
+
             foreach (IOperacion element in Operaciones)
             {
+                bool IsMaking = false;
+                if (element is IObserverWidth)
+                {
+                    IObserverWidth auxWidth = (IObserverWidth)element;
+                    currentWidth = auxWidth.WidthOperacion;
+                    IsMaking = true;
+                }
+
+                if (element is IObserverDiametro)
+                {
+                    IObserverDiametro auxDiametro = (IObserverDiametro)element;
+                    currentDiameter = auxDiametro.Diameter;
+                    IsMaking = true;
+                }
+
+                if (element is IObserverThickness)
+                {
+                    IObserverThickness auxThickness = (IObserverThickness)element;
+                    currentThickness = auxThickness.Thickness;
+                    IsMaking = true;
+                }
+
+                string mensaje = Resources.StringResources.msgDoingOperation + element.NombreOperacion +
+                                Environment.NewLine + Environment.NewLine + Resources.StringResources.lblWidth + ": " + currentWidth +
+                                "    " + Resources.StringResources.lblThickness + ": " + currentThickness + 
+                                "    " + Resources.StringResources.lblDiameter + ": " + currentDiameter;
+                                
+                Controller.SetMessage(mensaje);
+
                 if (ban)
                 {
                     element.CrearOperacion(anilloProcesado, ModelAnillo);
@@ -1120,7 +1152,18 @@ namespace View.Services.ViewModel
                     element.CrearOperacion(aProcesado, ModelAnillo);
                     aProcesado = element.anilloProcesado;
                 }
-            }          
+
+                if (IsMaking)
+                    await Task.Delay(3000);
+                else
+                    await Task.Delay(800);
+
+
+                count += count;
+            }
+
+            await Controller.CloseAsync();
+            await dialogService.SendMessage(Resources.StringResources.ttlDone, Resources.StringResources.msgRoutingReady);
         }
 
         private void abrirPlano()
@@ -1734,6 +1777,41 @@ namespace View.Services.ViewModel
         {
             //Asignamos a la propiedad el valor de false. Esto cerrará el menú.
             IsOpenedToogle = false;
+        }
+
+        private void viewRoute()
+        {
+            PdfDocument pdf = new PdfDocument();
+            pdf.Info.Title = ModelAnillo.DescripcionGeneral;
+
+            PdfPage pdfPage = pdf.AddPage();
+            pdfPage.Size = PageSize.A4;
+
+            XGraphics graph = XGraphics.FromPdfPage(pdfPage);
+
+            XFont font = new XFont("Verdana", 20, XFontStyle.Bold);
+            graph.DrawString("This is my first PDF document", font, XBrushes.Black, new XRect(0, 0, pdfPage.Width.Point, pdfPage.Height.Point), XStringFormats.Center);
+
+            string pdfFilename = "firstpageacfgh.pdf";
+            pdf.Save(pdfFilename);
+            Process.Start(pdfFilename);
+
+
+        }
+
+        private void viewRouting()
+        {
+            //Declaramos un objeto el cual es la pantalla.
+            WRouting wRouting = new WRouting();
+
+            //Declaramos el VW de la pantalla, establaciendo el objeto ModelAnillo como su base.
+            RoutingViewModel routingViewModel = new RoutingViewModel(this.ModelAnillo);
+
+            //Establecemos el DataContext.
+            wRouting.DataContext = routingViewModel;
+
+            //Desplegamos la pantalla-
+            wRouting.ShowDialog();
         }
         #endregion
     }

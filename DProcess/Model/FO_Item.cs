@@ -14,12 +14,16 @@ namespace Model
 
         public double Valor { get; set; }
 
+        public string ValorCadena { get; set; }
+
         public bool IsSelected { get; set; }
 
         public override string ToString()
         {
             return Nombre;
         }
+
+
 
     }
 }

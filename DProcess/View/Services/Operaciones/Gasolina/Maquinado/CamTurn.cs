@@ -2,6 +2,7 @@
 using Model.Interfaces;
 using System;
 using System.Collections.ObjectModel;
+using View.Services.TiempoEstandar.Gasolina.Maquinado;
 
 namespace View.Services.Operaciones.Gasolina.Maquinado
 {
@@ -11,6 +12,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         #region Attributes
         private double small_od;
         private double valor_pc;
+        string cam_detail;
         #endregion
 
         #region Constructor
@@ -249,7 +251,6 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         {
             double rise = 0;
             double valor_pc = Module.GetValorPropiedad("Piece", anilloProcesado.PropiedadesAdquiridasProceso);
-            string cam_detail;
             double valor_pin_gage = DataManager.GetCamTurnConstant(elPlano, Module.GetValorPropiedadString("RingShape", elPlano.PerfilOD.PropiedadesCadena),out cam_detail);
             rise = valor_pc * 64 * valor_pin_gage * Math.Pow(10, -4);
             return Math.Round(rise, 3);
@@ -298,12 +299,39 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
 
         public void BuscarHerramentales()
         {
+            //Buscamos el herramental Collar Spacer.
             foreach (Herramental herramental in DataManager.GetCollarSpacer(small_od, valor_pc))
             {
                 ListaHerramentales.Add(herramental);
             }
 
+            //Buscamos el herramental CAM
+            ListaHerramentales.Add(DataManager.GetWorkCam(cam_detail));
 
+            //Porta inserto.
+            Herramental herramentalPortaInserto;
+            herramentalPortaInserto = DataManager.GetHerramental("1005389");
+            herramentalPortaInserto.DescripcionRuta = herramentalPortaInserto.Encontrado && herramentalPortaInserto.Activo ? "PORTA INSERTO FNH-100704-TH" : "";
+            ListaHerramentales.Add(herramentalPortaInserto);
+
+            //Inserto
+            string tipoMaterial = DataManager.GetTipoMaterial(elPlano.MaterialBase.Especificacion.Valor);
+            Herramental inserto;
+            if (tipoMaterial.Equals("HIERRO GRIS ALTO MODULO"))
+            {
+                inserto = DataManager.GetHerramental("1005389");
+                inserto.DescripcionRuta = inserto.Encontrado && inserto.Activo ? "INSERTO RCMT0803MO H13A" : "";
+            }
+            else
+            {
+                inserto = DataManager.GetHerramental("1078275");
+                inserto.DescripcionRuta = inserto.Encontrado && inserto.Activo ? "INSERTO RCGT-0803" : "";
+            }
+            ListaHerramentales.Add(inserto);
+            
+            //Queda pendiente el calculo de la busqueda de cutter debido a que se va a consultar con Mú la selección. 23 FEB 2018
+            //Herramental cutter = DataManager.GetCutterCamTurn(elPlano.H1.Valor, elPlano.MaterialBase.Especificacion.Valor);
+            //ListaHerramentales.Add(cutter);
 
             foreach (var Herramental in ListaHerramentales)
             {
@@ -318,10 +346,31 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         {
             try
             {
-                
+                //Declaramos un objeto del tipo CentroTrabajo110.
+                CentroTrabajo230 objTiempos = new CentroTrabajo230();
+
+                //Ejecutamos el método para calcular los tiempos.
+                objTiempos.Calcular(anilloProcesado);
+
+                //Mapeamos los valores correspondientes.
+                this.TiempoLabor = objTiempos.TiempoLabor;
+                this.TiempoMachine = objTiempos.TiempoMachine;
+                this.TiempoSetup = objTiempos.TiempoSetup;
+
+                //Verificamos si no se generaron alertas durante el calculo de tiempos.
+                if (objTiempos.Alertas.Count > 0)
+                {
+                    AlertasOperacion.Add("Error en calculo de tiempo estándar");
+                    AlertasOperacion.CopyTo(objTiempos.Alertas.ToArray(), 0);
+                }
+                else
+                {
+                    NotasOperacion.Add("Tiempos estándar calculados correctamente.");
+                }
             }
             catch (Exception er)
             {
+                //Si ocurrio algún error, lo agregamos a la lista de alertas de la operación.
                 AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
             }
         }

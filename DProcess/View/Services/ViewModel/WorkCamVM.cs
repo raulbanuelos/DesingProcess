@@ -173,7 +173,7 @@ namespace View.Services.ViewModel
                 //Obtenemos la lista de los herramentales optimos.
                 ListaOptimos = DataManager.GetWorkCam(SelectedMaterial.id_material,TipoAnillo.TipoAnillo,PingG);
                 //Obtenemos la lista del mejor herramental.
-                ListaMejores = DataManager.SelectWorkCam(ListaOptimos);
+                ListaMejores = DataManager.SelectBestWorkCam(ListaOptimos);
 
                 //Si la lista no tiene información.
                 if (ListaMejores.Rows.Count == 0)

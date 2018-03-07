@@ -760,5 +760,62 @@ namespace View.Services
             float output;
             return float.TryParse(s, out output);
         }
+
+        /// <summary>
+        /// Metodo que retorna la fecha con formato para la base de datos del frames.
+        /// </summary>
+        /// <param name="fecha"></param>
+        /// <returns></returns>
+        public static string GetFormatFechaSealed(DateTime fecha)
+        {
+            string fechaR = string.Empty;
+            string mes = string.Empty;
+            
+            switch (fecha.Month)
+            {
+                case 1:
+                    mes = "Ene";
+                    break;
+                case 2:
+                    mes = "Feb";
+                    break;
+                case 3:
+                    mes = "Mar";
+                    break;
+                case 4:
+                    mes = "Abr";
+                    break;
+                case 5:
+                    mes = "May";
+                    break;
+                case 6:
+                    mes = "Jun";
+                    break;
+                case 7:
+                    mes = "Jul";
+                    break;
+                case 8:
+                    mes = "Ago";
+                    break;
+                case 9:
+                    mes = "Sep";
+                    break;
+                case 10:
+                    mes = "Oct";
+                    break;
+                case 11:
+                    mes = "Nov";
+                    break;
+                case 12:
+                    mes = "Dic";
+                    break;
+                default:
+                    break;
+            }
+
+            fechaR = fecha.Day + "-" + mes + "-" + fecha.Year;
+
+            return fechaR;
+        }
     }
 }

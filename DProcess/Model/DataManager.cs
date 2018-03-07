@@ -1933,7 +1933,6 @@ namespace Model
             return herramental;
         }
 
-
         /// <summary>
         /// Método que obtiene los mejores herramentales Collar a partir de small y pc.
         /// </summary>
@@ -1961,36 +1960,45 @@ namespace Model
             //Verificamos que la información obtenida sea diferente de nulo.
             if (informacionBD != null)
             {
+                int c = 0;
                 //Itermos la lista obtenida.
                 foreach (var item in informacionBD)
                 {
-                    //Obtenemos el tipo del elemento iterado.
-                    System.Type tipo = item.GetType();
+                    if (c < 2)
+                    {
+                        //Obtenemos el tipo del elemento iterado.
+                        System.Type tipo = item.GetType();
 
-                    //Declaramos un objeto de tipo Herramental.
-                    Herramental herramental = new Herramental();
+                        //Declaramos un objeto de tipo Herramental.
+                        Herramental herramental = new Herramental();
 
-                    //Convertimos la información a tipo Herramental.
-                    //Convertimos la información a tipo Herramental.
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
+                        //Convertimos la información a tipo Herramental.
+                        //Convertimos la información a tipo Herramental.
+                        herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
-                    herramental.DescripcionMedidasBusqueda = (string)tipo.GetProperty("DESCRIPCIONCT").GetValue(item, null);
+                        herramental.DescripcionMedidasBusqueda = (string)tipo.GetProperty("DESCRIPCIONCT").GetValue(item, null);
 
-                    Propiedad propiedadDimE = new Propiedad();
-                    propiedadDimE.Unidad = "";
-                    propiedadDimE.Valor = (double)tipo.GetProperty("DimE").GetValue(item, null);
-                    propiedadDimE.DescripcionCorta = "Dim E";
-                    herramental.Propiedades.Add(propiedadDimE);
+                        Propiedad propiedadDimE = new Propiedad();
+                        propiedadDimE.Unidad = "";
+                        propiedadDimE.Valor = (double)tipo.GetProperty("DimE").GetValue(item, null);
+                        propiedadDimE.DescripcionCorta = "Dim E";
+                        herramental.Propiedades.Add(propiedadDimE);
 
-                    Propiedad propiedadDimF = new Propiedad();
-                    propiedadDimF.Unidad = "";
-                    propiedadDimF.Valor = (double)tipo.GetProperty("DimF").GetValue(item, null);
-                    propiedadDimF.DescripcionCorta = "Dim F";
-                    herramental.Propiedades.Add(propiedadDimF);
+                        Propiedad propiedadDimF = new Propiedad();
+                        propiedadDimF.Unidad = "";
+                        propiedadDimF.Valor = (double)tipo.GetProperty("DimF").GetValue(item, null);
+                        propiedadDimF.DescripcionCorta = "Dim F";
+                        herramental.Propiedades.Add(propiedadDimF);
 
-                    herramental.DescripcionRuta = "COLLAR SPACER ";
-                    //Agregamos el objeto a la lista resultante.
-                    ListaResultante.Add(herramental);
+                        string medidaNominal = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+
+                        herramental.DescripcionRuta = herramental.DescripcionMedidasBusqueda.Equals("COLLAR") ? "COLLAR " + medidaNominal : "SPACER " + medidaNominal;
+
+                        //Agregamos el objeto a la lista resultante.
+                        ListaResultante.Add(herramental);
+                    }
+
+                    c++;
                 }
             }
             
@@ -2127,14 +2135,56 @@ namespace Model
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "WorkCam");
         }
-      
+
+        /// <summary>
+        /// Método que obtiene el herramental work cam de la operación cam turn.
+        /// </summary>
+        /// <param name="cam_detail"></param>
+        /// <returns></returns>
+        public static Herramental GetWorkCam(string cam_detail)
+        {
+            //Declaramos un objeto de tipo Herramental el cual será el que retornemos.
+            Herramental herramental = new Herramental();
+
+            //Inicializamos los servicios de CamTurn.
+            SO_CamTurn ServiceCamT = new SO_CamTurn();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList ListaBD = ServiceCamT.GetWorkCam(cam_detail);
+
+            //Verificamos que la información obtenida sea diferente de nulo.
+            if (ListaBD != null)
+            {
+                //Itermos la lista obtenida.
+                foreach (var item in ListaBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+                    
+                    //Convertimos la información a tipo Herramental.
+                    herramental = ReadInformacionHerramentalEncontrado(ListaBD);
+
+                    PropiedadCadena propiedadMN = new PropiedadCadena();
+                    propiedadMN.DescripcionCorta = "Medida Nominal";
+                    propiedadMN.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propiedadMN);
+
+                    //Mapeamos el valor a DescipcionRuta.
+                    herramental.DescripcionRuta = "CAM " + propiedadMN.Valor;
+                    
+                }
+            }
+
+            return herramental;
+        }
+        
         /// <summary>
         /// Método que obtiene los herramentales óptimos para WorkCam.
         /// </summary>
-        /// <param name="material"></param>
+        /// <param name="espectMaterial"></param>
         /// <param name="tipoAnillo"></param>
         /// <param name="pingGage"></param>
-        public static DataTable GetWorkCam(string material,string tipoAnillo,string pingGage)
+        public static DataTable GetWorkCam(string espectMaterial,string tipoAnillo,string pingGage)
         {
             string cam_detail = string.Empty;
 
@@ -2145,7 +2195,7 @@ namespace Model
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
 
             //Obtenemos la propiedad de Cam_Detail.
-            DataSet InformacionBD = ServiceCamT.GetCam_Detail(material, tipoAnillo, pingGage);
+            DataSet InformacionBD = ServiceCamT.GetCam_Detail(espectMaterial, tipoAnillo, pingGage);
 
             //Verificamos que el objeto recibido sea distinto de vacío.
             if (InformacionBD != null)
@@ -2246,7 +2296,7 @@ namespace Model
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
-        public static DataTable SelectWorkCam(DataTable dt)
+        public static DataTable SelectBestWorkCam(DataTable dt)
         {
             //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
             DataTable DataR = new DataTable();
@@ -2364,18 +2414,18 @@ namespace Model
         /// <summary>
         /// Obtiene los herramentales óptimos para Cutter Cam Turn
         /// </summary>
-        /// <param name="material"></param>
+        /// <param name="especificacionMaterial"></param>
         /// <param name="width"></param>
         /// <returns></returns>
-        public static DataTable GetCutterCamTurn(string material, double width)
+        public static DataTable GetCutterCamTurn(string especificacionMaterial, double width)
         {
             //Inicializamos los servicios de CamTurn.
-            SO_CamTurn ServiceCam = new SO_CamTurn();            
+            SO_CamTurn ServiceCam = new SO_CamTurn();
 
             //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
 
-            string tipoMaterial = GetTipoMaterial(material);
+            string tipoMaterial = GetTipoMaterial(especificacionMaterial);
 
             IList informacionBD = ServiceCam.GetCutterCam(tipoMaterial, width);
 
@@ -2483,6 +2533,28 @@ namespace Model
                 break;
             }
             return DataR;
+        }
+
+        public static Herramental GetCutterCamTurn(double width, string especificacionMaterial)
+        {
+            Herramental herramental = new Herramental();
+
+            DataTable datatable = SelectBestCutterCT(GetCutterCamTurn(especificacionMaterial, width));
+
+            foreach (DataRow row in datatable.Rows)
+            {
+                DataRow dr = datatable.NewRow();
+                herramental = new Herramental();
+
+                herramental.Codigo = row["Code"].ToString();
+                herramental.DescripcionGeneral = row["Description"].ToString();
+                herramental.DescripcionRuta = row["Dimensión"].ToString();
+                herramental.Encontrado = true;
+                herramental.Activo = true;
+
+            }
+
+            return herramental;
         }
 
         /// <summary>
@@ -6734,6 +6806,32 @@ namespace Model
             }
             //Retornamos el criterio.
             return criterio;
+        }
+
+        public static Herramental GetHerramental(string codigo)
+        {
+            Herramental herramental = new Herramental();
+
+            SO_MaestroHerramental ServiceMaestroHerramental = new SO_MaestroHerramental();
+
+            IList informacionBD = ServiceMaestroHerramental.GetHerramental(codigo);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    herramental = new Herramental();
+
+                    herramental.Codigo = codigo;
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.Activo = (bool)tipo.GetProperty("Activo").GetValue(item, null);
+                    herramental.Encontrado = true;
+                }
+            }
+
+            return herramental;
         }
 
         #region Coil

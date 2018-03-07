@@ -224,5 +224,23 @@ namespace DataAccess.ServiceObjects.Tooling
                 return null;
             }
         }
+
+        public IList GetHerramental(string codigo)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var Lista = (from m in Conexion.MaestroHerramentales
+                                 where m.Codigo == codigo
+                                 select m).ToList();
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

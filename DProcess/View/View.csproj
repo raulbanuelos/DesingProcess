@@ -29,7 +29,7 @@
     <PublisherName>Diseño del proceso</PublisherName>
     <SuiteName>Diseño del proceso</SuiteName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>36</ApplicationRevision>
+    <ApplicationRevision>40</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -447,12 +447,34 @@
     <Compile Include="Services\Operaciones\Fundicion\InspeccionCasting.cs" />
     <Compile Include="Services\Operaciones\Fundicion\SacudidoPulido.cs" />
     <Compile Include="Services\Operaciones\Gasolina\DegreaseRings.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Inspeccion\AutoGap.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Inspeccion\InspeccionFinal.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Inspeccion\LasserEngrave.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Maquinado\AutoFinTurn.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Maquinado\BatesBore.cs" />
     <Compile Include="Services\Operaciones\Gasolina\Maquinado\CamTurn.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Maquinado\CTB.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Maquinado\Engrave.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Maquinado\FinishMill.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Maquinado\HookLapAssembly.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Maquinado\MillHookLapAutMac.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Miscelaneos\Duplex.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Miscelaneos\GrindChannelNorton.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Miscelaneos\IDBrush.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Miscelaneos\Molibdenum.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Miscelaneos\Pick.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Miscelaneos\ScotchBrite.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Miscelaneos\TaperSide.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\FinishGrind.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\FirstRoughGrind.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\SecondRoughGrind.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\Splitter.cs" />
     <Compile Include="Services\Operaciones\Gasolina\PreMaquinado\VisualInspectPremGasoline.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\RectificadosFinos\Diskus.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\RectificadosFinos\GapSizer.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\RectificadosFinos\Lapping.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Recubrimientos\ChromeOD.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Recubrimientos\Phosphate.cs" />
     <Compile Include="Services\Operaciones\Gasolina\Rolado\CoilRings.cs" />
     <Compile Include="Services\Operaciones\Generica\OperacionGenerica.cs" />
     <Compile Include="Services\Operaciones\Generica\OperacionGenericaWidth.cs" />
@@ -464,7 +486,9 @@
     <Compile Include="Services\TiempoEstandar\Fundicion\CentroTrabajo030.cs" />
     <Compile Include="Services\TiempoEstandar\Fundicion\CentroTrabajo040.cs" />
     <Compile Include="Services\TiempoEstandar\Fundicion\CentroTrabajo065.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\Maquinado\CentroTrabajo230.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo130.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo150.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo810.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\Rolado\CentroTrabajo495.cs" />
     <Compile Include="Services\Utility.cs" />

@@ -210,6 +210,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         #endregion
 
         #region Constructores
+
         public FinishGrind(Anillo plano)
         {
             //Asignamos los valores por default a las propiedades.
@@ -226,6 +227,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             NotasOperacion = new ObservableCollection<string>();
 
         }
+
         #endregion
 
         

@@ -78,6 +78,7 @@
     <Compile Include="ServiceObjects\ControlDocumentos\SO_HistorialVersion.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_RecursoTipoDocumento.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Rol.cs" />
+    <Compile Include="ServiceObjects\ControlDocumentos\SO_Sealed.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Usuarios.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Validacion.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Version.cs" />
@@ -503,6 +504,7 @@
       <DependentUpon>ModelUsuario.tt</DependentUpon>
     </Compile>
     <Compile Include="SQLServer\Desing_SQL.cs" />
+    <Compile Include="SQLServer\Sealed_SQL.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ServiceObjects\ControlDocumentos\ModelControlDocumentos.Context.tt">

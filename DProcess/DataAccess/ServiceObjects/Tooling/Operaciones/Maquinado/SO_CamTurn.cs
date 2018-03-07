@@ -337,11 +337,11 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
         /// <summary>
         /// Método que obtiene el CamDetail para la seleccion de herramnetal de  WorkCam.
         /// </summary>
-        /// <param name="material"></param>
+        /// <param name="especMaterial"></param>
         /// <param name="anillo"></param>
         /// <param name="ping"></param>
         /// <returns></returns>
-        public DataSet GetCam_Detail(string material,string anillo,string ping)
+        public DataSet GetCam_Detail(string especMaterial,string anillo,string ping)
         {
             DataSet datos = new DataSet();
             try
@@ -354,7 +354,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
                 Dictionary<string, object> parametros = new Dictionary<string, object>();
 
                 //se agregan el nombre y el objeto de los parámetros.
-                parametros.Add("material", material);
+                parametros.Add("material", especMaterial);
                 parametros.Add("tipoAnillo", anillo);
                 parametros.Add("pinGage", ping);
 

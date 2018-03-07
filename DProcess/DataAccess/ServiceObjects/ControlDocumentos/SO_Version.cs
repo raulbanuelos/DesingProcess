@@ -209,11 +209,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// Método para obtener el último número de la versión de un documento.
         /// </summary>
         /// <returns></returns>
-        public string GetLastVersion(int id_documento)
+        public IList GetLastVersion(int id_documento)
         {
-            //Declaramos una variable, que retornara el último código agregado
-            string version;
-
             try
             {
                 //Se establece la conexión a la BD.
@@ -223,22 +220,18 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     //en este caso la última versión del documento correspondiente.
                     var last = (from v in Conexion.TBL_VERSION
                                 join d in Conexion.TBL_DOCUMENTO on v.ID_DOCUMENTO equals d.ID_DOCUMENTO
-                                where v.ID_DOCUMENTO== id_documento
+                                where v.ID_DOCUMENTO == id_documento
                                 orderby v.No_VERSION descending
-                                select v.No_VERSION).First();
+                                select v).ToList();
 
-                    //Asignamos el resultado obtenido a la variable local.
-                    version = last;
+                    return last;
                 }
             }
             catch (Exception)
             {
                 //Si hubo algún error retornamos una cadena vacía.
-                return string.Empty;
+                return null;
             }
-            //Retornamos el valor.
-            return version;
-
         }
 
         /// <summary>

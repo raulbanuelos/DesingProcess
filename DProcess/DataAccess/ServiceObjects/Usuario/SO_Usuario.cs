@@ -35,7 +35,7 @@ namespace DataAccess.ServiceObjects.Usuario
                 parametros.Add("usuario", usuario);
                 parametros.Add("contrasena", contrasena);
 
-                //LLamamos al método para ejecutar el procedimiento, el resultado lo guardamos 
+                //LLamamos al método para ejecutar el procedimiento, el resultado lo guardamos
                 datos = conexion.EjecutarStoredProcedure("SP_RGP_GetLogin", parametros);
                 return datos;
             }

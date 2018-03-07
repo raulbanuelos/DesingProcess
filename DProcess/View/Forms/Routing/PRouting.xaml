@@ -96,6 +96,12 @@
                         <Button ToolTip="View Route" Cursor="Hand" Command="{Binding ViewRoute}">
                             <materialDesign:PackIcon Kind="FilePdf" />
                         </Button>
+
+                        <Separator/>
+                        <Button ToolTip="Calculate dimencions" Cursor="Hand" Command="{Binding ViewRouting}">
+                            <materialDesign:PackIcon Kind="Run" />
+                        </Button>
+                        
                     </ToolBar>
                 </Grid>
                 

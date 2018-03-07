@@ -162,6 +162,15 @@ namespace View.Services.ViewModel
 
         }
 
+        private string _id_areasealed;
+
+        public string id_areasealed
+        {
+            get { return _id_areasealed; }
+            set { _id_areasealed = value; NotifyChange("id_areasealed"); }
+        }
+
+
         private string _usuario;
         public string usuario { get
             {
@@ -246,6 +255,20 @@ namespace View.Services.ViewModel
             {
                 _ListaUsuarios = value;
                 NotifyChange("ListaUsuarios");
+            }
+        }
+
+        private ObservableCollection<FO_Item> _ListaAreasSealed;
+        public ObservableCollection<FO_Item> ListaAreasSealed
+        {
+            get
+            {
+                return _ListaAreasSealed;
+            }
+            set
+            {
+                _ListaAreasSealed = value;
+                NotifyChange("ListaAreasSealed");
             }
         }
 
@@ -512,6 +535,7 @@ namespace View.Services.ViewModel
             FechaFin = DataManagerControlDocumentos.Get_DateTime();
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
             NombreTipo = DataManagerControlDocumentos.GetNombretipo(id_tipo);
+            
 
             BotonGuardar = "Guardar";
             BttnGuardar = false;
@@ -651,6 +675,30 @@ namespace View.Services.ViewModel
             id_dep = selectedDocumento.id_dep;
             //Obtenemos el tipo de documento
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
+
+            ListaAreasSealed = new ObservableCollection<FO_Item>();
+
+            switch (id_tipo)
+            {
+                case 1003:
+                case 1013:
+                    ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasOHSAS();
+                    break;
+
+                case 1005:
+                case 1012:
+                    ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasEspecifico();
+                    break;
+
+                case 1006:
+                case 1014:
+                    ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasISO();
+                    break;
+
+                default:
+                    break;
+            }
+            id_areasealed = "1";
 
             //obtenemos el nombre del documento
             _ListaNumeroDocumento = DataManagerControlDocumentos.GetNombre_Documento(id_documento);
@@ -1228,6 +1276,26 @@ namespace View.Services.ViewModel
                         objDoc_Eliminado.version.no_version = Version;
 
                         int docElim = DataManagerControlDocumentos.SetDocumento_Eliminado(objDoc_Eliminado);
+                        switch (id_tipo)
+                        {
+                            case 1003:
+                            case 1013:
+                                DataManagerControlDocumentos.DeleteDocumentoOHSAS(objDoc_Eliminado.nombre);
+                                break;
+
+                            case 1005:
+                            case 1012:
+                                DataManagerControlDocumentos.DeleteDocumentoEspecifico(objDoc_Eliminado.nombre);
+                                break;
+
+                            case 1006:
+                            case 1014:
+                                DataManagerControlDocumentos.DeleteDocumentoISO(objDoc_Eliminado.nombre);
+                                break;
+
+                            default:
+                                break;
+                        }
                         await dialog.SendMessage("", "Registro eliminado!");
                     }
                     else
@@ -1833,6 +1901,7 @@ namespace View.Services.ViewModel
                                     string file=SaveFile();
                                     if (file == null)
                                     {
+                                        InsertDocumentoSealed();
                                         await dialog.SendMessage("Información", "Documento y versión liberados..");
 
                                         //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
@@ -1901,9 +1970,10 @@ namespace View.Services.ViewModel
                                 {
                                     //Guardamos el documento, si es procedimiento o formato
                                     string file= SaveFile();
-
                                     if (file == null)
                                     {
+                                        UpdateDocumentoSealed();
+
                                         await dialog.SendMessage("Información", "Versión liberada..");
                                         //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                         var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -1938,6 +2008,78 @@ namespace View.Services.ViewModel
                 {
                     await dialog.SendMessage("Alerta", "Campos inválidos, ingrese sólo números..");
                 }
+            }
+        }
+
+        private void DeleteDocumentoSealed()
+        {
+            switch (id_tipo)
+            {
+                case 1003:
+                case 1013:
+                    DataManagerControlDocumentos.DeleteDocumentoOHSAS(SelectedDocumento.nombre);
+                    break;
+
+                case 1005:
+                case 1012:
+                    DataManagerControlDocumentos.DeleteDocumentoEspecifico(SelectedDocumento.nombre);
+                    break;
+
+                case 1006:
+                case 1014:
+                    DataManagerControlDocumentos.DeleteDocumentoISO(SelectedDocumento.nombre);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void InsertDocumentoSealed()
+        {
+            switch (id_tipo)
+            {
+                case 1003:
+                case 1013:
+                    DataManagerControlDocumentos.InsertDocumentoOSHAS(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
+                    break;
+
+                case 1005:
+                case 1012:
+                    DataManagerControlDocumentos.InsertDocumentoEspecifico(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
+                    break;
+
+                case 1006:
+                case 1014:
+                    DataManagerControlDocumentos.InsertDocumentoISO(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void UpdateDocumentoSealed()
+        {
+            switch (id_tipo)
+            {
+                case 1003:
+                case 1013:
+                    DataManagerControlDocumentos.UpdateDocumentoOHSAS(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
+                    break;
+
+                case 1005:
+                case 1012:
+                    DataManagerControlDocumentos.UpdateDocumentoEspecifico(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
+                    break;
+
+                case 1006:
+                case 1014:
+                    DataManagerControlDocumentos.UpdateDocumentoISO(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
+                    break;
+
+                default:
+                    break;
             }
         }
 
@@ -2135,6 +2277,7 @@ namespace View.Services.ViewModel
             ListaDepartamento= DataManagerControlDocumentos.GetDepartamento();
             ListaTipo = DataManagerControlDocumentos.GetTipo();
             ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
+            
         }
 
         /// <summary>

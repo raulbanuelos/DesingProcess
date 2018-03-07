@@ -550,6 +550,8 @@
           <Property Name="MedidaNominal" Type="varchar" MaxLength="50" />
           <Property Name="ident" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.WorkCamCamTurn' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <Association Name="FK_BushingBatesBore__MaestroHerramentales">
           <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
             <OnDelete Action="Cascade" />

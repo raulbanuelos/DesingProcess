@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -274,8 +275,7 @@ namespace Model.ControlDocumentos
             return 0;
 
         }
-
-
+        
         #endregion
 
         #region Documento
@@ -1761,7 +1761,7 @@ namespace Model.ControlDocumentos
             }
             return obj;
         }
-
+        
         #region Modificaciones
         #region Raúl Bañuelos
         #region 09 AGO 2017
@@ -1792,26 +1792,55 @@ namespace Model.ControlDocumentos
         /// <returns></returns>
         public static string GetLastVersion(int id_documento)
         {
-            //Inicializamos los servicios de version.
             SO_Version ServiceVersion = new SO_Version();
+            IList informacionBD = ServiceVersion.GetLastVersion(id_documento);
+            
+            List<string> versionesDocumento = new List<string>();
 
-            //Declaramos un entero el cual será el que contenga la última versión.
-            int version = 0;
-
-            //Obtenemos la última versión.
-            string ultimaVersión = ServiceVersion.GetLastVersion(id_documento);
-
-            //Verificamos que la última versión sea numérica, si es así la obtenemos. Si no es numérica, se generará la versión 1.
-            if (IsNumeric(ultimaVersión))
+            if (informacionBD != null)
             {
-                version = Convert.ToInt32(ultimaVersión);
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    string version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    versionesDocumento.Add(version);
+                }
+            }
+            
+            return GetNextVersion(versionesDocumento);
+        }
+
+        /// <summary>
+        /// Método que retorna la siguiente versión que debe ser utilizada en un documento.
+        /// </summary>
+        /// <param name="versionesDocumento"></param>
+        /// <returns></returns>
+        public static string GetNextVersion(List<string> versionesDocumento)
+        {
+            List<string> versionesLetra = new List<string>();
+            List<int> versionesNumericas = new List<int>();
+
+            foreach (string version in versionesDocumento)
+            {
+                if (IsNumeric(version))
+                    versionesNumericas.Add(Convert.ToInt32(version));
+                else
+                    versionesLetra.Add(version);
             }
 
-            //se agrega uno.
-            version++;
-
-            //etorna el nuevo valor de la versión, convertido a string.
-            return Convert.ToString(version);
+            if (versionesLetra.Count > 0)
+            {
+                return "1";
+            }
+            else
+            {
+                int i = versionesNumericas.Count;
+                versionesNumericas.Sort();
+                int c = versionesNumericas[i - 1];
+                c += 1;
+                return Convert.ToString(c);
+            }
         }
 
         /// <summary>
@@ -1952,8 +1981,7 @@ namespace Model.ControlDocumentos
             //Retornamos la lista.
             return Lista;
         }
-
-
+        
         /// <summary>
         /// Método para obtener los archivos de una versión
         /// </summary>
@@ -2800,6 +2828,155 @@ namespace Model.ControlDocumentos
             //Retornamos la lista
             return Lista;
         }
+        #endregion
+
+        #region SEALED
+
+        public static int InsertDocumentoOSHAS(int emisor, string numero,string nombre,string cambio,string fecha,string original,int copias,string liga)
+        {
+            SO_Sealed service = new SO_Sealed();
+
+            return service.InsertDocumentoOSHAS(emisor,numero,nombre,cambio,fecha,original,copias,liga);
+        }
+
+        public static int UpdateDocumentoOHSAS(int emisor, string numero, string nombre, string cambio, string fecha, string original, int copias, string liga)
+        {
+            SO_Sealed service = new SO_Sealed();
+
+            return service.UpdateDocumentoOHSAS(emisor, numero, nombre, cambio, fecha, original, copias, liga);
+        }
+
+        public static int DeleteDocumentoOHSAS(string numero)
+        {
+            SO_Sealed service = new SO_Sealed();
+
+            return service.DeleteDocumentoOHSAS(numero);
+        }
+
+        public static ObservableCollection<FO_Item> GetAllAreasOHSAS()
+        {
+            ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
+
+            SO_Sealed service = new SO_Sealed();
+
+            DataTable informacionBD = service.GetAllAreasOHSAS();
+
+            if (informacionBD != null)
+            {
+                if (informacionBD.Rows.Count > 0)
+                {
+                    foreach (DataRow item in informacionBD.Rows)
+                    {
+                        FO_Item itemF = new FO_Item();
+
+                        itemF.Nombre = item["area"].ToString();
+                        itemF.ValorCadena = item["a_descripcion"].ToString();
+
+                        lista.Add(itemF);
+                    }
+                }
+            }
+            
+
+            return lista;
+        }
+
+        public static int InsertDocumentoEspecifico(int emisor, string numero, string nombre, string cambio, string fecha, string original, int copias, string liga)
+        {
+            SO_Sealed service = new SO_Sealed();
+
+            return service.InsertDocumentoEspecifico(emisor, numero, nombre, cambio, fecha, original, copias, liga);
+        }
+
+        public static int UpdateDocumentoEspecifico(int emisor, string numero, string nombre, string cambio, string fecha, string original, int copias, string liga)
+        {
+            SO_Sealed service = new SO_Sealed();
+
+            return service.UpdateDocumentoEspecifico(emisor, numero, nombre, cambio, fecha, original, copias, liga);
+        }
+
+        public static int DeleteDocumentoEspecifico(string numero)
+        {
+            SO_Sealed service = new SO_Sealed();
+
+            return service.DeleteDocumentoEspecifico(numero);
+        }
+
+        public static ObservableCollection<FO_Item> GetAllAreasEspecifico()
+        {
+            ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
+
+            SO_Sealed service = new SO_Sealed();
+
+            DataTable informacionBD = service.GetAllAreasEspecifico();
+
+            if (informacionBD != null)
+            {
+                if (informacionBD.Rows.Count > 0)
+                {
+                    foreach (DataRow item in informacionBD.Rows)
+                    {
+                        FO_Item itemF = new FO_Item();
+
+                        itemF.Nombre = item["area"].ToString();
+                        itemF.ValorCadena = item["a_descripcion"].ToString();
+
+                        lista.Add(itemF);
+                    }
+                }
+            }
+
+            return lista;
+        }
+
+        public static int InsertDocumentoISO(int emisor, string numero, string nombre, string cambio, string fecha, string original, int copias, string liga)
+        {
+            SO_Sealed service = new SO_Sealed();
+
+            return service.InsertDocumentoISO(emisor, numero, nombre, cambio, fecha, original, copias, liga);
+        }
+
+        public static int UpdateDocumentoISO(int emisor, string numero, string nombre, string cambio, string fecha, string original, int copias, string liga)
+        {
+            SO_Sealed service = new SO_Sealed();
+
+            return service.UpdateDocumentoISO(emisor, numero, nombre, cambio, fecha, original, copias, liga);
+        }
+
+        public static int DeleteDocumentoISO(string numero)
+        {
+            SO_Sealed service = new SO_Sealed();
+
+            return service.DeleteDocumentoISO(numero);
+        }
+
+        public static ObservableCollection<FO_Item> GetAllAreasISO()
+        {
+            ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
+
+            SO_Sealed service = new SO_Sealed();
+
+            DataTable informacionBD = service.GetAllAreasISO();
+
+            if (informacionBD != null)
+            {
+                if (informacionBD.Rows.Count > 0)
+                {
+                    foreach (DataRow item in informacionBD.Rows)
+                    {
+                        FO_Item itemF = new FO_Item();
+
+                        itemF.Nombre = item["area"].ToString();
+                        itemF.ValorCadena = item["a_descripcion"].ToString();
+
+                        lista.Add(itemF);
+                    }
+                }
+            }
+
+            return lista;
+        }
+
         #endregion
     }
 }

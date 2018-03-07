@@ -23,6 +23,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 {
                     //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
                     var Lista = (from u in Conexion.Usuarios
+                                 where u.Bloqueado == false
                                  orderby u.Nombre ascending
                                  select new
                                  {
