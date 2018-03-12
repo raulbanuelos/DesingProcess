@@ -705,52 +705,52 @@ namespace View.Services.ViewModel
             ListaAreasSealed = new ObservableCollection<FO_Item>();
 
             //Llenamos la lista de las áreas y si es una versión superior a 1, obtenemos el área a la cual esta asignada en el sistema frames.
-            //switch (id_tipo)
-            //{
-            //    case 1003:
-            //    case 1013:
-            //        ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasOHSAS();
-            //        if (!Module.IsNumeric(Version) || (Module.IsNumeric(Version) && Convert.ToInt32(Version) > 1))
-            //        {
-            //            id_areasealed = DataManagerControlDocumentos.GetIdAreaOHSAS(Nombre);
-            //        }
-            //        else
-            //        {
-            //            id_areasealed = "1";
-            //        }
-            //        break;
+            switch (id_tipo)
+            {
+                case 1003:
+                case 1013:
+                    ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasOHSAS();
+                    if (!Module.IsNumeric(Version) || (Module.IsNumeric(Version) && Convert.ToInt32(Version) > 1))
+                    {
+                        id_areasealed = DataManagerControlDocumentos.GetIdAreaOHSAS(Nombre);
+                    }
+                    else
+                    {
+                        id_areasealed = "1";
+                    }
+                    break;
 
-            //    case 1005:
-            //    case 1012:
-            //        ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasEspecifico();
-            //        if (!Module.IsNumeric(Version) || (Module.IsNumeric(Version) && Convert.ToInt32(Version) > 1))
-            //        {
-            //            id_areasealed = DataManagerControlDocumentos.GetIdAreaEspecifico(Nombre);
-            //        }
-            //        else
-            //        {
-            //            id_areasealed = "1";
-            //        }
-            //        break;
+                case 1005:
+                case 1012:
+                    ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasEspecifico();
+                    if (!Module.IsNumeric(Version) || (Module.IsNumeric(Version) && Convert.ToInt32(Version) > 1))
+                    {
+                        id_areasealed = DataManagerControlDocumentos.GetIdAreaEspecifico(Nombre);
+                    }
+                    else
+                    {
+                        id_areasealed = "1";
+                    }
+                    break;
 
-            //    case 1006:
-            //    case 1014:
-            //        ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasISO();
-            //        if (!Module.IsNumeric(Version) || (Module.IsNumeric(Version) && Convert.ToInt32(Version) > 1))
-            //        {
-            //            id_areasealed = DataManagerControlDocumentos.GetIdAreaISO(Nombre);
-            //        }
-            //        else
-            //        {
-            //            id_areasealed = "1";
-            //        }
-            //        break;
+                case 1006:
+                case 1014:
+                    ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasISO();
+                    if (!Module.IsNumeric(Version) || (Module.IsNumeric(Version) && Convert.ToInt32(Version) > 1))
+                    {
+                        id_areasealed = DataManagerControlDocumentos.GetIdAreaISO(Nombre);
+                    }
+                    else
+                    {
+                        id_areasealed = "1";
+                    }
+                    break;
 
-            //    default:
-            //        break;
-            //}
-            
-            
+                default:
+                    break;
+            }
+
+
             //obtenemos el nombre del documento
             _ListaNumeroDocumento = DataManagerControlDocumentos.GetNombre_Documento(id_documento);
 
@@ -1949,8 +1949,8 @@ namespace View.Services.ViewModel
                                 if (update_version != 0)
                                 {
                                     //Guardamos el documento si es procedimiento o formato
-                                    //string file=SaveFile();
-                                    string file = null;
+                                    string file=SaveFile();
+
                                     if (file == null)
                                     {
                                         int r = InsertDocumentoSealed();
@@ -2034,6 +2034,7 @@ namespace View.Services.ViewModel
                                 {
                                     //Guardamos el documento, si es procedimiento o formato
                                     string file= SaveFile();
+
                                     if (file == null)
                                     {
                                         int r = UpdateDocumentoSealed();
