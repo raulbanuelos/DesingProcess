@@ -32,7 +32,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public virtual DbSet<TBL_ESTATUS_VERSION> TBL_ESTATUS_VERSION { get; set; }
         public virtual DbSet<TBL_ROL> TBL_ROL { get; set; }
         public virtual DbSet<TR_ROL_USUARIOS> TR_ROL_USUARIOS { get; set; }
-        public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<TBL_VALIDACION_DOCUMENTO> TBL_VALIDACION_DOCUMENTO { get; set; }
         public virtual DbSet<TR_VALIDACION_TIPO_DOCUMENTO> TR_VALIDACION_TIPO_DOCUMENTO { get; set; }
         public virtual DbSet<TBL_BLOQUEO> TBL_BLOQUEO { get; set; }
@@ -43,5 +42,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public virtual DbSet<TBL_HISTORIAL_VERSION> TBL_HISTORIAL_VERSION { get; set; }
         public virtual DbSet<TBL_VALIDACION_VERSION> TBL_VALIDACION_VERSION { get; set; }
         public virtual DbSet<TBL_DOCUMENTO_ELIMINADO> TBL_DOCUMENTO_ELIMINADO { get; set; }
+        public virtual DbSet<Usuarios> Usuarios { get; set; }
     }
 }

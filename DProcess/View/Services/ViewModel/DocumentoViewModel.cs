@@ -197,6 +197,15 @@ namespace View.Services.ViewModel
             }
         }
 
+        private bool _boolEnviarmeCopia;
+
+        public bool boolEnviarmeCopia
+        {
+            get { return _boolEnviarmeCopia; }
+            set { _boolEnviarmeCopia = value; NotifyChange("boolEnviarmeCopia"); }
+        }
+
+
         private int idVersion;
         // variables auxiliar, guarda la información  cuando se genera una nueva versión
         private string auxversion, auxUsuario,auxUsuario_Autorizo, auxDescripcion;
@@ -257,6 +266,22 @@ namespace View.Services.ViewModel
                 NotifyChange("ListaUsuarios");
             }
         }
+
+        private ObservableCollection<Usuarios> _ListaUsuariosCorreo;
+        public ObservableCollection<Usuarios> ListaUsuariosCorreo
+        {
+            get
+            {
+                return _ListaUsuariosCorreo;
+            }
+            set
+            {
+                _ListaUsuariosCorreo = value;
+                NotifyChange("ListaUsuariosCorreo");
+            }
+        }
+
+
 
         private ObservableCollection<FO_Item> _ListaAreasSealed;
         public ObservableCollection<FO_Item> ListaAreasSealed
@@ -676,30 +701,56 @@ namespace View.Services.ViewModel
             //Obtenemos el tipo de documento
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
 
+            //Inicializamos la lista de Areas del sistema frames.
             ListaAreasSealed = new ObservableCollection<FO_Item>();
 
-            switch (id_tipo)
-            {
-                case 1003:
-                case 1013:
-                    ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasOHSAS();
-                    break;
+            //Llenamos la lista de las áreas y si es una versión superior a 1, obtenemos el área a la cual esta asignada en el sistema frames.
+            //switch (id_tipo)
+            //{
+            //    case 1003:
+            //    case 1013:
+            //        ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasOHSAS();
+            //        if (!Module.IsNumeric(Version) || (Module.IsNumeric(Version) && Convert.ToInt32(Version) > 1))
+            //        {
+            //            id_areasealed = DataManagerControlDocumentos.GetIdAreaOHSAS(Nombre);
+            //        }
+            //        else
+            //        {
+            //            id_areasealed = "1";
+            //        }
+            //        break;
 
-                case 1005:
-                case 1012:
-                    ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasEspecifico();
-                    break;
+            //    case 1005:
+            //    case 1012:
+            //        ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasEspecifico();
+            //        if (!Module.IsNumeric(Version) || (Module.IsNumeric(Version) && Convert.ToInt32(Version) > 1))
+            //        {
+            //            id_areasealed = DataManagerControlDocumentos.GetIdAreaEspecifico(Nombre);
+            //        }
+            //        else
+            //        {
+            //            id_areasealed = "1";
+            //        }
+            //        break;
 
-                case 1006:
-                case 1014:
-                    ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasISO();
-                    break;
+            //    case 1006:
+            //    case 1014:
+            //        ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasISO();
+            //        if (!Module.IsNumeric(Version) || (Module.IsNumeric(Version) && Convert.ToInt32(Version) > 1))
+            //        {
+            //            id_areasealed = DataManagerControlDocumentos.GetIdAreaISO(Nombre);
+            //        }
+            //        else
+            //        {
+            //            id_areasealed = "1";
+            //        }
+            //        break;
 
-                default:
-                    break;
-            }
-            id_areasealed = "1";
-
+            //    default:
+            //        break;
+            //}
+            
+            
             //obtenemos el nombre del documento
             _ListaNumeroDocumento = DataManagerControlDocumentos.GetNombre_Documento(id_documento);
 
@@ -1845,7 +1896,7 @@ namespace View.Services.ViewModel
         private async void liberarDocumento()
         {
             DialogService dialog = new DialogService();
-
+            
             //Obtenemos la ventana actual
             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
@@ -1898,11 +1949,24 @@ namespace View.Services.ViewModel
                                 if (update_version != 0)
                                 {
                                     //Guardamos el documento si es procedimiento o formato
-                                    string file=SaveFile();
+                                    //string file=SaveFile();
+                                    string file = null;
                                     if (file == null)
                                     {
-                                        InsertDocumentoSealed();
-                                        await dialog.SendMessage("Información", "Documento y versión liberados..");
+                                        int r = InsertDocumentoSealed();
+                                        string confirmacionFrames = r > 0 ? "Se actualizo el sistema frames" : "Hubo un error al actualizar el sistema frames. Favor de actualizar manualmente";
+                                        string confirmacionCorreo = string.Empty;
+                                        
+                                        if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
+                                        {
+                                            if (NotificarNuevaVersion())
+                                                confirmacionCorreo = "Se notificó via correo exitosamente.";
+                                            else
+                                                confirmacionCorreo = "Ocurrio un error al notificar vía correo. Favor de notificar manualmente.";
+                                            
+                                        }
+
+                                        await dialog.SendMessage("Información", "Matríz actualizada correctamente." + "\n" + confirmacionFrames + "\n" +confirmacionCorreo);
 
                                         //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                         var frame = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -1972,9 +2036,20 @@ namespace View.Services.ViewModel
                                     string file= SaveFile();
                                     if (file == null)
                                     {
-                                        UpdateDocumentoSealed();
+                                        int r = UpdateDocumentoSealed();
+                                        string confirmacionFrames = r > 0 ? "Se actualizo el sistema frames" : "Hubo un error al actualizar el sistema frames. Favor de actualizar manualmente";
+                                        string confirmacionCorreo = string.Empty;
 
-                                        await dialog.SendMessage("Información", "Versión liberada..");
+                                        if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
+                                        {
+                                            if (NotificarActualizacionVersion())
+                                                confirmacionCorreo = "Se notificó via correo exitosamente.";
+                                            else
+                                                confirmacionCorreo = "Ocurrio un error al notificar vía correo. Favor de notificar manualmente.";
+                                        }
+
+                                        await dialog.SendMessage("Información", "Matríz actualizada correctamente.\n" + confirmacionFrames + "\n" + confirmacionCorreo );
+
                                         //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                         var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
@@ -2011,6 +2086,154 @@ namespace View.Services.ViewModel
             }
         }
 
+        private bool NotificarActualizacionVersion()
+        {
+            ServiceEmail SO_Email = new ServiceEmail();
+            string[] correos = new string[ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count];
+            int i = 0;
+            foreach (Usuarios item in ListaUsuariosCorreo)
+            {
+                if (item.IsSelected)
+                {
+                    correos[i] = item.Correo;
+                    i += 1;
+                }
+            }
+            string path = User.Pathnsf;
+            string title = "Actualización de documento - " + Nombre;
+            string body = string.Empty;
+            string tipo_documento = string.Empty;
+
+            switch (id_tipo)
+            {
+                case 1003:
+                case 1005:
+                case 1006:
+                    tipo_documento = "la instrucción de trabajo";
+                    break;
+
+                case 1012:
+                case 1013:
+                case 1014:
+                    tipo_documento = "el formato";
+                    break;
+                default:
+                    break;
+            }
+            body = "<HTML>";
+            body += "<head>";
+            body += "<meta http-equiv=\"Content - Type\" content=\"text / html; charset = utf - 8\"/>";
+            body += "</head>";
+            body += "<body text=\"white\">";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
+            body += "<ul>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + Nombre + "</b> versión <b> " + Version + ".0" + " </b> ya se encuentra disponible en el sistema </font> <a href=\"http://sealed/frames.htm\">frames</a> </li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
+            body += "</ul>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
+            body += "<br/>";
+            body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
+            body += "<ul>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + User.Nombre + " " + User.ApellidoPaterno + "</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">MAHLE Componentes de Motor de México, S. de R.L. de C.V.</font></li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Engineering (ENG)</font> </li>";
+            body += "<li></li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Km. 0.3 Carr. Maravillas-Jesús María , 20900 Aguascalientes, Mexico</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Teléfono: +52 449 910 8200-82 90, Fax: +52 449 910 8200 - 267</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + User.Correo + ",</font> <a href=\"http://www.mx.mahle.com\">http://www.mx.mahle.com</a>  </li>";
+            body += "</ul>";
+            body += "</body>";
+            body += "</HTML>";
+
+            bool respuesta = SO_Email.SendEmailLotusCustom(path, correos, title, body);
+
+            return respuesta;
+        }
+
+        private bool NotificarNuevaVersion()
+        {
+            ServiceEmail SO_Email = new ServiceEmail();
+
+            int a = boolEnviarmeCopia ? 1 : 0;
+
+            string[] correos = new string[ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count + a];
+
+            int i = 0;
+            foreach (Usuarios item in ListaUsuariosCorreo)
+            {
+                if (item.IsSelected)
+                {
+                    correos[i] = item.Correo;
+                    i += 1;
+                }
+            }
+
+            if (boolEnviarmeCopia)
+            {
+                correos[i + 1] = User.Correo;
+            }
+
+            string path = User.Pathnsf;
+            string title = "Alta de documento - " + Nombre;
+            string body = string.Empty;
+            string tipo_documento = string.Empty;
+
+            switch (id_tipo)
+            {
+                case 1003:
+                case 1005:
+                case 1006:
+                    tipo_documento = "la instrucción de trabajo";
+                    break;
+                    
+                case 1012:
+                case 1013:
+                case 1014:
+                    tipo_documento = "el formato";
+                    break;
+                default:
+                    break;
+            }
+            
+            body = "<HTML>";
+            body += "<head>";
+            body += "<meta http-equiv=\"Content - Type\" content=\"text / html; charset = utf - 8\"/>";
+            body += "</head>";
+            body += "<body text=\"white\">";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
+            body += "<ul>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + Nombre + "</b> versión <b> " + Version + ".0" + " </b> ya se encuentra disponible en el sistema </font> <a href=\"http://sealed/frames.htm\">frames</a> </li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
+            body += "</ul>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">NOTA: Si este documento sustituye a algún otro, favor de notificarme para realizar la baja correcpondiente.</font> </p>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
+            body += "<br/>";
+            body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
+            body += "<ul>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + User.Nombre + " " + User.ApellidoPaterno + "</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">MAHLE Componentes de Motor de México, S. de R.L. de C.V.</font></li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Engineering (ENG)</font> </li>";
+            body += "<li></li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Km. 0.3 Carr. Maravillas-Jesús María , 20900 Aguascalientes, Mexico</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Teléfono: +52 449 910 8200-82 90, Fax: +52 449 910 8200 - 267</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + User.Correo + ",</font> <a href=\"http://www.mx.mahle.com\">http://www.mx.mahle.com</a>  </li>";
+            body += "</ul>";
+            body += "</body>";
+            body += "</HTML>";
+
+            bool respuesta = SO_Email.SendEmailLotusCustom(path, correos, title, body);
+
+            return respuesta;
+        }
+
+        private string definirSaludo()
+        {
+            DateTime d = DateTime.Now;
+            string saludo = string.Empty;
+
+            return d.Hour <= 12 ? "Buenos días;" : "Buenas tardes;";
+        }
+
         private void DeleteDocumentoSealed()
         {
             switch (id_tipo)
@@ -2035,52 +2258,58 @@ namespace View.Services.ViewModel
             }
         }
 
-        private void InsertDocumentoSealed()
+        private int InsertDocumentoSealed()
         {
+            int r = 0;
             switch (id_tipo)
             {
                 case 1003:
                 case 1013:
-                    DataManagerControlDocumentos.InsertDocumentoOSHAS(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
+                    r = DataManagerControlDocumentos.InsertDocumentoOSHAS(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
                     break;
 
                 case 1005:
                 case 1012:
-                    DataManagerControlDocumentos.InsertDocumentoEspecifico(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
+                    r = DataManagerControlDocumentos.InsertDocumentoEspecifico(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
                     break;
 
                 case 1006:
                 case 1014:
-                    DataManagerControlDocumentos.InsertDocumentoISO(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
+                    r = DataManagerControlDocumentos.InsertDocumentoISO(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
                     break;
 
                 default:
                     break;
             }
+
+            return r;
         }
 
-        private void UpdateDocumentoSealed()
+        private int UpdateDocumentoSealed()
         {
+            int r = 0;
             switch (id_tipo)
             {
                 case 1003:
                 case 1013:
-                    DataManagerControlDocumentos.UpdateDocumentoOHSAS(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
+                    r = DataManagerControlDocumentos.UpdateDocumentoOHSAS(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
                     break;
 
                 case 1005:
                 case 1012:
-                    DataManagerControlDocumentos.UpdateDocumentoEspecifico(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
+                    r = DataManagerControlDocumentos.UpdateDocumentoEspecifico(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
                     break;
 
                 case 1006:
                 case 1014:
-                    DataManagerControlDocumentos.UpdateDocumentoISO(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
+                    r = DataManagerControlDocumentos.UpdateDocumentoISO(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
                     break;
 
                 default:
                     break;
             }
+
+            return r;
         }
 
         /// <summary>
@@ -2277,6 +2506,7 @@ namespace View.Services.ViewModel
             ListaDepartamento= DataManagerControlDocumentos.GetDepartamento();
             ListaTipo = DataManagerControlDocumentos.GetTipo();
             ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
+            ListaUsuariosCorreo = DataManagerControlDocumentos.GetUsuarios();
             
         }
 

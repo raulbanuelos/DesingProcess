@@ -29,7 +29,7 @@
     <PublisherName>Diseño del proceso</PublisherName>
     <SuiteName>Diseño del proceso</SuiteName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>40</ApplicationRevision>
+    <ApplicationRevision>41</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -481,6 +481,7 @@
     <Compile Include="Services\ParametricSurface.cs" />
     <Compile Include="Services\RotateSurface.cs" />
     <Compile Include="Services\ScreenSpaceLines3D.cs" />
+    <Compile Include="Services\ServiceEmail.cs" />
     <Compile Include="Services\TiempoEstandar\Fundicion\CentroTrabajo010.cs" />
     <Compile Include="Services\TiempoEstandar\Fundicion\CentroTrabajo020.cs" />
     <Compile Include="Services\TiempoEstandar\Fundicion\CentroTrabajo030.cs" />
@@ -1039,6 +1040,15 @@
     <Resource Include="Images\close.png" />
   </ItemGroup>
   <ItemGroup>
+    <COMReference Include="Domino">
+      <Guid>{29131520-2EED-1069-BF5D-00DD011186B7}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>2</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
       <VersionMajor>2</VersionMajor>

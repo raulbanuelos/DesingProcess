@@ -17,10 +17,10 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuarios()
         {
-            this.TR_ROL_USUARIOS = new HashSet<TR_ROL_USUARIOS>();
             this.TBL_DOCUMENTO = new HashSet<TBL_DOCUMENTO>();
             this.TBL_VERSION = new HashSet<TBL_VERSION>();
             this.TBL_VERSION1 = new HashSet<TBL_VERSION>();
+            this.TR_ROL_USUARIOS = new HashSet<TR_ROL_USUARIOS>();
         }
     
         public string Usuario { get; set; }
@@ -32,14 +32,16 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public string Usql { get; set; }
         public string Psql { get; set; }
         public Nullable<bool> Bloqueado { get; set; }
+        public string Correo { get; set; }
+        public string Pathnsf { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TR_ROL_USUARIOS> TR_ROL_USUARIOS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_DOCUMENTO> TBL_DOCUMENTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_VERSION> TBL_VERSION { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_VERSION> TBL_VERSION1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TR_ROL_USUARIOS> TR_ROL_USUARIOS { get; set; }
     }
 }

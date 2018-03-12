@@ -30,6 +30,8 @@ namespace DataAccess.ServiceObjects.Usuario
         public string Usql { get; set; }
         public string Psql { get; set; }
         public Nullable<bool> Bloqueado { get; set; }
+        public string Correo { get; set; }
+        public string Pathnsf { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PerfilUsuario> PerfilUsuario { get; set; }

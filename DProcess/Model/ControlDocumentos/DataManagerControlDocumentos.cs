@@ -1498,6 +1498,8 @@ namespace Model.ControlDocumentos
                     obj.usql = (string)tipo.GetProperty("Usql").GetValue(item, null);
                     obj.psql = (string)tipo.GetProperty("Psql").GetValue(item, null);
                     obj.bloqueado = (bool)tipo.GetProperty("Bloqueado").GetValue(item, null);
+                    obj.Correo = (string)tipo.GetProperty("Correo").GetValue(item, null);
+                    obj.Pathnsf = (string)tipo.GetProperty("Pathnsf").GetValue(item, null);
 
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
@@ -1519,7 +1521,7 @@ namespace Model.ControlDocumentos
 
             //Se ejecuta el método y retorna el usuario que fue insertado.
             return ServiceUsuarios.SetUsuario(usuarios.usuario, usuarios.password, usuarios.nombre, usuarios.APaterno, usuarios.AMaterno,
-                                              usuarios.estado, usuarios.usql, usuarios.psql, usuarios.bloqueado);
+                                              usuarios.estado, usuarios.usql, usuarios.psql, usuarios.bloqueado,usuarios.Correo,usuarios.Pathnsf);
 
         }
 
@@ -1536,7 +1538,7 @@ namespace Model.ControlDocumentos
 
             // Se ejecuta el método y retorna los registros que se modificaron.
             return ServiceUsuarios.UpdateUsuarios(usuarios.usuario, usuarios.password, usuarios.nombre, usuarios.APaterno, usuarios.AMaterno,
-                                              usuarios.estado, usuarios.usql, usuarios.psql, usuarios.bloqueado);
+                                              usuarios.estado, usuarios.usql, usuarios.psql, usuarios.bloqueado,usuarios.Correo,usuarios.Pathnsf);
 
         }
 
@@ -2877,8 +2879,29 @@ namespace Model.ControlDocumentos
                 }
             }
             
-
             return lista;
+        }
+
+        public static string GetIdAreaOHSAS(string numero)
+        {
+            SO_Sealed service = new SO_Sealed();
+
+            string id = string.Empty;
+
+            DataTable informacionBD =service.GetIdAreaOHSAS(numero);
+
+            if (informacionBD != null)
+            {
+                if (informacionBD.Rows.Count > 0)
+                {
+                    foreach (DataRow item in informacionBD.Rows)
+                    {
+                        id = item["area"].ToString();
+                    }
+                }
+            }
+
+            return id;
         }
 
         public static int InsertDocumentoEspecifico(int emisor, string numero, string nombre, string cambio, string fecha, string original, int copias, string liga)
@@ -2929,6 +2952,28 @@ namespace Model.ControlDocumentos
             return lista;
         }
 
+        public static string GetIdAreaEspecifico(string numero)
+        {
+            SO_Sealed service = new SO_Sealed();
+
+            string id = string.Empty;
+
+            DataTable informacionBD = service.GetIdAreaEspecifico(numero);
+
+            if (informacionBD != null)
+            {
+                if (informacionBD.Rows.Count > 0)
+                {
+                    foreach (DataRow item in informacionBD.Rows)
+                    {
+                        id = item["area"].ToString();
+                    }
+                }
+            }
+
+            return id;
+        }
+
         public static int InsertDocumentoISO(int emisor, string numero, string nombre, string cambio, string fecha, string original, int copias, string liga)
         {
             SO_Sealed service = new SO_Sealed();
@@ -2977,6 +3022,29 @@ namespace Model.ControlDocumentos
             return lista;
         }
 
+        public static string GetIdAreaISO(string numero)
+        {
+            SO_Sealed service = new SO_Sealed();
+
+            string id = string.Empty;
+
+            DataTable informacionBD = service.GetIdAreaISO(numero);
+
+            if (informacionBD != null)
+            {
+                if (informacionBD.Rows.Count > 0)
+                {
+                    foreach (DataRow item in informacionBD.Rows)
+                    {
+                        id = item["area"].ToString();
+                    }
+                }
+            }
+
+            return id;
+        }
+
         #endregion
+        
     }
 }

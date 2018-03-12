@@ -18,13 +18,22 @@ namespace Model.ControlDocumentos
         public string usql { get; set; }
         public string psql { get; set; }
         public bool bloqueado { get; set; }
+        public string Correo { get; set; }
+        public string Pathnsf { get; set; }
+        public bool IsSelected { get; set; }
+        public string NombreCompleto {
+            get
+            {
+                return nombre + " " + APaterno + " " + AMaterno;
+            }
+        }
 
         //string usuario,string password,string nombre,string APaterno,string AMaterno,
         // int estado,string usql,string psql,bool bloqueado, int id_departartemento
         #endregion
-        #region Constructores
 
-       
+        #region Constructores
+        
         #endregion
     }
 }

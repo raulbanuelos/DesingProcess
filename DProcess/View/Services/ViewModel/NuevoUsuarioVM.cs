@@ -122,6 +122,15 @@ namespace View.Services.ViewModel
             }
         }
 
+        private string _Correo;
+
+        public string Correo
+        {
+            get { return _Correo; }
+            set { _Correo = value; NotifyChange("Correo"); }
+        }
+
+
         private ObservableCollection<Model.ControlDocumentos.Rol> _listaRol = new ObservableCollection<Model.ControlDocumentos.Rol>();
         public ObservableCollection<Model.ControlDocumentos.Rol> ListaRol
         {
@@ -188,6 +197,8 @@ namespace View.Services.ViewModel
                         objUsuario.APaterno = _aPaterno;
                         objUsuario.AMaterno = _aMaterno;
                         objUsuario.password = encriptar.encript(_contraseña);
+                        objUsuario.Correo = Correo;
+                        objUsuario.Pathnsf = "";
 
                         //Valida que el nombre de usuario no se repita
                         string validate = DataManagerControlDocumentos.ValidateUsuario(objUsuario);
@@ -370,7 +381,7 @@ namespace View.Services.ViewModel
 
         private bool Validar()
         {
-            if (string.IsNullOrEmpty(_usuario) & string.IsNullOrEmpty(_nombre) & string.IsNullOrEmpty(_aPaterno) & string.IsNullOrEmpty(_aMaterno) & string.IsNullOrEmpty(_contraseña) & string.IsNullOrEmpty(_confirmarContraseña))
+            if (string.IsNullOrEmpty(_usuario) & string.IsNullOrEmpty(_nombre) & string.IsNullOrEmpty(_aPaterno) & string.IsNullOrEmpty(_aMaterno) & string.IsNullOrEmpty(_contraseña) & string.IsNullOrEmpty(_confirmarContraseña) & string.IsNullOrEmpty(Correo))
             {
                 return false;
             }

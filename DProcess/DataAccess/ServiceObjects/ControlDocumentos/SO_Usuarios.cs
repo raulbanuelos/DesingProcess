@@ -35,7 +35,9 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      u.Estado,
                                      u.Usql,
                                      u.Psql,
-                                     u.Bloqueado
+                                     u.Bloqueado,
+                                     u.Correo,
+                                     u.Pathnsf
                                     
                                  }).ToList();
                     //se retorna la lista
@@ -66,7 +68,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <returns>Si hay error, regresa una cadena vacía</returns>
 
         public string SetUsuario(string usuario,string password,string nombre,string APaterno,string AMaterno,
-                                 int estado,string usql,string psql,bool bloqueado)
+                                 int estado,string usql,string psql,bool bloqueado, string correo, string pathnsf)
         {
             try
             {
@@ -86,6 +88,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     user.Usql = null;
                     user.Psql = null;
                     user.Bloqueado = false;
+                    user.Correo = correo;
+                    user.Pathnsf = pathnsf;
                     //Agrega el objeto a la tabla.
                     Conexion.Usuarios.Add(user);
                     //Se guardan los cambios
@@ -117,7 +121,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="id_departartemento"></param>
         /// <returns></returns>
         public int UpdateUsuarios(string usuario, string password, string nombre, string APaterno, string AMaterno,
-                                 int estado, string usql, string psql, bool bloqueado)
+                                 int estado, string usql, string psql, bool bloqueado, string correo, string pathnsf)
         {
             try
             {
@@ -136,7 +140,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     user.Usql = usql;
                     user.Psql = psql;
                     user.Bloqueado = bloqueado;
-
+                    user.Correo = correo;
+                    user.Pathnsf = pathnsf;
                     //Se cambia el estado de registro a modificado.
                     Conexion.Entry(user).State= EntityState.Modified;
 

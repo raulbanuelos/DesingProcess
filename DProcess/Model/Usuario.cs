@@ -18,7 +18,12 @@ namespace Model
 
         public bool Conectado { get; set; }
 
+        public string Correo { get; set; }
 
+        public string Pathnsf { get; set; }
+
+        public bool IsSelected { get; set; }
+        
         //Perfiles
         public bool PerfilRGP{ get; set;  }
         

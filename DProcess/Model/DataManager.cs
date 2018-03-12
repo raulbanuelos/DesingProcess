@@ -10546,6 +10546,8 @@ namespace Model
                             usuario.PrivilegioData = Convert.ToBoolean(element["PRIVIL_HELP"]);
                             usuario.PrivilegioUserProfile = Convert.ToBoolean(element["PRIVIL_HELP"]);
                             usuario.PrivilegioHelp = Convert.ToBoolean(element["PRIVIL_HELP"]);
+                            usuario.Correo = Convert.ToString(element["Correo"]);
+                            usuario.Pathnsf = Convert.ToString(element["Pathnsf"]);
 
                             IList informacionRolesBD = ServiceUsuarios.GetRolesUsuario(usuario.NombreUsuario);
                             

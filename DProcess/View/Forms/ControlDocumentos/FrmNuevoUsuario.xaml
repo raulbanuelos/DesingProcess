@@ -68,6 +68,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </PasswordBox>
+            <TextBox x:Name="txtCorreo" Text="{Binding Correo}" materialDesign:HintAssist.Hint="Correo" HorizontalAlignment="Left" Height="50" Margin="30,260,0,-20" TextWrapping="Wrap" VerticalAlignment="Top" Width="464"   BorderBrush="#899B9999" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
         </Grid>
 
         <Button Grid.Row="2" Grid.Column="1" Content="Guardar" HorizontalAlignment="Right" Height="40"  Width="90" Command="{Binding GuardarUsuario}" Margin="0,17,-304,10" />

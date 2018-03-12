@@ -68,13 +68,29 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         public DataTable GetAllAreasOHSAS()
-        {
-            List<string> lista = new List<string>();
-
+        { 
             string query = "SELECT area,a_descripcion FROM ohsasAreas2 ORDER BY a_descripcion";
 
             try
             {
+                Sealed_SQL conexion = new Sealed_SQL();
+
+                DataTable dt = conexion.EjecutarQuery(query);
+
+                return dt;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public DataTable GetIdAreaOHSAS(string numero)
+        {
+            try
+            {
+                string query = "SELECT A.area FROM ohsasMatriz2 AS M INNER JOIN ohsasAreas2 AS A ON M.EMISOR = A.area WHERE M.NUMERO = '" + numero + "'";
+
                 Sealed_SQL conexion = new Sealed_SQL();
 
                 DataTable dt = conexion.EjecutarQuery(query);
@@ -145,8 +161,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 
         public DataTable GetAllAreasEspecifico()
         {
-            List<string> lista = new List<string>();
-
             string query = "SELECT area,a_descripcion FROM Areas2 ORDER BY a_descripcion";
 
             try
@@ -158,6 +172,24 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return dt;
             }
             catch (Exception er)
+            {
+                return null;
+            }
+        }
+
+        public DataTable GetIdAreaEspecifico(string numero)
+        {
+            try
+            {
+                string query = "SELECT A.area FROM matriz2 AS M INNER JOIN areas2 AS A ON M.EMISOR = A.area WHERE M.NUMERO = '" + numero + "'";
+
+                Sealed_SQL conexion = new Sealed_SQL();
+
+                DataTable dt = conexion.EjecutarQuery(query);
+
+                return dt;
+            }
+            catch (Exception)
             {
                 return null;
             }
@@ -221,8 +253,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 
         public DataTable GetAllAreasISO()
         {
-            List<string> lista = new List<string>();
-
             string query = "SELECT area,a_descripcion FROM saaAreas2 ORDER BY a_descripcion";
 
             try
@@ -237,7 +267,26 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             {
                 return null;
             }
-        } 
+        }
+
+        public DataTable GetIdAreaISO(string numero)
+        {
+            try
+            {
+                string query = "SELECT A.area FROM saaMATRIZ2 AS M INNER JOIN saaAreas2 AS A ON M.EMISOR = A.area WHERE M.NUMERO = '" + numero + "'";
+
+                Sealed_SQL conexion = new Sealed_SQL();
+
+                DataTable dt = conexion.EjecutarQuery(query);
+
+                return dt;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         #endregion
 
     }

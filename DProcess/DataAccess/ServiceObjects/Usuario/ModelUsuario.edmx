@@ -50,6 +50,8 @@
           <Property Name="Usql" Type="varchar" MaxLength="50" />
           <Property Name="Psql" Type="varchar" MaxLength="50" />
           <Property Name="Bloqueado" Type="bit" />
+          <Property Name="Correo" Type="varchar" MaxLength="100" />
+          <Property Name="Pathnsf" Type="varchar" MaxLength="500" />
         </EntityType>
         <Association Name="FK_PerfilUsuario_Usuarios">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
@@ -87,7 +89,7 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="PrivilegioUsuario" EntitySet="PrivilegioUsuario" />
           </AssociationSet>
-          </EntityContainer>
+        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -152,6 +154,8 @@
           <Property Name="Usql" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Psql" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Bloqueado" Type="Boolean" />
+          <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Pathnsf" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PerfilUsuario" Relationship="DataAccess.ServiceObjects.Usuario.FK_PerfilUsuario_Usuarios" FromRole="Usuarios" ToRole="PerfilUsuario" />
           <NavigationProperty Name="PrivilegioUsuario" Relationship="DataAccess.ServiceObjects.Usuario.FK_PrivilegioUsuario_Usuarios" FromRole="Usuarios" ToRole="PrivilegioUsuario" />
         </EntityType>
@@ -222,6 +226,8 @@
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Usuario.Usuarios">
               <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Pathnsf" ColumnName="Pathnsf" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
                 <ScalarProperty Name="Bloqueado" ColumnName="Bloqueado" />
                 <ScalarProperty Name="Psql" ColumnName="Psql" />
                 <ScalarProperty Name="Usql" ColumnName="Usql" />
