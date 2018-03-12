@@ -154,7 +154,7 @@
                 </Button>
 
                 <StackPanel Grid.Row="3">
-                    <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical" Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}">
                         <Label Content="Notificar despues de liberar a:"></Label>
                         
                             <DataGrid ItemsSource="{Binding Path=ListaUsuariosCorreo}" 
