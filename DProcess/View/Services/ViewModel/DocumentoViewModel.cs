@@ -18,6 +18,16 @@ namespace View.Services.ViewModel
 {
     public class DocumentoViewModel : INotifyPropertyChanged
     {
+
+        #region Attributes
+        UsuariosViewModel vmUsuarios;
+        private int idVersion;
+        // variables auxiliar, guarda la información  cuando se genera una nueva versión
+        private string auxversion, auxUsuario, auxUsuario_Autorizo, auxDescripcion;
+        private DateTime auxFecha;
+        public Usuario User;
+        #endregion
+
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
@@ -32,8 +42,7 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Propiedades
-        public Usuario User;
-
+        
         private string nombre;
         public string Nombre
         {
@@ -163,16 +172,15 @@ namespace View.Services.ViewModel
         }
 
         private string _id_areasealed;
-
         public string id_areasealed
         {
             get { return _id_areasealed; }
             set { _id_areasealed = value; NotifyChange("id_areasealed"); }
         }
-
-
+        
         private string _usuario;
-        public string usuario { get
+        public string usuario {
+            get
             {
                 return _usuario;
             }
@@ -204,14 +212,7 @@ namespace View.Services.ViewModel
             get { return _boolEnviarmeCopia; }
             set { _boolEnviarmeCopia = value; NotifyChange("boolEnviarmeCopia"); }
         }
-
-
-        private int idVersion;
-        // variables auxiliar, guarda la información  cuando se genera una nueva versión
-        private string auxversion, auxUsuario,auxUsuario_Autorizo, auxDescripcion;
-
-        private DateTime auxFecha;
-
+        
         private ObservableCollection<Archivo> _ListaDocumentos = new ObservableCollection<Archivo>();
         public ObservableCollection<Archivo> ListaDocumentos
         {
@@ -280,9 +281,7 @@ namespace View.Services.ViewModel
                 NotifyChange("ListaUsuariosCorreo");
             }
         }
-
-
-
+        
         private ObservableCollection<FO_Item> _ListaAreasSealed;
         public ObservableCollection<FO_Item> ListaAreasSealed
         {
@@ -313,6 +312,7 @@ namespace View.Services.ViewModel
                 NotifyChange("ListaNumeroDocumento");
             }
         }
+
         private ObservableCollection<ValidacionDocumento> _ListaValidaciones;
         public ObservableCollection<ValidacionDocumento> ListaValidaciones
         {
@@ -474,7 +474,7 @@ namespace View.Services.ViewModel
                 NotifyChange("BttnLiberar");
             }
         }
-
+        
         private bool _bttnCancelar;
         public bool BttnCancelar {
             get
@@ -537,9 +537,15 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Constructor
+
+        /// <summary>
+        /// Constructor para generar una versión, o modificar el documento
+        /// </summary>
+        /// <param name="selectedDocumento"></param>
+        /// <param name="band"></param>
+        /// <param name="ModelUsuario"></param>
         public DocumentoViewModel(Documento selectedDocumento, bool band,Usuario ModelUsuario)
         {
-            //Contructor para generar una versión, o modificar el documento
             //Variables auxiliar guarda la información para cuando se genera una versión nueva 
             //Inicializa los combobox 
             Inicializar();
@@ -576,7 +582,8 @@ namespace View.Services.ViewModel
                 BttnEliminar = band;
                 IsEnabled = true;
                 EnabledEliminar = true;
-                EnabledFecha = true;             
+                EnabledFecha = true;
+                VersionEnabled = true;
             } 
             
             //si es ventana para corregir documento con estatus pendiente por corregir.
@@ -639,9 +646,12 @@ namespace View.Services.ViewModel
             } 
         }
 
+        /// <summary>
+        /// Constructor para crear un nuevo documento
+        /// </summary>
+        /// <param name="ModelUsuario"></param>
         public DocumentoViewModel(Usuario ModelUsuario)
         {
-            //Constructor para crear un nuevo documento
             BotonGuardar = "Guardar";
             BttnGuardar = true;
             BttnArchivos = true;
@@ -660,25 +670,32 @@ namespace View.Services.ViewModel
 
             //si es personal del CIT, la campo de fecha es editable
             if (Module.UsuarioIsRol(User.Roles, 2))
+            {
                 EnabledFecha = true;
+                VersionEnabled = true;
+            }
+                
+            //Mostramos el primer documento, sólo se admite un documento sin version por usuario
+            //if (ListaNumeroDocumento.Count > 0)
+            //    SelectedDocumento = ListaNumeroDocumento[0];
 
-                //Mostramos el primer documento, sólo se admite un documento sin version por usuario
-                //if (ListaNumeroDocumento.Count > 0)
-                //    SelectedDocumento = ListaNumeroDocumento[0];
+            //Inicializamos los campos de tipo de documento y departamento
+            //id_dep = _selectedDocumento.id_dep;
+            //id_tipo = _selectedDocumento.id_tipo_documento;
+            //nombre = _selectedDocumento.nombre;
+            //NombreDepto = _selectedDocumento.Departamento;
+            //NombreTipo = _selectedDocumento.tipo.tipo_documento;
 
-                //Inicializamos los campos de tipo de documento y departamento
-                //id_dep = _selectedDocumento.id_dep;
-                //id_tipo = _selectedDocumento.id_tipo_documento;
-                //nombre = _selectedDocumento.nombre;
-                //NombreDepto = _selectedDocumento.Departamento;
-                //NombreTipo = _selectedDocumento.tipo.tipo_documento;
-
-                Inicializar();
+            Inicializar();
         }
 
+        /// <summary>
+        /// Contructor para liberar documentos
+        /// </summary>
+        /// <param name="selectedDocumento"></param>
+        /// <param name="ModelUsuario"></param>
         public DocumentoViewModel(Documento selectedDocumento, Usuario ModelUsuario)
         {
-            //Contructor para liberar documentos
             //Inicializa los combobox 
             Inicializar();
             IsEnabled = false;
@@ -700,6 +717,10 @@ namespace View.Services.ViewModel
             id_dep = selectedDocumento.id_dep;
             //Obtenemos el tipo de documento
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
+
+            //si es personal del CIT, el campo de usuario elaboro es editable.
+            if (Module.UsuarioIsRol(User.Roles, 2))
+                VersionEnabled = true;
 
             //Inicializamos la lista de Areas del sistema frames.
             ListaAreasSealed = new ObservableCollection<FO_Item>();
@@ -865,6 +886,7 @@ namespace View.Services.ViewModel
                                 obj.fecha_actualizacion = _FechaFin;
                                 obj.fecha_emision = fecha;
                                 obj.id_estatus = 2;
+                                obj.usuario = usuario;
 
                                 //Ejecutamos el método para guardar el documento. El resultado lo guardamos en una variable local.
                                 int update = DataManagerControlDocumentos.UpdateDocumento(obj);
@@ -894,7 +916,7 @@ namespace View.Services.ViewModel
                                             //Declaramos un objeto de tipo Archivo.
                                             Archivo objArchivo = new Archivo();
 
-                                            //Mapeamos los valores al objeto creado, se guarda el archivo con el nombre del documento y la versión
+                                            //Mapeamos los valores al objeto creado, se guarda el archivo con el nombre del documento y la versión.
                                             objArchivo.id_version = id_version;
                                             objArchivo.archivo = item.archivo;
                                             objArchivo.ext = item.ext;
@@ -1011,7 +1033,7 @@ namespace View.Services.ViewModel
                                         await controllerProgressAsync.CloseAsync();
 
                                         //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
-                                        await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente, los archivos serán verificados por el personal del CIT..");
+                                        await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente, los archivos serán verificados por el personal del CIT.");
 
                                         //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                         var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -1277,87 +1299,117 @@ namespace View.Services.ViewModel
             //Si el id es diferente de cero
             if (id_documento != 0 & result==MessageDialogResult.Affirmative)
             {
-                Documento objDoc_Eliminado = new Documento();
-                //Elimina los documentos de la lista 
-                foreach (var item in _ListaDocumentos)
+
+                vmUsuarios = new UsuariosViewModel();
+                FrmListaUsuarios frmListaUsuarios = new FrmListaUsuarios();
+                frmListaUsuarios.DataContext = vmUsuarios;
+
+                frmListaUsuarios.ShowDialog();
+
+                //Verficamos que el usuario seleccionó al menos una persona para noticarle la baja del documento. Si no selecciona a ninguna, no se permite la baja.
+                if (vmUsuarios.ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count > 0)
                 {
-                  
-                    objDoc_Eliminado.version.archivo.archivo = item.archivo;
-                    objDoc_Eliminado.version.archivo.ext = item.ext;
-                    int n = DataManagerControlDocumentos.DeleteArchivo(item);
-                }
-
-                Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version(); 
-                objVersion.id_version = idVersion;
-                objVersion.no_version = Version;
-                string mensaje_historial = "Se elimina versión " + Version;
-                //Mandamos a llamar a la  función para eliminar la versión.
-                int Dversion = DataManagerControlDocumentos.DeleteVersion(objVersion, mensaje_historial, User,nombre);
-
-                //Obetenemos las versiones del documento
-                ListaVersiones = DataManagerControlDocumentos.GetVersiones(id_documento);
-
-                //iteramos la lista de las versiones
-                foreach (var item in ListaVersiones)
-                {
-                    //De cada versión obetemos los correspondientes archivos.
-                    ListaArchivo = DataManagerControlDocumentos.GetArchivos(item.id_version);
-                    //Iteramos la lista de archivos
-                    foreach (var archivo in ListaArchivo)
+                    Documento objDoc_Eliminado = new Documento();
+                    //Elimina los documentos de la lista 
+                    foreach (var item in _ListaDocumentos)
                     {
-                        //Eliminamos el archivo
-                        int a = DataManagerControlDocumentos.DeleteArchivo(archivo);
+
+                        objDoc_Eliminado.version.archivo.archivo = item.archivo;
+                        objDoc_Eliminado.version.archivo.ext = item.ext;
+                        int n = DataManagerControlDocumentos.DeleteArchivo(item);
                     }
-                    //Mandamos a llamar la funcion para eliminar la version iterada
-                   int v = DataManagerControlDocumentos.DeleteVersion(item, mensaje_historial, User,nombre);
-                }
-                //Si se elimino correctamente la versión
-                if (Dversion != 0)
-                {
-                    Documento obj = new Documento();
-                    //se le asigna el id al objeto
-                    obj.id_documento = id_documento;
 
-                    //Se manda a llamar a la función.
-                    int n = DataManagerControlDocumentos.DeleteDocumento(obj);
+                    Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+                    objVersion.id_version = idVersion;
+                    objVersion.no_version = Version;
+                    string mensaje_historial = "Se elimina versión " + Version;
 
-                    if (n !=0)
+                    //Mandamos a llamar a la  función para eliminar la versión.
+                    int Dversion = DataManagerControlDocumentos.DeleteVersion(objVersion, mensaje_historial, User, nombre);
+
+                    //Obetenemos las versiones del documento
+                    ListaVersiones = DataManagerControlDocumentos.GetVersiones(id_documento);
+
+                    //iteramos la lista de las versiones
+                    foreach (var item in ListaVersiones)
                     {
-                        objDoc_Eliminado.nombre = nombre;
-                        objDoc_Eliminado.version.no_version = Version;
+                        //De cada versión obetemos los correspondientes archivos.
+                        ListaArchivo = DataManagerControlDocumentos.GetArchivos(item.id_version);
 
-                        int docElim = DataManagerControlDocumentos.SetDocumento_Eliminado(objDoc_Eliminado);
-                        switch (id_tipo)
+                        //Iteramos la lista de archivos
+                        foreach (var archivo in ListaArchivo)
                         {
-                            case 1003:
-                            case 1013:
-                                DataManagerControlDocumentos.DeleteDocumentoOHSAS(objDoc_Eliminado.nombre);
-                                break;
-
-                            case 1005:
-                            case 1012:
-                                DataManagerControlDocumentos.DeleteDocumentoEspecifico(objDoc_Eliminado.nombre);
-                                break;
-
-                            case 1006:
-                            case 1014:
-                                DataManagerControlDocumentos.DeleteDocumentoISO(objDoc_Eliminado.nombre);
-                                break;
-
-                            default:
-                                break;
+                            //Eliminamos el archivo
+                            int a = DataManagerControlDocumentos.DeleteArchivo(archivo);
                         }
-                        await dialog.SendMessage("", "Registro eliminado!");
+
+                        //Mandamos a llamar la funcion para eliminar la version iterada
+                        int v = DataManagerControlDocumentos.DeleteVersion(item, mensaje_historial, User, nombre);
+                    }
+
+                    //Si se elimino correctamente la versión
+                    if (Dversion != 0)
+                    {
+                        Documento obj = new Documento();
+
+                        //se le asigna el id al objeto
+                        obj.id_documento = id_documento;
+
+                        //Se manda a llamar a la función.
+                        int n = DataManagerControlDocumentos.DeleteDocumento(obj);
+
+                        if (n != 0)
+                        {
+                            objDoc_Eliminado.nombre = nombre;
+                            objDoc_Eliminado.version.no_version = Version;
+                            int docElim = DataManagerControlDocumentos.SetDocumento_Eliminado(objDoc_Eliminado);
+                            bool banEliminarFrames = false;
+                            int eliminoFrames = 0;
+
+                            //Eliminamos el documento del sistema frames.
+                            switch (id_tipo)
+                            {
+                                case 1003:
+                                case 1013:
+                                    banEliminarFrames = true;
+                                    eliminoFrames = DataManagerControlDocumentos.DeleteDocumentoOHSAS(objDoc_Eliminado.nombre);
+                                    break;
+
+                                case 1005:
+                                case 1012:
+                                    banEliminarFrames = true;
+                                    eliminoFrames = DataManagerControlDocumentos.DeleteDocumentoEspecifico(objDoc_Eliminado.nombre);
+                                    break;
+
+                                case 1006:
+                                case 1014:
+                                    banEliminarFrames = true;
+                                    eliminoFrames = DataManagerControlDocumentos.DeleteDocumentoISO(objDoc_Eliminado.nombre);
+                                    break;
+                                default:
+                                    banEliminarFrames = false;
+                                    break;
+                            }
+
+                            string confirmacionFrames = string.Empty;
+
+                            if (banEliminarFrames)
+                                confirmacionFrames = eliminoFrames > 0 ? "El documento se eliminó exitosamente del sistema frames." : "Ocurrió un error al eliminar en el sistema frames. Por favor elimínelo directamente del sistema frames. http://sealed/frames.htm";
+                            
+                            string confirmacionCorreo = string.Empty;
+                            confirmacionCorreo = NotificarBajaDocumento() ? "Se notificó vía correo exitosamente." : "Ocurrió un error al notificar vía correo. Favor de notificar manualmente desde el Lotus Notes.";
+                            
+                            await dialog.SendMessage("Alerta", "Registro eliminado!. Se actualizo la matríz correctamente.\n" + confirmacionCorreo + "\n" + confirmacionFrames);
+                        }
+                        else
+                        {
+                            await dialog.SendMessage("Alerta", "No se puedo eliminar el documento");
+                        }
                     }
                     else
                     {
-                        await dialog.SendMessage("Alerta", "No se puedo eliminar el documento");
-                    }                  
-                }
-                else
-                {
-                    await dialog.SendMessage("Alerta", "No se puedo eliminar la versión");
-                }   
+                        await dialog.SendMessage("Alerta", "No se puedo eliminar la versión");
+                    }
                     //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                     var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
                     //Verificamos que la pantalla sea diferente de nulo.
@@ -1366,6 +1418,12 @@ namespace View.Services.ViewModel
                         //Cerramos la pantalla
                         window.Close();
                     }
+                }
+                else
+                {
+                    await dialog.SendMessage("Alerta", "No se puedo eliminar la versión. Debes seleccionar a una persona para notificarle la baja.");
+                }
+                
             }
         }
 
@@ -1425,6 +1483,7 @@ namespace View.Services.ViewModel
                             obj.fecha_emision = fecha;
                             obj.fecha_actualizacion = _FechaFin;
                             obj.id_estatus = 2;
+                            obj.usuario = usuario;
 
                             //Ejecuta el método para modificar el documento actual
                             int n = DataManagerControlDocumentos.UpdateDocumento(obj);
@@ -1454,7 +1513,7 @@ namespace View.Services.ViewModel
                                             int a = await DataManagerControlDocumentos.SetArchivo(objArchivo);
                                         }
                                     }
-                                    await dialog.SendMessage("Información", "Cambios realizados, los archivos serán verificados por el personal del CIT..");
+                                    await dialog.SendMessage("Información", "Cambios realizados, los archivos serán verificados por el personal del CIT.");
                                     //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                     var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
@@ -1890,6 +1949,7 @@ namespace View.Services.ViewModel
                return  new RelayCommand(o => liberarDocumento());
             }
         }
+
         /// <summary>
         /// Método para liberar un documento, modifica el número de copias del documento y el estatus de la versión
         /// </summary>
@@ -1960,14 +2020,18 @@ namespace View.Services.ViewModel
                                         if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
                                         {
                                             if (NotificarNuevaVersion())
-                                                confirmacionCorreo = "Se notificó via correo exitosamente.";
+                                                confirmacionCorreo = "Se notificó vía correo exitosamente.";
                                             else
-                                                confirmacionCorreo = "Ocurrio un error al notificar vía correo. Favor de notificar manualmente.";
-                                            
+                                                confirmacionCorreo = "Ocurrio un error al notificar vía correo. Favor de notificar manualmente desde Lotus Notes.";
+
+                                            await dialog.SendMessage("Información", "Matríz actualizada correctamente." + "\n" + confirmacionFrames + "\n" + confirmacionCorreo);
+
                                         }
-
-                                        await dialog.SendMessage("Información", "Matríz actualizada correctamente." + "\n" + confirmacionFrames + "\n" +confirmacionCorreo);
-
+                                        else
+                                        {
+                                            await dialog.SendMessage("Información", "Matríz actualizada correctamente.");
+                                        }
+                                        
                                         //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                         var frame = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
@@ -2017,12 +2081,14 @@ namespace View.Services.ViewModel
                             {
                                 //obetemos el id de la versión anterior
                                 int last_id = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
+
                                 //Creamos un objeto para la versión anterior 
                                 Model.ControlDocumentos.Version lastVersion = new Model.ControlDocumentos.Version();
 
                                 //asigamos el id y el estatus obsoleto
                                 lastVersion.id_version = last_id;
                                 lastVersion.id_estatus_version = 2;
+
                                 //Se obtienen el número de versión de la version anterior
                                 lastVersion.no_version = DataManagerControlDocumentos.GetNum_Version(last_id);
 
@@ -2044,12 +2110,16 @@ namespace View.Services.ViewModel
                                         if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
                                         {
                                             if (NotificarActualizacionVersion())
-                                                confirmacionCorreo = "Se notificó via correo exitosamente.";
+                                                confirmacionCorreo = "Se notificó vía correo exitosamente.";
                                             else
-                                                confirmacionCorreo = "Ocurrio un error al notificar vía correo. Favor de notificar manualmente.";
-                                        }
+                                                confirmacionCorreo = "Ocurrio un error al notificar vía correo. Favor de notificar manualmente desde Lotus Nores.";
 
-                                        await dialog.SendMessage("Información", "Matríz actualizada correctamente.\n" + confirmacionFrames + "\n" + confirmacionCorreo );
+                                            await dialog.SendMessage("Información", "Matríz actualizada correctamente.\n" + confirmacionFrames + "\n" + confirmacionCorreo);
+                                        }
+                                        else
+                                        {
+                                            await dialog.SendMessage("Información", "Matríz actualizada correctamente.");
+                                        }
 
                                         //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                         var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -2087,6 +2157,10 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Metodo que notifica via correo la nueva actualización a un documento
+        /// </summary>
+        /// <returns></returns>
         private bool NotificarActualizacionVersion()
         {
             ServiceEmail SO_Email = new ServiceEmail();
@@ -2151,6 +2225,10 @@ namespace View.Services.ViewModel
             return respuesta;
         }
 
+        /// <summary>
+        /// Método que notifica vía correo el alta de un documento.
+        /// </summary>
+        /// <returns></returns>
         private bool NotificarNuevaVersion()
         {
             ServiceEmail SO_Email = new ServiceEmail();
@@ -2226,7 +2304,108 @@ namespace View.Services.ViewModel
 
             return respuesta;
         }
+        
+        /// <summary>
+        /// Método que notifica vía correo la baja de un documento
+        /// </summary>
+        /// <returns></returns>
+        private bool NotificarBajaDocumento()
+        {
+            try
+            {
+                ServiceEmail SO_Email = new ServiceEmail();
 
+                string[] correos = new string[vmUsuarios.ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count];
+
+                int i = 0;
+                foreach (Usuarios item in vmUsuarios.ListaUsuariosCorreo)
+                {
+                    if (item.IsSelected)
+                    {
+                        correos[i] = item.Correo;
+                        i += 1;
+                    }
+                }
+
+                string path = User.Pathnsf;
+                string title = "Baja de documento - " + Nombre;
+                string body = string.Empty;
+                string tipo_documento = string.Empty;
+
+                switch (id_tipo)
+                {
+                    case 1003:
+                    case 1005:
+                    case 1006:
+                        tipo_documento = "la instrucción de trabajo";
+                        break;
+                    case 1012:
+                    case 1013:
+                    case 1014:
+                        tipo_documento = "el formato";
+                        break;
+                    case 2:
+                        tipo_documento = "la Hoja de operación estándar";
+                        break;
+                    case 1002:
+                        tipo_documento = "la hoja de instrucción de inspección (HII)";
+                        break;
+                    case 1004:
+                        tipo_documento = "la ayuda visual";
+                        break;
+                    case 1007:
+                        tipo_documento = "la hoja de método de trabajo estándar";
+                        break;
+                    case 1010:
+                        tipo_documento = "la hoja de ajuste estándar";
+                        break;
+                    case 1011:
+                        tipo_documento = "el método de inspección estandarizado";
+                        break;
+                    default:
+                        tipo_documento = "el documento";
+                        break;
+                }
+
+                body = "<HTML>";
+                body += "<head>";
+                body += "<meta http-equiv=\"Content - Type\" content=\"text / html; charset = utf - 8\"/>";
+                body += "</head>";
+                body += "<body text=\"white\">";
+                body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
+                body += "<ul>";
+                body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + Nombre + "</b> versión <b> " + Version + ".0" + " </b> fué dado de baja de la matríz del control de documentos</font> </li>";
+                body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
+                body += "</ul>";
+                body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
+                body += "<br/>";
+                body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
+                body += "<ul>";
+                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + User.Nombre + " " + User.ApellidoPaterno + "</font> </li>";
+                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">MAHLE Componentes de Motor de México, S. de R.L. de C.V.</font></li>";
+                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Engineering (ENG)</font> </li>";
+                body += "<li></li>";
+                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Km. 0.3 Carr. Maravillas-Jesús María , 20900 Aguascalientes, Mexico</font> </li>";
+                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Teléfono: +52 449 910 8200-82 90, Fax: +52 449 910 8200 - 267</font> </li>";
+                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + User.Correo + ",</font> <a href=\"http://www.mx.mahle.com\">http://www.mx.mahle.com</a>  </li>";
+                body += "</ul>";
+                body += "</body>";
+                body += "</HTML>";
+
+                bool respuesta = SO_Email.SendEmailLotusCustom(path, correos, title, body);
+
+                return respuesta;
+            }
+            catch (Exception er)
+            {
+                return false;
+            }
+        }
+        
+        /// <summary>
+        /// Método que define si es "Buenos días" o "Buenas tardes" dependiendo la hora.
+        /// </summary>
+        /// <returns></returns>
         private string definirSaludo()
         {
             DateTime d = DateTime.Now;
@@ -2235,30 +2414,40 @@ namespace View.Services.ViewModel
             return d.Hour <= 12 ? "Buenos días;" : "Buenas tardes;";
         }
 
-        private void DeleteDocumentoSealed()
+        /// <summary>
+        /// Metodo que elimina el documento de la base de datos del frames
+        /// </summary>
+        /// <returns>Retorna el número de filas afectadas. Si ocurre un error retorna un 0</returns>
+        private int DeleteDocumentoSealed()
         {
+            int r = 0;
             switch (id_tipo)
             {
                 case 1003:
                 case 1013:
-                    DataManagerControlDocumentos.DeleteDocumentoOHSAS(SelectedDocumento.nombre);
+                    r = DataManagerControlDocumentos.DeleteDocumentoOHSAS(SelectedDocumento.nombre);
                     break;
 
                 case 1005:
                 case 1012:
-                    DataManagerControlDocumentos.DeleteDocumentoEspecifico(SelectedDocumento.nombre);
+                    r = DataManagerControlDocumentos.DeleteDocumentoEspecifico(SelectedDocumento.nombre);
                     break;
 
                 case 1006:
                 case 1014:
-                    DataManagerControlDocumentos.DeleteDocumentoISO(SelectedDocumento.nombre);
+                    r = DataManagerControlDocumentos.DeleteDocumentoISO(SelectedDocumento.nombre);
                     break;
 
                 default:
                     break;
             }
+            return r;
         }
 
+        /// <summary>
+        /// Método que inserta un documento en la base de datos del frames.
+        /// </summary>
+        /// <returns>Retorna el número de filas afectadas. Si ocurre un error retorna un cero.</returns>
         private int InsertDocumentoSealed()
         {
             int r = 0;
@@ -2286,6 +2475,10 @@ namespace View.Services.ViewModel
             return r;
         }
 
+        /// <summary>
+        /// Méto que actualiza un registro de la base de datos del frames.
+        /// </summary>
+        /// <returns>Retorna el número de filas afectadas. Si ocurre un error retorna un cero.</returns>
         private int UpdateDocumentoSealed()
         {
             int r = 0;

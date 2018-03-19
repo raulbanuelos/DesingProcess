@@ -29,7 +29,7 @@
     <PublisherName>Diseño del proceso</PublisherName>
     <SuiteName>Diseño del proceso</SuiteName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>41</ApplicationRevision>
+    <ApplicationRevision>44</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -190,6 +190,9 @@
     </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmHistorial_Filtrado.xaml.cs">
       <DependentUpon>FrmHistorial_Filtrado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmListaUsuarios.xaml.cs">
+      <DependentUpon>FrmListaUsuarios.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmNuevoTipo.xaml.cs">
       <DependentUpon>FrmNuevoTipo.xaml</DependentUpon>
@@ -563,6 +566,7 @@
     <Compile Include="Services\ViewModel\PatternViewModel.cs" />
     <Compile Include="Services\ViewModel\RelayCommand.cs" />
     <Compile Include="Services\ViewModel\UretanoSplitterVM.cs" />
+    <Compile Include="Services\ViewModel\UsuariosViewModel.cs" />
     <Compile Include="Services\ViewModel\UsuarioViewModel.cs" />
     <Compile Include="Services\ViewModel\ValidacionTipoVM.cs" />
     <Compile Include="Services\ViewModel\ValidarDocumentoViewM.cs" />
@@ -662,6 +666,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmHistorial_Filtrado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmListaUsuarios.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
