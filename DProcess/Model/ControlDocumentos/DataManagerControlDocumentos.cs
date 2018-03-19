@@ -351,7 +351,7 @@ namespace Model.ControlDocumentos
 
             // Se ejecuta el método y retorna los registros que se modificaron.
             return ServiceDocumento.UpdateDocumento(documento.id_documento, documento.id_tipo_documento, documento.id_dep,
-                                                 documento.fecha_actualizacion, documento.id_estatus, documento.fecha_emision);
+                                                 documento.fecha_actualizacion, documento.id_estatus, documento.fecha_emision,documento.usuario);
         }
 
         /// <summary>

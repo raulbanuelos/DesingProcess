@@ -101,20 +101,19 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return 0;
             }
         }
-       
+
         /// <summary>
         /// Método para actualizar un registro de la tabla TBL_documento
         /// </summary>
         /// <param name="id_documento"></param>
-        /// <param name="id_usuario"></param>
-        /// <param name="nombre"></param>
-        /// <param name="descripcion"></param>
-        /// <param name="version_actual"></param>
-        /// <param name="fecha_creacion"></param>
+        /// <param name="id_tipo_documento"></param>
+        /// <param name="id_dep"></param>
         /// <param name="fecha_actualizacion"></param>
+        /// <param name="id_estatus"></param>
         /// <param name="fecha_emision"></param>
+        /// <param name="idUsuario">id del usuario que lo creó</param>
         /// <returns></returns>
-        public int UpdateDocumento(int id_documento, int id_tipo_documento,int id_dep, DateTime fecha_actualizacion,int id_estatus,DateTime fecha_emision)
+        public int UpdateDocumento(int id_documento, int id_tipo_documento,int id_dep, DateTime fecha_actualizacion,int id_estatus,DateTime fecha_emision,string idUsuario)
         {
             try
             {
@@ -130,6 +129,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.FECHA_ACTUALIZACION = fecha_actualizacion;
                     obj.FECHA_EMISION = fecha_emision;
                     obj.ID_ESTATUS_DOCUMENTO = id_estatus;
+                    obj.ID_USUARIO = idUsuario;
 
                     //Se cambia el estado de registro a modificado.
                     Conexion.Entry(obj).State = EntityState.Modified;

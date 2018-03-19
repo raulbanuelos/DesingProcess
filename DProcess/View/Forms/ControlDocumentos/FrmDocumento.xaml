@@ -9,7 +9,8 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Control documento" Height="750" Width="980"  BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
+        Title="Control documento" Height="750" Width="980"  
+        BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Window.Resources>
@@ -93,7 +94,7 @@
                 <!--Lista de Archivos-->
                 <ListBox Grid.Row="1" ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" Margin="5" />
             </Grid>
-               
+            
             <!--Button Adjuntar-->
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -109,7 +110,13 @@
                     <!--Nombre del departamento-->
                     <ComboBox  materialDesign:HintAssist.Hint="Nombre del Departamento/Proceso" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaDepartamento}" DisplayMemberPath="nombre_dep" SelectedValuePath="id_dep" SelectedValue="{Binding id_dep}" IsEnabled="{Binding VersionEnabled}"/>
                     <!--Usuario-->
-                    <ComboBox  materialDesign:HintAssist.Hint="Usuario Elaboró" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420"  BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaUsuarios}"  SelectedValuePath="usuario" SelectedValue="{Binding usuario}" Background="White" IsEnabled="{Binding VersionEnabled}">
+                    <ComboBox  materialDesign:HintAssist.Hint="Usuario Elaboró" 
+                               Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                               Height="50" Width="420"  BorderBrush="#FFBDBDBD" FontSize="18" 
+                               ItemsSource="{Binding Path=ListaUsuarios}"  
+                               SelectedValuePath="usuario" 
+                               SelectedValue="{Binding usuario}" Background="White" 
+                               IsEnabled="{Binding VersionEnabled}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock>
@@ -156,31 +163,29 @@
                 <StackPanel Grid.Row="3">
                     <StackPanel Orientation="Vertical" Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}">
                         <Label Content="Notificar despues de liberar a:"></Label>
-                        
-                            <DataGrid ItemsSource="{Binding Path=ListaUsuariosCorreo}" 
+
+                        <DataGrid ItemsSource="{Binding Path=ListaUsuariosCorreo}" 
                                       ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                       Height="200"
                               Grid.Row="0" AutoGenerateColumns="False">
-                                <DataGrid.Columns>
-                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                             EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                             Header="Notificar"
                                             Binding="{Binding IsSelected}"
                                             />
-                                    <DataGridTextColumn Header="Nombre" Binding="{Binding NombreCompleto}">
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding NombreCompleto}">
 
-                                    </DataGridTextColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        
-                        
+                                </DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+
                         <CheckBox Content="Copia para mi" IsChecked="{Binding boolEnviarmeCopia}"></CheckBox>
                     </StackPanel>
                 </StackPanel>
-                    
-                
             </Grid>
         </Grid>
 
