@@ -2284,7 +2284,7 @@ namespace View.Services.ViewModel
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + Nombre + "</b> versión <b> " + Version + ".0" + " </b> ya se encuentra disponible en el sistema </font> <a href=\"http://sealed/frames.htm\">frames</a> </li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
             body += "</ul>";
-            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">NOTA: Si este documento sustituye a algún otro, favor de notificarme para realizar la baja correcpondiente.</font> </p>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">NOTA: Si este documento sustituye a algún otro, favor de notificarme para realizar la baja correspondiente.</font> </p>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
             body += "<br/>";
             body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
@@ -2411,7 +2411,7 @@ namespace View.Services.ViewModel
             DateTime d = DateTime.Now;
             string saludo = string.Empty;
 
-            return d.Hour <= 12 ? "Buenos días;" : "Buenas tardes;";
+            return d.Hour <= 11 ? "Buenos días;" : "Buenas tardes;";
         }
 
         /// <summary>
