@@ -20,10 +20,10 @@ namespace View
             base.OnStartup(e);
 
             //Establecemos el idioma por default es el ingles.
-            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+            //Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
             
             //Idioma en español
-            //Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("es-MX");
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("es-MX");
         }
     }
 }

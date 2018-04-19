@@ -171,7 +171,7 @@ namespace View.Services.ViewModel
             dialog = new DialogService();
             ListaMejores = new DataTable();
             ListaOptimos = new DataTable();
-            ListaMaterial = DataManager.GetMaterial();
+            ListaMaterial = DataManager.GetAllMaterial();
         }
         #endregion
     }

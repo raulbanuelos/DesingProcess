@@ -92,7 +92,21 @@
 
                 </StackPanel>
                 <!--Lista de Archivos-->
-                <ListBox Grid.Row="1" ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" Margin="5" />
+                <StackPanel Grid.Row="1">
+                    <Label Content="Para ver/eliminar el archivo, primero dale clic al ícono de Word/PDF." FontWeight="Bold"></Label>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="y después clic al ícono " FontWeight="Bold"></Label>
+                        <Label Content="{materialDesign:PackIcon eye}"></Label>
+                        <Label Content=" ó " FontWeight="Bold"></Label>
+                        <Label Content="{materialDesign:PackIcon Close}"></Label>
+                        
+                    </StackPanel>
+                    
+                    <ListBox  ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" Margin="5" />
+                </StackPanel>
+                    
+                
+                
             </Grid>
             
             <!--Button Adjuntar-->
@@ -162,7 +176,7 @@
 
                 <StackPanel Grid.Row="3">
                     <StackPanel Orientation="Vertical" Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}">
-                        <Label Content="Notificar despues de liberar a:"></Label>
+                        <Label Content="Notificar despues de liberar a:" FontWeight="Bold"></Label>
 
                         <DataGrid ItemsSource="{Binding Path=ListaUsuariosCorreo}" 
                                       ScrollViewer.CanContentScroll="True" 

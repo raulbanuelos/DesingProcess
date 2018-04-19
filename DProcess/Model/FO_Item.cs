@@ -22,8 +22,5 @@ namespace Model
         {
             return Nombre;
         }
-
-
-
     }
 }

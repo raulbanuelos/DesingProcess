@@ -15,7 +15,7 @@ using View.Services.ViewModel;
 using Model.ControlDocumentos;
 using System;
 using View.Services;
-
+using View.Resources;
 namespace View.Forms.LogIn
 {
     /// <summary>
@@ -26,15 +26,17 @@ namespace View.Forms.LogIn
 		public LogIn()
 		{
 			InitializeComponent();
-		}
+        }
 		
 		async void Btn_ingresar_Click(object sender, RoutedEventArgs e)
 		{
+
+
             //Abrimos el mensaje modal para que el usuario ingrese sus credenciales, el resultado lo guardamos en una variable local.
-			LoginDialogData result = await this.ShowLoginAsync("Authentication","Enter your credentials", new LoginDialogSettings{ColorScheme= MetroDialogOptions.ColorScheme,InitialUsername=""});
+            LoginDialogData result = await this.ShowLoginAsync(StringResources.ttlAuthentication, StringResources.lblEnterCredentials, new LoginDialogSettings { ColorScheme = MetroDialogOptions.ColorScheme, InitialUsername = "", AffirmativeButtonText = StringResources.lblBtnLogin, UsernameWatermark = StringResources.lblTxtUserName, PasswordWatermark = StringResources.lblTxtContrasena });
 
             //Comparamos si el resultado es distinto de nulo. Si es igual a nulo quiere decir que el usuario cancelo la captura o cerró inesperadamente la pantalla.
-			if(result != null)
+            if (result != null)
 			{
 
                 //Incializamos los servicios de dialog.
@@ -44,7 +46,7 @@ namespace View.Forms.LogIn
                 ProgressDialogController AsyncProgress;
 
                 //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
-                AsyncProgress = await dialog.SendProgressAsync("Log In", "");
+                AsyncProgress = await dialog.SendProgressAsync(StringResources.lblLogIn, "");
 
                 //Declaramos un objeto con el cual se realiza la encriptación
                 Encriptacion encriptar = new Encriptacion();
@@ -66,11 +68,11 @@ namespace View.Forms.LogIn
                     if (usuarioConectado.Block) {
 
                         //Enviamos un mensaje para indicar que el usuario está bloqueado.
-                        MessageDialogResult message = await this.ShowMessageAsync("Information","This user is not active");
+                        MessageDialogResult message = await this.ShowMessageAsync(StringResources.lblInformation,StringResources.lblUserNotActive);
 					}else{
 
                         //Enviamos un mensaje de bienvenida al usuario.
-						MessageDialogResult message = await this.ShowMessageAsync("Welcome",usuarioConectado.Nombre);
+						MessageDialogResult message = await this.ShowMessageAsync(StringResources.lblWelcome,usuarioConectado.Nombre);
 
                         //Obtenemos la fecha del servidor
                         DateTime date_now = DataManagerControlDocumentos.Get_DateTime();
@@ -109,7 +111,7 @@ namespace View.Forms.LogIn
                     await AsyncProgress.CloseAsync();
 
                     //Enviamos un mensaje indicando que las credenciales escritas son incorrectas.
-                    MessageDialogResult message = await this.ShowMessageAsync("Alert","Your user/password are incorrects");
+                    MessageDialogResult message = await this.ShowMessageAsync(StringResources.ttlAlerta,StringResources.lblPasswordIncorrect);
 				}
 			}
 		}

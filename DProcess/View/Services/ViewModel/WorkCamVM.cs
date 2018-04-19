@@ -195,7 +195,7 @@ namespace View.Services.ViewModel
             ListaMejores = new DataTable();
             ListaOptimos = new DataTable();
             Titulo = "Work Cam";
-            ListaMaterial = DataManager.GetMaterial();
+            ListaMaterial = DataManager.GetAllMaterial();
             ListaTipoAnillo = DataManager.GetTipoAnillo();
             ListaPingG = new ObservableCollection<string>();
             ListaPingG.Add("#1");

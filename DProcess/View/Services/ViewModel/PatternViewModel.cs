@@ -20,6 +20,7 @@ namespace View.Services.ViewModel
         private Anillo ModelAnillo;
         private bool calculoOk;
         private string NombreUsuario;
+        bool IsPatternNew;
         #endregion
 
         #region Propierties
@@ -234,12 +235,18 @@ namespace View.Services.ViewModel
             get { return model.diff; }
             set { model.diff = value; NotifyChange("diff"); }
         }
-
-        private Propiedad _Tipo;
-        public Propiedad Tipo
+        
+        public FO_Item TipoMateriaPrima
         {
-            get { return model.Tipo; }
-            set { _Tipo = value; NotifyChange("Tipo"); }
+            get
+            {
+                return model.TipoMateriaPrima;
+            }
+            set
+            {
+                model.TipoMateriaPrima = value;
+                NotifyChange("TipoMateriaPrima");
+            }
         }
         
         public PropiedadCadena mounted
@@ -391,19 +398,7 @@ namespace View.Services.ViewModel
                 NotifyChange("EspecMaterialAnillo");
             }
         }
-
-        public PropiedadCadena TipoMaterial {
-            get
-            {
-                return model.TipoMaterial;
-            }
-            set
-            {
-                model.TipoMaterial = value;
-                NotifyChange("TipoMaterial");
-            }
-        }
-
+        
         public PropiedadCadena TipoAnillo {
             get
             {
@@ -426,11 +421,12 @@ namespace View.Services.ViewModel
             {
                 model.diseno = value;
                 NotifyChange("diseno");
+                _IsRedondo = !model.diseno.Valor;
             }
         }
 
         #endregion
-
+        
         #region Properties of anillo
         /// <summary>
         /// Cadena que representa la descripción general del elemento existente en sistema ERP.
@@ -949,6 +945,20 @@ namespace View.Services.ViewModel
         } //Falta agregar la tabla para ir guardando los datos	
         #endregion
 
+        private bool _IsRedondo;
+        public bool IsRedondo
+        {
+            get
+            {
+                return _IsRedondo;
+            }
+            set
+            {
+                _IsRedondo = value;
+                NotifyChange("IsRedondo");
+            }
+        }
+
         private bool _ReadOnlyFactorK;
         public bool ReadOnlyFactorK
         {
@@ -962,7 +972,36 @@ namespace View.Services.ViewModel
             get { return _ReadOnlyCamLever; }
             set { _ReadOnlyCamLever = value; NotifyChange("ReadOnlyCamLever"); }
         }
-        
+
+        private ObservableCollection<Pattern> listaPattern;
+        public ObservableCollection<Pattern> ListaPattern
+        {
+            get { return listaPattern; }
+            set { listaPattern = value; NotifyChange("ListaPattern"); }
+        }
+
+        private ObservableCollection<Cliente> customersList;
+        public ObservableCollection<Cliente> CustomersList
+        {
+            get { return customersList; }
+            set { customersList = value; NotifyChange("CustomersList"); }
+        }
+
+        private FO_Item tipoMateriaPrimaList;
+        public FO_Item TipoMateriaPrimaList
+        {
+            get { return tipoMateriaPrimaList; }
+            set { tipoMateriaPrimaList = value; NotifyChange("TipoMateriaPrimaList"); }
+        }
+
+
+        private Pattern selectedPattern;
+        public Pattern SelectedPattern
+        {
+            get { return selectedPattern; }
+            set { selectedPattern = value; NotifyChange("SelectedPattern"); }
+        }
+
         #endregion
 
         #region INotifyPropertyChanged Métodos
@@ -1005,12 +1044,42 @@ namespace View.Services.ViewModel
         {
             //Inicializamos el objeto anillo que representa nuestro modelo.
             ModelAnillo = new Anillo();
-            
+
+            ListaPattern = DataManager.GetAllPattern();
+
+            CustomersList = DataManager.GetAllClientes();
+
+            //TipoMateriaPrimaList = 
+
             Inicializar();
         }        
         #endregion
 
         #region Commands
+
+        public ICommand AltaPattern
+        {
+            get
+            {
+                return new RelayCommand(o => altaPattern());
+            }
+        }
+
+        public ICommand SelecccionarPlaca
+        {
+            get
+            {
+                return new RelayCommand(o => seleccionarPlaca());
+            }
+        }
+
+        public ICommand AbrirPlaca
+        {
+            get
+            {
+                return new RelayCommand(o => abrirPlaca());
+            }
+        }
 
         /// <summary>
         /// Comando que responde a la petición de guardar una placa modelo.
@@ -1045,6 +1114,81 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Methods
+
+        private void altaPattern()
+        {
+            Inicializar();
+            Codigo = DataManager.GetNextCodePattern(DataManager.GetLastCodePattern());
+        }
+
+        private void abrirPlaca()
+        {
+            WPattern pattern = new WPattern();
+
+            pattern.DataContext = this;
+
+            pattern.Show();
+        }
+
+        private void seleccionarPlaca()
+        {
+            Codigo = SelectedPattern.Codigo;
+            medida = SelectedPattern.medida;
+            diametro = SelectedPattern.diametro;
+            detalle = SelectedPattern.detalle;
+            mounting = SelectedPattern.mounting;
+            plato = SelectedPattern.plato;
+            on_14_rd_gate = SelectedPattern.on_14_rd_gate;
+            button = SelectedPattern.button;
+            M_Circle = SelectedPattern.M_Circle;
+            cone = SelectedPattern.cone;
+            ring_th_min = SelectedPattern.ring_th_min;
+            ring_th_max = SelectedPattern.ring_th_max;
+            ring_w_min = SelectedPattern.ring_w_min;
+            ring_w_max = SelectedPattern.ring_w_max;
+            date_ordered = SelectedPattern.date_ordered;
+            mounted = SelectedPattern.mounted;
+            ordered = SelectedPattern.ordered;
+            Checked = SelectedPattern.Checked;
+            factor_k = SelectedPattern.factor_k;
+            OD = SelectedPattern.OD;
+            ID = SelectedPattern.ID;
+            diff = SelectedPattern.diff;
+            B_Dia = SelectedPattern.B_Dia;
+            fin_Dia = SelectedPattern.fin_Dia;
+            turn_allow = SelectedPattern.turn_allow;
+            cstg_sm_od = SelectedPattern.cstg_sm_od;
+            shrink_allow = SelectedPattern.shrink_allow;
+            patt_sm_od = SelectedPattern.patt_sm_od;
+            piece_in_patt = SelectedPattern.piece_in_patt;
+            bore_allow = SelectedPattern.bore_allow;
+            patt_thickness = SelectedPattern.patt_thickness;
+            patt_sm_id = SelectedPattern.patt_sm_id;
+            joint = SelectedPattern.joint;
+            nick = SelectedPattern.nick;
+            nick_draf = SelectedPattern.nick_draf;
+            nick_depth = SelectedPattern.nick_depth;
+            side_relief = SelectedPattern.side_relief;
+            cam = SelectedPattern.cam;
+            cam_roll = SelectedPattern.cam_roll;
+            rise_built = SelectedPattern.rise_built;
+            cam_lever = SelectedPattern.cam_lever;
+            patt_width = SelectedPattern.patt_width;
+            peso_cstg = SelectedPattern.peso_cstg;
+            TipoAnillo = SelectedPattern.TipoAnillo;
+            diseno = SelectedPattern.diseno;
+            esp_inst = SelectedPattern.esp_inst;
+            date_checked = SelectedPattern.date_checked;
+            rise = SelectedPattern.rise;
+
+            TipoMateriaPrima.id = SelectedPattern.TipoMateriaPrima.id;
+            TipoMateriaPrima.ValorCadena = SelectedPattern.TipoMateriaPrima.ValorCadena;
+            TipoMateriaPrima = TipoMateriaPrima;
+
+            customer = SelectedPattern.customer;
+            customer = customer;
+
+        }
 
         /// <summary>
         /// Método que despliqega una pantalla con la información de la Ruta.
@@ -1159,6 +1303,23 @@ namespace View.Services.ViewModel
             TipoAnillo = new PropiedadCadena();
             TipoAnillo.Valor = "";
             diseno = new PropiedadBool { Valor = true };
+            TipoMateriaPrima = new FO_Item();
+            rise = new Propiedad();
+            rise.Valor = 0;
+
+            esp_inst = new PropiedadCadena();
+            esp_inst.Valor = string.Empty;
+
+            date_checked = new PropiedadCadena();
+            date_checked.Valor = DateTime.Now.ToShortDateString();
+
+            date_ordered = new PropiedadCadena();
+            date_ordered.Valor = DateTime.Now.ToShortDateString();
+
+            date_ordered = date_ordered;
+            date_checked = date_checked;
+
+
         }
 
         /// <summary>
@@ -1198,9 +1359,7 @@ namespace View.Services.ViewModel
             setNameProperties();
 
             customer = new Cliente { IdCliente = 1, NombreCliente = "SERVICIO" };
-
-            Tipo = new Propiedad { DescripcionCorta = "TipoMP", DescripcionLarga = "Tipo materia prima", Imagen = null, Nombre = "TipoMP", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadCantidad.Unidades) };
-
+            
             //Constante
             joint.Valor = "BUTT";
             nick.Valor = "RAD.";
@@ -1211,23 +1370,38 @@ namespace View.Services.ViewModel
             cam_roll.Valor = 1.622;
             cam_lever.Valor = 0.074;
             rise_built.Valor = 0.005;
-            
-            if (diseno.Valor)
+
+            IsPatternNew = false;
+
+            if (turn_allow.Valor == 0 && turn_allow.Valor == 0)
             {
-                double[] resultsTurnBore = DataManager.Get_TurnBoreAllow(TipoAnillo.Valor, EspecMaterialAnillo.Valor);
-                turn_allow.Valor = resultsTurnBore[0];
-                bore_allow.Valor = resultsTurnBore[1];
-            }
-            else
-            {
-                turn_allow.Valor = 0.1;
-                bore_allow.Valor = 0.105;
+                IsPatternNew = true;
             }
 
-            if (TipoMaterial.Valor.Equals("GASOLINA") || TipoMaterial.Valor.Equals("SPR-212"))
-                patt_width.Valor = DataManager.GetIdealCastingWidth(medida.Valor, Proceso.Valor);
-            else
-                patt_width.Valor = ring_w_max.Valor * 1 + 0.021;
+            if (IsPatternNew)
+            {
+                if (diseno.Valor)
+                {
+                    double[] resultsTurnBore = DataManager.Get_TurnBoreAllow(TipoAnillo.Valor, EspecMaterialAnillo.Valor);
+                    turn_allow.Valor = resultsTurnBore[0];
+                    bore_allow.Valor = resultsTurnBore[1];
+                }
+                else
+                {
+                    turn_allow.Valor = 0.1;
+                    bore_allow.Valor = 0.105;
+                }
+            }
+
+
+            if (IsPatternNew)
+            {
+                if (TipoMateriaPrima.ValorCadena.Equals("GASOLINA") || TipoMateriaPrima.ValorCadena.Equals("SPR-212"))
+                    patt_width.Valor = DataManager.GetIdealCastingWidth(medida.Valor, Proceso.Valor);
+                else
+                    patt_width.Valor = ring_w_max.Valor * 1 + 0.021;
+            }
+            
 
             medida = patt_width;
 
@@ -1235,10 +1409,14 @@ namespace View.Services.ViewModel
 
             if (!factor_k.Valor.Equals(0))
             {
-                Codigo = DataManager.GetNextCodePattern(DataManager.GetLastCodePattern());
+                if (IsPatternNew)
+                {
+                    Codigo = DataManager.GetNextCodePattern(DataManager.GetLastCodePattern());
+                }
+               
 
                 //Comparamos si el tipo de material es gasolina.
-                if (TipoMaterial.Valor.Equals("GASOLINA"))
+                if (TipoMateriaPrima.ValorCadena.Equals("GASOLINA"))
                 {
                     //Comparamos si el diseño es normal.
                     if (diseno.Valor)
@@ -1256,12 +1434,12 @@ namespace View.Services.ViewModel
                     fin_Dia.Valor = Math.Round((((((cam_lever.Valor - 0.005) * 0.478) - piece_in_patt.Valor) / -3.1416) + diametro.Valor) - (cam_lever.Valor - 0.005), 3);
 
                 }
-                else if(TipoMaterial.Valor.Equals("SPR-212")) //Si el tipo de material es 
+                else if(TipoMateriaPrima.ValorCadena.Equals("SPR-212")) //Si el tipo de material es 
                 {
                     cam_lever.Valor = Math.Round((piece_in_patt.Valor * factor_k.Valor * 64) + 0.015, 3);
                     fin_Dia.Valor = Math.Round((((((cam_lever.Valor - 0.015) * 0.478) - piece_in_patt.Valor) / -3.1416) + diametro.Valor) - (cam_lever.Valor - 0.015), 3);
                 }
-                else if(TipoMaterial.Valor.Equals("SUPER DUTY"))
+                else if(TipoMateriaPrima.ValorCadena.Equals("SUPER DUTY"))
                 {
                     cam_lever.Valor = Math.Round((piece_in_patt.Valor * factor_k.Valor * 64), 3);
                     fin_Dia.Valor = Math.Round((((((cam_lever.Valor - 0.005) * 0.478) - piece_in_patt.Valor) / -3.1416) + diametro.Valor) - (cam_lever.Valor - 0.005), 3);
@@ -1274,15 +1452,15 @@ namespace View.Services.ViewModel
 
                 cstg_sm_od.Valor = Math.Round(fin_Dia.Valor + (1 * turn_allow.Valor), 3);
 
-                if (TipoMaterial.Valor.Equals("GASOLINA"))
+                if (TipoMateriaPrima.ValorCadena.Equals("GASOLINA"))
                 {
                     shrink_allow.Valor = Math.Round(cstg_sm_od.Valor * 0.0104, 3);
                 }
-                else if (TipoMaterial.Valor.Equals("SPR-212"))
+                else if (TipoMateriaPrima.ValorCadena.Equals("SPR-212"))
                 {
                     shrink_allow.Valor = 0.02;
                 }
-                else if(TipoMaterial.Valor.Equals("SUPER DUTY"))
+                else if(TipoMateriaPrima.ValorCadena.Equals("SUPER DUTY"))
                 {
                     shrink_allow.Valor = Math.Round(cstg_sm_od.Valor * 0.0094, 3);
                 }
@@ -1296,8 +1474,11 @@ namespace View.Services.ViewModel
                 peso_cstg.Valor = Math.Round((((3.1416 / 4) * (Convert.ToDouble(Math.Pow(patt_sm_od.Valor , 2)) - Convert.ToDouble(Math.Pow(patt_sm_id.Valor,2)))) * medida.Valor * 16.387 * 7.2) / 0.95, 3);
                 B_Dia.Valor = Math.Round(patt_sm_od.Valor + (2 * cam_lever.Valor), 4);
 
-                definirPlato();
-
+                if (IsPatternNew)
+                {
+                    definirPlato();
+                }
+                
                 if (calculoOk)
                 {
                     detalle.Valor = DataManager.GetDetalleMoutingWidth(medida.Valor);
@@ -1372,10 +1553,24 @@ namespace View.Services.ViewModel
             else
                 Caratula += "CLASIFICACION GRUESO" + Environment.NewLine;
 
+
+            if (!IsPatternNew)
+            {
+                //HardCode
+                EspecMaterialAnillo = new PropiedadCadena { DescripcionCorta = "Especa", DescripcionLarga = "", Imagen = null, Nombre = "EspecMateriaPrima", Valor = "SPR-128" };
+            }
+
+
+            string[] vecHardness = DataManager.GetHardnessIdeal(EspecMaterialAnillo.Valor, diametro.Valor);
+            
+            Hardness = new PropiedadCadena();
+            HardnessMax = new Propiedad();
+            HardnessMin = new Propiedad();
+
             Caratula += "IMPRESIONES " + mounting.Valor + Environment.NewLine;
             Caratula += "MATERIAL   " + EspecMaterialAnillo.Valor + Environment.NewLine;
             Caratula += "HARDNESS   " + Hardness.Valor + "    " + HardnessMin.Valor + "-" + HardnessMax.Valor + Environment.NewLine;
-            Caratula += "PESO CAST " + peso_cstg.Valor + " G" +Environment.NewLine;
+            Caratula += "PESO CAST " + peso_cstg.Valor + " G" + Environment.NewLine;
             Caratula += "" + Environment.NewLine;
             Caratula += "MODELO    " + Environment.NewLine;
             Caratula += Codigo + Environment.NewLine;
@@ -1501,6 +1696,8 @@ namespace View.Services.ViewModel
             Checked = Checked;
             estado = estado;
             customer = customer;
+            TipoMateriaPrima = TipoMateriaPrima;
+            rise = rise;
         }
         
         /// <summary>
@@ -1513,6 +1710,11 @@ namespace View.Services.ViewModel
             
             if (validar())
             {
+                //Si no se tiene el id del cliente, buscamos su id.
+                if (model.customer.IdCliente == 0)
+                    model.customer.IdCliente = DataManager.GetIDCliente(model.customer.NombreCliente);
+
+
                 string codigoRegistrado = DataManager.SetPattern(model);
                 if (!codigoRegistrado.Equals(""))
                     await dialog.SendMessage(Resources.StringResources.ttlDone, Resources.StringResources.msgPatternInserted + codigoRegistrado);
@@ -1521,7 +1723,7 @@ namespace View.Services.ViewModel
             }
             else
                 await dialog.SendMessage(Resources.StringResources.ttlAlerta, Resources.StringResources.msgFillFlields);
-        } 
+        }
 
         /// <summary>
         /// Método que valida si los campos son correctos.

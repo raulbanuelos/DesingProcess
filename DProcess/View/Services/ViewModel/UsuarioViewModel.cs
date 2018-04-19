@@ -426,6 +426,7 @@ namespace View.Services.ViewModel
         private void irRawMaterial()
         {
             PPattern pantallaPattern = new PPattern();
+
             PatternViewModel context = new PatternViewModel();
 
             pantallaPattern.DataContext = context;

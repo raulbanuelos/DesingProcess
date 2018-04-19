@@ -845,7 +845,7 @@ namespace View.Services.ViewModel
             especificacion.Valor = "SPR-128";
 
             MaterialBase = new MateriaPrima {Especificacion = especificacion};
-            FreeGap = new Propiedad { DescripcionCorta = "Free Gap", DescripcionLarga = "Free Gap", Imagen = null, Nombre = "Total Free Gap Max", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.696 };
+            FreeGap = new Propiedad { DescripcionCorta = "Free Gap", DescripcionLarga = "Free Gap", Imagen = null, Nombre = "Total Free Gap Max", TipoDato = "Distance", Unidad = "Inch (in)", Valor = .500 };
 
             Propiedad Thickness = new Propiedad { DescripcionCorta = "Thickness", DescripcionLarga = "Thickness", Imagen = null, Nombre = "a1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.196 };
             Propiedad ThicknessMin = new Propiedad { DescripcionCorta = "Thickness Min", DescripcionLarga = "Thickness Min", Imagen = null, Nombre = "a1 Tol Min", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.005 };
@@ -958,7 +958,7 @@ namespace View.Services.ViewModel
 
                             nuevaPlaca.Proceso = Module.GetPropiedadCadena("Proceso", PerfilOD.PropiedadesCadena);
                             nuevaPlaca.TipoAnillo = new PropiedadCadena { DescripcionCorta = "", DescripcionLarga = "", Imagen = null, Nombre = "TipoAnillo", Valor = TipoAnillo };
-                            nuevaPlaca.TipoMaterial = new PropiedadCadena { DescripcionCorta = "TipoMaterial", DescripcionLarga = "Tipo Material", Imagen = null, Nombre = "TipoMaterial", Valor = "GASOLINA" };
+                            nuevaPlaca.TipoMateriaPrima = new FO_Item { id = 1, IsSelected = false, Nombre = "TipoMaterial", ValorCadena = "GASOLINA" };
 
                             PatternViewModel vm = new PatternViewModel(nuevaPlaca,NombreUsuario);
                             pattern.DataContext = vm;

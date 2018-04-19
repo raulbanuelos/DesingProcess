@@ -72,7 +72,7 @@
                 <StackPanel Orientation="Vertical">
 
                     <StackPanel Orientation="Horizontal" Margin=".5">
-                        <TextBox materialDesign:HintAssist.Hint="TIPO" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Tipo.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="TIPO" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding TipoMateriaPrima.ValorCadena}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin=".5">
@@ -211,7 +211,7 @@
                         <RadioButton Cursor="Hand" Padding="0,0,15,0" IsChecked="{Binding diseno.Valor}">
                             Normal
                         </RadioButton>
-                        <RadioButton Cursor="Hand">
+                        <RadioButton Cursor="Hand" IsChecked="{Binding IsRedondo}">
                             Redondo
                         </RadioButton>
                     </StackPanel>

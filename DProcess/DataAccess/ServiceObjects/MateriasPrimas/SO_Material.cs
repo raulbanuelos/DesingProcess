@@ -301,6 +301,32 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                 return informacionBD;
             }
         }
+
+        /// <summary>
+        /// Método que obtiene todos los tipo de material. (GASOLINA, SPR-212, SUPER DUTY)
+        /// </summary>
+        /// <returns></returns>
+        public IList GetAllTipoMaterial()
+        {
+            try
+            {
+                //Establecemos la conexión a través de EntityFramework.
+                using (var Conexion = new EntitiesMateriaPrima())
+                {
+                    //Realizamos la consulta y el resultado lo guardamos en una lista.
+                    var lista = (from c in Conexion.Tipo_Materia_Prima
+                                 select c).ToList();
+
+                    //Retornamos el resultado de la lista.
+                    return lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurre un error, retornamos un nulo.
+                return null;
+            }
+        }
         #endregion
     }
 }

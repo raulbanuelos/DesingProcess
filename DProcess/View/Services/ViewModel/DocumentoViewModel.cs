@@ -1110,7 +1110,7 @@ namespace View.Services.ViewModel
                 if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
                     dlg.Filter = "Word (97-2003)|*.doc";
                 else
-                    dlg.Filter = "Word (97-2003)|*.doc|PDF Files (.pdf)|*.pdf";
+                    dlg.Filter = "PDF Files (.pdf)|*.pdf";
 
                 // Mostrar el explorador de archivos
                 Nullable<bool> result = dlg.ShowDialog();
@@ -1484,7 +1484,7 @@ namespace View.Services.ViewModel
                             obj.fecha_actualizacion = _FechaFin;
                             obj.id_estatus = 2;
                             obj.usuario = usuario;
-
+                            
                             //Ejecuta el método para modificar el documento actual
                             int n = DataManagerControlDocumentos.UpdateDocumento(obj);
                             //Si se realizo la modificacion
@@ -2112,7 +2112,7 @@ namespace View.Services.ViewModel
                                             if (NotificarActualizacionVersion())
                                                 confirmacionCorreo = "Se notificó vía correo exitosamente.";
                                             else
-                                                confirmacionCorreo = "Ocurrio un error al notificar vía correo. Favor de notificar manualmente desde Lotus Nores.";
+                                                confirmacionCorreo = "Ocurrio un error al notificar vía correo. Favor de notificar manualmente desde Lotus Notes.";
 
                                             await dialog.SendMessage("Información", "Matríz actualizada correctamente.\n" + confirmacionFrames + "\n" + confirmacionCorreo);
                                         }
@@ -2207,6 +2207,8 @@ namespace View.Services.ViewModel
             body += "</ul>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
             body += "<br/>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Este correo se ha generado automáticamente, por favor no responda.</font> </p>";
+            body += "<br/>";
             body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
             body += "<ul>";
             body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + User.Nombre + " " + User.ApellidoPaterno + "</font> </li>";
@@ -2286,6 +2288,8 @@ namespace View.Services.ViewModel
             body += "</ul>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">NOTA: Si este documento sustituye a algún otro, favor de notificarme para realizar la baja correspondiente.</font> </p>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
+            body += "<br/>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Este correo se ha generado automáticamente, por favor solo responda en caso de que el documento sustituya a algún otro.</font> </p>";
             body += "<br/>";
             body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
             body += "<ul>";
@@ -2378,6 +2382,8 @@ namespace View.Services.ViewModel
                 body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
                 body += "</ul>";
                 body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
+                body += "<br/>";
+                body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Este correo se ha generado automáticamente, por favor no responda.</font> </p>";
                 body += "<br/>";
                 body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
                 body += "<ul>";

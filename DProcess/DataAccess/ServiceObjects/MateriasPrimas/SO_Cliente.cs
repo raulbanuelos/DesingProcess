@@ -124,5 +124,36 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
             }
         }
 
+        /// <summary>
+        /// Método que obtiene el id del cliente.
+        /// </summary>
+        /// <param name="nombreCliente"></param>
+        /// <returns></returns>
+        public int GetIdCliente(string nombreCliente)
+        {
+            try
+            {
+                //Establecemos la conexión a través de Entity Framework.
+                using (var Conexion = new EntitiesMateriaPrima())
+                {
+                    //Declaramos un entero el cual será el que retornemos en el método.
+                    int idCliente = 0;
+
+                    //Realizamos la consulta.
+                    idCliente = (from c in Conexion.Cliente
+                                     where c.Cliente1 == nombreCliente
+                                     select c.id_cliente).FirstOrDefault();
+
+                    //Retornamos el valor obtenido.
+                    return idCliente;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si hay error retornamos cero.
+                return 0;
+            }
+        }
+
     }
 }

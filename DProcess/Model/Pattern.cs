@@ -38,7 +38,12 @@ namespace Model
         public Propiedad OD { get; set; }
         public Propiedad ID { get; set; }
         public Propiedad diff { get; set; }
-        public Propiedad Tipo { get; set; }
+
+        /// <summary>
+        /// GASOLINA, SPR-212, SUPER DUTY
+        /// </summary>
+        public FO_Item TipoMateriaPrima { get; set; }
+
         public PropiedadCadena mounted { get; set; }
         public PropiedadCadena ordered { get; set; }
         public PropiedadCadena Checked { get; set; }
@@ -62,7 +67,7 @@ namespace Model
         public Propiedad HardnessMax { get; set; }
         public PropiedadCadena Proceso { get; set; }
         public PropiedadCadena EspecMaterialAnillo { get; set; }
-        public PropiedadCadena TipoMaterial { get; set; }
+        //public PropiedadCadena TipoMaterial { get; set; }
         #endregion
 
         #region Constructores
@@ -109,8 +114,21 @@ namespace Model
             Checked = new PropiedadCadena();
             estado = new PropiedadBool();
             Codigo = string.Empty;
-            Tipo = new Propiedad();
             customer = new Cliente();
+            diametro = new Propiedad();
+            medida = new Propiedad();
+            mounting = new Propiedad();
+            ring_w_min = new Propiedad();
+            ring_w_max = new Propiedad();
+            piece_in_patt = new Propiedad();
+            cam = new Propiedad();
+            rise = new Propiedad();
+            TipoAnillo = new PropiedadCadena();
+            esp_inst = new PropiedadCadena();
+            factor_k = new Propiedad();
+            ring_th_min = new Propiedad();
+            ring_th_max = new Propiedad();
+            TipoMateriaPrima = new FO_Item();
         }
          
         #endregion

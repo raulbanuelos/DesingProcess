@@ -5,10 +5,183 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:View.Forms.RawMaterial"
       xmlns:UserControlDProcess="clr-namespace:View.UserControls"
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      mc:Ignorable="d"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       Title="PPattern">
     <Grid>
-        <Button Command="{Binding GuardarPattern}" Content="Hola"></Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45*"></RowDefinition>
+            <RowDefinition Height="55*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal" Margin="50,10,10,10">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="1">
+                    <TextBox materialDesign:HintAssist.Hint="CÓDIGO" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Codigo}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="DIAMETER" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding medida.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="WIDTH" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding diametro.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <!--TextBox materialDesign:HintAssist.Hint="CUSTOMER" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding customer.NombreCliente}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>-->
+                    <ComboBox materialDesign:HintAssist.Hint="Customer" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding CustomersList}" DisplayMemberPath="NombreCliente" SelectedItem="{Binding customer}" Text="{Binding customer.NombreCliente}"></ComboBox>
+                    <TextBox materialDesign:HintAssist.Hint="MOUTING" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding mounting.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="ON 14'' RD GATE" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding on_14_rd_gate.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="BUTTON" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding button.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                </StackPanel>
+                
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1">
+                    <TextBox materialDesign:HintAssist.Hint="CONE" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding cone.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="1/2 CIRCLE" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding M_Circle.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="RING WIDTH MIN" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding ring_w_min.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="RING WIDTH MAX" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding ring_w_max.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="B DIA" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding B_Dia.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="FIN DIA" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding fin_Dia.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="TURN ALLOW" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding turn_allow.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1">
+                    <TextBox materialDesign:HintAssist.Hint="CSTG. SM. OD." FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding cstg_sm_od.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="SHRINK ALLOW" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding shrink_allow.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="PATT. SM. OD." FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding patt_sm_od.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="PIECE IN PATT" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding piece_in_patt.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="BORE ALLOW" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding bore_allow.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="PATT. SM I.D." FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding patt_sm_id.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="PATT. THICKNESS" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding patt_thickness.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1">
+                    <TextBox materialDesign:HintAssist.Hint="JOINT" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding joint.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="NICK" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding nick.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="NICK DRAF" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding nick_draf.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="NICK DEPTH" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding nick_depth.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="SIDE RELIEF" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding side_relief.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="CAM" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding cam.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="CAM ROLL" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding cam_roll.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1">
+                    <TextBox materialDesign:HintAssist.Hint="RISE" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding rise.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="OD" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding OD.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="ID" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding ID.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="DIFF" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding diff.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="TIPO" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding TipoMateriaPrima.ValorCadena}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="FACTOR K" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding factor_k.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="RISE BUILT" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding rise_built.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1">
+                            <TextBox materialDesign:HintAssist.Hint="RING TH MIN" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding ring_th_min.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="RING TH MAX" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding ring_th_max.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="PLATO" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding plato.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="DETALLE" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding detalle.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1">
+                            <TextBox materialDesign:HintAssist.Hint="MOUNTED BY" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding mounted.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="ORDERED BY" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding ordered.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="CHECKED BY" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Checked.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="DATE CHECKED" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding date_checked.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Bottom">
+                        <TextBox materialDesign:HintAssist.Hint="ESPECIAL INSTRUCTIONS" AcceptsReturn="True"
+                                 FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" 
+                                 Text="{Binding esp_inst.Valor}"  Height="180"  TextWrapping="Wrap"
+                                 Width="500" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        </TextBox>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <Button Content="Alta" Command="{Binding AltaPattern}"></Button>
+                    <Button Content="Guardar" Command="{Binding GuardarPattern}"></Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Path=ListaPattern}" x:Name="dataGrid"
+                                      ScrollViewer.CanContentScroll="True" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                      AutoGenerateColumns="False" SelectedItem="{Binding SelectedPattern,Mode=TwoWay}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelecccionarPlaca}"
+                             CommandParameter="{Binding extension}" />
+                </i:EventTrigger>
+
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding AbrirPlaca}"
+                             CommandParameter="{Binding extension}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="PATTERN" Binding="{Binding Codigo}"></DataGridTextColumn>
+
+                <DataGridTextColumn Header="DIAMETER" Binding="{Binding medida.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="WIDTH" Binding="{Binding diametro.Valor}"></DataGridTextColumn>
+
+                <DataGridTextColumn Header="RING_TH_MIN" Binding="{Binding ring_th_min.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="RING_TH_MAX" Binding="{Binding ring_th_max.Valor}"></DataGridTextColumn>
+
+                <DataGridTextColumn Header="RING_WIDTH_MIN" Binding="{Binding ring_w_min.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="RING_WIDTH_MAX" Binding="{Binding ring_w_max.Valor}"></DataGridTextColumn>
+
+                <DataGridTextColumn Header="B_DIA" Binding="{Binding B_Dia.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="PATT_THICKNESS" Binding="{Binding patt_thickness.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="MOUTING" Binding="{Binding mounting.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="ON 14 RD GATE" Binding="{Binding on_14_rd_gate.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="BUTTON" Binding="{Binding button.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="CONE" Binding="{Binding cone.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="M CIRCLE" Binding="{Binding M_Circle.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="DATE ORDERED" Binding="{Binding date_ordered.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="FIN DIA" Binding="{Binding fin_Dia.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="TURN ALLOW" Binding="{Binding turn_allow.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="CSTG SM OD" Binding="{Binding cstg_sm_od.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="SHRINK ALLOW" Binding="{Binding shrink_allow.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="PATT SM OD" Binding="{Binding patt_sm_od.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="PIECE IN PATT" Binding="{Binding piece_in_patt.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="BORE ALLOW" Binding="{Binding bore_allow.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="PATT SM ID" Binding="{Binding patt_sm_id.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="JOINT" Binding="{Binding joint.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="NICK" Binding="{Binding nick.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="NICK DRAF" Binding="{Binding nick_draf.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="NICK DEPTH" Binding="{Binding nick_depth.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="SIDE RELIEF" Binding="{Binding side_relief.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="CAM" Binding="{Binding cam.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="CAM ROLL" Binding="{Binding cam_roll.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="RISE" Binding="{Binding rise.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="OD" Binding="{Binding OD.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="DIFF" Binding="{Binding diff.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="TIPO" Binding="{Binding TipoAnillo.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="MOUNTED" Binding="{Binding mounted.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="ORDERED" Binding="{Binding ordered.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="CHECKED" Binding="{Binding Checked.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="DATE CHECKED" Binding="{Binding date_checked.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="ESPE INST" Binding="{Binding esp_inst.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="FACTOR K" Binding="{Binding factor_k.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="RISE BUILT" Binding="{Binding rise_built.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="PLATO" Binding="{Binding plato.Valor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="DETALLE" Binding="{Binding detalle.Valor}"></DataGridTextColumn>
+
+
+                <DataGridTextColumn Header="TIPO MATERIA PRIMA" Binding="{Binding TipoMateriaPrima.ValorCadena}"></DataGridTextColumn>
+                <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            Header="Diseño"
+                                            Binding="{Binding diseno.Valor}"
+                                            />
+
+                
+            </DataGrid.Columns>
+
+        </DataGrid>
     </Grid>
 </Page>

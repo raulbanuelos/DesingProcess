@@ -61,6 +61,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Login.
+        /// </summary>
+        public static string lblBtnLogin {
+            get {
+                return ResourceManager.GetString("lblBtnLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Diameter.
         /// </summary>
         public static string lblDiameter {
@@ -70,11 +79,83 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Enter your credentials.
+        /// </summary>
+        public static string lblEnterCredentials {
+            get {
+                return ResourceManager.GetString("lblEnterCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Information.
+        /// </summary>
+        public static string lblInformation {
+            get {
+                return ResourceManager.GetString("lblInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Log in....
+        /// </summary>
+        public static string lblLogIn {
+            get {
+                return ResourceManager.GetString("lblLogIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Your user/password are incorrects.
+        /// </summary>
+        public static string lblPasswordIncorrect {
+            get {
+                return ResourceManager.GetString("lblPasswordIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Thickness.
         /// </summary>
         public static string lblThickness {
             get {
                 return ResourceManager.GetString("lblThickness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a password.
+        /// </summary>
+        public static string lblTxtContrasena {
+            get {
+                return ResourceManager.GetString("lblTxtContrasena", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a username.
+        /// </summary>
+        public static string lblTxtUserName {
+            get {
+                return ResourceManager.GetString("lblTxtUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a This user is not active.
+        /// </summary>
+        public static string lblUserNotActive {
+            get {
+                return ResourceManager.GetString("lblUserNotActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Welcome.
+        /// </summary>
+        public static string lblWelcome {
+            get {
+                return ResourceManager.GetString("lblWelcome", resourceCulture);
             }
         }
         
@@ -138,6 +219,15 @@ namespace View.Resources {
         public static string ttlAlerta {
             get {
                 return ResourceManager.GetString("ttlAlerta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Authentication.
+        /// </summary>
+        public static string ttlAuthentication {
+            get {
+                return ResourceManager.GetString("ttlAuthentication", resourceCulture);
             }
         }
         

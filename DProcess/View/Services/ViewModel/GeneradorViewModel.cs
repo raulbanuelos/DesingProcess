@@ -217,59 +217,69 @@ namespace View.Services.ViewModel
             if (selectedTipoDocumento!=null & selectedDepartamento != null) {
                 //Ejecutamos el método para generar el número
                 string numero = DataManagerControlDocumentos.GetNumero(selectedTipoDocumento, selectedDepartamento);
-
+                
                 //si se generó correctamente
                 if (numero != null)
                 {
-                    //inicializamos un objeto de documento
-                    Documento objDocumento = new Documento();
-
-                    //Mapeamos los valores
-                    objDocumento.nombre = numero;
-                    objDocumento.id_tipo_documento = selectedTipoDocumento.id_tipo;
-                    objDocumento.id_dep = selectedDepartamento.id_dep;
-                    objDocumento.usuario = NombreUsuario;
-                    objDocumento.id_estatus = 1;
-                    objDocumento.fecha_creacion = DataManagerControlDocumentos.Get_DateTime();
-
-                    //Ejecutamos el método para registrar un nuevo documento
-                    int id_doc = DataManagerControlDocumentos.SetDocumento(objDocumento);
-
-                    if (id_doc != 0)
+                    //Realizamos una última verificación de que el número no este duplicado.
+                    if (!DataManagerControlDocumentos.ExistDocumento(numero))
                     {
+                        //inicializamos un objeto de documento
+                        Documento objDocumento = new Documento();
 
-                        //Copiamos el número generado al portapapeles.
-                        Clipboard.SetText(numero);
+                        //Mapeamos los valores
+                        objDocumento.nombre = numero;
+                        objDocumento.id_tipo_documento = selectedTipoDocumento.id_tipo;
+                        objDocumento.id_dep = selectedDepartamento.id_dep;
+                        objDocumento.usuario = NombreUsuario;
+                        objDocumento.id_estatus = 1;
+                        objDocumento.fecha_creacion = DataManagerControlDocumentos.Get_DateTime();
 
-                        //Muestra mensaje con el número que se generó.
-                        await dialog.SendMessage("Información", "Se generó el número: " + numero + "\n\n" + "Se copió el número al portapapeles.");
+                        //Ejecutamos el método para registrar un nuevo documento
+                        int id_doc = DataManagerControlDocumentos.SetDocumento(objDocumento);
 
-                        //Muestra la ventana para crear un nuevo documento
-                        FrmDocumento frm = new FrmDocumento();
-                        DocumentoViewModel context = new DocumentoViewModel(ModelUsuario);
-                        frm.DataContext = context;
-                        frm.ShowDialog();
-
-                        //Obtememos la ventana actual
-                        var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                        //Verificamos que la pantalla sea diferente de nulo.
-                        if (window != null)
+                        if (id_doc != 0)
                         {
-                            //Cerramos la pantalla
-                            window.Close();
+
+                            //Copiamos el número generado al portapapeles.
+                            Clipboard.SetText(numero);
+
+                            //Muestra mensaje con el número que se generó.
+                            await dialog.SendMessage("Información", "Se generó el número: " + numero + "\n\n" + "Se copió el número al portapapeles.");
+
+                            //Muestra la ventana para crear un nuevo documento
+                            FrmDocumento frm = new FrmDocumento();
+                            DocumentoViewModel context = new DocumentoViewModel(ModelUsuario);
+                            frm.DataContext = context;
+                            frm.ShowDialog();
+
+                            //Obtememos la ventana actual
+                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                            //Verificamos que la pantalla sea diferente de nulo.
+                            if (window != null)
+                            {
+                                //Cerramos la pantalla
+                                window.Close();
+                            }
+                        }
+                        else
+                        {
+                            //No se pudo dar de alta el documento
+                            await dialog.SendMessage("Alerta", "Error al guardar el documento,favor de comunicarse con el administrador del sistema.");
                         }
                     }
                     else
                     {
-                        //No se pudo dar de alta el documento
-                        await dialog.SendMessage("Alerta", "Error al registrar el documento");
+                        //Se generó un número que ya existe.
+                        await dialog.SendMessage("Alerta", "Error al generar el número, favor de comunicarse con el administrador del sistema.");
                     }
+                    
                 }
                 else
                 {
                     //Si hubo error ak generar el número
-                    await dialog.SendMessage("Alerta", "Error al generar el número");
+                    await dialog.SendMessage("Alerta", "Error al generar el número, favor de comunicarse con el administrador del sistema.");
                 }
             }
             else

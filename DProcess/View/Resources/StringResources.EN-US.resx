@@ -117,13 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="lblBtnLogin" xml:space="preserve">
+    <value>Login</value>
+    <comment>Etiqueta para el botón</comment>
+  </data>
   <data name="lblDiameter" xml:space="preserve">
     <value>Diameter</value>
     <comment>Etiqueta de diámetro</comment>
   </data>
+  <data name="lblEnterCredentials" xml:space="preserve">
+    <value>Enter your credentials</value>
+    <comment>Etiqueta para ingresar sus credenciales</comment>
+  </data>
+  <data name="lblInformation" xml:space="preserve">
+    <value>Information</value>
+    <comment>lblInformation</comment>
+  </data>
+  <data name="lblLogIn" xml:space="preserve">
+    <value>Log in...</value>
+    <comment>lblLogIn</comment>
+  </data>
+  <data name="lblPasswordIncorrect" xml:space="preserve">
+    <value>Your user/password are incorrects</value>
+    <comment>lblPasswordIncorrect</comment>
+  </data>
   <data name="lblThickness" xml:space="preserve">
     <value>Thickness</value>
     <comment>Etiqueta de Espesor</comment>
+  </data>
+  <data name="lblTxtContrasena" xml:space="preserve">
+    <value>password</value>
+    <comment>Etiqueta para contraseña</comment>
+  </data>
+  <data name="lblTxtUserName" xml:space="preserve">
+    <value>username</value>
+    <comment>Etiqueta nombre de usuario</comment>
+  </data>
+  <data name="lblUserNotActive" xml:space="preserve">
+    <value>This user is not active</value>
+    <comment>lblUserNotActive</comment>
+  </data>
+  <data name="lblWelcome" xml:space="preserve">
+    <value>Welcome</value>
+    <comment>lblWelcome</comment>
   </data>
   <data name="lblWidth" xml:space="preserve">
     <value>Width</value>
@@ -152,6 +188,10 @@
   <data name="ttlAlerta" xml:space="preserve">
     <value>Alert</value>
     <comment>Título de alerta</comment>
+  </data>
+  <data name="ttlAuthentication" xml:space="preserve">
+    <value>Authentication</value>
+    <comment>Título para la autenticación.</comment>
   </data>
   <data name="ttlDone" xml:space="preserve">
     <value>Done</value>

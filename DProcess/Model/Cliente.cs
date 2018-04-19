@@ -12,9 +12,6 @@
         /// Cadena que representa el nombre del cliente.
         /// </summary>
         public string NombreCliente { get; set; }
-
-        int num;
-        double n;
         #endregion
 
         #region Constructores

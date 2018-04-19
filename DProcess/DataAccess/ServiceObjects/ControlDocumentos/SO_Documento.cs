@@ -438,7 +438,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// </summary>
         /// <param name="nombre"></param>
         /// <returns></returns>
-        public string GetNumero(string nombre, int id_tipo)
+        public string GetNumero(string nombre, int id_tipo,int id_deptartamento)
         {
             string lastNumber;
             try
@@ -448,9 +448,14 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 {
                     //Realizamos la consulta para obetener el último número de un documento.
                     string numero = (from d in Conexion.TBL_DOCUMENTO
-                                     where d.NOMBRE.Contains(nombre)
+                                     where d.NOMBRE.Contains(nombre) && d.ID_DEPARTAMENTO == id_deptartamento && d.ID_TIPO_DOCUMENTO == id_tipo
                                      orderby d.ID_DOCUMENTO descending
                                      select d.NOMBRE).ToList().FirstOrDefault();
+
+                    //var l = (from d in Conexion.TBL_DOCUMENTO
+                    //         where d.NOMBRE.Contains(nombre) && d.ID_DEPARTAMENTO == id_deptartamento && d.ID_TIPO_DOCUMENTO == id_tipo
+                    //         orderby d.ID_DOCUMENTO descending
+                    //         select d.NOMBRE).ToList();
 
                     //se asigna a la variable lastNumber
                     lastNumber = numero;
@@ -471,9 +476,17 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                             string a = lastNumber.Substring(lastNumber.Length - 7, 7);
                             resultString = Regex.Match(a, @"\d+").Value;
                         }
-                             
+
                         else
-                            resultString = Regex.Match(lastNumber, @"\d+").Value;
+                        {
+                            //resultString = Regex.Match(lastNumber, @"\d+").Value;
+
+                            string[] vec = lastNumber.Split('-');
+                            int c = vec.Length;
+                            string num = vec[c - 1];
+                            resultString = num;
+                        }
+                            
 
 
                         //Sumamos uno al número 

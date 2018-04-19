@@ -376,12 +376,12 @@ namespace Model
         public static ObservableCollection<Anillo> GetTipoAnillo()
         {
             SO_TipoAnillo ServiceMaterial = new SO_TipoAnillo();
-            //Ejecutamos el método para obtener la inforamación de base de datos.
+
+            //Ejecutamos el método para obtener la información de base de datos.
             IList informacionBD = ServiceMaterial.GetAllTipoAnillo();
 
             ObservableCollection<Anillo> ListaR = new ObservableCollection<Anillo>();
-            //Declaramos un entero el cual será el que retornemos en el método.
-
+            
             //Verificamos que la información de base de datos sea direferente de nulo.
             if (informacionBD != null)
             {
@@ -406,7 +406,7 @@ namespace Model
         /// 
         /// </summary>
         /// <returns></returns>
-        public static ObservableCollection<Material> GetMaterial()
+        public static ObservableCollection<Material> GetAllMaterial()
         {
             SO_Material ServiceMaterial = new SO_Material();
             //Ejecutamos el método para obtener la inforamación de base de datos.
@@ -435,6 +435,19 @@ namespace Model
                 }
             }
             return ListaR;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<FO_Item> GetAllTipoMateriaPrima()
+        {
+            ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
+            
+
+
+            return lista;
         }
 
         /// <summary>
@@ -486,6 +499,37 @@ namespace Model
 
             //Retornamos la lista.
             return ListaResultante;
+        }
+
+        /// <summary>
+        /// Método que obtiene el hardness ideal. [0]: hardness, [1]: hardnessMin, [2]: hardnessMax
+        /// </summary>
+        /// <param name="especMaterial">Especificación de materia prima</param>
+        /// <param name="diameter">Diámetro del anillo en pulgadas-</param>
+        /// <returns></returns>
+        public static string[] GetHardnessIdeal(string especMaterial, double diameter)
+        {
+            string especificacionMahle = GetIdMaterial(especMaterial);
+
+            string[] resul = new string[3];
+
+            if (especificacionMahle.Equals("MF012-S"))
+            {
+                if (diameter > 4.9)
+                {
+                    resul[0] = "RB";
+                    resul[1] = "92";
+                    resul[2] = "104";
+                }
+                else
+                {
+                    resul[0] = "RB";
+                    resul[1] = "96";
+                    resul[2] = "108";
+                }
+            }
+
+            return resul;
         }
         #endregion
 
@@ -9106,7 +9150,7 @@ namespace Model
         /// Método que obtiene todos los registros de la tabla Pattern2.
         /// </summary>
         /// <returns></returns>Lista obaservable con todos los datos de la  tabla Pattern2.
-        public static ObservableCollection<Pattern> GetPattern()
+        public static ObservableCollection<Pattern> GetAllPattern()
         {
             //Inicializamos los servicios de Pattern 
             SO_Pattern ServicePattern = new SO_Pattern();
@@ -9133,12 +9177,16 @@ namespace Model
                     obj.Codigo = (string)tipo.GetProperty("codigo").GetValue(item, null);
                     obj.medida.Valor = (double)tipo.GetProperty("DIAMETRO").GetValue(item, null);
                     obj.diametro.Valor = (double)tipo.GetProperty("WIDTH").GetValue(item, null);
-                    //obj.customer = (Cliente)tipo.GetProperty("CUSTOMER").GetValue(item, null);
-                    obj.mounting.Valor = (int)tipo.GetProperty("MOUNTING").GetValue(item, null);
+
+                    obj.customer = new Cliente();
+                    obj.customer.IdCliente = (int)tipo.GetProperty("id_cliente").GetValue(item, null);
+                    obj.customer.NombreCliente = (string)tipo.GetProperty("Cliente1").GetValue(item, null);
+
+                    obj.mounting.Valor = Convert.ToDouble(tipo.GetProperty("MOUNTING").GetValue(item, null));
                     obj.on_14_rd_gate.Valor = (string)tipo.GetProperty("ON_14_RD_GATE").GetValue(item, null);
                     obj.button.Valor = (string)tipo.GetProperty("BUTTON").GetValue(item, null);
                     obj.cone.Valor = (string)tipo.GetProperty("CONE").GetValue(item, null);
-                    obj.M_Circle.Valor = (string)tipo.GetProperty("CUSTOMER").GetValue(item, null);
+                    obj.M_Circle.Valor = (string)tipo.GetProperty("M_CIRCLE").GetValue(item, null);
                     obj.ring_w_min.Valor = (double)tipo.GetProperty("RING_WTH_min").GetValue(item, null);
                     obj.ring_w_max.Valor = (double)tipo.GetProperty("RING_WTH_max").GetValue(item, null);
                     obj.date_ordered.Valor = (string)tipo.GetProperty("DATE_ORDERED").GetValue(item, null);
@@ -9157,7 +9205,7 @@ namespace Model
                     obj.nick_draf.Valor = (string)tipo.GetProperty("NICK_DRAF").GetValue(item, null);
                     obj.nick_depth.Valor = (string)tipo.GetProperty("NICK_DEPTH").GetValue(item, null);
                     obj.side_relief.Valor = (string)tipo.GetProperty("SIDE_RELIEF").GetValue(item, null);
-                    obj.cam.Valor = (int)tipo.GetProperty("CAM").GetValue(item, null);
+                    obj.cam.Valor = Convert.ToDouble(tipo.GetProperty("CAM").GetValue(item, null));
                     obj.cam_roll.Valor = (double)tipo.GetProperty("CAM_ROLL").GetValue(item, null);
                     obj.rise.Valor = (double)tipo.GetProperty("RISE").GetValue(item, null);
                     obj.OD.Valor = (double)tipo.GetProperty("OD").GetValue(item, null);
@@ -9172,12 +9220,16 @@ namespace Model
                     obj.factor_k.Valor = (double)tipo.GetProperty("factor_k").GetValue(item, null);
                     obj.rise_built.Valor = (double)tipo.GetProperty("rise_built").GetValue(item, null);
                     obj.ring_th_min.Valor = (double)tipo.GetProperty("ring_th_min").GetValue(item, null);
-                    obj.ring_th_min.Valor = (double)tipo.GetProperty("ring_th_max").GetValue(item, null);
+                    obj.ring_th_max.Valor = (double)tipo.GetProperty("ring_th_max").GetValue(item, null);
                     obj.estado.Valor = (bool)tipo.GetProperty("estado").GetValue(item, null);
                     obj.plato.Valor = (double)tipo.GetProperty("Plato").GetValue(item, null);
                     obj.detalle.Valor = (string)tipo.GetProperty("Detalle").GetValue(item, null);
                     obj.diseno.Valor = (bool)tipo.GetProperty("Diseno").GetValue(item, null);
 
+                    obj.TipoMateriaPrima = new FO_Item();
+                    obj.TipoMateriaPrima.id = (int)tipo.GetProperty("id_tipo_mp").GetValue(item, null);
+                    obj.TipoMateriaPrima.ValorCadena = (string)tipo.GetProperty("TIPO").GetValue(item, null);
+                    
                     //Agregamos el objeto tipo Pattern a la lista.
                     Lista.Add(obj);
                 }
@@ -9202,7 +9254,7 @@ namespace Model
                 pattern.on_14_rd_gate.Valor, pattern.button.Valor, pattern.cone.Valor, pattern.M_Circle.Valor, pattern.ring_w_min.Valor, pattern.ring_w_max.Valor, pattern.date_ordered.Valor, 
                 pattern.B_Dia.Valor, pattern.fin_Dia.Valor, pattern.turn_allow.Valor, pattern.cstg_sm_od.Valor, pattern.shrink_allow.Valor, pattern.patt_sm_od.Valor, pattern.piece_in_patt.Valor, 
                 pattern.bore_allow.Valor, pattern.patt_sm_id.Valor, pattern.patt_thickness.Valor, pattern.joint.Valor, pattern.nick.Valor, pattern.nick_draf.Valor, pattern.nick_depth.Valor, pattern.side_relief.Valor, 
-                pattern.cam.Valor, pattern.cam_roll.Valor, pattern.cam_lever.Valor, pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.Tipo.Valor), pattern.mounted.Valor, 
+                pattern.cam.Valor, pattern.cam_roll.Valor,pattern.rise.Valor, pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.TipoMateriaPrima.Valor), pattern.mounted.Valor, 
                 pattern.ordered.Valor, pattern.Checked.Valor, pattern.date_checked.Valor, pattern.esp_inst.Valor, pattern.factor_k.Valor, pattern.rise_built.Valor, pattern.ring_th_min.Valor, pattern.ring_th_max.Valor, 
                 pattern.estado.Valor, pattern.plato.Valor, pattern.detalle.Valor, pattern.diseno.Valor);
         }
@@ -9223,7 +9275,7 @@ namespace Model
                                                 pattern.date_ordered.Valor, pattern.B_Dia.Valor, pattern.fin_Dia.Valor, pattern.turn_allow.Valor, pattern.cstg_sm_od.Valor, pattern.shrink_allow.Valor,
                                                 pattern.patt_sm_od.Valor, pattern.piece_in_patt.Valor, pattern.bore_allow.Valor, pattern.patt_sm_id.Valor, pattern.patt_thickness.Valor, pattern.joint.Valor,
                                                 pattern.nick.Valor, pattern.nick_draf.Valor, pattern.nick_depth.Valor, pattern.side_relief.Valor, pattern.cam.Valor, pattern.cam_roll.Valor, pattern.rise.Valor,
-                                                pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.Tipo.Valor), pattern.mounted.Valor, pattern.ordered.Valor, pattern.Checked.Valor,
+                                                pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.TipoMateriaPrima.Valor), pattern.mounted.Valor, pattern.ordered.Valor, pattern.Checked.Valor,
                                                 pattern.date_checked.Valor, pattern.esp_inst.Valor, pattern.factor_k.Valor, pattern.rise_built.Valor, pattern.ring_th_min.Valor, pattern.ring_th_max.Valor, 
                                                 pattern.estado.Valor, pattern.plato.Valor, pattern.detalle.Valor, pattern.diseno.Valor);
         }
@@ -9300,7 +9352,7 @@ namespace Model
                                               pattern.date_ordered.Valor, pattern.B_Dia.Valor, pattern.fin_Dia.Valor, pattern.turn_allow.Valor, pattern.cstg_sm_od.Valor, pattern.shrink_allow.Valor,
                                               pattern.patt_sm_od.Valor, pattern.piece_in_patt.Valor, pattern.bore_allow.Valor, pattern.patt_sm_id.Valor, pattern.patt_thickness.Valor, pattern.joint.Valor,
                                               pattern.nick.Valor, pattern.nick_draf.Valor, pattern.nick_depth.Valor, pattern.side_relief.Valor, pattern.cam.Valor, pattern.cam_roll.Valor, pattern.rise.Valor,
-                                              pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.Tipo.Valor), pattern.mounted.Valor, pattern.ordered.Valor, pattern.Checked.Valor,
+                                              pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.TipoMateriaPrima.Valor), pattern.mounted.Valor, pattern.ordered.Valor, pattern.Checked.Valor,
                                               pattern.date_checked.Valor, pattern.esp_inst.Valor, pattern.factor_k.Valor, pattern.rise_built.Valor, pattern.ring_th_min.Valor, pattern.ring_th_max.Valor,
                                               pattern.estado.Valor, pattern.plato.Valor, pattern.detalle.Valor, pattern.diseno.Valor);
         }
@@ -10464,7 +10516,7 @@ namespace Model
             SO_Cliente ServicioCliente = new SO_Cliente();
 
             //Ejecutamos el método y retornamos el resultado.
-            return ServicioCliente.UpdateCliente(obj.IdCliente,obj.NombreCliente);
+            return ServicioCliente.UpdateCliente(obj.IdCliente,obj.NombreCliente); 
         }
 
         /// <summary>
@@ -10479,6 +10531,20 @@ namespace Model
 
             //Ejecutamos el método y retornamos el resultado.
             return ServicioCliente.DeleteCliente(id);
+        }
+
+        /// <summary>
+        /// Método que obtiene el id del cliente.
+        /// </summary>
+        /// <param name="nombreCliente">Nombre del cliente que se desea buscar el id.</param>
+        /// <returns></returns>
+        public static int GetIDCliente(string nombreCliente)
+        {
+            //Inicializamos los servicios de cliente.
+            SO_Cliente ServiceCliente = new SO_Cliente();
+
+            //Ejecutamos el método y retornamos el valor.
+            return ServiceCliente.GetIdCliente(nombreCliente);
         }
 
         #endregion
