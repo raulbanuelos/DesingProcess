@@ -418,6 +418,7 @@ namespace Model.ControlDocumentos
             return Lista;
         }
 
+
         /// <summary>
         /// Método que obtiene todos los documentos liberados
         /// Llena el DataGrid del Frm_Busqueda_documentos
@@ -2115,10 +2116,11 @@ namespace Model.ControlDocumentos
 
         /// <summary>
         /// Método para obtener los documentos pendientes por liberar
+        /// filtrados por el nombre
         /// </summary>
-        /// <param name="usuario"></param>
+        /// <param name="textobuscar"></param>
         /// <returns></returns>
-        public static ObservableCollection<Documento> GetDocumentos_PendientesLiberar()
+        public static ObservableCollection<Documento> GetDocumentos_PendientesLiberar(string textobuscar)
         {
             //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
             ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
@@ -2127,7 +2129,8 @@ namespace Model.ControlDocumentos
             SO_Documento ServicioDocumento = new SO_Documento();
 
             //Ejecutamos el método para obtener la información de la base de datos.
-            IList informacionBD = ServicioDocumento.GetDocumentosAprobados();
+            //le mandamos un parametro que servira para filtrar los datos
+            IList informacionBD = ServicioDocumento.GetDocumentosAprobados(textobuscar);
 
             //Si la lista es diferente de nulo
             if (informacionBD != null)

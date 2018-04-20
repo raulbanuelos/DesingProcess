@@ -29,7 +29,6 @@ namespace View.Services.ViewModel
 
         #region propiedades
         public Usuario usuario;
-
         private ObservableCollection<Documento> _ListaDocumentos;
         public ObservableCollection<Documento> ListaDocumentosValidar
         {
@@ -43,7 +42,6 @@ namespace View.Services.ViewModel
                 NotifyChange("ListaDocumentosValidar");
             }
         }
-
 
         private bool _gridUsuario;
         public bool GridUsuario
@@ -111,11 +109,33 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => modificarDocumento());
             }
         }
+        /// <summary>
+        ///Comando que busca el documento
+        ///segun se vaya escribiendo en el textbox
+        ///cada letra que se escriba la va mandando como parametro
+        ///</summary>
+        public ICommand BuscarDocumento
+        {
+            get
+            {
+                return new RelayCommand(param => GetDocument((string)param));
+            }
+        }
 
+        /// <summary>
+        /// método que filtra los documentos pendientes por liberar
+        /// </summary>
+        /// <param name="txt_buscar"></param>
+        private void GetDocument(string txt_buscar)
+        {
+            ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar(txt_buscar);
+        }
         /// <summary>
         /// Método que abre la ventana donde se mostrara la información del documento y la versión
         /// Dependiendo del estatus la ventana se muestra con diferentes características
         /// </summary>
+        /// 
+
         private void modificarDocumento()
         {
             //Si fue seleccionado un documento
@@ -149,6 +169,7 @@ namespace View.Services.ViewModel
             }
         }
 
+
         #endregion
         /// <summary>
         /// Método que inicializa la lista de documentos que se mostaran en la tabla
@@ -166,10 +187,9 @@ namespace View.Services.ViewModel
             else if (status.Contains("aprobados"))
             {
                 //Se ejecuta el método que obtiene los documentos pendientes por liberar
-                ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar();
+                ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar("");
                 _titulo = "DOCUMENTOS PENDIENTES POR LIBERAR";
             }
         }
-
     }
 }

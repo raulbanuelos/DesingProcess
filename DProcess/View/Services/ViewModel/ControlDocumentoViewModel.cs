@@ -917,7 +917,7 @@ namespace View.Services.ViewModel
                 num_pendientes = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario).Count;
 
                 //Método para obtener todos los documentos que están aprobados pero están pendientes por liberar
-                num_aprobados = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar().Count;
+                num_aprobados = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar("").Count;
                 //Obtiene los documentos pendientes por liberar, y que el usuario debe entregar en físico
                 pendientes_liberar = DataManagerControlDocumentos.GetPendientes_Liberar(usuario.NombreUsuario).Count;
 

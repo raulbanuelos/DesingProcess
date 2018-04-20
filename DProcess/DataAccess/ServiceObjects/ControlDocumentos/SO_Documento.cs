@@ -743,10 +743,11 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
        
         /// <summary>
         /// Método para obtener todos los documentos aprobados pendientes por liberar
+        /// si recibe un parametro lo filtra
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public IList GetDocumentosAprobados()
+        public IList GetDocumentosAprobados(string textobuscar)
         {
             try
             {
@@ -758,7 +759,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                  join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                  join u in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals u.Usuario
                                  join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
-                                 where v.ID_ESTATUS_VERSION == 5 
+                                 where v.ID_ESTATUS_VERSION == 5 && d.NOMBRE.Contains(textobuscar)
                                  select new
                                  {
                                      d.ID_DOCUMENTO,
