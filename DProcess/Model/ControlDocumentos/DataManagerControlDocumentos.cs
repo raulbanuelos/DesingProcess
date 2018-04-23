@@ -2029,10 +2029,11 @@ namespace Model.ControlDocumentos
 
         /// <summary>
         /// Método que obtiene las versiones que el administrador tiene pendientes por aprobar de todos los usuarios
+        /// y los filtra con el parametro textobuscar
         /// </summary>
         /// <param name="nombreUsuario"></param>
         /// <returns></returns>
-        public static ObservableCollection<Documento> GetDocumentosValidar(string nombreUsuario)
+        public static ObservableCollection<Documento> GetDocumentosValidar(string nombreUsuario,string textobuscar)
         {
             //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
             ObservableCollection<Documento> ListaResultante = new ObservableCollection<Documento>();
@@ -2041,7 +2042,7 @@ namespace Model.ControlDocumentos
             SO_Documento ServicioDocumento = new SO_Documento();
 
             //Ejecutamos el método para obtener la información de la base de datos.
-            IList informacionBD = ServicioDocumento.GetDocumentosValidar();
+            IList informacionBD = ServicioDocumento.GetDocumentosValidar(textobuscar);
 
             //Si la lista es diferente de nulo
             if (informacionBD != null)
@@ -2074,7 +2075,7 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public static ObservableCollection<Documento> GetDocumentos_PendientesCorregir(string usuario)
+        public static ObservableCollection<Documento> GetDocumentos_PendientesCorregir(string usuario, string textobuscar)
         {
             //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
             ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
@@ -2083,7 +2084,7 @@ namespace Model.ControlDocumentos
             SO_Documento ServicioDocumento = new SO_Documento();
 
             //Ejecutamos el método para obtener la información de la base de datos.
-            IList informacionBD = ServicioDocumento.GetDocumentosPendientes(usuario);
+            IList informacionBD = ServicioDocumento.GetDocumentosPendientes(usuario,textobuscar);
 
             //Si la lista es diferente de nulo
             if (informacionBD != null)

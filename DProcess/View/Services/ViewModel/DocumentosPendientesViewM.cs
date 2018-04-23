@@ -123,19 +123,28 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// método que filtra los documentos pendientes por liberar
+        /// método que obtiene el documento
+        /// segun sea el estatus del documento se ejecuta el metodo correspondiente
         /// </summary>
         /// <param name="txt_buscar"></param>
+        /// 
+
         private void GetDocument(string txt_buscar)
         {
-            ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar(txt_buscar);
+            if (Estatus.Contains("pendiente"))
+            {
+                ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario, txt_buscar);
+            }
+            else
+            {
+                ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar(txt_buscar);
+            }                     
         }
+
         /// <summary>
         /// Método que abre la ventana donde se mostrara la información del documento y la versión
         /// Dependiendo del estatus la ventana se muestra con diferentes características
         /// </summary>
-        /// 
-
         private void modificarDocumento()
         {
             //Si fue seleccionado un documento
@@ -168,8 +177,6 @@ namespace View.Services.ViewModel
                 }
             }
         }
-
-
         #endregion
         /// <summary>
         /// Método que inicializa la lista de documentos que se mostaran en la tabla
@@ -181,7 +188,7 @@ namespace View.Services.ViewModel
             //Si el estatus es pendiente por corregir
             if (status.Contains("pendiente")) {
                 //Se ejecuta el método que obtiene los documentos pendientes por corregir de un usuario
-                ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario);
+                ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario,"");
                 _titulo = "DOCUMENTOS PENDIENTES POR CORREGIR";
             }//Si es estatus aprobado pendiente por liberar
             else if (status.Contains("aprobados"))

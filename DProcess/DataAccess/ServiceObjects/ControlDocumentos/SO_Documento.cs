@@ -585,9 +585,10 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 
         /// <summary>
         /// Método que obtiene las versiones que esten pendientes por corregir por el administrador
+        /// y los va filtrando con el parametro textobuscar
         /// </summary>
         /// <returns></returns>
-        public IList GetDocumentosValidar()
+        public IList GetDocumentosValidar(string textobuscar)
         {
             try
             {
@@ -599,7 +600,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                  join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                  join u in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals u.Usuario
                                  join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
-                                 where v.ID_ESTATUS_VERSION == 3
+                                 where v.ID_ESTATUS_VERSION == 3 && d.NOMBRE.Contains(textobuscar)
                                  select new
                                  {
                                      d.ID_DOCUMENTO,
@@ -707,7 +708,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public IList GetDocumentosPendientes(string usuario)
+        public IList GetDocumentosPendientes(string usuario,string textobuscar)
         {
             try
             {
@@ -719,7 +720,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                  join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                  join u in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals u.Usuario
                                  join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
-                                 where v.ID_ESTATUS_VERSION == 4 & v.ID_USUARIO_ELABORO.Equals(usuario)
+                                 where v.ID_ESTATUS_VERSION == 4 & v.ID_USUARIO_ELABORO.Equals(usuario) && d.NOMBRE.Contains(textobuscar)
                                  select new
                                  {
                                      d.ID_DOCUMENTO,

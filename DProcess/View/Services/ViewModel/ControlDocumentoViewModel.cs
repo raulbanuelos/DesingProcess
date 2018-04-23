@@ -911,10 +911,10 @@ namespace View.Services.ViewModel
             if (Module.UsuarioIsRol(usuario.Roles, 2)) {
 
                 //Método para obtener todos los documentos que están pendientes por validar
-                num_validar = DataManagerControlDocumentos.GetDocumentosValidar(usuario.NombreUsuario).Count;
+                num_validar = DataManagerControlDocumentos.GetDocumentosValidar(usuario.NombreUsuario,"").Count;
 
                 //Método para obetener los documentos que tiene pendientes  por corregir del usuario. 
-                num_pendientes = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario).Count;
+                num_pendientes = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario,"").Count;
 
                 //Método para obtener todos los documentos que están aprobados pero están pendientes por liberar
                 num_aprobados = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar("").Count;
@@ -971,7 +971,7 @@ namespace View.Services.ViewModel
             if (Module.UsuarioIsRol(usuario.Roles, 3))
             {
                 //Método para obetener los documentos que tiene pendientes  por corregir del usuario. 
-                num_pendientes = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario).Count;
+                num_pendientes = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario,"").Count;
                 //Método para obetener los documentos que tiene pendientes  por liberar del usuario. 
                 pendientes_liberar = DataManagerControlDocumentos.GetPendientes_Liberar(usuario.NombreUsuario).Count;
                  //Método para obtener los documentos vencidos de un usuario

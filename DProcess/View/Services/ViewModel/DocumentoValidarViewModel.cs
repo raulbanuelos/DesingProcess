@@ -108,7 +108,7 @@ namespace View.Services.ViewModel
         private void init()
         {
             //Ejecutamos el método para obtener la lista de documentos que el administrador tiene pendientes por validar
-            ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentosValidar(usuario.NombreUsuario);
+            ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentosValidar(usuario.NombreUsuario,"");
             _titulo = "DOCUMENTOS PENDIENTES POR VALIDAR";
         }
         #endregion
@@ -124,7 +124,27 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => abrirDocumento());
             }
         } 
+
+        /// <summary>
+        /// comando para buscar documentos
+        /// </summary>
+        public ICommand BuscarDocumento
+        {
+            get
+            {
+                return new RelayCommand(param => GetDocument((string)param));
+            }
+        }
         #endregion
+
+        /// <summary>
+        /// metodo que obtiene el documento
+        /// </summary>
+        /// <param name="txt_buscar"></param>
+        private void GetDocument(string txt_buscar)
+        {
+            ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentosValidar(usuario.NombreUsuario, txt_buscar);
+        }
 
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
