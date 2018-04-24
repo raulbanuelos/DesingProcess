@@ -42,7 +42,7 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Propiedades
-        
+
         private string nombre;
         public string Nombre
         {
@@ -177,7 +177,7 @@ namespace View.Services.ViewModel
             get { return _id_areasealed; }
             set { _id_areasealed = value; NotifyChange("id_areasealed"); }
         }
-        
+
         private string _usuario;
         public string usuario {
             get
@@ -212,7 +212,7 @@ namespace View.Services.ViewModel
             get { return _boolEnviarmeCopia; }
             set { _boolEnviarmeCopia = value; NotifyChange("boolEnviarmeCopia"); }
         }
-        
+
         private ObservableCollection<Archivo> _ListaDocumentos = new ObservableCollection<Archivo>();
         public ObservableCollection<Archivo> ListaDocumentos
         {
@@ -247,7 +247,7 @@ namespace View.Services.ViewModel
             {
                 return _ListaDepartamento;
             }
-        set
+            set
             {
                 _ListaDepartamento = value;
                 NotifyChange("ListaDepartamento");
@@ -281,7 +281,7 @@ namespace View.Services.ViewModel
                 NotifyChange("ListaUsuariosCorreo");
             }
         }
-        
+
         private ObservableCollection<FO_Item> _ListaAreasSealed;
         public ObservableCollection<FO_Item> ListaAreasSealed
         {
@@ -420,7 +420,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private bool nombreEnabled=false;
+        private bool nombreEnabled = false;
         public bool NombreEnabled {
             get
             {
@@ -474,7 +474,7 @@ namespace View.Services.ViewModel
                 NotifyChange("BttnLiberar");
             }
         }
-        
+
         private bool _bttnCancelar;
         public bool BttnCancelar {
             get
@@ -488,7 +488,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private bool _isEnabled=true;
+        private bool _isEnabled = true;
         public bool IsEnabled
         {
             get
@@ -502,7 +502,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private bool _EnabledFecha= false;
+        private bool _EnabledFecha = false;
         public bool EnabledFecha
         {
             get
@@ -529,11 +529,11 @@ namespace View.Services.ViewModel
             }
         }
 
-        private int widthButton=0;
+        private int widthButton = 0;
         public int WidthButton { get { return widthButton; } set { widthButton = value; NotifyChange("WidthButton"); } }
 
         //Variables para guardar la información del documento, y mostar mensaje de confirmación
-        private string NombreUsuarioElaboro, NombreUsuarioAut,NombreTipo,NombreDepto, auxNomUsElaboro;
+        private string NombreUsuarioElaboro, NombreUsuarioAut, NombreTipo, NombreDepto, auxNomUsElaboro;
         #endregion
 
         #region Constructor
@@ -544,7 +544,7 @@ namespace View.Services.ViewModel
         /// <param name="selectedDocumento"></param>
         /// <param name="band"></param>
         /// <param name="ModelUsuario"></param>
-        public DocumentoViewModel(Documento selectedDocumento, bool band,Usuario ModelUsuario)
+        public DocumentoViewModel(Documento selectedDocumento, bool band, Usuario ModelUsuario)
         {
             //Variables auxiliar guarda la información para cuando se genera una versión nueva 
             //Inicializa los combobox 
@@ -554,7 +554,7 @@ namespace View.Services.ViewModel
             Nombre = selectedDocumento.nombre;
             Version = selectedDocumento.version.no_version;
             Fecha = selectedDocumento.fecha_actualizacion;
-            auxFecha = Fecha;      
+            auxFecha = Fecha;
             auxversion = selectedDocumento.version.no_version;
             Descripcion = selectedDocumento.descripcion;
             auxDescripcion = Descripcion;
@@ -566,7 +566,7 @@ namespace View.Services.ViewModel
             FechaFin = DataManagerControlDocumentos.Get_DateTime();
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
             NombreTipo = DataManagerControlDocumentos.GetNombretipo(id_tipo);
-            
+
 
             BotonGuardar = "Guardar";
             BttnGuardar = false;
@@ -584,26 +584,26 @@ namespace View.Services.ViewModel
                 EnabledEliminar = true;
                 EnabledFecha = true;
                 VersionEnabled = true;
-            } 
-            
+            }
+
             //si es ventana para corregir documento con estatus pendiente por corregir.
-            if (band==false)
+            if (band == false)
             {
                 IsEnabled = true;
                 BttnModificar = true;
                 EnabledEliminar = true;
-                EnabledFecha = false;              
+                EnabledFecha = false;
                 Fecha = selectedDocumento.version.fecha_version;
                 //Si es administrador del CIT muestra la fecha.
                 if (Module.UsuarioIsRol(User.Roles, 2))
                     EnabledFecha = true;
-            }           
-      
+            }
+
             //Obtiene el nombre de documento del id
             _ListaNumeroDocumento = DataManagerControlDocumentos.GetNombre_Documento(id_documento);
 
-            if(_ListaNumeroDocumento.Count >0)
-            SelectedDocumento = _ListaNumeroDocumento[0];
+            if (_ListaNumeroDocumento.Count > 0)
+                SelectedDocumento = _ListaNumeroDocumento[0];
 
             //Obtenemos el usuario que autorizó y el usuario que dio de alta
             Model.ControlDocumentos.Version UsuarioObj = DataManagerControlDocumentos.GetIdUsuario(idVersion);
@@ -617,10 +617,10 @@ namespace View.Services.ViewModel
             usuarioAutorizo = UsuarioObj.id_usuario_autorizo;
             auxUsuario_Autorizo = usuarioAutorizo;
             NombreUsuarioAut = UsuarioObj.nombre_usuario_autorizo;
-            
+
             //Método que obtiene los archivos de un documento y de la versión
-            ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetArchivos(id_documento,idVersion);
-            
+            ObservableCollection<Documento> Lista = DataManagerControlDocumentos.GetArchivos(id_documento, idVersion);
+
             //Iteramos la lista
             foreach (var item in Lista)
             {
@@ -642,8 +642,8 @@ namespace View.Services.ViewModel
                     //Si es archivo de word asigna la imagen correspondiente.
                     objArchivo.ruta = @"/Images/w.png";
                 }
-                ListaDocumentos.Add(objArchivo);   
-            } 
+                ListaDocumentos.Add(objArchivo);
+            }
         }
 
         /// <summary>
@@ -674,7 +674,7 @@ namespace View.Services.ViewModel
                 EnabledFecha = true;
                 VersionEnabled = true;
             }
-                
+
             //Mostramos el primer documento, sólo se admite un documento sin version por usuario
             //if (ListaNumeroDocumento.Count > 0)
             //    SelectedDocumento = ListaNumeroDocumento[0];
@@ -1070,12 +1070,12 @@ namespace View.Services.ViewModel
                         }
                     }
                 }
-             }
-                else
-                {
-                    await dialog.SendMessage("Alerta", "Se deben llenar todos los campos...");
-                }
-            
+            }
+            else
+            {
+                await dialog.SendMessage("Alerta", "Se deben llenar todos los campos...");
+            }
+
         }
 
         /// <summary>
@@ -1097,7 +1097,7 @@ namespace View.Services.ViewModel
             DialogService dialog = new DialogService();
 
             //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
-            ProgressDialogController AsyncProgress; 
+            ProgressDialogController AsyncProgress;
 
             //Si la lista no tiene otro archivo adjunto
             if (ListaDocumentos.Count == 0)
@@ -1132,7 +1132,7 @@ namespace View.Services.ViewModel
                             AsyncProgress = await dialog.SendProgressAsync("Por favor espere", "Adjuntando archivo...");
 
                             //Se convierte el archvio a tipo byte y se le asigna al objeto
-                            obj.archivo =await Task.Run(()=> File.ReadAllBytes(filename));
+                            obj.archivo = await Task.Run(() => File.ReadAllBytes(filename));
 
                             //Obtiene la extensión del documento y se le asigna al objeto
                             obj.ext = System.IO.Path.GetExtension(filename);
@@ -1158,16 +1158,16 @@ namespace View.Services.ViewModel
                             ListaDocumentos.Add(obj);
                             BttnArchivos = false;
                             //Ejecutamos el método para cerrar el mensaje de espera.
-                            await AsyncProgress.CloseAsync();  
+                            await AsyncProgress.CloseAsync();
                         }
                         else
                         {
                             //Si el archivo está abierto
                             await dialog.SendMessage("Alerta", "Cierre el archivo para continuar..");
-                        }                                        
+                        }
                     }
                     catch (IOException er)
-                    {                       
+                    {
                         await dialog.SendMessage("Alerta", "Cierre el archivo para continuar..");
                     }
                 }
@@ -1189,7 +1189,7 @@ namespace View.Services.ViewModel
             if (string.IsNullOrEmpty(path))
                 throw new ArgumentException("'path' cannot be null or empty.", "path");
             try
-            {               
+            {
                 using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read)) { }
             }
             catch (IOException)
@@ -1200,7 +1200,16 @@ namespace View.Services.ViewModel
             //Si el archivo no está en uso retorna falso
             return false;
         }
-
+        /// <summary>
+        /// Comando para Actualizar el numero de copias de un documento
+        /// </summary>
+        public ICommand ActNoCopias
+        {
+            get
+            {
+                return new RelayCommand(o => ActualizarNumCopias());
+            }
+        }
         /// <summary>
         /// Comando para cancelar
         /// </summary>
@@ -1235,7 +1244,7 @@ namespace View.Services.ViewModel
                 BttnModificar = true;
                 IsEnabled = true;
                 EnabledEliminar = true;
-               // ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
+                // ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
             }
             BttnVersion = true;
             BttnGuardar = false;
@@ -1265,7 +1274,7 @@ namespace View.Services.ViewModel
                 }
                 //Añadimos los archivos a la lista
                 ListaDocumentos.Add(objArchivo);
-                
+
             }
         }
 
@@ -1297,7 +1306,7 @@ namespace View.Services.ViewModel
             MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea eliminar el registro?", setting, MessageDialogStyle.AffirmativeAndNegative);
 
             //Si el id es diferente de cero
-            if (id_documento != 0 & result==MessageDialogResult.Affirmative)
+            if (id_documento != 0 & result == MessageDialogResult.Affirmative)
             {
 
                 vmUsuarios = new UsuariosViewModel();
@@ -1395,10 +1404,10 @@ namespace View.Services.ViewModel
 
                             if (banEliminarFrames)
                                 confirmacionFrames = eliminoFrames > 0 ? "El documento se eliminó exitosamente del sistema frames." : "Ocurrió un error al eliminar en el sistema frames. Por favor elimínelo directamente del sistema frames. http://sealed/frames.htm";
-                            
+
                             string confirmacionCorreo = string.Empty;
                             confirmacionCorreo = NotificarBajaDocumento() ? "Se notificó vía correo exitosamente." : "Ocurrió un error al notificar vía correo. Favor de notificar manualmente desde el Lotus Notes.";
-                            
+
                             await dialog.SendMessage("Alerta", "Registro eliminado!. Se actualizo la matríz correctamente.\n" + confirmacionCorreo + "\n" + confirmacionFrames);
                         }
                         else
@@ -1423,7 +1432,7 @@ namespace View.Services.ViewModel
                 {
                     await dialog.SendMessage("Alerta", "No se puedo eliminar la versión. Debes seleccionar a una persona para notificarle la baja.");
                 }
-                
+
             }
         }
 
@@ -1484,7 +1493,7 @@ namespace View.Services.ViewModel
                             obj.fecha_actualizacion = _FechaFin;
                             obj.id_estatus = 2;
                             obj.usuario = usuario;
-                            
+
                             //Ejecuta el método para modificar el documento actual
                             int n = DataManagerControlDocumentos.UpdateDocumento(obj);
                             //Si se realizo la modificacion
@@ -1587,6 +1596,67 @@ namespace View.Services.ViewModel
                 await dialog.SendMessage("Alerta", "Se deben llenar todos los campos...");
             }
         }
+
+
+        /// <summary>
+        /// metodo que permite actualizar el numero de copias de un documento
+        /// </summary>
+        private async void ActualizarNumCopias()
+        {
+            //Incializamos los servicios de dialog.
+            DialogService dialog = new DialogService();
+
+            //Obtenemos la ventana actual
+            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+            //mostramos la ventana con el campo para ingresar el nuevo numero de copias.
+            string num_copias = await window.ShowInputAsync("Ingresar Número de Copias", "Número de Copias", null);
+
+            //lo tenemos que convertir a entero para poder ingresar el valor a la base de datos.
+            int nuevo_copias = Int32.Parse(num_copias);
+
+            //comprobamos que el campo string sea diferente de nulo.
+            if (num_copias != null)
+            {
+                //comprobamos que el campo solo contenga caracteres numericos.
+                if (Regex.IsMatch(num_copias, @"^\d+$"))
+                {
+                    Documento objDocumento = new Documento();
+                    objDocumento.id_documento = id_documento;
+                    Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+
+                    //Declaramos un objeto al cual le asignamos las propiedades que contendra el mensaje.
+                    MetroDialogSettings setting = new MetroDialogSettings();
+                    setting.AffirmativeButtonText = "SI";
+                    setting.NegativeButtonText = "NO";
+
+                    MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea Actualizar el Número de copias?", setting, MessageDialogStyle.AffirmativeAndNegative);
+
+                    if (result == MessageDialogResult.Affirmative)
+                    {
+                        //ejecutamos el metodo para actualizar el numero de copias
+                        int act_cop = DataManagerControlDocumentos.UpdateNoCopias(idVersion, nuevo_copias);
+
+                        //comprobamos que se hayan guardado los cambios con exito, y mandamos un mensaje segun sea el caso
+                        if (act_cop != 0)
+                        {
+                            await dialog.SendMessage("Éxito", "Se Guardaron los cambios");
+                        }
+                        else
+                        {
+                            await dialog.SendMessage("Alerta", "Error al Guardar los cambios");
+                        }
+                    }
+                } else
+                {
+                    await dialog.SendMessage("Alerta", "Solo se permiten caracteres numéricos");
+                }
+            }else
+            {
+                await dialog.SendMessage("Alerta", "No se puede dejar el campo vacío");
+            }
+        }
+
 
         /// <summary>
         /// Método que modifica la versión

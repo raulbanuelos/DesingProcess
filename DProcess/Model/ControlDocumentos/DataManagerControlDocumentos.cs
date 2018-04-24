@@ -1696,16 +1696,41 @@ namespace Model.ControlDocumentos
             SO_EstatusVersion ServiceEstatusVersion = new SO_EstatusVersion();
 
             // Se ejecuta el método y retorna los registros que se modificarion
-            int i = ServiceVersion.UpdateVersion(version.id_version, version.id_usuario, version.id_usuario_autorizo, version.id_documento, 
-                                                version.no_version, version.fecha_version, version.no_copias, version.id_estatus_version, version.descripcion_v);
+            int i = ServiceVersion.UpdateVersion(version.id_version, 
+                                                    version.id_usuario,
+                                                    version.id_usuario_autorizo,
+                                                    version.id_documento, 
+                                                    version.no_version, 
+                                                    version.fecha_version, 
+                                                    version.no_copias, 
+                                                    version.id_estatus_version, 
+                                                    version.descripcion_v);
 
             string estatusVersion = ServiceEstatusVersion.GetEstatusVersion(version.id_estatus_version);
 
-            ServiceHistorial.Insert(version.id_version, Get_DateTime(), "Se cambia el estatus a: " + estatusVersion, usuarioLogueado.Nombre + " " + usuarioLogueado.ApellidoPaterno + " " + usuarioLogueado.ApellidoMaterno,nombreDocumento,version.no_version);
+            ServiceHistorial.Insert(version.id_version, 
+                                    Get_DateTime(),
+                                    "Se cambia el estatus a: " + estatusVersion,
+                                    usuarioLogueado.Nombre + " " + usuarioLogueado.ApellidoPaterno + " " + usuarioLogueado.ApellidoMaterno
+                                    ,nombreDocumento,version.no_version);
 
             return i;
         }
 
+        /// <summary>
+        /// Método para actualizar el campo de numero de copias
+        /// </summary>
+        /// <param name="version"></param>
+        /// <param name="num_copias"></param>
+        /// <returns></returns>
+        public static int UpdateNoCopias(int version, int num_copias)
+        {
+            SO_Version ServiceVersion = new SO_Version();//tabla donde se actualizan las copias de los documentos
+
+            //se ejecuta el metodo para el registro de copias que se va a modificar
+            int i = ServiceVersion.UpdateNumCopias(version, num_copias);
+            return i;
+        }
         /// <summary>
         /// Método para eliminar un registro de la BD.
         /// </summary>

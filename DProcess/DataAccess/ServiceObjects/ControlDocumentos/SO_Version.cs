@@ -140,7 +140,36 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return 0;
             }
         }
+        /// <summary>
+        /// metodo para actualizar el campo de numero de copias 
+        /// de la tabla TBL_VERSION
+        /// </summary>
+        /// <param name="id_version"></param>
+        /// <param name="num_copias"></param>
+        /// <returns></returns>
+        public int UpdateNumCopias(int id_version, int num_copias)
+        {
+            try
+            {
+                using (var conexion = new EntitiesControlDocumentos())
+                {
+                    TBL_VERSION obj = conexion.TBL_VERSION.Where(x => x.ID_VERSION == id_version).FirstOrDefault();
 
+                    obj.NO_COPIAS = num_copias;
+
+                    //se cambia el estado de registro a modificado
+                    conexion.Entry(obj).State = EntityState.Modified;
+
+                    //se guardan los cambios y se retorna el numero de registros afectados
+                    return conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+
+                return 0;
+            }
+        }
         /// <summary>
         /// Método para eliminar un registro de la tabla.
         /// </summary>

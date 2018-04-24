@@ -9,7 +9,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Control documento" Height="750" Width="980"  
+        Title="Control documento" Height="750" Width="1200"  
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
@@ -32,6 +32,7 @@
                             <ColumnDefinition Width="40"></ColumnDefinition>
                             <ColumnDefinition Width="50"></ColumnDefinition>
                             <ColumnDefinition Width="45"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <TextBlock FontWeight="Bold" Text="{Binding Path=nombre}" TextWrapping="WrapWithOverflow"  Grid.Column="0" ></TextBlock>
                         <TextBlock Text="{Binding Path=ext}" Grid.Column="1"  FontWeight="Bold" ></TextBlock>
@@ -61,8 +62,8 @@
 
         <Grid Grid.Row="1" Grid.Column="1" Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="450"></ColumnDefinition>
-                <ColumnDefinition Width="450"></ColumnDefinition>
+                <ColumnDefinition Width="550"></ColumnDefinition>
+                <ColumnDefinition Width="550"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid>
                 <Grid.RowDefinitions>
@@ -82,7 +83,7 @@
                     <!--Version-->
                     <TextBox  materialDesign:HintAssist.Hint="Versión" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding Version}" IsEnabled="{Binding VersionEnabled}"/>
                     <!--Date-->
-                    <StackPanel Orientation="Horizontal" Height="50" Margin="15,5,0,0">
+                    <StackPanel Orientation="Horizontal" Height="50" Margin="65,5,0,0">
                         <DatePicker materialDesign:HintAssist.Hint="Fecha" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"
                         IsEnabled="{Binding EnabledFecha}" />
                     </StackPanel>
@@ -92,21 +93,18 @@
 
                 </StackPanel>
                 <!--Lista de Archivos-->
-                <StackPanel Grid.Row="1">
+                <StackPanel Grid.Row="1" Margin="65,5,0,0">
                     <Label Content="Para ver/eliminar el archivo, primero dale clic al ícono de Word/PDF." FontWeight="Bold"></Label>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="y después clic al ícono " FontWeight="Bold"></Label>
                         <Label Content="{materialDesign:PackIcon eye}"></Label>
                         <Label Content=" ó " FontWeight="Bold"></Label>
                         <Label Content="{materialDesign:PackIcon Close}"></Label>
-                        
+
                     </StackPanel>
-                    
+
                     <ListBox  ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" Margin="5" />
                 </StackPanel>
-                    
-                
-                
             </Grid>
             
             <!--Button Adjuntar-->
@@ -214,6 +212,7 @@
                 <ColumnDefinition Width="130"></ColumnDefinition>
                 <ColumnDefinition Width="120"></ColumnDefinition>
                 <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="169"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Button Content="{Binding BotonGuardar}" Height="40"  Width="88" Grid.Column="7" Command="{Binding GuardarControl}"  Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" />
             <Button Content="Cancelar" Height="40"  Width="90" Grid.Column="6" Command="{Binding Cancelar}"  Visibility="{Binding BttnCancelar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
@@ -222,7 +221,8 @@
             <Button Content="Eliminar" Width="90" Grid.Column="3" Height="40"  Command="{Binding Eliminar}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
             <Button Content="Regresar Versión Anterior" Height="40" FontSize="12" Width="173" Grid.Column="2" Command="{Binding RegresarVersion}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"></Button>
             <Button Grid.Column="1" Content="Pendiente por corregir" FontSize="12" Height="40" Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" ToolTip="Regresar a pendiente por corregir" Command="{Binding RegresarCorregir}"></Button>
-            <Button  Content="Liberar" Height="40" Width="90"  Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" Command="{Binding LiberarDocumento}" />
+            <Button Content="Actualizar No. Copias" Grid.Column="8" Height="40" Command="{Binding ActNoCopias}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
+            <Button Content="Liberar" Height="40" Width="90"  Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" Command="{Binding LiberarDocumento}" />
         </Grid>
     </Grid>
 </Controls:MetroWindow>
