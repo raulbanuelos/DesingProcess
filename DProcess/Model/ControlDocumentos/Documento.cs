@@ -16,6 +16,7 @@ namespace Model.ControlDocumentos
         public string usuario_autorizo { get; set; }
         public int id_estatus { get; set; }
         public int id_dep { get; set; }
+        public Version no_copias { get; set; }
         public string nombre { get; set; }
         public string descripcion { get; set; }
         public string Departamento { get; set; }
@@ -40,6 +41,7 @@ namespace Model.ControlDocumentos
             usuario_autorizo = string.Empty;
             id_estatus = 0;
             id_dep = 0;
+            no_copias = new Version();
             nombre = string.Empty;
             descripcion = string.Empty;
             fecha_creacion = new DateTime();
@@ -50,7 +52,6 @@ namespace Model.ControlDocumentos
             validacion = new ValidacionDocumento();
         }
         #endregion
-
 
     }
 }

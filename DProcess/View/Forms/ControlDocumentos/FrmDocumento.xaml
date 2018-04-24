@@ -90,6 +90,7 @@
                     <!--Descripción-->
                     <TextBox Text="{Binding Descripcion}"  materialDesign:HintAssist.Hint="Descripción" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="49"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
                      IsEnabled="{Binding IsEnabled}" SpellCheck.IsEnabled="True" Language="es-ES" ></TextBox>
+                    <TextBox Text="{Binding NoCopias}" materialDesign:HintAssist.Hint="Número de Copias" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="49" Width="420" BorderBrush="#89535353"  FontSize="18" CharacterCasing="Upper" IsReadOnly="True"/>
 
                 </StackPanel>
                 <!--Lista de Archivos-->

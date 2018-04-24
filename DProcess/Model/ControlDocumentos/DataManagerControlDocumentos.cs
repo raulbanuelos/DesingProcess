@@ -1731,11 +1731,30 @@ namespace Model.ControlDocumentos
             int i = ServiceVersion.UpdateNumCopias(version, num_copias);
             return i;
         }
+
+
+        /// <summary>
+        /// metodo para actualizar el campo de Numero de copias
+        /// despues de haberlo modificado(sobre la marcha)
+        /// </summary>
+        /// <param name="version"></param>
+        /// <returns></returns>
+        public static int GetCopias(int version)
+        {
+            //Inicializamos los servicios
+            SO_Version ServiceVersion = new SO_Version();
+
+            //Ejecutamos el método y retornamos el valor
+            return ServiceVersion.GetNumCopias(version);
+        }
+
+
         /// <summary>
         /// Método para eliminar un registro de la BD.
         /// </summary>
         /// <param name="version"></param>
         /// <returns></returns>
+
         public static int DeleteVersion(Version version,string descrip_historial, Usuario UsuarioLog,string nombreDoc)
         {
             //Inicializamos los servicios de versión e Historial

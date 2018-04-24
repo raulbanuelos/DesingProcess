@@ -170,6 +170,35 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return 0;
             }
         }
+
+        /// <summary>
+        /// metodo para actualizar el campo de numero de copias
+        /// despues de que se modifica el valor
+        /// </summary>
+        /// <param name="id_version"></param>
+        /// <returns></returns>
+        public int GetNumCopias(int id_version)
+        {
+            try
+            {
+                using (var conexion = new EntitiesControlDocumentos())
+                {
+                    //el campo NO_COPIAS en la base de datos puede ser nulo, para que no nos marque error
+                    //convertimos toda la consulta en entero y la guardamos en la variable num.
+                    int num = Convert.ToInt32((from v in conexion.TBL_VERSION
+                               where v.ID_VERSION == id_version
+                               select v.NO_COPIAS).First());
+
+                    //retornamos el valor obtenido de la consulta
+                    return num;                    
+                }
+            }
+            catch (Exception)
+            {
+                //retornamos 0 si hay error
+                return 0;
+            }
+        }
         /// <summary>
         /// Método para eliminar un registro de la tabla.
         /// </summary>

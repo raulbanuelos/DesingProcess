@@ -447,6 +447,20 @@ namespace View.Services.ViewModel
             }
         }
 
+        private int _NoCopias;
+        public  int NoCopias
+        {
+            get
+            {
+                return _NoCopias;
+            }
+            set
+            {
+                _NoCopias = value;
+                NotifyChange("NoCopias");
+            }
+        }
+
         private bool _enabledEliminar;
         public bool EnabledEliminar
         {
@@ -558,6 +572,7 @@ namespace View.Services.ViewModel
             auxversion = selectedDocumento.version.no_version;
             Descripcion = selectedDocumento.descripcion;
             auxDescripcion = Descripcion;
+            NoCopias = selectedDocumento.version.no_copias;
             id_documento = selectedDocumento.id_documento;
             idVersion = selectedDocumento.version.id_version;
             id_dep = selectedDocumento.id_dep;
@@ -715,6 +730,7 @@ namespace View.Services.ViewModel
             id_documento = selectedDocumento.id_documento;
             idVersion = selectedDocumento.version.id_version;
             id_dep = selectedDocumento.id_dep;
+
             //Obtenemos el tipo de documento
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
 
@@ -1641,6 +1657,8 @@ namespace View.Services.ViewModel
                         if (act_cop != 0)
                         {
                             await dialog.SendMessage("Éxito", "Se Guardaron los cambios");
+                            //despues de haber dado aceptar, se inicia el metodo para actualizar el campo de numero de copias.
+                            NoCopias = DataManagerControlDocumentos.GetCopias(idVersion);
                         }
                         else
                         {
@@ -1656,7 +1674,6 @@ namespace View.Services.ViewModel
                 await dialog.SendMessage("Alerta", "No se puede dejar el campo vacío");
             }
         }
-
 
         /// <summary>
         /// Método que modifica la versión
