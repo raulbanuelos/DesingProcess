@@ -1625,53 +1625,60 @@ namespace View.Services.ViewModel
             //Obtenemos la ventana actual
             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
+
             //mostramos la ventana con el campo para ingresar el nuevo numero de copias.
             string num_copias = await window.ShowInputAsync("Ingresar Número de Copias", "Número de Copias", null);
 
-            //lo tenemos que convertir a entero para poder ingresar el valor a la base de datos.
-            int nuevo_copias = Int32.Parse(num_copias);
-
-            //comprobamos que el campo string sea diferente de nulo.
-            if (num_copias != null)
+            //comprobamos que el valor que obtenemos sea diferente de nulo
+            if (!string.IsNullOrEmpty(num_copias))
             {
-                //comprobamos que el campo solo contenga caracteres numericos.
-                if (Regex.IsMatch(num_copias, @"^\d+$"))
+                //lo tenemos que convertir a entero para poder ingresar el valor a la base de datos.
+                int nuevo_copias = Int32.Parse(num_copias);
+
+                //comprobamos que el campo string sea diferente de nulo.
+                if (num_copias != null)
                 {
-                    Documento objDocumento = new Documento();
-                    objDocumento.id_documento = id_documento;
-                    Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
-
-                    //Declaramos un objeto al cual le asignamos las propiedades que contendra el mensaje.
-                    MetroDialogSettings setting = new MetroDialogSettings();
-                    setting.AffirmativeButtonText = "SI";
-                    setting.NegativeButtonText = "NO";
-
-                    MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea Actualizar el Número de copias?", setting, MessageDialogStyle.AffirmativeAndNegative);
-
-                    if (result == MessageDialogResult.Affirmative)
+                    //comprobamos que el campo solo contenga caracteres numericos.
+                    if (Regex.IsMatch(num_copias, @"^\d+$"))
                     {
-                        //ejecutamos el metodo para actualizar el numero de copias
-                        int act_cop = DataManagerControlDocumentos.UpdateNoCopias(idVersion, nuevo_copias);
+                        Documento objDocumento = new Documento();
+                        objDocumento.id_documento = id_documento;
+                        Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
 
-                        //comprobamos que se hayan guardado los cambios con exito, y mandamos un mensaje segun sea el caso
-                        if (act_cop != 0)
+                        //Declaramos un objeto al cual le asignamos las propiedades que contendra el mensaje.
+                        MetroDialogSettings setting = new MetroDialogSettings();
+                        setting.AffirmativeButtonText = "SI";
+                        setting.NegativeButtonText = "NO";
+
+                        MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea Actualizar el Número de copias?", setting, MessageDialogStyle.AffirmativeAndNegative);
+
+                        if (result == MessageDialogResult.Affirmative)
                         {
-                            await dialog.SendMessage("Éxito", "Se Guardaron los cambios");
-                            //despues de haber dado aceptar, se inicia el metodo para actualizar el campo de numero de copias.
-                            NoCopias = DataManagerControlDocumentos.GetCopias(idVersion);
-                        }
-                        else
-                        {
-                            await dialog.SendMessage("Alerta", "Error al Guardar los cambios");
+                            //ejecutamos el metodo para actualizar el numero de copias
+                            int act_cop = DataManagerControlDocumentos.UpdateNoCopias(idVersion, nuevo_copias);
+
+                            //comprobamos que se hayan guardado los cambios con exito, y mandamos un mensaje segun sea el caso
+                            if (act_cop != 0)
+                            {
+                                await dialog.SendMessage("Éxito", "Se Guardaron los cambios");
+                                //despues de haber dado aceptar, se inicia el metodo para actualizar el campo de numero de copias.
+                                NoCopias = DataManagerControlDocumentos.GetCopias(idVersion);
+                            }
+                            else
+                            {
+                                await dialog.SendMessage("Alerta", "Error al Guardar los cambios");
+                            }
                         }
                     }
-                } else
-                {
-                    await dialog.SendMessage("Alerta", "Solo se permiten caracteres numéricos");
+                    else
+                    {
+                        await dialog.SendMessage("Alerta", "Solo se permiten caracteres numéricos");
+                    }
                 }
-            }else
-            {
-                await dialog.SendMessage("Alerta", "No se puede dejar el campo vacío");
+                else
+                {
+                    await dialog.SendMessage("Alerta", "No se puede dejar el campo vacío");
+                }
             }
         }
 
