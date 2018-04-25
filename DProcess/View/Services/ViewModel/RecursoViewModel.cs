@@ -157,6 +157,7 @@ namespace View.Services.ViewModel
             if (_ListaTipoDocumento.Count > 0)
             {
                 SelectedTipoDocumento = _ListaTipoDocumento[0];
+                ListaArchivo = DataManagerControlDocumentos.GetRecursosTipoDocumento(SelectedTipoDocumento.id_tipo);
             }
 
             //Si es rol administrador del cit permitirmos que el usuario pueda agregar mas archivos.
