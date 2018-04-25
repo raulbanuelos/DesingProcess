@@ -90,7 +90,7 @@
                     <!--Descripción-->
                     <TextBox Text="{Binding Descripcion}"  materialDesign:HintAssist.Hint="Descripción" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="49"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
                      IsEnabled="{Binding IsEnabled}" SpellCheck.IsEnabled="True" Language="es-ES" ></TextBox>
-                    <TextBox Text="{Binding NoCopias}" materialDesign:HintAssist.Hint="Número de Copias" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="49" Width="420" BorderBrush="#89535353"  FontSize="18" CharacterCasing="Upper" IsReadOnly="True"/>
+                    <TextBox Text="{Binding NoCopias}" materialDesign:HintAssist.Hint="Número de Copias" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="49" Width="420" BorderBrush="#89535353"  FontSize="18" CharacterCasing="Upper" IsReadOnly="True" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
 
                 </StackPanel>
                 <!--Lista de Archivos-->
@@ -168,7 +168,7 @@
                     <!--Nombre del áreas sealed-->
                     <ComboBox  materialDesign:HintAssist.Hint="Área frames" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaAreasSealed}" DisplayMemberPath="ValorCadena" SelectedValuePath="Nombre" SelectedValue="{Binding id_areasealed}" IsEnabled="{Binding BttnLiberar}"/>
                 </StackPanel>
-                <Button  Grid.Row="1" HorizontalAlignment="Right" Margin="10" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding LlenarLista}"  ToolTip="Adjuntar Archivo"
+                <Button  Grid.Row="1" HorizontalAlignment="Right" Margin="10" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding _AdjuntarArchivo}"  ToolTip="Adjuntar Archivo"
                     Visibility="{Binding BttnArchivos, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"  >
                     <materialDesign:PackIcon Kind="Paperclip" Height="24" Width="24" />
                 </Button>

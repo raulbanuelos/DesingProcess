@@ -1097,17 +1097,17 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Comando para agregar un documento a la lista, desde el explorador de archivos
         /// </summary>
-        public ICommand LlenarLista
+        public ICommand _AdjuntarArchivo
         {
             get
             {
-                return new RelayCommand(o => llenarLista());
+                return new RelayCommand(o => AdjuntarArchivo());
             }
         }
         /// <summary>
         /// Método que llena la lista para visualizar los archivos de la versión
         /// </summary>
-        private async void llenarLista()
+        private async void AdjuntarArchivo()
         {
             //Incializamos los servicios de dialog.
             DialogService dialog = new DialogService();
@@ -1115,83 +1115,121 @@ namespace View.Services.ViewModel
             //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
             ProgressDialogController AsyncProgress;
 
-            //Si la lista no tiene otro archivo adjunto
-            if (ListaDocumentos.Count == 0)
+
+            if (_selectedDocumento == null)
             {
-                //Abre la ventana de explorador de archivos
-                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-                //Filtar los documentos por extensión 
-                //Si es procedimiento o formatos, sólo mostrar documentos word
-                if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
-                    dlg.Filter = "Word (97-2003)|*.doc";
-                else
-                    dlg.Filter = "PDF Files (.pdf)|*.pdf";
-
-                // Mostrar el explorador de archivos
-                Nullable<bool> result = dlg.ShowDialog();
-
-                // Si fue seleccionado un documento 
-                if (result == true)
-                {
-                    try
-                    {
-                        //Se obtiene el nombre del documento
-                        string filename = dlg.FileName;
-
-                        //Se crea el objeto de tipo archivo
-                        Archivo obj = new Archivo();
-                        //Si el archivo no está en uso
-                        if (!IsFileInUse(filename))
-                        {
-                            //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
-                            AsyncProgress = await dialog.SendProgressAsync("Por favor espere", "Adjuntando archivo...");
-
-                            //Se convierte el archvio a tipo byte y se le asigna al objeto
-                            obj.archivo = await Task.Run(() => File.ReadAllBytes(filename));
-
-                            //Obtiene la extensión del documento y se le asigna al objeto
-                            obj.ext = System.IO.Path.GetExtension(filename);
-
-                            //Se obtiene sólo el nombre, sin extensión.
-                            obj.nombre = System.IO.Path.GetFileNameWithoutExtension(filename);
-
-                            obj.numero = ListaDocumentos.Count + 1;
-
-                            //Si el archivo tiene extensión pdf
-                            if (obj.ext == ".pdf")
-                            {
-                                //asigna la imagen del pdf al objeto
-                                obj.ruta = @"/Images/p.png";
-                            }
-                            else
-                            {
-                                //Si es archivo de word asigna la imagen correspondiente.
-                                obj.ruta = @"/Images/w.png";
-                            }
-
-                            //Se agrega el objeto a la lista, ocultamos el botón de archivos
-                            ListaDocumentos.Add(obj);
-                            BttnArchivos = false;
-                            //Ejecutamos el método para cerrar el mensaje de espera.
-                            await AsyncProgress.CloseAsync();
-                        }
-                        else
-                        {
-                            //Si el archivo está abierto
-                            await dialog.SendMessage("Alerta", "Cierre el archivo para continuar..");
-                        }
-                    }
-                    catch (IOException er)
-                    {
-                        await dialog.SendMessage("Alerta", "Cierre el archivo para continuar..");
-                    }
-                }
+                await dialog.SendMessage("Atención", "Por Favor seleccione el Número del documento para poder adjuntar un archivo");
             }
             else
             {
-                //Si tiene un archivo adjunto, se muestra el mensaje
-                await dialog.SendMessage("Alerta", "Sólo se admite adjuntar un archivo..");
+
+                //Si la lista no tiene otro archivo adjunto
+                if (ListaDocumentos.Count == 0)
+                {
+                    //Abre la ventana de explorador de archivos
+                    Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+                    //Filtar los documentos por extensión 
+                    //Si es procedimiento o formatos, sólo mostrar documentos word
+                    if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
+                        dlg.Filter = "Word (97-2003)|*.doc";
+                    else
+                        dlg.Filter = "PDF Files (.pdf)|*.pdf";
+                    // Mostrar el explorador de archivos
+                    Nullable<bool> result = dlg.ShowDialog();
+
+                    //Se crea el objeto de tipo archivo
+                    Archivo obj = new Archivo();
+
+                    // Si fue seleccionado un documento 
+                    if (result == true)
+                    {
+                        try
+                        {
+                            //Se obtiene el nombre del documento
+                            string filename = dlg.FileName;
+
+                            //Si el archivo no está en uso
+                            if (!IsFileInUse(filename))
+                            {
+                                //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
+                                AsyncProgress = await dialog.SendProgressAsync("Por favor espere", "Adjuntando archivo...");
+
+                                //Se convierte el archvio a tipo byte y se le asigna al objeto
+                                obj.archivo = await Task.Run(() => File.ReadAllBytes(filename));
+
+                                //Obtiene la extensión del documento y se le asigna al objeto
+                                obj.ext = System.IO.Path.GetExtension(filename);
+
+                                //Se obtiene sólo el nombre, sin extensión.
+                                obj.nombre = System.IO.Path.GetFileNameWithoutExtension(filename);
+
+                                obj.numero = ListaDocumentos.Count + 1;
+
+                                //Si el archivo tiene extensión pdf
+                                if (obj.ext == ".pdf")
+                                {
+                                    //asigna la imagen del pdf al objeto
+                                    obj.ruta = @"/Images/p.png";
+                                }
+                                else
+                                {
+                                    //Si es archivo de word asigna la imagen correspondiente.
+                                    obj.ruta = @"/Images/w.png";
+                                }
+
+                                //consultamos de que tipo es el archivo
+                                if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
+                                {
+                                    //si el archivo es igual a cualquiera de los id anteriores se comprueba que sea un archivo .doc
+                                    if (obj.ext == ".doc")
+                                    {
+                                        ListaDocumentos.Add(obj);
+                                        BttnArchivos = false;
+                                    }
+                                    //si no es archivo .doc se manda un mensaje y se elimina
+                                    else
+                                    {
+                                        await dialog.SendMessage("Atención", "Para este tipo de archivo solo se pueden subir archivos .DOC");
+                                        Lista.Clear();
+                                        BttnArchivos = true;
+                                    }
+                                }
+                                else
+                                {
+                                    //cualquier id que sea diferente de los anteriores tiene que ser un archivo .pdf
+                                    if (obj.ext == ".pdf")
+                                    {
+                                        ListaDocumentos.Add(obj);
+                                        BttnArchivos = false;
+                                    }else
+                                    {
+                                        await dialog.SendMessage("Atención", "Para este tipo de archivo solo se pueden subir archivos .PDF");
+                                        Lista.Clear();
+                                        BttnArchivos = true;
+                                    }
+                                }
+
+                                //Ejecutamos el método para cerrar el mensaje de espera.
+                                await AsyncProgress.CloseAsync();
+                            }
+                            else
+                            {
+                                //Si el archivo está abierto
+                                await dialog.SendMessage("Alerta", "Cierre el archivo para continuar..");
+                            }
+                        }
+                        catch (IOException er)
+                        {
+                            await dialog.SendMessage("Alerta", "Cierre el archivo para continuar..");
+                        }
+                    }
+                }
+                else
+                {
+                    //Si tiene un archivo adjunto, se muestra el mensaje
+                    await dialog.SendMessage("Alerta", "Sólo se admite adjuntar un archivo..");
+                }
             }
         }
 
