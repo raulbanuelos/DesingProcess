@@ -70,6 +70,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Are you sure you want to delete the record?.
+        /// </summary>
+        public static string lblConfirmDeleteRecord {
+            get {
+                return ResourceManager.GetString("lblConfirmDeleteRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Diameter.
         /// </summary>
         public static string lblDiameter {
@@ -106,11 +115,29 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a No.
+        /// </summary>
+        public static string lblNo {
+            get {
+                return ResourceManager.GetString("lblNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Your user/password are incorrects.
         /// </summary>
         public static string lblPasswordIncorrect {
             get {
                 return ResourceManager.GetString("lblPasswordIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Record deleted!.
+        /// </summary>
+        public static string lblRecordDeleted {
+            get {
+                return ResourceManager.GetString("lblRecordDeleted", resourceCulture);
             }
         }
         
@@ -165,6 +192,15 @@ namespace View.Resources {
         public static string lblWidth {
             get {
                 return ResourceManager.GetString("lblWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Yes.
+        /// </summary>
+        public static string lblYes {
+            get {
+                return ResourceManager.GetString("lblYes", resourceCulture);
             }
         }
         

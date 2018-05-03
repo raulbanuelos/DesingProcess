@@ -121,6 +121,10 @@
     <value>Ingresar</value>
     <comment>Etiqueta para el botón</comment>
   </data>
+  <data name="lblConfirmDeleteRecord" xml:space="preserve">
+    <value>¿Esta seguro de eliminar el registro?</value>
+    <comment>¿Esta seguro de eliminar el registro?</comment>
+  </data>
   <data name="lblDiameter" xml:space="preserve">
     <value>Diámetro</value>
     <comment>Etiqueta de diámetro</comment>
@@ -137,9 +141,17 @@
     <value>Ingresando...</value>
     <comment>lblLogIn</comment>
   </data>
+  <data name="lblNo" xml:space="preserve">
+    <value>No</value>
+    <comment>No</comment>
+  </data>
   <data name="lblPasswordIncorrect" xml:space="preserve">
     <value>Tu usuario/contraseña son incorrectos</value>
     <comment>lblPasswordIncorrect</comment>
+  </data>
+  <data name="lblRecordDeleted" xml:space="preserve">
+    <value>Registro eliminado!</value>
+    <comment>Registro eliminado</comment>
   </data>
   <data name="lblThickness" xml:space="preserve">
     <value>Espesor</value>
@@ -164,6 +176,10 @@
   <data name="lblWidth" xml:space="preserve">
     <value>Ancho</value>
     <comment>Etiqueta para Width</comment>
+  </data>
+  <data name="lblYes" xml:space="preserve">
+    <value>Si</value>
+    <comment>Si</comment>
   </data>
   <data name="msgDoingOperation" xml:space="preserve">
     <value>Trabajando en la operación: </value>

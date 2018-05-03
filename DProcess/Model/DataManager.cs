@@ -444,8 +444,25 @@ namespace Model
         public static ObservableCollection<FO_Item> GetAllTipoMateriaPrima()
         {
             ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
-            
 
+            SO_Material ServiceMaterial = new SO_Material();
+
+            IList informacionBD = ServiceMaterial.GetAllTipoMaterial();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    FO_Item material = new FO_Item();
+
+                    material.id = (int)tipo.GetProperty("id_tipo_mp").GetValue(item, null);
+                    material.ValorCadena = (string)tipo.GetProperty("materia_prima").GetValue(item, null);
+
+                    lista.Add(material);
+                }
+            }
 
             return lista;
         }
@@ -9254,7 +9271,7 @@ namespace Model
                 pattern.on_14_rd_gate.Valor, pattern.button.Valor, pattern.cone.Valor, pattern.M_Circle.Valor, pattern.ring_w_min.Valor, pattern.ring_w_max.Valor, pattern.date_ordered.Valor, 
                 pattern.B_Dia.Valor, pattern.fin_Dia.Valor, pattern.turn_allow.Valor, pattern.cstg_sm_od.Valor, pattern.shrink_allow.Valor, pattern.patt_sm_od.Valor, pattern.piece_in_patt.Valor, 
                 pattern.bore_allow.Valor, pattern.patt_sm_id.Valor, pattern.patt_thickness.Valor, pattern.joint.Valor, pattern.nick.Valor, pattern.nick_draf.Valor, pattern.nick_depth.Valor, pattern.side_relief.Valor, 
-                pattern.cam.Valor, pattern.cam_roll.Valor,pattern.rise.Valor, pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.TipoMateriaPrima.Valor), pattern.mounted.Valor, 
+                pattern.cam.Valor, pattern.cam_roll.Valor,pattern.rise.Valor, pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, pattern.TipoMateriaPrima.id, pattern.mounted.Valor, 
                 pattern.ordered.Valor, pattern.Checked.Valor, pattern.date_checked.Valor, pattern.esp_inst.Valor, pattern.factor_k.Valor, pattern.rise_built.Valor, pattern.ring_th_min.Valor, pattern.ring_th_max.Valor, 
                 pattern.estado.Valor, pattern.plato.Valor, pattern.detalle.Valor, pattern.diseno.Valor);
         }
