@@ -413,7 +413,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                  where d.ID_DOCUMENTO == id_documento && v.ID_VERSION == id_version
                                  select new
                                  {
-
                                      d.ID_TIPO_DOCUMENTO,
                                      a.NOMBRE_ARCHIVO,
                                      t.TIPO_DOCUMENTO,
@@ -442,7 +441,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         {
             string lastNumber;
             try
-            {
+            { 
                 //Establecemos la conexión a la BD.
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
@@ -451,11 +450,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      where d.NOMBRE.Contains(nombre) && d.ID_DEPARTAMENTO == id_deptartamento && d.ID_TIPO_DOCUMENTO == id_tipo
                                      orderby d.ID_DOCUMENTO descending
                                      select d.NOMBRE).ToList().FirstOrDefault();
-
-                    //var l = (from d in Conexion.TBL_DOCUMENTO
-                    //         where d.NOMBRE.Contains(nombre) && d.ID_DEPARTAMENTO == id_deptartamento && d.ID_TIPO_DOCUMENTO == id_tipo
-                    //         orderby d.ID_DOCUMENTO descending
-                    //         select d.NOMBRE).ToList();
 
                     //se asigna a la variable lastNumber
                     lastNumber = numero;
@@ -466,6 +460,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                         //se le asigna al nombre el primer número.
                         lastNumber = string.Concat(nombre, "-0001");
                         
+                        //Validamos que el número no sea repetido. Si es asi, asignamos el siguiente hasta que no se repita.
                         while (ExistDocumento(lastNumber))
                         {
                             string resultString = string.Empty;
