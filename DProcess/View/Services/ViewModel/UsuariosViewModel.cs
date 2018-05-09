@@ -38,7 +38,7 @@ namespace View.Services.ViewModel
         #region Constructors
         public UsuariosViewModel()
         {
-            ListaUsuariosCorreo = DataManagerControlDocumentos.GetUsuarios();
+            ListaUsuariosCorreo = DataManagerControlDocumentos.GetUsuarios("");
         } 
         #endregion
     }

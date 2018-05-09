@@ -10674,6 +10674,30 @@ namespace Model
 
             return ServiceUsuario.Perfil_Usuario(usuario.NombreUsuario, usuario.PerfilRGP, usuario.PerfilTooling, usuario.PerfilRawMaterial, usuario.PerfilStandarTime, usuario.PerfilQuotes, usuario.PerfilCIT, usuario.PerfilData, usuario.PerfilUserProfile, usuario.PerfilHelp);
         }
+        /// <summary>
+        /// metodo que elimina el perfil de un usuario en especific
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+
+        public static int DeLete_PerfilUsuario(string usuario)
+        {
+            SO_Usuario serviceUsuario = new SO_Usuario();
+
+            return serviceUsuario.EliminarPerfilUsuario(usuario);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        /// 
+        public static int DeletePrivilegiosUsuario(string usuario)
+        {
+            SO_Usuario ServiceUsuario = new SO_Usuario();
+
+            return ServiceUsuario.EliminarPrivilegiosUsuario(usuario);
+        }
         #endregion
 
         #region TipoPerfil

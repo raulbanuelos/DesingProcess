@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 
 namespace DataAccess.ServiceObjects.Usuario
@@ -209,7 +210,70 @@ namespace DataAccess.ServiceObjects.Usuario
                 return 0;
             }
         }
+        /// <summary>
+        /// metodo para eliminar el perfil de un usario en especifico
+        /// </summary>
+        /// <param name="id_usuario"></param>
+        /// <returns></returns>
+        public int EliminarPerfilUsuario(string id_usuario)
+        {
+            try
+            {
+                using (var conexion = new EntitiesUsuario())
+                {
+                    PerfilUsuario Puser = new PerfilUsuario();
 
+                    //obtenemos todos los registros que sean del id_usuario
+                    var rows = from o in conexion.PerfilUsuario
+                               where o.ID_USUARIO == id_usuario
+                               select o;
+
+                    //cada registro lo vamos a eliminar
+                    foreach (var row in rows)
+                    {
+                        conexion.Entry(row).State = EntityState.Deleted;
+
+                    }
+                    //guardamos los cambios
+                    return conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+
+                return 0;
+            }
+        }
+        /// <summary>
+        /// metodo para eliminar los privilegios de un usuario en especifico
+        /// </summary>
+        /// <param name="id_usuario"></param>
+        /// <returns></returns>
+        public int EliminarPrivilegiosUsuario(string id_usuario)
+        {
+            try
+            {
+                using (var conexion = new EntitiesUsuario())
+                {
+                    PrivilegioUsuario Privilegios = new PrivilegioUsuario();
+
+                    var rows = from o in conexion.PrivilegioUsuario
+                               where o.ID_USUARIO == id_usuario
+                               select o;
+
+                    foreach (var item in rows)
+                    {
+                        conexion.Entry(item).State = EntityState.Deleted;
+                    }
+                    return conexion.SaveChanges();
+                }
+            }
+            catch (Exception r)
+            {
+
+                return 0;
+            }
+        }
         #endregion
     }
 }

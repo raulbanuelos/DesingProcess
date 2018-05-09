@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows;
 using View.Forms.ControlDocumentos;
 using MahApps.Metro.Controls;
+using View.Forms.User;
 
 namespace View.Services.ViewModel
 {
@@ -34,6 +35,7 @@ namespace View.Services.ViewModel
 
         #region Propiedades
         public Usuario user;
+        public Usuarios usuario;
         Encriptacion encriptar = new Encriptacion();
 
         private string _usuario;
@@ -90,6 +92,7 @@ namespace View.Services.ViewModel
                 NotifyChange("ApellidoPaterno");
             }
         }
+
         private string _apellidoMaterno;
         public string ApellidMaterno
         {
@@ -103,22 +106,45 @@ namespace View.Services.ViewModel
                 NotifyChange("ApellidoMaterno");
             }
         }
-
         private string _contraseñaActual,nuevaContraseña,confimarContraseña;
+
+        private bool _Consultar;
+        public bool Consultar
+        {
+            get
+            {
+                return _Consultar;
+            }
+            set
+            {
+                _Consultar = value;
+                NotifyChange("Consultar");
+            }
+        }
         #endregion
 
         #region Contructor
         public PUserViewModel(Usuario ModelUsuario)
         {
+
             user = ModelUsuario;
             Usuario = encriptar.desencript(user.NombreUsuario);
             Nombre = user.Nombre;
             ApellidPaterno = user.ApellidoPaterno;
             ApellidMaterno = user.ApellidoMaterno;
 
+            if (Module.UsuarioIsRol(user.Roles,2))
+            {
+                Consultar = true;
+            }
         }
         #endregion
 
+        #region Comandos
+
+        /// <summary>
+        /// comando para agregar usuarios al sitema
+        /// </summary>
         public ICommand AgregarUsuario
         {
             get
@@ -126,17 +152,20 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => agregarUsuario());
             }
         }
-        private void agregarUsuario()
-        {
-            FrmNuevoUsuario frm = new FrmNuevoUsuario();
-            NuevoUsuarioVM context = new NuevoUsuarioVM(user);
 
-            frm.DataContext = context;
-            frm.ShowDialog();
+        /// <summary>
+        /// comando para consultar los datos de los usuarios
+        /// </summary>
+        public ICommand ConsultarUsuarios
+        {
+            get
+            {
+                return new RelayCommand(o => consultarusuarios());
+            }
         }
 
         /// <summary>
-        /// Método para guardar text de passwordBox 
+        /// comando para verificar la contraseña
         /// </summary>
         public ICommand PasswordChanged1
         {
@@ -146,26 +175,9 @@ namespace View.Services.ViewModel
             }
         }
 
-        public void changedPass(object parametro)
-        {
-            var passwordBox = parametro as PasswordBox;
-            _contraseñaActual = passwordBox.Password;
-        }
-
-        public ICommand ChangedNewPass
-        {
-            get
-            {
-                return new RelayCommand(parametro => changedNewPass((object)parametro));
-            }
-        }
-
-        public void changedNewPass(object parametro)
-        {
-            var passwordBox = parametro as PasswordBox;
-            nuevaContraseña = passwordBox.Password;
-        }
-
+        /// <summary>
+        /// Comando para verificar la contraseña cambiada
+        /// </summary>
         public ICommand ChangedConfirmPass
         {
             get
@@ -174,12 +186,20 @@ namespace View.Services.ViewModel
             }
         }
 
-        public void changedConfirmPass(object parametro)
+        /// <summary>
+        /// comando para modificar la nueva contraseña
+        /// </summary>
+        public ICommand ChangedNewPass
         {
-            var passwordBox = parametro as PasswordBox;
-            confimarContraseña = passwordBox.Password;
+            get
+            {
+                return new RelayCommand(parametro => changedNewPass((object)parametro));
+            }
         }
 
+        /// <summary>
+        /// comando para modificar la contraseña
+        /// </summary>
         public ICommand ModificarPass
         {
             get
@@ -187,7 +207,83 @@ namespace View.Services.ViewModel
                 return new RelayCommand(parametro => modificar());
             }
         }
+        #endregion
 
+        #region Metodos
+        /// <summary>
+        /// metodo para agregar un nuevo usuario
+        /// </summary>
+        private void agregarUsuario()
+        {
+            //declaramos la vista donde se ingresaran los datos del nuevo usuario
+            FrmNuevoUsuario frm = new FrmNuevoUsuario();
+            //declaramos un objeto del ViewModel de la vista
+            NuevoUsuarioVM context = new NuevoUsuarioVM(user);
+
+            //abrimos la ventana
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// metodo para consultar los datos de los usuarios
+        /// y asi poder administrarlos
+        /// </summary>
+        private void consultarusuarios()
+        {
+            //declaramos la vista donde se consultara la informacion de todos los usuarios
+            FrmConsultaDatosUsuario frm = new FrmConsultaDatosUsuario();
+            //declaramos un objeto del viewmodel de la vista
+            ConsultarDatosUsuariosVM context = new ConsultarDatosUsuariosVM();
+
+            //abrimos la ventana
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parametro"></param>
+        public void changedPass(object parametro)
+        {
+            var passwordBox = parametro as PasswordBox;
+            _contraseñaActual = passwordBox.Password;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parametro"></param>
+        public void changedNewPass(object parametro)
+        {
+            var passwordBox = parametro as PasswordBox;
+            nuevaContraseña = passwordBox.Password;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parametro"></param>
+        public void changedConfirmPass(object parametro)
+        {
+            var passwordBox = parametro as PasswordBox;
+            confimarContraseña = passwordBox.Password;
+        }
+
+        /// <summary>
+        /// metodo para validar que ningun campo de contraseña este vacio
+        /// </summary>
+        /// <returns></returns>
+        public bool Valida()
+        {
+            if (string.IsNullOrEmpty(confimarContraseña) || string.IsNullOrEmpty(_contraseñaActual) || string.IsNullOrEmpty(nuevaContraseña))
+                return false;
+            return true;
+        }
+
+        /// <summary>
+        /// metodo para modificar la contraseña
+        /// </summary>
         private async void modificar()
         {
             //Incializamos los servicios de dialog.
@@ -203,7 +299,7 @@ namespace View.Services.ViewModel
 
             if (result == MessageDialogResult.Affirmative)
             {
-                
+                //mandamos llamar el metodo que valida que ningun campo este vacio
                 if (Valida())
                 {
                     if (confimarContraseña.Length >=6 && _contraseñaActual.Length >=6 && nuevaContraseña.Length>=6)
@@ -220,9 +316,7 @@ namespace View.Services.ViewModel
 
                                 if (update !=0)
                                 {
-                                    //se muestra un mensaje de cambios realizados.
                                     await dialog.SendMessage("Información", "Contraseña modificada");
-
                                 }
                                 else
                                 {
@@ -250,16 +344,6 @@ namespace View.Services.ViewModel
                 }
             }
         }
-
-        #region Metodos
-
-        public bool Valida()
-        {
-            if (string.IsNullOrEmpty(confimarContraseña) || string.IsNullOrEmpty(_contraseñaActual) || string.IsNullOrEmpty(nuevaContraseña))
-                return false;
-            return true;
-        }
-
         #endregion
     }
 }

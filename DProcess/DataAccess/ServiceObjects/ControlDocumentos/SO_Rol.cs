@@ -165,7 +165,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
                     var Lista = (from r in Conexion.TBL_ROL
                                  join tr in Conexion.TR_ROL_USUARIOS on r.ID_ROL equals tr.ID_ROL
-                                 where tr.ID_USUARIO.Contains(usuario)
+                                 where tr.ID_USUARIO == usuario
                                  select new
                                  {
                                      r.ID_ROL,
@@ -216,6 +216,39 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             catch (Exception er)
             {
                 //Si hay error regresa una cadena vacía.
+                return 0;
+            }
+        }
+        /// <summary>
+        /// metodo para eliminar todos los roles que tenga un usuario
+        /// </summary>
+        /// <param name="id_usuario"></param>
+        /// <returns></returns>
+        public int DeleteRolUsuario(string id_usuario)
+        {
+            try
+            {
+                using (var conexion = new EntitiesControlDocumentos())
+                {
+
+                    //obtenemos todos los registros que sean del id_usuario
+                    var rows = from o in conexion.TR_ROL_USUARIOS
+                               where o.ID_USUARIO == id_usuario
+                               select o;
+
+                    //cada registro lo vamos a eliminar
+                    foreach (var row in rows)
+                    {
+                    //conexion.TR_ROL_USUARIOS.Remove(row);
+                    conexion.Entry(row).State = EntityState.Deleted;
+
+                    }
+                    //guardamos los cambios
+                    return conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
                 return 0;
             }
         }

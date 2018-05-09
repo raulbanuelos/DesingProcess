@@ -55,7 +55,33 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
-
+        /// <summary>
+        /// metodo que obtiene los documentos de un usuario
+        /// </summary>
+        /// <param name="id_usuario"></param>
+        /// <returns></returns>
+        public IList GetDocumentosUsuario(string id_usuario)
+        {
+            try
+            {
+                using (var conexion = new EntitiesControlDocumentos())
+                {
+                    var Lista = (from d in conexion.TBL_DOCUMENTO
+                                 where d.ID_USUARIO==id_usuario
+                                 select new
+                                 {
+                                     d.ID_DOCUMENTO,
+                                     d.ID_USUARIO
+                                 }).ToList();
+                    //se retorna la lista
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
         /// <summary>
         /// Método para insertar un registro en la tabla TBL_Documento.
         /// </summary>

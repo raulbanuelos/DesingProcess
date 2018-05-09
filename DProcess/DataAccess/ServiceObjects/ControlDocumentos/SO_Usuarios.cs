@@ -1,10 +1,8 @@
 ﻿using System;
+using Encriptar;
 using System.Collections;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.ServiceObjects.ControlDocumentos
 {
@@ -14,16 +12,25 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// Método para obtener  todos los registros de la tabla Usuarios.
         /// </summary>
         /// <returns>Retorns nulo si hay error.</returns>
-        public IList GetUsuario()
+        public IList GetUsuario(string usuario)
         {
+            Encriptacion encriptar = new Encriptacion();
             try
             {
                 //Establecemos la conexión a la BD.
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
+                    string texto_normal = encriptar.desencript(usuario);
+
                     //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
                     var Lista = (from u in Conexion.Usuarios
-                                 where u.Bloqueado == false
+                                 where u.Bloqueado == false && 
+                                 u.Usuario.Contains(usuario) ||
+                                 u.Nombre.Contains(texto_normal) ||
+                                 u.APaterno.Contains(texto_normal) ||
+                                 u.AMaterno.Contains(texto_normal) ||
+                                 u.Correo.Contains(texto_normal)
+
                                  orderby u.Nombre ascending
                                  select new
                                  {
@@ -39,6 +46,67 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      u.Correo,
                                      u.Pathnsf
                                     
+                                 }).ToList();
+                    //se retorna la lista
+                    return Lista;
+
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay algún error, se retorna un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// metodo para buscar un usuario por el nomnre de usuario
+        /// </summary>
+        /// <param name="txt_busqueda"></param>
+        /// <returns></returns>
+        public IList BuscarUsuario(string txt_busqueda)
+        {
+            try
+            {
+                using (var conexio = new EntitiesControlDocumentos())
+                {
+
+                    var lista = (from u in conexio.Usuarios
+                                 where u.Usuario.Contains(txt_busqueda)
+                                 select u).ToList();
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public IList GetUsuarioF(string nombre)
+        {
+            try
+            {
+                //Establecemos la conexión a la BD.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
+                    var Lista = (from u in Conexion.Usuarios
+                                 where u.Bloqueado == false && u.Usuario.Contains(nombre)
+                                 orderby u.Nombre ascending
+                                 select new
+                                 {
+                                     u.Usuario,
+                                     u.Password,
+                                     u.Nombre,
+                                     u.APaterno,
+                                     u.AMaterno,
+                                     u.Estado,
+                                     u.Usql,
+                                     u.Psql,
+                                     u.Bloqueado,
+                                     u.Correo,
+                                     u.Pathnsf
                                  }).ToList();
                     //se retorna la lista
                     return Lista;
@@ -178,12 +246,14 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception)
+            catch (Exception r)
             {
                 //Si hay error, se regresa 0.
                 return 0;
             }
         }
+
+
 
         /// <summary>
         /// Valida que el usuario no exista.

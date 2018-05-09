@@ -11,17 +11,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace View.Forms.User
 {
     /// <summary>
-    /// Lógica de interacción para PUser.xaml
+    /// Lógica de interacción para FrmConsultaDatosUsuario.xaml
     /// </summary>
-    public partial class PUser : Page
+    public partial class FrmConsultaDatosUsuario : MetroWindow
     {
-        public PUser()
+        public FrmConsultaDatosUsuario()
         {
             InitializeComponent();
         }
