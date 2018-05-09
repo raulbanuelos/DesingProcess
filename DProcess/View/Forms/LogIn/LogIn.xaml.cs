@@ -26,6 +26,7 @@ namespace View.Forms.LogIn
 		public LogIn()
 		{
 			InitializeComponent();
+            lblVersion.Content = "Versión " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 		
 		async void Btn_ingresar_Click(object sender, RoutedEventArgs e)

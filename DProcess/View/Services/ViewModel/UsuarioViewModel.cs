@@ -293,7 +293,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        public ICommand IrRawMaterial {
+        public ICommand IrRawMaterial
+        {
             get {
                 return new RelayCommand(o => irRawMaterial());
             }

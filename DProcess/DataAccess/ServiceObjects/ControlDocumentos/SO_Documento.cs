@@ -491,6 +491,20 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     {
                         //se le asigna al nombre el primer número.
                         lastNumber = string.Concat(nombre, "-0001");
+                        
+                        while (ExistDocumento(lastNumber))
+                        {
+                            string resultString = string.Empty;
+                            string[] vec = lastNumber.Split('-');
+                            int c = vec.Length;
+                            string num = vec[c - 1];
+                            resultString = num;
+                            int number = Int32.Parse(resultString);
+                            number++;
+
+                            //Concatenamos el nombre con el nuevo número
+                            lastNumber = string.Concat(nombre, "-", number.ToString("D4"));
+                        }
                     }
                     else
                     {

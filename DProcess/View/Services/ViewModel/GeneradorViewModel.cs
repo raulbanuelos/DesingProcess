@@ -272,7 +272,7 @@ namespace View.Services.ViewModel
                     else
                     {
                         //Se generó un número que ya existe.
-                        await dialog.SendMessage("Alerta", "Error al generar el número, favor de comunicarse con el administrador del sistema.");
+                        await dialog.SendMessage("Alerta", "Se generó un error al generar el número, probablemente el número de documento ya exista. Favor de comunicarse con el administrador del sistema");
                     }
                     
                 }

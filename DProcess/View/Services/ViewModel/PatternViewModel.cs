@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Model.Interfaces;
 using View.Services.Operaciones.Fundicion;
 using View.Forms.Routing;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace View.Services.ViewModel
 {
@@ -987,6 +988,14 @@ namespace View.Services.ViewModel
             set { customersList = value; NotifyChange("CustomersList"); }
         }
 
+        private ObservableCollection<FO_Item> _TipoMPList;
+        public ObservableCollection<FO_Item> TipoMPList
+        {
+            get { return _TipoMPList; }
+            set { _TipoMPList = value; NotifyChange("TipoMPList"); }
+        }
+
+
         private FO_Item tipoMateriaPrimaList;
         public FO_Item TipoMateriaPrimaList
         {
@@ -1049,10 +1058,11 @@ namespace View.Services.ViewModel
 
             CustomersList = DataManager.GetAllClientes();
 
-            //TipoMateriaPrimaList = 
+            TipoMPList = DataManager.GetAllTipoMateriaPrima();
 
             Inicializar();
-        }        
+
+        }
         #endregion
 
         #region Commands
@@ -1087,6 +1097,14 @@ namespace View.Services.ViewModel
         public ICommand GuardarPattern {
             get {
                 return new RelayCommand(o => guardarPattern());
+            }
+        }
+
+        public ICommand EliminarPattern
+        {
+            get
+            {
+                return new RelayCommand(o => eliminarPattern());
             }
         }
 
@@ -1132,6 +1150,10 @@ namespace View.Services.ViewModel
 
         private void seleccionarPlaca()
         {
+            if (SelectedPattern == null)
+            {
+                SelectedPattern = new Pattern();
+            }
             Codigo = SelectedPattern.Codigo;
             medida = SelectedPattern.medida;
             diametro = SelectedPattern.diametro;
@@ -1213,7 +1235,7 @@ namespace View.Services.ViewModel
         /// </summary>
         private void Inicializar()
         {
-           
+            
             model = new Pattern();
             Codigo = string.Empty;
             medida = new Propiedad();
@@ -1705,7 +1727,6 @@ namespace View.Services.ViewModel
         /// </summary>
         private async void guardarPattern()
         {
-
             DialogService dialog = new DialogService();
             
             if (validar())
@@ -1713,14 +1734,20 @@ namespace View.Services.ViewModel
                 //Si no se tiene el id del cliente, buscamos su id.
                 if (model.customer.IdCliente == 0)
                     model.customer.IdCliente = DataManager.GetIDCliente(model.customer.NombreCliente);
-
-
+                
                 string codigoRegistrado = DataManager.SetPattern(model);
                 if (!codigoRegistrado.Equals(""))
+                {
                     await dialog.SendMessage(Resources.StringResources.ttlDone, Resources.StringResources.msgPatternInserted + codigoRegistrado);
+
+                    //Inicializamos el objeto anillo que representa nuestro modelo.
+                    Inicializar();
+                    ListaPattern = DataManager.GetAllPattern();
+
+                }
                 else
                     await dialog.SendMessage(Resources.StringResources.ttlAlerta, Resources.StringResources.msgError);
-            }
+            } 
             else
                 await dialog.SendMessage(Resources.StringResources.ttlAlerta, Resources.StringResources.msgFillFlields);
         }
@@ -1737,8 +1764,126 @@ namespace View.Services.ViewModel
                 return false;
             else if (ordered.Valor.Equals(string.Empty))
                 return false;
-            
+            else if (string.IsNullOrEmpty(Codigo))
+                return false;
+            else if (medida.Valor == 0)
+                return false;
+            else if (diametro.Valor == 0)
+                return false;
+            else if (customer.IdCliente == 0)
+                return false;
+            else if (mounting.Valor == 0)
+                return false;
+            else if (string.IsNullOrEmpty(on_14_rd_gate.Valor))
+                return false;
+            else if (string.IsNullOrEmpty(button.Valor))
+                return false;
+            else if (string.IsNullOrEmpty(cone.Valor))
+                return false;
+            else if (string.IsNullOrEmpty(M_Circle.Valor))
+                return false;
+            else if (ring_w_min.Valor == 0)
+                return false;
+            else if (ring_w_max.Valor == 0)
+                return false;
+            else if (B_Dia.Valor == 0)
+                return false;
+            else if (fin_Dia.Valor == 0)
+                return false;
+            else if (turn_allow.Valor == 0)
+                return false;
+            else if (cstg_sm_od.Valor == 0)
+                return false;
+            else if (shrink_allow.Valor == 0)
+                return false;
+            else if (patt_sm_od.Valor == 0)
+                return false;
+            else if (piece_in_patt.Valor == 0)
+                return false;
+            else if (bore_allow.Valor == 0)
+                return false;
+            else if (patt_sm_id.Valor == 0)
+                return false;
+            else if (patt_thickness.Valor == 0)
+                return false;
+            else if (string.IsNullOrEmpty(joint.Valor))
+                return false;
+            else if (string.IsNullOrEmpty(nick.Valor))
+                return false;
+            else if (string.IsNullOrEmpty(nick_draf.Valor))
+                return false;
+            else if (string.IsNullOrEmpty(nick_depth.Valor))
+                return false;
+            else if (string.IsNullOrEmpty(side_relief.Valor))
+                return false;
+            else if (cam.Valor == 0)
+                return false;
+            else if (cam_roll.Valor == 0)
+                return false;
+            else if (rise.Valor == 0)
+                return false;
+            else if (OD.Valor == 0)
+                return false;
+            else if (ID.Valor == 0)
+                return false;
+            else if (diff.Valor == 0)
+                return false;
+            else if (TipoMateriaPrima.id == 0)
+                return false;
+            else if (factor_k.Valor == 0)
+                return false;
+            else if (rise_built.Valor == 0)
+                return false;
+            else if (ring_th_min.Valor == 0)
+                return false;
+            else if (ring_th_max.Valor == 0)
+                return false;
+            else if (plato.Valor == 0)
+                return false;
+            else if (string.IsNullOrEmpty(detalle.Valor))
+                return false;
+            else if (string.IsNullOrEmpty(date_checked.Valor))
+                return false;
+
             return true;
+        }
+
+        private async void eliminarPattern()
+        {
+            DialogService dialog = new DialogService();
+            
+            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = Resources.StringResources.lblYes;
+            setting.NegativeButtonText = Resources.StringResources.lblNo;
+
+            MessageDialogResult result = await dialog.SendMessage(Resources.StringResources.ttlAlerta, Resources.StringResources.lblConfirmDeleteRecord, setting, MessageDialogStyle.AffirmativeAndNegative);
+
+            if (result == MessageDialogResult.Affirmative)
+            {
+                int r = DataManager.DeletePattern(model);
+
+                if (r > 0)
+                {
+                    await dialog.SendMessage(Resources.StringResources.ttlDone, Resources.StringResources.lblRecordDeleted);
+
+                    //Inicializamos el objeto anillo que representa nuestro modelo.
+                    ModelAnillo = new Anillo();
+
+                    ListaPattern = DataManager.GetAllPattern();
+
+                    CustomersList = DataManager.GetAllClientes();
+
+                    TipoMPList = DataManager.GetAllTipoMateriaPrima();
+
+                    Inicializar();
+
+                }
+                else
+                {
+                    await dialog.SendMessage(Resources.StringResources.ttlAlerta, Resources.StringResources.msgError);
+                }
+            }
         }
         #endregion
     }

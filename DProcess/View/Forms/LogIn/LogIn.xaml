@@ -44,6 +44,9 @@
                 </Rectangle>
             </StackPanel>
         </Button>
+        <Label x:Name="lblVersion" Content="" Canvas.Left="-42" Canvas.Top="180" Width="191" Foreground="White"/>
+
+
 
     </Canvas>
 </Controls:MetroWindow>
