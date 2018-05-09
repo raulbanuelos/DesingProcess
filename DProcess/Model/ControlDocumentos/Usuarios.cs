@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model.ControlDocumentos
 {
-   public class Usuarios :Arquetipo
+    public class Usuarios : Arquetipo
     {
         #region Propiedades
         public string usuario { get; set; }
@@ -21,6 +21,8 @@ namespace Model.ControlDocumentos
         public string Correo { get; set; }
         public string Pathnsf { get; set; }
         public bool IsSelected { get; set; }
+        public string roles { get; set; }
+        public string extencion { get; set; }
         public string NombreCompleto {
             get
             {

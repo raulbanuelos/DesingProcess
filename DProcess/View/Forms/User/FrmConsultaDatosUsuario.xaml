@@ -1,0 +1,107 @@
+﻿<Controls:MetroWindow  x:Class="View.Forms.User.FrmConsultaDatosUsuario"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:local="clr-namespace:View.Forms.User"
+        mc:Ignorable="d"
+        Title="Administrar Usuarios" 
+        Height="500" Width="700" 
+        BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+
+        <!--Lista de Archivos-->
+        <DataTemplate x:Key="Lista">
+            <Border Margin="5" BorderThickness="1" BorderBrush="#FF2196F3" CornerRadius="4" Width="500" Height="325">
+                <Grid Margin="3">
+                    <Grid Grid.Column="0" Width="380" Height="325">
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="130"></ColumnDefinition>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="85"></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        
+                        <TextBlock Text="Usuario: " FontSize="14" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left"></TextBlock>
+                        <TextBlock FontWeight="Bold" Text="{Binding Path =usuario}" TextWrapping="WrapWithOverflow" TextAlignment="Center" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Padding="2"></TextBlock>
+
+                        <TextBlock Text="Contraseña: " FontSize="14" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left"></TextBlock>
+                        <TextBlock FontWeight="Bold" Text="{Binding Path=password}" TextWrapping="WrapWithOverflow" TextAlignment="Center" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Padding="2"></TextBlock>
+
+                        <TextBlock Text="Correo: " FontSize="14" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left"></TextBlock>
+                        <TextBlock FontWeight="Bold" Text="{Binding Path=Correo}" TextWrapping="WrapWithOverflow" TextAlignment="Center" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Padding="2"></TextBlock>
+
+                        <TextBlock Text="Nombre: " FontSize="14" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="{Binding Path=nombre}" HorizontalAlignment="Right" Padding="2" Grid.Column="1" Grid.Row="3" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+
+                        <TextBlock Text="Apellido Paterno: " FontSize="14" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="{Binding Path=APaterno}" HorizontalAlignment="Right" Padding="2" Grid.Column="1" Grid.Row="4" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+
+                        <TextBlock Text="Apellido Materno: " FontSize="14" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="{Binding Path=AMaterno}" HorizontalAlignment="Right" Padding="2" Grid.Column="1" Grid.Row="5" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+
+
+                        <TextBlock Text="Rol: " FontSize="14" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="2" Grid.Column="1" Grid.Row="6">
+                            <TextBlock Text="{Binding Path=roles}" HorizontalAlignment="Right" Padding="2" Grid.Column="1" Grid.Row="6" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                        </ScrollViewer>
+
+                        <TextBlock Text="Path: " FontSize="14" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Padding="2" Grid.Column="1" Grid.Row="7">
+                            <TextBlock Text="{Binding Path=Pathnsf}" HorizontalAlignment="Right" Padding="2" Grid.Column="1" Grid.Row="7" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                        </ScrollViewer>
+
+                        <Button  Grid.Column="1" Grid.Row="8" Content="Eliminar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#FFE27B7B" BorderBrush="#FFD36B6B" Command="{Binding Path=DataContext.EliminarUsuario,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" />
+                        <Button  Grid.Column="0" Grid.Row="8" Content="Modificar" Width="100" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Command="{Binding Path=DataContext.ModificarUsuario,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" ></Button>
+                    </Grid>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </Window.Resources>
+    
+    <Grid ShowGridLines="False">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBox Name="txt_buscar"  materialDesign:HintAssist.Hint="Buscar Usuario" Grid.Column="1" Grid.Row="1" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}" HorizontalAlignment="Left" Width="650">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction
+						Command="{Binding ConsultarUsuarios}" 
+                        CommandParameter="{Binding ElementName=txt_buscar, Path=Text}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+
+        <!--ListView Archivos-->
+        <ListBox Name="listBox" Grid.Column="1" Grid.Row="2" Width="Auto" Height="Auto" ItemsSource="{Binding ListaUsuarios}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" BorderThickness="1" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" >
+        </ListBox>
+    </Grid>
+</Controls:MetroWindow>

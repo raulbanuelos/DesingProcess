@@ -247,8 +247,26 @@ namespace View.Services.ViewModel
                                         //los agregamos a la propiedad de roles
                                         _usuario.Roles.Add(rol);
                                     }
+                                    //si el usuario tiene rol de administrador de CIT o dueño de documento
+                                     if (Module.UsuarioIsRol(_usuario.Roles, 2) || Module.UsuarioIsRol(_usuario.Roles, 3))
+                                    {
+                                        //usuario es admin del cit o dueño del documento
+                                        _usuario.PerfilCIT = true;
+                                    }
+                                    //si el usuario tiene rol de ingeniero
+                                    if (Module.UsuarioIsRol(_usuario.Roles, 4) || Module.UsuarioIsRol(_usuario.Roles, 5) || Module.UsuarioIsRol(_usuario.Roles, 6) || Module.UsuarioIsRol(_usuario.Roles, 7))
+                                    {
+                                        //usuario tiene rol de ingeniero
 
-                                    //Si el usuario agregado tiene rol de administrador
+                                        _usuario.PerfilUserProfile = true;
+                                        _usuario.PerfilData = true;
+                                        _usuario.PerfilQuotes = true;
+                                        _usuario.PerfilRawMaterial = true;
+                                        _usuario.PerfilStandarTime = true;
+                                        _usuario.PerfilTooling = true;
+                                        _usuario.PerfilRGP = true;   
+                                    }
+                                    //si el usuario tiene rol de administrador del sistema
                                     if (Module.UsuarioIsRol(_usuario.Roles, 1))
                                     {
                                         //Es administrador
@@ -260,46 +278,13 @@ namespace View.Services.ViewModel
                                         _usuario.PerfilStandarTime = true;
                                         _usuario.PerfilTooling = true;
                                         _usuario.PerfilUserProfile = true;
-                                        _usuario.PerfilRGP = true;
+                                       _usuario.PerfilRGP = true;
 
-                                        //Agreamos el perfil y privilegios
-                                        DataManager.Set_PerfilUsuario(_usuario);
-                                        DataManager.Set_PrivilegiosUsuario(_usuario);
-
-                                    }//Si el usuario agregado tiene rol de dueño de documento o CIT
-                                    else if (Module.UsuarioIsRol(_usuario.Roles, 2) || Module.UsuarioIsRol(_usuario.Roles, 3))
-                                    {
-                                        //usuario es admin del cit o dueño del documento
-                                        _usuario.PerfilCIT = true;
-                                        _usuario.PerfilData = false;
-                                        _usuario.PerfilHelp = false;
-                                        _usuario.PerfilQuotes = false;
-                                        _usuario.PerfilRawMaterial = false;
-                                        _usuario.PerfilStandarTime = false;
-                                        _usuario.PerfilTooling = false;
-                                        _usuario.PerfilUserProfile = true;
-                                        _usuario.PerfilRGP = false;
-
-                                        DataManager.Set_PerfilUsuario(_usuario);
-                                        DataManager.Set_PrivilegiosUsuario(_usuario);
                                     }
-                                    else if (Module.UsuarioIsRol(_usuario.Roles, 4) || Module.UsuarioIsRol(_usuario.Roles, 5) || Module.UsuarioIsRol(_usuario.Roles, 6) || Module.UsuarioIsRol(_usuario.Roles, 7))
-                                    {
-                                        //usuario tiene rol de ingeniero
 
-                                        _usuario.PerfilCIT = false;
-                                        _usuario.PerfilUserProfile = true;
-                                        _usuario.PerfilData = true;
-                                        _usuario.PerfilHelp = false;
-                                        _usuario.PerfilQuotes = true;
-                                        _usuario.PerfilRawMaterial = true;
-                                        _usuario.PerfilStandarTime = true;
-                                        _usuario.PerfilTooling = true;
-                                        _usuario.PerfilRGP = true;
-
-                                        DataManager.Set_PerfilUsuario(_usuario);
-                                        DataManager.Set_PrivilegiosUsuario(_usuario);
-                                    }
+                                    //agregamos los perfiles y privilegios correspondientes
+                                    DataManager.Set_PerfilUsuario(_usuario);
+                                    DataManager.Set_PrivilegiosUsuario(_usuario);
 
 
                                     //se muestra un mensaje de cambios realizados.

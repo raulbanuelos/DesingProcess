@@ -1,6 +1,7 @@
 ﻿using DataAccess.ServiceObjects.ControlDocumentos;
 using DataAccess.ServiceObjects.Notificaciones;
 using System;
+using Encriptar;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -260,7 +261,7 @@ namespace Model.ControlDocumentos
                     obj.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
                     obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
                     obj.Abreviatura = (string)tipo.GetProperty("ABREVIATURA").GetValue(item, null);
-            
+
                     //Quitamamos los acentos del nombre de departamento iterado
                     string nombreSinAcentos = DeleteAccents(obj.nombre_dep);
 
@@ -276,7 +277,7 @@ namespace Model.ControlDocumentos
             return 0;
 
         }
-        
+
         #endregion
 
         #region Documento
@@ -324,6 +325,29 @@ namespace Model.ControlDocumentos
             //regresamos la lista.
             return Lista;
         }
+        /// <summary>
+        /// metodo para contar los documentos de un usario en especifico
+        /// si tiene documentos no se puede eliminar el usuario, solo se eliminan los privilegios y perfiles
+        /// si no tiene documentos se elimina
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public static bool ContarDocumentos(string usuario)
+        {
+            SO_Documento ServiceDocumento = new SO_Documento();
+            ObservableCollection<Documento> lista = new ObservableCollection<Documento>();
+
+            IList objdocumento = ServiceDocumento.GetDocumentosUsuario(usuario);
+            if (objdocumento.Count != 0)
+            {
+                //si tiene documentos
+                return true;
+            }else
+            {
+                //si no tiene documentos
+                return false;
+            }
+        }
 
         /// <summary>
         /// Método para insertar un registro de la tabla TBL_Documento.
@@ -352,7 +376,7 @@ namespace Model.ControlDocumentos
 
             // Se ejecuta el método y retorna los registros que se modificaron.
             return ServiceDocumento.UpdateDocumento(documento.id_documento, documento.id_tipo_documento, documento.id_dep,
-                                                 documento.fecha_actualizacion, documento.id_estatus, documento.fecha_emision,documento.usuario);
+                                                 documento.fecha_actualizacion, documento.id_estatus, documento.fecha_emision, documento.usuario);
         }
 
         /// <summary>
@@ -515,7 +539,7 @@ namespace Model.ControlDocumentos
             //regresamos la lista.
             return Lista;
         }
-        
+
         /// <summary>
         /// Método que obtiene el nombre de un documento
         /// </summary>
@@ -586,7 +610,7 @@ namespace Model.ControlDocumentos
             SO_Documento ServiceDocumento = new SO_Documento();
 
             // Se ejecuta el método y retonamos el número generado.
-            return ServiceDocumento.GetNumero(numero, tipoDocumento.id_tipo,departamento.id_dep);
+            return ServiceDocumento.GetNumero(numero, tipoDocumento.id_tipo, departamento.id_dep);
         }
 
         /// <summary>
@@ -684,7 +708,7 @@ namespace Model.ControlDocumentos
             //Retornamos el objeto
             return documento;
         }
-        
+
         /// <summary>
         /// Método para actualizar el estado de un documento
         /// </summary>
@@ -782,13 +806,13 @@ namespace Model.ControlDocumentos
                     obj.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
 
                     Lista.Add(obj);
-                 
+
                 }
             }
             //Retornamos la lista.
             return Lista;
         }
-        
+
         /// <summary>
         /// Método para obtener las coincidencias de una descripción de documento.
         /// </summary>
@@ -902,7 +926,7 @@ namespace Model.ControlDocumentos
         {
             //inicializa el contador
             int contador = 0;
-          
+
             //recorre la primera palabara
             for (int i = 0; i < w1.Length; i++)
             {
@@ -910,13 +934,13 @@ namespace Model.ControlDocumentos
                 for (int j = 0; j < w2.Length; j++)
                 {
                     //realiza la comparación ignorado mayúsculas y minúsculas
-                    if(w1[i].ToString().Equals(w2[j].ToString(),StringComparison.InvariantCultureIgnoreCase))
-                     {
+                    if (w1[i].ToString().Equals(w2[j].ToString(), StringComparison.InvariantCultureIgnoreCase))
+                    {
                         //si son iguales el caractér en la posición i y en la posición j
                         //suma el contador y rompe el ciclo
                         contador++;
                         break;
-                     }
+                    }
                 }
             }
 
@@ -937,10 +961,10 @@ namespace Model.ControlDocumentos
             int porciento = (contador * 100) / w1.Length;
 
             //si el porcentaje es mayor a 80%, la palabra es parecida
-            if (porciento >= 80 )
+            if (porciento >= 80)
             {
                 int aux = 0;
-                int contador2=0;
+                int contador2 = 0;
                 //Se agrega nueva validación, para mayor presicion de coicidencia de las palabras
                 //Mientras el auxiliar sea menor al tamaño guardado
                 do
@@ -950,7 +974,7 @@ namespace Model.ControlDocumentos
                         contador2++;
 
                     //Sumamos el auxiliar
-                        aux++;
+                    aux++;
                 } while (aux < tam);
 
                 //Calculamos de nuevo el porcentaje de coincidencia de las palabras 
@@ -964,7 +988,7 @@ namespace Model.ControlDocumentos
             }
             else
                 return false;
-       
+
         }
 
         /// <summary>
@@ -999,17 +1023,17 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="vector"></param>
         /// <returns></returns>
-        private static string [] RemoveChacters(string[] vector)
+        private static string[] RemoveChacters(string[] vector)
         {
             //recorre todo el vector
             for (int i = 0; i < vector.Length; i++)
             {
                 //si el vector en la posicion i su tamaño es menor o igual a 3, se reemplaza por cadena vacia
                 if (vector[i].Length <= 3)
-                    vector[i]=string.Empty;
+                    vector[i] = string.Empty;
             }
             //Eliminamos las cadenas vacías del vector resultante
-           vector=vector.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            vector = vector.Where(x => !string.IsNullOrEmpty(x)).ToArray();
             //Retornamos el vector sin las palabras de menos de 3 caracteres
             return vector;
         }
@@ -1055,7 +1079,7 @@ namespace Model.ControlDocumentos
                     obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
                     obj.Departamento = (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
                     //Regresamos la lista
-                    Lista.Add(obj);                    
+                    Lista.Add(obj);
                 }
             }
             //Regresamos la lista
@@ -1080,7 +1104,7 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="objeto"></param>
         /// <returns></returns>
-        public static ObservableCollection<Documento> GetHistorialDocumentos(DateTime fecha_inicio, DateTime fecha_fin, string estado,int id_dep, int id_tipo)
+        public static ObservableCollection<Documento> GetHistorialDocumentos(DateTime fecha_inicio, DateTime fecha_fin, string estado, int id_dep, int id_tipo)
         {
             //Se inicializa los servicios de documento
             SO_Documento ServiceDocumento = new SO_Documento();
@@ -1108,7 +1132,7 @@ namespace Model.ControlDocumentos
                     obj.Departamento = (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
                     obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FechaHistorial").GetValue(item, null);
                     obj.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
-                 
+
                     //Agregamos el objeto a la lista.
                     Lista.Add(obj);
                 }
@@ -1147,16 +1171,16 @@ namespace Model.ControlDocumentos
                     {
                         HistorialVersion obj = new HistorialVersion();
 
-                         obj.fecha = Convert.ToDateTime(element["FECHA"].ToString());
-                         obj.cantidad = Int32.Parse(element["CANTIDAD_LIBERADOS"].ToString());
+                        obj.fecha = Convert.ToDateTime(element["FECHA"].ToString());
+                        obj.cantidad = Int32.Parse(element["CANTIDAD_LIBERADOS"].ToString());
 
                         Lista.Add(obj);
                     }
                 }
 
             }
-                //Retornamos la lista.
-                return Lista;
+            //Retornamos la lista.
+            return Lista;
         }
 
 
@@ -1283,7 +1307,6 @@ namespace Model.ControlDocumentos
             //regresamos la lista.
             return Lista;
         }
-
         /// <summary>
         /// Método que inserta los roles de cada usuario.
         /// </summary>
@@ -1297,6 +1320,18 @@ namespace Model.ControlDocumentos
 
             //Se ejecuta el método y retorna el id del rol
             return ServiceRol.SetRol_Usuario(rol.id_rol, rol.id_usuario);
+        }
+        /// <summary>
+        /// metodo que elimina los roles de un usuario
+        /// </summary>
+        /// <param name="rol"></param>
+        /// <returns></returns>
+
+        public static int DeleteRol_Usuario(string IdUsuario)
+        {
+            SO_Rol ServiceRol = new SO_Rol();
+
+            return ServiceRol.DeleteRolUsuario(IdUsuario);
         }
         #endregion
 
@@ -1451,7 +1486,7 @@ namespace Model.ControlDocumentos
                     {
                         //si el tipo de documento o la abreviatura son iguales, devuelve el id                      
                         return obj.id_tipo;
-                    }                 
+                    }
                 }
             }
             //regresamos cero, no encontró ninguna coincidencia
@@ -1465,7 +1500,7 @@ namespace Model.ControlDocumentos
         /// Método para obtener todos los registros de la tabla Usuarios.
         /// </summary>
         /// <returns></returns>
-        public static ObservableCollection<Usuarios> GetUsuarios() {
+        public static ObservableCollection<Usuarios> GetUsuarios(string Buscar) {
 
 
             //Inicializamos los servicios de usuarios.
@@ -1474,8 +1509,51 @@ namespace Model.ControlDocumentos
             //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
             ObservableCollection<Usuarios> Lista = new ObservableCollection<Usuarios>();
 
+            Encriptacion encriptar = new Encriptacion();
             //Ejecutamos el método para obtener la información de la base de datos.
-            IList ObjUsuarios = ServiceUsuarios.GetUsuario();
+            string usuario_buscar = encriptar.encript(Buscar);
+            IList ObjUsuarios = ServiceUsuarios.GetUsuario(usuario_buscar);
+
+            //Comparamos que la información de la base de datos no sea nulo
+            if (ObjUsuarios != null)
+
+            {
+                //Iteramos la información recibida.
+                foreach (var item in ObjUsuarios)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos on objeto de tipo usuarios que contendrá la información de un registro.
+                    Usuarios obj = new Usuarios();
+
+                    //Asignamos los valores correspondientes.
+                    obj.usuario = encriptar.desencript((string)tipo.GetProperty("Usuario").GetValue(item, null));
+                    obj.password = (string)tipo.GetProperty("Password").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("Nombre").GetValue(item, null);
+                    obj.APaterno = (string)tipo.GetProperty("APaterno").GetValue(item, null);
+                    obj.AMaterno = (string)tipo.GetProperty("AMaterno").GetValue(item, null);
+                    obj.estado = (int)tipo.GetProperty("Estado").GetValue(item, null);
+                    obj.usql = (string)tipo.GetProperty("Usql").GetValue(item, null);
+                    obj.psql = (string)tipo.GetProperty("Psql").GetValue(item, null);
+                    obj.bloqueado = (bool)tipo.GetProperty("Bloqueado").GetValue(item, null);
+                    obj.Correo = (string)tipo.GetProperty("Correo").GetValue(item, null);
+                    obj.Pathnsf = (string)tipo.GetProperty("Pathnsf").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //Retornamos la lista.
+            return Lista;
+        }
+
+        public static ObservableCollection<Usuarios> getusuario()
+        {
+            SO_Usuarios consulta = new SO_Usuarios();
+
+            ObservableCollection<Usuarios> lista = new ObservableCollection<Usuarios>();
+            IList ObjUsuarios = consulta.GetUsuario("");
 
             //Comparamos que la información de la base de datos no sea nulo
             if (ObjUsuarios != null)
@@ -1502,13 +1580,48 @@ namespace Model.ControlDocumentos
                     obj.bloqueado = (bool)tipo.GetProperty("Bloqueado").GetValue(item, null);
                     obj.Correo = (string)tipo.GetProperty("Correo").GetValue(item, null);
                     obj.Pathnsf = (string)tipo.GetProperty("Pathnsf").GetValue(item, null);
-
-                    //Agregamos el objeto a la lista resultante.
-                    Lista.Add(obj);
+                    lista.Add(obj);
                 }
             }
             //Retornamos la lista.
-            return Lista;
+            return lista;
+
+        }
+        /// <summary>
+        /// metodo para buscar un usuario
+        /// </summary>
+        /// <param name="txt_busqueda"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Usuarios> GetUsuario(string txt_busqueda)
+        {
+            SO_Usuarios ServiceUsuarios = new SO_Usuarios();
+
+            ObservableCollection<Usuarios> lista = new ObservableCollection<Usuarios>();
+            IList obj = ServiceUsuarios.BuscarUsuario(txt_busqueda);
+
+            if (obj != null)
+            {
+                foreach (var item in obj)
+                {
+                    System.Type tipo = item.GetType();
+
+                    Usuarios user = new Usuarios();
+
+                    user.usuario = (string)tipo.GetProperty("Usuario").GetValue(item, null);
+                    user.password = (string)tipo.GetProperty("Password").GetValue(item, null);
+                    user.nombre = (string)tipo.GetProperty("Nombre").GetValue(item, null);
+                    user.APaterno = (string)tipo.GetProperty("APaterno").GetValue(item, null);
+                    user.AMaterno = (string)tipo.GetProperty("AMaterno").GetValue(item, null);
+                    user.estado = (int)tipo.GetProperty("Estado").GetValue(item, null);
+                    user.usql = (string)tipo.GetProperty("Usql").GetValue(item, null);
+                    user.psql = (string)tipo.GetProperty("Psql").GetValue(item, null);
+                    user.bloqueado = (bool)tipo.GetProperty("Bloqueado").GetValue(item, null);
+                    user.Correo = (string)tipo.GetProperty("Correo").GetValue(item, null);
+                    user.Pathnsf = (string)tipo.GetProperty("Pathnsf").GetValue(item, null);
+                    lista.Add(user);
+                }
+            }
+            return lista;
         }
 
         /// <summary>
@@ -1553,9 +1666,13 @@ namespace Model.ControlDocumentos
         {
             //Se inician los servicios de Usuarios.
             SO_Usuarios ServiceUsuarios = new SO_Usuarios();
+            Encriptacion encriptar = new Encriptacion();
+
+            //encriptamos el usuario para poder buscarlo
+            string Usuario = encriptar.encript(usuarios.usuario);
 
             //Se ejecuta el método y retorna número de registros eliminados.
-            return ServiceUsuarios.DeleteUsuario(usuarios.usuario);
+            return ServiceUsuarios.DeleteUsuario(Usuario);
         }
 
         /// <summary>
