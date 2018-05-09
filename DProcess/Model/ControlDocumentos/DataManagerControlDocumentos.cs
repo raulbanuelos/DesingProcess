@@ -1,4 +1,5 @@
 ﻿using DataAccess.ServiceObjects.ControlDocumentos;
+using DataAccess.ServiceObjects.Notificaciones;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -3093,6 +3094,21 @@ namespace Model.ControlDocumentos
         }
 
         #endregion
+
+        #region Notificaciones
         
+        /// <summary>
+        /// Método que inserta una notificación.
+        /// </summary>
+        /// <param name="notificacion"></param>
+        /// <returns></returns>
+        public static int insertNotificacion(DO_Notification notificacion)
+        {
+            SO_Notificaciones ServiceNotificaciones = new SO_Notificaciones();
+
+            return ServiceNotificaciones.InsertNotificacion(notificacion.ID_USUARIO_SEND, notificacion.ID_USUARIO_RECEIVER, notificacion.TITLE, notificacion.MSG, notificacion.TYPE_NOTIFICATION);
+        }
+        #endregion
+
     }
 }

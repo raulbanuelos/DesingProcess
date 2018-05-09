@@ -11,6 +11,8 @@ using View.Forms.DataBase;
 using View.Forms.User;
 using View.Forms.Tooling;
 using System.Threading;
+using TableDependency.SqlClient;
+using Notifications.Wpf;
 
 namespace View.Services.ViewModel
 {
@@ -265,7 +267,7 @@ namespace View.Services.ViewModel
         {
             ModelUsuario = modelUsuario;
             this.pagina = pagina;
-            
+            initNotifications();
         }
 
         #endregion
@@ -434,7 +436,52 @@ namespace View.Services.ViewModel
             Pagina = pantallaPattern;
         }
         #endregion
+        
+        private void initNotifications()
+        {
+            var connectionString = @"data source=MXAGSQLSRV01\SQLINTERTEL12;initial catalog=RGP2-PBA;user id=shruser;password=sOHR2011";
+            var tableDependency = new SqlTableDependency<DO_Notification>(connectionString, "TBL_NOTIFICACIONES");
+            tableDependency.OnChanged += TableDependency_OnChanged;
+            tableDependency.OnError += TableDependency_OnError;
+            tableDependency.Start();
+        }
 
+        private void TableDependency_OnChanged(object sender, TableDependency.EventArgs.RecordChangedEventArgs<DO_Notification> e)
+        {
+            if (e.ChangeType == TableDependency.Enums.ChangeType.Insert)
+            {
+                var chagedEntity = e.Entity;
+
+                if (chagedEntity.ID_USUARIO_RECEIVER == NombreUsuario)
+                {
+                    NotificationType noti = NotificationType.Information;
+                    if (chagedEntity.TYPE_NOTIFICATION == 1)
+                        noti = NotificationType.Success;
+                    else if (chagedEntity.TYPE_NOTIFICATION == 2)
+                        noti = NotificationType.Warning;
+                    else if (chagedEntity.TYPE_NOTIFICATION == 3)
+                        noti = NotificationType.Error;
+                    else
+                        noti = NotificationType.Information;
+                    
+                    var notificationManager = new NotificationManager();
+                    notificationManager.Show(
+                        new NotificationContent
+                        {
+                            Title = chagedEntity.TITLE,
+                            Message = chagedEntity.MSG,
+                            Type = noti
+                        });
+                }
+            }
+        }
+
+        private void TableDependency_OnError(object sender, TableDependency.EventArgs.ErrorEventArgs e)
+        {
+            Exception ex = e.Error;
+            throw ex;
+        }
+        
         #endregion
     }
 }

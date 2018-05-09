@@ -208,6 +208,25 @@
     <Compile Include="ServiceObjects\MateriasPrimas\TubosHD.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Notificaciones\ModelNotificaciones.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelNotificaciones.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Notificaciones\ModelNotificaciones.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelNotificaciones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Notificaciones\ModelNotificaciones.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelNotificaciones.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Notificaciones\SO_Notificaciones.cs" />
+    <Compile Include="ServiceObjects\Notificaciones\TBL_NOTIFICACIONES.cs">
+      <DependentUpon>ModelNotificaciones.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\BushingBatesBore_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -527,6 +546,16 @@
       <DependentUpon>ModelMateriasPrimas.edmx</DependentUpon>
       <LastGenOutput>ModelMateriasPrimas.cs</LastGenOutput>
     </Content>
+    <Content Include="ServiceObjects\Notificaciones\ModelNotificaciones.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelNotificaciones.edmx</DependentUpon>
+      <LastGenOutput>ModelNotificaciones.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ServiceObjects\Notificaciones\ModelNotificaciones.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelNotificaciones.edmx</DependentUpon>
+      <LastGenOutput>ModelNotificaciones.cs</LastGenOutput>
+    </Content>
     <Content Include="ServiceObjects\Perfiles\ModelPerfiles.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelPerfiles.edmx</DependentUpon>
@@ -578,6 +607,13 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelPerfiles.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="ServiceObjects\Notificaciones\ModelNotificaciones.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelNotificaciones.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ServiceObjects\Notificaciones\ModelNotificaciones.edmx.diagram">
+      <DependentUpon>ModelNotificaciones.edmx</DependentUpon>
+    </None>
     <None Include="ServiceObjects\Perfiles\ModelPerfiles.edmx.diagram">
       <DependentUpon>ModelPerfiles.edmx</DependentUpon>
     </None>

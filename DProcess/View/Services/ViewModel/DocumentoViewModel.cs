@@ -2162,6 +2162,16 @@ namespace View.Services.ViewModel
                                         {
                                             await dialog.SendMessage("Información", "Matríz actualizada correctamente.");
                                         }
+
+                                        //Creamos una notificación para que el usuario la pueda ver.
+                                        DO_Notification notificacion = new DO_Notification();
+                                        notificacion.TITLE = "Documento actualizado en la matríz";
+                                        notificacion.MSG = "El documento: " + Nombre + "\n Versión: " + version + "\nYa se encuentra actualizado en la matríz del CIT";
+                                        notificacion.TYPE_NOTIFICATION = 0;
+                                        notificacion.ID_USUARIO_RECEIVER = _usuario;
+                                        notificacion.ID_USUARIO_SEND = "ADMINISTRADOR";
+
+                                        DataManagerControlDocumentos.insertNotificacion(notificacion);
                                         
                                         //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                         var frame = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
