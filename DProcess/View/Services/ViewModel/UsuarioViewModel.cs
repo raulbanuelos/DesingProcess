@@ -439,7 +439,7 @@ namespace View.Services.ViewModel
         
         private void initNotifications()
         {
-            var connectionString = @"data source=MXAGSQLSRV01\SQLINTERTEL12;initial catalog=RGP2-PBA;user id=shruser;password=sOHR2011";
+            var connectionString = System.Configuration.ConfigurationManager.AppSettings["CadenaConexion"];
             var tableDependency = new SqlTableDependency<DO_Notification>(connectionString, "TBL_NOTIFICACIONES");
             tableDependency.OnChanged += TableDependency_OnChanged;
             tableDependency.OnError += TableDependency_OnError;

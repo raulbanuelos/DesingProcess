@@ -434,6 +434,12 @@
     <Compile Include="Forms\UserControls\NumericEntry.xaml.cs">
       <DependentUpon>NumericEntry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\User\FrmConsultaDatosUsuario.xaml.cs">
+      <DependentUpon>FrmConsultaDatosUsuario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\User\ModificarUsuario.xaml.cs">
+      <DependentUpon>ModificarUsuario.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\User\PUser.xaml.cs">
       <DependentUpon>PUser.xaml</DependentUpon>
     </Compile>
@@ -530,6 +536,7 @@
     <Compile Include="Services\ViewModel\CollarMolyVM.cs" />
     <Compile Include="Services\ViewModel\CollarScotchbrite_VM.cs" />
     <Compile Include="Services\ViewModel\CollarSpacerVM.cs" />
+    <Compile Include="Services\ViewModel\ConsultarDatosUsuariosVM.cs" />
     <Compile Include="Services\ViewModel\ControlDocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\CutterCamTurnVM.cs" />
     <Compile Include="Services\ViewModel\CutterSpacerS_VM.cs" />
@@ -554,6 +561,7 @@
     <Compile Include="Services\ViewModel\HistorialVM.cs" />
     <Compile Include="Services\ViewModel\ListItemViewModel.cs" />
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
+    <Compile Include="Services\ViewModel\ModificarDatosUsuario.cs" />
     <Compile Include="Services\ViewModel\NuevoDepartamentoVM.cs" />
     <Compile Include="Services\ViewModel\NuevoMaestroHerramental_VM.cs" />
     <Compile Include="Services\ViewModel\NuevoTipoDocumentoVM.cs" />
@@ -987,6 +995,14 @@
     <Page Include="Forms\UserControls\NumericEntry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\User\FrmConsultaDatosUsuario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\User\ModificarUsuario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\User\PUser.xaml">
       <SubType>Designer</SubType>
