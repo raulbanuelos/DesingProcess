@@ -370,6 +370,30 @@ namespace View.Services.ViewModel
                 //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                 var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
+                if (IsSelected)
+                {
+                    DO_Notification notificacion = new DO_Notification();
+                    notificacion.TITLE = "Documento aprobado";
+                    notificacion.MSG = "El documento: " + SelectedDocumento.nombre + "\n Versión: " + selectedDocumento.version.no_version + "\nFué aprobado y ya lo puedes entregar al CIT.";
+                    notificacion.TYPE_NOTIFICATION = 1;
+                    notificacion.ID_USUARIO_RECEIVER = Usuario.id_usuario;
+                    notificacion.ID_USUARIO_SEND = "ADMINISTRADOR";
+
+                    DataManagerControlDocumentos.insertNotificacion(notificacion);
+
+                }
+                else
+                {
+                    DO_Notification notificacion = new DO_Notification();
+                    notificacion.TITLE = "Documento rechazado";
+                    notificacion.MSG = "El documento: " + SelectedDocumento.nombre + "\n Versión: " + selectedDocumento.version.no_version + "\nNo cumple con los requisitos necesarios.";
+                    notificacion.TYPE_NOTIFICATION = 3;
+                    notificacion.ID_USUARIO_RECEIVER = Usuario.id_usuario;
+                    notificacion.ID_USUARIO_SEND = "ADMINISTRADOR";
+
+                    DataManagerControlDocumentos.insertNotificacion(notificacion);
+                }
+
                 //Verificamos que la pantalla sea diferente de nulo.
                 if (window != null)
                 {

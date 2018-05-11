@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DataAccess.ServiceObjects.Notificaciones.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBL_NOTIFICACIONES">
+          <Key>
+            <PropertyRef Name="ID_NOTIFICACION" />
+          </Key>
+          <Property Name="ID_NOTIFICACION" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_USUARIO_SEND" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ID_USUARIO_RECEIVER" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="TITLE" Type="varchar" MaxLength="50" />
+          <Property Name="MSG" Type="varchar" MaxLength="200" />
+          <Property Name="TYPE_NOTIFICATION" Type="int" />
+        </EntityType>
+        <EntityContainer Name="DataAccessServiceObjectsNotificacionesStoreContainer">
+          <EntitySet Name="TBL_NOTIFICACIONES" EntityType="Self.TBL_NOTIFICACIONES" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataAccess.ServiceObjects.Notificaciones" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBL_NOTIFICACIONES">
+          <Key>
+            <PropertyRef Name="ID_NOTIFICACION" />
+          </Key>
+          <Property Name="ID_NOTIFICACION" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_USUARIO_SEND" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_USUARIO_RECEIVER" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TITLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MSG" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TYPE_NOTIFICATION" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="EntitesNotificaciones" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBL_NOTIFICACIONES" EntityType="Self.TBL_NOTIFICACIONES" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DataAccessServiceObjectsNotificacionesStoreContainer" CdmEntityContainer="EntitesNotificaciones">
+          <EntitySetMapping Name="TBL_NOTIFICACIONES">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Notificaciones.TBL_NOTIFICACIONES">
+              <MappingFragment StoreEntitySet="TBL_NOTIFICACIONES">
+                <ScalarProperty Name="ID_NOTIFICACION" ColumnName="ID_NOTIFICACION" />
+                <ScalarProperty Name="ID_USUARIO_SEND" ColumnName="ID_USUARIO_SEND" />
+                <ScalarProperty Name="ID_USUARIO_RECEIVER" ColumnName="ID_USUARIO_RECEIVER" />
+                <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+                <ScalarProperty Name="MSG" ColumnName="MSG" />
+                <ScalarProperty Name="TYPE_NOTIFICATION" ColumnName="TYPE_NOTIFICATION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
