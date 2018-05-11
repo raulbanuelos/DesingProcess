@@ -111,31 +111,14 @@
           <Property Name="HELP" Type="Boolean" />
           <NavigationProperty Name="Usuarios" Relationship="DataAccess.ServiceObjects.Usuario.FK_PerfilUsuario_Usuarios" FromRole="PerfilUsuario" ToRole="Usuarios" />
         </EntityType>
-        <EntityType Name="PrivilegioUsuario">
-          <Key>
-            <PropertyRef Name="ID_PRIVILEGIO_USUARIO" />
-          </Key>
-          <Property Name="ID_PRIVILEGIO_USUARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_USUARIO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="RGP" Type="Boolean" />
-          <Property Name="TOOLING" Type="Boolean" />
-          <Property Name="RAW_MATERIAL" Type="Boolean" />
-          <Property Name="STANDAR_TIME" Type="Boolean" />
-          <Property Name="QUOTES" Type="Boolean" />
-          <Property Name="CIT" Type="Boolean" />
-          <Property Name="DATA" Type="Boolean" />
-          <Property Name="USER_PROFILE" Type="Boolean" />
-          <Property Name="HELP" Type="Boolean" />
-          <NavigationProperty Name="Usuarios" Relationship="DataAccess.ServiceObjects.Usuario.FK_PrivilegioUsuario_Usuarios" FromRole="PrivilegioUsuario" ToRole="Usuarios" />
-        </EntityType>
         <EntityContainer Name="EntitiesUsuario" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="PerfilUsuario" EntityType="Self.PerfilUsuario" />
-          <EntitySet Name="PrivilegioUsuario" EntityType="Self.PrivilegioUsuario" />
           <EntitySet Name="Usuarios" EntityType="DataAccess.ServiceObjects.Usuario.Usuarios" />
           <AssociationSet Name="FK_PerfilUsuario_Usuarios" Association="DataAccess.ServiceObjects.Usuario.FK_PerfilUsuario_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="PerfilUsuario" EntitySet="PerfilUsuario" />
           </AssociationSet>
+          <EntitySet Name="PrivilegioUsuario" EntityType="DataAccess.ServiceObjects.Usuario.PrivilegioUsuario" />
           <AssociationSet Name="FK_PrivilegioUsuario_Usuarios" Association="DataAccess.ServiceObjects.Usuario.FK_PrivilegioUsuario_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="PrivilegioUsuario" EntitySet="PrivilegioUsuario" />
@@ -171,6 +154,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PrivilegioUsuario">
+          <Key>
+            <PropertyRef Name="ID_PRIVILEGIO_USUARIO" />
+          </Key>
+          <Property Name="ID_PRIVILEGIO_USUARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_USUARIO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="RGP" Type="Boolean" />
+          <Property Name="TOOLING" Type="Boolean" />
+          <Property Name="RAW_MATERIAL" Type="Boolean" />
+          <Property Name="STANDAR_TIME" Type="Boolean" />
+          <Property Name="QUOTES" Type="Boolean" />
+          <Property Name="CIT" Type="Boolean" />
+          <Property Name="DATA" Type="Boolean" />
+          <Property Name="USER_PROFILE" Type="Boolean" />
+          <Property Name="HELP" Type="Boolean" />
+          <NavigationProperty Name="Usuarios" Relationship="DataAccess.ServiceObjects.Usuario.FK_PrivilegioUsuario_Usuarios" FromRole="PrivilegioUsuario" ToRole="Usuarios" />
+        </EntityType>
         <Association Name="FK_PrivilegioUsuario_Usuarios">
           <End Type="DataAccess.ServiceObjects.Usuario.Usuarios" Role="Usuarios" Multiplicity="0..1" />
           <End Type="DataAccess.ServiceObjects.Usuario.PrivilegioUsuario" Role="PrivilegioUsuario" Multiplicity="*" />
@@ -206,23 +206,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PrivilegioUsuario">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Usuario.PrivilegioUsuario">
-              <MappingFragment StoreEntitySet="PrivilegioUsuario">
-                <ScalarProperty Name="ID_PRIVILEGIO_USUARIO" ColumnName="ID_PRIVILEGIO_USUARIO" />
-                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
-                <ScalarProperty Name="RGP" ColumnName="RGP" />
-                <ScalarProperty Name="TOOLING" ColumnName="TOOLING" />
-                <ScalarProperty Name="RAW_MATERIAL" ColumnName="RAW_MATERIAL" />
-                <ScalarProperty Name="STANDAR_TIME" ColumnName="STANDAR_TIME" />
-                <ScalarProperty Name="QUOTES" ColumnName="QUOTES" />
-                <ScalarProperty Name="CIT" ColumnName="CIT" />
-                <ScalarProperty Name="DATA" ColumnName="DATA" />
-                <ScalarProperty Name="USER_PROFILE" ColumnName="USER_PROFILE" />
-                <ScalarProperty Name="HELP" ColumnName="HELP" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Usuario.Usuarios">
               <MappingFragment StoreEntitySet="Usuarios">
@@ -237,6 +220,23 @@
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrivilegioUsuario">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Usuario.PrivilegioUsuario">
+              <MappingFragment StoreEntitySet="PrivilegioUsuario">
+                <ScalarProperty Name="HELP" ColumnName="HELP" />
+                <ScalarProperty Name="USER_PROFILE" ColumnName="USER_PROFILE" />
+                <ScalarProperty Name="DATA" ColumnName="DATA" />
+                <ScalarProperty Name="CIT" ColumnName="CIT" />
+                <ScalarProperty Name="QUOTES" ColumnName="QUOTES" />
+                <ScalarProperty Name="STANDAR_TIME" ColumnName="STANDAR_TIME" />
+                <ScalarProperty Name="RAW_MATERIAL" ColumnName="RAW_MATERIAL" />
+                <ScalarProperty Name="TOOLING" ColumnName="TOOLING" />
+                <ScalarProperty Name="RGP" ColumnName="RGP" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="ID_PRIVILEGIO_USUARIO" ColumnName="ID_PRIVILEGIO_USUARIO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
