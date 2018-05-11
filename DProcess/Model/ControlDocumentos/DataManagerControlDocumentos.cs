@@ -1500,7 +1500,8 @@ namespace Model.ControlDocumentos
         /// Método para obtener todos los registros de la tabla Usuarios.
         /// </summary>
         /// <returns></returns>
-        public static ObservableCollection<Usuarios> GetUsuarios(string Buscar) {
+        public static ObservableCollection<Usuarios> GetUsuarios(string Buscar)
+        {
 
 
             //Inicializamos los servicios de usuarios.
@@ -1529,6 +1530,56 @@ namespace Model.ControlDocumentos
 
                     //Asignamos los valores correspondientes.
                     obj.usuario = encriptar.desencript((string)tipo.GetProperty("Usuario").GetValue(item, null));
+                    obj.password = (string)tipo.GetProperty("Password").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("Nombre").GetValue(item, null);
+                    obj.APaterno = (string)tipo.GetProperty("APaterno").GetValue(item, null);
+                    obj.AMaterno = (string)tipo.GetProperty("AMaterno").GetValue(item, null);
+                    obj.estado = (int)tipo.GetProperty("Estado").GetValue(item, null);
+                    obj.usql = (string)tipo.GetProperty("Usql").GetValue(item, null);
+                    obj.psql = (string)tipo.GetProperty("Psql").GetValue(item, null);
+                    obj.bloqueado = (bool)tipo.GetProperty("Bloqueado").GetValue(item, null);
+                    obj.Correo = (string)tipo.GetProperty("Correo").GetValue(item, null);
+                    obj.Pathnsf = (string)tipo.GetProperty("Pathnsf").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //Retornamos la lista.
+            return Lista;
+        }
+
+        /// <summary>
+        /// Método para obtener todos los registros de la tabla Usuarios.
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<Usuarios> GetUsuarios() {
+
+
+            //Inicializamos los servicios de usuarios.
+            SO_Usuarios ServiceUsuarios = new SO_Usuarios();
+
+            //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
+            ObservableCollection<Usuarios> Lista = new ObservableCollection<Usuarios>();
+            
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList ObjUsuarios = ServiceUsuarios.GetUsuario();
+
+            //Comparamos que la información de la base de datos no sea nulo
+            if (ObjUsuarios != null)
+
+            {
+                //Iteramos la información recibida.
+                foreach (var item in ObjUsuarios)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos on objeto de tipo usuarios que contendrá la información de un registro.
+                    Usuarios obj = new Usuarios();
+
+                    //Asignamos los valores correspondientes.
+                    obj.usuario = (string)tipo.GetProperty("Usuario").GetValue(item, null);
                     obj.password = (string)tipo.GetProperty("Password").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("Nombre").GetValue(item, null);
                     obj.APaterno = (string)tipo.GetProperty("APaterno").GetValue(item, null);

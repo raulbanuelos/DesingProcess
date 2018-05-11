@@ -12,6 +12,48 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// Método para obtener  todos los registros de la tabla Usuarios.
         /// </summary>
         /// <returns>Retorns nulo si hay error.</returns>
+        public IList GetUsuario()
+        {
+            Encriptacion encriptar = new Encriptacion();
+            try
+            {
+                //Establecemos la conexión a la BD.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
+                    var Lista = (from u in Conexion.Usuarios
+                                 where u.Bloqueado == false 
+                                 orderby u.Nombre ascending
+                                 select new
+                                 {
+                                     u.Usuario,
+                                     u.Password,
+                                     u.Nombre,
+                                     u.APaterno,
+                                     u.AMaterno,
+                                     u.Estado,
+                                     u.Usql,
+                                     u.Psql,
+                                     u.Bloqueado,
+                                     u.Correo,
+                                     u.Pathnsf
+
+                                 }).ToList();
+                    //se retorna la lista
+                    return Lista;
+
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay algún error, se retorna un nulo.
+                return null;
+            }
+        }
+        /// <summary>
+        /// Método para obtener  todos los registros de la tabla Usuarios.
+        /// </summary>
+        /// <returns>Retorns nulo si hay error.</returns>
         public IList GetUsuario(string usuario)
         {
             Encriptacion encriptar = new Encriptacion();

@@ -143,7 +143,11 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <ComboBox  materialDesign:HintAssist.Hint="Usuario Autorizó" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  Height="51" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" ItemsSource="{Binding Path=ListaUsuarios}"  SelectedValuePath="usuario" SelectedValue="{Binding usuarioAutorizo}"
+                    <ComboBox  materialDesign:HintAssist.Hint="Usuario Autorizó" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  
+                               Height="51" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" 
+                               ItemsSource="{Binding Path=ListaUsuarios}"  
+                               SelectedValuePath="usuario" 
+                               SelectedValue="{Binding usuarioAutorizo}"
                        IsEnabled="{Binding IsEnabled}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>

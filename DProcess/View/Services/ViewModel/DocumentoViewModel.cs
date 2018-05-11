@@ -2846,8 +2846,8 @@ namespace View.Services.ViewModel
         {
             ListaDepartamento= DataManagerControlDocumentos.GetDepartamento();
             ListaTipo = DataManagerControlDocumentos.GetTipo();
-            ListaUsuarios = DataManagerControlDocumentos.GetUsuarios("");
-            ListaUsuariosCorreo = DataManagerControlDocumentos.GetUsuarios("");
+            ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
+            ListaUsuariosCorreo = DataManagerControlDocumentos.GetUsuarios();
             
         }
 

@@ -696,6 +696,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\ControlDocumentos\FrmNueva_Validacion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Forms\ControlDocumentos\FrmNuevoTipo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
