@@ -121,10 +121,13 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Activities" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Controls.DataVisualization.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -422,8 +425,14 @@
     <Compile Include="Forms\UserControls\NumericEntry.xaml.cs">
       <DependentUpon>NumericEntry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\User\FrmConsultaDatosUsuario.xaml.cs">
+      <DependentUpon>FrmConsultaDatosUsuario.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\User\PUser.xaml.cs">
       <DependentUpon>PUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\User\ModificarUsuario.xaml.cs">
+      <DependentUpon>ModificarUsuario.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\StringResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -518,6 +527,7 @@
     <Compile Include="Services\ViewModel\CollarMolyVM.cs" />
     <Compile Include="Services\ViewModel\CollarScotchbrite_VM.cs" />
     <Compile Include="Services\ViewModel\CollarSpacerVM.cs" />
+    <Compile Include="Services\ViewModel\ConsultarDatosUsuariosVM.cs" />
     <Compile Include="Services\ViewModel\ControlDocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\CutterCamTurnVM.cs" />
     <Compile Include="Services\ViewModel\CutterSpacerS_VM.cs" />
@@ -542,6 +552,7 @@
     <Compile Include="Services\ViewModel\HistorialVM.cs" />
     <Compile Include="Services\ViewModel\ListItemViewModel.cs" />
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
+    <Compile Include="Services\ViewModel\ModificarDatosUsuario.cs" />
     <Compile Include="Services\ViewModel\NuevoDepartamentoVM.cs" />
     <Compile Include="Services\ViewModel\NuevoMaestroHerramental_VM.cs" />
     <Compile Include="Services\ViewModel\NuevoTipoDocumentoVM.cs" />
@@ -976,7 +987,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\User\FrmConsultaDatosUsuario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\User\PUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\User\ModificarUsuario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
