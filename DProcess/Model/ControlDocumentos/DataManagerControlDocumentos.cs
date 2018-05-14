@@ -1598,46 +1598,6 @@ namespace Model.ControlDocumentos
             //Retornamos la lista.
             return Lista;
         }
-
-        public static ObservableCollection<Usuarios> getusuario()
-        {
-            SO_Usuarios consulta = new SO_Usuarios();
-
-            ObservableCollection<Usuarios> lista = new ObservableCollection<Usuarios>();
-            IList ObjUsuarios = consulta.GetUsuario("");
-
-            //Comparamos que la información de la base de datos no sea nulo
-            if (ObjUsuarios != null)
-
-            {
-                //Iteramos la información recibida.
-                foreach (var item in ObjUsuarios)
-                {
-                    //Obtenemos el tipo.
-                    System.Type tipo = item.GetType();
-
-                    //Declaramos on objeto de tipo usuarios que contendrá la información de un registro.
-                    Usuarios obj = new Usuarios();
-
-                    //Asignamos los valores correspondientes.
-                    obj.usuario = (string)tipo.GetProperty("Usuario").GetValue(item, null);
-                    obj.password = (string)tipo.GetProperty("Password").GetValue(item, null);
-                    obj.nombre = (string)tipo.GetProperty("Nombre").GetValue(item, null);
-                    obj.APaterno = (string)tipo.GetProperty("APaterno").GetValue(item, null);
-                    obj.AMaterno = (string)tipo.GetProperty("AMaterno").GetValue(item, null);
-                    obj.estado = (int)tipo.GetProperty("Estado").GetValue(item, null);
-                    obj.usql = (string)tipo.GetProperty("Usql").GetValue(item, null);
-                    obj.psql = (string)tipo.GetProperty("Psql").GetValue(item, null);
-                    obj.bloqueado = (bool)tipo.GetProperty("Bloqueado").GetValue(item, null);
-                    obj.Correo = (string)tipo.GetProperty("Correo").GetValue(item, null);
-                    obj.Pathnsf = (string)tipo.GetProperty("Pathnsf").GetValue(item, null);
-                    lista.Add(obj);
-                }
-            }
-            //Retornamos la lista.
-            return lista;
-
-        }
         /// <summary>
         /// metodo para buscar un usuario
         /// </summary>
