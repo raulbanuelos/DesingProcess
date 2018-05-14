@@ -36,9 +36,29 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Constructors
-        public UsuariosViewModel()
+        public UsuariosViewModel(string usuario, string usuarioautorizo)
         {
-            ListaUsuariosCorreo = DataManagerControlDocumentos.GetUsuarios("");
+            ListaUsuariosCorreo = DataManagerControlDocumentos.GetUsuarios();
+            //iteramos la lista
+            //para 
+            foreach (var item in ListaUsuariosCorreo)
+            {
+                //sleccionamos el administrado del sistema para notificar
+                if (item.usuario == "¢¥®ª¯")
+                {
+                    item.IsSelected = true;
+                }
+                //seleccionamos al usuario que elaboro
+                if (item.usuario == usuario)
+                {
+                    item.IsSelected = true;
+                }
+                //seleccionamos al usuario que autorizo
+                if (item.usuario == usuarioautorizo)
+                {
+                    item.IsSelected = true;
+                }
+            }
         } 
         #endregion
     }

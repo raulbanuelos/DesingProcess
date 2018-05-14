@@ -1405,7 +1405,7 @@ namespace View.Services.ViewModel
             if (id_documento != 0 & result == MessageDialogResult.Affirmative)
             {
 
-                vmUsuarios = new UsuariosViewModel();
+                vmUsuarios = new UsuariosViewModel(auxUsuario,auxUsuario_Autorizo);
                 FrmListaUsuarios frmListaUsuarios = new FrmListaUsuarios();
                 frmListaUsuarios.DataContext = vmUsuarios;
 
@@ -1692,7 +1692,6 @@ namespace View.Services.ViewModel
                 await dialog.SendMessage("Alerta", "Se deben llenar todos los campos...");
             }
         }
-
 
         /// <summary>
         /// metodo que permite actualizar el numero de copias de un documento
