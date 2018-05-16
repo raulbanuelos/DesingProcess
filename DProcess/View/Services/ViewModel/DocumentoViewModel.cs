@@ -594,6 +594,7 @@ namespace View.Services.ViewModel
             BttnGuardar = false;
             EnabledEliminar = false;
             IsEnabled = false;
+            BttnArchivos = true;
             //Si es ventana para generar una nueva versión, band= true
             BttnVersion = band;
 
@@ -820,7 +821,7 @@ namespace View.Services.ViewModel
 
 
             //iteramos la lista
-            //para 
+            //para seleciconar los usuarios a notificar al momento de abrirse la ventana
             foreach (var item in ListaUsuariosCorreo)
             {
                 //sleccionamos el administrado del sistema para notificar
@@ -1404,7 +1405,6 @@ namespace View.Services.ViewModel
             //Si el id es diferente de cero
             if (id_documento != 0 & result == MessageDialogResult.Affirmative)
             {
-
                 vmUsuarios = new UsuariosViewModel(auxUsuario,auxUsuario_Autorizo);
                 FrmListaUsuarios frmListaUsuarios = new FrmListaUsuarios();
                 frmListaUsuarios.DataContext = vmUsuarios;

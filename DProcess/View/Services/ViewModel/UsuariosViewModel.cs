@@ -40,7 +40,7 @@ namespace View.Services.ViewModel
         {
             ListaUsuariosCorreo = DataManagerControlDocumentos.GetUsuarios();
             //iteramos la lista
-            //para 
+            //para seleccionar a los usuarios a notificar al momento de abrir la ventana.
             foreach (var item in ListaUsuariosCorreo)
             {
                 //sleccionamos el administrado del sistema para notificar

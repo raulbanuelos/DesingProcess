@@ -90,7 +90,7 @@
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBox Name="txt_buscar"  materialDesign:HintAssist.Hint="Buscar Usuario" Grid.Column="1" Grid.Row="1" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}" HorizontalAlignment="Left" Width="650">
+        <TextBox Name="txt_buscar"  materialDesign:HintAssist.Hint="Buscar Usuario" Grid.Column="1" Grid.Row="1" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}" HorizontalAlignment="Center" Width="550">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="TextChanged">
                     <i:InvokeCommandAction
@@ -101,7 +101,7 @@
         </TextBox>
 
         <!--ListView Archivos-->
-        <ListBox Name="listBox" Grid.Column="1" Grid.Row="2" Width="Auto" Height="Auto" ItemsSource="{Binding ListaUsuarios}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" BorderThickness="1" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" >
+        <ListBox Name="listBox" Grid.Column="1" Grid.Row="2" Width="550" Height="AUTO" ItemsSource="{Binding ListaUsuarios}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" BorderThickness="1" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" >
         </ListBox>
     </Grid>
 </Controls:MetroWindow>
