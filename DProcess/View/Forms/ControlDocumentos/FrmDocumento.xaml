@@ -181,7 +181,7 @@
                     <StackPanel Orientation="Vertical" Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}">
                         <Label Content="Notificar despues de liberar a:" FontWeight="Bold"></Label>
 
-                        <DataGrid ItemsSource="{Binding Path=ListaUsuariosCorreo}" 
+                        <DataGrid ItemsSource="{Binding ListaUsuariosCorreo}" 
                                       ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -198,9 +198,6 @@
                                 </DataGridTextColumn>
                             </DataGrid.Columns>
                         </DataGrid>
-
-
-                        <CheckBox Content="Copia para mi" IsChecked="{Binding boolEnviarmeCopia}"></CheckBox>
                     </StackPanel>
                 </StackPanel>
             </Grid>

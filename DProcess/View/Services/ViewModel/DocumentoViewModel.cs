@@ -1,6 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Model;
+using Encriptar;
 using Model.ControlDocumentos;
 using System;
 using System.Collections.ObjectModel;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using View.Forms.ControlDocumentos;
+using System.Collections;
 
 namespace View.Services.ViewModel
 {
@@ -191,6 +193,19 @@ namespace View.Services.ViewModel
             }
         }
 
+        private bool _notificar;
+        public bool notificar
+        {
+            get
+            {
+                return _notificar;
+            }
+            set
+            {
+                _notificar = value;
+                NotifyChange("notificar");
+            }
+        }
         private string _usuarioAutorizo;
         public string usuarioAutorizo
         {
@@ -203,14 +218,6 @@ namespace View.Services.ViewModel
                 _usuarioAutorizo = value;
                 NotifyChange("usuarioAutorizo");
             }
-        }
-
-        private bool _boolEnviarmeCopia;
-
-        public bool boolEnviarmeCopia
-        {
-            get { return _boolEnviarmeCopia; }
-            set { _boolEnviarmeCopia = value; NotifyChange("boolEnviarmeCopia"); }
         }
 
         private ObservableCollection<Archivo> _ListaDocumentos = new ObservableCollection<Archivo>();
@@ -587,6 +594,7 @@ namespace View.Services.ViewModel
             BttnGuardar = false;
             EnabledEliminar = false;
             IsEnabled = false;
+            BttnArchivos = true;
             //Si es ventana para generar una nueva versión, band= true
             BttnVersion = band;
 
@@ -711,6 +719,9 @@ namespace View.Services.ViewModel
         /// <param name="ModelUsuario"></param>
         public DocumentoViewModel(Documento selectedDocumento, Usuario ModelUsuario)
         {
+            User = ModelUsuario;
+            Encriptacion des = new Encriptacion();
+
             //Inicializa los combobox 
             Inicializar();
             IsEnabled = false;
@@ -718,6 +729,12 @@ namespace View.Services.ViewModel
             BttnArchivos = false;
             BttnLiberar = true;
             WidthButton = 155;
+            //si el usuario es administrador del sistema
+            //se permite modificar el usuario autorizo
+            if (Module.UsuarioIsRol(User.Roles, 2))
+            {
+                IsEnabled = true;
+            }
 
             //Asiganmos los valores para que se muestren 
             Nombre = selectedDocumento.nombre;
@@ -799,6 +816,32 @@ namespace View.Services.ViewModel
             Model.ControlDocumentos.Version UsuarioObj = DataManagerControlDocumentos.GetIdUsuario(idVersion);
             usuario = UsuarioObj.id_usuario;
             usuarioAutorizo = UsuarioObj.id_usuario_autorizo;
+            //obtenemos la lista de los usuarios
+            ListaUsuariosCorreo = DataManagerControlDocumentos.GetUsuarios();
+
+
+            //iteramos la lista
+            //para seleciconar los usuarios a notificar al momento de abrirse la ventana
+            foreach (var item in ListaUsuariosCorreo)
+            {
+                //sleccionamos el administrado del sistema para notificar
+                if (item.usuario == "¢¥®ª¯")
+                {
+                    item.IsSelected = true;
+                }
+                //seleccionamos al usuario que elaboro
+                if (item.usuario == usuario)
+                {
+                    item.IsSelected = true;
+                }
+                //seleccionamos al usuario que autorizo
+                if (item.usuario == usuarioAutorizo)
+                {
+                    item.IsSelected = true;
+                }
+            }
+            
+
 
             //Método que obtiene los archivos de un documento y de la versión
             Lista = DataManagerControlDocumentos.GetArchivos(id_documento, idVersion);
@@ -1362,8 +1405,7 @@ namespace View.Services.ViewModel
             //Si el id es diferente de cero
             if (id_documento != 0 & result == MessageDialogResult.Affirmative)
             {
-
-                vmUsuarios = new UsuariosViewModel();
+                vmUsuarios = new UsuariosViewModel(auxUsuario,auxUsuario_Autorizo);
                 FrmListaUsuarios frmListaUsuarios = new FrmListaUsuarios();
                 frmListaUsuarios.DataContext = vmUsuarios;
 
@@ -1650,7 +1692,6 @@ namespace View.Services.ViewModel
                 await dialog.SendMessage("Alerta", "Se deben llenar todos los campos...");
             }
         }
-
 
         /// <summary>
         /// metodo que permite actualizar el numero de copias de un documento
@@ -2376,9 +2417,7 @@ namespace View.Services.ViewModel
         {
             ServiceEmail SO_Email = new ServiceEmail();
 
-            int a = boolEnviarmeCopia ? 1 : 0;
-
-            string[] correos = new string[ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count + a];
+            string[] correos = new string[ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count];
 
             int i = 0;
             foreach (Usuarios item in ListaUsuariosCorreo)
@@ -2389,12 +2428,6 @@ namespace View.Services.ViewModel
                     i += 1;
                 }
             }
-
-            if (boolEnviarmeCopia)
-            {
-                correos[i + 1] = User.Correo;
-            }
-
             string path = User.Pathnsf;
             string title = "Alta de documento - " + Nombre;
             string body = string.Empty;
