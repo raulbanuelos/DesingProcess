@@ -444,6 +444,55 @@ namespace View.Services.ViewModel
             tableDependency.OnChanged += TableDependency_OnChanged;
             tableDependency.OnError += TableDependency_OnError;
             tableDependency.Start();
+
+            //Checamos si el usuario es administrador del CIT
+            if (Module.UsuarioIsRol(ModelUsuario.Roles, 2))
+            {
+                var tableDependencyAdmin = new SqlTableDependency<DO_Historial_Documento>(connectionString, "TBL_HISTORIAL_VERSION");
+                tableDependencyAdmin.OnChanged += TableDependencyAdmin_OnChanged;
+                tableDependencyAdmin.OnError += TableDependencyAdmin_OnError;
+                tableDependencyAdmin.Start();
+
+            }
+            
+        }
+        
+        private void TableDependencyAdmin_OnChanged(object sender, TableDependency.EventArgs.RecordChangedEventArgs<DO_Historial_Documento> e)
+        {
+            if (e.ChangeType == TableDependency.Enums.ChangeType.Insert)
+            {
+                var chagedEntity = e.Entity;
+                NotificationType notification = NotificationType.Information;
+
+                if (chagedEntity.DESCRIPCION.Contains("Se crea la versión"))
+                {
+                    var notificationManager = new NotificationManager();
+                    notificationManager.Show(new NotificationContent
+                    {
+                        Title = "Nuevo documento por validar",
+                        Message = "El usuario " + chagedEntity.NOMBRE_USUARIO + "\n A creado un nuevo documento:\n" + chagedEntity.NOMBRE_DOCUMENTO,
+                        Type = notification
+                    });
+                }
+
+                if (chagedEntity.DESCRIPCION.Contains("Se cambia el estatus a: CREADO, PENDIENTE POR APROBACIÓN"))
+                {
+                    var notificationManager = new NotificationManager();
+                    notificationManager.Show(new NotificationContent
+                    {
+                        Title = "Nuevo documento por validar",
+                        Message = "El usuario " + chagedEntity.NOMBRE_USUARIO + "\n corrigió el documento:\n" + chagedEntity.NOMBRE_DOCUMENTO,
+                        Type = notification
+                    });
+                }
+                
+            }
+        }
+
+        private void TableDependencyAdmin_OnError(object sender, TableDependency.EventArgs.ErrorEventArgs e)
+        {
+            Exception ex = e.Error;
+            throw ex;
         }
 
         private void TableDependency_OnChanged(object sender, TableDependency.EventArgs.RecordChangedEventArgs<DO_Notification> e)

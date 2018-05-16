@@ -66,6 +66,7 @@
     <Compile Include="ControlDocumentos\Version.cs" />
     <Compile Include="Cuffs.cs" />
     <Compile Include="DataManager.cs" />
+    <Compile Include="DO_Historial_Documento.cs" />
     <Compile Include="DO_Notification.cs" />
     <Compile Include="Empaquetado.cs" />
     <Compile Include="EnumEx.cs" />
