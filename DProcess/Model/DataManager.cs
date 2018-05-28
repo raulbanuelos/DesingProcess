@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Data;
+using Encriptar;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using DataAccess.ServiceObjects;
@@ -14,6 +15,7 @@ using DataAccess.ServiceObjects.Perfiles;
 using DataAccess.ServiceObjects.Tooling;
 using DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado;
 using System.ComponentModel;
+using Model.ControlDocumentos;
 
 namespace Model
 {
@@ -46,7 +48,7 @@ namespace Model
 
             [Description("Tiempo")]
             Tiempo
-        } 
+        }
 
         public enum UnidadDistance
         {
@@ -221,7 +223,7 @@ namespace Model
             [Description("hour")]
             Hour
         }
-        
+
         #endregion
 
         #region Centros de trabajo
@@ -276,12 +278,12 @@ namespace Model
             //Obtenemos los valores necesarios que se requieren.
             string idMaterial = GetIdMaterial(anillo.MaterialBase.Especificacion.Valor);
             int idTipoAnillo = GetIdTipoAnillo(anillo.TipoAnillo);
-            
+
             //Declaramos una variable la cual será la que retornemos en el método.
             double compensacion = 0;
 
             //Ejecutamos el método para obtener el valor de compensación.
-            IList inforamcionBD =  ServicioCompensacion.GetCompensacion(idMaterial, idTipoAnillo);
+            IList inforamcionBD = ServicioCompensacion.GetCompensacion(idMaterial, idTipoAnillo);
 
             //Verificamos que la información obtenida sea diferente de nulo.
             if (inforamcionBD != null)
@@ -315,7 +317,7 @@ namespace Model
             SO_Material ServicioMaterial = new SO_Material();
 
             //Ejecutamos el método para obtener la información.
-            IList informacionBD =  ServicioMaterial.GetIdEspecficacionMaterial(especMaterial);
+            IList informacionBD = ServicioMaterial.GetIdEspecficacionMaterial(especMaterial);
 
             //Verificamos que la información obtenida sea diferente de nulo.
             if (informacionBD != null)
@@ -327,7 +329,7 @@ namespace Model
                     System.Type tipo = item.GetType();
 
                     //Obtenemos el valor.
-                    idMaterial = (string)tipo.GetProperty("IdMaterial").GetValue(item,null);
+                    idMaterial = (string)tipo.GetProperty("IdMaterial").GetValue(item, null);
                 }
             }
 
@@ -361,7 +363,7 @@ namespace Model
                     System.Type tipo = item.GetType();
 
                     //Obtenemos el valor.
-                    idTipoAnillo = (int)tipo.GetProperty("IdTipoAnillo").GetValue(item,null);
+                    idTipoAnillo = (int)tipo.GetProperty("IdTipoAnillo").GetValue(item, null);
                 }
             }
 
@@ -381,7 +383,7 @@ namespace Model
             IList informacionBD = ServiceMaterial.GetAllTipoAnillo();
 
             ObservableCollection<Anillo> ListaR = new ObservableCollection<Anillo>();
-            
+
             //Verificamos que la información de base de datos sea direferente de nulo.
             if (informacionBD != null)
             {
@@ -395,7 +397,7 @@ namespace Model
 
                     //Obtenemos el valor.
                     obj.TipoAnillo = (string)tipo.GetProperty("Tipo").GetValue(item, null);
-                  
+
                     ListaR.Add(obj);
                 }
             }
@@ -414,7 +416,7 @@ namespace Model
 
             ObservableCollection<Material> ListaR = new ObservableCollection<Material>();
             //Declaramos un entero el cual será el que retornemos en el método.
-           
+
             //Verificamos que la información de base de datos sea direferente de nulo.
             if (informacionBD != null)
             {
@@ -428,8 +430,8 @@ namespace Model
 
                     //Obtenemos el valor.
                     obj.id_material = (string)tipo.GetProperty("id").GetValue(item, null);
-                    obj.descripcion=(string)tipo.GetProperty("descripcion").GetValue(item, null);
-                    obj.recomendado= (bool)tipo.GetProperty("Recomendado").GetValue(item, null);
+                    obj.descripcion = (string)tipo.GetProperty("descripcion").GetValue(item, null);
+                    obj.recomendado = (bool)tipo.GetProperty("Recomendado").GetValue(item, null);
 
                     ListaR.Add(obj);
                 }
@@ -583,7 +585,7 @@ namespace Model
             //Ejecutamos el método para obtener el width de la operación y retornamos el resultado.
             return ServiceSplitterCasting.GetWidthSplitterCastings(H1, proceso);
         }
-        
+
         /// <summary>
         /// Método que obtiene el herramental Barra Guia de la operación First Rough Grind.
         /// </summary>
@@ -611,7 +613,7 @@ namespace Model
                     herramental = ReadInformacionHerramentalEncontrado(InformacionBD);
 
                     //Asignamos los valores restantes a las propiedades.
-                    herramental.DescripcionRuta = "GUIDE BAR  " + (double)tipo.GetProperty("DimA").GetValue(elemento,null);
+                    herramental.DescripcionRuta = "GUIDE BAR  " + (double)tipo.GetProperty("DimA").GetValue(elemento, null);
                 }
             }
             else
@@ -620,7 +622,7 @@ namespace Model
             }
             return herramental;
         }
-        
+
         /// <summary>
         /// Método que inserta un registro de Guide Bar First Rough Grind.
         /// </summary>
@@ -631,7 +633,7 @@ namespace Model
             //Inicializamos los servicios de la operación Guide Bar First Rough Grind.
             SO_FirstRoughGrind ServiceFirstRoughGrind = new SO_FirstRoughGrind();
 
-           return ServiceFirstRoughGrind.SetFirstRG(obj.Codigo, obj.Propiedades[0].Valor);
+            return ServiceFirstRoughGrind.SetFirstRG(obj.Codigo, obj.Propiedades[0].Valor);
         }
         #endregion
 
@@ -666,7 +668,7 @@ namespace Model
                     herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
                     //Agregamos la descripción para la hoja de ruta.
-                    herramental.DescripcionRuta = "GUIDE BAR   " + (double)tipo.GetProperty("EspesorBarraGuia").GetValue(elemento,null);
+                    herramental.DescripcionRuta = "GUIDE BAR   " + (double)tipo.GetProperty("EspesorBarraGuia").GetValue(elemento, null);
                 }
             }
             else
@@ -771,7 +773,7 @@ namespace Model
         {
             //Declaramos una variable la cual será la que retornemos en el método.
             double od = 0;
-            
+
             //Inicializamos los servicios de SO_Material.
             SO_Material ServicioMaterial = new SO_Material();
 
@@ -786,7 +788,7 @@ namespace Model
                 {
                     //Obtenemos el tipo del elemento iterado.
                     System.Type tipo = item.GetType();
-                    
+
                     //Obtenemos los valores necesarios de cada columna.
                     double cstg_sm_od = (double)tipo.GetProperty("CSTG_SM_OD").GetValue(item, null);
                     double rise = (double)tipo.GetProperty("RISE").GetValue(item, null);
@@ -820,7 +822,7 @@ namespace Model
 
             //Obtenemos la medida del spacer.
             spacer = GetMedidaSpacerSplitter(proceso, h1);
-            noSpacer = GetCantidadSpacerSplitterCasting(proceso,h1);
+            noSpacer = GetCantidadSpacerSplitterCasting(proceso, h1);
 
             //Obtenemos los criterios mínimo y máximo para el spacer.
             criMinSpacer = GetCriterio("SpacerMin");
@@ -831,7 +833,7 @@ namespace Model
             spacerMax = spacer + criMaxSpacer;
 
             //Ejecutamos el método para obtener el o los spacer.
-            IList informacionBD =  ServicioSplitter.GetSpacer(spacerMin, spacerMax);
+            IList informacionBD = ServicioSplitter.GetSpacer(spacerMin, spacerMax);
 
             //Verificamos que la información obtenida sea direfente de nulo.
             if (informacionBD != null)
@@ -1001,7 +1003,7 @@ namespace Model
                     //Obtenemos el valor de la propiedad.
                     medidaSpacer = (double)tipo.GetProperty("Cutter_Spacer").GetValue(item, null);
                 }
-            }            
+            }
             //Retornamos el valor obtenido.
             return medidaSpacer;
         }
@@ -1033,7 +1035,7 @@ namespace Model
                     System.Type tipo = item.GetType();
 
                     //Obtenemos el valor.
-                    medidaSpacer = (double)tipo.GetProperty("Cutter_Spacer").GetValue(item,null);
+                    medidaSpacer = (double)tipo.GetProperty("Cutter_Spacer").GetValue(item, null);
                 }
             }
             //Retornamos el valor.
@@ -1050,7 +1052,7 @@ namespace Model
             //Inicializamos los servicios de SO_SplitterCasting.
             SO_SplitterCasting ServicioSplitter = new SO_SplitterCasting();
             //Ejecutamos el método, devolvemos el resultado
-            return ServicioSplitter.SetCutterSpacerS(obj.Codigo,obj.Propiedades[0].Valor,obj.Propiedades[1].Valor,obj.Plano);          
+            return ServicioSplitter.SetCutterSpacerS(obj.Codigo, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.Plano);
         }
 
         /// <summary>
@@ -1064,7 +1066,7 @@ namespace Model
             SO_SplitterCasting ServicioSplitter = new SO_SplitterCasting();
 
             //Ejecutamos el método, devolvemos el resultado
-            return ServicioSplitter.UpdateCutterSpacerS(obj.idHerramental,obj.Codigo, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.Plano);
+            return ServicioSplitter.UpdateCutterSpacerS(obj.idHerramental, obj.Codigo, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.Plano);
         }
 
         /// <summary>
@@ -1109,7 +1111,7 @@ namespace Model
                     //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
-                   // herramental.Encontrado = (bool)tipo.GetProperty("Activo").GetValue(item, null);
+                    // herramental.Encontrado = (bool)tipo.GetProperty("Activo").GetValue(item, null);
 
                     //Dim A
                     Propiedad dimA = new Propiedad();
@@ -1120,7 +1122,7 @@ namespace Model
 
                     //DimB
                     Propiedad dimB = new Propiedad();
-                    dimB.Valor= (double)tipo.GetProperty("B").GetValue(item, null);
+                    dimB.Valor = (double)tipo.GetProperty("B").GetValue(item, null);
                     dimB.Unidad = "Milimeters (mm)";
                     dimB.DescripcionCorta = "Dim B";
                     herramental.Propiedades.Add(dimB);
@@ -1156,7 +1158,7 @@ namespace Model
                 {
                     //Obtenemos el tipo
                     Type tipo = item.GetType();
-           
+
                     //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
@@ -1174,7 +1176,7 @@ namespace Model
                     dimB.Valor = (double)tipo.GetProperty("B").GetValue(item, null);
                     dimB.Unidad = "Milimeters (mm)";
                     dimB.DescripcionCorta = "Dim B";
-                    herramental.Propiedades.Add(dimB);               
+                    herramental.Propiedades.Add(dimB);
                 }
             }
             //Retornamos el herramnetal.
@@ -1211,7 +1213,7 @@ namespace Model
                     herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
                     //Agregamos la descripción que va en la hoja de ruta.
-                    herramental.DescripcionRuta = "CUTTERS " + (double)tipo.GetProperty("Diametro").GetValue(item,null);
+                    herramental.DescripcionRuta = "CUTTERS " + (double)tipo.GetProperty("Diametro").GetValue(item, null);
                 }
             }
             //Retornamos el objeto construido.
@@ -1251,7 +1253,7 @@ namespace Model
                     herramental = ReadInformacionHerramentalEncontrado(informacionBD);
 
                     //Agregamos la descripción que va en la hoja de ruta.
-                    herramental.DescripcionRuta = "CHUCK DET. " + (string)tipo.GetProperty("TipoEnsamble").GetValue(item,null);
+                    herramental.DescripcionRuta = "CHUCK DET. " + (string)tipo.GetProperty("TipoEnsamble").GetValue(item, null);
                 }
             }
             //Retornamos el objeto construido.
@@ -1273,7 +1275,7 @@ namespace Model
             //Ejecutamos el método para obtener la información de la base de datos.
             IList informacionBD = ServiceSplitter.GetAllChuck(texto);
 
-            if (informacionBD !=null)
+            if (informacionBD != null)
             {
                 foreach (var item in informacionBD)
                 {
@@ -1291,13 +1293,13 @@ namespace Model
                     herramental.Propiedades.Add(diaMin);
 
                     Propiedad diaMax = new Propiedad();
-                    diaMax.Valor= (double)tipo.GetProperty("DiaMax").GetValue(item, null);
-                    diaMax.Unidad= "Milimeters (mm)";
+                    diaMax.Valor = (double)tipo.GetProperty("DiaMax").GetValue(item, null);
+                    diaMax.Unidad = "Milimeters (mm)";
                     diaMax.DescripcionCorta = "Diametro Max";
                     herramental.Propiedades.Add(diaMax);
 
                     PropiedadCadena ensamble = new PropiedadCadena();
-                    ensamble.Valor= (string)tipo.GetProperty("TipoEnsamble").GetValue(item, null);
+                    ensamble.Valor = (string)tipo.GetProperty("TipoEnsamble").GetValue(item, null);
                     ensamble.DescripcionCorta = "Tipo Ensamble";
                     herramental.PropiedadesCadena.Add(ensamble);
 
@@ -1370,7 +1372,7 @@ namespace Model
             SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
 
             //Ejecutamos el método
-            return ServiceSplitter.SetChuck(obj.Codigo, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor,obj.PropiedadesCadena[0].Valor);
+            return ServiceSplitter.SetChuck(obj.Codigo, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.PropiedadesCadena[0].Valor);
         }
 
         /// <summary>
@@ -1384,7 +1386,7 @@ namespace Model
             SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
 
             //Ejecutamos el método
-            return ServiceSplitter.UpdateChuck(obj.idHerramental,obj.Codigo, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.PropiedadesCadena[0].Valor);
+            return ServiceSplitter.UpdateChuck(obj.idHerramental, obj.Codigo, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.PropiedadesCadena[0].Valor);
         }
 
         /// <summary>
@@ -1595,7 +1597,7 @@ namespace Model
             SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
 
             //Ejecutamos el método
-            return ServiceSplitter.SetUretano(obj.Codigo,obj.PropiedadesCadena[0].Valor, obj.PropiedadesCadena[1].Valor, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.PropiedadesCadena[2].Valor);
+            return ServiceSplitter.SetUretano(obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.PropiedadesCadena[1].Valor, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.PropiedadesCadena[2].Valor);
         }
 
         /// <summary>
@@ -1609,7 +1611,7 @@ namespace Model
             SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
 
             //Ejecutamos el método
-            return ServiceSplitter.UpdateUretano(obj.idHerramental,obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.PropiedadesCadena[1].Valor, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.PropiedadesCadena[2].Valor);
+            return ServiceSplitter.UpdateUretano(obj.idHerramental, obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.PropiedadesCadena[1].Valor, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.PropiedadesCadena[2].Valor);
         }
 
         /// <summary>
@@ -1663,7 +1665,7 @@ namespace Model
 
                     //Diametro
                     Propiedad diametro = new Propiedad();
-                    diametro.Valor= (double)tipo.GetProperty("Diametro").GetValue(item, null);
+                    diametro.Valor = (double)tipo.GetProperty("Diametro").GetValue(item, null);
                     diametro.Unidad = "Milimeters (mm)";
                     diametro.DescripcionCorta = "Diametro";
                     herramental.Propiedades.Add(diametro);
@@ -1741,7 +1743,7 @@ namespace Model
             SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
 
             //Ejecutamos el método 
-            return ServiceSplitter.UpdateCutter(obj.idHerramental,obj.Codigo, obj.Propiedades[0].Valor);
+            return ServiceSplitter.UpdateCutter(obj.idHerramental, obj.Codigo, obj.Propiedades[0].Valor);
         }
 
         /// <summary>
@@ -1795,7 +1797,7 @@ namespace Model
                     //Mapeamos el valor a DescipcionRuta.
                     herramental.DescripcionRuta = "GUIDE BAR   " + espesorBarraGuia;
                 }
-            }            
+            }
             //Retornamos el herramental.
             return herramental;
         }
@@ -1910,7 +1912,7 @@ namespace Model
                     //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
-                    herramental.Plano= (string)tipo.GetProperty("Plano").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
 
                     Propiedad propiedadDimE = new Propiedad();
                     propiedadDimE.Unidad = "";
@@ -1945,7 +1947,7 @@ namespace Model
         /// <returns></returns>
         public static Herramental GetInfoCollarSpacer(string codigo)
         {
-           
+
             Herramental herramental = new Herramental();
 
             //Inicializamos los servicios de CamTurn.
@@ -2008,7 +2010,7 @@ namespace Model
             //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
 
-            double dimE_min,dimeE_max,dimF_min,dimF_max;
+            double dimE_min, dimeE_max, dimF_min, dimF_max;
 
             dimE_min = small_od - GetCriterio("CTCollarDimEMin");
             dimeE_max = small_od + GetCriterio("CTCollarDimEMax");
@@ -2062,7 +2064,7 @@ namespace Model
                     c++;
                 }
             }
-            
+
             return ListaResultante;
         }
 
@@ -2080,7 +2082,7 @@ namespace Model
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
 
             //Si la lista es diferente de nulo.
-            if (lista !=null)
+            if (lista != null)
             {
                 //Recorremos la lista, para buscar el collar.
                 foreach (Herramental item in lista)
@@ -2132,9 +2134,9 @@ namespace Model
         {
             //Inicializamos los servicios de CamTurn.
             SO_CamTurn ServiceCam = new SO_CamTurn();
-             
+
             //Ejecutamos el método, retornamos el resultado.
-            return ServiceCam.UpdateCollarSpcaer(herramental.idHerramental,herramental.Codigo, herramental.Plano, herramental.PropiedadesCadena[0].Valor, herramental.PropiedadesCadena[1].Valor, herramental.Propiedades[0].Valor, herramental.Propiedades[1].Valor);
+            return ServiceCam.UpdateCollarSpcaer(herramental.idHerramental, herramental.Codigo, herramental.Plano, herramental.PropiedadesCadena[0].Valor, herramental.PropiedadesCadena[1].Valor, herramental.Propiedades[0].Valor, herramental.Propiedades[1].Valor);
         }
 
         /// <summary>
@@ -2159,7 +2161,7 @@ namespace Model
         public static DataTable GetAllWorkCam(string texto)
         {
             //Inicializamos los servicios de CamTurn.
-           SO_CamTurn ServiceCam = new SO_CamTurn();
+            SO_CamTurn ServiceCam = new SO_CamTurn();
 
             //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
             IList informacionBD = ServiceCam.GetAllWorkCam(texto);
@@ -2221,7 +2223,7 @@ namespace Model
                 {
                     //Obtenemos el tipo del elemento iterado.
                     System.Type tipo = item.GetType();
-                    
+
                     //Convertimos la información a tipo Herramental.
                     herramental = ReadInformacionHerramentalEncontrado(ListaBD);
 
@@ -2232,20 +2234,20 @@ namespace Model
 
                     //Mapeamos el valor a DescipcionRuta.
                     herramental.DescripcionRuta = "CAM " + propiedadMN.Valor;
-                    
+
                 }
             }
 
             return herramental;
         }
-        
+
         /// <summary>
         /// Método que obtiene los herramentales óptimos para WorkCam.
         /// </summary>
         /// <param name="espectMaterial"></param>
         /// <param name="tipoAnillo"></param>
         /// <param name="pingGage"></param>
-        public static DataTable GetWorkCam(string espectMaterial,string tipoAnillo,string pingGage)
+        public static DataTable GetWorkCam(string espectMaterial, string tipoAnillo, string pingGage)
         {
             string cam_detail = string.Empty;
 
@@ -2274,7 +2276,7 @@ namespace Model
                 if (!string.IsNullOrEmpty(cam_detail))
                 {
                     //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
-                    IList ListaBD = ServiceCamT.GetWorkCam(cam_detail);                  
+                    IList ListaBD = ServiceCamT.GetWorkCam(cam_detail);
 
                     //Verificamos que la información obtenida sea diferente de nulo.
                     if (ListaBD != null)
@@ -2296,7 +2298,7 @@ namespace Model
                             herramental.PropiedadesCadena.Add(propiedadMN);
 
                             //Mapeamos el valor a DescipcionRuta.
-                            herramental.DescripcionRuta = "WORK CAM MEDIDA NOMINAL "+ propiedadMN.Valor;
+                            herramental.DescripcionRuta = "WORK CAM MEDIDA NOMINAL " + propiedadMN.Valor;
 
                             //Agregamos el objeto a la lista resultante.
                             ListaResultante.Add(herramental);
@@ -2394,7 +2396,7 @@ namespace Model
             //Inicializamos los servicios de CamTurn.
             SO_CamTurn ServiceCam = new SO_CamTurn();
 
-            return ServiceCam.SetWorkCam(herramental.Codigo,  herramental.PropiedadesCadena[0].Valor, herramental.PropiedadesCadena[1].Valor);
+            return ServiceCam.SetWorkCam(herramental.Codigo, herramental.PropiedadesCadena[0].Valor, herramental.PropiedadesCadena[1].Valor);
         }
 
         /// <summary>
@@ -2407,7 +2409,7 @@ namespace Model
             //Inicializamos los servicios de CamTurn.
             SO_CamTurn ServiceCam = new SO_CamTurn();
 
-            return ServiceCam.UpdateWorkCam(herramental.idHerramental,herramental.Codigo, herramental.PropiedadesCadena[0].Valor, herramental.PropiedadesCadena[1].Valor);
+            return ServiceCam.UpdateWorkCam(herramental.idHerramental, herramental.Codigo, herramental.PropiedadesCadena[0].Valor, herramental.PropiedadesCadena[1].Valor);
         }
 
         /// <summary>
@@ -2455,7 +2457,7 @@ namespace Model
                     //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
-                    herramental.Plano= (string)tipo.GetProperty("Plano").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
 
                     Propiedad propiedadDim = new Propiedad();
                     propiedadDim.Unidad = "";
@@ -2558,7 +2560,7 @@ namespace Model
                     herramental.Propiedades.Add(propiedadDim);
 
                     PropiedadCadena desc = new PropiedadCadena();
-                    desc.Valor= (string)tipo.GetProperty("DESCRIPCIONCM").GetValue(item, null);
+                    desc.Valor = (string)tipo.GetProperty("DESCRIPCIONCM").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(desc);
                 }
             }
@@ -2643,7 +2645,7 @@ namespace Model
             SO_CamTurn ServiceCam = new SO_CamTurn();
 
             //Ejecutamos el método.
-            return ServiceCam.UpdateCutterCamTurn(herramental.idHerramental,herramental.Codigo, herramental.PropiedadesCadena[0].Valor, herramental.Propiedades[0].Valor, herramental.Plano);
+            return ServiceCam.UpdateCutterCamTurn(herramental.idHerramental, herramental.Codigo, herramental.PropiedadesCadena[0].Valor, herramental.Propiedades[0].Valor, herramental.Plano);
         }
 
         /// <summary>
@@ -2911,7 +2913,7 @@ namespace Model
 
             double dimC, dimD, dimE = 0;
 
-            if (maxA >= 2.187 && maxA <= 2.999) 
+            if (maxA >= 2.187 && maxA <= 2.999)
             {
                 /*
                  * Cálculo para el siguiente plano
@@ -2924,7 +2926,7 @@ namespace Model
                 medidasFabricacion += dimD >= 2.938 ? "DIM \"D\"= " + 2.938 + "\n" : "DIM \"D\"= " + dimD + "\n";
 
             }
-            else if(maxA >= 2.938 && maxA <= 3.499)
+            else if (maxA >= 2.938 && maxA <= 3.499)
             {
                 /*
                  * Cálculo para el siguiente plano
@@ -2975,7 +2977,7 @@ namespace Model
             SO_BK ServicioBk = new SO_BK();
 
             //Ejecutamos el método
-            return ServicioBk.UpdateCollar(obj.idHerramental,obj.Codigo, obj.Plano, obj.PropiedadesCadena[0].Valor, obj.Propiedades[0].Valor, obj.Propiedades[0].Unidad, obj.Propiedades[1].Valor, obj.Propiedades[1].Unidad);
+            return ServicioBk.UpdateCollar(obj.idHerramental, obj.Codigo, obj.Plano, obj.PropiedadesCadena[0].Valor, obj.Propiedades[0].Valor, obj.Propiedades[0].Unidad, obj.Propiedades[1].Valor, obj.Propiedades[1].Unidad);
         }
 
         /// <summary>
@@ -3008,7 +3010,7 @@ namespace Model
             //Obtenemos el valor de Sleeve
             //double sleeve=Math.Round(diafinish-((gapfinish - .004) / 3.1416),3);
             //double sleeve = Math.Round(diafinish - ((gapfinish) / 3.1416), 3);
-            double sleeve = Math.Round(diafinish,3);
+            double sleeve = Math.Round(diafinish, 3);
 
             //Obtenemos el minimo y maximo
             //double sleeveMin = sleeve + 0.006;
@@ -3019,7 +3021,7 @@ namespace Model
 
             //Se obtiene la informacion de la base de datos
             IList informacionBD = ServiceBK.GetClosingSleeveBK(sleeveMin, sleeveMax);
-            
+
 
             //Si la informacion es diferente de nulo
             if (informacionBD != null)
@@ -3033,8 +3035,8 @@ namespace Model
                     Herramental herramental = new Herramental();
 
                     //Convertimos la información a tipo Herramental.
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD,(string)tipo.GetProperty("Codigo").GetValue(item,null));
-                   
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
+
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.Unidad = "Milimeters (mm)";
                     propiedadDimB.Valor = (double)tipo.GetProperty("DimB").GetValue(item, null);
@@ -3098,12 +3100,12 @@ namespace Model
             IList informacionBD = ServicioBk.GetAllClosingSleeveBK(texto_busqueda);
 
             //Verificamos que la lista sea diferente de nulo.
-            if (informacionBD !=null)
+            if (informacionBD != null)
             {
                 foreach (var item in informacionBD)
                 {
                     //Obtenemos el tipo del elemento iterado.
-                     System.Type tipo = item.GetType();
+                    System.Type tipo = item.GetType();
 
                     //Declaramos un objeto de tipo Herramental.
                     Herramental herramental = new Herramental();
@@ -3191,7 +3193,7 @@ namespace Model
             SO_BK ServiceBk = new SO_BK();
 
             //Ejecutamos el método
-            return ServiceBk.UpdateClosingSleeveBK(obj.idHerramental,obj.Codigo, obj.Propiedades[0].Valor, obj.Plano);
+            return ServiceBk.UpdateClosingSleeveBK(obj.idHerramental, obj.Codigo, obj.Propiedades[0].Valor, obj.Plano);
         }
 
         /// <summary>
@@ -3214,7 +3216,7 @@ namespace Model
         /// </summary>
         /// <param name="texto"></param>
         public static DataTable GetAllGuidePlate(string texto)
-            {
+        {
             //Inicializamos los servicios de BK.
             SO_BK ServicioBk = new SO_BK();
 
@@ -3225,7 +3227,7 @@ namespace Model
             IList informacionBD = ServicioBk.GetAllGuidePlate(texto);
 
             //Si la información es diferente de nulo.
-            if (informacionBD !=null)
+            if (informacionBD != null)
             {
                 //Iteramos la lista.
                 foreach (var item in informacionBD)
@@ -3234,23 +3236,23 @@ namespace Model
                     System.Type tipo = item.GetType();
 
                     //Declaramos un objeto de tipo Herramental.
-                    Herramental herramental = new Herramental();                    
+                    Herramental herramental = new Herramental();
 
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
 
                     PropiedadCadena medida = new PropiedadCadena();
-                    medida.Valor= (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    medida.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
                     medida.DescripcionCorta = "Medida Nominal";
                     herramental.PropiedadesCadena.Add(medida);
 
                     PropiedadCadena width = new PropiedadCadena();
-                    width.Valor= (string)tipo.GetProperty("Width").GetValue(item, null);
+                    width.Valor = (string)tipo.GetProperty("Width").GetValue(item, null);
                     width.DescripcionCorta = "Width";
                     herramental.PropiedadesCadena.Add(width);
 
                     PropiedadCadena sobreM = new PropiedadCadena();
-                    sobreM.Valor=(string)tipo.GetProperty("SobreMedida").GetValue(item, null);
+                    sobreM.Valor = (string)tipo.GetProperty("SobreMedida").GetValue(item, null);
                     sobreM.DescripcionCorta = "Sobre Medida";
                     herramental.PropiedadesCadena.Add(sobreM);
 
@@ -3412,7 +3414,7 @@ namespace Model
             SO_BK ServicioBk = new SO_BK();
 
             //Retorna el resultado.
-            return ServicioBk.UpdateGuidePlate(obj.idHerramental,obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.PropiedadesCadena[1].Valor, obj.PropiedadesCadena[2].Valor);
+            return ServicioBk.UpdateGuidePlate(obj.idHerramental, obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.PropiedadesCadena[1].Valor, obj.PropiedadesCadena[2].Valor);
         }
 
         /// <summary>
@@ -3504,7 +3506,7 @@ namespace Model
             IList informacionBD = ServicioBk.GetMedidaGuillotina(d1);
 
             //Si la informacion es diferente de nulo
-            if (informacionBD!=null)
+            if (informacionBD != null)
             {
                 //Iteramos la lista
                 foreach (var item in informacionBD)
@@ -3513,14 +3515,14 @@ namespace Model
                     System.Type tipo = item.GetType();
 
                     //Asiganmos los valores.
-                    medidaN= (string)tipo.GetProperty("MEDIDANOMINAL").GetValue(item, null);
-                    sobreMedida= (string)tipo.GetProperty("SOBREMEDIDA").GetValue(item, null);
+                    medidaN = (string)tipo.GetProperty("MEDIDANOMINAL").GetValue(item, null);
+                    sobreMedida = (string)tipo.GetProperty("SOBREMEDIDA").GetValue(item, null);
 
                     //Con los campos obtenidos, se obtiene el herramental.
                     IList ListaGuillotina = ServicioBk.GetGuillotinaBK(width, medidaN, sobreMedida);
 
                     //Si la lista es diferente de nulo.
-                    if (ListaGuillotina !=null)
+                    if (ListaGuillotina != null)
                     {
                         //Iteramos la lista de herramnetal.
                         foreach (var itemH in ListaGuillotina)
@@ -3633,7 +3635,7 @@ namespace Model
             SO_BK ServicioBk = new SO_BK();
 
             //Retorna el resultado.
-            return ServicioBk.UpdateGuillotinaBK(obj.idHerramental,obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.PropiedadesCadena[1].Valor, obj.PropiedadesCadena[2].Valor);
+            return ServicioBk.UpdateGuillotinaBK(obj.idHerramental, obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.PropiedadesCadena[1].Valor, obj.PropiedadesCadena[2].Valor);
         }
 
         /// <summary>
@@ -3655,7 +3657,7 @@ namespace Model
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
-        public static DataTable SelectBestBK(DataTable dt )
+        public static DataTable SelectBestBK(DataTable dt)
         {
             //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
             DataTable DataR = new DataTable();
@@ -3757,12 +3759,12 @@ namespace Model
                 foreach (var item in informacionBD)
                 {
                     //Obtenemos el tipo del elemento iterado.
-                    System.Type tipo = item.GetType();                  
+                    System.Type tipo = item.GetType();
 
                     //Asignamos los valores.
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
-                    herramental.idHerramental=(int)tipo.GetProperty("Id_CamBK").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("Id_CamBK").GetValue(item, null);
 
                     Propiedad dimA = new Propiedad();
                     dimA.Valor = (double)tipo.GetProperty("A").GetValue(item, null);
@@ -3775,7 +3777,7 @@ namespace Model
                     herramental.Propiedades.Add(dimB);
 
                     PropiedadCadena detalle = new PropiedadCadena();
-                    detalle.Valor= (string)tipo.GetProperty("Detalle").GetValue(item, null);
+                    detalle.Valor = (string)tipo.GetProperty("Detalle").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(detalle);
 
                 }
@@ -3808,7 +3810,7 @@ namespace Model
             SO_BK ServicioBk = new SO_BK();
 
             //Ejecutamos el método y retornamos el resultado.
-            return ServicioBk.UpdateCamBK(obj.idHerramental,obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor);
+            return ServicioBk.UpdateCamBK(obj.idHerramental, obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor);
         }
 
         /// <summary>
@@ -3867,7 +3869,7 @@ namespace Model
                     herramental.Propiedades.Add(fMax);
 
                     PropiedadCadena fraccMin = new PropiedadCadena();
-                    fraccMin.Valor= (string)tipo.GetProperty("FracMin").GetValue(item, null);
+                    fraccMin.Valor = (string)tipo.GetProperty("FracMin").GetValue(item, null);
                     fraccMin.DescripcionCorta = "Fracc Min";
                     herramental.PropiedadesCadena.Add(fraccMin);
 
@@ -3935,7 +3937,7 @@ namespace Model
                     herramental.PropiedadesCadena.Add(fraccMax);
 
                     //Mapeamos el valor a DescipcionRuta.
-                    herramental.DescripcionRuta = "SHIELD BK MIN " + fMin.Valor +" MAX "+ fMax.Valor;
+                    herramental.DescripcionRuta = "SHIELD BK MIN " + fMin.Valor + " MAX " + fMax.Valor;
                     ListaResultante.Add(herramental);
                 }
             }
@@ -4025,7 +4027,7 @@ namespace Model
             //Inicializamos los servicios de BK.
             SO_BK ServicioBk = new SO_BK();
             //Ejecutamos el métood y retornamos el resultado
-            return ServicioBk.UpdateShieldBK(obj.idHerramental,obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.Propiedades[0].Valor, obj.Propiedades[0].Valor, obj.PropiedadesCadena[1].Valor, obj.PropiedadesCadena[2].Valor);
+            return ServicioBk.UpdateShieldBK(obj.idHerramental, obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.Propiedades[0].Valor, obj.Propiedades[0].Valor, obj.PropiedadesCadena[1].Valor, obj.PropiedadesCadena[2].Valor);
         }
 
         /// <summary>
@@ -4212,7 +4214,7 @@ namespace Model
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
                     herramental.idHerramental = (int)tipo.GetProperty("Id_Bushing").GetValue(item, null);
-                    herramental.Plano= (string)tipo.GetProperty("Plano").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
 
                     Propiedad propiedadMedidaN = new Propiedad();
                     propiedadMedidaN.Unidad = "";
@@ -4287,7 +4289,7 @@ namespace Model
             SO_BatesBore ServiceBatesBore = new SO_BatesBore();
 
             //Ejecutamos el método y regresa el resultado.
-            return ServiceBatesBore.UpdateBushing(obj.idHerramental,obj.Codigo, obj.Plano, obj.Propiedades[0].Valor, obj.PropiedadesCadena[0].Valor);
+            return ServiceBatesBore.UpdateBushing(obj.idHerramental, obj.Codigo, obj.Plano, obj.Propiedades[0].Valor, obj.PropiedadesCadena[0].Valor);
         }
 
         /// <summary>
@@ -4493,13 +4495,13 @@ namespace Model
         /// </summary>
         /// <param name="herramental"></param>
         /// <returns></returns>
-         public static int UpdateBushingFM(Herramental herramental)
+        public static int UpdateBushingFM(Herramental herramental)
         {
             //Inicializamos los servicios de Finish Mill.
             SO_FinishMill ServiceFinishMill = new SO_FinishMill();
 
             //Ejecutamos el método t retornamos el resultado.
-            return ServiceFinishMill.UpdateBushingFM(herramental.idHerramental,herramental.Codigo, herramental.Plano, herramental.Propiedades[0].Valor);
+            return ServiceFinishMill.UpdateBushingFM(herramental.idHerramental, herramental.Codigo, herramental.Plano, herramental.Propiedades[0].Valor);
         }
 
         /// <summary>
@@ -4717,7 +4719,7 @@ namespace Model
             SO_Cromo ServiceCromo = new SO_Cromo();
 
             //Ejecutamos el método y retornamos el resultado.
-            return ServiceCromo.UpdateBushingCromo(obj.idHerramental,obj.Codigo, obj.Propiedades[0].Valor, obj.Plano);
+            return ServiceCromo.UpdateBushingCromo(obj.idHerramental, obj.Codigo, obj.Propiedades[0].Valor, obj.Plano);
         }
 
         /// <summary>
@@ -4739,10 +4741,10 @@ namespace Model
          * */
 
         /// <summary>
-            /// Método que obtiene todos los registros de Collar Cromo.
-            /// </summary>
-            /// <param name="texto"></param>
-            /// <returns></returns>
+        /// Método que obtiene todos los registros de Collar Cromo.
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
         public static DataTable GetAllCollarCromo(string texto)
         {
             //Inicializamos los servicios de Cromo OD.
@@ -4808,7 +4810,7 @@ namespace Model
                 foreach (var item in informacionBD)
                 {
                     //Obtenemos el tipo del elemento iterado.
-                    System.Type tipo = item.GetType();                 
+                    System.Type tipo = item.GetType();
 
                     //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
@@ -4819,7 +4821,7 @@ namespace Model
                     Propiedad propiedadDimD = new Propiedad();
                     propiedadDimD.DescripcionCorta = "Dim A";
                     propiedadDimD.Valor = (double)tipo.GetProperty("DimA").GetValue(item, null);
-                    herramental.Propiedades.Add(propiedadDimD);                   
+                    herramental.Propiedades.Add(propiedadDimD);
                 }
             }
             //Regresamos el objeto.
@@ -4934,7 +4936,7 @@ namespace Model
             SO_Cromo ServiceCromo = new SO_Cromo();
 
             //Ejecutamos el método y retornamos el resultado.
-            return ServiceCromo.UpdateCollarsCromo(obj.idHerramental,obj.Codigo, obj.Propiedades[0].Valor, obj.Plano);
+            return ServiceCromo.UpdateCollarsCromo(obj.idHerramental, obj.Codigo, obj.Propiedades[0].Valor, obj.Plano);
         }
 
         /// <summary>
@@ -4985,7 +4987,7 @@ namespace Model
                     //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
-                    
+
                     //Agregamos las propiedades
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.DescripcionCorta = "Dim B";
@@ -5031,7 +5033,7 @@ namespace Model
                     //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
-                    herramental.idHerramental=(int)tipo.GetProperty("Id_Bushing").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("Id_Bushing").GetValue(item, null);
 
                     //Agreamos las propiedades.
                     Propiedad propiedadDimB = new Propiedad();
@@ -5041,11 +5043,11 @@ namespace Model
 
                     PropiedadCadena notas = new PropiedadCadena();
                     notas.DescripcionCorta = "Notas";
-                    notas.Valor= (string )tipo.GetProperty("Notas").GetValue(item, null);
+                    notas.Valor = (string)tipo.GetProperty("Notas").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(notas);
                 }
             }
-           //Retorna el objeto.
+            //Retorna el objeto.
             return herramental;
         }
 
@@ -5256,7 +5258,7 @@ namespace Model
                     herramental.Propiedades.Add(propiedadDimD);
                 }
             }
-           //Retornamos el objeto
+            //Retornamos el objeto
             return herramental;
         }
 
@@ -5489,7 +5491,7 @@ namespace Model
                     herramental.PropiedadesCadena.Add(anillos);
                 }
             }
-           //Retornamos el objeto.
+            //Retornamos el objeto.
             return herramental;
         }
 
@@ -5540,7 +5542,7 @@ namespace Model
                     herramental.Propiedades.Add(propiedadMax);
 
                     //Mapeamos el valor a DescipcionRuta.
-                    herramental.DescripcionRuta = "Guillotina Sim " + propiedadDimA.Valor + " Width Min "+ propiedadMin.Valor + " Width Max "+ propiedadMax.Valor;
+                    herramental.DescripcionRuta = "Guillotina Sim " + propiedadDimA.Valor + " Width Min " + propiedadMin.Valor + " Width Max " + propiedadMax.Valor;
 
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
@@ -5683,7 +5685,7 @@ namespace Model
 
             //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
             IList informacionBD = ServiceMoly.GetInfoCamisaMoly(codigo);
-       
+
             //Verificamos que la información obtenida sea diferente de nulo.
             if (informacionBD != null)
             {
@@ -5743,7 +5745,7 @@ namespace Model
 
                     //Convertimos la información a tipo Herramental.
                     herramental = ReadInformacionHerramentalEncontrado(informacionBD);
-                    herramental.Plano= (string)tipo.GetProperty("Plano").GetValue(item, null);
+                    herramental.Plano = (string)tipo.GetProperty("Plano").GetValue(item, null);
 
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.DescripcionCorta = "Dim A";
@@ -6455,25 +6457,25 @@ namespace Model
                     //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
-                    herramental.idHerramental=(int)tipo.GetProperty("Id").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("Id").GetValue(item, null);
                     herramental.Plano = (string)tipo.GetProperty("plano").GetValue(item, null);
 
                     //Agregamos las propiedades
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.DescripcionCorta = "Dim F";
                     propiedadDimB.Valor = (double)tipo.GetProperty("DimF").GetValue(item, null);
-                    herramental.Propiedades.Add(propiedadDimB);                 
+                    herramental.Propiedades.Add(propiedadDimB);
                 }
             }
             //Retornamos el objeto.
             return herramental;
         }
 
-       /// <summary>
-       /// Método que obtiene los herramentales optimos a partir de díametro del anillo.
-       /// </summary>
-       /// <param name="D1"></param>
-       /// <returns></returns>
+        /// <summary>
+        /// Método que obtiene los herramentales optimos a partir de díametro del anillo.
+        /// </summary>
+        /// <param name="D1"></param>
+        /// <returns></returns>
         public static DataTable GetCollarScotchbrite(double D1)
         {
             //Inicializamos los servicios de Scotchbrite.
@@ -6646,7 +6648,7 @@ namespace Model
             //Retornamos la lista.
             return ListaResultante;
         }
-       
+
         #region MaestroHerramentales
         /// <summary>
         /// Método que obtiene el maestro de herramentales a partir de un criterio de busqueda.
@@ -6714,7 +6716,7 @@ namespace Model
             //Inicializamos los servicios de SO_MaestroHerramental.
             SO_MaestroHerramental ServiceHerramental = new SO_MaestroHerramental();
             //Ejecutamos el metodo y retornamos el valor
-            return ServiceHerramental.UpdateMaestroHerramentales(obj.Codigo,obj.descripcion, obj.fecha_cambio, obj.usuario_cambio, obj.activo, obj.id_clasificacion, obj.id_plano);
+            return ServiceHerramental.UpdateMaestroHerramentales(obj.Codigo, obj.descripcion, obj.fecha_cambio, obj.usuario_cambio, obj.activo, obj.id_clasificacion, obj.id_plano);
         }
 
         /// <summary>
@@ -6758,18 +6760,18 @@ namespace Model
             IList InformacionBD = ServiceHerramental.GetPropiedadesHerramental(codigo);
 
             //Si la lista no es nula
-            if (InformacionBD !=null)
+            if (InformacionBD != null)
             {
                 //iteramos la lista
                 foreach (var item in InformacionBD)
                 {
                     //Obtenemos el tipo.
-                    System.Type tipo = item.GetType();                 
+                    System.Type tipo = item.GetType();
                     //Mapeamos los valores
                     obj.id_clasificacion = (int)tipo.GetProperty("idClasificacionHerramental").GetValue(item, null);
                     obj.id_plano = 0; //(int)tipo.GetProperty("idPlano").GetValue(item, null);
-                    obj.activo= (bool)tipo.GetProperty("Activo").GetValue(item, null);
-                    obj.objetoXML=(string)tipo.GetProperty("ObjetoXML").GetValue(item, null);
+                    obj.activo = (bool)tipo.GetProperty("Activo").GetValue(item, null);
+                    obj.objetoXML = (string)tipo.GetProperty("ObjetoXML").GetValue(item, null);
                 }
             }
             //Retornamos el objeto
@@ -6783,7 +6785,7 @@ namespace Model
         /// <param name="lista"></param>
         /// <param name="nameTable"></param>
         /// <returns></returns>
-        public static DataTable ConverToObservableCollectionHerramental_DataSet(ObservableCollection<Herramental> lista,string nameTable)
+        public static DataTable ConverToObservableCollectionHerramental_DataSet(ObservableCollection<Herramental> lista, string nameTable)
         {
             //Declaramos un datatable que será el que retornemos en el método.
             DataTable dataTableResultante = new DataTable();
@@ -6833,7 +6835,7 @@ namespace Model
                     dataTableResultante.Rows.Add(dr);
                 }
             }
-          return dataTableResultante;
+            return dataTableResultante;
         }
 
         /// <summary>
@@ -6918,7 +6920,7 @@ namespace Model
             //Inicializamos los servicios de coil 
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
-            return ServiceCoil.UpdateCOIL_FEED_ROLLER(obj.ID,obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.dimD, obj.wire_width_min, obj.wire_width_max);
+            return ServiceCoil.UpdateCOIL_FEED_ROLLER(obj.ID, obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.dimD, obj.wire_width_min, obj.wire_width_max);
         }
 
         /// <summary>
@@ -6949,7 +6951,7 @@ namespace Model
             //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
             IList informacionBD = ServicioCoil.GetCOIL_FEED_ROLLER(widthAlambre);
             //Si la lista es diferente de nulo
-            if (informacionBD  != null)
+            if (informacionBD != null)
             {
                 //iteramos la lista
                 foreach (var item in informacionBD)
@@ -6965,7 +6967,7 @@ namespace Model
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
-                    propCode.DescripcionCorta  = "Detalle";
+                    propCode.DescripcionCorta = "Detalle";
                     propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
@@ -6984,7 +6986,7 @@ namespace Model
 
                     Propiedad propiedadDimC = new Propiedad();
                     propiedadDimC.Unidad = "Milimeters (mm)";
-                    propiedadDimC.Valor= (double)tipo.GetProperty("DIMC").GetValue(item, null);
+                    propiedadDimC.Valor = (double)tipo.GetProperty("DIMC").GetValue(item, null);
                     propiedadDimC.DescripcionCorta = "Dim C";
                     herramental.Propiedades.Add(propiedadDimC);
 
@@ -7067,7 +7069,7 @@ namespace Model
 
                     Propiedad propWMin = new Propiedad();
                     propWMin.Unidad = "Milimeters (mm)";
-                    propWMin.Valor= (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
+                    propWMin.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
                     propWMin.DescripcionCorta = "Wire width min";
                     herramental.Propiedades.Add(propWMin);
 
@@ -7110,7 +7112,7 @@ namespace Model
                     //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
                     herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
-                    herramental.idHerramental=(int)tipo.GetProperty("ID_COIL_FEED_ROLLER").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_COIL_FEED_ROLLER").GetValue(item, null);
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
@@ -7182,7 +7184,7 @@ namespace Model
             //Inicializamos los servicios de coil 
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
-            return ServiceCoil.UpdateCOIL_CENTER_GUIDE(obj.ID,obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max, obj.radial_wire_min, obj.radial_wire_max);
+            return ServiceCoil.UpdateCOIL_CENTER_GUIDE(obj.ID, obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max, obj.radial_wire_min, obj.radial_wire_max);
         }
 
         /// <summary>
@@ -7204,7 +7206,7 @@ namespace Model
         /// <param name="widthAlambre"></param>
         /// <param name="radial">Milímetros</param>
         /// <returns></returns>
-        public static DataTable GetCOIL_CENTER_GUIDE(double widthAlambre,double radial)
+        public static DataTable GetCOIL_CENTER_GUIDE(double widthAlambre, double radial)
         {
             SO_COIL ServicioCoil = new SO_COIL();
 
@@ -7212,7 +7214,7 @@ namespace Model
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
 
             //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
-            IList informacionBD = ServicioCoil.GetCOIL_CENTER_GUIDE(widthAlambre,radial);
+            IList informacionBD = ServicioCoil.GetCOIL_CENTER_GUIDE(widthAlambre, radial);
             //Si la lista es diferente de nulo
             if (informacionBD != null)
             {
@@ -7453,7 +7455,7 @@ namespace Model
             //Inicializamos los servicios de coil 
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
-            return ServiceCoil.UpdateCOIL_CENTER_GUIDE(obj.ID,obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max, obj.radial_wire_min, obj.radial_wire_max);
+            return ServiceCoil.UpdateCOIL_CENTER_GUIDE(obj.ID, obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max, obj.radial_wire_min, obj.radial_wire_max);
         }
 
         /// <summary>
@@ -7503,7 +7505,7 @@ namespace Model
                     propCode.DescripcionCorta = "Detalle";
                     propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
-                    
+
                     //Dimensiones 
                     Propiedad propiedadDimA = new Propiedad();
                     propiedadDimA.Unidad = "Milimeters (mm)";
@@ -7727,7 +7729,7 @@ namespace Model
             //Inicializamos los servicios de coil 
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
-            return ServiceCoil.UpdateExternal_GR_1P(obj.ID,obj.codigo, obj.code, obj.dimB, obj.wire_width_min, obj.wire_width_max);
+            return ServiceCoil.UpdateExternal_GR_1P(obj.ID, obj.codigo, obj.code, obj.dimB, obj.wire_width_min, obj.wire_width_max);
         }
 
         /// <summary>
@@ -7775,7 +7777,7 @@ namespace Model
                     propCode.DescripcionCorta = "Detalle";
                     propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
-                    
+
                     //Dimensiones
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.Unidad = "Milimeters (mm)";
@@ -7784,7 +7786,7 @@ namespace Model
                     herramental.Propiedades.Add(propiedadDimB);
 
                     //Mapeamos el valor a DescipcionRuta.
-                    herramental.DescripcionRuta = "EXTERNAL GUIDE ROLLER 1 PIECE DIM "+ propiedadDimB.Valor;
+                    herramental.DescripcionRuta = "EXTERNAL GUIDE ROLLER 1 PIECE DIM " + propiedadDimB.Valor;
 
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
@@ -7847,7 +7849,7 @@ namespace Model
                     propWMax.Unidad = "Milimeters (mm)";
                     propWMax.Valor = (double)tipo.GetProperty("WIDE_WIDTH_MAX").GetValue(item, null);
                     propWMax.DescripcionCorta = "Wire width max";
-                    herramental.Propiedades.Add(propWMax);                  
+                    herramental.Propiedades.Add(propWMax);
 
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
@@ -7928,7 +7930,7 @@ namespace Model
             //Inicializamos los servicios de coil 
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
-            return ServiceCoil.SetExternal_GR_3P_1(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC,obj.wire_width_min,obj.wire_width_max);
+            return ServiceCoil.SetExternal_GR_3P_1(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max);
         }
 
         /// <summary>
@@ -7941,7 +7943,7 @@ namespace Model
             //Inicializamos los servicios de coil 
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
-            return ServiceCoil.UpdateExternal_GR_3P_1(obj.ID,obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max);
+            return ServiceCoil.UpdateExternal_GR_3P_1(obj.ID, obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max);
         }
 
         /// <summary>
@@ -8179,7 +8181,7 @@ namespace Model
             //Inicializamos los servicios de coil 
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
-            return ServiceCoil.SetExternal_GR_3P_2(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min,obj.wire_width_max);
+            return ServiceCoil.SetExternal_GR_3P_2(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max);
         }
 
         /// <summary>
@@ -8241,7 +8243,7 @@ namespace Model
                     propCode.DescripcionCorta = "Detalle";
                     propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
-                    
+
                     //Dimensiones
                     Propiedad propiedadDimA = new Propiedad();
                     propiedadDimA.Unidad = "Milimeters (mm)";
@@ -8692,7 +8694,7 @@ namespace Model
             //Inicializamos los servicios de coil 
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
-            return ServiceCoil.UpdateSHIM_OF_THE_CUT_SYSTEM(obj.ID,obj.codigo, obj.code, obj.dimA, obj.wire_width_min, obj.wire_width_max);
+            return ServiceCoil.UpdateSHIM_OF_THE_CUT_SYSTEM(obj.ID, obj.codigo, obj.code, obj.dimA, obj.wire_width_min, obj.wire_width_max);
         }
 
         /// <summary>
@@ -8931,7 +8933,7 @@ namespace Model
             IList InformacionBD = ServicePlano.GetPlanoHerramental();
 
             //si la lista es diferente de nulo
-            if (InformacionBD !=null)
+            if (InformacionBD != null)
             {
                 //iteramos la lista
                 foreach (var item in InformacionBD)
@@ -8946,8 +8948,8 @@ namespace Model
                     obj.NoPlano = (string)tipo.GetProperty("NO_PLANO").GetValue(item, null);
                     obj.FechaActualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
                     obj.FechaCreacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
-                    obj.UsuarioActualizacion=(string)tipo.GetProperty("USUARIO_ACTUALIZACION").GetValue(item, null);
-                    obj.UsuarioCreacion= (string)tipo.GetProperty("USUARIO_CREACION").GetValue(item, null);
+                    obj.UsuarioActualizacion = (string)tipo.GetProperty("USUARIO_ACTUALIZACION").GetValue(item, null);
+                    obj.UsuarioCreacion = (string)tipo.GetProperty("USUARIO_CREACION").GetValue(item, null);
 
                     //Agregamos el objeto a la lista
                     ListaResultante.Add(obj);
@@ -9017,7 +9019,7 @@ namespace Model
         /// <param name="Informacion"></param>
         /// <param name="codigo"></param>
         /// <returns></returns>
-        public static Herramental ReadInformacionHerramentalEncontrado(IList Informacion,string codigo)
+        public static Herramental ReadInformacionHerramentalEncontrado(IList Informacion, string codigo)
         {
             //Declaramos un objeto de tipo Herramental, que será el que retornemos en el método.
             Herramental herramental = new Herramental();
@@ -9031,7 +9033,7 @@ namespace Model
                     //Obtenemos el tipo del elemento iterado.
                     System.Type tipo = elemento.GetType();
 
-                    if (codigo == (string)tipo.GetProperty("Codigo").GetValue(elemento,null))
+                    if (codigo == (string)tipo.GetProperty("Codigo").GetValue(elemento, null))
                     {
                         //Incializamos el objeto herramental.
                         herramental = new Herramental();
@@ -9055,7 +9057,7 @@ namespace Model
                         herramental.Propiedades = new ObservableCollection<Propiedad>();
                     }
 
-                    
+
                 }
             }
             //Retornamos el objeto herramental.
@@ -9097,7 +9099,7 @@ namespace Model
                     herramental.clasificacionHerramental.UnidadMedida = (string)tipo.GetProperty("UnidadMedida").GetValue(elemento, null);
                     herramental.clasificacionHerramental.VerificacionAnual = (bool)tipo.GetProperty("VerificacionAnual").GetValue(elemento, null);
                     herramental.clasificacionHerramental.VidaUtil = (int)tipo.GetProperty("VidaUtil").GetValue(elemento, null);
-                    
+
                     //Falta agregar la columna plano.
                     herramental.Plano = string.Empty;
                     herramental.Propiedades = new ObservableCollection<Propiedad>();
@@ -9106,7 +9108,7 @@ namespace Model
             //Retornamos el objeto herramental.
             return herramental;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -9246,7 +9248,7 @@ namespace Model
                     obj.TipoMateriaPrima = new FO_Item();
                     obj.TipoMateriaPrima.id = (int)tipo.GetProperty("id_tipo_mp").GetValue(item, null);
                     obj.TipoMateriaPrima.ValorCadena = (string)tipo.GetProperty("TIPO").GetValue(item, null);
-                    
+
                     //Agregamos el objeto tipo Pattern a la lista.
                     Lista.Add(obj);
                 }
@@ -9267,15 +9269,15 @@ namespace Model
             SO_Pattern ServicePatter = new SO_Pattern();
 
             //Ejecutamos el método para insertar el registro, Retornamos el nuevo código de placa modelo.
-            return ServicePatter.SetPattern(pattern.Codigo, pattern.medida.Valor, pattern.diametro.Valor, pattern.customer.IdCliente, Convert.ToString(pattern.mounting.Valor), 
-                pattern.on_14_rd_gate.Valor, pattern.button.Valor, pattern.cone.Valor, pattern.M_Circle.Valor, pattern.ring_w_min.Valor, pattern.ring_w_max.Valor, pattern.date_ordered.Valor, 
-                pattern.B_Dia.Valor, pattern.fin_Dia.Valor, pattern.turn_allow.Valor, pattern.cstg_sm_od.Valor, pattern.shrink_allow.Valor, pattern.patt_sm_od.Valor, pattern.piece_in_patt.Valor, 
-                pattern.bore_allow.Valor, pattern.patt_sm_id.Valor, pattern.patt_thickness.Valor, pattern.joint.Valor, pattern.nick.Valor, pattern.nick_draf.Valor, pattern.nick_depth.Valor, pattern.side_relief.Valor, 
-                pattern.cam.Valor, pattern.cam_roll.Valor,pattern.rise.Valor, pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, pattern.TipoMateriaPrima.id, pattern.mounted.Valor, 
-                pattern.ordered.Valor, pattern.Checked.Valor, pattern.date_checked.Valor, pattern.esp_inst.Valor, pattern.factor_k.Valor, pattern.rise_built.Valor, pattern.ring_th_min.Valor, pattern.ring_th_max.Valor, 
+            return ServicePatter.SetPattern(pattern.Codigo, pattern.medida.Valor, pattern.diametro.Valor, pattern.customer.IdCliente, Convert.ToString(pattern.mounting.Valor),
+                pattern.on_14_rd_gate.Valor, pattern.button.Valor, pattern.cone.Valor, pattern.M_Circle.Valor, pattern.ring_w_min.Valor, pattern.ring_w_max.Valor, pattern.date_ordered.Valor,
+                pattern.B_Dia.Valor, pattern.fin_Dia.Valor, pattern.turn_allow.Valor, pattern.cstg_sm_od.Valor, pattern.shrink_allow.Valor, pattern.patt_sm_od.Valor, pattern.piece_in_patt.Valor,
+                pattern.bore_allow.Valor, pattern.patt_sm_id.Valor, pattern.patt_thickness.Valor, pattern.joint.Valor, pattern.nick.Valor, pattern.nick_draf.Valor, pattern.nick_depth.Valor, pattern.side_relief.Valor,
+                pattern.cam.Valor, pattern.cam_roll.Valor, pattern.rise.Valor, pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, pattern.TipoMateriaPrima.id, pattern.mounted.Valor,
+                pattern.ordered.Valor, pattern.Checked.Valor, pattern.date_checked.Valor, pattern.esp_inst.Valor, pattern.factor_k.Valor, pattern.rise_built.Valor, pattern.ring_th_min.Valor, pattern.ring_th_max.Valor,
                 pattern.estado.Valor, pattern.plato.Valor, pattern.detalle.Valor, pattern.diseno.Valor);
         }
-    
+
         /// <summary>
         /// Método que modifica un registro de la tabla Pattern2.
         /// </summary>
@@ -9287,13 +9289,13 @@ namespace Model
             SO_Pattern ServicePattern = new SO_Pattern();
 
             //Ejecutamos el método para modificiar el registro,se retorna el número de registros afectados.
-            return ServicePattern.UpdatePattern(pattern.Codigo, pattern.medida.Valor, pattern.diametro.Valor, pattern.customer.IdCliente, Convert.ToString(pattern.mounting.Valor), 
+            return ServicePattern.UpdatePattern(pattern.Codigo, pattern.medida.Valor, pattern.diametro.Valor, pattern.customer.IdCliente, Convert.ToString(pattern.mounting.Valor),
                                                 pattern.on_14_rd_gate.Valor, pattern.button.Valor, pattern.cone.Valor, pattern.M_Circle.Valor, pattern.ring_w_min.Valor, pattern.ring_w_max.Valor,
                                                 pattern.date_ordered.Valor, pattern.B_Dia.Valor, pattern.fin_Dia.Valor, pattern.turn_allow.Valor, pattern.cstg_sm_od.Valor, pattern.shrink_allow.Valor,
                                                 pattern.patt_sm_od.Valor, pattern.piece_in_patt.Valor, pattern.bore_allow.Valor, pattern.patt_sm_id.Valor, pattern.patt_thickness.Valor, pattern.joint.Valor,
                                                 pattern.nick.Valor, pattern.nick_draf.Valor, pattern.nick_depth.Valor, pattern.side_relief.Valor, pattern.cam.Valor, pattern.cam_roll.Valor, pattern.rise.Valor,
                                                 pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.TipoMateriaPrima.Valor), pattern.mounted.Valor, pattern.ordered.Valor, pattern.Checked.Valor,
-                                                pattern.date_checked.Valor, pattern.esp_inst.Valor, pattern.factor_k.Valor, pattern.rise_built.Valor, pattern.ring_th_min.Valor, pattern.ring_th_max.Valor, 
+                                                pattern.date_checked.Valor, pattern.esp_inst.Valor, pattern.factor_k.Valor, pattern.rise_built.Valor, pattern.ring_th_min.Valor, pattern.ring_th_max.Valor,
                                                 pattern.estado.Valor, pattern.plato.Valor, pattern.detalle.Valor, pattern.diseno.Valor);
         }
 
@@ -9303,7 +9305,7 @@ namespace Model
         /// <param name="tipo"></param>
         /// <param name="material"></param>
         /// <returns></returns>
-        public static double[] Get_TurnBoreAllow(string tipo,string material)
+        public static double[] Get_TurnBoreAllow(string tipo, string material)
         {
             //Inicializamos los servicios de SO_Pattern.
             SO_Pattern ServicePattern = new SO_Pattern();
@@ -9317,14 +9319,14 @@ namespace Model
             //Si la ifnormación de la base de datos es diferente de nulo.
             if (InfoBD != null)
             {
-                if(InfoBD.Tables.Count > 0 && InfoBD.Tables[0].Rows.Count > 0){
+                if (InfoBD.Tables.Count > 0 && InfoBD.Tables[0].Rows.Count > 0) {
 
                     //Recorremos la tabla
                     foreach (DataRow element in InfoBD.Tables[0].Rows)
                     {
                         //Asignamos los valores al vector.
-                        vector[0]= Convert.ToDouble(element["Turn_Allow"].ToString());
-                        vector[1]= Convert.ToDouble(element["Bore_Allow"].ToString());
+                        vector[0] = Convert.ToDouble(element["Turn_Allow"].ToString());
+                        vector[1] = Convert.ToDouble(element["Bore_Allow"].ToString());
                     }
                 }
             }
@@ -9362,7 +9364,7 @@ namespace Model
             //Se manda a llamar a la función GetLasCode que retorna el último código agregado a la tabla, se manda como parámetro a la función add,
             //se le suma uno al código y se asigna a la variable code.
             code = GetNextCodePattern(ServicePattern.GetLastCode());
-                
+
             //Se ejecuta el método para insertar un nuevo registro.
             return ServicePattern.SetPattern(code, pattern.medida.Valor, pattern.diametro.Valor, pattern.customer.IdCliente, Convert.ToString(pattern.mounting.Valor),
                                               pattern.on_14_rd_gate.Valor, pattern.button.Valor, pattern.cone.Valor, pattern.M_Circle.Valor, pattern.ring_w_min.Valor, pattern.ring_w_max.Valor,
@@ -9400,7 +9402,7 @@ namespace Model
             int number;
             //Se recupera una cadena de la variable recibida, comienza en la posición 3 y tiene la longitud de LastCode menos 3
             //Se convierte a tipo int
-            number=Int32.Parse(LastCode.Substring(3,LastCode.Length-3));
+            number = Int32.Parse(LastCode.Substring(3, LastCode.Length - 3));
             //Al número de la cadena se le suma uno.
             number += 1;
             //retorna el nuevo string, concatenado con el número.
@@ -9673,7 +9675,7 @@ namespace Model
             {
                 return false;
             }
-            
+
         }
 
         /// <summary>
@@ -9728,9 +9730,9 @@ namespace Model
                 {
                     System.Type tipo = item.GetType();
 
-                    double p_min = (double)tipo.GetProperty("Minimum_casting_width").GetValue(item,null);
+                    double p_min = (double)tipo.GetProperty("Minimum_casting_width").GetValue(item, null);
 
-                    double p_ideal = (double)tipo.GetProperty("ideal_casting_Width").GetValue(item,null);
+                    double p_ideal = (double)tipo.GetProperty("ideal_casting_Width").GetValue(item, null);
 
                     if ((p_min <= pattern_width) && (p_ideal >= pattern_width))
                     {
@@ -9792,7 +9794,7 @@ namespace Model
             IList ObjCuffs = ServiceCuffs.GetCuff();
 
             //Se verifica que la información de la base de datos no se encuentre vacía
-            if (ObjCuffs!=null)
+            if (ObjCuffs != null)
             {
                 //Iteración de la información recibida
                 foreach (var item in ObjCuffs)
@@ -9804,7 +9806,7 @@ namespace Model
                     Cuffs obj = new Cuffs();
 
                     //Se asignan los valores 
-                    obj.no_cuff.Valor = (string)tipo.GetProperty("no_cuff").GetValue(item,null);
+                    obj.no_cuff.Valor = (string)tipo.GetProperty("no_cuff").GetValue(item, null);
                     obj.dia_ext.Valor = (double)tipo.GetProperty("dia_ext").GetValue(item, null);
                     obj.dia_int.Valor = (double)tipo.GetProperty("dia_int").GetValue(item, null);
                     obj.largo.Valor = (double)tipo.GetProperty("largo").GetValue(item, null);
@@ -9829,7 +9831,7 @@ namespace Model
             SO_Cuffs ServiceCuffs = new SO_Cuffs();
 
             //Se ejecuta el método para insertar el registro, se retorna el código del cuff insertado.
-            return ServiceCuffs.SetCuff(cuffs.no_cuff.Valor,cuffs.dia_ext.Valor,cuffs.dia_int.Valor,cuffs.largo.Valor,cuffs.peso.Valor);
+            return ServiceCuffs.SetCuff(cuffs.no_cuff.Valor, cuffs.dia_ext.Valor, cuffs.dia_int.Valor, cuffs.largo.Valor, cuffs.peso.Valor);
         }
 
         /// <summary>
@@ -9917,7 +9919,7 @@ namespace Model
             SO_TubosCL ServiceTubosCL = new SO_TubosCL();
 
             //Se ejecuta el método y retorna el código del tubo que fue insertado.
-            return ServiceTubosCL.SetTubosCL(obj.Tubo.Valor,obj.DiaExt.Valor,obj.DiaInt.Valor,obj.Thickness.Valor,obj.Largo.Valor);
+            return ServiceTubosCL.SetTubosCL(obj.Tubo.Valor, obj.DiaExt.Valor, obj.DiaInt.Valor, obj.Thickness.Valor, obj.Largo.Valor);
         }
 
         /// <summary>
@@ -9942,7 +9944,7 @@ namespace Model
         public static int DeleteTubosCL(Tubos_CL obj)
         {
             // Se inician los servicios de TubosCL.
-             SO_TubosCL ServiceTubosCL = new SO_TubosCL();
+            SO_TubosCL ServiceTubosCL = new SO_TubosCL();
 
             //Se ejecuta el método y retorna el número de registros que fueron afectados.
             return ServiceTubosCL.DeleteTubosCL(obj.Tubo.Valor);
@@ -9984,7 +9986,7 @@ namespace Model
                     obj.DiaInt.Valor = (double)tipo.GetProperty("DiaInt").GetValue(item, null);
                     obj.Thickness.Valor = (double)tipo.GetProperty("Thickness").GetValue(item, null);
                     obj.Largo.Valor = (double)tipo.GetProperty("Largo").GetValue(item, null);
-                    obj.Molde.Valor= (string)tipo.GetProperty("Molde").GetValue(item, null);
+                    obj.Molde.Valor = (string)tipo.GetProperty("Molde").GetValue(item, null);
                     obj.RPM.Valor = (int)tipo.GetProperty("RPM").GetValue(item, null);
 
                     //Se agrega el objeto a la lista
@@ -10007,7 +10009,7 @@ namespace Model
             SO_TubosHD ServiceTubosHD = new SO_TubosHD();
 
             //Se ejecuta el método y retorna el código del tubo que fue insertado.
-            return ServiceTubosHD.SetTubosHD(obj.Tubo.Valor, obj.DiaExt.Valor, obj.DiaInt.Valor, obj.Thickness.Valor, obj.Largo.Valor,obj.Molde.Valor,Convert.ToInt32( obj.RPM.Valor));
+            return ServiceTubosHD.SetTubosHD(obj.Tubo.Valor, obj.DiaExt.Valor, obj.DiaInt.Valor, obj.Thickness.Valor, obj.Largo.Valor, obj.Molde.Valor, Convert.ToInt32(obj.RPM.Valor));
         }
 
         /// <summary>
@@ -10180,11 +10182,11 @@ namespace Model
                     MoutingDia obj = new MoutingDia();
 
                     obj.id = (int)tipo.GetProperty("Id_MountingDia").GetValue(item, null);
-                    obj.plato= (double)tipo.GetProperty("Plato").GetValue(item, null);
+                    obj.plato = (double)tipo.GetProperty("Plato").GetValue(item, null);
                     obj.dia_min = (double)tipo.GetProperty("Dia_B_min").GetValue(item, null);
                     obj.dia_max = (double)tipo.GetProperty("Dia_B_max").GetValue(item, null);
                     obj.num_impresiones = (int)tipo.GetProperty("No_impresiones").GetValue(item, null);
-                    obj.gate =(string)tipo.GetProperty("Gate").GetValue(item, null);
+                    obj.gate = (string)tipo.GetProperty("Gate").GetValue(item, null);
                     obj.medios_circulos = (string)tipo.GetProperty("Medios_Circulos").GetValue(item, null);
                     obj.conos = (string)tipo.GetProperty("Boton").GetValue(item, null);
                     obj.boton = (string)tipo.GetProperty("Conos").GetValue(item, null);
@@ -10279,7 +10281,7 @@ namespace Model
         {
             SO_MoutingDia ServiceMoutingDia = new SO_MoutingDia();
 
-            return ServiceMoutingDia.UpdateMoutingDia(obj.id,obj.plato, obj.dia_min, obj.dia_max, obj.num_impresiones, obj.gate, obj.medios_circulos, obj.boton, obj.conos, obj.orden);
+            return ServiceMoutingDia.UpdateMoutingDia(obj.id, obj.plato, obj.dia_min, obj.dia_max, obj.num_impresiones, obj.gate, obj.medios_circulos, obj.boton, obj.conos, obj.orden);
         }
 
         /// <summary>
@@ -10319,9 +10321,9 @@ namespace Model
                     MoutingWidth obj = new MoutingWidth();
 
                     obj.id = (int)tipo.GetProperty("Id_MountingWidth").GetValue(item, null);
-                    obj.wmin= (double)tipo.GetProperty("Width_Min").GetValue(item, null);
+                    obj.wmin = (double)tipo.GetProperty("Width_Min").GetValue(item, null);
                     obj.wmax = (double)tipo.GetProperty("Width_Max").GetValue(item, null);
-                    obj.detalle =(string)tipo.GetProperty("Detalle").GetValue(item, null);
+                    obj.detalle = (string)tipo.GetProperty("Detalle").GetValue(item, null);
                     obj.gate = (double)tipo.GetProperty("Altura_Gate").GetValue(item, null);
 
                     ListaResul.Add(obj);
@@ -10352,7 +10354,7 @@ namespace Model
         {
             SO_MotingWidth ServiceMoutingWidth = new SO_MotingWidth();
 
-            return ServiceMoutingWidth.UpdateMoutingWidth(obj.id,obj.wmin, obj.wmax, obj.detalle, obj.gate);
+            return ServiceMoutingWidth.UpdateMoutingWidth(obj.id, obj.wmin, obj.wmax, obj.detalle, obj.gate);
         }
 
         /// <summary>
@@ -10376,7 +10378,7 @@ namespace Model
         {
             SO_MotingWidth ServiceMoutingWidth = new SO_MotingWidth();
 
-            return ServiceMoutingWidth.GetDetalle(h1);            
+            return ServiceMoutingWidth.GetDetalle(h1);
         }
         #endregion
         #endregion
@@ -10533,7 +10535,7 @@ namespace Model
             SO_Cliente ServicioCliente = new SO_Cliente();
 
             //Ejecutamos el método y retornamos el resultado.
-            return ServicioCliente.UpdateCliente(obj.IdCliente,obj.NombreCliente); 
+            return ServicioCliente.UpdateCliente(obj.IdCliente, obj.NombreCliente);
         }
 
         /// <summary>
@@ -10633,7 +10635,7 @@ namespace Model
                             usuario.Pathnsf = Convert.ToString(element["Pathnsf"]);
 
                             IList informacionRolesBD = ServiceUsuarios.GetRolesUsuario(usuario.NombreUsuario);
-                            
+
                             if (informacionRolesBD != null)
                             {
                                 usuario.Roles = new List<Rol>();
@@ -10653,9 +10655,7 @@ namespace Model
                 //Retornamos el usuario.
                 return usuario;
             });
-
         }
-
         /// <summary>
         /// Método que obtiene los roles de usuario
         /// </summary>
@@ -10696,13 +10696,12 @@ namespace Model
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-
         public static int DeLete_PerfilUsuario(string usuario)
         {
             SO_Usuario serviceUsuario = new SO_Usuario();
 
             return serviceUsuario.EliminarPerfilUsuario(usuario);
-        }
+        } 
         /// <summary>
         /// 
         /// </summary>

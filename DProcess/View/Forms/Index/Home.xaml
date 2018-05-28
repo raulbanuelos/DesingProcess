@@ -164,7 +164,7 @@
                 </Controls:Tile>
 
                 <!--HELP-->
-                <Controls:Tile Background="#5F3BBC" TiltFactor="2" Title="Help" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilHelp}">
+                <Controls:Tile Command="{Binding IrLeccion}" Background="#5F3BBC" TiltFactor="2" Title="Help" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilHelp}">
                     <Rectangle Width="80" Height="100" Fill="White">
                         <Rectangle.OpacityMask>
                             <VisualBrush Visual="{StaticResource appbar_book_perspective_help}" Stretch="Fill" />

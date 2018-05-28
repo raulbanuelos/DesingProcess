@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using DataAccess.ServiceObjects.Usuario;
 
 namespace Model.ControlDocumentos
 {
@@ -442,7 +443,6 @@ namespace Model.ControlDocumentos
             //regresamos la lista.
             return Lista;
         }
-
 
         /// <summary>
         /// Método que obtiene todos los documentos liberados
@@ -1742,7 +1742,6 @@ namespace Model.ControlDocumentos
             //Se ejecuta el método y retorna número de registros eliminados.
             return ServiceUsuarios.GetNombreUsuario(usuario);
         }
-        
         #endregion
 
         #region version
@@ -2836,7 +2835,177 @@ namespace Model.ControlDocumentos
             return ServicioRecurso.Delete(idRecurso);
         }
         #endregion
-        
+
+        #region Lecciones Aprendidas
+
+        public static int InsertLeccion(string idusuario, string componente, string cambio_requerido,
+            string nivel_cambio, string c_trabajo, string operacion,
+            string desc_probl, string reportado_por, string solicitud_Tingenieria,
+            string criterio_1, DateTime fecha_ultimo_cambio , DateTime fecha_actualizacion )
+        {
+            SO_Lecciones servicio = new SO_Lecciones();
+
+            return servicio.SetLeccion(idusuario,componente,nivel_cambio,c_trabajo,operacion,desc_probl,
+                fecha_ultimo_cambio,fecha_actualizacion,reportado_por,solicitud_Tingenieria,criterio_1,cambio_requerido);
+        }
+        /// <summary>
+        /// Método para eliminar una leccion
+        /// </summary>
+        /// <param name="id_leccion"></param>
+        /// <returns></returns>
+        public static int Delete_Lecciones(int id_leccion)
+        {
+            SO_Lecciones Service = new SO_Lecciones();
+
+            return Service.DeleteLeccion(id_leccion);
+        }
+
+        /// <summary>
+        /// Método para eliminar el archivo de una leccion
+        /// </summary>
+        /// <param name="id_archivo_lecciones"></param>
+        /// <returns></returns>
+        public static int Delete_Archivo_Lecciones(int id_archivo_lecciones)
+        {
+            SO_Archivo_Lecciones sercicio = new SO_Archivo_Lecciones();
+
+            return sercicio.DeleteArchivoLeccion(id_archivo_lecciones);
+        }
+
+        /// <summary>
+        /// Método para actualizar los campos de una leccion
+        /// </summary>
+        /// <returns></returns>
+        public static int UpdateLecccion(int id_lecciones,
+                                         string id_usuario,
+                                         string componente,
+                                         string cambio_requerido,
+                                         string nivel_de_cambio,
+                                         string centro_de_trabajo,
+                                         string operacion,
+                                         string descripcion_problema,
+                                         DateTime fecha_ultimo_cambio,
+                                         DateTime fecha_actualizacion,
+                                         string reportado_por,
+                                         string solicitud_trabajo_ingenieria,
+                                         string criterio_1
+                                         )
+        {
+            SO_Lecciones servicio = new SO_Lecciones();
+
+            return servicio.UpdateLeccion(id_lecciones,id_usuario,componente,cambio_requerido,nivel_de_cambio,centro_de_trabajo,operacion,descripcion_problema,fecha_ultimo_cambio,fecha_actualizacion,reportado_por,solicitud_trabajo_ingenieria,criterio_1);
+        }
+        /// <summary>
+        /// Método que agrega un archivo nuevo de las lecciones aprendidas
+        /// </summary>
+        /// <param name="archivo"></param>
+        /// <param name="ext"></param>
+        /// <param name="nombre_archivo"></param>
+        /// <param name="id_leccion"></param>
+        /// <returns></returns>
+        public static Task<int> SetArchivo_Lecciones(byte[] archivo, string ext, string nombre_archivo, int id_leccion)
+        {
+            SO_Archivo_Lecciones servicios = new SO_Archivo_Lecciones();
+
+            return servicios.InsertarArchivoLecciones(archivo, ext, nombre_archivo, id_leccion);
+        }
+
+        public static bool verificarnombre(List<string> lista, string nombre)
+        {
+            foreach (var item in lista)
+            {
+                if (item == nombre)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Método que obtiene las lecciones aprendidas
+        /// y las filtra
+        /// </summary>
+        /// <param name="TextoBuscar"></param>
+        /// <returns></returns>
+        public static ObservableCollection<LeccionesAprendidas> GetLec(string TextoBuscar)
+        {
+            SO_Lecciones ServiceLecciones = new SO_Lecciones();
+
+            ObservableCollection<LeccionesAprendidas> ListaLecciones = new ObservableCollection<LeccionesAprendidas>();
+
+            IList ObjLeccion = ServiceLecciones.GetLeccionesAprendidas(TextoBuscar);
+            List<string> listausuarios = new List<string>(); 
+
+            if (ObjLeccion != null)
+            {
+                foreach (var item in ObjLeccion)
+                {
+                    Encriptacion encript = new Encriptacion();
+
+                    System.Type tipo = item.GetType();
+
+                    LeccionesAprendidas ObjLec = new LeccionesAprendidas();
+
+                    ObjLec.ID_LECCIONES_APRENDIDAS = (int)tipo.GetProperty("ID_LECCIONES_APRENDIDAS").GetValue(item, null);
+                    ObjLec.ID_USUARIO = encript.desencript((string)tipo.GetProperty("ID_USUARIO").GetValue(item, null));
+                    ObjLec.COMPONENTE = (string)tipo.GetProperty("COMPONENTE").GetValue(item, null);
+                    ObjLec.CENTRO_DE_TRABAJO = (string)tipo.GetProperty("CENTRO_DE_TRABAJO").GetValue(item, null);
+                    ObjLec.CAMBIO_REQUERIDO = (string)tipo.GetProperty("CAMBIO_REQUERIDO").GetValue(item, null);
+                    ObjLec.CRITERIO_1 = (string)tipo.GetProperty("CRITERIO_1").GetValue(item, null);
+                    ObjLec.DESCRIPCION_PROBLEMA = (string)tipo.GetProperty("DESCRIPCION_PROBLEMA").GetValue(item, null);
+                    ObjLec.FECHA_ULTIMO_CAMBIO = (DateTime)tipo.GetProperty("FECHA_ULTIMO_CAMBIO").GetValue(item, null);
+                    ObjLec.FECHA_ACTUALIZACION = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+                    ObjLec.NIVEL_DE_CAMBIO = (string)tipo.GetProperty("NIVEL_DE_CAMBIO").GetValue(item, null);
+                    ObjLec.OPERACION = (string)tipo.GetProperty("OPERACION").GetValue(item, null);
+                    ObjLec.REPORTADO_POR = (string)tipo.GetProperty("REPORTADO_POR").GetValue(item, null);
+                    ObjLec.SOLICITUD_DE_TRABAJO = (string)tipo.GetProperty("SOLICITUD_DE_TRABAJO_INGENIERIA").GetValue(item, null);
+                    if (verificarnombre(listausuarios,ObjLec.ID_USUARIO))
+                    {
+
+                    }
+                    ObjLec.NombreCompleto = GetNombreUsuario(encript.encript(ObjLec.ID_USUARIO));
+                    ListaLecciones.Add(ObjLec);
+                }
+            }
+            return ListaLecciones;
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los archivos de una leccion
+        /// </summary>
+        /// <param name="id_leccion"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Archivo_LeccionesAprendidas> GetArchivosLecciones(int id_leccion)
+        {
+            SO_Archivo_Lecciones ServicioArchivos = new SO_Archivo_Lecciones();
+
+            ObservableCollection<Archivo_LeccionesAprendidas> ListaArchivosLecciones = new ObservableCollection<Archivo_LeccionesAprendidas>();
+
+            IList ObjArchivo = ServicioArchivos.GetArchivoLecciones(id_leccion);
+
+            if (ObjArchivo!=null)
+            {
+                foreach (var item in ObjArchivo)
+                {
+                    System.Type tipo = item.GetType();
+
+                    Archivo_LeccionesAprendidas ObjArc = new Archivo_LeccionesAprendidas();
+
+                    ObjArc.ARCHIVO = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
+                    ObjArc.NOMBRE_ARCHIVO = (string)tipo.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
+                    ObjArc.EXT = (string)tipo.GetProperty("EXT").GetValue(item, null);
+                    //ObjArc.ruta = (string)tipo.GetProperty("ruta").GetValue(item, null);
+                    ObjArc.ID_ARCHIVO_LECCIONES = (int)tipo.GetProperty("ID_ARCHIVO_LECCIONES").GetValue(item, null);
+                    ObjArc.ID_LECCIONES_APRENDIDAS = (int)tipo.GetProperty("ID_LECCIONES_APRENDIDAS").GetValue(item, null);
+
+
+                    ListaArchivosLecciones.Add(ObjArc);
+                }
+            }
+            return ListaArchivosLecciones;
+        }
+        #endregion
         #region Historial
         /// <summary>
         /// Método que obtiene todos los registro del historial, los filtra por numero de documento

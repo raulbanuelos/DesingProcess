@@ -9,6 +9,7 @@ using Model;
 using MahApps.Metro.Controls.Dialogs;
 using Encriptar;
 using System.Globalization;
+using View.Forms.LeccionesAprendidas;
 
 namespace View.Services.ViewModel
 {
@@ -422,6 +423,7 @@ namespace View.Services.ViewModel
             TextoBuscar = string.Empty;
             GetDataGrid(string.Empty);
         }
+
         /// <summary>
         /// Comando para abrir ventana de búsqueda de documentos
         /// </summary>
@@ -580,7 +582,6 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o =>irEliminados());
             }
         }
-
         /// <summary>
         /// Método que muestra todos los documentos eliminados con su archivo
         /// </summary>

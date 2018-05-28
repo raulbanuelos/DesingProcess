@@ -5,11 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="adf9c2322c1c490f85317aea132fe3de" Name="Diagram1">
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.PerfilUsuario" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.Usuarios" Width="1.5" PointX="7" PointY="3.5" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.PerfilUsuario" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.Usuarios" Width="1.5" PointX="0.75" PointY="3.125" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK_PerfilUsuario_Usuarios" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.PrivilegioUsuario" Width="1.5" PointX="9.25" PointY="3.625" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.PrivilegioUsuario" Width="1.5" PointX="5" PointY="5.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK_PrivilegioUsuario_Usuarios" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.TBL_LECCIONES_APRENDIDAS" Width="1.5" PointX="8.25" PointY="6.375" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK__TBL_LECCI__ID_US__1DC6443F" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.TBL_ARCHIVO_LECCIONES" Width="1.5" PointX="6.875" PointY="0.75" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK__TBL_ARCHI__ID_LE__1EBA6878" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
