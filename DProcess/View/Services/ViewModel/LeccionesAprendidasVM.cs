@@ -69,11 +69,14 @@ namespace View.Services.ViewModel
                 NotifyChange("SelectedLeccion");
             }
         }
+
+        public Usuario user;
         #endregion
 
         #region Constructor
-        public LeccionesAprendidasVM()
+        public LeccionesAprendidasVM(Usuario ModelUsuario)
         {
+            user = ModelUsuario;
             Constructor();
         }
         #endregion
@@ -87,7 +90,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(o => editarleccion());
+                return new RelayCommand(o => editarleccion(user));
             }
         }
         /// <summary>
@@ -107,7 +110,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(o => irnuevaleccion());
+                return new RelayCommand(o => irnuevaleccion(user));
             }
         }
         #endregion
@@ -125,11 +128,11 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Metodo que inicializa los valores para crear una nueva leccion
         /// </summary>
-        private void irnuevaleccion()
+        private void irnuevaleccion(Usuario ModelUsuario)
         {
             //Creamos un objeto de la ventana
             ModificarLeccion frm = new ModificarLeccion();
-            ModificarLeccionVM context = new ModificarLeccionVM();
+            ModificarLeccionVM context = new ModificarLeccionVM(ModelUsuario);
             frm.DataContext = context;
             //Mostramos la ventana
             frm.ShowDialog();
@@ -138,15 +141,16 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Método para modificar una leccion seleccionada
         /// </summary>
-        private void editarleccion()
+        private void editarleccion(Usuario ModelUsuario)
         {
             if (SelectedLeccion!=null)
             {
+                user = ModelUsuario;
                 //declaramos un objeto de tipo ModificarLeccion
                 ModificarLeccion Form = new ModificarLeccion();
 
                 //declaramos un objeto de tipo ModificarLeccionVM
-                ModificarLeccionVM context = new ModificarLeccionVM(SelectedLeccion);
+                ModificarLeccionVM context = new ModificarLeccionVM(SelectedLeccion,user);
 
                 //abrimos la ventana
                 Form.DataContext = context;

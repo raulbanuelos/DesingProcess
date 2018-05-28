@@ -51,7 +51,6 @@
             <DataGrid x:Name="dataGrid" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedLeccion,Mode=TwoWay}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding ID_LECCIONES_APRENDIDAS}" ClipboardContentBinding="{x:Null}" Header="Nombre del Usuario" Visibility="Hidden"/>
-                    <DataGridTextColumn Binding="{Binding NombreCompleto}" ClipboardContentBinding="{x:Null}" Header="Nombre del Usuario"/>
                     <DataGridTextColumn Binding="{Binding COMPONENTE}" ClipboardContentBinding="{x:Null}" Header="Componente" Width="Auto"/>
                     <DataGridTextColumn Binding="{Binding CAMBIO_REQUERIDO}" ClipboardContentBinding="{x:Null}" Header="Cambio Requerido" Width="Auto"/>
                     <DataGridTextColumn Binding="{Binding NIVEL_DE_CAMBIO}" ClipboardContentBinding="{x:Null}" Header="Nivel de Cambio"  Width="Auto"/>
@@ -59,10 +58,11 @@
                     <DataGridTextColumn Binding="{Binding OPERACION}" ClipboardContentBinding="{x:Null}" Header="Operación"  Width="Auto"/>
                     <DataGridTextColumn Binding="{Binding DESCRIPCION_PROBLEMA}" ClipboardContentBinding="{x:Null}" Header="Descripción del Problema" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding FECHA_ULTIMO_CAMBIO, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="Fecha del Ultimo Cambio"/>
-                    <DataGridTextColumn Binding="{Binding FECHA_ACTUALIZACION, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="Fecha del Ultimo Cambio"/>
+                    <DataGridTextColumn Binding="{Binding FECHA_ACTUALIZACION, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="Fecha de Actualización"/>
                     <DataGridTextColumn Binding="{Binding REPORTADO_POR}" ClipboardContentBinding="{x:Null}" Header="Reportado Por"  Width="Auto"/>
                     <DataGridTextColumn Binding="{Binding SOLICITUD_DE_TRABAJO}" ClipboardContentBinding="{x:Null}" Header="Solicitud de Trabajo de Ingeniería"  Width="Auto"/>
                     <DataGridTextColumn Binding="{Binding CRITERIO_1}" ClipboardContentBinding="{x:Null}" Header="Criterio"  Width="Auto"/>
+                    <DataGridTextColumn Binding="{Binding NombreCompleto}" ClipboardContentBinding="{x:Null}" Header="Cambio Realizado Por"/>
                 </DataGrid.Columns>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">

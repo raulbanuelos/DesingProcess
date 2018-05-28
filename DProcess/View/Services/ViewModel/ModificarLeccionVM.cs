@@ -72,7 +72,6 @@ namespace View.Services.ViewModel
                 NotifyChange("SelectedItem");
             }
         }
-
         private DateTime _FECHA_ACTUALIZACION;
         public DateTime FECHA_ACTUALIZACION
         {
@@ -178,7 +177,6 @@ namespace View.Services.ViewModel
                 NotifyChange("DESCRIPCION_PROBLEMA");
             }
         }
-
         private string _REPORTADO_POR;
         public string REPORTADO_POR
         {
@@ -270,7 +268,21 @@ namespace View.Services.ViewModel
                 NotifyChange("BttnEliminar");
             }
         }
+        private bool _IsEnabled;
+        public bool IsEnabled
+        {
+            get
+            {
+                return _IsEnabled;
+            }
+            set
+            {
+                _IsEnabled = value;
+                NotifyChange("IsEnabled");
+            }
+        }
         public int id_leccion;
+        public Usuario User;
         #endregion
 
         #region Constructor
@@ -279,21 +291,44 @@ namespace View.Services.ViewModel
         /// Constructor para eliminar o modificar una lección
         /// </summary>
         /// <param name="SelectedLeccion"></param>
-        public ModificarLeccionVM(LeccionesAprendidas SelectedLeccion)
+        public ModificarLeccionVM(LeccionesAprendidas SelectedLeccion,Usuario ModelUsuario)
         {
             //verificamos que se haya seleccionado una leccion
             if (SelectedLeccion != null)
             {
+                User = ModelUsuario;
                 //asignamos los valores a los botones
                 BttnGuardar = true;
                 BttnInsertar = false;
                 BttnEliminar = true;
+                IsEnabled = false;
                 Encriptacion ecr = new Encriptacion();
                 //obtenemos los usuarios
                 ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
+
+                //verificamos que el usuario sea administrador del sistema
+                if (Module.UsuarioIsRol(User.Roles, 2))
+                {
+                    IsEnabled = true;
+                }
+
+                //mostramos los valores de la leccion 
+                id_leccion = SelectedLeccion.ID_LECCIONES_APRENDIDAS;
+                usuarioAutorizo = ModelUsuario.NombreUsuario;
+                CAMBIO_REQUERIDO = SelectedLeccion.CAMBIO_REQUERIDO;
+                COMPONENTE = SelectedLeccion.COMPONENTE;
+                REPORTADO_POR = SelectedLeccion.REPORTADO_POR;
+                NIVEL_DE_CAMBIO = SelectedLeccion.NIVEL_DE_CAMBIO;
+                FECHA_ULTIMO_CAMBIO = SelectedLeccion.FECHA_ULTIMO_CAMBIO;
+                FECHA_ACTUALIZACION = SelectedLeccion.FECHA_ACTUALIZACION;
+                DESCRIPCION_PROBLEMA = SelectedLeccion.DESCRIPCION_PROBLEMA;
+                OPERACION = SelectedLeccion.OPERACION;
+                CENTRO_DE_TRABAJO = SelectedLeccion.CENTRO_DE_TRABAJO;
+                SOLICITUD_TRABAJO_DE_ING = SelectedLeccion.SOLICITUD_DE_TRABAJO;
+                CRITERIO = SelectedLeccion.CRITERIO_1;
+
                 //obtenemos la lista de las lecciones aprendidas
                 ListaArchivosLecciones = DataManagerControlDocumentos.GetArchivosLecciones(SelectedLeccion.ID_LECCIONES_APRENDIDAS);
-
                 //asignamos una imagen dependiendo de la extencion del archivo
                 foreach (var item in ListaArchivosLecciones)
                 {
@@ -318,34 +353,31 @@ namespace View.Services.ViewModel
                         item.ruta = @"/Images/I.png";
                     }
                 }
-
-                //mostramos los valores de la leccion 
-                id_leccion = SelectedLeccion.ID_LECCIONES_APRENDIDAS;
-                usuarioAutorizo = ecr.encript(SelectedLeccion.ID_USUARIO);
-                CAMBIO_REQUERIDO = SelectedLeccion.CAMBIO_REQUERIDO;
-                COMPONENTE = SelectedLeccion.COMPONENTE;
-                REPORTADO_POR = SelectedLeccion.REPORTADO_POR;
-                NIVEL_DE_CAMBIO = SelectedLeccion.NIVEL_DE_CAMBIO;
-                FECHA_ULTIMO_CAMBIO = SelectedLeccion.FECHA_ULTIMO_CAMBIO;
-                FECHA_ACTUALIZACION = SelectedLeccion.FECHA_ACTUALIZACION;
-                DESCRIPCION_PROBLEMA = SelectedLeccion.DESCRIPCION_PROBLEMA;
-                OPERACION = SelectedLeccion.OPERACION;
-                CENTRO_DE_TRABAJO = SelectedLeccion.CENTRO_DE_TRABAJO;
-                SOLICITUD_TRABAJO_DE_ING = SelectedLeccion.SOLICITUD_DE_TRABAJO;
-                CRITERIO = SelectedLeccion.CRITERIO_1;
             }
         }
 
         /// <summary>
         /// Contructor para insertar una NUEVA lección.
         /// </summary>
-        public ModificarLeccionVM()
+        public ModificarLeccionVM(Usuario ModelUsuario)
         {
+            User = ModelUsuario;
+
+            IsEnabled = false;
             BttnInsertar = true;
             BttnGuardar = false;
             BttnEliminar = false;
+            usuarioAutorizo = ModelUsuario.NombreUsuario;
+
+            //verificamos que el usuario sea administrador del sistema
+            if (Module.UsuarioIsRol(User.Roles, 2))
+            {
+                IsEnabled = true;
+            }
+
             FECHA_ULTIMO_CAMBIO = DateTime.Today;
             FECHA_ACTUALIZACION = DateTime.Today;
+            //obtenemos el usuario que este loggeado y asigamos el valor
             ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
             ListaArchivosLecciones = new ObservableCollection<Archivo_LeccionesAprendidas>();
         }

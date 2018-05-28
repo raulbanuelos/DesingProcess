@@ -440,7 +440,7 @@ namespace View.Services.ViewModel
 
             FrmLeccionesAprendidas frm = new FrmLeccionesAprendidas();
 
-            LeccionesAprendidasVM context = new LeccionesAprendidasVM();
+            LeccionesAprendidasVM context = new LeccionesAprendidasVM(ModelUsuario);
 
             frm.DataContext = context;
             Pagina = frm;

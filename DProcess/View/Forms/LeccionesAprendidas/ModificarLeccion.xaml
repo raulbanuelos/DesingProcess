@@ -67,12 +67,44 @@
                     <RowDefinition Height="550"></RowDefinition>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Vertical">
-                    <ComboBox  materialDesign:HintAssist.Hint="Usuario Autorizó" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  
+                    
+                    <TextBox  materialDesign:HintAssist.Hint="Componente" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding COMPONENTE}"/>
+                    <TextBox  materialDesign:HintAssist.Hint="Cambio Requerido" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding CAMBIO_REQUERIDO}" />
+                    <TextBox  materialDesign:HintAssist.Hint="Nivel de Cambio" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding NIVEL_DE_CAMBIO}" />
+                    <TextBox  materialDesign:HintAssist.Hint="Centro de Trabajo" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding CENTRO_DE_TRABAJO}"/>
+                    <TextBox  materialDesign:HintAssist.Hint="Operacíon" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding OPERACION}"/>
+                    <TextBox  materialDesign:HintAssist.Hint="Descripcion del Problema" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="100"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding DESCRIPCION_PROBLEMA}"/>
+                    <StackPanel Orientation="Horizontal" Height="50" Margin="65,5,0,0">
+                        <DatePicker materialDesign:HintAssist.Hint="Fecha Ultimo Cambio" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FECHA_ULTIMO_CAMBIO}"
+                        IsEnabled="{Binding EnabledFecha}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="50" Margin="65,5,0,0">
+                        <DatePicker materialDesign:HintAssist.Hint="Fecha Ultimo Cambio" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FECHA_ACTUALIZACION}"
+                        IsEnabled="{Binding EnabledFecha}" />
+                    </StackPanel>
+                </StackPanel>
+
+            </Grid>
+
+            <!--Button Adjuntar-->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="55"></RowDefinition>
+                    <RowDefinition Height="245"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Vertical">
+
+                    <TextBox  materialDesign:HintAssist.Hint="Reportado Por" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420"  BorderBrush="#FFBDBDBD"  FontSize="18" Text="{Binding REPORTADO_POR}"/>
+                    <TextBox  materialDesign:HintAssist.Hint="Solicitud de Trabajo de Ingeniería" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Text="{Binding SOLICITUD_TRABAJO_DE_ING}"/>
+                    <TextBox  materialDesign:HintAssist.Hint="Criterio" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Text="{Binding CRITERIO}"/>
+                    <ComboBox  materialDesign:HintAssist.Hint="Cambio Realizado Por" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  
                                Height="51" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" 
                                ItemsSource="{Binding Path=ListaUsuarios}"  
                                SelectedValuePath="usuario" 
                                SelectedValue="{Binding usuarioAutorizo}"
-                       IsEnabled="{Binding IsEnabled}">
+                       IsEnabled="{Binding IsEnabled}" IsReadOnly="True">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock>
@@ -92,39 +124,9 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </ComboBox>
-                    <TextBox  materialDesign:HintAssist.Hint="Componente" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding COMPONENTE}"/>
-                    <TextBox  materialDesign:HintAssist.Hint="Cambio Requerido" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding CAMBIO_REQUERIDO}" />
-                    <TextBox  materialDesign:HintAssist.Hint="Nivel de Cambio" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding NIVEL_DE_CAMBIO}" />
-                    <TextBox  materialDesign:HintAssist.Hint="Centro de Trabajo" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding CENTRO_DE_TRABAJO}"/>
-                    <TextBox  materialDesign:HintAssist.Hint="Operacíon" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding OPERACION}"/>
-                    <TextBox  materialDesign:HintAssist.Hint="Descripcion del Problema" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="100"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding DESCRIPCION_PROBLEMA}"/>
                 </StackPanel>
 
-            </Grid>
-
-            <!--Button Adjuntar-->
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="55"></RowDefinition>
-                    <RowDefinition Height="245"></RowDefinition>
-                </Grid.RowDefinitions>
-
-                <StackPanel Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal" Height="50" Margin="65,5,0,0">
-                        <DatePicker materialDesign:HintAssist.Hint="Fecha Ultimo Cambio" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FECHA_ULTIMO_CAMBIO}"
-                        IsEnabled="{Binding EnabledFecha}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Height="50" Margin="65,5,0,0">
-                        <DatePicker materialDesign:HintAssist.Hint="Fecha Ultimo Cambio" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FECHA_ACTUALIZACION}"
-                        IsEnabled="{Binding EnabledFecha}" />
-                    </StackPanel>
-                    <TextBox  materialDesign:HintAssist.Hint="Reportado Por" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420"  BorderBrush="#FFBDBDBD"  FontSize="18" Text="{Binding REPORTADO_POR}"/>
-                    <TextBox  materialDesign:HintAssist.Hint="Solicitud de Trabajo de Ingeniería" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Text="{Binding SOLICITUD_TRABAJO_DE_ING}"/>
-                    <TextBox  materialDesign:HintAssist.Hint="Criterio" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Text="{Binding CRITERIO}"/>
-                </StackPanel>
-
-                    <StackPanel Grid.Row="1" Margin="5,5,0,0" >
+                    <StackPanel Grid.Row="1" Margin="60,5,0,0" >
                     <Label Content="Para ver/eliminar el archivo, primero dale clic al ícono ." FontWeight="Bold"></Label>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="y después clic al ícono " FontWeight="Bold"></Label>
@@ -133,7 +135,7 @@
                         <Label Content="{materialDesign:PackIcon Close}"></Label>
                     </StackPanel>
                 </StackPanel>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="2">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="2" Margin="60,5,0,0">
                     <StackPanel Grid.Row="2">
                         <!--<ListBox ItemsSource="{Binding ListaArchivosLecciones}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" Margin="5" Grid.Row="2"/>-->
                         <ListBox Name="listBox" Grid.Column="1" Grid.Row="2" Height="AUTO" ItemsSource="{Binding ListaArchivosLecciones}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" >
