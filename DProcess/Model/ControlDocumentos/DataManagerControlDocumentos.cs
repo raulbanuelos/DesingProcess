@@ -2910,11 +2910,17 @@ namespace Model.ControlDocumentos
             return servicios.InsertarArchivoLecciones(archivo, ext, nombre_archivo, id_leccion);
         }
 
-        public static bool verificarnombre(List<string> lista, string nombre)
+        /// <summary>
+        /// Función que verifica si existe un usuario en una lista.
+        /// </summary>
+        /// <param name="lista"></param>
+        /// <param name="idUsuario"></param>
+        /// <returns></returns>
+        public static bool VerificarNombre(List<DO_UsuarioNombre> lista, string idUsuario)
         {
             foreach (var item in lista)
             {
-                if (item == nombre)
+                if (item.ID_USUARIO == idUsuario)
                 {
                     return true;
                 }
@@ -2935,7 +2941,7 @@ namespace Model.ControlDocumentos
             ObservableCollection<LeccionesAprendidas> ListaLecciones = new ObservableCollection<LeccionesAprendidas>();
 
             IList ObjLeccion = ServiceLecciones.GetLeccionesAprendidas(TextoBuscar);
-            List<string> listausuarios = new List<string>(); 
+            List<DO_UsuarioNombre> listausuarios = new List<DO_UsuarioNombre>(); 
 
             if (ObjLeccion != null)
             {
@@ -2960,11 +2966,17 @@ namespace Model.ControlDocumentos
                     ObjLec.OPERACION = (string)tipo.GetProperty("OPERACION").GetValue(item, null);
                     ObjLec.REPORTADO_POR = (string)tipo.GetProperty("REPORTADO_POR").GetValue(item, null);
                     ObjLec.SOLICITUD_DE_TRABAJO = (string)tipo.GetProperty("SOLICITUD_DE_TRABAJO_INGENIERIA").GetValue(item, null);
-                    if (verificarnombre(listausuarios,ObjLec.ID_USUARIO))
+                    if (VerificarNombre(listausuarios,ObjLec.ID_USUARIO))
                     {
-
+                        DO_UsuarioNombre persona = listausuarios.Where(x => x.ID_USUARIO == ObjLec.ID_USUARIO).FirstOrDefault();
+                        ObjLec.NombreCompleto = persona.NOMBRE_COMPLETO;
                     }
-                    ObjLec.NombreCompleto = GetNombreUsuario(encript.encript(ObjLec.ID_USUARIO));
+                    else
+                    {
+                        ObjLec.NombreCompleto = GetNombreUsuario(encript.encript(ObjLec.ID_USUARIO));
+                        listausuarios.Add(new DO_UsuarioNombre { ID_USUARIO = ObjLec.ID_USUARIO, NOMBRE_COMPLETO = ObjLec.NombreCompleto });
+                    }
+                    
                     ListaLecciones.Add(ObjLec);
                 }
             }

@@ -70,6 +70,7 @@
     <Compile Include="DataManager.cs" />
     <Compile Include="DO_Historial_Documento.cs" />
     <Compile Include="DO_Notification.cs" />
+    <Compile Include="DO_UsuarioNombre.cs" />
     <Compile Include="Empaquetado.cs" />
     <Compile Include="EnumEx.cs" />
     <Compile Include="FO_Item.cs" />
