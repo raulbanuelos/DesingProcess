@@ -125,10 +125,13 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Activities" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Controls.DataVisualization.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -247,6 +250,12 @@
     </Compile>
     <Compile Include="Forms\Index\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LeccionesAprendidas\FrmLeccionesAprendidas.xaml.cs">
+      <DependentUpon>FrmLeccionesAprendidas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LeccionesAprendidas\ModificarLeccion.xaml.cs">
+      <DependentUpon>ModificarLeccion.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\LogIn\LogIn.xaml.cs">
       <DependentUpon>LogIn.xaml</DependentUpon>
@@ -559,9 +568,11 @@
     <Compile Include="Services\ViewModel\GuillotinaSimVM.cs" />
     <Compile Include="Services\ViewModel\HistorialFiltrado_VM.cs" />
     <Compile Include="Services\ViewModel\HistorialVM.cs" />
+    <Compile Include="Services\ViewModel\LeccionesAprendidasVM.cs" />
     <Compile Include="Services\ViewModel\ListItemViewModel.cs" />
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
     <Compile Include="Services\ViewModel\ModificarDatosUsuario.cs" />
+    <Compile Include="Services\ViewModel\ModificarLeccionVM.cs" />
     <Compile Include="Services\ViewModel\NuevoDepartamentoVM.cs" />
     <Compile Include="Services\ViewModel\NuevoMaestroHerramental_VM.cs" />
     <Compile Include="Services\ViewModel\NuevoTipoDocumentoVM.cs" />
@@ -751,6 +762,14 @@
     <Page Include="Forms\Index\Home.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\LeccionesAprendidas\FrmLeccionesAprendidas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\LeccionesAprendidas\ModificarLeccion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\LogIn\LogIn.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -1134,6 +1153,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="iconDProcess.ico" />
+    <Resource Include="Images\E.jpg" />
+    <Resource Include="Images\PP.png" />
+    <Resource Include="Images\I.png" />
     <Resource Include="Images\MahleRight.png" />
   </ItemGroup>
   <ItemGroup />

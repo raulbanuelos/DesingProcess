@@ -12,7 +12,7 @@
         Title="Control documento" Height="750" Width="1200"  
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-
+ 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
 

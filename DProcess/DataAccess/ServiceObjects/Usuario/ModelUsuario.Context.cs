@@ -28,5 +28,7 @@ namespace DataAccess.ServiceObjects.Usuario
         public virtual DbSet<PerfilUsuario> PerfilUsuario { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<PrivilegioUsuario> PrivilegioUsuario { get; set; }
+        public virtual DbSet<TBL_LECCIONES_APRENDIDAS> TBL_LECCIONES_APRENDIDAS { get; set; }
+        public virtual DbSet<TBL_ARCHIVO_LECCIONES> TBL_ARCHIVO_LECCIONES { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using View.Forms.ControlDocumentos;
 using System.Collections.Generic;
 using System;
 using View.Forms.DataBase;
+using View.Forms.LeccionesAprendidas;
 using View.Forms.User;
 using View.Forms.Tooling;
 using System.Threading;
@@ -33,7 +34,7 @@ namespace View.Services.ViewModel
                 NotifyChange("Nombre");
             }
         }
-        
+
         public string ApellidoPaterno
         {
             get
@@ -46,7 +47,7 @@ namespace View.Services.ViewModel
                 NotifyChange("ApellidoPaterno");
             }
         }
-        
+
         public string ApellidoMaterno
         {
             get
@@ -59,7 +60,7 @@ namespace View.Services.ViewModel
                 NotifyChange("ApellidoMaterno");
             }
         }
-        
+
         public string NombreUsuario
         {
             get
@@ -72,7 +73,7 @@ namespace View.Services.ViewModel
                 NotifyChange("NombreUsuario");
             }
         }
-        
+
         public bool Block
         {
             get
@@ -85,7 +86,7 @@ namespace View.Services.ViewModel
                 NotifyChange("Block");
             }
         }
-        
+
         public bool Conectado
         {
             get
@@ -135,7 +136,7 @@ namespace View.Services.ViewModel
                 NotifyChange("PerfilRGP");
             }
         }
-        
+
         public bool PerfilTooling
         {
             get {
@@ -146,43 +147,43 @@ namespace View.Services.ViewModel
                 NotifyChange("PerfilTooling");
             }
         }
-        
+
         public bool PerfilRawMaterial
         {
             get { return ModelUsuario.PerfilRawMaterial; }
             set { ModelUsuario.PerfilRawMaterial = value; NotifyChange("PerfilRawMaterial"); }
         }
-        
+
         public bool PerfilStandarTime
         {
             get { return ModelUsuario.PerfilStandarTime; }
             set { ModelUsuario.PerfilStandarTime = value; NotifyChange("PerfilStandarTime"); }
         }
-        
+
         public bool PerfilQuotes
         {
             get { return ModelUsuario.PerfilQuotes; }
             set { ModelUsuario.PerfilQuotes = value; NotifyChange("PerfilQuotes"); }
         }
-        
+
         public bool PerfilCIT
         {
             get { return ModelUsuario.PerfilCIT; }
             set { ModelUsuario.PerfilCIT = value; NotifyChange("PerfilCIT"); }
         }
-        
+
         public bool PerfilData
         {
             get { return ModelUsuario.PerfilData; }
             set { ModelUsuario.PerfilData = value; NotifyChange("PerfilData"); }
         }
-        
+
         public bool PerfilUserProfile
         {
             get { return ModelUsuario.PerfilUserProfile; }
             set { ModelUsuario.PerfilUserProfile = value; NotifyChange("PerfilUserProfile"); }
         }
-        
+
         public bool PerfilHelp
         {
             get { return ModelUsuario.PerfilHelp; }
@@ -323,7 +324,7 @@ namespace View.Services.ViewModel
             get
             {
                 return new RelayCommand(o => irUser());
-                    
+
             }
         }
 
@@ -331,7 +332,15 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand( o => irTooling());
+                return new RelayCommand(o => irTooling());
+            }
+        }
+
+        public ICommand IrLeccion
+        {
+            get
+            {
+                return new RelayCommand(o => irLeccion());
             }
         }
 
@@ -345,7 +354,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => irControlDocumentos());
             }
         }
-        
+
         #endregion
 
         #region Métodos
@@ -422,6 +431,18 @@ namespace View.Services.ViewModel
 
             frm.DataContext = context;
 
+            Pagina = frm;
+
+        }
+
+        private void irLeccion()
+        {
+
+            FrmLeccionesAprendidas frm = new FrmLeccionesAprendidas();
+
+            LeccionesAprendidasVM context = new LeccionesAprendidasVM();
+
+            frm.DataContext = context;
             Pagina = frm;
 
         }

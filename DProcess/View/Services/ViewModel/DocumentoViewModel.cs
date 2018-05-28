@@ -1385,152 +1385,6 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => eliminar());
             }
         }
-        /// <summary>
-        /// Método para eliminar el registro de un documento, con todas las versiones
-        /// Elimina los registros de todos las versiones de un documento
-        /// </summary>
-        private async void eliminar()
-        {
-            //Incializamos los servicios de dialog.
-            DialogService dialog = new DialogService();
-
-            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
-            MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
-
-            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea eliminar el registro?", setting, MessageDialogStyle.AffirmativeAndNegative);
-
-            //Si el id es diferente de cero
-            if (id_documento != 0 & result == MessageDialogResult.Affirmative)
-            {
-                vmUsuarios = new UsuariosViewModel(auxUsuario,auxUsuario_Autorizo);
-                FrmListaUsuarios frmListaUsuarios = new FrmListaUsuarios();
-                frmListaUsuarios.DataContext = vmUsuarios;
-
-                frmListaUsuarios.ShowDialog();
-
-                //Verficamos que el usuario seleccionó al menos una persona para noticarle la baja del documento. Si no selecciona a ninguna, no se permite la baja.
-                if (vmUsuarios.ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count > 0)
-                {
-                    Documento objDoc_Eliminado = new Documento();
-                    //Elimina los documentos de la lista 
-                    foreach (var item in _ListaDocumentos)
-                    {
-
-                        objDoc_Eliminado.version.archivo.archivo = item.archivo;
-                        objDoc_Eliminado.version.archivo.ext = item.ext;
-                        int n = DataManagerControlDocumentos.DeleteArchivo(item);
-                    }
-
-                    Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
-                    objVersion.id_version = idVersion;
-                    objVersion.no_version = Version;
-                    string mensaje_historial = "Se elimina versión " + Version;
-
-                    //Mandamos a llamar a la  función para eliminar la versión.
-                    int Dversion = DataManagerControlDocumentos.DeleteVersion(objVersion, mensaje_historial, User, nombre);
-
-                    //Obetenemos las versiones del documento
-                    ListaVersiones = DataManagerControlDocumentos.GetVersiones(id_documento);
-
-                    //iteramos la lista de las versiones
-                    foreach (var item in ListaVersiones)
-                    {
-                        //De cada versión obetemos los correspondientes archivos.
-                        ListaArchivo = DataManagerControlDocumentos.GetArchivos(item.id_version);
-
-                        //Iteramos la lista de archivos
-                        foreach (var archivo in ListaArchivo)
-                        {
-                            //Eliminamos el archivo
-                            int a = DataManagerControlDocumentos.DeleteArchivo(archivo);
-                        }
-
-                        //Mandamos a llamar la funcion para eliminar la version iterada
-                        int v = DataManagerControlDocumentos.DeleteVersion(item, mensaje_historial, User, nombre);
-                    }
-
-                    //Si se elimino correctamente la versión
-                    if (Dversion != 0)
-                    {
-                        Documento obj = new Documento();
-
-                        //se le asigna el id al objeto
-                        obj.id_documento = id_documento;
-
-                        //Se manda a llamar a la función.
-                        int n = DataManagerControlDocumentos.DeleteDocumento(obj);
-
-                        if (n != 0)
-                        {
-                            objDoc_Eliminado.nombre = nombre;
-                            objDoc_Eliminado.version.no_version = Version;
-                            int docElim = DataManagerControlDocumentos.SetDocumento_Eliminado(objDoc_Eliminado);
-                            bool banEliminarFrames = false;
-                            int eliminoFrames = 0;
-
-                            //Eliminamos el documento del sistema frames.
-                            switch (id_tipo)
-                            {
-                                case 1003:
-                                case 1013:
-                                    banEliminarFrames = true;
-                                    eliminoFrames = DataManagerControlDocumentos.DeleteDocumentoOHSAS(objDoc_Eliminado.nombre);
-                                    break;
-
-                                case 1005:
-                                case 1012:
-                                    banEliminarFrames = true;
-                                    eliminoFrames = DataManagerControlDocumentos.DeleteDocumentoEspecifico(objDoc_Eliminado.nombre);
-                                    break;
-
-                                case 1006:
-                                case 1014:
-                                    banEliminarFrames = true;
-                                    eliminoFrames = DataManagerControlDocumentos.DeleteDocumentoISO(objDoc_Eliminado.nombre);
-                                    break;
-                                default:
-                                    banEliminarFrames = false;
-                                    break;
-                            }
-
-                            string confirmacionFrames = string.Empty;
-
-                            if (banEliminarFrames)
-                                confirmacionFrames = eliminoFrames > 0 ? "El documento se eliminó exitosamente del sistema frames." : "Ocurrió un error al eliminar en el sistema frames. Por favor elimínelo directamente del sistema frames. http://sealed/frames.htm";
-
-                            string confirmacionCorreo = string.Empty;
-                            confirmacionCorreo = NotificarBajaDocumento() ? "Se notificó vía correo exitosamente." : "Ocurrió un error al notificar vía correo. Favor de notificar manualmente desde el Lotus Notes.";
-
-                            await dialog.SendMessage("Alerta", "Registro eliminado!. Se actualizo la matríz correctamente.\n" + confirmacionCorreo + "\n" + confirmacionFrames);
-                        }
-                        else
-                        {
-                            await dialog.SendMessage("Alerta", "No se puedo eliminar el documento");
-                        }
-                    }
-                    else
-                    {
-                        await dialog.SendMessage("Alerta", "No se puedo eliminar la versión");
-                    }
-                    //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                    var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-                    //Verificamos que la pantalla sea diferente de nulo.
-                    if (window != null)
-                    {
-                        //Cerramos la pantalla
-                        window.Close();
-                    }
-                }
-                else
-                {
-                    await dialog.SendMessage("Alerta", "No se puedo eliminar la versión. Debes seleccionar a una persona para notificarle la baja.");
-                }
-
-            }
-        }
 
         /// <summary>
         /// Comando para modificar un registro
@@ -1693,6 +1547,152 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Método para eliminar el registro de un documento, con todas las versiones
+        /// Elimina los registros de todos las versiones de un documento
+        /// </summary>
+        private async void eliminar()
+        {
+            //Incializamos los servicios de dialog.
+            DialogService dialog = new DialogService();
+
+            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = "SI";
+            setting.NegativeButtonText = "NO";
+
+            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea eliminar el registro?", setting, MessageDialogStyle.AffirmativeAndNegative);
+
+            //Si el id es diferente de cero
+            if (id_documento != 0 & result == MessageDialogResult.Affirmative)
+            {
+                vmUsuarios = new UsuariosViewModel(auxUsuario, auxUsuario_Autorizo);
+                FrmListaUsuarios frmListaUsuarios = new FrmListaUsuarios();
+                frmListaUsuarios.DataContext = vmUsuarios;
+
+                frmListaUsuarios.ShowDialog();
+
+                //Verficamos que el usuario seleccionó al menos una persona para noticarle la baja del documento. Si no selecciona a ninguna, no se permite la baja.
+                if (vmUsuarios.ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count > 0)
+                {
+                    Documento objDoc_Eliminado = new Documento();
+                    //Elimina los documentos de la lista 
+                    foreach (var item in _ListaDocumentos)
+                    {
+
+                        objDoc_Eliminado.version.archivo.archivo = item.archivo;
+                        objDoc_Eliminado.version.archivo.ext = item.ext;
+                        int n = DataManagerControlDocumentos.DeleteArchivo(item);
+                    }
+
+                    Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+                    objVersion.id_version = idVersion;
+                    objVersion.no_version = Version;
+                    string mensaje_historial = "Se elimina versión " + Version;
+
+                    //Mandamos a llamar a la  función para eliminar la versión.
+                    int Dversion = DataManagerControlDocumentos.DeleteVersion(objVersion, mensaje_historial, User, nombre);
+
+                    //Obetenemos las versiones del documento
+                    ListaVersiones = DataManagerControlDocumentos.GetVersiones(id_documento);
+
+                    //iteramos la lista de las versiones
+                    foreach (var item in ListaVersiones)
+                    {
+                        //De cada versión obetemos los correspondientes archivos.
+                        ListaArchivo = DataManagerControlDocumentos.GetArchivos(item.id_version);
+
+                        //Iteramos la lista de archivos
+                        foreach (var archivo in ListaArchivo)
+                        {
+                            //Eliminamos el archivo
+                            int a = DataManagerControlDocumentos.DeleteArchivo(archivo);
+                        }
+
+                        //Mandamos a llamar la funcion para eliminar la version iterada
+                        int v = DataManagerControlDocumentos.DeleteVersion(item, mensaje_historial, User, nombre);
+                    }
+
+                    //Si se elimino correctamente la versión
+                    if (Dversion != 0)
+                    {
+                        Documento obj = new Documento();
+
+                        //se le asigna el id al objeto
+                        obj.id_documento = id_documento;
+
+                        //Se manda a llamar a la función.
+                        int n = DataManagerControlDocumentos.DeleteDocumento(obj);
+
+                        if (n != 0)
+                        {
+                            objDoc_Eliminado.nombre = nombre;
+                            objDoc_Eliminado.version.no_version = Version;
+                            int docElim = DataManagerControlDocumentos.SetDocumento_Eliminado(objDoc_Eliminado);
+                            bool banEliminarFrames = false;
+                            int eliminoFrames = 0;
+
+                            //Eliminamos el documento del sistema frames.
+                            switch (id_tipo)
+                            {
+                                case 1003:
+                                case 1013:
+                                    banEliminarFrames = true;
+                                    eliminoFrames = DataManagerControlDocumentos.DeleteDocumentoOHSAS(objDoc_Eliminado.nombre);
+                                    break;
+
+                                case 1005:
+                                case 1012:
+                                    banEliminarFrames = true;
+                                    eliminoFrames = DataManagerControlDocumentos.DeleteDocumentoEspecifico(objDoc_Eliminado.nombre);
+                                    break;
+
+                                case 1006:
+                                case 1014:
+                                    banEliminarFrames = true;
+                                    eliminoFrames = DataManagerControlDocumentos.DeleteDocumentoISO(objDoc_Eliminado.nombre);
+                                    break;
+                                default:
+                                    banEliminarFrames = false;
+                                    break;
+                            }
+
+                            string confirmacionFrames = string.Empty;
+
+                            if (banEliminarFrames)
+                                confirmacionFrames = eliminoFrames > 0 ? "El documento se eliminó exitosamente del sistema frames." : "Ocurrió un error al eliminar en el sistema frames. Por favor elimínelo directamente del sistema frames. http://sealed/frames.htm";
+
+                            string confirmacionCorreo = string.Empty;
+                            confirmacionCorreo = NotificarBajaDocumento() ? "Se notificó vía correo exitosamente." : "Ocurrió un error al notificar vía correo. Favor de notificar manualmente desde el Lotus Notes.";
+
+                            await dialog.SendMessage("Alerta", "Registro eliminado!. Se actualizo la matríz correctamente.\n" + confirmacionCorreo + "\n" + confirmacionFrames);
+                        }
+                        else
+                        {
+                            await dialog.SendMessage("Alerta", "No se puedo eliminar el documento");
+                        }
+                    }
+                    else
+                    {
+                        await dialog.SendMessage("Alerta", "No se puedo eliminar la versión");
+                    }
+                    //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                    var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+                    //Verificamos que la pantalla sea diferente de nulo.
+                    if (window != null)
+                    {
+                        //Cerramos la pantalla
+                        window.Close();
+                    }
+                }
+                else
+                {
+                    await dialog.SendMessage("Alerta", "No se puedo eliminar la versión. Debes seleccionar a una persona para notificarle la baja.");
+                }
+
+            }
+        }
         /// <summary>
         /// metodo que permite actualizar el numero de copias de un documento
         /// </summary>
