@@ -117,6 +117,7 @@
                                 </TextBlock>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
+                        
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction
