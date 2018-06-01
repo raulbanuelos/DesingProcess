@@ -174,5 +174,16 @@ namespace View.Services.TiempoEstandar.Fundicion
 
         }
         #endregion
+
+        #region Functions
+
+        #region ICentroTrabajo Function´s
+        public bool Test()
+        {
+            return true;
+        }
+        #endregion
+
+        #endregion
     }
 }

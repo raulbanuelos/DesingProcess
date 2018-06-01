@@ -38,11 +38,16 @@ namespace Model.Interfaces
         /// <param name="ListaPropiedadesBool">Lista de propiedades booleanos ingresados por el usuario.</param>
         /// <param name="ListaPropiedadesCadena">Lista de propiedades cadena ingresados por el usuario.</param>
         void Calcular(List<Propiedad> ListaPropiedades, List<PropiedadBool> ListaPropiedadesBool, List<PropiedadCadena> ListaPropiedadesCadena);
-
-
+        
         /// <summary>
         /// Colección que contiene los posibles errores generados por los cálculos de los tiempos.
         /// </summary>
         List<string> Alertas { get; set; }
+
+        /// <summary>
+        /// Función que te utiliza para realizar un test antes de calcular los tiempos.
+        /// </summary>
+        /// <returns></returns>
+        bool Test();
     }
 }

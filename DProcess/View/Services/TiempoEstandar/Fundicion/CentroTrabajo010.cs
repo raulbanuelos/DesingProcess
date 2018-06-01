@@ -149,8 +149,10 @@ namespace View.Services.TiempoEstandar.Fundicion
                 pesoEsqueleto = 19400;
             else if (mouting.Equals(16))
                 pesoEsqueleto = 25000;
+            else if (mouting.Equals(0))
+                pesoEsqueleto = 0;
             else
-                Alertas.Add("No se calculo correctamente el tiempo estandar debido a que el número de impreciones de la placa modelo no está dentro de los calculos" + 
+                Alertas.Add("No se calculo correctamente el tiempo estandar debido a que el número de impreciones de la placa modelo no está dentro de los calculos" +
                                 Environment.NewLine + "Recomendación:" + Environment.NewLine + "Revice el calculo proporcionado por Ing. Industrial.");
 
             //Evaluamos si mouting es direfente de cero, lo que significará que es una placa modelo. Si no es un cuff.
@@ -170,6 +172,7 @@ namespace View.Services.TiempoEstandar.Fundicion
         /// <summary>
         /// Default constructor
         /// </summary>
+
         public CentroTrabajo010()
         {
             CentroTrabajo = "010";
@@ -185,7 +188,47 @@ namespace View.Services.TiempoEstandar.Fundicion
 
             Propiedad pesoCasting = new Propiedad { DescripcionCorta = "Peso casting", DescripcionLarga = "Peso del casting", Imagen = null, Nombre = "PesoCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram), Valor = 0 };
             PropiedadesRequeridadas.Add(pesoCasting);
-        } 
+        }
+        #endregion
+
+        #region Functions
+
+        #region ICentroTrabajo Function´s
+        public bool Test()
+        {
+            if (mouting.Equals(1))
+                return true;
+            else if (mouting.Equals(2))
+                return true;
+            else if (mouting.Equals(3))
+                return true;
+            else if (mouting.Equals(4))
+                return true;
+            else if (mouting.Equals(5))
+                return true;
+            else if (mouting.Equals(6))
+                return true;
+            else if (mouting.Equals(7))
+                return true;
+            else if (mouting.Equals(8))
+                return true;
+            else if (mouting.Equals(9))
+                return true;
+            else if (mouting.Equals(10))
+                return true;
+            else if (mouting.Equals(12))
+                return true;
+            else if (mouting.Equals(14))
+                return true;
+            else if (mouting.Equals(16))
+                return true;
+            else if (mouting.Equals(0))
+                return true;
+            else
+                return false;
+        }
+        #endregion
+
         #endregion
     }
 }

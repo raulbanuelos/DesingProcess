@@ -268,6 +268,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Data.
+        /// </summary>
+        public static string ttlData {
+            get {
+                return ResourceManager.GetString("ttlData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Done.
         /// </summary>
         public static string ttlDone {
@@ -286,6 +295,33 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Learned lessons.
+        /// </summary>
+        public static string ttlLessons {
+            get {
+                return ResourceManager.GetString("ttlLessons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Quotes.
+        /// </summary>
+        public static string ttlQuotes {
+            get {
+                return ResourceManager.GetString("ttlQuotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Raw material.
+        /// </summary>
+        public static string ttlRawMaterial {
+            get {
+                return ResourceManager.GetString("ttlRawMaterial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Routing generation program.
         /// </summary>
         public static string ttlRouting {
@@ -300,6 +336,33 @@ namespace View.Resources {
         public static string ttlRoutingAux {
             get {
                 return ResourceManager.GetString("ttlRoutingAux", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Standar time.
+        /// </summary>
+        public static string ttlStandarTime {
+            get {
+                return ResourceManager.GetString("ttlStandarTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Tooling.
+        /// </summary>
+        public static string ttlTooling {
+            get {
+                return ResourceManager.GetString("ttlTooling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Users.
+        /// </summary>
+        public static string ttlUser {
+            get {
+                return ResourceManager.GetString("ttlUser", resourceCulture);
             }
         }
     }

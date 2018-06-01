@@ -131,5 +131,16 @@ namespace View.Services.TiempoEstandar.Gasolina.Rolado
         #endregion
 
         #endregion
+
+        #region Functions
+
+        #region ICentroTrabajo Function´s
+        public bool Test()
+        {
+            return true;
+        }
+        #endregion
+
+        #endregion
     }
 }

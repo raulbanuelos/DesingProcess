@@ -209,6 +209,10 @@
     <value>Authentication</value>
     <comment>Título para la autenticación.</comment>
   </data>
+  <data name="ttlData" xml:space="preserve">
+    <value>Data</value>
+    <comment>Título para datos</comment>
+  </data>
   <data name="ttlDone" xml:space="preserve">
     <value>Done</value>
     <comment>Título de finalizado</comment>
@@ -217,6 +221,18 @@
     <value>Wait a moment</value>
     <comment>Título de espere un momento</comment>
   </data>
+  <data name="ttlLessons" xml:space="preserve">
+    <value>Learned lessons</value>
+    <comment>Título para lecciones</comment>
+  </data>
+  <data name="ttlQuotes" xml:space="preserve">
+    <value>Quotes</value>
+    <comment>Título para quotes</comment>
+  </data>
+  <data name="ttlRawMaterial" xml:space="preserve">
+    <value>Raw material</value>
+    <comment>Título para raw material</comment>
+  </data>
   <data name="ttlRouting" xml:space="preserve">
     <value>Routing Generation Program</value>
     <comment>Título de Tile para accesar a calculo de hoja de ruta.</comment>
@@ -224,5 +240,17 @@
   <data name="ttlRoutingAux" xml:space="preserve">
     <value>Click here to calculate a routing</value>
     <comment>Toltip de calculo de hoja de ruta</comment>
+  </data>
+  <data name="ttlStandarTime" xml:space="preserve">
+    <value>Standar time</value>
+    <comment>Título para standar time</comment>
+  </data>
+  <data name="ttlTooling" xml:space="preserve">
+    <value>Tooling</value>
+    <comment>Título para tooling</comment>
+  </data>
+  <data name="ttlUser" xml:space="preserve">
+    <value>Users</value>
+    <comment>Título para usuarios</comment>
   </data>
 </root>

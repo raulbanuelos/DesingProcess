@@ -82,7 +82,7 @@
                 </Controls:Tile>
 
                 <!--Tooling-->
-                <Controls:Tile Command="{Binding IrTooling}" TiltFactor="2" Background="#01A300" Title="Tooling" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="0" Cursor="Hand" IsEnabled="{Binding PerfilTooling}">
+                <Controls:Tile Command="{Binding IrTooling}" TiltFactor="2" Background="#01A300" Title="{x:Static local:StringResources.ttlTooling}" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="0" Cursor="Hand" IsEnabled="{Binding PerfilTooling}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
@@ -110,7 +110,7 @@
                 </Controls:Tile>
 
                 <!--Raw material-->
-                <Controls:Tile TiltFactor="2" Background="#0B5AC3" Title="Raw material" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="0" Cursor="Hand" Command="{Binding IrRawMaterial}" IsEnabled="{Binding PerfilRawMaterial}">
+                <Controls:Tile TiltFactor="2" Background="#0B5AC3" Title="{x:Static local:StringResources.ttlRawMaterial}" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="0" Cursor="Hand" Command="{Binding IrRawMaterial}" IsEnabled="{Binding PerfilRawMaterial}">
                     <Rectangle Width="100" Height="100" Fill="White">
                         <Rectangle.OpacityMask>
                             <VisualBrush Visual="{StaticResource appbar_shuffle}" Stretch="Fill" />
@@ -119,7 +119,7 @@
                 </Controls:Tile>
 
                 <!--Standar Times-->
-                <Controls:Tile TiltFactor="2" Background="#DA522C" Title="Standard times" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="1" Cursor="Hand" IsEnabled="{Binding PerfilStandarTime}">
+                <Controls:Tile TiltFactor="2" Background="#DA522C" Title="{x:Static local:StringResources.ttlStandarTime}" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="1" Cursor="Hand" IsEnabled="{Binding PerfilStandarTime}">
                     <Rectangle Width="85" Height="90" Fill="White">
                         <Rectangle.OpacityMask>
                             <VisualBrush Visual="{StaticResource appbar_timer}" Stretch="Fill" />
@@ -128,7 +128,7 @@
                 </Controls:Tile>
 
                 <!--Quotes-->
-                <Controls:Tile TiltFactor="2" Background="#00556A" Title="Quotes" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="1" Cursor="Hand" IsEnabled="{Binding PerfilQuotes}">
+                <Controls:Tile TiltFactor="2" Background="#00556A" Title="{x:Static local:StringResources.ttlQuotes}" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="1" Cursor="Hand" IsEnabled="{Binding PerfilQuotes}">
                     <Rectangle Width="100" Height="100" Fill="White">
                         <Rectangle.OpacityMask>
                             <VisualBrush Visual="{StaticResource appbar_billing}" Stretch="Fill" />
@@ -146,7 +146,7 @@
                 </Controls:Tile>
 
                 <!--Data-->
-                <Controls:Tile Background="#6CB71D" TiltFactor="2" Title="Data" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilData}" Command="{Binding IrDataBase}">
+                <Controls:Tile Background="#6CB71D" TiltFactor="2" Title="{x:Static local:StringResources.ttlData}" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilData}" Command="{Binding IrDataBase}">
                     <Rectangle Width="90" Height="90" Fill="White">
                         <Rectangle.OpacityMask>
                             <VisualBrush Visual="{StaticResource appbar_database}" Stretch="Fill" />
@@ -155,7 +155,7 @@
                 </Controls:Tile>
 
                 <!--User-->
-                <Controls:Tile Command="{Binding IrUser}"  Background="#A200AB" TiltFactor="2" Title="User" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilUserProfile}">
+                <Controls:Tile Command="{Binding IrUser}"  Background="#A200AB" TiltFactor="2" Title="{x:Static local:StringResources.ttlUser}" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilUserProfile}">
                     <Rectangle Width="100" Height="100" Fill="White">
                         <Rectangle.OpacityMask>
                             <VisualBrush Visual="{StaticResource appbar_user_tie}" Stretch="Fill" />
@@ -164,10 +164,10 @@
                 </Controls:Tile>
 
                 <!--HELP-->
-                <Controls:Tile Command="{Binding IrLeccion}" Background="#5F3BBC" TiltFactor="2" Title="Help" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilHelp}">
+                <Controls:Tile Command="{Binding IrLeccion}" Background="#5F3BBC" TiltFactor="2" Title="{x:Static local:StringResources.ttlLessons}" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilHelp}">
                     <Rectangle Width="80" Height="100" Fill="White">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Visual="{StaticResource appbar_book_perspective_help}" Stretch="Fill" />
+                            <VisualBrush Visual="{StaticResource appbar_journal}" Stretch="Fill" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
                 </Controls:Tile>

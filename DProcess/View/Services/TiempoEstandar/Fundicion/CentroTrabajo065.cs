@@ -163,7 +163,18 @@ namespace View.Services.TiempoEstandar.Fundicion
 
             PropiedadCadena espeMaterial = new PropiedadCadena { Nombre = "Material MAHLE", DescripcionCorta = "Material:", DescripcionLarga = "Especificación de materia prima (MF012-S,SPR-128,ETC)" };
             PropiedadesRequeridasCadena.Add(espeMaterial);
-        } 
+        }
+        #endregion
+
+        #region Functions
+
+        #region ICentroTrabajo Function´s
+        public bool Test()
+        {
+            return true;
+        }
+        #endregion
+
         #endregion
     }
 }

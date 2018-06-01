@@ -1182,8 +1182,7 @@ namespace Model.ControlDocumentos
             //Retornamos la lista.
             return Lista;
         }
-
-
+        
         #endregion
 
         #region Rol
@@ -2849,7 +2848,7 @@ namespace Model.ControlDocumentos
                 fecha_ultimo_cambio,fecha_actualizacion,reportado_por,solicitud_Tingenieria,criterio_1,cambio_requerido);
         }
         /// <summary>
-        /// Método para eliminar una leccion
+        /// Método para eliminar una lección
         /// </summary>
         /// <param name="id_leccion"></param>
         /// <returns></returns>
@@ -3010,7 +3009,6 @@ namespace Model.ControlDocumentos
                     //ObjArc.ruta = (string)tipo.GetProperty("ruta").GetValue(item, null);
                     ObjArc.ID_ARCHIVO_LECCIONES = (int)tipo.GetProperty("ID_ARCHIVO_LECCIONES").GetValue(item, null);
                     ObjArc.ID_LECCIONES_APRENDIDAS = (int)tipo.GetProperty("ID_LECCIONES_APRENDIDAS").GetValue(item, null);
-
 
                     ListaArchivosLecciones.Add(ObjArc);
                 }
