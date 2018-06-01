@@ -229,6 +229,19 @@ namespace View.Services.ViewModel
                 NotifyChange("usuarioAutorizo");
             }
         }
+        private string _AuxUsuarioAutorizo;
+        public string AuxUsuarioAutorizo
+        {
+            get
+            {
+                return _AuxUsuarioAutorizo;
+            }
+            set
+            {
+                _AuxUsuarioAutorizo = value;
+                NotifyChange("AuxUsuarioAutorizo");
+            }
+        }
         private bool _BttnGuardar;
         public bool BttnGuardar
         {
@@ -293,6 +306,7 @@ namespace View.Services.ViewModel
         /// <param name="SelectedLeccion"></param>
         public ModificarLeccionVM(LeccionesAprendidas SelectedLeccion,Usuario ModelUsuario)
         {
+            User = ModelUsuario;
             //verificamos que se haya seleccionado una leccion
             if (SelectedLeccion != null)
             {
@@ -314,7 +328,8 @@ namespace View.Services.ViewModel
 
                 //mostramos los valores de la leccion 
                 id_leccion = SelectedLeccion.ID_LECCIONES_APRENDIDAS;
-                usuarioAutorizo = ModelUsuario.NombreUsuario;
+                usuarioAutorizo = ecr.encript(SelectedLeccion.ID_USUARIO);
+                AuxUsuarioAutorizo = ModelUsuario.NombreUsuario;
                 CAMBIO_REQUERIDO = SelectedLeccion.CAMBIO_REQUERIDO;
                 COMPONENTE = SelectedLeccion.COMPONENTE;
                 REPORTADO_POR = SelectedLeccion.REPORTADO_POR;
@@ -393,7 +408,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(o => guardarLeccion());
+                return new RelayCommand(o => guardarLeccion(User));
             }
         }
 
@@ -548,8 +563,9 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Método para guardar los cambios de una LeCCION
         /// </summary>
-        private async void guardarLeccion()
+        private async void guardarLeccion(Usuario ModelUsuario)
         {
+            User = ModelUsuario;
             //declaramos un objeto de tipo dialogservice
             DialogService service = new DialogService();
             MetroDialogSettings button = new MetroDialogSettings();
@@ -571,8 +587,8 @@ namespace View.Services.ViewModel
                     //declaramos un objeto del tipo lecciones aprendidas
                     LeccionesAprendidas NewData = new LeccionesAprendidas();
 
-                    //asigamos los valores 
-                    NewData.ID_USUARIO = _usuarioAutorizo;
+                    //asigamos los valores
+                    NewData.ID_USUARIO = _AuxUsuarioAutorizo;
                     NewData.COMPONENTE = _COMPONENTE;
                     NewData.CAMBIO_REQUERIDO = _CAMBIO_REQUERIDO;
                     NewData.NIVEL_DE_CAMBIO = _NIVEL_DE_CAMBIO;
