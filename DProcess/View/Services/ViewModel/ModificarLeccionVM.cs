@@ -872,16 +872,27 @@ namespace View.Services.ViewModel
                 {
                     //Se elimina el item seleccionado de la listaDocumentos.
                     ListaArchivosLecciones.Remove(item);
-                    //Se elimina de la base de datos.
-                    int n = DataManagerControlDocumentos.Delete_Archivo_Lecciones(item.ID_ARCHIVO_LECCIONES);
 
-                    if (n > 0)
+                    //Comparamos si el archivo se debe eliminar de la base de datos.
+                    if (item.ID_ARCHIVO_LECCIONES != 0 && item.ID_LECCIONES_APRENDIDAS != 0)
                     {
-                        await dialogService.SendMessage("Atención", "Se elimino el archivo correctamente");
+                        //Se elimina de la base de datos.
+                        int n = DataManagerControlDocumentos.Delete_Archivo_Lecciones(item.ID_ARCHIVO_LECCIONES);
+
+                        if (n > 0)
+                        {
+                            await dialogService.SendMessage("Atención", "Se elimino el archivo correctamente");
+                        }
+                        else
+                        {
+                            await dialogService.SendMessage("Error", "No se pudo eliminar el archivo");
+                        }
                     }else
                     {
-                        await dialogService.SendMessage("Error","No se pudo eliminar el archivo");
+                        await dialogService.SendMessage("Atención", "Se elimino el archivo correctamente");
                     }
+
+
                 }
             }
         }
