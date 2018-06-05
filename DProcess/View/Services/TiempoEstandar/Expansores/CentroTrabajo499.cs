@@ -68,6 +68,7 @@ namespace View.Services.TiempoEstandar.Expansores
         }
         #endregion
 
+        //Modelo del anillo
         private Anillo _anillo;
         #endregion
 
