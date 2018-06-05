@@ -37,8 +37,8 @@
                         <TextBlock FontWeight="Bold" Text="{Binding Path=nombre}" TextWrapping="WrapWithOverflow" TextAlignment="Center" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Padding="2"></TextBlock>
                         <TextBlock Text="Extensión: " FontSize="14" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                         <TextBlock Text="{Binding Path=ext}" HorizontalAlignment="Right" Padding="2" Grid.Column="1" Grid.Row="1" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
-                        <Button  Grid.Column="1" Grid.Row="2" Content="Eliminar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#FFE27B7B" BorderBrush="#FFD36B6B" Command="{Binding Path=DataContext.EliminarUsuario,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" />
-                        <Button  Grid.Column="0" Grid.Row="2" Content="Ver" Width="80" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Command="{Binding Path=DataContext.ModificarUsuario,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" ></Button>
+                        <Button  Grid.Column="1" Grid.Row="2" Content="Eliminar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#FFE27B7B" BorderBrush="#FFD36B6B" Command="{Binding Path=DataContext.EliminarItem,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" />
+                        <Button  Grid.Column="0" Grid.Row="2" Content="Ver" Width="80" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Command="{Binding Path=DataContext.VerArchivo,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" ></Button>
                     </Grid>
                     <!--Columna1-->
                     <Image Name="img_icono" Source="{Binding Path=ruta}" Grid.Column="1" HorizontalAlignment="Stretch" Width="70" VerticalAlignment="Stretch"></Image>

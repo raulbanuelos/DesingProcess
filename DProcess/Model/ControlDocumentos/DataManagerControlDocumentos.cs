@@ -3016,6 +3016,7 @@ namespace Model.ControlDocumentos
             return ListaArchivosLecciones;
         }
         #endregion
+
         #region Historial
         /// <summary>
         /// Método que obtiene todos los registro del historial, los filtra por numero de documento
