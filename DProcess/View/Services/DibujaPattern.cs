@@ -45,7 +45,12 @@ namespace View.Services
         public bool Auditoria()
         {
             double freeGap = PieceReal * 24.4;
+            double rise,bRequerido,pattSMRadioRequerido,pattSMRadioCalculado;
 
+            rise = _pattSMOD > _bdia ? Math.Round(((PieceReal * _FactorK * 64) - 0.005),3) : Math.Round(((PieceReal * _FactorK * 64) + 0.005),3);
+            bRequerido = Math.Round(((_bdia) * 25.4) / 2, 4);
+            pattSMRadioRequerido = Math.Round((_ValorCompensadoFactorK / 2) * 25.4, 4);
+            //pattSMRadioCalculado = 
 
 
             return true;
@@ -78,6 +83,8 @@ namespace View.Services
             {
                 _diaHerramienta = DiaHerramienta + (((WidthPattern + 0.003) * (Math.Tan(AnguloSalida / 57.29))) * 2);
             }
+
+            _diaHerramienta = Math.Round(_diaHerramienta, 5);
         }
         
     }

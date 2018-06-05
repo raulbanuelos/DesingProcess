@@ -149,6 +149,8 @@ namespace DProcess.Model.Test
         {
             DibujaPattern obj = new DibujaPattern(4.035, 4.045, 0.0001, 0.001, 0.28, 1.5, 0.197, 0.375, 0);
 
+            obj.Auditoria();
+
             Assert.AreEqual(obj._bdia, 4.035);
             //Assert.AreEqual(obj._diaHerramienta, 0.38249);
 

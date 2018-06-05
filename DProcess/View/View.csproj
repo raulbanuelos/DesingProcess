@@ -516,6 +516,7 @@
     <Compile Include="Services\RotateSurface.cs" />
     <Compile Include="Services\ScreenSpaceLines3D.cs" />
     <Compile Include="Services\ServiceEmail.cs" />
+    <Compile Include="Services\TiempoEstandar\Expansores\CentroTrabajo499.cs" />
     <Compile Include="Services\TiempoEstandar\Fundicion\CentroTrabajo010.cs" />
     <Compile Include="Services\TiempoEstandar\Fundicion\CentroTrabajo020.cs" />
     <Compile Include="Services\TiempoEstandar\Fundicion\CentroTrabajo030.cs" />
@@ -658,7 +659,9 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Services\TiempoEstandar\Segmentos\" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Forms\ControlDocumentos\ControlDocumento.xaml">
       <SubType>Designer</SubType>
