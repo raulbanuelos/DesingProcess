@@ -58,7 +58,7 @@
           <Property Name="NIVEL_DE_CAMBIO" Type="varchar" MaxLength="200" />
           <Property Name="CENTRO_DE_TRABAJO" Type="varchar" MaxLength="200" />
           <Property Name="OPERACION" Type="varchar" MaxLength="200" />
-          <Property Name="DESCRIPCION_PROBLEMA" Type="nvarchar" MaxLength="255" />
+          <Property Name="DESCRIPCION_PROBLEMA" Type="nvarchar(max)" />
           <Property Name="FECHA_ULTIMO_CAMBIO" Type="datetime" />
           <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
           <Property Name="REPORTADO_POR" Type="varchar" MaxLength="200" />
@@ -79,9 +79,9 @@
           <Property Name="Psql" Type="varchar" MaxLength="50" />
           <Property Name="Bloqueado" Type="bit" />
           <Property Name="Correo" Type="varchar" MaxLength="100" />
-          <Property Name="Pathnsf" Type="varchar" MaxLength="500" />
+          <Property Name="Pathnsf" Type="varchar" MaxLength="100" />
         </EntityType>
-        <Association Name="FK__TBL_ARCHI__ID_LE__1EBA6878">
+        <Association Name="FK__TBL_ARCHI__ID_LE__21A1C21B">
           <End Role="TBL_LECCIONES_APRENDIDAS" Type="Self.TBL_LECCIONES_APRENDIDAS" Multiplicity="1" />
           <End Role="TBL_ARCHIVO_LECCIONES" Type="Self.TBL_ARCHIVO_LECCIONES" Multiplicity="*" />
           <ReferentialConstraint>
@@ -93,19 +93,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TBL_LECCI__ID_US__0BA79404">
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
-          <End Role="TBL_LECCIONES_APRENDIDAS" Type="Self.TBL_LECCIONES_APRENDIDAS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuarios">
-              <PropertyRef Name="Usuario" />
-            </Principal>
-            <Dependent Role="TBL_LECCIONES_APRENDIDAS">
-              <PropertyRef Name="ID_USUARIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__TBL_LECCI__ID_US__1DC6443F">
+        <Association Name="FK__TBL_LECCI__ID_US__1EC55570">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
           <End Role="TBL_LECCIONES_APRENDIDAS" Type="Self.TBL_LECCIONES_APRENDIDAS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -147,15 +135,11 @@
           <EntitySet Name="TBL_ARCHIVO_LECCIONES" EntityType="Self.TBL_ARCHIVO_LECCIONES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_LECCIONES_APRENDIDAS" EntityType="Self.TBL_LECCIONES_APRENDIDAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__TBL_ARCHI__ID_LE__1EBA6878" Association="Self.FK__TBL_ARCHI__ID_LE__1EBA6878">
+          <AssociationSet Name="FK__TBL_ARCHI__ID_LE__21A1C21B" Association="Self.FK__TBL_ARCHI__ID_LE__21A1C21B">
             <End Role="TBL_LECCIONES_APRENDIDAS" EntitySet="TBL_LECCIONES_APRENDIDAS" />
             <End Role="TBL_ARCHIVO_LECCIONES" EntitySet="TBL_ARCHIVO_LECCIONES" />
           </AssociationSet>
-          <AssociationSet Name="FK__TBL_LECCI__ID_US__0BA79404" Association="Self.FK__TBL_LECCI__ID_US__0BA79404">
-            <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="TBL_LECCIONES_APRENDIDAS" EntitySet="TBL_LECCIONES_APRENDIDAS" />
-          </AssociationSet>
-          <AssociationSet Name="FK__TBL_LECCI__ID_US__1DC6443F" Association="Self.FK__TBL_LECCI__ID_US__1DC6443F">
+          <AssociationSet Name="FK__TBL_LECCI__ID_US__1EC55570" Association="Self.FK__TBL_LECCI__ID_US__1EC55570">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TBL_LECCIONES_APRENDIDAS" EntitySet="TBL_LECCIONES_APRENDIDAS" />
           </AssociationSet>
@@ -226,7 +210,7 @@
           <Property Name="Psql" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Bloqueado" Type="Boolean" />
           <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Pathnsf" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Pathnsf" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PerfilUsuario" Relationship="DataAccess.ServiceObjects.Usuario.FK_PerfilUsuario_Usuarios" FromRole="Usuarios" ToRole="PerfilUsuario" />
           <NavigationProperty Name="PrivilegioUsuario" Relationship="DataAccess.ServiceObjects.Usuario.FK_PrivilegioUsuario_Usuarios" FromRole="Usuarios" ToRole="PrivilegioUsuario" />
         </EntityType>
@@ -282,7 +266,7 @@
           <Property Name="NIVEL_DE_CAMBIO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="CENTRO_DE_TRABAJO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="OPERACION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="DESCRIPCION_PROBLEMA" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DESCRIPCION_PROBLEMA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FECHA_ULTIMO_CAMBIO" Type="DateTime" Precision="3" />
           <Property Name="FECHA_ACTUALIZACION" Type="DateTime" Precision="3" />
           <Property Name="REPORTADO_POR" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
