@@ -268,6 +268,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Documents Control.
+        /// </summary>
+        public static string ttlControlDocumentos {
+            get {
+                return ResourceManager.GetString("ttlControlDocumentos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Data.
         /// </summary>
         public static string ttlData {

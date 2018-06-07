@@ -222,6 +222,22 @@ namespace View.Services.ViewModel
         }
         #endregion
 
+        #region Constructors
+        public ControlDocumentoViewModel(Usuario modelUsuario)
+        {
+            usuario = new Usuario();
+            usuario = modelUsuario;
+            initControlDocumentos();
+            initSnack();
+            //Si el usuario es administrador del CIT muestra los botones para agregar tipo de documento,
+            //departamento, buscar documento y bloquear Sistema
+            if (Module.UsuarioIsRol(usuario.Roles, 2))
+            {
+                BttnEnabled = true;
+            }
+        }
+        #endregion
+
         #region Commands
         /// <summary>
         /// Comando que muestra la ventana para crear un documento o generar un número de documento
@@ -302,22 +318,6 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método que muestra la ventana de documentos que tiene que validar el Administrador
-        /// </summary>
-        private void irDocumentosValidar()
-        {
-            DocumentoValidarViewModel o = new DocumentoValidarViewModel(usuario);
-            
-            FrmDocumentosValidar p = new FrmDocumentosValidar();
-
-            p.DataContext = o;
-
-            p.ShowDialog();
-
-            initSnack();
-        }
-
-        /// <summary>
         ///  Comando para mostrar la ventana de los documentos que están pendientes por corregir
         /// </summary>
         public ICommand DocumentosPendientes
@@ -326,20 +326,6 @@ namespace View.Services.ViewModel
             {
                 return new RelayCommand(o => irDocumentosPendientes());
             }
-        }
-
-        /// <summary>
-        /// Método que muestra la ventada de documentos pendientes por corregir de un usuario
-        /// </summary>
-        private void irDocumentosPendientes()
-        {
-            FrmDocumentosValidar frm = new FrmDocumentosValidar();
-
-            DocumentosPendientesViewM context = new DocumentosPendientesViewM(usuario,"pendientes");
-
-            frm.DataContext = context;
-            frm.ShowDialog();
-            initSnack();
         }
 
         /// <summary>
@@ -354,22 +340,6 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método que muestra la ventada de documentos pendientes por liberar de un usuario
-        /// </summary>
-        private void _irPendientesLiberar()
-        {
-            FrmPendientes_Liberar frm = new FrmPendientes_Liberar();
-
-            PendientesLiberarVM context = new PendientesLiberarVM(usuario);
-
-            frm.DataContext = context;
-
-            frm.ShowDialog();
-                      
-            initSnack();
-        }
-
-        /// <summary>
         /// Comando para mostrar la ventana de los documentos que están pendientes por aprobar
         /// </summary>
         public ICommand IrDocumentosAprobados
@@ -378,24 +348,6 @@ namespace View.Services.ViewModel
             {
                 return new RelayCommand(param => irDocumentosAprobados());
             }
-        }
-
-        /// <summary>
-        /// Método que muestra la ventada de documentos liberados, pendientes por aprobar de todos los usuarios
-        /// </summary>
-        private void irDocumentosAprobados()
-        {
-            FrmDocumentosValidar frm = new FrmDocumentosValidar();
-
-            DocumentosPendientesViewM context = new DocumentosPendientesViewM(usuario, "aprobados");
-
-            frm.DataContext = context;
-
-            frm.ShowDialog();
-
-            TextoBuscar = string.Empty;
-            GetDataGrid(string.Empty);
-            initSnack();
         }
 
         /// <summary>
@@ -410,21 +362,6 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método que muestra la ventana para agregar el tipo de documento
-        /// </summary>
-        private void agregarTipo()
-        {
-            FrmNuevoTipo frmTipo = new FrmNuevoTipo();
-            NuevoTipoDocumentoVM context = new NuevoTipoDocumentoVM();
-            frmTipo.DataContext = context;
-            frmTipo.ShowDialog();
-
-            _ListaTipoDocumento = DataManagerControlDocumentos.GetTipo();
-            TextoBuscar = string.Empty;
-            GetDataGrid(string.Empty);
-        }
-
-        /// <summary>
         /// Comando para abrir ventana de búsqueda de documentos
         /// </summary>
         public ICommand IrBusquedaDocumento
@@ -434,19 +371,6 @@ namespace View.Services.ViewModel
             }
         }
 
-        /// <summary>
-        /// Método que muestra la ventana de todos los documentos 
-        /// </summary>
-        private void irBusquedaDocumento()
-        {
-            FrmBusqueda_Documentos frmBusqueda = new FrmBusqueda_Documentos();
-            Buscar_DocumentoVM context = new Buscar_DocumentoVM();
-            frmBusqueda.DataContext = context;
-
-            frmBusqueda.ShowDialog();
-            TextoBuscar = string.Empty;
-            GetDataGrid(string.Empty);
-        }
         /// <summary>
         /// Comando para agregar un nuevo departamento
         /// </summary>
@@ -459,17 +383,6 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método que muestra la ventana para dar de alta un departamento
-        /// </summary>
-        private void agregarDepartamento()
-        {
-            FrmNuevo_Departamento frm = new FrmNuevo_Departamento();
-            NuevoDepartamentoVM context = new NuevoDepartamentoVM();
-            frm.DataContext = context;
-            frm.ShowDialog();
-        }
-
-        /// <summary>
         /// Comando para visualizar la ventana de bloqueo
         /// </summary>
         public ICommand IrBloquear
@@ -478,17 +391,6 @@ namespace View.Services.ViewModel
             {
                 return new RelayCommand(o => irBloquear());
             }
-        }
-
-        /// <summary>
-        /// Método que muestra la ventana para agregaro o modificar un bloqueo
-        /// </summary>
-        private void irBloquear()
-        {
-            FrmBloqueo frame = new FrmBloqueo();
-            BloqueoVM context = new BloqueoVM();
-            frame.DataContext = context;
-            frame.ShowDialog();
         }
         
         /// <summary>
@@ -514,20 +416,6 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        private void irRecursos()
-        {
-            RecursoViewModel contexto = new RecursoViewModel(usuario);
-
-            FrmRecursosTipoDocumento p = new FrmRecursosTipoDocumento();
-
-            p.DataContext = contexto;
-
-            p.Show();
-        }
-
-        /// <summary>
         /// Comando para abrir la ventana de historial
         /// </summary>
         public ICommand IrHistorial
@@ -550,6 +438,134 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
+        /// Comando para abrir la ventana de documentos eliminados
+        /// </summary>
+        public ICommand irDocEliminado
+        {
+            get
+            {
+                return new RelayCommand(o =>irEliminados());
+            }
+        }
+
+
+        #endregion
+
+        #region Methods
+        /// <summary>
+        /// 
+        /// </summary>
+        private void irRecursos()
+        {
+            RecursoViewModel contexto = new RecursoViewModel(usuario);
+
+            FrmRecursosTipoDocumento p = new FrmRecursosTipoDocumento();
+
+            p.DataContext = contexto;
+
+            p.Show();
+        }
+
+        /// <summary>
+        /// Método que muestra la ventada de documentos pendientes por corregir de un usuario
+        /// </summary>
+        private void irDocumentosPendientes()
+        {
+            FrmDocumentosValidar frm = new FrmDocumentosValidar();
+
+            DocumentosPendientesViewM context = new DocumentosPendientesViewM(usuario, "pendientes");
+
+            frm.DataContext = context;
+            frm.ShowDialog();
+            initSnack();
+        }
+
+        /// <summary>
+        /// Método que muestra la ventada de documentos pendientes por liberar de un usuario
+        /// </summary>
+        private void _irPendientesLiberar()
+        {
+            FrmPendientes_Liberar frm = new FrmPendientes_Liberar();
+
+            PendientesLiberarVM context = new PendientesLiberarVM(usuario);
+
+            frm.DataContext = context;
+
+            frm.ShowDialog();
+
+            initSnack();
+        }
+
+        /// <summary>
+        /// Método que muestra la ventana para agregar el tipo de documento
+        /// </summary>
+        private void agregarTipo()
+        {
+            FrmNuevoTipo frmTipo = new FrmNuevoTipo();
+            NuevoTipoDocumentoVM context = new NuevoTipoDocumentoVM();
+            frmTipo.DataContext = context;
+            frmTipo.ShowDialog();
+
+            _ListaTipoDocumento = DataManagerControlDocumentos.GetTipo();
+            TextoBuscar = string.Empty;
+            GetDataGrid(string.Empty);
+        }
+
+        /// <summary>
+        /// Método que muestra la ventada de documentos liberados, pendientes por aprobar de todos los usuarios
+        /// </summary>
+        private void irDocumentosAprobados()
+        {
+            FrmDocumentosValidar frm = new FrmDocumentosValidar();
+
+            DocumentosPendientesViewM context = new DocumentosPendientesViewM(usuario, "aprobados");
+
+            frm.DataContext = context;
+
+            frm.ShowDialog();
+
+            TextoBuscar = string.Empty;
+            GetDataGrid(string.Empty);
+            initSnack();
+        }
+
+        /// <summary>
+        /// Método que muestra la ventana de todos los documentos 
+        /// </summary>
+        private void irBusquedaDocumento()
+        {
+            FrmBusqueda_Documentos frmBusqueda = new FrmBusqueda_Documentos();
+            Buscar_DocumentoVM context = new Buscar_DocumentoVM();
+            frmBusqueda.DataContext = context;
+
+            frmBusqueda.ShowDialog();
+            TextoBuscar = string.Empty;
+            GetDataGrid(string.Empty);
+        }
+
+        /// <summary>
+        /// Método que muestra la ventana para dar de alta un departamento
+        /// </summary>
+        private void agregarDepartamento()
+        {
+            FrmNuevo_Departamento frm = new FrmNuevo_Departamento();
+            NuevoDepartamentoVM context = new NuevoDepartamentoVM();
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Método que muestra la ventana para agregaro o modificar un bloqueo
+        /// </summary>
+        private void irBloquear()
+        {
+            FrmBloqueo frame = new FrmBloqueo();
+            BloqueoVM context = new BloqueoVM();
+            frame.DataContext = context;
+            frame.ShowDialog();
+        }
+
+        /// <summary>
         /// Método que muestra la ventana de historial de los documentos
         /// </summary>
         private void irHistorial()
@@ -569,19 +585,23 @@ namespace View.Services.ViewModel
             HistorialFiltrado_VM context = new HistorialFiltrado_VM();
             frm.DataContext = context;
             frm.ShowDialog();
-            
+
         }
 
         /// <summary>
-        /// Comando para abrir la ventana de documentos eliminados
+        /// inicializa la lista de tipos de documentos, obtiene los documentos dependiendo el tipo
         /// </summary>
-        public ICommand irDocEliminado
+        private void initControlDocumentos()
         {
-            get
+            _ListaTipoDocumento = DataManagerControlDocumentos.GetTipo();
+        
+            if (_ListaTipoDocumento.Count > 0)
             {
-                return new RelayCommand(o =>irEliminados());
+                SelectedTipoDocumento = _ListaTipoDocumento[0];
             }
+            GetDataGrid(string.Empty);       
         }
+
         /// <summary>
         /// Método que muestra todos los documentos eliminados con su archivo
         /// </summary>
@@ -620,10 +640,10 @@ namespace View.Services.ViewModel
 
             //Si el sistema no está bloqueado
             //2 es administrador del CIT, sólo los administradores pueden crear un documento cuando el sistema esté bloqueado
-            if (obj.id_bloqueo ==0 || Module.UsuarioIsRol(usuario.Roles, 2))
-            { 
-            //Obtenermos la cantidad de números de documentosque tiene el usuario sin versión.
-            int num_documentos = DataManagerControlDocumentos.GetDocumento_SinVersion(usuario.NombreUsuario).Count;
+            if (obj.id_bloqueo == 0 || Module.UsuarioIsRol(usuario.Roles, 2))
+            {
+                //Obtenermos la cantidad de números de documentosque tiene el usuario sin versión.
+                int num_documentos = DataManagerControlDocumentos.GetDocumento_SinVersion(usuario.NombreUsuario).Count;
 
                 //Si el número de documento es menor que cero
                 if (num_documentos > 0)
@@ -661,7 +681,7 @@ namespace View.Services.ViewModel
                             //Creamos un objeto de la ventana
                             FrmDocumento frm = new FrmDocumento();
                             DocumentoViewModel context = new DocumentoViewModel(usuario);
-                            frm.DataContext = context;                        
+                            frm.DataContext = context;
                             //Mostramos la ventana
                             frm.ShowDialog();
                             break;
@@ -685,7 +705,7 @@ namespace View.Services.ViewModel
                         default:
                             break;
                     }
-                   
+
                     TextoBuscar = string.Empty;
                     GetDataGrid(string.Empty);
                     initSnack();
@@ -693,7 +713,7 @@ namespace View.Services.ViewModel
                 else
                 {
                     //El usuario no tiene documentos sin verisón 
-                   
+
                     //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
                     MetroDialogSettings setting = new MetroDialogSettings();
                     setting.AffirmativeButtonText = "Crear un nuevo número";
@@ -712,7 +732,7 @@ namespace View.Services.ViewModel
                     else
                         //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
                         result = await dialogService.SendMessage("Atención", "Usted no tiene ningún número de documento disponible", setting, MessageDialogStyle.AffirmativeAndNegative);
-                    
+
                     switch (result)
                     {
                         case MessageDialogResult.Negative:
@@ -753,8 +773,8 @@ namespace View.Services.ViewModel
             else
             {
                 //Si el sistema está bloqueado
-                   DialogService dialog = new DialogService();
-                   await dialog.SendMessage("Sistema Bloqueado", obj.observaciones);
+                DialogService dialog = new DialogService();
+                await dialog.SendMessage("Sistema Bloqueado", obj.observaciones);
             }
         }
 
@@ -791,11 +811,12 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Método que crea un DataSet de los documentos listados, manda a llamar a la función para crear un nuevo archivo
         /// </summary>
-        private async void ExportarExcel(){
+        private async void ExportarExcel()
+        {
 
-           DataSet ds = new DataSet();
-           DataTable table = new DataTable();
-          
+            DataSet ds = new DataSet();
+            DataTable table = new DataTable();
+
             //Incializamos los servicios de dialog.
             DialogService dialog = new DialogService();
 
@@ -814,7 +835,7 @@ namespace View.Services.ViewModel
                 table.Columns.Add("Descripción");
                 table.Columns.Add("Version");
                 table.Columns.Add("Fecha de Emision", typeof(DateTime));
-                table.Columns.Add("Fecha de Revision", typeof(DateTime));                
+                table.Columns.Add("Fecha de Revision", typeof(DateTime));
                 table.Columns.Add("Área");
                 table.Columns.Add("Copias");
 
@@ -854,7 +875,7 @@ namespace View.Services.ViewModel
                 //Ejecutamos el método para cerrar el mensaje de espera.
                 await Progress.CloseAsync();
             }
-            
+
         }
 
         /// <summary>
@@ -867,7 +888,7 @@ namespace View.Services.ViewModel
             if (selectedDocumento != null)
             {
                 FrmDocumento frm = new FrmDocumento();
-                DocumentoViewModel context = new DocumentoViewModel(selectedDocumento,true,usuario);
+                DocumentoViewModel context = new DocumentoViewModel(selectedDocumento, true, usuario);
 
                 frm.DataContext = context;
 
@@ -880,22 +901,20 @@ namespace View.Services.ViewModel
             }
         }
 
-        #endregion
-
-        #region Methods
-
         /// <summary>
-        /// inicializa la lista de tipos de documentos, obtiene los documentos dependiendo el tipo
+        /// Método que muestra la ventana de documentos que tiene que validar el Administrador
         /// </summary>
-        private void initControlDocumentos()
+        private void irDocumentosValidar()
         {
-            _ListaTipoDocumento = DataManagerControlDocumentos.GetTipo();
-        
-            if (_ListaTipoDocumento.Count > 0)
-            {
-                SelectedTipoDocumento = _ListaTipoDocumento[0];
-            }
-            GetDataGrid(string.Empty);       
+            DocumentoValidarViewModel o = new DocumentoValidarViewModel(usuario);
+
+            FrmDocumentosValidar p = new FrmDocumentosValidar();
+
+            p.DataContext = o;
+
+            p.ShowDialog();
+
+            initSnack();
         }
 
         /// <summary>
@@ -1013,20 +1032,6 @@ namespace View.Services.ViewModel
 
         #endregion
 
-        #region Constructors
-        public ControlDocumentoViewModel(Usuario modelUsuario)
-        {
-            usuario = new Usuario();
-            usuario = modelUsuario;
-            initControlDocumentos();
-            initSnack();
-            //Si el usuario es administrador del CIT muestra los botones para agregar tipo de documento,
-            //departamento, buscar documento y bloquear Sistema
-            if (Module.UsuarioIsRol(usuario.Roles, 2))
-            {
-                BttnEnabled = true;
-            }
-        }
-        #endregion
+
     }
 }

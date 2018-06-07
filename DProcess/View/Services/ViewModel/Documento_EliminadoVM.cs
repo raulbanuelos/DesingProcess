@@ -84,6 +84,14 @@ namespace View.Services.ViewModel
 
         #endregion
 
+        #region Constructor
+        public Documento_EliminadoVM()
+        {
+            //Obtiene toda la lista de los documentos eliminados
+            GetListaDocumento(string.Empty);
+        }
+        #endregion
+
         #region Commands
         /// <summary>
         /// Comando que busca los documentos de acuerdo al parámetro recibido
@@ -95,6 +103,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(param => GetListaDocumento((string)param));
             }
         }
+
         /// <summary>
         /// Comando para visualizar la lista de archivos del documento seleccionado
         /// </summary>
@@ -105,6 +114,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => ver_archivo());
             }
         }
+
         /// <summary>
         /// Comando para abrir el archivo seleccionado
         /// </summary>
@@ -117,7 +127,9 @@ namespace View.Services.ViewModel
         }
 
         #endregion
+
         #region Methods
+
         /// <summary>
         /// Método que obtiene la lista de los documentos de acuerdo a número de documetno
         /// </summary>
@@ -205,14 +217,9 @@ namespace View.Services.ViewModel
             if (ListaArchivo != null)
                 ListaArchivo.Clear();
         }
+
         #endregion
 
-        #region Constructor
-        public Documento_EliminadoVM()
-        {
-            //Obtiene toda la lista de los documentos eliminados
-            GetListaDocumento(string.Empty);
-        }
-        #endregion
+
     }
 }

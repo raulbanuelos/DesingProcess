@@ -57,6 +57,19 @@ namespace View.Services.ViewModel
         }
         #endregion
 
+        #region PropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
+
+        #region INotifyPropertyChanged Métodos
+        void NotifyChange(params string[] ids)
+        {
+            if (PropertyChanged != null)
+                foreach (var id in ids)
+                    PropertyChanged(this, new PropertyChangedEventArgs(id));
+        }
+        #endregion
+
         #region Attributes
         public Usuario usuario; 
         #endregion
@@ -76,7 +89,34 @@ namespace View.Services.ViewModel
         }
         #endregion
 
+        #region Commands
+
+        /// <summary>
+        /// Comando para visualizar el documento seleccioando
+        /// </summary>
+        public ICommand AbrirDocumento
+        {
+            get
+            {
+                return new RelayCommand(o => abrirDocumento());
+            }
+        }
+
+        /// <summary>
+        /// comando para buscar documentos
+        /// </summary>
+        public ICommand BuscarDocumento
+        {
+            get
+            {
+                return new RelayCommand(param => GetDocument((string)param));
+            }
+        }
+
+        #endregion
+
         #region Methods
+
         /// <summary>
         /// Método que muestra la ventana con la información del documento seleccionado
         /// Se muestra ventana para validar el documento
@@ -111,31 +151,6 @@ namespace View.Services.ViewModel
             ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentosValidar(usuario.NombreUsuario,"");
             _titulo = "DOCUMENTOS PENDIENTES POR VALIDAR";
         }
-        #endregion
-
-        #region Commands
-        /// <summary>
-        /// Comando para visualizar el documento seleccioando
-        /// </summary>
-        public ICommand AbrirDocumento
-        {
-            get
-            {
-                return new RelayCommand(o => abrirDocumento());
-            }
-        } 
-
-        /// <summary>
-        /// comando para buscar documentos
-        /// </summary>
-        public ICommand BuscarDocumento
-        {
-            get
-            {
-                return new RelayCommand(param => GetDocument((string)param));
-            }
-        }
-        #endregion
 
         /// <summary>
         /// metodo que obtiene el documento
@@ -144,18 +159,6 @@ namespace View.Services.ViewModel
         private void GetDocument(string txt_buscar)
         {
             ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentosValidar(usuario.NombreUsuario, txt_buscar);
-        }
-
-        #region PropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-        #endregion
-
-        #region INotifyPropertyChanged Métodos
-        void NotifyChange(params string[] ids)
-        {
-            if (PropertyChanged != null)
-                foreach (var id in ids)
-                    PropertyChanged(this, new PropertyChangedEventArgs(id));
         }
         #endregion
     }

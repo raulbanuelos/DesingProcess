@@ -374,7 +374,7 @@ namespace View.Services.ViewModel
                 {
                     DO_Notification notificacion = new DO_Notification();
                     notificacion.TITLE = "Documento aprobado";
-                    notificacion.MSG = "El documento: " + SelectedDocumento.nombre + "\n Versión: " + selectedDocumento.version.no_version + "\nFué aprobado y ya lo puedes entregar al CIT.";
+                    notificacion.MSG = "El documento: " + SelectedDocumento.nombre + "\n Versión: " + selectedDocumento.version.no_version + "\nFué aprobado y ya lo puedes entregar al administrador de documentos.";
                     notificacion.TYPE_NOTIFICATION = 1;
                     notificacion.ID_USUARIO_RECEIVER = Usuario.id_usuario;
                     notificacion.ID_USUARIO_SEND = "ADMINISTRADOR";

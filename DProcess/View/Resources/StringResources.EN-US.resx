@@ -209,6 +209,9 @@
     <value>Authentication</value>
     <comment>Título para la autenticación.</comment>
   </data>
+  <data name="ttlcontroldocumento" xml:space="preserve">
+    <value />
+  </data>
   <data name="ttlData" xml:space="preserve">
     <value>Data</value>
     <comment>Título para datos</comment>
@@ -252,5 +255,9 @@
   <data name="ttlUser" xml:space="preserve">
     <value>Users</value>
     <comment>Título para usuarios</comment>
+  </data>
+  <data name="ttlControlDocumentos" xml:space="preserve">
+    <value>Documents Control</value>
+    <comment>Matriz de Control de Documentos</comment>
   </data>
 </root>

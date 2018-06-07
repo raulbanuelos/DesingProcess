@@ -137,7 +137,7 @@
                 </Controls:Tile>
 
                 <!--CIT-->
-                <Controls:Tile Command="{Binding IrControlDocumentos}" Background="#91009B" TiltFactor="2" Title="C.I.T" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="1" Cursor="Hand" RenderTransformOrigin="0.5,0.5" IsEnabled="{Binding PerfilCIT}">
+                <Controls:Tile Command="{Binding IrControlDocumentos}" Background="#91009B" TiltFactor="2" Title="{x:Static local:StringResources.ttlControlDocumentos}"  Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="1" Cursor="Hand" RenderTransformOrigin="0.5,0.5" IsEnabled="{Binding PerfilCIT}">
                     <Rectangle Width="100" Height="100" Fill="White">
                         <Rectangle.OpacityMask>
                             <VisualBrush Visual="{StaticResource appbar_cabinet_files_variant}" Stretch="Fill" />

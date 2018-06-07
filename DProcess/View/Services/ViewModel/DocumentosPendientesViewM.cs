@@ -99,6 +99,7 @@ namespace View.Services.ViewModel
         #endregion
 
         #region commands
+
         /// <summary>
         /// Comando para moestrar el documento seleccionado
         /// </summary>
@@ -109,6 +110,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => modificarDocumento());
             }
         }
+
         /// <summary>
         ///Comando que busca el documento
         ///segun se vaya escribiendo en el textbox
@@ -122,13 +124,15 @@ namespace View.Services.ViewModel
             }
         }
 
+        #endregion
+
+        #region Métodos
         /// <summary>
         /// método que obtiene el documento
         /// segun sea el estatus del documento se ejecuta el metodo correspondiente
         /// </summary>
         /// <param name="txt_buscar"></param>
         /// 
-
         private void GetDocument(string txt_buscar)
         {
             if (Estatus.Contains("pendiente"))
@@ -177,7 +181,7 @@ namespace View.Services.ViewModel
                 }
             }
         }
-        #endregion
+
         /// <summary>
         /// Método que inicializa la lista de documentos que se mostaran en la tabla
         /// Dependiendo del estatus se ejecutarán diferentes métodos
@@ -199,6 +203,7 @@ namespace View.Services.ViewModel
                     _titulo = "DOCUMENTOS PENDIENTES POR LIBERAR";
                 }
             }
-        }
+        #endregion
     }
+}
 

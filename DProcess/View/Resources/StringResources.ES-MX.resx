@@ -201,6 +201,9 @@
     <value>La hoja de ruta esta lista</value>
     <comment>Mensaje de creación de hoja de ruta esta listo.</comment>
   </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
   <data name="ttlAlerta" xml:space="preserve">
     <value>Alerta</value>
     <comment>Título de alerta</comment>
@@ -208,6 +211,10 @@
   <data name="ttlAuthentication" xml:space="preserve">
     <value>Autenticación</value>
     <comment>Título para la autenticación</comment>
+  </data>
+  <data name="ttlControlDocumentos" xml:space="preserve">
+    <value>Control de Documentos</value>
+    <comment>Matriz de Control de Documentos</comment>
   </data>
   <data name="ttlData" xml:space="preserve">
     <value>Base de datos</value>

@@ -56,18 +56,19 @@ namespace View.Services.ViewModel
         }
         #endregion
 
-        #region Commands 
-        #endregion
-
-        #region Methods
-
-        #endregion
         #region Constructor
 
         public DocumentosVencidosVM(string usuario)
         {
             ListaDocumentos = DataManagerControlDocumentos.GetDocumentos_Vencidos(usuario);
         }
+        #endregion
+
+        #region Commands 
+        #endregion
+
+        #region Methods
+
         #endregion
     }
 }

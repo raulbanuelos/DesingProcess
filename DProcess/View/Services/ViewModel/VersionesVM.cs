@@ -89,6 +89,7 @@ namespace View.Services.ViewModel
 
 
         #endregion
+
         #region Constructor
         public VersionesVM(Documento objDocument)
         {

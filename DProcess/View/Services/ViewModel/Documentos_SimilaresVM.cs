@@ -89,6 +89,13 @@ namespace View.Services.ViewModel
 
         #endregion
 
+        #region Constructor
+        public Documentos_SimilaresVM(ObservableCollection<Documento> ListaSimilares)
+        {
+            ListaDocumentos = ListaSimilares;
+        }
+        #endregion
+
         #region Commands
         /// <summary>
         /// Comando que muestra los archivos de un documento 
@@ -101,18 +108,6 @@ namespace View.Services.ViewModel
             }
         }
         /// <summary>
-        /// método que muestra los archivos del documento seleccionado
-        /// </summary>
-        private void verArchivos()
-        {
-            //si el documento es diferente de nulo, si se seleccionó algún documento
-            if (_SelectedDocumento !=null)
-            {
-                //Obtiene los archivos de la versión los guarda en la lista, para mostrarlos
-                ListaArchivos = DataManagerControlDocumentos.GetArchivos(SelectedDocumento.version.id_version);
-            }
-        }
-        /// <summary>
         /// Comando para abrir un archivo 
         /// </summary>
         public ICommand AbrirArchivo
@@ -122,12 +117,28 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => abrirArchivo());
             }
         }
+        #endregion
+
+        #region Métodos
+        /// <summary>
+        /// método que muestra los archivos del documento seleccionado
+        /// </summary>
+        private void verArchivos()
+        {
+            //si el documento es diferente de nulo, si se seleccionó algún documento
+            if (_SelectedDocumento != null)
+            {
+                //Obtiene los archivos de la versión los guarda en la lista, para mostrarlos
+                ListaArchivos = DataManagerControlDocumentos.GetArchivos(SelectedDocumento.version.id_version);
+            }
+        }
+
         /// <summary>
         /// Método para descargar y visualizar el archivo seleccionado
         /// </summary>
         private void abrirArchivo()
         {
-            if (SelectedArchivo !=null)
+            if (SelectedArchivo != null)
             {
                 int id_archivo = SelectedArchivo.id_archivo;
                 //se asigna el nombre del archivo temporal, se concatena el nombre del archivo, la posicion de la lista y la extensión.
@@ -140,11 +151,12 @@ namespace View.Services.ViewModel
                 Process.Start(filename);
             }
         }
-         /// <summary>
-         /// Comando que obtiene un nombre aleatorio para guardar el archivo temporalmente
-         /// </summary>
-         /// <param name="item"></param>
-         /// <returns></returns>
+
+        /// <summary>
+        /// Comando que obtiene un nombre aleatorio para guardar el archivo temporalmente
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         private string GetPathTempFile(Archivo item)
         {
             //Se guarda la ruta del directorio temporal.
@@ -163,14 +175,6 @@ namespace View.Services.ViewModel
 
             //Retorna la ruta del archivo
             return filename;
-        }
-
-        #endregion
-
-        #region Constructor
-        public Documentos_SimilaresVM(ObservableCollection<Documento> ListaSimilares)
-        {
-            ListaDocumentos = ListaSimilares;
         }
         #endregion
     }
