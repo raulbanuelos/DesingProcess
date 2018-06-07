@@ -2226,11 +2226,22 @@ namespace View.Services.ViewModel
                                     }
                                     else
                                     {
+                                        //si falla al momento de liberar el documento se regres el estatus del documento a pendiente por aprobar
+                                        objDocumento.id_estatus = 2;
+                                        update_documento = DataManagerControlDocumentos.Update_EstatusDocumento(objDocumento);
+
+                                        //si falla al momento de liberar el estatus de la version se regresa a aprobado, pendiente por liberar
+                                        objVersion.id_estatus_version = 5;
+                                        update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
+
                                         await dialog.SendMessage("Alerta", "Error al guardar el archivo");
                                     }
                                 }
                                 else
                                 {
+
+                                    objDocumento.id_estatus = 2;
+                                    update_documento = DataManagerControlDocumentos.Update_EstatusDocumento(objDocumento);
                                     await dialog.SendMessage("Alerta", "Error al actualizar el estatus de la versión y del documento..");
                                 }
                             }
@@ -2274,7 +2285,7 @@ namespace View.Services.ViewModel
                                 //Se obtienen el número de versión de la version anterior
                                 lastVersion.no_version = DataManagerControlDocumentos.GetNum_Version(last_id);
 
-                                //Ejecutamos el método para actualizar el estatus de la versión.
+                                //Ejecutamos el método para actualizar el estatus de la versión(liberamos el documento).
                                 int update = DataManagerControlDocumentos.Update_EstatusVersion(lastVersion,User,nombre);
 
                                 //si se actualizó correctamente
@@ -2315,6 +2326,14 @@ namespace View.Services.ViewModel
                                     }
                                     else
                                     {
+                                        //si falla al momento de liberar el documento se regresa el estatus de la version a liberado
+                                        lastVersion.id_estatus_version = 1;
+                                        update = DataManagerControlDocumentos.Update_EstatusVersion(lastVersion, User, nombre);
+
+                                        //si falla al momneto de liberar el documento se regresa el estatus de la version a aprobado, pendiente por liberar.
+                                        objVersion.id_estatus_version = 5;
+                                        update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
+
                                         await dialog.SendMessage("Alerta", "Error al guardar el archivo");
                                     }
                                 }
@@ -2326,6 +2345,7 @@ namespace View.Services.ViewModel
                             }
                             else
                             {
+
                                 //Si hubo error al actualizar la última versión
                                 await dialog.SendMessage("Alerta", "Error al actualizar la versión..");
                             }
