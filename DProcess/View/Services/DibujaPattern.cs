@@ -52,11 +52,10 @@ namespace View.Services
             pattSMRadioRequerido = Math.Round((_ValorCompensadoFactorK / 2) * 25.4, 4);
             //pattSMRadioCalculado = 
 
-
+            
             return true;
         }
-
-
+        
         private void compensaciones()
         {
             if (WidthPattern < 0.39)
