@@ -2,6 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:recursos="clr-namespace:View.Resources"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -9,6 +10,7 @@
         xmlns:local="clr-namespace:View.Forms.User"
         mc:Ignorable="d"
         Height="567" Width="925" 
+        Title="{x:Static recursos:StringResources.ttlModificarDatosUsuarios}"
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.Resources>
@@ -45,11 +47,11 @@
             <ColumnDefinition Width="60"/>
         </Grid.ColumnDefinitions>
         <Grid HorizontalAlignment="Left" Height="400"  VerticalAlignment="Top" Width="501" Grid.Row="1">
-            <TextBox x:Name="textBox" Text="{Binding usuario}" materialDesign:HintAssist.Hint="Nombre de Usuario" HorizontalAlignment="Left" Height="50" Margin="30,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="464"   BorderBrush="#899B9999" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="True"></TextBox>
-            <TextBox Text="{Binding nombre}" materialDesign:HintAssist.Hint="Nombre " HorizontalAlignment="Left" Height="50" Margin="30,75,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="464"   BorderBrush="#899B9999" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-            <TextBox x:Name="textBox1" Text="{Binding Apaterno}" materialDesign:HintAssist.Hint="Apellido Paterno " HorizontalAlignment="Left" Height="50" Margin="30,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216" BorderBrush="#899B9999" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-            <TextBox x:Name="textBox2" Text="{Binding Amaterno}" materialDesign:HintAssist.Hint="Apellido Materno " HorizontalAlignment="Left" Height="50" Margin="272,146,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="222" BorderBrush="#899B9999" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-            <PasswordBox x:Name="txt_pass"  materialDesign:HintAssist.Hint="Nueva Contraseña " HorizontalAlignment="Left" Height="50" Margin="30,210,0,0" VerticalAlignment="Top" Width="216" BorderBrush="#899B9999" FontSize="18">
+            <TextBox x:Name="textBox" Text="{Binding usuario}" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombreUsuario}" HorizontalAlignment="Left" Height="50" Margin="30,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="464"   BorderBrush="#899B9999" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="True"></TextBox>
+            <TextBox Text="{Binding nombre}" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombre}" HorizontalAlignment="Left" Height="50" Margin="30,75,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="464"   BorderBrush="#899B9999" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+            <TextBox x:Name="textBox1" Text="{Binding Apaterno}" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblApellidoPaterno}" HorizontalAlignment="Left" Height="50" Margin="30,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216" BorderBrush="#899B9999" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox x:Name="textBox2" Text="{Binding Amaterno}" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblApellidoMaterno}" HorizontalAlignment="Left" Height="50" Margin="272,146,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="222" BorderBrush="#899B9999" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <PasswordBox x:Name="txt_pass"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNuevaContraseña}" HorizontalAlignment="Left" Height="50" Margin="30,210,0,0" VerticalAlignment="Top" Width="216" BorderBrush="#899B9999" FontSize="18">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PasswordChanged">
                         <i:InvokeCommandAction
@@ -58,7 +60,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </PasswordBox>
-            <PasswordBox x:Name="txt_password"  materialDesign:HintAssist.Hint="Confirmar Contraseña" HorizontalAlignment="Left" Height="50" Margin="272,210,0,0"  VerticalAlignment="Top" Width="222"  BorderBrush="#899B9999" FontSize="18" >
+            <PasswordBox x:Name="txt_password"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblConfirmarContraseña}" HorizontalAlignment="Left" Height="50" Margin="272,210,0,0"  VerticalAlignment="Top" Width="222"  BorderBrush="#899B9999" FontSize="18" >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PasswordChanged">
                         <i:InvokeCommandAction
@@ -67,16 +69,16 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </PasswordBox>
-            
-<TextBox x:Name="txtCorreo" Text="{Binding correo}" materialDesign:HintAssist.Hint="Correo" HorizontalAlignment="Left" Height="50" Margin="30,260,0,-20" TextWrapping="Wrap" VerticalAlignment="Top" Width="464"   BorderBrush="#899B9999" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+            <TextBox x:Name="txtCorreo" Text="{Binding correo}" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCorreo}" HorizontalAlignment="Left" Height="50" Margin="30,260,0,-20" TextWrapping="Wrap" VerticalAlignment="Top" Width="464"   BorderBrush="#899B9999" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
             <TextBox Text="{Binding patnsf}" materialDesign:HintAssist.Hint="Path" HorizontalAlignment="Left"  Height="70" Margin="30,310,0,-20" TextWrapping="Wrap" VerticalAlignment="Top" Width="420"   BorderBrush="#899B9999" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                 <Button  HorizontalAlignment="Right"  Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding _AdjuntarRuta}"  ToolTip="Adjuntar Ruta" RenderTransformOrigin="-8.775,5.75" Margin="30,310,5,-20">
                     <materialDesign:PackIcon Kind="Routes"  Height="24" Width="24"/>
                 </Button>
         </Grid>
 
-        <Button Grid.Row="2" Grid.Column="1" Content="Guardar" HorizontalAlignment="Right" Height="40"  Width="90" Command="{Binding GuardarUsuario}" Margin="0,0,-304,0" />
-        <Label x:Name="label" Content="Modificar Datos Usuario" HorizontalAlignment="Left" Height="38"  VerticalAlignment="Top" Width="375" FontSize="20" FontWeight="Bold" Grid.Row="0" Margin="29,10,0,0"/>
+        <Button Grid.Row="2" Grid.Column="1" Content="{x:Static recursos:StringResources.lblEliminar}" HorizontalAlignment="Right" Height="40"  Width="90" Command="{Binding GuardarUsuario}" Margin="0,0,-304,0" />
+        <Label x:Name="label" Content="{x:Static recursos:StringResources.ttlModificarDatosUsuarios}" HorizontalAlignment="Left" Height="38"  VerticalAlignment="Top" Width="375" FontSize="20" FontWeight="Bold" Grid.Row="0" Margin="29,10,0,0"/>
         <ListBox Canvas.Left="666" Canvas.Top="51" ItemsSource="{Binding ListaTotdosRoles}" ItemTemplate="{StaticResource ListCheck}"  Background="White" Foreground="#DD040404" Grid.Column="1" Grid.Row="1" Margin="61,0,-304,0"/>
     </Grid>
 </Controls:MetroWindow>

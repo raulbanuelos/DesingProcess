@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -285,14 +286,14 @@ namespace View.Services.ViewModel
                     else
                     {
                         //Muestra en pantalla el msenaje.
-                        await dialog.SendMessage("Alerta", "Se debe seleccionar el estatus");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSeleccionarEstatus);
                     }
                 }
             }
             else
             {
                 //Muestra mensaje en pantalla.
-                await dialog.SendMessage("Alerta", "El rango de fechas es inválido..");
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgRangoFechasInvalido);
             }
         }
 
@@ -327,7 +328,7 @@ namespace View.Services.ViewModel
             else
             {
                 //Muestra mensaje en pantalla.
-                await dialog.SendMessage("Alerta", "El rango de fechas es inválido..");
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgRangoFechasInvalido);
             }
         }
 

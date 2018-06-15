@@ -1,6 +1,7 @@
 ﻿<Controls:MetroWindow  x:Class="View.Forms.User.FrmConsultaDatosUsuario"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:recursos="clr-namespace:View.Resources"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
@@ -8,7 +9,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:View.Forms.User"
         mc:Ignorable="d"
-        Title="Administrar Usuarios" 
+        Title="{x:Static recursos:StringResources.ttlAdministrarUsuarios}" 
         Height="500" Width="700" 
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
@@ -68,8 +69,8 @@
                             <TextBlock Text="{Binding Path=Pathnsf}" HorizontalAlignment="Right" Padding="2" Grid.Column="1" Grid.Row="7" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
                         </ScrollViewer>
 
-                        <Button  Grid.Column="1" Grid.Row="8" Content="Eliminar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#FFE27B7B" BorderBrush="#FFD36B6B" Command="{Binding Path=DataContext.EliminarUsuario,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" />
-                        <Button  Grid.Column="0" Grid.Row="8" Content="Modificar" Width="100" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Command="{Binding Path=DataContext.ModificarUsuario,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" ></Button>
+                        <Button  Grid.Column="1" Grid.Row="8" Content="{x:Static recursos:StringResources.lblEliminar}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#FFE27B7B" BorderBrush="#FFD36B6B" Command="{Binding Path=DataContext.EliminarUsuario,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" />
+                        <Button  Grid.Column="0" Grid.Row="8" Content="{x:Static recursos:StringResources.lblModificar}" Width="100" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Command="{Binding Path=DataContext.ModificarUsuario,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" ></Button>
                     </Grid>
                 </Grid>
             </Border>
@@ -90,7 +91,7 @@
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBox Name="txt_buscar"  materialDesign:HintAssist.Hint="Buscar Usuario" Grid.Column="1" Grid.Row="1" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}" HorizontalAlignment="Center" Width="550">
+        <TextBox Name="txt_buscar"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscarUsuario}" Grid.Column="1" Grid.Row="1" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}" HorizontalAlignment="Center" Width="550">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="TextChanged">
                     <i:InvokeCommandAction

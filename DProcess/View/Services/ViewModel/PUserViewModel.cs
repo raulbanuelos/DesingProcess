@@ -14,6 +14,7 @@ using System.Windows;
 using View.Forms.ControlDocumentos;
 using MahApps.Metro.Controls;
 using View.Forms.User;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -240,6 +241,7 @@ namespace View.Services.ViewModel
             frm.DataContext = context;
             frm.ShowDialog();
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -291,11 +293,11 @@ namespace View.Services.ViewModel
 
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Deseas guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, setting, MessageDialogStyle.AffirmativeAndNegative);
 
             if (result == MessageDialogResult.Affirmative)
             {
@@ -316,31 +318,31 @@ namespace View.Services.ViewModel
 
                                 if (update !=0)
                                 {
-                                    await dialog.SendMessage("Información", "Contraseña modificada");
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgContraseñaModificada);
                                 }
                                 else
                                 {
-                                    await dialog.SendMessage("Alerta", "Error al cambiar la contraseña");
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgContraseñaModificadaError);
                                 }
                             }
                             else
                             {
-                                await dialog.SendMessage("Alerta", "La contraseña no coincide");
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgContraseñaDiferente);
                             }
                         }
                         else
                         {
-                            await dialog.SendMessage("Alerta", "Error la contraseña actual no coincide");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgContraseñaActualDiferente);
                         }
                     }
                     else
                     {
-                        await dialog.SendMessage("Alerta", "La contraseña debe tener mínimo 6 caracteres.");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgContraseñaCorta);
                     }
                 }
                 else
                 {
-                    await dialog.SendMessage("Alerta", "Error debe llenar todos los campos");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
                 }
             }
         }

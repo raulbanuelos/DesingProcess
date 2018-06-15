@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -113,6 +114,20 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
+        /// Comando que muestra una lista de todos los archivos de la versión seleccionada
+        /// </summary>
+        public ICommand verArchivos
+        {
+            get
+            {
+                return new RelayCommand(o => listarArchivos());
+            }
+        }
+
+        #endregion
+
+        #region Métodos
+        /// <summary>
         /// Método que abre el archivo de una versión
         /// </summary>
         private async void abrirArchivo()
@@ -136,7 +151,7 @@ namespace View.Services.ViewModel
             catch (IOException er)
             {
                 //Si hubo error al abrir el archivo muestra un mensaje 
-                await dialog.SendMessage("Alerta", "Error al abrir el archivo...");
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorAbrir);
             }
         }
 
@@ -158,22 +173,11 @@ namespace View.Services.ViewModel
                 //Genera un número aleatorio
                 string aleatorio = Module.GetRandomString(5);
                 //Crea la ruta temporal con el nombre del archivo y el número generado, y la extensión
-                filename = Path.Combine(tempFolder, item.nombre  + "_" + aleatorio + item.ext);
+                filename = Path.Combine(tempFolder, item.nombre + "_" + aleatorio + item.ext);
             } while (File.Exists(filename));
 
             //Retorna la ruta del archivo
             return filename;
-        }
-
-        /// <summary>
-        /// Comando que muestra una lista de todos los archivos de la versión seleccionada
-        /// </summary>
-        public ICommand verArchivos
-        {
-            get
-            {
-                return new RelayCommand(o => listarArchivos());
-            }
         }
 
         /// <summary>

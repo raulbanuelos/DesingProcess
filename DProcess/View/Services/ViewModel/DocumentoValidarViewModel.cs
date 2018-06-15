@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using View.Forms.ControlDocumentos;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -149,7 +150,7 @@ namespace View.Services.ViewModel
         {
             //Ejecutamos el método para obtener la lista de documentos que el administrador tiene pendientes por validar
             ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentosValidar(usuario.NombreUsuario,"");
-            _titulo = "DOCUMENTOS PENDIENTES POR VALIDAR";
+            _titulo = StringResources.msgDocumentosValidar;
         }
 
         /// <summary>

@@ -10,6 +10,7 @@ using MahApps.Metro.Controls.Dialogs;
 using Encriptar;
 using System.Globalization;
 using View.Forms.LeccionesAprendidas;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -650,22 +651,22 @@ namespace View.Services.ViewModel
                 {
                     //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
                     MetroDialogSettings setting = new MetroDialogSettings();
-                    setting.NegativeButtonText = "Crear un nuevo número";
-                    setting.AffirmativeButtonText = "Editar documentos existentes";
+                    setting.NegativeButtonText = StringResources.msgCrearDocumento;
+                    setting.AffirmativeButtonText = StringResources.msgEditarDocumento;
 
                     MessageDialogResult result;
 
                     if (isAdministratorCIT)
                     {
                         //Creamos la opción del botón para generar un número de documento de forma manual.
-                        setting.FirstAuxiliaryButtonText = "Crear numero fijo";
+                        setting.FirstAuxiliaryButtonText = StringResources.msgNumeroFijo;
 
                         //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
-                        result = await dialogService.SendMessage("Atención", "Usted no tiene ningún número de documento disponible", setting, MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary);
+                        result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgDocumentoDisponible, setting, MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary);
                     }
                     else
                         //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
-                        result = await dialogService.SendMessage("Atención", "Usted no tiene ningún número de documento disponible", setting, MessageDialogStyle.AffirmativeAndNegative);
+                        result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgDocumentoDisponible, setting, MessageDialogStyle.AffirmativeAndNegative);
 
 
                     switch (result)
@@ -716,22 +717,22 @@ namespace View.Services.ViewModel
 
                     //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
                     MetroDialogSettings setting = new MetroDialogSettings();
-                    setting.AffirmativeButtonText = "Crear un nuevo número";
-                    setting.NegativeButtonText = "Cancelar";
+                    setting.AffirmativeButtonText = StringResources.msgCrearDocumento;
+                    setting.NegativeButtonText = StringResources.msgCancelar;
 
                     MessageDialogResult result;
 
                     if (isAdministratorCIT)
                     {
                         //Creamos la opción del botón para generar un número de documento de forma manual.
-                        setting.FirstAuxiliaryButtonText = "Crear numero fijo";
+                        setting.FirstAuxiliaryButtonText = StringResources.msgNumeroFijo;
 
                         //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
-                        result = await dialogService.SendMessage("Atención", "Usted no tiene ningún número de documento disponible", setting, MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary);
+                        result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgDocumentoDisponible, setting, MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary);
                     }
                     else
                         //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
-                        result = await dialogService.SendMessage("Atención", "Usted no tiene ningún número de documento disponible", setting, MessageDialogStyle.AffirmativeAndNegative);
+                        result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgNumeroDocumentoDisp, setting, MessageDialogStyle.AffirmativeAndNegative);
 
                     switch (result)
                     {
@@ -774,7 +775,7 @@ namespace View.Services.ViewModel
             {
                 //Si el sistema está bloqueado
                 DialogService dialog = new DialogService();
-                await dialog.SendMessage("Sistema Bloqueado", obj.observaciones);
+                await dialog.SendMessage(StringResources.msgSistemaBloqueado, obj.observaciones);
             }
         }
 
@@ -804,7 +805,7 @@ namespace View.Services.ViewModel
             {
                 //Si el sistema está bloqueado
                 DialogService dialog = new DialogService();
-                await dialog.SendMessage("Sistema Bloqueado", obj.observaciones);
+                await dialog.SendMessage(StringResources.msgSistemaBloqueado, obj.observaciones);
             }
         }
 
@@ -827,7 +828,7 @@ namespace View.Services.ViewModel
             if (Lista.Count != 0)
             {
                 //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
-                Progress = await dialog.SendProgressAsync("Por favor espere", "Generando archivo excel...");
+                Progress = await dialog.SendProgressAsync(StringResources.msgDoingOperation, StringResources.msgGenerandoExcell);
 
                 //Se añade las columnas, se especifíca el tipo fecha para dar formato a la columna
                 //Se tien que especificar el tipo, si no la fecha se escribe mal en Excel
@@ -869,7 +870,7 @@ namespace View.Services.ViewModel
                     await Progress.CloseAsync();
 
                     //Mostramos mensaje de error
-                    await dialog.SendMessage("Alerta", "Error al generar el archivo excel");
+                    await dialog.SendMessage(StringResources.msgError, StringResources.msgGenerandoExcell);
                 }
 
                 //Ejecutamos el método para cerrar el mensaje de espera.
@@ -938,6 +939,7 @@ namespace View.Services.ViewModel
 
                 //Método para obtener todos los documentos que están aprobados pero están pendientes por liberar
                 num_aprobados = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar("").Count;
+
                 //Obtiene los documentos pendientes por liberar, y que el usuario debe entregar en físico
                 pendientes_liberar = DataManagerControlDocumentos.GetPendientes_Liberar(usuario.NombreUsuario).Count;
 
@@ -948,7 +950,7 @@ namespace View.Services.ViewModel
                 if (num_validar > 0)
                 {
                     EnabledValidar = true;
-                    DocumentosValidar = " " + num_validar + " Documento(s) pendiente(s) por validar";
+                    DocumentosValidar = " " + num_validar + StringResources.msgDocumentosValidar;
                 }
                 else
                 {
@@ -959,7 +961,7 @@ namespace View.Services.ViewModel
                 if (num_pendientes > 0)
                 {
                     EnabledCorregir = true;
-                    DocumentosCorregir = " " + num_pendientes + " Documento(s) pendiente(s) por corregir";
+                    DocumentosCorregir = " " + num_pendientes + StringResources.msgDocumentosCorregir;
                 }
                 else
                 {
@@ -969,7 +971,7 @@ namespace View.Services.ViewModel
                 if (num_aprobados > 0)
                 {
                     EnabledAprobados = true;
-                    DocumentosAprobados = " " + num_aprobados + " Documento(s) pendiente(s) por liberar";
+                    DocumentosAprobados = " " + num_aprobados + StringResources.msgDocumentosLiberar;
                 }
                 else
                 {
@@ -978,7 +980,7 @@ namespace View.Services.ViewModel
                 }
                 if(pendientes_liberar >0 ){
                     EnabledPendientes_Liberar = true;
-                    PendientesLiberar= "Existen  " + pendientes_liberar + " documentos que puedes entregar";
+                    PendientesLiberar= pendientes_liberar + StringResources.msgDocumentosEntregar;
                 }
                 else
                 {
@@ -1001,7 +1003,7 @@ namespace View.Services.ViewModel
                 if (num_pendientes > 0)
                 {
                     EnabledCorregir = true;
-                    DocumentosCorregir = " " + num_pendientes + " Documento(s) pendiente(s) por corregir";
+                    DocumentosCorregir = " " + num_pendientes + StringResources.msgDocumentosCorregir;
                 }
                 else
                 {
@@ -1011,7 +1013,7 @@ namespace View.Services.ViewModel
                 if (pendientes_liberar > 0)
                 {
                     EnabledPendientes_Liberar = true;
-                    PendientesLiberar = "Existen  " + pendientes_liberar + " documentos que puedes entregar";
+                    PendientesLiberar = pendientes_liberar + StringResources.msgDocumentosEntregar;
                 }
                 else
                 {

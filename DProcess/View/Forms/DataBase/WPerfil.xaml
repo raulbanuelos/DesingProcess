@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Forms.DataBase"
+        xmlns:recursos="clr-namespace:View.Resources"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
@@ -24,19 +25,19 @@
 
 
             <StackPanel>
-                <TextBox materialDesign:HintAssist.Hint="Nombre" Text="{Binding Nombre}" TextAlignment="Left"  Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" />
-                <TextBox materialDesign:HintAssist.Hint="Descripcion" Text="{Binding Descripcion}" TextAlignment="Left"  Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" />
+                <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombre}" Text="{Binding Nombre}" TextAlignment="Left"  Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" />
+                <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblDescripcion}" Text="{Binding Descripcion}" TextAlignment="Left"  Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" />
 
-                <ComboBox materialDesign:HintAssist.Hint="Tipo de Perfil" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="500" ItemsSource="{Binding ListaTipoPerfil}"  DisplayMemberPath="Perfil" SelectedItem="{Binding SelectedTipoPerfil}">
+                <ComboBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblTipoPerfil}" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="500" ItemsSource="{Binding ListaTipoPerfil}"  DisplayMemberPath="Perfil" SelectedItem="{Binding SelectedTipoPerfil}">
 
                 </ComboBox>
 
-                <Button Content="Guardar" Command="{Binding GuardarPerfil}"></Button>
+                <Button Content="{x:Static recursos:StringResources.lblGuardar}" Command="{Binding GuardarPerfil}"></Button>
             </StackPanel>
 
             <StackPanel>
                 <Image Source="{Binding Imagen}" Width="100" Height="100"></Image>
-                <Button Content="Seleccionar" Command="{Binding SeleccionarImagen}"></Button>
+                <Button Content="{x:Static recursos:StringResources.lblSeleccionar}" Command="{Binding SeleccionarImagen}"></Button>
             </StackPanel>
         </StackPanel>
 

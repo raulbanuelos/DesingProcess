@@ -2,20 +2,21 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:recursos="clr-namespace:View.Resources"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Nueva Validación" Height="300" Width="500"
+        Title="{x:Static recursos:StringResources.ttlNuevaValidacion}" Height="300" Width="500"
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid HorizontalAlignment="Left" Height="248" Margin="10,10,0,0" VerticalAlignment="Top" Width="470">
-            <Label x:Name="label" Content="Agregar Nueva Validación" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Height="42" Margin="29,10,0,0" VerticalAlignment="Top" Width="349"/>
-            <TextBox  materialDesign:HintAssist.Hint="Validación " Text="{Binding Validacion}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18" Height="50" Margin="32,49,38,149" Width="400" CharacterCasing="Upper" BorderBrush="#899B9999" />
-            <TextBox materialDesign:HintAssist.Hint="Descripción " Text="{Binding Descripcion}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18" Margin="32,114,38,84" Height="50" Width="400" CharacterCasing="Upper" BorderBrush="#899B9999"></TextBox>
-            <Button Height="39" Content="Guardar" Command="{Binding GuardarValidacion}" FontSize="12" Width="75" Margin="366,184,29,10"/>
+            <Label x:Name="label" Content="{x:Static recursos:StringResources.lblAgregarNuevaValidacion}" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Height="42" Margin="29,10,0,0" VerticalAlignment="Top" Width="349"/>
+            <TextBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblValidacion}" Text="{Binding Validacion}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18" Height="50" Margin="32,49,38,149" Width="400" CharacterCasing="Upper" BorderBrush="#899B9999" />
+            <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblDescripcion}" Text="{Binding Descripcion}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18" Margin="32,114,38,84" Height="50" Width="400" CharacterCasing="Upper" BorderBrush="#899B9999"></TextBox>
+            <Button Height="39" Content="{x:Static recursos:StringResources.lblGuardar}" Command="{Binding GuardarValidacion}" FontSize="12" Width="75" Margin="366,184,29,10"/>
         </Grid>
     </Grid>
 </Controls:MetroWindow>

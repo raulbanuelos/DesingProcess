@@ -61,11 +61,218 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Abbreviation.
+        /// </summary>
+        public static string lblAbreviatura {
+            get {
+                return ResourceManager.GetString("lblAbreviatura", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Accept.
+        /// </summary>
+        public static string lblAceptar {
+            get {
+                return ResourceManager.GetString("lblAceptar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Update No. of Copies.
+        /// </summary>
+        public static string lblActualizarCopias {
+            get {
+                return ResourceManager.GetString("lblActualizarCopias", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Add File.
+        /// </summary>
+        public static string lblAdjuntarArchivo {
+            get {
+                return ResourceManager.GetString("lblAdjuntarArchivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Add Department.
+        /// </summary>
+        public static string lblAgregarDepartamento {
+            get {
+                return ResourceManager.GetString("lblAgregarDepartamento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Add New Validation.
+        /// </summary>
+        public static string lblAgregarNuevaValidacion {
+            get {
+                return ResourceManager.GetString("lblAgregarNuevaValidacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Add Type.
+        /// </summary>
+        public static string lblAgregarTipo {
+            get {
+                return ResourceManager.GetString("lblAgregarTipo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Add Type of Document.
+        /// </summary>
+        public static string lblAgregarTipoDocumento {
+            get {
+                return ResourceManager.GetString("lblAgregarTipoDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Add User.
+        /// </summary>
+        public static string lblAgregarUsuario {
+            get {
+                return ResourceManager.GetString("lblAgregarUsuario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Add.
+        /// </summary>
+        public static string lblAñadir {
+            get {
+                return ResourceManager.GetString("lblAñadir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Mother&apos;s Last Name.
+        /// </summary>
+        public static string lblApellidoMaterno {
+            get {
+                return ResourceManager.GetString("lblApellidoMaterno", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Last Name.
+        /// </summary>
+        public static string lblApellidoPaterno {
+            get {
+                return ResourceManager.GetString("lblApellidoPaterno", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Area.
+        /// </summary>
+        public static string lblArea {
+            get {
+                return ResourceManager.GetString("lblArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Area Frames.
+        /// </summary>
+        public static string lblAreaFrames {
+            get {
+                return ResourceManager.GetString("lblAreaFrames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Lock System.
+        /// </summary>
+        public static string lblBloquearSistema {
+            get {
+                return ResourceManager.GetString("lblBloquearSistema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Login.
         /// </summary>
         public static string lblBtnLogin {
             get {
                 return ResourceManager.GetString("lblBtnLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Search.
+        /// </summary>
+        public static string lblBuscar {
+            get {
+                return ResourceManager.GetString("lblBuscar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Search Document.
+        /// </summary>
+        public static string lblBuscarDocumento {
+            get {
+                return ResourceManager.GetString("lblBuscarDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Search user.
+        /// </summary>
+        public static string lblBuscarUsuario {
+            get {
+                return ResourceManager.GetString("lblBuscarUsuario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Change Made by.
+        /// </summary>
+        public static string lblCambioRealizadoPor {
+            get {
+                return ResourceManager.GetString("lblCambioRealizadoPor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Required Change.
+        /// </summary>
+        public static string lblCambioRequerido {
+            get {
+                return ResourceManager.GetString("lblCambioRequerido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Workplace.
+        /// </summary>
+        public static string lblCentroTrabajo {
+            get {
+                return ResourceManager.GetString("lblCentroTrabajo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Component.
+        /// </summary>
+        public static string lblComponente {
+            get {
+                return ResourceManager.GetString("lblComponente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Confirm Password.
+        /// </summary>
+        public static string lblConfirmarContraseña {
+            get {
+                return ResourceManager.GetString("lblConfirmarContraseña", resourceCulture);
             }
         }
         
@@ -79,11 +286,119 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Mail.
+        /// </summary>
+        public static string lblCorreo {
+            get {
+                return ResourceManager.GetString("lblCorreo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Criterion.
+        /// </summary>
+        public static string lblCriterio {
+            get {
+                return ResourceManager.GetString("lblCriterio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a User Data.
+        /// </summary>
+        public static string lblDatosUsuario {
+            get {
+                return ResourceManager.GetString("lblDatosUsuario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Department/Process.
+        /// </summary>
+        public static string lblDepartamentoProceso {
+            get {
+                return ResourceManager.GetString("lblDepartamentoProceso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Unlock.
+        /// </summary>
+        public static string lblDesbloquear {
+            get {
+                return ResourceManager.GetString("lblDesbloquear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Description.
+        /// </summary>
+        public static string lblDescripcion {
+            get {
+                return ResourceManager.GetString("lblDescripcion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Description of the problem.
+        /// </summary>
+        public static string lblDescripcionProblema {
+            get {
+                return ResourceManager.GetString("lblDescripcionProblema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Diameter.
         /// </summary>
         public static string lblDiameter {
             get {
                 return ResourceManager.GetString("lblDiameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a See Documents Deleted.
+        /// </summary>
+        public static string lblDocumentosEliminados {
+            get {
+                return ResourceManager.GetString("lblDocumentosEliminados", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Note : Remember that the documents must be signed.
+        /// </summary>
+        public static string lblDocumentosFirmados {
+            get {
+                return ResourceManager.GetString("lblDocumentosFirmados", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Pending Documents.
+        /// </summary>
+        public static string lblDocumentosPendientes {
+            get {
+                return ResourceManager.GetString("lblDocumentosPendientes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Pending Documents to Deliver.
+        /// </summary>
+        public static string lblDocumentosPendientesEntregar {
+            get {
+                return ResourceManager.GetString("lblDocumentosPendientesEntregar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delete.
+        /// </summary>
+        public static string lblEliminar {
+            get {
+                return ResourceManager.GetString("lblEliminar", resourceCulture);
             }
         }
         
@@ -97,11 +412,182 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Export to Excel.
+        /// </summary>
+        public static string lblExportar {
+            get {
+                return ResourceManager.GetString("lblExportar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Date.
+        /// </summary>
+        public static string lblFecha {
+            get {
+                return ResourceManager.GetString("lblFecha", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Update Date.
+        /// </summary>
+        public static string lblFechaActualizacion {
+            get {
+                return ResourceManager.GetString("lblFechaActualizacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Issue Date.
+        /// </summary>
+        public static string lblFechaEmision {
+            get {
+                return ResourceManager.GetString("lblFechaEmision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Final Date.
+        /// </summary>
+        public static string lblFechaFinal {
+            get {
+                return ResourceManager.GetString("lblFechaFinal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Start Date.
+        /// </summary>
+        public static string lblFechaInicio {
+            get {
+                return ResourceManager.GetString("lblFechaInicio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Review Date.
+        /// </summary>
+        public static string lblFechaRevision {
+            get {
+                return ResourceManager.GetString("lblFechaRevision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Last Change Date.
+        /// </summary>
+        public static string lblFechaUltimoCambio {
+            get {
+                return ResourceManager.GetString("lblFechaUltimoCambio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Generate.
+        /// </summary>
+        public static string lblGenerar {
+            get {
+                return ResourceManager.GetString("lblGenerar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Generate Excel.
+        /// </summary>
+        public static string lblGenerarExcel {
+            get {
+                return ResourceManager.GetString("lblGenerarExcel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Generate Document Number.
+        /// </summary>
+        public static string lblGenerarNumeroDocumento {
+            get {
+                return ResourceManager.GetString("lblGenerarNumeroDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Generate Version.
+        /// </summary>
+        public static string lblGenerarVersion {
+            get {
+                return ResourceManager.GetString("lblGenerarVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Save.
+        /// </summary>
+        public static string lblGuardar {
+            get {
+                return ResourceManager.GetString("lblGuardar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Record.
+        /// </summary>
+        public static string lblHistorial {
+            get {
+                return ResourceManager.GetString("lblHistorial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Document Id.
+        /// </summary>
+        public static string lblIdDocumento {
+            get {
+                return ResourceManager.GetString("lblIdDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Information.
         /// </summary>
         public static string lblInformation {
             get {
                 return ResourceManager.GetString("lblInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Insert.
+        /// </summary>
+        public static string lblInsertar {
+            get {
+                return ResourceManager.GetString("lblInsertar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Released.
+        /// </summary>
+        public static string lblLiberado {
+            get {
+                return ResourceManager.GetString("lblLiberado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Release.
+        /// </summary>
+        public static string lblLiberar {
+            get {
+                return ResourceManager.GetString("lblLiberar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a List of user availables.
+        /// </summary>
+        public static string lblListaUsuariosDisponibles {
+            get {
+                return ResourceManager.GetString("lblListaUsuariosDisponibles", resourceCulture);
             }
         }
         
@@ -115,11 +601,191 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Select a plate measurement.
+        /// </summary>
+        public static string lblMedidaPlato {
+            get {
+                return ResourceManager.GetString("lblMedidaPlato", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Modify.
+        /// </summary>
+        public static string lblModificar {
+            get {
+                return ResourceManager.GetString("lblModificar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Level of Change.
+        /// </summary>
+        public static string lblNivelCambio {
+            get {
+                return ResourceManager.GetString("lblNivelCambio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a No.
         /// </summary>
         public static string lblNo {
             get {
                 return ResourceManager.GetString("lblNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Name.
+        /// </summary>
+        public static string lblNombre {
+            get {
+                return ResourceManager.GetString("lblNombre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Department Name.
+        /// </summary>
+        public static string lblNombreDepartamento {
+            get {
+                return ResourceManager.GetString("lblNombreDepartamento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Name of the Department/Process.
+        /// </summary>
+        public static string lblNombreDepartamentoProceso {
+            get {
+                return ResourceManager.GetString("lblNombreDepartamentoProceso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Document Name.
+        /// </summary>
+        public static string lblNombreDocumento {
+            get {
+                return ResourceManager.GetString("lblNombreDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Name User.
+        /// </summary>
+        public static string lblNombreUsuario {
+            get {
+                return ResourceManager.GetString("lblNombreUsuario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Notify.
+        /// </summary>
+        public static string lblNotificar {
+            get {
+                return ResourceManager.GetString("lblNotificar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Notify after release :.
+        /// </summary>
+        public static string lblNotificarA {
+            get {
+                return ResourceManager.GetString("lblNotificarA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a New Password.
+        /// </summary>
+        public static string lblNuevaContraseña {
+            get {
+                return ResourceManager.GetString("lblNuevaContraseña", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a New Lesson.
+        /// </summary>
+        public static string lblNuevaLeccion {
+            get {
+                return ResourceManager.GetString("lblNuevaLeccion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a New Document.
+        /// </summary>
+        public static string lblNuevoDocumento {
+            get {
+                return ResourceManager.GetString("lblNuevoDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a New Type of Document.
+        /// </summary>
+        public static string lblNuevoTipoDocumento {
+            get {
+                return ResourceManager.GetString("lblNuevoTipoDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Number of Copies.
+        /// </summary>
+        public static string lblNumeroCopias {
+            get {
+                return ResourceManager.GetString("lblNumeroCopias", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Document Number.
+        /// </summary>
+        public static string lblNumeroDocumento {
+            get {
+                return ResourceManager.GetString("lblNumeroDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Matrix Number.
+        /// </summary>
+        public static string lblNumeroMatriz {
+            get {
+                return ResourceManager.GetString("lblNumeroMatriz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Version Number.
+        /// </summary>
+        public static string lblNumeroVersion {
+            get {
+                return ResourceManager.GetString("lblNumeroVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Observations.
+        /// </summary>
+        public static string lblObservaciones {
+            get {
+                return ResourceManager.GetString("lblObservaciones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Operation.
+        /// </summary>
+        public static string lblOperacion {
+            get {
+                return ResourceManager.GetString("lblOperacion", resourceCulture);
             }
         }
         
@@ -133,11 +799,83 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Pending to correct.
+        /// </summary>
+        public static string lblPendienteCorregir {
+            get {
+                return ResourceManager.GetString("lblPendienteCorregir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Profile.
+        /// </summary>
+        public static string lblPerfil {
+            get {
+                return ResourceManager.GetString("lblPerfil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Remove Relation.
+        /// </summary>
+        public static string lblQuitarRelacion {
+            get {
+                return ResourceManager.GetString("lblQuitarRelacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Record deleted!.
         /// </summary>
         public static string lblRecordDeleted {
             get {
                 return ResourceManager.GetString("lblRecordDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Return Previous Version.
+        /// </summary>
+        public static string lblRegresarVersionAnterior {
+            get {
+                return ResourceManager.GetString("lblRegresarVersionAnterior", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Relate.
+        /// </summary>
+        public static string lblRelacionar {
+            get {
+                return ResourceManager.GetString("lblRelacionar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Reported by.
+        /// </summary>
+        public static string lblReportadoPor {
+            get {
+                return ResourceManager.GetString("lblReportadoPor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select.
+        /// </summary>
+        public static string lblSeleccionar {
+            get {
+                return ResourceManager.GetString("lblSeleccionar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Engineering Job Request.
+        /// </summary>
+        public static string lblSolicitudTrabajoIng {
+            get {
+                return ResourceManager.GetString("lblSolicitudTrabajoIng", resourceCulture);
             }
         }
         
@@ -151,7 +889,25 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a password.
+        ///   Busca una cadena traducida similar a Document Type.
+        /// </summary>
+        public static string lblTipoDocumento {
+            get {
+                return ResourceManager.GetString("lblTipoDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Profile Type.
+        /// </summary>
+        public static string lblTipoPerfil {
+            get {
+                return ResourceManager.GetString("lblTipoPerfil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Password.
         /// </summary>
         public static string lblTxtContrasena {
             get {
@@ -160,7 +916,7 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a username.
+        ///   Busca una cadena traducida similar a Username.
         /// </summary>
         public static string lblTxtUserName {
             get {
@@ -174,6 +930,132 @@ namespace View.Resources {
         public static string lblUserNotActive {
             get {
                 return ResourceManager.GetString("lblUserNotActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a User.
+        /// </summary>
+        public static string lblUsuario {
+            get {
+                return ResourceManager.GetString("lblUsuario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a User Authorized.
+        /// </summary>
+        public static string lblUsuarioAutorizo {
+            get {
+                return ResourceManager.GetString("lblUsuarioAutorizo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a User Elaborated.
+        /// </summary>
+        public static string lblUsuarioElaboro {
+            get {
+                return ResourceManager.GetString("lblUsuarioElaboro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Validation.
+        /// </summary>
+        public static string lblValidacion {
+            get {
+                return ResourceManager.GetString("lblValidacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Validation Document.
+        /// </summary>
+        public static string lblValidacionDocumento {
+            get {
+                return ResourceManager.GetString("lblValidacionDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No Related Validations.
+        /// </summary>
+        public static string lblValidacionesNoRelacionadas {
+            get {
+                return ResourceManager.GetString("lblValidacionesNoRelacionadas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Related Validations.
+        /// </summary>
+        public static string lblValidacionesRelacionadas {
+            get {
+                return ResourceManager.GetString("lblValidacionesRelacionadas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a See.
+        /// </summary>
+        public static string lblVer {
+            get {
+                return ResourceManager.GetString("lblVer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a To see/delete the file, first you need to click in the icon of Word/PDF..
+        /// </summary>
+        public static string lblVerArchivo {
+            get {
+                return ResourceManager.GetString("lblVerArchivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Afther click in the icon.
+        /// </summary>
+        public static string lblverarchivo2 {
+            get {
+                return ResourceManager.GetString("lblverarchivo2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a See Record.
+        /// </summary>
+        public static string lblVerHistorial {
+            get {
+                return ResourceManager.GetString("lblVerHistorial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a See Resources.
+        /// </summary>
+        public static string lblVerRecurso {
+            get {
+                return ResourceManager.GetString("lblVerRecurso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Version.
+        /// </summary>
+        public static string lblVersion {
+            get {
+                return ResourceManager.GetString("lblVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Versions.
+        /// </summary>
+        public static string lblVersiones {
+            get {
+                return ResourceManager.GetString("lblVersiones", resourceCulture);
             }
         }
         
@@ -205,11 +1087,353 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a to.
+        /// </summary>
+        public static string msgA {
+            get {
+                return ResourceManager.GetString("msgA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Admin.
+        /// </summary>
+        public static string msgAdmin {
+            get {
+                return ResourceManager.GetString("msgAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Added department.
+        /// </summary>
+        public static string msgAgregarDepartamento {
+            get {
+                return ResourceManager.GetString("msgAgregarDepartamento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The file was deleted correctly.
+        /// </summary>
+        public static string msgArchivoEliminadoCorrectamente {
+            get {
+                return ResourceManager.GetString("msgArchivoEliminadoCorrectamente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The file can´t be deleted.
+        /// </summary>
+        public static string msgArchivoEliminadoFallido {
+            get {
+                return ResourceManager.GetString("msgArchivoEliminadoFallido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The file was inserted correctly.
+        /// </summary>
+        public static string msgArchivoInsertado {
+            get {
+                return ResourceManager.GetString("msgArchivoInsertado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The changes were saved successfully, the files will be verified by the document manager.
+        /// </summary>
+        public static string msgCambiosGuardadosExito {
+            get {
+                return ResourceManager.GetString("msgCambiosGuardadosExito", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Changes saved successfully.
+        /// </summary>
+        public static string msgCambiosRealizados {
+            get {
+                return ResourceManager.GetString("msgCambiosRealizados", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Invalid fields, enter only numbers.
+        /// </summary>
+        public static string msgCamposInvalidos {
+            get {
+                return ResourceManager.GetString("msgCamposInvalidos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cancel.
+        /// </summary>
+        public static string msgCancelar {
+            get {
+                return ResourceManager.GetString("msgCancelar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Close the file to be able to continue.
+        /// </summary>
+        public static string msgCierreArchivo {
+            get {
+                return ResourceManager.GetString("msgCierreArchivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to save the changes?.
+        /// </summary>
+        public static string msgConfirmacion {
+            get {
+                return ResourceManager.GetString("msgConfirmacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error the current password doesn&apos;t match.
+        /// </summary>
+        public static string msgContraseñaActualDiferente {
+            get {
+                return ResourceManager.GetString("msgContraseñaActualDiferente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The password must have more than 6 characters.
+        /// </summary>
+        public static string msgContraseñaCorta {
+            get {
+                return ResourceManager.GetString("msgContraseñaCorta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Passwords aren&apos;t the same.
+        /// </summary>
+        public static string msgContraseñaDiferente {
+            get {
+                return ResourceManager.GetString("msgContraseñaDiferente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Modified password.
+        /// </summary>
+        public static string msgContraseñaModificada {
+            get {
+                return ResourceManager.GetString("msgContraseñaModificada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error changing password.
+        /// </summary>
+        public static string msgContraseñaModificadaError {
+            get {
+                return ResourceManager.GetString("msgContraseñaModificadaError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Create new number.
+        /// </summary>
+        public static string msgCrearDocumento {
+            get {
+                return ResourceManager.GetString("msgCrearDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to delete this file?.
+        /// </summary>
+        public static string msgDelArchivo {
+            get {
+                return ResourceManager.GetString("msgDelArchivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The user was successfully deleted.
+        /// </summary>
+        public static string msgDeleteUsuario {
+            get {
+                return ResourceManager.GetString("msgDeleteUsuario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to delete this user?.
+        /// </summary>
+        public static string msgDelUsuario {
+            get {
+                return ResourceManager.GetString("msgDelUsuario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to unlock the system?.
+        /// </summary>
+        public static string msgDesbloquearSistema {
+            get {
+                return ResourceManager.GetString("msgDesbloquearSistema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The document.
+        /// </summary>
+        public static string msgDocumento {
+            get {
+                return ResourceManager.GetString("msgDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Document updated in the matrix.
+        /// </summary>
+        public static string msgDocumentoActualizado {
+            get {
+                return ResourceManager.GetString("msgDocumentoActualizado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You don&apos;t have any document available.
+        /// </summary>
+        public static string msgDocumentoDisponible {
+            get {
+                return ResourceManager.GetString("msgDocumentoDisponible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Document (s) pending (s) to be corrected.
+        /// </summary>
+        public static string msgDocumentosCorregir {
+            get {
+                return ResourceManager.GetString("msgDocumentosCorregir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Document (s) pending (s) to be delivered.
+        /// </summary>
+        public static string msgDocumentosEntregar {
+            get {
+                return ResourceManager.GetString("msgDocumentosEntregar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Document (s) pending (s) to be released.
+        /// </summary>
+        public static string msgDocumentosLiberar {
+            get {
+                return ResourceManager.GetString("msgDocumentosLiberar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Document (s) pending (s) to be validated.
+        /// </summary>
+        public static string msgDocumentosValidar {
+            get {
+                return ResourceManager.GetString("msgDocumentosValidar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Working at operation: .
         /// </summary>
         public static string msgDoingOperation {
             get {
                 return ResourceManager.GetString("msgDoingOperation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Edit existing document.
+        /// </summary>
+        public static string msgEditarDocumento {
+            get {
+                return ResourceManager.GetString("msgEditarDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The lesson was deleted correctly.
+        /// </summary>
+        public static string msgEliminacionCorrectaLeccion {
+            get {
+                return ResourceManager.GetString("msgEliminacionCorrectaLeccion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The document can&apos;t be deleted.
+        /// </summary>
+        public static string msgEliminarDocumentoFallido {
+            get {
+                return ResourceManager.GetString("msgEliminarDocumentoFallido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The document was successfully removed from the frames system.
+        /// </summary>
+        public static string msgEliminarDocumentoFrames {
+            get {
+                return ResourceManager.GetString("msgEliminarDocumentoFrames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a An error occurred in the system frameworks. Please remove it directly from the frames system.
+        /// </summary>
+        public static string msgEliminarDocumentoFramesFallida {
+            get {
+                return ResourceManager.GetString("msgEliminarDocumentoFramesFallida", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to delete the lesson learned?.
+        /// </summary>
+        public static string msgEliminarLeccion {
+            get {
+                return ResourceManager.GetString("msgEliminarLeccion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to delete this file?.
+        /// </summary>
+        public static string msgEliminarRegistro {
+            get {
+                return ResourceManager.GetString("msgEliminarRegistro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The version can&apos;t be deleted.
+        /// </summary>
+        public static string msgEliminarVersionFallida {
+            get {
+                return ResourceManager.GetString("msgEliminarVersionFallida", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Version deleted.
+        /// </summary>
+        public static string msgEliminaVersion {
+            get {
+                return ResourceManager.GetString("msgEliminaVersion", resourceCulture);
             }
         }
         
@@ -223,11 +1447,650 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The abbreviation must have less than 7 characters.
+        /// </summary>
+        public static string msgErrorAbreviatura {
+            get {
+                return ResourceManager.GetString("msgErrorAbreviatura", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error when the file was opening.
+        /// </summary>
+        public static string msgErrorAbrir {
+            get {
+                return ResourceManager.GetString("msgErrorAbrir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error updating tooling.
+        /// </summary>
+        public static string msgErrorActualizarHerramental {
+            get {
+                return ResourceManager.GetString("msgErrorActualizarHerramental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error updating version.
+        /// </summary>
+        public static string msgErrorActualizarVersion {
+            get {
+                return ResourceManager.GetString("msgErrorActualizarVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The department can&apos;t be added.
+        /// </summary>
+        public static string msgErrorAgregarDepartamento {
+            get {
+                return ResourceManager.GetString("msgErrorAgregarDepartamento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The document couldn´t be deleted.
+        /// </summary>
+        public static string msgErrorBorrarDocumento {
+            get {
+                return ResourceManager.GetString("msgErrorBorrarDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The version couldn´t be deleted.
+        /// </summary>
+        public static string msgErrorBorrarVersion {
+            get {
+                return ResourceManager.GetString("msgErrorBorrarVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The change in the document wasn&apos;t made.
+        /// </summary>
+        public static string msgErrorCambiosDocumentos {
+            get {
+                return ResourceManager.GetString("msgErrorCambiosDocumentos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The change in the version wasn&apos;t made.
+        /// </summary>
+        public static string msgErrorCambiosVersion {
+            get {
+                return ResourceManager.GetString("msgErrorCambiosVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You can´t create a new version.
+        /// </summary>
+        public static string msgErrorCrearVersion {
+            get {
+                return ResourceManager.GetString("msgErrorCrearVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The department already exist.
+        /// </summary>
+        public static string msgErrorDepartamentoExistente {
+            get {
+                return ResourceManager.GetString("msgErrorDepartamentoExistente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a This document has a description similar to other files.
+        /// </summary>
+        public static string msgErrorDescripcionErrorArchivo {
+            get {
+                return ResourceManager.GetString("msgErrorDescripcionErrorArchivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error removing tooling.
+        /// </summary>
+        public static string msgErrorEliminarHerramental {
+            get {
+                return ResourceManager.GetString("msgErrorEliminarHerramental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error removing relationship.
+        /// </summary>
+        public static string msgErrorEliminarRelacion {
+            get {
+                return ResourceManager.GetString("msgErrorEliminarRelacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error deleting validation.
+        /// </summary>
+        public static string msgErrorEliminarValidacion {
+            get {
+                return ResourceManager.GetString("msgErrorEliminarValidacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error saving the changes.
+        /// </summary>
+        public static string msgErrorGeneral {
+            get {
+                return ResourceManager.GetString("msgErrorGeneral", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error generating file.
+        /// </summary>
+        public static string msgErrorGenerarArchivo {
+            get {
+                return ResourceManager.GetString("msgErrorGenerarArchivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Failure to generate the number, please contact the system administrator.
+        /// </summary>
+        public static string msgErrorGenerarNumero {
+            get {
+                return ResourceManager.GetString("msgErrorGenerarNumero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Failure to generate the number, probably the number already exist, please contact the system administrator.
+        /// </summary>
+        public static string msgErrorGenerarNumeroExistente {
+            get {
+                return ResourceManager.GetString("msgErrorGenerarNumeroExistente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error saving the file.
+        /// </summary>
+        public static string msgErrorGuardandoArchivo {
+            get {
+                return ResourceManager.GetString("msgErrorGuardandoArchivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Can&apos;t save the file.
+        /// </summary>
+        public static string msgErrorGuardarArchivo {
+            get {
+                return ResourceManager.GetString("msgErrorGuardarArchivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Failure to save the document, please contact the system administrator.
+        /// </summary>
+        public static string msgErrorGuardarDocumento {
+            get {
+                return ResourceManager.GetString("msgErrorGuardarDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error saving the file.
+        /// </summary>
+        public static string msgErrorInsertarArchivo {
+            get {
+                return ResourceManager.GetString("msgErrorInsertarArchivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error reading the file.
+        /// </summary>
+        public static string msgErrorLeerArchivo {
+            get {
+                return ResourceManager.GetString("msgErrorLeerArchivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error to save the tooling master.
+        /// </summary>
+        public static string msgErrorMaestroHerramental {
+            get {
+                return ResourceManager.GetString("msgErrorMaestroHerramental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error modifying the registry.
+        /// </summary>
+        public static string msgErrorModificarRegistro {
+            get {
+                return ResourceManager.GetString("msgErrorModificarRegistro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Range error.
+        /// </summary>
+        public static string msgErrorRangos {
+            get {
+                return ResourceManager.GetString("msgErrorRangos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error registering the block.
+        /// </summary>
+        public static string msgErrorRegistrarBloqueo {
+            get {
+                return ResourceManager.GetString("msgErrorRegistrarBloqueo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error registering the document.
+        /// </summary>
+        public static string msgErrorRegistrarDocumento {
+            get {
+                return ResourceManager.GetString("msgErrorRegistrarDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error registering validation.
+        /// </summary>
+        public static string msgErrorRegistrarValidacion {
+            get {
+                return ResourceManager.GetString("msgErrorRegistrarValidacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error registering the version.
+        /// </summary>
+        public static string msgErrorRegistrarVersion {
+            get {
+                return ResourceManager.GetString("msgErrorRegistrarVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error registering the document type.
+        /// </summary>
+        public static string msgErrorTipoDocumento {
+            get {
+                return ResourceManager.GetString("msgErrorTipoDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The document hasn´t previus version.
+        /// </summary>
+        public static string msgErrorVersion {
+            get {
+                return ResourceManager.GetString("msgErrorVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please wait.
+        /// </summary>
+        public static string msgEspera {
+            get {
+                return ResourceManager.GetString("msgEspera", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Saving document.
+        /// </summary>
+        public static string msgEsperaGuardandoDocumento {
+            get {
+                return ResourceManager.GetString("msgEsperaGuardandoDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Has state.
+        /// </summary>
+        public static string msgEstado {
+            get {
+                return ResourceManager.GetString("msgEstado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error updating the status of the document.
+        /// </summary>
+        public static string msgEstatusDocumento {
+            get {
+                return ResourceManager.GetString("msgEstatusDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a the status was changed pending correction.
+        /// </summary>
+        public static string msgEstatusPendienteCorregir {
+            get {
+                return ResourceManager.GetString("msgEstatusPendienteCorregir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error updating the status of the version.
+        /// </summary>
+        public static string msgEstatusVersion {
+            get {
+                return ResourceManager.GetString("msgEstatusVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The status of the version was updated.
+        /// </summary>
+        public static string msgEstatusVersionActualizada {
+            get {
+                return ResourceManager.GetString("msgEstatusVersionActualizada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error updating version and document status.
+        /// </summary>
+        public static string msgEstatusVersionDocumento {
+            get {
+                return ResourceManager.GetString("msgEstatusVersionDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Exist.
+        /// </summary>
+        public static string msgExisten {
+            get {
+                return ResourceManager.GetString("msgExisten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Only routes with an .nsf extension are allowed.
+        /// </summary>
+        public static string msgExtencionNSF {
+            get {
+                return ResourceManager.GetString("msgExtencionNSF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Please, fill all fields.
         /// </summary>
         public static string msgFillFlields {
             get {
                 return ResourceManager.GetString("msgFillFlields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The frames system was updated.
+        /// </summary>
+        public static string msgFramesExito {
+            get {
+                return ResourceManager.GetString("msgFramesExito", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a There was an error updating the frames system. Please update manually.
+        /// </summary>
+        public static string msgFramesIncorrecto {
+            get {
+                return ResourceManager.GetString("msgFramesIncorrecto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Elaborating Excel file.
+        /// </summary>
+        public static string msgGenerandoExcell {
+            get {
+                return ResourceManager.GetString("msgGenerandoExcell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The generated number :.
+        /// </summary>
+        public static string msgGenerarNumero {
+            get {
+                return ResourceManager.GetString("msgGenerarNumero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to create a new version ?.
+        /// </summary>
+        public static string msgGenerarVersion {
+            get {
+                return ResourceManager.GetString("msgGenerarVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Saving.
+        /// </summary>
+        public static string msgGuardando {
+            get {
+                return ResourceManager.GetString("msgGuardando", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The document is going to be save with the data :.
+        /// </summary>
+        public static string msgGuardarDocumento {
+            get {
+                return ResourceManager.GetString("msgGuardarDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Any tool was found with these characteristics.
+        /// </summary>
+        public static string msgHerramental {
+            get {
+                return ResourceManager.GetString("msgHerramental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enter the number of copies.
+        /// </summary>
+        public static string msgIngNumeroCopias {
+            get {
+                return ResourceManager.GetString("msgIngNumeroCopias", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Attaching file.
+        /// </summary>
+        public static string msgInsertando {
+            get {
+                return ResourceManager.GetString("msgInsertando", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to create the new lesson learned?.
+        /// </summary>
+        public static string msgInsertarLeccionAprendida {
+            get {
+                return ResourceManager.GetString("msgInsertarLeccionAprendida", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Only files .DOC can be uploaded for this type of files.
+        /// </summary>
+        public static string msgInsertarTipoArchivoDOC {
+            get {
+                return ResourceManager.GetString("msgInsertarTipoArchivoDOC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Only files .PDF can be uploaded for this type of files.
+        /// </summary>
+        public static string msgInsertarTipoArchivoPDF {
+            get {
+                return ResourceManager.GetString("msgInsertarTipoArchivoPDF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You can insert only one file.
+        /// </summary>
+        public static string msgInsertarUnoSolo {
+            get {
+                return ResourceManager.GetString("msgInsertarUnoSolo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The lesson learned was successfully inserted.
+        /// </summary>
+        public static string msgInsertoExitoLeccion {
+            get {
+                return ResourceManager.GetString("msgInsertoExitoLeccion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The tooling master already exist.
+        /// </summary>
+        public static string msgMaestroHerramentalExistente {
+            get {
+                return ResourceManager.GetString("msgMaestroHerramentalExistente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a What do you want to do? •Keep the same value  •Convert the value from.
+        /// </summary>
+        public static string msgMantenerConvertir {
+            get {
+                return ResourceManager.GetString("msgMantenerConvertir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Correctly updated matrix.
+        /// </summary>
+        public static string msgMatrizActualizada {
+            get {
+                return ResourceManager.GetString("msgMatrizActualizada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a It was notified by email successfully.
+        /// </summary>
+        public static string msgNotificacionCorreo {
+            get {
+                return ResourceManager.GetString("msgNotificacionCorreo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a An error occurred when notifying by mail. Please notify manually from Lotus Notes.
+        /// </summary>
+        public static string msgNotificacionCorreoFallida {
+            get {
+                return ResourceManager.GetString("msgNotificacionCorreoFallida", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Is already updated in the Documents Control Matrix.
+        /// </summary>
+        public static string msgNotificacionMatriz {
+            get {
+                return ResourceManager.GetString("msgNotificacionMatriz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The version can&apos;t be deleted, you need to choose a user to notify.
+        /// </summary>
+        public static string msgNotificarBaja {
+            get {
+                return ResourceManager.GetString("msgNotificarBaja", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The new version of the document is the number.
+        /// </summary>
+        public static string msgNuevaVersion {
+            get {
+                return ResourceManager.GetString("msgNuevaVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Number of copies.
+        /// </summary>
+        public static string msgNumeroCopias {
+            get {
+                return ResourceManager.GetString("msgNumeroCopias", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You don´t have any number of document available.
+        /// </summary>
+        public static string msgNumeroDocumentoDisp {
+            get {
+                return ResourceManager.GetString("msgNumeroDocumentoDisp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Create a fixed number.
+        /// </summary>
+        public static string msgNumeroFijo {
+            get {
+                return ResourceManager.GetString("msgNumeroFijo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The document number is repeated.
+        /// </summary>
+        public static string msgNumeroRepetido {
+            get {
+                return ResourceManager.GetString("msgNumeroRepetido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Version number.
+        /// </summary>
+        public static string msgNumeroVersion {
+            get {
+                return ResourceManager.GetString("msgNumeroVersion", resourceCulture);
             }
         }
         
@@ -241,11 +2104,200 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The number was copied to the clipboard.
+        /// </summary>
+        public static string msgPortapapeles {
+            get {
+                return ResourceManager.GetString("msgPortapapeles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a This user has documents, only user privileges will be deleted.
+        /// </summary>
+        public static string msgPrivilegiosUsuario {
+            get {
+                return ResourceManager.GetString("msgPrivilegiosUsuario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to remove relationship?.
+        /// </summary>
+        public static string msgQuitarRelacion {
+            get {
+                return ResourceManager.GetString("msgQuitarRelacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The date range is invalid.
+        /// </summary>
+        public static string msgRangoFechasInvalido {
+            get {
+                return ResourceManager.GetString("msgRangoFechasInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to return to pending status to be corrected?.
+        /// </summary>
+        public static string msgRegresarCorregir {
+            get {
+                return ResourceManager.GetString("msgRegresarCorregir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a File removed !. The matrix was ​​update correctly.
+        /// </summary>
+        public static string msgResgitroEliminado {
+            get {
+                return ResourceManager.GetString("msgResgitroEliminado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The routing is ready.
         /// </summary>
         public static string msgRoutingReady {
             get {
                 return ResourceManager.GetString("msgRoutingReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You need to choose the status.
+        /// </summary>
+        public static string msgSeleccionarEstatus {
+            get {
+                return ResourceManager.GetString("msgSeleccionarEstatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a At least one validation must be selected.
+        /// </summary>
+        public static string msgSeleccionarValidacion {
+            get {
+                return ResourceManager.GetString("msgSeleccionarValidacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select a number to insert a file.
+        /// </summary>
+        public static string msgSeleccioneArchivo {
+            get {
+                return ResourceManager.GetString("msgSeleccioneArchivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Blocked system.
+        /// </summary>
+        public static string msgSistemaBloqueado {
+            get {
+                return ResourceManager.GetString("msgSistemaBloqueado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You need to choose type and/or department.
+        /// </summary>
+        public static string msgTipoDepartamento {
+            get {
+                return ResourceManager.GetString("msgTipoDepartamento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a A type of document must be selected.
+        /// </summary>
+        public static string msgTipoDocumento {
+            get {
+                return ResourceManager.GetString("msgTipoDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The document type already exist.
+        /// </summary>
+        public static string msgTipoDocumentoExistente {
+            get {
+                return ResourceManager.GetString("msgTipoDocumentoExistente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a User registered.
+        /// </summary>
+        public static string msgUsuarioAlta {
+            get {
+                return ResourceManager.GetString("msgUsuarioAlta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error registering the user.
+        /// </summary>
+        public static string msgUsuarioAltaError {
+            get {
+                return ResourceManager.GetString("msgUsuarioAltaError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The user already exist.
+        /// </summary>
+        public static string msgUsuarioExistente {
+            get {
+                return ResourceManager.GetString("msgUsuarioExistente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a At least one validation must be selected.
+        /// </summary>
+        public static string msgValidacion {
+            get {
+                return ResourceManager.GetString("msgValidacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Validation already exists.
+        /// </summary>
+        public static string msgValidacionExistente {
+            get {
+                return ResourceManager.GetString("msgValidacionExistente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to return to previus version?.
+        /// </summary>
+        public static string msgVersionAnterior {
+            get {
+                return ResourceManager.GetString("msgVersionAnterior", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a .
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Manage Users.
+        /// </summary>
+        public static string ttlAdministrarUsuarios {
+            get {
+                return ResourceManager.GetString("ttlAdministrarUsuarios", resourceCulture);
             }
         }
         
@@ -268,6 +2320,33 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Lock.
+        /// </summary>
+        public static string ttlBloqueo {
+            get {
+                return ResourceManager.GetString("ttlBloqueo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Search Document.
+        /// </summary>
+        public static string ttlBusquedaDocumento {
+            get {
+                return ResourceManager.GetString("ttlBusquedaDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Document Control.
+        /// </summary>
+        public static string ttlControlDocumento {
+            get {
+                return ResourceManager.GetString("ttlControlDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Documents Control.
         /// </summary>
         public static string ttlControlDocumentos {
@@ -277,11 +2356,56 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Convert to.
+        /// </summary>
+        public static string ttlConvertir {
+            get {
+                return ResourceManager.GetString("ttlConvertir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Create Number.
+        /// </summary>
+        public static string ttlCrearNumero {
+            get {
+                return ResourceManager.GetString("ttlCrearNumero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Data.
         /// </summary>
         public static string ttlData {
             get {
                 return ResourceManager.GetString("ttlData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Documents Deleted.
+        /// </summary>
+        public static string ttlDocumentosEliminados {
+            get {
+                return ResourceManager.GetString("ttlDocumentosEliminados", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Similar Documents.
+        /// </summary>
+        public static string ttlDocumentosSimilares {
+            get {
+                return ResourceManager.GetString("ttlDocumentosSimilares", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Expired Documents.
+        /// </summary>
+        public static string ttlDocumentosVencidos {
+            get {
+                return ResourceManager.GetString("ttlDocumentosVencidos", resourceCulture);
             }
         }
         
@@ -304,11 +2428,119 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Number Generator.
+        /// </summary>
+        public static string ttlGeneradorNumero {
+            get {
+                return ResourceManager.GetString("ttlGeneradorNumero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Save.
+        /// </summary>
+        public static string ttlGuardar {
+            get {
+                return ResourceManager.GetString("ttlGuardar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Save version.
+        /// </summary>
+        public static string ttlGuardarVersion {
+            get {
+                return ResourceManager.GetString("ttlGuardarVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Lessons.
+        /// </summary>
+        public static string ttlLecciones {
+            get {
+                return ResourceManager.GetString("ttlLecciones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Learned lessons.
         /// </summary>
         public static string ttlLessons {
             get {
                 return ResourceManager.GetString("ttlLessons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a List of Users.
+        /// </summary>
+        public static string ttlListaUsuarios {
+            get {
+                return ResourceManager.GetString("ttlListaUsuarios", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Keep.
+        /// </summary>
+        public static string ttlMantener {
+            get {
+                return ResourceManager.GetString("ttlMantener", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Document Control Matrix.
+        /// </summary>
+        public static string ttlMatrizControlDocumento {
+            get {
+                return ResourceManager.GetString("ttlMatrizControlDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Learned Lessons Matrix.
+        /// </summary>
+        public static string ttlMatrizLeccionesAprendidas {
+            get {
+                return ResourceManager.GetString("ttlMatrizLeccionesAprendidas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Modify User Data.
+        /// </summary>
+        public static string ttlModificarDatosUsuarios {
+            get {
+                return ResourceManager.GetString("ttlModificarDatosUsuarios", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a New Validation.
+        /// </summary>
+        public static string ttlNuevaValidacion {
+            get {
+                return ResourceManager.GetString("ttlNuevaValidacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a New Department.
+        /// </summary>
+        public static string ttlNuevoDepartamento {
+            get {
+                return ResourceManager.GetString("ttlNuevoDepartamento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a New User.
+        /// </summary>
+        public static string ttlNuevoUsuario {
+            get {
+                return ResourceManager.GetString("ttlNuevoUsuario", resourceCulture);
             }
         }
         
@@ -327,6 +2559,15 @@ namespace View.Resources {
         public static string ttlRawMaterial {
             get {
                 return ResourceManager.GetString("ttlRawMaterial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Resources.
+        /// </summary>
+        public static string ttlRecursos {
+            get {
+                return ResourceManager.GetString("ttlRecursos", resourceCulture);
             }
         }
         
@@ -367,11 +2608,38 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Units.
+        /// </summary>
+        public static string ttlUnidades {
+            get {
+                return ResourceManager.GetString("ttlUnidades", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Users.
         /// </summary>
         public static string ttlUser {
             get {
                 return ResourceManager.GetString("ttlUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Validate Document.
+        /// </summary>
+        public static string ttlValidarDocumento {
+            get {
+                return ResourceManager.GetString("ttlValidarDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show Files.
+        /// </summary>
+        public static string ttlVerArchivo {
+            get {
+                return ResourceManager.GetString("ttlVerArchivo", resourceCulture);
             }
         }
     }

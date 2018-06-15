@@ -12,6 +12,7 @@ using View.Forms.User;
 using MaterialDesignThemes.Wpf;
 using MahApps.Metro.Controls.Dialogs;
 using System.Collections;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -140,6 +141,7 @@ namespace View.Services.ViewModel
         #endregion
 
         #region metodos
+
         /// <summary>
         /// metodo que busca 
         /// </summary>
@@ -160,6 +162,7 @@ namespace View.Services.ViewModel
                 }
             }
         }
+
         /// <summary>
         /// metodo que obtiene la lista de usuarios con sus respectivos roles
         /// para mostrarlos en la vista
@@ -181,6 +184,7 @@ namespace View.Services.ViewModel
                 }
             }
         }
+
         /// <summary>
         /// metodo para ver la informacion de un usuario
         /// y modificarla
@@ -211,12 +215,12 @@ namespace View.Services.ViewModel
 
             Encriptacion encriptar = new Encriptacion();
 
-            botones.AffirmativeButtonText = "SI";
-            botones.NegativeButtonText = "NO";
+            botones.AffirmativeButtonText = StringResources.lblYes;
+            botones.NegativeButtonText = StringResources.lblNo;
 
             if (id_usuario != null)
             {
-                MessageDialogResult resultado = await dialog.SendMessage("Atencion", "Desea Eliminar el Usuario", botones, MessageDialogStyle.AffirmativeAndNegative);
+                MessageDialogResult resultado = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgDelUsuario, botones, MessageDialogStyle.AffirmativeAndNegative);
                 if (resultado ==MessageDialogResult.Affirmative)
                 {
                     bool r = DataManagerControlDocumentos.ContarDocumentos(encriptar.encript(id_usuario.usuario));
@@ -225,7 +229,7 @@ namespace View.Services.ViewModel
                         if (r == true)
                         {
                             //si el usuario tiene documentos
-                            await dialog.SendMessage("Atencion", "El Usuario Tiene documentos, Solo se le Borraran los Privilegios");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgPrivilegiosUsuario);
                             Model.DataManager.DeletePrivilegiosUsuario(encriptar.encript(id_usuario.usuario));
                             Model.DataManager.DeLete_PerfilUsuario(encriptar.encript(id_usuario.usuario));
                             DataManagerControlDocumentos.DeleteRol_Usuario(encriptar.encript(id_usuario.usuario));
@@ -239,7 +243,7 @@ namespace View.Services.ViewModel
                             Model.DataManager.DeLete_PerfilUsuario(encriptar.encript(id_usuario.usuario));
                             DataManagerControlDocumentos.DeleteRol_Usuario(encriptar.encript(id_usuario.usuario));
                             DataManagerControlDocumentos.DeleteUsuarios(id_usuario);
-                            await dialog.SendMessage("Atencion", "El Usuario se Elimino correctamenre");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgDeleteUsuario);
                             ConstructorVista();
                         }
                     }

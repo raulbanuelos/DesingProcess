@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using Model;
 using View.Forms.Modals;
 using MahApps.Metro.Controls.Dialogs;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -118,30 +119,6 @@ namespace View.Services.ViewModel
             }
         }
 
-        /// <summary>
-        /// Método que asigna el nuevo valor a la propiedad Unidad. Así mismo permirte convertir o mantener el valor.
-        /// </summary>
-        /// <param name="NewUnidad"></param>
-        public async void SetNewValor(string NewUnidad)
-        {
-            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
-            MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "Convert to";
-            setting.NegativeButtonText = "Keep";
-
-            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialogService.SendMessage("Attention", "What do you want to do? \n •Keep the same value \n •Convert the value from " + model.Unidad + " to " + NewUnidad, setting, MessageDialogStyle.AffirmativeAndNegative);
-            
-            //Comparamos si la respuesta fué afirmativa, el usuario eligió convertir el valor.
-            if (result == MessageDialogResult.Affirmative)
-            {
-                Valor = Module.ConvertTo(model.TipoDato, model.Unidad, NewUnidad,Valor);
-                NotifyChange("Valor");
-            }
-            model.Unidad = NewUnidad;
-            NotifyChange("Unidad");
-            NotifyChange("TextoPresentacion");
-        }
 
         /// <summary>
         /// Double que representa el valor de la propiedad.
@@ -282,6 +259,30 @@ namespace View.Services.ViewModel
             modal.ShowDialog();
         }
 
+        /// <summary>
+        /// Método que asigna el nuevo valor a la propiedad Unidad. Así mismo permirte convertir o mantener el valor.
+        /// </summary>
+        /// <param name="NewUnidad"></param>
+        public async void SetNewValor(string NewUnidad)
+        {
+            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = StringResources.ttlConvertir;
+            setting.NegativeButtonText = StringResources.ttlMantener;
+
+            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+            MessageDialogResult result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgMantenerConvertir + model.Unidad +" "+ StringResources.msgA +" "+ NewUnidad, setting, MessageDialogStyle.AffirmativeAndNegative);
+
+            //Comparamos si la respuesta fué afirmativa, el usuario eligió convertir el valor.
+            if (result == MessageDialogResult.Affirmative)
+            {
+                Valor = Module.ConvertTo(model.TipoDato, model.Unidad, NewUnidad, Valor);
+                NotifyChange("Valor");
+            }
+            model.Unidad = NewUnidad;
+            NotifyChange("Unidad");
+            NotifyChange("TextoPresentacion");
+        }
         #endregion
     }
 }

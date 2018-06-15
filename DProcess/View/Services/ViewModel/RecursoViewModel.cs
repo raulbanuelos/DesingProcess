@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -205,7 +206,7 @@ namespace View.Services.ViewModel
                     //Si el archivo no está en uso
                     if (!IsFileInUse(fileName)) {
                         //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
-                        AsyncProgress = await ServiceDialog.SendProgressAsync("Por favor espere", "Adjuntando archivo...");
+                        AsyncProgress = await ServiceDialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgInsertando);
 
                         //Asignamos el archivo que seleccionó el usuario al objeto declarado.
                         obj.archivo = await Task.Run(() => File.ReadAllBytes(fileName));
@@ -221,21 +222,21 @@ namespace View.Services.ViewModel
                         //Enviamos un mensaje dependiendo la respuesta.
                         if (r > 0)
                         {
-                            await ServiceDialog.SendMessage("Información", "Archivo agregado correctamente");
+                            await ServiceDialog.SendMessage(StringResources.ttlAlerta, StringResources.msgArchivoInsertado);
                             Consultar();
                         }
 
                         else
-                            await ServiceDialog.SendMessage("Alerta", "Error al guardar el archivo");
+                            await ServiceDialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorInsertarArchivo);
                     }
                     else
                     {
-                        await ServiceDialog.SendMessage("Alerta", "Cierre el archivo para continuar..");
+                        await ServiceDialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCierreArchivo);
                     }
                 }
                 catch (IOException)
                 {
-                    await ServiceDialog.SendMessage("Alerta", "Cierre el archivo para continuar..");
+                    await ServiceDialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCierreArchivo);
                 }
             }
         }
@@ -317,11 +318,11 @@ namespace View.Services.ViewModel
             {
                 //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
                 MetroDialogSettings setting = new MetroDialogSettings();
-                setting.AffirmativeButtonText = "SI";
-                setting.NegativeButtonText = "NO";
+                setting.AffirmativeButtonText = StringResources.lblYes;
+                setting.NegativeButtonText = StringResources.lblNo;
 
                 //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-                MessageDialogResult result = await dialogService.SendMessage("Attention", "¿Desea eliminar el archivo?", setting, MessageDialogStyle.AffirmativeAndNegative);
+                MessageDialogResult result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgDelArchivo, setting, MessageDialogStyle.AffirmativeAndNegative);
 
                 if (item != null & result == MessageDialogResult.Affirmative)
                 {
@@ -333,9 +334,9 @@ namespace View.Services.ViewModel
 
                     //Si el resutaldo es mayor a cero entonces confirmamos al usuario si se eliminó. Sino mandamos un mensaje de alerta.
                     if (r > 0)
-                        await dialogService.SendMessage("Información", "El archivo fue eliminado correctamente");
+                        await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgArchivoEliminadoCorrectamente);
                     else
-                        await dialogService.SendMessage("Alerta", "Error al eliminar el archivo");
+                        await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgArchivoEliminadoFallido);
                 }
             }
         }

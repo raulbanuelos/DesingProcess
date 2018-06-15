@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using System.Globalization;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -83,6 +84,9 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => guardar());
             }
         }
+        #endregion
+
+        #region Métodos
         /// <summary>
         /// Método que valida si el tipo de documento no existe
         /// Guarda el nuevo tipo de documento
@@ -94,11 +98,11 @@ namespace View.Services.ViewModel
 
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, setting, MessageDialogStyle.AffirmativeAndNegative);
 
             //Si el resultado es afirmativo
             if (result == MessageDialogResult.Affirmative)
@@ -128,7 +132,7 @@ namespace View.Services.ViewModel
 
                             if (n != 0)
                             {
-                                await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
                                 //Obtenemos la ventana actual.
                                 var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
@@ -142,24 +146,24 @@ namespace View.Services.ViewModel
                             else
                             {
                                 //Si existe un error al dar de alta el tipo
-                                await dialog.SendMessage("RGP: Alerta", "Error al registrar el tipo de documento");
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorTipoDocumento);
                             }
                         }
                         else
                         {
                             //Si el documento existe
-                            await dialog.SendMessage("RGP: Alerta", "El tipo de documento ya existe..");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgTipoDocumentoExistente);
                         }
                     }
                     else
                     {
-                        await dialog.SendMessage("Alerta", "La abreviatura debe tener menos de 7 caracteres..");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorAbreviatura);
                     }
                 }
                 else
                 {
                     //Si no se llenaron todos los campos
-                    await dialog.SendMessage("RGP: Alerta", "Se debe llenar todos los campos");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
                 }
             }
         }

@@ -115,7 +115,6 @@ namespace View.Services.ViewModel
         }
         #endregion
 
-
         #region Métodos
         /// <summary>
         /// Método que obtiene la lista de las lecciones aprendidas

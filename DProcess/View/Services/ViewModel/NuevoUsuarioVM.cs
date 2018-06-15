@@ -14,6 +14,7 @@ using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using Model;
 using System.Collections;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -147,6 +148,7 @@ namespace View.Services.ViewModel
 
 
         #endregion
+
         #region Constructor
 
         public NuevoUsuarioVM(Usuario ModelUsuario )
@@ -155,6 +157,7 @@ namespace View.Services.ViewModel
             ListaRol= DataManagerControlDocumentos.GetRol_Usuario(User.NombreUsuario);
         }
         #endregion
+
         #region comandos
 
         /// <summary>
@@ -167,6 +170,33 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => guardarUsuario());
             }
         }
+
+        /// <summary>
+        /// Método para guardar text de passwordBox para confirmar contraseña
+        /// </summary>
+        public ICommand PasswordChanged
+        {
+            get
+            {
+                return new RelayCommand(parametro => changed((object)parametro));
+            }
+        }
+
+        /// <summary>
+        /// Método para guardar text de passwordBox 
+        /// </summary>
+        public ICommand PasswordChanged1
+        {
+            get
+            {
+                return new RelayCommand(parametro => changedPass((object)parametro));
+            }
+        }
+
+        #endregion
+
+        #region Métodos
+
         public async void guardarUsuario()
         {
             //Incializamos los servicios de dialog.
@@ -174,11 +204,11 @@ namespace View.Services.ViewModel
 
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, setting, MessageDialogStyle.AffirmativeAndNegative);
 
             if (result == MessageDialogResult.Affirmative)
             {
@@ -288,7 +318,7 @@ namespace View.Services.ViewModel
 
 
                                     //se muestra un mensaje de cambios realizados.
-                                    await dialog.SendMessage("Información", "Usuario dado de alta..");
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgUsuarioAlta);
 
                                     //Obtenemos la ventana actual.
                                     var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -302,39 +332,29 @@ namespace View.Services.ViewModel
                                 }
                                 else
                                 {
-                                    await dialog.SendMessage("Alerta", "Error al registar el usuario.");
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgUsuarioAltaError);
                                 }
                             }
                             else
                             {
-                                await dialog.SendMessage("Alerta", "La contraseña no coincide.");
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgContraseñaDiferente);
                             }
 
                         }
                         else
                         {
-                            await dialog.SendMessage("Alerta", "Error el usuario ya existe.");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgUsuarioExistente);
                         }
                     }
                     else
                     {
-                        await dialog.SendMessage("Alerta", "La contreseña debe de tener mínimo 6 caracteres");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgContraseñaCorta);
                     }
                 }
                 else
                 {
-                    await dialog.SendMessage("RGP: Alerta", "Se debe llenar todos los campos");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
                 }
-            }
-        }
-        /// <summary>
-        /// Método para guardar text de passwordBox para confirmar contraseña
-        /// </summary>
-        public ICommand PasswordChanged
-        {
-            get
-            {
-                return new RelayCommand(parametro => changed((object)parametro));
             }
         }
 
@@ -344,25 +364,11 @@ namespace View.Services.ViewModel
             _confirmarContraseña = passwordBox.Password;
         }
 
-        /// <summary>
-        /// Método para guardar text de passwordBox 
-        /// </summary>
-        public ICommand PasswordChanged1
-        {
-            get
-            {
-                return new RelayCommand(parametro => changedPass((object)parametro));
-            }
-        }
-
         public void changedPass(object parametro)
         {
             var passwordBox = parametro as PasswordBox;
             _contraseña = passwordBox.Password;
         }
-        #endregion
-
-        #region Métodos
 
         private bool Validar()
         {
@@ -393,6 +399,7 @@ namespace View.Services.ViewModel
 
             return true;
         }
+
         #endregion
     }
 }

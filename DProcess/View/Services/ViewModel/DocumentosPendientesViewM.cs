@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using View.Forms.ControlDocumentos;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -192,15 +193,15 @@ namespace View.Services.ViewModel
                 //Si el estatus es pendiente por corregir
                 if (status.Contains("pendiente"))
                 {
-                    //Se ejecuta el método que obtiene los documentos pendientes por corregir de un usuario
-                    ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario, "");
-                    _titulo = "DOCUMENTOS PENDIENTES POR CORREGIR";
+                 //Se ejecuta el método que obtiene los documentos pendientes por corregir de un usuario
+                ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario, "");
+                _titulo = StringResources.msgDocumentosCorregir;
                 }//Si es estatus aprobado pendiente por liberar
                 else if (status.Contains("aprobados"))
                 {
-                    //Se ejecuta el método que obtiene los documentos pendientes por liberar
-                    ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar("");
-                    _titulo = "DOCUMENTOS PENDIENTES POR LIBERAR";
+                 //Se ejecuta el método que obtiene los documentos pendientes por liberar
+                 ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar("");
+                _titulo = StringResources.msgDocumentosLiberar;
                 }
             }
         #endregion
