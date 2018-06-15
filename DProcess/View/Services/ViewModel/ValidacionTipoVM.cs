@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using View.Forms.ControlDocumentos;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -227,11 +228,11 @@ namespace View.Services.ViewModel
 
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, setting, MessageDialogStyle.AffirmativeAndNegative);
 
             if (result == MessageDialogResult.Affirmative)
              {
@@ -283,12 +284,12 @@ namespace View.Services.ViewModel
                     else
                     {
                         //Muestra mensaje de error
-                        await dialog.SendMessage("Alerta", "Se debe seleccionar al menos una validación");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgValidacion);
                     }
                 }
                 else
                 {
-                    await dialog.SendMessage("Alerta", "Se debe seleccionar un tipo de documento");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgTipoDocumento);
                 }
             }
         }
@@ -302,11 +303,11 @@ namespace View.Services.ViewModel
             int cont = 0;
             // Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, setting, MessageDialogStyle.AffirmativeAndNegative);
 
             if (result == MessageDialogResult.Affirmative)
             {
@@ -348,13 +349,13 @@ namespace View.Services.ViewModel
                     if (cont == 0)
                     {
                         //Muestra mendaje de error
-                        await dialog.SendMessage("Alerta", "Error al eliminar validación");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorEliminarValidacion);
                     }
                 }
                 else
                 {
                     //No hay ninguna validación seleccionada
-                    await dialog.SendMessage("Alerta", "Se debe seleccionar al menos una validación");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSeleccionarValidacion);
                 }
             }
         }
@@ -368,11 +369,11 @@ namespace View.Services.ViewModel
             int aux = 0;
             // Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea quitar relación?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgQuitarRelacion, setting, MessageDialogStyle.AffirmativeAndNegative);
 
             if (result == MessageDialogResult.Affirmative)
             {
@@ -403,12 +404,12 @@ namespace View.Services.ViewModel
                     if (aux ==0)
                     {
                         //Muestra mensaje de error
-                        await dialog.SendMessage("Alerta", "Error al eliminar la relación");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorEliminarRelacion);
                     }
                 }
                 else
                 {
-                    await dialog.SendMessage("Alerta", "Se debe seleccionar al menos una validación");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSeleccionarValidacion);
                 }
             }
         }
@@ -471,6 +472,7 @@ namespace View.Services.ViewModel
                 return true;
         }
         #endregion
+
         #region Constructor
 
         public ValidacionTipoVM()

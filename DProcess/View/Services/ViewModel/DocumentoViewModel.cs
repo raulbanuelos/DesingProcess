@@ -15,6 +15,7 @@ using System.Windows;
 using System.Windows.Input;
 using View.Forms.ControlDocumentos;
 using System.Collections;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -590,7 +591,7 @@ namespace View.Services.ViewModel
             NombreTipo = DataManagerControlDocumentos.GetNombretipo(id_tipo);
 
 
-            BotonGuardar = "Guardar";
+            BotonGuardar = StringResources.ttlGuardar;
             BttnGuardar = false;
             EnabledEliminar = false;
             IsEnabled = false;
@@ -675,7 +676,7 @@ namespace View.Services.ViewModel
         /// <param name="ModelUsuario"></param>
         public DocumentoViewModel(Usuario ModelUsuario)
         {
-            BotonGuardar = "Guardar";
+            BotonGuardar = StringResources.ttlGuardar;
             BttnGuardar = true;
             BttnArchivos = true;
             EnabledEliminar = true;
@@ -973,37 +974,6 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método que elimina el archvio seleccionado de la lista de Documento
-        /// Elimina el archivo de la base de datos
-        /// </summary>
-        /// <param name="item"></param>
-        private async void eliminarItem(Archivo item)
-        {
-            //Incializamos los servicios de dialog.
-            DialogService dialogService = new DialogService();
-
-            if (item != null)
-            {
-                //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
-                MetroDialogSettings setting = new MetroDialogSettings();
-                setting.AffirmativeButtonText = "SI";
-                setting.NegativeButtonText = "NO";
-
-                //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-                MessageDialogResult result = await dialogService.SendMessage("Attention", "¿Desea eliminar el archivo?", setting, MessageDialogStyle.AffirmativeAndNegative);
-
-                if (item != null & result == MessageDialogResult.Affirmative)
-                {
-                    //Se elimina el item seleccionado de la listaDocumentos.
-                    ListaDocumentos.Remove(item);
-                    //Se elimina de la base de datos.
-                    int n = DataManagerControlDocumentos.DeleteArchivo(item);
-                    BttnArchivos = true;
-                }
-            }
-        }
-
-        /// <summary>
         /// Comando para mostrar el departamento y tipo de acuerdo al nombre de documento
         /// </summary>
         public ICommand CambiarCombo
@@ -1076,6 +1046,37 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
+        /// Método que elimina el archvio seleccionado de la lista de Documento
+        /// Elimina el archivo de la base de datos
+        /// </summary>
+        /// <param name="item"></param>
+        private async void eliminarItem(Archivo item)
+        {
+            //Incializamos los servicios de dialog.
+            DialogService dialogService = new DialogService();
+
+            if (item != null)
+            {
+                //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+                MetroDialogSettings setting = new MetroDialogSettings();
+                setting.AffirmativeButtonText = StringResources.lblYes;
+                setting.NegativeButtonText = StringResources.lblNo;
+
+                //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+                MessageDialogResult result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgDelArchivo, setting, MessageDialogStyle.AffirmativeAndNegative);
+
+                if (item != null & result == MessageDialogResult.Affirmative)
+                {
+                    //Se elimina el item seleccionado de la listaDocumentos.
+                    ListaDocumentos.Remove(item);
+                    //Se elimina de la base de datos.
+                    int n = DataManagerControlDocumentos.DeleteArchivo(item);
+                    BttnArchivos = true;
+                }
+            }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         private async void regresarCorregir()
@@ -1086,11 +1087,11 @@ namespace View.Services.ViewModel
 
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea regresar a estatus pendiente por corregir?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgRegresarCorregir, setting, MessageDialogStyle.AffirmativeAndNegative);
 
             if (result == MessageDialogResult.Affirmative)
             {
@@ -1127,7 +1128,7 @@ namespace View.Services.ViewModel
 
                         if (update_version != 0)
                         {
-                            await dialog.SendMessage("Información", "Se cambio estatus a pendiente por corregir..");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusPendienteCorregir);
 
                             var frame = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
@@ -1138,12 +1139,12 @@ namespace View.Services.ViewModel
                         }
                         else
                         {
-                            await dialog.SendMessage("Alerta", "Error al actualizar el estatus de la versión..");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusVersion);
                         }
                     }
                     else
                     {
-                        await dialog.SendMessage("Alerta", "Error al actualizar el estatus del documento..");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusDocumento);
                     }
                 }
                 else
@@ -1165,7 +1166,7 @@ namespace View.Services.ViewModel
 
                     if (update_version != 0)
                     {
-                        await dialog.SendMessage("Información", "Se cambio estatus a pendiente por corregir..");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusPendienteCorregir);
 
                         var frame = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
@@ -1176,7 +1177,7 @@ namespace View.Services.ViewModel
                     }
                     else
                     {
-                        await dialog.SendMessage("Alerta", "Error al actualizar el estatus de la versión..");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusVersion);
                     }
                 }
             }
@@ -1193,7 +1194,7 @@ namespace View.Services.ViewModel
             Descripcion = auxDescripcion;
             Version = auxversion;
             Fecha = auxFecha;
-            BotonGuardar = "Guardar";
+            BotonGuardar = StringResources.ttlGuardar;
             IsEnabled = false;
             BttnArchivos = false;
             EnabledEliminar = false;
@@ -1268,11 +1269,11 @@ namespace View.Services.ViewModel
 
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea regresar a la versión anterior?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgVersionAnterior, setting, MessageDialogStyle.AffirmativeAndNegative);
             //
             if (result == MessageDialogResult.Affirmative)
             {
@@ -1314,7 +1315,7 @@ namespace View.Services.ViewModel
 
                         if (update != 0)
                         {
-                            await dialog.SendMessage("Información", "Cambios realizados correctamente");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
 
                             //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -1328,18 +1329,18 @@ namespace View.Services.ViewModel
                         }
                         else
                         {
-                            await dialog.SendMessage("Error", "No se pudo eliminar el documento..");
+                            await dialog.SendMessage(StringResources.msgError, StringResources.msgErrorBorrarDocumento);
                         }
                     }
                     else
                     {
-                        await dialog.SendMessage("Error", "No se pudo eliminar la versión..");
+                        await dialog.SendMessage(StringResources.msgError, StringResources.msgErrorBorrarVersion);
                     }
 
                 }
                 else
                 {
-                    await dialog.SendMessage("Alerta", "El documento no tiene versión anterior..");
+                    await dialog.SendMessage(StringResources.msgError, StringResources.msgErrorVersion);
                 }
             }
         }
@@ -1358,7 +1359,7 @@ namespace View.Services.ViewModel
 
             if (_selectedDocumento == null)
             {
-                await dialog.SendMessage("Atención", "Por Favor seleccione el Número del documento para poder adjuntar un archivo");
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSeleccioneArchivo);
             }
             else
             {
@@ -1393,7 +1394,7 @@ namespace View.Services.ViewModel
                             if (!IsFileInUse(filename))
                             {
                                 //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
-                                AsyncProgress = await dialog.SendProgressAsync("Por favor espere", "Adjuntando archivo...");
+                                AsyncProgress = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgInsertando);
 
                                 //Se convierte el archvio a tipo byte y se le asigna al objeto
                                 obj.archivo = await Task.Run(() => File.ReadAllBytes(filename));
@@ -1430,7 +1431,7 @@ namespace View.Services.ViewModel
                                     //si no es archivo .doc se manda un mensaje y se elimina
                                     else
                                     {
-                                        await dialog.SendMessage("Atención", "Para este tipo de archivo solo se pueden subir archivos .DOC");
+                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarTipoArchivoDOC);
                                         Lista.Clear();
                                         BttnArchivos = true;
                                     }
@@ -1445,7 +1446,7 @@ namespace View.Services.ViewModel
                                     }
                                     else
                                     {
-                                        await dialog.SendMessage("Atención", "Para este tipo de archivo solo se pueden subir archivos .PDF");
+                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarTipoArchivoPDF);
                                         Lista.Clear();
                                         BttnArchivos = true;
                                     }
@@ -1457,19 +1458,19 @@ namespace View.Services.ViewModel
                             else
                             {
                                 //Si el archivo está abierto
-                                await dialog.SendMessage("Alerta", "Cierre el archivo para continuar..");
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCierreArchivo);
                             }
                         }
                         catch (IOException er)
                         {
-                            await dialog.SendMessage("Alerta", "Cierre el archivo para continuar..");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCierreArchivo);
                         }
                     }
                 }
                 else
                 {
                     //Si tiene un archivo adjunto, se muestra el mensaje
-                    await dialog.SendMessage("Alerta", "Sólo se admite adjuntar un archivo..");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarUnoSolo);
                 }
             }
         }
@@ -1516,11 +1517,11 @@ namespace View.Services.ViewModel
             {
                 //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
                 MetroDialogSettings setting = new MetroDialogSettings();
-                setting.AffirmativeButtonText = "SI";
-                setting.NegativeButtonText = "NO";
+                setting.AffirmativeButtonText = StringResources.lblYes;
+                setting.NegativeButtonText = StringResources.lblNo;
 
                 //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-                MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea generar una nueva versión?", setting, MessageDialogStyle.AffirmativeAndNegative);
+                MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgGenerarVersion, setting, MessageDialogStyle.AffirmativeAndNegative);
 
                 if (result == MessageDialogResult.Affirmative)
                 {
@@ -1534,7 +1535,7 @@ namespace View.Services.ViewModel
                         Version = DataManagerControlDocumentos.GetLastVersion(id_documento);
 
                         //Manda un mensaje al usuario, donde muestra la versión nueva.
-                        await dialog.SendMessage("Información", "La nueva versión del documento es la número " + Version);
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgNuevaVersion + " " + Version);
 
                         //Limpiamos todos lo textbox, y se cambia el content del botón de guardar.
                         Fecha = _FechaFin;
@@ -1542,7 +1543,7 @@ namespace View.Services.ViewModel
                         // ListaValidaciones = DataManagerControlDocumentos.GetValidacion_Documento(id_tipo);
 
                         //Oculta y muestra los botones
-                        BotonGuardar = "Guardar Version";
+                        BotonGuardar = StringResources.ttlGuardarVersion;
                         BttnGuardar = true;
                         BttnEliminar = false;
                         BttnModificar = false;
@@ -1565,14 +1566,14 @@ namespace View.Services.ViewModel
                             obj.estatus = item.estatus;
                         }
                         //Muestra mensaje 
-                        await dialog.SendMessage("No se puede crear una nueva versión", " Versión número " + obj.no_version + " tiene estado: " + obj.estatus);
+                        await dialog.SendMessage(StringResources.msgErrorCrearVersion, StringResources.msgNumeroVersion +" "+  obj.no_version +" "+" "+ StringResources.msgEstado +" "+ obj.estatus);
                     }
                 }
             }
             else
             {
                 //El sistema se encuentra bloqueado
-                await dialog.SendMessage("Sistema Bloqueado", objBloqueo.observaciones);
+                await dialog.SendMessage(StringResources.msgSistemaBloqueado, objBloqueo.observaciones);
             }
         }
 
@@ -1599,7 +1600,7 @@ namespace View.Services.ViewModel
             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
             //Formulario para ingresar el número de copias, 
-            string num_copias = await window.ShowInputAsync("Ingresar número de copias", "Número de Copias", null);
+            string num_copias = await window.ShowInputAsync(StringResources.msgIngNumeroCopias, StringResources.msgNumeroCopias, null);
 
             //Comprueba que el número de copias sea diferente de nulo y sólo contenga números.
             if (num_copias != null)
@@ -1652,31 +1653,31 @@ namespace View.Services.ViewModel
                                     if (file == null)
                                     {
                                         int r = InsertDocumentoSealed();
-                                        string confirmacionFrames = r > 0 ? "Se actualizo el sistema frames" : "Hubo un error al actualizar el sistema frames. Favor de actualizar manualmente";
+                                        string confirmacionFrames = r > 0 ? StringResources.msgFramesExito : StringResources.msgFramesIncorrecto;
                                         string confirmacionCorreo = string.Empty;
 
                                         if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
                                         {
                                             if (NotificarNuevaVersion())
-                                                confirmacionCorreo = "Se notificó vía correo exitosamente.";
+                                                confirmacionCorreo = StringResources.msgNotificacionCorreo;
                                             else
-                                                confirmacionCorreo = "Ocurrio un error al notificar vía correo. Favor de notificar manualmente desde Lotus Notes.";
+                                                confirmacionCorreo = StringResources.msgNotificacionCorreoFallida;
 
-                                            await dialog.SendMessage("Información", "Matríz actualizada correctamente." + "\n" + confirmacionFrames + "\n" + confirmacionCorreo);
+                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada + "\n" + confirmacionFrames + "\n" + confirmacionCorreo);
 
                                         }
                                         else
                                         {
-                                            await dialog.SendMessage("Información", "Matríz actualizada correctamente.");
+                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada);
                                         }
 
                                         //Creamos una notificación para que el usuario la pueda ver.
                                         DO_Notification notificacion = new DO_Notification();
-                                        notificacion.TITLE = "Documento actualizado en la matríz";
-                                        notificacion.MSG = "El documento: " + Nombre + "\n Versión: " + version + "\nYa se encuentra actualizado en la Matríz de Control de Documentos";
+                                        notificacion.TITLE = StringResources.msgDocumentoActualizado;
+                                        notificacion.MSG = StringResources.msgDocumento +" "+ Nombre + "\n Versión: " + version + "\n"+ StringResources.msgNotificacionMatriz;
                                         notificacion.TYPE_NOTIFICATION = 0;
                                         notificacion.ID_USUARIO_RECEIVER = _usuario;
-                                        notificacion.ID_USUARIO_SEND = "ADMINISTRADOR";
+                                        notificacion.ID_USUARIO_SEND = StringResources.msgAdmin;
 
                                         DataManagerControlDocumentos.insertNotificacion(notificacion);
 
@@ -1700,7 +1701,7 @@ namespace View.Services.ViewModel
                                         objVersion.id_estatus_version = 5;
                                         update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
 
-                                        await dialog.SendMessage("Alerta", "Error al guardar el archivo");
+                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGuardandoArchivo);
                                     }
                                 }
                                 else
@@ -1708,12 +1709,12 @@ namespace View.Services.ViewModel
 
                                     objDocumento.id_estatus = 2;
                                     update_documento = DataManagerControlDocumentos.Update_EstatusDocumento(objDocumento);
-                                    await dialog.SendMessage("Alerta", "Error al actualizar el estatus de la versión y del documento..");
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusVersionDocumento);
                                 }
                             }
                             else
                             {
-                                await dialog.SendMessage("Alerta", "Error al actualizar el estatus del documento..");
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusDocumento);
                             }
                         }
                         else
@@ -1763,21 +1764,21 @@ namespace View.Services.ViewModel
                                     if (file == null)
                                     {
                                         int r = UpdateDocumentoSealed();
-                                        string confirmacionFrames = r > 0 ? "Se actualizo el sistema frames" : "Hubo un error al actualizar el sistema frames. Favor de actualizar manualmente";
+                                        string confirmacionFrames = r > 0 ? StringResources.msgFramesExito : StringResources.msgFramesIncorrecto;
                                         string confirmacionCorreo = string.Empty;
 
                                         if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
                                         {
                                             if (NotificarActualizacionVersion())
-                                                confirmacionCorreo = "Se notificó vía correo exitosamente.";
+                                                confirmacionCorreo = StringResources.msgNotificacionCorreo;
                                             else
-                                                confirmacionCorreo = "Ocurrio un error al notificar vía correo. Favor de notificar manualmente desde Lotus Notes.";
+                                                confirmacionCorreo = StringResources.msgNotificacionCorreoFallida;
 
-                                            await dialog.SendMessage("Información", "Matríz actualizada correctamente.\n" + confirmacionFrames + "\n" + confirmacionCorreo);
-                                        }
+                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada +"\n" + confirmacionFrames + "\n" + confirmacionCorreo);
+                                        } 
                                         else
                                         {
-                                            await dialog.SendMessage("Información", "Matríz actualizada correctamente.");
+                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada);
                                         }
 
                                         //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
@@ -1800,27 +1801,27 @@ namespace View.Services.ViewModel
                                         objVersion.id_estatus_version = 5;
                                         update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
 
-                                        await dialog.SendMessage("Alerta", "Error al guardar el archivo");
+                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGuardandoArchivo);
                                     }
                                 }
                                 else
                                 {
                                     //Si hubo error al actualizar el estatus de la última versión
-                                    await dialog.SendMessage("Alerta", "Error al actualizar el estatus de la versión..");
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusVersion);
                                 }
                             }
                             else
                             {
 
                                 //Si hubo error al actualizar la última versión
-                                await dialog.SendMessage("Alerta", "Error al actualizar la versión..");
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorActualizarVersion);
                             }
                         }
                     }
                 }
                 else
                 {
-                    await dialog.SendMessage("Alerta", "Campos inválidos, ingrese sólo números..");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCamposInvalidos);
                 }
             }
         }
@@ -1917,7 +1918,7 @@ namespace View.Services.ViewModel
                 }
                 catch (Exception)
                 {
-                    await dialog.SendMessage("Alerta", "Error al abrir el archivo...");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorAbrir);
                 }
             }
         }
@@ -2033,8 +2034,8 @@ namespace View.Services.ViewModel
 
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
 
             string mensaje = "Nombre: " + nombre + "\nVersión: " + version + "\nFecha: " + fecha.ToShortDateString() + "\nDescripción: " + descripcion +
                             "\nTipo de Documento: " + NombreTipo + "\nDepartamento: " + NombreDepto + "\nUsuario Elaboró: " + NombreUsuarioElaboro + "\nUsuario Autorizó: " + NombreUsuarioAut;
@@ -2043,10 +2044,10 @@ namespace View.Services.ViewModel
             if (ValidarValores())
             {
                 //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
-                MessageDialogResult result = await dialog.SendMessage("El documento se guardará con los datos:", mensaje, setting, MessageDialogStyle.AffirmativeAndNegative);
+                MessageDialogResult result = await dialog.SendMessage(StringResources.msgGuardarDocumento, mensaje, setting, MessageDialogStyle.AffirmativeAndNegative);
 
                 //Verificamos que el botón contenga la leyenda Guardar, esto indica que el registro es nuevo.
-                if (BotonGuardar == "Guardar")
+                if (BotonGuardar == StringResources.ttlGuardar)
                 {
                     //Si la respuesta es afirmativa
                     if (result == MessageDialogResult.Affirmative)
@@ -2065,7 +2066,7 @@ namespace View.Services.ViewModel
                             if (ListDocSimilares == null)
                             {
                                 //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
-                                controllerProgressAsync = await dialog.SendProgressAsync("Por favor espere", "Guardando el documento...");
+                                controllerProgressAsync = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgEsperaGuardandoDocumento);
 
                                 //Declaramos un objeto de tipo documento.
                                 Documento obj = new Documento();
@@ -2124,7 +2125,7 @@ namespace View.Services.ViewModel
                                         await controllerProgressAsync.CloseAsync();
 
                                         //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
-                                        await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente, los archivos serán verificados por el administrador de documentos");
+                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosGuardadosExito);
 
                                         //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                         var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -2138,14 +2139,14 @@ namespace View.Services.ViewModel
                                     }
                                     else
                                     {
-                                        await dialog.SendMessage("Alerta", "Error al registrar la versión..");
+                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorRegistrarVersion);
                                     }
                                 }
                                 else
                                 {
                                     //Si no se hizo la alta.
                                     //Ejecutamos el método para enviar un mensaje de alerta al usuario.
-                                    await dialog.SendMessage("Alerta", "Error al registrar el documento..");
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorRegistrarDocumento);
                                 }
                             }
                             else
@@ -2182,7 +2183,7 @@ namespace View.Services.ViewModel
                             if (ListDocSimilares == null)
                             {
                                 //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
-                                controllerProgressAsync = await dialog.SendProgressAsync("Por favor espere", "Guardando el documento...");
+                                controllerProgressAsync = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgEsperaGuardandoDocumento);
 
                                 //Declaramos un objeto de tipo Version.
                                 Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
@@ -2222,13 +2223,13 @@ namespace View.Services.ViewModel
                                         }
 
                                         //Asignamos el valor de Guardar a la etiqueta del botón.
-                                        BotonGuardar = "Guardar";
+                                        BotonGuardar = StringResources.ttlGuardar;
 
                                         //Ejecutamos el método para cerrar el mensaje de espera.
                                         await controllerProgressAsync.CloseAsync();
 
                                         //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
-                                        await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente, los archivos serán verificados por el administrador de documentos");
+                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosGuardadosExito);
 
                                         //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                         var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -2243,12 +2244,12 @@ namespace View.Services.ViewModel
                                     else
                                     {
                                         //si hubo algún error en la alta, manda mensaje se error.
-                                        await dialog.SendMessage("Alerta", "Error al registrar la versión...");
+                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorRegistrarVersion);
                                     }
                                 }
                                 else
                                 {
-                                    await dialog.SendMessage("Información", "La versión ya existe para este documento...");
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorRegistrarDocumento);
                                     await controllerProgressAsync.CloseAsync();
                                 }
                             }
@@ -2268,7 +2269,7 @@ namespace View.Services.ViewModel
             }
             else
             {
-                await dialog.SendMessage("Alerta", "Se deben llenar todos los campos...");
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
             }
 
         }
@@ -2551,8 +2552,8 @@ namespace View.Services.ViewModel
 
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
 
             string mensaje = "Nombre: " + nombre + "\nVersión: " + version + "\nFecha: " + fecha.ToShortDateString() + "\nDescripción: " + descripcion +
                             "\nTipo de Documento: " + NombreTipo + "\nDepartamento: " + NombreDepto + "\nUsuario Elaboró: " + NombreUsuarioElaboro + "\nUsuario Autorizó: " + NombreUsuarioAut;
@@ -2560,7 +2561,7 @@ namespace View.Services.ViewModel
             if (ValidarValores())
             {
                 //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
-                MessageDialogResult result = await dialog.SendMessage("El documento se guardara con los datos:", mensaje, setting, MessageDialogStyle.AffirmativeAndNegative);
+                MessageDialogResult result = await dialog.SendMessage(StringResources.msgGuardarDocumento, mensaje, setting, MessageDialogStyle.AffirmativeAndNegative);
 
                 if (result == MessageDialogResult.Affirmative)
                 {
@@ -2616,7 +2617,7 @@ namespace View.Services.ViewModel
                                             int a = await DataManagerControlDocumentos.SetArchivo(objArchivo);
                                         }
                                     }
-                                    await dialog.SendMessage("Información", "Cambios realizados, los archivos serán verificados por el administrador de documentos");
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosGuardadosExito);
                                     //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                     var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
@@ -2629,12 +2630,12 @@ namespace View.Services.ViewModel
                                 }
                                 else
                                 {
-                                    await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en la versión..");
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorCambiosVersion);
                                 }
                             }
                             else
                             {
-                                await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en documento..");
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorCambiosDocumentos);
                             }
                         }
                         else
@@ -2661,7 +2662,7 @@ namespace View.Services.ViewModel
                                         int a = await DataManagerControlDocumentos.SetArchivo(objArchivo);
                                     }
                                 }
-                                await dialog.SendMessage("Información", "Cambios realizados, los archivos serán verificados por el administrador de documentos");
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosGuardadosExito);
                                 //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                 var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
@@ -2674,7 +2675,7 @@ namespace View.Services.ViewModel
                             }
                             else
                             {
-                                await dialog.SendMessage("Alerta", "No se pudieron realizar los cambios en la versión..");
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorCambiosVersion);
                             }
                         }
                     }
@@ -2687,7 +2688,7 @@ namespace View.Services.ViewModel
             }
             else
             {
-                await dialog.SendMessage("Alerta", "Se deben llenar todos los campos...");
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
             }
         }
 
@@ -2702,11 +2703,11 @@ namespace View.Services.ViewModel
 
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea eliminar el registro?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEliminarRegistro, setting, MessageDialogStyle.AffirmativeAndNegative);
 
             //Si el id es diferente de cero
             if (id_documento != 0 & result == MessageDialogResult.Affirmative)
@@ -2733,7 +2734,7 @@ namespace View.Services.ViewModel
                     Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
                     objVersion.id_version = idVersion;
                     objVersion.no_version = Version;
-                    string mensaje_historial = "Se elimina versión " + Version;
+                    string mensaje_historial = StringResources.msgEliminaVersion + Version;
 
                     //Mandamos a llamar a la  función para eliminar la versión.
                     int Dversion = DataManagerControlDocumentos.DeleteVersion(objVersion, mensaje_historial, User, nombre);
@@ -2805,21 +2806,21 @@ namespace View.Services.ViewModel
                             string confirmacionFrames = string.Empty;
 
                             if (banEliminarFrames)
-                                confirmacionFrames = eliminoFrames > 0 ? "El documento se eliminó exitosamente del sistema frames." : "Ocurrió un error al eliminar en el sistema frames. Por favor elimínelo directamente del sistema frames. http://sealed/frames.htm";
+                                confirmacionFrames = eliminoFrames > 0 ? StringResources.msgEliminarDocumentoFrames : StringResources.msgEliminarDocumentoFramesFallida + "http://sealed/frames.htm";
 
                             string confirmacionCorreo = string.Empty;
-                            confirmacionCorreo = NotificarBajaDocumento() ? "Se notificó vía correo exitosamente." : "Ocurrió un error al notificar vía correo. Favor de notificar manualmente desde el Lotus Notes.";
+                            confirmacionCorreo = NotificarBajaDocumento() ? StringResources.msgNotificacionCorreo : StringResources.msgNotificacionCorreoFallida;
 
-                            await dialog.SendMessage("Alerta", "Registro eliminado!. Se actualizo la matríz correctamente.\n" + confirmacionCorreo + "\n" + confirmacionFrames);
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgResgitroEliminado + "\n" + confirmacionCorreo + "\n" + confirmacionFrames);
                         }
                         else
                         {
-                            await dialog.SendMessage("Alerta", "No se puedo eliminar el documento");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEliminarDocumentoFallido);
                         }
                     }
                     else
                     {
-                        await dialog.SendMessage("Alerta", "No se puedo eliminar la versión");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEliminarVersionFallida);
                     }
                     //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                     var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -2832,7 +2833,7 @@ namespace View.Services.ViewModel
                 }
                 else
                 {
-                    await dialog.SendMessage("Alerta", "No se puedo eliminar la versión. Debes seleccionar a una persona para notificarle la baja.");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgNotificarBaja);
                 }
 
             }
@@ -2851,7 +2852,7 @@ namespace View.Services.ViewModel
 
 
             //mostramos la ventana con el campo para ingresar el nuevo numero de copias.
-            string num_copias = await window.ShowInputAsync("Ingresar Número de Copias", "Número de Copias", null);
+            string num_copias = await window.ShowInputAsync(StringResources.msgIngNumeroCopias, StringResources.msgNumeroCopias, null);
 
             //comprobamos que el valor que obtenemos sea diferente de nulo
             if (!string.IsNullOrEmpty(num_copias))
@@ -2870,10 +2871,10 @@ namespace View.Services.ViewModel
 
                         //Declaramos un objeto al cual le asignamos las propiedades que contendra el mensaje.
                         MetroDialogSettings setting = new MetroDialogSettings();
-                        setting.AffirmativeButtonText = "SI";
-                        setting.NegativeButtonText = "NO";
+                        setting.AffirmativeButtonText = StringResources.lblYes;
+                        setting.NegativeButtonText = StringResources.lblNo;
 
-                        MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea Actualizar el Número de copias?", setting, MessageDialogStyle.AffirmativeAndNegative);
+                        MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, setting, MessageDialogStyle.AffirmativeAndNegative);
 
                         if (result == MessageDialogResult.Affirmative)
                         {
@@ -2883,24 +2884,24 @@ namespace View.Services.ViewModel
                             //comprobamos que se hayan guardado los cambios con exito, y mandamos un mensaje segun sea el caso
                             if (act_cop != 0)
                             {
-                                await dialog.SendMessage("Éxito", "Se Guardaron los cambios");
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
                                 //despues de haber dado aceptar, se inicia el metodo para actualizar el campo de numero de copias.
                                 NoCopias = DataManagerControlDocumentos.GetCopias(idVersion);
                             }
                             else
                             {
-                                await dialog.SendMessage("Alerta", "Error al Guardar los cambios");
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGeneral);
                             }
                         }
                     }
                     else
                     {
-                        await dialog.SendMessage("Alerta", "Solo se permiten caracteres numéricos");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCamposInvalidos);
                     }
                 }
                 else
                 {
-                    await dialog.SendMessage("Alerta", "No se puede dejar el campo vacío");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
                 }
             }
         }
@@ -2997,11 +2998,11 @@ namespace View.Services.ViewModel
 
                 //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
                 MetroDialogSettings setting = new MetroDialogSettings();
-                setting.AffirmativeButtonText = "Ver Archivos";
-                setting.NegativeButtonText = "Cancelar";
+                setting.AffirmativeButtonText = StringResources.ttlVerArchivo;
+                setting.NegativeButtonText = StringResources.msgCancelar;
 
                 //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
-                MessageDialogResult result = await dialogService.SendMessage("No se puede guardar el archivo", "Este documento tiene una descripción similar a otros archivos.", setting, MessageDialogStyle.AffirmativeAndNegative);
+                MessageDialogResult result = await dialogService.SendMessage(StringResources.msgErrorGuardarArchivo, StringResources.msgErrorDescripcionErrorArchivo, setting, MessageDialogStyle.AffirmativeAndNegative);
                 switch (result)
                 {
                     case MessageDialogResult.Negative:

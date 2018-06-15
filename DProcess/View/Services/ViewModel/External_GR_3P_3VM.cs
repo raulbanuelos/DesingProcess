@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -98,7 +99,7 @@ namespace View.Services.ViewModel
         /// </summary>
         private async void buscarOptimos()
         {
-            if (Width !=0) {
+            if (Width != 0) {
                 ListaOptimos = new DataTable();
                 ListaMejores = new DataTable();
                 //Se obtiene la tabla, para mostrarla en pantalla
@@ -108,11 +109,11 @@ namespace View.Services.ViewModel
 
                 if (ListaMejores.Rows.Count == 0)
                     //Enviamos un mensaje si no hay herramentales.
-                    await dialog.SendMessage("Alerta", "No se encontró herramental con estas caracteristicas");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHerramental);
             }
             else
                 //Si están vacíos muestra un mensaje en pantalla
-                await dialog.SendMessage("Alerta", "Se debe llenar todos los campos...");
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
         }
         #endregion
 

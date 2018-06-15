@@ -4,12 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
+        xmlns:recursos="clr-namespace:View.Resources"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Control documento" Height="750" Width="1200"  
+        Title="{x:Static recursos:StringResources.ttlControlDocumento}" Height="750" Width="1200"  
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
  
@@ -72,7 +73,7 @@
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Vertical">
                     <!--Nombre Documento-->
-                    <ComboBox Grid.Column="0" materialDesign:HintAssist.Hint="Número de Documento" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420"  Background="White" BorderBrush="#89535353" FontSize="18" ItemsSource="{Binding ListaNumeroDocumento}" DisplayMemberPath="nombre"  SelectedItem="{Binding SelectedDocumento}" IsEnabled="{Binding NombreEnabled}">
+                    <ComboBox Grid.Column="0" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNumeroDocumento}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420"  Background="White" BorderBrush="#89535353" FontSize="18" ItemsSource="{Binding ListaNumeroDocumento}" DisplayMemberPath="nombre"  SelectedItem="{Binding SelectedDocumento}" IsEnabled="{Binding NombreEnabled}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction
@@ -81,23 +82,23 @@
                         </i:Interaction.Triggers>
                     </ComboBox>
                     <!--Version-->
-                    <TextBox  materialDesign:HintAssist.Hint="Versión" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding Version}" IsEnabled="{Binding VersionEnabled}"/>
+                    <TextBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblVersion}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding Version}" IsEnabled="{Binding VersionEnabled}"/>
                     <!--Date-->
                     <StackPanel Orientation="Horizontal" Height="50" Margin="65,5,0,0">
-                        <DatePicker materialDesign:HintAssist.Hint="Fecha" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"
+                        <DatePicker materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFecha}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"
                         IsEnabled="{Binding EnabledFecha}" />
                     </StackPanel>
                     <!--Descripción-->
-                    <TextBox Text="{Binding Descripcion}"  materialDesign:HintAssist.Hint="Descripción" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="49"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
+                    <TextBox Text="{Binding Descripcion}"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblDescripcion}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="49"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
                      IsEnabled="{Binding IsEnabled}" SpellCheck.IsEnabled="True" Language="es-ES" ></TextBox>
-                    <TextBox Text="{Binding NoCopias}" materialDesign:HintAssist.Hint="Número de Copias" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="49" Width="420" BorderBrush="#89535353"  FontSize="18" CharacterCasing="Upper" IsReadOnly="True" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
+                    <TextBox Text="{Binding NoCopias}" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNumeroCopias}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="49" Width="420" BorderBrush="#89535353"  FontSize="18" CharacterCasing="Upper" IsReadOnly="True" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
 
                 </StackPanel>
                 <!--Lista de Archivos-->
                 <StackPanel Grid.Row="1" Margin="65,5,0,0">
-                    <Label Content="Para ver/eliminar el archivo, primero dale clic al ícono de Word/PDF." FontWeight="Bold"></Label>
+                    <Label Content="{x:Static recursos:StringResources.lblVerArchivo}" FontWeight="Bold"></Label>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="y después clic al ícono " FontWeight="Bold"></Label>
+                        <Label Content="{x:Static recursos:StringResources.lblverarchivo2}" FontWeight="Bold"></Label>
                         <Label Content="{materialDesign:PackIcon eye}"></Label>
                         <Label Content=" ó " FontWeight="Bold"></Label>
                         <Label Content="{materialDesign:PackIcon Close}"></Label>
@@ -118,12 +119,12 @@
 
                 <StackPanel Orientation="Vertical">
                     <!--Tipo de Documento-->
-                    <ComboBox  materialDesign:HintAssist.Hint="Tipo de Documento" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420"  BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}" FontSize="18" IsEnabled="{Binding VersionEnabled}" >
+                    <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblTipoDocumento}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420"  BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}" FontSize="18" IsEnabled="{Binding VersionEnabled}" >
                     </ComboBox>
                     <!--Nombre del departamento-->
-                    <ComboBox  materialDesign:HintAssist.Hint="Nombre del Departamento/Proceso" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaDepartamento}" DisplayMemberPath="nombre_dep" SelectedValuePath="id_dep" SelectedValue="{Binding id_dep}" IsEnabled="{Binding VersionEnabled}"/>
+                    <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombreDepartamentoProceso}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaDepartamento}" DisplayMemberPath="nombre_dep" SelectedValuePath="id_dep" SelectedValue="{Binding id_dep}" IsEnabled="{Binding VersionEnabled}"/>
                     <!--Usuario-->
-                    <ComboBox  materialDesign:HintAssist.Hint="Usuario Elaboró" 
+                    <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblUsuarioElaboro}" 
                                Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
                                Height="50" Width="420"  BorderBrush="#FFBDBDBD" FontSize="18" 
                                ItemsSource="{Binding Path=ListaUsuarios}"  
@@ -143,7 +144,7 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <ComboBox  materialDesign:HintAssist.Hint="Usuario Autorizó" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  
+                    <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblUsuarioAutorizo}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  
                                Height="51" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" 
                                ItemsSource="{Binding Path=ListaUsuarios}"  
                                SelectedValuePath="usuario" 
@@ -170,16 +171,17 @@
                     </ComboBox>
 
                     <!--Nombre del áreas sealed-->
-                    <ComboBox  materialDesign:HintAssist.Hint="Área frames" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaAreasSealed}" DisplayMemberPath="ValorCadena" SelectedValuePath="Nombre" SelectedValue="{Binding id_areasealed}" IsEnabled="{Binding BttnLiberar}"/>
+                    <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblAreaFrames}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaAreasSealed}" DisplayMemberPath="ValorCadena" SelectedValuePath="Nombre" SelectedValue="{Binding id_areasealed}" IsEnabled="{Binding BttnLiberar}"/>
                 </StackPanel>
-                <Button  Grid.Row="1" HorizontalAlignment="Right" Margin="10" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding _AdjuntarArchivo}"  ToolTip="Adjuntar Archivo"
+                
+                <Button  Grid.Row="1" HorizontalAlignment="Right" Margin="10" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding _AdjuntarArchivo}"  ToolTip="{x:Static recursos:StringResources.lblAdjuntarArchivo}"
                     Visibility="{Binding BttnArchivos, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"  >
                     <materialDesign:PackIcon Kind="Paperclip" Height="24" Width="24" />
                 </Button>
 
                 <StackPanel Grid.Row="3">
                     <StackPanel Orientation="Vertical" Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}">
-                        <Label Content="Notificar despues de liberar a:" FontWeight="Bold"></Label>
+                        <Label Content="{x:Static recursos:StringResources.lblNotificarA}" FontWeight="Bold"></Label>
 
                         <DataGrid ItemsSource="{Binding ListaUsuariosCorreo}" 
                                       ScrollViewer.CanContentScroll="True" 
@@ -190,10 +192,10 @@
                             <DataGrid.Columns>
                                 <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                             EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                            Header="Notificar"
+                                            Header="{x:Static recursos:StringResources.lblNotificar}"
                                             Binding="{Binding IsSelected}"
                                             />
-                                <DataGridTextColumn Header="Nombre" Binding="{Binding NombreCompleto}">
+                                <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNombre}" Binding="{Binding NombreCompleto}">
 
                                 </DataGridTextColumn>
                             </DataGrid.Columns>
@@ -217,14 +219,14 @@
                 <ColumnDefinition Width="169"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Button Content="{Binding BotonGuardar}" Height="40"  Width="88" Grid.Column="7" Command="{Binding GuardarControl}"  Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" />
-            <Button Content="Cancelar" Height="40"  Width="90" Grid.Column="6" Command="{Binding Cancelar}"  Visibility="{Binding BttnCancelar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
-            <Button Content="Generar Versión" Height="40" FontSize="12" Width="120" Grid.Column="5" Command="{Binding GenerarVersion}" Visibility="{Binding BttnVersion, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
-            <Button Content="Modificar" Height="40" Width="94" Grid.Column="4"  Command="{Binding Modificar}" Visibility="{Binding BttnModificar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
-            <Button Content="Eliminar" Width="90" Grid.Column="3" Height="40"  Command="{Binding Eliminar}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
-            <Button Content="Regresar Versión Anterior" Height="40" FontSize="12" Width="173" Grid.Column="2" Command="{Binding RegresarVersion}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"></Button>
-            <Button Grid.Column="1" Content="Pendiente por corregir" FontSize="12" Height="40" Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" ToolTip="Regresar a pendiente por corregir" Command="{Binding RegresarCorregir}"></Button>
-            <Button Content="Actualizar No. Copias" Grid.Column="8" Height="40" Command="{Binding ActNoCopias}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
-            <Button Content="Liberar" Height="40" Width="90"  Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" Command="{Binding LiberarDocumento}" />
+            <Button Content="{x:Static recursos:StringResources.msgCancelar}" Height="40"  Width="90" Grid.Column="6" Command="{Binding Cancelar}"  Visibility="{Binding BttnCancelar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
+            <Button Content="{x:Static recursos:StringResources.lblGenerarVersion}" Height="40" FontSize="12" Width="120" Grid.Column="5" Command="{Binding GenerarVersion}" Visibility="{Binding BttnVersion, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
+            <Button Content="{x:Static recursos:StringResources.lblModificar}" Height="40" Width="94" Grid.Column="4"  Command="{Binding Modificar}" Visibility="{Binding BttnModificar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
+            <Button Content="{x:Static recursos:StringResources.lblEliminar}" Width="90" Grid.Column="3" Height="40"  Command="{Binding Eliminar}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
+            <Button Content="{x:Static recursos:StringResources.lblRegresarVersionAnterior}" Height="40" FontSize="12" Width="173" Grid.Column="2" Command="{Binding RegresarVersion}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"></Button>
+            <Button Grid.Column="1" Content="{x:Static recursos:StringResources.lblPendienteCorregir}" FontSize="12" Height="40" Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" ToolTip="Regresar a pendiente por corregir" Command="{Binding RegresarCorregir}"></Button>
+            <Button Content="{x:Static recursos:StringResources.lblActualizarCopias}" Grid.Column="8" Height="40" Command="{Binding ActNoCopias}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
+            <Button Content="{x:Static recursos:StringResources.lblLiberar}" Height="40" Width="90"  Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" Command="{Binding LiberarDocumento}" />
         </Grid>
     </Grid>
 </Controls:MetroWindow>

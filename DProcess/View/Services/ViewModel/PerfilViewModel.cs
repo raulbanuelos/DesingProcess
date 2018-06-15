@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -137,7 +138,7 @@ namespace View.Services.ViewModel
             ProgressDialogController controllerProgressAsync;
 
             //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
-            controllerProgressAsync = await dialogService.SendProgressAsync("Please Wait", "Saving...");
+            controllerProgressAsync = await dialogService.SendProgressAsync(StringResources.msgEspera, StringResources.msgGuardando);
 
             //Ejecutamos el método para guardar los datos del perfil.
             await ServicioPerfil.SetPerfil(SelectedTipoPerfil.IdTipoPerfil, Nombre, Descripcion, Imagen, 1);
@@ -146,7 +147,7 @@ namespace View.Services.ViewModel
             await controllerProgressAsync.CloseAsync();
 
             //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
-            await dialogService.SendMessage("Alert", "Done!");
+            await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
         }
         #endregion
 

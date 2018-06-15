@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -155,11 +156,11 @@ namespace View.Services.ViewModel
                 //Verificamos que la cantidad de mejores herramentales sea mayor a cero.
                 if (ListaOptimos.Rows.Count == 0)
                     //Enviamos un mensaje si no hay herramentales.
-                    await dialog.SendMessage("Alerta", "No se encontró herramental con estas características..");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHerramental);
             }
             else
                 //Si están vacíos muestra un mensaje en pantalla
-                await dialog.SendMessage("Alerta", "Se debe llenar todos los campos...");
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
         }
 
         /// <summary>
@@ -172,7 +173,7 @@ namespace View.Services.ViewModel
             ProgressDialogController Progress;
 
             //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
-            Progress = await dialog.SendProgressAsync("Por favor espere", "Generando archivo excel...");
+            Progress = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgGenerandoExcell);
 
             //Ejecutamos el método para obtener la información del Excel y crear el nuevo archivo excel.
             string result= await ImportExcel.ImportClosingSleeve();
@@ -181,7 +182,7 @@ namespace View.Services.ViewModel
             if (result != null)
             {
                 //Mostramos mensaje de error
-                await dialog.SendMessage("Alerta", "Error al leer el archivo");
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGenerarArchivo);
             }
 
             //Ejecutamos el método para cerrar el mensaje de espera.

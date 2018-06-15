@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using View.Forms.ControlDocumentos;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -67,15 +68,7 @@ namespace View.Services.ViewModel
         }
         #endregion
 
-        #region Métodos
-        /// <summary>
-        /// Función que obtiene todos los documentos liberados, los asigna a la lista para mostrar en el dataGrid
-        /// </summary>
-        /// <param name="texto"></param>
-        private void GetGrid(string texto)
-        {
-            ListaDocumentos = DataManagerControlDocumentos.GetGridDocumentos(texto);
-        }
+        #region Comandos
 
         /// <summary>
         /// Comando que busca un archivo de la lista
@@ -101,6 +94,38 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
+        /// Comando para ver las versiones de un documento
+        /// </summary>
+        public ICommand verDocumento
+        {
+            get
+            {
+                return new RelayCommand(o => abrirDocumento());
+            }
+        }
+
+        #endregion
+
+        #region Métodos
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void abrirDocumento()
+        {
+            if (selectedDocumento != null)
+            {
+                FrmVersiones frm = new FrmVersiones();
+
+                VersionesVM context = new VersionesVM(selectedDocumento);
+
+                frm.DataContext = context;
+
+                frm.ShowDialog();
+            }
+        }
+
+        /// <summary>
         /// Método que generar un archivo excel a partir de la lista de documentos
         /// </summary>
         private async void getExcel()
@@ -120,7 +145,7 @@ namespace View.Services.ViewModel
             if (ListaDocumentos.Count != 0)
             {
                 //Ejecutamos el método para enviar un mensaje de espera mientras el archivo de excel se genera
-                Progress = await dialog.SendProgressAsync("Por favor espere", "Generando archivo excel...");
+                Progress = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgGenerandoExcell);
 
                 //Se añade las columnas, se especifíca el tipo fecha para dar formato a la columna
                 //Se tien que especificar el tipo, si no la fecha se escribe mal en Excel
@@ -165,7 +190,7 @@ namespace View.Services.ViewModel
                     await Progress.CloseAsync();
 
                     //Mostramos mensaje de error
-                    await dialog.SendMessage("Alerta", "Error al generar el archivo");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGenerarArchivo);
                 }
                 //Ejecutamos el método para cerrar el mensaje de espera.
                 await Progress.CloseAsync();
@@ -173,33 +198,15 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Comando para ver las versiones de un documento
+        /// Función que obtiene todos los documentos liberados, los asigna a la lista para mostrar en el dataGrid
         /// </summary>
-        public ICommand verDocumento
+        /// <param name="texto"></param>
+        private void GetGrid(string texto)
         {
-            get
-            {
-                return new RelayCommand(o => abrirDocumento());
-            }
+            ListaDocumentos = DataManagerControlDocumentos.GetGridDocumentos(texto);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private void abrirDocumento()
-        {
-            if (selectedDocumento != null)
-            {
-                FrmVersiones frm = new FrmVersiones();
-
-                VersionesVM context = new VersionesVM(selectedDocumento);
-
-                frm.DataContext = context;
-
-                frm.ShowDialog();
-            }
-        }
-            #endregion
-        }
+        #endregion
     }
+}
 

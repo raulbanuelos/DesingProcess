@@ -93,6 +93,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(param => buscarTooling((string)param));
             }
         }
+
         /// <summary>
         /// Comando para abrir la ventana de collar bk
         /// </summary>
@@ -147,6 +148,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => irExternalGR1P());
             }
         }
+
         /// <summary>
         /// Comando para abrir la ventana de external guide roller 3 pieces_1
         /// </summary>
@@ -157,6 +159,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => externalGR3P_1());
             }
         }
+
         /// <summary>
         /// Comando para abrir la ventana de external guide roller 3 pieces_2
         /// </summary>
@@ -167,6 +170,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => externalGR3P_2());
             }
         }
+
         /// <summary>
         /// Comando para abrir la ventana de external guide roller 3 pieces_3
         /// </summary>
@@ -177,6 +181,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => externalGR3P_3());
             }
         }
+
         /// <summary>
         /// Comando para abrir la ventana de shim of the cut system
         /// </summary>
@@ -198,6 +203,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => nuevoMaestro());
             }
         }
+
         /// <summary>
         /// Comando para ver la informacion de un herramental
         /// </summary>
@@ -307,6 +313,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => irWorkcam());
             }
         }
+
         /// <summary>
         /// Comando que abre la ventana de Cutter Cam Turn.
         /// </summary>
@@ -519,6 +526,7 @@ namespace View.Services.ViewModel
 
             wCollar.ShowDialog();
         }
+
         /// <summary>
         /// Método que muestra la ventana de coil feed roller
         /// </summary>
@@ -551,6 +559,7 @@ namespace View.Services.ViewModel
             wcoil_dos.DataContext = vm;
             wcoil_dos.ShowDialog();
         }
+
         /// <summary>
         /// Método que muestra la ventana de external guide roller 1 piece
         /// </summary>
@@ -561,6 +570,7 @@ namespace View.Services.ViewModel
             wcoil.DataContext = vm;
             wcoil.ShowDialog();
         }
+
         /// <summary>
         /// Método que muestra la ventana de external guide roller 3 pieces_1
         /// </summary>
@@ -571,6 +581,7 @@ namespace View.Services.ViewModel
             wcoil.DataContext = vm;
             wcoil.ShowDialog();
         }
+
         /// <summary>
         /// Método que muestra la ventana de external guide roller 3 pieces_2
         /// </summary>
@@ -581,6 +592,7 @@ namespace View.Services.ViewModel
             wcoil.DataContext = vm;
             wcoil.ShowDialog();
         }
+
         /// <summary>
         /// Método que muestra la ventana de external guide roller 3 pieces_3
         /// </summary>
@@ -591,6 +603,7 @@ namespace View.Services.ViewModel
             wcoil.DataContext = vm;
             wcoil.ShowDialog();
         }
+
         /// <summary>
         /// Método que muestra la ventana de shim of the cut system
         /// </summary>
@@ -601,6 +614,7 @@ namespace View.Services.ViewModel
             wcoil.DataContext = vm;
             wcoil.ShowDialog();
         }
+
         /// <summary>
         /// Método que muestra la ventana para agregar un nuevo registro de maestro herramental
         /// </summary>

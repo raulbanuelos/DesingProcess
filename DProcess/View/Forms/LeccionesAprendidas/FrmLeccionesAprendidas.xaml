@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Forms.LeccionesAprendidas"
+        xmlns:recursos="clr-namespace:View.Resources"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d" 
@@ -28,16 +29,16 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" Grid.Row="0" Grid.Column="1">
-                <Button ToolTip="Nueva Leccion" Command="{Binding IrNuevaLeccion}" Cursor="Hand">
+                <Button ToolTip="{x:Static recursos:StringResources.lblNuevaLeccion}" Command="{Binding IrNuevaLeccion}" Cursor="Hand">
                     <materialDesign:PackIcon Kind="File" />
                 </Button>
                 <Separator></Separator>
             </ToolBar>
-            <Label x:Name="label" Content="Matriz de Lecciones Aprendidas" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="1"/>
+            <Label x:Name="label" Content="{x:Static recursos:StringResources.ttlMatrizLeccionesAprendidas}" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="1"/>
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical">
                 <TextBlock TextWrapping="WrapWithOverflow" TextAlignment="Center"  x:Name="label1" Text="MAHLE COMPONENTES DE MOTOR DE MEXICO S. DE R. L. DE C.V." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="28"/>
                 <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
-                    <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="Buscar" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+                    <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="TextChanged">
                                 <i:InvokeCommandAction
@@ -50,19 +51,19 @@
             </StackPanel>
             <DataGrid x:Name="dataGrid" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedLeccion,Mode=TwoWay}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding ID_LECCIONES_APRENDIDAS}" ClipboardContentBinding="{x:Null}" Header="Nombre del Usuario" Visibility="Hidden"/>
-                    <DataGridTextColumn Binding="{Binding COMPONENTE}" ClipboardContentBinding="{x:Null}" Header="Componente" Width="Auto"/>
-                    <DataGridTextColumn Binding="{Binding CAMBIO_REQUERIDO}" ClipboardContentBinding="{x:Null}" Header="Cambio Requerido" Width="Auto"/>
-                    <DataGridTextColumn Binding="{Binding NIVEL_DE_CAMBIO}" ClipboardContentBinding="{x:Null}" Header="Nivel de Cambio"  Width="Auto"/>
-                    <DataGridTextColumn Binding="{Binding CENTRO_DE_TRABAJO}" ClipboardContentBinding="{x:Null}" Header="Centro de Trabajo"  Width="Auto"/>
-                    <DataGridTextColumn Binding="{Binding OPERACION}" ClipboardContentBinding="{x:Null}" Header="Operación"  Width="Auto"/>
-                    <DataGridTextColumn Binding="{Binding DESCRIPCION_PROBLEMA}" ClipboardContentBinding="{x:Null}" Header="Descripción del Problema" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding FECHA_ULTIMO_CAMBIO, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="Fecha del Ultimo Cambio"/>
-                    <DataGridTextColumn Binding="{Binding FECHA_ACTUALIZACION, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="Fecha de Actualización"/>
-                    <DataGridTextColumn Binding="{Binding REPORTADO_POR}" ClipboardContentBinding="{x:Null}" Header="Reportado Por"  Width="Auto"/>
-                    <DataGridTextColumn Binding="{Binding SOLICITUD_DE_TRABAJO}" ClipboardContentBinding="{x:Null}" Header="Solicitud de Trabajo de Ingeniería"  Width="Auto"/>
-                    <DataGridTextColumn Binding="{Binding CRITERIO_1}" ClipboardContentBinding="{x:Null}" Header="Criterio"  Width="Auto"/>
-                    <DataGridTextColumn Binding="{Binding NombreCompleto}" ClipboardContentBinding="{x:Null}" Header="Cambio Realizado Por"/>
+                    <DataGridTextColumn Binding="{Binding ID_LECCIONES_APRENDIDAS}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblNombreUsuario}" Visibility="Hidden"/>
+                    <DataGridTextColumn Binding="{Binding COMPONENTE}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblComponente}" Width="Auto"/>
+                    <DataGridTextColumn Binding="{Binding CAMBIO_REQUERIDO}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCambioRequerido}" Width="Auto"/>
+                    <DataGridTextColumn Binding="{Binding NIVEL_DE_CAMBIO}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblNivelCambio}"  Width="Auto"/>
+                    <DataGridTextColumn Binding="{Binding CENTRO_DE_TRABAJO}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCentroTrabajo}"  Width="Auto"/>
+                    <DataGridTextColumn Binding="{Binding OPERACION}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblOperacion}"  Width="Auto"/>
+                    <DataGridTextColumn Binding="{Binding DESCRIPCION_PROBLEMA}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblDescripcionProblema}" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding FECHA_ULTIMO_CAMBIO, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaUltimoCambio}"/>
+                    <DataGridTextColumn Binding="{Binding FECHA_ACTUALIZACION, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaActualizacion}"/>
+                    <DataGridTextColumn Binding="{Binding REPORTADO_POR}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblReportadoPor}"  Width="Auto"/>
+                    <DataGridTextColumn Binding="{Binding SOLICITUD_DE_TRABAJO}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblReportadoPor}"  Width="Auto"/>
+                    <DataGridTextColumn Binding="{Binding CRITERIO_1}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCriterio}"  Width="Auto"/>
+                    <DataGridTextColumn Binding="{Binding NombreCompleto}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCambioRealizadoPor}"/>
                 </DataGrid.Columns>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">

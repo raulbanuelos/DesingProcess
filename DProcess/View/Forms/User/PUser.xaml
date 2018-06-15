@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:View.Forms.User"
+      xmlns:recursos="clr-namespace:View.Resources"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:ir="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
@@ -28,9 +29,9 @@
             <ColumnDefinition Width="1330"/>
             <ColumnDefinition Width="15"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Datos del usuario" FontWeight="Bold" FontSize="25" Grid.Column="2" Grid.Row="1"></Label>
+        <Label Content="{x:Static recursos:StringResources.lblDatosUsuario}" FontWeight="Bold" FontSize="25" Grid.Column="2" Grid.Row="1"></Label>
         <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,0,5,0" >
-            <Button ToolTip="Nuevo Usuario" Command="{Binding AgregarUsuario}" Cursor="Hand">
+            <Button ToolTip="{x:Static recursos:StringResources.lblAgregarUsuario}" Command="{Binding AgregarUsuario}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="AccountCheck" />
             </Button>
             <Button ToolTip="Administrar Usuarios" Command="{Binding ConsultarUsuarios}" Cursor="Hand" Visibility="{Binding Consultar,Converter={StaticResource BoolToVis}, FallbackValue=hidden}">
@@ -40,16 +41,16 @@
         <materialDesign:PackIcon Kind="AccountCircle"  Width="140" Height="140" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Margin="44,10,56,200" />
         <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Vertical">
             <Canvas Height="50">
-                <TextBox materialDesign:HintAssist.Hint="Usuario " Text="{Binding Usuario}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" IsReadOnly="True"></TextBox>
+                <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblUsuario}" Text="{Binding Usuario}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" IsReadOnly="True"></TextBox>
             </Canvas>
             <Canvas Height="50">
-                <TextBox materialDesign:HintAssist.Hint="Nombre" Text="{Binding Nombre}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" Height="50" IsReadOnly="True"></TextBox>
+                <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombre}" Text="{Binding Nombre}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" Height="50" IsReadOnly="True"></TextBox>
             </Canvas>
             <Canvas Height="50">
-                <TextBox materialDesign:HintAssist.Hint="Apellido Paterno" Text="{Binding ApellidPaterno}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" Height="50" IsReadOnly="True"></TextBox>
+                <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblApellidoPaterno}" Text="{Binding ApellidPaterno}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" Height="50" IsReadOnly="True"></TextBox>
             </Canvas>
             <Canvas Height="50">
-                <TextBox materialDesign:HintAssist.Hint="Apellido Materno" Text="{Binding ApellidMaterno}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" Height="50" IsReadOnly="True"></TextBox>
+                <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblApellidoMaterno}" Text="{Binding ApellidMaterno}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" Height="50" IsReadOnly="True"></TextBox>
             </Canvas>
             <Canvas Height="50">
                 <PasswordBox x:Name="txt_pass"  materialDesign:HintAssist.Hint="Contraseña Actual"  Height="50"  Width="350" BorderThickness="0,0,0,1"  FontSize="18">
@@ -63,7 +64,7 @@
                 </PasswordBox>
             </Canvas>
             <Canvas Height="50">
-                <PasswordBox x:Name="txt_Newpass"  materialDesign:HintAssist.Hint="Contraseña Nueva"  Height="50"  Width="350" BorderThickness="0,0,0,1"  FontSize="18">
+                <PasswordBox x:Name="txt_Newpass"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNuevaContraseña}"  Height="50"  Width="350" BorderThickness="0,0,0,1"  FontSize="18">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PasswordChanged">
                             <i:InvokeCommandAction
@@ -74,7 +75,7 @@
                 </PasswordBox>
             </Canvas>
             <Canvas Height="50">
-                <PasswordBox x:Name="txt_Confirmpass"  materialDesign:HintAssist.Hint="Confirmar Contraseña"  Height="50"  Width="350" BorderThickness="0,0,0,1"  FontSize="18">
+                <PasswordBox x:Name="txt_Confirmpass"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblConfirmarContraseña}"  Height="50"  Width="350" BorderThickness="0,0,0,1"  FontSize="18">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PasswordChanged">
                             <i:InvokeCommandAction
@@ -86,6 +87,6 @@
             </Canvas>
 
         </StackPanel>
-        <Button Grid.Column="2" Grid.Row="4" Content="Modificar" Command="{Binding ModificarPass}" Height="31" Width="95" VerticalAlignment="Top" HorizontalAlignment="Right" />
+        <Button Grid.Column="2" Grid.Row="4" Content="{x:Static recursos:StringResources.lblModificar}" Command="{Binding ModificarPass}" Height="31" Width="95" VerticalAlignment="Top" HorizontalAlignment="Right" />
     </Grid>
 </Page>

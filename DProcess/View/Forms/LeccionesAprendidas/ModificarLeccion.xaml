@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Forms.LeccionesAprendidas"
         mc:Ignorable="d"
+        xmlns:recursos="clr-namespace:View.Resources"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Lecciones" Height="750" Width="1200"  
+        Title="{x:Static recursos:StringResources.ttlLecciones}" Height="750" Width="1200"  
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.Resources>
@@ -36,8 +37,8 @@
                         <TextBlock FontWeight="Bold" Text="{Binding Path=NOMBRE_ARCHIVO}" TextWrapping="WrapWithOverflow"  Grid.Column="0" ></TextBlock>
                         <TextBlock Text="{Binding Path=EXT}" Grid.Column="1"  FontWeight="Bold" ></TextBlock>
 
-                        <Button  Grid.Column="3" Content="{materialDesign:PackIcon Close}" Style="{StaticResource MaterialDesignFlatButton}" ToolTip="Eliminar Archivo" Command="{Binding Path=DataContext.EliminarItem,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"/>
-                        <Button  Grid.Column="2" Content="{materialDesign:PackIcon Eye}" Style="{StaticResource MaterialDesignFlatButton}" ToolTip="Ver Archivo" Command="{Binding Path=DataContext.VerArchivo,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"/>
+                        <Button  Grid.Column="3" Content="{materialDesign:PackIcon Close}" Style="{StaticResource MaterialDesignFlatButton}" ToolTip="{x:Static recursos:StringResources.lblEliminar}" Command="{Binding Path=DataContext.EliminarItem,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"/>
+                        <Button  Grid.Column="2" Content="{materialDesign:PackIcon Eye}" Style="{StaticResource MaterialDesignFlatButton}" ToolTip="{x:Static recursos:StringResources.lblVer}" Command="{Binding Path=DataContext.VerArchivo,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"/>
                     </Grid>
                     <!--Columna0-->
                     <Image Name="img_icono" Source="{Binding Path=ruta}" Grid.Column="0" HorizontalAlignment="Stretch" Width="45" VerticalAlignment="Stretch"></Image>
@@ -67,19 +68,19 @@
                     <RowDefinition Height="550"></RowDefinition>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Vertical">
-                    
-                    <TextBox  materialDesign:HintAssist.Hint="Componente" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding COMPONENTE}"/>
-                    <TextBox  materialDesign:HintAssist.Hint="Cambio Requerido" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding CAMBIO_REQUERIDO}" />
-                    <TextBox  materialDesign:HintAssist.Hint="Nivel de Cambio" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding NIVEL_DE_CAMBIO}" />
-                    <TextBox  materialDesign:HintAssist.Hint="Centro de Trabajo" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding CENTRO_DE_TRABAJO}"/>
-                    <TextBox  materialDesign:HintAssist.Hint="Operacíon" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding OPERACION}"/>
-                    <TextBox  materialDesign:HintAssist.Hint="Descripcion del Problema" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="100"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding DESCRIPCION_PROBLEMA}"/>
+
+                    <TextBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblComponente}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding COMPONENTE}"/>
+                    <TextBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCambioRequerido}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding CAMBIO_REQUERIDO}" />
+                    <TextBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNivelCambio}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding NIVEL_DE_CAMBIO}" />
+                    <TextBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCentroTrabajo}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding CENTRO_DE_TRABAJO}"/>
+                    <TextBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblOperacion}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding OPERACION}"/>
+                    <TextBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblDescripcionProblema}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="100"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding DESCRIPCION_PROBLEMA}"/>
                     <StackPanel Orientation="Horizontal" Height="50" Margin="65,5,0,0">
-                        <DatePicker materialDesign:HintAssist.Hint="Fecha Ultimo Cambio" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FECHA_ULTIMO_CAMBIO}"
+                        <DatePicker materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaUltimoCambio}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FECHA_ULTIMO_CAMBIO}"
                         IsEnabled="{Binding EnabledFecha}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Height="50" Margin="65,5,0,0">
-                        <DatePicker materialDesign:HintAssist.Hint="Fecha Ultimo Cambio" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FECHA_ACTUALIZACION}"
+                        <DatePicker materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaActualizacion}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FECHA_ACTUALIZACION}"
                         IsEnabled="{Binding EnabledFecha}" />
                     </StackPanel>
                 </StackPanel>
@@ -96,10 +97,10 @@
 
                 <StackPanel Orientation="Vertical">
 
-                    <TextBox  materialDesign:HintAssist.Hint="Reportado Por" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420"  BorderBrush="#FFBDBDBD"  FontSize="18" Text="{Binding REPORTADO_POR}"/>
-                    <TextBox  materialDesign:HintAssist.Hint="Solicitud de Trabajo de Ingeniería" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Text="{Binding SOLICITUD_TRABAJO_DE_ING}"/>
-                    <TextBox  materialDesign:HintAssist.Hint="Criterio" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Text="{Binding CRITERIO}"/>
-                    <ComboBox  materialDesign:HintAssist.Hint="Cambio Realizado Por" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  
+                    <TextBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblReportadoPor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420"  BorderBrush="#FFBDBDBD"  FontSize="18" Text="{Binding REPORTADO_POR}"/>
+                    <TextBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblSolicitudTrabajoIng}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Text="{Binding SOLICITUD_TRABAJO_DE_ING}"/>
+                    <TextBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCriterio}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Text="{Binding CRITERIO}"/>
+                    <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCambioRealizadoPor}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  
                                Height="51" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" 
                                ItemsSource="{Binding Path=ListaUsuarios}"  
                                SelectedValuePath="usuario" 
@@ -128,9 +129,9 @@
                 </StackPanel>
 
                     <StackPanel Grid.Row="1" Margin="60,5,0,0" >
-                    <Label Content="Para ver/eliminar el archivo, primero dale clic al ícono ." FontWeight="Bold"></Label>
+                    <Label Content="{x:Static recursos:StringResources.lblVerArchivo}" FontWeight="Bold"></Label>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="y después clic al ícono " FontWeight="Bold"></Label>
+                        <Label Content="{x:Static recursos:StringResources.lblverarchivo2}" FontWeight="Bold"></Label>
                         <Label Content="{materialDesign:PackIcon eye}"></Label>
                         <Label Content=" ó " FontWeight="Bold"></Label>
                         <Label Content="{materialDesign:PackIcon Close}"></Label>
@@ -138,7 +139,6 @@
                 </StackPanel>
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="2" Margin="60,5,0,0">
                     <StackPanel Grid.Row="2">
-                        <!--<ListBox ItemsSource="{Binding ListaArchivosLecciones}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" Margin="5" Grid.Row="2"/>-->
                         <ListBox Name="listBox" Grid.Column="1" Grid.Row="2" Height="AUTO" ItemsSource="{Binding ListaArchivosLecciones}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" >
                         </ListBox>
                     </StackPanel>
@@ -157,10 +157,10 @@
                 <ColumnDefinition Width="120"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Content="Eliminar" Width="90" Grid.Column="0" Height="40"  Command="{Binding EliminarLeccion}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"/>
-          <Button Content="Guardar" Height="40"  Width="88" Grid.Column="1" Command="{Binding GuardarLeccion}"  Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" />
-            <Button Content="Insertar" Height="40"  Width="88" Grid.Column="2" Command="{Binding InsertarLeccion}"  Visibility="{Binding BttnInsertar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" />
-            <Button  Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" Margin="10" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding _AdjuntarArchivo}"  ToolTip="Adjuntar Archivo"
+            <Button Content="{x:Static recursos:StringResources.lblEliminar}" Width="90" Grid.Column="0" Height="40"  Command="{Binding EliminarLeccion}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"/>
+            <Button Content="{x:Static recursos:StringResources.lblGuardar}" Height="40"  Width="88" Grid.Column="1" Command="{Binding GuardarLeccion}"  Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" />
+            <Button Content="{x:Static recursos:StringResources.lblInsertar}" Height="40"  Width="88" Grid.Column="2" Command="{Binding InsertarLeccion}"  Visibility="{Binding BttnInsertar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" />
+            <Button  Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" Margin="10" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding _AdjuntarArchivo}"  ToolTip="{x:Static recursos:StringResources.lblAdjuntarArchivo}"
                     Visibility="{Binding BttnArchivos, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"  >
                 <materialDesign:PackIcon Kind="Paperclip" Height="24" Width="24" />
             </Button>

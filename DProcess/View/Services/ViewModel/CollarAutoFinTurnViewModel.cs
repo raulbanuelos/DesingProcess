@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -119,7 +120,7 @@ namespace View.Services.ViewModel
             ProgressDialogController Progress;
 
             //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
-            Progress = await dialog.SendProgressAsync("Por favor espere", "Generando archivo excel...");
+            Progress = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgGenerandoExcell);
 
             string e= await ImportExcel.ImportCollarBK();
 
@@ -127,7 +128,7 @@ namespace View.Services.ViewModel
             {
               
                 //Mostramos mensaje de error
-                await dialogService.SendMessage("Alerta", "Error al leer el archivo");
+                await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorLeerArchivo);
             }
 
             //Ejecutamos el método para cerrar el mensaje de espera.
@@ -163,7 +164,7 @@ namespace View.Services.ViewModel
             if (ListaMejoresHerramentales.Rows.Count == 0)
             {
                 //Enviamos un mensaje si no hay herramentales.
-                await dialogService.SendMessage("Alerta","No se encontro herramental con estas caracteristicas");
+                await dialogService.SendMessage(StringResources.ttlAlerta,StringResources.msgHerramental);
             }
         }
         #endregion

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using View.Forms.ControlDocumentos;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -124,7 +125,9 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Commands
-
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand Crear {
             get
             {
@@ -132,6 +135,25 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando para generar un nuevo número
+        /// </summary>
+        public ICommand Generar
+        {
+            get
+            {
+             return new RelayCommand(o => generarNumero());
+            }
+        }
+        
+
+        #endregion
+
+        #region Comandos
+
+        /// <summary>
+        /// 
+        /// </summary>
         private async void crearNumeroDocumento()
         {
             DialogService dialog = new DialogService();
@@ -159,7 +181,7 @@ namespace View.Services.ViewModel
                         Clipboard.SetText(NombreDocumento);
 
                         //Muestra mensaje con el número que se generó.
-                        await dialog.SendMessage("Información", "Se generó el número: " + NombreDocumento + "\n\n" + "Se copió el número al portapapeles.");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgGenerarNumero +" " + NombreDocumento + "\n\n" +" "+ StringResources.msgPortapapeles);
 
                         //Muestra la ventana para crear un nuevo documento
                         FrmDocumento frm = new FrmDocumento();
@@ -180,31 +202,20 @@ namespace View.Services.ViewModel
                     else
                     {
                         //No se pudo dar de alta el documento
-                        await dialog.SendMessage("Alerta", "Error al registrar el documento");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorRegistrarDocumento);
                     }
                 }
                 else
                 {
-                    await dialog.SendMessage("Alerta", "El número de documento está repetido.");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgNumeroRepetido);
                 }
             }
             else
             {
-                await dialog.SendMessage("Alerta", "Debe de llenar todos los campos");
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
             }
         }
 
-        /// <summary>
-        /// Comando para generar un nuevo número
-        /// </summary>
-        public ICommand Generar
-        {
-            get
-            {
-             return new RelayCommand(o => generarNumero());
-            }
-        }
-        
         /// <summary>
         /// Método que genera un nuevo número y crea un nuevo documento con el número generado
         /// </summary>
@@ -214,10 +225,11 @@ namespace View.Services.ViewModel
             //Incializamos los servicios de dialog.
             DialogService dialog = new DialogService();
 
-            if (selectedTipoDocumento!=null & selectedDepartamento != null) {
+            if (selectedTipoDocumento != null & selectedDepartamento != null)
+            {
                 //Ejecutamos el método para generar el número
                 string numero = DataManagerControlDocumentos.GetNumero(selectedTipoDocumento, selectedDepartamento);
-                
+
                 //si se generó correctamente
                 if (numero != null)
                 {
@@ -245,7 +257,7 @@ namespace View.Services.ViewModel
                             Clipboard.SetText(numero);
 
                             //Muestra mensaje con el número que se generó.
-                            await dialog.SendMessage("Información", "Se generó el número: " + numero + "\n\n" + "Se copió el número al portapapeles.");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgGenerarNumero +" "+ numero + "\n\n" +" "+ StringResources.msgPortapapeles);
 
                             //Muestra la ventana para crear un nuevo documento
                             FrmDocumento frm = new FrmDocumento();
@@ -266,28 +278,28 @@ namespace View.Services.ViewModel
                         else
                         {
                             //No se pudo dar de alta el documento
-                            await dialog.SendMessage("Alerta", "Error al guardar el documento,favor de comunicarse con el administrador del sistema.");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGuardarDocumento);
                         }
                     }
                     else
                     {
                         //Se generó un número que ya existe.
-                        await dialog.SendMessage("Alerta", "Se generó un error al generar el número, probablemente el número de documento ya exista. Favor de comunicarse con el administrador del sistema");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGenerarNumeroExistente);
                     }
-                    
+
                 }
                 else
                 {
-                    //Si hubo error ak generar el número
-                    await dialog.SendMessage("Alerta", "Error al generar el número, favor de comunicarse con el administrador del sistema.");
+                    //Si hubo error al generar el número
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGenerarNumero);
                 }
             }
             else
             {
                 //Si no éscogió ninguna opción
-                await dialog.SendMessage("Información", "Debe de escoger tipo y/o departamento");
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgTipoDepartamento);
             }
-           
+
         }
         #endregion
     }

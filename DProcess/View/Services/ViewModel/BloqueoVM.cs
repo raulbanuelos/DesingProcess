@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -147,18 +148,6 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Métodos
-
-        /// <summary>
-        /// Comando para guardar el reigstro de bloqueo
-        /// </summary>
-        public ICommand GuardarBloqueo
-        {
-            get
-            {
-                return new RelayCommand(o => guardar());
-            }
-        }
-
         /// <summary>
         /// Método que guardar un nuevo registro de bloqueo
         /// </summary>
@@ -166,11 +155,11 @@ namespace View.Services.ViewModel
         {
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, setting, MessageDialogStyle.AffirmativeAndNegative);
 
             //Si el resultado es afirmativo
             if (result == MessageDialogResult.Affirmative)
@@ -192,7 +181,7 @@ namespace View.Services.ViewModel
                     //Si se agregó correctamente el registro
                     if (id != 0)
                     {
-                        await dialog.SendMessage("Información", "Los datos fueron guardados correctamente...");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
 
                         //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                         var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -207,26 +196,15 @@ namespace View.Services.ViewModel
                     else
                     {
                         //Si hubo error al dar de alta
-                        await dialog.SendMessage("Alert", "Error al registrar el bloqueo...");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorRegistrarBloqueo);
                     }
 
                 }
                 else
                 {
                     //Si están vacíos los campos
-                    await dialog.SendMessage("Información", "Se deben de llenar todos los campos...");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
                 }
-            }
-        }
-
-        /// <summary>
-        /// Comando que ejecuta el método para modificar un registro de bloqueo
-        /// </summary>
-        public ICommand Modificar
-        {
-            get
-            {
-                return new RelayCommand(o=> modificar());
             }
         }
 
@@ -237,11 +215,11 @@ namespace View.Services.ViewModel
         {
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, setting, MessageDialogStyle.AffirmativeAndNegative);
 
             if (result == MessageDialogResult.Affirmative)
             {
@@ -264,7 +242,7 @@ namespace View.Services.ViewModel
                     //Si se modificó correctamente
                     if (update != 0)
                     {
-                        await dialog.SendMessage("Información", "Los cambios fueron guardados correctamente...");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
 
                         //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                         var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -279,26 +257,15 @@ namespace View.Services.ViewModel
                     else
                     {
                         //Si hubo error al realizar la modificación
-                        await dialog.SendMessage("Alert", "Error al modificar el registro...");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorModificarRegistro);
                     }
 
                 }
                 else
                 {
                     //Si los campos se encuentran vacíos
-                    await dialog.SendMessage("Información", "Se debe de llenar todos los campos...");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
                 }
-            }
-        }
-
-        /// <summary>
-        /// Comando que ejeucta el método para desbloquear el sistema
-        /// </summary>
-        public ICommand Desbloquear
-        {
-            get
-            {
-                return new RelayCommand(o => desbloquear());
             }
         }
 
@@ -312,11 +279,11 @@ namespace View.Services.ViewModel
             {
                 //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
                 MetroDialogSettings setting = new MetroDialogSettings();
-                setting.AffirmativeButtonText = "SI";
-                setting.NegativeButtonText = "NO";
+                setting.AffirmativeButtonText = StringResources.lblYes;
+                setting.NegativeButtonText = StringResources.lblNo;
 
                 //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-                MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea desbloquear el sistema?", setting, MessageDialogStyle.AffirmativeAndNegative);
+                MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgDesbloquearSistema, setting, MessageDialogStyle.AffirmativeAndNegative);
 
                 if (result == MessageDialogResult.Affirmative)
                 {
@@ -332,7 +299,7 @@ namespace View.Services.ViewModel
                     //Si se realizó el cambio
                     if (desbloq != 0)
                     {
-                        await dialog.SendMessage("Información", "Los cambios fueron realizados correctamente...");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
 
                         //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                         var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -346,9 +313,65 @@ namespace View.Services.ViewModel
                     }
                     else
                     {
-                        await dialog.SendMessage("Alert", "Error al realizar los cambios...");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGeneral);
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Método que asigna la fecha de inicio que se seleccionó a la fecha final
+        /// </summary>
+        private void cambiaFecha()
+        {
+            FechaFin = FechaInicio;
+        }
+
+        /// <summary>
+        /// Método que valida los campos no estén vacíos
+        /// </summary>
+        /// <returns></returns>
+        private bool Valida()
+        {
+            if (_fechaFin != null & _fechaInicio != null & !string.IsNullOrEmpty(_observaciones) & !string.IsNullOrWhiteSpace(_observaciones))
+                return true;
+            else
+                return false;
+        }
+        #endregion
+
+        #region Comandos
+
+        /// <summary>
+        /// Comando para guardar el reigstro de bloqueo
+        /// </summary>
+        public ICommand GuardarBloqueo
+        {
+            get
+            {
+                return new RelayCommand(o => guardar());
+            }
+        }
+
+        /// <summary>
+        /// Comando que ejecuta el método para modificar un registro de bloqueo
+        /// </summary>
+        public ICommand Modificar
+        {
+            get
+            {
+                return new RelayCommand(o=> modificar());
+            }
+        }
+
+        /// <summary>
+        /// Comando que ejeucta el método para desbloquear el sistema
+        /// </summary>
+        public ICommand Desbloquear
+        {
+            get
+            {
+                return new RelayCommand(o => desbloquear());
             }
         }
 
@@ -363,22 +386,6 @@ namespace View.Services.ViewModel
             }
         }
 
-        /// <summary>
-        /// Método que asigna la fecha de inicio que se seleccionó a la fecha final
-        /// </summary>
-        private void cambiaFecha()
-        {
-            FechaFin = FechaInicio;
-        }
-
-        //Método que valida los campos no estén vacíos
-        private bool Valida()
-        {
-            if (_fechaFin != null & _fechaInicio != null & !string.IsNullOrEmpty(_observaciones) & !string.IsNullOrWhiteSpace(_observaciones))
-                return true;
-            else
-                return false;
-        }
         #endregion
     }
 }

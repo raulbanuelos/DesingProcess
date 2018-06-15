@@ -201,8 +201,9 @@
     <value>La hoja de ruta esta lista</value>
     <comment>Mensaje de creación de hoja de ruta esta listo.</comment>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
+  <data name="msgDeleteUsuario" xml:space="preserve">
+    <value>El usuario se elimino correctamente</value>
+    <comment>Mensaje de confirmacion al borrar un usuario</comment>
   </data>
   <data name="ttlAlerta" xml:space="preserve">
     <value>Alerta</value>
@@ -259,5 +260,1005 @@
   <data name="ttlUser" xml:space="preserve">
     <value>Usuarios</value>
     <comment>Título para usuarios</comment>
+  </data>
+  <data name="msgCancelar" xml:space="preserve">
+    <value>Cancelar</value>
+    <comment>Mensaje para cancelar una operacion</comment>
+  </data>
+  <data name="msgCrearDocumento" xml:space="preserve">
+    <value>Crear un nuevo número</value>
+    <comment>Mensaje de crear un nuevo numero</comment>
+  </data>
+  <data name="msgDelArchivo" xml:space="preserve">
+    <value>¿Desea eliminar el archivo?</value>
+    <comment>Mensaje para eliminar un archivo seleccionado</comment>
+  </data>
+  <data name="msgDelUsuario" xml:space="preserve">
+    <value>¿Desea eliminar el usuario?</value>
+    <comment>Mensaje para verificar si se desea eliminar un usuario</comment>
+  </data>
+  <data name="msgDocumentoDisponible" xml:space="preserve">
+    <value>Usted no tiene ningún documento disponible</value>
+    <comment>Mensaje para notificar que el usuario no tiene documentos disponibles</comment>
+  </data>
+  <data name="msgDocumentosCorregir" xml:space="preserve">
+    <value> Documento(s) pendiente(s) por corregir</value>
+    <comment>Mensaje para notificar cuantos documentos hay por corregir</comment>
+  </data>
+  <data name="msgDocumentosEntregar" xml:space="preserve">
+    <value> Documento(s) que puedes entregar</value>
+    <comment>Mensaje para notificar cuantos documentos hay por entregar</comment>
+  </data>
+  <data name="msgDocumentosLiberar" xml:space="preserve">
+    <value> Documento(s) pendiente(s) por liberar</value>
+    <comment>Mensaje para notificar cuantos documentos hay por liberar</comment>
+  </data>
+  <data name="msgDocumentosValidar" xml:space="preserve">
+    <value> Documento(s) pendiente(s) por validar</value>
+    <comment>Mensaje para notificar cuantos documentos hay pendientes por validar</comment>
+  </data>
+  <data name="msgEditarDocumento" xml:space="preserve">
+    <value>Editar Documentos Existentes</value>
+    <comment>Mensaje de editar documentos existentes</comment>
+  </data>
+  <data name="msgErrorAbrir" xml:space="preserve">
+    <value>Error al abrir el archivo seleccionado</value>
+    <comment>Mensaje para notificar que hubo un error al abrir</comment>
+  </data>
+  <data name="msgEstatusDocumento" xml:space="preserve">
+    <value>Error al actualizar el estatus del documento</value>
+    <comment>Mensaje para actualizar el estatus del documento</comment>
+  </data>
+  <data name="msgEstatusPendienteCorregir" xml:space="preserve">
+    <value>Se cambio el estatus a pendiente por corregir</value>
+    <comment>Mensaje para cambiar el estatus</comment>
+  </data>
+  <data name="msgEstatusVersion" xml:space="preserve">
+    <value>Error al actualizar el estatus de la versión</value>
+    <comment>Mensaje para actualizar el estatus de la version</comment>
+  </data>
+  <data name="msgExisten" xml:space="preserve">
+    <value>Existen </value>
+    <comment>Mensaje que muestra existen</comment>
+  </data>
+  <data name="msgGenerandoExcell" xml:space="preserve">
+    <value>Generando archivo Excel</value>
+    <comment>Mensaje para notificar que se esta elaborando el archivo excel</comment>
+  </data>
+  <data name="msgHerramental" xml:space="preserve">
+    <value>No se encontro herramental con estas caracteristicas</value>
+    <comment>Mensaje que notifica que no se encontro un herramental con las ciertas caracteristicas</comment>
+  </data>
+  <data name="msgNumeroDocumentoDisp" xml:space="preserve">
+    <value>Usted no tiene ningun número de documento disponible</value>
+    <comment>Mensaje para notificar que el usuario no tiene numeros de documentos disponibles</comment>
+  </data>
+  <data name="msgNumeroFijo" xml:space="preserve">
+    <value>Crear numero fijo</value>
+    <comment>Mensaje para crear un numero fijo</comment>
+  </data>
+  <data name="msgPrivilegiosUsuario" xml:space="preserve">
+    <value>El usuario tiene documentos, solo se borraran los privilegios de usuario</value>
+    <comment>Mensaje para notificar que se eliminaran los privilegios del usuario</comment>
+  </data>
+  <data name="msgRegresarCorregir" xml:space="preserve">
+    <value>¿Desea regresar a estatus pendiente por corregir?</value>
+    <comment>Mensaje para regresar a estatus pendiente por corregir</comment>
+  </data>
+  <data name="msgSistemaBloqueado" xml:space="preserve">
+    <value>Sistema Bloqueado</value>
+    <comment>Mensaje para notificar que el sistema esta bloqueado</comment>
+  </data>
+  <data name="ttlGuardar" xml:space="preserve">
+    <value>Guardar</value>
+    <comment>Titulo para boton de guardar</comment>
+  </data>
+  <data name="msgAdmin" xml:space="preserve">
+    <value>Administrador</value>
+    <comment>Campo para el correo</comment>
+  </data>
+  <data name="msgCambiosGuardadosExito" xml:space="preserve">
+    <value>Los cambios fueron guardados exitosamente, los archivos serán verificados por el administrador de documentos</value>
+    <comment>Mensaje que indica que el documento se creo correctamente y sera verificado por el administrador de documentos</comment>
+  </data>
+  <data name="msgCambiosRealizados" xml:space="preserve">
+    <value>Cambios realizados correctamente</value>
+    <comment>Mensaje para notificar que los cambios se guardaron correctamene</comment>
+  </data>
+  <data name="msgCamposInvalidos" xml:space="preserve">
+    <value>Campos invalidos, ingrese solo números</value>
+    <comment>Mensaje que notifica que solo se deben ingresar números</comment>
+  </data>
+  <data name="msgCierreArchivo" xml:space="preserve">
+    <value>Cierre el archivo para poder continuar</value>
+    <comment>Mensaje para indicar al usuario que tiene que cerrar el archivo para poder continuar</comment>
+  </data>
+  <data name="msgConfirmacion" xml:space="preserve">
+    <value>¿Desea guardar los cambios?</value>
+    <comment>Mensaje que notifica el cambio</comment>
+  </data>
+  <data name="msgDescripcionErrorArchivo" xml:space="preserve">
+    <value>Este documento tiene una descripción similar a otros archivos</value>
+    <comment>Mensaje que contiene la descripcion del por que no se puede guardar el archivo</comment>
+  </data>
+  <data name="msgDocumento" xml:space="preserve">
+    <value>El Documento</value>
+    <comment>Campo para el correo</comment>
+  </data>
+  <data name="msgDocumentoActualizado" xml:space="preserve">
+    <value>Documento actualizado en la matríz</value>
+    <comment>Campo para el correo</comment>
+  </data>
+  <data name="msgEliminarDocumentoFallido" xml:space="preserve">
+    <value>No se puedo eliminar el documento</value>
+    <comment>Mensaje para notificar que no se pudo eliminar el documento</comment>
+  </data>
+  <data name="msgEliminarDocumentoFrames" xml:space="preserve">
+    <value>El documento se eliminó exitosamente del sistema frames</value>
+    <comment>Mensaje que notifica que se elimino un documento del frames exitosamente</comment>
+  </data>
+  <data name="msgEliminarDocumentoFramesFallida" xml:space="preserve">
+    <value>Ocurrió un error al eliminar en el sistema frames. Por favor elimínelo directamente del sistema frames</value>
+    <comment>Mensaje que notifica que hubo un error al eliminar un documento del sistema frames</comment>
+  </data>
+  <data name="msgEliminarRegistro" xml:space="preserve">
+    <value>¿Desea eliminar el registro?</value>
+    <comment>Mensaje que notifica que se borrara un registro</comment>
+  </data>
+  <data name="msgEliminarVersionFallida" xml:space="preserve">
+    <value>No se puedo eliminar la versión</value>
+    <comment>Mensaje para notificar que no se pudo eliminar la version</comment>
+  </data>
+  <data name="msgEliminaVersion" xml:space="preserve">
+    <value>Se elimina version</value>
+    <comment>Mensaje que notifica que se elimina la version</comment>
+  </data>
+  <data name="msgErrorActualizarVersion" xml:space="preserve">
+    <value>Error al actualizar versión</value>
+    <comment>Mensaje que notifica que hubo un error al notificar el estatus de la version</comment>
+  </data>
+  <data name="msgErrorBorrarDocumento" xml:space="preserve">
+    <value>No se pudo eliminar el documento</value>
+    <comment>Mensaje para notificar que el documento no se pudo eliminar</comment>
+  </data>
+  <data name="msgErrorBorrarVersion" xml:space="preserve">
+    <value>No se puedo elimnar la version</value>
+    <comment>Mensaje para notificar que no se pudo borrar la version</comment>
+  </data>
+  <data name="msgErrorCambiosDocumentos" xml:space="preserve">
+    <value>No se pudieron realizar los cambios en documento</value>
+    <comment>Mensaje que notifica que no se pudo realizar los cambios al documento</comment>
+  </data>
+  <data name="msgErrorCambiosVersion" xml:space="preserve">
+    <value>No se pudieron realizar los cambios en la versión</value>
+    <comment>Mensaje que notifica que no se pudo realizar los cambios a la version</comment>
+  </data>
+  <data name="msgErrorCrearVersion" xml:space="preserve">
+    <value>No se puede crear una nueva versión</value>
+    <comment>Mensaje para notificar que no se puede crear una nueva version</comment>
+  </data>
+  <data name="msgErrorGeneral" xml:space="preserve">
+    <value>Error al guardar cambios</value>
+    <comment>Mensaje que notifica que hubo un error</comment>
+  </data>
+  <data name="msgErrorGuardandoArchivo" xml:space="preserve">
+    <value>Error al guardar archivo</value>
+    <comment>Mensaje que notifica error al guardar archivo</comment>
+  </data>
+  <data name="msgErrorGuardarArhivo" xml:space="preserve">
+    <value>No se puede guardar el archivo</value>
+    <comment>Mensaje que notifica que no se puede guardar el archivo</comment>
+  </data>
+  <data name="msgErrorRegistrarDocumento" xml:space="preserve">
+    <value>Error al registrar el documento</value>
+    <comment>Mensaje que indica que hubo un error al registrar el documento</comment>
+  </data>
+  <data name="msgErrorRegistrarVersion" xml:space="preserve">
+    <value>Error al registrar la versión</value>
+    <comment>Mensaje que indica que hubo un error al regitrar la version</comment>
+  </data>
+  <data name="msgErrorVersion" xml:space="preserve">
+    <value>El documento no tiene version anterior</value>
+    <comment>Mensaje para notificar que el documento no tiene version anterior</comment>
+  </data>
+  <data name="msgEspera" xml:space="preserve">
+    <value>Por favor, espere</value>
+    <comment>Mensaje para indicar al usuario que tiene que esperar</comment>
+  </data>
+  <data name="msgEsperaGuardandoDocumento" xml:space="preserve">
+    <value>Guardando Documento</value>
+    <comment>Indica que el usuario tiene que esperar mientras se inserta el documento</comment>
+  </data>
+  <data name="msgEstado" xml:space="preserve">
+    <value>Tiene estado</value>
+    <comment>Mensje que indica el estado de una version</comment>
+  </data>
+  <data name="msgEstatusVersionDocumento" xml:space="preserve">
+    <value>Error al actualizar el estatus de la versión y del documento</value>
+    <comment>Mensaje que notifica que hubo un error al actualizar el estatus de la version y del documento</comment>
+  </data>
+  <data name="msgFramesExito" xml:space="preserve">
+    <value>Se actualizo el sistema frames</value>
+    <comment>Mensaje que notifica que el frames se actualizo correctamente</comment>
+  </data>
+  <data name="msgFramesIncorrecto" xml:space="preserve">
+    <value>Hubo un error al actualizar el sistema frames. Favor de actualizar manualmente</value>
+    <comment>Mensaje que notifica que el frames se ocupa actualizar manualmente</comment>
+  </data>
+  <data name="msgGenerarVersion" xml:space="preserve">
+    <value>¿Desea generar una nueva versión?</value>
+    <comment>Mensaje para notificar que se creara una nueva version</comment>
+  </data>
+  <data name="msgGuardarDocumento" xml:space="preserve">
+    <value>El documento se guardará con los datos:</value>
+    <comment>Mensaje que notifica que los datos se guardaran </comment>
+  </data>
+  <data name="msgIngNumeroCopias" xml:space="preserve">
+    <value>Ingrese el número de copias</value>
+    <comment>Mensaje que captura el numero de copias</comment>
+  </data>
+  <data name="msgInsertando" xml:space="preserve">
+    <value>Adjuntando archivo</value>
+    <comment>Mensaje para notificar que se esta insertando un archivo</comment>
+  </data>
+  <data name="msgInsertarTipoArchivoDOC" xml:space="preserve">
+    <value>Para este tipo de archivo solo se pueden subir archivos .DOC</value>
+    <comment>Mensaje para notificar que solo se pueden subir archivos .DOC</comment>
+  </data>
+  <data name="msgInsertarTipoArchivoPDF" xml:space="preserve">
+    <value>Para este tipo de archivo solo se pueden subir archivos .PDF</value>
+    <comment>Mensaje para notificar que solo se pueden subir archivos .PDF</comment>
+  </data>
+  <data name="msgInsertarUnoSolo" xml:space="preserve">
+    <value>Solo se admite adjuntar un archivo</value>
+    <comment>Mensaje para notificar que solo se admite adjuntar un archivo</comment>
+  </data>
+  <data name="msgMatrizActualizada" xml:space="preserve">
+    <value>Matriz correctamente actualizada</value>
+    <comment>Mensaje que notifica que la matriz se actualizo con exito</comment>
+  </data>
+  <data name="msgNotificacionCorreo" xml:space="preserve">
+    <value>Se notificó vía correo exitosamente</value>
+    <comment>Mensaje que notifica que se mando el correo exitosamente</comment>
+  </data>
+  <data name="msgNotificacionCorreoFallida" xml:space="preserve">
+    <value>Ocurrio un error al notificar por correo. Favor de notificar manualmente desde Lotus Notes</value>
+    <comment>Mensaje que notifica que hubo un error al notificar via correo</comment>
+  </data>
+  <data name="msgNotificacionMatriz" xml:space="preserve">
+    <value>Ya se encuentra actualizado en la Matríz de Control de Documentos</value>
+    <comment>Campo para el correo</comment>
+  </data>
+  <data name="msgNotificarbaja" xml:space="preserve">
+    <value>No se puedo eliminar la versión. Debes seleccionar a una persona para notificarle la baja.</value>
+    <comment>Mensaje que hace seleccionar a una persiona para notificar la baja</comment>
+  </data>
+  <data name="msgNuevaVersion" xml:space="preserve">
+    <value>La nueva version del documento es la número</value>
+    <comment>Mensaje para notificar la nueva version del documento</comment>
+  </data>
+  <data name="msgNumeroCopias" xml:space="preserve">
+    <value>Número de copias</value>
+    <comment>Mensaje que captural el numero de copias</comment>
+  </data>
+  <data name="msgNumeroVersion" xml:space="preserve">
+    <value>Versón número</value>
+    <comment>Mensaje que indica el numero de la version</comment>
+  </data>
+  <data name="msgRegistroEliminado" xml:space="preserve">
+    <value>Registro eliminado!. Se actualizo la matríz correctamente</value>
+    <comment>Mensaje para notificar que se ha eliminado correctamente un registro</comment>
+  </data>
+  <data name="msgSeleccioneArchivo" xml:space="preserve">
+    <value>Seleccione un número de documento para poder insertar un archivo</value>
+    <comment>Mensaje para notificar que se tiene que seleccionar un numero para poder insertar un arhchivo</comment>
+  </data>
+  <data name="msgVersionAnterior" xml:space="preserve">
+    <value>¿Desea regresar a la versión anterior?</value>
+    <comment>Mensaje para notificar que se regresara a la version anterior</comment>
+  </data>
+  <data name="ttlGuardarVersion" xml:space="preserve">
+    <value>Guardar Version</value>
+    <comment>Titulo para el boton de guardar</comment>
+  </data>
+  <data name="ttlVerArchivos" xml:space="preserve">
+    <value>Ver archivos</value>
+    <comment>Titulo para boton</comment>
+  </data>
+  <data name="msgA" xml:space="preserve">
+    <value>a</value>
+    <comment>Muestra la a</comment>
+  </data>
+  <data name="msgAgregarDepartamento" xml:space="preserve">
+    <value>Departamento agregado</value>
+    <comment>Mensaje que notifica que se agrego el departamento</comment>
+  </data>
+  <data name="msgArchivoEliminadoCorrectamente" xml:space="preserve">
+    <value>Se elimino el archivo correctamente</value>
+    <comment>Mensaje que notifica que el archivo se elimino correctamente</comment>
+  </data>
+  <data name="msgArchivoEliminadoFallido" xml:space="preserve">
+    <value>No se pudo eliminar el archivo</value>
+    <comment>Mensaje que notifica que el archivo no se pudo eliminar</comment>
+  </data>
+  <data name="msgArchivoInsertado" xml:space="preserve">
+    <value>El Archivo se insertó correctamente</value>
+    <comment>Mensaje que notifica que se inserto el archivo correctamente</comment>
+  </data>
+  <data name="msgContraseñaActualDiferente" xml:space="preserve">
+    <value>Error la contraseña actual no coincide</value>
+    <comment>Mensaje que notifica que la contraseña actual y la nueva no coinciden</comment>
+  </data>
+  <data name="msgContraseñaCorta" xml:space="preserve">
+    <value>La contraseña debe de tener mas de 6 caracteres</value>
+    <comment>Mensaje que notifica que la contraseña mide menos de 6 caracteres</comment>
+  </data>
+  <data name="msgContraseñaDiferente" xml:space="preserve">
+    <value>Las contraseñas no son iguales</value>
+    <comment>Mensaje que notifica que las contraseñas no son iguales</comment>
+  </data>
+  <data name="msgContraseñaModificada" xml:space="preserve">
+    <value>Contraseña modificada</value>
+    <comment>Mensaje que notifica que se modifico la contraseña</comment>
+  </data>
+  <data name="msgContraseñaModificadaError" xml:space="preserve">
+    <value>Error al cambiar la contraseña</value>
+    <comment>Mensaje que notifica que hubo un error al modificar la contraseña</comment>
+  </data>
+  <data name="msgEliminacionCorrectaLeccion" xml:space="preserve">
+    <value>Se eliminó la lección correctamente</value>
+    <comment>Mensaje que notifica que se elimino correctamente una leccion</comment>
+  </data>
+  <data name="msgEliminarLeccion" xml:space="preserve">
+    <value>¿Desea eliminar la lección aprendida?</value>
+    <comment>Mensaje que notifica que se borrara una leccion</comment>
+  </data>
+  <data name="msgErrorAbreviatura" xml:space="preserve">
+    <value>La abreviatura debe tener menos de 7 caracteres</value>
+    <comment>Mensaje para notificar que la abreviatura debe tener menos de 7 caracteres</comment>
+  </data>
+  <data name="msgErrorActualizarHerramental" xml:space="preserve">
+    <value>Error al actualizar el herramental</value>
+    <comment>Mensaje que notifica que hubo un error al actualizar el herramental</comment>
+  </data>
+  <data name="msgErrorAgregarDepartamento" xml:space="preserve">
+    <value>No se pudo agregar el departamento</value>
+    <comment>Mensaje para notificar que no se pudo agregar el departamento</comment>
+  </data>
+  <data name="msgErrorDepartamentoExistente" xml:space="preserve">
+    <value>El departamento ya existe</value>
+    <comment>Mensaje para notificar que el departamento ya existe</comment>
+  </data>
+  <data name="msgErrorEliminarHerramental" xml:space="preserve">
+    <value>Error al eliminar el herramental</value>
+    <comment>Mensaje que notifica que hubo un error al eliminar el herramental</comment>
+  </data>
+  <data name="msgErrorEliminarRelacion" xml:space="preserve">
+    <value>Error al eliminar la relación</value>
+    <comment>Mensaje que notifica que hubo un error al eliminar la relacion</comment>
+  </data>
+  <data name="msgErrorEliminarValidacion" xml:space="preserve">
+    <value>Error al eliminar validación</value>
+    <comment>Mensaje que notifica que hubo error al borrar la notificacion</comment>
+  </data>
+  <data name="msgErrorGenerarNumero" xml:space="preserve">
+    <value>Error al generar el número, favor de comunicarse con el administrador del sistema</value>
+    <comment>Mensaje para notificar que hubo un error al general el numero</comment>
+  </data>
+  <data name="msgErrorGenerarNumeroExistente" xml:space="preserve">
+    <value>Error al generar el número, probablemente el número de documento ya exista. Favor de comunicarse con el administrador del sistema</value>
+    <comment>Mensaje para notificar que hubo error al generar el numero</comment>
+  </data>
+  <data name="msgErrorGuardarDocumento" xml:space="preserve">
+    <value>Error al guardar el documento,favor de comunicarse con el administrador del sistema</value>
+    <comment>Mensaje que notifica que hubo un error al guardar el documento y se tiene que contactar al administrador del sistema</comment>
+  </data>
+  <data name="msgErrorInsertarArchivo" xml:space="preserve">
+    <value>Error al guardar el archivo</value>
+    <comment>Mensaje que notifica que hubo un error al guardar el archivo</comment>
+  </data>
+  <data name="msgErrorMaestroHerramental" xml:space="preserve">
+    <value>Error al guardar el maestro herramental</value>
+    <comment>Mensaje que notifica que hubo un error al guardar el maestro herramental</comment>
+  </data>
+  <data name="msgErrorModificarRegistro" xml:space="preserve">
+    <value>Error al modificar el registro</value>
+    <comment>Mensaje que notifica error al modificar resgitro</comment>
+  </data>
+  <data name="msgErrorRangos" xml:space="preserve">
+    <value>Error de rangos</value>
+    <comment>Mensaje que notifica que hubo un error de rangos</comment>
+  </data>
+  <data name="msgErrorRegistrarBloqueo" xml:space="preserve">
+    <value>Error al registrar el bloqueo</value>
+    <comment>Mensaje que notifica que hubo un error al regsitrar el boqueo</comment>
+  </data>
+  <data name="msgErrorRegistrarValidacion" xml:space="preserve">
+    <value>Error al registrar la validación</value>
+    <comment>Mensaje que notifica que hubo un eror al registrar la validacion</comment>
+  </data>
+  <data name="msgErrorTipoDocumento" xml:space="preserve">
+    <value>Error al registrar el tipo de documento</value>
+    <comment>Mensaje que notifica que notifica que hubo un error del tipo de documento</comment>
+  </data>
+  <data name="msgEstatusVersionActualizada" xml:space="preserve">
+    <value>Se actualizó el estatus de la versión</value>
+    <comment>Mensaje que notifica que se actualizo el estatus de la version</comment>
+  </data>
+  <data name="msgExtencionNSF" xml:space="preserve">
+    <value>Solo se permiten rutas con extención .nsf</value>
+    <comment>Mensaje que notifica que solo se permiten rutas con extencio .nsf</comment>
+  </data>
+  <data name="msgGenerarNumero" xml:space="preserve">
+    <value>Se generó el número :</value>
+    <comment>Mensaje que notifica que se creó un nuevo numero</comment>
+  </data>
+  <data name="msgGuardando" xml:space="preserve">
+    <value>Guardando</value>
+    <comment>Mensaje que muestra una indica que se esta guardando</comment>
+  </data>
+  <data name="msgInsertarLeccionAprendida" xml:space="preserve">
+    <value>¿Desea crear la nueva lección aprendida?</value>
+    <comment>Mensaje para notificar que se va a crear una nueva leccion aprendida</comment>
+  </data>
+  <data name="msgInsertoExitoLeccion" xml:space="preserve">
+    <value>Se Insertó con éxito la lección aprendida</value>
+    <comment>Mensaje que notifica que se inserto con exito la nueva leccion aprendida</comment>
+  </data>
+  <data name="msgMaestroHerramentalExistente" xml:space="preserve">
+    <value>El código de maestro herramental ya existe</value>
+    <comment>Mensaje que notifica que el codigo herramental ya existe</comment>
+  </data>
+  <data name="msgMantenerConvertir" xml:space="preserve">
+    <value>¿Que deseas hacer? Mantener el mismo valor, Convertir el valor</value>
+    <comment>Mensaje para convertir o mantener un valor</comment>
+  </data>
+  <data name="msgNumeroRepetido" xml:space="preserve">
+    <value>El número de documento está repetido</value>
+    <comment>Mensaje que notifica que el numero esta repetido</comment>
+  </data>
+  <data name="msgPortapapeles" xml:space="preserve">
+    <value>Se copió el número al portapapeles</value>
+    <comment>Mensaje que notifica que el numero se copio en el portapapeles</comment>
+  </data>
+  <data name="msgQuitarRelacion" xml:space="preserve">
+    <value>¿Desea quitar relación?</value>
+    <comment>Mensaje que notifica que se borrara una relacion</comment>
+  </data>
+  <data name="msgRangoFechasInvalido" xml:space="preserve">
+    <value>El rango de fechas es inválido</value>
+    <comment>Mensaje que notifica que el rango de fechas es invalido</comment>
+  </data>
+  <data name="msgSeleccionarEstatus" xml:space="preserve">
+    <value>Se debe seleccionar el estatus</value>
+    <comment>Mensaje que notifica que se debe seleccionar el estatus.</comment>
+  </data>
+  <data name="msgSeleccionarValidacion" xml:space="preserve">
+    <value>Se debe seleccionar al menos una validación</value>
+    <comment>Mensaje que notifica que se debe seleccionar al menos una validacion</comment>
+  </data>
+  <data name="msgTipoDepartamento" xml:space="preserve">
+    <value>Debe de escoger tipo y/o departamento</value>
+    <comment>Mensaje para notificar que se debe escoger tipo o departamento</comment>
+  </data>
+  <data name="msgTipoDocumento" xml:space="preserve">
+    <value>Se debe seleccionar un tipo de documento</value>
+    <comment>Mensaje que notifica que se debe seleccionar un tipo de documento</comment>
+  </data>
+  <data name="msgTipoDocumentoExistente" xml:space="preserve">
+    <value>El tipo de documento ya existe</value>
+    <comment>Mensaje que notifica que el tipo de documento ya existe</comment>
+  </data>
+  <data name="msgUsuarioAlta" xml:space="preserve">
+    <value>Usuario dado de alta</value>
+    <comment>Mensaje que notifica que se dio de salta al usuario</comment>
+  </data>
+  <data name="msgUsuarioAltaError" xml:space="preserve">
+    <value>Error al registar el usuario</value>
+    <comment>Mensaje que notifica que hubo un error al dar de alta a un usuario</comment>
+  </data>
+  <data name="msgUsuarioExistente" xml:space="preserve">
+    <value>Error el usuario ya existe</value>
+    <comment>Mensaje que notifica que el usuario ya existe</comment>
+  </data>
+  <data name="msgValidacion" xml:space="preserve">
+    <value>Se debe seleccionar al menos una validación</value>
+    <comment>Mensaje para notificar que se debe seleccionar al menos una validacion</comment>
+  </data>
+  <data name="msgValidacionExistente" xml:space="preserve">
+    <value>La validación ya existe</value>
+    <comment>Mensaje que notifica que la validacion ya existe</comment>
+  </data>
+  <data name="ttlConvertir" xml:space="preserve">
+    <value>Convertir a </value>
+    <comment>Titulo para boton</comment>
+  </data>
+  <data name="ttlMantener" xml:space="preserve">
+    <value>Mantener</value>
+    <comment>Titulo para boton</comment>
+  </data>
+  <data name="msgDesbloquearSistema" xml:space="preserve">
+    <value>¿Desea desbloquear el sistema?</value>
+    <comment>Mensaje que confirma si se desea desbloquear el sistema</comment>
+  </data>
+  <data name="msgErrorGenerarArchivo" xml:space="preserve">
+    <value>Error al general archivo</value>
+    <comment>Mensaje que notifica que hubo un error al general el archivo</comment>
+  </data>
+  <data name="msgErrorLeerArchivo" xml:space="preserve">
+    <value>Error al leer el archivo</value>
+    <comment>Mensaje que notifica que hubo un error al leer el archivo</comment>
+  </data>
+  <data name="ttlMatrizControlDocumento" xml:space="preserve">
+    <value>Matríz de Control de Documentos</value>
+    <comment>Titulo para la ventana de control de documentos</comment>
+  </data>
+  <data name="lblAbreviatura" xml:space="preserve">
+    <value>Abreviatura</value>
+    <comment>Etiqueta de abreviatura</comment>
+  </data>
+  <data name="lblActualizarCopias" xml:space="preserve">
+    <value>Actualizar No. Copias</value>
+    <comment>etiqueta de actualizar numero de copias</comment>
+  </data>
+  <data name="lblAdjuntarArchivo" xml:space="preserve">
+    <value>Adjuntar Archivo</value>
+    <comment>Etiqueta para adjuntar archivo</comment>
+  </data>
+  <data name="lblAgregarDepartamento" xml:space="preserve">
+    <value>Agregar Departamento</value>
+    <comment>Etiqueta para el tooltip del boton</comment>
+  </data>
+  <data name="lblAgregarNuevaValidacion" xml:space="preserve">
+    <value>Agregar Nueva Validación</value>
+    <comment>Etiqueta deagregar una nueva validacion</comment>
+  </data>
+  <data name="lblAgregarTipo" xml:space="preserve">
+    <value>Agregar Tipo</value>
+    <comment>Etiqueta para el tooltip del boton</comment>
+  </data>
+  <data name="lblArea" xml:space="preserve">
+    <value>Área</value>
+    <comment>Etiqueta de area</comment>
+  </data>
+  <data name="lblAreaFrames" xml:space="preserve">
+    <value>Área Frames</value>
+    <comment>Etiqueta de area frames</comment>
+  </data>
+  <data name="lblBloquearSistema" xml:space="preserve">
+    <value>Bloquear Sistema</value>
+    <comment>Etiqueta para el tooltip del boton</comment>
+  </data>
+  <data name="lblBuscar" xml:space="preserve">
+    <value>Buscar</value>
+    <comment>Etiqueta para la barra de buscar</comment>
+  </data>
+  <data name="lblBuscarDocumento" xml:space="preserve">
+    <value>Buscar Documento</value>
+    <comment>Etiqueta para el tooltip del boton</comment>
+  </data>
+  <data name="lblCorreo" xml:space="preserve">
+    <value>Correo</value>
+    <comment>Etiqueta de correo</comment>
+  </data>
+  <data name="lblDepartamentoProceso" xml:space="preserve">
+    <value>Departamento/Proceso</value>
+    <comment>Etiqueta de departamento/proceso</comment>
+  </data>
+  <data name="lblDesbloquear" xml:space="preserve">
+    <value>Desbloquear</value>
+    <comment>Etiqueta de desbloquear</comment>
+  </data>
+  <data name="lblDescripcion" xml:space="preserve">
+    <value>Descripción</value>
+    <comment>Etiqueta para datagrid de documentos similares</comment>
+  </data>
+  <data name="lblDocumentosEliminados" xml:space="preserve">
+    <value>Ver Documentos Eliminados</value>
+    <comment>Etiqueta para el tooltip del boton</comment>
+  </data>
+  <data name="lblEliminar" xml:space="preserve">
+    <value>Eliminar</value>
+    <comment>Etiqueta para el boton de eliminar</comment>
+  </data>
+  <data name="lblExportar" xml:space="preserve">
+    <value>Exportar a Excel</value>
+    <comment>Etiqueta para el tooltip del boton</comment>
+  </data>
+  <data name="lblFecha" xml:space="preserve">
+    <value>Fecha</value>
+    <comment>Etiqueta para el campo de fecha</comment>
+  </data>
+  <data name="lblFechaActualizacion" xml:space="preserve">
+    <value>Fecha de Actualización</value>
+    <comment>Etiqueta para el campo de fecha actualizada</comment>
+  </data>
+  <data name="lblFechaEmision" xml:space="preserve">
+    <value>Fecha de Emision</value>
+    <comment>Etiqueta para el campo de fecha de emision</comment>
+  </data>
+  <data name="lblFechaFinal" xml:space="preserve">
+    <value>Fecha Final</value>
+    <comment>Etiqueta para el campo de fecha final</comment>
+  </data>
+  <data name="lblFechaInicio" xml:space="preserve">
+    <value>Fecha Inicio</value>
+    <comment>Etiqueta para el campo de fecha de inicio</comment>
+  </data>
+  <data name="lblFechaRevision" xml:space="preserve">
+    <value>Fecha de Revisión</value>
+    <comment>Etiqueta para datagrid de documentos similares</comment>
+  </data>
+  <data name="lblGenerar" xml:space="preserve">
+    <value>Generar</value>
+    <comment>Etiqueta para el boton de generar</comment>
+  </data>
+  <data name="lblGenerarExcel" xml:space="preserve">
+    <value>Generar Excel</value>
+    <comment>Etiqueta para el boton de generar excel</comment>
+  </data>
+  <data name="lblGenerarNumeroDocumento" xml:space="preserve">
+    <value>Generar Número de Documento</value>
+    <comment>Etiqueta para el tooltip del boton</comment>
+  </data>
+  <data name="lblGenerarVersion" xml:space="preserve">
+    <value>Generar Version</value>
+    <comment>Etiqueta para el boton de generar version</comment>
+  </data>
+  <data name="lblGuardar" xml:space="preserve">
+    <value>Guardar</value>
+    <comment>Etiqueta para el boton de generar</comment>
+  </data>
+  <data name="lblHistorial" xml:space="preserve">
+    <value>Historial</value>
+    <comment>Etiqueta para el tooltip del boton</comment>
+  </data>
+  <data name="lblIdDocumento" xml:space="preserve">
+    <value>Id Documento</value>
+    <comment>Etiqueta para el ID del documento</comment>
+  </data>
+  <data name="lblLiberar" xml:space="preserve">
+    <value>Liberar</value>
+    <comment>Etiqueta para el boton de liberar</comment>
+  </data>
+  <data name="lblListaUsuariosDisponibles" xml:space="preserve">
+    <value>Lista de usuarios disponibles</value>
+    <comment>Etiqueta para la lista de usuarios disponibles</comment>
+  </data>
+  <data name="lblModificar" xml:space="preserve">
+    <value>Modificar</value>
+    <comment>Etiqueta para el boton de modificar</comment>
+  </data>
+  <data name="lblNombre" xml:space="preserve">
+    <value>Nombre</value>
+    <comment>Etiqueta para el campo de nombre</comment>
+  </data>
+  <data name="lblNombreDepartamento" xml:space="preserve">
+    <value>Nombre Departamento</value>
+    <comment>Etiqueta para el campo de nombre de departamento</comment>
+  </data>
+  <data name="lblNombreDepartamentoProceso" xml:space="preserve">
+    <value>Nombre del Departamento/Proceso</value>
+    <comment>Etiqueta para el campo de nombre de proceso/departamento</comment>
+  </data>
+  <data name="lblNombreDocumento" xml:space="preserve">
+    <value>Nombre de Documento</value>
+    <comment>Etiqueta para datagrid de documentos similares</comment>
+  </data>
+  <data name="lblNotificar" xml:space="preserve">
+    <value>Notificar</value>
+    <comment>Etiqueta para el campo de notificar a </comment>
+  </data>
+  <data name="lblNotificarA" xml:space="preserve">
+    <value>Notificar despues de liberar a:</value>
+    <comment>Etiqueta para el campo de notificar</comment>
+  </data>
+  <data name="lblNuevoDocumento" xml:space="preserve">
+    <value>Nuevo Documento</value>
+    <comment>Etiqueta para el tooltip del boton</comment>
+  </data>
+  <data name="lblNumeroCopias" xml:space="preserve">
+    <value>Número de Copias</value>
+    <comment>Etiqueta para el campo de numero de copias</comment>
+  </data>
+  <data name="lblNumeroDocumento" xml:space="preserve">
+    <value>Número de Documento</value>
+    <comment>Etiqueta para el numero de documento</comment>
+  </data>
+  <data name="lblObservaciones" xml:space="preserve">
+    <value>Observaciones</value>
+    <comment>Etiqueta para el campo de observaciones</comment>
+  </data>
+  <data name="lblPendienteCorregir" xml:space="preserve">
+    <value>Pendiente por Corregir</value>
+    <comment>Etiqueta para que indica pendiente por corregir</comment>
+  </data>
+  <data name="lblRegresarVersionAnterior" xml:space="preserve">
+    <value>Regresar Versión Anterior</value>
+    <comment>Etiqueta que indica que se regreso a la version anterior</comment>
+  </data>
+  <data name="lblSeleccionar" xml:space="preserve">
+    <value>Seleccionar</value>
+    <comment>Etiqueta para el boton de seleccionar</comment>
+  </data>
+  <data name="lblTipoDocumento" xml:space="preserve">
+    <value>Tipo de Documento</value>
+    <comment>Eriqueta para el combobox de tipos de documentos</comment>
+  </data>
+  <data name="lblUsuario" xml:space="preserve">
+    <value>Usuario</value>
+    <comment>Etiqueta para el campo de usuario</comment>
+  </data>
+  <data name="lblUsuarioAutorizo" xml:space="preserve">
+    <value>Usuario Autorizó</value>
+    <comment>Etiqueta para el campo de usuario autorizo</comment>
+  </data>
+  <data name="lblUsuarioElaboro" xml:space="preserve">
+    <value>Usuario Elaboró</value>
+    <comment>Etiqueta para el campo de usuario elaborado</comment>
+  </data>
+  <data name="lblValidacion" xml:space="preserve">
+    <value>Validación</value>
+    <comment>Etiqueta para el campo de validacion</comment>
+  </data>
+  <data name="lblValidacionDocumento" xml:space="preserve">
+    <value>Validación Documento</value>
+    <comment>Etiqueta para el tooltip del boton</comment>
+  </data>
+  <data name="lblVerArchivo" xml:space="preserve">
+    <value>Para ver/eliminar el archivo, primero dale clic al ícono de Word/PDF.</value>
+    <comment>Etiqueta para el campo de ver archivo</comment>
+  </data>
+  <data name="lblverarchivo2" xml:space="preserve">
+    <value>y después clic al ícono</value>
+    <comment>Etiqueta para el campo de ver archivo</comment>
+  </data>
+  <data name="lblVerHistorial" xml:space="preserve">
+    <value>Ver historial</value>
+    <comment>Etiqueta para el tooltip del boton</comment>
+  </data>
+  <data name="lblVerRecurso" xml:space="preserve">
+    <value>Ver recursos</value>
+    <comment>Etiqueta para el tooltip del boton</comment>
+  </data>
+  <data name="lblVersion" xml:space="preserve">
+    <value>Versión</value>
+    <comment>Etiqueta para datagrid de documentos similares</comment>
+  </data>
+  <data name="ttlBloqueo" xml:space="preserve">
+    <value>Bloqueo</value>
+    <comment>TItulo para la ventana de bloqueo</comment>
+  </data>
+  <data name="ttlBusquedaDocumento" xml:space="preserve">
+    <value>Búsqueda Documento</value>
+    <comment>Titulo de busqueda de documento</comment>
+  </data>
+  <data name="ttlControlDocumento" xml:space="preserve">
+    <value>Control Documento</value>
+    <comment>Titulo de control de documentos</comment>
+  </data>
+  <data name="ttlCrearNumero" xml:space="preserve">
+    <value>Crear Número</value>
+    <comment>Titulo de crear documento</comment>
+  </data>
+  <data name="ttlDocumentosEliminados" xml:space="preserve">
+    <value>Documentos Eliminados</value>
+    <comment>Titulo de la vista documentos eliminados</comment>
+  </data>
+  <data name="ttlDocumentosSimilares" xml:space="preserve">
+    <value>Documentos Similares</value>
+    <comment>Titulo para la ventana de documentos similares</comment>
+  </data>
+  <data name="ttlDocumentosVencidos" xml:space="preserve">
+    <value>Documentos Vencidos</value>
+    <comment>Titulo para el campo de documentos vencidos</comment>
+  </data>
+  <data name="ttlGeneradorNumero" xml:space="preserve">
+    <value>Generador de Número</value>
+    <comment>Titulo para la vista de generador de numero</comment>
+  </data>
+  <data name="ttlListaUsuarios" xml:space="preserve">
+    <value>Lista de Usuarios</value>
+    <comment>Titulo para la vista de usuarios</comment>
+  </data>
+  <data name="ttlNuevaValidacion" xml:space="preserve">
+    <value>Nueva Validación</value>
+    <comment>Titulo de nueva validacion</comment>
+  </data>
+  <data name="ttlNuevoDepartamento" xml:space="preserve">
+    <value>Nuevo Departamento</value>
+    <comment>Titulo de nuevo departamento</comment>
+  </data>
+  <data name="lblAceptar" xml:space="preserve">
+    <value>Aceptar</value>
+    <comment>Etiqueta de aceptar</comment>
+  </data>
+  <data name="lblAgregarTipoDocumento" xml:space="preserve">
+    <value>Agregar Tipo de Documento</value>
+    <comment>Etiqueta de  tipo de documento</comment>
+  </data>
+  <data name="lblAgregarUsuario" xml:space="preserve">
+    <value>Agregar Usuario</value>
+    <comment>Etiqueta de  nuevo usuario</comment>
+  </data>
+  <data name="lblApellidoMaterno" xml:space="preserve">
+    <value>Apellido Materno</value>
+    <comment>Etiqueta de apellido materno</comment>
+  </data>
+  <data name="lblApellidoPaterno" xml:space="preserve">
+    <value>Apellido Paterno</value>
+    <comment>Etiqueta de apellido paterno</comment>
+  </data>
+  <data name="lblAñadir" xml:space="preserve">
+    <value>Añadir</value>
+    <comment>Etiqueta de añadir</comment>
+  </data>
+  <data name="lblBuscarUsuario" xml:space="preserve">
+    <value>Buscar usuario</value>
+    <comment>Etiqueta de buscar usuario</comment>
+  </data>
+  <data name="lblCambioRealizadoPor" xml:space="preserve">
+    <value>Cambio Realizado Por</value>
+    <comment>Etiqueta de cambio realizado por</comment>
+  </data>
+  <data name="lblCambioRequerido" xml:space="preserve">
+    <value>Cambio Requerido</value>
+    <comment>Etiqueta de cambio requerido</comment>
+  </data>
+  <data name="lblCentroTrabajo" xml:space="preserve">
+    <value>Centro de Trabajo</value>
+    <comment>Etiqueta de centro de trabajo</comment>
+  </data>
+  <data name="lblComponente" xml:space="preserve">
+    <value>Componente</value>
+    <comment>Etiqueta de componente</comment>
+  </data>
+  <data name="lblConfirmarContraseña" xml:space="preserve">
+    <value>Confirmar Contraseña</value>
+    <comment>Etiqueta de confirmar contraseña</comment>
+  </data>
+  <data name="lblCriterio" xml:space="preserve">
+    <value>Criterio</value>
+    <comment>Etiqueta de criterio</comment>
+  </data>
+  <data name="lblDatosUsuario" xml:space="preserve">
+    <value>Datos del Usuario</value>
+    <comment>Titulo para la vista de administrar datos de los usuarios</comment>
+  </data>
+  <data name="lblDescripcionProblema" xml:space="preserve">
+    <value>Descripción del Problema</value>
+    <comment>Etiqueta de descripcion del problema</comment>
+  </data>
+  <data name="lblDocumentosFirmados" xml:space="preserve">
+    <value>Nota: Recuerda que los documentos deben ir firmados</value>
+    <comment>Etiqueta para recordar que todos los archivos deben ir firmados</comment>
+  </data>
+  <data name="lblDocumentosPendientes" xml:space="preserve">
+    <value>Documentos Pendientes</value>
+    <comment>Etiqueta para indicar los documentos pendientes</comment>
+  </data>
+  <data name="lblDocumentosPendientesEntregar" xml:space="preserve">
+    <value>Documentos Pendientes por Entregar</value>
+    <comment>Etiqueta para indicar los documentos pendientes por entregar</comment>
+  </data>
+  <data name="lblFechaUltimoCambio" xml:space="preserve">
+    <value>Fecha Ultimo Cambio</value>
+    <comment>Etiqueta para el campo de fecha de ultimo cambio</comment>
+  </data>
+  <data name="lblInsertar" xml:space="preserve">
+    <value>Insertar</value>
+    <comment>Etiqueta para el boton de insertar</comment>
+  </data>
+  <data name="lblLiberado" xml:space="preserve">
+    <value>Liberado</value>
+    <comment>Etiqueta para el campo de liberado</comment>
+  </data>
+  <data name="lblMedidaPlato" xml:space="preserve">
+    <value>Selecciona una medida de plato</value>
+    <comment>Etiqueta para el campo de seleccionar plato</comment>
+  </data>
+  <data name="lblNivelCambio" xml:space="preserve">
+    <value>Nivel de Cambio</value>
+    <comment>Etiqueta para el campo de nivel de cambio</comment>
+  </data>
+  <data name="lblNombreUsuario" xml:space="preserve">
+    <value>Nombre del Usuario</value>
+    <comment>Etiqueta para el campo de nombre del usuario</comment>
+  </data>
+  <data name="lblNuevaContraseña" xml:space="preserve">
+    <value>Nueva Contraseña</value>
+    <comment>Etiqueta para el campo de la nueva contraseña</comment>
+  </data>
+  <data name="lblNuevaLeccion" xml:space="preserve">
+    <value>Nueva Leccion</value>
+    <comment>Etiqueta para el campo de la Nueva leccion</comment>
+  </data>
+  <data name="lblNuevoTipoDocumento" xml:space="preserve">
+    <value>Nuevo tipo de Documento</value>
+    <comment>Etiueta para el tipo de documento</comment>
+  </data>
+  <data name="lblNumeroMatriz" xml:space="preserve">
+    <value>Número de Matríz</value>
+    <comment>Etiqueta para el campo de numero de matriz</comment>
+  </data>
+  <data name="lblNumeroVersion" xml:space="preserve">
+    <value>Número de Versión</value>
+    <comment>Etiqueta para el campo de numero de version</comment>
+  </data>
+  <data name="lblOperacion" xml:space="preserve">
+    <value>Operación</value>
+    <comment>Etiqueta para el campo de operaciones</comment>
+  </data>
+  <data name="lblPerfil" xml:space="preserve">
+    <value>Perfil</value>
+    <comment>Etiqueta que indica el perfil</comment>
+  </data>
+  <data name="lblQuitarRelacion" xml:space="preserve">
+    <value>Quitar Relación</value>
+    <comment>Etiqueta para el boton de quitar relacion</comment>
+  </data>
+  <data name="lblRelacionar" xml:space="preserve">
+    <value>Relacionar</value>
+    <comment>Etiqueta para el boton de relacionar</comment>
+  </data>
+  <data name="lblReportadoPor" xml:space="preserve">
+    <value>Reportado Por</value>
+    <comment>Etiqueta para el campo de reportado por</comment>
+  </data>
+  <data name="lblSolicitudTrabajoIng" xml:space="preserve">
+    <value>Solicitud de Trabajo de Ingeniería </value>
+    <comment>Etiqueta para el campo de solicitud de trabajo de ingenieria</comment>
+  </data>
+  <data name="lblTipoPerfil" xml:space="preserve">
+    <value>Tipo de Perfil</value>
+    <comment>Etiqueta para el tipo de perfil</comment>
+  </data>
+  <data name="lblValidacionesNoRelacionadas" xml:space="preserve">
+    <value>Validaciones No Relacionadas</value>
+    <comment>Etiqueta para el campo de validaciones</comment>
+  </data>
+  <data name="lblValidacionesRelacionadas" xml:space="preserve">
+    <value>Validaciones Relacionadas</value>
+    <comment>Etiqueta para el campo de validaciones relacionadas</comment>
+  </data>
+  <data name="lblVer" xml:space="preserve">
+    <value>Ver</value>
+    <comment>Etiqueta para el campo de ver</comment>
+  </data>
+  <data name="lblVersiones" xml:space="preserve">
+    <value>Versiones</value>
+    <comment>Etiqueta para el campo de versiones</comment>
+  </data>
+  <data name="ttlAdministrarUsuarios" xml:space="preserve">
+    <value>Administrar Usuarios</value>
+    <comment>Mensaje de alerta</comment>
+  </data>
+  <data name="ttlLecciones" xml:space="preserve">
+    <value>Lecciones</value>
+    <comment>Titulo para la vista de lecciones</comment>
+  </data>
+  <data name="ttlMatrizLeccionesAprendidas" xml:space="preserve">
+    <value>Matríz de Lecciones Aprendidas</value>
+    <comment>Titulo para la vista de lecciones aprendidas</comment>
+  </data>
+  <data name="ttlModificarDatosUsuarios" xml:space="preserve">
+    <value>Modificar Datos del Usuario</value>
+    <comment>Titulo para la vista de modificar datos del usuario</comment>
+  </data>
+  <data name="ttlNuevoUsuario" xml:space="preserve">
+    <value>Nuevo Usuario</value>
+    <comment>Titulo de nuevo usuario</comment>
+  </data>
+  <data name="ttlRecursos" xml:space="preserve">
+    <value>Recursos</value>
+    <comment>Titulo de la vista recursos</comment>
+  </data>
+  <data name="ttlUnidades" xml:space="preserve">
+    <value>Unidades</value>
+    <comment>Titulo para la vista de unidades</comment>
+  </data>
+  <data name="ttlValidarDocumento" xml:space="preserve">
+    <value>Validar Documento</value>
+    <comment>Titulo para la vista de validad documento</comment>
   </data>
 </root>

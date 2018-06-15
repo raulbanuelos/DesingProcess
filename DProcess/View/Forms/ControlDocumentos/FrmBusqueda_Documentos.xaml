@@ -4,11 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:recursos="clr-namespace:View.Resources"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
-        Title="Búsqueda Documento" Height="850" Width="1050" WindowStartupLocation="CenterScreen"
+        Title="{x:Static recursos:StringResources.ttlBusquedaDocumento}" Height="850" Width="1050" WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
@@ -26,7 +27,7 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="1">
             <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" Height="45" >
-                <Button ToolTip="Generar Excel" Command="{Binding GetExcel}" Cursor="Hand" Width="62" Height="50" Margin="0,0,0,0">
+                <Button ToolTip="{x:Static recursos:StringResources.lblGenerarExcel}" Command="{Binding GetExcel}" Cursor="Hand" Width="62" Height="50" Margin="0,0,0,0">
                     <materialDesign:PackIcon Kind="FileExcel" Height="20" Width="29" />
                 </Button>
             </ToolBar>
@@ -34,7 +35,7 @@
 
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="5">
             <StackPanel Orientation="Horizontal" Width="403" HorizontalAlignment="Left" Height="51">
-                <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="Buscar..." Text="{Binding TextoBusqueda}" TextAlignment="Center" Width="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Height="46">
+                <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" Text="{Binding TextoBusqueda}" TextAlignment="Center" Width="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Height="46">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="TextChanged">
                             <i:InvokeCommandAction
@@ -48,14 +49,14 @@
 
         <DataGrid x:Name="dataGrid" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,5,0,0" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding ListaDocumentos}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}" Width="991">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="Número documento"/>
-                <DataGridTextColumn Binding="{Binding descripcion}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
-                <DataGridTextColumn Binding="{Binding version.no_version}" ClipboardContentBinding="{x:Null}" Header="Versión"/>
-                <DataGridTextColumn Binding="{Binding version.fecha_version,StringFormat={}{0:yyyy-MM-dd}}" Header="Fecha de Revisión"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Departamento}" ClipboardContentBinding="{x:Null}" Header="Área"/>
-                <DataGridTextColumn Binding="{Binding tipo.tipo_documento}" ClipboardContentBinding="{x:Null}" Header="Tipo de documento"/>
-                <DataGridTextColumn Binding="{Binding usuario}" ClipboardContentBinding="{x:Null}" Header="Usuario Elaboró"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding usuario_autorizo}" ClipboardContentBinding="{x:Null}" Header="Usuario Autorizó"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblNumeroDocumento}"/>
+                <DataGridTextColumn Binding="{Binding descripcion}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblDescripcion}"/>
+                <DataGridTextColumn Binding="{Binding version.no_version}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblVersion}"/>
+                <DataGridTextColumn Binding="{Binding version.fecha_version,StringFormat={}{0:yyyy-MM-dd}}" Header="{x:Static recursos:StringResources.lblFechaRevision}"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Departamento}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblArea}"/>
+                <DataGridTextColumn Binding="{Binding tipo.tipo_documento}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblTipoDocumento}"/>
+                <DataGridTextColumn Binding="{Binding usuario}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblUsuarioElaboro}"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding usuario_autorizo}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblUsuarioAutorizo}"></DataGridTextColumn>
             </DataGrid.Columns>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">

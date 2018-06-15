@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -60,7 +61,8 @@ namespace View.Services.ViewModel
         }
         #endregion
 
-        #region
+        #region Comandos
+
         /// <summary>
         /// Comando para guardar un nuevo departamento
         /// </summary>
@@ -71,6 +73,11 @@ namespace View.Services.ViewModel
                return new RelayCommand(o => guardarDepartamento());
             }
         }
+
+        #endregion
+
+        #region Métodos
+
         /// <summary>
         /// Método que valida si el departamento ingresado no existe, guarda el registro del departamento
         /// </summary>
@@ -81,11 +88,11 @@ namespace View.Services.ViewModel
 
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, setting, MessageDialogStyle.AffirmativeAndNegative);
 
             //Si el resultado es afirmativo
             if (result == MessageDialogResult.Affirmative)
@@ -93,7 +100,8 @@ namespace View.Services.ViewModel
                 //Si los campos son diferentes de nulo vacío
                 if (!string.IsNullOrEmpty(_nombreDep) & !string.IsNullOrEmpty(_abreviatura) & !string.IsNullOrWhiteSpace(_abreviatura) & !string.IsNullOrWhiteSpace(_nombreDep))
                 {
-                    if (_abreviatura.Length <= 6) {
+                    if (_abreviatura.Length <= 6)
+                    {
                         //Creamos un objeto de tipo departamento
                         Departamento objDep = new Departamento();
 
@@ -104,7 +112,7 @@ namespace View.Services.ViewModel
                         objDep.fecha_creacion = DataManagerControlDocumentos.Get_DateTime();
 
                         //Ejecuta el método para validar si existe el departamento
-                        int val = DataManagerControlDocumentos.ValidateDepartamento(objDep);                     
+                        int val = DataManagerControlDocumentos.ValidateDepartamento(objDep);
                         //Si no existe
                         if (val == 0)
                         {
@@ -114,7 +122,7 @@ namespace View.Services.ViewModel
                             //si se inserto correctamente 
                             if (id != 0)
                             {
-                                await dialog.SendMessage("Información", "Departamento agregado..");
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgAgregarDepartamento);
 
                                 //Obtenemos para pantalla
                                 var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -129,29 +137,31 @@ namespace View.Services.ViewModel
                             else
                             {
                                 //Si hubo error al registrar el departamento
-                                await dialog.SendMessage("Alerta", "No se pudo agregar el departamento..");
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorAgregarDepartamento);
                             }
                         }
                         else
                         {
                             //Si el nombre del departamento existe
-                            await dialog.SendMessage("Alerta", "El departamento ya existe..");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorDepartamentoExistente);
                         }
                     }
                     else
                     {
-                        await dialog.SendMessage("Alerta", "La abreviatura debe tener menos de 7 caracteres..");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorAbreviatura);
                     }
                 }
 
                 else
                 {
                     //Si los campos están vacíos
-                    await dialog.SendMessage("Alerta", "De debe de llenar todos los campos..");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
                 }
             }
         }
 
         #endregion
+
+
     }
 }

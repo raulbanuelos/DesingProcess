@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -172,10 +173,10 @@ namespace View.Services.ViewModel
                     Process.Start(filename);
                 }
             }
-            catch (IOException er)
+            catch (IOException)
             {
                 //Si hubo error al abrir el archivo muestra un mensaje 
-                await dialog.SendMessage("Alerta", "Error al abrir el archivo...");
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorAbrir);
             }
         }
 

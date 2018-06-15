@@ -15,6 +15,7 @@ using Model;
 using System.Collections;
 using MahApps.Metro.Controls;
 using System.Windows;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -262,6 +263,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(parametro => changed((object)parametro));
             }
         }
+
         /// <summary>
         /// coamdno para verificar la contraseña
         /// </summary>
@@ -272,6 +274,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(parametro => changedPass((object)parametro));
             }
         }
+
         /// <summary>
         /// comando para adjuntar ruta
         /// </summary>
@@ -282,6 +285,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => adjuntarruta());
             }
         }
+
         /// <summary>
         /// comando para guardar los datos del usuario
         /// </summary>
@@ -292,6 +296,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => guardardatos());
             }
         }
+
         #endregion
 
         #region Metodos
@@ -346,7 +351,7 @@ namespace View.Services.ViewModel
                     }
                     else
                     {
-                        await dialog.SendMessage("Atención", "Solo se permiten rutas con extención .nsf");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgExtencionNSF);
                     }
                 }
                 catch (Exception)
@@ -364,10 +369,10 @@ namespace View.Services.ViewModel
             DialogService dialog = new DialogService();
             MetroDialogSettings botones = new MetroDialogSettings();
 
-            botones.AffirmativeButtonText = "SI";
-            botones.NegativeButtonText = "NO";
+            botones.AffirmativeButtonText = StringResources.lblYes;
+            botones.NegativeButtonText = StringResources.lblNo;
 
-            MessageDialogResult result = await dialog.SendMessage("Atencion", "Desea Guardar los Cambios", botones , MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, botones , MessageDialogStyle.AffirmativeAndNegative);
 
             if (result == MessageDialogResult.Affirmative)
             {
@@ -467,7 +472,7 @@ namespace View.Services.ViewModel
                     DataManager.Set_PerfilUsuario(Dusuario);
                     DataManager.Set_PrivilegiosUsuario(Dusuario);
 
-                    await dialog.SendMessage("Información", "Datos Modificados Correctamente");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
 
                     //obtenemos la ventana anterior
                     var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -577,7 +582,7 @@ namespace View.Services.ViewModel
                             DataManager.Set_PerfilUsuario(Dusuario);
                             DataManager.Set_PrivilegiosUsuario(Dusuario);
 
-                            await dialog.SendMessage("Información","Datos Modificados Correctamente");
+                            await dialog.SendMessage(StringResources.ttlAlerta,StringResources.msgCambiosRealizados);
 
                             //obtenemos la ventana anterior
                             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -590,11 +595,11 @@ namespace View.Services.ViewModel
                         }
                         else
                         {
-                            await dialog.SendMessage("Atencion","Las contraseñas no son iguales");
+                            await dialog.SendMessage(StringResources.ttlAlerta,StringResources.msgContraseñaDiferente);
                         }
                     }else
                     {
-                        await dialog.SendMessage("Atencion", "La contraseña debe de tener mas de 6 caracteres");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgContraseñaCorta);
                     }
                 }
             }

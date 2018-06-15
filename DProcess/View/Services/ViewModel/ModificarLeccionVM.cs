@@ -14,6 +14,7 @@ using System.IO;
 using System.Diagnostics;
 using MahApps.Metro.Controls;
 using System.Windows;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -482,10 +483,10 @@ namespace View.Services.ViewModel
             MetroDialogSettings button = new MetroDialogSettings();
 
             //asignamos los valores de los botones
-            button.AffirmativeButtonText = "SI";
-            button.NegativeButtonText = "NO";
+            button.AffirmativeButtonText = StringResources.lblYes;
+            button.NegativeButtonText = StringResources.lblNo;
 
-            MessageDialogResult result = await service.SendMessage("Atención", "Desea crear la nueva lección aprendida", button, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await service.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarLeccionAprendida, button, MessageDialogStyle.AffirmativeAndNegative);
 
             if (result == MessageDialogResult.Affirmative)
             {
@@ -523,7 +524,7 @@ namespace View.Services.ViewModel
                     //verificamos que se hayan insertado los datos
                     if (insertar>0)
                     {
-                        await service.SendMessage("Atención", "Se Insertó con éxito la lección aprendida");
+                        await service.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertoExitoLeccion);
 
                         //obtenemos la ventana actual
                         var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -536,12 +537,12 @@ namespace View.Services.ViewModel
                     }
                     else
                     {
-                        await service.SendMessage("Error", "No se pudo insertar la lección aprendida");
+                        await service.SendMessage(StringResources.msgError, StringResources.msgErrorGeneral);
                     }
                 }
                 else
                 {
-                    await service.SendMessage("Atención", "No puede haber campos vacíos");
+                    await service.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
                 }
             }
         }
@@ -571,10 +572,10 @@ namespace View.Services.ViewModel
             MetroDialogSettings button = new MetroDialogSettings();
 
             //asignamos los valores de los botones
-            button.AffirmativeButtonText = "SI";
-            button.NegativeButtonText = "NO";
+            button.AffirmativeButtonText = StringResources.lblYes;
+            button.NegativeButtonText = StringResources.lblNo;
 
-            MessageDialogResult result = await service.SendMessage("Atencíon", "Desea Guardar los cambios", button, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await service.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, button, MessageDialogStyle.AffirmativeAndNegative);
 
             if (result == MessageDialogResult.Affirmative)
             {
@@ -619,7 +620,7 @@ namespace View.Services.ViewModel
                     //verificamos que se hayan insertado los valores correctamente
                     if (i > 0)
                     {
-                        await service.SendMessage("Atención", "Se Guardaron los cambios correctamente");
+                        await service.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
 
                         //obtenemos la ventana actual
                         var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -632,12 +633,12 @@ namespace View.Services.ViewModel
                     }
                     else
                     {
-                        await service.SendMessage("Error", "No se pudieron guardar los cambios");
+                        await service.SendMessage(StringResources.msgError, StringResources.msgErrorGeneral);
                     }
                 }
                 else
                 {
-                    await service.SendMessage("Atención", "No puede haber campos vacíos");
+                    await service.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
                 }                       
             }
         }
@@ -653,11 +654,11 @@ namespace View.Services.ViewModel
             MetroDialogSettings button = new MetroDialogSettings();
 
             //asigamos los valores a los botones
-            button.AffirmativeButtonText = "SI";
-            button.NegativeButtonText = "NO";
+            button.AffirmativeButtonText = StringResources.lblYes;
+            button.NegativeButtonText = StringResources.lblNo;
 
             //preguntamos si se desea eliminar la leccion aprendida
-            MessageDialogResult result = await diaog.SendMessage("Atención", "Desea eliminar la lección aprendida", button, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await diaog.SendMessage(StringResources.ttlAlerta, StringResources.msgEliminarLeccion, button, MessageDialogStyle.AffirmativeAndNegative);
 
             if (result == MessageDialogResult.Affirmative)
             {
@@ -666,7 +667,7 @@ namespace View.Services.ViewModel
                 //verificamos que se haya eliminado la leccion
                 if (delete>0)
                 {
-                    await diaog.SendMessage("Atención", "Se eliminó la lección correctamente");
+                    await diaog.SendMessage(StringResources.ttlAlerta, StringResources.msgEliminacionCorrectaLeccion);
 
                     //obtenemos la ventana actual
                     var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -678,7 +679,7 @@ namespace View.Services.ViewModel
                     }
                 }else
                 {
-                    await diaog.SendMessage("Error", "No se pudo eliminar la lección");
+                    await diaog.SendMessage(StringResources.msgError, StringResources.msgErrorGeneral);
                 }
             }
         }
@@ -714,7 +715,7 @@ namespace View.Services.ViewModel
                         //verificamos que el archivo no este en uso
                         if (!IsFileInUse(nombrearchivo))
                         {
-                            AsyncProgress = await dialog.SendProgressAsync("Por favor espere", "Adjuntando archivo...");
+                            AsyncProgress = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgInsertando);
 
                             //obtenemos los datos del archivo seleccionado
                             archivo.ARCHIVO = await Task.Run(() => File.ReadAllBytes(nombrearchivo));
@@ -751,16 +752,16 @@ namespace View.Services.ViewModel
                             }
 
                             await AsyncProgress.CloseAsync();
-                            await dialog.SendMessage("Atención", "El Archivo se insertó correctamente");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgArchivoInsertado);
 
                         }else
                         {
-                            await dialog.SendMessage("Error", "Cierre el archivo para poder insertarlo");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCierreArchivo);
                         }
                     }
                     catch (Exception)
                     {
-                        await dialog.SendMessage("Atención", "No se pudo insertar el archivo");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGuardandoArchivo);
                     }
                 }
             }
@@ -862,11 +863,11 @@ namespace View.Services.ViewModel
             {
                 //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
                 MetroDialogSettings setting = new MetroDialogSettings();
-                setting.AffirmativeButtonText = "SI";
-                setting.NegativeButtonText = "NO";
+                setting.AffirmativeButtonText = StringResources.lblYes;
+                setting.NegativeButtonText = StringResources.lblNo;
 
                 //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-                MessageDialogResult result = await dialogService.SendMessage("Attention", "¿Desea eliminar el archivo?", setting, MessageDialogStyle.AffirmativeAndNegative);
+                MessageDialogResult result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgDelArchivo, setting, MessageDialogStyle.AffirmativeAndNegative);
 
                 if (item != null & result == MessageDialogResult.Affirmative)
                 {
@@ -881,15 +882,15 @@ namespace View.Services.ViewModel
 
                         if (n > 0)
                         {
-                            await dialogService.SendMessage("Atención", "Se elimino el archivo correctamente");
+                            await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgArchivoEliminadoCorrectamente);
                         }
                         else
                         {
-                            await dialogService.SendMessage("Error", "No se pudo eliminar el archivo");
+                            await dialogService.SendMessage(StringResources.msgError, StringResources.msgArchivoEliminadoFallido);
                         }
                     }else
                     {
-                        await dialogService.SendMessage("Atención", "Se elimino el archivo correctamente");
+                        await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgArchivoEliminadoCorrectamente);
                     }
 
 
@@ -919,7 +920,7 @@ namespace View.Services.ViewModel
                 }
                 catch (Exception)
                 {
-                    await dialog.SendMessage("Alerta", "Error al abrir el archivo...");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorAbrir);
                 }
             }
         }

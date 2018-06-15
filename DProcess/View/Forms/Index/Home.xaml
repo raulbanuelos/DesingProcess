@@ -163,7 +163,7 @@
                     </Rectangle>
                 </Controls:Tile>
 
-                <!--HELP-->
+                <!--L-->
                 <Controls:Tile Command="{Binding IrLeccion}" Background="#5F3BBC" TiltFactor="2" Title="{x:Static local:StringResources.ttlLessons}" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilHelp}">
                     <Rectangle Width="80" Height="100" Fill="White">
                         <Rectangle.OpacityMask>

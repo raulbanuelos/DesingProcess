@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
+      xmlns:recursos="clr-namespace:View.Resources"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
@@ -29,73 +30,84 @@
             </Grid.ColumnDefinitions>
 
             <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" Grid.Row="0" Grid.Column="1">
-
-                <Button ToolTip="Nuevo documento" Command="{Binding IrNuevoDocumento}" Cursor="Hand">
+                <Button ToolTip="{x:Static recursos:StringResources.lblNuevoDocumento}" Command="{Binding IrNuevoDocumento}" Cursor="Hand">
                     <materialDesign:PackIcon Kind="File" />
                 </Button>
 
                 <Separator></Separator>
 
-                <Button ToolTip="Exportar a Excel" Command="{Binding Exportar}" Cursor="Hand">
+                <Button ToolTip="{x:Static recursos:StringResources.lblExportar}" Command="{Binding Exportar}" Cursor="Hand">
                     <materialDesign:PackIcon Kind="FileExcel" />
                 </Button>
 
                 <Separator></Separator>
-                <Button ToolTip="Buscar Documento"  Cursor="Hand" Command="{Binding IrBusquedaDocumento}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}">
+
+                <Button ToolTip="{x:Static recursos:StringResources.lblBuscarDocumento}"  Cursor="Hand" Command="{Binding IrBusquedaDocumento}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}">
                     <materialDesign:PackIcon Kind="FileFind"/>
                 </Button>
 
                 <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
-                <Button ToolTip="Agregar Tipo" Command="{Binding AgregarTipo}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
+
+                <Button ToolTip="{x:Static recursos:StringResources.lblAgregarTipo}" Command="{Binding AgregarTipo}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
                     <materialDesign:PackIcon Kind="FolderPlus" />
                 </Button>
 
                 <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
-                <Button ToolTip="Agregar Departamento" Command="{Binding AgregarDepartamento}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
+
+                <Button ToolTip="{x:Static recursos:StringResources.lblAgregarDepartamento}" Command="{Binding AgregarDepartamento}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
                     <materialDesign:PackIcon Kind="PlusBox" />
                 </Button>
 
                 <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
-                <Button ToolTip="Bloquear Sistema" Command="{Binding IrBloquear }" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
+
+                <Button ToolTip="{x:Static recursos:StringResources.lblBloquearSistema}" Command="{Binding IrBloquear }" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
                     <materialDesign:PackIcon Kind="TimerOff" />
                 </Button>
 
                 <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
-                <Button ToolTip="Ver recursos" Command="{Binding IrRecursos}" Cursor="Hand">
+
+                <Button ToolTip="{x:Static recursos:StringResources.lblVerRecurso}" Command="{Binding IrRecursos}" Cursor="Hand">
                     <materialDesign:PackIcon Kind="LinkVariant" />
                 </Button>
 
                 <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
-                <Button ToolTip="Ver historial" Command="{Binding IrHistorial}" Cursor="Hand">
+
+                <Button ToolTip="{x:Static recursos:StringResources.lblVerHistorial}" Command="{Binding IrHistorial}" Cursor="Hand">
                     <materialDesign:PackIcon Kind="History" />
                 </Button>
 
                 <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
-                <Button ToolTip="Historial" Command="{Binding IrHistorialFiltrado}" Cursor="Hand">
+
+                <Button ToolTip="{x:Static recursos:StringResources.lblHistorial}" Command="{Binding IrHistorialFiltrado}" Cursor="Hand">
                     <materialDesign:PackIcon Kind="FilterVariant" />
                 </Button>
 
                 <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
-                <Button ToolTip="Ver Documentos Eliminados" Command="{Binding irDocEliminado}" Cursor="Hand">
+
+                <Button ToolTip="{x:Static recursos:StringResources.lblDocumentosEliminados}" Command="{Binding irDocEliminado}" Cursor="Hand">
                     <materialDesign:PackIcon Kind="DeleteVariant"/>
                 </Button>
 
                 <Separator Visibility="Hidden"></Separator>
-                <Button ToolTip="Generar Número de Documento" Command="{Binding Generador}" Cursor="Hand" Visibility="Hidden">
+
+                <Button ToolTip="{x:Static recursos:StringResources.lblGenerarNumeroDocumento}" Command="{Binding Generador}" Cursor="Hand" Visibility="Hidden">
                     <materialDesign:PackIcon Kind="FileDocument" />
                 </Button>
+                
                 <Separator Visibility="Hidden"></Separator>
-                <Button ToolTip="Validación Documento" Command="{Binding IrValidacionTipoDocumento}" Visibility="Hidden" Cursor="Hand">
+
+                <Button ToolTip="{x:Static recursos:StringResources.lblNuevoDocumento}" Command="{Binding IrValidacionTipoDocumento}" Visibility="Hidden" Cursor="Hand">
                     <materialDesign:PackIcon Kind="FormatListBulletedType"/>
                 </Button>
+                
             </ToolBar>
-
-            <Label x:Name="label" Content="Matriz de Control de Documentos" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="1"/>
+            
+            <Label x:Name="label" Content="{x:Static recursos:StringResources.ttlMatrizControlDocumento}" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="1"/>
 
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical">
                 <TextBlock TextWrapping="WrapWithOverflow" TextAlignment="Center"  x:Name="label1" Text="MAHLE COMPONENTES DE MOTOR DE MEXICO S. DE R. L. DE C.V." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="28"/>
-                <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
-                    <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="Buscar..." Text="{Binding TextoBuscar}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+                    <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
+                    <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" Text="{Binding TextoBuscar}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="TextChanged">
                                 <i:InvokeCommandAction
@@ -104,7 +116,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </TextBox>
-                    <ComboBox materialDesign:HintAssist.Hint="Tipo de Documento" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="500" ItemsSource="{Binding ListaTipoDocumento}"  DisplayMemberPath="tipo_documento" SelectedItem="{Binding SelectedTipoDocumento}">
+                    <ComboBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblTipoDocumento}" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="500" ItemsSource="{Binding ListaTipoDocumento}"  DisplayMemberPath="tipo_documento" SelectedItem="{Binding SelectedTipoDocumento}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction
@@ -144,7 +156,6 @@
             </DataGrid>
 
             <Canvas Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-
 
             <Grid Grid.Column="1" Grid.Row="4" >
                 <Grid.ColumnDefinitions>

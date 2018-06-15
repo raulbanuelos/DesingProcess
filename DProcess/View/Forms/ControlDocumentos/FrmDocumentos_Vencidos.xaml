@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
+        xmlns:recursos="clr-namespace:View.Resources"     
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
-        Title="Documentos Vencidos" Height="500" Width="900" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="{x:Static recursos:StringResources.ttlDocumentosVencidos}" Height="500" Width="900" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
@@ -19,16 +20,16 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="1" FontSize="20" FontWeight="Bold" Content="Documentos Vencidos"></Label>
+        <Label Grid.Column="1" FontSize="20" FontWeight="Bold" Content="{x:Static recursos:StringResources.ttlDocumentosVencidos}"></Label>
         <DataGrid Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,5,0,0" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding ListaDocumentos}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre"/>
-                <DataGridTextColumn Binding="{Binding version.descripcion_v}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
-                <DataGridTextColumn Binding="{Binding version.no_version}" ClipboardContentBinding="{x:Null}" Header="Versión"/>
-                <DataGridTextColumn Binding="{Binding fecha_emision, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="Fecha de Emisión"/>
-                <DataGridTextColumn Binding="{Binding fecha_actualizacion, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="Fecha de Actualización"/>
-                <DataGridTextColumn Binding="{Binding tipo.tipo_documento}" ClipboardContentBinding="{x:Null}" Header="Tipo de documento"/>
-                <DataGridTextColumn Binding="{Binding Departamento}" ClipboardContentBinding="{x:Null}" Header="Área"/>
+                <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblNombreDocumento}"/>
+                <DataGridTextColumn Binding="{Binding version.descripcion_v}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblDescripcion}"/>
+                <DataGridTextColumn Binding="{Binding version.no_version}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblVersion}"/>
+                <DataGridTextColumn Binding="{Binding fecha_emision, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaEmision}"/>
+                <DataGridTextColumn Binding="{Binding fecha_actualizacion, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaActualizacion}"/>
+                <DataGridTextColumn Binding="{Binding tipo.tipo_documento}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblTipoDocumento}"/>
+                <DataGridTextColumn Binding="{Binding Departamento}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblArea}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -16,6 +16,7 @@ using View.Forms.Tooling;
 using Model.Interfaces;
 using Spring.Context;
 using Spring.Context.Support;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -256,6 +257,7 @@ namespace View.Services.ViewModel
             }
         }
         #endregion
+
         #region Methods
 
         /// <summary>
@@ -265,8 +267,8 @@ namespace View.Services.ViewModel
         {
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
 
             //Si el herramental tiene controlador 
             if (Controlador != null)
@@ -277,7 +279,7 @@ namespace View.Services.ViewModel
                     if (Controlador.ValidaRangos())
                     {
                         //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
-                        MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+                        MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, setting, MessageDialogStyle.AffirmativeAndNegative);
                         //Si el resultado es verdadero
                         if (result == MessageDialogResult.Affirmative)
                         {
@@ -295,7 +297,7 @@ namespace View.Services.ViewModel
                                         if (Controlador.Guardar(codigo_maestro) != 0)
                                         {
                                             //Se muestra un mensaje en pantalla
-                                            await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
 
                                             //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -310,19 +312,19 @@ namespace View.Services.ViewModel
                                         else
                                         {
                                             //Se muestra un mensaje en pantalla
-                                            await dialog.SendMessage("Alerta", "Error al guardar el maestro herramental...");
+                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorMaestroHerramental);
                                         }
                                     }
                                     else
                                     {
                                         //si hay erro al guardar el archivo, muestra un mensaje
-                                        await dialog.SendMessage("Alerta", "Error al guardar el maestro herramental...");
+                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorMaestroHerramental);
                                     }
                                 }
                                 else
                                 {
                                     //si el código ya existe
-                                    await dialog.SendMessage("Alerta", "El código de maestro herramental ya existe...");
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMaestroHerramentalExistente);
                                 }
                             }
                             else
@@ -334,7 +336,7 @@ namespace View.Services.ViewModel
                                     if (Controlador.Update() != 0)
                                     {
                                         //Se muestra en pantalla, mensaje de cambios guardados
-                                        await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
 
                                         //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                         var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -349,26 +351,26 @@ namespace View.Services.ViewModel
                                     else
                                     {
                                         //si hay erro al guardar el archivo, muestra un mensaje
-                                        await dialog.SendMessage("Alerta", "Error al actualizar el herramental..");
+                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorActualizarHerramental);
                                     }
                                 }
                                 else
                                 {
                                     //si hay erro al guardar el archivo, muestra un mensaje
-                                    await dialog.SendMessage("Alerta", "Error al guardar los cambios...");
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGeneral);
                                 }
                             }
                         }
                     }
                     else
                     {
-                        await dialog.SendMessage("Alerta", "Error de rangos...");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorRangos);
                     }
                 }
                 else
                 {
                     //si todos los campos no estan llenos
-                    await dialog.SendMessage("Alerta", "Se deben llenar todos los campos...");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
                 }
             }
             else
@@ -377,7 +379,7 @@ namespace View.Services.ViewModel
                 if (ValidaValores())
                 {
                     //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
-                    MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+                    MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, setting, MessageDialogStyle.AffirmativeAndNegative);
                     //Si el resultado es verdadero
                     if (result == MessageDialogResult.Affirmative)
                     {
@@ -393,7 +395,7 @@ namespace View.Services.ViewModel
                                 if (codigo_maestro != null)
                                 {
                                     //Se muestra un mensaje en pantalla
-                                    await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
 
                                     //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                     var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -408,13 +410,13 @@ namespace View.Services.ViewModel
                                 else
                                 {
                                     //si hay erro al guardar el archivo, muestra un mensaje
-                                    await dialog.SendMessage("Alerta", "Error al guardar los cambios...");
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGeneral);
                                 }
                             }
                             else
                             {
                                 //si el código ya existe
-                                await dialog.SendMessage("Alerta", "El código de maestro herramental ya existe...");
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMaestroHerramentalExistente);
                             }
                         }
                         else
@@ -424,7 +426,7 @@ namespace View.Services.ViewModel
                             if (ModificaMaestro() != 0)
                             {
                                 //Se muestra en pantalla, mensaje de cambios guardados
-                                await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
 
                                 //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                 var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -439,14 +441,14 @@ namespace View.Services.ViewModel
                             else
                             {
                                 //si hay erro al guardar el archivo, muestra un mensaje
-                                await dialog.SendMessage("Alerta", "Error al guardar los cambios...");
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGeneral);
                             }
                         }
                     }
                 }
                 else
                     //si todos los campos no estan llenos
-                    await dialog.SendMessage("Alerta", "Se deben llenar todos los campos...");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
             }
         } 
 
@@ -532,6 +534,7 @@ namespace View.Services.ViewModel
             }
 
         }
+
         /// <summary>
         /// Método que muestra el control dependiendo de la clasificacion de herramental.
         /// </summary>
@@ -594,11 +597,11 @@ namespace View.Services.ViewModel
         {
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
 
             //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, setting, MessageDialogStyle.AffirmativeAndNegative);
             //Si el resultado es verdadero
             if (result == MessageDialogResult.Affirmative)
             {
@@ -614,7 +617,7 @@ namespace View.Services.ViewModel
                         if (DataManager.DeleteMaestroHerramental(obj) != 0)
                         {
                             //Se muestra en pantalla, mensaje de cambios guardados
-                            await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
 
                             //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -627,18 +630,18 @@ namespace View.Services.ViewModel
                             }
                         }
                         else
-                            await dialog.SendMessage("Alerta", "Error al eliminar el herramental...");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorEliminarHerramental);
                     }
                     else
                         //si hay erro al eliminar el registro, muestra un mensaje
-                        await dialog.SendMessage("Alerta", "Error al eliminar el herramental...");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorEliminarHerramental);
                 }
                 else
                 {
                    if (DataManager.DeleteMaestroHerramental(obj) != 0)
                     {
                         //Se muestra en pantalla, mensaje de cambios guardados
-                        await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente..");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
 
                         //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                         var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -651,11 +654,12 @@ namespace View.Services.ViewModel
                         }
                     }
                     else
-                        await dialog.SendMessage("Alerta", "Error al eliminar el herramental...");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorEliminarHerramental);
                 }
             }
         }
         #endregion
+
         #region Constructor
         public NuevoMaestroHerramental_VM(Usuario ModelUsuario)
         {

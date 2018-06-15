@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -93,6 +94,7 @@ namespace View.Services.ViewModel
         {
             ListaHerramentales = DataManager.GetAllSHIM_OF_THE_CSYSTEM(texto);
         }
+
         /// <summary>
         ///  Método que busca un registro de Cutter de acuerdo al diametro 
         /// </summary>
@@ -108,11 +110,11 @@ namespace View.Services.ViewModel
 
                 if (ListaMejores.Rows.Count == 0)
                     //Enviamos un mensaje si no hay herramentales.
-                    await dialog.SendMessage("Alerta", "No se encontró herramental con estas caracteristicas");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHerramental);
             }
             else
                 //Si están vacíos muestra un mensaje en pantalla
-                await dialog.SendMessage("Alerta", "Se debe llenar todos los campos...");
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
         }
         #endregion
 

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -123,7 +124,8 @@ namespace View.Services.ViewModel
         }
 
 
-        #endregion
+        #endregion}
+
         #region Methods
 
         /// <summary>
@@ -157,11 +159,11 @@ namespace View.Services.ViewModel
                 //Verificamos que la cantidad de mejores herramentales sea mayor a cero.
                 if (ListaMejores.Rows.Count ==0)
                     //Enviamos un mensaje si no hay herramentales.
-                    await dialog.SendMessage("Alerta", "No se encontró herramental con estas características..");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHerramental);
             }
             else
                 //Si están vacíos muestra un mensaje en pantalla
-                await dialog.SendMessage("Alerta", "Se debe llenar todos los campos...");
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
         }
         #endregion
 

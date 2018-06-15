@@ -7,9 +7,10 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:recursos="clr-namespace:View.Resources"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
-        Title="Bloqueo" Height="370" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="{x:Static recursos:StringResources.ttlBloqueo}" Height="370" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
@@ -27,7 +28,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Column="1" Grid.Row="1" >
-            <DatePicker materialDesign:HintAssist.Hint="Fecha Inicio" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  BorderBrush="#89535353" FontSize="18" Margin="10,21,0,229"
+            <DatePicker materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaInicio}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  BorderBrush="#89535353" FontSize="18" Margin="10,21,0,229"
                          DisplayDateStart="{Binding Path=DateNow, Mode=OneWay, NotifyOnSourceUpdated=True}" SelectedDate="{Binding FechaInicio, UpdateSourceTrigger=PropertyChanged}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectedDateChanged">
@@ -36,15 +37,15 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </DatePicker>
-            <DatePicker materialDesign:HintAssist.Hint="Fecha Final" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  BorderBrush="#89535353" FontSize="18" Margin="10,77,0,173" 
+            <DatePicker materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaFinal}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  BorderBrush="#89535353" FontSize="18" Margin="10,77,0,173" 
                         DisplayDateStart="{Binding Path=FechaInicio, Mode=OneWay, NotifyOnSourceUpdated=True}" SelectedDate="{Binding FechaFin, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox materialDesign:HintAssist.Hint="Observaciones" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   BorderBrush="#89535353" FontSize="18" Margin="10,122,0,102" Text="{Binding Observaciones}"
+            <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblObservaciones}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   BorderBrush="#89535353" FontSize="18" Margin="10,122,0,102" Text="{Binding Observaciones}"
                      CharacterCasing="Upper" SpellCheck.IsEnabled="True"/>
 
             <Canvas Margin="0,235,0,10">
-                <Button Content="Guardar" Height="40"  Width="90"  Command="{Binding GuardarBloqueo}" Canvas.Left="283" Canvas.Top="3" Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"/>
-                <Button Content="Modificar" Height="40" Width="93" Command="{Binding Modificar}" Canvas.Left="156" Canvas.Top="3" Visibility="{Binding IsEnabled, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" ></Button>
-                <Button Content="Desbloquear" Height="40" Width="112" Command="{Binding Desbloquear}" Canvas.Left="10" Canvas.Top="3" Visibility="{Binding IsEnabled, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" ></Button>
+                <Button Content="{x:Static recursos:StringResources.lblGuardar}" Height="40"  Width="90"  Command="{Binding GuardarBloqueo}" Canvas.Left="283" Canvas.Top="3" Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"/>
+                <Button Content="{x:Static recursos:StringResources.lblModificar}" Height="40" Width="93" Command="{Binding Modificar}" Canvas.Left="156" Canvas.Top="3" Visibility="{Binding IsEnabled, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" ></Button>
+                <Button Content="{x:Static recursos:StringResources.lblDesbloquear}" Height="40" Width="112" Command="{Binding Desbloquear}" Canvas.Left="10" Canvas.Top="3" Visibility="{Binding IsEnabled, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" ></Button>
             </Canvas>
         </Grid>
     </Grid>

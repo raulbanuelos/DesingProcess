@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -61,7 +62,7 @@ namespace View.Services.ViewModel
         private DialogService dialog = new DialogService();
         #endregion
 
-        #region Metodos
+        #region Comandos
 
         /// <summary>
         /// Comando para guardar validaciones de documento
@@ -74,6 +75,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        #endregion
+
+        #region Comandos
         /// <summary>
         /// Método que guarda un registro en la tabla de validaciones
         /// </summary>
@@ -81,11 +85,11 @@ namespace View.Services.ViewModel
         {
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "SI";
-            setting.NegativeButtonText = "NO";
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage("Attention", "¿Desea guardar los cambios?", setting, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, setting, MessageDialogStyle.AffirmativeAndNegative);
 
             //Si el resultado es afirmativo
             if (result == MessageDialogResult.Affirmative)
@@ -114,7 +118,7 @@ namespace View.Services.ViewModel
                         if (validacion != 0)
                         {
                             //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
-                            await dialog.SendMessage("Información", "Los cambios fueron guardados exitosamente...");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
 
                             //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -130,21 +134,20 @@ namespace View.Services.ViewModel
                         else
                         {
                             //Muestra mensaje de error
-                            await dialog.SendMessage("Alerta", "Error al registrar la validación");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorRegistrarValidacion);
                         }
                     }
                     else
                     {
-                        await dialog.SendMessage("Alerta", "La validación ya existe ");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgValidacionExistente);
                     }
                 }
                 else
                 {
-                    await dialog.SendMessage("Alerta", "Se debe llenar todos los campos");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
                 }
             }
         }
-
 
         #endregion
     }

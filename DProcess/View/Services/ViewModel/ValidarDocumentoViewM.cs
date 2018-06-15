@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using Model;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -159,7 +160,7 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Commandos
-         /// <summary>
+        /// <summary>
         /// Comando para ver el archivo desde la lista de documentos.
         /// </summary>
         public ICommand VerArchivo
@@ -168,56 +169,6 @@ namespace View.Services.ViewModel
             {
                 return new RelayCommand(o => verArchivo(SelectedItem));
             }
-        }
-        /// <summary>
-        /// Método que visualiza el archivo seleccioando de la Lista
-        /// </summary>
-        /// <param name="item"></param>
-        private async void verArchivo(Archivo item)
-        {
-            //Incializamos los servicios de dialog.
-            DialogService dialog = new DialogService();
-            try
-            {
-                //Si hay un archivo seleccionado
-                if (item != null)
-                {
-                    //se asigna el nombre del archivo temporal, se concatena el nombre del archivo, la posicion de la lista y la extensión.
-                    string filename = GetPathTempFile(item);
-
-                    //Crea un archivo nuevo temporal, escribe en él los bytes extraídos de la BD.
-                    File.WriteAllBytes(filename, item.archivo);
-
-                    //Se inicializa el programa para visualizar el archivo.
-                    Process.Start(filename);
-                }
-            }
-            catch (Exception er)
-            {
-                await dialog.SendMessage("Alerta", "Error al abrir el archivo...");
-            }
-        }
-
-
-        /// <summary>
-        /// Método que genera una cadena para cargar un archivo en la carpeta temporal del sistema.
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        private string GetPathTempFile(Archivo item)
-        {
-            //Se guarda la ruta del directorio temporal.
-            var tempFolder = Path.GetTempPath();
-
-            string filename = string.Empty;
-            do
-            {
-                string aleatorio = Module.GetRandomString(5);
-
-                filename = Path.Combine(tempFolder, item.nombre + item.numero + "_" + aleatorio + item.ext);
-            } while (File.Exists(filename));
-
-            return filename;
         }
 
         /// <summary>
@@ -230,6 +181,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(g => guardarEstatus());
             }
         }
+
         /// <summary>
         /// Comando para cambiar el combobox
         /// </summary>
@@ -239,14 +191,6 @@ namespace View.Services.ViewModel
             {
                 return new RelayCommand(g => check());
             }
-        }
-
-        /// <summary>
-        /// Método que cambia la etiqueta si el checkbox fue seleccionado
-        /// </summary>
-        private void check()
-        {
-            Estatus = "APROBADO, PENDIENTE POR LIBERAR";  
         }
 
         /// <summary>
@@ -260,113 +204,22 @@ namespace View.Services.ViewModel
             }
         }
 
-        /// <summary>
-        /// Si el checkbox cambia a seleccionado falso, la etiqeuta cambia de estado
-        /// </summary>
-        private void uncheck()
-        {
-            Estatus = "PENDIENTE POR CORREGIR";
-        }
+        #endregion
+
+        #region Métodos
 
         /// <summary>
-        /// Método que cambia el estatus aprobado o pendiente por liberar
-        /// Si el documento sólo tiene una versión cambia el estatus de documento y versión
-        /// De lo contrario cambia estatus de versión
+        /// Funcíón que modifica la versión
         /// </summary>
-        private async void guardarEstatus()
-        {
-            //isSelected es falso, id_estatus=pendiente por corregir, verdadero estatus= aprobado pendiente por liberar
-            //
-          
-            string version = SelectedDocumento.version.no_version;
-            Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
-            objVersion.id_version = SelectedDocumento.version.id_version;
-            objVersion.no_version = SelectedDocumento.version.no_version;
-
-            int last_id = DataManagerControlDocumentos.GetID_LastVersion(SelectedDocumento.id_documento, SelectedDocumento.version.id_version);
-
-            // Si el checkbox es verdadero
-            if (isSelected == true)
-            {
-                //Si el documento no tiene otra versión
-                if (last_id ==0)
-                {
-                    //Actualiza el estatus de la versión y del documento a pendiente por liberar
-                    selectedDocumento.id_estatus = 4;
-                    objVersion.id_estatus_version = 5;
-                   
-                    //Se llama al método para actualizar el estatus del documento
-                    int n = DataManagerControlDocumentos.Update_EstatusDocumento(SelectedDocumento);
-                    
-                    //si se realizo la actualizacion
-                    if (n != 0)
-                    {
-                        //Se llama a la función para actualizar el estatus de la versión
-                        UpdateVersion(objVersion);
-                    }
-                    else
-                    {
-                        //Se muestra que hubo un error al actualizar el documento
-                        await dialog.SendMessage("Alerta", "Error al actualizar el estátus del documento ..");
-                    }
-                }
-                else
-                {
-                    //si es un documento con versión anterior liberada.
-                    objVersion.id_estatus_version = 5;
-
-                    //Se llama a la función para actualizar el estatus de la versión
-                    UpdateVersion(objVersion);
-                }
-
-            }else
-            {
-                //Si el documento no tiene una versión anterior liberada
-                if (last_id ==0 )
-                {
-                    //Actualiza el estatus de la versión y del documento a pendiente por corregir
-                    selectedDocumento.id_estatus = 3;
-                    objVersion.id_estatus_version = 4;
-
-                    //Se llama al método para actualizar el estatus del documento
-                    int n = DataManagerControlDocumentos.Update_EstatusDocumento(SelectedDocumento);
-
-                    //si se realizo la actualizacion
-                    if (n != 0)
-                    {
-                        //Se llama a la función para actualizar el estatus de la versión
-                        UpdateVersion(objVersion);
-                    }
-                    else
-                    {
-                        //Se muestra que hubo un error al actualizar el documento
-                        await dialog.SendMessage("Alerta", "Error al actualizar el estatus del documento ..");
-                    }
-                }
-                else
-                {
-                    //si es un documento con versión una versión anterior liberada .
-                    //Estatus pendiente por corregir.
-                    objVersion.id_estatus_version = 4;
-                    //Se llama a la función para actualizar el estatus de la versión
-                    UpdateVersion(objVersion);
-                }
-
-            }
-        }
-
-       /// <summary>
-       /// Funcíón que modifica la versión
-       /// </summary>
-       /// <param name="objVersion"></param>
+        /// <param name="objVersion"></param>
         public async void UpdateVersion(Model.ControlDocumentos.Version objVersion)
         {
             //Se llama al método para actualizar el estatus de la version
-            int update_version = DataManagerControlDocumentos.Update_EstatusVersion(objVersion,_usuarioLogueado, SelectedDocumento.nombre);
+            int update_version = DataManagerControlDocumentos.Update_EstatusVersion(objVersion, _usuarioLogueado, SelectedDocumento.nombre);
 
-            if (update_version!=0)
+            if (update_version != 0)
             {
-                await dialog.SendMessage("Información", "Se actualizó el estatus de la versión..");
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusVersionActualizada);
                 //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                 var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
@@ -403,11 +256,165 @@ namespace View.Services.ViewModel
             }
             else
             {
-                await dialog.SendMessage("Alerta", "Error al actualizar el estatus de la versión..");
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusVersion);
             }
         }
 
-        
+        /// <summary>
+        /// Método que cambia el estatus aprobado o pendiente por liberar
+        /// Si el documento sólo tiene una versión cambia el estatus de documento y versión
+        /// De lo contrario cambia estatus de versión
+        /// </summary>
+        private async void guardarEstatus()
+        {
+            //isSelected es falso, id_estatus=pendiente por corregir, verdadero estatus= aprobado pendiente por liberar
+            //
+
+            string version = SelectedDocumento.version.no_version;
+            Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+            objVersion.id_version = SelectedDocumento.version.id_version;
+            objVersion.no_version = SelectedDocumento.version.no_version;
+
+            int last_id = DataManagerControlDocumentos.GetID_LastVersion(SelectedDocumento.id_documento, SelectedDocumento.version.id_version);
+
+            // Si el checkbox es verdadero
+            if (isSelected == true)
+            {
+                //Si el documento no tiene otra versión
+                if (last_id == 0)
+                {
+                    //Actualiza el estatus de la versión y del documento a pendiente por liberar
+                    selectedDocumento.id_estatus = 4;
+                    objVersion.id_estatus_version = 5;
+
+                    //Se llama al método para actualizar el estatus del documento
+                    int n = DataManagerControlDocumentos.Update_EstatusDocumento(SelectedDocumento);
+
+                    //si se realizo la actualizacion
+                    if (n != 0)
+                    {
+                        //Se llama a la función para actualizar el estatus de la versión
+                        UpdateVersion(objVersion);
+                    }
+                    else
+                    {
+                        //Se muestra que hubo un error al actualizar el documento
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusDocumento);
+                    }
+                }
+                else
+                {
+                    //si es un documento con versión anterior liberada.
+                    objVersion.id_estatus_version = 5;
+
+                    //Se llama a la función para actualizar el estatus de la versión
+                    UpdateVersion(objVersion);
+                }
+
+            }
+            else
+            {
+                //Si el documento no tiene una versión anterior liberada
+                if (last_id == 0)
+                {
+                    //Actualiza el estatus de la versión y del documento a pendiente por corregir
+                    selectedDocumento.id_estatus = 3;
+                    objVersion.id_estatus_version = 4;
+
+                    //Se llama al método para actualizar el estatus del documento
+                    int n = DataManagerControlDocumentos.Update_EstatusDocumento(SelectedDocumento);
+
+                    //si se realizo la actualizacion
+                    if (n != 0)
+                    {
+                        //Se llama a la función para actualizar el estatus de la versión
+                        UpdateVersion(objVersion);
+                    }
+                    else
+                    {
+                        //Se muestra que hubo un error al actualizar el documento
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusDocumento);
+                    }
+                }
+                else
+                {
+                    //si es un documento con versión una versión anterior liberada .
+                    //Estatus pendiente por corregir.
+                    objVersion.id_estatus_version = 4;
+                    //Se llama a la función para actualizar el estatus de la versión
+                    UpdateVersion(objVersion);
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Si el checkbox cambia a seleccionado falso, la etiqeuta cambia de estado
+        /// </summary>
+        private void uncheck()
+        {
+            Estatus = "PENDIENTE POR CORREGIR";
+        }
+
+        /// <summary>
+        /// Método que cambia la etiqueta si el checkbox fue seleccionado
+        /// </summary>
+        private void check()
+        {
+            Estatus = "APROBADO, PENDIENTE POR LIBERAR";
+        }
+
+        /// <summary>
+        /// Método que visualiza el archivo seleccioando de la Lista
+        /// </summary>
+        /// <param name="item"></param>
+        private async void verArchivo(Archivo item)
+        {
+            //Incializamos los servicios de dialog.
+            DialogService dialog = new DialogService();
+            try
+            {
+                //Si hay un archivo seleccionado
+                if (item != null)
+                {
+                    //se asigna el nombre del archivo temporal, se concatena el nombre del archivo, la posicion de la lista y la extensión.
+                    string filename = GetPathTempFile(item);
+
+                    //Crea un archivo nuevo temporal, escribe en él los bytes extraídos de la BD.
+                    File.WriteAllBytes(filename, item.archivo);
+
+                    //Se inicializa el programa para visualizar el archivo.
+                    Process.Start(filename);
+                }
+            }
+            catch (Exception er)
+            {
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorAbrir);
+            }
+        }
+
+
+        /// <summary>
+        /// Método que genera una cadena para cargar un archivo en la carpeta temporal del sistema.
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        private string GetPathTempFile(Archivo item)
+        {
+            //Se guarda la ruta del directorio temporal.
+            var tempFolder = Path.GetTempPath();
+
+            string filename = string.Empty;
+            do
+            {
+                string aleatorio = Module.GetRandomString(5);
+
+                filename = Path.Combine(tempFolder, item.nombre + item.numero + "_" + aleatorio + item.ext);
+            } while (File.Exists(filename));
+
+            return filename;
+        }
+
         #endregion
 
         #region PropertyChanged
