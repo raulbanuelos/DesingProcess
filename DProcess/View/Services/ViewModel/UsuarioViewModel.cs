@@ -460,19 +460,20 @@ namespace View.Services.ViewModel
         
         private void initNotifications()
         {
+            
             var connectionString = System.Configuration.ConfigurationManager.AppSettings["CadenaConexion"];
-            var tableDependency = new SqlTableDependency<DO_Notification>(connectionString, "TBL_NOTIFICACIONES");
-            tableDependency.OnChanged += TableDependency_OnChanged;
-            tableDependency.OnError += TableDependency_OnError;
-            tableDependency.Start();
+            App.tableDependency = new SqlTableDependency<DO_Notification>(connectionString, "TBL_NOTIFICACIONES");
+            App.tableDependency.OnChanged += TableDependency_OnChanged;
+            App.tableDependency.OnError += TableDependency_OnError;
+            App.tableDependency.Start();
 
             //Checamos si el usuario es administrador del CIT
             if (Module.UsuarioIsRol(ModelUsuario.Roles, 2))
             {
-                var tableDependencyAdmin = new SqlTableDependency<DO_Historial_Documento>(connectionString, "TBL_HISTORIAL_VERSION");
-                tableDependencyAdmin.OnChanged += TableDependencyAdmin_OnChanged;
-                tableDependencyAdmin.OnError += TableDependencyAdmin_OnError;
-                tableDependencyAdmin.Start();
+                App.tableDependencyAdmin = new SqlTableDependency<DO_Historial_Documento>(connectionString, "TBL_HISTORIAL_VERSION");
+                App.tableDependencyAdmin.OnChanged += TableDependencyAdmin_OnChanged;
+                App.tableDependencyAdmin.OnError += TableDependencyAdmin_OnError;
+                App.tableDependencyAdmin.Start();
 
             }
             

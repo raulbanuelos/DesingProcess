@@ -29,7 +29,7 @@
     <PublisherName>Diseño del proceso</PublisherName>
     <SuiteName>Diseño del proceso</SuiteName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>53</ApplicationRevision>
+    <ApplicationRevision>57</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -619,13 +619,13 @@
     <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9284.cs" />
     <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9285.cs" />
     <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9301.cs" />
-    <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9310.cs" />
     <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9302.cs" />
     <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9304.cs" />
     <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9305.cs" />
     <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9306.cs" />
     <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9308.cs" />
     <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9309.cs" />
+    <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9310.cs" />
     <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9311.cs" />
     <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9314.cs" />
     <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9315.cs" />
