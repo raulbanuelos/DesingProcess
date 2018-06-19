@@ -34,7 +34,7 @@
             <Button ToolTip="{x:Static recursos:StringResources.lblAgregarUsuario}" Command="{Binding AgregarUsuario}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="AccountCheck" />
             </Button>
-            <Button ToolTip="Administrar Usuarios" Command="{Binding ConsultarUsuarios}" Cursor="Hand" Visibility="{Binding Consultar,Converter={StaticResource BoolToVis}, FallbackValue=hidden}">
+            <Button ToolTip="{x:Static recursos:StringResources.ttlAdministrarUsuarios}" Command="{Binding ConsultarUsuarios}" Cursor="Hand" Visibility="{Binding Consultar,Converter={StaticResource BoolToVis}, FallbackValue=hidden}">
                 <materialDesign:PackIcon Kind="AccountCardDetails"/>
             </Button>
         </ToolBar>
@@ -53,7 +53,7 @@
                 <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblApellidoMaterno}" Text="{Binding ApellidMaterno}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" Height="50" IsReadOnly="True"></TextBox>
             </Canvas>
             <Canvas Height="50">
-                <PasswordBox x:Name="txt_pass"  materialDesign:HintAssist.Hint="Contraseña Actual"  Height="50"  Width="350" BorderThickness="0,0,0,1"  FontSize="18">
+                <PasswordBox x:Name="txt_pass"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblContraseñaActual}"  Height="50"  Width="350" BorderThickness="0,0,0,1"  FontSize="18">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PasswordChanged">
                             <i:InvokeCommandAction

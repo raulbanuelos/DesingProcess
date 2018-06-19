@@ -1177,10 +1177,6 @@
     <value>Nuevo tipo de Documento</value>
     <comment>Etiueta para el tipo de documento</comment>
   </data>
-  <data name="lblNumeroMatriz" xml:space="preserve">
-    <value>Número de Matríz</value>
-    <comment>Etiqueta para el campo de numero de matriz</comment>
-  </data>
   <data name="lblNumeroVersion" xml:space="preserve">
     <value>Número de Versión</value>
     <comment>Etiqueta para el campo de numero de version</comment>
@@ -1260,5 +1256,63 @@
   <data name="ttlValidarDocumento" xml:space="preserve">
     <value>Validar Documento</value>
     <comment>Titulo para la vista de validad documento</comment>
+  </data>
+  <data name="lblAdjuntarRuta" xml:space="preserve">
+    <value>Adjuntar Ruta</value>
+    <comment>Etiqueta para el tooltip del boton adjuntar ruta</comment>
+  </data>
+  <data name="lblContraseñaActual" xml:space="preserve">
+    <value>Contraseña Actual</value>
+    <comment>Etiqueta para el campo de contraseña actual</comment>
+  </data>
+  <data name="lblDocumento" xml:space="preserve">
+    <value>Documentos</value>
+  </data>
+  <data name="lblEstado" xml:space="preserve">
+    <value>Estado</value>
+    <comment>Etiqueta para el campo de estado</comment>
+  </data>
+  <data name="lblExtencion" xml:space="preserve">
+    <value>Extensión</value>
+    <comment>Etiqueta para el campo de extencion</comment>
+  </data>
+  <data name="lblFiltrarEstado" xml:space="preserve">
+    <value>Filtrar Estado</value>
+  </data>
+  <data name="lblGrafica" xml:space="preserve">
+    <value>Grafica</value>
+  </data>
+  <data name="lblTipo" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="lblFoto" xml:space="preserve">
+    <value>Foto</value>
+  </data>
+  <data name="lblNumeroMatriz" xml:space="preserve">
+    <value>Número de Matriz</value>
+  </data>
+  <data name="ttlBaseDatosAux" xml:space="preserve">
+    <value>Click para administrar la base de datos</value>
+  </data>
+  <data name="ttlCalcularCuotas" xml:space="preserve">
+    <value>Click para calcular las cuotas</value>
+  </data>
+  <data name="ttlControlDocumentosAux" xml:space="preserve">
+    <value>Click para administrar los documentos</value>
+  </data>
+  <data name="ttlHerramientasAux" xml:space="preserve">
+    <value>Click para administrar las herramientas</value>
+  </data>
+  <data name="ttlLeccionesAprendidasAux" xml:space="preserve">
+    <value>Click para administrar las lecciones aprendidas</value>
+  </data>
+  <data name="ttlRawMaterialsAux" xml:space="preserve">
+    <value>Click para ver las materias primas</value>
+  </data>
+  <data name="ttlTiempoEstandarAux" xml:space="preserve">
+    <value>Click para administrar el tiempo estandar</value>
+  </data>
+  <data name="ttlUsuariosAux" xml:space="preserve">
+    <value>Click para administrar tu perfil</value>
   </data>
 </root>

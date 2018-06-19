@@ -302,19 +302,19 @@
     <comment>Mensaje para eliminar un archivo</comment>
   </data>
   <data name="msgDocumentosCorregir" xml:space="preserve">
-    <value>Document (s) pending (s) to be corrected</value>
+    <value>Document(s) pending(s) to be corrected</value>
     <comment>Mensaje para notificar cuantos documentos hay por corregir</comment>
   </data>
   <data name="msgDocumentosEntregar" xml:space="preserve">
-    <value>Document (s) pending (s) to be delivered</value>
+    <value>Document(s) pending(s) to be delivered</value>
     <comment>Mensaje para notificar cuantos documentos hay por entregar</comment>
   </data>
   <data name="msgDocumentosLiberar" xml:space="preserve">
-    <value>Document (s) pending (s) to be released</value>
+    <value>Document(s) pending(s) to be released</value>
     <comment>Mensaje para notificar cuantos documentos hay por liberar</comment>
   </data>
   <data name="msgDocumentosValidar" xml:space="preserve">
-    <value>Document (s) pending (s) to be validated</value>
+    <value>Document(s) pending(s) to be validated</value>
     <comment>Mensaje para notificar cuantos documentos hay por validar</comment>
   </data>
   <data name="msgErrorAbrir" xml:space="preserve">
@@ -1261,7 +1261,58 @@
     <value>Validate Document</value>
     <comment>Titulo para la ventana de validar documentos</comment>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
+  <data name="lblAdjuntarRuta" xml:space="preserve">
+    <value>Add Route</value>
+    <comment>Etique para el tooltip del boton de agregar ruta</comment>
+  </data>
+  <data name="lblContraseñaActual" xml:space="preserve">
+    <value>Current password</value>
+    <comment>Etiqueta para el campo de contraseña actual</comment>
+  </data>
+  <data name="lblDocumentos" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="lblEstado" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="lblExtencion" xml:space="preserve">
+    <value>Extension</value>
+    <comment>Etiqueta para el campo de extencion</comment>
+  </data>
+  <data name="lblFiltrarEstado" xml:space="preserve">
+    <value>Filter Status</value>
+  </data>
+  <data name="lblGrafica" xml:space="preserve">
+    <value>Graph</value>
+  </data>
+  <data name="lblTipo" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="lblFoto" xml:space="preserve">
+    <value>Picture</value>
+  </data>
+  <data name="ttlBaseDatosAux" xml:space="preserve">
+    <value>Click here to manage the data base</value>
+  </data>
+  <data name="ttlCalcularCuotas" xml:space="preserve">
+    <value>Click here to calculate the quotes</value>
+  </data>
+  <data name="ttlControlDocumentosAux" xml:space="preserve">
+    <value>Click here to manage the documents</value>
+  </data>
+  <data name="ttlHerramientasAux" xml:space="preserve">
+    <value>Click here to manage the tools</value>
+  </data>
+  <data name="ttlLeccionesAprendidasAux" xml:space="preserve">
+    <value>Click here to manage the lessons learned</value>
+  </data>
+  <data name="ttlRawMaterialsAux" xml:space="preserve">
+    <value>Click here to see raw materials</value>
+  </data>
+  <data name="ttlTiempoEstandarAux" xml:space="preserve">
+    <value>Click here to manage the standar time</value>
+  </data>
+  <data name="ttlUsuariosAux" xml:space="preserve">
+    <value>Click here to manage your profile</value>
   </data>
 </root>

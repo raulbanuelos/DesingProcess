@@ -950,7 +950,7 @@ namespace View.Services.ViewModel
                 if (num_validar > 0)
                 {
                     EnabledValidar = true;
-                    DocumentosValidar = " " + num_validar + StringResources.msgDocumentosValidar;
+                    DocumentosValidar = " " + num_validar + " " +StringResources.msgDocumentosValidar;
                 }
                 else
                 {
@@ -960,8 +960,9 @@ namespace View.Services.ViewModel
                 }
                 if (num_pendientes > 0)
                 {
+                    //documentos por corregir
                     EnabledCorregir = true;
-                    DocumentosCorregir = " " + num_pendientes + StringResources.msgDocumentosCorregir;
+                    DocumentosCorregir = " " + num_pendientes + " " +StringResources.msgDocumentosCorregir;
                 }
                 else
                 {
@@ -970,8 +971,9 @@ namespace View.Services.ViewModel
                 }
                 if (num_aprobados > 0)
                 {
+                    //documentos aprobados
                     EnabledAprobados = true;
-                    DocumentosAprobados = " " + num_aprobados + StringResources.msgDocumentosLiberar;
+                    DocumentosAprobados = " " + num_aprobados + " " +StringResources.msgDocumentosLiberar;
                 }
                 else
                 {
@@ -979,8 +981,9 @@ namespace View.Services.ViewModel
                     DocumentosAprobados = string.Empty;
                 }
                 if(pendientes_liberar >0 ){
+                    //documentos pendientes por liberar
                     EnabledPendientes_Liberar = true;
-                    PendientesLiberar= pendientes_liberar + StringResources.msgDocumentosEntregar;
+                    PendientesLiberar= " " + pendientes_liberar + " "+ StringResources.msgDocumentosEntregar;
                 }
                 else
                 {
@@ -1003,7 +1006,7 @@ namespace View.Services.ViewModel
                 if (num_pendientes > 0)
                 {
                     EnabledCorregir = true;
-                    DocumentosCorregir = " " + num_pendientes + StringResources.msgDocumentosCorregir;
+                    DocumentosCorregir = " " + num_pendientes + " " +StringResources.msgDocumentosCorregir;
                 }
                 else
                 {
@@ -1013,7 +1016,7 @@ namespace View.Services.ViewModel
                 if (pendientes_liberar > 0)
                 {
                     EnabledPendientes_Liberar = true;
-                    PendientesLiberar = pendientes_liberar + StringResources.msgDocumentosEntregar;
+                    PendientesLiberar = pendientes_liberar + " " +StringResources.msgDocumentosEntregar;
                 }
                 else
                 {

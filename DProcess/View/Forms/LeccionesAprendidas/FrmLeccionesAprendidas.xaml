@@ -61,7 +61,7 @@
                     <DataGridTextColumn Binding="{Binding FECHA_ULTIMO_CAMBIO, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaUltimoCambio}"/>
                     <DataGridTextColumn Binding="{Binding FECHA_ACTUALIZACION, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaActualizacion}"/>
                     <DataGridTextColumn Binding="{Binding REPORTADO_POR}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblReportadoPor}"  Width="Auto"/>
-                    <DataGridTextColumn Binding="{Binding SOLICITUD_DE_TRABAJO}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblReportadoPor}"  Width="Auto"/>
+                    <DataGridTextColumn Binding="{Binding SOLICITUD_DE_TRABAJO}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblSolicitudTrabajoIng}"  Width="Auto"/>
                     <DataGridTextColumn Binding="{Binding CRITERIO_1}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCriterio}"  Width="Auto"/>
                     <DataGridTextColumn Binding="{Binding NombreCompleto}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCambioRealizadoPor}"/>
                 </DataGrid.Columns>

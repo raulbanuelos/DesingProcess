@@ -16,6 +16,9 @@ using Model.ControlDocumentos;
 using System;
 using View.Services;
 using View.Resources;
+using System.Threading;
+using View.Resources;
+
 namespace View.Forms.LogIn
 {
     /// <summary>
@@ -116,5 +119,22 @@ namespace View.Forms.LogIn
 				}
 			}
 		}
-	}
+        //Método para cambiar el idioma del sistema a español
+        async void Btn_Espanol(object sender, RoutedEventArgs e)
+        {
+            DialogService dialog = new DialogService();
+            await dialog.SendMessage("Atención","El idioma del sistema se ha cambiado a Español");
+            //Idioma en español
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("es-MX");
+        }
+
+        //Método para cambiar el idioma del sistema a ingles
+        async void Btn_Ingles(object sender, RoutedEventArgs e)
+        {
+            DialogService dialog = new DialogService();
+            await dialog.SendMessage("Attention", "The language of the system has been changed to English");
+            //Establecemos el idioma por default es el ingles.
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+        }
+    }
 }
