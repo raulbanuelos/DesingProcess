@@ -23,7 +23,7 @@ namespace View
             //Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
             
             //Idioma en español
-            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("es-MX");
+            //Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("es-MX");
         }
     }
 }
