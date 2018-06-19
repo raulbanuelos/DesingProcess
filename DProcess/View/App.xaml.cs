@@ -17,6 +17,7 @@ namespace View
     /// </summary>
     public partial class App : Application
     {
+        //Notifications
         public static SqlTableDependency<DO_Notification> tableDependency;
         public static SqlTableDependency<DO_Historial_Documento> tableDependencyAdmin;
 
