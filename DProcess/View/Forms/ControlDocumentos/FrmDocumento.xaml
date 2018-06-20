@@ -73,7 +73,13 @@
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Vertical">
                     <!--Nombre Documento-->
-                    <ComboBox Grid.Column="0" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNumeroDocumento}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420"  Background="White" BorderBrush="#89535353" FontSize="18" ItemsSource="{Binding ListaNumeroDocumento}" DisplayMemberPath="nombre"  SelectedItem="{Binding SelectedDocumento}" IsEnabled="{Binding NombreEnabled}">
+                    <ComboBox Grid.Column="0" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNumeroDocumento}"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                              Height="50" Width="420"  Background="White" BorderBrush="#89535353" FontSize="18" 
+                              ItemsSource="{Binding ListaNumeroDocumento}"
+                              DisplayMemberPath="nombre"  
+                              SelectedItem="{Binding SelectedDocumento}" 
+                              IsEnabled="{Binding NombreEnabled}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction
@@ -122,46 +128,32 @@
                     <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblTipoDocumento}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420"  BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}" FontSize="18" IsEnabled="{Binding VersionEnabled}" >
                     </ComboBox>
                     <!--Nombre del departamento-->
-                    <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombreDepartamentoProceso}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaDepartamento}" DisplayMemberPath="nombre_dep" SelectedValuePath="id_dep" SelectedValue="{Binding id_dep}" IsEnabled="{Binding VersionEnabled}"/>
+                    <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombreDepartamentoProceso}" 
+                               Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                               Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18"
+                               ItemsSource="{Binding Path=ListaDepartamento}"
+                               DisplayMemberPath="nombre_dep" 
+                               SelectedValuePath="id_dep" 
+                               SelectedValue="{Binding id_dep}" 
+                               IsEnabled="{Binding VersionEnabled}"/>
                     <!--Usuario-->
                     <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblUsuarioElaboro}" 
                                Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
                                Height="50" Width="420"  BorderBrush="#FFBDBDBD" FontSize="18" 
-                               ItemsSource="{Binding Path=ListaUsuarios}"  
+                               ItemsSource="{Binding Path=ListaUsuarios}"
+                               DisplayMemberPath="NombreCompleto" 
                                SelectedValuePath="usuario" 
                                SelectedValue="{Binding usuario}" Background="White" 
                                IsEnabled="{Binding VersionEnabled}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock>
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0} {1}">
-                                            <Binding Path="nombre" />
-                                            <Binding Path="APaterno" />
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblUsuarioAutorizo}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  
+                    <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblUsuarioAutorizo}" 
+                               Style="{StaticResource MaterialDesignFloatingHintComboBox}"  
                                Height="51" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" 
-                               ItemsSource="{Binding Path=ListaUsuarios}"  
+                               ItemsSource="{Binding Path=ListaUsuarios}" 
+                               DisplayMemberPath="NombreCompleto" 
                                SelectedValuePath="usuario" 
                                SelectedValue="{Binding usuarioAutorizo}"
                        IsEnabled="{Binding IsEnabled}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock>
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0} {1}">
-                                            <Binding Path="nombre" />
-                                            <Binding Path="APaterno" />
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction
@@ -171,7 +163,14 @@
                     </ComboBox>
 
                     <!--Nombre del áreas sealed-->
-                    <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblAreaFrames}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" ItemsSource="{Binding Path=ListaAreasSealed}" DisplayMemberPath="ValorCadena" SelectedValuePath="Nombre" SelectedValue="{Binding id_areasealed}" IsEnabled="{Binding BttnLiberar}"/>
+                    <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblAreaFrames}"
+                               Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                               Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18"
+                               ItemsSource="{Binding Path=ListaAreasSealed}" 
+                               DisplayMemberPath="ValorCadena" 
+                               SelectedValuePath="Nombre" 
+                               SelectedValue="{Binding id_areasealed}" 
+                               IsEnabled="{Binding BttnLiberar}"/>
                 </StackPanel>
                 
                 <Button  Grid.Row="1" HorizontalAlignment="Right" Margin="10" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding _AdjuntarArchivo}"  ToolTip="{x:Static recursos:StringResources.lblAdjuntarArchivo}"
