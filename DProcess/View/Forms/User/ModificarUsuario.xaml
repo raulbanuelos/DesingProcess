@@ -72,7 +72,7 @@
 
             <TextBox x:Name="txtCorreo" Text="{Binding correo}" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCorreo}" HorizontalAlignment="Left" Height="50" Margin="30,260,0,-20" TextWrapping="Wrap" VerticalAlignment="Top" Width="464"   BorderBrush="#899B9999" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
             <TextBox Text="{Binding patnsf}" materialDesign:HintAssist.Hint="Path" HorizontalAlignment="Left"  Height="70" Margin="30,310,0,-20" TextWrapping="Wrap" VerticalAlignment="Top" Width="420"   BorderBrush="#899B9999" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                <Button  HorizontalAlignment="Right"  Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding _AdjuntarRuta}"  ToolTip="Adjuntar Ruta" RenderTransformOrigin="-8.775,5.75" Margin="30,310,5,-20">
+            <Button  HorizontalAlignment="Right"  Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding _AdjuntarRuta}"  ToolTip="{x:Static recursos:StringResources.lblAdjuntarRuta}" RenderTransformOrigin="-8.775,5.75" Margin="30,310,5,-20">
                     <materialDesign:PackIcon Kind="Routes"  Height="24" Width="24"/>
                 </Button>
         </Grid>

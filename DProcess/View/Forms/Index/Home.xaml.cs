@@ -24,12 +24,6 @@ namespace View.Forms.Index
             string ExampleFourTextBox = string.Empty;
             var messageQueue= new SnackbarMessageQueue(TimeSpan.FromMilliseconds(800));
             SnackbarFour.MessageQueue = messageQueue;
-
-            int NoDocumentosValidar = DataManagerControlDocumentos.GetDocumentosValidar(nombreUsuario,"").Count;
-            if (NoDocumentosValidar > 0)
-            {
-                ExampleFourTextBox = "Tienes " + NoDocumentosValidar + " documentos por validar.";
-            }
             
             foreach (var s in ExampleFourTextBox.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
             {

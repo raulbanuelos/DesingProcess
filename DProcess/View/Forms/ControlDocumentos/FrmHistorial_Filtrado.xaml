@@ -3,13 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:recursos="clr-namespace:View.Resources"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"       
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
         xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"       
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
-        Title="FrmHistorial" Height="700" Width="1150" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="{x:Static recursos:StringResources.lblHistorial}" Height="700" Width="1150" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Controls:MetroWindow.Resources>
         <Style x:Key="TabHeader" TargetType="Label">
             <Setter Property="FontSize" Value="28"/>
@@ -37,7 +38,7 @@
                             <ColumnDefinition Width="10"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
-                            <DatePicker materialDesign:HintAssist.Hint="Fecha Inicio" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40" Width="150"  BorderBrush="#89535353" FontSize="18" Margin="10,10,0,0"
+                            <DatePicker materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaInicio}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40" Width="150"  BorderBrush="#89535353" FontSize="18" Margin="10,10,0,0"
                           SelectedDate="{Binding FechaInicio, UpdateSourceTrigger=PropertyChanged}" DisplayDateEnd="{Binding DateNow}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectedDateChanged">
@@ -46,7 +47,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </DatePicker>
-                            <DatePicker materialDesign:HintAssist.Hint="Fecha Final" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  BorderBrush="#89535353" FontSize="18" Width="150" Margin="20,10,0,0"
+                            <DatePicker materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaFinal}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  BorderBrush="#89535353" FontSize="18" Width="150" Margin="20,10,0,0"
                         DisplayDateStart="{Binding Path=FechaInicio, Mode=OneWay, NotifyOnSourceUpdated=True}" SelectedDate="{Binding FechaFin, UpdateSourceTrigger=PropertyChanged}" DisplayDateEnd="{Binding DateNow}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectedDateChanged">
@@ -56,7 +57,7 @@
                                 </i:Interaction.Triggers>
 
                             </DatePicker>
-                            <ComboBox Name="combo1" materialDesign:HintAssist.Hint="Estado" FontSize="18" Height="50" Width="200" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaEstatus}"  SelectedItem="{Binding SelectedEstatus}" Margin="20,0,0,0">
+                            <ComboBox Name="combo1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblEstado}" FontSize="18" Height="50" Width="200" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaEstatus}"  SelectedItem="{Binding SelectedEstatus}" Margin="20,0,0,0">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
                                         <i:InvokeCommandAction
@@ -64,7 +65,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </ComboBox>
-                            <ComboBox Name="combo2" materialDesign:HintAssist.Hint="Tipo de documento" FontSize="18" Height="50" Width="250" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento" SelectedItem="{Binding SelectedTipo}"  SelectedValuePath="id_tipo" SelectedValue="{Binding ID_Tipo}"  Margin="10,0,0,0" >
+                            <ComboBox Name="combo2" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFiltrarEstado}" FontSize="18" Height="50" Width="250" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento" SelectedItem="{Binding SelectedTipo}"  SelectedValuePath="id_tipo" SelectedValue="{Binding ID_Tipo}"  Margin="10,0,0,0" >
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
                                         <i:InvokeCommandAction
@@ -72,7 +73,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </ComboBox>
-                            <ComboBox Name="combo3" materialDesign:HintAssist.Hint="Departamento" FontSize="18" Height="50" Width="250" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaDepartamento}"  DisplayMemberPath="nombre_dep" SelectedItem="{Binding SelectedDepartamento}" SelectedValuePath="id_dep" SelectedValue="{Binding ID_dep}"  Margin="20,0,0,0" >
+                            <ComboBox Name="combo3" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombreDepartamento}" FontSize="18" Height="50" Width="250" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaDepartamento}"  DisplayMemberPath="nombre_dep" SelectedItem="{Binding SelectedDepartamento}" SelectedValuePath="id_dep" SelectedValue="{Binding ID_dep}"  Margin="20,0,0,0" >
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
                                         <i:InvokeCommandAction
@@ -87,12 +88,12 @@
 
                         <DataGrid   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,20,0,0" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding ListaHistorial}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedVersion,Mode=TwoWay}" Width="1085" Grid.Column="1" Grid.Row="3">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Nombre de Documento" Binding="{Binding nombre}"></DataGridTextColumn>
-                                <DataGridTextColumn Header="Versión" Binding="{Binding version.no_version}"></DataGridTextColumn>
-                                <DataGridTextColumn Header="Tipo " Binding="{Binding tipo.tipo_documento}"></DataGridTextColumn>
-                                <DataGridTextColumn Header="Departamento " Binding="{Binding Departamento}"></DataGridTextColumn>
-                                <DataGridTextColumn Header="Fecha " Binding="{Binding fecha_actualizacion, StringFormat={}{0:yyyy-MM-dd}}"></DataGridTextColumn>
-                                <DataGridTextColumn Header="Estado " Binding="{Binding descripcion}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNombreDocumento}" Binding="{Binding nombre}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="{x:Static recursos:StringResources.lblVersion}" Binding="{Binding version.no_version}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="{x:Static recursos:StringResources.lblTipo}" Binding="{Binding tipo.tipo_documento}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNombreDepartamento}" Binding="{Binding Departamento}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="{x:Static recursos:StringResources.lblFecha}" Binding="{Binding fecha_actualizacion, StringFormat={}{0:yyyy-MM-dd}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="{x:Static recursos:StringResources.lblEstado}" Binding="{Binding descripcion}"></DataGridTextColumn>
                             </DataGrid.Columns>
 
                         </DataGrid>
@@ -107,7 +108,7 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <Label Content="Gráfica" Style="{StaticResource TabHeader}"></Label>
+                    <Label Content="{x:Static recursos:StringResources.lblGrafica}" Style="{StaticResource TabHeader}"></Label>
                 </TabItem.Header>
                 <TabItem.Content>
                     <Grid>
@@ -117,7 +118,7 @@
                             <RowDefinition Height="15"/>
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
-                            <DatePicker materialDesign:HintAssist.Hint="Fecha Inicio" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40" Width="150"  BorderBrush="#89535353" FontSize="18" Margin="10,10,0,0"
+                            <DatePicker materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaInicio}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40" Width="150"  BorderBrush="#89535353" FontSize="18" Margin="10,10,0,0"
                           SelectedDate="{Binding FechaInicioChart, UpdateSourceTrigger=PropertyChanged}" DisplayDateEnd="{Binding DateNow}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectedDateChanged">
@@ -126,7 +127,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </DatePicker>
-                            <DatePicker materialDesign:HintAssist.Hint="Fecha Final" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  BorderBrush="#89535353" FontSize="18" Width="150" Margin="20,10,0,0"
+                            <DatePicker materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaFinal}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  BorderBrush="#89535353" FontSize="18" Width="150" Margin="20,10,0,0"
                         DisplayDateStart="{Binding Path=FechaInicioChart, Mode=OneWay, NotifyOnSourceUpdated=True}" SelectedDate="{Binding FechaFinChart, UpdateSourceTrigger=PropertyChanged}" DisplayDateEnd="{Binding DateNow}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectedDateChanged">
@@ -136,7 +137,7 @@
                                 </i:Interaction.Triggers>
 
                             </DatePicker>
-                            <ComboBox  materialDesign:HintAssist.Hint="Estado" FontSize="18" Height="50" Width="200" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaEstatus}"  SelectedItem="{Binding SelectedEstatusChart}" Margin="20,0,0,0">
+                            <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblEstado}" FontSize="18" Height="50" Width="200" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaEstatus}"  SelectedItem="{Binding SelectedEstatusChart}" Margin="20,0,0,0">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
                                         <i:InvokeCommandAction
@@ -144,7 +145,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </ComboBox>
-                            <ComboBox  materialDesign:HintAssist.Hint="Tipo de documento" FontSize="18" Height="50" Width="250" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento"   SelectedValuePath="id_tipo" SelectedValue="{Binding IDTipo_Chart}"  Margin="10,0,0,0" >
+                            <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblTipoDocumento}" FontSize="18" Height="50" Width="250" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento"   SelectedValuePath="id_tipo" SelectedValue="{Binding IDTipo_Chart}"  Margin="10,0,0,0" >
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
                                         <i:InvokeCommandAction
@@ -152,7 +153,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </ComboBox>
-                            <ComboBox  materialDesign:HintAssist.Hint="Departamento" FontSize="18" Height="50" Width="250" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaDepartamento}"  DisplayMemberPath="nombre_dep"  SelectedValuePath="id_dep" SelectedValue="{Binding IdDep_Chart}"  Margin="20,0,0,0" >
+                            <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombreDepartamento}" FontSize="18" Height="50" Width="250" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaDepartamento}"  DisplayMemberPath="nombre_dep"  SelectedValuePath="id_dep" SelectedValue="{Binding IdDep_Chart}"  Margin="20,0,0,0" >
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
                                         <i:InvokeCommandAction
@@ -163,7 +164,7 @@
                         </StackPanel>
                         <Grid Grid.Row="1">
                             <chartingToolkit:Chart  Name="lineChart" Title="" VerticalAlignment="Center" Width="1000" Height="500" Background="White" BorderBrush="White">
-                                <chartingToolkit:LineSeries Title="Documentos" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding Path=ListaGrafica, IsAsync=True}" IsSelectionEnabled="True" Background="White">
+                                <chartingToolkit:LineSeries Title="{x:Static recursos:StringResources.lblDocumentos}" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding Path=ListaGrafica, IsAsync=True}" IsSelectionEnabled="True" Background="White">
                                     <chartingToolkit:LineSeries.IndependentAxis>
                                         <chartingToolkit:CategoryAxis Orientation="X">
                                             <chartingToolkit:CategoryAxis.AxisLabelStyle>

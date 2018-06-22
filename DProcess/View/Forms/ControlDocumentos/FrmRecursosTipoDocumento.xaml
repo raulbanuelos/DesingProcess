@@ -34,9 +34,9 @@
                             <RowDefinition Height="30"></RowDefinition>
                             <RowDefinition Height="40"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <TextBlock Text="Nombre: " FontSize="14" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left"></TextBlock>
+                        <TextBlock Text="{x:Static recursos:StringResources.lblNombre}" FontSize="14" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left"></TextBlock>
                         <TextBlock FontWeight="Bold" Text="{Binding Path=nombre}" TextWrapping="WrapWithOverflow" TextAlignment="Center" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Padding="2"></TextBlock>
-                        <TextBlock Text="Extensión: " FontSize="14" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="{x:Static recursos:StringResources.lblExtencion}" FontSize="14" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                         <TextBlock Text="{Binding Path=ext}" HorizontalAlignment="Right" Padding="2" Grid.Column="1" Grid.Row="1" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
                         <Button  Grid.Column="1" Grid.Row="2" Content="{x:Static recursos:StringResources.lblEliminar}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#FFE27B7B" BorderBrush="#FFD36B6B" Command="{Binding Path=DataContext.EliminarItem,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" />
                         <Button  Grid.Column="0" Grid.Row="2" Content="{x:Static recursos:StringResources.lblVer}" Width="80" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Command="{Binding Path=DataContext.VerArchivo,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" ></Button>

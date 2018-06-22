@@ -97,6 +97,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Add Route.
+        /// </summary>
+        public static string lblAdjuntarRuta {
+            get {
+                return ResourceManager.GetString("lblAdjuntarRuta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Add Department.
         /// </summary>
         public static string lblAgregarDepartamento {
@@ -165,6 +174,15 @@ namespace View.Resources {
         public static string lblApellidoPaterno {
             get {
                 return ResourceManager.GetString("lblApellidoPaterno", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a APPROVED, PENDING TO RELEASE.
+        /// </summary>
+        public static string lblAprobadoPendienteLiberar {
+            get {
+                return ResourceManager.GetString("lblAprobadoPendienteLiberar", resourceCulture);
             }
         }
         
@@ -286,6 +304,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Current password.
+        /// </summary>
+        public static string lblContraseñaActual {
+            get {
+                return ResourceManager.GetString("lblContraseñaActual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Mail.
         /// </summary>
         public static string lblCorreo {
@@ -358,6 +385,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Documents.
+        /// </summary>
+        public static string lblDocumentos {
+            get {
+                return ResourceManager.GetString("lblDocumentos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a See Documents Deleted.
         /// </summary>
         public static string lblDocumentosEliminados {
@@ -412,11 +448,29 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Status.
+        /// </summary>
+        public static string lblEstado {
+            get {
+                return ResourceManager.GetString("lblEstado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Export to Excel.
         /// </summary>
         public static string lblExportar {
             get {
                 return ResourceManager.GetString("lblExportar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Extension.
+        /// </summary>
+        public static string lblExtencion {
+            get {
+                return ResourceManager.GetString("lblExtencion", resourceCulture);
             }
         }
         
@@ -484,6 +538,33 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Filter Status.
+        /// </summary>
+        public static string lblFiltrarEstado {
+            get {
+                return ResourceManager.GetString("lblFiltrarEstado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Format MAHLE.
+        /// </summary>
+        public static string lblFormato {
+            get {
+                return ResourceManager.GetString("lblFormato", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Picture.
+        /// </summary>
+        public static string lblFoto {
+            get {
+                return ResourceManager.GetString("lblFoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Generate.
         /// </summary>
         public static string lblGenerar {
@@ -516,6 +597,15 @@ namespace View.Resources {
         public static string lblGenerarVersion {
             get {
                 return ResourceManager.GetString("lblGenerarVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Graph.
+        /// </summary>
+        public static string lblGrafica {
+            get {
+                return ResourceManager.GetString("lblGrafica", resourceCulture);
             }
         }
         
@@ -808,6 +898,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a PENDING TO CORRECT.
+        /// </summary>
+        public static string lblPendientePorCorregir {
+            get {
+                return ResourceManager.GetString("lblPendientePorCorregir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Profile.
         /// </summary>
         public static string lblPerfil {
@@ -885,6 +984,15 @@ namespace View.Resources {
         public static string lblThickness {
             get {
                 return ResourceManager.GetString("lblThickness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Type.
+        /// </summary>
+        public static string lblTipo {
+            get {
+                return ResourceManager.GetString("lblTipo", resourceCulture);
             }
         }
         
@@ -1060,6 +1168,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Old Format.
+        /// </summary>
+        public static string lblViejoFormato {
+            get {
+                return ResourceManager.GetString("lblViejoFormato", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Welcome.
         /// </summary>
         public static string lblWelcome {
@@ -1173,6 +1290,15 @@ namespace View.Resources {
         public static string msgCancelar {
             get {
                 return ResourceManager.GetString("msgCancelar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The component plane was loaded :.
+        /// </summary>
+        public static string msgCargaPlano {
+            get {
+                return ResourceManager.GetString("msgCargaPlano", resourceCulture);
             }
         }
         
@@ -1312,7 +1438,7 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Document (s) pending (s) to be corrected.
+        ///   Busca una cadena traducida similar a Document(s) pending(s) to be corrected.
         /// </summary>
         public static string msgDocumentosCorregir {
             get {
@@ -1321,7 +1447,7 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Document (s) pending (s) to be delivered.
+        ///   Busca una cadena traducida similar a Document(s) pending(s) to be delivered.
         /// </summary>
         public static string msgDocumentosEntregar {
             get {
@@ -1330,7 +1456,7 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Document (s) pending (s) to be released.
+        ///   Busca una cadena traducida similar a Document(s) pending(s) to be released.
         /// </summary>
         public static string msgDocumentosLiberar {
             get {
@@ -1339,7 +1465,7 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Document (s) pending (s) to be validated.
+        ///   Busca una cadena traducida similar a Document(s) pending(s) to be validated.
         /// </summary>
         public static string msgDocumentosValidar {
             get {
@@ -1650,6 +1776,15 @@ namespace View.Resources {
         public static string msgErrorInsertarArchivo {
             get {
                 return ResourceManager.GetString("msgErrorInsertarArchivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error inserting the file.
+        /// </summary>
+        public static string msgErrorInsertarArchivos {
+            get {
+                return ResourceManager.GetString("msgErrorInsertarArchivos", resourceCulture);
             }
         }
         
@@ -2104,6 +2239,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a You haven&apos;t selected a valid file.
+        /// </summary>
+        public static string msgPlanoIncorrecto {
+            get {
+                return ResourceManager.GetString("msgPlanoIncorrecto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The number was copied to the clipboard.
         /// </summary>
         public static string msgPortapapeles {
@@ -2163,6 +2307,15 @@ namespace View.Resources {
         public static string msgRoutingReady {
             get {
                 return ResourceManager.GetString("msgRoutingReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select the format of the plane :.
+        /// </summary>
+        public static string msgSeleccionaFormato {
+            get {
+                return ResourceManager.GetString("msgSeleccionaFormato", resourceCulture);
             }
         }
         
@@ -2284,15 +2437,6 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a .
-        /// </summary>
-        public static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Busca una cadena traducida similar a Manage Users.
         /// </summary>
         public static string ttlAdministrarUsuarios {
@@ -2320,6 +2464,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Click here to manage the data base.
+        /// </summary>
+        public static string ttlBaseDatosAux {
+            get {
+                return ResourceManager.GetString("ttlBaseDatosAux", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Lock.
         /// </summary>
         public static string ttlBloqueo {
@@ -2338,6 +2491,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Click here to calculate the quotes.
+        /// </summary>
+        public static string ttlCalcularCuotas {
+            get {
+                return ResourceManager.GetString("ttlCalcularCuotas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Document Control.
         /// </summary>
         public static string ttlControlDocumento {
@@ -2352,6 +2514,15 @@ namespace View.Resources {
         public static string ttlControlDocumentos {
             get {
                 return ResourceManager.GetString("ttlControlDocumentos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Click here to manage the documents.
+        /// </summary>
+        public static string ttlControlDocumentosAux {
+            get {
+                return ResourceManager.GetString("ttlControlDocumentosAux", resourceCulture);
             }
         }
         
@@ -2455,11 +2626,29 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Click here to manage the tools.
+        /// </summary>
+        public static string ttlHerramientasAux {
+            get {
+                return ResourceManager.GetString("ttlHerramientasAux", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Lessons.
         /// </summary>
         public static string ttlLecciones {
             get {
                 return ResourceManager.GetString("ttlLecciones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Click here to manage the lessons learned.
+        /// </summary>
+        public static string ttlLeccionesAprendidasAux {
+            get {
+                return ResourceManager.GetString("ttlLeccionesAprendidasAux", resourceCulture);
             }
         }
         
@@ -2563,6 +2752,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Click here to see raw materials.
+        /// </summary>
+        public static string ttlRawMaterialsAux {
+            get {
+                return ResourceManager.GetString("ttlRawMaterialsAux", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Resources.
         /// </summary>
         public static string ttlRecursos {
@@ -2599,6 +2797,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Click here to manage the standar time.
+        /// </summary>
+        public static string ttlTiempoEstandarAux {
+            get {
+                return ResourceManager.GetString("ttlTiempoEstandarAux", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Tooling.
         /// </summary>
         public static string ttlTooling {
@@ -2622,6 +2829,15 @@ namespace View.Resources {
         public static string ttlUser {
             get {
                 return ResourceManager.GetString("ttlUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Click here to manage your profile.
+        /// </summary>
+        public static string ttlUsuariosAux {
+            get {
+                return ResourceManager.GetString("ttlUsuariosAux", resourceCulture);
             }
         }
         

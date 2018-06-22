@@ -94,7 +94,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _estatus = "PENDIENTE POR CORREGIR";
+        private string _estatus = StringResources.lblPendientePorCorregir;
         public string Estatus
         {
             get
@@ -353,7 +353,7 @@ namespace View.Services.ViewModel
         /// </summary>
         private void uncheck()
         {
-            Estatus = "PENDIENTE POR CORREGIR";
+            Estatus = StringResources.lblPendientePorCorregir;
         }
 
         /// <summary>
@@ -361,7 +361,7 @@ namespace View.Services.ViewModel
         /// </summary>
         private void check()
         {
-            Estatus = "APROBADO, PENDIENTE POR LIBERAR";
+            Estatus = StringResources.lblAprobadoPendienteLiberar;
         }
 
         /// <summary>

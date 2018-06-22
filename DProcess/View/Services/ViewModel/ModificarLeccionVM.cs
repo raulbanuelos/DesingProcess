@@ -784,7 +784,7 @@ namespace View.Services.ViewModel
                         //verificamos que el archivo no este en uso
                         if (!IsFileInUse(nombrearchivo))
                         {
-                            AsyncProgress = await dialog.SendProgressAsync("Por favor espere", "Adjuntando archivo...");
+                            AsyncProgress = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgInsertando);
 
                             //obtenemos los datos del archivo seleccionado
                             archivo.ARCHIVO = await Task.Run(() => File.ReadAllBytes(nombrearchivo));
@@ -800,7 +800,7 @@ namespace View.Services.ViewModel
                             //comprobamos que se hayan insertado los valores
                             if (insertar > 0)
                             {
-                                await dialog.SendMessage("Atención", "El Archivo se insertó correctamente");
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgArchivoInsertado);
 
                                 //le agregamos una imagen dependiendo de la extencion
                                 if (archivo.EXT == ".pdf")
@@ -833,17 +833,17 @@ namespace View.Services.ViewModel
                             else
                             {
                                 //si no se puedo insertar mandamos un mensaje de error
-                                await dialog.SendMessage("Alerta", "Error al insertar Archivo");
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGuardandoArchivo);
                             }
                         }
                         else
                         {
-                            await dialog.SendMessage("Atención", "Cierre el Archivo para poder insertarlo");
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCierreArchivo);
                         }
                     }
                     catch (Exception)
                     {
-                        await dialog.SendMessage("Error", "Error al insertar el Archivo");
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGuardandoArchivo);
                     }
                 }
             }        
