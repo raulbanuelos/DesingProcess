@@ -20,6 +20,7 @@ using PdfSharp.Drawing;
 using System.Diagnostics;
 using PdfSharp;
 using System.Threading.Tasks;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -1181,11 +1182,11 @@ namespace View.Services.ViewModel
 
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = "Format MAHLE";
-            setting.NegativeButtonText = "Old Format";
+            setting.AffirmativeButtonText = StringResources.lblFormato;
+            setting.NegativeButtonText = StringResources.lblViejoFormato;
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
-            MessageDialogResult result = await dialogService.SendMessage("Attention", "Select the format of the plane:", setting, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgSeleccionaFormato, setting, MessageDialogStyle.AffirmativeAndNegative);
 
             //Para cada resultado realizamos una acción.
             switch (result)
@@ -1289,24 +1290,24 @@ namespace View.Services.ViewModel
                             IsOpenedToogle = false;
 
                             //Enviamos un mensaje para informar que se importo el plano correctamente.
-                            await dialogService.SendMessage("Information", "Se cargo el plano del componente :" + Codigo);
+                            await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgCargaPlano + Codigo);
                         }
                         else
                         {
                             //En caso de que el archivo no contenga elementos, enviamos un mensaje de alerta.
-                            await dialogService.SendMessage("Attention", "No has seleccionado un archivo válido");
+                            await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgPlanoIncorrecto);
                         }
                     }
                     else
                     {
                         //En caso de que el usuario no seleccione un archivo .xml, enviamos un mensaje indicando formato no soportado.
-                        await dialogService.SendMessage("Attention", "No has seleccionado un archivo válido");
+                        await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgPlanoIncorrecto);
                     }
                 }
                 else
                 {
                     //En caso de que no exista el archivo, enviamos un mensaje de alerta.
-                    await dialogService.SendMessage("Attention", "No has seleccionado un archivo válido");
+                    await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgPlanoIncorrecto);
                 }
             }
         }
@@ -1779,6 +1780,9 @@ namespace View.Services.ViewModel
             IsOpenedToogle = false;
         }
 
+        /// <summary>
+        /// Método para generar un PDF de la ruta
+        /// </summary>
         private void viewRoute()
         {
             PdfDocument pdf = new PdfDocument();

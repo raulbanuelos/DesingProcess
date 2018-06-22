@@ -178,6 +178,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a APPROVED, PENDING TO RELEASE.
+        /// </summary>
+        public static string lblAprobadoPendienteLiberar {
+            get {
+                return ResourceManager.GetString("lblAprobadoPendienteLiberar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Area.
         /// </summary>
         public static string lblArea {
@@ -538,6 +547,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Format MAHLE.
+        /// </summary>
+        public static string lblFormato {
+            get {
+                return ResourceManager.GetString("lblFormato", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Picture.
         /// </summary>
         public static string lblFoto {
@@ -880,6 +898,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a PENDING TO CORRECT.
+        /// </summary>
+        public static string lblPendientePorCorregir {
+            get {
+                return ResourceManager.GetString("lblPendientePorCorregir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Profile.
         /// </summary>
         public static string lblPerfil {
@@ -1141,6 +1168,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Old Format.
+        /// </summary>
+        public static string lblViejoFormato {
+            get {
+                return ResourceManager.GetString("lblViejoFormato", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Welcome.
         /// </summary>
         public static string lblWelcome {
@@ -1254,6 +1290,15 @@ namespace View.Resources {
         public static string msgCancelar {
             get {
                 return ResourceManager.GetString("msgCancelar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The component plane was loaded :.
+        /// </summary>
+        public static string msgCargaPlano {
+            get {
+                return ResourceManager.GetString("msgCargaPlano", resourceCulture);
             }
         }
         
@@ -1735,6 +1780,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Error inserting the file.
+        /// </summary>
+        public static string msgErrorInsertarArchivos {
+            get {
+                return ResourceManager.GetString("msgErrorInsertarArchivos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Error reading the file.
         /// </summary>
         public static string msgErrorLeerArchivo {
@@ -2185,6 +2239,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a You haven&apos;t selected a valid file.
+        /// </summary>
+        public static string msgPlanoIncorrecto {
+            get {
+                return ResourceManager.GetString("msgPlanoIncorrecto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The number was copied to the clipboard.
         /// </summary>
         public static string msgPortapapeles {
@@ -2244,6 +2307,15 @@ namespace View.Resources {
         public static string msgRoutingReady {
             get {
                 return ResourceManager.GetString("msgRoutingReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select the format of the plane :.
+        /// </summary>
+        public static string msgSeleccionaFormato {
+            get {
+                return ResourceManager.GetString("msgSeleccionaFormato", resourceCulture);
             }
         }
         

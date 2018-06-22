@@ -207,6 +207,7 @@ namespace View.Services.ViewModel
                 NotifyChange("notificar");
             }
         }
+
         private string _usuarioAutorizo;
         public string usuarioAutorizo
         {
@@ -1077,7 +1078,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Método para cambiar el estadus de un archivo a pendiente por corregir
         /// </summary>
         private async void regresarCorregir()
         {
@@ -1873,6 +1874,10 @@ namespace View.Services.ViewModel
             body += "<ul>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + Nombre + "</b> versión <b> " + Version + ".0" + " </b> ya se encuentra disponible en el sistema </font> <a href=\"http://sealed/frames.htm\">frames</a> </li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
+            body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Número :" + Nombre;
+            body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Descripción :" + Descripcion;
+            body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Versión :" + Version;
+            body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Área del Frames en donde se inserto :" + id_areasealed;
             body += "</ul>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
             body += "<br/>";
@@ -1897,7 +1902,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Método para ver el contenido de los archivos
         /// </summary>
         /// <param name="item"></param>
         private async void verArchivo(Archivo item)
@@ -1996,6 +2001,10 @@ namespace View.Services.ViewModel
             body += "<ul>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + Nombre + "</b> versión <b> " + Version + ".0" + " </b> ya se encuentra disponible en el sistema </font> <a href=\"http://sealed/frames.htm\">frames</a> </li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
+            body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Número :" + Nombre;
+            body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Descripción :" + Descripcion;
+            body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Versión :" + Version;
+            body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Área del Frames en donde se inserto :" + id_areasealed;
             body += "</ul>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">NOTA: Si este documento sustituye a algún otro, favor de notificarme para realizar la baja correspondiente.</font> </p>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
@@ -2345,6 +2354,9 @@ namespace View.Services.ViewModel
                 body += "<ul>";
                 body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + Nombre + "</b> versión <b> " + Version + ".0" + " </b> fué dado de baja de la matríz del control de documentos</font> </li>";
                 body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
+                body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Número :" + Nombre;
+                body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Descripción :" + Descripcion;
+                body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Versión :" + Version;
                 body += "</ul>";
                 body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
                 body += "<br/>";
@@ -2543,7 +2555,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Método para modificar el contenido
         /// </summary>
         private async void modificar()
         {
@@ -2555,8 +2567,14 @@ namespace View.Services.ViewModel
             setting.AffirmativeButtonText = StringResources.lblYes;
             setting.NegativeButtonText = StringResources.lblNo;
 
-            string mensaje = "Nombre: " + nombre + "\nVersión: " + version + "\nFecha: " + fecha.ToShortDateString() + "\nDescripción: " + descripcion +
-                            "\nTipo de Documento: " + NombreTipo + "\nDepartamento: " + NombreDepto + "\nUsuario Elaboró: " + NombreUsuarioElaboro + "\nUsuario Autorizó: " + NombreUsuarioAut;
+            string mensaje = StringResources.lblNombre + ":" + " " + nombre +
+                "\n" + StringResources.lblVersion + ":" + " " + version +
+                "\n" + StringResources.lblFecha + ":" + " " + fecha.ToShortDateString() +
+                "\n" + StringResources.lblDescripcion + ":" + " " +descripcion +
+                "\n" + StringResources.lblTipoDocumento + ":" + " " +NombreTipo +
+                "\n" +StringResources.lblNombreDepartamento + ":" + " " +NombreDepto + 
+                "\n" + StringResources.lblUsuarioElaboro + ":" + " " +NombreUsuarioElaboro +
+                "\n" + StringResources.lblUsuarioAutorizo + ":" +" " +NombreUsuarioAut;
 
             if (ValidarValores())
             {

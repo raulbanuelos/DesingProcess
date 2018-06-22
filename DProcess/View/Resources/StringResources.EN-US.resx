@@ -562,7 +562,7 @@
     <comment>Titulo para el boton de guardar</comment>
   </data>
   <data name="ttlVerArchivo" xml:space="preserve">
-    <value>ShowFiles</value>
+    <value>Show Files</value>
     <comment>Titulo para boton</comment>
   </data>
   <data name="msgA" xml:space="preserve">
@@ -1314,5 +1314,29 @@
   </data>
   <data name="ttlUsuariosAux" xml:space="preserve">
     <value>Click here to manage your profile</value>
+  </data>
+  <data name="lblAprobadoPendienteLiberar" xml:space="preserve">
+    <value>APPROVED, PENDING TO RELEASE</value>
+  </data>
+  <data name="lblPendientePorCorregir" xml:space="preserve">
+    <value>PENDING TO CORRECT</value>
+  </data>
+  <data name="msgErrorInsertarArchivos" xml:space="preserve">
+    <value>Error inserting the file</value>
+  </data>
+  <data name="lblFormato" xml:space="preserve">
+    <value>Format MAHLE</value>
+  </data>
+  <data name="lblViejoFormato" xml:space="preserve">
+    <value>Old Format</value>
+  </data>
+  <data name="msgCargaPlano" xml:space="preserve">
+    <value>The component plane was loaded :</value>
+  </data>
+  <data name="msgPlanoIncorrecto" xml:space="preserve">
+    <value>You haven't selected a valid file</value>
+  </data>
+  <data name="msgSeleccionaFormato" xml:space="preserve">
+    <value>Select the format of the plane :</value>
   </data>
 </root>

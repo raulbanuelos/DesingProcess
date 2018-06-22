@@ -1315,4 +1315,28 @@
   <data name="ttlUsuariosAux" xml:space="preserve">
     <value>Click para administrar tu perfil</value>
   </data>
+  <data name="lblAprobadoPendienteLiberar" xml:space="preserve">
+    <value>APROBADO, PENDIENTE POR LIBERAR</value>
+  </data>
+  <data name="lblPendientePorCorregir" xml:space="preserve">
+    <value>PENDIENTE POR CORREGIR</value>
+  </data>
+  <data name="msgErrorInsertarArchivos" xml:space="preserve">
+    <value>Error al insertar el archivo</value>
+  </data>
+  <data name="lblFormato" xml:space="preserve">
+    <value>Formato MAHLE</value>
+  </data>
+  <data name="lblViejoFormato" xml:space="preserve">
+    <value>Formato Viejo</value>
+  </data>
+  <data name="msgCargaPlano" xml:space="preserve">
+    <value>Se cargo el plano del componente :</value>
+  </data>
+  <data name="msgPlanoIncorrecto" xml:space="preserve">
+    <value>No has seleccionado un archivo valido</value>
+  </data>
+  <data name="msgSeleccionaFormato" xml:space="preserve">
+    <value>Selecciona el formato del plano :</value>
+  </data>
 </root>
