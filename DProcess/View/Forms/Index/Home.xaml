@@ -19,28 +19,15 @@
 
         <DockPanel Grid.Column="0" Grid.Row="0">
             <StackPanel DockPanel.Dock="Left" Width="15"></StackPanel>
-            <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Right" Width="150" Height="100" Orientation="Horizontal">
-                <StackPanel>
-                    <Label Content="{Binding Nombre}" FontSize="24" HorizontalAlignment="Right" Foreground="White" Margin="0"></Label>
-                    <Label Content="{Binding ApellidoPaterno}" FontSize="16" Foreground="White" HorizontalAlignment="Right" Margin="0"></Label>
-                </StackPanel>
-                <Label Content="{x:Static local:StringResources.lblFoto}"></Label>
+            <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Right" Height="100" Orientation="Vertical">
+                <Label Content="{Binding Nombre}" FontSize="24" HorizontalAlignment="Right" Foreground="White" Margin="0,15,15,0"></Label>
+                <Label Content="{Binding ApellidoPaterno}" FontSize="16" Foreground="White" HorizontalAlignment="Right" Margin="0,0,15,0"></Label>
             </StackPanel>
-
+            
             <Grid DockPanel.Dock="Right" ShowGridLines="True">
 
             </Grid>
-            <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right">
-                <Button Name="btn_salir" Width="50" Height="50" Style="{DynamicResource MetroCircleButtonStyle}" Cursor="Hand">
-                    <StackPanel>
-                        <Rectangle Width="30" Height="30" Fill="White">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_door_leave}" />
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
+            
             <Grid Height="500" Width="905">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="300" />

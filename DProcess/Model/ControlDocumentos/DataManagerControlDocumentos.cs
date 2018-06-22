@@ -3400,11 +3400,82 @@ namespace Model.ControlDocumentos
 
             return id;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id_areasealed"></param>
+        /// <returns></returns>
+        public static string GetNombreAreaOHSAS(int id_areasealed)
+        {
+            SO_Sealed service = new SO_Sealed();
+            string NombreArea = string.Empty;
+            DataTable informacionBD = service.GetNombreAreaOHSAS(id_areasealed);
 
+            if (informacionBD != null)
+            {
+                if (informacionBD.Rows.Count > 0)
+                {
+                    foreach (DataRow item in informacionBD.Rows)
+                    {
+                        NombreArea = item["a_descripcion"].ToString();
+                    }
+                }
+            }
+
+            return NombreArea;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id_areasealed"></param>
+        /// <returns></returns>
+        public static string GetNombreAreaISO(int id_areasealed)
+        {
+            SO_Sealed service = new SO_Sealed();
+            string NombreArea = string.Empty;
+            DataTable informacionBD = service.GetNombreAreaISO(id_areasealed);
+
+            if (informacionBD != null)
+            {
+                if (informacionBD.Rows.Count > 0)
+                {
+                    foreach (DataRow item in informacionBD.Rows)
+                    {
+                        NombreArea = item["a_descripcion"].ToString();
+                    }
+                }
+            }
+
+            return NombreArea;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id_areasealed"></param>
+        /// <returns></returns>
+        public static string GetNombreAreaESPECIFICOS(int id_areasealed)
+        {
+            SO_Sealed service = new SO_Sealed();
+            string NombreArea = string.Empty;
+            DataTable informacionBD = service.GetNombreAreasEspecificas(id_areasealed);
+
+            if (informacionBD != null)
+            {
+                if (informacionBD.Rows.Count > 0)
+                {
+                    foreach (DataRow item in informacionBD.Rows)
+                    {
+                        NombreArea = item["a_descripcion"].ToString();
+                    }
+                }
+            }
+
+            return NombreArea;
+        }
         #endregion
 
         #region Notificaciones
-        
+
         /// <summary>
         /// Método que inserta una notificación.
         /// </summary>

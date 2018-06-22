@@ -92,7 +92,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 string query = "SELECT A.area FROM ohsasMatriz2 AS M INNER JOIN ohsasAreas2 AS A ON M.EMISOR = A.area WHERE M.NUMERO = '" + numero + "'";
 
                 Sealed_SQL conexion = new Sealed_SQL();
-
+                    
                 DataTable dt = conexion.EjecutarQuery(query);
 
                 return dt;
@@ -100,6 +100,76 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             catch (Exception)
             {
                 return null;
+            }
+        }
+        /// <summary>
+        /// OHSAS
+        /// </summary>
+        /// <param name="id_areasealed"></param>
+        /// <returns></returns>
+        public DataTable GetNombreAreaOHSAS(int id_areasealed)
+        {
+            try
+            {
+                string query = "SELECT M.a_descripcion FROM ohsasAreas2 AS M WHERE M.area =" + id_areasealed ;
+
+                Sealed_SQL conexion = new Sealed_SQL();
+
+                DataTable dt = conexion.EjecutarQuery(query);
+
+                return dt;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        /// <summary>
+        /// ISO
+        /// </summary>
+        /// <param name="id_areasealed"></param>
+        /// <returns></returns>
+        public DataTable GetNombreAreaISO(int id_areasealed)
+        {
+            try
+            {
+                string query = "SELECT M.a_descripcion FROM saaAreas2 AS M WHERE M.area =" + id_areasealed;
+
+                Sealed_SQL conexion = new Sealed_SQL();
+
+                DataTable dt = conexion.EjecutarQuery(query);
+
+                return dt;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// ESPECIFICOS
+        /// </summary>
+        /// <param name="id_areasealed"></param>
+        /// <returns></returns>
+        public DataTable GetNombreAreasEspecificas(int id_areasealed)
+        {
+            try
+            {
+                string query = "SELECT M.a_descripcion FROM Areas2 AS M WHERE M.area =" + id_areasealed;
+
+                Sealed_SQL conexion = new Sealed_SQL();
+
+                DataTable dt = conexion.EjecutarQuery(query);
+
+                return dt;
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
         #endregion

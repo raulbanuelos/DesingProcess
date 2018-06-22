@@ -127,7 +127,9 @@
                     <!--Tipo de Documento-->
                     <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblTipoDocumento}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420"  BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}"  DisplayMemberPath="tipo_documento"  SelectedValuePath="id_tipo" SelectedValue="{Binding id_tipo}" FontSize="18" IsEnabled="{Binding VersionEnabled}" >
                     </ComboBox>
+                    
                     <!--Nombre del departamento-->
+                    
                     <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombreDepartamentoProceso}" 
                                Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
                                Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18"
@@ -161,7 +163,6 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </ComboBox>
-
                     <!--Nombre del áreas sealed-->
                     <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblAreaFrames}"
                                Style="{StaticResource MaterialDesignFloatingHintComboBox}" 

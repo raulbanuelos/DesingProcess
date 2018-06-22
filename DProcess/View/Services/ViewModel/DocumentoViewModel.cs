@@ -1848,6 +1848,25 @@ namespace View.Services.ViewModel
             string title = "Actualización de documento - " + Nombre;
             string body = string.Empty;
             string tipo_documento = string.Empty;
+            string AreaFrames = string.Empty;
+
+            switch (id_tipo)
+            {
+                case 1003:
+                case 1013:
+                    AreaFrames = DataManagerControlDocumentos.GetNombreAreaOHSAS(Convert.ToInt32(id_areasealed));
+                    break;
+                case 1014:
+                case 1006:
+                    AreaFrames = DataManagerControlDocumentos.GetNombreAreaISO(Convert.ToInt32(id_areasealed));
+                    break;
+                case 1005:
+                case 1012:
+                    AreaFrames = DataManagerControlDocumentos.GetNombreAreaESPECIFICOS(Convert.ToInt32(id_areasealed));
+                    break;
+                default:
+                    break;
+            }
 
             switch (id_tipo)
             {
@@ -1874,10 +1893,10 @@ namespace View.Services.ViewModel
             body += "<ul>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + Nombre + "</b> versión <b> " + Version + ".0" + " </b> ya se encuentra disponible en el sistema </font> <a href=\"http://sealed/frames.htm\">frames</a> </li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
-            body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Número :" + Nombre;
-            body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Descripción :" + Descripcion;
-            body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Versión :" + Version;
-            body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Área del Frames en donde se inserto :" + id_areasealed;
+            body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + Nombre + "</b> </li>";
+            body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Descripción : <b>" + Descripcion + "</b> </li>";
+            body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Versión : <b>" + Version + "</b> </li>";
+            body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Área del Frames en donde se inserto : <b>" + AreaFrames + "</b> </li>";
             body += "</ul>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
             body += "<br/>";
@@ -1958,6 +1977,7 @@ namespace View.Services.ViewModel
         private bool NotificarNuevaVersion()
         {
             ServiceEmail SO_Email = new ServiceEmail();
+            string AreaFrames = string.Empty;
 
             string[] correos = new string[ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count];
 
@@ -1978,11 +1998,27 @@ namespace View.Services.ViewModel
             switch (id_tipo)
             {
                 case 1003:
+                case 1013:
+                    AreaFrames = DataManagerControlDocumentos.GetNombreAreaOHSAS(Convert.ToInt32(id_areasealed));
+                    break;
+                case 1014:
+                case 1006:
+                    AreaFrames = DataManagerControlDocumentos.GetNombreAreaISO(Convert.ToInt32(id_areasealed));
+                    break;
+                case 1005:
+                case 1012:
+                    AreaFrames = DataManagerControlDocumentos.GetNombreAreaESPECIFICOS(Convert.ToInt32(id_areasealed));
+                    break;
+                default:
+                    break;
+            }
+            switch (id_tipo)
+            {
+                case 1003:
                 case 1005:
                 case 1006:
                     tipo_documento = "la instrucción de trabajo";
                     break;
-
                 case 1012:
                 case 1013:
                 case 1014:
@@ -2001,10 +2037,12 @@ namespace View.Services.ViewModel
             body += "<ul>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + Nombre + "</b> versión <b> " + Version + ".0" + " </b> ya se encuentra disponible en el sistema </font> <a href=\"http://sealed/frames.htm\">frames</a> </li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
-            body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Número :" + Nombre;
-            body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Descripción :" + Descripcion;
-            body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Versión :" + Version;
-            body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Área del Frames en donde se inserto :" + id_areasealed;
+
+            body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + Nombre + "</b> </li>";
+            body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Descripción : <b>" + Descripcion +"</b> </li>";
+            body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Versión : <b>" + Version + "</b> </li>";
+            body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Área del Frames en donde se inserto : <b>" + AreaFrames + "</b> </li>";
+
             body += "</ul>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">NOTA: Si este documento sustituye a algún otro, favor de notificarme para realizar la baja correspondiente.</font> </p>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
@@ -2354,9 +2392,9 @@ namespace View.Services.ViewModel
                 body += "<ul>";
                 body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + Nombre + "</b> versión <b> " + Version + ".0" + " </b> fué dado de baja de la matríz del control de documentos</font> </li>";
                 body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
-                body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Número :" + Nombre;
-                body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Descripción :" + Descripcion;
-                body += "<>li<font font=\"verdana\" size=\"3\" color=\"black\"> <b> Versión :" + Version;
+                body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + Nombre + "</b> </li>";
+                body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Descripción : <b>" + Descripcion + "</b> </li>";
+                body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Versión : <b>" + Version + "</b> </li>";
                 body += "</ul>";
                 body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
                 body += "<br/>";
