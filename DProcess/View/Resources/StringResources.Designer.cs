@@ -70,6 +70,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Open.
+        /// </summary>
+        public static string lblAbrir {
+            get {
+                return ResourceManager.GetString("lblAbrir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Accept.
         /// </summary>
         public static string lblAceptar {
@@ -250,6 +259,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Calculate dimencions.
+        /// </summary>
+        public static string lblCalcularDimensiones {
+            get {
+                return ResourceManager.GetString("lblCalcularDimensiones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Change Made by.
         /// </summary>
         public static string lblCambioRealizadoPor {
@@ -264,6 +282,24 @@ namespace View.Resources {
         public static string lblCambioRequerido {
             get {
                 return ResourceManager.GetString("lblCambioRequerido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Changes.
+        /// </summary>
+        public static string lblCambios {
+            get {
+                return ResourceManager.GetString("lblCambios", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Characteristics.
+        /// </summary>
+        public static string lblCaracteristicas {
+            get {
+                return ResourceManager.GetString("lblCaracteristicas", resourceCulture);
             }
         }
         
@@ -318,6 +354,15 @@ namespace View.Resources {
         public static string lblCorreo {
             get {
                 return ResourceManager.GetString("lblCorreo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Run.
+        /// </summary>
+        public static string lblCorrer {
+            get {
+                return ResourceManager.GetString("lblCorrer", resourceCulture);
             }
         }
         
@@ -637,6 +682,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Import to XML.
+        /// </summary>
+        public static string lblImportarXML {
+            get {
+                return ResourceManager.GetString("lblImportarXML", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Information.
         /// </summary>
         public static string lblInformation {
@@ -651,6 +705,15 @@ namespace View.Resources {
         public static string lblInsertar {
             get {
                 return ResourceManager.GetString("lblInsertar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select the area of ​​the frames where the file will be inserted.
+        /// </summary>
+        public static string lblInsertarAreaFrames {
+            get {
+                return ResourceManager.GetString("lblInsertarAreaFrames", resourceCulture);
             }
         }
         
@@ -808,6 +871,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a New.
+        /// </summary>
+        public static string lblNuevo {
+            get {
+                return ResourceManager.GetString("lblNuevo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a New Document.
         /// </summary>
         public static string lblNuevoDocumento {
@@ -862,7 +934,7 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Observations.
+        ///   Busca una cadena traducida similar a Remarks.
         /// </summary>
         public static string lblObservaciones {
             get {
@@ -957,6 +1029,15 @@ namespace View.Resources {
         public static string lblReportadoPor {
             get {
                 return ResourceManager.GetString("lblReportadoPor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Revision.
+        /// </summary>
+        public static string lblRevision {
+            get {
+                return ResourceManager.GetString("lblRevision", resourceCulture);
             }
         }
         
@@ -1146,6 +1227,15 @@ namespace View.Resources {
         public static string lblVerRecurso {
             get {
                 return ResourceManager.GetString("lblVerRecurso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a View route.
+        /// </summary>
+        public static string lblVerRuta {
+            get {
+                return ResourceManager.GetString("lblVerRuta", resourceCulture);
             }
         }
         

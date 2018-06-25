@@ -1339,4 +1339,34 @@
   <data name="msgSeleccionaFormato" xml:space="preserve">
     <value>Selecciona el formato del plano :</value>
   </data>
+  <data name="lblAbrir" xml:space="preserve">
+    <value>Abrir</value>
+  </data>
+  <data name="lblCalcularDimensiones" xml:space="preserve">
+    <value>Calcular dimensiones</value>
+  </data>
+  <data name="lblCambios" xml:space="preserve">
+    <value>Cambios</value>
+  </data>
+  <data name="lblCaracteristicas" xml:space="preserve">
+    <value>Caracteristicas</value>
+  </data>
+  <data name="lblCorrer" xml:space="preserve">
+    <value>Correr</value>
+  </data>
+  <data name="lblImportarXML" xml:space="preserve">
+    <value>Importar a XML</value>
+  </data>
+  <data name="lblNuevo" xml:space="preserve">
+    <value>Nuevo</value>
+  </data>
+  <data name="lblRevision" xml:space="preserve">
+    <value>Revisión</value>
+  </data>
+  <data name="lblVerRuta" xml:space="preserve">
+    <value>Ver ruta</value>
+  </data>
+  <data name="lblInsertarAreaFrames" xml:space="preserve">
+    <value>Seleccione el área del frames a donde se insertara el archivo</value>
+  </data>
 </root>

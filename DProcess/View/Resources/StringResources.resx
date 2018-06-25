@@ -966,7 +966,7 @@
     <comment>Etiqueta para el numero de documento</comment>
   </data>
   <data name="lblObservaciones" xml:space="preserve">
-    <value>Observations</value>
+    <value>Remarks</value>
     <comment>Etiqueta para las observaciones</comment>
   </data>
   <data name="lblPendienteCorregir" xml:space="preserve">
@@ -1338,5 +1338,35 @@
   </data>
   <data name="msgSeleccionaFormato" xml:space="preserve">
     <value>Select the format of the plane :</value>
+  </data>
+  <data name="lblAbrir" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="lblCalcularDimensiones" xml:space="preserve">
+    <value>Calculate dimencions</value>
+  </data>
+  <data name="lblCambios" xml:space="preserve">
+    <value>Changes</value>
+  </data>
+  <data name="lblCaracteristicas" xml:space="preserve">
+    <value>Characteristics</value>
+  </data>
+  <data name="lblCorrer" xml:space="preserve">
+    <value>Run</value>
+  </data>
+  <data name="lblImportarXML" xml:space="preserve">
+    <value>Import to XML</value>
+  </data>
+  <data name="lblNuevo" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="lblRevision" xml:space="preserve">
+    <value>Revision</value>
+  </data>
+  <data name="lblVerRuta" xml:space="preserve">
+    <value>View route</value>
+  </data>
+  <data name="lblInsertarAreaFrames" xml:space="preserve">
+    <value>Select the area of ​​the frames where the file will be inserted</value>
   </data>
 </root>
