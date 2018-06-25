@@ -1893,10 +1893,11 @@ namespace View.Services.ViewModel
             body += "<ul>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + Nombre + "</b> versión <b> " + Version + ".0" + " </b> ya se encuentra disponible en el sistema </font> <a href=\"http://sealed/frames.htm\">frames</a> </li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
-            body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + Nombre + "</b> </li>";
-            body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Descripción : <b>" + Descripcion + "</b> </li>";
-            body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Versión : <b>" + Version + "</b> </li>";
-            body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Área del Frames en donde se inserto : <b>" + AreaFrames + "</b> </li>";
+            body += "</br>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + Nombre + "</b></font></li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Descripción : <b>" + Descripcion + "</b></font></li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Versión : <b>" + Version +".0"+"</b></font></li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Área del Frames en donde se inserto : <b>" + AreaFrames + "</b></font></li>";
             body += "</ul>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
             body += "<br/>";
@@ -2037,12 +2038,11 @@ namespace View.Services.ViewModel
             body += "<ul>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + Nombre + "</b> versión <b> " + Version + ".0" + " </b> ya se encuentra disponible en el sistema </font> <a href=\"http://sealed/frames.htm\">frames</a> </li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
-
-            body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + Nombre + "</b> </li>";
-            body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Descripción : <b>" + Descripcion +"</b> </li>";
-            body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Versión : <b>" + Version + "</b> </li>";
-            body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Área del Frames en donde se inserto : <b>" + AreaFrames + "</b> </li>";
-
+            body += "</br>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + Nombre + "</b></font></li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Descripción : <b>" + Descripcion + "</b></font></li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Versión : <b>" + Version + ".0"+ "</b></font></li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Área del Frames en donde se inserto : <b>" + AreaFrames + "</b></font></li>";
             body += "</ul>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">NOTA: Si este documento sustituye a algún otro, favor de notificarme para realizar la baja correspondiente.</font> </p>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
@@ -2392,9 +2392,10 @@ namespace View.Services.ViewModel
                 body += "<ul>";
                 body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + Nombre + "</b> versión <b> " + Version + ".0" + " </b> fué dado de baja de la matríz del control de documentos</font> </li>";
                 body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
-                body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + Nombre + "</b> </li>";
-                body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Descripción : <b>" + Descripcion + "</b> </li>";
-                body += "<li> <font font=\"verdana\" size=\"3\" color=\"black\">Versión : <b>" + Version + "</b> </li>";
+                body += "</br>";
+                body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + Nombre + "</b></font></li>";
+                body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Descripción : <b>" + Descripcion + "</b></font></li>";
+                body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Versión : <b>" + Version +".0"+"</b></font></li>";
                 body += "</ul>";
                 body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
                 body += "<br/>";
@@ -2417,7 +2418,7 @@ namespace View.Services.ViewModel
 
                 return respuesta;
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 return false;
             }

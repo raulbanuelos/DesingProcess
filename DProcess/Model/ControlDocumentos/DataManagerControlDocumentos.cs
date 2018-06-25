@@ -3400,8 +3400,10 @@ namespace Model.ControlDocumentos
 
             return id;
         }
+
         /// <summary>
-        /// 
+        /// Método que obtiene el nombre del area frames
+        /// donde se inserto un archivo.
         /// </summary>
         /// <param name="id_areasealed"></param>
         /// <returns></returns>
@@ -3424,8 +3426,10 @@ namespace Model.ControlDocumentos
 
             return NombreArea;
         }
+
         /// <summary>
-        /// 
+        /// Método que obtiene el nombre del area frames 
+        /// donde se inserto un archivo.
         /// </summary>
         /// <param name="id_areasealed"></param>
         /// <returns></returns>
@@ -3448,8 +3452,10 @@ namespace Model.ControlDocumentos
 
             return NombreArea;
         }
+
         /// <summary>
-        /// 
+        /// Método que obtiene el nombre del area frames 
+        /// donde se inserto un archivo
         /// </summary>
         /// <param name="id_areasealed"></param>
         /// <returns></returns>
