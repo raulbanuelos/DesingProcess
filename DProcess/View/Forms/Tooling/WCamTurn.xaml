@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Forms.Tooling"
+        xmlns:recursos="clr-namespace:View.Resources"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"           
@@ -19,7 +20,7 @@
         <TabControl>
             <TabItem>
                 <TabItem.Header>
-                    <Label Content="Data" Style="{StaticResource TabHeader}"></Label>
+                    <Label Content="{x:Static recursos:StringResources.lblDatos}" Style="{StaticResource TabHeader}"></Label>
                 </TabItem.Header>
                 <TabItem.Content>
                     <Grid>
@@ -34,7 +35,7 @@
                             <RowDefinition Height="50"></RowDefinition>
                         </Grid.RowDefinitions>
 
-                        <TextBox Name="txt_busqueda"  Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Search..." TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" Margin="5">
+                        <TextBox Name="txt_busqueda"  Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" Margin="5">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="TextChanged">
                                     <i:InvokeCommandAction
@@ -56,7 +57,7 @@
             <!--Segunda Pestaña-->
             <TabItem>
                 <TabItem.Header>
-                    <Label Content="Search" Style="{StaticResource TabHeader}"></Label>
+                    <Label Content="{x:Static recursos:StringResources.lblBuscar}" Style="{StaticResource TabHeader}"></Label>
                 </TabItem.Header>
                 <TabItem.Content>
                     <Grid>
@@ -76,16 +77,16 @@
                                 <RowDefinition Height="270"></RowDefinition>
                             </Grid.RowDefinitions>
                             <StackPanel Orientation="Horizontal">
-                                <GroupBox Header="Required data" Margin="10" Width="300">
+                                <GroupBox Header="{x:Static recursos:StringResources.lblDatosRequeridos}" Margin="10" Width="300">
                                     <StackPanel>
                                         <TextBox Text="{Binding SmallOD}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Small Od" TextAlignment="Center" Width="280" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
                                         </TextBox>
                                         <TextBox Text="{Binding PC}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="PC" TextAlignment="Center" Width="280" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20"/>
-                                        <Button Content="Start" Command="{Binding BuscarOptimos}" Margin="10" Width="70" HorizontalAlignment="Right"></Button>
+                                        <Button Content="{x:Static recursos:StringResources.lblComenzar}" Command="{Binding BuscarOptimos}" Margin="10" Width="70" HorizontalAlignment="Right"></Button>
                                     </StackPanel>
                                 </GroupBox>
 
-                                <GroupBox Header="The best option" Margin="10" Width="550">
+                                <GroupBox Header="{x:Static recursos:StringResources.lblMejorOpcion}" Margin="10" Width="550">
                                     <Grid>
                                         <DataGrid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="True" ItemsSource="{Binding ListaMejores}" IsReadOnly="True" ></DataGrid>
                                     </Grid>

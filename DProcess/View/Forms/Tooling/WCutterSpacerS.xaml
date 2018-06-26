@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:recursos="clr-namespace:View.Resources"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
@@ -19,7 +20,7 @@
         <TabControl>
             <TabItem>
                 <TabItem.Header>
-                    <Label Content="Data" Style="{StaticResource TabHeader}"></Label>
+                    <Label Content="{x:Static recursos:StringResources.lblDatos}" Style="{StaticResource TabHeader}"></Label>
                 </TabItem.Header>
                 <TabItem.Content>
                     <Grid>
@@ -34,7 +35,7 @@
                             <RowDefinition Height="50"></RowDefinition>
                         </Grid.RowDefinitions>
 
-                        <TextBox Name="txt_busqueda"  Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Search..." TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" Margin="5">
+                        <TextBox Name="txt_busqueda"  Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" Margin="5">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="TextChanged">
                                     <i:InvokeCommandAction
@@ -56,7 +57,7 @@
             <!--Segunda Pestaña-->
             <TabItem>
                 <TabItem.Header>
-                    <Label Content="Search" Style="{StaticResource TabHeader}"></Label>
+                    <Label Content="{x:Static recursos:StringResources.lblBuscar}" Style="{StaticResource TabHeader}"></Label>
                 </TabItem.Header>
                 <TabItem.Content>
                     <Grid>
@@ -76,13 +77,13 @@
                                 <RowDefinition Height="270"></RowDefinition>
                             </Grid.RowDefinitions>
                             <StackPanel Orientation="Horizontal">
-                                <GroupBox Header="Required data" Margin="10" Width="300">
+                                <GroupBox Header="{x:Static recursos:StringResources.lblDatosRequeridos}" Margin="10" Width="300">
                                     <StackPanel>
-                                        <ComboBox Name="combo1" materialDesign:HintAssist.Hint="Proceso" FontSize="20" Height="50" Width="280" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaProcesos}" SelectedValue="{Binding Proceso}">
+                                        <ComboBox Name="combo1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblProceso}" FontSize="20" Height="50" Width="280" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaProcesos}" SelectedValue="{Binding Proceso}">
                                         </ComboBox>
-                                        <TextBox Text="{Binding Width}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Width" TextAlignment="Left" Width="280" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+                                        <TextBox Text="{Binding Width}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblWidth}" TextAlignment="Left" Width="280" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
                                         </TextBox>
-                                        <Button Content="Start" Command="{Binding BuscarOptimos}" Margin="10" Width="70" HorizontalAlignment="Right"></Button>
+                                        <Button Content="{x:Static recursos:StringResources.lblComenzar}" Command="{Binding BuscarOptimos}" Margin="10" Width="70" HorizontalAlignment="Right"></Button>
                                     </StackPanel>
                                 </GroupBox>
 

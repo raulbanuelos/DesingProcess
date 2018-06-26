@@ -18,7 +18,9 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Column="0" Grid.Row="0">
+            
             <StackPanel DockPanel.Dock="Left" Width="15"></StackPanel>
+            
             <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Right" Height="100" Orientation="Vertical">
                 <Label Content="{Binding Nombre}" FontSize="24" HorizontalAlignment="Right" Foreground="White" Margin="0,15,15,0"></Label>
                 <Label Content="{Binding ApellidoPaterno}" FontSize="16" Foreground="White" HorizontalAlignment="Right" Margin="0,0,15,0"></Label>
@@ -264,7 +266,7 @@
                     </Controls:Tile.Style>
                 </Controls:Tile>
 
-                <!--L-->
+                <!--Lecciones Aprendidas-->
                 <Controls:Tile Command="{Binding IrLeccion}" Background="#5F3BBC" TiltFactor="2" Title="{x:Static local:StringResources.ttlLessons}" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilHelp}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">

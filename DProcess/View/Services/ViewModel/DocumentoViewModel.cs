@@ -772,7 +772,7 @@ namespace View.Services.ViewModel
                     }
                     else
                     {
-                        id_areasealed = "1";
+                        id_areasealed = "0";
                     }
                     break;
 
@@ -785,7 +785,7 @@ namespace View.Services.ViewModel
                     }
                     else
                     {
-                        id_areasealed = "1";
+                        id_areasealed = "0";
                     }
                     break;
 
@@ -798,7 +798,7 @@ namespace View.Services.ViewModel
                     }
                     else
                     {
-                        id_areasealed = "1";
+                        id_areasealed = "0";
                     }
                     break;
 
@@ -1600,38 +1600,137 @@ namespace View.Services.ViewModel
             //Obtenemos la ventana actual
             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
-            //Formulario para ingresar el número de copias, 
-            string num_copias = await window.ShowInputAsync(StringResources.msgIngNumeroCopias, StringResources.msgNumeroCopias, null);
-
-            //Comprueba que el número de copias sea diferente de nulo y sólo contenga números.
-            if (num_copias != null)
+            //comprobamos que se haya seleccionado un area frames para poder insertarlo
+            if(id_areasealed == "0" && (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014))
             {
-                if (Regex.IsMatch(num_copias, @"^\d+$"))
+                //si no se selecciono el area, no se libera el documento
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblInsertarAreaFrames);
+            }
+            else
+            { 
+                //Formulario para ingresar el número de copias, 
+                string num_copias = await window.ShowInputAsync(StringResources.msgIngNumeroCopias, StringResources.msgNumeroCopias, null);
+                //Comprueba que el número de copias sea diferente de nulo y sólo contenga números.
+                if (num_copias != null)
                 {
-                    Documento objDocumento = new Documento();
-                    Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
-
-                    //Asiganmos el id del documento al objeto
-                    objDocumento.id_documento = id_documento;
-
-                    if (!string.IsNullOrEmpty(num_copias))
+                    if (Regex.IsMatch(num_copias, @"^\d+$"))
                     {
-                        //Ejecutamos el método para obtener el id de la versión anterior
-                        int last_version = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
+                        Documento objDocumento = new Documento();
+                        Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
 
-                        //si el documento sólo tiene una versión, se modifica el estatus del documento y la versión, se cambia el estatus a liberado
-                        if (last_version == 0)
+                        //Asiganmos el id del documento al objeto
+                        objDocumento.id_documento = id_documento;
+
+                        if (!string.IsNullOrEmpty(num_copias))
                         {
-                            //Estatus de documento liberado
-                            objDocumento.id_estatus = 5;
+                            //Ejecutamos el método para obtener el id de la versión anterior
+                            int last_version = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
 
-                            //Ejecutamos el método para actualizar el estatus del documento.
-                            int update_documento = DataManagerControlDocumentos.Update_EstatusDocumento(objDocumento);
-
-                            //Si se actualizó correctamente.
-                            if (update_documento != 0)
+                            //si el documento sólo tiene una versión, se modifica el estatus del documento y la versión, se cambia el estatus a liberado
+                            if (last_version == 0)
                             {
-                                //Asigamos los valores
+                                //Estatus de documento liberado
+                                objDocumento.id_estatus = 5;
+
+                                //Ejecutamos el método para actualizar el estatus del documento.
+                                int update_documento = DataManagerControlDocumentos.Update_EstatusDocumento(objDocumento);
+
+                                //Si se actualizó correctamente.
+                                if (update_documento != 0)
+                                {
+                                    //Asigamos los valores
+                                    objVersion.id_version = idVersion;
+                                    objVersion.no_version = version;
+                                    objVersion.id_documento = id_documento;
+                                    objVersion.id_usuario = _usuario;
+                                    objVersion.id_usuario_autorizo = _usuarioAutorizo;
+                                    objVersion.fecha_version = fecha;
+                                    objVersion.id_estatus_version = 1;
+                                    objVersion.no_copias = Convert.ToInt32(num_copias);
+                                    objVersion.descripcion_v = Descripcion;
+
+                                    //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
+                                    int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
+
+                                    //Si la versión se actualizó correctamente.
+                                    if (update_version != 0)
+                                    {
+                                        //Guardamos el documento si es procedimiento o formato
+                                        string file = SaveFile();
+
+                                        if (file == null)
+                                        {
+                                            int r = InsertDocumentoSealed();
+                                            string confirmacionFrames = r > 0 ? StringResources.msgFramesExito : StringResources.msgFramesIncorrecto;
+                                            string confirmacionCorreo = string.Empty;
+
+                                            if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
+                                            {
+                                                if (NotificarNuevaVersion())
+                                                    confirmacionCorreo = StringResources.msgNotificacionCorreo;
+                                                else
+                                                    confirmacionCorreo = StringResources.msgNotificacionCorreoFallida;
+
+                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada + "\n" + confirmacionFrames + "\n" + confirmacionCorreo);
+
+                                            }
+                                            else
+                                            {
+                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada);
+                                            }
+
+                                            //Creamos una notificación para que el usuario la pueda ver.
+                                            DO_Notification notificacion = new DO_Notification();
+                                            notificacion.TITLE = StringResources.msgDocumentoActualizado;
+                                            notificacion.MSG = StringResources.msgDocumento + " " + Nombre + "\n Versión: " + version + "\n" + StringResources.msgNotificacionMatriz;
+                                            notificacion.TYPE_NOTIFICATION = 0;
+                                            notificacion.ID_USUARIO_RECEIVER = _usuario;
+                                            notificacion.ID_USUARIO_SEND = StringResources.msgAdmin;
+
+                                            DataManagerControlDocumentos.insertNotificacion(notificacion);
+
+                                            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                                            var frame = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                                            //Verificamos que la pantalla sea diferente de nulo.
+                                            if (frame != null)
+                                            {
+                                                //Cerramos la pantalla
+                                                frame.Close();
+                                            }
+                                        }
+                                        else
+                                        {
+                                            //si falla al momento de liberar el documento se regres el estatus del documento a pendiente por aprobar
+                                            objDocumento.id_estatus = 2;
+                                            update_documento = DataManagerControlDocumentos.Update_EstatusDocumento(objDocumento);
+
+                                            //si falla al momento de liberar el estatus de la version se regresa a aprobado, pendiente por liberar
+                                            objVersion.id_estatus_version = 5;
+                                            update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
+
+                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGuardandoArchivo);
+                                        }
+                                    }
+                                    else
+                                    {
+
+                                        objDocumento.id_estatus = 2;
+                                        update_documento = DataManagerControlDocumentos.Update_EstatusDocumento(objDocumento);
+                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusVersionDocumento);
+                                    }
+                                }
+                                else
+                                {
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusDocumento);
+                                }
+                            }
+                            else
+                            {
+                                //si el documento tiene más de un versión, sólo se modifica el estatus de la versión a liberado
+                                //la versión anterior se modifica el estatus a obsoleto
+                                int fecha_actualizacion = DataManagerControlDocumentos.UpdateFecha_actualizacion(id_documento);
+
                                 objVersion.id_version = idVersion;
                                 objVersion.no_version = version;
                                 objVersion.id_documento = id_documento;
@@ -1642,187 +1741,96 @@ namespace View.Services.ViewModel
                                 objVersion.no_copias = Convert.ToInt32(num_copias);
                                 objVersion.descripcion_v = Descripcion;
 
-                                //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
+                                //Ejecutamos el método para modificar el estatus de la versión. El resultado lo guardamos en una variable local.
                                 int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
 
-                                //Si la versión se actualizó correctamente.
+                                //si fue modificado correctamente.
                                 if (update_version != 0)
                                 {
-                                    //Guardamos el documento si es procedimiento o formato
-                                    string file = SaveFile();
+                                    //obetemos el id de la versión anterior
+                                    int last_id = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
 
-                                    if (file == null)
+                                    //Creamos un objeto para la versión anterior 
+                                    Model.ControlDocumentos.Version lastVersion = new Model.ControlDocumentos.Version();
+
+                                    //asigamos el id y el estatus obsoleto
+                                    lastVersion.id_version = last_id;
+                                    lastVersion.id_estatus_version = 2;
+
+                                    //Se obtienen el número de versión de la version anterior
+                                    lastVersion.no_version = DataManagerControlDocumentos.GetNum_Version(last_id);
+
+                                    //Ejecutamos el método para actualizar el estatus de la versión(liberamos el documento).
+                                    int update = DataManagerControlDocumentos.Update_EstatusVersion(lastVersion, User, nombre);
+
+                                    //si se actualizó correctamente
+                                    if (update != 0)
                                     {
-                                        int r = InsertDocumentoSealed();
-                                        string confirmacionFrames = r > 0 ? StringResources.msgFramesExito : StringResources.msgFramesIncorrecto;
-                                        string confirmacionCorreo = string.Empty;
+                                        //Guardamos el documento, si es procedimiento o formato
+                                        string file = SaveFile();
 
-                                        if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
+                                        if (file == null)
                                         {
-                                            if (NotificarNuevaVersion())
-                                                confirmacionCorreo = StringResources.msgNotificacionCorreo;
+                                            int r = UpdateDocumentoSealed();
+                                            string confirmacionFrames = r > 0 ? StringResources.msgFramesExito : StringResources.msgFramesIncorrecto;
+                                            string confirmacionCorreo = string.Empty;
+
+                                            if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
+                                            {
+                                                if (NotificarActualizacionVersion())
+                                                    confirmacionCorreo = StringResources.msgNotificacionCorreo;
+                                                else
+                                                    confirmacionCorreo = StringResources.msgNotificacionCorreoFallida;
+
+                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada + "\n" + confirmacionFrames + "\n" + confirmacionCorreo);
+                                            }
                                             else
-                                                confirmacionCorreo = StringResources.msgNotificacionCorreoFallida;
+                                            {
+                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada);
+                                            }
 
-                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada + "\n" + confirmacionFrames + "\n" + confirmacionCorreo);
+                                            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                                            var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
+                                            //Verificamos que la pantalla sea diferente de nulo.
+                                            if (frm != null)
+                                            {
+                                                //Cerramos la pantalla
+                                                frm.Close();
+                                            }
                                         }
                                         else
                                         {
-                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada);
-                                        }
+                                            //si falla al momento de liberar el documento se regresa el estatus de la version a liberado
+                                            lastVersion.id_estatus_version = 1;
+                                            update = DataManagerControlDocumentos.Update_EstatusVersion(lastVersion, User, nombre);
 
-                                        //Creamos una notificación para que el usuario la pueda ver.
-                                        DO_Notification notificacion = new DO_Notification();
-                                        notificacion.TITLE = StringResources.msgDocumentoActualizado;
-                                        notificacion.MSG = StringResources.msgDocumento +" "+ Nombre + "\n Versión: " + version + "\n"+ StringResources.msgNotificacionMatriz;
-                                        notificacion.TYPE_NOTIFICATION = 0;
-                                        notificacion.ID_USUARIO_RECEIVER = _usuario;
-                                        notificacion.ID_USUARIO_SEND = StringResources.msgAdmin;
+                                            //si falla al momneto de liberar el documento se regresa el estatus de la version a aprobado, pendiente por liberar.
+                                            objVersion.id_estatus_version = 5;
+                                            update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
 
-                                        DataManagerControlDocumentos.insertNotificacion(notificacion);
-
-                                        //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                                        var frame = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                                        //Verificamos que la pantalla sea diferente de nulo.
-                                        if (frame != null)
-                                        {
-                                            //Cerramos la pantalla
-                                            frame.Close();
+                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGuardandoArchivo);
                                         }
                                     }
                                     else
                                     {
-                                        //si falla al momento de liberar el documento se regres el estatus del documento a pendiente por aprobar
-                                        objDocumento.id_estatus = 2;
-                                        update_documento = DataManagerControlDocumentos.Update_EstatusDocumento(objDocumento);
-
-                                        //si falla al momento de liberar el estatus de la version se regresa a aprobado, pendiente por liberar
-                                        objVersion.id_estatus_version = 5;
-                                        update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
-
-                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGuardandoArchivo);
+                                        //Si hubo error al actualizar el estatus de la última versión
+                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusVersion);
                                     }
                                 }
                                 else
                                 {
 
-                                    objDocumento.id_estatus = 2;
-                                    update_documento = DataManagerControlDocumentos.Update_EstatusDocumento(objDocumento);
-                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusVersionDocumento);
+                                    //Si hubo error al actualizar la última versión
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorActualizarVersion);
                                 }
-                            }
-                            else
-                            {
-                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusDocumento);
-                            }
-                        }
-                        else
-                        {
-                            //si el documento tiene más de un versión, sólo se modifica el estatus de la versión a liberado
-                            //la versión anterior se modifica el estatus a obsoleto
-                            int fecha_actualizacion = DataManagerControlDocumentos.UpdateFecha_actualizacion(id_documento);
-
-                            objVersion.id_version = idVersion;
-                            objVersion.no_version = version;
-                            objVersion.id_documento = id_documento;
-                            objVersion.id_usuario = _usuario;
-                            objVersion.id_usuario_autorizo = _usuarioAutorizo;
-                            objVersion.fecha_version = fecha;
-                            objVersion.id_estatus_version = 1;
-                            objVersion.no_copias = Convert.ToInt32(num_copias);
-                            objVersion.descripcion_v = Descripcion;
-
-                            //Ejecutamos el método para modificar el estatus de la versión. El resultado lo guardamos en una variable local.
-                            int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
-
-                            //si fue modificado correctamente.
-                            if (update_version != 0)
-                            {
-                                //obetemos el id de la versión anterior
-                                int last_id = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
-
-                                //Creamos un objeto para la versión anterior 
-                                Model.ControlDocumentos.Version lastVersion = new Model.ControlDocumentos.Version();
-
-                                //asigamos el id y el estatus obsoleto
-                                lastVersion.id_version = last_id;
-                                lastVersion.id_estatus_version = 2;
-
-                                //Se obtienen el número de versión de la version anterior
-                                lastVersion.no_version = DataManagerControlDocumentos.GetNum_Version(last_id);
-
-                                //Ejecutamos el método para actualizar el estatus de la versión(liberamos el documento).
-                                int update = DataManagerControlDocumentos.Update_EstatusVersion(lastVersion, User, nombre);
-
-                                //si se actualizó correctamente
-                                if (update != 0)
-                                {
-                                    //Guardamos el documento, si es procedimiento o formato
-                                    string file = SaveFile();
-
-                                    if (file == null)
-                                    {
-                                        int r = UpdateDocumentoSealed();
-                                        string confirmacionFrames = r > 0 ? StringResources.msgFramesExito : StringResources.msgFramesIncorrecto;
-                                        string confirmacionCorreo = string.Empty;
-
-                                        if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
-                                        {
-                                            if (NotificarActualizacionVersion())
-                                                confirmacionCorreo = StringResources.msgNotificacionCorreo;
-                                            else
-                                                confirmacionCorreo = StringResources.msgNotificacionCorreoFallida;
-
-                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada +"\n" + confirmacionFrames + "\n" + confirmacionCorreo);
-                                        } 
-                                        else
-                                        {
-                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada);
-                                        }
-
-                                        //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                                        var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                                        //Verificamos que la pantalla sea diferente de nulo.
-                                        if (frm != null)
-                                        {
-                                            //Cerramos la pantalla
-                                            frm.Close();
-                                        }
-                                    }
-                                    else
-                                    {
-                                        //si falla al momento de liberar el documento se regresa el estatus de la version a liberado
-                                        lastVersion.id_estatus_version = 1;
-                                        update = DataManagerControlDocumentos.Update_EstatusVersion(lastVersion, User, nombre);
-
-                                        //si falla al momneto de liberar el documento se regresa el estatus de la version a aprobado, pendiente por liberar.
-                                        objVersion.id_estatus_version = 5;
-                                        update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
-
-                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGuardandoArchivo);
-                                    }
-                                }
-                                else
-                                {
-                                    //Si hubo error al actualizar el estatus de la última versión
-                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusVersion);
-                                }
-                            }
-                            else
-                            {
-
-                                //Si hubo error al actualizar la última versión
-                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorActualizarVersion);
                             }
                         }
                     }
-                }
-                else
-                {
-                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCamposInvalidos);
+                    else
+                    {
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCamposInvalidos);
+                    }
                 }
             }
         }
@@ -1893,7 +1901,7 @@ namespace View.Services.ViewModel
             body += "<ul>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + Nombre + "</b> versión <b> " + Version + ".0" + " </b> ya se encuentra disponible en el sistema </font> <a href=\"http://sealed/frames.htm\">frames</a> </li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
-            body += "</br>";
+            body += "<br/>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + Nombre + "</b></font></li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Descripción : <b>" + Descripcion + "</b></font></li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Versión : <b>" + Version +".0"+"</b></font></li>";
@@ -2038,7 +2046,7 @@ namespace View.Services.ViewModel
             body += "<ul>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + Nombre + "</b> versión <b> " + Version + ".0" + " </b> ya se encuentra disponible en el sistema </font> <a href=\"http://sealed/frames.htm\">frames</a> </li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
-            body += "</br>";
+            body += "<br/>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + Nombre + "</b></font></li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Descripción : <b>" + Descripcion + "</b></font></li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Versión : <b>" + Version + ".0"+ "</b></font></li>";
@@ -2392,7 +2400,7 @@ namespace View.Services.ViewModel
                 body += "<ul>";
                 body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + Nombre + "</b> versión <b> " + Version + ".0" + " </b> fué dado de baja de la matríz del control de documentos</font> </li>";
                 body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
-                body += "</br>";
+                body += "<br/>";
                 body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + Nombre + "</b></font></li>";
                 body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Descripción : <b>" + Descripcion + "</b></font></li>";
                 body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Versión : <b>" + Version +".0"+"</b></font></li>";

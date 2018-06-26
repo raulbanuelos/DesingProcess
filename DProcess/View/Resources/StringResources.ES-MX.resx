@@ -1339,4 +1339,166 @@
   <data name="msgSeleccionaFormato" xml:space="preserve">
     <value>Selecciona el formato del plano :</value>
   </data>
+  <data name="lblAbrir" xml:space="preserve">
+    <value>Abrir</value>
+  </data>
+  <data name="lblCalcularDimensiones" xml:space="preserve">
+    <value>Calcular dimensiones</value>
+  </data>
+  <data name="lblCambios" xml:space="preserve">
+    <value>Cambios</value>
+  </data>
+  <data name="lblCaracteristicas" xml:space="preserve">
+    <value>Caracteristicas</value>
+  </data>
+  <data name="lblCorrer" xml:space="preserve">
+    <value>Correr</value>
+  </data>
+  <data name="lblImportarXML" xml:space="preserve">
+    <value>Importar a XML</value>
+  </data>
+  <data name="lblNuevo" xml:space="preserve">
+    <value>Nuevo</value>
+  </data>
+  <data name="lblRevision" xml:space="preserve">
+    <value>Revisión</value>
+  </data>
+  <data name="lblVerRuta" xml:space="preserve">
+    <value>Ver ruta</value>
+  </data>
+  <data name="lblInsertarAreaFrames" xml:space="preserve">
+    <value>Seleccione el área del frames a donde se insertara el archivo</value>
+  </data>
+  <data name="lblActualizar" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="lblAgregarOperacion" xml:space="preserve">
+    <value>Agregar operación</value>
+  </data>
+  <data name="lblAlta" xml:space="preserve">
+    <value>Alta</value>
+  </data>
+  <data name="lblAncho" xml:space="preserve">
+    <value>Ancho</value>
+  </data>
+  <data name="lblBorrarOperacion" xml:space="preserve">
+    <value>Borrar operación</value>
+  </data>
+  <data name="lblDiametro" xml:space="preserve">
+    <value>Diametro</value>
+  </data>
+  <data name="lblEspesor" xml:space="preserve">
+    <value>Espesor</value>
+  </data>
+  <data name="lblExportarSAP" xml:space="preserve">
+    <value>Exportar al SAP</value>
+  </data>
+  <data name="lblSalir" xml:space="preserve">
+    <value>Salir</value>
+  </data>
+  <data name="lblActivo" xml:space="preserve">
+    <value>Activo</value>
+  </data>
+  <data name="lblAlertas" xml:space="preserve">
+    <value>Alertas</value>
+  </data>
+  <data name="lblArchivo" xml:space="preserve">
+    <value>Archivo</value>
+  </data>
+  <data name="lblBuscarClasificacionHerramental" xml:space="preserve">
+    <value>Buscar Clasificación Herramental</value>
+  </data>
+  <data name="lblCalcular" xml:space="preserve">
+    <value>Calcular</value>
+  </data>
+  <data name="lblClasificacion" xml:space="preserve">
+    <value>Clasificación</value>
+  </data>
+  <data name="lblClasificacionHerramental" xml:space="preserve">
+    <value>Clasificación del herramental</value>
+  </data>
+  <data name="lblCliente" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="lblCodigo" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="lblComenzar" xml:space="preserve">
+    <value>Comenzar</value>
+  </data>
+  <data name="lblDatos" xml:space="preserve">
+    <value>Datos</value>
+  </data>
+  <data name="lblDatosRequeridos" xml:space="preserve">
+    <value>Datos requeridos</value>
+  </data>
+  <data name="lblDibujo" xml:space="preserve">
+    <value>Dibujo</value>
+  </data>
+  <data name="lblDimensiones" xml:space="preserve">
+    <value>Dimensiones</value>
+  </data>
+  <data name="lblEncaminamiento" xml:space="preserve">
+    <value>Encaminamiento</value>
+  </data>
+  <data name="lblFechaPedido" xml:space="preserve">
+    <value>Fecha del pedido</value>
+  </data>
+  <data name="lblHerramientas" xml:space="preserve">
+    <value>Herramientas</value>
+  </data>
+  <data name="lblInstruccionesEspeciales" xml:space="preserve">
+    <value>Instrucciones especiales</value>
+  </data>
+  <data name="lblMejorOpcion" xml:space="preserve">
+    <value>La mejor opción</value>
+  </data>
+  <data name="lblMontadoPor" xml:space="preserve">
+    <value>Montado por</value>
+  </data>
+  <data name="lblMontaje" xml:space="preserve">
+    <value>Montaje</value>
+  </data>
+  <data name="lblOrdenadoPor" xml:space="preserve">
+    <value>Ordenado por</value>
+  </data>
+  <data name="lblPingGage" xml:space="preserve">
+    <value>Medidor de ping</value>
+  </data>
+  <data name="lblPlanoHerramental" xml:space="preserve">
+    <value>Plano herramental</value>
+  </data>
+  <data name="lblRevisadoPor" xml:space="preserve">
+    <value>Revisado por</value>
+  </data>
+  <data name="lblRuta" xml:space="preserve">
+    <value>Ruta</value>
+  </data>
+  <data name="lblSeleccionaeElemento" xml:space="preserve">
+    <value>Seleccionar elemento</value>
+  </data>
+  <data name="lblTextoLargo" xml:space="preserve">
+    <value>Texto largo</value>
+  </data>
+  <data name="lblTipoAnillo" xml:space="preserve">
+    <value>Tipo anillo</value>
+  </data>
+  <data name="ttlAgregarMaestroHerramental" xml:space="preserve">
+    <value>Agregar Maestro Herramental</value>
+  </data>
+  <data name="ttlBusquedHerramental" xml:space="preserve">
+    <value>Busqueda de Herramental</value>
+  </data>
+  <data name="ttlMaestroHerramental" xml:space="preserve">
+    <value>Maestro Herramental</value>
+  </data>
+  <data name="lblAnchoAlambre" xml:space="preserve">
+    <value>Ancho de alambre</value>
+  </data>
+  <data name="lblAnchoRadial" xml:space="preserve">
+    <value>Ancho de radial</value>
+  </data>
+  <data name="lblProceso" xml:space="preserve">
+    <value>Proceso</value>
+  </data>
 </root>

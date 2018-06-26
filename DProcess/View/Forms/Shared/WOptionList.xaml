@@ -26,7 +26,7 @@
 
         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
             <Label Content="{x:Static recursos:StringResources.lblMedidaPlato}"></Label>
-            <ComboBox materialDesign:HintAssist.Hint="Select a element" Width="220" IsEditable="True" 
+            <ComboBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblSeleccionaeElemento}" Width="220" IsEditable="True" 
                       IsReadOnly="True" materialDesign:HintAssist.HintOpacity=".26" Margin="0,15,0,0" 
                       ItemsSource="{Binding ItemsList}" SelectedItem="{Binding SelectedItem}"/>
         </StackPanel>

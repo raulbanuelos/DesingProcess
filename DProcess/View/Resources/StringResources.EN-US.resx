@@ -966,7 +966,7 @@
     <comment>Etiqueta para el campo de numero de documento</comment>
   </data>
   <data name="lblObservaciones" xml:space="preserve">
-    <value>Observations</value>
+    <value>Remarks</value>
     <comment>Etiqueta para el campo de observaciones</comment>
   </data>
   <data name="lblPendienteCorregir" xml:space="preserve">
@@ -1222,7 +1222,7 @@
     <comment>Etiqueta para el campo de validaciones relacionadas</comment>
   </data>
   <data name="lblVer" xml:space="preserve">
-    <value>See</value>
+    <value>View</value>
     <comment>Etiqueta para el boton de ver</comment>
   </data>
   <data name="lblVersiones" xml:space="preserve">
@@ -1338,5 +1338,167 @@
   </data>
   <data name="msgSeleccionaFormato" xml:space="preserve">
     <value>Select the format of the plane :</value>
+  </data>
+  <data name="lblAbrir" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="lblCalcularDimensiones" xml:space="preserve">
+    <value>Calculate dimencions</value>
+  </data>
+  <data name="lblCambios" xml:space="preserve">
+    <value>Cambios</value>
+  </data>
+  <data name="lblCaracteristicas" xml:space="preserve">
+    <value>Characteristics</value>
+  </data>
+  <data name="lblCorrer" xml:space="preserve">
+    <value>Run</value>
+  </data>
+  <data name="lblImportarXML" xml:space="preserve">
+    <value>Import to XML</value>
+  </data>
+  <data name="lblNuevo" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="lblRevision" xml:space="preserve">
+    <value>Revision</value>
+  </data>
+  <data name="lblVerRuta" xml:space="preserve">
+    <value>View route</value>
+  </data>
+  <data name="lblInsertarAreaFrames" xml:space="preserve">
+    <value>Select the area of ​​the frames where the file will be inserted</value>
+  </data>
+  <data name="lblActualizar" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="lblAgregarOperacion" xml:space="preserve">
+    <value>Add operation</value>
+  </data>
+  <data name="lblAlta" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="lblAncho" xml:space="preserve">
+    <value>Width</value>
+  </data>
+  <data name="lblBorrarOperacion" xml:space="preserve">
+    <value>Delete operation</value>
+  </data>
+  <data name="lblDiametro" xml:space="preserve">
+    <value>Diameter</value>
+  </data>
+  <data name="lblEspesor" xml:space="preserve">
+    <value>Thickness</value>
+  </data>
+  <data name="lblExportarSAP" xml:space="preserve">
+    <value>Exportar to SAP</value>
+  </data>
+  <data name="lblSalir" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="lblActivo" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="lblAlertas" xml:space="preserve">
+    <value>Alerts</value>
+  </data>
+  <data name="lblArchivo" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="lblBuscarClasificacionHerramental" xml:space="preserve">
+    <value>Search tooling classification</value>
+  </data>
+  <data name="lblCalculate" xml:space="preserve">
+    <value>Calculate</value>
+  </data>
+  <data name="lblClasificacion" xml:space="preserve">
+    <value>Classification</value>
+  </data>
+  <data name="lblClasificacionHerramental" xml:space="preserve">
+    <value>Tooling classification</value>
+  </data>
+  <data name="lblCliente" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="lblCodigo" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="lblComenzar" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="lblDatos" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="lblDatosRequeridos" xml:space="preserve">
+    <value>Required data</value>
+  </data>
+  <data name="lblDibujo" xml:space="preserve">
+    <value>Drawing</value>
+  </data>
+  <data name="lblDimensiones" xml:space="preserve">
+    <value>Dimensions</value>
+  </data>
+  <data name="lblEncaminamiento" xml:space="preserve">
+    <value>Routing</value>
+  </data>
+  <data name="lblFechaPedido" xml:space="preserve">
+    <value>Date ordered</value>
+  </data>
+  <data name="lblHerramientas" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="lblInstruccionesEspeciales" xml:space="preserve">
+    <value>Especial instructions</value>
+  </data>
+  <data name="lblMejorOpcion" xml:space="preserve">
+    <value>The best option</value>
+  </data>
+  <data name="lblMontadoPor" xml:space="preserve">
+    <value>Mounted by</value>
+  </data>
+  <data name="lblMontaje" xml:space="preserve">
+    <value>Mounting</value>
+  </data>
+  <data name="lblOrdenadoPor" xml:space="preserve">
+    <value>Ordered by</value>
+  </data>
+  <data name="lblPingGage" xml:space="preserve">
+    <value>Ping gage</value>
+  </data>
+  <data name="lblPlanoHerramental" xml:space="preserve">
+    <value>Tooling flat</value>
+  </data>
+  <data name="lblRevisadoPor" xml:space="preserve">
+    <value>Checked by</value>
+  </data>
+  <data name="lblRuta" xml:space="preserve">
+    <value>Route</value>
+  </data>
+  <data name="lblSeleccionaeElemento" xml:space="preserve">
+    <value>Select a element</value>
+  </data>
+  <data name="lblTextoLargo" xml:space="preserve">
+    <value>Long text</value>
+  </data>
+  <data name="lblTipoAnillo" xml:space="preserve">
+    <value>Ring type</value>
+  </data>
+  <data name="ttlAgregarMaestroHerramental" xml:space="preserve">
+    <value>Add Tooling Master</value>
+  </data>
+  <data name="ttlBusquedHerramental" xml:space="preserve">
+    <value>Search Tooling</value>
+  </data>
+  <data name="ttlMaestroHerramental" xml:space="preserve">
+    <value>Tooling Master</value>
+  </data>
+  <data name="lblAnchoAlambre" xml:space="preserve">
+    <value>Wire Width</value>
+  </data>
+  <data name="lblAnchoRadial" xml:space="preserve">
+    <value>Radial Width</value>
+  </data>
+  <data name="lblProceso" xml:space="preserve">
+    <value>Process</value>
   </data>
 </root>

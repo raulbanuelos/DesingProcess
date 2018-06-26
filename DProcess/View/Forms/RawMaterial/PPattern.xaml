@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:View.Forms.RawMaterial"
+      xmlns:recursos="clr-namespace:View.Resources"
       xmlns:UserControlDProcess="clr-namespace:View.UserControls"
       mc:Ignorable="d"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -97,10 +98,10 @@
                 </StackPanel>
                 
                 <StackPanel Orientation="Vertical">
-                    <Button Content="Alta" Command="{Binding AltaPattern}"></Button>
-                    <Button Content="Guardar" Command="{Binding GuardarPattern}"></Button>
-                    <Button Content="Eliminar" Command="{Binding EliminarPattern}"></Button>
-                    <Button Content="Actualizar" Command="{Binding ActualizarPattern}"></Button>
+                    <Button Content="{x:Static recursos:StringResources.lblAlta}" Command="{Binding AltaPattern}"></Button>
+                    <Button Content="{x:Static recursos:StringResources.lblGuardar}" Command="{Binding GuardarPattern}"></Button>
+                    <Button Content="{x:Static recursos:StringResources.lblEliminar}" Command="{Binding EliminarPattern}"></Button>
+                    <Button Content="{x:Static recursos:StringResources.lblActualizar}" Command="{Binding ActualizarPattern}"></Button>
                 </StackPanel>
             </StackPanel>
         </Grid>

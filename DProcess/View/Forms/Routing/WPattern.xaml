@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Forms.Routing"
+        xmlns:recursos="clr-namespace:View.Resources"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
@@ -22,14 +23,14 @@
         </Grid.ColumnDefinitions>
 
         <Menu Grid.Column="1" Grid.Row="0" IsMainMenu="True">
-            <MenuItem Header="_File">
-                <MenuItem Header="Save" Command="{Binding GuardarPattern}">
+            <MenuItem Header="{x:Static recursos:StringResources.lblArchivo}">
+                <MenuItem Header="{x:Static recursos:StringResources.lblGuardar}" Command="{Binding GuardarPattern}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="ContentSave"></materialDesign:PackIcon>
                     </MenuItem.Icon>
                 </MenuItem>
 
-                <MenuItem Header="Export to SAP">
+                <MenuItem Header="{x:Static recursos:StringResources.lblExportarSAP}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Export"></materialDesign:PackIcon>
                     </MenuItem.Icon>
@@ -37,29 +38,29 @@
 
                 <Separator></Separator>
 
-                <MenuItem Header="Salir" Name="btnSalir" Click="btnSalir_Click">
+                <MenuItem Header="{x:Static recursos:StringResources.lblSalir}" Name="btnSalir" Click="btnSalir_Click">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="ExitToApp"></materialDesign:PackIcon>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
 
-            <MenuItem Header="_Tools">
-                <MenuItem Header="Calculate" Command="{Binding Calcular}">
+            <MenuItem Header="{x:Static recursos:StringResources.lblHerramientas}">
+                <MenuItem Header="{x:Static recursos:StringResources.lblCalcular}" Command="{Binding Calcular}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="PlayCircle"></materialDesign:PackIcon>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
 
-            <MenuItem Header="_View">
-                <MenuItem Header="Route">
+            <MenuItem Header="{x:Static recursos:StringResources.lblVer}">
+                <MenuItem Header="{x:Static recursos:StringResources.lblRuta}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="FilePdf"></materialDesign:PackIcon>
                     </MenuItem.Icon>
                 </MenuItem>
 
-                <MenuItem Header="Routing" Command="{Binding ViewRouting}">
+                <MenuItem Header="{x:Static recursos:StringResources.lblEncaminamiento}" Command="{Binding ViewRouting}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="FilePdf"></materialDesign:PackIcon>
                     </MenuItem.Icon>
@@ -72,23 +73,23 @@
                 <StackPanel Orientation="Vertical">
 
                     <StackPanel Orientation="Horizontal" Margin=".5">
-                        <TextBox materialDesign:HintAssist.Hint="TIPO" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding TipoMateriaPrima.ValorCadena}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblTipo}" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding TipoMateriaPrima.ValorCadena}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin=".5">
-                        <TextBox materialDesign:HintAssist.Hint="DIAMETER" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding diametro.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblDiameter}" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding diametro.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                         <Label Content="X" VerticalAlignment="Bottom" FontWeight="Bold"/>
-                        <TextBox materialDesign:HintAssist.Hint="WIDTH" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding medida.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblWidth}" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding medida.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin=".5">
-                        <TextBox materialDesign:HintAssist.Hint="CUSTOMER" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding customer.NombreCliente}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCliente}" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding customer.NombreCliente}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin=".5">
-                        <TextBox materialDesign:HintAssist.Hint="MOUNTING" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding mounting.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblMontaje}" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding mounting.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                         <Label Content=" "></Label>
-                        <TextBox materialDesign:HintAssist.Hint="PLATO (in)" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding plato.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="Plato (in)" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding plato.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin=".5">
@@ -122,27 +123,27 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,11,0,0">
-                        <DatePicker Width="175" VerticalAlignment="Bottom" FontWeight="Bold" Text="{Binding date_ordered.Valor}" DisplayDate="{Binding DateOrdered}" materialDesign:HintAssist.Hint="Date Ordered" FontSize="12" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                        <DatePicker Width="175" VerticalAlignment="Bottom" FontWeight="Bold" Text="{Binding date_ordered.Valor}" DisplayDate="{Binding DateOrdered}" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaPedido}" FontSize="12" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin=".5">
-                        <TextBox materialDesign:HintAssist.Hint="MOUTEND BY" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding mounted.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblMontadoPor}" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding mounted.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin=".5">
-                        <TextBox materialDesign:HintAssist.Hint="ORDERED BY" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding ordered.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblOrdenadoPor}" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding ordered.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin=".5">
-                        <TextBox materialDesign:HintAssist.Hint="CHECKED BY" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding Checked.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblRevisadoPor}" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding Checked.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin=".5">
-                        <TextBox materialDesign:HintAssist.Hint="PESO CASTING (grms/pza)" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding peso_cstg.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="Peso Casting (grms/pza)" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding peso_cstg.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" Margin=".5">
-                        <TextBox materialDesign:HintAssist.Hint="FACTOR K" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding factor_k.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="{Binding ReadOnlyFactorK}"></TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="Factor K" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding factor_k.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="{Binding ReadOnlyFactorK}"></TextBox>
                     </StackPanel>
 
                 </StackPanel>
@@ -320,7 +321,7 @@
 
                         <TextBox TextWrapping="Wrap" AcceptsReturn="True" FontSize="12" 
                                  FontWeight="Bold" Grid.Column="0" Grid.Row="0" Height="75" 
-                                 materialDesign:HintAssist.Hint="ESPECIAL INSTRUCTIONS" 
+                                 materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblInstruccionesEspeciales}" 
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding esp_inst.Valor}">
                         </TextBox>
 
