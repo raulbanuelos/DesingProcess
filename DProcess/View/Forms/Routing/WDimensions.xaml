@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Forms.Routing"
+        xmlns:recursos="clr-namespace:View.Resources"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
@@ -23,11 +24,11 @@
 
         <Grid Grid.Column="1" Grid.Row="0" ShowGridLines="True">
             <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
-                <Button ToolTip="Add operation" Command="{Binding NewPlano}" Cursor="Hand">
+                <Button ToolTip="{x:Static recursos:StringResources.lblAgregarOperacion}" Command="{Binding NewPlano}" Cursor="Hand">
                     <materialDesign:PackIcon Kind="PlusCircleOutline" />
                 </Button>
 
-                <Button ToolTip="Delete operation" Command="{Binding NewPlano}" Cursor="Hand">
+                <Button ToolTip="{x:Static recursos:StringResources.lblBorrarOperacion}" Command="{Binding NewPlano}" Cursor="Hand">
                     <materialDesign:PackIcon Kind="MinusCircleOutline" />
                 </Button>
             </ToolBar>
@@ -38,11 +39,11 @@
             <DataGrid x:Name="dataGrid" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18" ItemsSource="{Binding Lista}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="No." Width="50"/>
-                    <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="Work Center"/>
-                    <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="Operation" Width="*"/>
-                    <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="Diameter" Width="100"/>
-                    <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="Thickness" Width="100"/>
-                    <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="Width" Width="100"/>
+                    <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCentroTrabajo}"/>
+                    <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblOperacion}" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblDiameter}" Width="100"/>
+                    <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblEspesor}" Width="100"/>
+                    <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblAncho}" Width="100"/>
                 </DataGrid.Columns>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">

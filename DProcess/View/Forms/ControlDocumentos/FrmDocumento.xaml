@@ -176,6 +176,7 @@
                                Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18"
                                ItemsSource="{Binding Path=ListaAreasSealed}" 
                                DisplayMemberPath="ValorCadena" 
+                               SelectedValuePath="Nombre" 
                                SelectedValue="{Binding id_areasealed}" 
                                IsEnabled="{Binding BttnLiberar}"/>
                 </StackPanel>

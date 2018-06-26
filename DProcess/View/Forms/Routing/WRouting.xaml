@@ -1,6 +1,7 @@
 ﻿<Controls:MetroWindow x:Class="View.Forms.Routing.WRouting"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:recursos="clr-namespace:View.Resources"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Forms.Routing"
@@ -40,28 +41,28 @@
             </ListBox>
 
             <Controls:MetroTabControl Grid.Column="1" Controls:TabControlHelper.IsUnderlined="True" TabStripPlacement="Top" >
-                <TabItem Header="Long text">
+                <TabItem Header="{x:Static recursos:StringResources.lblTextoLargo}">
                     <TextBox Text="{Binding OperationSelected.TextoSyteline}" VerticalAlignment="Top" FontSize="14">
                         
                     </TextBox>
                 </TabItem>
-                <Controls:MetroTabItem Header="Tool">
-                    <Label Content="Tools"></Label>
+                <Controls:MetroTabItem Header="{x:Static recursos:StringResources.lblHerramientas}">
+                    <Label Content="{x:Static recursos:StringResources.lblHerramientas}"></Label>
                 </Controls:MetroTabItem>
-                <Controls:MetroTabItem Header="Raw material">
-                    <Label Content="Raw material"></Label>
-                </Controls:MetroTabItem>
-
-                <Controls:MetroTabItem Header="Operation">
-                    <Label Content="Operation"></Label>
+                <Controls:MetroTabItem Header="{x:Static recursos:StringResources.ttlRawMaterial}">
+                    <Label Content="{x:Static recursos:StringResources.ttlRawMaterial}"></Label>
                 </Controls:MetroTabItem>
 
-                <Controls:MetroTabItem Header="Alerts">
-                    <Label Content="Operation"></Label>
+                <Controls:MetroTabItem Header="{x:Static recursos:StringResources.lblOperacion}">
+                    <Label Content="{x:Static recursos:StringResources.lblOperacion}"></Label>
                 </Controls:MetroTabItem>
 
-                <Controls:MetroTabItem Header="Dimensions">
-                    <Label Content="Operation"></Label>
+                <Controls:MetroTabItem Header="{x:Static recursos:StringResources.lblAlertas}">
+                    <Label Content="{x:Static recursos:StringResources.lblOperacion}"></Label>
+                </Controls:MetroTabItem>
+
+                <Controls:MetroTabItem Header="{x:Static recursos:StringResources.lblDimensiones}">
+                    <Label Content="{x:Static recursos:StringResources.lblOperacion}"></Label>
                 </Controls:MetroTabItem>
             </Controls:MetroTabControl>
             

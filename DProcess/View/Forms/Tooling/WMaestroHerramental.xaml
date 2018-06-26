@@ -3,12 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:recursos="clr-namespace:View.Resources"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:View.Forms.Tooling"
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen" ShowMaxRestoreButton="False"
-        Title="Maestro Herramental" Height="650" Width="950" ResizeMode="NoResize">
+        Title="{x:Static recursos:StringResources.ttlMaestroHerramental}" Height="650" Width="950" ResizeMode="NoResize">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </Window.Resources>
@@ -25,7 +26,7 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="70"/>
         </Grid.RowDefinitions>
-        <Label Grid.Column="1" Content="Agregar Maestro Herramental" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="10,10,0,0"></Label>
+        <Label Grid.Column="1" Content="{x:Static recursos:StringResources.ttlAgregarMaestroHerramental}" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="10,10,0,0"></Label>
 
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -33,10 +34,10 @@
                 <ColumnDefinition Width="430"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="5">
-                <TextBox materialDesign:HintAssist.Hint="Código" HorizontalAlignment="Left" Text="{Binding Codigo}"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" CharacterCasing="Upper"  BorderBrush="#899B9999" IsEnabled="{Binding EnabledCodigo}"></TextBox>
-                <TextBox materialDesign:HintAssist.Hint="Descripción" HorizontalAlignment="Left" Text="{Binding Descripcion}" Height="50" TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" CharacterCasing="Upper" BorderBrush="#899B9999"></TextBox>
+                <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCodigo}" HorizontalAlignment="Left" Text="{Binding Codigo}"  Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" CharacterCasing="Upper"  BorderBrush="#899B9999" IsEnabled="{Binding EnabledCodigo}"></TextBox>
+                <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblDescripcion}" HorizontalAlignment="Left" Text="{Binding Descripcion}" Height="50" TextWrapping="Wrap" VerticalAlignment="Top" Width="430" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" CharacterCasing="Upper" BorderBrush="#899B9999"></TextBox>
                 <StackPanel Orientation="Horizontal">
-                    <ComboBox Name="combo1" materialDesign:HintAssist.Hint="Clasificación Herramental" FontSize="17" Height="50" Width="400" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaClasificacion}"  DisplayMemberPath="Descripcion" SelectedItem="{Binding SelectedClasificacion}" SelectedValuePath="IdClasificacion" SelectedValue="{Binding Id_clasificacion}" IsEnabled="{Binding EnabledCombo}">
+                    <ComboBox Name="combo1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblClasificacionHerramental}" FontSize="17" Height="50" Width="400" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaClasificacion}"  DisplayMemberPath="Descripcion" SelectedItem="{Binding SelectedClasificacion}" SelectedValuePath="IdClasificacion" SelectedValue="{Binding Id_clasificacion}" IsEnabled="{Binding EnabledCombo}">
 
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
@@ -50,11 +51,11 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </ComboBox>
-                    <Button  ToolTip="Buscar Clasificación Herramental"  HorizontalAlignment="Right" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding IrClasificacionH}" Width="60" Height="50" Visibility="{Binding EnabledCombo, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" >
+                    <Button  ToolTip="{x:Static recursos:StringResources.lblBuscarClasificacionHerramental}"  HorizontalAlignment="Right" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding IrClasificacionH}" Width="60" Height="50" Visibility="{Binding EnabledCombo, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" >
                         <materialDesign:PackIcon Kind="Magnify" Height="30" Width="30" Margin="0,0,0,0" />
                     </Button>
                 </StackPanel>
-                <ComboBox materialDesign:HintAssist.Hint="Plano Herramental" HorizontalAlignment="Left" FontSize="17" Height="50" Width="430" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding ListaPlano}"  DisplayMemberPath="NO_PLANO" SelectedItem="{Binding SelectedPlano}" SelectedValuePath="idPlano" SelectedValue="{Binding IdPlano}" />
+                <ComboBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblPlanoHerramental}" HorizontalAlignment="Left" FontSize="17" Height="50" Width="430" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding ListaPlano}"  DisplayMemberPath="NO_PLANO" SelectedItem="{Binding SelectedPlano}" SelectedValuePath="idPlano" SelectedValue="{Binding IdPlano}" />
             </StackPanel>
             <ContentControl Margin="5" Grid.Column="1" Content="{Binding Controlador}"></ContentControl>
         </Grid>
@@ -69,8 +70,8 @@
                 <ColumnDefinition Width="130"/>
                 <ColumnDefinition Width="130"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" Height="40" Width="90" HorizontalAlignment="Center" Content="Eliminar" Command="{Binding EliminarMaestro}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"/>
-            <Button Grid.Column="2" Height="40" Width="90"  Content="Guardar" Command="{Binding GuardarMaestro}" HorizontalAlignment="Center"/>
+            <Button Grid.Column="1" Height="40" Width="90" HorizontalAlignment="Center" Content="{x:Static recursos:StringResources.lblEliminar}" Command="{Binding EliminarMaestro}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"/>
+            <Button Grid.Column="2" Height="40" Width="90"  Content="{x:Static recursos:StringResources.lblGuardar}" Command="{Binding GuardarMaestro}" HorizontalAlignment="Center"/>
         </Grid>        
                        
     </Grid>

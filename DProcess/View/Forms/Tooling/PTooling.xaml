@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:recursos="clr-namespace:View.Resources"
       xmlns:local="clr-namespace:View.Forms.Tooling"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
@@ -25,15 +26,15 @@
         </Grid.ColumnDefinitions>
 
         <Menu IsMainMenu="True" Grid.Row="0" Grid.Column="1" Cursor="Hand">
-            <MenuItem Header="_File" Cursor="Hand">
-                <MenuItem Header="New" Cursor="Hand">
+            <MenuItem Header="{x:Static recursos:StringResources.lblArchivo}" Cursor="Hand">
+                <MenuItem Header="{x:Static recursos:StringResources.lblNuevo}" Cursor="Hand">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Newspaper" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
 
-            <MenuItem Header="_Operations" Cursor="Hand">
+            <MenuItem Header="{x:Static recursos:StringResources.lblOperacion}" Cursor="Hand">
                 <MenuItem Header="Coil" Cursor="Hand">
                     <MenuItem Header="Coil feed roller" Cursor="Hand" Command="{Binding IrCoilFR}"/>
                     <MenuItem Header="Coil center guide" Cursor="Hand" Command="{Binding IrCoilCG}"/>
@@ -98,12 +99,12 @@
             </MenuItem>
         </Menu>
 
-        <Label x:Name="label" Content="Tooling Master" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="1"/>
+        <Label x:Name="label" Content="{x:Static recursos:StringResources.ttlMaestroHerramental}" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="1"/>
 
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical">
 
             <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
-                <TextBox SpellCheck.IsEnabled="True" Text="{Binding TextoBusqueda}" AcceptsReturn="True" Name="txt_busqueda" materialDesign:HintAssist.Hint="Search..." TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+                <TextBox SpellCheck.IsEnabled="True" Text="{Binding TextoBusqueda}" AcceptsReturn="True" Name="txt_busqueda" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="TextChanged">
                             <i:InvokeCommandAction
@@ -126,10 +127,10 @@
 
         <DataGrid x:Name="dataGrid" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding MaestroHerramentales}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedMHerramental,Mode=TwoWay}">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Codigo}" ClipboardContentBinding="{x:Null}" Header="Code"/>
-                <DataGridTextColumn Binding="{Binding DescripcionGeneral}" ClipboardContentBinding="{x:Null}" Header="Description"/>
-                <DataGridTextColumn Binding="{Binding clasificacionHerramental.Descripcion}" ClipboardContentBinding="{x:Null}" Header="Classification"/>
-                <DataGridTextColumn Binding="{Binding Plano}" ClipboardContentBinding="{x:Null}" Header="Drawing"/>
+                <DataGridTextColumn Binding="{Binding Codigo}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCodigo}"/>
+                <DataGridTextColumn Binding="{Binding DescripcionGeneral}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblDescripcion}"/>
+                <DataGridTextColumn Binding="{Binding clasificacionHerramental.Descripcion}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblClasificacion}"/>
+                <DataGridTextColumn Binding="{Binding Plano}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblDibujo}"/>
             </DataGrid.Columns>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
