@@ -268,7 +268,7 @@ namespace View.Services.ViewModel
         {
             ModelUsuario = modelUsuario;
             this.pagina = pagina;
-            //initNotifications();
+            initNotifications();
         }
 
         #endregion
@@ -460,21 +460,21 @@ namespace View.Services.ViewModel
         
         private void initNotifications()
         {
-            
+            SqlTableDependency<DO_Notification> tableDependency;
+            SqlTableDependency<DO_Historial_Documento> tableDependencyAdmin;
             var connectionString = System.Configuration.ConfigurationManager.AppSettings["CadenaConexion"];
-            App.tableDependency = new SqlTableDependency<DO_Notification>(connectionString, "TBL_NOTIFICACIONES");
-            App.tableDependency.OnChanged += TableDependency_OnChanged;
-            App.tableDependency.OnError += TableDependency_OnError;
-            App.tableDependency.Start();
+            tableDependency = new SqlTableDependency<DO_Notification>(connectionString, "TBL_NOTIFICACIONES");
+            tableDependency.OnChanged += TableDependency_OnChanged;
+            tableDependency.OnError += TableDependency_OnError;
+            tableDependency.Start();
 
             //Checamos si el usuario es administrador del CIT
             if (Module.UsuarioIsRol(ModelUsuario.Roles, 2))
             {
-                App.tableDependencyAdmin = new SqlTableDependency<DO_Historial_Documento>(connectionString, "TBL_HISTORIAL_VERSION");
-                App.tableDependencyAdmin.OnChanged += TableDependencyAdmin_OnChanged;
-                App.tableDependencyAdmin.OnError += TableDependencyAdmin_OnError;
-                App.tableDependencyAdmin.Start();
-
+                tableDependencyAdmin = new SqlTableDependency<DO_Historial_Documento>(connectionString, "TBL_HISTORIAL_VERSION");
+                tableDependencyAdmin.OnChanged += TableDependencyAdmin_OnChanged;
+                tableDependencyAdmin.OnError += TableDependencyAdmin_OnError;
+                tableDependencyAdmin.Start();
             }
             
         }
