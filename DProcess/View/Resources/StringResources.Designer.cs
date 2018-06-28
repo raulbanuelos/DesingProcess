@@ -3013,6 +3013,24 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Corrected the document.
+        /// </summary>
+        public static string ttlCorrigioDocumento {
+            get {
+                return ResourceManager.GetString("ttlCorrigioDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Have created a new document.
+        /// </summary>
+        public static string ttlCreadoDocumento {
+            get {
+                return ResourceManager.GetString("ttlCreadoDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Create Number.
         /// </summary>
         public static string ttlCrearNumero {
@@ -3027,6 +3045,24 @@ namespace View.Resources {
         public static string ttlData {
             get {
                 return ResourceManager.GetString("ttlData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Approved document.
+        /// </summary>
+        public static string ttlDocumentoAprobado {
+            get {
+                return ResourceManager.GetString("ttlDocumentoAprobado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Rejected document.
+        /// </summary>
+        public static string ttlDocumentoRechazado {
+            get {
+                return ResourceManager.GetString("ttlDocumentoRechazado", resourceCulture);
             }
         }
         
@@ -3063,6 +3099,15 @@ namespace View.Resources {
         public static string ttlDone {
             get {
                 return ResourceManager.GetString("ttlDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Was approved and you can deliver it to the document manager.
+        /// </summary>
+        public static string ttlEntregarDocumento {
+            get {
+                return ResourceManager.GetString("ttlEntregarDocumento", resourceCulture);
             }
         }
         
@@ -3211,6 +3256,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a New document for validate.
+        /// </summary>
+        public static string ttlNuevoDocumentoValidar {
+            get {
+                return ResourceManager.GetString("ttlNuevoDocumentoValidar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a New User.
         /// </summary>
         public static string ttlNuevoUsuario {
@@ -3243,6 +3297,15 @@ namespace View.Resources {
         public static string ttlRawMaterialsAux {
             get {
                 return ResourceManager.GetString("ttlRawMaterialsAux", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Dont have the necessary requirements.
+        /// </summary>
+        public static string ttlRechazarDocumento {
+            get {
+                return ResourceManager.GetString("ttlRechazarDocumento", resourceCulture);
             }
         }
         
@@ -3315,6 +3378,15 @@ namespace View.Resources {
         public static string ttlUser {
             get {
                 return ResourceManager.GetString("ttlUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The user.
+        /// </summary>
+        public static string ttlUsuario {
+            get {
+                return ResourceManager.GetString("ttlUsuario", resourceCulture);
             }
         }
         

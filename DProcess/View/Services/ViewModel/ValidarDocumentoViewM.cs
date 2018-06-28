@@ -226,8 +226,8 @@ namespace View.Services.ViewModel
                 if (IsSelected)
                 {
                     DO_Notification notificacion = new DO_Notification();
-                    notificacion.TITLE = "Documento aprobado";
-                    notificacion.MSG = "El documento: " + SelectedDocumento.nombre + "\n Versión: " + selectedDocumento.version.no_version + "\nFué aprobado y ya lo puedes entregar al administrador de documentos.";
+                    notificacion.TITLE = StringResources.ttlDocumentoAprobado;
+                    notificacion.MSG =StringResources.msgDocumento +" "+ SelectedDocumento.nombre + "\n"+ StringResources.lblVersion +" " +selectedDocumento.version.no_version + "\n"+ StringResources.ttlEntregarDocumento;
                     notificacion.TYPE_NOTIFICATION = 1;
                     notificacion.ID_USUARIO_RECEIVER = Usuario.id_usuario;
                     notificacion.ID_USUARIO_SEND = "ADMINISTRADOR";
@@ -238,8 +238,8 @@ namespace View.Services.ViewModel
                 else
                 {
                     DO_Notification notificacion = new DO_Notification();
-                    notificacion.TITLE = "Documento rechazado";
-                    notificacion.MSG = "El documento: " + SelectedDocumento.nombre + "\n Versión: " + selectedDocumento.version.no_version + "\nNo cumple con los requisitos necesarios.";
+                    notificacion.TITLE = StringResources.ttlDocumentoRechazado;
+                    notificacion.MSG = StringResources.msgDocumento +" " + SelectedDocumento.nombre + "\n"+ StringResources.lblVersion +" "+ selectedDocumento.version.no_version + "\n"+ StringResources.ttlRechazarDocumento;
                     notificacion.TYPE_NOTIFICATION = 3;
                     notificacion.ID_USUARIO_RECEIVER = Usuario.id_usuario;
                     notificacion.ID_USUARIO_SEND = "ADMINISTRADOR";

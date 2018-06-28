@@ -1501,4 +1501,35 @@
   <data name="lblProceso" xml:space="preserve">
     <value>Proceso</value>
   </data>
+  <data name="ttlCorrigioDocumento" xml:space="preserve">
+    <value>Corrigío el documento</value>
+    <comment>Titulo para la ventana de notificaciones</comment>
+  </data>
+  <data name="ttlCreadoDocumento" xml:space="preserve">
+    <value>A creado un nuevo documento</value>
+    <comment>Titulo para la ventana de notificaciones</comment>
+  </data>
+  <data name="ttlDocumentoAprobado" xml:space="preserve">
+    <value>Documento aprobado</value>
+    <comment>Titulo para la ventana de notificaciones</comment>
+  </data>
+  <data name="ttlDocumentoRechazado" xml:space="preserve">
+    <value>Documento rechazado</value>
+    <comment>Titulo para la ventana de notificaciones</comment>
+  </data>
+  <data name="ttlEntregarDocumento" xml:space="preserve">
+    <value>Fué aprobado y ya lo puedes entregar al administrador de documentos</value>
+    <comment>Titulo para la ventana de notificaciones</comment>
+  </data>
+  <data name="ttlNuevoDocumentoValidar" xml:space="preserve">
+    <value>Nuevo documento por validar</value>
+    <comment>Titulo para la ventana de notificaciones</comment>
+  </data>
+  <data name="ttlRechazarDocumento" xml:space="preserve">
+    <value>No cumple con los requisitos necesarios</value>
+  </data>
+  <data name="ttlUsuario" xml:space="preserve">
+    <value>El usuario</value>
+    <comment>Titulo para la ventana de notificaciones</comment>
+  </data>
 </root>

@@ -14,6 +14,7 @@ using View.Forms.Tooling;
 using System.Threading;
 using TableDependency.SqlClient;
 using Notifications.Wpf;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -478,7 +479,11 @@ namespace View.Services.ViewModel
             }
             
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TableDependencyAdmin_OnChanged(object sender, TableDependency.EventArgs.RecordChangedEventArgs<DO_Historial_Documento> e)
         {
             if (e.ChangeType == TableDependency.Enums.ChangeType.Insert)
@@ -491,8 +496,8 @@ namespace View.Services.ViewModel
                     var notificationManager = new NotificationManager();
                     notificationManager.Show(new NotificationContent
                     {
-                        Title = "Nuevo documento por validar",
-                        Message = "El usuario " + chagedEntity.NOMBRE_USUARIO + "\n A creado un nuevo documento:\n" + chagedEntity.NOMBRE_DOCUMENTO,
+                        Title = StringResources.ttlNuevoDocumentoValidar,
+                        Message = StringResources.ttlUsuario +" "+ chagedEntity.NOMBRE_USUARIO + "\n"+StringResources.ttlCreadoDocumento+"\n" + chagedEntity.NOMBRE_DOCUMENTO,
                         Type = notification
                     });
                 }
@@ -502,8 +507,8 @@ namespace View.Services.ViewModel
                     var notificationManager = new NotificationManager();
                     notificationManager.Show(new NotificationContent
                     {
-                        Title = "Nuevo documento por validar",
-                        Message = "El usuario " + chagedEntity.NOMBRE_USUARIO + "\n corrigió el documento:\n" + chagedEntity.NOMBRE_DOCUMENTO,
+                        Title = StringResources.ttlNuevoDocumentoValidar,
+                        Message = StringResources.ttlUsuario +" "+ chagedEntity.NOMBRE_USUARIO + "\n "+ StringResources.ttlCorrigioDocumento+"\n" + chagedEntity.NOMBRE_DOCUMENTO,
                         Type = notification
                     });
                 }
