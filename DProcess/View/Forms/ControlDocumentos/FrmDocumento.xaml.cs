@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using Model.ControlDocumentos;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using View.Resources;
+using View.Services;
 
 namespace View.Forms.ControlDocumentos
 {
@@ -30,8 +33,20 @@ namespace View.Forms.ControlDocumentos
         {
             InitializeComponent();
             ListaDocumentos = new ObservableCollection<Archivo>();
+
+            Closing += FrmDocumento_Closing;
         }
 
-        
+        private  void FrmDocumento_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            string mensaje = StringResources.msgExitWithOutSaveChanges;
+
+            MessageBoxResult result = MessageBox.Show(mensaje, "Warning", MessageBoxButton.YesNo);
+            if (result != MessageBoxResult.Yes)
+            {
+                e.Cancel = true;
+            }
+
+        }
     }
 }

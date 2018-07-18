@@ -1532,4 +1532,8 @@
     <value>El usuario</value>
     <comment>Titulo para la ventana de notificaciones</comment>
   </data>
+  <data name="msgExitWithOutSaveChanges" xml:space="preserve">
+    <value>¿Esta seguro de slir sin guardar cambios?</value>
+    <comment>Mensaje para salir sin guardar cambios</comment>
+  </data>
 </root>
