@@ -1533,4 +1533,8 @@
     <value>The user</value>
     <comment>Titulo para la ventana de notificaciones</comment>
   </data>
+  <data name="msgExitWithOutSaveChanges" xml:space="preserve">
+    <value>Are you sure to leave without saving changes?</value>
+    <comment>Mensaje para salir sin guardar cambios</comment>
+  </data>
 </root>

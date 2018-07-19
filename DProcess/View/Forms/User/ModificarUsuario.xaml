@@ -77,7 +77,7 @@
                 </Button>
         </Grid>
 
-        <Button Grid.Row="2" Grid.Column="1" Content="{x:Static recursos:StringResources.lblEliminar}" HorizontalAlignment="Right" Height="40"  Width="90" Command="{Binding GuardarUsuario}" Margin="0,0,-304,0" />
+        <Button Grid.Row="2" Grid.Column="1" Content="{x:Static recursos:StringResources.lblGuardar}" HorizontalAlignment="Right" Height="40"  Width="90" Command="{Binding GuardarUsuario}" Margin="0,0,-304,0" />
         <Label x:Name="label" Content="{x:Static recursos:StringResources.ttlModificarDatosUsuarios}" HorizontalAlignment="Left" Height="38"  VerticalAlignment="Top" Width="375" FontSize="20" FontWeight="Bold" Grid.Row="0" Margin="29,10,0,0"/>
         <ListBox Canvas.Left="666" Canvas.Top="51" ItemsSource="{Binding ListaTotdosRoles}" ItemTemplate="{StaticResource ListCheck}"  Background="White" Foreground="#DD040404" Grid.Column="1" Grid.Row="1" Margin="61,0,-304,0"/>
     </Grid>

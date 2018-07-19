@@ -2622,54 +2622,106 @@ namespace View.Services.ViewModel
                 "\n" +StringResources.lblNombreDepartamento + ":" + " " +NombreDepto + 
                 "\n" + StringResources.lblUsuarioElaboro + ":" + " " +NombreUsuarioElaboro +
                 "\n" + StringResources.lblUsuarioAutorizo + ":" +" " +NombreUsuarioAut;
+            
+            Bloqueo objBloqueo = new Bloqueo();
 
-            if (ValidarValores())
+            //Método que obtiene un registro si se encuentra activo
+            objBloqueo = DataManagerControlDocumentos.GetBloqueo();
+
+            if (objBloqueo.id_bloqueo == 0 || Module.UsuarioIsRol(User.Roles, 2))
             {
-                //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
-                MessageDialogResult result = await dialog.SendMessage(StringResources.msgGuardarDocumento, mensaje, setting, MessageDialogStyle.AffirmativeAndNegative);
-
-                if (result == MessageDialogResult.Affirmative)
+                if (ValidarValores())
                 {
+                    //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
+                    MessageDialogResult result = await dialog.SendMessage(StringResources.msgGuardarDocumento, mensaje, setting, MessageDialogStyle.AffirmativeAndNegative);
 
-                    //Valída si existe documentos que se aprecezcan al documento a subir, el resultado se guarda en una variable local.
-                    ObservableCollection<Documento> ListDocSimilares = ValidaSimilares();
-
-                    ListDocSimilares = null;
-
-                    //si no existe archivos similares, guarda el documento. Si existe archivos similares, muestra un mensaje
-                    if (ListDocSimilares == null)
+                    if (result == MessageDialogResult.Affirmative)
                     {
-                        int last_id = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
-                        //Si es la primer versión del documento
-                        if (last_id == 0)
+
+                        //Valída si existe documentos que se aprecezcan al documento a subir, el resultado se guarda en una variable local.
+                        ObservableCollection<Documento> ListDocSimilares = ValidaSimilares();
+
+                        ListDocSimilares = null;
+
+                        //si no existe archivos similares, guarda el documento. Si existe archivos similares, muestra un mensaje
+                        if (ListDocSimilares == null)
                         {
-                            //Se crea un objeto de tipo Documento.
-                            Documento obj = new Documento();
-                            //Se asignan los valores.
-                            obj.id_documento = id_documento;
-                            obj.id_dep = _id_dep;
-                            obj.id_tipo_documento = _id_tipo;
-                            obj.fecha_emision = fecha;
-                            obj.fecha_actualizacion = _FechaFin;
-                            obj.id_estatus = 2;
-                            obj.usuario = usuario;
-
-                            //Ejecuta el método para modificar el documento actual
-                            int n = DataManagerControlDocumentos.UpdateDocumento(obj);
-                            //Si se realizo la modificacion
-                            if (n != 0)
+                            int last_id = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
+                            //Si es la primer versión del documento
+                            if (last_id == 0)
                             {
-                                //Se ejecuta el metodo que modifica la version actual, el resultado lo guardamos en una variable local
-                                int update_version = modificaVersion();
+                                //Se crea un objeto de tipo Documento.
+                                Documento obj = new Documento();
+                                //Se asignan los valores.
+                                obj.id_documento = id_documento;
+                                obj.id_dep = _id_dep;
+                                obj.id_tipo_documento = _id_tipo;
+                                obj.fecha_emision = fecha;
+                                obj.fecha_actualizacion = _FechaFin;
+                                obj.id_estatus = 2;
+                                obj.usuario = usuario;
 
-                                //si se modifico correctamente
+                                //Ejecuta el método para modificar el documento actual
+                                int n = DataManagerControlDocumentos.UpdateDocumento(obj);
+                                //Si se realizo la modificacion
+                                if (n != 0)
+                                {
+                                    //Se ejecuta el metodo que modifica la version actual, el resultado lo guardamos en una variable local
+                                    int update_version = modificaVersion();
+
+                                    //si se modifico correctamente
+                                    if (update_version != 0)
+                                    {
+                                        foreach (var item in _ListaDocumentos)
+                                        {
+                                            //Declaramos un objeto de tipo Archivo.
+                                            Archivo objArchivo = new Archivo();
+                                            //Mapeamos los valores al objeto creado, se guarda el archivo con el nombre del documento y la versión
+                                            objArchivo.id_version = idVersion;
+                                            objArchivo.archivo = item.archivo;
+                                            objArchivo.ext = item.ext;
+                                            objArchivo.nombre = string.Concat(nombre, version);
+
+                                            //si el archivo no existe 
+                                            if (item.id_archivo == 0)
+                                            {
+                                                //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
+                                                int a = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+                                            }
+                                        }
+                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosGuardadosExito);
+                                        //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                                        var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                                        //Verificamos que la pantalla sea diferente de nulo.
+                                        if (window != null)
+                                        {
+                                            //Cerramos la pantalla
+                                            window.Close();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorCambiosVersion);
+                                    }
+                                }
+                                else
+                                {
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorCambiosDocumentos);
+                                }
+                            }
+                            else
+                            {
+                                //modificacion de la version, cuando el documento tiene más de una versión 
+                                int update_version = modificaVersion();
                                 if (update_version != 0)
                                 {
+                                    //Iteramos la lista de los archivos de la versión
                                     foreach (var item in _ListaDocumentos)
                                     {
                                         //Declaramos un objeto de tipo Archivo.
                                         Archivo objArchivo = new Archivo();
-                                        //Mapeamos los valores al objeto creado, se guarda el archivo con el nombre del documento y la versión
+                                        //Asiganmos los valores, el nombre se guarda con el nombre de documento y versión
                                         objArchivo.id_version = idVersion;
                                         objArchivo.archivo = item.archivo;
                                         objArchivo.ext = item.ext;
@@ -2698,63 +2750,26 @@ namespace View.Services.ViewModel
                                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorCambiosVersion);
                                 }
                             }
-                            else
-                            {
-                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorCambiosDocumentos);
-                            }
                         }
                         else
                         {
-                            //modificacion de la version, cuando el documento tiene más de una versión 
-                            int update_version = modificaVersion();
-                            if (update_version != 0)
-                            {
-                                //Iteramos la lista de los archivos de la versión
-                                foreach (var item in _ListaDocumentos)
-                                {
-                                    //Declaramos un objeto de tipo Archivo.
-                                    Archivo objArchivo = new Archivo();
-                                    //Asiganmos los valores, el nombre se guarda con el nombre de documento y versión
-                                    objArchivo.id_version = idVersion;
-                                    objArchivo.archivo = item.archivo;
-                                    objArchivo.ext = item.ext;
-                                    objArchivo.nombre = string.Concat(nombre, version);
-
-                                    //si el archivo no existe 
-                                    if (item.id_archivo == 0)
-                                    {
-                                        //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
-                                        int a = await DataManagerControlDocumentos.SetArchivo(objArchivo);
-                                    }
-                                }
-                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosGuardadosExito);
-                                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                                //Verificamos que la pantalla sea diferente de nulo.
-                                if (window != null)
-                                {
-                                    //Cerramos la pantalla
-                                    window.Close();
-                                }
-                            }
-                            else
-                            {
-                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorCambiosVersion);
-                            }
+                            //si existen documentos similares, ejecutamos la función para visualizar los documentos
+                            VerDocumentosSimilares(ListDocSimilares);
                         }
                     }
-                    else
-                    {
-                        //si existen documentos similares, ejecutamos la función para visualizar los documentos
-                        VerDocumentosSimilares(ListDocSimilares);
-                    }
+                }
+                else
+                {
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
                 }
             }
             else
             {
-                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
+                //El sistema se encuentra bloqueado
+                await dialog.SendMessage(StringResources.msgSistemaBloqueado, objBloqueo.observaciones);
             }
+
+            
         }
 
         /// <summary>

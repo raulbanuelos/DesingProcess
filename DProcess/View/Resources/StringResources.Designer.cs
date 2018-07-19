@@ -2419,6 +2419,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Are you sure to leave without saving changes?.
+        /// </summary>
+        public static string msgExitWithOutSaveChanges {
+            get {
+                return ResourceManager.GetString("msgExitWithOutSaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Only routes with an .nsf extension are allowed.
         /// </summary>
         public static string msgExtencionNSF {
