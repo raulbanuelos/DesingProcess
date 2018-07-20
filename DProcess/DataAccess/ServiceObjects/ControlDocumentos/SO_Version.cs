@@ -47,6 +47,38 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <returns></returns>
+        public int GetVersionDocumento(int id_documento)
+        {
+            try
+            {
+                //Establecemos la conexión a la BD.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
+                    int id_version = Convert.ToInt32((from v in Conexion.TBL_VERSION
+                                 join d in Conexion.TBL_DOCUMENTO on v.ID_DOCUMENTO equals d.ID_DOCUMENTO
+                                 join u in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals u.Usuario
+                                 join us in Conexion.Usuarios on v.ID_USUARIO_AUTORIZO equals us.Usuario
+                                 where v.ID_DOCUMENTO == id_documento
+                                 select v.ID_VERSION).First());
+
+                    //se retorna la lista
+                    return id_version;
+
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay algún error, se retorna un nulo.
+                return 0;
+            }
+        }
+
 
         /// <summary>
         /// Método para insertar un registro a la tabla TBL_Version

@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,6 +59,8 @@ namespace View.Services.ViewModel
                 NotifyChange("GridUsuario");
             }
         }
+
+
 
         private Documento selectedDocumento;
         public Documento SelectedDocumento
@@ -204,7 +208,7 @@ namespace View.Services.ViewModel
                 _titulo = StringResources.msgDocumentosLiberar;
                 }
             }
-        #endregion
+            #endregion
+        }
     }
-}
 

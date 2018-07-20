@@ -143,8 +143,6 @@
                     <DataGridTextColumn Binding="{Binding fecha_emision, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaEmision}"/>
                     <DataGridTextColumn Binding="{Binding fecha_actualizacion, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaRevision}"/>
                     <DataGridTextColumn Binding="{Binding Departamento}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblArea}"/>
-                    <DataGridTextColumn Binding="{Binding version.nombre_usuario_elaboro}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblUsuarioElaboro}"/>
-                    <DataGridTextColumn Binding="{Binding version.nombre_usuario_autorizo}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblUsuarioAutorizo}"/>
                     <DataGridTextColumn Binding="{Binding version.no_copias}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblNumeroCopias}"/>
                 </DataGrid.Columns>
                 <i:Interaction.Triggers>

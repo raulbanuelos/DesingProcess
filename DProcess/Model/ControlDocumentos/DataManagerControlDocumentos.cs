@@ -62,6 +62,41 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
+        /// Método que obtiene el archivo de un documento seleccionado
+        /// </summary>
+        /// <param name="id_version"></param>
+        /// <returns></returns>
+        public static List<Archivo> GetArchivoFiltrado(int id_version)
+        {
+
+            SO_Archivo ServiceArchivo = new SO_Archivo();
+
+            List<Archivo> documento = new List<Archivo>();
+            IList ObjArchivo = ServiceArchivo.GetArchivoFiltrado(id_version);
+
+            if (ObjArchivo != null)
+            {
+                foreach (var item in ObjArchivo)
+                {
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    Archivo obj = new Archivo();
+
+                    obj.id_archivo = (int)tipo.GetProperty("ID_ARCHIVO").GetValue(item, null);
+                    obj.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    obj.archivo = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
+                    obj.ext = (string)tipo.GetProperty("EXT").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
+
+                    documento.Add(obj);
+        
+                }
+            }
+            return documento;
+        }
+
+        /// <summary>
         /// Método que inserta un registro a la tabla TBL_Archivo
         /// </summary>
         /// <param name="archivo"></param>
@@ -110,7 +145,7 @@ namespace Model.ControlDocumentos
         /// Método para obtener el archivo de la BD.
         /// </summary>
         /// <param name="id_archivo"></param>
-        public static void GetFile(int id_archivo)
+        public static  void GetFile(int id_archivo)
         {
             //Se inicializan los servicios de Archivo.
             SO_Archivo ServiceArchivo = new SO_Archivo();
@@ -144,6 +179,7 @@ namespace Model.ControlDocumentos
 
             //Se inicializa el programa para visualizar el archivo.
             Process.Start(filename);
+
         }
 
         #endregion
@@ -1789,6 +1825,21 @@ namespace Model.ControlDocumentos
             //Retornamos la lista.
             return Lista;
         }
+
+        /// <summary>
+        /// Método que obtiene la version actual de un documento seleccionado
+        /// </summary>
+        /// <returns></returns>
+        public static int  GetVersionDocumento(int id_documento)
+        {
+            //Inicializamos los servicios de version.
+            SO_Version ServiceVersion = new SO_Version();
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            return ServiceVersion.GetVersionDocumento(id_documento);
+
+        }
+
         /// <summary>
         /// Método para insertar un registto a la Bd.
         /// </summary>
@@ -1959,6 +2010,7 @@ namespace Model.ControlDocumentos
         #endregion
         #endregion
         #endregion
+
         /// <summary>
         /// Método para obetener la última versión de un documento.
         /// </summary>

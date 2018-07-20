@@ -46,6 +46,30 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
+        /// <summary>
+        /// Método que obtiene el archivo de un documento seleccionado
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <returns></returns>
+        public IList GetArchivoFiltrado(int id_version)
+        {
+            try
+            {
+                using (var conexion = new EntitiesControlDocumentos())
+                {
+                    var lista = (from a in conexion.TBL_ARCHIVO
+                                 join b in conexion.TBL_VERSION on a.ID_VERSION equals b.ID_VERSION
+                                 where a.ID_VERSION== id_version
+                                 select a).ToList();
+
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
 
         /// <summary>
         /// Método par insertar un registro en la tabla TBL_archivo.

@@ -646,7 +646,7 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Note : Remember that the documents must be signed.
+        ///   Busca una cadena traducida similar a Note : Remember, the documents must be signed.
         /// </summary>
         public static string lblDocumentosFirmados {
             get {
@@ -2815,6 +2815,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Select file.
+        /// </summary>
+        public static string msgSeleccioneNumero {
+            get {
+                return ResourceManager.GetString("msgSeleccioneNumero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Blocked system.
         /// </summary>
         public static string msgSistemaBloqueado {
@@ -2892,6 +2901,15 @@ namespace View.Resources {
         public static string msgValidacionExistente {
             get {
                 return ResourceManager.GetString("msgValidacionExistente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a To see the document double clic in the information.
+        /// </summary>
+        public static string msgVerDocumentosLiberar {
+            get {
+                return ResourceManager.GetString("msgVerDocumentosLiberar", resourceCulture);
             }
         }
         

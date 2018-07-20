@@ -5,14 +5,16 @@
         xmlns:recursos="clr-namespace:View.Resources"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
-        Title="{x:Static recursos:StringResources.lblDocumentosPendientes}" Height="500" Width="670" WindowStartupLocation="CenterScreen"
+        Title="{x:Static recursos:StringResources.lblDocumentosPendientes}" Height="500" Width="900" WindowStartupLocation="CenterScreen"
        ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="100*"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -27,8 +29,14 @@
                 <DataGridTextColumn Binding="{Binding version.no_version}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblVersion}"/>
                 <DataGridTextColumn Binding="{Binding tipo.tipo_documento}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblTipoDocumento}"/>
             </DataGrid.Columns>
-           
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding VerArchivo}"
+                             CommandParameter="{Binding id_documento}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
         </DataGrid>
-        <Label Grid.Column="1" Grid.Row="2" Content="{x:Static recursos:StringResources.lblDocumentosFirmados}" FontSize="14" ></Label>
+        <Label Grid.Column="1" Grid.Row="2" Content="{x:Static recursos:StringResources.msgVerDocumentosLiberar}" FontSize="14" ></Label>
+        <Label Grid.Column="1" Grid.Row="3" Content="{x:Static recursos:StringResources.lblDocumentosFirmados}" FontSize="14" ></Label>
     </Grid>
 </Controls:MetroWindow>

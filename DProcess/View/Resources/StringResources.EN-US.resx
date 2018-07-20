@@ -1130,7 +1130,7 @@
     <comment>Etiqueta para el campo de descripcion del problema</comment>
   </data>
   <data name="lblDocumentosFirmados" xml:space="preserve">
-    <value>Note : Remember that the documents must be signed</value>
+    <value>Note : Remember, the documents must be signed</value>
     <comment>Etiqueta para el campo que recuerda que todos los documentos deben ir firmados</comment>
   </data>
   <data name="lblDocumentosPendientes" xml:space="preserve">
@@ -1536,5 +1536,11 @@
   <data name="msgExitWithOutSaveChanges" xml:space="preserve">
     <value>Are you sure to leave without saving changes?</value>
     <comment>Mensaje para salir sin guardar cambios</comment>
+  </data>
+  <data name="msgSeleccioneNumero" xml:space="preserve">
+    <value>Select file</value>
+  </data>
+  <data name="msgVerDocumentosLiberar" xml:space="preserve">
+    <value>To see the document double clic in the information</value>
   </data>
 </root>
