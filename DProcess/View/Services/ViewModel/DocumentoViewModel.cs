@@ -889,6 +889,17 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
+        /// Comando para cerrar la pantalla
+        /// </summary>
+        public ICommand cerrar
+        {
+            get
+            {
+                return new RelayCommand(o => CerrarVentana());
+            }
+        }
+
+        /// <summary>
         /// Comando para agregar un documento a la lista, desde el explorador de archivos
         /// </summary>
         public ICommand _AdjuntarArchivo
@@ -3141,6 +3152,8 @@ namespace View.Services.ViewModel
         /// Método que muestra los documentos similares
         /// </summary>
         /// <param name="ListaSimilares"></param>
+        /// 
+
         private async void VerDocumentosSimilares(ObservableCollection<Documento> ListaSimilares)
         {
             //Verificamos que existan documentos similares
@@ -3176,6 +3189,34 @@ namespace View.Services.ViewModel
                         break;
                 }               
             }
+        }
+
+        /// <summary>
+        /// Método para cerrar la pantalla
+        /// </summary>
+        
+        private async void CerrarVentana()
+        {
+            DialogService dialog = new DialogService();
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
+
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblCerrarVentana, setting, MessageDialogStyle.AffirmativeAndNegative);
+
+            if (result == MessageDialogResult.Affirmative)
+            {
+                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                //Verificamos que la pantalla sea diferente de nulo.
+                if (window != null)
+                {
+                    //Cerramos la pantalla
+                    window.Close();
+                }
+            }
+
         }
 
         #endregion

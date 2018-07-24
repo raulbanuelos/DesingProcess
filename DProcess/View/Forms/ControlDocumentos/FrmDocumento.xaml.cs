@@ -28,25 +28,27 @@ namespace View.Forms.ControlDocumentos
     public partial class FrmDocumento : MetroWindow
     {
         public ObservableCollection<Archivo> ListaDocumentos;
-        
+
         public FrmDocumento()
         {
             InitializeComponent();
             ListaDocumentos = new ObservableCollection<Archivo>();
 
-            Closing += FrmDocumento_Closing;
-        }
 
-        private  void FrmDocumento_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+            //Closing += FrmDocumento_Closing;
+        }
+        /**
+        private void FrmDocumento_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             string mensaje = StringResources.msgExitWithOutSaveChanges;
-
-            MessageBoxResult result = MessageBox.Show(mensaje, "Warning", MessageBoxButton.YesNo);
+            MessageBoxResult result = MessageBox.Show(mensaje, StringResources.ttlAlerta, MessageBoxButton.YesNo);
             if (result != MessageBoxResult.Yes)
             {
                 e.Cancel = true;
             }
 
         }
+    **/
+
     }
 }
