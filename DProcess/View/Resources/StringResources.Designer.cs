@@ -421,6 +421,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to close the window without save changes?.
+        /// </summary>
+        public static string lblCerrarVentana {
+            get {
+                return ResourceManager.GetString("lblCerrarVentana", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Classification.
         /// </summary>
         public static string lblClasificacion {
@@ -3000,6 +3009,15 @@ namespace View.Resources {
         public static string ttlCalcularCuotas {
             get {
                 return ResourceManager.GetString("ttlCalcularCuotas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Close.
+        /// </summary>
+        public static string ttlCerrarVentana {
+            get {
+                return ResourceManager.GetString("ttlCerrarVentana", resourceCulture);
             }
         }
         

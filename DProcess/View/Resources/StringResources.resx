@@ -1543,4 +1543,10 @@
   <data name="msgVerDocumentosLiberar" xml:space="preserve">
     <value>To see the document double clic in the information</value>
   </data>
+  <data name="lblCerrarVentana" xml:space="preserve">
+    <value>Do you want to close the window without save changes?</value>
+  </data>
+  <data name="ttlCerrarVentana" xml:space="preserve">
+    <value>Close</value>
+  </data>
 </root>
