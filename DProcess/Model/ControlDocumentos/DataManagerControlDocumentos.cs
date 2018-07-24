@@ -2242,6 +2242,7 @@ namespace Model.ControlDocumentos
                     obj.ext = (string)tipo.GetProperty("EXT").GetValue(item, null);
                     obj.archivo = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
+                    obj.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }

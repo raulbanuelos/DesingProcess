@@ -1036,7 +1036,5 @@ namespace View.Services.ViewModel
         } 
 
         #endregion
-
-
     }
 }

@@ -16,6 +16,8 @@ using System.Windows.Input;
 using View.Forms.ControlDocumentos;
 using System.Collections;
 using View.Resources;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
 
 namespace View.Services.ViewModel
 {
@@ -1651,10 +1653,13 @@ namespace View.Services.ViewModel
 
                                     //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
                                     int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
-
+                                    
                                     //Si la versión se actualizó correctamente.
                                     if (update_version != 0)
                                     {
+                                        //Insertamos el sello electrónico a los archivos que apliquen.
+                                        //SetElectronicStamp(objVersion);
+
                                         //Guardamos el documento si es procedimiento o formato
                                         string file = SaveFile();
 
@@ -1747,6 +1752,9 @@ namespace View.Services.ViewModel
                                 //si fue modificado correctamente.
                                 if (update_version != 0)
                                 {
+                                    //Insertamos el sello electrónico a los archivos que apliquen.
+                                    //SetElectronicStamp(objVersion);
+
                                     //obetemos el id de la versión anterior
                                     int last_id = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
 
@@ -2587,6 +2595,71 @@ namespace View.Services.ViewModel
                 //Si hay error se retorna el error
                 return er.ToString();
             }
+        }
+
+        /// <summary>
+        /// Método que agrega una marca de agua a los documentos que no son formatos ni ayudas visuales.
+        /// </summary>
+        /// <param name="version"></param>
+        private void SetElectronicStamp(Model.ControlDocumentos.Version version)
+        {
+            if (id_tipo != 1003 && id_tipo != 1005 && id_tipo != 1006 && id_tipo != 1012 && id_tipo != 1013 && id_tipo != 1014)
+            {
+                BaseFont bfTimes = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, false);
+                ObservableCollection<Archivo> archivos = DataManagerControlDocumentos.GetArchivos(version.id_version);
+
+                foreach (Archivo item in archivos)
+                {
+                    string waterMarkText = "CONTROL DE DOCUMENTOS / FECHA DE LIBERACIÓN: " + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "   DOCUMENTO VÁLIDO SIN FIRMA";
+
+                    byte[] newarchivo = AddWatermark(item.archivo, bfTimes, waterMarkText);
+
+                    item.archivo = newarchivo;
+
+                    DataManagerControlDocumentos.UpdateArchivo(item);
+
+                }
+            }
+        }
+
+        private static byte[] AddWatermark(byte[] bytes, BaseFont baseFont, string watermarkText)
+        {
+            using (var ms = new MemoryStream(10 * 1024))
+            {
+                using (var reader = new PdfReader(bytes))
+                using (var stamper = new PdfStamper(reader, ms))
+                {
+                    var pages = reader.NumberOfPages;
+                    for (var i = 1; i <= pages; i++)
+                    {
+                        var dc = stamper.GetOverContent(i);
+                        AddWaterMarkText(dc, watermarkText, baseFont, 8, 0, BaseColor.BLACK, reader.GetPageSizeWithRotation(i));
+                    }
+                    stamper.Close();
+                }
+                return ms.ToArray();
+            }
+        }
+
+        public static void AddWaterMarkText(PdfContentByte pdfData, string watermarkText, BaseFont font, float fontSize, float angle, BaseColor color, Rectangle realPageSize)
+        {
+            var gstate = new PdfGState { FillOpacity = 1.0f, StrokeOpacity = 1.0f };
+            
+            pdfData.SaveState();
+            pdfData.SetGState(gstate);
+            pdfData.SetColorFill(color);
+            pdfData.BeginText();
+            pdfData.SetFontAndSize(font, fontSize);
+            var x = (realPageSize.Right + realPageSize.Left) / 2;
+            var y = (realPageSize.Bottom + realPageSize.Top) / 2;
+
+            x = 360;
+            y = realPageSize.Top - 12;
+
+            pdfData.ShowTextAligned(Element.ALIGN_CENTER, watermarkText, x, y, angle);
+            pdfData.EndText();
+            pdfData.RestoreState();
+
         }
 
         /// <summary>

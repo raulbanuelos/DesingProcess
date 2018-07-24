@@ -471,7 +471,9 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      a.ID_ARCHIVO,
                                      a.NOMBRE_ARCHIVO,
                                      a.EXT,
-                                     a.ARCHIVO
+                                     a.ARCHIVO,
+                                     a.ID_VERSION
+
                                  }).ToList();
                     //se retorna la lista
                     return Lista;
