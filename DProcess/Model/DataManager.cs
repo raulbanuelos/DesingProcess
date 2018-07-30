@@ -10619,8 +10619,11 @@ namespace Model
                             usuario.PerfilQuotes = Convert.ToBoolean(element["PERFIL_QUOTES"]);
                             usuario.PerfilCIT = Convert.ToBoolean(element["PERFIL_CIT"]);
                             usuario.PerfilData = Convert.ToBoolean(element["PERFIL_DATA"]);
-                            usuario.PerfilUserProfile = Convert.ToBoolean(element["PERFIL_USER_PROFILE"]);
-                            usuario.PerfilHelp = Convert.ToBoolean(element["PERFIL_HELP"]);
+                            //usuario.PerfilUserProfile = Convert.ToBoolean(element["PERFIL_USER_PROFILE"]);
+                            //usuario.PerfilHelp = Convert.ToBoolean(element["PERFIL_HELP"]);
+                            //Se hace el cambio para que a todos les aparescan el cambio de contraseña y dependiendo si son de Rutas, les aparescan las leccciones aprendidas.
+                            usuario.PerfilUserProfile = true;
+                            usuario.PerfilHelp = usuario.PerfilRGP;
 
                             usuario.PrivilegioRGP = Convert.ToBoolean(element["PRIVIL_HELP"]);
                             usuario.PrivilegioTooling = Convert.ToBoolean(element["PRIVIL_HELP"]);
