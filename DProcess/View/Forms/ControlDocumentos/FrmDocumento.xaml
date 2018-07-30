@@ -69,7 +69,7 @@
                 <ColumnDefinition Width="550"></ColumnDefinition>
                 <ColumnDefinition Width="80"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="2" VerticalAlignment="Top" Content="{x:Static recursos:StringResources.ttlCerrarVentana}" Width="80" Command="{Binding cerrar}" Background="Red"></Button>
+            <Button Grid.Column="1" VerticalAlignment="Top" Content="{x:Static recursos:StringResources.ttlCerrarVentana}" Width="80" Command="{Binding cerrar}" Background="Red" Grid.ColumnSpan="2" Margin="540,0,10,0"></Button>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
@@ -118,7 +118,7 @@
                     <ListBox  ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" BorderBrush="#FFB8B6B6" Background="White" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" Margin="5" />
                 </StackPanel>
             </Grid>
-            
+
             <!--Button Adjuntar-->
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -138,9 +138,9 @@
                                FontSize="18"
                                IsEnabled="{Binding VersionEnabled}" >
                     </ComboBox>
-                    
+
                     <!--Nombre del departamento-->
-                    
+
                     <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombreDepartamentoProceso}" 
                                Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
                                Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18"
@@ -184,7 +184,7 @@
                                SelectedValue="{Binding id_areasealed}" 
                                IsEnabled="{Binding BttnLiberar}"/>
                 </StackPanel>
-                
+
                 <Button  Grid.Row="1" HorizontalAlignment="Right" Margin="10" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding _AdjuntarArchivo}"  ToolTip="{x:Static recursos:StringResources.lblAdjuntarArchivo}"
                     Visibility="{Binding BttnArchivos, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"  >
                     <materialDesign:PackIcon Kind="Paperclip" Height="24" Width="24" />
