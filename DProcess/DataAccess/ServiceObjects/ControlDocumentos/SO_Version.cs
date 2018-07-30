@@ -64,7 +64,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                  join d in Conexion.TBL_DOCUMENTO on v.ID_DOCUMENTO equals d.ID_DOCUMENTO
                                  join u in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals u.Usuario
                                  join us in Conexion.Usuarios on v.ID_USUARIO_AUTORIZO equals us.Usuario
-                                 where v.ID_DOCUMENTO == id_documento
+                                 where v.ID_DOCUMENTO == id_documento && v.ID_ESTATUS_VERSION == 5
                                  select v.ID_VERSION).First());
 
                     //se retorna la lista
