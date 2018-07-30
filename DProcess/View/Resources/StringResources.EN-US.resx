@@ -1506,7 +1506,7 @@
     <comment>titulo para la ventana de notificaciones</comment>
   </data>
   <data name="ttlCreadoDocumento" xml:space="preserve">
-    <value>Have created a new document</value>
+    <value>Has created a new document</value>
     <comment>Titulo para la ventana de notificaciones</comment>
   </data>
   <data name="ttlDocumentoAprobado" xml:space="preserve">
@@ -1530,7 +1530,7 @@
     <comment>Titulo para la ventana de notificaciones</comment>
   </data>
   <data name="ttlUsuario" xml:space="preserve">
-    <value>The user</value>
+    <value>User</value>
     <comment>Titulo para la ventana de notificaciones</comment>
   </data>
   <data name="msgExitWithOutSaveChanges" xml:space="preserve">

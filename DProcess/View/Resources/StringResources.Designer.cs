@@ -3067,7 +3067,7 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Have created a new document.
+        ///   Busca una cadena traducida similar a Has created a new document.
         /// </summary>
         public static string ttlCreadoDocumento {
             get {
@@ -3427,7 +3427,7 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a The user.
+        ///   Busca una cadena traducida similar a User.
         /// </summary>
         public static string ttlUsuario {
             get {
