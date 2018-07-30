@@ -421,7 +421,7 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Do you want to close the window without save changes?.
+        ///   Busca una cadena traducida similar a Do you want to close the window?.
         /// </summary>
         public static string lblCerrarVentana {
             get {

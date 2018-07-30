@@ -1543,7 +1543,7 @@
     <value>Para ver el documento dar doble click sobre la información</value>
   </data>
   <data name="lblCerrarVentana" xml:space="preserve">
-    <value>¿Deseas cerrar la ventana sin guardar cambios?</value>
+    <value>¿Deseas cerrar la ventana?</value>
   </data>
   <data name="ttlCerrarVentana" xml:space="preserve">
     <value>Cerrar</value>
