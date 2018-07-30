@@ -1669,7 +1669,7 @@ namespace View.Services.ViewModel
                                     if (update_version != 0)
                                     {
                                         //Insertamos el sello electrónico a los archivos que apliquen.
-                                        //SetElectronicStamp(objVersion);
+                                        SetElectronicStamp(objVersion);
 
                                         //Guardamos el documento si es procedimiento o formato
                                         string file = SaveFile();
@@ -1764,7 +1764,7 @@ namespace View.Services.ViewModel
                                 if (update_version != 0)
                                 {
                                     //Insertamos el sello electrónico a los archivos que apliquen.
-                                    //SetElectronicStamp(objVersion);
+                                    SetElectronicStamp(objVersion);
 
                                     //obetemos el id de la versión anterior
                                     int last_id = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
@@ -2619,11 +2619,21 @@ namespace View.Services.ViewModel
                 BaseFont bfTimes = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, false);
                 ObservableCollection<Archivo> archivos = DataManagerControlDocumentos.GetArchivos(version.id_version);
 
+                string dia = DateTime.Now.Day.ToString().Length == 1 ? "0" + DateTime.Now.Day : DateTime.Now.Day.ToString();
+                string anio = DateTime.Now.Year.ToString();
+                string mes = DateTime.Now.Month.ToString().Length == 1 ? "0" + DateTime.Now.Month : DateTime.Now.Month.ToString();
+
+                string fecha = dia + "/" + mes + "/" + anio;
+
+
                 foreach (Archivo item in archivos)
                 {
-                    string waterMarkText = "CONTROL DE DOCUMENTOS / FECHA DE LIBERACIÓN: " + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "   DOCUMENTO VÁLIDO SIN FIRMA";
 
-                    byte[] newarchivo = AddWatermark(item.archivo, bfTimes, waterMarkText);
+                    string waterMarkText = "MAHLE CONTROL DE DOCUMENTOS / DOCUMENTO LIBERADO ELECTRÓNICAMENTE Y TIENE VELIDEZ SIN FIRMA." + " DISPOSICIÓN: " + fecha;
+                    string waterMarkText2 = "ÚNICAMENTE TIENE VALIDEZ EL DOCUMENTO DISPONIBLE EN INTRANET.";
+                    string waterMarkText3 = "LAS COPIAS NO ESTÁN SUJETAS A NINGÚN SERVICIO DE ACTUALIZACIÓN";
+
+                    byte[] newarchivo = AddWatermark(item.archivo, bfTimes, waterMarkText, waterMarkText2, waterMarkText3);
 
                     item.archivo = newarchivo;
 
@@ -2633,7 +2643,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private static byte[] AddWatermark(byte[] bytes, BaseFont baseFont, string watermarkText)
+        private static byte[] AddWatermark(byte[] bytes, BaseFont baseFont, string watermarkText, string waterMarkText2,string waterMarkText3)
         {
             using (var ms = new MemoryStream(10 * 1024))
             {
@@ -2644,7 +2654,15 @@ namespace View.Services.ViewModel
                     for (var i = 1; i <= pages; i++)
                     {
                         var dc = stamper.GetOverContent(i);
-                        AddWaterMarkText(dc, watermarkText, baseFont, 8, 0, BaseColor.BLACK, reader.GetPageSizeWithRotation(i));
+                        //AddWaterMarkText(dc, watermarkText, baseFont, 8, 0, BaseColor.BLACK, reader.GetPageSizeWithRotation(i), 10, 315);
+                        //AddWaterMarkText(dc, waterMarkText2, baseFont, 8, 0, BaseColor.BLACK, reader.GetPageSizeWithRotation(i), 20, 290);
+
+                        Rectangle realPageSize = reader.GetPageSizeWithRotation(i);
+                        
+                        AddWaterMarkText2(dc, watermarkText, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 6), Convert.ToInt32(realPageSize.Bottom + 245));
+                        AddWaterMarkText2(dc, waterMarkText2, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 12), Convert.ToInt32(realPageSize.Bottom + 160));
+                        AddWaterMarkText2(dc, waterMarkText3, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 18), Convert.ToInt32(realPageSize.Bottom + 160));
+
                     }
                     stamper.Close();
                 }
@@ -2652,7 +2670,25 @@ namespace View.Services.ViewModel
             }
         }
 
-        public static void AddWaterMarkText(PdfContentByte pdfData, string watermarkText, BaseFont font, float fontSize, float angle, BaseColor color, Rectangle realPageSize)
+        public static void AddWaterMarkText2(PdfContentByte pdfData, string watermarkText, BaseFont font, float fontSize, float angle, BaseColor color, int pos_x, int pos_y)
+        {
+            var gstate = new PdfGState { FillOpacity = 1.0f, StrokeOpacity = 1.0f };
+
+            pdfData.SaveState();
+            pdfData.SetGState(gstate);
+            pdfData.SetColorFill(color);
+            pdfData.BeginText();
+            pdfData.SetFontAndSize(font, fontSize);
+            var x = pos_x;
+            var y = pos_y;
+
+            pdfData.ShowTextAligned(Element.ALIGN_CENTER, watermarkText, x, y, angle);
+            pdfData.EndText();
+            pdfData.RestoreState();
+
+        }
+
+        public static void AddWaterMarkText(PdfContentByte pdfData, string watermarkText, BaseFont font, float fontSize, float angle, BaseColor color, Rectangle realPageSize,int res, int pos_x)
         {
             var gstate = new PdfGState { FillOpacity = 1.0f, StrokeOpacity = 1.0f };
             
@@ -2664,8 +2700,8 @@ namespace View.Services.ViewModel
             var x = (realPageSize.Right + realPageSize.Left) / 2;
             var y = (realPageSize.Bottom + realPageSize.Top) / 2;
 
-            x = 360;
-            y = realPageSize.Top - 12;
+            x = pos_x;
+            y = realPageSize.Top - res;
 
             pdfData.ShowTextAligned(Element.ALIGN_CENTER, watermarkText, x, y, angle);
             pdfData.EndText();
