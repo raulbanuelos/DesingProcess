@@ -1043,6 +1043,17 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => getUsuarioAutorizo());
             }
         }
+        /// <summary>
+        /// Comando para sellar electronicamente un documento las copias.
+        /// 
+        /// </summary>
+        public ICommand SellarDocumento
+        {
+            get
+            {
+                return new RelayCommand(o => SellarCopiasDocumentos());
+            }
+        }
         #endregion
 
         #region Methods
@@ -2620,9 +2631,11 @@ namespace View.Services.ViewModel
                 BaseFont bfTimes = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, false);
                 ObservableCollection<Archivo> archivos = DataManagerControlDocumentos.GetArchivos(version.id_version);
 
-                string dia = DateTime.Now.Day.ToString().Length == 1 ? "0" + DateTime.Now.Day : DateTime.Now.Day.ToString();
-                string anio = DateTime.Now.Year.ToString();
-                string mes = DateTime.Now.Month.ToString().Length == 1 ? "0" + DateTime.Now.Month : DateTime.Now.Month.ToString();
+                DateTime fecha_sello = DataManagerControlDocumentos.Get_DateTime();
+
+                string dia = fecha_sello.Day.ToString().Length == 1 ? "0" + fecha_sello.Day : fecha_sello.Day.ToString();
+                string anio = fecha_sello.Year.ToString();
+                string mes = fecha_sello.Month.ToString().Length == 1 ? "0" + fecha_sello.Month : fecha_sello.Month.ToString();
 
                 string fecha = dia + "/" + mes + "/" + anio;
 
@@ -3234,8 +3247,7 @@ namespace View.Services.ViewModel
 
         /// <summary>
         /// Método para cerrar la pantalla
-        /// </summary>
-        
+        /// </summary>       
         private async void CerrarVentana()
         {
             DialogService dialog = new DialogService();
@@ -3258,6 +3270,59 @@ namespace View.Services.ViewModel
                 }
             }
 
+        }
+
+        /// <summary>
+        /// Método que sella electronicamente el documento
+        /// </summary>
+        private async void SellarCopiasDocumentos()
+        {
+            //Declaramos los servicios para mostrar los mensajes
+            DialogService dialog = new DialogService();
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
+
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta,StringResources.lblSellarDocumento,setting, MessageDialogStyle.AffirmativeAndNegative);
+
+            if (result == MessageDialogResult.Affirmative)
+            {
+                if (_selectedDocumento != null)
+                {
+                    Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+
+                    objVersion.id_version = idVersion;
+                    objVersion.no_version = version;
+                    objVersion.id_documento = id_documento;
+                    objVersion.id_usuario = _usuario;
+                    objVersion.id_usuario_autorizo = _usuarioAutorizo;
+                    objVersion.fecha_version = fecha;
+                    objVersion.id_estatus_version = 1;
+                    objVersion.descripcion_v = Descripcion;
+
+                    //mandamos llamar al método que pone el sello electronicamente.
+                    bool r = SetElectronicStamp(objVersion);
+                    if (r == true)
+                    {    
+                        //mandamos mensaje de confirmación.
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblDocumentoSellado);
+
+                        //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                        var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                        //Verificamos que la pantalla sea diferente de nulo.
+                        if (window != null)
+                        {
+                            //Cerramos la pantalla
+                            window.Close();
+                        }
+                    }
+                    else
+                    {
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblErrorSelloDocumento);
+                    }
+                }
+            }
         }
 
         #endregion

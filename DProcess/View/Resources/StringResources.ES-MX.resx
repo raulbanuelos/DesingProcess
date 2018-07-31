@@ -1548,4 +1548,16 @@
   <data name="ttlCerrarVentana" xml:space="preserve">
     <value>Cerrar</value>
   </data>
+  <data name="lblSellarDocumento" xml:space="preserve">
+    <value>¿Desea sellar el documento?</value>
+  </data>
+  <data name="lblDocumentoSellado" xml:space="preserve">
+    <value>El documento fue sellado correctamente</value>
+  </data>
+  <data name="lblErrorSelloDocumento" xml:space="preserve">
+    <value>Hubo un error al sellar el documento</value>
+  </data>
+  <data name="ttlSellar" xml:space="preserve">
+    <value>Sellar</value>
+  </data>
 </root>

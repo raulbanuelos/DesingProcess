@@ -655,6 +655,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The document was sealed correctly.
+        /// </summary>
+        public static string lblDocumentoSellado {
+            get {
+                return ResourceManager.GetString("lblDocumentoSellado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Note : Remember, the documents must be signed.
         /// </summary>
         public static string lblDocumentosFirmados {
@@ -705,6 +714,15 @@ namespace View.Resources {
         public static string lblEnterCredentials {
             get {
                 return ResourceManager.GetString("lblEnterCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a There was an error sealing the document.
+        /// </summary>
+        public static string lblErrorSelloDocumento {
+            get {
+                return ResourceManager.GetString("lblErrorSelloDocumento", resourceCulture);
             }
         }
         
@@ -1407,6 +1425,15 @@ namespace View.Resources {
         public static string lblSeleccionar {
             get {
                 return ResourceManager.GetString("lblSeleccionar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to seal the document?.
+        /// </summary>
+        public static string lblSellarDocumento {
+            get {
+                return ResourceManager.GetString("lblSellarDocumento", resourceCulture);
             }
         }
         
@@ -3378,6 +3405,15 @@ namespace View.Resources {
         public static string ttlRoutingAux {
             get {
                 return ResourceManager.GetString("ttlRoutingAux", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Seal.
+        /// </summary>
+        public static string ttlSellar {
+            get {
+                return ResourceManager.GetString("ttlSellar", resourceCulture);
             }
         }
         
