@@ -2612,8 +2612,9 @@ namespace View.Services.ViewModel
         /// Método que agrega una marca de agua a los documentos que no son formatos ni ayudas visuales.
         /// </summary>
         /// <param name="version"></param>
-        private void SetElectronicStamp(Model.ControlDocumentos.Version version)
+        private bool SetElectronicStamp(Model.ControlDocumentos.Version version)
         {
+            bool res = false;
             if (id_tipo != 1003 && id_tipo != 1005 && id_tipo != 1006 && id_tipo != 1012 && id_tipo != 1013 && id_tipo != 1014)
             {
                 BaseFont bfTimes = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, false);
@@ -2637,10 +2638,14 @@ namespace View.Services.ViewModel
 
                     item.archivo = newarchivo;
 
-                    DataManagerControlDocumentos.UpdateArchivo(item);
+                    int r = DataManagerControlDocumentos.UpdateArchivo(item);
+
+                    res = r == 0 ? false : true;
 
                 }
             }
+
+            return res;
         }
 
         private static byte[] AddWatermark(byte[] bytes, BaseFont baseFont, string watermarkText, string waterMarkText2,string waterMarkText3)

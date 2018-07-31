@@ -123,7 +123,7 @@
                         <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
                             <GroupBox HorizontalAlignment="Center"  VerticalAlignment="Top" Header="{x:Static recursos:StringResources.lblObservaciones}" Style="{DynamicResource MaterialDesignGroupBox}" UseLayoutRounding="True" SnapsToDevicePixels="True">
                                 <Border HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
-                                    <TextBox Width="300" FontSize="20"></TextBox>
+                                    <TextBox Width="338" FontSize="20"></TextBox>
                                 </Border>
                             </GroupBox>
                         </Border>
