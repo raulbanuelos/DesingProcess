@@ -131,6 +131,8 @@ namespace View.Services.TiempoEstandar.Expansores
 
             TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
 
+            int a = 1;
+
             //Obtenermos el valor específico de las propiedades requeridas.
             TiempoLabor = TiempoMachine * FactorLabor;
 
