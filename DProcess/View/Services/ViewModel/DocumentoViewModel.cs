@@ -2109,6 +2109,96 @@ namespace View.Services.ViewModel
 
         }
 
+
+        /// <summary>
+        /// Método que notifica via correo que un documento que ya se encuentra en la matríz fue sellado correctamente
+        /// </summary>
+        /// <returns></returns>
+        private bool NotificarDocumentoExistenteConSello()
+        {
+            ServiceEmail Correo = new ServiceEmail();
+
+            string[] CorreosUsuarios = new string [vmUsuarios.ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count];
+
+            int i = 0;
+            foreach (Usuarios item in vmUsuarios.ListaUsuariosCorreo)
+            {
+                if (item.IsSelected)
+                {
+                    CorreosUsuarios[i] = item.Correo;
+                    i += 1;
+                }
+            }
+
+            string path = User.Pathnsf;
+            string title = "Documento sellado y disponible - " + Nombre;
+            string body = string.Empty;
+            string tipo_documento = string.Empty;
+
+            switch (id_tipo)
+            {
+                case 2:
+                    tipo_documento = "la HOE";
+                    break;
+                case 1002:
+                    tipo_documento = "la HII";
+                    break;
+                case 1004:
+                    tipo_documento = "la ayuda visual";
+                    break;
+                case 1007:
+                    tipo_documento = "la HMTE";
+                    break;
+                case 1015:
+                    tipo_documento = "la JES";
+                    break;
+                case 1010:
+                    tipo_documento = "la HVA";
+                    break;
+                case 1011:
+                    tipo_documento = "la MIE";
+                    break;
+                default:
+                    break;
+            }
+
+            body = "<HTML>";
+            body += "<head>";
+            body += "<meta http-equiv=\"Content - Type\" content=\"text / html; charset = utf - 8\"/>";
+            body += "</head>";
+            body += "<body text=\"white\">";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
+            body += "<ul>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + Nombre + "</b> versión <b> " + Version + ".0" + " </b> ya se encuentra disponible en el sistema <b> Diseño del proceso </b> con el sello correspondiente. </font> </li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
+            body += "<br/>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + Nombre + "</b></font></li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Descripción : <b>" + Descripcion + "</b></font></li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Versión : <b>" + Version + ".0" + "</b></font></li>";
+            body += "</ul>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
+            body += "<br/>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Este correo se ha generado automáticamente, por favor solo responda en caso de que el documento sustituya a algún otro.</font> </p>";
+            body += "<br/>";
+            body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
+            body += "<ul>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + User.Nombre + " " + User.ApellidoPaterno + "</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">MAHLE Componentes de Motor de México, S. de R.L. de C.V.</font></li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Engineering (ENG)</font> </li>";
+            body += "<li></li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Km. 0.3 Carr. Maravillas-Jesús María , 20900 Aguascalientes, Mexico</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Teléfono: +52 449 910 8200-82 90, Fax: +52 449 910 8200 - 267</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + User.Correo + ",</font> <a href=\"http://www.mx.mahle.com\">http://www.mx.mahle.com</a>  </li>";
+            body += "</ul>";
+            body += "</body>";
+            body += "</HTML>";
+
+            bool respuesta = Correo.SendEmailLotusCustom(path, CorreosUsuarios, title, body);
+
+            return respuesta;
+
+        }
+
         /// <summary>
         /// Método que notifica vía correo el alta de un documento.
         /// </summary>
@@ -2118,8 +2208,10 @@ namespace View.Services.ViewModel
             ServiceEmail SO_Email = new ServiceEmail();
             string AreaFrames = string.Empty;
 
+            //obtenemos los correos de la vista FRMListaDocumentos
             string[] correos = new string[ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count];
 
+            //obtenemos los correos de los usuarios seleccionados
             int i = 0;
             foreach (Usuarios item in ListaUsuariosCorreo)
             {
@@ -2129,11 +2221,13 @@ namespace View.Services.ViewModel
                     i += 1;
                 }
             }
+
             string path = User.Pathnsf;
             string title = "Alta de documento - " + Nombre;
             string body = string.Empty;
             string tipo_documento = string.Empty;
 
+            //obtenemos el tipo de documento
             switch (id_tipo)
             {
                 case 1003:
@@ -2200,6 +2294,7 @@ namespace View.Services.ViewModel
             body += "</body>";
             body += "</HTML>";
 
+            //Ejecutamos el método para notificar por correo
             bool respuesta = SO_Email.SendEmailLotusCustom(path, correos, title, body);
 
             return respuesta;
@@ -3389,42 +3484,68 @@ namespace View.Services.ViewModel
             {
                 if (_selectedDocumento != null)
                 {
-                    Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+                    //mandamos llamar la lista de correos para seleccionar a quien vamos a notificar
+                    //que ya se sello el documento electronicamente
+                    vmUsuarios = new UsuariosViewModel(auxUsuario, auxUsuario_Autorizo);
+                    FrmListaUsuarios frmListaUsuarios = new FrmListaUsuarios();
+                    frmListaUsuarios.DataContext = vmUsuarios;
 
-                    objVersion.id_version = idVersion;
-                    objVersion.no_version = version;
-                    objVersion.id_documento = id_documento;
-                    objVersion.id_usuario = _usuario;
-                    objVersion.id_usuario_autorizo = _usuarioAutorizo;
-                    objVersion.fecha_version = fecha;
-                    objVersion.id_estatus_version = 1;
-                    objVersion.descripcion_v = Descripcion;
+                    //mostramos la ventana
+                    frmListaUsuarios.ShowDialog();
 
-                    //mandamos llamar al método que pone el sello electronicamente.
-                    bool r = SetElectronicStamp(objVersion);
-                    if (r == true)
-                    {    
-                        //mandamos mensaje de confirmación.
-                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblDocumentoSellado);
-
-                        //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                        var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                        //Verificamos que la pantalla sea diferente de nulo.
-                        if (window != null)
-                        {
-                            //Cerramos la pantalla
-                            window.Close();
-                        }
-                    }
-                    else
+                    //verificamos que el usuario haya seleccionado por lo menos un usuario
+                    if (vmUsuarios.ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count > 0)
                     {
-                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblErrorSelloDocumento);
+                        
+                        Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+
+                        //obtenemos los datos de la ultima versión del documento
+                        objVersion.id_version = idVersion;
+                        objVersion.no_version = version;
+                        objVersion.id_documento = id_documento;
+                        objVersion.id_usuario = _usuario;
+                        objVersion.id_usuario_autorizo = _usuarioAutorizo;
+                        objVersion.fecha_version = fecha;
+                        objVersion.id_estatus_version = 1;
+                        objVersion.descripcion_v = Descripcion;
+
+                        //mandamos llamar al método que pone el sello electronicamente.
+                        bool r = SetElectronicStamp(objVersion);
+
+                        //verfificamos que se haya sellado el documento correctamente
+                        if (r == true)
+                        {
+                            //Mandamos llamar el metodo para notificar por correo electronico
+                            string confirmacionCorreo = string.Empty;
+                            confirmacionCorreo = NotificarDocumentoExistenteConSello() ? StringResources.msgNotificacionCorreo : StringResources.msgNotificacionCorreoFallida;
+
+                            //mandamos mensaje de confirmación.
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblDocumentoSellado + "\n" + confirmacionCorreo);
+
+                            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                            //Verificamos que la pantalla sea diferente de nulo.
+                            if (window != null)
+                            {
+                                //Cerramos la pantalla
+                                window.Close();
+                            }
+                        }
+                        else
+                        {
+                            //si hubo un error al sellar el documento se notifica al usuario
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblErrorSelloDocumento);
+                        }
+                    }else
+                    {
+                        //se notifica si el usuario no selecciono a mas de un usuario para notificar
+                        await dialog.SendMessage(StringResources.ttlAlerta, "Debe Seleccionar a quien notificar");
                     }
+                    
                 }
             }
         }
-
         #endregion
     }
 }
