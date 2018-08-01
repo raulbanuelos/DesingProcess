@@ -822,8 +822,7 @@ namespace View.Services.ViewModel
             usuarioAutorizo = UsuarioObj.id_usuario_autorizo;
             //obtenemos la lista de los usuarios
             ListaUsuariosCorreo = DataManagerControlDocumentos.GetUsuarios();
-
-
+            
             //iteramos la lista
             //para seleciconar los usuarios a notificar al momento de abrirse la ventana
             foreach (var item in ListaUsuariosCorreo)
@@ -845,8 +844,6 @@ namespace View.Services.ViewModel
                 }
             }
             
-
-
             //Método que obtiene los archivos de un documento y de la versión
             Lista = DataManagerControlDocumentos.GetArchivos(id_documento, idVersion);
 
@@ -1703,7 +1700,14 @@ namespace View.Services.ViewModel
                                             }
                                             else
                                             {
-                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada);
+                                                confirmacionCorreo = string.Empty;
+                                                
+                                                if (NotificarDocumentoDisponibleConSello())
+                                                    confirmacionCorreo = StringResources.msgNotificacionCorreo;
+                                                else
+                                                    confirmacionCorreo = StringResources.msgNotificacionCorreoFallida;
+
+                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada + "\n" + confirmacionCorreo);
                                             }
 
                                             //Creamos una notificación para que el usuario la pueda ver.
@@ -1816,7 +1820,14 @@ namespace View.Services.ViewModel
                                             }
                                             else
                                             {
-                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada);
+                                                confirmacionCorreo = string.Empty;
+
+                                                if (NotificarDocumentoDisponibleConSello())
+                                                    confirmacionCorreo = StringResources.msgNotificacionCorreo;
+                                                else
+                                                    confirmacionCorreo = StringResources.msgNotificacionCorreoFallida;
+
+                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada + "\n" + confirmacionCorreo);
                                             }
 
                                             //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
@@ -2007,6 +2018,95 @@ namespace View.Services.ViewModel
 
             //retornamos el nombre que se generó
             return filename;
+        }
+
+        /// <summary>
+        /// Metodo que notifica vía Correo que un documento ya esta disponible para descarga con sello electónico.
+        /// </summary>
+        /// <returns></returns>
+        private bool NotificarDocumentoDisponibleConSello()
+        {
+            ServiceEmail serviceMail = new ServiceEmail();
+
+            string[] correos = new string[ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count];
+
+            int i = 0;
+            foreach (Usuarios item in ListaUsuariosCorreo)
+            {
+                if (item.IsSelected)
+                {
+                    correos[i] = item.Correo;
+                    i += 1;
+                }
+            }
+
+            string path = User.Pathnsf;
+            string title = "Documento sellado y disponible - " + Nombre;
+            string body = string.Empty;
+            string tipo_documento = string.Empty;
+
+            switch (id_tipo)
+            {
+                case 2:
+                    tipo_documento = "la HOE";
+                    break;
+                case 1002:
+                    tipo_documento = "la HII";
+                    break;
+                case 1004:
+                    tipo_documento = "la ayuda visual";
+                    break;
+                case 1007:
+                    tipo_documento = "la HMTE";
+                    break;
+                case 1015:
+                    tipo_documento = "la JES";
+                    break;
+                case 1010:
+                    tipo_documento = "la HVA";
+                    break;
+                case 1011:
+                    tipo_documento = "la MIE";
+                    break;
+                default:
+                    break;
+            }
+            
+            body = "<HTML>";
+            body += "<head>";
+            body += "<meta http-equiv=\"Content - Type\" content=\"text / html; charset = utf - 8\"/>";
+            body += "</head>";
+            body += "<body text=\"white\">";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
+            body += "<ul>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + Nombre + "</b> versión <b> " + Version + ".0" + " </b> ya se encuentra disponible en el sistema <b> Diseño del proceso </b> con el sello correspondiente. </font> </li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
+            body += "<br/>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + Nombre + "</b></font></li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Descripción : <b>" + Descripcion + "</b></font></li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Versión : <b>" + Version + ".0" + "</b></font></li>";
+            body += "</ul>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
+            body += "<br/>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Este correo se ha generado automáticamente, por favor solo responda en caso de que el documento sustituya a algún otro.</font> </p>";
+            body += "<br/>";
+            body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
+            body += "<ul>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + User.Nombre + " " + User.ApellidoPaterno + "</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">MAHLE Componentes de Motor de México, S. de R.L. de C.V.</font></li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Engineering (ENG)</font> </li>";
+            body += "<li></li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Km. 0.3 Carr. Maravillas-Jesús María , 20900 Aguascalientes, Mexico</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Teléfono: +52 449 910 8200-82 90, Fax: +52 449 910 8200 - 267</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + User.Correo + ",</font> <a href=\"http://www.mx.mahle.com\">http://www.mx.mahle.com</a>  </li>";
+            body += "</ul>";
+            body += "</body>";
+            body += "</HTML>";
+
+            bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body);
+
+            return respuesta;
+
         }
 
         /// <summary>
