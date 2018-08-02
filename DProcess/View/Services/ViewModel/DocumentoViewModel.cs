@@ -3517,7 +3517,7 @@ namespace View.Services.ViewModel
                         {
                             //Mandamos llamar el metodo para notificar por correo electronico
                             string confirmacionCorreo = string.Empty;
-                            confirmacionCorreo = NotificarDocumentoExistenteConSello() ? StringResources.msgNotificacionCorreo : StringResources.msgNotificacionCorreoFallida;
+                            confirmacionCorreo = NotificarDocumentoExistenteConSello() == true ? StringResources.msgNotificacionCorreo : StringResources.msgNotificacionCorreoFallida;
 
                             //mandamos mensaje de confirmación.
                             await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblDocumentoSellado + "\n" + confirmacionCorreo);
@@ -3537,12 +3537,7 @@ namespace View.Services.ViewModel
                             //si hubo un error al sellar el documento se notifica al usuario
                             await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblErrorSelloDocumento);
                         }
-                    }else
-                    {
-                        //se notifica si el usuario no selecciono a mas de un usuario para notificar
-                        await dialog.SendMessage(StringResources.ttlAlerta, "Debe Seleccionar a quien notificar");
-                    }
-                    
+                    }                   
                 }
             }
         }
