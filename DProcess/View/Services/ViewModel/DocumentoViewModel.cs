@@ -1677,7 +1677,7 @@ namespace View.Services.ViewModel
                                     if (update_version != 0)
                                     {
                                         //Insertamos el sello electrónico a los archivos que apliquen.
-                                        SetElectronicStamp(objVersion);
+                                        bool res = await SetElectronicStamp(objVersion);
 
                                         //Guardamos el documento si es procedimiento o formato
                                         string file = SaveFile();
@@ -1779,7 +1779,7 @@ namespace View.Services.ViewModel
                                 if (update_version != 0)
                                 {
                                     //Insertamos el sello electrónico a los archivos que apliquen.
-                                    SetElectronicStamp(objVersion);
+                                    bool rest = await SetElectronicStamp(objVersion);
 
                                     //obetemos el id de la versión anterior
                                     int last_id = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
@@ -2631,6 +2631,7 @@ namespace View.Services.ViewModel
                 body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Versión : <b>" + Version +".0"+"</b></font></li>";
                 body += "</ul>";
                 body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
+                body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Recordar que el dueño del documento es el responsable de eliminar todos los documentos obsoletos que están en piso.</font> </p>";
                 body += "<br/>";
                 body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Este correo se ha generado automáticamente, por favor no responda.</font> </p>";
                 body += "<br/>";
@@ -2818,41 +2819,55 @@ namespace View.Services.ViewModel
         /// Método que agrega una marca de agua a los documentos que no son formatos ni ayudas visuales.
         /// </summary>
         /// <param name="version"></param>
-        private bool SetElectronicStamp(Model.ControlDocumentos.Version version)
+        private async Task<bool> SetElectronicStamp(Model.ControlDocumentos.Version version)
         {
+            //Incializamos los servicios de dialog.
+            DialogService dialog = new DialogService();
             bool res = false;
-            if (id_tipo != 1003 && id_tipo != 1005 && id_tipo != 1006 && id_tipo != 1012 && id_tipo != 1013 && id_tipo != 1014)
+
+            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
+
+            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSellarDocumento, setting, MessageDialogStyle.AffirmativeAndNegative);
+            
+            if (result == MessageDialogResult.Affirmative)
             {
-                BaseFont bfTimes = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, false);
-                ObservableCollection<Archivo> archivos = DataManagerControlDocumentos.GetArchivos(version.id_version);
-
-                DateTime fecha_sello = DataManagerControlDocumentos.Get_DateTime();
-
-                string dia = fecha_sello.Day.ToString().Length == 1 ? "0" + fecha_sello.Day : fecha_sello.Day.ToString();
-                string anio = fecha_sello.Year.ToString();
-                string mes = fecha_sello.Month.ToString().Length == 1 ? "0" + fecha_sello.Month : fecha_sello.Month.ToString();
-
-                string fecha = dia + "/" + mes + "/" + anio;
-
-
-                foreach (Archivo item in archivos)
+                if (id_tipo != 1003 && id_tipo != 1005 && id_tipo != 1006 && id_tipo != 1012 && id_tipo != 1013 && id_tipo != 1014)
                 {
+                    BaseFont bfTimes = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, false);
+                    ObservableCollection<Archivo> archivos = DataManagerControlDocumentos.GetArchivos(version.id_version);
 
-                    string waterMarkText = "MAHLE CONTROL DE DOCUMENTOS / DOCUMENTO LIBERADO ELECTRÓNICAMENTE Y TIENE VELIDEZ SIN FIRMA." + " DISPOSICIÓN: " + fecha;
-                    string waterMarkText2 = "ÚNICAMENTE TIENE VALIDEZ EL DOCUMENTO DISPONIBLE EN INTRANET.";
-                    string waterMarkText3 = "LAS COPIAS NO ESTÁN SUJETAS A NINGÚN SERVICIO DE ACTUALIZACIÓN";
+                    DateTime fecha_sello = DataManagerControlDocumentos.Get_DateTime();
 
-                    byte[] newarchivo = AddWatermark(item.archivo, bfTimes, waterMarkText, waterMarkText2, waterMarkText3);
+                    string dia = fecha_sello.Day.ToString().Length == 1 ? "0" + fecha_sello.Day : fecha_sello.Day.ToString();
+                    string anio = fecha_sello.Year.ToString();
+                    string mes = fecha_sello.Month.ToString().Length == 1 ? "0" + fecha_sello.Month : fecha_sello.Month.ToString();
 
-                    item.archivo = newarchivo;
+                    string fecha = dia + "/" + mes + "/" + anio;
 
-                    int r = DataManagerControlDocumentos.UpdateArchivo(item);
 
-                    res = r == 0 ? false : true;
+                    foreach (Archivo item in archivos)
+                    {
 
+                        string waterMarkText = "MAHLE CONTROL DE DOCUMENTOS / DOCUMENTO LIBERADO ELECTRÓNICAMENTE Y TIENE VELIDEZ SIN FIRMA." + " DISPOSICIÓN: " + fecha;
+                        string waterMarkText2 = "ÚNICAMENTE TIENE VALIDEZ EL DOCUMENTO DISPONIBLE EN INTRANET.";
+                        string waterMarkText3 = "LAS COPIAS NO ESTÁN SUJETAS A NINGÚN SERVICIO DE ACTUALIZACIÓN";
+
+                        byte[] newarchivo = AddWatermark(item.archivo, bfTimes, waterMarkText, waterMarkText2, waterMarkText3);
+
+                        item.archivo = newarchivo;
+
+                        int r = DataManagerControlDocumentos.UpdateArchivo(item);
+
+                        res = r == 0 ? false : true;
+
+                    }
                 }
             }
-
+            
             return res;
         }
 
@@ -3477,73 +3492,68 @@ namespace View.Services.ViewModel
             MetroDialogSettings setting = new MetroDialogSettings();
             setting.AffirmativeButtonText = StringResources.lblYes;
             setting.NegativeButtonText = StringResources.lblNo;
-
-            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta,StringResources.lblSellarDocumento,setting, MessageDialogStyle.AffirmativeAndNegative);
-
-            if (result == MessageDialogResult.Affirmative)
+            
+            if (_selectedDocumento != null)
             {
-                if (_selectedDocumento != null)
+                //mandamos llamar la lista de correos para seleccionar a quien vamos a notificar
+                //que ya se sello el documento electronicamente
+                vmUsuarios = new UsuariosViewModel(auxUsuario, auxUsuario_Autorizo);
+                FrmListaUsuarios frmListaUsuarios = new FrmListaUsuarios();
+                frmListaUsuarios.DataContext = vmUsuarios;
+
+                //mostramos la ventana
+                frmListaUsuarios.ShowDialog();
+
+                //verificamos que el usuario haya seleccionado por lo menos un usuario
+                if (vmUsuarios.ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count > 0)
                 {
-                    //mandamos llamar la lista de correos para seleccionar a quien vamos a notificar
-                    //que ya se sello el documento electronicamente
-                    vmUsuarios = new UsuariosViewModel(auxUsuario, auxUsuario_Autorizo);
-                    FrmListaUsuarios frmListaUsuarios = new FrmListaUsuarios();
-                    frmListaUsuarios.DataContext = vmUsuarios;
-
-                    //mostramos la ventana
-                    frmListaUsuarios.ShowDialog();
-
-                    //verificamos que el usuario haya seleccionado por lo menos un usuario
-                    if (vmUsuarios.ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count > 0)
-                    {
                         
-                        Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+                    Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
 
-                        //obtenemos los datos de la ultima versión del documento
-                        objVersion.id_version = idVersion;
-                        objVersion.no_version = version;
-                        objVersion.id_documento = id_documento;
-                        objVersion.id_usuario = _usuario;
-                        objVersion.id_usuario_autorizo = _usuarioAutorizo;
-                        objVersion.fecha_version = fecha;
-                        objVersion.id_estatus_version = 1;
-                        objVersion.descripcion_v = Descripcion;
+                    //obtenemos los datos de la ultima versión del documento
+                    objVersion.id_version = idVersion;
+                    objVersion.no_version = version;
+                    objVersion.id_documento = id_documento;
+                    objVersion.id_usuario = _usuario;
+                    objVersion.id_usuario_autorizo = _usuarioAutorizo;
+                    objVersion.fecha_version = fecha;
+                    objVersion.id_estatus_version = 1;
+                    objVersion.descripcion_v = Descripcion;
 
-                        //mandamos llamar al método que pone el sello electronicamente.
-                        bool r = SetElectronicStamp(objVersion);
+                    //mandamos llamar al método que pone el sello electronicamente.
+                    bool r = await SetElectronicStamp(objVersion);
 
-                        //verfificamos que se haya sellado el documento correctamente
-                        if (r == true)
-                        {
-                            //Mandamos llamar el metodo para notificar por correo electronico
-                            string confirmacionCorreo = string.Empty;
-                            confirmacionCorreo = NotificarDocumentoExistenteConSello() ? StringResources.msgNotificacionCorreo : StringResources.msgNotificacionCorreoFallida;
-
-                            //mandamos mensaje de confirmación.
-                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblDocumentoSellado + "\n" + confirmacionCorreo);
-
-                            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                            //Verificamos que la pantalla sea diferente de nulo.
-                            if (window != null)
-                            {
-                                //Cerramos la pantalla
-                                window.Close();
-                            }
-                        }
-                        else
-                        {
-                            //si hubo un error al sellar el documento se notifica al usuario
-                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblErrorSelloDocumento);
-                        }
-                    }else
+                    //verfificamos que se haya sellado el documento correctamente
+                    if (r == true)
                     {
-                        //se notifica si el usuario no selecciono a mas de un usuario para notificar
-                        await dialog.SendMessage(StringResources.ttlAlerta, "Debe Seleccionar a quien notificar");
+                        //Mandamos llamar el metodo para notificar por correo electronico
+                        string confirmacionCorreo = string.Empty;
+                        confirmacionCorreo = NotificarDocumentoExistenteConSello() ? StringResources.msgNotificacionCorreo : StringResources.msgNotificacionCorreoFallida;
+
+                        //mandamos mensaje de confirmación.
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblDocumentoSellado + "\n" + confirmacionCorreo);
+
+                        //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                        var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                        //Verificamos que la pantalla sea diferente de nulo.
+                        if (window != null)
+                        {
+                            //Cerramos la pantalla
+                            window.Close();
+                        }
                     }
-                    
+                    else
+                    {
+                        //si hubo un error al sellar el documento se notifica al usuario
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblErrorSelloDocumento);
+                    }
+                }else
+                {
+                    //se notifica si el usuario no selecciono a mas de un usuario para notificar
+                    await dialog.SendMessage(StringResources.ttlAlerta, "Debe Seleccionar a quien notificar");
                 }
+                    
             }
         }
         #endregion

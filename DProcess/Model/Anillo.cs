@@ -212,6 +212,7 @@ namespace Model
         #endregion
 
         #region Métodos
+
         public override string ToString()
         {
             return Codigo + "       " + DescripcionGeneral;

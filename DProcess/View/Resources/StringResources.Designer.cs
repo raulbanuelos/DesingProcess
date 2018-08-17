@@ -2860,6 +2860,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Do you whant set electronic stamp in the file?.
+        /// </summary>
+        public static string msgSellarDocumento {
+            get {
+                return ResourceManager.GetString("msgSellarDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Blocked system.
         /// </summary>
         public static string msgSistemaBloqueado {

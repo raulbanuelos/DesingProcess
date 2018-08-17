@@ -1560,4 +1560,8 @@
   <data name="ttlSellar" xml:space="preserve">
     <value>Sellar</value>
   </data>
+  <data name="msgSellarDocumento" xml:space="preserve">
+    <value>¿Desea sellar electrónicamente el archivo?</value>
+    <comment>Mensaje de pregunta si requiere sellar el archivo.</comment>
+  </data>
 </root>

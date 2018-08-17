@@ -618,7 +618,7 @@ namespace View.Services.ViewModel
         {
             //Inicializamos el objeto anillo que representa nuestro modelo.
             ModelAnillo = new Anillo();
-
+            
             //Inicializamos los atributos
             NombreUsuario = nombreUsuario;
             ListaEspecificacionesMateriaPrima = DataManager.GetAllEspecificacionesMateriaPrima();
@@ -885,17 +885,13 @@ namespace View.Services.ViewModel
 
             if (ModelAnillo.MaterialBase.TipoDeMaterial == "HIERRO GRIS")
             {
-
                 //Ingresar calculo de placa modelo.
                 calcularMateriaPrima = new CalculaMateriaPrima(ModelAnillo);
                 MaterialBase = calcularMateriaPrima.CalcularPlacaModelo();
                 
                 //Se cambio el órden.
                 Operaciones = Router.CalcularHierroGris(ModelAnillo);
-
                 
-
-
                 if (MaterialBase.Codigo.Equals("CODIFICAR"))
                 {
                     MetroDialogSettings setting = new MetroDialogSettings();

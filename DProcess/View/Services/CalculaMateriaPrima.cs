@@ -23,6 +23,7 @@ namespace View.Services
         #endregion
 
         #region Constructors
+
         public CalculaMateriaPrima(Anillo elAnillo)
         {
             _elAnillo = elAnillo;
@@ -34,54 +35,52 @@ namespace View.Services
         #region Methods
         public MateriaPrima CalcularPlacaModelo()
         {
-            
-                MateriaPrima m = new MateriaPrima();
-                Piece = calculaPiece();
+            MateriaPrima m = new MateriaPrima();
+            Piece = calculaPiece();
 
-                char ban = calcula_materia_prima();
-                bool mayor_a_15 = false;
-                while ((ban == '3') && mayor_a_15 == false)
+            char ban = calcula_materia_prima();
+            bool mayor_a_15 = false;
+            while ((ban == '3') && mayor_a_15 == false)
+            {
+                if (Math.Round(FreeGap + .001, 3) <= Math.Round(_elAnillo.FreeGap.Valor + 0.015, 3))
                 {
-                    if (Math.Round(FreeGap + .001, 3) <= Math.Round(_elAnillo.FreeGap.Valor + 0.015, 3))
-                    {
-                        FreeGap = Math.Round(FreeGap + .001, 3);
-                        Piece = calculaPiece();
-                        ban = calcula_materia_prima();
-                    }
-                    else
-                    {
-                        mayor_a_15 = true;
-                    }
+                    FreeGap = Math.Round(FreeGap + .001, 3);
+                    Piece = calculaPiece();
+                    ban = calcula_materia_prima();
                 }
-
-                FreeGap = _elAnillo.FreeGap.Valor;
-                bool mayor_a_10 = false;
-                while ((ban == '3') && (mayor_a_10 == false))
+                else
                 {
-                    if (Math.Round(FreeGap - .001, 3) >= _elAnillo.FreeGap.Valor - .01)
-                    {
-                        FreeGap = Math.Round(FreeGap - .001, 3);
-                        Piece = calculaPiece();
-                        ban = calcula_materia_prima();
-                    }
-                    else
-                    {
-                        mayor_a_10 = true;
-                    }
+                    mayor_a_15 = true;
                 }
+            }
 
-                FreeGap = _elAnillo.FreeGap.Valor;
-                Piece = calculaPiece();
-                if (ban == '3')
+            FreeGap = _elAnillo.FreeGap.Valor;
+            bool mayor_a_10 = false;
+            while ((ban == '3') && (mayor_a_10 == false))
+            {
+                if (Math.Round(FreeGap - .001, 3) >= _elAnillo.FreeGap.Valor - .01)
                 {
+                    FreeGap = Math.Round(FreeGap - .001, 3);
+                    Piece = calculaPiece();
+                    ban = calcula_materia_prima();
+                }
+                else
+                {
+                    mayor_a_10 = true;
+                }
+            }
+
+            FreeGap = _elAnillo.FreeGap.Valor;
+            Piece = calculaPiece();
+            if (ban == '3')
+            {
                 codigoPlacaModelo = "CODIFICAR";
-                }
-                m.Especificacion = _elAnillo.MaterialBase.Especificacion;
-                m.Codigo = codigoPlacaModelo;
-                m.Activo = true;
+            }
+            m.Especificacion = _elAnillo.MaterialBase.Especificacion;
+            m.Codigo = codigoPlacaModelo;
+            m.Activo = true;
 
-                return m;
-            
+            return m;
         }
 
         private char calcula_materia_prima()
