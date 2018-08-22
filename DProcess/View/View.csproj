@@ -479,6 +479,7 @@
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\DibujaPattern.cs" />
     <Compile Include="Services\ExportToExcel.cs" />
+    <Compile Include="Services\GenerarPDF.cs" />
     <Compile Include="Services\ImportExcel.cs" />
     <Compile Include="Services\MathUtils.cs" />
     <Compile Include="Services\Matrix3DStack.cs" />

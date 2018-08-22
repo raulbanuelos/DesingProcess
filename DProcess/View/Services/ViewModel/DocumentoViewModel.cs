@@ -2880,6 +2880,7 @@ namespace View.Services.ViewModel
                 using (var stamper = new PdfStamper(reader, ms))
                 {
                     var pages = reader.NumberOfPages;
+                    
                     for (var i = 1; i <= pages; i++)
                     {
                         var dc = stamper.GetOverContent(i);
@@ -3286,14 +3287,11 @@ namespace View.Services.ViewModel
             //comprobamos que el valor que obtenemos sea diferente de nulo
             if (!string.IsNullOrEmpty(num_copias))
             {
-                //comprobamos que el campo string sea diferente de nulo.
-                if (num_copias != null)
-                {
                     //comprobamos que el campo solo contenga caracteres numericos.
                     if (Regex.IsMatch(num_copias, @"^\d+$"))
                     {
                         //lo tenemos que convertir a entero para poder ingresar el valor a la base de datos.
-                        int nuevo_copias = Int32.Parse(num_copias);
+                        int nuevo_copias = Int32.Parse(num_copias) + _NoCopias;
                         Documento objDocumento = new Documento();
                         objDocumento.id_documento = id_documento;
                         Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
@@ -3327,13 +3325,12 @@ namespace View.Services.ViewModel
                     {
                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCamposInvalidos);
                     }
-                }
-                else
-                {
-                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
-                }
             }
-        }
+            else
+            {
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
+            }
+            }
 
         /// <summary>
         /// Método que modifica la versión
