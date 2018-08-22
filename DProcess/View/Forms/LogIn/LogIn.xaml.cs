@@ -17,7 +17,6 @@ using System;
 using View.Services;
 using View.Resources;
 using System.Threading;
-
 namespace View.Forms.LogIn
 {
     /// <summary>
@@ -33,8 +32,6 @@ namespace View.Forms.LogIn
 		
 		async void Btn_ingresar_Click(object sender, RoutedEventArgs e)
 		{
-
-
             //Abrimos el mensaje modal para que el usuario ingrese sus credenciales, el resultado lo guardamos en una variable local.
             LoginDialogData result = await this.ShowLoginAsync(StringResources.ttlAuthentication, StringResources.lblEnterCredentials, new LoginDialogSettings { ColorScheme = MetroDialogOptions.ColorScheme, InitialUsername = "", AffirmativeButtonText = StringResources.lblBtnLogin, UsernameWatermark = StringResources.lblTxtUserName, PasswordWatermark = StringResources.lblTxtContrasena });
 
@@ -118,6 +115,7 @@ namespace View.Forms.LogIn
 				}
 			}
 		}
+        
         //Método para cambiar el idioma del sistema a español
         async void Btn_Espanol(object sender, RoutedEventArgs e)
         {
@@ -135,5 +133,7 @@ namespace View.Forms.LogIn
             //Establecemos el idioma por default es el ingles.
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
         }
+
+        
     }
 }

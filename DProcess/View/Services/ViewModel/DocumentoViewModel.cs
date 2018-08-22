@@ -2821,21 +2821,21 @@ namespace View.Services.ViewModel
         /// <param name="version"></param>
         private async Task<bool> SetElectronicStamp(Model.ControlDocumentos.Version version)
         {
-            //Incializamos los servicios de dialog.
-            DialogService dialog = new DialogService();
             bool res = false;
-
-            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
-            MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = StringResources.lblYes;
-            setting.NegativeButtonText = StringResources.lblNo;
-
-            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSellarDocumento, setting, MessageDialogStyle.AffirmativeAndNegative);
-            
-            if (result == MessageDialogResult.Affirmative)
+            if (id_tipo != 1003 && id_tipo != 1005 && id_tipo != 1006 && id_tipo != 1012 && id_tipo != 1013 && id_tipo != 1014)
             {
-                if (id_tipo != 1003 && id_tipo != 1005 && id_tipo != 1006 && id_tipo != 1012 && id_tipo != 1013 && id_tipo != 1014)
+                //Incializamos los servicios de dialog.
+                DialogService dialog = new DialogService();
+                
+                //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+                MetroDialogSettings setting = new MetroDialogSettings();
+                setting.AffirmativeButtonText = StringResources.lblYes;
+                setting.NegativeButtonText = StringResources.lblNo;
+
+                //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+                MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSellarDocumento, setting, MessageDialogStyle.AffirmativeAndNegative);
+
+                if (result == MessageDialogResult.Affirmative)
                 {
                     BaseFont bfTimes = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, false);
                     ObservableCollection<Archivo> archivos = DataManagerControlDocumentos.GetArchivos(version.id_version);
@@ -2866,8 +2866,9 @@ namespace View.Services.ViewModel
 
                     }
                 }
+                    
             }
-            
+
             return res;
         }
 
@@ -3416,8 +3417,6 @@ namespace View.Services.ViewModel
         /// Método que muestra los documentos similares
         /// </summary>
         /// <param name="ListaSimilares"></param>
-        /// 
-
         private async void VerDocumentosSimilares(ObservableCollection<Documento> ListaSimilares)
         {
             //Verificamos que existan documentos similares
