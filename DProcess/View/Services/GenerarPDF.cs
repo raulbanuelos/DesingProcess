@@ -161,6 +161,7 @@ namespace View.Services
             //Agregamos el encabezado a la primer pagina
             EncabezadoPagina(gfx, pag, TextoEncabezado);
             //Agregamos el pie de pagina a la primer hoja
+            PaginaActual = 1;
             PiePagina(gfx, pag, TextoEncabezado);
 
             //Comenzamos a imprimir la caratula
