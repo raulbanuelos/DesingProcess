@@ -1165,6 +1165,13 @@ namespace View.Services.ViewModel
 
             await Controller.CloseAsync();
             await dialogService.SendMessage(Resources.StringResources.ttlDone, Resources.StringResources.msgRoutingReady);
+            /*
+            string PrimerBloque = "1" + Environment.NewLine;
+            PrimerBloque += "2" + Environment.NewLine;
+
+
+            ModelAnillo.Caratula = PrimerBloque;
+             */
         }
 
         private void abrirPlano()
@@ -1785,8 +1792,7 @@ namespace View.Services.ViewModel
         /// </summary>
         private void viewRoute()
         {
-            GenerarPDF GenerarTraveler = new GenerarPDF();
-            
+            GenerarPDF.Traveler(ModelAnillo);    
         }
 
         private void viewRouting()
