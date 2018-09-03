@@ -91,7 +91,7 @@
                 </Grid.RowDefinitions>
                 <StackPanel  Orientation="Vertical" Margin="10">
                     <StackPanel Orientation="Horizontal" Height="50" >
-                        <TextBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblTipoDocumento}" Text="{Binding  SelectedDocumento.tipo.tipo_documento}"   Width="420" IsReadOnly="True" Height="50" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                        <TextBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblTipoDocumento}" Text="{Binding SelectedDocumento.tipo.tipo_documento}"   Width="420" IsReadOnly="True" Height="50" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Height="50" >
                         <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombreDepartamentoProceso}" Text="{Binding SelectedDocumento.Departamento}" Width="420" Height="50" FontSize="18" IsReadOnly="True"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
@@ -102,6 +102,7 @@
                     <StackPanel Orientation="Horizontal" Height="50">
                         <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblUsuarioAutorizo}" Text="{Binding Usuario.nombre_usuario_autorizo}" Width="420" Height="50" FontSize="18" IsReadOnly="True"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
+                    <Button Content="{x:Static recursos:StringResources.ttlVistaPrevia}" Width="120" HorizontalAlignment="Left" Command="{Binding VerVistaPrevia}"></Button>
                 </StackPanel>
 
                 <Grid Grid.Row="1">

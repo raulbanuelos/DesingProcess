@@ -1566,4 +1566,8 @@
     <value>Do you whant set electronic stamp in the file?</value>
     <comment>Mensaje de pregunta si requiere sellar el archivo.</comment>
   </data>
+  <data name="ttlVistaPrevia" xml:space="preserve">
+    <value>Preview</value>
+    <comment>Título para vista previa</comment>
+  </data>
 </root>

@@ -13,6 +13,8 @@ using System.Windows.Input;
 using System.Windows;
 using Model;
 using View.Resources;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
 
 namespace View.Services.ViewModel
 {
@@ -204,9 +206,98 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand VerVistaPrevia
+        {
+            get
+            {
+                return new RelayCommand(o => verVistaPrevia(SelectedItem));
+            }
+        }
+
         #endregion
 
         #region Métodos
+
+        /// <summary>
+        /// Método para visualizar el archivo con el sello electrónico.
+        /// </summary>
+        /// <param name="archivo"></param>
+        private async void verVistaPrevia(Archivo archivo)
+        {
+            //Incializamos los servicios de dialog.
+            DialogService dialog = new DialogService();
+            try
+            {
+                //Si hay un archivo seleccionado
+                if (archivo != null)
+                {
+                    BaseFont bfTimes = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, false);
+
+                    //se asigna el nombre del archivo temporal, se concatena el nombre del archivo, la posicion de la lista y la extensión.
+                    string filename = GetPathTempFile(archivo);
+                    
+                    string waterMarkText = "MAHLE CONTROL DE DOCUMENTOS / DOCUMENTO LIBERADO ELECTRÓNICAMENTE Y TIENE VELIDEZ SIN FIRMA." + " DISPOSICIÓN: " + "00/00/0000";
+                    string waterMarkText2 = "ÚNICAMENTE EL SELLO ES PARA PRUEBA Y NO TIENE NINGUNA VALIDEZ.";
+                    string waterMarkText3 = "LAS COPIAS CON ESTE  SELLO NO TIENEN   NINGUNA VALIDEZ OFICIAL.";
+
+                    byte[] newarchivo = AddWatermark(archivo.archivo, bfTimes, waterMarkText, waterMarkText2, waterMarkText3);
+
+                    //Crea un archivo nuevo temporal, escribe en él los bytes extraídos de la BD.
+                    File.WriteAllBytes(filename, newarchivo);
+
+                    //Se inicializa el programa para visualizar el archivo.
+                    Process.Start(filename);
+                }
+            }
+            catch (Exception er)
+            {
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorAbrir);
+            }
+        }
+
+        private static byte[] AddWatermark(byte[] bytes, BaseFont baseFont, string watermarkText, string waterMarkText2, string waterMarkText3)
+        {
+            using (var ms = new MemoryStream(10 * 1024))
+            {
+                using (var reader = new PdfReader(bytes))
+                using (var stamper = new PdfStamper(reader, ms))
+                {
+                    var pages = reader.NumberOfPages;
+
+                    for (var i = 1; i <= pages; i++)
+                    {
+                        var dc = stamper.GetOverContent(i);
+
+                        Rectangle realPageSize = reader.GetPageSizeWithRotation(i);
+
+                        AddWaterMarkText2(dc, watermarkText, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 6), Convert.ToInt32(realPageSize.Bottom + 245));
+                        AddWaterMarkText2(dc, waterMarkText2, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 12), Convert.ToInt32(realPageSize.Bottom + 160));
+                        AddWaterMarkText2(dc, waterMarkText3, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 18), Convert.ToInt32(realPageSize.Bottom + 160));
+
+                    }
+                    stamper.Close();
+                }
+                return ms.ToArray();
+            }
+        }
+
+        public static void AddWaterMarkText2(PdfContentByte pdfData, string watermarkText, BaseFont font, float fontSize, float angle, BaseColor color, int pos_x, int pos_y)
+        {
+            var gstate = new PdfGState { FillOpacity = 1.0f, StrokeOpacity = 1.0f };
+
+            pdfData.SaveState();
+            pdfData.SetGState(gstate);
+            pdfData.SetColorFill(color);
+            pdfData.BeginText();
+            pdfData.SetFontAndSize(font, fontSize);
+            var x = pos_x;
+            var y = pos_y;
+
+            pdfData.ShowTextAligned(Element.ALIGN_CENTER, watermarkText, x, y, angle);
+            pdfData.EndText();
+            pdfData.RestoreState();
+
+        }
 
         /// <summary>
         /// Funcíón que modifica la versión
