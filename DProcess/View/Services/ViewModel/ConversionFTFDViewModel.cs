@@ -681,21 +681,17 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Funciones
+
+        /// <summary>
+        /// Función que verifica si la cadena ingresada es un número
+        /// </summary>
+        /// <param name="numero"></param>
+        /// <returns></returns>
         private static bool IsNumber(string numero)
         {
             Regex reex = new Regex(@"^(\d|-)?(\d|,)*\.?\d*$");
 
             return reex.IsMatch(numero);
-        }
-
-        private static bool PrimerCaracter(string cadena)
-        {
-            string CadenaEvaluar = cadena.Substring(0, 1);
-            if (CadenaEvaluar != ".")
-            {
-                return true;
-            }
-            return false;
         }
         #endregion
     }
