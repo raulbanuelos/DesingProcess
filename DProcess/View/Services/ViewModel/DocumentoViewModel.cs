@@ -2447,7 +2447,6 @@ namespace View.Services.ViewModel
                     //Si la respuesta es afirmativa
                     if (result == MessageDialogResult.Affirmative)
                     {
-
                         //Valída si existe documentos que sena iguales al documento a subir, el resultado se guarda en una variable local.
                         ObservableCollection<Documento> ListDocIguales = ValidaDocumentosIguales();
 
