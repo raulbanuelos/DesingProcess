@@ -1563,7 +1563,7 @@ namespace View.Services.ViewModel
 
             Caratula = "";
 
-            ModelAnillo.DescripcionGeneral = String.Format("{0:0.00000}", diametro.Valor) + " X " + String.Format("{0:0.00000}", medida.Valor);
+            ModelAnillo.DescripcionGeneral = Codigo + "   " + String.Format("{0:0.00000}", medida.Valor) + " X " + String.Format("{0:0.00000}", diametro.Valor);
 
             double r_min, r_max, t_min, t_max;
             r_min = (medida.Valor + .010) - .005;
