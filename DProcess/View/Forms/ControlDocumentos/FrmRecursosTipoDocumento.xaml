@@ -60,7 +60,12 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
-        <ComboBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblTipoDocumento}" Grid.Column="1" Grid.Row="1" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListaTipoDocumento}"  DisplayMemberPath="tipo_documento" SelectedItem="{Binding SelectedTipoDocumento}">
+        <ComboBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblTipoDocumento}" 
+                  Grid.Column="1" Grid.Row="1" FontSize="20" 
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                  ItemsSource="{Binding ListaTipoDocumento}" 
+                  DisplayMemberPath="tipo_documento" 
+                  SelectedItem="{Binding SelectedTipoDocumento}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction

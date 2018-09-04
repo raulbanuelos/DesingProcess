@@ -825,6 +825,14 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => viewRouting());
             }
         }
+
+        public ICommand ConversionFTaFD
+        {
+            get
+            {
+                return new RelayCommand(o => ConversionDeFTaFD());
+            }
+        }
         #endregion
 
         #region Methods
@@ -1456,6 +1464,9 @@ namespace View.Services.ViewModel
 
         }
 
+        /// <summary>
+        /// /
+        /// </summary>
         private void openCalculateDimensions()
         {
             WDimensions p = new WDimensions();
@@ -1795,6 +1806,9 @@ namespace View.Services.ViewModel
             GenerarPDF.Traveler(ModelAnillo);    
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void viewRouting()
         {
             //Declaramos un objeto el cual es la pantalla.
@@ -1808,6 +1822,19 @@ namespace View.Services.ViewModel
 
             //Desplegamos la pantalla-
             wRouting.ShowDialog();
+        }
+
+        /// <summary>
+        /// Método para abrir la ventana donde se hacen las conversiones de FT a FD
+        /// </summary>
+        private void ConversionDeFTaFD()
+        {
+            ConversionFTFD Conversion = new ConversionFTFD();
+            ConversionFTFDViewModel ConversionFTDF = new ConversionFTFDViewModel();
+
+            Conversion.DataContext = ConversionFTDF;
+
+            Conversion.ShowDialog();
         }
         #endregion
     }

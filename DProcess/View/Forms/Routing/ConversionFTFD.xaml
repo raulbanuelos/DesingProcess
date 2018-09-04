@@ -1,0 +1,121 @@
+﻿<Controls:MetroWindow x:Class="View.Forms.Routing.ConversionFTFD"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Forms.Routing"
+        xmlns:recursos="clr-namespace:View.Resources"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Height="750" Width="1250" 
+        BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="375"></RowDefinition>
+            <RowDefinition Height="375"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=" 75"/>
+            <ColumnDefinition Width="750"></ColumnDefinition>
+            <ColumnDefinition Width="350"></ColumnDefinition>
+            <ColumnDefinition Width=" 75"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="1" Grid.Row="0" >
+            <Label  Content="Conversión de Ft a Fd" FontSize="35" FontWeight="Bold"></Label>
+            <TextBox Name="Diametro" materialDesign:HintAssist.Hint ="Diametro" Text="{Binding Diametro}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap" FontSize="20" HorizontalAlignment="Left" Height="50" Width="220">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction
+									Command="{Binding CalcularFactor}" CommandParameter="{Binding ElementName=Diametro,Path=Text}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+
+            <TextBox Name="Calcular"  materialDesign:HintAssist.Hint ="Ft" Text="{Binding Ft1,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap" FontSize="20" HorizontalAlignment="Left" Height="50" Width="220">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction
+									Command="{Binding Calcular}" CommandParameter="{Binding ElementName=Calcular,Path=Text}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+
+            <TextBox materialDesign:HintAssist.Hint ="Fd" Text="{Binding Fd1,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap" FontSize="20" HorizontalAlignment="Left" Height="50" Width="220" IsReadOnly="True"></TextBox>
+
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.RowSpan="1" Margin="150,57,5,0">
+            <TextBox materialDesign:HintAssist.Hint ="Factor" Text="{Binding Factor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap" FontSize="20" HorizontalAlignment="Right" Height="50" Width="150" IsReadOnly="True"></TextBox>
+
+            <ComboBox  materialDesign:HintAssist.Hint="Material" 
+                               Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="250" 
+                               HorizontalAlignment="Right"
+                               BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaMaterial}"  
+                               DisplayMemberPath="Nombre" 
+                               SelectedItem="{Binding SelectedMaterial}"   
+                               FontSize="18" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction
+									Command="{Binding CambiarMaterial}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <Label Content="Conversión de N a LB" FontSize="35" FontWeight="Bold"></Label>
+            <TextBox Name ="Caltt1" materialDesign:HintAssist.Hint ="Tensión Tangencial(N)" Text="{Binding T1,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap" FontSize="20" HorizontalAlignment="Left" Height="52" Width="220">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction
+									Command="{Binding CalcularTension1}" CommandParameter="{Binding ElementName=Caltt1,Path=Text}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <TextBox materialDesign:HintAssist.Hint ="Factor" Text="{Binding FactorTension}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap" FontSize="20" HorizontalAlignment="Center" Height="50" Width="150" IsReadOnly="True">
+            </TextBox>
+            <TextBox materialDesign:HintAssist.Hint ="Tensión Tangencial(LBS)" Text="{Binding T2,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap" FontSize="20" HorizontalAlignment="Left" Height="52" Width="220" IsReadOnly="True"></TextBox>
+            <TextBox materialDesign:HintAssist.Hint ="Tensión Diametral (LBS)" Text="{Binding T3,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap" FontSize="20" HorizontalAlignment="Left" Height="50" Width="220" IsReadOnly="True"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="2" Margin="125,57,0,1">
+            <TextBox  Name ="CalTensionT" materialDesign:HintAssist.Hint ="Tensión Tangencial(LBS)" Text="{Binding T4,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap" FontSize="20" HorizontalAlignment="Right" Height="52" Width="220" Margin="65,0,0,0">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction
+									Command="{Binding CalcularTensionTLBS}" CommandParameter="{Binding ElementName=CalTensionT,Path=Text}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <TextBox  materialDesign:HintAssist.Hint ="Tensión Tangencial(N)" Text="{Binding T5,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap" FontSize="20" HorizontalAlignment="Right" Height="52" Width="220" Margin="65,51,0,0" IsReadOnly="True"></TextBox>
+            <TextBox materialDesign:HintAssist.Hint ="Tensión Diametral (LBS)" Text="{Binding T6,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap" FontSize="20" HorizontalAlignment="Right" Height="50" Width="220" IsReadOnly="True"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="0">
+            <TextBox Name="CalFD2" materialDesign:HintAssist.Hint ="Fd" Text="{Binding Fd2,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap" FontSize="20" HorizontalAlignment="Right" Height="50" Width="220" Margin="35,115,0,0">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction
+									Command="{Binding Calcularfd2}" CommandParameter="{Binding ElementName=CalFD2,Path=Text}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <TextBox materialDesign:HintAssist.Hint ="Ft" Text="{Binding Ft2,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap" FontSize="20" HorizontalAlignment="Right" Height="50" Width="220" Margin="35,0,0,0" IsReadOnly="True"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="1">
+            <TextBox Name="CalcularTensionDiametral" materialDesign:HintAssist.Hint ="Tensión diametral (N)" Text="{Binding T7,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap" FontSize="20" HorizontalAlignment="Right" Height="50" Width="220" Margin="35,57,0,0">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction
+									Command="{Binding CalcularTensionDiam}" CommandParameter="{Binding ElementName=CalcularTensionDiametral,Path=Text}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <TextBox materialDesign:HintAssist.Hint ="Tensión diametral (LBS)" Text="{Binding T8,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap" FontSize="20" HorizontalAlignment="Right" Height="50" Width="220" Margin="35,51,0,0" IsReadOnly="True"></TextBox>
+        </StackPanel>
+    </Grid>
+</Controls:MetroWindow>

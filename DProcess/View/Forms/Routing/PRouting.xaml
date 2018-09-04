@@ -102,7 +102,11 @@
                         <Button ToolTip="{x:Static recursos:StringResources.lblCalcularDimensiones}" Cursor="Hand" Command="{Binding ViewRouting}">
                             <materialDesign:PackIcon Kind="Run" />
                         </Button>
-                        
+                        <Separator/>
+                        <Button ToolTip="Conversión" Cursor="Hand" Command="{Binding ConversionFTaFD}">
+                            <materialDesign:PackIcon Kind="TooltipEdit"/>
+                        </Button>
+
                     </ToolBar>
                 </Grid>
                 

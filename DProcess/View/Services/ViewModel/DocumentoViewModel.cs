@@ -1064,6 +1064,7 @@ namespace View.Services.ViewModel
             if (usuarioAutorizo !=null)
             {
                 NombreUsuarioAut = DataManagerControlDocumentos.GetNombreUsuario(usuarioAutorizo);
+                
             }
         }
 
