@@ -269,7 +269,7 @@ namespace View.Services.ViewModel
         {
             ModelUsuario = modelUsuario;
             this.pagina = pagina;
-            initNotifications();
+            //initNotifications();
         }
 
         #endregion
@@ -458,7 +458,7 @@ namespace View.Services.ViewModel
             Pagina = pantallaPattern;
         }
         #endregion
-       
+       /*
         private void initNotifications()
         {
             SqlTableDependency<DO_Notification> tableDependency;
@@ -478,7 +478,8 @@ namespace View.Services.ViewModel
                 tableDependencyAdmin.Start();
             }
             
-        }     
+        }   
+        */  
         /// <summary>
         /// Notificaciones para cuando se crea o corrigue un documento
         /// </summary>

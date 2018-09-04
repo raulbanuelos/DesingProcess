@@ -277,6 +277,9 @@
     <Compile Include="Forms\RawMaterial\PPattern.xaml.cs">
       <DependentUpon>PPattern.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Routing\ConversionFTFD.xaml.cs">
+      <DependentUpon>ConversionFTFD.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Routing\PRouting.xaml.cs">
       <DependentUpon>PRouting.xaml</DependentUpon>
     </Compile>
@@ -685,6 +688,7 @@
     <Compile Include="Services\ViewModel\CollarSpacerVM.cs" />
     <Compile Include="Services\ViewModel\ConsultarDatosUsuariosVM.cs" />
     <Compile Include="Services\ViewModel\ControlDocumentoViewModel.cs" />
+    <Compile Include="Services\ViewModel\ConversionFTFDViewModel.cs" />
     <Compile Include="Services\ViewModel\CutterCamTurnVM.cs" />
     <Compile Include="Services\ViewModel\CutterSpacerS_VM.cs" />
     <Compile Include="Services\ViewModel\CutterSplitterVM.cs" />
@@ -922,6 +926,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\RawMaterial\PPattern.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Routing\ConversionFTFD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
