@@ -2919,26 +2919,26 @@ namespace View.Services.ViewModel
 
         }
 
-        public static void AddWaterMarkText(PdfContentByte pdfData, string watermarkText, BaseFont font, float fontSize, float angle, BaseColor color, Rectangle realPageSize,int res, int pos_x)
-        {
-            var gstate = new PdfGState { FillOpacity = 1.0f, StrokeOpacity = 1.0f };
+        //public static void AddWaterMarkText(PdfContentByte pdfData, string watermarkText, BaseFont font, float fontSize, float angle, BaseColor color, Rectangle realPageSize,int res, int pos_x)
+        //{
+        //    var gstate = new PdfGState { FillOpacity = 1.0f, StrokeOpacity = 1.0f };
             
-            pdfData.SaveState();
-            pdfData.SetGState(gstate);
-            pdfData.SetColorFill(color);
-            pdfData.BeginText();
-            pdfData.SetFontAndSize(font, fontSize);
-            var x = (realPageSize.Right + realPageSize.Left) / 2;
-            var y = (realPageSize.Bottom + realPageSize.Top) / 2;
+        //    pdfData.SaveState();
+        //    pdfData.SetGState(gstate);
+        //    pdfData.SetColorFill(color);
+        //    pdfData.BeginText();
+        //    pdfData.SetFontAndSize(font, fontSize);
+        //    var x = (realPageSize.Right + realPageSize.Left) / 2;
+        //    var y = (realPageSize.Bottom + realPageSize.Top) / 2;
 
-            x = pos_x;
-            y = realPageSize.Top - res;
+        //    x = pos_x;
+        //    y = realPageSize.Top - res;
 
-            pdfData.ShowTextAligned(Element.ALIGN_CENTER, watermarkText, x, y, angle);
-            pdfData.EndText();
-            pdfData.RestoreState();
+        //    pdfData.ShowTextAligned(Element.ALIGN_CENTER, watermarkText, x, y, angle);
+        //    pdfData.EndText();
+        //    pdfData.RestoreState();
 
-        }
+        //}
 
         /// <summary>
         /// Método que inicializa la lista de los departamentos, tipos y usuarios

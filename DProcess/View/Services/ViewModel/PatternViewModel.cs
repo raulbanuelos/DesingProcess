@@ -1129,6 +1129,14 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand ViewRoute
+        {
+            get
+            {
+                return new RelayCommand(o => viewRoute());
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -1210,6 +1218,11 @@ namespace View.Services.ViewModel
             customer = SelectedPattern.customer;
             customer = customer;
 
+        }
+
+        private void viewRoute()
+        {
+            GenerarPDF.Traveler(ModelAnillo);
         }
 
         /// <summary>
@@ -1340,8 +1353,6 @@ namespace View.Services.ViewModel
 
             date_ordered = date_ordered;
             date_checked = date_checked;
-
-
         }
 
         /// <summary>
@@ -1350,6 +1361,7 @@ namespace View.Services.ViewModel
         private void setNameProperties()
         {
             mounting = new Propiedad { DescripcionCorta = "Mouting", DescripcionLarga = "Mouting", Imagen = null, Nombre = "MoutingCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram) };
+            definirPlato();
             peso_cstg = new Propiedad { DescripcionCorta = "Peso casting", DescripcionLarga = "Peso del casting", Imagen = null, Nombre = "PesoCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram), Valor = 0 };
             patt_thickness = new Propiedad { DescripcionCorta = "Patt thickness", DescripcionLarga = "Patt thickness", Imagen = null, Nombre = "PattThicknessCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), Valor = 0 };
             B_Dia = new Propiedad { DescripcionCorta = "B Dia", DescripcionLarga = "B Dia", Imagen = null, Nombre = "BDiaCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), Valor = 0};
@@ -1364,12 +1376,13 @@ namespace View.Services.ViewModel
         /// </summary>
         private void setNamePropertieWidthCasting()
         {
-            medida.DescripcionCorta = "Width";
-            medida.DescripcionLarga = "Width Casting";
-            medida.Imagen = null;
-            medida.Nombre = "WidthCasting";
-            medida.TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance);
-            medida.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+            diametro.DescripcionCorta = "Width";
+            diametro.DescripcionLarga = "Width Casting";
+            diametro.Imagen = null;
+            diametro.Nombre = "WidthCasting";
+            diametro.TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance);
+            diametro.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+            
         }
 
         /// <summary>
@@ -1415,7 +1428,6 @@ namespace View.Services.ViewModel
                 }
             }
 
-
             if (IsPatternNew)
             {
                 if (TipoMateriaPrima.ValorCadena.Equals("GASOLINA") || TipoMateriaPrima.ValorCadena.Equals("SPR-212"))
@@ -1423,8 +1435,11 @@ namespace View.Services.ViewModel
                 else
                     patt_width.Valor = ring_w_max.Valor * 1 + 0.021;
             }
+            else
+            {
+                patt_width = medida;
+            }
             
-
             medida = patt_width;
 
             setNamePropertieWidthCasting();
@@ -1435,7 +1450,6 @@ namespace View.Services.ViewModel
                 {
                     Codigo = DataManager.GetNextCodePattern(DataManager.GetLastCodePattern());
                 }
-               
 
                 //Comparamos si el tipo de material es gasolina.
                 if (TipoMateriaPrima.ValorCadena.Equals("GASOLINA"))
@@ -1453,18 +1467,18 @@ namespace View.Services.ViewModel
                         ReadOnlyCamLever = false;
                         cam_lever.Valor = Math.Round((piece_in_patt.Valor * factor_k.Valor * 64) - 0.005, 3);
                     }
-                    fin_Dia.Valor = Math.Round((((((cam_lever.Valor - 0.005) * 0.478) - piece_in_patt.Valor) / -3.1416) + diametro.Valor) - (cam_lever.Valor - 0.005), 3);
+                    fin_Dia.Valor = Math.Round((((((cam_lever.Valor - 0.005) * 0.478) - piece_in_patt.Valor) / -3.1416) + medida.Valor) - (cam_lever.Valor - 0.005), 3);
 
                 }
                 else if(TipoMateriaPrima.ValorCadena.Equals("SPR-212")) //Si el tipo de material es 
                 {
                     cam_lever.Valor = Math.Round((piece_in_patt.Valor * factor_k.Valor * 64) + 0.015, 3);
-                    fin_Dia.Valor = Math.Round((((((cam_lever.Valor - 0.015) * 0.478) - piece_in_patt.Valor) / -3.1416) + diametro.Valor) - (cam_lever.Valor - 0.015), 3);
+                    fin_Dia.Valor = Math.Round((((((cam_lever.Valor - 0.015) * 0.478) - piece_in_patt.Valor) / -3.1416) + medida.Valor) - (cam_lever.Valor - 0.015), 3);
                 }
                 else if(TipoMateriaPrima.ValorCadena.Equals("SUPER DUTY"))
                 {
                     cam_lever.Valor = Math.Round((piece_in_patt.Valor * factor_k.Valor * 64), 3);
-                    fin_Dia.Valor = Math.Round((((((cam_lever.Valor - 0.005) * 0.478) - piece_in_patt.Valor) / -3.1416) + diametro.Valor) - (cam_lever.Valor - 0.005), 3);
+                    fin_Dia.Valor = Math.Round((((((cam_lever.Valor - 0.005) * 0.478) - piece_in_patt.Valor) / -3.1416) + medida.Valor) - (cam_lever.Valor - 0.005), 3);
                 }
                 else
                 {
@@ -1493,7 +1507,7 @@ namespace View.Services.ViewModel
                 OD.Valor = Math.Round(cstg_sm_od.Valor + ((cam_lever.Valor - rise_built.Valor) * 2), 3);
                 ID.Valor = Math.Round(patt_sm_id.Valor - (patt_sm_id.Valor * 0.015), 3);
                 diff.Valor = Math.Round(OD.Valor - ID.Valor, 3);
-                peso_cstg.Valor = Math.Round((((3.1416 / 4) * (Convert.ToDouble(Math.Pow(patt_sm_od.Valor , 2)) - Convert.ToDouble(Math.Pow(patt_sm_id.Valor,2)))) * medida.Valor * 16.387 * 7.2) / 0.95, 3);
+                peso_cstg.Valor = Math.Round((((3.1416 / 4) * (Convert.ToDouble(Math.Pow(patt_sm_od.Valor , 2)) - Convert.ToDouble(Math.Pow(patt_sm_id.Valor,2)))) * diametro.Valor * 16.387 * 7.2) / 0.95, 3);
                 B_Dia.Valor = Math.Round(patt_sm_od.Valor + (2 * cam_lever.Valor), 4);
 
                 if (IsPatternNew)
@@ -1503,7 +1517,7 @@ namespace View.Services.ViewModel
                 
                 if (calculoOk)
                 {
-                    detalle.Valor = DataManager.GetDetalleMoutingWidth(medida.Valor);
+                    detalle.Valor = DataManager.GetDetalleMoutingWidth(diametro.Valor);
                     string[] valoresMoutingDia = DataManager.GetMoutingDia(B_Dia.Valor, plato.Valor);
                     if (valoresMoutingDia.Length.Equals(5) )
                     {
@@ -1531,7 +1545,7 @@ namespace View.Services.ViewModel
             ModelAnillo.PropiedadesAdquiridasProceso.Add(peso_cstg);
             ModelAnillo.PropiedadesAdquiridasProceso.Add(mounting);
             ModelAnillo.PropiedadesAdquiridasProceso.Add(patt_thickness);
-            ModelAnillo.PropiedadesAdquiridasProceso.Add(medida);
+            ModelAnillo.PropiedadesAdquiridasProceso.Add(diametro);
             ModelAnillo.PropiedadesAdquiridasProceso.Add(B_Dia);
             ModelAnillo.PropiedadesAdquiridasProceso.Add(patt_sm_od);
             ModelAnillo.PropiedadesBoolAdquiridasProceso = new ObservableCollection<PropiedadBool>();
@@ -1562,12 +1576,12 @@ namespace View.Services.ViewModel
             Caratula += "WIDTH      " + String.Format("{0:0.000}", r_min) + " - " + String.Format("{0:0.000}", r_max) + Environment.NewLine;
             Caratula += "THICKNESS  " + String.Format("{0:0.000}", t_min) + " - " + String.Format("{0:0.000}", t_max) + Environment.NewLine;
 
+            //Calculo de la operación fundición moldeo.
             double a, b, c, sec;
             a = patt_thickness.Valor * 2.54;
             b = medida.Valor * 0.254;
             c = a * b;
             sec = Math.Round(c * 1000, 2);
-
             if (sec < 25)
                 Caratula += "CLASIFICACION FINO" + Environment.NewLine;
             else if(sec >=25 && sec <= 39.9)

@@ -3506,5 +3506,14 @@ namespace View.Resources {
                 return ResourceManager.GetString("ttlVerArchivo", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Preview.
+        /// </summary>
+        public static string ttlVistaPrevia {
+            get {
+                return ResourceManager.GetString("ttlVistaPrevia", resourceCulture);
+            }
+        }
     }
 }
