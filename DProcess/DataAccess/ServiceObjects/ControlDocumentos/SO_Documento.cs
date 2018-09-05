@@ -776,6 +776,45 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
+
+        /// <summary>
+        /// Metodo que retorna todos los documentos que estan en Pendiente por corregir
+        /// </summary>
+        /// <param name="textoBuscar"></param>
+        /// <returns></returns>
+        public IList GetAllDocumentosPendientes(string textoBuscar)
+        {
+            try
+            {
+                // Se inician los servicios de Entity Control Documento
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Se realiza la consulta para obtener los documentos pendientes por corregir de un usuario
+                    var Lista = (from d in Conexion.TBL_DOCUMENTO
+                                 join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                 join u in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals u.Usuario
+                                 join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
+                                 where v.ID_ESTATUS_VERSION == 4 && (d.NOMBRE.Contains(textoBuscar) || u.Nombre.Contains(textoBuscar))
+                                 select new
+                                 {
+                                     d.ID_DOCUMENTO,
+                                     d.NOMBRE,
+                                     NOMBRE_USUARIO = u.Nombre + " " + u.APaterno + " " + u.AMaterno,
+                                     t.TIPO_DOCUMENTO,
+                                     v.No_VERSION,
+                                     v.FECHA_VERSION
+                                 }).ToList();
+
+                    //Retorna la lista de documentos.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error, se retorna un nulo.
+                return null;
+            }
+        }
        
         /// <summary>
         /// Método para obtener todos los documentos aprobados pendientes por liberar

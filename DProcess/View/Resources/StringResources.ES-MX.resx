@@ -1568,4 +1568,8 @@
     <value>Vista previa</value>
     <comment>Titulo para vista previa</comment>
   </data>
+  <data name="lblViewDocumentosRechazados" xml:space="preserve">
+    <value>Ver documentos rechazados</value>
+    <comment>Etiqueta de ver documentos rechazados</comment>
+  </data>
 </root>

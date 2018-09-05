@@ -15,7 +15,7 @@ using View.Resources;
 
 namespace View.Services.ViewModel
 {
-    class DocumentosPendientesViewM : INotifyPropertyChanged
+    public class DocumentosPendientesViewM : INotifyPropertyChanged
     {
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -30,7 +30,7 @@ namespace View.Services.ViewModel
         }
         #endregion
 
-        #region propiedades
+        #region Propiedades
         public Usuario usuario;
         private ObservableCollection<Documento> _ListaDocumentos;
         public ObservableCollection<Documento> ListaDocumentosValidar
@@ -59,9 +59,7 @@ namespace View.Services.ViewModel
                 NotifyChange("GridUsuario");
             }
         }
-
-
-
+        
         private Documento selectedDocumento;
         public Documento SelectedDocumento
         {
@@ -93,8 +91,7 @@ namespace View.Services.ViewModel
         }
         #endregion
 
-        #region constructor
-
+        #region Constructor
         public DocumentosPendientesViewM(Usuario user,string _estatus)
         {
             usuario = user;
@@ -103,7 +100,7 @@ namespace View.Services.ViewModel
         }
         #endregion
 
-        #region commands
+        #region Commands
 
         /// <summary>
         /// Comando para moestrar el documento seleccionado
@@ -163,7 +160,7 @@ namespace View.Services.ViewModel
                 documento = DataManagerControlDocumentos.GetDocumento(SelectedDocumento.id_documento, SelectedDocumento.version.no_version);
 
                 //Si el estatus es pendiente por corregir, se muestra la ventana para modificar el documento
-                if (Estatus.Contains("pendiente"))
+                if (Estatus.Contains("pendiente") || Estatus.Contains("todosPendientes"))
                 {
                     DocumentoViewModel viewM = new DocumentoViewModel(documento, false,usuario);
                     FrmDocumento frm = new FrmDocumento();
@@ -173,7 +170,7 @@ namespace View.Services.ViewModel
 
                     inicializa(Estatus);
                 }
-             // Si el estatus es aprobado pendiente por liberar, se muestra la pantalla para liberar el documento seleccionado
+                //Si el estatus es aprobado pendiente por liberar, se muestra la pantalla para liberar el documento seleccionado
                 else if (Estatus.Contains("aprobados"))
                 {
                     DocumentoViewModel viewM = new DocumentoViewModel(documento,usuario);
@@ -194,21 +191,30 @@ namespace View.Services.ViewModel
         /// <param name="status"></param>
         public void inicializa(string status)
         {
-                //Si el estatus es pendiente por corregir
-                if (status.Contains("pendiente"))
-                {
-                 //Se ejecuta el método que obtiene los documentos pendientes por corregir de un usuario
+            //Si el estatus es pendiente por corregir
+            if (status.Contains("pendiente"))
+            {
+                //Se ejecuta el método que obtiene los documentos pendientes por corregir de un usuario
                 ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario, "");
-                _titulo = StringResources.msgDocumentosCorregir;
-                }//Si es estatus aprobado pendiente por liberar
-                else if (status.Contains("aprobados"))
-                {
-                 //Se ejecuta el método que obtiene los documentos pendientes por liberar
-                 ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar("");
-                _titulo = StringResources.msgDocumentosLiberar;
-                }
-            }
-            #endregion
-        }
-    }
 
+                _titulo = StringResources.msgDocumentosCorregir;
+            }
+            //Si es estatus aprobado pendiente por liberar
+            else if (status.Contains("aprobados"))
+            {
+                //Se ejecuta el método que obtiene los documentos pendientes por liberar
+                ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar("");
+                _titulo = StringResources.msgDocumentosLiberar;
+            }
+            //Si es estatus todosPendientes, se muestran todos los documentos que están en pendientes por corregir(Solo para el perfil de administrador)
+            else if (status.Contains("todosPendientes"))
+            {
+                //Se ejecuta el método que obtiene los documentos pendientes por corregir de un usuario
+                ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(string.Empty);
+
+                _titulo = StringResources.msgDocumentosCorregir;
+            }
+        }
+        #endregion
+    }
+}

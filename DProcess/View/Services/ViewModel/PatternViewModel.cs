@@ -1537,7 +1537,6 @@ namespace View.Services.ViewModel
                 {
                     //Notificar al usuario que no se completo el calculo.
                 }
-                
             }
 
             actualizarValores();

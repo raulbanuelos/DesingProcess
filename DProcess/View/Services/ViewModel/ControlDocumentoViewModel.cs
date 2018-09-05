@@ -330,6 +330,17 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
+        /// Comando para mostrar la ventana de todos los documentos que están en estátus de pendientes por corregir.
+        /// </summary>
+        public ICommand irDocumentosPendientesCorregir
+        {
+            get
+            {
+                return new RelayCommand(o => irTodosDocumentosPendientesCorregir());
+            }
+        }
+
+        /// <summary>
         ///  Comando para mostrar la ventana de los documentos que están pendientes por liberar de un usuario
         /// </summary>
         public ICommand irPendientesLiberar
@@ -478,6 +489,27 @@ namespace View.Services.ViewModel
 
             frm.DataContext = context;
             frm.ShowDialog();
+            initSnack();
+        }
+
+        /// <summary>
+        /// Método que muestra la ventana con todos los documentos en estátus de Pendiente po corregir.
+        /// </summary>
+        private void irTodosDocumentosPendientesCorregir()
+        {
+            //Declaramos la pantalla en la que se mostraran los resultados.
+            FrmDocumentosValidar frm = new FrmDocumentosValidar();
+
+            //Declaramos la clase ViewModel que será el contexto de la pantalla.
+            DocumentosPendientesViewM context = new DocumentosPendientesViewM(usuario, "todosPendientes");
+
+            //Asignamos el contexto a la pantalla.
+            frm.DataContext = context;
+
+            //Mostramos la pantalla.
+            frm.ShowDialog();
+
+
             initSnack();
         }
 

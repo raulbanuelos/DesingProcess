@@ -2335,6 +2335,52 @@ namespace Model.ControlDocumentos
 
                 }
             }
+
+            //Retonamos la lista resultante
+            return Lista;
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los documentos que estan en estatus de pendientes por corregir.
+        /// </summary>
+        /// <param name="textoBuscar"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Documento> GetDocumentos_PendientesCorregir(string textoBuscar)
+        {
+            //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
+            ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
+
+            //Inicializamos los servicios de documento.
+            SO_Documento ServicioDocumento = new SO_Documento();
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList informacionBD = ServicioDocumento.GetAllDocumentosPendientes(textoBuscar);
+
+            //Si la lista es diferente de nulo
+            if (informacionBD != null)
+            {
+                //Iteramos la lista
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Creamos un objeto de tipo Documento
+                    Documento obj = new Documento();
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.usuario = (string)tipo.GetProperty("NOMBRE_USUARIO").GetValue(item, null);
+                    obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    obj.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
+
+                    //La agregamos a la lista
+                    Lista.Add(obj);
+                }
+            }
+
             //Retonamos la lista resultante
             return Lista;
         }

@@ -1672,6 +1672,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a See rejected documents.
+        /// </summary>
+        public static string lblViewDocumentosRechazados {
+            get {
+                return ResourceManager.GetString("lblViewDocumentosRechazados", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Welcome.
         /// </summary>
         public static string lblWelcome {

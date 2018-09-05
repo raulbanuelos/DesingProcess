@@ -66,6 +66,12 @@
 
                 <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
 
+                <Button ToolTip="{x:Static recursos:StringResources.lblViewDocumentosRechazados}" Command="{Binding irDocumentosPendientesCorregir }" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
+                    <materialDesign:PackIcon Kind="FileRestore" />
+                </Button>
+
+                <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
+
                 <Button ToolTip="{x:Static recursos:StringResources.lblVerRecurso}" Command="{Binding IrRecursos}" Cursor="Hand">
                     <materialDesign:PackIcon Kind="LinkVariant" />
                 </Button>
