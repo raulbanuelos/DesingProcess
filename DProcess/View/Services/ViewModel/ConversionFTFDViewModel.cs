@@ -306,6 +306,7 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Comandos Conversion de Ft a FD
+
         public ICommand Calcular
         {
             get
@@ -338,6 +339,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(parametro => CalcularFD2((string)parametro,Factor));
             }
         }
+
         #endregion
 
         #region Métodos Conversion de FT a FD
