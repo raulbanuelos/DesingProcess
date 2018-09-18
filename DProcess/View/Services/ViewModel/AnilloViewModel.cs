@@ -21,6 +21,7 @@ using System.Diagnostics;
 using PdfSharp;
 using System.Threading.Tasks;
 using View.Resources;
+using View.Forms.RawMaterial;
 
 namespace View.Services.ViewModel
 {
@@ -1835,6 +1836,14 @@ namespace View.Services.ViewModel
             Conversion.DataContext = ConversionFTDF;
 
             Conversion.ShowDialog();
+
+
+            //CalculoPlacaModelo Conversion = new CalculoPlacaModelo();
+            //CalculoPlacaModeloViewModel ConversionFTDF = new CalculoPlacaModeloViewModel();
+
+            //Conversion.DataContext = ConversionFTDF;
+
+            //Conversion.ShowDialog();
         }
         #endregion
     }

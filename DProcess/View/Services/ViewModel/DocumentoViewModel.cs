@@ -1051,6 +1051,14 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => SellarCopiasDocumentos());
             }
         }
+
+        public ICommand EliminarDocumntoSellado
+        {
+            get
+            {
+                return new RelayCommand(o => EliminarDocumentoSellado());
+            }
+        }
         #endregion
 
         #region Methods
@@ -3550,6 +3558,124 @@ namespace View.Services.ViewModel
                     await dialog.SendMessage(StringResources.ttlAlerta, "Debe Seleccionar a quien notificar");
                 }
                     
+            }
+        }
+
+        private async void EliminarDocumentoSellado()
+        {
+            DialogService dialog = new DialogService();
+
+            Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+            
+
+            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
+
+            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgRegresarCorregir, setting, MessageDialogStyle.AffirmativeAndNegative);
+            if (result == MessageDialogResult.Affirmative)
+            {
+                //Ejecutamos el método para obtener el id de la versión anterior
+                int last_version = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
+
+                //si el documento sólo tiene una versión, se modifica el estatus del documento y la versión, se cambia el estatus a pendiente por corregir
+                if (last_version == 0)
+                {
+                    Documento objDocumento = new Documento();
+                    
+
+                    //Asiganmos el id del documento al objeto
+                    objDocumento.id_documento = id_documento;
+                    //Estatus de documento pendiente por corregir
+                    objDocumento.id_estatus = 3;
+
+                    //Ejecutamos el método para actualizar el estatus del documento.
+                    int update_documento = DataManagerControlDocumentos.Update_EstatusDocumento(objDocumento);
+
+                    if (update_documento != 0)
+                    {
+                        //Asigamos los valores
+                        objVersion.id_version = idVersion;
+                        objVersion.no_version = version;
+                        objVersion.id_documento = id_documento;
+                        objVersion.id_usuario = _usuario;
+                        objVersion.id_usuario_autorizo = _usuarioAutorizo;
+                        objVersion.fecha_version = fecha;
+                        objVersion.id_estatus_version = 4;
+                        objVersion.no_copias = 0;
+                        objVersion.descripcion_v = Descripcion;
+
+
+                        //Eliminamos el archivo que contiene el sello electronico
+                        int EliminarSello = DataManagerControlDocumentos.EliminarDocumentoSellado(objVersion.id_version);
+
+                        //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
+                        int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
+                        //
+                        
+
+                        if (update_version != 0)
+                        {
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusPendienteCorregir);
+
+                            var frame = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                            //Verificamos que la pantalla sea diferente de nulo.
+                            if (frame != null)
+                                //Cerramos la pantalla
+                                frame.Close();
+                        }
+                        else
+                        {
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusVersion);
+                        }
+                    }
+                    else
+                    {
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusDocumento);
+                    }
+                }
+                else
+                {
+                    //si el documento tiene más de un versión, sólo se modifica el estatus de la versión a pendiente por corregir
+
+                    //eliminamos el archivo que contiene el sello electronico
+                    
+
+                    objVersion.id_version = idVersion;
+                    objVersion.no_version = version;
+                    objVersion.id_documento = id_documento;
+                    objVersion.id_usuario = _usuario;
+                    objVersion.id_usuario_autorizo = _usuarioAutorizo;
+                    objVersion.fecha_version = fecha;
+                    objVersion.id_estatus_version = 4;
+                    objVersion.no_copias = 0;
+                    objVersion.descripcion_v = Descripcion;
+
+                    //eliminamos el archivo que contiene el sello electronico
+                    int EliminarSello = DataManagerControlDocumentos.EliminarDocumentoSellado(objVersion.id_version);
+
+                    //Ejecutamos el método para modificar el estatus de la versión. El resultado lo guardamos en una variable local.
+                    int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
+
+                    if (update_version != 0)
+                    {
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusPendienteCorregir);
+
+                        var frame = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                        //Verificamos que la pantalla sea diferente de nulo.
+                        if (frame != null)
+                            //Cerramos la pantalla
+                            frame.Close();
+                    }
+                    else
+                    {
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusVersion);
+                    }
+                }
             }
         }
         #endregion

@@ -7,12 +7,14 @@
         xmlns:local="clr-namespace:View.Forms.RawMaterial"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="CalculoPlacaModelo" Height="870" Width="1280">
+        Title="CalculoPlacaModelo" Height="970" Width="1280"
+        BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="370"/>
-            <RowDefinition Height="350"/>
+            <RowDefinition Height="450"/>
             <RowDefinition Height="150"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -21,28 +23,135 @@
             <ColumnDefinition Width="420"/>
             <ColumnDefinition Width="420"/>
         </Grid.ColumnDefinitions>
+        
         <StackPanel Grid.Column="0" Grid.Row="1">
             <Label Margin="5" Content="Datos de la Placa Modelo" FontSize="25" FontWeight="Bold"></Label>
-            <TextBox Margin="5" materialDesign:HintAssist.Hint ="'B' Diameter" Text="{Binding Diametro}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20"></TextBox>
-            <TextBox Margin="5" materialDesign:HintAssist.Hint ="Patt SM OD." Text="{Binding PattSM}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20"></TextBox>
-            <TextBox Margin="5" materialDesign:HintAssist.Hint ="Piece Real" Text="{Binding PieceReal}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20"></TextBox>
-            <TextBox Margin="5" materialDesign:HintAssist.Hint ="Factor K" Text="{Binding FactorK}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20"></TextBox>
-            <TextBox Margin="5" materialDesign:HintAssist.Hint ="Width de la placa modelo" Text="{Binding Width}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20"></TextBox>
+            <TextBox Margin="5" materialDesign:HintAssist.Hint ="'B' Diameter" Text="{Binding Diametro}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20" IsReadOnly="True"></TextBox>
+            <TextBox Margin="5" materialDesign:HintAssist.Hint ="Patt SM OD." Text="{Binding PattSM}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20" IsReadOnly="True"></TextBox>
+            <TextBox Margin="5" materialDesign:HintAssist.Hint ="Piece Real" Text="{Binding PieceReal}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20" IsReadOnly="True"></TextBox>
+            <TextBox Margin="5" materialDesign:HintAssist.Hint ="Factor K" Text="{Binding FactorK}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20" IsReadOnly="True"></TextBox>
+            <TextBox Margin="5" materialDesign:HintAssist.Hint ="Width de la placa modelo" Text="{Binding Width}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20" IsReadOnly="True"></TextBox>
         </StackPanel>
+        
         <StackPanel Grid.Column="1" Grid.Row="1" Margin="10,130,0,0">
-            <TextBox  materialDesign:HintAssist.Hint ="Angulo de salida" Text="{Binding AnguloS}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20"></TextBox>
-            <TextBox  materialDesign:HintAssist.Hint ="Thickness de la placa" Text="{Binding Thickness}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20"></TextBox>
-            <TextBox  materialDesign:HintAssist.Hint ="Diametro de la punta de la herramienta" Text="{Binding DiametroPuntaHerramienta}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20"></TextBox>
+            <TextBox  materialDesign:HintAssist.Hint ="Angulo de salida" Text="{Binding AnguloS}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20" IsReadOnly="True"></TextBox>
+            <TextBox  materialDesign:HintAssist.Hint ="Thickness de la placa" Text="{Binding Thickness}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20" IsReadOnly="True"></TextBox>
+            <TextBox  materialDesign:HintAssist.Hint ="Diametro de la punta de la herramienta" Text="{Binding DiametroPuntaHerramienta}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20" IsReadOnly="True"></TextBox>
             <Button Margin="40" Content="INICIAR"></Button>
         </StackPanel>
+        
         <StackPanel Grid.Column="0" Grid.Row="2">
-            <Label Content="Panel 4"  FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+            <Canvas>
+                <TextBox Width="70" Margin="185,20,0,0" Text="{Binding Thick1}" IsReadOnly="True"></TextBox>
+                <TextBox Width="70" Margin="350,155,0,0" Text="{Binding Thick2}" IsReadOnly="True"></TextBox>
+                <TextBox Width="70" Margin="185,290,0,0" Text="{Binding Thick3}" IsReadOnly="True"></TextBox>
+                <TextBox Width="70" Margin="45,155,0,0" Text="{Binding Thick4}" IsReadOnly="True"></TextBox>
+                
+                <Label Content="Thickness esperado de la placa modelo en 3 zonas" FontSize="17" Margin="25,320,0,0"></Label>
+                <!--<Line Canvas.Right="55"  X2="0" Y2="170" Stroke="Blue" StrokeThickness="2" Height="Auto" Width="20" Margin="0,85"/>
+                <Line X1="95" Y1="20" X2="345" Y2="20" Stroke="Black" StrokeThickness="2" Width="345" Height="30" Canvas.Top="235"/>
+                <Line X1="205" Y1="20" X2="75" Y2="20" Stroke="Black" StrokeThickness="2" Width="345" Height="30" Canvas.Top="65" Margin="80,0"/>
+                <Line X1="85" Y1="220" X2="155" Y2="20" Stroke="Black" StrokeThickness="2" Width="345" Height="190" Canvas.Top="65"/>
+                <Line X1="355" Y1="220" X2="285" Y2="20" Stroke="Black" StrokeThickness="2" Width="345" Height="190" Canvas.Top="65"/>
+
+                <Line X1="105" Y1="20" X2="345" Y2="20" Stroke="Blue" StrokeThickness="2" Width="335" Height="30" Canvas.Top="265"/>
+                <Line X1="205" Y1="20" X2="75" Y2="20" Stroke="Blue" StrokeThickness="2" Width="185" Height="30" Canvas.Top="35" Margin="90,0"/>
+                <Polygon Points="0,0 -8,5,0,10" Stroke="Blue" StrokeThickness="2" Height="14" Width="11" Canvas.Left="105"  Canvas.Top="280"></Polygon>
+                <Polygon Points="0,0 8,5,0,10" Stroke="Blue" StrokeThickness="2" Height="14" Width="11" Canvas.Left="335"  Canvas.Top="280"></Polygon>
+                <Polygon Points="0,0 8,5,0,10" Stroke="Blue" StrokeThickness="2" Height="14" Width="11" Canvas.Left="275"  Canvas.Top="50"></Polygon>
+                <Polygon Points="0,0 -8,5,0,10" Stroke="Blue" StrokeThickness="2" Height="14" Width="11" Canvas.Left="165"  Canvas.Top="50"></Polygon>
+
+                <Line X1="2305" Y1="20" X2="75" Y2="20" Stroke="Blue" StrokeThickness="2" Width="255" Height="30" Canvas.Top="165" Margin="55,0"/>
+                <Polygon Points="0,0 -8,5,0,10" Stroke="Blue" StrokeThickness="2" Height="14" Width="11" Canvas.Left="130"  Canvas.Top="180"></Polygon>
+                <Polygon Points="0,0 8,5,0,10" Stroke="Blue" StrokeThickness="2" Height="14" Width="11" Canvas.Left="310"  Canvas.Top="180"></Polygon>-->
+
+                <Viewport3D Name="viewport2" ClipToBounds="True" Canvas.Right="100" Canvas.Top="90" Width="450" Height="250">
+                    <Viewport3D.Camera>
+                        <PerspectiveCamera Position="0,6,6" LookDirection="0,-1,-2" UpDirection="1,0,0" x:Name="Camera2"/>
+                    </Viewport3D.Camera>
+                    <ContainerUIElement3D>
+                        <ModelUIElement3D>
+                            <Model3DGroup>
+                                <GeometryModel3D>
+                                    <GeometryModel3D.Transform>
+                                        <RotateTransform3D x:Name="myTransform2"/>
+                                    </GeometryModel3D.Transform>
+                                </GeometryModel3D>
+                                <DirectionalLight Color="White" Direction="-1,-1,-1" />
+                            </Model3DGroup>
+                        </ModelUIElement3D>
+                    </ContainerUIElement3D>
+                </Viewport3D>
+                <!--<Rectangle Fill="Black" Height="36" Width="100" Margin="220,107,0,0"/>-->
+            </Canvas>
         </StackPanel>
+        
         <StackPanel Grid.Column="1" Grid.Row="2">
-            <Label Content="Panel 5"  FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+            <Label Content="Nota. Dimesiones de OLD y OSD"  FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+            <Label Content="medidas a la mitad del width de la placa"  FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+
+            <Canvas>
+                <!--Figura en 3D-->
+                <Viewport3D Name="myViewport" ClipToBounds="True" HorizontalAlignment="Center" Width="380" Height="270" Margin="25,10,0,0">
+                    <Viewport3D.Camera>
+                        <PerspectiveCamera Position="0,6,0" LookDirection="0,-6,0" UpDirection="1,0,0" x:Name="Camera"/>
+                    </Viewport3D.Camera>
+                    <ContainerUIElement3D>
+                        <ModelUIElement3D>
+                            <Model3DGroup>
+                                <GeometryModel3D>
+                                    <GeometryModel3D.Transform>
+                                        <RotateTransform3D x:Name="myTransform"/>
+                                    </GeometryModel3D.Transform>
+                                </GeometryModel3D>
+                                <DirectionalLight Color="White" Direction="-1,-1,-1" />
+                            </Model3DGroup>
+                        </ModelUIElement3D>
+                    </ContainerUIElement3D>
+                </Viewport3D>
+
+                <Ellipse Width="30" Height="30" Fill="White" Canvas.Right="110" Canvas.Top="115"/>
+                <Line Canvas.Right="45"  X2="0" Y2="220" Stroke="Blue" StrokeThickness="2" Height="Auto" Width="20" Margin="0,15,0,0"/>
+                <Polygon Points="10,0 5,8,0,0" Stroke="Blue" StrokeThickness="2" Height="14" Width="15" Canvas.Left="351"  Canvas.Top="235"></Polygon>
+                <Polygon Points="10,0 5,-8,0,0" Stroke="Blue" StrokeThickness="2" Height="14" Width="15" Canvas.Left="351"  Canvas.Top="15"></Polygon>
+                <Polygon Points="0,0 8,5,0,10" Stroke="Blue" StrokeThickness="2" Height="14" Width="11" Canvas.Left="325"  Canvas.Top="250"></Polygon>
+                <Line X1="95" Y1="20" X2="345" Y2="20" Stroke="Blue" StrokeThickness="2" Width="325" Height="30" Canvas.Top="235"/>
+                <Polygon Points="0,0 -8,5,0,10" Stroke="Blue" StrokeThickness="2" Height="14" Width="11" Canvas.Left="95"  Canvas.Top="250"></Polygon>
+                <TextBox Width="60" Margin="360,105,0,0" Text="{Binding DimensionOLD}" IsReadOnly="True"></TextBox>
+                <TextBox Width="60" Margin="180,260,0,0" Text="{Binding DimensionOSD}" IsReadOnly="True"></TextBox>
+            </Canvas>
+
         </StackPanel>
+        
         <StackPanel Grid.Column="2" Grid.Row="2">
-            <Label Content="Panel 6"  FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+            <Canvas>
+                <Label Content="Superior" FontSize="17" Margin="185,55,0,0"></Label>
+                <Label Content="Inferior" FontSize="17" Margin="185,255,0,0"></Label>
+
+                <Label Content="1" FontSize="17" Margin="125,70,0,0"></Label>
+                <Label Content="2" FontSize="17" Margin="95,165,0,0"></Label>
+                <Label Content="3" FontSize="17" Margin="75,235,0,0"></Label>
+
+                <Label Content="1" FontSize="17" Margin="295,70,0,0"></Label>
+                <Label Content="2" FontSize="17" Margin="325,165,0,0"></Label>
+                <Label Content="3" FontSize="17" Margin="345,235,0,0"></Label>
+                
+                <Line X1="95" Y1="20" X2="345" Y2="20" Stroke="Black" StrokeThickness="2" Width="345" Height="30" Canvas.Top="235"/>
+                <Line X1="205" Y1="20" X2="75" Y2="20" Stroke="Black" StrokeThickness="2" Width="345" Height="30" Canvas.Top="65" Margin="80,0"/>
+                <Line X1="85" Y1="220" X2="155" Y2="20" Stroke="Black" StrokeThickness="2" Width="345" Height="190" Canvas.Top="65"/>
+                <Line X1="355" Y1="220" X2="285" Y2="20" Stroke="Black" StrokeThickness="2" Width="345" Height="190" Canvas.Top="65"/>
+                <Line X1="2305" Y1="20" X2="75" Y2="20" Stroke="Blue" StrokeThickness="2" Width="255" Height="30" Canvas.Top="165" Margin="55,0"/>
+                <Polygon Points="0,0 -8,5,0,10" Stroke="Blue" StrokeThickness="2" Height="14" Width="11" Canvas.Left="130"  Canvas.Top="180"></Polygon>
+                <Polygon Points="0,0 8,5,0,10" Stroke="Blue" StrokeThickness="2" Height="14" Width="11" Canvas.Left="310"  Canvas.Top="180"></Polygon>
+            </Canvas>
+        </StackPanel>
+        
+        <StackPanel Grid.ColumnSpan="2" Grid.Row="3">
+            <TextBox  materialDesign:HintAssist.Hint ="Throw de placa modelo" Width="250" Text="{Binding Throw}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20" IsReadOnly="True"></TextBox>
+            <TextBox  materialDesign:HintAssist.Hint ="Status" Width="250" Text="{Binding Status}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20" IsReadOnly="True"></TextBox>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="3" Grid.Row="3">
             <DataGrid                 ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -54,10 +163,6 @@
                     <DataGridTextColumn Header="OSD" Width="110"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-        </StackPanel>
-        <StackPanel Grid.ColumnSpan="3" Grid.Row="3">
-            <TextBox  materialDesign:HintAssist.Hint ="Throw de placa modelo" Width="250" Text="{Binding Throw}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20"></TextBox>
-            <TextBox  materialDesign:HintAssist.Hint ="Status" Width="250" Text="{Binding Status}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" FontSize="20"></TextBox>
         </StackPanel>
     </Grid>
 </Controls:MetroWindow>

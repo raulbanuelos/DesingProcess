@@ -139,6 +139,31 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
+        /// Método para eliminar un documento con sello electronico
+        /// cuando se modifique su estado a pendiente por corregir
+        /// </summary>
+        /// <param name="id_version"></param>
+        /// <returns></returns>
+        public int ElimiarDocumentoSellado(int id_version)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    TBL_ARCHIVO archivo = Conexion.TBL_ARCHIVO.Where(x => x.ID_VERSION == id_version).FirstOrDefault();
+
+                    Conexion.Entry(archivo).State = EntityState.Deleted;
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
         /// Método para buscar el archivo de acuerdo a la extensión
         /// </summary>
         /// <param name="search"></param>
