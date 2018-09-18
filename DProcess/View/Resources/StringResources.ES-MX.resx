@@ -1572,4 +1572,8 @@
     <value>Ver documentos rechazados</value>
     <comment>Etiqueta de ver documentos rechazados</comment>
   </data>
+  <data name="lblDrawPattern" xml:space="preserve">
+    <value>Dibujar placa modelo</value>
+    <comment>Etiqueta para dibujar el anillo</comment>
+  </data>
 </root>

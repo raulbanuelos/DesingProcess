@@ -691,6 +691,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Draw pattern.
+        /// </summary>
+        public static string lblDrawPattern {
+            get {
+                return ResourceManager.GetString("lblDrawPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Delete.
         /// </summary>
         public static string lblEliminar {
