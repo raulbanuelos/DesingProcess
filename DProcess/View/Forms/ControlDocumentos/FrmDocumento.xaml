@@ -55,7 +55,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>
@@ -70,7 +71,6 @@
                 <ColumnDefinition Width="80"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="1" VerticalAlignment="Top" Content="{x:Static recursos:StringResources.ttlCerrarVentana}" Width="80" Command="{Binding cerrar}" Background="Red" Grid.ColumnSpan="2" Margin="540,0,10,0"></Button>
-            <Button Grid.Column="2" VerticalAlignment="Bottom" Content="{x:Static recursos:StringResources.ttlSellar}" Command="{Binding SellarDocumento}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}" Background="Blue"></Button>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
@@ -221,6 +221,21 @@
         <Grid Grid.Column="1" Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="180"></ColumnDefinition>
+                <ColumnDefinition Width="10"></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="130"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="169"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Content="{x:Static recursos:StringResources.lblPendienteCorregir}" Command="{Binding EliminarDocumntoSellado}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}}"></Button>
+            <Button Grid.Column="3" Content="{x:Static recursos:StringResources.lblRegresarVersionAnterior}" Command="{Binding RegresarVersion}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"></Button>
+            <Button Grid.Column="5"  Content="{x:Static recursos:StringResources.ttlSellar}" Command="{Binding SellarDocumento}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}}" Background="Blue"></Button>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"></ColumnDefinition>
                 <ColumnDefinition Width="{Binding WidthButton}"></ColumnDefinition>
                 <ColumnDefinition Width="180"></ColumnDefinition>
                 <ColumnDefinition Width="120"></ColumnDefinition>
@@ -230,15 +245,14 @@
                 <ColumnDefinition Width="120"></ColumnDefinition>
                 <ColumnDefinition Width="169"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Content="{Binding BotonGuardar}" Height="40"  Width="120" Grid.Column="7" Command="{Binding GuardarControl}"  Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" />
-            <Button Content="{x:Static recursos:StringResources.msgCancelar}" Height="40"  Width="100" Grid.Column="6" Command="{Binding Cancelar}"  Visibility="{Binding BttnCancelar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
-            <Button Content="{x:Static recursos:StringResources.lblGenerarVersion}" Height="40" FontSize="12" Width="130" Grid.Column="5" Command="{Binding GenerarVersion}" Visibility="{Binding BttnVersion, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
-            <Button Content="{x:Static recursos:StringResources.lblModificar}" Height="40" Width="104" Grid.Column="4"  Command="{Binding Modificar}" Visibility="{Binding BttnModificar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
-            <Button Content="{x:Static recursos:StringResources.lblEliminar}" Width="100" Grid.Column="3" Height="40"  Command="{Binding Eliminar}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
-            <Button Content="{x:Static recursos:StringResources.lblRegresarVersionAnterior}" Height="40" FontSize="12" Width="183" Grid.Column="2" Command="{Binding RegresarVersion}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"></Button>
-            <Button Grid.Column="1" Content="{x:Static recursos:StringResources.lblPendienteCorregir}" FontSize="12" Height="40" Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" ToolTip="{x:Static recursos:StringResources.lblPendienteCorregir}" Command="{Binding RegresarCorregir}"></Button>
-            <Button Content="{x:Static recursos:StringResources.lblActualizarCopias}" Grid.Column="8" Height="40" Command="{Binding ActNoCopias}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
-            <Button Content="{x:Static recursos:StringResources.lblLiberar}" Height="40" Width="100"  Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" Command="{Binding LiberarDocumento}" />
+            <Button Content="{Binding BotonGuardar}"  Width="120" Grid.Column="7" Command="{Binding GuardarControl}"  Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" />
+            <Button Content="{x:Static recursos:StringResources.msgCancelar}"  Width="100" Grid.Column="6" Command="{Binding Cancelar}"  Visibility="{Binding BttnCancelar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
+            <Button Content="{x:Static recursos:StringResources.lblGenerarVersion}" FontSize="12" Width="130" Grid.Column="5" Command="{Binding GenerarVersion}" Visibility="{Binding BttnVersion, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
+            <Button Content="{x:Static recursos:StringResources.lblModificar}"  Width="104" Grid.Column="4"  Command="{Binding Modificar}" Visibility="{Binding BttnModificar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
+            <Button Content="{x:Static recursos:StringResources.lblEliminar}" Width="100" Grid.Column="3"   Command="{Binding Eliminar}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
+            <Button Grid.Column="2" Content="{x:Static recursos:StringResources.lblPendienteCorregir}" Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" ToolTip="{x:Static recursos:StringResources.lblPendienteCorregir}" Command="{Binding RegresarCorregir}"></Button>
+            <Button Content="{x:Static recursos:StringResources.lblActualizarCopias}" Grid.Column="8" Command="{Binding ActNoCopias}" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
+            <Button Content="{x:Static recursos:StringResources.lblLiberar}"  Width="100"  Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}" Command="{Binding LiberarDocumento}" />
         </Grid>
     </Grid>
 </Controls:MetroWindow>

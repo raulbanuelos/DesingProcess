@@ -351,29 +351,12 @@ namespace View.Services.ViewModel
         /// <param name="factor"></param>
         private void calcular(string ft, double factor)
         {
-            //Inicializamos la variable que nos ayudara a verificar que la cadena solo tenga valores dobles.
-            bool Numero = false;
-
-            //Verificamos que la cadena no sea nula
-            if (!string.IsNullOrEmpty(ft))
+            bool vr = Validacion(ft);
+            if (vr == true)
             {
-                //Mandamos llamar la funcion que verifica que sean solo valores dobles
-                Numero = IsNumber(ft);
+                double valor = double.Parse(ft);
 
-                if (Numero == true) //entramos si son solo valores dobles
-                {
-                    //obtenemos el primer valor de la cadena
-                    string Cadena = ft.Substring(0, 1);
-
-                    if (Cadena != "." || ft.Length > 1)//entramos solo si la cadena tiene una longitud mayor a uno
-                    {
-                        //convertimos el valor a doble
-                        double valor = double.Parse(ft);
-
-                        //hacemos las operaciones correspondientes
-                        Fd1 = valor * factor;
-                    }
-                }
+                Fd1 = valor * factor;
             }
         }
 
@@ -384,29 +367,12 @@ namespace View.Services.ViewModel
         /// <param name="factor"></param>
         private void CalcularFD2(string fd2, double factor)
         {
-            //Inicializamos la variable que nos ayudara a verificar que la cadena solo tenga valores dobles.
-            bool Numero = false;
-
-            //verificamos que la cadena no sea nula
-            if (!string.IsNullOrEmpty(fd2))
+            bool vr = Validacion(fd2);
+            if (vr == true)
             {
-                //mandamos llamar la funcion que verifica que solo sean valores dobles
-                Numero = IsNumber(fd2);
+                double valor = double.Parse(fd2);
 
-                if (Numero == true) //entramos solo si son valores dobles
-                {
-                    //obtenemos el primer valor de la cadena
-                    string Cadena = fd2.Substring(0, 1);
-
-                    if (Cadena != "." || fd2.Length > 1)//entramos solo si la longitud de la cadena es mayor a uno
-                    {
-                        //convertimos el valor a doble
-                        double valor = double.Parse(fd2);
-
-                        //hacemos las operaciones correspondientes
-                        Ft2 = valor / factor;
-                    }
-                }
+                Ft2 = valor / factor;
             }
         }
 
@@ -524,27 +490,12 @@ namespace View.Services.ViewModel
         /// </summary>
         private void Diam(string diametro)
         {
-            //declaramos la variable que nos ayudara a verificar que sean solo valores dobles
-            bool Numero = false;
-
-            //verificamos que la cadena no sea nula
-            if (!string.IsNullOrEmpty(diametro))
+            bool vr = Validacion(diametro);
+            if (vr == true)
             {
-                //mandamos llamar la funcion para verificar que sean solo valores dobles
-                Numero = IsNumber(diametro);
-                if (Numero==true)
-                {
-                    //obtenemos el primer caracter de la cadena
-                    string Cadena = diametro.Substring(0, 1);
-
-                    if (Cadena != "." || diametro.Length>1)//solo entramos si la longitud de la cadena es mayor a 1
-                    {
-                        double diam = double.Parse(diametro);
-                        MaterialSeleccionado(diam);
-                    }
-                }
+                double diam = double.Parse(diametro);
+                MaterialSeleccionado(diam);
             }
-
         }
 
         #endregion
@@ -585,21 +536,13 @@ namespace View.Services.ViewModel
         /// <param name="TensionN"></param>
         private void Calculartension1(string TensionN)
         {
-            bool Numero = false;
-            if (!string.IsNullOrEmpty(TensionN))
+            bool vr = Validacion(TensionN);
+            if (vr == true)
             {
-                Numero = IsNumber(TensionN);
-                if (Numero == true)
-                {
-                    string Cadena = TensionN.Substring(0, 1);
-                    if (Cadena != "." || TensionN.Length>1)
-                    {
-                        double we = double.Parse(TensionN);
+                double we = double.Parse(TensionN);
 
-                        T2 = Math.Round(we / 4.448, 2);
-                        CalcularTensionDiametral1(T2);
-                    }
-                }
+                T2 = Math.Round(we / 4.448, 2);
+                CalcularTensionDiametral1(T2);
             }
         }
 
@@ -609,17 +552,11 @@ namespace View.Services.ViewModel
         /// <param name="TensionT2"></param>
         private void CalcularTensionDiametral1(double TensionT2)
         {
-            bool Numero = false;
-            string Evaluar = TensionT2.ToString();
-            Numero = IsNumber(Evaluar);
-            string Cadena = Evaluar.Substring(0, 1);
-
-            if (Numero == true)
-            {                
-                if (Cadena != "." || Evaluar.Length>1)
-                {
-                    T3 = Math.Round(TensionT2 * FactorTension, 2);
-                }
+            string CadenaEvaluar = TensionT2.ToString();
+            bool vr = Validacion(CadenaEvaluar);
+            if (vr==true)
+            {
+                T3 = Math.Round(TensionT2 * FactorTension, 2);
             }
         }
 
@@ -629,22 +566,13 @@ namespace View.Services.ViewModel
         /// <param name="TensionTanLBS"></param>
         private void CalcularTensionLBS(string TensionTanLBS)
         {
-            bool Numero = false;
-
-            if (!string.IsNullOrEmpty(TensionTanLBS))
+            bool vr = Validacion(TensionTanLBS);
+            if (vr == true)
             {
-                Numero = IsNumber(TensionTanLBS);
-                if (Numero==true)
-                {
-                    string Cadena = TensionTanLBS.Substring(0, 1);
-                    if (Cadena != "."||TensionTanLBS.Length>1)
-                    {
-                        double rr = double.Parse(TensionTanLBS);
+                double rr = double.Parse(TensionTanLBS);
 
-                        T5 = Math.Round(rr * 4.448, 2);
-                        T6 = Math.Round(rr * FactorTension, 2);
-                    }
-                }
+                T5 = Math.Round(rr * 4.448, 2);
+                T6 = Math.Round(rr * FactorTension, 2);
             }
         }
 
@@ -654,29 +582,14 @@ namespace View.Services.ViewModel
         /// <param name="TensionDN"></param>
         private void CalcularTensionD(string TensionDN)
         {
-            //declaramos la variable que nos ayudara a saber si el valor ingresado es doble
-            bool Numero = false;
-
-            //verificamos que la cadena ingresada no sea nula
-            if (!string.IsNullOrEmpty(TensionDN))
+            bool vr = Validacion(TensionDN);
+            if (vr == true)
             {
-                //Mandamos llamar el método para verificar si la cadena solo es un valor doble
-                Numero = IsNumber(TensionDN);
+                //Convertimos el valor 
+                double valor = double.Parse(TensionDN);
 
-                if (Numero == true)
-                {
-                    //obtenemos el primer valor de la cadena
-                    string Cadena = TensionDN.Substring(0, 1);
-
-                    if (Cadena != "."||TensionDN.Length>1)//solo entramos si el primer caracter es diferente de punto o si la longitud de la cadena es mayor a 1
-                    {
-                        //Convertimos el valor 
-                        double valor = double.Parse(TensionDN);
-
-                        //hacemos las operaciones correspondientes
-                        T8 = Math.Round(valor / 4.448, 2);
-                    }
-                }
+                //hacemos las operaciones correspondientes
+                T8 = Math.Round(valor / 4.448, 2);
             }
         }
 
@@ -695,6 +608,31 @@ namespace View.Services.ViewModel
 
             return reex.IsMatch(numero);
         }
+
+        /// <summary>
+        /// Función para hacer todas las validaciones para la conversión
+        /// </summary>
+        /// <returns></returns>
+        private static bool Validacion(string Cadena)
+        {
+            bool resultado = false;
+            bool ComprobacionNumero = false;
+            if (!string.IsNullOrEmpty(Cadena))
+            {
+                ComprobacionNumero = IsNumber(Cadena);
+                if (ComprobacionNumero == true)
+                {
+                    string Caracteres = Cadena.Substring(0, 1);
+
+                    if (Caracteres != "."||Cadena.Length>1)
+                    {
+                        resultado = true;
+                    }
+                }
+            }
+            return resultado;
+        }
+
         #endregion
     }
 }

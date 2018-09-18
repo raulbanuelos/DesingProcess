@@ -1218,7 +1218,18 @@ namespace Model.ControlDocumentos
             //Retornamos la lista.
             return Lista;
         }
-        
+
+        /// <summary>
+        /// Método para eliminar un documento que contenga sello electronico cuando se modifique su estado a pendiente por corregir
+        /// </summary>
+        /// <param name="id_Version"></param>
+        /// <returns></returns>
+        public static int EliminarDocumentoSellado(int id_Version)
+        {
+            SO_Archivo Archivo = new SO_Archivo();
+            return Archivo.ElimiarDocumentoSellado(id_Version);
+
+        }
         #endregion
 
         #region Rol
