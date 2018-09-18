@@ -5,6 +5,7 @@ using DataAccess.ServiceObjects.Unidades;
 using System;
 using System.Linq;
 using Model.Interfaces;
+using System.IO;
 
 namespace View.Services
 {
@@ -851,6 +852,28 @@ namespace View.Services
             fechaR = dia + "-" + mes + "-" + fecha.Year;
 
             return fechaR;
+        }
+
+        /// <summary>
+        /// Método que verifica si un archivo está siendo usado por otro programa 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static bool IsFileInUse(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentException("'path' cannot be null or empty.", "path");
+            try
+            {
+                using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read)) { }
+            }
+            catch (IOException)
+            {
+                //si el archivo está abierto, retorna verdadero
+                return true;
+            }
+            //Si el archivo no está en uso retorna falso
+            return false;
         }
     }
 }
