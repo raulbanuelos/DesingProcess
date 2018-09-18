@@ -1,8 +1,9 @@
 ﻿using MahApps.Metro.Controls;
 using System;
-using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using View.Services;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace View.Forms.Routing
 {
@@ -15,7 +16,7 @@ namespace View.Forms.Routing
         {
             InitializeComponent();
             
-            CreateCylinder(new Point3D(0.2, 0.1, 0), 1.1, 1.5, 0.29, 100, Colors.SlateGray, false);
+            CreateCylinder(new Point3D(0.2, 0.1, 0), 1.1, 1.5, .40, 100, Colors.SlateGray, false);
             CreateCylinder2(new Point3D(0, 0,0), 1.1,1.72, 0.17, 100, Colors.SlateGray, false);
         }
 
@@ -182,6 +183,75 @@ namespace View.Forms.Routing
         private void btnSalir_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             Close();
+        }
+
+        public void Rotate(double d)
+        {
+            double u = 0.05;
+            double angleD = u * d;
+            Vector3D lookDirection = camera.LookDirection;
+
+            var m = new Matrix3D();
+            m.Rotate(new Quaternion(camera.UpDirection, -angleD)); // Rotate about the camera's up direction to look left/right
+            camera.LookDirection = m.Transform(camera.LookDirection);
+        }
+
+        public void RotateVertical(double d)
+        {
+            double u = 0.05;
+            double angleD = u * d;
+           
+            Vector3D lookDirection = camera.LookDirection;
+
+            // Cross Product gets a vector that is perpendicular to the passed in vectors (order does matter, reverse the order and the vector will point in the reverse direction)
+            var cp = Vector3D.CrossProduct(camera.UpDirection, lookDirection);
+            cp.Normalize();
+
+            var m = new Matrix3D();
+            m.Rotate(new Quaternion(cp, -angleD)); // Rotate about the vector from the cross product
+            camera.LookDirection = m.Transform(camera.LookDirection);
+        }
+
+        public void Move(double d)
+        {
+            double u = 0.05;
+            //PerspectiveCamera camera = (PerspectiveCamera)Viewport3D.Camera;
+            Vector3D lookDirection = camera.LookDirection;
+            Point3D position = camera.Position;
+
+            lookDirection.Normalize();
+            position = position + u * lookDirection * d;
+
+            camera.Position = position;
+        }
+
+        private void MetroWindow_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.NumPad6)
+            {
+                Rotate(10);
+            }
+            else if (e.Key == Key.NumPad4)
+            {
+                Rotate(-10);
+            }
+            else if (e.Key == Key.NumPad8)
+            {
+                Move(-10);
+            }
+            else if (e.Key == Key.NumPad2)
+            {
+                Move(10);
+            }
+            else if (e.Key == Key.PageUp)
+            {
+                RotateVertical(10);
+            }
+            else if (e.Key == Key.PageDown)
+            {
+                RotateVertical(-10);
+            }
+
         }
     }
 }

@@ -458,28 +458,28 @@ namespace View.Services.ViewModel
             Pagina = pantallaPattern;
         }
         #endregion
-       /*
-        private void initNotifications()
-        {
-            SqlTableDependency<DO_Notification> tableDependency;
-            SqlTableDependency<DO_Historial_Documento> tableDependencyAdmin;
-            var connectionString = System.Configuration.ConfigurationManager.AppSettings["CadenaConexion"];
-            tableDependency = new SqlTableDependency<DO_Notification>(connectionString, "TBL_NOTIFICACIONES");
-            tableDependency.OnChanged += TableDependency_OnChanged;
-            tableDependency.OnError += TableDependency_OnError;
-            tableDependency.Start();
+        
+         private void initNotifications()
+         {
+             SqlTableDependency<DO_Notification> tableDependency;
+             SqlTableDependency<DO_Historial_Documento> tableDependencyAdmin;
+             var connectionString = System.Configuration.ConfigurationManager.AppSettings["CadenaConexion"];
+             tableDependency = new SqlTableDependency<DO_Notification>(connectionString, "TBL_NOTIFICACIONES");
+             tableDependency.OnChanged += TableDependency_OnChanged;
+             tableDependency.OnError += TableDependency_OnError;
+             tableDependency.Start();
 
-            //Checamos si el usuario es administrador del CIT
-            if (Module.UsuarioIsRol(ModelUsuario.Roles, 2))
-            {
-                tableDependencyAdmin = new SqlTableDependency<DO_Historial_Documento>(connectionString, "TBL_HISTORIAL_VERSION");
-                tableDependencyAdmin.OnChanged += TableDependencyAdmin_OnChanged;
-                tableDependencyAdmin.OnError += TableDependencyAdmin_OnError;
-                tableDependencyAdmin.Start();
-            }
-            
-        }   
-        */  
+             //Checamos si el usuario es administrador del CIT
+             if (Module.UsuarioIsRol(ModelUsuario.Roles, 2))
+             {
+                 tableDependencyAdmin = new SqlTableDependency<DO_Historial_Documento>(connectionString, "TBL_HISTORIAL_VERSION");
+                 tableDependencyAdmin.OnChanged += TableDependencyAdmin_OnChanged;
+                 tableDependencyAdmin.OnError += TableDependencyAdmin_OnError;
+                 tableDependencyAdmin.Start();
+             }
+
+         }   
+         
         /// <summary>
         /// Notificaciones para cuando se crea o corrigue un documento
         /// </summary>

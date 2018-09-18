@@ -143,7 +143,15 @@ namespace View.Services.ViewModel
             }
             else
             {
-                ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar(txt_buscar);
+                if (Estatus.Contains("todosPendientes"))
+                {
+                    ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(txt_buscar);
+                }
+                else
+                {
+                    ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar(txt_buscar);
+                }
+                
             }                     
         }
 
