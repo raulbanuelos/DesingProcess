@@ -15,6 +15,7 @@ using View.Forms.ControlDocumentos;
 using MahApps.Metro.Controls;
 using View.Forms.User;
 using View.Resources;
+using MahApps.Metro.IconPacks;
 
 namespace View.Services.ViewModel
 {
@@ -122,6 +123,38 @@ namespace View.Services.ViewModel
                 NotifyChange("Consultar");
             }
         }
+
+        private HamburgerMenuItemCollection _menuItems;
+        public HamburgerMenuItemCollection MenuItems
+        {
+            get
+            {
+                return _menuItems;
+            }
+            set
+            {
+                if (Equals(value, _menuItems)) return;
+                _menuItems = value;
+                //OnPropertyChanged();
+                NotifyChange("MenuItems");
+            }
+        }
+
+        private HamburgerMenuItemCollection _menuOptionItems;
+        public HamburgerMenuItemCollection MenuOptionItems
+        {
+            get
+            {
+                return _menuOptionItems;
+            }
+            set
+            {
+                if (Equals(value, _menuOptionItems)) return;
+                _menuOptionItems = value;
+                //OnPropertyChanged();
+                NotifyChange("MenuOptionItems");
+            }
+        }
         #endregion
 
         #region Contructor
@@ -138,6 +171,7 @@ namespace View.Services.ViewModel
             {
                 Consultar = true;
             }
+            CreateMenuItems();
         }
         #endregion
 
@@ -344,6 +378,45 @@ namespace View.Services.ViewModel
                 {
                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Método para general el Menú de hamburguesa
+        /// </summary>
+        public void CreateMenuItems()
+        {
+            MenuItems = new HamburgerMenuItemCollection();
+            MenuOptionItems = new HamburgerMenuItemCollection();
+
+            if (Consultar == true)
+            {
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.AccountCheck},
+                        Label = StringResources.lblAgregarUsuario,
+                        Command = AgregarUsuario,
+                    }
+                    );
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.AccountCardDetails},
+                        Label = StringResources.ttlAdministrarUsuarios,
+                        Command = ConsultarUsuarios,
+                    }
+                    );
+            }else
+            {
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.AccountCheck },
+                        Label = StringResources.lblAgregarUsuario,
+                        Command = AgregarUsuario,
+                    }
+                );
             }
         }
         #endregion

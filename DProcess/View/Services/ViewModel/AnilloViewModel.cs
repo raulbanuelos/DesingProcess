@@ -22,6 +22,8 @@ using PdfSharp;
 using System.Threading.Tasks;
 using View.Resources;
 using View.Forms.RawMaterial;
+using MahApps.Metro.Controls;
+using MahApps.Metro.IconPacks;
 
 namespace View.Services.ViewModel
 {
@@ -98,20 +100,37 @@ namespace View.Services.ViewModel
             set { panelPropiedadesLateral = value; NotifyChange("PanelPropiedadesLateral"); }
         }
 
-        private bool isOpededToogle;
-        public bool IsOpenedToogle {
+        private HamburgerMenuItemCollection _menuItems;
+        public HamburgerMenuItemCollection MenuItems
+        {
             get
             {
-                return isOpededToogle;
+                return _menuItems;
             }
             set
             {
-                isOpededToogle = value;
-                NotifyChange("IsOpenedToogle");
+                if (Equals(value, _menuItems)) return;
+                _menuItems = value;
+                //OnPropertyChanged();
+                NotifyChange("MenuItems");
             }
         }
 
-        public ObservableCollection<string> MenuItems { get; set; }
+        private HamburgerMenuItemCollection _menuOptionItems;
+        public HamburgerMenuItemCollection MenuOptionItems
+        {
+            get
+            {
+                return _menuOptionItems;
+            }
+            set
+            {
+                if (Equals(value, _menuOptionItems)) return;
+                _menuOptionItems = value;
+                //OnPropertyChanged();
+                NotifyChange("MenuOptionItems");
+            }
+        }
         #endregion
 
         #region Propiedades del Modelo Anillo
@@ -625,22 +644,19 @@ namespace View.Services.ViewModel
             ListaEspecificacionesMateriaPrima = DataManager.GetAllEspecificacionesMateriaPrima();
             ListaClientes = DataManager.GetAllClientes();
             ListaTreatment = DataManager.GetAllTreatment();
-            MenuItems = new ObservableCollection<string>();
+            
             PropiedadesOD = new ObservableCollection<NumericEntry>();
             PropiedadesID = new ObservableCollection<NumericEntry>();
             PropiedadesLateral = new ObservableCollection<NumericEntry>();
             PropiedadesPuntas = new ObservableCollection<NumericEntry>();
 
-            MenuItems.Add("New");
-            MenuItems.Add("Open");
-            MenuItems.Add("Import File");
-            MenuItems.Add("Save");
-            MenuItems.Add("SAP");
-
             //Inicializamos el plano;
             newPlano();
 
             dialogService = new DialogService();
+
+            //Mandamos llamar el metodo que genera el Menú
+            CreateMenuItems();
         }
 
         #endregion
@@ -744,22 +760,6 @@ namespace View.Services.ViewModel
             get
             {
                 return new RelayCommand(o => verListaUnidades(Mass));
-            }
-        }
-
-        public ICommand AbrirToogle
-        {
-            get
-            {
-                return new RelayCommand(o => abrirToogle());
-            }
-        }
-
-        public ICommand CerrarToogle
-        {
-            get
-            {
-                return new RelayCommand(o => cerrarToogle());
             }
         }
 
@@ -1239,9 +1239,6 @@ namespace View.Services.ViewModel
                 default:
                     break;
             }
-
-            //Cerramos el menu lateral derecho.
-            cerrarToogle();
         }
 
         /// <summary>
@@ -1301,9 +1298,6 @@ namespace View.Services.ViewModel
                                 //Ejecutamos el método el cual se encarga de asignar los valores a cada propiedad del plano.
                                 mapearPropiedad(obj);
                             }
-
-                            //Cerramos el menú.
-                            IsOpenedToogle = false;
 
                             //Enviamos un mensaje para informar que se importo el plano correctamente.
                             await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgCargaPlano + Codigo);
@@ -1782,24 +1776,6 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método que abre el menú lateral derecho de la pantalla.
-        /// </summary>
-        private void abrirToogle()
-        {
-            //Asignamos a la propiedad el valor de true. Esto abrirá el menú.
-            IsOpenedToogle = true;
-        }
-
-        /// <summary>
-        /// Método que cierra el menú lateral derecho de la pantalla.
-        /// </summary>
-        private void cerrarToogle()
-        {
-            //Asignamos a la propiedad el valor de false. Esto cerrará el menú.
-            IsOpenedToogle = false;
-        }
-
-        /// <summary>
         /// Método para generar un PDF de la ruta
         /// </summary>
         private void viewRoute()
@@ -1844,6 +1820,90 @@ namespace View.Services.ViewModel
             //Conversion.DataContext = ConversionFTDF;
 
             //Conversion.ShowDialog();
+        }
+
+        /// <summary>
+        /// Método para generar el Hamburger Menú
+        /// </summary>
+        public void CreateMenuItems()
+        {
+            MenuItems = new HamburgerMenuItemCollection();
+            MenuOptionItems = new HamburgerMenuItemCollection();
+
+            //Boton para agregar un nuevo plano
+            this.MenuItems.Add(
+                new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.File},
+                    Label = StringResources.lblNuevo,
+                    Command = NewPlano,
+                });
+            //Boton para abrir un plano exixtente
+            this.MenuItems.Add(
+                new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Folder },
+                    Label = StringResources.lblAbrir,
+                    Command = OpenPlano,
+
+                });
+            //Boton para importar un archivo xml existente
+            this.MenuItems.Add(
+                new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FileXml },
+                    Label = StringResources.lblImportarXML,
+                    Command = ImportXML,
+                });
+            //Boton para guardar los planos(sin comando)
+            this.MenuItems.Add(
+                new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.ContentSave },
+                    Label = StringResources.lblGuardar,
+                    //Command = SavePlano,
+                });
+            //Boton para calcular la ruta
+            this.MenuItems.Add(
+                new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.PlayCircle },
+                    Label = StringResources.lblCorrer,
+                    Command = CalcularRuta,
+                });
+            //Boton para calcular las dimensiones
+            this.MenuItems.Add(
+                new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Sigma },
+                    Label = StringResources.lblCalcularDimensiones,
+                    Command = OpenCalculateDimencions,
+                });
+            //Boton para ver las operaciones de la ruta en pdf
+            this.MenuItems.Add(
+                new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FilePdf },
+                    Label = StringResources.lblVerRuta,
+                    Command = ViewRoute,
+
+                });
+            //Boton para ver la ruta
+            this.MenuItems.Add(
+                new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Run },
+                    Label = StringResources.lblCalcularDimensiones,
+                    Command = ViewRouting,
+                });
+            //Boton para acceder a la pestaña de conversion Ft a Fd
+            this.MenuItems.Add(
+                new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.TooltipEdit },
+                    Label = StringResources.lblConvertir,
+                    Command = ConversionFTaFD,
+                });
         }
         #endregion
     }
