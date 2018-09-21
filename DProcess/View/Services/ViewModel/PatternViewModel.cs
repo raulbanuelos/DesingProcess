@@ -18,9 +18,7 @@ using MahApps.Metro.Controls;
 using System.Linq;
 using View.Resources;
 using OfficeOpenXml;
-using MahApps.Metro.Controls;
 using MahApps.Metro.IconPacks;
-using View.Resources;
 
 namespace View.Services.ViewModel
 {
