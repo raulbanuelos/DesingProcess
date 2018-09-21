@@ -1317,7 +1317,7 @@ namespace View.Services.ViewModel
                     double rowB = Convert.ToDouble(xlWorkSheetGraficar.Range["B" + i].Value);
                     double rowC = Convert.ToDouble(xlWorkSheetGraficar.Range["C" + i].Value);
                     double rowD = Convert.ToDouble(xlWorkSheetGraficar.Range["D" + i].Value);
-
+                    
                     cellData.Add(new object[] { rowA, rowB, rowC, rowD });
                 }
 
@@ -1333,10 +1333,12 @@ namespace View.Services.ViewModel
                     worksheet.Cells[2, 5].Value = noBarrenos;
                     worksheet.Cells[2, 6].Value = Codigo;
 
-                    FileInfo excelFile = new FileInfo(@"C:\perfilRGP\" + Codigo + "    PuntosGraficar" + ".xlsx");
+                    FileInfo excelFile = new FileInfo(@"C:\perfilRGP\" + Codigo + " " + "(" + MedidaHerramienta + ")" + ".xlsx");
+                    
                     elExcel.SaveAs(excelFile);
                 }
 
+                
 
                 xlWorkBook.Save();
 
