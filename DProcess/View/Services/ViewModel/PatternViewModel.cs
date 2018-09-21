@@ -11,6 +11,9 @@ using Model.Interfaces;
 using View.Services.Operaciones.Fundicion;
 using View.Forms.Routing;
 using MahApps.Metro.Controls.Dialogs;
+using MahApps.Metro.Controls;
+using MahApps.Metro.IconPacks;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -1011,6 +1014,37 @@ namespace View.Services.ViewModel
             set { selectedPattern = value; NotifyChange("SelectedPattern"); }
         }
 
+        private HamburgerMenuItemCollection _menuItems;
+        public HamburgerMenuItemCollection MenuItems
+        {
+            get
+            {
+                return _menuItems;
+            }
+            set
+            {
+                if (Equals(value, _menuItems)) return;
+                _menuItems = value;
+                //OnPropertyChanged();
+                NotifyChange("MenuItems");
+            }
+        }
+
+        private HamburgerMenuItemCollection _menuOptionItems;
+        public HamburgerMenuItemCollection MenuOptionItems
+        {
+            get
+            {
+                return _menuOptionItems;
+            }
+            set
+            {
+                if (Equals(value, _menuOptionItems)) return;
+                _menuOptionItems = value;
+                //OnPropertyChanged();
+                NotifyChange("MenuOptionItems");
+            }
+        }
         #endregion
 
         #region INotifyPropertyChanged Métodos
@@ -1044,6 +1078,7 @@ namespace View.Services.ViewModel
             Inicializar();
 
             model = modelPattern;
+            CreateMenuItems();
         }
 
         /// <summary>
@@ -1061,7 +1096,7 @@ namespace View.Services.ViewModel
             TipoMPList = DataManager.GetAllTipoMateriaPrima();
 
             Inicializar();
-
+            CreateMenuItems();
         }
         #endregion
 
@@ -1898,6 +1933,46 @@ namespace View.Services.ViewModel
                 }
             }
         }
+
+        /// <summary>
+        /// Método para generar el menú de hamburguesa
+        /// </summary>
+        public void CreateMenuItems()
+        {
+            MenuItems = new HamburgerMenuItemCollection();
+            MenuOptionItems = new HamburgerMenuItemCollection();
+
+            this.MenuItems.Add(
+                new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Upload },
+                    Label = StringResources.lblAlta,
+                    Command = AltaPattern,
+                });
+            this.MenuItems.Add(
+                new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.ContentSave},
+                    Label = StringResources.lblGuardar,
+                    Command = GuardarPattern,
+                });
+            this.MenuItems.Add(
+                new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Delete},
+                    Label = StringResources.lblEliminar,
+                    Command = EliminarPattern,
+                }
+                );
+            this.MenuItems.Add(
+                new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Update},
+                    Label = StringResources.lblActualizar,
+                    //Command = ActualizarPattern,
+                }
+                );
+            }
         #endregion
     }
 }

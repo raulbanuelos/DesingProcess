@@ -1,4 +1,6 @@
-﻿using Model;
+﻿using MahApps.Metro.Controls;
+using MahApps.Metro.IconPacks;
+using Model;
 using Model.ControlDocumentos;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using View.Forms.LeccionesAprendidas;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -71,6 +74,38 @@ namespace View.Services.ViewModel
         }
 
         public Usuario user;
+
+        private HamburgerMenuItemCollection _menuItems;
+        public HamburgerMenuItemCollection MenuItems
+        {
+            get
+            {
+                return _menuItems;
+            }
+            set
+            {
+                if (Equals(value, _menuItems)) return;
+                _menuItems = value;
+                //OnPropertyChanged();
+                NotifyChange("MenuItems");
+            }
+        }
+
+        private HamburgerMenuItemCollection _menuOptionItems;
+        public HamburgerMenuItemCollection MenuOptionItems
+        {
+            get
+            {
+                return _menuOptionItems;
+            }
+            set
+            {
+                if (Equals(value, _menuOptionItems)) return;
+                _menuOptionItems = value;
+                //OnPropertyChanged();
+                NotifyChange("MenuOptionItems");
+            }
+        }
         #endregion
 
         #region Constructor
@@ -122,6 +157,7 @@ namespace View.Services.ViewModel
         private void Constructor()
         {
             Lista = DataManagerControlDocumentos.GetLec("");
+            CreateMenuItems();
         }
 
         /// <summary>
@@ -164,6 +200,25 @@ namespace View.Services.ViewModel
         private void buscarleccion(string TextoBusqueda)
         {
             Lista = DataManagerControlDocumentos.GetLec(TextoBusqueda);
+        }
+
+        /// <summary>
+        /// Método para generar el menu de hamburguesa
+        /// </summary>
+        public void CreateMenuItems()
+        {
+            MenuItems = new HamburgerMenuItemCollection();
+            MenuOptionItems = new HamburgerMenuItemCollection();
+
+            //Boton para agregar una nueva lección aprendida
+            this.MenuItems.Add(
+                 new HamburgerMenuIconItem()
+                 {
+                     Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.File },
+                     Label = StringResources.lblNuevaLeccion,
+                     Command = IrNuevaLeccion,
+                 }
+            );
         }
         #endregion
     }

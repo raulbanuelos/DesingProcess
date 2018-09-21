@@ -5,6 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:View.Forms.User"
       xmlns:recursos="clr-namespace:View.Resources"
+      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      xmlns:core="clr-namespace:HamburgerMenuApp.Core;assembly=HamburgerMenuApp.Core"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:ir="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
@@ -13,80 +15,110 @@
       Title="PUser" Height="1000" Width="2000">
     <Page.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
+        <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type controls:HamburgerMenuIconItem}">
+            <Grid x:Name="RootGrid"
+                      Height="48"
+                      Background="#33a6cc">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="52" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ContentControl Grid.Column="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{Binding Icon}"
+                                    Focusable="False"
+                                    Foreground="White" />
+                <TextBlock Grid.Column="1"
+                               VerticalAlignment="Center"
+                               Cursor="Hand"
+                               FontSize="14"
+                               Foreground="White"
+                               Text="{Binding Label}" />
+            </Grid>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:HamburgerMenu}}, Path=IsPaneOpen}" Value="False">
+                    <Setter TargetName="RootGrid" Property="ToolTip" Value="{Binding ToolTip, Mode=OneWay}" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
     </Page.Resources>
-    <Grid Margin="0" Background="White">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="55"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="350"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="15"/>
-            <ColumnDefinition Width="240"/>
-            <ColumnDefinition Width="400"/>
-            <ColumnDefinition Width="1330"/>
-            <ColumnDefinition Width="15"/>
-        </Grid.ColumnDefinitions>
-        <Label Content="{x:Static recursos:StringResources.lblDatosUsuario}" FontWeight="Bold" FontSize="25" Grid.Column="2" Grid.Row="1"></Label>
-        <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,0,5,0" >
-            <Button ToolTip="{x:Static recursos:StringResources.lblAgregarUsuario}" Command="{Binding AgregarUsuario}" Cursor="Hand">
-                <materialDesign:PackIcon Kind="AccountCheck" />
-            </Button>
-            <Button ToolTip="{x:Static recursos:StringResources.ttlAdministrarUsuarios}" Command="{Binding ConsultarUsuarios}" Cursor="Hand" Visibility="{Binding Consultar,Converter={StaticResource BoolToVis}, FallbackValue=hidden}">
-                <materialDesign:PackIcon Kind="AccountCardDetails"/>
-            </Button>
-        </ToolBar>
-        <materialDesign:PackIcon Kind="AccountCircle"  Width="140" Height="140" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Margin="44,10,56,200" />
-        <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Vertical">
-            <Canvas Height="50">
-                <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblUsuario}" Text="{Binding Usuario}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" IsReadOnly="True"></TextBox>
-            </Canvas>
-            <Canvas Height="50">
-                <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombre}" Text="{Binding Nombre}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" Height="50" IsReadOnly="True"></TextBox>
-            </Canvas>
-            <Canvas Height="50">
-                <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblApellidoPaterno}" Text="{Binding ApellidPaterno}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" Height="50" IsReadOnly="True"></TextBox>
-            </Canvas>
-            <Canvas Height="50">
-                <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblApellidoMaterno}" Text="{Binding ApellidMaterno}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" Height="50" IsReadOnly="True"></TextBox>
-            </Canvas>
-            <Canvas Height="50">
-                <PasswordBox x:Name="txt_pass"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblContraseñaActual}"  Height="50"  Width="350" BorderThickness="0,0,0,1"  FontSize="18">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="PasswordChanged">
-                            <i:InvokeCommandAction
+
+    <controls:HamburgerMenu x:Name="HamburgerMenuControl"
+                                DisplayMode="CompactInline"
+                                Foreground="Black"
+                                IsPaneOpen="False"
+                                ItemsSource="{Binding MenuItems}"
+                                OptionsItemsSource="{Binding MenuOptionItems}"
+                                ItemTemplate="{StaticResource MenuItemTemplate}"
+                                OptionsItemTemplate="{StaticResource MenuItemTemplate}"
+                                PaneBackground="#33a6cc" Grid.RowSpan="3">
+
+        <Grid Margin="0" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="350"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="240"/>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="1330"/>
+                <ColumnDefinition Width="15"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="{x:Static recursos:StringResources.lblDatosUsuario}" FontWeight="Bold" FontSize="25" Grid.Column="1" Grid.Row="0"></Label>
+            <materialDesign:PackIcon Kind="AccountCircle"  Width="140" Height="140" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="44,10,56,200" />
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+                <Canvas Height="50">
+                    <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblUsuario}" Text="{Binding Usuario}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" IsReadOnly="True"></TextBox>
+                </Canvas>
+                <Canvas Height="50">
+                    <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombre}" Text="{Binding Nombre}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" Height="50" IsReadOnly="True"></TextBox>
+                </Canvas>
+                <Canvas Height="50">
+                    <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblApellidoPaterno}" Text="{Binding ApellidPaterno}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" Height="50" IsReadOnly="True"></TextBox>
+                </Canvas>
+                <Canvas Height="50">
+                    <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblApellidoMaterno}" Text="{Binding ApellidMaterno}" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" Height="50" IsReadOnly="True"></TextBox>
+                </Canvas>
+                <Canvas Height="50">
+                    <PasswordBox x:Name="txt_pass"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblContraseñaActual}"  Height="50"  Width="350" BorderThickness="0,0,0,1"  FontSize="18">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PasswordChanged">
+                                <i:InvokeCommandAction
 									Command="{Binding PasswordChanged1}"
                                      CommandParameter="{Binding ElementName=txt_pass}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </PasswordBox>
-            </Canvas>
-            <Canvas Height="50">
-                <PasswordBox x:Name="txt_Newpass"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNuevaContraseña}"  Height="50"  Width="350" BorderThickness="0,0,0,1"  FontSize="18">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="PasswordChanged">
-                            <i:InvokeCommandAction
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </PasswordBox>
+                </Canvas>
+                <Canvas Height="50">
+                    <PasswordBox x:Name="txt_Newpass"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNuevaContraseña}"  Height="50"  Width="350" BorderThickness="0,0,0,1"  FontSize="18">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PasswordChanged">
+                                <i:InvokeCommandAction
 									Command="{Binding ChangedNewPass}"
                                      CommandParameter="{Binding ElementName=txt_Newpass}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </PasswordBox>
-            </Canvas>
-            <Canvas Height="50">
-                <PasswordBox x:Name="txt_Confirmpass"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblConfirmarContraseña}"  Height="50"  Width="350" BorderThickness="0,0,0,1"  FontSize="18">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="PasswordChanged">
-                            <i:InvokeCommandAction
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </PasswordBox>
+                </Canvas>
+                <Canvas Height="50">
+                    <PasswordBox x:Name="txt_Confirmpass"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblConfirmarContraseña}"  Height="50"  Width="350" BorderThickness="0,0,0,1"  FontSize="18">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PasswordChanged">
+                                <i:InvokeCommandAction
 									Command="{Binding ChangedConfirmPass}"
                                      CommandParameter="{Binding ElementName=txt_Confirmpass}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </PasswordBox>
-            </Canvas>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </PasswordBox>
+                </Canvas>
 
-        </StackPanel>
-        <Button Grid.Column="2" Grid.Row="4" Content="{x:Static recursos:StringResources.lblModificar}" Command="{Binding ModificarPass}" Height="31" Width="95" VerticalAlignment="Top" HorizontalAlignment="Right" />
-    </Grid>
+            </StackPanel>
+            <Button Grid.Column="1" Grid.Row="3" Content="{x:Static recursos:StringResources.lblModificar}" Command="{Binding ModificarPass}" Height="31" Width="95" VerticalAlignment="Top" HorizontalAlignment="Right" />
+        </Grid>
+    </controls:HamburgerMenu>
+     
 </Page>

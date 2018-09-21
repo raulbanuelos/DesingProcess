@@ -33,9 +33,12 @@ namespace View.Forms.ControlDocumentos
         {
             InitializeComponent();
             ListaDocumentos = new ObservableCollection<Archivo>();
-
-
             //Closing += FrmDocumento_Closing;
+        }
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            HamburgerMenuControl.SelectedIndex = -1;
+            HamburgerMenuControl.SelectedOptionsIndex = -1;
         }
         /**
         private void FrmDocumento_Closing(object sender, System.ComponentModel.CancelEventArgs e)

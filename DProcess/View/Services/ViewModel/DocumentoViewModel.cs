@@ -18,6 +18,7 @@ using System.Collections;
 using View.Resources;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
+using MahApps.Metro.IconPacks;
 
 namespace View.Services.ViewModel
 {
@@ -47,6 +48,8 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Propiedades
+
+        public Documento DatosDocumento = new Documento();
 
         private string nombre;
         public string Nombre
@@ -559,6 +562,39 @@ namespace View.Services.ViewModel
 
         //Variables para guardar la información del documento, y mostar mensaje de confirmación
         private string NombreUsuarioElaboro, NombreUsuarioAut, NombreTipo, NombreDepto, auxNomUsElaboro;
+
+        private HamburgerMenuItemCollection _menuItems;
+        public HamburgerMenuItemCollection MenuItems
+        {
+            get
+            {
+                return _menuItems;
+            }
+            set
+            {
+                if (Equals(value, _menuItems)) return;
+                _menuItems = value;
+                //OnPropertyChanged();
+                NotifyChange("MenuItems");
+            }
+        }
+
+        private HamburgerMenuItemCollection _menuOptionItems;
+        public HamburgerMenuItemCollection MenuOptionItems
+        {
+            get
+            {
+                return _menuOptionItems;
+            }
+            set
+            {
+                if (Equals(value, _menuOptionItems)) return;
+                _menuOptionItems = value;
+                //OnPropertyChanged();
+                NotifyChange("MenuOptionItems");
+            }
+        }
+
         #endregion
 
         #region Constructor
@@ -611,6 +647,14 @@ namespace View.Services.ViewModel
                 EnabledEliminar = true;
                 EnabledFecha = true;
                 VersionEnabled = true;
+                //establecemos la ventana
+                string Ventana = "DocumentoLiberado";
+                //si band contiene true, significa que el documento esta liberado, caso contrario es por que esta en pendiente por corregir
+                if (band == true)
+                {
+                    //mandamos llamar el menú que lo construye
+                    CreateMenuItems(Ventana);
+                }
             }
 
             //si es ventana para corregir documento con estatus pendiente por corregir.
@@ -623,7 +667,7 @@ namespace View.Services.ViewModel
                 Fecha = selectedDocumento.version.fecha_version;
                 //Si es administrador del CIT muestra la fecha.
                 if (Module.UsuarioIsRol(User.Roles, 2))
-                    EnabledFecha = true;
+                    EnabledFecha = true;                
             }
 
             //Obtiene el nombre de documento del id
@@ -670,7 +714,7 @@ namespace View.Services.ViewModel
                     objArchivo.ruta = @"/Images/w.png";
                 }
                 ListaDocumentos.Add(objArchivo);
-            }
+            }          
         }
 
         /// <summary>
@@ -701,18 +745,6 @@ namespace View.Services.ViewModel
                 EnabledFecha = true;
                 VersionEnabled = true;
             }
-
-            //Mostramos el primer documento, sólo se admite un documento sin version por usuario
-            //if (ListaNumeroDocumento.Count > 0)
-            //    SelectedDocumento = ListaNumeroDocumento[0];
-
-            //Inicializamos los campos de tipo de documento y departamento
-            //id_dep = _selectedDocumento.id_dep;
-            //id_tipo = _selectedDocumento.id_tipo_documento;
-            //nombre = _selectedDocumento.nombre;
-            //NombreDepto = _selectedDocumento.Departamento;
-            //NombreTipo = _selectedDocumento.tipo.tipo_documento;
-
             Inicializar();
         }
 
@@ -869,7 +901,14 @@ namespace View.Services.ViewModel
                 }
                 ListaDocumentos.Add(objArchivo);
             }
+
+            //establecemos el tipo de ventana para saber que opciones del menu se vana mostrar        
+            string Ventana = "PendienteLiberar";
+            //mandamos llamar el método que construye el menú
+            CreateMenuItems(Ventana);
+
         }
+
         #endregion
 
         #region Commands
@@ -1040,6 +1079,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => getUsuarioAutorizo());
             }
         }
+
         /// <summary>
         /// Comando para sellar electronicamente un documento las copias.
         /// 
@@ -1052,6 +1092,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando para poner un documento liberado en pendiente por corregir y borrar el documento que contiene
+        /// </summary>
         public ICommand EliminarDocumntoSellado
         {
             get
@@ -2118,7 +2161,6 @@ namespace View.Services.ViewModel
 
         }
 
-
         /// <summary>
         /// Método que notifica via correo que un documento que ya se encuentra en la matríz fue sellado correctamente
         /// </summary>
@@ -2880,6 +2922,15 @@ namespace View.Services.ViewModel
             return res;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <param name="baseFont"></param>
+        /// <param name="watermarkText"></param>
+        /// <param name="waterMarkText2"></param>
+        /// <param name="waterMarkText3"></param>
+        /// <returns></returns>
         private static byte[] AddWatermark(byte[] bytes, BaseFont baseFont, string watermarkText, string waterMarkText2,string waterMarkText3)
         {
             using (var ms = new MemoryStream(10 * 1024))
@@ -2908,6 +2959,17 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pdfData"></param>
+        /// <param name="watermarkText"></param>
+        /// <param name="font"></param>
+        /// <param name="fontSize"></param>
+        /// <param name="angle"></param>
+        /// <param name="color"></param>
+        /// <param name="pos_x"></param>
+        /// <param name="pos_y"></param>
         public static void AddWaterMarkText2(PdfContentByte pdfData, string watermarkText, BaseFont font, float fontSize, float angle, BaseColor color, int pos_x, int pos_y)
         {
             var gstate = new PdfGState { FillOpacity = 1.0f, StrokeOpacity = 1.0f };
@@ -3288,13 +3350,21 @@ namespace View.Services.ViewModel
             //Obtenemos la ventana actual
             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
+            //Declaramos un objeto al cual le asignamos las propiedades que contendra el mensaje.
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
 
-            //mostramos la ventana con el campo para ingresar el nuevo numero de copias.
-            string num_copias = await window.ShowInputAsync(StringResources.msgIngNumeroCopias, StringResources.msgNumeroCopias, null);
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgActNoCopias, setting, MessageDialogStyle.AffirmativeAndNegative);
 
-            //comprobamos que el valor que obtenemos sea diferente de nulo
-            if (!string.IsNullOrEmpty(num_copias))
+            if (result == MessageDialogResult.Affirmative)
             {
+                //mostramos la ventana con el campo para ingresar el nuevo numero de copias.
+                string num_copias = await window.ShowInputAsync(StringResources.msgIngNumeroCopias, StringResources.msgNumeroCopias, null);
+
+                //comprobamos que el valor que obtenemos sea diferente de nulo
+                if (!string.IsNullOrEmpty(num_copias))
+                {
                     //comprobamos que el campo solo contenga caracteres numericos.
                     if (Regex.IsMatch(num_copias, @"^\d+$"))
                     {
@@ -3304,41 +3374,28 @@ namespace View.Services.ViewModel
                         objDocumento.id_documento = id_documento;
                         Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
 
-                        //Declaramos un objeto al cual le asignamos las propiedades que contendra el mensaje.
-                        MetroDialogSettings setting = new MetroDialogSettings();
-                        setting.AffirmativeButtonText = StringResources.lblYes;
-                        setting.NegativeButtonText = StringResources.lblNo;
+                        //ejecutamos el metodo para actualizar el numero de copias
+                        int act_cop = DataManagerControlDocumentos.UpdateNoCopias(idVersion, nuevo_copias);
 
-                        MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, setting, MessageDialogStyle.AffirmativeAndNegative);
-
-                        if (result == MessageDialogResult.Affirmative)
+                        //comprobamos que se hayan guardado los cambios con exito, y mandamos un mensaje segun sea el caso
+                        if (act_cop != 0)
                         {
-                            //ejecutamos el metodo para actualizar el numero de copias
-                            int act_cop = DataManagerControlDocumentos.UpdateNoCopias(idVersion, nuevo_copias);
-
-                            //comprobamos que se hayan guardado los cambios con exito, y mandamos un mensaje segun sea el caso
-                            if (act_cop != 0)
-                            {
-                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
-                                //despues de haber dado aceptar, se inicia el metodo para actualizar el campo de numero de copias.
-                                NoCopias = DataManagerControlDocumentos.GetCopias(idVersion);
-                            }
-                            else
-                            {
-                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorGeneral);
-                            }
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
+                            //despues de haber dado aceptar, se inicia el metodo para actualizar el campo de numero de copias.
+                            NoCopias = DataManagerControlDocumentos.GetCopias(idVersion);
                         }
                     }
                     else
                     {
                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCamposInvalidos);
                     }
+                }
+                else
+                {
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
+                }
             }
-            else
-            {
-                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
-            }
-            }
+        }
 
         /// <summary>
         /// Método que modifica la versión
@@ -3561,6 +3618,10 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Método para eliminar el documento con sello electronico cuando se cambie el estado
+        /// a pendiente por corregir
+        /// </summary>
         private async void EliminarDocumentoSellado()
         {
             DialogService dialog = new DialogService();
@@ -3676,6 +3737,91 @@ namespace View.Services.ViewModel
                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusVersion);
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Método que genera el Menú
+        /// </summary>
+        /// <param name="r"></param>
+        /// <param name="Habilitado"></param>
+        public void CreateMenuItems(string Ventana)
+        {
+            MenuItems = new HamburgerMenuItemCollection();
+            MenuOptionItems = new HamburgerMenuItemCollection();
+
+            switch (Ventana)
+            {
+                case "PendienteLiberar":
+                    //Libera un documento
+                    this.MenuItems.Add(
+                         new HamburgerMenuIconItem()
+                         {
+                             Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.AirplaneTakeoff },
+                             Label = StringResources.lblLiberar,
+                             Command = LiberarDocumento,
+                         }
+                        );
+                    
+                    this.MenuItems.Add(
+                        new HamburgerMenuIconItem()
+                        {
+                            Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.KeyboardReturn },
+                            Label = StringResources.lblPendienteCorregir,
+                            Command = RegresarCorregir,
+                        }
+                    );
+                    break;
+
+                case "DocumentoLiberado":
+                    //Regresa la versión anterior de un documento si es que tiene
+                    this.MenuItems.Add(
+                        new HamburgerMenuIconItem()
+                        {
+                            Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FormatRotate90 },
+
+                            Label = StringResources.lblRegresarVersionAnterior,
+                            Command = RegresarVersion,
+                        }
+                    );
+                    //Elimina el registro del documento
+                    this.MenuItems.Add(
+                        new HamburgerMenuIconItem()
+                        {
+                            Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Delete },
+                            Label = StringResources.lblEliminar,
+                            Command = Eliminar,
+                        }
+                    );
+                    //Verificamos si el documento ya esta liberado o no
+                        //si ya esta liberado se elimina el documento con el sello electronico y se modifica el estatus a pendiente por corregir
+                    this.MenuItems.Add(
+                        new HamburgerMenuIconItem()
+                        {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.KeyboardReturn },
+                        Label = StringResources.lblPendienteCorregir,
+                        Command = EliminarDocumntoSellado,
+                        }
+                    );
+                    //Sella electronicamente un documento
+                    this.MenuItems.Add(
+                        new HamburgerMenuIconItem()
+                        {
+                            Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Seal },
+                            Label = StringResources.ttlSellar,
+                            Command = SellarDocumento,
+                        }
+                        );
+                    //Sella electronicamente un documento
+                    this.MenuItems.Add(
+                        new HamburgerMenuIconItem()
+                        {
+                            Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Update },
+                            Label = StringResources.lblActualizarCopias,
+                            Command = ActNoCopias,
+                        }
+                        );
+                    break;
             }
         }
         #endregion

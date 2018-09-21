@@ -11,6 +11,8 @@ using Encriptar;
 using System.Globalization;
 using View.Forms.LeccionesAprendidas;
 using View.Resources;
+using MahApps.Metro.Controls;
+using MahApps.Metro.IconPacks;
 
 namespace View.Services.ViewModel
 {
@@ -221,6 +223,38 @@ namespace View.Services.ViewModel
                 NotifyChange("TextoBuscar");
             }
         }
+
+        private HamburgerMenuItemCollection _menuItems;
+        public HamburgerMenuItemCollection MenuItems
+        {
+            get
+            {
+                return _menuItems;
+            }
+            set
+            {
+                if (Equals(value, _menuItems)) return;
+                _menuItems = value;
+                //OnPropertyChanged();
+                NotifyChange("MenuItems");
+            }
+        }
+
+        private HamburgerMenuItemCollection _menuOptionItems;
+        public HamburgerMenuItemCollection MenuOptionItems
+        {
+            get
+            {
+                return _menuOptionItems;
+            }
+            set
+            {
+                if (Equals(value, _menuOptionItems)) return;
+                _menuOptionItems = value;
+                //OnPropertyChanged();
+                NotifyChange("MenuOptionItems");
+            }
+        }
         #endregion
 
         #region Constructors
@@ -236,6 +270,7 @@ namespace View.Services.ViewModel
             {
                 BttnEnabled = true;
             }
+            CreateMenuItems();
         }
         #endregion
 
@@ -1067,6 +1102,177 @@ namespace View.Services.ViewModel
             Lista = DataManagerControlDocumentos.GetDataGrid(SelectedTipoDocumento.id_tipo, TextoBusqueda);
         } 
 
+        /// <summary>
+        /// Método para generar el Hamburger menú
+        /// </summary>
+        public void CreateMenuItems()
+        {
+            MenuItems = new HamburgerMenuItemCollection();
+            MenuOptionItems = new HamburgerMenuItemCollection();
+
+            //verificamos que el usuario sea administrador
+            if (BttnEnabled == true)
+            {
+                //si es administrador se agregan todos los botones
+                //Nuevo Documento
+                this.MenuItems.Add(
+                     new HamburgerMenuIconItem()
+                     {
+                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.File },
+                         Label = StringResources.lblNuevoDocumento,
+                         Command = IrNuevoDocumento,
+                     }
+                    );
+                //Exportar a excel
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FileExcel},
+                        Label = StringResources.lblExportar,
+                        Command = Exportar,
+                    }
+                    );
+                //Buscar Documentos
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FileFind },
+                        Label = StringResources.lblBuscarDocumento,
+                        Command = IrBusquedaDocumento,
+                    }
+                    );
+                //Agrgar tipo de documento
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FolderPlus },
+                        Label = StringResources.lblAgregarTipo,
+                        Command = AgregarTipo,
+                    }
+                    );
+                //Agregar departamento
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.PlusBox },
+                        Label = StringResources.lblAgregarDepartamento,
+                        Command = AgregarDepartamento,
+                    }
+                    );
+                //Bloquear sistema
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.TimerOff },
+                        Label = StringResources.lblBloquearSistema,
+                        Command = IrBloquear,
+                    }
+                    );
+                //Ver documentos rechazados
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FileRestore },
+                        Label = StringResources.lblViewDocumentosRechazados,
+                        Command = irDocumentosPendientesCorregir,
+                    }
+                    );
+                //Ver recursos o formatos para elaborar los documentos
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.LinkVariant },
+                        Label = StringResources.lblVerRecurso,
+                        Command = IrRecursos,
+                    }
+                    );
+                //Ver historial filtrado
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.History },
+                        Label = StringResources.lblVerHistorial,
+                        Command = IrHistorial,
+                    }
+                    );
+                //Ver historial sin filtrar
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FilterVariant },
+                        Label = StringResources.lblHistorial,
+                        Command = IrHistorialFiltrado,
+                    }
+                    );
+                //ver documentos eliminados
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.DeleteVariant },
+                        Label = StringResources.lblDocumentosEliminados,
+                        Command = irDocEliminado,
+                    }
+                    );
+            }
+            else
+            {
+                //si el usuario no es administrador solo se muestran los siguientes botones
+                this.MenuItems.Add(
+                    //Nuevo documento
+                    new HamburgerMenuIconItem()
+                    {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.File },
+                    Label = StringResources.lblNuevoDocumento,
+                    Command = IrNuevoDocumento,
+                    }
+                );
+                //Exportar excel
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FileExcel },
+                        Label = StringResources.lblExportar,
+                        Command = Exportar,
+                    }
+                );
+                //Ver recursos
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.LinkVariant },
+                        Label = StringResources.lblVerRecurso,
+                        Command = IrRecursos,
+                    }
+                );
+                //Ver historial filtrado
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.History },
+                        Label = StringResources.lblVerHistorial,
+                        Command = IrHistorial,
+                    }
+                );
+                //Ver historial sin filtrar
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FilterVariant },
+                        Label = StringResources.lblHistorial,
+                        Command = IrHistorialFiltrado,
+                    }
+                );
+                //Ver documentos eliminados
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.DeleteVariant },
+                        Label = StringResources.lblDocumentosEliminados,
+                        Command = irDocEliminado,
+                    }
+                );
+            }
+        }
         #endregion
     }
 }

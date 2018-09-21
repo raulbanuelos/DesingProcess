@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
+      xmlns:core="clr-namespace:HamburgerMenuApp.Core;assembly=HamburgerMenuApp.Core"
+      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       xmlns:recursos="clr-namespace:View.Resources"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
@@ -13,181 +15,138 @@
       Height="Auto" Width="Auto">
     <Page.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type controls:HamburgerMenuIconItem}">
+            <Grid x:Name="RootGrid"
+                      Height="48"
+                      Background="#33a6cc">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="52" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ContentControl Grid.Column="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{Binding Icon}"
+                                    Focusable="False"
+                                    Foreground="White" />
+                <TextBlock Grid.Column="1"
+                               VerticalAlignment="Center"
+                               Cursor="Hand"
+                               FontSize="14"
+                               Foreground="White"
+                               Text="{Binding Label}" />
+            </Grid>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:HamburgerMenu}}, Path=IsPaneOpen}" Value="False">
+                    <Setter TargetName="RootGrid" Property="ToolTip" Value="{Binding ToolTip, Mode=OneWay}" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
     </Page.Resources>
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" >
-        <Grid ShowGridLines="False" Margin="0" Background="White">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="85"/>
-                <RowDefinition Height="80"/>
-                <RowDefinition Height="145"/>
-                <RowDefinition Height="110*"/>
-                <RowDefinition Height="50"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="98*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-
-            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" Grid.Row="0" Grid.Column="1">
-                <Button ToolTip="{x:Static recursos:StringResources.lblNuevoDocumento}" Command="{Binding IrNuevoDocumento}" Cursor="Hand">
-                    <materialDesign:PackIcon Kind="File" />
-                </Button>
-
-                <Separator></Separator>
-
-                <Button ToolTip="{x:Static recursos:StringResources.lblExportar}" Command="{Binding Exportar}" Cursor="Hand">
-                    <materialDesign:PackIcon Kind="FileExcel" />
-                </Button>
-
-                <Separator></Separator>
-
-                <Button ToolTip="{x:Static recursos:StringResources.lblBuscarDocumento}"  Cursor="Hand" Command="{Binding IrBusquedaDocumento}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}">
-                    <materialDesign:PackIcon Kind="FileFind"/>
-                </Button>
-
-                <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
-
-                <Button ToolTip="{x:Static recursos:StringResources.lblAgregarTipo}" Command="{Binding AgregarTipo}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
-                    <materialDesign:PackIcon Kind="FolderPlus" />
-                </Button>
-
-                <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
-
-                <Button ToolTip="{x:Static recursos:StringResources.lblAgregarDepartamento}" Command="{Binding AgregarDepartamento}" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
-                    <materialDesign:PackIcon Kind="PlusBox" />
-                </Button>
-
-                <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
-
-                <Button ToolTip="{x:Static recursos:StringResources.lblBloquearSistema}" Command="{Binding IrBloquear }" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
-                    <materialDesign:PackIcon Kind="TimerOff" />
-                </Button>
-
-                <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
-
-                <Button ToolTip="{x:Static recursos:StringResources.lblViewDocumentosRechazados}" Command="{Binding irDocumentosPendientesCorregir }" Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}" Cursor="Hand">
-                    <materialDesign:PackIcon Kind="FileRestore" />
-                </Button>
-
-                <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
-
-                <Button ToolTip="{x:Static recursos:StringResources.lblVerRecurso}" Command="{Binding IrRecursos}" Cursor="Hand">
-                    <materialDesign:PackIcon Kind="LinkVariant" />
-                </Button>
-
-                <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
-
-                <Button ToolTip="{x:Static recursos:StringResources.lblVerHistorial}" Command="{Binding IrHistorial}" Cursor="Hand">
-                    <materialDesign:PackIcon Kind="History" />
-                </Button>
-
-                <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
-
-                <Button ToolTip="{x:Static recursos:StringResources.lblHistorial}" Command="{Binding IrHistorialFiltrado}" Cursor="Hand">
-                    <materialDesign:PackIcon Kind="FilterVariant" />
-                </Button>
-
-                <Separator Visibility="{Binding BttnEnabled, Converter={StaticResource BoolToVis}}"></Separator>
-
-                <Button ToolTip="{x:Static recursos:StringResources.lblDocumentosEliminados}" Command="{Binding irDocEliminado}" Cursor="Hand">
-                    <materialDesign:PackIcon Kind="DeleteVariant"/>
-                </Button>
-
-                <Separator Visibility="Hidden"></Separator>
-
-                <Button ToolTip="{x:Static recursos:StringResources.lblGenerarNumeroDocumento}" Command="{Binding Generador}" Cursor="Hand" Visibility="Hidden">
-                    <materialDesign:PackIcon Kind="FileDocument" />
-                </Button>
+    <controls:HamburgerMenu x:Name="HamburgerMenuControl"
+                                DisplayMode="CompactInline"
+                                Foreground="Black"
+                                IsPaneOpen="False"
+                                ItemsSource="{Binding MenuItems}"
+                                OptionsItemsSource="{Binding MenuOptionItems}"
+                                ItemTemplate="{StaticResource MenuItemTemplate}"
+                                OptionsItemTemplate="{StaticResource MenuItemTemplate}"
+                                PaneBackground="#33a6cc" Grid.RowSpan="3">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" >
+            <Grid ShowGridLines="False" Margin="0" Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="145"/>
+                    <RowDefinition Height="110*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="98*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
                 
-                <Separator Visibility="Hidden"></Separator>
+                <Label x:Name="label" Content="{x:Static recursos:StringResources.ttlMatrizControlDocumento}" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="0"/>
 
-                <Button ToolTip="{x:Static recursos:StringResources.lblNuevoDocumento}" Command="{Binding IrValidacionTipoDocumento}" Visibility="Hidden" Cursor="Hand">
-                    <materialDesign:PackIcon Kind="FormatListBulletedType"/>
-                </Button>
-                
-            </ToolBar>
-            
-            <Label x:Name="label" Content="{x:Static recursos:StringResources.ttlMatrizControlDocumento}" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="1"/>
-
-            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical">
-                <TextBlock TextWrapping="WrapWithOverflow" TextAlignment="Center"  x:Name="label1" Text="MAHLE COMPONENTES DE MOTOR DE MEXICO S. DE R. L. DE C.V." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="28"/>
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                    <TextBlock TextWrapping="WrapWithOverflow" TextAlignment="Center"  x:Name="label1" Text="MAHLE COMPONENTES DE MOTOR DE MEXICO S. DE R. L. DE C.V." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="28"/>
                     <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
-                    <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" Text="{Binding TextoBuscar}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="TextChanged">
-                                <i:InvokeCommandAction
+                        <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" Text="{Binding TextoBuscar}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction
 									Command="{Binding BuscarDocumentos}"
                                     CommandParameter="{Binding ElementName=txt_busqueda, Path=Text}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </TextBox>
-                    <ComboBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblTipoDocumento}" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="500" ItemsSource="{Binding ListaTipoDocumento}"  DisplayMemberPath="tipo_documento" SelectedItem="{Binding SelectedTipoDocumento}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                        <ComboBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblTipoDocumento}" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="500" ItemsSource="{Binding ListaTipoDocumento}"  DisplayMemberPath="tipo_documento" SelectedItem="{Binding SelectedTipoDocumento}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction
 									Command="{Binding ConsultarDocumentos}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </ComboBox>
-                    <StackPanel Width="439" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Label Content="Total:" FontSize="14" HorizontalAlignment="Center" Width="43"/>
-                        <Label FontSize="14" FontWeight="Bold" Content="{Binding Lista.Count}"  HorizontalAlignment="Right" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+                        <StackPanel Width="439" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Label Content="Total:" FontSize="14" HorizontalAlignment="Center" Width="43"/>
+                            <Label FontSize="14" FontWeight="Bold" Content="{Binding Lista.Count}"  HorizontalAlignment="Right" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Width="300" Orientation="Horizontal" Margin="10 0 0 0" HorizontalAlignment="Left">
+                        <Label Content="{x:Static recursos:StringResources.lblNumeroMatriz}" FontSize="14" Width="130"></Label>
+                        <Label Content="{Binding SelectedTipoDocumento.num_matriz}" HorizontalAlignment="Right" Width="149" FontSize="14"></Label>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Width="300" Orientation="Horizontal" Margin="10 0 0 0" HorizontalAlignment="Left">
-                    <Label Content="{x:Static recursos:StringResources.lblNumeroMatriz}" FontSize="14" Width="130"></Label>
-                    <Label Content="{Binding SelectedTipoDocumento.num_matriz}" HorizontalAlignment="Right" Width="149" FontSize="14"></Label>
-                </StackPanel>
-            </StackPanel>
 
-            <DataGrid x:Name="dataGrid" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblNumeroDocumento}"/>
-                    <DataGridTextColumn Binding="{Binding descripcion}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblDescripcion}" Width="Auto"/>
-                    <DataGridTextColumn Binding="{Binding version.no_version}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblVersion}"/>
-                    <!--<DataGridTextColumn Binding="{Binding fecha_emision, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaEmision}"/>-->
-                    <DataGridTextColumn Binding="{Binding fecha_actualizacion, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaRevision}"/>
-                    <DataGridTextColumn Binding="{Binding Departamento}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblArea}"/>
-                    <DataGridTextColumn Binding="{Binding version.nombre_usuario_elaboro}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblUsuarioElaboro}"/>
-                    <DataGridTextColumn Binding="{Binding version.nombre_usuario_autorizo}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblUsuarioAutorizo}"/>
-                    <DataGridTextColumn Binding="{Binding version.no_copias}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblNumeroCopias}"/>
-                </DataGrid.Columns>
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDoubleClick">
-                        <i:InvokeCommandAction Command="{Binding EditarDocumento}"
+                <DataGrid x:Name="dataGrid" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblNumeroDocumento}"/>
+                        <DataGridTextColumn Binding="{Binding descripcion}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblDescripcion}" Width="Auto"/>
+                        <DataGridTextColumn Binding="{Binding version.no_version}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblVersion}"/>
+                        <!--<DataGridTextColumn Binding="{Binding fecha_emision, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaEmision}"/>-->
+                        <DataGridTextColumn Binding="{Binding fecha_actualizacion, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaRevision}"/>
+                        <DataGridTextColumn Binding="{Binding Departamento}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblArea}"/>
+                        <DataGridTextColumn Binding="{Binding version.nombre_usuario_elaboro}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblUsuarioElaboro}"/>
+                        <DataGridTextColumn Binding="{Binding version.nombre_usuario_autorizo}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblUsuarioAutorizo}"/>
+                        <DataGridTextColumn Binding="{Binding version.no_copias}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblNumeroCopias}"/>
+                    </DataGrid.Columns>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding EditarDocumento}"
                              CommandParameter="{Binding extension}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </DataGrid>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </DataGrid>
 
-            <Canvas Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Canvas Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
-            <Grid Grid.Column="1" Grid.Row="4" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="25*"/>
-                    <ColumnDefinition Width="25*"/>
-                    <ColumnDefinition Width="25*"/>
-                    <ColumnDefinition Width="25*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
-                </Grid.RowDefinitions>
-                <materialDesign:Snackbar  IsActive="{Binding EnabledCorregir}" Height="51" Width="390" Grid.Column="0" HorizontalAlignment="Left">
-                    <materialDesign:SnackbarMessage Content="{Binding DocumentosCorregir}" ActionContent="Ver" ActionCommand="{Binding DocumentosPendientes}"/>
-                </materialDesign:Snackbar>
-                <materialDesign:Snackbar IsActive="{Binding EnabledPendientes_Liberar}" Height="51" Width="390" HorizontalAlignment="Left"  Grid.Column="1">
-                    <materialDesign:SnackbarMessage Content="{Binding PendientesLiberar}" ActionContent="Ver" ActionCommand="{Binding irPendientesLiberar}"></materialDesign:SnackbarMessage>
-                </materialDesign:Snackbar>
-                <materialDesign:Snackbar  IsActive="{Binding EnabledValidar}" Height="51" Width="390" Grid.Column="2" HorizontalAlignment="Left">
-                    <materialDesign:SnackbarMessage Content="{Binding DocumentosValidar}" ActionContent="Ver" ActionCommand="{Binding IrDocumentosValidar}"/>
-                </materialDesign:Snackbar>
-                <materialDesign:Snackbar  IsActive="{Binding EnabledAprobados}" Height="51" Width="380" Grid.Column="3" HorizontalAlignment="Left">
-                    <materialDesign:SnackbarMessage Content="{Binding DocumentosAprobados}" ActionContent="Ver" ActionCommand="{Binding IrDocumentosAprobados}"/>
-                </materialDesign:Snackbar>
+                <Grid Grid.Column="1" Grid.Row="3" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="25*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                    </Grid.RowDefinitions>
+                    <materialDesign:Snackbar  IsActive="{Binding EnabledCorregir}" Height="51" Width="390" Grid.Column="0" HorizontalAlignment="Left">
+                        <materialDesign:SnackbarMessage Content="{Binding DocumentosCorregir}" ActionContent="Ver" ActionCommand="{Binding DocumentosPendientes}"/>
+                    </materialDesign:Snackbar>
+                    <materialDesign:Snackbar IsActive="{Binding EnabledPendientes_Liberar}" Height="51" Width="390" HorizontalAlignment="Left"  Grid.Column="1">
+                        <materialDesign:SnackbarMessage Content="{Binding PendientesLiberar}" ActionContent="Ver" ActionCommand="{Binding irPendientesLiberar}"></materialDesign:SnackbarMessage>
+                    </materialDesign:Snackbar>
+                    <materialDesign:Snackbar  IsActive="{Binding EnabledValidar}" Height="51" Width="390" Grid.Column="2" HorizontalAlignment="Left">
+                        <materialDesign:SnackbarMessage Content="{Binding DocumentosValidar}" ActionContent="Ver" ActionCommand="{Binding IrDocumentosValidar}"/>
+                    </materialDesign:Snackbar>
+                    <materialDesign:Snackbar  IsActive="{Binding EnabledAprobados}" Height="51" Width="380" Grid.Column="3" HorizontalAlignment="Left">
+                        <materialDesign:SnackbarMessage Content="{Binding DocumentosAprobados}" ActionContent="Ver" ActionCommand="{Binding IrDocumentosAprobados}"/>
+                    </materialDesign:Snackbar>
+                </Grid>
+
+                <Image x:Name="image" Height="65" VerticalAlignment="Top" Source="/View;component/Images/MahleRight.png" Grid.Column="1"  Grid.Row="1" Width="184" Margin="900,0,0,0"/>
             </Grid>
-
-            <Image x:Name="image" HorizontalAlignment="Right" Height="65" VerticalAlignment="Top" Source="/View;component/Images/MahleRight.png" Grid.Column="1"  Grid.Row="1" Width="184"/>
-        </Grid>
-    </ScrollViewer>
+        </ScrollViewer>
+    </controls:HamburgerMenu>
 </Page>

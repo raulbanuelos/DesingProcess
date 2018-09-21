@@ -1572,4 +1572,10 @@
     <value>Ver documentos rechazados</value>
     <comment>Etiqueta de ver documentos rechazados</comment>
   </data>
+  <data name="msgActNoCopias" xml:space="preserve">
+    <value>¿Desea actualizar el número de copias?</value>
+  </data>
+  <data name="lblConvertir" xml:space="preserve">
+    <value>Convertir</value>
+  </data>
 </root>

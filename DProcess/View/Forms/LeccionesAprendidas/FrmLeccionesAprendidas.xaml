@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Forms.LeccionesAprendidas"
         xmlns:recursos="clr-namespace:View.Resources"
+        xmlns:core="clr-namespace:HamburgerMenuApp.Core;assembly=HamburgerMenuApp.Core"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d" 
@@ -13,79 +15,100 @@
         Height="Auto" Width="Auto">
     <Page.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type controls:HamburgerMenuIconItem}">
+            <Grid x:Name="RootGrid"
+                      Height="48"
+                      Background="#33a6cc">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="52" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ContentControl Grid.Column="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{Binding Icon}"
+                                    Focusable="False"
+                                    Foreground="White" />
+                <TextBlock Grid.Column="1"
+                               VerticalAlignment="Center"
+                               Cursor="Hand"
+                               FontSize="14"
+                               Foreground="White"
+                               Text="{Binding Label}" />
+            </Grid>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:HamburgerMenu}}, Path=IsPaneOpen}" Value="False">
+                    <Setter TargetName="RootGrid" Property="ToolTip" Value="{Binding ToolTip, Mode=OneWay}" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
     </Page.Resources>
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" >
-        <Grid ShowGridLines="False" Margin="0" Background="White">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="85"/>
-                <RowDefinition Height="80"/>
-                <RowDefinition Height="145"/>
-                <RowDefinition Height="110*"/>
-                <RowDefinition Height="50"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="98*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" Grid.Row="0" Grid.Column="1">
-                <Button ToolTip="{x:Static recursos:StringResources.lblNuevaLeccion}" Command="{Binding IrNuevaLeccion}" Cursor="Hand">
-                    <materialDesign:PackIcon Kind="File" />
-                </Button>
-                <Separator></Separator>
-            </ToolBar>
-            <Label x:Name="label" Content="{x:Static recursos:StringResources.ttlMatrizLeccionesAprendidas}" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="1"/>
-            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical">
-                <TextBlock TextWrapping="WrapWithOverflow" TextAlignment="Center"  x:Name="label1" Text="MAHLE COMPONENTES DE MOTOR DE MEXICO S. DE R. L. DE C.V." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="28"/>
-                <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
-                    <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="TextChanged">
-                                <i:InvokeCommandAction
+
+    <controls:HamburgerMenu x:Name="HamburgerMenuControl"
+                                DisplayMode="CompactInline"
+                                Foreground="Black"
+                                IsPaneOpen="False"
+                                ItemsSource="{Binding MenuItems}"
+                                OptionsItemsSource="{Binding MenuOptionItems}"
+                                ItemTemplate="{StaticResource MenuItemTemplate}"
+                                OptionsItemTemplate="{StaticResource MenuItemTemplate}"
+                                PaneBackground="#33a6cc" Grid.RowSpan="3">
+
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" >
+            <Grid ShowGridLines="False" Margin="0" Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="145"/>
+                    <RowDefinition Height="110*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="98*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="label" Content="{x:Static recursos:StringResources.ttlMatrizLeccionesAprendidas}" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="0"/>
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                    <TextBlock TextWrapping="WrapWithOverflow" TextAlignment="Center"  x:Name="label1" Text="MAHLE COMPONENTES DE MOTOR DE MEXICO S. DE R. L. DE C.V." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="28"/>
+                    <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
+                        <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction
 									Command="{Binding BuscarLeccion}"
                                     CommandParameter="{Binding ElementName=txt_busqueda, Path=Text}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </TextBox>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
-            <DataGrid x:Name="dataGrid" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedLeccion,Mode=TwoWay}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding ID_LECCIONES_APRENDIDAS}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblNombreUsuario}" Visibility="Hidden"/>
-                    <DataGridTextColumn Binding="{Binding COMPONENTE}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblComponente}" Width="Auto"/>
-                    <DataGridTextColumn Binding="{Binding CAMBIO_REQUERIDO}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCambioRequerido}" Width="Auto"/>
-                    <DataGridTextColumn Binding="{Binding NIVEL_DE_CAMBIO}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblNivelCambio}"  Width="Auto"/>
-                    <DataGridTextColumn Binding="{Binding CENTRO_DE_TRABAJO}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCentroTrabajo}"  Width="Auto"/>
-                    <DataGridTextColumn Binding="{Binding OPERACION}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblOperacion}"  Width="Auto"/>
-                    <DataGridTextColumn Binding="{Binding DESCRIPCION_PROBLEMA}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblDescripcionProblema}" Width="auto"/>
-                    <DataGridTextColumn Binding="{Binding FECHA_ULTIMO_CAMBIO, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaUltimoCambio}"/>
-                    <DataGridTextColumn Binding="{Binding FECHA_ACTUALIZACION, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaActualizacion}"/>
-                    <DataGridTextColumn Binding="{Binding REPORTADO_POR}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblReportadoPor}"  Width="Auto"/>
-                    <DataGridTextColumn Binding="{Binding SOLICITUD_DE_TRABAJO}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblSolicitudTrabajoIng}"  Width="Auto"/>
-                    <DataGridTextColumn Binding="{Binding CRITERIO_1}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCriterio}"  Width="Auto"/>
-                    <DataGridTextColumn Binding="{Binding NombreCompleto}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCambioRealizadoPor}"/>
-                </DataGrid.Columns>
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDoubleClick">
-                        <i:InvokeCommandAction Command="{Binding EditarLeccion}"
+                <DataGrid x:Name="dataGrid" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedLeccion,Mode=TwoWay}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding ID_LECCIONES_APRENDIDAS}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblNombreUsuario}" Visibility="Hidden"/>
+                        <DataGridTextColumn Binding="{Binding COMPONENTE}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblComponente}" Width="Auto"/>
+                        <DataGridTextColumn Binding="{Binding CAMBIO_REQUERIDO}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCambioRequerido}" Width="Auto"/>
+                        <DataGridTextColumn Binding="{Binding NIVEL_DE_CAMBIO}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblNivelCambio}"  Width="Auto"/>
+                        <DataGridTextColumn Binding="{Binding CENTRO_DE_TRABAJO}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCentroTrabajo}"  Width="Auto"/>
+                        <DataGridTextColumn Binding="{Binding OPERACION}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblOperacion}"  Width="Auto"/>
+                        <DataGridTextColumn Binding="{Binding DESCRIPCION_PROBLEMA}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblDescripcionProblema}" Width="auto"/>
+                        <DataGridTextColumn Binding="{Binding FECHA_ULTIMO_CAMBIO, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaUltimoCambio}"/>
+                        <DataGridTextColumn Binding="{Binding FECHA_ACTUALIZACION, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaActualizacion}"/>
+                        <DataGridTextColumn Binding="{Binding REPORTADO_POR}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblReportadoPor}"  Width="Auto"/>
+                        <DataGridTextColumn Binding="{Binding SOLICITUD_DE_TRABAJO}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblSolicitudTrabajoIng}"  Width="Auto"/>
+                        <DataGridTextColumn Binding="{Binding CRITERIO_1}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCriterio}"  Width="Auto"/>
+                        <DataGridTextColumn Binding="{Binding NombreCompleto}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCambioRealizadoPor}"/>
+                    </DataGrid.Columns>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding EditarLeccion}"
                              CommandParameter="{Binding extension}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </DataGrid>
-            <Canvas Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Grid Grid.Column="1" Grid.Row="4" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="25*"/>
-                    <ColumnDefinition Width="25*"/>
-                    <ColumnDefinition Width="25*"/>
-                    <ColumnDefinition Width="25*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
-                </Grid.RowDefinitions>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </DataGrid>
+                <Canvas Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Image x:Name="image" HorizontalAlignment="Right" Height="65" VerticalAlignment="Top" Source="/View;component/Images/MahleRight.png" Grid.Column="1"  Grid.Row="1" Width="184"/>
             </Grid>
-            <Image x:Name="image" HorizontalAlignment="Right" Height="65" VerticalAlignment="Top" Source="/View;component/Images/MahleRight.png" Grid.Column="1"  Grid.Row="1" Width="184"/>
-        </Grid>
-    </ScrollViewer>
+        </ScrollViewer>
+    </controls:HamburgerMenu>
 </Page>
 

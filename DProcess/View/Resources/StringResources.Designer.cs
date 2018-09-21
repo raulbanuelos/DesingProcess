@@ -511,6 +511,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Convert.
+        /// </summary>
+        public static string lblConvertir {
+            get {
+                return ResourceManager.GetString("lblConvertir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Mail.
         /// </summary>
         public static string lblCorreo {
@@ -1713,6 +1722,15 @@ namespace View.Resources {
         public static string msgA {
             get {
                 return ResourceManager.GetString("msgA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to update the number of copies?.
+        /// </summary>
+        public static string msgActNoCopias {
+            get {
+                return ResourceManager.GetString("msgActNoCopias", resourceCulture);
             }
         }
         
