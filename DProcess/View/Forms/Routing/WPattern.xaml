@@ -9,6 +9,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d" Title="WPattern" Height="800" Width="992" 
         WindowStartupLocation="CenterScreen" BorderThickness="2" BorderBrush="Blue" 
+                      KeyDown="MetroWindow_KeyDown"
         ShowMaxRestoreButton="False">
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
@@ -33,6 +34,12 @@
                 <MenuItem Header="{x:Static recursos:StringResources.lblExportarSAP}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Export"></materialDesign:PackIcon>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem Header="{x:Static recursos:StringResources.lblDrawPattern}" Command="{Binding DibujarPlaca}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Drawing"></materialDesign:PackIcon>
                     </MenuItem.Icon>
                 </MenuItem>
 
@@ -228,7 +235,7 @@
                     <!--Figura 3D-->
                     <Viewport3D Name="myViewport" ClipToBounds="True" HorizontalAlignment="Left" Width="700" Height="520" >
                         <Viewport3D.Camera>
-                            <PerspectiveCamera Position="0,6,0" LookDirection="0,-6,0" UpDirection="1,0,0" x:Name="Camera"/>
+                            <PerspectiveCamera Position="0,6,0" LookDirection="0,-6,0" UpDirection="1,0,0" x:Name="camera"/>
                         </Viewport3D.Camera>
                         <ContainerUIElement3D>
                             <ModelUIElement3D>

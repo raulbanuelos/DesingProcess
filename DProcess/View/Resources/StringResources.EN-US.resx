@@ -1574,6 +1574,10 @@
     <value>See rejected documents</value>
     <comment>Etiqueta de ver documentos rechazados</comment>
   </data>
+  <data name="lblDrawPattern" xml:space="preserve">
+    <value>Draw pattern</value>
+    <comment>Etiqueta para dibujar el anillo</comment>
+  </data>
   <data name="msgActNoCopias" xml:space="preserve">
     <value>Do you want to update the number of copies?</value>
   </data>

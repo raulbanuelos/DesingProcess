@@ -11,6 +11,13 @@ using Model.Interfaces;
 using View.Services.Operaciones.Fundicion;
 using View.Forms.Routing;
 using MahApps.Metro.Controls.Dialogs;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
+using System.Windows;
+using MahApps.Metro.Controls;
+using System.Linq;
+using View.Resources;
+using OfficeOpenXml;
 using MahApps.Metro.Controls;
 using MahApps.Metro.IconPacks;
 using View.Resources;
@@ -1014,6 +1021,85 @@ namespace View.Services.ViewModel
             set { selectedPattern = value; NotifyChange("SelectedPattern"); }
         }
 
+        private double _medidaHerramienta;
+        public double MedidaHerramienta
+        {
+            get { return _medidaHerramienta; }
+            set { _medidaHerramienta = value; NotifyChange("MedidaHerramienta"); }
+        }
+
+        private double _anguloSalida;
+        public double AnguloSalida
+        {
+            get { return _anguloSalida; }
+            set { _anguloSalida = value; NotifyChange("AnguloSalida"); }
+        }
+
+        private int noBarrenos;
+        public int NoBarrenos
+        {
+            get { return noBarrenos; }
+            set { noBarrenos = value; NotifyChange("NoBarrenos"); }
+        }
+
+        private double thicknessSuperior;
+        public double ThicknessSuperior
+        {
+            get { return thicknessSuperior; }
+            set { thicknessSuperior = value; NotifyChange("ThicknessSuperior"); }
+        }
+
+        private double thicknessMinimo;
+        public double ThicknessMinimo
+        {
+            get { return thicknessMinimo; }
+            set { thicknessMinimo = value; NotifyChange("ThicknessMinimo"); }
+        }
+
+        private double thicknessMedio;
+        public double ThicknessMedio
+        {
+            get { return thicknessMedio; }
+            set { thicknessMedio = value; NotifyChange("ThicknessMedio"); }
+        }
+
+        private double osd;
+        public double OSD
+        {
+            get { return osd; }
+            set { osd = value; NotifyChange("OSD"); }
+        }
+
+        private double old;
+        public double OLD
+        {
+            get { return old; }
+            set { old = value; NotifyChange("OLD"); }
+        }
+
+        private double _throw;
+        public double Throw
+        {
+            get { return _throw; }
+            set { _throw = value; NotifyChange("Throw"); }
+        }
+
+        private string status1;
+        public string Status1
+        {
+            get { return status1; }
+            set { status1 = value; NotifyChange("Status1"); }
+        }
+
+        private string status2;
+        public string Status2
+        {
+            get { return status2; }
+            set { status2 = value; NotifyChange("Status2"); }
+        }
+
+
+
         private HamburgerMenuItemCollection _menuItems;
         public HamburgerMenuItemCollection MenuItems
         {
@@ -1172,9 +1258,172 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand DibujarPlaca
+        {
+            get
+            {
+                return new RelayCommand(o => dibujarPlaca());
+            }
+        }
+
         #endregion
 
         #region Methods
+
+        private Task<int> RunMacro()
+        {
+            return Task.Run(() =>
+            {
+                AnguloSalida = 1.5;
+
+                Excel.Application xlApp = new Excel.Application();
+                Excel.Workbook xlWorkBook;
+                Excel.Worksheet xlWorkSheetDatos;
+                Excel.Worksheet xlWorkSheetFabricacion;
+                Excel.Worksheet xlWorkSheetResultados;
+                Excel.Worksheet xlWorkSheetGraficar;
+
+                xlApp = new Excel.Application();
+                xlWorkBook = xlApp.Workbooks.Open(@"c:\perfilRGP\Copy of MACHOTE 19-04-10.xls", 0, false, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
+                xlWorkSheetDatos = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(2);
+
+                //xlApp.Visible = true;
+
+                xlWorkSheetDatos.Range["B5"].Value = Codigo;
+                xlWorkSheetDatos.Range["B9"].Value = B_Dia.Valor;
+                xlWorkSheetDatos.Range["B10"].Value = patt_sm_od.Valor;
+                xlWorkSheetDatos.Range["B16"].Value = piece_in_patt.Valor;
+                xlWorkSheetDatos.Range["B11"].Value = factor_k.Valor;
+                xlWorkSheetDatos.Range["B18"].Value = diametro.Valor;
+                xlWorkSheetDatos.Range["B19"].Value = AnguloSalida;
+                xlWorkSheetDatos.Range["B20"].Value = patt_thickness.Valor;
+                xlWorkSheetDatos.Range["B21"].Value = MedidaHerramienta;
+
+                xlApp.Run("calcultimo");
+
+
+                xlWorkSheetFabricacion = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(5);
+                xlWorkSheetResultados = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(3);
+
+
+                if (Module.IsNumeric(Convert.ToString(xlWorkSheetResultados.Range["E14"].Value)))
+                {
+                    NoBarrenos = Convert.ToInt32(xlWorkSheetResultados.Range["E14"].Value);
+                }
+                else
+                {
+                    //No se encontro el número de barrenos, el sistema tendra que mostrar una pantalla para que el usuario capture el dato.
+                }
+
+                if (Module.IsNumeric(Convert.ToString(xlWorkSheetFabricacion.Range["C21"].Value)))
+                    ThicknessSuperior = Convert.ToDouble(xlWorkSheetFabricacion.Range["C21"].Value);
+
+                if (Module.IsNumeric(Convert.ToString(xlWorkSheetFabricacion.Range["C7"].Value)))
+                    ThicknessMinimo = Convert.ToDouble(xlWorkSheetFabricacion.Range["C7"].Value);
+
+                if (Module.IsNumeric(Convert.ToString(xlWorkSheetFabricacion.Range["A14"].Value)))
+                    ThicknessMedio = Convert.ToDouble(xlWorkSheetFabricacion.Range["A14"].Value);
+
+                if (Module.IsNumeric(Convert.ToString(xlWorkSheetFabricacion.Range["K12"].Value)))
+                    OSD = Convert.ToDouble(xlWorkSheetFabricacion.Range["K12"].Value);
+
+                if (Module.IsNumeric(Convert.ToString(xlWorkSheetFabricacion.Range["I21"].Value)))
+                    OLD = Convert.ToDouble(xlWorkSheetFabricacion.Range["I21"].Value);
+
+                if (Module.IsNumeric(Convert.ToString(xlWorkSheetFabricacion.Range["K25"].Value)))
+                    Throw = Convert.ToDouble(xlWorkSheetFabricacion.Range["K25"].Value);
+
+                /*
+                 * 
+                 * Falta llenar la tabla(Aqui va)
+                 * 
+                 */
+
+                Status1 = xlWorkSheetFabricacion.Range["N26"].Value;
+                Status2 = xlWorkSheetFabricacion.Range["O26"].Value;
+
+                xlWorkSheetGraficar = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(7);
+
+
+                var cellData = new List<object[]>();
+                for (int i = 1; i <= 901; i++)
+                {
+                    double rowA = Convert.ToDouble(xlWorkSheetGraficar.Range["A" + i].Value);
+                    double rowB = Convert.ToDouble(xlWorkSheetGraficar.Range["B" + i].Value);
+                    double rowC = Convert.ToDouble(xlWorkSheetGraficar.Range["C" + i].Value);
+                    double rowD = Convert.ToDouble(xlWorkSheetGraficar.Range["D" + i].Value);
+
+                    cellData.Add(new object[] { rowA, rowB, rowC, rowD });
+                }
+
+                using (ExcelPackage elExcel = new ExcelPackage())
+                {
+                    elExcel.Workbook.Worksheets.Add("Sheet1");
+
+                    var worksheet = elExcel.Workbook.Worksheets["Sheet1"];
+
+                    worksheet.Cells[1, 1].LoadFromArrays(cellData);
+
+                    worksheet.Cells[901, 1].Value = 0.0;
+                    worksheet.Cells[2, 5].Value = noBarrenos;
+                    worksheet.Cells[2, 6].Value = Codigo;
+
+                    FileInfo excelFile = new FileInfo(@"C:\perfilRGP\" + Codigo + "    PuntosGraficar" + ".xlsx");
+                    elExcel.SaveAs(excelFile);
+                }
+
+
+                xlWorkBook.Save();
+
+                xlWorkBook.Close();
+                xlApp.Quit();
+
+                Marshal.ReleaseComObject(xlWorkSheetDatos);
+                Marshal.ReleaseComObject(xlWorkSheetFabricacion);
+                Marshal.ReleaseComObject(xlWorkSheetResultados);
+                Marshal.ReleaseComObject(xlWorkBook);
+                Marshal.ReleaseComObject(xlApp);
+                return 0;
+            });
+        }
+        
+        private async void dibujarPlaca()
+        {
+            //Incializamos los servicios de dialog.
+            DialogService dialog = new DialogService();
+
+            //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
+            ProgressDialogController AsyncProgress;
+
+            #region Se define la medida de la herramienta
+            MedidaHerramienta = 0;
+            if ((mounting.Valor <= 5 && mounting.Valor >= 1) || diametro.Valor >= 0.400)
+                MedidaHerramienta = 0.375;
+            else
+            {
+                if (mounting.Valor >= 6 && mounting.Valor <= 20)
+                    MedidaHerramienta = 0.187;
+            }
+
+            //Obtenemos la ventana actual
+            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+            window.MetroDialogOptions.DefaultText = MedidaHerramienta.ToString();
+
+            //Formulario para ingresar el número de copias, 
+            string inputDiaHerramienta = await window.ShowInputAsync("Confirma el diámetro de la herramienta", "El diámetro sugerido de la herramienta es: " + MedidaHerramienta, null);
+
+            #endregion
+            //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
+            AsyncProgress = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgInsertando);
+
+            int a = await RunMacro();
+
+            //Ejecutamos el método para cerrar el mensaje de espera.
+            await AsyncProgress.CloseAsync();
+
+            //si no se selecciono el area, no se libera el documento
+            await dialog.SendMessage("Atención", "Calculos realizados!!!");
+        }
 
         private void altaPattern()
         {
@@ -1904,7 +2153,7 @@ namespace View.Services.ViewModel
             MetroDialogSettings setting = new MetroDialogSettings();
             setting.AffirmativeButtonText = Resources.StringResources.lblYes;
             setting.NegativeButtonText = Resources.StringResources.lblNo;
-
+            
             MessageDialogResult result = await dialog.SendMessage(Resources.StringResources.ttlAlerta, Resources.StringResources.lblConfirmDeleteRecord, setting, MessageDialogStyle.AffirmativeAndNegative);
 
             if (result == MessageDialogResult.Affirmative)

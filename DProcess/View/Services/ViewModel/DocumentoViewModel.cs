@@ -1465,7 +1465,7 @@ namespace View.Services.ViewModel
                             string filename = dlg.FileName;
 
                             //Si el archivo no está en uso
-                            if (!IsFileInUse(filename))
+                            if (!Module.IsFileInUse(filename))
                             {
                                 //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
                                 AsyncProgress = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgInsertando);
@@ -1547,28 +1547,6 @@ namespace View.Services.ViewModel
                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarUnoSolo);
                 }
             }
-        }
-
-        /// <summary>
-        /// Método que verifica si un archivo está siendo usado por otro programa 
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public bool IsFileInUse(string path)
-        {
-            if (string.IsNullOrEmpty(path))
-                throw new ArgumentException("'path' cannot be null or empty.", "path");
-            try
-            {
-                using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read)) { }
-            }
-            catch (IOException)
-            {
-                //si el archivo está abierto, retorna verdadero
-                return true;
-            }
-            //Si el archivo no está en uso retorna falso
-            return false;
         }
 
         /// <summary>
@@ -3018,7 +2996,6 @@ namespace View.Services.ViewModel
             ListaTipo = DataManagerControlDocumentos.GetTipo();
             ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
             ListaUsuariosCorreo = DataManagerControlDocumentos.GetUsuarios();
-            
         }
 
         /// <summary>

@@ -37,7 +37,7 @@
             <MenuItem Header="{x:Static recursos:StringResources.lblOperacion}" Cursor="Hand">
                 <MenuItem Header="Coil" Cursor="Hand">
                     <MenuItem Header="Coil feed roller" Cursor="Hand" Command="{Binding IrCoilFR}"/>
-                    <MenuItem Header="Coil center guide" Cursor="Hand" Command="{Binding IrCoilCG}"/>
+                    <MenuItem Header="Coil center and Entrance guide" Cursor="Hand" Command="{Binding IrCoilCG}"/>
                     <MenuItem Header="Exit guide" Cursor="Hand" Command="{Binding IrExitGuide}"/>
                     <MenuItem Header="External guide roller 1 piece" Cursor="Hand" Command="{Binding IrExternalGR1P}"/>
                     <MenuItem Header="External guide roller 3 pieces">

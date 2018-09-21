@@ -1921,7 +1921,6 @@ namespace Model.ControlDocumentos
             return i;
         }
 
-
         /// <summary>
         /// metodo para actualizar el campo de Numero de copias
         /// despues de haberlo modificado(sobre la marcha)
@@ -1937,13 +1936,11 @@ namespace Model.ControlDocumentos
             return ServiceVersion.GetNumCopias(version);
         }
 
-
         /// <summary>
         /// Método para eliminar un registro de la BD.
         /// </summary>
         /// <param name="version"></param>
         /// <returns></returns>
-
         public static int DeleteVersion(Version version,string descrip_historial, Usuario UsuarioLog,string nombreDoc)
         {
             //Inicializamos los servicios de versión e Historial
