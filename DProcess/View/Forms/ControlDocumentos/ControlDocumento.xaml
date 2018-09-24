@@ -27,6 +27,8 @@
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Content="{Binding Icon}"
+                                    ToolTip="{Binding Tag}"
+                                    Cursor="Hand"
                                     Focusable="False"
                                     Foreground="White" />
                 <TextBlock Grid.Column="1"
@@ -43,11 +45,12 @@
             </DataTemplate.Triggers>
         </DataTemplate>
     </Page.Resources>
+    
     <controls:HamburgerMenu x:Name="HamburgerMenuControl"
                                 DisplayMode="CompactInline"
                                 Foreground="Black"
                                 IsPaneOpen="False"
-                                ItemsSource="{Binding MenuItems}"
+                                ItemsSource="{Binding MenuItems}"                                
                                 OptionsItemsSource="{Binding MenuOptionItems}"
                                 ItemTemplate="{StaticResource MenuItemTemplate}"
                                 OptionsItemTemplate="{StaticResource MenuItemTemplate}"

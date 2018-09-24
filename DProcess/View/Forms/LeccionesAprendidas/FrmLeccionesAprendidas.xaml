@@ -27,7 +27,9 @@
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Content="{Binding Icon}"
+                                    ToolTip="{Binding Tag}"
                                     Focusable="False"
+                                    Cursor="Hand"
                                     Foreground="White" />
                 <TextBlock Grid.Column="1"
                                VerticalAlignment="Center"

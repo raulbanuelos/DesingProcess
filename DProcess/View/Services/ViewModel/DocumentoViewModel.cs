@@ -3737,6 +3737,7 @@ namespace View.Services.ViewModel
                              Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.AirplaneTakeoff },
                              Label = StringResources.lblLiberar,
                              Command = LiberarDocumento,
+                             Tag = StringResources.lblLiberar,
                          }
                         );
                     
@@ -3746,6 +3747,7 @@ namespace View.Services.ViewModel
                             Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.KeyboardReturn },
                             Label = StringResources.lblPendienteCorregir,
                             Command = RegresarCorregir,
+                            Tag = StringResources.lblPendienteCorregir,
                         }
                     );
                     break;
@@ -3756,9 +3758,9 @@ namespace View.Services.ViewModel
                         new HamburgerMenuIconItem()
                         {
                             Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FormatRotate90 },
-
                             Label = StringResources.lblRegresarVersionAnterior,
                             Command = RegresarVersion,
+                            Tag = StringResources.lblRegresarVersionAnterior,
                         }
                     );
                     //Elimina el registro del documento
@@ -3768,6 +3770,7 @@ namespace View.Services.ViewModel
                             Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Delete },
                             Label = StringResources.lblEliminar,
                             Command = Eliminar,
+                            Tag = StringResources.lblEliminar,
                         }
                     );
                     //Verificamos si el documento ya esta liberado o no
@@ -3778,6 +3781,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.KeyboardReturn },
                         Label = StringResources.lblPendienteCorregir,
                         Command = EliminarDocumntoSellado,
+                        Tag = StringResources.lblPendienteCorregir
                         }
                     );
                     //Sella electronicamente un documento
@@ -3787,6 +3791,7 @@ namespace View.Services.ViewModel
                             Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Seal },
                             Label = StringResources.ttlSellar,
                             Command = SellarDocumento,
+                            Tag = StringResources.ttlSellar,
                         }
                         );
                     //Sella electronicamente un documento
@@ -3796,6 +3801,7 @@ namespace View.Services.ViewModel
                             Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Update },
                             Label = StringResources.lblActualizarCopias,
                             Command = ActNoCopias,
+                            Tag = StringResources.lblActualizarCopias
                         }
                         );
                     break;

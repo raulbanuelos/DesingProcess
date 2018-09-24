@@ -1121,6 +1121,7 @@ namespace View.Services.ViewModel
                          Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.File },
                          Label = StringResources.lblNuevoDocumento,
                          Command = IrNuevoDocumento,
+                         Tag = StringResources.lblNuevoDocumento,
                      }
                     );
                 //Exportar a excel
@@ -1130,6 +1131,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FileExcel},
                         Label = StringResources.lblExportar,
                         Command = Exportar,
+                        Tag = StringResources.lblExportar,
                     }
                     );
                 //Buscar Documentos
@@ -1139,6 +1141,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FileFind },
                         Label = StringResources.lblBuscarDocumento,
                         Command = IrBusquedaDocumento,
+                        Tag = StringResources.lblBuscarDocumento,
                     }
                     );
                 //Agrgar tipo de documento
@@ -1148,6 +1151,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FolderPlus },
                         Label = StringResources.lblAgregarTipo,
                         Command = AgregarTipo,
+                        Tag = StringResources.lblAgregarTipo,
                     }
                     );
                 //Agregar departamento
@@ -1157,6 +1161,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.PlusBox },
                         Label = StringResources.lblAgregarDepartamento,
                         Command = AgregarDepartamento,
+                        Tag = StringResources.lblAgregarDepartamento,
                     }
                     );
                 //Bloquear sistema
@@ -1166,6 +1171,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.TimerOff },
                         Label = StringResources.lblBloquearSistema,
                         Command = IrBloquear,
+                        Tag = StringResources.lblBloquearSistema,
                     }
                     );
                 //Ver documentos rechazados
@@ -1175,6 +1181,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FileRestore },
                         Label = StringResources.lblViewDocumentosRechazados,
                         Command = irDocumentosPendientesCorregir,
+                        Tag = StringResources.lblViewDocumentosRechazados,
                     }
                     );
                 //Ver recursos o formatos para elaborar los documentos
@@ -1184,6 +1191,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.LinkVariant },
                         Label = StringResources.lblVerRecurso,
                         Command = IrRecursos,
+                        Tag = StringResources.lblVerRecurso,
                     }
                     );
                 //Ver historial filtrado
@@ -1193,6 +1201,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.History },
                         Label = StringResources.lblVerHistorial,
                         Command = IrHistorial,
+                        Tag = StringResources.lblVerHistorial,                    
                     }
                     );
                 //Ver historial sin filtrar
@@ -1202,6 +1211,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FilterVariant },
                         Label = StringResources.lblHistorial,
                         Command = IrHistorialFiltrado,
+                        Tag = StringResources.lblHistorial,
                     }
                     );
                 //ver documentos eliminados
@@ -1211,6 +1221,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.DeleteVariant },
                         Label = StringResources.lblDocumentosEliminados,
                         Command = irDocEliminado,
+                        Tag = StringResources.lblDocumentosEliminados,
                     }
                     );
             }
@@ -1224,6 +1235,7 @@ namespace View.Services.ViewModel
                     Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.File },
                     Label = StringResources.lblNuevoDocumento,
                     Command = IrNuevoDocumento,
+                    Tag = StringResources.lblNuevoDocumento,
                     }
                 );
                 //Exportar excel
@@ -1233,6 +1245,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FileExcel },
                         Label = StringResources.lblExportar,
                         Command = Exportar,
+                        Tag = StringResources.lblExportar,
                     }
                 );
                 //Ver recursos
@@ -1242,6 +1255,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.LinkVariant },
                         Label = StringResources.lblVerRecurso,
                         Command = IrRecursos,
+                        Tag = StringResources.lblVerRecurso,
                     }
                 );
                 //Ver historial filtrado
@@ -1251,6 +1265,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.History },
                         Label = StringResources.lblVerHistorial,
                         Command = IrHistorial,
+                        Tag = StringResources.lblVerHistorial,
                     }
                 );
                 //Ver historial sin filtrar
@@ -1260,6 +1275,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FilterVariant },
                         Label = StringResources.lblHistorial,
                         Command = IrHistorialFiltrado,
+                        Tag = StringResources.lblHistorial,
                     }
                 );
                 //Ver documentos eliminados
@@ -1269,6 +1285,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.DeleteVariant },
                         Label = StringResources.lblDocumentosEliminados,
                         Command = irDocEliminado,
+                        Tag = StringResources.lblDocumentosEliminados,
                     }
                 );
             }

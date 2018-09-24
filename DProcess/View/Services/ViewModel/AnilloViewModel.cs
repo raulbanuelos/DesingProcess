@@ -1837,6 +1837,7 @@ namespace View.Services.ViewModel
                     Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.File},
                     Label = StringResources.lblNuevo,
                     Command = NewPlano,
+                    Tag = StringResources.lblNuevo,
                 });
             //Boton para abrir un plano exixtente
             this.MenuItems.Add(
@@ -1845,7 +1846,7 @@ namespace View.Services.ViewModel
                     Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Folder },
                     Label = StringResources.lblAbrir,
                     Command = OpenPlano,
-
+                    Tag = StringResources.lblAbrir,
                 });
             //Boton para importar un archivo xml existente
             this.MenuItems.Add(
@@ -1854,6 +1855,7 @@ namespace View.Services.ViewModel
                     Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FileXml },
                     Label = StringResources.lblImportarXML,
                     Command = ImportXML,
+                    Tag = StringResources.lblImportarXML,
                 });
             //Boton para guardar los planos(sin comando)
             this.MenuItems.Add(
@@ -1862,6 +1864,7 @@ namespace View.Services.ViewModel
                     Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.ContentSave },
                     Label = StringResources.lblGuardar,
                     //Command = SavePlano,
+                    Tag = StringResources.lblGuardar,
                 });
             //Boton para calcular la ruta
             this.MenuItems.Add(
@@ -1870,6 +1873,7 @@ namespace View.Services.ViewModel
                     Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.PlayCircle },
                     Label = StringResources.lblCorrer,
                     Command = CalcularRuta,
+                    Tag = StringResources.lblCorrer,
                 });
             //Boton para calcular las dimensiones
             this.MenuItems.Add(
@@ -1878,6 +1882,7 @@ namespace View.Services.ViewModel
                     Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Sigma },
                     Label = StringResources.lblCalcularDimensiones,
                     Command = OpenCalculateDimencions,
+                    Tag = StringResources.lblCalcularDimensiones,
                 });
             //Boton para ver las operaciones de la ruta en pdf
             this.MenuItems.Add(
@@ -1886,7 +1891,7 @@ namespace View.Services.ViewModel
                     Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FilePdf },
                     Label = StringResources.lblVerRuta,
                     Command = ViewRoute,
-
+                    Tag = StringResources.lblVerRuta,
                 });
             //Boton para ver la ruta
             this.MenuItems.Add(
@@ -1895,6 +1900,7 @@ namespace View.Services.ViewModel
                     Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Run },
                     Label = StringResources.lblCalcularDimensiones,
                     Command = ViewRouting,
+                    Tag = StringResources.lblCalcularDimensiones,
                 });
             //Boton para acceder a la pestaña de conversion Ft a Fd
             this.MenuItems.Add(
@@ -1903,6 +1909,7 @@ namespace View.Services.ViewModel
                     Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.TooltipEdit },
                     Label = StringResources.lblConvertir,
                     Command = ConversionFTaFD,
+                    Tag = StringResources.lblConvertir,
                 });
         }
         #endregion

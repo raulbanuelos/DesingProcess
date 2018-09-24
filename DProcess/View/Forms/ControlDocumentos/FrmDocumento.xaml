@@ -36,12 +36,13 @@
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Content="{Binding Icon}"
+                                    Cursor="Hand"
+                                ToolTip="{Binding Tag}"
                                     Focusable="False"
                                     Foreground="White" />
                 <TextBlock Grid.Column="1"
                                VerticalAlignment="Center"
                                FontSize="16"
-                               Cursor="Hand"
                                Foreground="White"
                                Text="{Binding Label}" />
             </Grid>

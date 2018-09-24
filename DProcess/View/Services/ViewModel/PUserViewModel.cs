@@ -397,6 +397,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.AccountCheck},
                         Label = StringResources.lblAgregarUsuario,
                         Command = AgregarUsuario,
+                        Tag = StringResources.lblAgregarUsuario,
                     }
                     );
                 this.MenuItems.Add(
@@ -405,6 +406,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.AccountCardDetails},
                         Label = StringResources.ttlAdministrarUsuarios,
                         Command = ConsultarUsuarios,
+                        Tag = StringResources.ttlAdministrarUsuarios,
                     }
                     );
             }else
@@ -415,6 +417,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.AccountCheck },
                         Label = StringResources.lblAgregarUsuario,
                         Command = AgregarUsuario,
+                        Tag = StringResources.lblAgregarUsuario,
                     }
                 );
             }

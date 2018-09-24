@@ -2197,6 +2197,7 @@ namespace View.Services.ViewModel
                     Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Upload },
                     Label = StringResources.lblAlta,
                     Command = AltaPattern,
+                    Tag = StringResources.lblAlta,
                 });
             this.MenuItems.Add(
                 new HamburgerMenuIconItem()
@@ -2204,6 +2205,7 @@ namespace View.Services.ViewModel
                     Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.ContentSave},
                     Label = StringResources.lblGuardar,
                     Command = GuardarPattern,
+                    Tag = StringResources.lblGuardar,
                 });
             this.MenuItems.Add(
                 new HamburgerMenuIconItem()
@@ -2211,6 +2213,7 @@ namespace View.Services.ViewModel
                     Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Delete},
                     Label = StringResources.lblEliminar,
                     Command = EliminarPattern,
+                    Tag = StringResources.lblEliminar,
                 }
                 );
             this.MenuItems.Add(
@@ -2219,6 +2222,7 @@ namespace View.Services.ViewModel
                     Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Update},
                     Label = StringResources.lblActualizar,
                     //Command = ActualizarPattern,
+                    Tag = StringResources.lblActualizar,
                 }
                 );
             }

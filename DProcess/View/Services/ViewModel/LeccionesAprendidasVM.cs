@@ -217,6 +217,7 @@ namespace View.Services.ViewModel
                      Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.File },
                      Label = StringResources.lblNuevaLeccion,
                      Command = IrNuevaLeccion,
+                     Tag = StringResources.lblNuevaLeccion,
                  }
             );
         }
