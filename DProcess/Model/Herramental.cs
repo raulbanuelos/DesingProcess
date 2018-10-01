@@ -11,6 +11,11 @@ namespace Model
         public ClasificacionHerramental clasificacionHerramental { get; set; }
 
         /// <summary>
+        /// Entero que representa la cantidad que se utiliza para realizar la operación.
+        /// </summary>
+        public int Cantidad { get; set; }
+
+        /// <summary>
         /// Booleano que representa si el herramental existe en sistema ERP.
         /// </summary>
         public bool Encontrado { get; set; }
@@ -51,6 +56,7 @@ namespace Model
         /// Cadena que representa las medidas con las cuales se deben de fabricar el herramental.
         /// </summary>
         public string MedidasFabricacion { get; set; }
+        
         #endregion
 
         #region Constructores
