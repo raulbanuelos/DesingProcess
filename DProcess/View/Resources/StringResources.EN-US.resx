@@ -1588,4 +1588,7 @@
     <value>Please wait, we are working.</value>
     <comment>Título para mensaje de estamos trabajando.</comment>
   </data>
+  <data name="msgSustituirArchivo" xml:space="preserve">
+    <value>Do you want to change the file?</value>
+  </data>
 </root>

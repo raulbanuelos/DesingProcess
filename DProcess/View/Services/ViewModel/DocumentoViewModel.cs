@@ -19,6 +19,7 @@ using View.Resources;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using MahApps.Metro.IconPacks;
+using System.Collections.Generic;
 
 namespace View.Services.ViewModel
 {
@@ -32,6 +33,7 @@ namespace View.Services.ViewModel
         private string auxversion, auxUsuario, auxUsuario_Autorizo, auxDescripcion;
         private DateTime auxFecha;
         public Usuario User;
+        Archivo ArchivoTemporal;
         #endregion
 
         #region PropertyChanged
@@ -595,6 +597,19 @@ namespace View.Services.ViewModel
             }
         }
 
+        private bool _AdjuntarDocumento = false;
+        public bool AdjuntarDocumento
+        {
+            get
+            {
+                return _AdjuntarDocumento;
+            }
+            set
+            {
+                _AdjuntarDocumento = value;
+                NotifyChange("AdjuntarDocumento");
+            }
+        }
         #endregion
 
         #region Constructor
@@ -629,12 +644,12 @@ namespace View.Services.ViewModel
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
             NombreTipo = DataManagerControlDocumentos.GetNombretipo(id_tipo);
 
-
+            
             BotonGuardar = StringResources.ttlGuardar;
             BttnGuardar = false;
             EnabledEliminar = false;
             IsEnabled = false;
-            BttnArchivos = true;
+            BttnArchivos = false;
             //Si es ventana para generar una nueva versión, band= true
             BttnVersion = band;
 
@@ -646,7 +661,8 @@ namespace View.Services.ViewModel
                 IsEnabled = true;
                 EnabledEliminar = true;
                 EnabledFecha = true;
-                VersionEnabled = true;
+                BttnArchivos = true;
+                VersionEnabled = true;             
                 //establecemos la ventana
                 string Ventana = "DocumentoLiberado";
                 //si band contiene true, significa que el documento esta liberado, caso contrario es por que esta en pendiente por corregir
@@ -654,6 +670,7 @@ namespace View.Services.ViewModel
                 {
                     //mandamos llamar el menú que lo construye
                     CreateMenuItems(Ventana);
+                    AdjuntarDocumento = true;
                 }
             }
 
@@ -663,6 +680,7 @@ namespace View.Services.ViewModel
                 IsEnabled = true;
                 BttnModificar = true;
                 EnabledEliminar = true;
+                BttnArchivos = true;
                 EnabledFecha = false;
                 Fecha = selectedDocumento.version.fecha_version;
                 //Si es administrador del CIT muestra la fecha.
@@ -1427,10 +1445,16 @@ namespace View.Services.ViewModel
             //Incializamos los servicios de dialog.
             DialogService dialog = new DialogService();
 
+            Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+
             //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
             ProgressDialogController AsyncProgress;
 
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
 
+            //si no se ha seleccionado un documento se manda un mensaje indicando que se tiene que seleccionar un documento
             if (_selectedDocumento == null)
             {
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSeleccioneArchivo);
@@ -1479,6 +1503,7 @@ namespace View.Services.ViewModel
                                 //Se obtiene sólo el nombre, sin extensión.
                                 obj.nombre = System.IO.Path.GetFileNameWithoutExtension(filename);
 
+                                //Sumamos 1 al contador que tenga la lista de documentos
                                 obj.numero = ListaDocumentos.Count + 1;
 
                                 //Si el archivo tiene extensión pdf
@@ -1493,35 +1518,46 @@ namespace View.Services.ViewModel
                                     obj.ruta = @"/Images/w.png";
                                 }
 
-                                //consultamos de que tipo es el archivo
+                                //Verificamos de nuevo que se hayan insertado los tipos de archivos correspondiente al tipo de documento
                                 if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
                                 {
                                     //si el archivo es igual a cualquiera de los id anteriores se comprueba que sea un archivo .doc
                                     if (obj.ext == ".doc")
                                     {
+                                        //si se agrego el archivo correspondiente lo agregamos a la lista temporal
                                         ListaDocumentos.Add(obj);
+                                        //deshabilitamos el boton de agregar archivos
                                         BttnArchivos = false;
                                     }
                                     //si no es archivo .doc se manda un mensaje y se elimina
                                     else
                                     {
+                                        //si se llegara a insertar un tipo de archivo que no corresponde se manda un mensaje indicando que tipo de archivo se debe adjuntar
                                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarTipoArchivoDOC);
+                                        //se borra de la lista temporal
                                         Lista.Clear();
+                                        //se habilita el boton para adjuntar archivos
                                         BttnArchivos = true;
                                     }
                                 }
                                 else
                                 {
-                                    //cualquier id que sea diferente de los anteriores tiene que ser un archivo .pdf
+                                    //cualquier id que sea diferente de los anteriores tiene que ser un archivo .pdf.
+                                    //Verificamos de nuevo que no se haya insertado un archivo que no corresponde
                                     if (obj.ext == ".pdf")
                                     {
+                                        //si se agrego el archivo correspondiente lo agregamos a la lista temporal
                                         ListaDocumentos.Add(obj);
+                                        //deshabilitamos el boton de agregar archivos
                                         BttnArchivos = false;
                                     }
                                     else
                                     {
+                                        //si se llegara a insertar un tipo de archivo que no corresponde se manda un mensaje indicando que tipo de archivo se debe adjuntar
                                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarTipoArchivoPDF);
+                                        //se borra de la lista temporal
                                         Lista.Clear();
+                                        //habilitamos el boton de adjuntar archivos
                                         BttnArchivos = true;
                                     }
                                 }
@@ -1531,20 +1567,148 @@ namespace View.Services.ViewModel
                             }
                             else
                             {
-                                //Si el archivo está abierto
+                                //Si el archivo está abierto mandamos un mensaje indicando que se debe cerrar el archivo para poder adjuntarlo
                                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCierreArchivo);
                             }
                         }
-                        catch (IOException er)
+                        catch (IOException)
                         {
+                            //Si el archivo está abierto mandamos un mensaje indicando que se debe cerrar el archivo para poder adjuntarlo
                             await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCierreArchivo);
                         }
                     }
                 }
                 else
                 {
-                    //Si tiene un archivo adjunto, se muestra el mensaje
-                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarUnoSolo);
+                    //Entramos a este else si la lista de documento ya tiene un documento y se quiere agregar uno nuevo
+
+                    //primero verificamos que la ventana sea SOLO de los archivos pendientes por corregir
+                    if (AdjuntarDocumento != true)
+                    {
+                        //si la ventana es pendiente por corregir, solo se elimina el archivo y se sustituye por el nuevo seleccionado
+                        MessageDialogResult Respuesta = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSustituirArchivo, setting, MessageDialogStyle.AffirmativeAndNegative);
+
+                        if (Respuesta == MessageDialogResult.Affirmative)
+                        {
+                            //Abre la ventana de explorador de archivos
+                            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+                            //Filtar los documentos por extensión 
+                            //Si es procedimiento o formatos, sólo mostrar documentos word
+                            if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
+                                dlg.Filter = "Word (97-2003)|*.doc";
+                            else
+                                dlg.Filter = "PDF Files (.pdf)|*.pdf";
+                            // Mostrar el explorador de archivos
+                            Nullable<bool> result = dlg.ShowDialog();
+
+                            // Si fue seleccionado un documento 
+                            if (result == true)
+                            {
+                                try
+                                {
+                                    //Se obtiene el nombre del documento
+                                    string filename = dlg.FileName;
+
+                                    //Si el archivo no está en uso
+                                    if (!Module.IsFileInUse(filename))
+                                    {
+                                        //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
+                                        AsyncProgress = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgInsertando);
+
+                                        //inicializamos la variable global para poder insertar el archivo en la base de datos
+                                        ArchivoTemporal = new Archivo();
+
+                                        //Se convierte el archvio a tipo byte y se le asigna al objeto
+                                        ArchivoTemporal.archivo = await Task.Run(() => File.ReadAllBytes(filename));
+
+                                        //Obtiene la extensión del documento y se le asigna al objeto
+                                        ArchivoTemporal.ext = System.IO.Path.GetExtension(filename);
+
+                                        //Se obtiene sólo el nombre, sin extensión.
+                                        ArchivoTemporal.nombre = System.IO.Path.GetFileNameWithoutExtension(filename);
+                                        //se obtiene el id_version del documento
+                                        ArchivoTemporal.id_version = idVersion;
+
+                                        //Si el archivo tiene extensión pdf
+                                        if (ArchivoTemporal.ext == ".pdf")
+                                        {
+                                            //asigna la imagen del pdf al objeto
+                                            ArchivoTemporal.ruta = @"/Images/p.png";
+                                        }
+                                        else
+                                        {
+                                            //Si es archivo de word asigna la imagen correspondiente.
+                                            ArchivoTemporal.ruta = @"/Images/w.png";
+                                        }
+
+                                        //despues de que el usuario haya seleccionado el archivo a insertar 
+                                        //consultamos de que tipo es el archivo
+                                        if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
+                                        {
+                                            //si el archivo es igual a cualquiera de los id anteriores se comprueba que sea un archivo .doc
+                                            if (ArchivoTemporal.ext == ".doc")
+                                            {
+                                                //BORRAMOS EL ARCHIVO DE LA BASE DE DATOS, EL ARCHIVO QUE SE BORRA ES EL QUE SE ENCUENTRA EN LA LISTA DE DOCUMENTOS
+                                                int n = DataManagerControlDocumentos.DeleteArchivo(ListaDocumentos[0]);
+
+                                                //LIMPIAMOS LA LISTA QUE CONTIENE EL ARCHIVO ANTERIOR
+                                                ListaDocumentos.Clear();
+
+                                                //AGREGAMOS EL NUEVO ARCHIVO A LA LISTA TEMPORAL QUE SELECCIONO EL USUARIO
+                                                ListaDocumentos.Add(ArchivoTemporal);
+                                            }
+                                            else
+                                            {
+                                                //si el archivo no es del tipo correspondiente se manda un mensaje indicando el tipo de archivo que se puede insertar
+                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarTipoArchivoDOC);
+                                                //limpiamos la lista temporal
+                                                Lista.Clear();
+                                            }
+                                        }
+                                        else
+                                        {
+                                            //cualquier id que sea diferente de los anteriores tiene que ser un archivo .pdf
+                                            if (ArchivoTemporal.ext == ".pdf")
+                                            {
+                                                //BORRAMOS EL ARCHIVO DE LA BASE DE DATOS, EL ARCHIVO QUE SE BORRA ES EL QUE SE ENCUENTRA EN LA LISTA DE DOCUMENTOS
+                                                int n = DataManagerControlDocumentos.DeleteArchivo(ListaDocumentos[0]);
+
+                                                //LIMPIAMOS LA LISTA QUE CONTIENE EL ARCHIVO ANTERIOR
+                                                ListaDocumentos.Clear();
+
+                                                //AGREGAMOS EL NUEVO ARCHIVO A LA LISTA TEMPORAL QUE SELECCIONO EL USUARIO
+                                                ListaDocumentos.Add(ArchivoTemporal);
+                                            }
+                                            else
+                                            {
+                                                //si el archivo no es del tipo correspondiente se manda un mensaje indicando el tipo de archivo que se puede insertar
+                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarTipoArchivoPDF);
+                                                //limpiamos la lista temporal
+                                                Lista.Clear();
+                                            }
+                                        }
+                                        //Ejecutamos el método para cerrar el mensaje de espera.
+                                        await AsyncProgress.CloseAsync();
+                                    }
+                                    else
+                                    {
+                                        //Si el archivo está abierto le indicamos al usuario que lo tiene que cerrar para poder insetarlo
+                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCierreArchivo);
+                                    }
+                                }
+                                catch (IOException)
+                                {
+                                    //Si el archivo está abierto le indicamos al usuario que lo tiene que cerrar para poder insetarlo
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCierreArchivo);
+                                }
+                            }
+                        }
+                    }else
+                    {
+                        //Si el documento ya esta liberado y se quiere agregar un nuevo archivo se mostrata el mensaje que indique que solo se puede ag
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarUnoSolo);
+                    }
                 }
             }
         }
@@ -3011,6 +3175,7 @@ namespace View.Services.ViewModel
             setting.AffirmativeButtonText = StringResources.lblYes;
             setting.NegativeButtonText = StringResources.lblNo;
 
+            //mostramos el mensaje que indica los datos que se enviaran al administrador del sistema.
             string mensaje = StringResources.lblNombre + ":" + " " + nombre +
                 "\n" + StringResources.lblVersion + ":" + " " + version +
                 "\n" + StringResources.lblFecha + ":" + " " + fecha.ToShortDateString() +
@@ -3020,6 +3185,7 @@ namespace View.Services.ViewModel
                 "\n" + StringResources.lblUsuarioElaboro + ":" + " " +NombreUsuarioElaboro +
                 "\n" + StringResources.lblUsuarioAutorizo + ":" +" " +NombreUsuarioAut;
             
+            //declaramos una variable de tipo bloqueo que nos ayudara a saber si el sistema se encuentra bloqueado
             Bloqueo objBloqueo = new Bloqueo();
 
             //Método que obtiene un registro si se encuentra activo
@@ -3043,8 +3209,12 @@ namespace View.Services.ViewModel
                         //si no existe archivos similares, guarda el documento. Si existe archivos similares, muestra un mensaje
                         if (ListDocSimilares == null)
                         {
+                            //Mandamos llamar el metodo que obtiene el id de la version si es que es una version mayor
+                            //y nos indica si tenemos registro de la version anterior
                             int last_id = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
-                            //Si es la primer versión del documento
+
+
+                            //Si es la primer versión del documento se modifica los campos de la tabla de documento en la base de datos
                             if (last_id == 0)
                             {
                                 //Se crea un objeto de tipo Documento.
@@ -3069,6 +3239,7 @@ namespace View.Services.ViewModel
                                     //si se modifico correctamente
                                     if (update_version != 0)
                                     {
+                                        //obtenemos los datos que se habian guardado localmente en el metodo de adjuntar archivo
                                         foreach (var item in _ListaDocumentos)
                                         {
                                             //Declaramos un objeto de tipo Archivo.
@@ -3109,7 +3280,10 @@ namespace View.Services.ViewModel
                             }
                             else
                             {
-                                //modificacion de la version, cuando el documento tiene más de una versión 
+                                //Entramos a este else si el documento tiene mas versiones y se cuenta con registro de ellas. Aqui solo se modifican los datos de la 
+                                //tabla de version en la base de datos
+
+                                //mandamos llamar el metodo que modifica los datos de la version
                                 int update_version = modificaVersion();
                                 if (update_version != 0)
                                 {
@@ -3165,8 +3339,6 @@ namespace View.Services.ViewModel
                 //El sistema se encuentra bloqueado
                 await dialog.SendMessage(StringResources.msgSistemaBloqueado, objBloqueo.observaciones);
             }
-
-            
         }
 
         /// <summary>
@@ -3288,7 +3460,7 @@ namespace View.Services.ViewModel
                             string confirmacionCorreo = string.Empty;
                             confirmacionCorreo = NotificarBajaDocumento() ? StringResources.msgNotificacionCorreo : StringResources.msgNotificacionCorreoFallida;
 
-                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgResgitroEliminado + "\n" + confirmacionCorreo + "\n" + confirmacionFrames);
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgRegistroEliminado + "\n" + confirmacionCorreo + "\n" + confirmacionFrames);
                         }
                         else
                         {
@@ -3507,17 +3679,24 @@ namespace View.Services.ViewModel
 
             if (result == MessageDialogResult.Affirmative)
             {
-                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                //Verificamos que la pantalla sea diferente de nulo.
-                if (window != null)
+                //Consultamos los archivos que tenga el registro, si no contiene ningun archivo y el documento esta liberado no se permite salir de la ventana
+                if (DataManagerControlDocumentos.GetArchivoFiltrado(idVersion).Count == 0 && AdjuntarDocumento)
                 {
-                    //Cerramos la pantalla
-                    window.Close();
+                    await dialog.SendMessage(StringResources.ttlAlerta, "No se ha adjuntado ningun archivo");
+                }else
+                {
+                    //si no esta liberado el documento o ya cuenta con un archivo se le permite al usuario salir de la pestaña
+                    //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                    var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                    //Verificamos que la pantalla sea diferente de nulo.
+                    if (window != null)
+                    {
+                        //Cerramos la pantalla
+                        window.Close();
+                    }
                 }
             }
-
         }
 
         /// <summary>

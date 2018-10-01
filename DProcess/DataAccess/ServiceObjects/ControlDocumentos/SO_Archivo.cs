@@ -110,6 +110,37 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
+        /// Método que remplaza el archivo de un registro existente
+        /// </summary>
+        /// <param name="id_version"></param>
+        /// <param name="archivo"></param>
+        /// <returns></returns>
+        public int RemplazarArchivoExistente(int id_version, byte[] archivo)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Obtenemos el registro con el id de la version
+                    TBL_ARCHIVO Arc = Conexion.TBL_ARCHIVO.Where(x => x.ID_VERSION == id_version).FirstOrDefault();
+
+                    //asignamos el archivo
+                    Arc.ARCHIVO = archivo;
+
+                    //modificamos el registro asignando el nuevo archivo
+                    Conexion.Entry(Arc).State = EntityState.Modified;
+
+                    //guardamos cambios
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
         /// Método para eliminar un registro de la tabla.
         /// </summary>
         /// <param name="id_archivo"></param>

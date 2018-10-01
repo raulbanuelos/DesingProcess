@@ -195,8 +195,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     user.APaterno = APaterno;
                     user.AMaterno = AMaterno;
                     user.Estado = 0;
-                    user.Usql = null;
-                    user.Psql = null;
+                    user.Usql = usql;
+                    user.Psql = psql;
                     user.Bloqueado = false;
                     user.Correo = correo;
                     user.Pathnsf = pathnsf;

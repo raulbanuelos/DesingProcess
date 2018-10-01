@@ -393,6 +393,9 @@ namespace View.Services.ViewModel
                     nuevosdatos.AMaterno = _Amaterno;
                     nuevosdatos.Correo = _correo;
                     nuevosdatos.Pathnsf = _patnsf;
+                    //datos por default
+                    nuevosdatos.usql = "´©³¶´¦³";
+                    nuevosdatos.psql = "´‰“sqrr";
 
                     //insertamos los cambios a la BD
                     int DatosUsuarios = DataManagerControlDocumentos.UpdateUsuario(nuevosdatos);
@@ -506,6 +509,8 @@ namespace View.Services.ViewModel
                             nuevosdatos.Correo = _correo;
                             nuevosdatos.password = encriptar.encript(_contraseña);
                             nuevosdatos.Pathnsf = _patnsf;
+                            nuevosdatos.usql = "´©³¶´¦³";
+                            nuevosdatos.psql = "´‰“sqrr";
 
                             //insertamos los datos a la BD
                             int datosusuario = DataManagerControlDocumentos.UpdateUsuario(nuevosdatos);

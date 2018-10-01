@@ -229,6 +229,9 @@ namespace View.Services.ViewModel
                         objUsuario.password = encriptar.encript(_contraseña);
                         objUsuario.Correo = Correo;
                         objUsuario.Pathnsf = "";
+                        //datos por default
+                        objUsuario.usql = "´©³¶´¦³";
+                        objUsuario.psql = "´‰“sqrr";
 
                         //Valida que el nombre de usuario no se repita
                         string validate = DataManagerControlDocumentos.ValidateUsuario(objUsuario);

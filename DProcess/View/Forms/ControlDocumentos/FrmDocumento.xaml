@@ -37,7 +37,7 @@
                                     VerticalAlignment="Center"
                                     Content="{Binding Icon}"
                                     Cursor="Hand"
-                                ToolTip="{Binding Tag}"
+                                    ToolTip="{Binding Tag}"
                                     Focusable="False"
                                     Foreground="White" />
                 <TextBlock Grid.Column="1"
