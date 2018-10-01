@@ -1582,4 +1582,8 @@
   <data name="lblConvertir" xml:space="preserve">
     <value>Convertir</value>
   </data>
+  <data name="ttlWorking" xml:space="preserve">
+    <value>Por favor espere, estamos trabajando.</value>
+    <comment>Título para mensaje de estamos trabajando.</comment>
+  </data>
 </root>

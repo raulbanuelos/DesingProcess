@@ -31,7 +31,7 @@
                     </MenuItem.Icon>
                 </MenuItem>
 
-                <MenuItem Header="{x:Static recursos:StringResources.lblExportarSAP}">
+                <MenuItem Header="{x:Static recursos:StringResources.lblExportarSAP}" Command="{Binding ExportarSAP}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Export"></materialDesign:PackIcon>
                     </MenuItem.Icon>

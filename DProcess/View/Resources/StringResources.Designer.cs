@@ -3551,5 +3551,14 @@ namespace View.Resources {
                 return ResourceManager.GetString("ttlVistaPrevia", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please wait, we are working..
+        /// </summary>
+        public static string ttlWorking {
+            get {
+                return ResourceManager.GetString("ttlWorking", resourceCulture);
+            }
+        }
     }
 }

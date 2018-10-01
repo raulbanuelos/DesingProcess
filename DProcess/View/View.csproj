@@ -541,10 +541,12 @@
     <Compile Include="Services\Operaciones\Gasolina\Recubrimientos\ChromeOD.cs" />
     <Compile Include="Services\Operaciones\Gasolina\Recubrimientos\Phosphate.cs" />
     <Compile Include="Services\Operaciones\Gasolina\Rolado\CoilRings.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\Rolado\StressReliefRings.cs" />
     <Compile Include="Services\Operaciones\Generica\OperacionGenerica.cs" />
     <Compile Include="Services\Operaciones\Generica\OperacionGenericaWidth.cs" />
     <Compile Include="Services\ParametricSurface.cs" />
     <Compile Include="Services\RotateSurface.cs" />
+    <Compile Include="Services\SAP.cs" />
     <Compile Include="Services\ScreenSpaceLines3D.cs" />
     <Compile Include="Services\ServiceEmail.cs" />
     <Compile Include="Services\TiempoEstandar\Expansores\CentroTrabajo499.cs" />
@@ -621,6 +623,7 @@
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo150.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo810.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\Rolado\CentroTrabajo495.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\Rolado\CentroTrabajo496.cs" />
     <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9201.cs" />
     <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9202.cs" />
     <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9203.cs" />
@@ -941,10 +944,6 @@
     <Page Include="Forms\Modals\frmViewUnidades.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Forms\RawMaterial\CalculoPlacaModelo.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\RawMaterial\CalculoPlacaModelo.xaml">
       <SubType>Designer</SubType>

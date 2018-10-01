@@ -6,45 +6,8 @@ using View.Services.TiempoEstandar.Gasolina.Rolado;
 
 namespace View.Services.Operaciones.Gasolina.Rolado
 {
-    public class CoilRings : IOperacion,IObserverDiametro
+    public class StressReliefRings : IOperacion
     {
-
-        #region Properties
-        #region Properties of IObserverDiametro
-        public double Diameter
-        {
-            get;
-            set;
-        }
-
-        public double MatRemoverDiametro
-        {
-            get;
-            set;
-        }
-
-        public double Gap
-        {
-            get;
-
-            set;
-        }
-
-        private bool _RemueveGap = false;
-        public bool RemueveGap
-        {
-            get
-            {
-                return _RemueveGap;
-            }
-
-            set
-            {
-                _RemueveGap = value;
-            }
-        }
-        #endregion
-
         #region Propiedades de IOperacion
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
@@ -154,28 +117,6 @@ namespace View.Services.Operaciones.Gasolina.Rolado
         /// </summary>
         public Anillo elPlano { get; set; }
         #endregion
-        #endregion
-
-        #region Methods
-        #region Methods of IObserverDiametro
-        public void UpdateState(ISubjectDiametro sender, double MaterialRemoverAfterOperacion, double DiametroAfterOperacion, double GapAfterOperacion, bool RemueveGap)
-        {
-            if (RemueveGap)
-            {
-                double p, q;
-                p = (MaterialRemoverAfterOperacion / Math.PI);
-                q = ((GapAfterOperacion - Gap) / Math.PI);
-                Diameter = Math.Round(p - q + (DiametroAfterOperacion), 3);
-            }
-            else
-            {
-                double p, q;
-                p = Math.Round((Gap - GapAfterOperacion) / 3.1416, 4);
-                q = DiametroAfterOperacion + MaterialRemoverAfterOperacion;
-                Diameter = p + q;
-            }
-        }
-        #endregion
 
         #region Métodos de IOperacion
         /// <summary>
@@ -189,23 +130,26 @@ namespace View.Services.Operaciones.Gasolina.Rolado
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "*ROLADO DE ANILLOS \n";
-            TextoProceso += "" + Diameter + "  GA.  " + Gap + " +- .006 \n";
-            TextoProceso += "" + 
-                Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance),EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter),Diameter) + 
-                "  GA.  " + Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), Gap) + " +- .15 (MM) \n";
-
-            TextoProceso += "SIMETRIA: 0 +- 0.3 mm \n";
-            TextoProceso += "PLANICIDAD CARAS LATERALES : CONTINUO EN \n";
-            TextoProceso += "LOS 360 GRADOS DE LA CARA LATERAL \n";
-            TextoProceso += "REFERENCIA DEL CALCULO=  07982176 \n";
-            TextoProceso += "DIMENSIONES DE ALAMBRE = 1.25 X 2.90 S=0.78 \n";
-            TextoProceso += "PROCEDIMIENTO  APLICABLE: 4.9 - 2.85 \n";
+            TextoProceso = "*RELEVADO DE ESFUERZOS \n";
+            TextoProceso += "RECETA 6 \n";
+            TextoProceso += "TEMPERATURA 420 +- 5 GRA CENT \n";
+            TextoProceso += "TIEMPO: 90 +- 2 MIN \n";
+            TextoProceso += "OLD XXXX  +- .13 MM \n";
+            TextoProceso += "OVALIDAD  -0.33 A .33 MM \n";
+            TextoProceso += "TENSION 2.00 +- 0.60 LBS F.T. A 3.4055 \n";
+            TextoProceso += "TENSION 2.00 +- 0.60 LBS F.T. A 86.49 MM \n";
             TextoProceso += "\n";
-            TextoProceso += "NOTA:PARA MEDICIONES INICIALES USAR HOJA \n";
-            TextoProceso += "DE CALCULO DE COORDENADAS DE ACUERDO A LA ROLADORA \n";
-            TextoProceso += "PARA EL COMPONENTE 07982176 \n";
-            TextoProceso += "NOTA: EL NAPIER VA HACIA ABAJO. \n";
+            TextoProceso += "MANTENER EL CICLO DE TRATAMIENTO TERMICO \n";
+            TextoProceso += "DE ACUERDO AL MANUAL 4.9-2.89 \n";
+            TextoProceso += "\n";
+            TextoProceso += "POINT DEFELECTION 0 A 0.001 \n";
+            TextoProceso += "USAR UN GAGE CON 30 GRADOS DE ABERTURA \n";
+            TextoProceso += "\n";
+            TextoProceso += "NOTA: ALINEAR CON EL GROOVE EN DIRECCIÓN HACIA EL OPERADOR Y \n";
+            TextoProceso += "MARCAR LOS\n";
+            TextoProceso += "ANILLOS DE LADO DERECHO\n";
+
+
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
@@ -227,7 +171,7 @@ namespace View.Services.Operaciones.Gasolina.Rolado
             try
             {
                 //Declaramos un objeto del tipo CentroTrabajo495.
-                CentroTrabajo495 objTiempo = new CentroTrabajo495();
+                CentroTrabajo496 objTiempo = new CentroTrabajo496();
 
                 //Ejecutamos el método para calcular los tiempos.
                 objTiempo.Calcular(anilloProcesado);
@@ -254,16 +198,15 @@ namespace View.Services.Operaciones.Gasolina.Rolado
                 AlertasOperacion.Add("Error en cálculo de tiempos estádar. \n" + er.StackTrace);
             }
         }
-        #endregion 
         #endregion
 
         #region Constructors
-        public CoilRings(Anillo plano)
+        public StressReliefRings(Anillo plano)
         {
             //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "COIL (RINGS)";
+            NombreOperacion = "STRESS RELIEF FOR STEEL COMP. RINGS";
             CentroCostos = "32012674";
-            CentroTrabajo = "495";
+            CentroTrabajo = "496";
             ControlKey = "MA42";
             elPlano = plano;
             ListaHerramentales = new ObservableCollection<Herramental>();

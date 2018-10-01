@@ -1264,9 +1264,23 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand ExportarSAP
+        {
+            get
+            {
+                return new RelayCommand(o => exportarSAP());
+            }
+        }
+
         #endregion
 
         #region Methods
+
+        private void exportarSAP()
+        {
+            SAP objSAP = new SAP();
+            objSAP.ExportSAPRoute(ModelAnillo);
+        }
 
         private Task<int> RunMacro()
         {
@@ -1313,6 +1327,7 @@ namespace View.Services.ViewModel
                     //No se encontro el número de barrenos, el sistema tendra que mostrar una pantalla para que el usuario capture el dato.
                 }
 
+                //Obtenemos los valores generados.
                 if (Module.IsNumeric(Convert.ToString(xlWorkSheetFabricacion.Range["C21"].Value)))
                     ThicknessSuperior = Convert.ToDouble(xlWorkSheetFabricacion.Range["C21"].Value);
 
@@ -1342,7 +1357,7 @@ namespace View.Services.ViewModel
 
                 xlWorkSheetGraficar = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(7);
 
-
+                //Llenamos una lista con los puntos para graficar.
                 var cellData = new List<object[]>();
                 for (int i = 1; i <= 901; i++)
                 {
@@ -1354,35 +1369,43 @@ namespace View.Services.ViewModel
                     cellData.Add(new object[] { rowA, rowB, rowC, rowD });
                 }
 
+                //Creamos el Excel y pasamos los datos.
                 using (ExcelPackage elExcel = new ExcelPackage())
                 {
+                    //Creamos una hoja en el archivo de excel llamada: Sheet1
                     elExcel.Workbook.Worksheets.Add("Sheet1");
 
+                    //Obtenemos la hoja de excel llamada Sheet1 y la asignamos a una variable anónima.
                     var worksheet = elExcel.Workbook.Worksheets["Sheet1"];
 
+                    //Copiamos la información que traemos en la lista cellData a la hoja de excel.
                     worksheet.Cells[1, 1].LoadFromArrays(cellData);
 
+                    //Asignamos los valores de número de barrenos, Codigo de la placa mode y el angúlo del último punto en las celdas específicas. Estos valores siempre deben de ir en esta
+                    //celdas debido a que la .dll de autocad los busca en estas celdas.
                     worksheet.Cells[901, 1].Value = 0.0;
                     worksheet.Cells[2, 5].Value = noBarrenos;
                     worksheet.Cells[2, 6].Value = Codigo;
 
-                    FileInfo excelFile = new FileInfo(@"C:\perfilRGP\" + Codigo + " " + "(" + MedidaHerramienta + ")" + ".xlsx");
+                    //Configuramos el archivo de excel.
+                    FileInfo excelFile = new FileInfo(@"\\agufileserv2\INGENIERIA\RESPRUTAS\Perfiles\" + Codigo + " " + "(" + MedidaHerramienta + ")" + ".xlsx");
                     
+                    //Guardamos el archivo de excel con los puntos.
                     elExcel.SaveAs(excelFile);
                 }
 
-                
-
+                //Guardamos el archivo MACHOTE.
                 xlWorkBook.Save();
 
+                //Cerramos el archivo y liberamos recursos.
                 xlWorkBook.Close();
                 xlApp.Quit();
-
                 Marshal.ReleaseComObject(xlWorkSheetDatos);
                 Marshal.ReleaseComObject(xlWorkSheetFabricacion);
                 Marshal.ReleaseComObject(xlWorkSheetResultados);
                 Marshal.ReleaseComObject(xlWorkBook);
                 Marshal.ReleaseComObject(xlApp);
+
                 return 0;
             });
         }
@@ -1414,7 +1437,7 @@ namespace View.Services.ViewModel
 
             #endregion
             //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
-            AsyncProgress = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgInsertando);
+            AsyncProgress = await dialog.SendProgressAsync(StringResources.ttlEspereUnMomento, StringResources.ttlWorking);
 
             int a = await RunMacro();
 
@@ -1422,7 +1445,7 @@ namespace View.Services.ViewModel
             await AsyncProgress.CloseAsync();
 
             //si no se selecciono el area, no se libera el documento
-            await dialog.SendMessage("Atención", "Calculos realizados!!!");
+            await dialog.SendMessage(StringResources.lblInformation, StringResources.ttlDone + "\n" + "El archivo fué guardado en la siguiente ruta:" + "\n"  + @"\\agufileserv2\INGENIERIA\RESPRUTAS\Perfiles\" + Codigo + " " + "(" + MedidaHerramienta + ")" + ".xlsx");
         }
 
         private void altaPattern()

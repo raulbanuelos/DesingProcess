@@ -8,6 +8,7 @@ using View.Services.Operaciones.Gasolina.RectificadosFinos;
 using View.Services.Operaciones.Gasolina.Miscelaneos;
 using View.Services.Operaciones.Gasolina.Recubrimientos;
 using View.Services.Operaciones.Gasolina.Inspeccion;
+using View.Services.Operaciones.Gasolina.Rolado;
 
 namespace View.Services
 {
@@ -177,6 +178,37 @@ namespace View.Services
             }
 
             //Retornamos la lista generada.
+            return ListaOperaciones;
+        }
+
+        public static ObservableCollection<IOperacion> CalcularAceroRolado(Anillo elAnillo)
+        {
+            Anillo _ElAnillo;
+            _ElAnillo = elAnillo;
+
+            //Declaramos una lista observable la cual guardará las operaciones y será la que retornemos en el método.
+            ObservableCollection<IOperacion> ListaOperaciones = new ObservableCollection<IOperacion>();
+
+            ListaOperaciones.Add(new CoilRings(elAnillo));
+            ListaOperaciones.Add(new DegreaseRings(elAnillo));
+            ListaOperaciones.Add(new StressReliefRings(elAnillo));
+            ListaOperaciones.Add(new Engrave(elAnillo));
+            ListaOperaciones.Add(new Diskus(elAnillo));
+            ListaOperaciones.Add(new DegreaseRings(elAnillo));
+            ListaOperaciones.Add(new GapSizer(elAnillo));
+            ListaOperaciones.Add(new DegreaseRings(elAnillo));
+            ListaOperaciones.Add(new Diskus(elAnillo));
+            ListaOperaciones.Add(new DegreaseRings(elAnillo));
+            ListaOperaciones.Add(new Lapping(elAnillo));
+            ListaOperaciones.Add(new DegreaseRings(elAnillo));
+            ListaOperaciones.Add(new Phosphate(elAnillo));
+            ListaOperaciones.Add(new LasserEngrave(elAnillo));
+            ListaOperaciones.Add(new InspeccionFinal(elAnillo));
+            
+            //Preguntar la condición para autogap.
+            ListaOperaciones.Add(new AutoGap(elAnillo));
+
+
             return ListaOperaciones;
         }
     }
