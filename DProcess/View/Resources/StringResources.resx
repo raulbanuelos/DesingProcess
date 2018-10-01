@@ -545,7 +545,7 @@
     <value>Version number</value>
     <comment>Mensaje que indica el numero de una version</comment>
   </data>
-  <data name="msgResgitroEliminado" xml:space="preserve">
+  <data name="msgRegistroEliminado" xml:space="preserve">
     <value>File removed !. The matrix was ​​update correctly</value>
     <comment>Mensaje para notificar que se ha eliminado correctamente un registro</comment>
   </data>
@@ -1583,5 +1583,8 @@
   </data>
   <data name="lblConvertir" xml:space="preserve">
     <value>Convert</value>
+  </data>
+  <data name="msgSustituirArchivo" xml:space="preserve">
+    <value>Do you want to change the file?</value>
   </data>
 </root>

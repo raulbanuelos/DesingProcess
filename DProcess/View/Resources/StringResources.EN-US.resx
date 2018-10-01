@@ -1584,4 +1584,7 @@
   <data name="lblConvertir" xml:space="preserve">
     <value>Convert</value>
   </data>
+  <data name="msgSustituirArchivo" xml:space="preserve">
+    <value>Do you want to change the file?</value>
+  </data>
 </root>

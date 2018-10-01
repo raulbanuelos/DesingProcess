@@ -1582,4 +1582,7 @@
   <data name="lblConvertir" xml:space="preserve">
     <value>Convertir</value>
   </data>
+  <data name="msgSustituirArchivo" xml:space="preserve">
+    <value>¿Desea sustituir el archivo?</value>
+  </data>
 </root>

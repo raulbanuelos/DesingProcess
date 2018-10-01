@@ -2824,20 +2824,20 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a File removed !. The matrix was ​​update correctly.
+        /// </summary>
+        public static string msgRegistroEliminado {
+            get {
+                return ResourceManager.GetString("msgRegistroEliminado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Do you want to return to pending status to be corrected?.
         /// </summary>
         public static string msgRegresarCorregir {
             get {
                 return ResourceManager.GetString("msgRegresarCorregir", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a File removed !. The matrix was ​​update correctly.
-        /// </summary>
-        public static string msgResgitroEliminado {
-            get {
-                return ResourceManager.GetString("msgResgitroEliminado", resourceCulture);
             }
         }
         
@@ -2910,6 +2910,15 @@ namespace View.Resources {
         public static string msgSistemaBloqueado {
             get {
                 return ResourceManager.GetString("msgSistemaBloqueado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to change the file?.
+        /// </summary>
+        public static string msgSustituirArchivo {
+            get {
+                return ResourceManager.GetString("msgSustituirArchivo", resourceCulture);
             }
         }
         
