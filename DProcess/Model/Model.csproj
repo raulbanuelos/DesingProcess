@@ -55,12 +55,16 @@
     <Compile Include="ControlDocumentos\Archivo.cs" />
     <Compile Include="ControlDocumentos\Archivo_LeccionesAprendidas.cs" />
     <Compile Include="ControlDocumentos\Bloqueo.cs" />
+    <Compile Include="ControlDocumentos\CentrosTrabajo.cs" />
     <Compile Include="ControlDocumentos\DataManagerControlDocumentos.cs" />
     <Compile Include="ControlDocumentos\Departamento.cs" />
     <Compile Include="ControlDocumentos\Documento.cs" />
     <Compile Include="ControlDocumentos\EstatusDocumento.cs" />
     <Compile Include="ControlDocumentos\HistorialVersion.cs" />
     <Compile Include="ControlDocumentos\LeccionesAprendidas.cs" />
+    <Compile Include="ControlDocumentos\LeccionesCentroTrabajo.cs" />
+    <Compile Include="ControlDocumentos\LeccionesTipoCambio.cs" />
+    <Compile Include="ControlDocumentos\TIPOCAMBIO.cs" />
     <Compile Include="ControlDocumentos\Rol.cs" />
     <Compile Include="ControlDocumentos\TipoDocumento.cs" />
     <Compile Include="ControlDocumentos\Usuarios.cs" />

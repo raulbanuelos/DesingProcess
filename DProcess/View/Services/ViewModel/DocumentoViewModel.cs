@@ -3181,7 +3181,7 @@ namespace View.Services.ViewModel
                 "\n" + StringResources.lblFecha + ":" + " " + fecha.ToShortDateString() +
                 "\n" + StringResources.lblDescripcion + ":" + " " +descripcion +
                 "\n" + StringResources.lblTipoDocumento + ":" + " " +NombreTipo +
-                "\n" +StringResources.lblNombreDepartamento + ":" + " " +NombreDepto + 
+                "\n" + StringResources.lblNombreDepartamento + ":" + " " +NombreDepto + 
                 "\n" + StringResources.lblUsuarioElaboro + ":" + " " +NombreUsuarioElaboro +
                 "\n" + StringResources.lblUsuarioAutorizo + ":" +" " +NombreUsuarioAut;
             

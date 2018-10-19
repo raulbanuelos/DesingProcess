@@ -1591,4 +1591,10 @@
   <data name="msgSustituirArchivo" xml:space="preserve">
     <value>Do you want to change the file?</value>
   </data>
+  <data name="lblSiguiente" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Previous</value>
+  </data>
 </root>

@@ -34,6 +34,7 @@ namespace DataAccess.ServiceObjects.Usuario
                 return null;
             }
         }
+
         /// <summary>
         /// Método que inserta un archivo a la base de datos
         /// se insertan mediante un procedimiento almacenado.
@@ -77,17 +78,23 @@ namespace DataAccess.ServiceObjects.Usuario
         /// </summary>
         /// <param name="id_archivo"></param>
         /// <returns></returns>
-        public int DeleteArchivoLeccion(int id_archivo)
+        public int DeleteArchivoLeccion(int id_leccion)
         {
             try
             {
                 using (var conexion = new EntitiesUsuario())
                 {
-                    TBL_ARCHIVO_LECCIONES ArLecciones = conexion.TBL_ARCHIVO_LECCIONES.Where(x => x.ID_ARCHIVO_LECCIONES == id_archivo).FirstOrDefault();
+                    var ListaArchivos = (from a in conexion.TBL_ARCHIVO_LECCIONES
+                                          where a.ID_LECCIONES_APRENDIDAS == id_leccion
+                                          select a).ToList();
 
-                    conexion.Entry(ArLecciones).State = EntityState.Deleted;
+                    foreach (var item in ListaArchivos)
+                    {
+                        conexion.Entry(item).State = EntityState.Deleted;
+                    }
+                    conexion.SaveChanges();
 
-                    return conexion.SaveChanges();
+                    return 1;
                 }
             }
             catch (Exception)

@@ -241,6 +241,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Previous.
+        /// </summary>
+        public static string lblAnterior {
+            get {
+                return ResourceManager.GetString("lblAnterior", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Mother&apos;s Last Name.
         /// </summary>
         public static string lblApellidoMaterno {
@@ -1452,6 +1461,15 @@ namespace View.Resources {
         public static string lblSellarDocumento {
             get {
                 return ResourceManager.GetString("lblSellarDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Next.
+        /// </summary>
+        public static string lblSiguiente {
+            get {
+                return ResourceManager.GetString("lblSiguiente", resourceCulture);
             }
         }
         

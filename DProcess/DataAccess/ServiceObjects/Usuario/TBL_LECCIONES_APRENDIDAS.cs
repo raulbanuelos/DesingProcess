@@ -18,23 +18,27 @@ namespace DataAccess.ServiceObjects.Usuario
         public TBL_LECCIONES_APRENDIDAS()
         {
             this.TBL_ARCHIVO_LECCIONES = new HashSet<TBL_ARCHIVO_LECCIONES>();
+            this.TR_LECCIONES_TIPOCAMBIO = new HashSet<TR_LECCIONES_TIPOCAMBIO>();
+            this.TR_LECCIONES_CENTROSTRABAJO = new HashSet<TR_LECCIONES_CENTROSTRABAJO>();
         }
     
         public int ID_LECCIONES_APRENDIDAS { get; set; }
         public string ID_USUARIO { get; set; }
         public string COMPONENTE { get; set; }
         public string CAMBIO_REQUERIDO { get; set; }
-        public string NIVEL_DE_CAMBIO { get; set; }
-        public string CENTRO_DE_TRABAJO { get; set; }
-        public string OPERACION { get; set; }
         public string DESCRIPCION_PROBLEMA { get; set; }
         public Nullable<System.DateTime> FECHA_ULTIMO_CAMBIO { get; set; }
         public Nullable<System.DateTime> FECHA_ACTUALIZACION { get; set; }
         public string REPORTADO_POR { get; set; }
         public string SOLICITUD_DE_TRABAJO_INGENIERIA { get; set; }
-        public string CRITERIO_1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_ARCHIVO_LECCIONES> TBL_ARCHIVO_LECCIONES { get; set; }
+        public virtual Usuarios Usuarios { get; set; }
+        public virtual Usuarios Usuarios1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TR_LECCIONES_TIPOCAMBIO> TR_LECCIONES_TIPOCAMBIO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TR_LECCIONES_CENTROSTRABAJO> TR_LECCIONES_CENTROSTRABAJO { get; set; }
     }
 }

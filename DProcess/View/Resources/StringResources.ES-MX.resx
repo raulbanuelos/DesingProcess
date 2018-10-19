@@ -1589,4 +1589,10 @@
     <value>Por favor espere, estamos trabajando.</value>
     <comment>Título para mensaje de estamos trabajando.</comment>
   </data>
+  <data name="lblAnterior" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="lblSiguiente" xml:space="preserve">
+    <value>Siguiente</value>
+  </data>
 </root>

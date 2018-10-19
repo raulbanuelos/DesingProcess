@@ -15,6 +15,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DataAccess.ServiceObjects.Usuario;
+using DataAccess.ServiceObjects;
 
 namespace Model.ControlDocumentos
 {
@@ -2944,16 +2945,30 @@ namespace Model.ControlDocumentos
 
         #region Lecciones Aprendidas
 
-        public static int InsertLeccion(string idusuario, string componente, string cambio_requerido,
-            string nivel_cambio, string c_trabajo, string operacion,
-            string desc_probl, string reportado_por, string solicitud_Tingenieria,
-            string criterio_1, DateTime fecha_ultimo_cambio , DateTime fecha_actualizacion )
+        /// <summary>
+        /// Método para insetar una nueva leccion aprendida
+        /// </summary>
+        /// <param name="idusuario"></param>
+        /// <param name="componente"></param>
+        /// <param name="cambio_requerido"></param>
+        /// <param name="nivel_cambio"></param>
+        /// <param name="c_trabajo"></param>
+        /// <param name="operacion"></param>
+        /// <param name="desc_probl"></param>
+        /// <param name="reportado_por"></param>
+        /// <param name="solicitud_Tingenieria"></param>
+        /// <param name="criterio_1"></param>
+        /// <param name="fecha_ultimo_cambio"></param>
+        /// <param name="fecha_actualizacion"></param>
+        /// <returns></returns>
+        public static int InsertLeccion(string Componente, string CambioRequerido, string DescripcionProblema, DateTime FechaUltimoCambio, DateTime FechaActualizacion,
+            string ReportadoPor, string SolicitudTrabajoIngenieria, string IdUsuario)
         {
             SO_Lecciones servicio = new SO_Lecciones();
 
-            return servicio.SetLeccion(idusuario,componente,nivel_cambio,c_trabajo,operacion,desc_probl,
-                fecha_ultimo_cambio,fecha_actualizacion,reportado_por,solicitud_Tingenieria,criterio_1,cambio_requerido);
+            return servicio.SetLeccion(Componente, CambioRequerido, DescripcionProblema, FechaUltimoCambio, FechaActualizacion, ReportadoPor, SolicitudTrabajoIngenieria, IdUsuario);
         }
+
         /// <summary>
         /// Método para eliminar una lección
         /// </summary>
@@ -2971,11 +2986,11 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="id_archivo_lecciones"></param>
         /// <returns></returns>
-        public static int Delete_Archivo_Lecciones(int id_archivo_lecciones)
+        public static int Delete_Archivo_Lecciones(int Id_Leccion)
         {
             SO_Archivo_Lecciones sercicio = new SO_Archivo_Lecciones();
 
-            return sercicio.DeleteArchivoLeccion(id_archivo_lecciones);
+            return sercicio.DeleteArchivoLeccion(Id_Leccion);
         }
 
         /// <summary>
@@ -2993,13 +3008,12 @@ namespace Model.ControlDocumentos
                                          DateTime fecha_ultimo_cambio,
                                          DateTime fecha_actualizacion,
                                          string reportado_por,
-                                         string solicitud_trabajo_ingenieria,
-                                         string criterio_1
+                                         string solicitud_trabajo_ingenieria
                                          )
         {
             SO_Lecciones servicio = new SO_Lecciones();
 
-            return servicio.UpdateLeccion(id_lecciones,id_usuario,componente,cambio_requerido,nivel_de_cambio,centro_de_trabajo,operacion,descripcion_problema,fecha_ultimo_cambio,fecha_actualizacion,reportado_por,solicitud_trabajo_ingenieria,criterio_1);
+            return servicio.UpdateLeccion(id_lecciones,id_usuario,componente,cambio_requerido,nivel_de_cambio,centro_de_trabajo,operacion,descripcion_problema,fecha_ultimo_cambio,fecha_actualizacion,reportado_por,solicitud_trabajo_ingenieria);
         }
         /// <summary>
         /// Método que agrega un archivo nuevo de las lecciones aprendidas
@@ -3061,15 +3075,11 @@ namespace Model.ControlDocumentos
 
                     ObjLec.ID_LECCIONES_APRENDIDAS = (int)tipo.GetProperty("ID_LECCIONES_APRENDIDAS").GetValue(item, null);
                     ObjLec.ID_USUARIO = encript.desencript((string)tipo.GetProperty("ID_USUARIO").GetValue(item, null));
-                    ObjLec.COMPONENTE = (string)tipo.GetProperty("COMPONENTE").GetValue(item, null);
-                    ObjLec.CENTRO_DE_TRABAJO = (string)tipo.GetProperty("CENTRO_DE_TRABAJO").GetValue(item, null);
+                    ObjLec.COMPONENTE = (string)tipo.GetProperty("COMPONENTE").GetValue(item, null);                    
                     ObjLec.CAMBIO_REQUERIDO = (string)tipo.GetProperty("CAMBIO_REQUERIDO").GetValue(item, null);
-                    ObjLec.CRITERIO_1 = (string)tipo.GetProperty("CRITERIO_1").GetValue(item, null);
                     ObjLec.DESCRIPCION_PROBLEMA = (string)tipo.GetProperty("DESCRIPCION_PROBLEMA").GetValue(item, null);
                     ObjLec.FECHA_ULTIMO_CAMBIO = (DateTime)tipo.GetProperty("FECHA_ULTIMO_CAMBIO").GetValue(item, null);
                     ObjLec.FECHA_ACTUALIZACION = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
-                    ObjLec.NIVEL_DE_CAMBIO = (string)tipo.GetProperty("NIVEL_DE_CAMBIO").GetValue(item, null);
-                    ObjLec.OPERACION = (string)tipo.GetProperty("OPERACION").GetValue(item, null);
                     ObjLec.REPORTADO_POR = (string)tipo.GetProperty("REPORTADO_POR").GetValue(item, null);
                     ObjLec.SOLICITUD_DE_TRABAJO = (string)tipo.GetProperty("SOLICITUD_DE_TRABAJO_INGENIERIA").GetValue(item, null);
                     if (VerificarNombre(listausuarios,ObjLec.ID_USUARIO))
@@ -3087,6 +3097,96 @@ namespace Model.ControlDocumentos
                 }
             }
             return ListaLecciones;
+        }
+
+        /// <summary>
+        /// Método que obtiene una lista de todos los componentes similares
+        /// </summary>
+        /// <param name="NombreComponente"></param>
+        /// <returns></returns>
+        public static ObservableCollection<LeccionesAprendidas> GetComponentesSimilares(string NombreComponente)
+        {
+            SO_Lecciones Servicio = new SO_Lecciones();
+
+            ObservableCollection<LeccionesAprendidas> ListaComponentesSimilares = new ObservableCollection<LeccionesAprendidas>();
+
+            IList ObjComponentes = Servicio.GetComponentesSimilares(NombreComponente);
+
+            if (ObjComponentes != null)
+            {
+                foreach (var item in ObjComponentes)
+                {
+                    System.Type tipo = item.GetType();
+
+                    LeccionesAprendidas ObjLec = new LeccionesAprendidas();
+
+                    ObjLec.COMPONENTE = (string)tipo.GetProperty("COMPONENTE").GetValue(item, null);
+                    ObjLec.DESCRIPCION_PROBLEMA = (string)tipo.GetProperty("DESCRIPCION_PROBLEMA").GetValue(item, null);
+
+                    ListaComponentesSimilares.Add(ObjLec);
+                }
+            }
+            return ListaComponentesSimilares;
+        }
+
+        /// <summary>
+        /// Obtiene todos los centros de trabajo de una leccion aprendida
+        /// </summary>
+        /// <param name="Id_Leccion"></param>
+        /// <returns></returns>
+        public static ObservableCollection<CentrosTrabajo> GetCentrosDetrabajoLecciones(int Id_Leccion)
+        {
+            SO_LeccionesCentroTrabajo Servicio = new SO_LeccionesCentroTrabajo();
+
+            ObservableCollection<CentrosTrabajo> ListaCentrosTrabajoLeccion = new ObservableCollection<CentrosTrabajo>();
+
+            IList ObjCentrosLec = Servicio.GetLeccionesCentroTrabajo(Id_Leccion);
+
+            if (ObjCentrosLec != null)
+            {
+                foreach (var item in ObjCentrosLec)
+                {
+                    System.Type tipo = item.GetType();
+
+                    CentrosTrabajo ObjCent = new CentrosTrabajo();
+
+                    ObjCent.CentroTrabajo = (string)tipo.GetProperty("CentroTrabajo1").GetValue(item, null);
+                    ObjCent.NombreOperacion = (string)tipo.GetProperty("NombreOperacion").GetValue(item, null);
+
+                    ListaCentrosTrabajoLeccion.Add(ObjCent);
+                }
+            }
+            return ListaCentrosTrabajoLeccion;
+        }
+
+        /// <summary>
+        /// Obtiene todos los tipos de cambio de una leccion aprendida
+        /// </summary>
+        /// <param name="Id_Leccion"></param>
+        /// <returns></returns>
+        public static ObservableCollection<TIPOCAMBIO> GetTipoCambioLecciones(int Id_Leccion)
+        {
+            SO_LeccionesTipoCambio Servicio = new SO_LeccionesTipoCambio();
+
+            ObservableCollection<TIPOCAMBIO> ListaTipoCambioLecciones = new ObservableCollection<TIPOCAMBIO>();
+
+            IList ObjLec = Servicio.GetLeccionesTipoCambio(Id_Leccion);
+
+            if (ObjLec != null)
+            {
+                foreach (var item in ObjLec)
+                {
+                    System.Type tipo = item.GetType();
+
+                    TIPOCAMBIO ObjTipo = new TIPOCAMBIO();
+
+                    ObjTipo.ID_TIPOCAMBIO = (int)tipo.GetProperty("ID_TIPOCAMBIO").GetValue(item, null);
+                    ObjTipo.NOMBRETIPOCAMBIO = (string)tipo.GetProperty("NOMBRETIPOCAMBIO").GetValue(item, null);
+
+                    ListaTipoCambioLecciones.Add(ObjTipo);
+                }
+            }
+            return ListaTipoCambioLecciones;
         }
 
         /// <summary>
@@ -3121,6 +3221,114 @@ namespace Model.ControlDocumentos
                 }
             }
             return ListaArchivosLecciones;
+        }
+
+        /// <summary>
+        /// Método para obtener todos los tipos de cambio para insertarlos en un combobox
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<TIPOCAMBIO> GetNivelesDeCambio()
+        {
+            SO_TipoCambio Servicio = new SO_TipoCambio();
+            ObservableCollection<TIPOCAMBIO> ListaNivelDeCambio = new ObservableCollection<TIPOCAMBIO>();
+
+            IList ObjCambios = Servicio.GetTiposCambios();
+
+            if (ObjCambios!= null)
+            {
+                foreach (var item in ObjCambios)
+                {
+                    System.Type tipo = item.GetType();
+
+                    TIPOCAMBIO ObjNIvelCambio = new TIPOCAMBIO();
+                    
+                    ObjNIvelCambio.ID_TIPOCAMBIO = (int)tipo.GetProperty("ID_TIPOCAMBIO").GetValue(item, null);
+                    ObjNIvelCambio.NOMBRETIPOCAMBIO = (string)tipo.GetProperty("NOMBRETIPOCAMBIO").GetValue(item, null);
+
+                    ListaNivelDeCambio.Add(ObjNIvelCambio);
+                }
+            }
+            return ListaNivelDeCambio;
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los centros de trabajo para insertarlos en un combobox
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<CentrosTrabajo> GetCentrosDeTrabajo()
+        {
+            SO_CentrosDeTrabajo Servicio = new SO_CentrosDeTrabajo();
+            ObservableCollection<CentrosTrabajo> ListaCentrosDeTrabajo = new ObservableCollection<CentrosTrabajo>();
+
+            IList ObjCentros = Servicio.GetCentrosTrabajo();
+
+            if (ObjCentros != null)
+            {
+                foreach (var item in ObjCentros)
+                {
+                    System.Type tipo = item.GetType();
+
+                    CentrosTrabajo ObjCentro = new CentrosTrabajo();
+
+                    ObjCentro.CentroTrabajo = (string)tipo.GetProperty("CentroTrabajo1").GetValue(item, null);
+                    ObjCentro.TiempoSetup = Convert.ToDouble(tipo.GetProperty("TiempoSetup").GetValue(item, null));
+                    ObjCentro.NombreOperacion = (string)tipo.GetProperty("NombreOperacion").GetValue(item, null);
+                    ObjCentro.ObjetoXML = (string)tipo.GetProperty("ObjetoXML").GetValue(item, null);
+                    ObjCentro.ObjetoXMLVista = (string)tipo.GetProperty("ObjetoXMLVista").GetValue(item, null);
+                    ObjCentro.NombreIngles = (string)tipo.GetProperty("NombreIngles").GetValue(item, null);
+
+                    ListaCentrosDeTrabajo.Add(ObjCentro);                 
+
+                }
+            }
+            return ListaCentrosDeTrabajo;
+        }
+
+        /// <summary>
+        /// Método para insertar un nuevo registro en la tabla de tr_lecciones_centrostrabajo
+        /// </summary>
+        /// <param name="Id_CentroTrabajo"></param>
+        /// <param name="Id_LeccionAprendida"></param>
+        /// <returns></returns>
+        public static int InsertLeccionesCentroDeTrabajo(string Id_CentroTrabajo, int Id_LeccionAprendida)
+        {
+            //Declaramos los servicios
+            SO_CentrosDeTrabajo Servicio = new SO_CentrosDeTrabajo();
+
+            //Mandamos llamar el método para insertar el nuevo registro
+            return Servicio.InsertLeccionCentroTrabajo(Id_CentroTrabajo, Id_LeccionAprendida);
+        }
+
+        /// <summary>
+        /// Método para insertar un nuevo registro en la tabla de tr_lecciones_tipo_cambio
+        /// </summary>
+        /// <param name="Id_TipoCambio"></param>
+        /// <param name="Id_LeccionAprendida"></param>
+        /// <returns></returns>
+        public static int InsertLeccionesNivelCambio(int Id_TipoCambio, int Id_LeccionAprendida)
+        {
+            SO_LeccionesTipoCambio Servicio = new SO_LeccionesTipoCambio();
+
+            return Servicio.InsertLeccionesTipoCambio(Id_TipoCambio, Id_LeccionAprendida);
+        }
+
+        /// <summary>
+        /// Método para eliminar los centros de trabajo que tenga una leccion aprendida
+        /// </summary>
+        /// <param name="Id_Leccion"></param>
+        /// <returns></returns>
+        public static int DeleteCentrosDeTrabajoLeccion(int Id_Leccion)
+        {
+            SO_LeccionesCentroTrabajo Servicio = new SO_LeccionesCentroTrabajo();
+
+            return Servicio.DeleteLeccionesCentroTrabajo(Id_Leccion);
+        }
+
+        public static int DeleteTiposDeCambioLeccion(int id_leccion)
+        {
+            SO_LeccionesTipoCambio Servicio = new SO_LeccionesTipoCambio();
+
+            return Servicio.DeleteLeccionesTipoCambio(id_leccion);
         }
         #endregion
 

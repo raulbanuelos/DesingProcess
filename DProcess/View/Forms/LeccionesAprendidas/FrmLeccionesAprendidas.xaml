@@ -89,15 +89,11 @@
                         <DataGridTextColumn Binding="{Binding ID_LECCIONES_APRENDIDAS}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblNombreUsuario}" Visibility="Hidden"/>
                         <DataGridTextColumn Binding="{Binding COMPONENTE}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblComponente}" Width="Auto"/>
                         <DataGridTextColumn Binding="{Binding CAMBIO_REQUERIDO}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCambioRequerido}" Width="Auto"/>
-                        <DataGridTextColumn Binding="{Binding NIVEL_DE_CAMBIO}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblNivelCambio}"  Width="Auto"/>
-                        <DataGridTextColumn Binding="{Binding CENTRO_DE_TRABAJO}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCentroTrabajo}"  Width="Auto"/>
-                        <DataGridTextColumn Binding="{Binding OPERACION}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblOperacion}"  Width="Auto"/>
                         <DataGridTextColumn Binding="{Binding DESCRIPCION_PROBLEMA}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblDescripcionProblema}" Width="auto"/>
                         <DataGridTextColumn Binding="{Binding FECHA_ULTIMO_CAMBIO, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaUltimoCambio}"/>
                         <DataGridTextColumn Binding="{Binding FECHA_ACTUALIZACION, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaActualizacion}"/>
                         <DataGridTextColumn Binding="{Binding REPORTADO_POR}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblReportadoPor}"  Width="Auto"/>
                         <DataGridTextColumn Binding="{Binding SOLICITUD_DE_TRABAJO}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblSolicitudTrabajoIng}"  Width="Auto"/>
-                        <DataGridTextColumn Binding="{Binding CRITERIO_1}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCriterio}"  Width="Auto"/>
                         <DataGridTextColumn Binding="{Binding NombreCompleto}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCambioRealizadoPor}"/>
                     </DataGrid.Columns>
                     <i:Interaction.Triggers>

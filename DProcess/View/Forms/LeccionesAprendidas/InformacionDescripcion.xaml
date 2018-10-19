@@ -1,0 +1,82 @@
+﻿<controls:MetroWindow x:Class="View.Forms.LeccionesAprendidas.InformacionDescripcion"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:core="clr-namespace:HamburgerMenuApp.Core;assembly=HamburgerMenuApp.Core"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Forms.LeccionesAprendidas"
+        xmlns:recursos="clr-namespace:View.Resources"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Height="750" Width="750" 
+        BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        
+        <!--Titulo de la ventana-->
+        <Label Content="{x:Static recursos:StringResources.lblNuevaLeccion}" Grid.Column="1" FontSize="18" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="Bold"/>
+        
+        <!--Descripción del problema-->
+        <TextBox Text="{Binding DescripcionProblema}" Grid.Row ="1" Grid.Column="1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblDescripcion}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="50"  Width="620" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" SpellCheck.IsEnabled="True" Language="es-ES"/>
+        
+        <!--Fecha Ultimo Cambio-->
+        <DatePicker Grid.Row="2" Grid.Column="1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFecha}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FechaUltimoCambio}"
+                        IsEnabled="{Binding EnabledFecha}" />
+        
+        <!--Fecha de actualización-->      
+        <DatePicker Grid.Row="3" Grid.Column="1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFecha}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FechaActualizacion}"
+                        IsEnabled="{Binding EnabledFecha}" />
+        <Grid Grid.Row="4" Grid.RowSpan="2" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <!--Titulo del Datagrid Componentes similares-->
+            <Label Content="Componentes similares" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" />
+            
+            <!--Datagrid con informacion de los cambios hechos al mismo componente-->
+            <DataGrid Grid.Row="1" ItemsSource="{Binding ListaComponentesSimilares}" 
+                                      ScrollViewer.CanContentScroll="True" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                      AutoGenerateColumns="False"
+                                      IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{x:Static recursos:StringResources.lblComponente}" Binding="{Binding COMPONENTE}" ClipboardContentBinding="{x:Null}"/>
+                    <DataGridTextColumn Header="{x:Static recursos:StringResources.lblDescripcion}" Binding="{Binding DESCRIPCION_PROBLEMA}" ClipboardContentBinding="{x:Null}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            
+        </Grid>
+
+
+        <!--Botones de Navegación-->
+        <Grid Grid.Column="1" Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Width="150" Command="{Binding RegresarPaginaNuevaLeccion}" Content="{x:Static recursos:StringResources.lblAnterior}"/>
+            <Button Grid.Column="1" Width="150" Command="{Binding IrPaginaInformacionCambios}" Content="{x:Static recursos:StringResources.lblSiguiente}"/>
+        </Grid>
+    </Grid>
+    </controls:MetroWindow>

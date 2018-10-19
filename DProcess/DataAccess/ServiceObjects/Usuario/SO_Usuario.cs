@@ -210,6 +210,7 @@ namespace DataAccess.ServiceObjects.Usuario
                 return 0;
             }
         }
+
         /// <summary>
         /// metodo para eliminar el perfil de un usario en especifico
         /// </summary>
@@ -244,6 +245,7 @@ namespace DataAccess.ServiceObjects.Usuario
                 return 0;
             }
         }
+
         /// <summary>
         /// metodo para eliminar los privilegios de un usuario en especifico
         /// </summary>
