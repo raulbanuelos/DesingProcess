@@ -326,6 +326,7 @@ namespace View.Services.ViewModel
         {
             User = ModelUsuario;
             usuario = User.NombreUsuario;
+
             //Obtenemos los datos que se van a mostrar en las listas
             ListaCentrosDeTrabajo = DataManagerControlDocumentos.GetCentrosDeTrabajo();
             ListaNivelesDeCambio = DataManagerControlDocumentos.GetNivelesDeCambio();
@@ -342,6 +343,8 @@ namespace View.Services.ViewModel
             {
                 IsEnabled = true;
             }
+
+            //Obtenemos la fecha del sistema
             FechaUltimoCambio = DataManagerControlDocumentos.Get_DateTime();
             FechaActualizacion = DataManagerControlDocumentos.Get_DateTime();
         }
@@ -437,6 +440,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(a => eliminarItem(ArchivoSeleccionado));
             }
         }
+
         #endregion
 
         #region Métodos
@@ -461,7 +465,7 @@ namespace View.Services.ViewModel
                     frm.Close();
                 }
 
-                //Obtenemos la lista de los componentes similares y la lleamos
+                //Obtenemos la lista de los componentes similares y la mostramos
                 ListaComponentesSimilares = DataManagerControlDocumentos.GetComponentesSimilares(_Componente);
 
                 //Mostramos la siguiente pantalla
@@ -500,6 +504,7 @@ namespace View.Services.ViewModel
         {
             DialogService dialog = new DialogService();
 
+            //Mandamos llamar el método para verificar que no falte ningun campo de llenar
             bool CmbiarPagina = PaginaCambios();
 
             if (CmbiarPagina == true)
@@ -516,6 +521,7 @@ namespace View.Services.ViewModel
                 Form.ShowDialog();
             }else
             {
+                //si falta algun campo manda un mensaje y no se puede avanzar a la siguiente página
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
             }
 
@@ -555,6 +561,7 @@ namespace View.Services.ViewModel
             {
                 if (item.IsSelected)
                 {
+                    //Mostramos en la lista los Centros de trabajo que se hayan seleccionado en la vista anterior
                     ListaCentrosDeTrabajoSeleccionados.Add(item);
                 }
             }
@@ -575,6 +582,7 @@ namespace View.Services.ViewModel
             {
                 if (item.IsSelected)
                 {
+                    //Mostramos en la lista los niveles de cambio que se hayan seleccionado en la vista anterior
                     ListaNivelesDeCambioSeleccionados.Add(item);
                 }
             }
@@ -794,7 +802,7 @@ namespace View.Services.ViewModel
                 LeccionesTipoCambio ObjTipo = new LeccionesTipoCambio();
                 LeccionesCentroTrabajo ObjCentros = new LeccionesCentroTrabajo();
                 
-
+                //Obtenemos los datos capturados
                 ObjLec.COMPONENTE = _Componente;
                 ObjLec.CAMBIO_REQUERIDO = _CambioRequerido;
                 ObjLec.DESCRIPCION_PROBLEMA = _DescripcionProblema;
