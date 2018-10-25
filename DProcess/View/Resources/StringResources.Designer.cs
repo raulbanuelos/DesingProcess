@@ -412,6 +412,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Special characters are not allowed in the description.
+        /// </summary>
+        public static string lblCaracteresEspeciales {
+            get {
+                return ResourceManager.GetString("lblCaracteresEspeciales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Characteristics.
         /// </summary>
         public static string lblCaracteristicas {
@@ -1587,6 +1596,15 @@ namespace View.Resources {
         public static string lblUsuarioElaboro {
             get {
                 return ResourceManager.GetString("lblUsuarioElaboro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please, select the user who authorized your document.
+        /// </summary>
+        public static string lblUsuarioPermitido {
+            get {
+                return ResourceManager.GetString("lblUsuarioPermitido", resourceCulture);
             }
         }
         

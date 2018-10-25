@@ -1597,4 +1597,10 @@
   <data name="lblSiguiente" xml:space="preserve">
     <value>Next</value>
   </data>
+  <data name="lblCaracteresEspeciales" xml:space="preserve">
+    <value>Special characters are not allowed in the description</value>
+  </data>
+  <data name="lblUsuarioPermitido" xml:space="preserve">
+    <value>Please, select the user who authorized your document</value>
+  </data>
 </root>
