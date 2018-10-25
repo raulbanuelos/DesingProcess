@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 
 namespace View.Services.Operaciones.Gasolina.Maquinado
 {
-    public class AutoFinTurn : IOperacion, IObserverDiametro, IObserverThickness
+    public class AutoFinTurn : GenericOperation, IOperacion, IObserverDiametro, IObserverThickness
     {
         #region Properties
 
         #region Properties of IOperacion
+
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>

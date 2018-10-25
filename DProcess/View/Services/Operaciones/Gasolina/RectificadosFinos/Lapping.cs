@@ -5,11 +5,12 @@ using System.Collections.ObjectModel;
 
 namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 {
-    public class Lapping : IOperacion
+    public class Lapping : GenericOperation, IOperacion, IObserverDiametro, IObserverThickness
     {
         #region Properties
 
         #region Properties of IOperacion
+        
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>

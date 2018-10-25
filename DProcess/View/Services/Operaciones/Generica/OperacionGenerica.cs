@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 
 namespace View.Services.Operaciones.Generica
 {
-    public class OperacionGenerica : IOperacion
+    public class OperacionGenerica : GenericOperation, IOperacion
     {
         public ObservableCollection<string> AlertasOperacion
         {

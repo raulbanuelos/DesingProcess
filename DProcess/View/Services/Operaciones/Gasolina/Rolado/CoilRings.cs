@@ -6,7 +6,7 @@ using View.Services.TiempoEstandar.Gasolina.Rolado;
 
 namespace View.Services.Operaciones.Gasolina.Rolado
 {
-    public class CoilRings : IOperacion,IObserverDiametro
+    public class CoilRings : GenericOperation, IOperacion,IObserverDiametro 
     {
 
         #region Properties
@@ -46,6 +46,7 @@ namespace View.Services.Operaciones.Gasolina.Rolado
         #endregion
 
         #region Propiedades de IOperacion
+
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -185,6 +186,14 @@ namespace View.Services.Operaciones.Gasolina.Rolado
         /// <param name="elPlano">Anillo que representa el plano que ingresó el usuario.</param>
         public void CrearOperacion(Anillo ElAnilloProcesado, Anillo elPlano)
         {
+
+            int x = ListaMateriaPrima.Count;
+
+            if (x > 0)
+            {
+                MateriaPrimaRolado materiaPrima = (MateriaPrimaRolado)ListaMateriaPrima[0];
+            }
+
             //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
 

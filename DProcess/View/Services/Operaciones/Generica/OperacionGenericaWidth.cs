@@ -9,11 +9,12 @@ using System.Collections.ObjectModel;
 
 namespace View.Services.Operaciones.Generica
 {
-    public class OperacionGenericaWidth : IOperacion, IObserverWidth
+    public class OperacionGenericaWidth : GenericOperation ,IOperacion, IObserverWidth
     {
         #region Propiedades
 
         #region Propiedades de IOperacion
+        
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -139,6 +140,7 @@ namespace View.Services.Operaciones.Generica
 
         #endregion
 
+        #region Methods
         #region Métodos de IOperacion
         /// <summary>
         /// Método en el cual se calcula la operación.
@@ -159,7 +161,7 @@ namespace View.Services.Operaciones.Generica
 
         public void BuscarHerramentales()
         {
-            
+
         }
 
         /// <summary>
@@ -167,7 +169,7 @@ namespace View.Services.Operaciones.Generica
         /// </summary>
         public void CalcularTiemposEstandar()
         {
-            
+
         }
         #endregion
 
@@ -193,6 +195,7 @@ namespace View.Services.Operaciones.Generica
         {
             return NombreOperacion;
         }
+        #endregion 
         #endregion
     }
 }

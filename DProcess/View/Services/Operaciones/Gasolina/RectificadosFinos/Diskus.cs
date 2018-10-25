@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 
 namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 {
-    public class Diskus : IOperacion, IObserverWidth
+    public class Diskus : GenericOperation, IOperacion, IObserverWidth
     {
         #region Propiedades
 
         #region Propiedades de IOperacion
+        
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -153,7 +154,16 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "Width operación: " + WidthOperacion;
+            //TextoProceso = "Width operación: " + WidthOperacion;
+
+            double widthDecimal = Math.Round(WidthOperacion * 25.4,3);
+
+            TextoProceso = "*FIN GRIND \n";
+            TextoProceso += "mm(1) (" + widthDecimal + " +- 0.0060) \n";
+            TextoProceso += "\n";
+            TextoProceso += "REF.BLOCK PATRON:\n";
+            TextoProceso += "IN(" + WidthOperacion + " +- 0.0060)\n";
+            TextoProceso += "ROUGHNESS 25 Ra MAX.\n";
             
             anilloProcesado.H1.Valor = WidthOperacion;
 
@@ -166,7 +176,25 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 
         public void BuscarHerramentales()
         {
+            ObservableCollection<Herramental> listaDiscos = new ObservableCollection<Herramental>();
+            List<string> ListaAlertasDisco = new List<string>();
+
+            double piece = Module.GetValorPropiedad("piece", anilloProcesado.PropiedadesAdquiridasProceso);
+
+            DataManager.GetDiscoDiskus(anilloProcesado.MaterialBase.Especificacion, anilloProcesado.D1.Valor, piece, anilloProcesado.H1.Valor, anilloProcesado.FreeGap.Valor, out listaDiscos, out ListaAlertasDisco);
+
+            if (listaDiscos.Where(x => x.Encontrado == false).ToList().Count > 0)
+                AlertasOperacion.Add("Herramental Disco no encontrado.");
+
+            foreach (string alerta in ListaAlertasDisco)
+            {
+                AlertasOperacion.Add(alerta);
+            }
+
+            ListaHerramentales.Add(listaDiscos[0]);
             
+            TextoHerramienta = Module.GetTextoListaHerramentales(ListaHerramentales);
+
         }
 
         /// <summary>
@@ -212,7 +240,7 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
             CentroCostos = "32012529";
             CentroTrabajo = "160";
             ControlKey = "MA42";
-            MatRemoverWidth = 0.0030;
+            MatRemoverWidth = 0.0005;
             elPlano = plano;
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();

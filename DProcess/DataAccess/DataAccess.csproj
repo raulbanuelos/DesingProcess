@@ -142,6 +142,9 @@
     <Compile Include="ServiceObjects\MateriasPrimas\castings_widths.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\CAT_MATERIA_PRIMA_ROLADO.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\MateriasPrimas\Cliente.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
@@ -192,6 +195,7 @@
     <Compile Include="ServiceObjects\MateriasPrimas\SO_CompesacionPiece.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Cuffs.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Especificaciones.cs" />
+    <Compile Include="ServiceObjects\MateriasPrimas\SO_MateriaPrimaRolado.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_MotingWidth.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_MoutingDia.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Pattern.cs" />
@@ -296,6 +300,9 @@
     <Compile Include="ServiceObjects\Tooling\cutter_angle.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\DiscoDiskus_.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\GuideBarFinGrind.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -396,6 +403,7 @@
     </Compile>
     <Compile Include="ServiceObjects\SO_CentroTrabajo.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Material.cs" />
+    <Compile Include="ServiceObjects\Tooling\Operaciones\SO_Diskus.cs" />
     <Compile Include="ServiceObjects\Tooling\PLANO_HERRAMENTAL.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>

@@ -2579,6 +2579,7 @@ namespace View.Services.ViewModel
                                     //si se guardó correctamente el registro en la tabla versión.
                                     if (id_version != 0)
                                     {
+                                        bool banOk = true;
                                         //Iteramos la lista de documentos.
                                         foreach (var item in _ListaDocumentos)
                                         {
@@ -2593,12 +2594,27 @@ namespace View.Services.ViewModel
 
                                             //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
                                             int nombre = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+
+                                            if (nombre == 0)
+                                            {
+                                                banOk = false;
+                                                objVersion.id_estatus_version = 4;
+                                                
+                                                //Rechazamos el documento.
+                                                DataManagerControlDocumentos.UpdateVersion(objVersion, User, objArchivo.nombre);
+
+                                                await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
+                                            }
                                         }
+
+
                                         //Ejecutamos el método para cerrar el mensaje de espera.
                                         await controllerProgressAsync.CloseAsync();
 
-                                        //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
-                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosGuardadosExito);
+                                        if (banOk)
+                                            //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
+                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosGuardadosExito);
+
 
                                         //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                         var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -2680,6 +2696,7 @@ namespace View.Services.ViewModel
                                     //si se realizo guardo la versión 
                                     if (id_version != 0)
                                     {
+                                        bool banOk = true;
                                         //Iteramos la lista de documentos.
                                         foreach (var item in _ListaDocumentos)
                                         {
@@ -2692,6 +2709,18 @@ namespace View.Services.ViewModel
 
                                             //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
                                             int id_archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+
+                                            if (id_archivo == 0)
+                                            {
+                                                banOk = false;
+                                                objVersion.id_estatus_version = 4;
+
+                                                //Rechazamos el documento.
+                                                DataManagerControlDocumentos.UpdateVersion(objVersion, User, objArchivo.nombre);
+
+                                                await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
+
+                                            }
                                         }
 
                                         //Asignamos el valor de Guardar a la etiqueta del botón.
@@ -2701,7 +2730,9 @@ namespace View.Services.ViewModel
                                         await controllerProgressAsync.CloseAsync();
 
                                         //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
-                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosGuardadosExito);
+                                        if (banOk)
+                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosGuardadosExito);
+
 
                                         //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                         var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -3239,6 +3270,8 @@ namespace View.Services.ViewModel
                                     //si se modifico correctamente
                                     if (update_version != 0)
                                     {
+                                        bool banOk = true;
+
                                         //obtenemos los datos que se habian guardado localmente en el metodo de adjuntar archivo
                                         foreach (var item in _ListaDocumentos)
                                         {
@@ -3255,18 +3288,24 @@ namespace View.Services.ViewModel
                                             {
                                                 //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
                                                 int a = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+
+                                                if (a == 0)
+                                                {
+                                                    banOk = false;
+                                                    rechazaVersion();
+                                                    await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
+                                                    break;
+                                                }
+                                                
                                             }
                                         }
-                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosGuardadosExito);
-                                        //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                                        var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
-                                        //Verificamos que la pantalla sea diferente de nulo.
-                                        if (window != null)
-                                        {
-                                            //Cerramos la pantalla
-                                            window.Close();
-                                        }
+                                        if (banOk)
+                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosGuardadosExito);
+                                        
+
+                                        CerrarVentanaActual();
+                                        
                                     }
                                     else
                                     {
@@ -3287,6 +3326,8 @@ namespace View.Services.ViewModel
                                 int update_version = modificaVersion();
                                 if (update_version != 0)
                                 {
+                                    bool banOk = true;
+
                                     //Iteramos la lista de los archivos de la versión
                                     foreach (var item in _ListaDocumentos)
                                     {
@@ -3303,18 +3344,22 @@ namespace View.Services.ViewModel
                                         {
                                             //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
                                             int a = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+
+                                            if (a == 0)
+                                            {
+                                                rechazaVersion();
+                                                banOk = false;
+                                                await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
+                                                break;
+                                            }
                                         }
                                     }
-                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosGuardadosExito);
-                                    //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                                    var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
-                                    //Verificamos que la pantalla sea diferente de nulo.
-                                    if (window != null)
-                                    {
-                                        //Cerramos la pantalla
-                                        window.Close();
-                                    }
+                                    if (banOk)
+                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosGuardadosExito);
+
+                                    //Cerramos la ventana.
+                                    CerrarVentanaActual();
                                 }
                                 else
                                 {
@@ -3560,6 +3605,27 @@ namespace View.Services.ViewModel
             objVersion.id_usuario_autorizo = _usuarioAutorizo;
             objVersion.fecha_version = fecha;
             objVersion.id_estatus_version = 3;
+            objVersion.no_copias = 0;
+            objVersion.descripcion_v = Descripcion;
+
+            //Ejecutamos el método para guardar la versión. El resultado lo retornamos
+            return DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
+        }
+
+        /// <summary>
+        /// Método que guarda la versión y pone el estatus como pendiente por corregir.
+        /// </summary>
+        /// <returns></returns>
+        private int rechazaVersion()
+        {
+            Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+            objVersion.id_version = idVersion;
+            objVersion.no_version = version;
+            objVersion.id_documento = id_documento;
+            objVersion.id_usuario = _usuario;
+            objVersion.id_usuario_autorizo = _usuarioAutorizo;
+            objVersion.fecha_version = fecha;
+            objVersion.id_estatus_version = 4;
             objVersion.no_copias = 0;
             objVersion.descripcion_v = Descripcion;
 
@@ -3985,6 +4051,21 @@ namespace View.Services.ViewModel
                         );
                     break;
             }
+        }
+
+        private void CerrarVentanaActual()
+        {
+            #region Cerrar la ventana
+            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+            //Verificamos que la pantalla sea diferente de nulo.
+            if (window != null)
+            {
+                //Cerramos la pantalla
+                window.Close();
+            }
+            #endregion
         }
         #endregion
     }

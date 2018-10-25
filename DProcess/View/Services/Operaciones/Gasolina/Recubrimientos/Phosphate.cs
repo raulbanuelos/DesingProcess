@@ -5,11 +5,12 @@ using System.Collections.ObjectModel;
 
 namespace View.Services.Operaciones.Gasolina.Recubrimientos
 {
-    public class Phosphate : IOperacion, IObserverWidth
+    public class Phosphate : GenericOperation, IOperacion, IObserverWidth
     {
         #region Propiedades
 
         #region Propiedades de IOperacion
+        
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -207,6 +208,7 @@ namespace View.Services.Operaciones.Gasolina.Recubrimientos
             CentroTrabajo = "750";
             ControlKey = "MA42";
             elPlano = plano;
+            MatRemoverWidth = -0.00056;
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();

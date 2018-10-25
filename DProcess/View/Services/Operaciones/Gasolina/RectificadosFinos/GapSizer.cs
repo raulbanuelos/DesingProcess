@@ -5,10 +5,11 @@ using System.Collections.ObjectModel;
 
 namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 {
-    public class GapSizer : IOperacion
+    public class GapSizer : GenericOperation, IOperacion, IObserverDiametro
     {
         #region Properties
         #region Propiedades de IOperacion
+        
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -167,7 +168,8 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = String.Format("{0:0.00000}", Diameter);
+            TextoProceso = "*GRD GAP(SIM WET)\n";
+            TextoProceso = String.Format("{0:0.00000}", Diameter) + "   GA. " + String.Format("{0:0.000}", Gap) + " +- .002\n";
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
@@ -178,6 +180,41 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 
         public void BuscarHerramentales()
         {
+            ObservableCollection<Herramental> ListaBushing = new ObservableCollection<Herramental>();
+            Herramental bushing = new Herramental();
+            Herramental pusher = new Herramental();
+            Herramental guillotina = new Herramental();
+
+            DataManager.GetBushingSim(elPlano.D1.Valor,out ListaBushing);
+
+            if (ListaBushing.Count > 0)
+                bushing = ListaBushing[0];
+
+            if (bushing.Encontrado)
+            {
+                double dimBBushing;
+                dimBBushing = Module.GetValorPropiedad("DimB", bushing.Propiedades);
+                ObservableCollection<Herramental> ListaPusher = new ObservableCollection<Herramental>();
+                DataManager.GetPusherSim(dimBBushing,out ListaPusher);
+                
+                if (ListaPusher.Count > 0)
+                    pusher = ListaPusher[0];
+            }
+
+            ObservableCollection<Herramental> ListaGuillotinas = new ObservableCollection<Herramental>();
+            DataManager.GetGuillotinaSim(elPlano.H1.Valor,out ListaGuillotinas);
+
+            if (ListaGuillotinas.Count > 0)
+                guillotina = ListaGuillotinas[0];
+
+            ListaHerramentales.Add(bushing);
+            ListaHerramentales.Add(pusher);
+            ListaHerramentales.Add(guillotina);
+
+            foreach (var Herramental in ListaHerramentales)
+            {
+                TextoHerramienta += Herramental.DescripcionRuta + "\n";
+            }
 
         }
 
@@ -218,6 +255,7 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
         #endregion
         #endregion
 
+        #region Constructors
         public GapSizer(Anillo plano)
         {
             //Asignamos los valores por default a las propiedades.
@@ -230,7 +268,8 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
 
-            MatRemoverDiametro = 0.012; // <--Significan .004 totales
-        }
+            MatRemoverDiametro = 0.0125; // <--Significan .004 totales
+        } 
+        #endregion
     }
 }

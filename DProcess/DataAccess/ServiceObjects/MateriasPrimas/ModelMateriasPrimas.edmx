@@ -16,6 +16,18 @@
           <Property Name="ideal_casting_Width" Type="float" />
           <Property Name="tipo" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="CAT_MATERIA_PRIMA_ROLADO">
+          <Key>
+            <PropertyRef Name="ID_MATERIA_PRIMA_ROLADO" />
+          </Key>
+          <Property Name="ID_MATERIA_PRIMA_ROLADO" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="ID_ESPECIFICACION" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="255" />
+          <Property Name="UM" Type="varchar" MaxLength="50" />
+          <Property Name="WIDTH" Type="decimal" Precision="18" Scale="5" Nullable="false" />
+          <Property Name="GROOVE" Type="decimal" Precision="18" Scale="5" Nullable="false" />
+          <Property Name="THICKNESS" Type="decimal" Precision="18" Scale="5" Nullable="false" />
+        </EntityType>
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="id_cliente" />
@@ -205,6 +217,18 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           <Property Name="Molde" Type="varchar" MaxLength="50" />
           <Property Name="RPM" Type="int" />
         </EntityType>
+        <Association Name="FK_CAT_MATERIA_PRIMA_ROLADO_material">
+          <End Role="material" Type="Self.material" Multiplicity="1" />
+          <End Role="CAT_MATERIA_PRIMA_ROLADO" Type="Self.CAT_MATERIA_PRIMA_ROLADO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="material">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CAT_MATERIA_PRIMA_ROLADO">
+              <PropertyRef Name="ID_ESPECIFICACION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Compensacion_Piece_material">
           <End Role="material" Type="Self.material" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -287,6 +311,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
         </Association>
         <EntityContainer Name="DataAccessServiceObjectsMateriasPrimasStoreContainer">
           <EntitySet Name="castings_widths" EntityType="Self.castings_widths" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CAT_MATERIA_PRIMA_ROLADO" EntityType="Self.CAT_MATERIA_PRIMA_ROLADO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Coating" EntityType="Self.Coating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Compensacion_Piece" EntityType="Self.Compensacion_Piece" Schema="dbo" store:Type="Tables" />
@@ -318,6 +343,10 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
     [Esp_MP_Anillos].[Ref12] AS [Ref12]
     FROM [dbo].[Esp_MP_Anillos] AS [Esp_MP_Anillos]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_CAT_MATERIA_PRIMA_ROLADO_material" Association="Self.FK_CAT_MATERIA_PRIMA_ROLADO_material">
+            <End Role="material" EntitySet="material" />
+            <End Role="CAT_MATERIA_PRIMA_ROLADO" EntitySet="CAT_MATERIA_PRIMA_ROLADO" />
+          </AssociationSet>
           <AssociationSet Name="FK_Compensacion_Piece_material" Association="Self.FK_Compensacion_Piece_material">
             <End Role="material" EntitySet="material" />
             <End Role="Compensacion_Piece" EntitySet="Compensacion_Piece" />
@@ -489,6 +518,11 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           </AssociationSet>
           <EntitySet Name="MoutingDia" EntityType="DataAccess.ServiceObjects.MateriasPrimas.MoutingDia" />
           <EntitySet Name="MoutingWidth" EntityType="DataAccess.ServiceObjects.MateriasPrimas.MoutingWidth" />
+          <EntitySet Name="CAT_MATERIA_PRIMA_ROLADO" EntityType="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ROLADO" />
+          <AssociationSet Name="FK_CAT_MATERIA_PRIMA_ROLADO_material" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_CAT_MATERIA_PRIMA_ROLADO_material">
+            <End Role="material" EntitySet="material" />
+            <End Role="CAT_MATERIA_PRIMA_ROLADO" EntitySet="CAT_MATERIA_PRIMA_ROLADO" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Tipo_Materia_Prima">
           <Key>
@@ -551,6 +585,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           <Property Name="Recomendado" Type="Boolean" />
           <NavigationProperty Name="Esp_MP_Anillos" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Esp_MP_Anillos_material" FromRole="material" ToRole="Esp_MP_Anillos" />
           <NavigationProperty Name="Compensacion_Piece" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_material" FromRole="material" ToRole="Compensacion_Piece" />
+          <NavigationProperty Name="CAT_MATERIA_PRIMA_ROLADO" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_CAT_MATERIA_PRIMA_ROLADO_material" FromRole="material" ToRole="CAT_MATERIA_PRIMA_ROLADO" />
         </EntityType>
         <EntityType Name="Esp_MP_Anillos">
           <Key>
@@ -678,6 +713,31 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           <Property Name="Detalle" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
           <Property Name="Altura_Gate" Type="Double" />
         </EntityType>
+        <EntityType Name="CAT_MATERIA_PRIMA_ROLADO">
+          <Key>
+            <PropertyRef Name="ID_MATERIA_PRIMA_ROLADO" />
+          </Key>
+          <Property Name="ID_MATERIA_PRIMA_ROLADO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="ID_ESPECIFICACION" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WIDTH" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
+          <Property Name="GROOVE" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
+          <Property Name="THICKNESS" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
+          <NavigationProperty Name="material" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_CAT_MATERIA_PRIMA_ROLADO_material" FromRole="CAT_MATERIA_PRIMA_ROLADO" ToRole="material" />
+        </EntityType>
+        <Association Name="FK_CAT_MATERIA_PRIMA_ROLADO_material">
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.material" Role="material" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ROLADO" Role="CAT_MATERIA_PRIMA_ROLADO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="material">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CAT_MATERIA_PRIMA_ROLADO">
+              <PropertyRef Name="ID_ESPECIFICACION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -894,6 +954,19 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
                 <ScalarProperty Name="Width_Max" ColumnName="Width_Max" />
                 <ScalarProperty Name="Width_Min" ColumnName="Width_Min" />
                 <ScalarProperty Name="Id_MountingWidth" ColumnName="Id_MountingWidth" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAT_MATERIA_PRIMA_ROLADO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ROLADO">
+              <MappingFragment StoreEntitySet="CAT_MATERIA_PRIMA_ROLADO">
+                <ScalarProperty Name="THICKNESS" ColumnName="THICKNESS" />
+                <ScalarProperty Name="GROOVE" ColumnName="GROOVE" />
+                <ScalarProperty Name="WIDTH" ColumnName="WIDTH" />
+                <ScalarProperty Name="UM" ColumnName="UM" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="ID_ESPECIFICACION" ColumnName="ID_ESPECIFICACION" />
+                <ScalarProperty Name="ID_MATERIA_PRIMA_ROLADO" ColumnName="ID_MATERIA_PRIMA_ROLADO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

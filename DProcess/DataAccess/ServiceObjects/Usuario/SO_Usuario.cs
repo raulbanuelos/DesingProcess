@@ -44,6 +44,34 @@ namespace DataAccess.ServiceObjects.Usuario
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Método que retorna el nombre de un determinado usuario.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public IList GetNameUsuario(string usuario)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesUsuario())
+                {
+                    var lista = (from a in Conexion.Usuarios
+                                 where a.Usuario == usuario
+                                 select new
+                                 {
+                                     NombreCompleto = a.Nombre + " " + a.APaterno + " " + a.AMaterno ,
+                                     a.Correo
+                                 }).ToList();
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
 
         }
 
@@ -210,6 +238,7 @@ namespace DataAccess.ServiceObjects.Usuario
                 return 0;
             }
         }
+
         /// <summary>
         /// metodo para eliminar el perfil de un usario en especifico
         /// </summary>
@@ -244,6 +273,7 @@ namespace DataAccess.ServiceObjects.Usuario
                 return 0;
             }
         }
+
         /// <summary>
         /// metodo para eliminar los privilegios de un usuario en especifico
         /// </summary>

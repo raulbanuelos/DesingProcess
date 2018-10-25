@@ -10,7 +10,7 @@ using View.Services.TiempoEstandar.Gasolina.PreMaquinado;
 
 namespace View.Services.Operaciones.Gasolina.PreMaquinado
 {
-    public class Splitter : IOperacion, IObserverWidth
+    public class Splitter : GenericOperation, IOperacion, IObserverWidth
     {
         #region Attibutes
         string proceso;
@@ -34,11 +34,12 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             AlertasOperacion = new ObservableCollection<string>();
             
             CalcularWidth();
-        } 
+        }
 
         #endregion
 
         #region Properties of IOperacion
+
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -201,7 +202,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             anilloProcesado = ElAnilloProcesado;
             elPlano = _elPlano;
 
-            double timeSplitter = DataManager.GetCycleTimeSplitter(elPlano.MaterialBase.Especificacion.Valor);
+            double timeSplitter = DataManager.GetCycleTimeSplitter(elPlano.MaterialBase.Especificacion);
 
             if (timeSplitter == 0)
             {

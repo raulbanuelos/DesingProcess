@@ -68,6 +68,7 @@
     <Compile Include="ControlDocumentos\Version.cs" />
     <Compile Include="Cuffs.cs" />
     <Compile Include="DataManager.cs" />
+    <Compile Include="DO_DocumentosRechazados.cs" />
     <Compile Include="DO_Historial_Documento.cs" />
     <Compile Include="DO_Notification.cs" />
     <Compile Include="DO_UsuarioNombre.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="MaestroHerramental.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="MateriaPrima.cs" />
+    <Compile Include="MateriaPrimaRolado.cs" />
     <Compile Include="MoutingDia.cs" />
     <Compile Include="MoutingWidth.cs" />
     <Compile Include="Pattern.cs" />

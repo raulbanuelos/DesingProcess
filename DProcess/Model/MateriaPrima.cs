@@ -3,16 +3,30 @@ namespace Model
 {
     public class MateriaPrima : Arquetipo
     {
-        #region Propiedades
+        #region Properties
 
-        private PropiedadCadena especificacion;
+        //private PropiedadCadena especificacion;
         /// <summary>
         /// Propiedad que representa la especificación de la materia prima.
         /// </summary>
         /// <example>
         /// SPR-128,MF012-S,etc.
         /// </example>
-        public PropiedadCadena Especificacion
+        //public PropiedadCadena Especificacion
+        //{
+        //    get
+        //    {
+        //        return especificacion;
+        //    }
+        //    set
+        //    {
+        //        especificacion = value;
+        //        TipoDeMaterial = DataManager.GetTipoMaterial(especificacion.Valor);
+        //    }
+        //}
+
+        private string especificacion;
+        public string Especificacion
         {
             get
             {
@@ -21,7 +35,7 @@ namespace Model
             set
             {
                 especificacion = value;
-                TipoDeMaterial = DataManager.GetTipoMaterial(especificacion.Valor);
+                TipoDeMaterial = DataManager.GetTipoMaterial(especificacion);
             }
         }
 
@@ -55,21 +69,21 @@ namespace Model
 
         #endregion
 
-        #region Construcotres
+        #region Contructors
 
         /// <summary>
         /// Constructor por default. Inicializa todas las propiedades con valores por default.
         /// </summary>
         public MateriaPrima()
         {
-            Especificacion = new PropiedadCadena();
+            Especificacion = string.Empty;
             Propiedades = new ObservableCollection<Propiedad>();
             Cantidad = 0;
             Measurement = string.Empty;
         }
         #endregion
 
-        #region Métodos
+        #region Methods
         #endregion
     }
 }

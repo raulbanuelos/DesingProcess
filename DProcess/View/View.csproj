@@ -33,7 +33,7 @@
     <MinimumRequiredVersion>1.0.1.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
     <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.1.4.%2a</ApplicationVersion>
+    <ApplicationVersion>1.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -302,6 +302,9 @@
     <Compile Include="Forms\Routing\PRouting.xaml.cs">
       <DependentUpon>PRouting.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Routing\WCreateRing.xaml.cs">
+      <DependentUpon>WCreateRing.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Routing\WDimensions.xaml.cs">
       <DependentUpon>WDimensions.xaml</DependentUpon>
     </Compile>
@@ -310,6 +313,9 @@
     </Compile>
     <Compile Include="Forms\Routing\WRouting.xaml.cs">
       <DependentUpon>WRouting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Routing\WSelectPerfil.xaml.cs">
+      <DependentUpon>WSelectPerfil.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Routing\WViewPerfiles.xaml.cs">
       <DependentUpon>WViewPerfiles.xaml</DependentUpon>
@@ -544,6 +550,7 @@
     <Compile Include="Services\Operaciones\Gasolina\Rolado\StressReliefRings.cs" />
     <Compile Include="Services\Operaciones\Generica\OperacionGenerica.cs" />
     <Compile Include="Services\Operaciones\Generica\OperacionGenericaWidth.cs" />
+    <Compile Include="Services\Operaciones\GenericOperation.cs" />
     <Compile Include="Services\ParametricSurface.cs" />
     <Compile Include="Services\RotateSurface.cs" />
     <Compile Include="Services\SAP.cs" />
@@ -755,7 +762,6 @@
     <Compile Include="Services\ViewModel\PUserViewModel.cs" />
     <Compile Include="Services\ViewModel\PusherSimVM.cs" />
     <Compile Include="Services\ViewModel\RecursoViewModel.cs" />
-    <Compile Include="Services\ViewModel\RoutingViewModel.cs" />
     <Compile Include="Services\ViewModel\ShieldBK_VM.cs" />
     <Compile Include="Services\ViewModel\ShimCutSystem_VM.cs" />
     <Compile Include="Services\ViewModel\ToolingViewModel.cs" />
@@ -965,6 +971,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Forms\Routing\WCreateRing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Routing\WDimensions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -974,6 +984,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Routing\WRouting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Routing\WSelectPerfil.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

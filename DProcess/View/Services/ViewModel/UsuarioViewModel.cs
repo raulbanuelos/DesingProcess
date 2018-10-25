@@ -15,6 +15,7 @@ using System.Threading;
 using TableDependency.SqlClient;
 using Notifications.Wpf;
 using View.Resources;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace View.Services.ViewModel
 {
@@ -270,6 +271,10 @@ namespace View.Services.ViewModel
             ModelUsuario = modelUsuario;
             this.pagina = pagina;
             //initNotifications();
+
+            //if (Module.UsuarioIsRol(ModelUsuario.Roles, 2))
+            //    SetDocumentsRejected();
+
         }
 
         #endregion
@@ -458,27 +463,111 @@ namespace View.Services.ViewModel
             Pagina = pantallaPattern;
         }
         #endregion
+
+        private async void SetDocumentsRejected()
+        {
+            List<DO_DocumentosRechazados> ListaDocumentos = Model.ControlDocumentos.DataManagerControlDocumentos.GetDocumentosAprobadosNoRecibidos();
+
+            if (ListaDocumentos.Count > 0)
+            {
+                //Incializamos los servicios de dialog.
+                DialogService dialog = new DialogService();
+
+                //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+                MetroDialogSettings setting = new MetroDialogSettings();
+                setting.AffirmativeButtonText = StringResources.lblYes;
+                setting.NegativeButtonText = StringResources.lblNo;
+
+                //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+                MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, "Existen archivos que tienen mas de dos dias sin entregar. \n¿Deseas rechazar los documentos? \n Si rechazas los documentos se notificará al dueño del documento vía correo. ", setting, MessageDialogStyle.AffirmativeAndNegative);
+
+                if (result == MessageDialogResult.Affirmative)
+                {
+                    //Rechazar el documento.
+                    foreach (DO_DocumentosRechazados documentoRezadado in ListaDocumentos)
+                    {
+                        //Obtenemos el ID de la version.
+                        int idVersion = Model.ControlDocumentos.DataManagerControlDocumentos.GetIdVersion(documentoRezadado.NombreDocumento, documentoRezadado.NoVersion);
+
+                        ////Rechazamos el documento
+                        Model.ControlDocumentos.DataManagerControlDocumentos.SetRechazarVersion(idVersion);
+
+                        Model.ControlDocumentos.DataManagerControlDocumentos.InsertHistorialVersion(idVersion, ModelUsuario.Nombre + " " + ModelUsuario.ApellidoPaterno + " " + ModelUsuario.ApellidoMaterno, documentoRezadado.NombreDocumento, documentoRezadado.NoVersion, "Se cambia el estatus a: PENDIENTE POR CORREGIR");
+                        
+                        ServiceEmail serviceEmail = new ServiceEmail();
+
+                        string[] correos = new string[2];
+
+                        correos[0] = documentoRezadado.Correo;
+
+                        //CAMBIAR AL USUARIO ACTIVO.
+                        correos[1] = ModelUsuario.Correo;
+
+                        string body = "<HTML>";
+                        body += "<head>";
+                        body += "<meta http-equiv=\"Content - Type\" content=\"text / html; charset = utf - 8\"/>";
+                        body += "</head>";
+                        body += "<body text=\"white\">";
+                        body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
+                        body += "<ul>";
+                        body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que el documento con el número <b> " + documentoRezadado.NombreDocumento + "</b> versión <b> " + documentoRezadado.NoVersion + ".0" + " </b> fué rechazado y puesto en estatus Pendiente por corregir debido a que no se entrego a tiempo</font> </li>";
+                        body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizó la fecha de la versión.</font></li>";
+                        body += "<br/>";
+                        body += "</ul>";
+                        body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
+                        body += "<p><font font=\"verdana\" size=\"3\" color=\"black\"></font> </p>";
+                        body += "<br/>";
+                        body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Este correo se ha generado automáticamente, por favor no responda.</font> </p>";
+                        body += "<br/>";
+                        body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
+                        body += "<ul>";
+                        body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + ModelUsuario.Nombre + " " + ModelUsuario.ApellidoPaterno + "</font> </li>";
+                        body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">MAHLE Componentes de Motor de México, S. de R.L. de C.V.</font></li>";
+                        body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Engineering (ENG)</font> </li>";
+                        body += "<li></li>";
+                        body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Km. 0.3 Carr. Maravillas-Jesús María , 20900 Aguascalientes, Mexico</font> </li>";
+                        body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Teléfono: +52 449 910 8200-82 90, Fax: +52 449 910 8200 - 267</font> </li>";
+                        body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + ModelUsuario.Correo + ",</font> <a href=\"http://www.mx.mahle.com\">http://www.mx.mahle.com</a>  </li>";
+                        body += "</ul>";
+                        body += "</body>";
+                        body += "</HTML>";
+                        
+                        serviceEmail.SendEmailLotusCustom(ModelUsuario.Pathnsf, correos, "Documento rechazado - " + documentoRezadado.NombreDocumento, body);
+
+                    }
+                    //Construimos en mensaje.
+                }
+            }
+        }
+
+        private string definirSaludo()
+        {
+            DateTime d = DateTime.Now;
+            string saludo = string.Empty;
+
+            return d.Hour <= 11 ? "Buenos días;" : "Buenas tardes;";
+        }
         
-         private void initNotifications()
-         {
-             SqlTableDependency<DO_Notification> tableDependency;
-             SqlTableDependency<DO_Historial_Documento> tableDependencyAdmin;
-             var connectionString = System.Configuration.ConfigurationManager.AppSettings["CadenaConexion"];
-             tableDependency = new SqlTableDependency<DO_Notification>(connectionString, "TBL_NOTIFICACIONES");
-             tableDependency.OnChanged += TableDependency_OnChanged;
-             tableDependency.OnError += TableDependency_OnError;
-             tableDependency.Start();
+        private void initNotifications()
+        {
+            SqlTableDependency<DO_Notification> tableDependency;
+            SqlTableDependency<DO_Historial_Documento> tableDependencyAdmin;
+            var connectionString = System.Configuration.ConfigurationManager.AppSettings["CadenaConexion"];
+            tableDependency = new SqlTableDependency<DO_Notification>(connectionString, "TBL_NOTIFICACIONES");
+            tableDependency.OnChanged += TableDependency_OnChanged;
+            tableDependency.OnError += TableDependency_OnError;
+            tableDependency.Start();
 
-             //Checamos si el usuario es administrador del CIT
-             if (Module.UsuarioIsRol(ModelUsuario.Roles, 2))
-             {
-                 tableDependencyAdmin = new SqlTableDependency<DO_Historial_Documento>(connectionString, "TBL_HISTORIAL_VERSION");
-                 tableDependencyAdmin.OnChanged += TableDependencyAdmin_OnChanged;
-                 tableDependencyAdmin.OnError += TableDependencyAdmin_OnError;
-                 tableDependencyAdmin.Start();
-             }
+            //Checamos si el usuario es administrador del CIT
+            if (Module.UsuarioIsRol(ModelUsuario.Roles, 2))
+            {
+                tableDependencyAdmin = new SqlTableDependency<DO_Historial_Documento>(connectionString, "TBL_HISTORIAL_VERSION");
+                tableDependencyAdmin.OnChanged += TableDependencyAdmin_OnChanged;
+                tableDependencyAdmin.OnError += TableDependencyAdmin_OnError;
+                tableDependencyAdmin.Start();
+            }
 
-         }   
+        }
          
         /// <summary>
         /// Notificaciones para cuando se crea o corrigue un documento

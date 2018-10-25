@@ -4,6 +4,12 @@ namespace Model
     public class Perfil
     {
         #region Propiedades
+
+        /// <summary>
+        /// Entero que representa el ID de la base de datos.
+        /// </summary>
+        public int idPerfil { get; set; }
+
         /// <summary>
         /// Cadena que representa el nombre del perfil.
         /// </summary>

@@ -33,10 +33,12 @@ namespace View.Services
         #endregion
 
         #region Methods
+
+        #region CALCULO PARA MATERIA PRIMA HIERRO GRIS
         public MateriaPrima CalcularPlacaModelo()
         {
             MateriaPrima m = new MateriaPrima();
-            Piece = calculaPiece();
+            Piece = DataManager.calculaPiece(Module.GetValorPropiedadMin("h1", _elAnillo.PerfilLateral.Propiedades, true), Module.GetValorPropiedadMax("h1", _elAnillo.PerfilLateral.Propiedades, true), Module.GetValorPropiedad("CLOSING STRESS", _elAnillo.PerfilOD.Propiedades), FreeGap, _elAnillo);
 
             char ban = calcula_materia_prima();
             bool mayor_a_15 = false;
@@ -45,7 +47,7 @@ namespace View.Services
                 if (Math.Round(FreeGap + .001, 3) <= Math.Round(_elAnillo.FreeGap.Valor + 0.015, 3))
                 {
                     FreeGap = Math.Round(FreeGap + .001, 3);
-                    Piece = calculaPiece();
+                    Piece = DataManager.calculaPiece(Module.GetValorPropiedadMin("h1", _elAnillo.PerfilLateral.Propiedades, true), Module.GetValorPropiedadMax("h1", _elAnillo.PerfilLateral.Propiedades, true), Module.GetValorPropiedad("CLOSING STRESS", _elAnillo.PerfilOD.Propiedades), FreeGap, _elAnillo);
                     ban = calcula_materia_prima();
                 }
                 else
@@ -61,7 +63,7 @@ namespace View.Services
                 if (Math.Round(FreeGap - .001, 3) >= _elAnillo.FreeGap.Valor - .01)
                 {
                     FreeGap = Math.Round(FreeGap - .001, 3);
-                    Piece = calculaPiece();
+                    Piece = DataManager.calculaPiece(Module.GetValorPropiedadMin("h1", _elAnillo.PerfilLateral.Propiedades, true), Module.GetValorPropiedadMax("h1", _elAnillo.PerfilLateral.Propiedades, true), Module.GetValorPropiedad("CLOSING STRESS", _elAnillo.PerfilOD.Propiedades), FreeGap, _elAnillo);
                     ban = calcula_materia_prima();
                 }
                 else
@@ -71,7 +73,7 @@ namespace View.Services
             }
 
             FreeGap = _elAnillo.FreeGap.Valor;
-            Piece = calculaPiece();
+            Piece = DataManager.calculaPiece(Module.GetValorPropiedadMin("h1", _elAnillo.PerfilLateral.Propiedades, true), Module.GetValorPropiedadMax("h1", _elAnillo.PerfilLateral.Propiedades, true), Module.GetValorPropiedad("CLOSING STRESS", _elAnillo.PerfilOD.Propiedades), FreeGap, _elAnillo);
             if (ban == '3')
             {
                 codigoPlacaModelo = "CODIFICAR";
@@ -113,7 +115,7 @@ namespace View.Services
 
             string cam_detail;
 
-            m = DataManager.GetCamTurnConstant(_elAnillo, ringShape,out cam_detail);
+            m = DataManager.GetCamTurnConstant(_elAnillo, ringShape, out cam_detail);
 
             CamTurnConstant = m;
 
@@ -156,7 +158,7 @@ namespace View.Services
 
             min_piece = Math.Round(l - p, 3);
             max_piece = Math.Round(p + (1 * l), 3);
-            
+
             return busca_materia_prima(diameter, stock_thick, min_piece, max_piece, piece_, a4, m);
 
         }
@@ -176,7 +178,7 @@ namespace View.Services
 
             foreach (string element in ListaProbablesPlacas)
             {
-                if (DataManager.aprobarPlacaModelo(element, diameter, piece_, 0, 0, stock_thick, min_piece, max_piece, a4, widthAnillo, proceso,out resultsAprobar))
+                if (DataManager.aprobarPlacaModelo(element, diameter, piece_, 0, 0, stock_thick, min_piece, max_piece, a4, widthAnillo, proceso, out resultsAprobar))
                 {
                     placasAprobadas.Add(element);
                 }
@@ -237,44 +239,65 @@ namespace View.Services
             double r = .80;
             return r;
         }
-        
+
         /// <summary>
         /// Método para calcular el Piece.
         /// </summary>
         /// <returns></returns>
-        private double calculaPiece()
+        //private double calculaPiece()
+        //{
+        //    double _piece = 0;
+        //    double widthMin = Module.GetValorPropiedadMin("h1", _elAnillo.PerfilLateral.Propiedades,true);
+        //    double widthMax = Module.GetValorPropiedadMax("h1", _elAnillo.PerfilLateral.Propiedades, true);
+
+        //    double promedioWidth = (widthMin + widthMax) / 2;
+
+        //    double closingStress = Module.GetValorPropiedad("CLOSING STRESS", _elAnillo.PerfilOD.Propiedades); //Verificar como se llama la propiedad en el archivo RDCT.
+
+        //    if ((closingStress <= 30000) && (promedioWidth > 0.035) && (promedioWidth < 0.07))
+        //    {
+        //        _piece = FreeGap / 0.96;
+        //    }
+        //    else if ((closingStress >= 30000) && (promedioWidth > 0.035) && (promedioWidth < 0.070))
+        //    {
+        //        _piece = FreeGap / .945;
+        //    }
+        //    else if ((closingStress <= 30000) && (promedioWidth > .0701) && (promedioWidth <= 0.090))
+        //    {
+        //        _piece = FreeGap / .935;
+        //    }
+        //    else if ((closingStress >= 30000) && (promedioWidth > 0.0701) && (promedioWidth < 0.090))
+        //    {
+        //        _piece = FreeGap / .925;
+        //    }
+        //    else if ((promedioWidth > 0.901))
+        //    {
+        //        _piece = FreeGap / .86;
+        //    }
+
+        //    return DataManager.GetCompensacionPiece(_elAnillo, _piece);
+        //} 
+        #endregion
+
+        public MateriaPrimaRolado CalcularAceroAlCarbon()
         {
-            double _piece = 0;
-            double widthMin = Module.GetValorPropiedadMin("h1", _elAnillo.PerfilLateral.Propiedades,true);
-            double widthMax = Module.GetValorPropiedadMax("h1", _elAnillo.PerfilLateral.Propiedades, true);
+            MateriaPrima acero = new MateriaPrima();
 
-            double promedioWidth = (widthMin + widthMax) / 2;
+            double a1Max = Module.GetValorPropiedadMax("a1", _elAnillo.PerfilID.Propiedades, false);
 
-            double closingStress = Module.GetValorPropiedad("CLOSING STRESS", _elAnillo.PerfilOD.Propiedades); //Verificar como se llama la propiedad en el archivo RDCT.
+            List<MateriaPrimaRolado> ListaMateriaPrimaDisponible =  DataManager.GetMateriaPrimaRolado(_elAnillo.H1.Valor, a1Max, _elAnillo.MaterialBase.Especificacion);
 
-            if ((closingStress <= 30000) && (promedioWidth > 0.035) && (promedioWidth < 0.07))
+            if (ListaMateriaPrimaDisponible.Count > 0)
             {
-                _piece = FreeGap / 0.96;
-            }
-            else if ((closingStress >= 30000) && (promedioWidth > 0.035) && (promedioWidth < 0.070))
+                return ListaMateriaPrimaDisponible[0];
+            }else
             {
-                _piece = FreeGap / .945;
-            }
-            else if ((closingStress <= 30000) && (promedioWidth > .0701) && (promedioWidth <= 0.090))
-            {
-                _piece = FreeGap / .935;
-            }
-            else if ((closingStress >= 30000) && (promedioWidth > 0.0701) && (promedioWidth < 0.090))
-            {
-                _piece = FreeGap / .925;
-            }
-            else if ((promedioWidth > 0.901))
-            {
-                _piece = FreeGap / .86;
+                return new MateriaPrimaRolado();
             }
 
-            return DataManager.GetCompensacionPiece(_elAnillo, _piece);
+            
         }
+
         #endregion
     }
 }

@@ -396,7 +396,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        public PropiedadCadena EspecMaterialAnillo {
+        public string EspecMaterialAnillo {
             get
             {
                 return model.EspecMaterialAnillo;
@@ -954,6 +954,13 @@ namespace View.Services.ViewModel
         } //Falta agregar la tabla para ir guardando los datos	
         #endregion
 
+        private IOperacion operationSelected;
+        public IOperacion OperationSelected
+        {
+            get { return operationSelected; }
+            set { operationSelected = value; NotifyChange("OperationSelected"); }
+        }
+
         private bool _IsRedondo;
         public bool IsRedondo
         {
@@ -1272,6 +1279,16 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand SetMaterialRemover
+        {
+            get
+            {
+                return new RelayCommand(o => setMaterialRemover());
+            }
+        }
+
+        
+
         #endregion
 
         #region Methods
@@ -1540,11 +1557,10 @@ namespace View.Services.ViewModel
             //Declaramos un objeto el cual es la pantalla.
             WRouting wRouting = new WRouting();
 
-            //Declaramos el VW de la pantalla, establaciendo el objeto ModelAnillo como su base.
-            RoutingViewModel routingViewModel = new RoutingViewModel(this.ModelAnillo);
-            
+            OperationSelected = Operaciones[0];
+
             //Establecemos el DataContext.
-            wRouting.DataContext = routingViewModel;
+            wRouting.DataContext = this;
 
             //Desplegamos la pantalla-
             wRouting.ShowDialog();
@@ -1724,7 +1740,7 @@ namespace View.Services.ViewModel
             {
                 if (diseno.Valor)
                 {
-                    double[] resultsTurnBore = DataManager.Get_TurnBoreAllow(TipoAnillo.Valor, EspecMaterialAnillo.Valor);
+                    double[] resultsTurnBore = DataManager.Get_TurnBoreAllow(TipoAnillo.Valor, EspecMaterialAnillo);
                     turn_allow.Valor = resultsTurnBore[0];
                     bore_allow.Valor = resultsTurnBore[1];
                 }
@@ -1899,18 +1915,19 @@ namespace View.Services.ViewModel
             if (!IsPatternNew)
             {
                 //HardCode
-                EspecMaterialAnillo = new PropiedadCadena { DescripcionCorta = "Especa", DescripcionLarga = "", Imagen = null, Nombre = "EspecMateriaPrima", Valor = "SPR-128" };
+                //EspecMaterialAnillo = new PropiedadCadena { DescripcionCorta = "Especa", DescripcionLarga = "", Imagen = null, Nombre = "EspecMateriaPrima", Valor = "SPR-128" };
+                EspecMaterialAnillo = "SPR-128";
             }
 
 
-            string[] vecHardness = DataManager.GetHardnessIdeal(EspecMaterialAnillo.Valor, diametro.Valor);
+            string[] vecHardness = DataManager.GetHardnessIdeal(EspecMaterialAnillo, diametro.Valor);
             
             Hardness = new PropiedadCadena();
             HardnessMax = new Propiedad();
             HardnessMin = new Propiedad();
 
             Caratula += "IMPRESIONES " + mounting.Valor + Environment.NewLine;
-            Caratula += "MATERIAL   " + EspecMaterialAnillo.Valor + Environment.NewLine;
+            Caratula += "MATERIAL   " + EspecMaterialAnillo + Environment.NewLine;
             Caratula += "HARDNESS   " + Hardness.Valor + "    " + HardnessMin.Valor + "-" + HardnessMax.Valor + Environment.NewLine;
             Caratula += "PESO CAST " + peso_cstg.Valor + " G" + Environment.NewLine;
             Caratula += "" + Environment.NewLine;
@@ -2249,6 +2266,21 @@ namespace View.Services.ViewModel
                 }
                 );
             }
+
+        private void setMaterialRemover()
+        {
+            int c = 0;
+
+            while (c < Operaciones.Count)
+            {
+                if (OperationSelected.NoOperacion == Operaciones[c].NoOperacion)
+                {
+                    Operaciones[c] = OperationSelected;
+                    break;
+                }
+                c++;
+            }
+        }
         #endregion
     }
 }

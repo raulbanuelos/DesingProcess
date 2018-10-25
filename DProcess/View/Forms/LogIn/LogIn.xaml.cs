@@ -17,6 +17,8 @@ using System;
 using View.Services;
 using View.Resources;
 using System.Threading;
+using View.Forms.Routing;
+
 namespace View.Forms.LogIn
 {
     /// <summary>
@@ -133,7 +135,5 @@ namespace View.Forms.LogIn
             //Establecemos el idioma por default es el ingles.
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
         }
-
-        
     }
 }

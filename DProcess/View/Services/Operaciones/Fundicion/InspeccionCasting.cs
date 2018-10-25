@@ -10,9 +10,10 @@ using View.Services.TiempoEstandar.Fundicion;
 
 namespace View.Services.Operaciones.Fundicion
 {
-    public class InspeccionCasting : IOperacion
+    public class InspeccionCasting : GenericOperation,IOperacion
     {
         #region Propiedades de IOperacion
+
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>

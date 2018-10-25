@@ -281,7 +281,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     datos = conexion.EjecutarStoredProcedure("SP_CIT_Set_Archivo", parametros);
 
                     //Retorna el número de elementos en la tabla.
-                    return datos.Tables.Count;
+                    //return datos.Tables.Count;
+                    return 1;
                 }
                 catch (Exception e)
                 {

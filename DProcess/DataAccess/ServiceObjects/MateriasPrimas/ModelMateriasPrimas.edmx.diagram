@@ -26,6 +26,8 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_Tipo_Anillo" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.MoutingDia" Width="1.5" PointX="9.375" PointY="7.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.MoutingWidth" Width="1.5" PointX="5.375" PointY="10.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ROLADO" Width="2.625" PointX="13.25" PointY="7" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_CAT_MATERIA_PRIMA_ROLADO_material" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

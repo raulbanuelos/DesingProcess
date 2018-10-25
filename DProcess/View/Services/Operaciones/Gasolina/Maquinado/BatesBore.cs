@@ -5,9 +5,10 @@ using System.Collections.ObjectModel;
 
 namespace View.Services.Operaciones.Gasolina.Maquinado
 {
-    public class BatesBore : IOperacion, IObserverThickness
+    public class BatesBore : GenericOperation, IOperacion, IObserverThickness
     {
         #region Propiedades de IOperacion
+
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>

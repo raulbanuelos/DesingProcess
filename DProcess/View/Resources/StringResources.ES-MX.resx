@@ -1589,4 +1589,12 @@
     <value>Por favor espere, estamos trabajando.</value>
     <comment>Título para mensaje de estamos trabajando.</comment>
   </data>
+  <data name="lblMilimetros" xml:space="preserve">
+    <value>Milimetros(mm)</value>
+    <comment>Label para Milimetros</comment>
+  </data>
+  <data name="lblPulgadas" xml:space="preserve">
+    <value>Pulgadas(in)</value>
+    <comment>Label para pulgadas</comment>
+  </data>
 </root>

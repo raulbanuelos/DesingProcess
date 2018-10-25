@@ -8,21 +8,18 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_PERFIL" Width="1.5" PointX="5" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD" Width="2" PointX="2.125" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_BOOL" Width="2.25" PointX="4" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_CADENA" Width="1.5" PointX="10" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_CADENA" PointX="0.75" PointY="9.25" Width="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_TIPO_PERFIL" Width="2.25" PointX="0.75" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_BOOL_PERFIL" Width="2.5" PointX="0.5" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_CADENA_PERFIL" Width="2.5" PointX="7.625" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_PERFIL" Width="2.5" PointX="5.375" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_CADENA_PERFIL" Width="2.5" PointX="8.5" PointY="3.25" IsExpanded="true" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_CAT_PERFIL_CAT_TIPO_PERFIL" ManuallyRouted="false" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PERFIL" ManuallyRouted="false" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PERFIL" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD" ManuallyRouted="false" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PROPIEDAD_BOOL" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PROPIEDAD_CADENA" ManuallyRouted="false" />
+        <AssociationConnector ManuallyRouted="false" Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PROPIEDAD_CADENA" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.Arquetipo" Width="1.5" PointX="5.375" PointY="16.625" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES" Width="1.5" PointX="7.625" PointY="16.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_BOOL" Width="1.5" PointX="8.625" PointY="10.875" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_BOOL" Width="2.125" PointX="8.625" PointY="10.875" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_CADENA" Width="1.5" PointX="12.25" PointY="12" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TR_PERFIL_ARQUETIPO" Width="1.5" PointX="7.625" PointY="13.75" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_Arquetipo" />
@@ -33,6 +30,9 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CAT_PROPIEDAD" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_BOOL_CAT_PROPIEDAD_BOOL" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_CAT_PROPIEDAD_CADENA" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_PERFIL" Width="1.5" PointX="7.25" PointY="7.25" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

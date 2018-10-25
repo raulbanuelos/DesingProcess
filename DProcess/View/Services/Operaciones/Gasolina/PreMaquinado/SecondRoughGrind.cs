@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 
 namespace View.Services.Operaciones.Gasolina.PreMaquinado
 {
-    public class SecondRoughGrind : IOperacion, IObserverWidth
+    public class SecondRoughGrind : GenericOperation, IOperacion, IObserverWidth
     {
         #region Propiedades
 
         #region Propiedades de IOperacion
+        
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>

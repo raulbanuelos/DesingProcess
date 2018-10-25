@@ -1591,4 +1591,12 @@
   <data name="msgSustituirArchivo" xml:space="preserve">
     <value>Do you want to change the file?</value>
   </data>
+  <data name="lblMilimetros" xml:space="preserve">
+    <value>Milimeter (mm)</value>
+    <comment>Label para Milimetros</comment>
+  </data>
+  <data name="lblPulgadas" xml:space="preserve">
+    <value>Inch (in)</value>
+    <comment>Label para pulgadas</comment>
+  </data>
 </root>

@@ -18,6 +18,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         public material()
         {
             this.Compensacion_Piece = new HashSet<Compensacion_Piece>();
+            this.CAT_MATERIA_PRIMA_ROLADO = new HashSet<CAT_MATERIA_PRIMA_ROLADO>();
         }
     
         public string id { get; set; }
@@ -27,5 +28,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         public virtual Esp_MP_Anillos Esp_MP_Anillos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Compensacion_Piece> Compensacion_Piece { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CAT_MATERIA_PRIMA_ROLADO> CAT_MATERIA_PRIMA_ROLADO { get; set; }
     }
 }

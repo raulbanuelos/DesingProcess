@@ -149,6 +149,68 @@ namespace View.Services
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nombrePropiedad"></param>
+        /// <param name="lista"></param>
+        /// <param name="tolerancia">Min ó Max</param>
+        /// <returns></returns>
+        public static Propiedad GetPropiedad(string nombrePropiedad, ObservableCollection<Propiedad> lista,string tolerancia)
+        {
+
+            int a = lista.Where(x => x.Nombre == nombrePropiedad + " " + tolerancia).ToList().Count;
+            int b = lista.Where(x => x.Nombre == nombrePropiedad + " Tol").ToList().Count;
+            int c = lista.Where(x => x.Nombre == nombrePropiedad + " Tol " + tolerancia).ToList().Count;
+
+            if (a > 0)
+            {
+                return lista.Where(x => x.Nombre == nombrePropiedad + " " + tolerancia).FirstOrDefault();
+            }
+            else
+            {
+                if (b > 0)
+                {
+                    Propiedad p = lista.Where(x => x.Nombre == nombrePropiedad).FirstOrDefault();
+                    if (tolerancia == "Min")
+                    {
+                        Propiedad pTolerancia = lista.Where(x => x.Nombre == nombrePropiedad + " Tol").FirstOrDefault();
+                        Propiedad pMinimo = p;
+                        pMinimo.Valor = p.Valor - pTolerancia.Valor;
+
+                        return pMinimo;
+                    }else
+                    {
+                        Propiedad pTolerancia = lista.Where(x => x.Nombre == nombrePropiedad + " Tol").FirstOrDefault();
+                        Propiedad pMaximo = p;
+                        pMaximo.Valor = p.Valor + pTolerancia.Valor;
+
+                        return pMaximo;
+                    }
+                }
+                else
+                {
+                    Propiedad p = lista.Where(x => x.Nombre == nombrePropiedad).FirstOrDefault();
+                    if (tolerancia == "Min")
+                    {
+                        Propiedad pTolerancia = lista.Where(x => x.Nombre == nombrePropiedad + " Tol Min").FirstOrDefault();
+                        Propiedad pMinimo = p;
+                        pMinimo.Valor = p.Valor - pTolerancia.Valor;
+
+                        return pMinimo;
+                    }
+                    else
+                    {
+                        Propiedad pTolerancia = lista.Where(x => x.Nombre == nombrePropiedad + " Tol Max").FirstOrDefault();
+                        Propiedad pMaximo = p;
+                        pMaximo.Valor = p.Valor + pTolerancia.Valor;
+
+                        return pMaximo;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Método que obtiene el valor mínimo de tolerancia de una propiedad. Además si así lo requerimos lo podemos convertir en Pulgadas.
         /// Generalmente en el plano puede venir de dos opciones: como tolerancia o como valor mínimo y máximo. 
         /// <para>
@@ -164,6 +226,10 @@ namespace View.Services
         /// 2da Opción:
         ///             H1 Tol:     En esta opción se da por descontado que la tolerancia es la misma para mínima y maxima. Por lo tanto el método busca el valor de Tol y el valor
         ///                         de la propiedad y después lo calcula.
+        /// </para>
+        /// 3ra Opción:
+        ///             h1 Max:    
+        ///             h1 Min:     En esta opción vienen los dos valores de máximos y mínimos.
         /// </para>
         /// </summary>
         /// <param name="NombrePropiedad"></param>
@@ -226,13 +292,156 @@ namespace View.Services
                     }
                 }
                 else {
-                    //Si no se encontraron las toleracias retornamos el valor de la propiedad.
-                    return valorPropiedad;
+
+                    //Buscamos la propiedad con la concatenación de " Tol" y contamos los registros encontrados.
+                    a = Lista.Where(x => x.Nombre == NombrePropiedad + " Min").ToList().Count;
+
+                    if (a > 0)
+                    {
+                        if (ConvertToInch)
+                        {
+                            Propiedad propiedad = GetPropiedad(NombrePropiedad + " Min", Lista);
+
+                            valorPropiedad = ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), propiedad.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), propiedad.Valor);
+
+                            //Calculamos el valor mínimo y lo retornamos.
+                            return valorPropiedad;
+                        }
+                        else
+                        {
+                            valorPropiedad = GetValorPropiedad(NombrePropiedad + " Min", Lista);
+
+                            return valorPropiedad;
+                        }
+                    }else
+                    {
+                        //Si no se encontraron las toleracias retornamos el valor de la propiedad.
+                        return valorPropiedad;
+                    }
+
+                    
                 }
 
             }
         }
 
+        /// <summary>
+        /// Método que obtiene el valor mínimo de tolerancia de una propiedad. Además si así lo requerimos lo podemos convertir en Pulgadas.
+        /// Generalmente en el plano puede venir de dos opciones: como tolerancia o como valor mínimo y máximo. 
+        /// <para>
+        /// Ejemplo.
+        ///     Para la propiedad h1:
+        /// </para>
+        /// <para>
+        /// 1ra Opción:
+        ///             h1 Tol Min: En esta opción se obtiene directamente el valor de la lista de propiedades.
+        /// </para>
+        ///             
+        /// <para>
+        /// 2da Opción:
+        ///             H1 Tol:     En esta opción se da por descontado que la tolerancia es la misma para mínima y maxima. Por lo tanto el método busca el valor de Tol y el valor
+        ///                         de la propiedad y después lo calcula.
+        /// </para>
+        /// 3ra Opción:
+        ///             h1 Max:    
+        ///             h1 Min:     En esta opción vienen los dos valores de máximos y mínimos.
+        /// </para>
+        /// </summary>
+        /// <param name="NombrePropiedad"></param>
+        /// <param name="Lista"></param>
+        /// <param name="ConvertToInch"></param>
+        /// <returns></returns>
+        public static double GetValorPropiedadMax(string NombrePropiedad, ObservableCollection<Propiedad> Lista, bool ConvertToInch)
+        {
+
+            //Obtenemos el valor de la propiedad.
+            double valorPropiedad = GetValorPropiedad(NombrePropiedad, Lista);
+
+            //Buscamos la propiedad con la concatenacion de " Tol Min" y contamos los registros encontrados.
+            int a = Lista.Where(x => x.Nombre == NombrePropiedad + " Tol Max").ToList().Count;
+
+            //Comparamos si existe el valor con la concatenación de " Tol Min"
+            if (a > 0)
+            {
+                if (ConvertToInch)
+                {
+                    Propiedad propiedadMin = GetPropiedad(NombrePropiedad + " Tol Max", Lista);
+                    Propiedad propiedad = GetPropiedad(NombrePropiedad, Lista);
+
+                    double valorToleranciaInchMin = ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), propiedadMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), propiedadMin.Valor);
+                    double valorPropiedadInch = ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), propiedad.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), propiedad.Valor);
+
+                    return valorPropiedadInch - valorToleranciaInchMin;
+                }
+                else
+                {
+                    //Obtenemos el valor de la propiedad y lo retornamos.
+                    return GetValorPropiedad(NombrePropiedad + " Tol Max", Lista);
+                }
+            }
+            else
+            {
+                //Buscamos la propiedad con la concatenación de " Tol" y contamos los registros encontrados.
+                a = Lista.Where(x => x.Nombre == NombrePropiedad + " Tol").ToList().Count;
+
+                //Comparamos si existe el valor con la concatenación de " Tol"
+                if (a > 0)
+                {
+
+                    if (ConvertToInch)
+                    {
+                        Propiedad propiedad = GetPropiedad(NombrePropiedad + " Tol", Lista);
+
+                        double tolerancia = ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), propiedad.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), propiedad.Valor);
+
+                        //Calculamos el valor mínimo y lo retornamos.
+                        return valorPropiedad - tolerancia;
+                    }
+                    else
+                    {
+                        //Obtenemos el valore de la propiedad con la concatenación de " Tol".
+                        double tolerancia = GetValorPropiedad(NombrePropiedad + " Tol", Lista);
+
+                        //Calculamos el valor mínimo y lo retornamos.
+                        return valorPropiedad - tolerancia;
+                    }
+                }
+                else
+                {
+
+                    //Buscamos la propiedad con la concatenación de " Tol" y contamos los registros encontrados.
+                    a = Lista.Where(x => x.Nombre == NombrePropiedad + " Max").ToList().Count;
+
+                    if (a > 0)
+                    {
+                        if (ConvertToInch)
+                        {
+                            Propiedad propiedad = GetPropiedad(NombrePropiedad + " Max", Lista);
+
+                            valorPropiedad = ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), propiedad.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), propiedad.Valor);
+
+                            //Calculamos el valor mínimo y lo retornamos.
+                            return valorPropiedad;
+                        }
+                        else
+                        {
+                            valorPropiedad = GetValorPropiedad(NombrePropiedad + " Max", Lista);
+
+                            return valorPropiedad;
+                        }
+                    }
+                    else
+                    {
+                        //Si no se encontraron las toleracias retornamos el valor de la propiedad.
+                        return valorPropiedad;
+                    }
+
+
+                }
+
+            }
+        }
+        
         /// <summary>
         /// Método que obtiene el diámetro de una operación a partir de una lista de operaciones.
         /// </summary>
@@ -260,90 +469,6 @@ namespace View.Services
             }
 
             return diametro;
-        }
-
-        /// <summary>
-        /// Método que obtiene el valor mínimo de tolerancia de una propiedad.
-        /// Generalmente en el plano puede venir de dos opciones: como tolerancia o como valor mínimo y máximo. Además si así lo requerimos lo podemos convertir en Pulgadas.
-        /// <para>
-        /// Ejemplo.
-        ///     Para la propiedad h1:
-        /// </para>
-        /// <para>
-        /// 1ra Opción:
-        ///             h1 Tol Max: En esta opción se obtiene directamente el valor de la lista de propiedades.
-        /// </para>
-        ///             
-        /// <para>
-        /// 2da Opción:
-        ///             H1 Tol:     En esta opción se da por descontado que la tolerancia es la misma para mínima y maxima. Por lo tanto el método busca el valor de Tol y el valor
-        ///                         de la propiedad y después lo calcula.
-        /// </para>
-        /// </summary>
-        /// <param name="NombrePropiedad"></param>
-        /// <param name="Lista"></param>
-        /// <returns></returns>
-        public static double GetValorPropiedadMax(string NombrePropiedad, ObservableCollection<Propiedad> Lista, bool ConvertToInch)
-        {
-
-            //Obtenemos el valor de la propiedad.
-            double valorPropiedad = GetValorPropiedad(NombrePropiedad, Lista);
-
-            //Buscamos la propiedad con la concatenacion de " Tol Min" y contamos los registros encontrados.
-            int a = Lista.Where(x => x.Nombre == NombrePropiedad + " Tol Max").ToList().Count;
-
-            //Comparamos si existe el valor con la concatenación de " Tol Min"
-            if (a > 0)
-            {
-                if (ConvertToInch)
-                {
-                    Propiedad propiedadMax = GetPropiedad(NombrePropiedad + " Tol Max", Lista);
-                    Propiedad propiedad = GetPropiedad(NombrePropiedad, Lista);
-
-                    double valorToleranciaInchMax = ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), propiedadMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), propiedadMax.Valor);
-                    double valorPropiedadInch = ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), propiedad.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), propiedad.Valor);
-
-                    return valorPropiedadInch + valorToleranciaInchMax;
-                }
-                else
-                {
-                    //Obtenemos el valor de la propiedad y lo retornamos.
-                    return GetValorPropiedad(NombrePropiedad + " Tol Max", Lista);
-                }
-                
-            }
-            else
-            {
-                //Buscamos la propiedad con la concatenación de " Tol" y contamos los registros encontrados.
-                a = Lista.Where(x => x.Nombre == NombrePropiedad + " Tol").ToList().Count;
-
-                //Comparamos si existe el valor con la concatenación de " Tol"
-                if (a > 0)
-                {
-                    if (ConvertToInch)
-                    {
-                        Propiedad propiedad = GetPropiedad(NombrePropiedad + " Tol", Lista);
-
-                        double tolerancia = ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), propiedad.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), propiedad.Valor);
-
-                        //Calculamos el valor mínimo y lo retornamos.
-                        return valorPropiedad + tolerancia;
-                    }
-                    else
-                    {
-                        //Obtenemos el valore de la propiedad con la concatenación de " Tol".
-                        double tolerancia = GetValorPropiedad(NombrePropiedad + " Tol", Lista);
-
-                        //Calculamos el valor máximo y lo retornamos.
-                        return valorPropiedad + tolerancia;
-                    }
-                }
-                else
-                {
-                    //Si no se encontraron las toleracias retornamos el valor de la propiedad.
-                    return valorPropiedad;
-                }
-            }
         }
 
         /// <summary>
@@ -593,7 +718,7 @@ namespace View.Services
             //Verificamos si se requiere la propiedad de Especificación de material.
             if (ListaPropiedades.Where(x => x.Nombre == "Material MAHLE").ToList().Count > 0)
             {
-                ListaPropiedades.Where(x => x.Nombre == "Material MAHLE").First().Valor = anillo.MaterialBase.Especificacion.Valor;
+                ListaPropiedades.Where(x => x.Nombre == "Material MAHLE").First().Valor = anillo.MaterialBase.Especificacion;
             }
 
             //Retornamos la lista de propiedades cadena con los valores.

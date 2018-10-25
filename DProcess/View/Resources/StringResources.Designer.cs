@@ -1069,6 +1069,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Milimeter (mm).
+        /// </summary>
+        public static string lblMilimetros {
+            get {
+                return ResourceManager.GetString("lblMilimetros", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Modify.
         /// </summary>
         public static string lblModificar {
@@ -1344,6 +1353,15 @@ namespace View.Resources {
         public static string lblProceso {
             get {
                 return ResourceManager.GetString("lblProceso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Inch (in).
+        /// </summary>
+        public static string lblPulgadas {
+            get {
+                return ResourceManager.GetString("lblPulgadas", resourceCulture);
             }
         }
         
