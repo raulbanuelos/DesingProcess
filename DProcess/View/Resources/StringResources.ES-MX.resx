@@ -1609,4 +1609,8 @@
   <data name="lblUsuarioPermitido" xml:space="preserve">
     <value>Por favor, seleccione el usuario que autorizó su documento</value>
   </data>
+  <data name="lblUbicacion" xml:space="preserve">
+    <value>Ubicación</value>
+    <comment>Título para ubicación.</comment>
+  </data>
 </root>

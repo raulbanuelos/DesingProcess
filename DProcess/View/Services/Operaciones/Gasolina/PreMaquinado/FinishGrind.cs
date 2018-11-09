@@ -199,8 +199,18 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             WidthOperacion = WidthAfterOperacion + MaterialRemoverAfterOperacion;
         }
 
+
+        /// <summary>
+        /// Método que establece que cantidad de material a remover va tener la operación.
+        /// </summary>
+        /// <param name="operaciones"></param>
+        /// <param name="posOperacion"></param>
+        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion)
+        {
+            MatRemoverWidth = 0.0030;
+        }
         #endregion
-        
+
         #region Methods override
         public override string ToString()
         {
@@ -219,7 +229,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             CentroCostos = "32012524";
             CentroTrabajo = "150";
             ControlKey = "MA42";
-            MatRemoverWidth = 0.0030;
+            //MatRemoverWidth = 0.0030;
             elPlano = plano;
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();

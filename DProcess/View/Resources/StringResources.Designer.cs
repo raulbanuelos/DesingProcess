@@ -1582,6 +1582,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Location.
+        /// </summary>
+        public static string lblUbicacion {
+            get {
+                return ResourceManager.GetString("lblUbicacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a This user is not active.
         /// </summary>
         public static string lblUserNotActive {

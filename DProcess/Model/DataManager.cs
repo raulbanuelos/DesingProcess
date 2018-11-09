@@ -227,6 +227,161 @@ namespace Model
 
         #endregion
 
+        #region Arquetipo
+
+        /// <summary>
+        /// Inserta un registro en la tabla de Arquetipo.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="descripcionGeneral"></param>
+        /// <param name="imagen"></param>
+        /// <param name="activo"></param>
+        /// <returns></returns>
+        public static int InsertArquetipo(string codigo, string descripcionGeneral, byte[] imagen, bool activo)
+        {
+            SO_Arquetipo ServiceArquetipo = new SO_Arquetipo();
+
+            return ServiceArquetipo.Insert(codigo, descripcionGeneral, imagen, activo);
+        }
+
+        /// <summary>
+        /// Actualiza un registro en la tabla Arquetipo.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="descripcionGeneral"></param>
+        /// <param name="imagen"></param>
+        /// <param name="activo"></param>
+        /// <returns></returns>
+        public static int UpdateArquetipo(string codigo, string descripcionGeneral, byte[] imagen, bool activo)
+        {
+            SO_Arquetipo ServiceArquetipo = new SO_Arquetipo();
+
+            return ServiceArquetipo.Update(codigo, descripcionGeneral, imagen, activo);
+        }
+
+        /// <summary>
+        /// Elimina un registro en la tabla de Arquetipo.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static int DeleteArquetipo(string codigo)
+        {
+            SO_Arquetipo ServiceArquetipo = new SO_Arquetipo();
+
+            return ServiceArquetipo.Delete(codigo);
+        }
+
+        /// <summary>
+        /// Método que retorna los registros de la tabla de Arquetipo.
+        /// </summary>
+        /// <param name="busqueda"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Arquetipo> GetAllArquetipo(string busqueda)
+        {
+            SO_Arquetipo ServiceArquetipo = new SO_Arquetipo();
+
+            ObservableCollection<Arquetipo> ListaArquetipo = new ObservableCollection<Arquetipo>();
+
+            IList informacionBD = ServiceArquetipo.GetAll(busqueda);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    Arquetipo arquetipo = new Arquetipo();
+
+                    arquetipo.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    arquetipo.DescripcionGeneral = (string)tipo.GetProperty("DescripcionGeneral").GetValue(item, null);
+                    arquetipo.Imagen = (byte[])tipo.GetProperty("Imagen").GetValue(item, null);
+                    arquetipo.Activo = (bool)tipo.GetProperty("Activo").GetValue(item, null);
+
+                    ListaArquetipo.Add(arquetipo);
+
+                }
+            }
+
+            return ListaArquetipo;
+        }
+
+        /// <summary>
+        /// Método que inserta un registro en la tabla TBL_ARQUETIPO_PROPIEDADES
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="idPropiedad"></param>
+        /// <param name="unidad"></param>
+        /// <param name="valor"></param>
+        /// <returns></returns>
+        public static int InsertArquetipoPropiedades(string codigo, int idPropiedad, string unidad, double valor)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            return ServicePropiedad.InsertArquetipoPropiedades(codigo, idPropiedad, unidad, valor);
+        }
+
+        /// <summary>
+        /// Método que inserta un registro en la tabla TBL_ARQUETIPO_PROPIEDADES_CADENA
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="idPropiedad"></param>
+        /// <param name="unidad"></param>
+        /// <param name="valor"></param>
+        /// <returns></returns>
+        public static int InsertArquetipoPropiedadesCadena(string codigo, int idPropiedad, string unidad, string valor)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            return ServicePropiedad.InsertArquetipoPropiedadesCadena(codigo, idPropiedad, valor);
+        }
+
+        /// <summary>
+        /// Método que inserta un registro en la tabla TBL_ARQUETIPO_PROPIEDADES_CADENA
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="idPropiedad"></param>
+        /// <param name="unidad"></param>
+        /// <param name="valor"></param>
+        /// <returns></returns>
+        public static int InsertArquetipoPropiedadesCadena(string codigo, int idPropiedad, string unidad, bool valor)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            return ServicePropiedad.InsertArquetipoPropiedadesBool(codigo, idPropiedad, valor);
+        }
+
+        /// <summary>
+        /// Método que obtiene el componente previamente guardado.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Anillo GetAnillo(string codigo)
+        {
+            Anillo anillo = new Anillo();
+
+            SO_Arquetipo ServiceArquetipo = new SO_Arquetipo();
+
+            IList informacionBD = ServiceArquetipo.GetArquetipo(codigo);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    anillo.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    anillo.DescripcionGeneral = (string)tipo.GetProperty("DescripcionGeneral").GetValue(item, null);
+                    anillo.Imagen = (byte[])tipo.GetProperty("Imagen").GetValue(item, null);
+                    anillo.Activo = (bool)tipo.GetProperty("Activo").GetValue(item, null);
+                }
+            }
+
+            
+
+            return anillo;
+        }
+        #endregion
+
         #region Centros de trabajo
         public static double GetTimeSetup(string centroDeTrabajo)
         {
@@ -7525,12 +7680,14 @@ namespace Model
         /// <summary>
         /// Obtiene las propiedades de un registro de la tabla COIL_CENTER_GUIDE, de acuerdo al width y radial
         /// </summary>
-        /// <param name="widthAlambre"></param>
-        /// <param name="radial">Milímetros</param>
+        /// <param name="widthAlambre">Width de la materia prima seleccionada. (Milímetros)</param>
+        /// <param name="radial">Thickness de la materia prima seleccionada. (Milímetros)</param>
         /// <returns></returns>
-        public static DataTable GetCOIL_CENTER_GUIDE(double widthAlambre, double radial)
+        public static DataTable GetCOIL_CENTER_GUIDE(double widthAlambre, double radial, out Herramental idealCenterGuide)
         {
             SO_COIL ServicioCoil = new SO_COIL();
+
+            idealCenterGuide = new Herramental { Encontrado = false };
 
             //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
@@ -7546,40 +7703,42 @@ namespace Model
                     //obtenemos el tipo
                     Type tipo = item.GetType();
 
-                    Herramental herramental = new Herramental();
+                    idealCenterGuide = new Herramental();
                     //Convertimos la información a tipo Herramental.
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
+                    idealCenterGuide = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
                     propCode.DescripcionCorta = "Detalle";
                     propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
-                    herramental.PropiedadesCadena.Add(propCode);
+                    idealCenterGuide.PropiedadesCadena.Add(propCode);
 
                     //Dimesiones
                     Propiedad propiedadDimA = new Propiedad();
                     propiedadDimA.Unidad = "Milimeters (mm)";
                     propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
                     propiedadDimA.DescripcionCorta = "Dim A";
-                    herramental.Propiedades.Add(propiedadDimA);
+                    idealCenterGuide.Propiedades.Add(propiedadDimA);
 
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.Unidad = "Milimeters (mm)";
                     propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
                     propiedadDimB.DescripcionCorta = "Dim B";
-                    herramental.Propiedades.Add(propiedadDimB);
+                    idealCenterGuide.Propiedades.Add(propiedadDimB);
 
                     Propiedad propiedadDimC = new Propiedad();
                     propiedadDimC.Unidad = "Milimeters (mm)";
                     propiedadDimC.Valor = (double)tipo.GetProperty("DIMC").GetValue(item, null);
                     propiedadDimC.DescripcionCorta = "Dim C";
-                    herramental.Propiedades.Add(propiedadDimC);
+                    idealCenterGuide.Propiedades.Add(propiedadDimC);
+
+                    idealCenterGuide.Encontrado = true;
 
                     //Mapeamos el valor a DescipcionRuta.
-                    herramental.DescripcionRuta = "COIL CENTER GUIDE";
+                    idealCenterGuide.DescripcionRuta = "COIL CENTER GUIDE " + propCode.Valor;
 
                     //Agregamos el objeto a la lista resultante.
-                    ListaResultante.Add(herramental);
+                    ListaResultante.Add(idealCenterGuide);
                 }
             }
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
@@ -7796,18 +7955,21 @@ namespace Model
         /// <summary>
         /// Obtiene las propiedades de un registro de la tabla EXIT_GUIDE, de acuerdo al width y radial
         /// </summary>
-        /// <param name="widthAlambre"></param>
-        /// <param name="radial">Milímetros</param>
+        /// <param name="widthAlambre"> Width de la materia prima seleccionada. (Milímetros.)</param>
+        /// <param name="radial">Thickness de la materia prima seleccionada. (Milímetros)</param>
         /// <returns></returns>
-        public static DataTable GetEXIT_GUIDE(double widthAlambre, double radial)
+        public static DataTable GetEXIT_GUIDE(double widthAlambre, double radial, out Herramental idealHerramental)
         {
             SO_COIL ServicioCoil = new SO_COIL();
+
+            idealHerramental = new Herramental { Encontrado = false } ;
 
             //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
 
             //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
             IList informacionBD = ServicioCoil.GetEXIT_GUIDE(widthAlambre, radial);
+
             //si la lista es diferente de nulo
             if (informacionBD != null)
             {
@@ -7817,43 +7979,48 @@ namespace Model
                     //Obetenemos el tipo
                     Type tipo = item.GetType();
 
-                    Herramental herramental = new Herramental();
+                    idealHerramental = new Herramental();
 
                     //Convertimos la información a tipo Herramental.
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
+                    idealHerramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
                     propCode.DescripcionCorta = "Detalle";
                     propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
-                    herramental.PropiedadesCadena.Add(propCode);
+                    idealHerramental.PropiedadesCadena.Add(propCode);
 
                     //Dimensiones 
                     Propiedad propiedadDimA = new Propiedad();
                     propiedadDimA.Unidad = "Milimeters (mm)";
                     propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
                     propiedadDimA.DescripcionCorta = "Dim A";
-                    herramental.Propiedades.Add(propiedadDimA);
+                    idealHerramental.Propiedades.Add(propiedadDimA);
 
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.Unidad = "Milimeters (mm)";
                     propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
                     propiedadDimB.DescripcionCorta = "Dim B";
-                    herramental.Propiedades.Add(propiedadDimB);
+                    idealHerramental.Propiedades.Add(propiedadDimB);
 
                     Propiedad propiedadDimC = new Propiedad();
                     propiedadDimC.Unidad = "Milimeters (mm)";
                     propiedadDimC.Valor = (double)tipo.GetProperty("DIMC").GetValue(item, null);
                     propiedadDimC.DescripcionCorta = "Dim C";
-                    herramental.Propiedades.Add(propiedadDimC);
+                    idealHerramental.Propiedades.Add(propiedadDimC);
 
                     //Mapeamos el valor a DescipcionRuta.
-                    herramental.DescripcionRuta = "EXIT GUIDE ";
+                    idealHerramental.DescripcionRuta = "EXIT GUIDE " + propCode.Valor;
+
+                    idealHerramental.Encontrado = true;
 
                     //Agregamos el objeto a la lista resultante.
-                    ListaResultante.Add(herramental);
+                    ListaResultante.Add(idealHerramental);
                 }
             }
+
+            if (!idealHerramental.Encontrado)
+                idealHerramental.DescripcionRuta = "EXIT GUIDE " + "DETALLE DESCONOCIDO";
 
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Exit_Guide");
@@ -9439,6 +9606,9 @@ namespace Model
         public static ObservableCollection<string> GetAllTreatment()
         {
             ObservableCollection<string> ListaResultante = new ObservableCollection<string>();
+            ListaResultante.Add("ZINC PHOSPHATE");
+            ListaResultante.Add("MANGANESE PHOSPHATE");
+            ListaResultante.Add("NONE");
             return ListaResultante;
         }
 
@@ -10739,13 +10909,13 @@ namespace Model
             return ListaResultante;
         }
 
-        public static List<MateriaPrimaRolado> GetMateriaPrimaRolado(double _h1, double a1, string especificacion)
+        public static List<MateriaPrimaRolado> GetMateriaPrimaRolado(double _h1Min, double _h1Max, double a1Min, double a1Max, string especificacion, double matRemoverWidth, double matRemoverThickness)
         {
             List<MateriaPrimaRolado> ListaResultante = new List<MateriaPrimaRolado>();
 
             SO_MateriaPrimaRolado ServiceMPRolado = new SO_MateriaPrimaRolado();
 
-            IList informacionBD = ServiceMPRolado.GetMateriaPrimaRoladoIdeal(_h1,a1,especificacion);
+            IList informacionBD = ServiceMPRolado.GetMateriaPrimaRoladoIdeal(_h1Min,_h1Max,a1Min,a1Max,especificacion,matRemoverWidth,matRemoverThickness);
 
             if (informacionBD != null)
             {
@@ -10762,6 +10932,8 @@ namespace Model
                     materiaPrima._Width = Convert.ToDouble(tipo.GetProperty("WIDTH").GetValue(item, null));
                     materiaPrima.Groove = Convert.ToDouble(tipo.GetProperty("GROOVE").GetValue(item, null));
                     materiaPrima.Thickness = Convert.ToDouble(tipo.GetProperty("THICKNESS").GetValue(item, null));
+                    materiaPrima.Ubicacion = (string)tipo.GetProperty("UBICACION").GetValue(item, null);
+                    materiaPrima.Encontrado = true;
 
                     ListaResultante.Add(materiaPrima);
 
@@ -10771,18 +10943,18 @@ namespace Model
             return ListaResultante;
         }
 
-        public static int InsertMateriaPrimaRolado(string codigoMateriaPrima, string especificacion, double thickness, double groove, string unidadMedida, double _width, string descripcion)
+        public static int InsertMateriaPrimaRolado(string codigoMateriaPrima, string especificacion, double thickness, double groove, string unidadMedida, double _width, string descripcion, string ubicacion)
         {
             SO_MateriaPrimaRolado ServiceRolado = new SO_MateriaPrimaRolado();
 
-            return ServiceRolado.Insert(codigoMateriaPrima, especificacion, thickness, groove, unidadMedida, _width, descripcion);
+            return ServiceRolado.Insert(codigoMateriaPrima, especificacion, thickness, groove, unidadMedida, _width, descripcion, ubicacion);
         } 
 
-        public static int UpdateMateriaPrimaRolado(string codigoMateriaPrima, string especificacion, double thickness, double groove, string unidadMedida, double _width, string descripcion)
+        public static int UpdateMateriaPrimaRolado(string codigoMateriaPrima, string especificacion, double thickness, double groove, string unidadMedida, double _width, string descripcion, string ubicacion)
         {
             SO_MateriaPrimaRolado ServiceRolado = new SO_MateriaPrimaRolado();
 
-            return ServiceRolado.Update(codigoMateriaPrima, especificacion, thickness, groove, unidadMedida, _width, descripcion);
+            return ServiceRolado.Update(codigoMateriaPrima, especificacion, thickness, groove, unidadMedida, _width, descripcion, ubicacion);
 
         }
 
@@ -11241,7 +11413,7 @@ namespace Model
                     //Mapeamos los valores a un objeto de tipo perfil.
                     Perfil perfil = new Perfil();
                     perfil.Nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
-                    perfil.Tipo = (string)tipo.GetProperty("PERFIL").GetValue(item, null);
+                    perfil.TipoPerfil = (string)tipo.GetProperty("PERFIL").GetValue(item, null);
                     perfil.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
                     perfil.Descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
                     perfil.idPerfil = (int)tipo.GetProperty("ID_PERFIL").GetValue(item, null);
@@ -11253,6 +11425,87 @@ namespace Model
 
             //Retornamos la lista.
             return ListaPerfiles;
+        }
+
+        /// <summary>
+        /// Método que obtiene el perfil indicado.
+        /// </summary>
+        /// <param name="idPerfil"></param>
+        /// <returns></returns>
+        public static Perfil GetPerfilByID(int idPerfil)
+        {
+            //Inicializamos los servicios de SO_Perfil.
+            SO_Perfil ServicePerfil = new SO_Perfil();
+
+            //Declaramos el objeto la cual será la que retornamos en el método.
+            Perfil perfil = new Perfil();
+
+            //Ejecutamos el método para obtener la inforamción, el resultado lo guardamos en una variable local.
+            IList informacionBD = ServicePerfil.GetPerfilByID(idPerfil);
+
+            //Comparamos que la información sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la informancón.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo.
+                    Type tipo = item.GetType();
+
+                    //Mapeamos los valores a un objeto de tipo perfil.
+                    perfil = new Perfil();
+                    perfil.Nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    perfil.TipoPerfil = (string)tipo.GetProperty("PERFIL").GetValue(item, null);
+                    perfil.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
+                    perfil.Descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    perfil.idPerfil = (int)tipo.GetProperty("ID_PERFIL").GetValue(item, null);
+                    
+                }
+            }
+
+            //Retornamos la lista.
+            return perfil;
+        }
+        
+        /// <summary>
+        /// Método que obtiene los id´s de los perfiles que tiene un componente.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static int[] GetPerfilByComponente(string codigo)
+        {
+            SO_Perfil ServicePerfil = new SO_Perfil();
+
+            int[] idPerfiles = new int[4];
+
+            IList informacionBD = ServicePerfil.GetPerfilesComponente(codigo);
+
+            if (informacionBD != null)
+            {
+                int c = 0;
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+                    idPerfiles[c] = (int)tipo.GetProperty("ID_PERFIL").GetValue(item, null);
+
+                    c += 1;
+                }
+            }
+
+            return idPerfiles;
+        }
+
+        /// <summary>
+        /// Método que inserta un registro en la tabla TR_PERFIL_ARQUETIPO
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="idPerfil"></param>
+        /// <returns></returns>
+        public static int InsertPerfilArquetipo(string codigo, int idPerfil)
+        {
+            SO_Perfil ServicePerfil = new SO_Perfil();
+
+            return ServicePerfil.SetPerfilArquetipo(codigo, idPerfil);
         }
         #endregion
 
@@ -11298,6 +11551,81 @@ namespace Model
 
             return ListaPropiedades;
         } 
+
+        /// <summary>
+        /// Método que obtiene la propiedad a partir de el id de la propiedad.
+        /// </summary>
+        /// <param name="idPropiedad"></param>
+        /// <returns></returns>
+        public static Propiedad GetPropiedadById(int idPropiedad)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            Propiedad propiedad = new Propiedad(); ;
+
+            IList informacionBD = ServicePropiedad.GetPropiedadById(idPropiedad);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    propiedad = new Propiedad();
+
+                    propiedad.idPropiedad = (int)tipo.GetProperty("ID_PROPIEDAD").GetValue(item, null);
+                    propiedad.Nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    propiedad.DescripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
+                    propiedad.DescripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
+                    propiedad.TipoDato = (string)tipo.GetProperty("TIPO_DATO").GetValue(item, null);
+                    propiedad.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
+
+                }
+            }
+
+            return propiedad;
+        }
+
+        /// <summary>
+        /// Método que obtiene todas las propiedades que son relacionadas con un componente.
+        /// </summary>
+        /// <param name="idPropiedad"></param>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Propiedad> GetPropiedadSaved(string codigo)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            ObservableCollection<Propiedad> ListadoPropiedades = new ObservableCollection<Propiedad>();
+
+            IList informacionBD = ServicePropiedad.GetPropiedadSaved(codigo);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+                    Propiedad propiedad = new Propiedad();
+
+                    propiedad.idPropiedad = (int)tipo.GetProperty("ID_PROPIEDAD").GetValue(item, null);
+                    propiedad.Nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    propiedad.DescripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
+                    propiedad.DescripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
+                    propiedad.TipoDato = (string)tipo.GetProperty("TIPO_DATO").GetValue(item, null);
+                    propiedad.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
+                    propiedad.Unidad = (string)tipo.GetProperty("UNIDAD").GetValue(item, null);
+                    propiedad.Valor = (double)tipo.GetProperty("VALOR").GetValue(item, null);
+                    propiedad.TipoPerfil = (string)tipo.GetProperty("TIPO_PERFIL").GetValue(item, null);
+
+                    ListadoPropiedades.Add(propiedad);
+
+                }
+            }
+
+            return ListadoPropiedades;
+        }
+
+
         #endregion
     }
 }

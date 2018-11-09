@@ -324,7 +324,7 @@ namespace View.Services
 
             }
         }
-
+        
         /// <summary>
         /// Método que obtiene el valor mínimo de tolerancia de una propiedad. Además si así lo requerimos lo podemos convertir en Pulgadas.
         /// Generalmente en el plano puede venir de dos opciones: como tolerancia o como valor mínimo y máximo. 
@@ -999,6 +999,83 @@ namespace View.Services
             }
             //Si el archivo no está en uso retorna falso
             return false;
+        }
+
+        /// <summary>
+        /// Método que obtiene la cantidad de material a remover en width de una serie de operaciones.
+        /// </summary>
+        /// <param name="operaciones"></param>
+        /// <returns></returns>
+        public static double GetMaterialRemoverWidth(ObservableCollection<IOperacion> operaciones)
+        {
+            double materialRemoverWidth = 0;
+            foreach (var operacion in operaciones)
+            {
+                if (operacion is IObserverWidth)
+                {
+                    materialRemoverWidth += ((IObserverWidth)operacion).MatRemoverWidth;
+                }
+            }
+
+            return materialRemoverWidth;
+        }
+
+        /// <summary>
+        /// Método que obtiene la cantidad de material a remover en thickness de una serie de operaciones.
+        /// </summary>
+        /// <param name="operaciones"></param>
+        /// <returns></returns>
+        public static double GetMaterialRemoverThickness(ObservableCollection<IOperacion> operaciones)
+        {
+            double materialRemoverThickness = 0;
+            foreach (var operacion in operaciones)
+            {
+                if (operacion is IObserverThickness)
+                {
+                    materialRemoverThickness += ((IObserverThickness)operacion).MatRemoverThickness;
+                }
+            }
+
+            return materialRemoverThickness;
+        }
+
+        /// <summary>
+        /// Método que obtiene el numero de paso que es una operación.
+        /// </summary>
+        /// <param name="operaciones"></param>
+        /// <param name="posicionInicial"></param>
+        /// <param name="nombreOperacionBuscada"></param>
+        /// <returns></returns>
+        public static int GetNumPasoOperacion(ObservableCollection<IOperacion> operaciones, int posicionInicial,string nombreOperacionBuscada)
+        {
+            int paso = 0;
+
+            posicionInicial = posicionInicial - 1;
+
+            while (posicionInicial >= 0)
+            {
+                if (operaciones[posicionInicial].NombreOperacion == nombreOperacionBuscada)
+                {
+                    paso++;
+                }
+                posicionInicial--;
+            }
+
+            paso++;
+
+            return paso;
+        }
+        
+
+        public static ObservableCollection<Propiedad> ConvertListToObservableCollectionPropiedad(List<Propiedad> lista)
+        {
+            ObservableCollection<Propiedad> ListaResultante = new ObservableCollection<Propiedad>();
+
+            foreach (var item in lista)
+            {
+                ListaResultante.Add(item);
+            }
+            return ListaResultante;
         }
     }
 }

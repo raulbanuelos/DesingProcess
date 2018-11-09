@@ -33,12 +33,15 @@
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                       AutoGenerateColumns="False"
+                                      CanUserAddRows="False"
                                       >
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                <DataGridCheckBoxColumn EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                        ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                             Header="{x:Static recursos:StringResources.lblSeleccionar}"
-                                            Binding="{Binding IsSelected}"/>
+                                           Binding="{Binding IsSelected}">
+                    
+                </DataGridCheckBoxColumn>
                 <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNivelCambio}" Binding="{Binding NOMBRETIPOCAMBIO}" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>

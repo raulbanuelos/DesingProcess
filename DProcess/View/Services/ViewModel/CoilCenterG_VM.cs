@@ -1,11 +1,6 @@
 ﻿using Model;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using View.Resources;
 
@@ -110,10 +105,12 @@ namespace View.Services.ViewModel
             ListaOptimos = new DataTable();
             ListaMejores = new DataTable();
 
+           Herramental idealCenterGuide = new Herramental();
+
             if (_width != 0 & _radial != 0)
             {              
                 //Obtiene la lista de los herramentales optimos
-                ListaOptimos = DataManager.GetCOIL_CENTER_GUIDE(_width, _radial);
+                ListaOptimos = DataManager.GetCOIL_CENTER_GUIDE(_width, _radial, out idealCenterGuide);
                 //obtiene el mejor herramental
                 ListaMejores = DataManager.SelectBestCoil(ListaOptimos);
 

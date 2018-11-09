@@ -13,8 +13,10 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
     {
         #region Propiedades
 
+        public int NoPasadas { get; set; }
+
         #region Propiedades de IOperacion
-        
+
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -221,6 +223,26 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
             WidthOperacion = WidthAfterOperacion + MaterialRemoverAfterOperacion;
         }
 
+        /// <summary>
+        /// Método que establece que cantidad de material a remover va tener la operación.
+        /// </summary>
+        /// <param name="operaciones"></param>
+        /// <param name="posOperacion"></param>
+        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion)
+        {
+
+            int paso = Module.GetNumPasoOperacion(operaciones, posOperacion, NombreOperacion);
+            MatRemoverWidth = 0.0005;
+            //MatRemoverWidth = 0.0005;
+            if (elPlano.MaterialBase.TipoDeMaterial == "ACERO AL CARBON" && paso == 1)
+                NoPasadas = 2;
+            else
+                if (elPlano.MaterialBase.TipoDeMaterial == "ACERO AL CARBON" && paso == 2)
+                    NoPasadas = 1;
+
+            MatRemoverWidth = MatRemoverWidth * NoPasadas;
+        }
+
         #endregion
 
         #region Methods override
@@ -240,7 +262,7 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
             CentroCostos = "32012529";
             CentroTrabajo = "160";
             ControlKey = "MA42";
-            MatRemoverWidth = 0.0005;
+            
             elPlano = plano;
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();

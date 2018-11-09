@@ -61,13 +61,13 @@
           <Key>
             <PropertyRef Name="ID_PROPIEDAD_CADENA" />
           </Key>
-          <Property Name="ID_PROPIEDAD_CADENA" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="NOMBRE" Nullable="false" MaxLength="100" Type="varchar" />
-          <Property Name="DESCRIPCION_LARGA" MaxLength="200" Type="varchar" />
-          <Property Name="DESCRIPCION_CORTA" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="ID_PROPIEDAD_CADENA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DESCRIPCION_LARGA" Type="varchar" MaxLength="200" />
+          <Property Name="DESCRIPCION_CORTA" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IMAGEN" Type="varbinary(max)" />
-          <Property Name="ID_USUARIO_CREACION" Nullable="false" Type="int" />
-          <Property Name="FECHA_CREACION" Nullable="false" Type="datetime" />
+          <Property Name="ID_USUARIO_CREACION" Type="int" Nullable="false" />
+          <Property Name="FECHA_CREACION" Type="datetime" Nullable="false" />
           <Property Name="ID_USUARIO_ACTUALIZACION" Type="int" />
           <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
         </EntityType>
@@ -203,8 +203,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_CAT_PROPIEDAD_CADENA">
-          <End Type="Self.CAT_PROPIEDAD_CADENA" Multiplicity="1" Role="CAT_PROPIEDAD_CADENA" />
-          <End Type="Self.TBL_ARQUETIPO_PROPIEDADES_CADENA" Multiplicity="*" Role="TBL_ARQUETIPO_PROPIEDADES_CADENA" />
+          <End Role="CAT_PROPIEDAD_CADENA" Type="Self.CAT_PROPIEDAD_CADENA" Multiplicity="1" />
+          <End Role="TBL_ARQUETIPO_PROPIEDADES_CADENA" Type="Self.TBL_ARQUETIPO_PROPIEDADES_CADENA" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CAT_PROPIEDAD_CADENA">
               <PropertyRef Name="ID_PROPIEDAD_CADENA" />
@@ -287,8 +287,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PROPIEDAD_CADENA">
-          <End Type="Self.CAT_PROPIEDAD_CADENA" Multiplicity="1" Role="CAT_PROPIEDAD_CADENA" />
-          <End Type="Self.TR_PROPIEDAD_CADENA_PERFIL" Multiplicity="*" Role="TR_PROPIEDAD_CADENA_PERFIL" />
+          <End Role="CAT_PROPIEDAD_CADENA" Type="Self.CAT_PROPIEDAD_CADENA" Multiplicity="1" />
+          <End Role="TR_PROPIEDAD_CADENA_PERFIL" Type="Self.TR_PROPIEDAD_CADENA_PERFIL" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CAT_PROPIEDAD_CADENA">
               <PropertyRef Name="ID_PROPIEDAD_CADENA" />
@@ -357,8 +357,8 @@
             <End Role="TBL_ARQUETIPO_PROPIEDADES_CADENA" EntitySet="TBL_ARQUETIPO_PROPIEDADES_CADENA" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_CAT_PROPIEDAD_CADENA" Association="Self.FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_CAT_PROPIEDAD_CADENA">
-            <End EntitySet="CAT_PROPIEDAD_CADENA" Role="CAT_PROPIEDAD_CADENA" />
-            <End EntitySet="TBL_ARQUETIPO_PROPIEDADES_CADENA" Role="TBL_ARQUETIPO_PROPIEDADES_CADENA" />
+            <End Role="CAT_PROPIEDAD_CADENA" EntitySet="CAT_PROPIEDAD_CADENA" />
+            <End Role="TBL_ARQUETIPO_PROPIEDADES_CADENA" EntitySet="TBL_ARQUETIPO_PROPIEDADES_CADENA" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_ARQUETIPO_PROPIEDADES_CAT_PROPIEDAD" Association="Self.FK_TBL_ARQUETIPO_PROPIEDADES_CAT_PROPIEDAD">
             <End Role="CAT_PROPIEDAD" EntitySet="CAT_PROPIEDAD" />
@@ -385,8 +385,8 @@
             <End Role="TR_PROPIEDAD_CADENA_PERFIL" EntitySet="TR_PROPIEDAD_CADENA_PERFIL" />
           </AssociationSet>
           <AssociationSet Name="FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PROPIEDAD_CADENA" Association="Self.FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PROPIEDAD_CADENA">
-            <End EntitySet="CAT_PROPIEDAD_CADENA" Role="CAT_PROPIEDAD_CADENA" />
-            <End EntitySet="TR_PROPIEDAD_CADENA_PERFIL" Role="TR_PROPIEDAD_CADENA_PERFIL" />
+            <End Role="CAT_PROPIEDAD_CADENA" EntitySet="CAT_PROPIEDAD_CADENA" />
+            <End Role="TR_PROPIEDAD_CADENA_PERFIL" EntitySet="TR_PROPIEDAD_CADENA_PERFIL" />
           </AssociationSet>
           <AssociationSet Name="FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL" Association="Self.FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL">
             <End Role="CAT_PERFIL" EntitySet="CAT_PERFIL" />
@@ -434,8 +434,8 @@
           <Property Name="FECHA_CREACION" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ID_USUARIO_ACTUALIZACION" Type="Int32" />
           <Property Name="FECHA_ACTUALIZACION" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="TBL_ARQUETIPO_PROPIEDADES" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CAT_PROPIEDAD" FromRole="CAT_PROPIEDAD" ToRole="TBL_ARQUETIPO_PROPIEDADES" />
           <NavigationProperty Name="TR_PROPIEDAD_PERFIL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD" FromRole="CAT_PROPIEDAD" ToRole="TR_PROPIEDAD_PERFIL" />
+          <NavigationProperty Name="TBL_ARQUETIPO_PROPIEDADES" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CAT_PROPIEDAD" FromRole="CAT_PROPIEDAD" ToRole="TBL_ARQUETIPO_PROPIEDADES" />
         </EntityType>
         <EntityType Name="CAT_PROPIEDAD_BOOL">
           <Key>
@@ -590,10 +590,27 @@
             <End EntitySet="TR_PROPIEDAD_CADENA_PERFIL" Role="TR_PROPIEDAD_CADENA_PERFIL" />
           </AssociationSet>
           <EntitySet Name="Arquetipo" EntityType="DataAccess.ServiceObjects.Perfiles.Arquetipo" />
+          <EntitySet Name="TR_PERFIL_ARQUETIPO" EntityType="DataAccess.ServiceObjects.Perfiles.TR_PERFIL_ARQUETIPO" />
+          <AssociationSet Name="FK_TR_PERFIL_ARQUETIPO_Arquetipo" Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PERFIL_ARQUETIPO_Arquetipo">
+            <End Role="Arquetipo" EntitySet="Arquetipo" />
+            <End Role="TR_PERFIL_ARQUETIPO" EntitySet="TR_PERFIL_ARQUETIPO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_PERFIL_ARQUETIPO_CAT_PERFIL" Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PERFIL_ARQUETIPO_CAT_PERFIL">
+            <End Role="CAT_PERFIL" EntitySet="CAT_PERFIL" />
+            <End Role="TR_PERFIL_ARQUETIPO" EntitySet="TR_PERFIL_ARQUETIPO" />
+          </AssociationSet>
+          <EntitySet Name="TR_PROPIEDAD_PERFIL" EntityType="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_PERFIL" />
+          <AssociationSet Name="FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL" Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL">
+            <End Role="CAT_PERFIL" EntitySet="CAT_PERFIL" />
+            <End Role="TR_PROPIEDAD_PERFIL" EntitySet="TR_PROPIEDAD_PERFIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD" Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD">
+            <End Role="CAT_PROPIEDAD" EntitySet="CAT_PROPIEDAD" />
+            <End Role="TR_PROPIEDAD_PERFIL" EntitySet="TR_PROPIEDAD_PERFIL" />
+          </AssociationSet>
           <EntitySet Name="TBL_ARQUETIPO_PROPIEDADES" EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES" />
           <EntitySet Name="TBL_ARQUETIPO_PROPIEDADES_BOOL" EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_BOOL" />
           <EntitySet Name="TBL_ARQUETIPO_PROPIEDADES_CADENA" EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_CADENA" />
-          <EntitySet Name="TR_PERFIL_ARQUETIPO" EntityType="DataAccess.ServiceObjects.Perfiles.TR_PERFIL_ARQUETIPO" />
           <AssociationSet Name="FK_TBL_ARQUETIPO_PROPIEDADES_Arquetipo" Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_Arquetipo">
             <End Role="Arquetipo" EntitySet="Arquetipo" />
             <End Role="TBL_ARQUETIPO_PROPIEDADES" EntitySet="TBL_ARQUETIPO_PROPIEDADES" />
@@ -606,14 +623,6 @@
             <End Role="Arquetipo" EntitySet="Arquetipo" />
             <End Role="TBL_ARQUETIPO_PROPIEDADES_CADENA" EntitySet="TBL_ARQUETIPO_PROPIEDADES_CADENA" />
           </AssociationSet>
-          <AssociationSet Name="FK_TR_PERFIL_ARQUETIPO_Arquetipo" Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PERFIL_ARQUETIPO_Arquetipo">
-            <End Role="Arquetipo" EntitySet="Arquetipo" />
-            <End Role="TR_PERFIL_ARQUETIPO" EntitySet="TR_PERFIL_ARQUETIPO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TR_PERFIL_ARQUETIPO_CAT_PERFIL" Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PERFIL_ARQUETIPO_CAT_PERFIL">
-            <End Role="CAT_PERFIL" EntitySet="CAT_PERFIL" />
-            <End Role="TR_PERFIL_ARQUETIPO" EntitySet="TR_PERFIL_ARQUETIPO" />
-          </AssociationSet>
           <AssociationSet Name="FK_TBL_ARQUETIPO_PROPIEDADES_CAT_PROPIEDAD" Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CAT_PROPIEDAD">
             <End Role="CAT_PROPIEDAD" EntitySet="CAT_PROPIEDAD" />
             <End Role="TBL_ARQUETIPO_PROPIEDADES" EntitySet="TBL_ARQUETIPO_PROPIEDADES" />
@@ -623,19 +632,10 @@
             <End Role="TBL_ARQUETIPO_PROPIEDADES_BOOL" EntitySet="TBL_ARQUETIPO_PROPIEDADES_BOOL" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_CAT_PROPIEDAD_CADENA" Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_CAT_PROPIEDAD_CADENA">
-            <End EntitySet="CAT_PROPIEDAD_CADENA" Role="CAT_PROPIEDAD_CADENA" />
-            <End EntitySet="TBL_ARQUETIPO_PROPIEDADES_CADENA" Role="TBL_ARQUETIPO_PROPIEDADES_CADENA" />
+            <End Role="CAT_PROPIEDAD_CADENA" EntitySet="CAT_PROPIEDAD_CADENA" />
+            <End Role="TBL_ARQUETIPO_PROPIEDADES_CADENA" EntitySet="TBL_ARQUETIPO_PROPIEDADES_CADENA" />
           </AssociationSet>
-          <EntitySet Name="TR_PROPIEDAD_PERFIL" EntityType="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_PERFIL" />
-          <AssociationSet Name="FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL" Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL">
-            <End Role="CAT_PERFIL" EntitySet="CAT_PERFIL" />
-            <End Role="TR_PROPIEDAD_PERFIL" EntitySet="TR_PROPIEDAD_PERFIL" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD" Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD">
-            <End Role="CAT_PROPIEDAD" EntitySet="CAT_PROPIEDAD" />
-            <End Role="TR_PROPIEDAD_PERFIL" EntitySet="TR_PROPIEDAD_PERFIL" />
-          </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Arquetipo">
           <Key>
             <PropertyRef Name="Codigo" />
@@ -644,44 +644,10 @@
           <Property Name="DescripcionGeneral" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TR_PERFIL_ARQUETIPO" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TR_PERFIL_ARQUETIPO_Arquetipo" FromRole="Arquetipo" ToRole="TR_PERFIL_ARQUETIPO" />
           <NavigationProperty Name="TBL_ARQUETIPO_PROPIEDADES" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_Arquetipo" FromRole="Arquetipo" ToRole="TBL_ARQUETIPO_PROPIEDADES" />
           <NavigationProperty Name="TBL_ARQUETIPO_PROPIEDADES_BOOL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_BOOL_Arquetipo" FromRole="Arquetipo" ToRole="TBL_ARQUETIPO_PROPIEDADES_BOOL" />
           <NavigationProperty Name="TBL_ARQUETIPO_PROPIEDADES_CADENA" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_Arquetipo" FromRole="Arquetipo" ToRole="TBL_ARQUETIPO_PROPIEDADES_CADENA" />
-          <NavigationProperty Name="TR_PERFIL_ARQUETIPO" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TR_PERFIL_ARQUETIPO_Arquetipo" FromRole="Arquetipo" ToRole="TR_PERFIL_ARQUETIPO" />
-        </EntityType>
-        <EntityType Name="TBL_ARQUETIPO_PROPIEDADES">
-          <Key>
-            <PropertyRef Name="ID_ARQUETIPO_PROPIEDADES" />
-          </Key>
-          <Property Name="ID_ARQUETIPO_PROPIEDADES" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="ID_PROPIEDAD" Type="Int32" Nullable="false" />
-          <Property Name="UNIDAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="VALOR" Type="Double" />
-          <NavigationProperty Name="Arquetipo" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_Arquetipo" FromRole="TBL_ARQUETIPO_PROPIEDADES" ToRole="Arquetipo" />
-          <NavigationProperty Name="CAT_PROPIEDAD" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CAT_PROPIEDAD" FromRole="TBL_ARQUETIPO_PROPIEDADES" ToRole="CAT_PROPIEDAD" />
-        </EntityType>
-        <EntityType Name="TBL_ARQUETIPO_PROPIEDADES_BOOL">
-          <Key>
-            <PropertyRef Name="ID_ARQUETIPO_PROPIEDADES_BOOL" />
-          </Key>
-          <Property Name="ID_ARQUETIPO_PROPIEDADES_BOOL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="ID_PROPIEDAD_BOOL" Type="Int32" Nullable="false" />
-          <Property Name="VALOR" Type="Boolean" />
-          <NavigationProperty Name="Arquetipo" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_BOOL_Arquetipo" FromRole="TBL_ARQUETIPO_PROPIEDADES_BOOL" ToRole="Arquetipo" />
-          <NavigationProperty Name="CAT_PROPIEDAD_BOOL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_BOOL_CAT_PROPIEDAD_BOOL" FromRole="TBL_ARQUETIPO_PROPIEDADES_BOOL" ToRole="CAT_PROPIEDAD_BOOL" />
-        </EntityType>
-        <EntityType Name="TBL_ARQUETIPO_PROPIEDADES_CADENA">
-          <Key>
-            <PropertyRef Name="ID_ARQUETIPO_PROPIEDADES_CADENA" />
-          </Key>
-          <Property Name="ID_ARQUETIPO_PROPIEDADES_CADENA" Type="Int32" Nullable="false" />
-          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="ID_PROPIEDAD_CADENA" Type="Int32" Nullable="false" />
-          <Property Name="VALOR" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Arquetipo" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_Arquetipo" FromRole="TBL_ARQUETIPO_PROPIEDADES_CADENA" ToRole="Arquetipo" />
-          <NavigationProperty Name="CAT_PROPIEDAD_CADENA" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_CAT_PROPIEDAD_CADENA" FromRole="TBL_ARQUETIPO_PROPIEDADES_CADENA" ToRole="CAT_PROPIEDAD_CADENA" />
         </EntityType>
         <EntityType Name="TR_PERFIL_ARQUETIPO">
           <Key>
@@ -693,42 +659,6 @@
           <NavigationProperty Name="Arquetipo" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TR_PERFIL_ARQUETIPO_Arquetipo" FromRole="TR_PERFIL_ARQUETIPO" ToRole="Arquetipo" />
           <NavigationProperty Name="CAT_PERFIL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TR_PERFIL_ARQUETIPO_CAT_PERFIL" FromRole="TR_PERFIL_ARQUETIPO" ToRole="CAT_PERFIL" />
         </EntityType>
-        <Association Name="FK_TBL_ARQUETIPO_PROPIEDADES_Arquetipo">
-          <End Type="DataAccess.ServiceObjects.Perfiles.Arquetipo" Role="Arquetipo" Multiplicity="1" />
-          <End Type="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES" Role="TBL_ARQUETIPO_PROPIEDADES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Arquetipo">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="TBL_ARQUETIPO_PROPIEDADES">
-              <PropertyRef Name="CODIGO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TBL_ARQUETIPO_PROPIEDADES_BOOL_Arquetipo">
-          <End Type="DataAccess.ServiceObjects.Perfiles.Arquetipo" Role="Arquetipo" Multiplicity="1" />
-          <End Type="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_BOOL" Role="TBL_ARQUETIPO_PROPIEDADES_BOOL" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Arquetipo">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="TBL_ARQUETIPO_PROPIEDADES_BOOL">
-              <PropertyRef Name="CODIGO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_Arquetipo">
-          <End Type="DataAccess.ServiceObjects.Perfiles.Arquetipo" Role="Arquetipo" Multiplicity="1" />
-          <End Type="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_CADENA" Role="TBL_ARQUETIPO_PROPIEDADES_CADENA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Arquetipo">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="TBL_ARQUETIPO_PROPIEDADES_CADENA">
-              <PropertyRef Name="CODIGO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TR_PERFIL_ARQUETIPO_Arquetipo">
           <End Type="DataAccess.ServiceObjects.Perfiles.Arquetipo" Role="Arquetipo" Multiplicity="1" />
           <End Type="DataAccess.ServiceObjects.Perfiles.TR_PERFIL_ARQUETIPO" Role="TR_PERFIL_ARQUETIPO" Multiplicity="*" />
@@ -750,42 +680,6 @@
             </Principal>
             <Dependent Role="TR_PERFIL_ARQUETIPO">
               <PropertyRef Name="ID_PERFIL" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TBL_ARQUETIPO_PROPIEDADES_CAT_PROPIEDAD">
-          <End Type="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD" Role="CAT_PROPIEDAD" Multiplicity="1" />
-          <End Type="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES" Role="TBL_ARQUETIPO_PROPIEDADES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CAT_PROPIEDAD">
-              <PropertyRef Name="ID_PROPIEDAD" />
-            </Principal>
-            <Dependent Role="TBL_ARQUETIPO_PROPIEDADES">
-              <PropertyRef Name="ID_PROPIEDAD" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TBL_ARQUETIPO_PROPIEDADES_BOOL_CAT_PROPIEDAD_BOOL">
-          <End Type="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_BOOL" Role="CAT_PROPIEDAD_BOOL" Multiplicity="1" />
-          <End Type="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_BOOL" Role="TBL_ARQUETIPO_PROPIEDADES_BOOL" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CAT_PROPIEDAD_BOOL">
-              <PropertyRef Name="ID_PROPIEDAD_BOOL" />
-            </Principal>
-            <Dependent Role="TBL_ARQUETIPO_PROPIEDADES_BOOL">
-              <PropertyRef Name="ID_PROPIEDAD_BOOL" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_CAT_PROPIEDAD_CADENA">
-          <End Type="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_CADENA" Multiplicity="1" Role="CAT_PROPIEDAD_CADENA" />
-          <End Type="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_CADENA" Multiplicity="*" Role="TBL_ARQUETIPO_PROPIEDADES_CADENA" />
-          <ReferentialConstraint>
-            <Principal Role="CAT_PROPIEDAD_CADENA">
-              <PropertyRef Name="ID_PROPIEDAD_CADENA" />
-            </Principal>
-            <Dependent Role="TBL_ARQUETIPO_PROPIEDADES_CADENA">
-              <PropertyRef Name="ID_PROPIEDAD_CADENA" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -823,7 +717,113 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <EntityType Name="TBL_ARQUETIPO_PROPIEDADES">
+          <Key>
+            <PropertyRef Name="ID_ARQUETIPO_PROPIEDADES" />
+          </Key>
+          <Property Name="ID_ARQUETIPO_PROPIEDADES" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="ID_PROPIEDAD" Type="Int32" Nullable="false" />
+          <Property Name="UNIDAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VALOR" Type="Double" />
+          <NavigationProperty Name="Arquetipo" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_Arquetipo" FromRole="TBL_ARQUETIPO_PROPIEDADES" ToRole="Arquetipo" />
+          <NavigationProperty Name="CAT_PROPIEDAD" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CAT_PROPIEDAD" FromRole="TBL_ARQUETIPO_PROPIEDADES" ToRole="CAT_PROPIEDAD" />
+        </EntityType>
+        <EntityType Name="TBL_ARQUETIPO_PROPIEDADES_BOOL">
+          <Key>
+            <PropertyRef Name="ID_ARQUETIPO_PROPIEDADES_BOOL" />
+          </Key>
+          <Property Name="ID_ARQUETIPO_PROPIEDADES_BOOL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="ID_PROPIEDAD_BOOL" Type="Int32" Nullable="false" />
+          <Property Name="VALOR" Type="Boolean" />
+          <NavigationProperty Name="Arquetipo" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_BOOL_Arquetipo" FromRole="TBL_ARQUETIPO_PROPIEDADES_BOOL" ToRole="Arquetipo" />
+          <NavigationProperty Name="CAT_PROPIEDAD_BOOL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_BOOL_CAT_PROPIEDAD_BOOL" FromRole="TBL_ARQUETIPO_PROPIEDADES_BOOL" ToRole="CAT_PROPIEDAD_BOOL" />
+        </EntityType>
+        <EntityType Name="TBL_ARQUETIPO_PROPIEDADES_CADENA">
+          <Key>
+            <PropertyRef Name="ID_ARQUETIPO_PROPIEDADES_CADENA" />
+          </Key>
+          <Property Name="ID_ARQUETIPO_PROPIEDADES_CADENA" Type="Int32" Nullable="false" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="ID_PROPIEDAD_CADENA" Type="Int32" Nullable="false" />
+          <Property Name="VALOR" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Arquetipo" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_Arquetipo" FromRole="TBL_ARQUETIPO_PROPIEDADES_CADENA" ToRole="Arquetipo" />
+          <NavigationProperty Name="CAT_PROPIEDAD_CADENA" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_CAT_PROPIEDAD_CADENA" FromRole="TBL_ARQUETIPO_PROPIEDADES_CADENA" ToRole="CAT_PROPIEDAD_CADENA" />
+        </EntityType>
+        <Association Name="FK_TBL_ARQUETIPO_PROPIEDADES_Arquetipo">
+          <End Type="DataAccess.ServiceObjects.Perfiles.Arquetipo" Role="Arquetipo" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES" Role="TBL_ARQUETIPO_PROPIEDADES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arquetipo">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_ARQUETIPO_PROPIEDADES">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ARQUETIPO_PROPIEDADES_BOOL_Arquetipo">
+          <End Type="DataAccess.ServiceObjects.Perfiles.Arquetipo" Role="Arquetipo" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_BOOL" Role="TBL_ARQUETIPO_PROPIEDADES_BOOL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arquetipo">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_ARQUETIPO_PROPIEDADES_BOOL">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_Arquetipo">
+          <End Type="DataAccess.ServiceObjects.Perfiles.Arquetipo" Role="Arquetipo" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_CADENA" Role="TBL_ARQUETIPO_PROPIEDADES_CADENA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arquetipo">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_ARQUETIPO_PROPIEDADES_CADENA">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ARQUETIPO_PROPIEDADES_CAT_PROPIEDAD">
+          <End Type="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD" Role="CAT_PROPIEDAD" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES" Role="TBL_ARQUETIPO_PROPIEDADES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PROPIEDAD">
+              <PropertyRef Name="ID_PROPIEDAD" />
+            </Principal>
+            <Dependent Role="TBL_ARQUETIPO_PROPIEDADES">
+              <PropertyRef Name="ID_PROPIEDAD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ARQUETIPO_PROPIEDADES_BOOL_CAT_PROPIEDAD_BOOL">
+          <End Type="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_BOOL" Role="CAT_PROPIEDAD_BOOL" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_BOOL" Role="TBL_ARQUETIPO_PROPIEDADES_BOOL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PROPIEDAD_BOOL">
+              <PropertyRef Name="ID_PROPIEDAD_BOOL" />
+            </Principal>
+            <Dependent Role="TBL_ARQUETIPO_PROPIEDADES_BOOL">
+              <PropertyRef Name="ID_PROPIEDAD_BOOL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_CAT_PROPIEDAD_CADENA">
+          <End Type="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_CADENA" Role="CAT_PROPIEDAD_CADENA" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_CADENA" Role="TBL_ARQUETIPO_PROPIEDADES_CADENA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PROPIEDAD_CADENA">
+              <PropertyRef Name="ID_PROPIEDAD_CADENA" />
+            </Principal>
+            <Dependent Role="TBL_ARQUETIPO_PROPIEDADES_CADENA">
+              <PropertyRef Name="ID_PROPIEDAD_CADENA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -930,6 +930,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TR_PERFIL_ARQUETIPO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.TR_PERFIL_ARQUETIPO">
+              <MappingFragment StoreEntitySet="TR_PERFIL_ARQUETIPO">
+                <ScalarProperty Name="ID_PERFIL" ColumnName="ID_PERFIL" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_PERFIL_ARQUETIPO" ColumnName="ID_PERFIL_ARQUETIPO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TR_PROPIEDAD_PERFIL">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_PERFIL">
+              <MappingFragment StoreEntitySet="TR_PROPIEDAD_PERFIL">
+                <ScalarProperty Name="ID_PERFIL" ColumnName="ID_PERFIL" />
+                <ScalarProperty Name="ID_PROPIEDAD" ColumnName="ID_PROPIEDAD" />
+                <ScalarProperty Name="ID_PROPIEDAD_PERFIL" ColumnName="ID_PROPIEDAD_PERFIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TBL_ARQUETIPO_PROPIEDADES">
             <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES">
               <MappingFragment StoreEntitySet="TBL_ARQUETIPO_PROPIEDADES">
@@ -958,24 +976,6 @@
                 <ScalarProperty Name="ID_PROPIEDAD_CADENA" ColumnName="ID_PROPIEDAD_CADENA" />
                 <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="ID_ARQUETIPO_PROPIEDADES_CADENA" ColumnName="ID_ARQUETIPO_PROPIEDADES_CADENA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TR_PERFIL_ARQUETIPO">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.TR_PERFIL_ARQUETIPO">
-              <MappingFragment StoreEntitySet="TR_PERFIL_ARQUETIPO">
-                <ScalarProperty Name="ID_PERFIL" ColumnName="ID_PERFIL" />
-                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
-                <ScalarProperty Name="ID_PERFIL_ARQUETIPO" ColumnName="ID_PERFIL_ARQUETIPO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TR_PROPIEDAD_PERFIL">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_PERFIL">
-              <MappingFragment StoreEntitySet="TR_PROPIEDAD_PERFIL">
-                <ScalarProperty Name="ID_PERFIL" ColumnName="ID_PERFIL" />
-                <ScalarProperty Name="ID_PROPIEDAD" ColumnName="ID_PROPIEDAD" />
-                <ScalarProperty Name="ID_PROPIEDAD_PERFIL" ColumnName="ID_PROPIEDAD_PERFIL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

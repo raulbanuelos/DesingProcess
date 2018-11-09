@@ -33,10 +33,10 @@ namespace DataAccess.ServiceObjects.Perfiles
         public virtual DbSet<TR_PROPIEDAD_BOOL_PERFIL> TR_PROPIEDAD_BOOL_PERFIL { get; set; }
         public virtual DbSet<TR_PROPIEDAD_CADENA_PERFIL> TR_PROPIEDAD_CADENA_PERFIL { get; set; }
         public virtual DbSet<Arquetipo> Arquetipo { get; set; }
+        public virtual DbSet<TR_PERFIL_ARQUETIPO> TR_PERFIL_ARQUETIPO { get; set; }
+        public virtual DbSet<TR_PROPIEDAD_PERFIL> TR_PROPIEDAD_PERFIL { get; set; }
         public virtual DbSet<TBL_ARQUETIPO_PROPIEDADES> TBL_ARQUETIPO_PROPIEDADES { get; set; }
         public virtual DbSet<TBL_ARQUETIPO_PROPIEDADES_BOOL> TBL_ARQUETIPO_PROPIEDADES_BOOL { get; set; }
         public virtual DbSet<TBL_ARQUETIPO_PROPIEDADES_CADENA> TBL_ARQUETIPO_PROPIEDADES_CADENA { get; set; }
-        public virtual DbSet<TR_PERFIL_ARQUETIPO> TR_PERFIL_ARQUETIPO { get; set; }
-        public virtual DbSet<TR_PROPIEDAD_PERFIL> TR_PROPIEDAD_PERFIL { get; set; }
     }
 }

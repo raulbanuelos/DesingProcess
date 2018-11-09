@@ -18,9 +18,10 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         public string ID_ESPECIFICACION { get; set; }
         public string DESCRIPCION { get; set; }
         public string UM { get; set; }
-        public decimal WIDTH { get; set; }
-        public decimal GROOVE { get; set; }
-        public decimal THICKNESS { get; set; }
+        public double WIDTH { get; set; }
+        public double GROOVE { get; set; }
+        public double THICKNESS { get; set; }
+        public string UBICACION { get; set; }
     
         public virtual material material { get; set; }
     }

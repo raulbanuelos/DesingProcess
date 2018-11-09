@@ -158,7 +158,7 @@ namespace View.Services
             if (Module.HasPropiedad("PistaLapeado",elAnillo.PerfilOD.Propiedades))
                 ListaOperaciones.Add(new Lapping(elAnillo));
 
-            if (!elAnillo.Treatment.Equals("Ninguno"))
+            if (!elAnillo.Treatment.Equals("NONE"))
                 ListaOperaciones.Add(new Phosphate(elAnillo));
 
             if (Module.HasPropiedad("LasserEngrave",elAnillo.PerfilLateral.Propiedades))
@@ -201,7 +201,10 @@ namespace View.Services
             ListaOperaciones.Add(new DegreaseRings(elAnillo));
             ListaOperaciones.Add(new Lapping(elAnillo));
             ListaOperaciones.Add(new DegreaseRings(elAnillo));
-            ListaOperaciones.Add(new Phosphate(elAnillo));
+
+            if (!elAnillo.Treatment.Equals("NONE"))
+                ListaOperaciones.Add(new Phosphate(elAnillo));
+
             ListaOperaciones.Add(new LasserEngrave(elAnillo));
             ListaOperaciones.Add(new InspeccionFinal(elAnillo));
             

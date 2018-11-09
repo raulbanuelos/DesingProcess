@@ -24,9 +24,10 @@
           <Property Name="ID_ESPECIFICACION" Type="char" MaxLength="15" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="255" />
           <Property Name="UM" Type="varchar" MaxLength="50" />
-          <Property Name="WIDTH" Type="decimal" Precision="18" Scale="5" Nullable="false" />
-          <Property Name="GROOVE" Type="decimal" Precision="18" Scale="5" Nullable="false" />
-          <Property Name="THICKNESS" Type="decimal" Precision="18" Scale="5" Nullable="false" />
+          <Property Name="WIDTH" Type="float" Nullable="false" />
+          <Property Name="GROOVE" Type="float" Nullable="false" />
+          <Property Name="THICKNESS" Type="float" Nullable="false" />
+          <Property Name="UBICACION" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="Cliente">
           <Key>
@@ -721,9 +722,10 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           <Property Name="ID_ESPECIFICACION" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="UM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="WIDTH" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
-          <Property Name="GROOVE" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
-          <Property Name="THICKNESS" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
+          <Property Name="WIDTH" Type="Double" Nullable="false" />
+          <Property Name="GROOVE" Type="Double" Nullable="false" />
+          <Property Name="THICKNESS" Type="Double" Nullable="false" />
+          <Property Name="UBICACION" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="material" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_CAT_MATERIA_PRIMA_ROLADO_material" FromRole="CAT_MATERIA_PRIMA_ROLADO" ToRole="material" />
         </EntityType>
         <Association Name="FK_CAT_MATERIA_PRIMA_ROLADO_material">
@@ -960,6 +962,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           <EntitySetMapping Name="CAT_MATERIA_PRIMA_ROLADO">
             <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ROLADO">
               <MappingFragment StoreEntitySet="CAT_MATERIA_PRIMA_ROLADO">
+                <ScalarProperty Name="UBICACION" ColumnName="UBICACION" />
                 <ScalarProperty Name="THICKNESS" ColumnName="THICKNESS" />
                 <ScalarProperty Name="GROOVE" ColumnName="GROOVE" />
                 <ScalarProperty Name="WIDTH" ColumnName="WIDTH" />

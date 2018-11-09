@@ -295,7 +295,16 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             //Actualizamos el width de la operación.
             WidthOperacion = WidthAfterOperacion + MaterialRemoverAfterOperacion;
         }
-
+        
+        /// <summary>
+        /// Método que establece que cantidad de material a remover va tener la operación.
+        /// </summary>
+        /// <param name="operaciones"></param>
+        /// <param name="posOperacion"></param>
+        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion)
+        {
+            
+        }
         #endregion
 
         #endregion

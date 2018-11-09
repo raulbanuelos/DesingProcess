@@ -10,6 +10,11 @@ namespace View.Services.Operaciones.Gasolina.Rolado
     {
 
         #region Properties
+
+        private double widthMateriaPrima;
+        private double thicknessMateriaPrima;
+        private MateriaPrimaRolado materiaPrima;
+
         #region Properties of IObserverDiametro
         public double Diameter
         {
@@ -187,12 +192,16 @@ namespace View.Services.Operaciones.Gasolina.Rolado
         public void CrearOperacion(Anillo ElAnilloProcesado, Anillo elPlano)
         {
 
+            #region Pendiente. Es para la selección de herramental.
             int x = ListaMateriaPrima.Count;
 
             if (x > 0)
             {
-                MateriaPrimaRolado materiaPrima = (MateriaPrimaRolado)ListaMateriaPrima[0];
+                materiaPrima = (MateriaPrimaRolado)ListaMateriaPrima[0];
+                widthMateriaPrima = materiaPrima._Width;
+                thicknessMateriaPrima = materiaPrima.Thickness;
             }
+            #endregion
 
             //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
@@ -208,7 +217,7 @@ namespace View.Services.Operaciones.Gasolina.Rolado
             TextoProceso += "PLANICIDAD CARAS LATERALES : CONTINUO EN \n";
             TextoProceso += "LOS 360 GRADOS DE LA CARA LATERAL \n";
             TextoProceso += "REFERENCIA DEL CALCULO=  07982176 \n";
-            TextoProceso += "DIMENSIONES DE ALAMBRE = 1.25 X 2.90 S=0.78 \n";
+            TextoProceso += "DIMENSIONES DE ALAMBRE = " + materiaPrima._Width + " X " + materiaPrima.Thickness + " S=" + materiaPrima.Groove + " \n";
             TextoProceso += "PROCEDIMIENTO  APLICABLE: 4.9 - 2.85 \n";
             TextoProceso += "\n";
             TextoProceso += "NOTA:PARA MEDICIONES INICIALES USAR HOJA \n";
@@ -226,6 +235,15 @@ namespace View.Services.Operaciones.Gasolina.Rolado
         public void BuscarHerramentales()
         {
 
+            Herramental idealExitGuide = new Herramental();
+            DataManager.GetEXIT_GUIDE(widthMateriaPrima, thicknessMateriaPrima, out idealExitGuide);
+            ListaHerramentales.Add(idealExitGuide);
+
+            Herramental idealCenterGuide = new Herramental();
+            DataManager.GetCOIL_CENTER_GUIDE(widthMateriaPrima, thicknessMateriaPrima, out idealCenterGuide);
+            ListaHerramentales.Add(idealCenterGuide);
+
+            TextoHerramienta = Module.GetTextoListaHerramentales(ListaHerramentales);
         }
 
         /// <summary>

@@ -402,6 +402,16 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         {
             Thickness = ThicknessAfterOperacion + MaterialRemoverAfterOperacion;
         }
+
+        /// <summary>
+        /// Método que establece la cantidad de material a remover/agregar en la operación.
+        /// </summary>
+        /// <param name="operaciones"></param>
+        /// <param name="posOperacion"></param>
+        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion)
+        {
+
+        }
         #endregion
 
         #endregion

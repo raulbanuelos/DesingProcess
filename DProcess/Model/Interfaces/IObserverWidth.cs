@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
 namespace Model.Interfaces
 {
@@ -26,5 +22,12 @@ namespace Model.Interfaces
         /// <param name="MaterialRemoverAfterOperacion"></param>
         /// <param name="WidthAfterOperacion"></param>
         void UpdateState(ISubjectWidth sender, double MaterialRemoverAfterOperacion, double WidthAfterOperacion);
+
+        /// <summary>
+        /// Método que establece la cantidad de material a remover/agregar en la operación.
+        /// </summary>
+        /// <param name="operaciones"></param>
+        /// <param name="posOperacion"></param>
+        void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion);
     }
 }

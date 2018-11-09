@@ -28,24 +28,31 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
             }
         }
 
-        public IList GetMateriaPrimaRoladoIdeal(double _h1, double a1, string especificacion)
+        public IList GetMateriaPrimaRoladoIdeal(double _h1Min, double _h1Max, double a1Min, double a1Max, string especificacion, double matRemoverWidth, double matRemoverThickness)
         {
             try
             {
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
                     var lista = (from a in Conexion.CAT_MATERIA_PRIMA_ROLADO
+                                 where a.WIDTH - matRemoverWidth >= _h1Min && 
+                                        a.WIDTH - matRemoverWidth <= _h1Max &&
+
+
+                                        a.THICKNESS - matRemoverThickness >= a1Min &&
+                                        a.THICKNESS - matRemoverThickness <= a1Max
+
                                  select a).ToList();
                     return lista;
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 return null;
             }
         }
 
-        public int Insert(string codigoMateriaPrima, string especificacion, double thickness, double groove,string unidadMedida, double _width,string descripcion)
+        public int Insert(string codigoMateriaPrima, string especificacion, double thickness, double groove,string unidadMedida, double _width,string descripcion, string ubicacion)
         {
             try
             {
@@ -55,11 +62,12 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
 
                     materiaPrima.ID_MATERIA_PRIMA_ROLADO = codigoMateriaPrima;
                     materiaPrima.ID_ESPECIFICACION = especificacion;
-                    materiaPrima.THICKNESS = Convert.ToDecimal(thickness);
+                    materiaPrima.THICKNESS = thickness;
                     materiaPrima.UM = unidadMedida;
-                    materiaPrima.WIDTH = Convert.ToDecimal(_width);
-                    materiaPrima.GROOVE = Convert.ToDecimal(groove);
+                    materiaPrima.WIDTH = _width;
+                    materiaPrima.GROOVE = groove;
                     materiaPrima.DESCRIPCION = descripcion;
+                    materiaPrima.UBICACION = ubicacion;
 
                     Conexion.CAT_MATERIA_PRIMA_ROLADO.Add(materiaPrima);
 
@@ -72,7 +80,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
             }
         }
 
-        public int Update(string codigoMateriaPrima, string especificacion, double thickness, double groove, string unidadMedida, double _width, string descripcion)
+        public int Update(string codigoMateriaPrima, string especificacion, double thickness, double groove, string unidadMedida, double _width, string descripcion,string ubicacion)
         {
             try
             {
@@ -81,11 +89,12 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     CAT_MATERIA_PRIMA_ROLADO materiaPrima = Conexion.CAT_MATERIA_PRIMA_ROLADO.Where(x => x.ID_MATERIA_PRIMA_ROLADO == codigoMateriaPrima).FirstOrDefault();
 
                     materiaPrima.ID_ESPECIFICACION = especificacion;
-                    materiaPrima.THICKNESS = Convert.ToDecimal(thickness);
-                    materiaPrima.GROOVE = Convert.ToDecimal(groove);
+                    materiaPrima.THICKNESS = thickness;
+                    materiaPrima.GROOVE = groove;
                     materiaPrima.UM = unidadMedida;
-                    materiaPrima.WIDTH = Convert.ToDecimal(_width);
+                    materiaPrima.WIDTH = _width;
                     materiaPrima.DESCRIPCION = descripcion;
+                    materiaPrima.UBICACION = ubicacion;
 
                     Conexion.Entry(materiaPrima).State = EntityState.Modified;
 

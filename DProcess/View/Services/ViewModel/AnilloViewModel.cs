@@ -40,6 +40,13 @@ namespace View.Services.ViewModel
         #region Properties
         public ObservableCollection<string> ListaEspecificacionesMateriaPrima { get; set; }
 
+        private ObservableCollection<MateriaPrimaRolado> _ListaIronRawMaterial;
+        public ObservableCollection<MateriaPrimaRolado> ListaIronRawMaterial
+        {
+            get { return _ListaIronRawMaterial; }
+            set { _ListaIronRawMaterial = value; NotifyChange("ListaIronRawMaterial"); }
+        }
+        
         public ObservableCollection<Cliente> ListaClientes { get; set; }
 
         public ObservableCollection<string> ListaTreatment { get; set; }
@@ -191,6 +198,15 @@ namespace View.Services.ViewModel
             set { _AllPerfilesPuntas = value; NotifyChange("AllPerfilesPuntas"); }
         }
 
+        public ObservableCollection<Arquetipo> ListaComponentes { get; set; }
+
+        private Arquetipo _ComponenteSeleccionado;
+        public Arquetipo ComponenteSeleccionado
+        {
+            get { return _ComponenteSeleccionado; }
+            set { _ComponenteSeleccionado = value; NotifyChange("ComponenteSeleccionado"); }
+        }
+        
         private Perfil _PerfilSeleccionadoPuntas;
         public Perfil PerfilSeleccionadoPuntas
         {
@@ -726,7 +742,8 @@ namespace View.Services.ViewModel
             ListaEspecificacionesMateriaPrima = DataManager.GetAllEspecificacionesMateriaPrima();
             ListaClientes = DataManager.GetAllClientes();
             ListaTreatment = DataManager.GetAllTreatment();
-            
+            ListaIronRawMaterial = new ObservableCollection<MateriaPrimaRolado>();
+
             PropiedadesOD = new ObservableCollection<NumericEntry>();
             PropiedadesID = new ObservableCollection<NumericEntry>();
             PropiedadesLateral = new ObservableCollection<NumericEntry>();
@@ -877,6 +894,14 @@ namespace View.Services.ViewModel
             get
             {
                 return new RelayCommand(o => openPlano());
+            }
+        }
+
+        public ICommand SavePlano
+        {
+            get
+            {
+                return new RelayCommand(o => savePlano());
             }
         }
 
@@ -1138,23 +1163,51 @@ namespace View.Services.ViewModel
                 anilloProcesado.PropiedadesCadenaAdquiridasProceso = new ObservableCollection<PropiedadCadena>();
 
                 anilloProcesado.PropiedadesAdquiridasProceso.Add(new Propiedad { TipoDato = "Distance", DescripcionCorta = "Piece", DescripcionLarga = "Piece", Imagen = null, Nombre = "Piece", Unidad = "Inch (in)", Valor = calcularMateriaPrima.Piece });
+
+                calcularDimenciones();
+
             }
             else
             {
                 if (ModelAnillo.MaterialBase.TipoDeMaterial == "ACERO AL CARBON")
                 {
-                    calcularMateriaPrima = new CalculaMateriaPrima(ModelAnillo);
-
-                    MateriaPrimaRolado acero = calcularMateriaPrima.CalcularAceroAlCarbon();
-
+                    //Se define la ruta primero antes de que se calcule la materia prima y se establece el material a remover en cada operación.
                     if (banCalcularOperaciones)
+                    {
                         Operaciones = Router.CalcularAceroRolado(ModelAnillo);
 
-                    Operaciones[0].ListaMateriaPrima.Add(acero);
+                        int c = 0;
+                        foreach (var operacion in Operaciones)
+                        {
+                            if (operacion is IObserverWidth)
+                                ((IObserverWidth)operacion).setMaterialRemover(Operaciones, c);
+
+                            if (operacion is IObserverThickness)
+                                ((IObserverThickness)operacion).setMaterialRemover(Operaciones, c);
+                            c++;
+                        }
+
+                    }
+
+                    calcularMateriaPrima = new CalculaMateriaPrima(ModelAnillo);
+
+                    
+                    List<MateriaPrimaRolado> listaOpcionales = calcularMateriaPrima.CalcularAceroAlCarbon();
+                    ListaIronRawMaterial.Clear();
+
+                    foreach (var opcion in listaOpcionales)
+                        ListaIronRawMaterial.Add(opcion);
+
+                    //Mostramos la ventana para que el usuario seleccione la materia prima.
+                    frmSelectIronRawMaterial wOpciones = new frmSelectIronRawMaterial();
+                    wOpciones.DataContext = this;
+                    wOpciones.ShowDialog();
+                    
+                    Operaciones[0].ListaMateriaPrima.Add(ListaIronRawMaterial.Where(x =>x.IsSelected).FirstOrDefault());
+
+                    calcularDimenciones();
                 }
             }
-
-            calcularDimenciones();
             
             anilloProcesado.Activo = ModelAnillo.Activo;
             anilloProcesado.cliente = ModelAnillo.cliente;
@@ -1182,7 +1235,6 @@ namespace View.Services.ViewModel
             anilloProcesado.TipoAnillo = ModelAnillo.TipoAnillo;
 
             //Realizamos las operaciones
-
             bool ban = true;
             Anillo aProcesado = new Anillo();
 
@@ -1264,7 +1316,6 @@ namespace View.Services.ViewModel
         private void calcularDimenciones()
         {
             #region Calculo de width
-            //Empieza cálculo de width
             int i = Operaciones.Count - 1;
             int c = 0;
             double widthMin = Module.GetValorPropiedadMin("h1", PerfilLateral.Propiedades, true);
@@ -1291,11 +1342,10 @@ namespace View.Services.ViewModel
                 }
                 i = i - 1;
             }
-            //Termina cálculo de width 
             #endregion
 
             #region Calculo de Diámetro
-            /*Cálculo de diámetro*/
+            
             i = Operaciones.Count - 1;
             c = 0;
             SubjectDiametro subjectDiametro = new SubjectDiametro();
@@ -1330,7 +1380,7 @@ namespace View.Services.ViewModel
             #endregion
 
             #region Calculo de thickness
-            /* Cálculo de thickness */
+
             i = Operaciones.Count - 1;
             c = 0;
 
@@ -1567,84 +1617,184 @@ namespace View.Services.ViewModel
         /// </summary>
         private void openPlano()
         {
-            //-------------------Perfil OD-------------------
-            PerfilOD.Propiedades = new ObservableCollection<Propiedad>();
-            PerfilOD.Propiedades.Add(new Propiedad { Nombre = "S1 MIN", DescripcionCorta = "S1 MIN", DescripcionLarga = "DIÁMETRO NOMINAL DEL ANILLO", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
 
-            PerfilOD.Propiedades = SortObservableCollectionPropiedad(PerfilOD.Propiedades);
+            ListaComponentes =  DataManager.GetAllArquetipo("");
 
-            PropiedadesOD.Clear();
+            WSelectComponent wSelectComponente = new WSelectComponent();
+            wSelectComponente.DataContext = this;
+            wSelectComponente.ShowDialog();
 
-            foreach (var item in PerfilOD.Propiedades)
+            string codigo = ComponenteSeleccionado.Codigo;
+
+            ModelAnillo = DataManager.GetAnillo(codigo);
+
+            int[] vecPerfiles = DataManager.GetPerfilByComponente(codigo);
+
+            int c = 0;
+            while (c < vecPerfiles.Length)
             {
-                NumericEntry uc = new NumericEntry();
-                PropiedadViewModel mvm = new PropiedadViewModel(item);
-                uc.DataContext = mvm;
-                PropiedadesOD.Add(uc);
+                Perfil miPerfil = DataManager.GetPerfilByID(vecPerfiles[c]);
+                
+                switch (miPerfil.TipoPerfil)
+                {
+                    case "PERFIL O.D.":
+                        PerfilOD = miPerfil;
+                        NotifyChange("PerfilOD");
+                        break;
+                    case "PERFIL I.D.":
+                        PerfilID = miPerfil;
+                        NotifyChange("PerfilID");
+                        break;
+                    case "PERFIL CARAS LATERALES":
+                        PerfilLateral = miPerfil;
+                        NotifyChange("PerfilLateral");
+                        break;
+                    case "PERFIL PUNTAS":
+                        PerfilPuntas = miPerfil;
+                        NotifyChange("PerfilPuntas");
+                        break;
+
+                    default:
+                        break;
+                }
+                c += 1;
             }
+            
+            ObservableCollection<Propiedad> ListaTotalesPropiedades = DataManager.GetPropiedadSaved(codigo);
 
-            PanelPropiedadesOD = SetNumericEntryToStackPanel(PropiedadesOD, PerfilOD.Propiedades);
-            //-------------------Perfil OD-------------------
+            PerfilOD.Propiedades = Module.ConvertListToObservableCollectionPropiedad(ListaTotalesPropiedades.Where(x => x.TipoPerfil == "PERFIL O.D.").ToList());
+            PerfilID.Propiedades = Module.ConvertListToObservableCollectionPropiedad(ListaTotalesPropiedades.Where(x => x.TipoPerfil == "PERFIL I.D.").ToList());
+            PerfilLateral.Propiedades = Module.ConvertListToObservableCollectionPropiedad(ListaTotalesPropiedades.Where(x => x.TipoPerfil == "PERFIL CARAS LATERALES").ToList());
+            PerfilPuntas.Propiedades = Module.ConvertListToObservableCollectionPropiedad(ListaTotalesPropiedades.Where(x => x.TipoPerfil == "PERFIL PUNTAS").ToList());
+            
+            NotifyChange("Codigo");
+            NotifyChange("PerfilOD");
+            NotifyChange("PerfilID");
+            NotifyChange("PerfilLateral");
+            NotifyChange("PerfilPuntas");
 
-            //-------------------Perfil Puntas-------------------
-            PerfilPuntas.Propiedades = new ObservableCollection<Propiedad>();
-            PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "Q1 MIN", DescripcionCorta = "Q1 MIN", DescripcionLarga = "Q1 MIN", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
-            PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "Q1 MAX", DescripcionCorta = "Q1 MAX", DescripcionLarga = "Q1 MAX", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
-            PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "A1", DescripcionCorta = "A1", DescripcionLarga = "A1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
-            PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "Y6", DescripcionCorta = "Y6", DescripcionLarga = "Y6", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            createNumeric();
+            ////-------------------Perfil OD-------------------
+            //PerfilOD.Propiedades = new ObservableCollection<Propiedad>();
+            //PerfilOD.Propiedades.Add(new Propiedad { Nombre = "S1 MIN", DescripcionCorta = "S1 MIN", DescripcionLarga = "DIÁMETRO NOMINAL DEL ANILLO", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
 
-            PerfilPuntas.Propiedades = SortObservableCollectionPropiedad(PerfilPuntas.Propiedades);
+            //PerfilOD.Propiedades = SortObservableCollectionPropiedad(PerfilOD.Propiedades);
 
-            PropiedadesPuntas.Clear();
+            //PropiedadesOD.Clear();
 
-            foreach (var item in PerfilPuntas.Propiedades)
-            {
-                NumericEntry uc = new NumericEntry();
-                PropiedadViewModel mvm = new PropiedadViewModel(item);
-                uc.DataContext = mvm;
-                PropiedadesPuntas.Add(uc);
-            }
-            PanelPropiedadesPuntas = SetNumericEntryToStackPanel(PropiedadesPuntas, PerfilPuntas.Propiedades);
-            //-------------------Perfil Puntas-------------------
+            //foreach (var item in PerfilOD.Propiedades)
+            //{
+            //    NumericEntry uc = new NumericEntry();
+            //    PropiedadViewModel mvm = new PropiedadViewModel(item);
+            //    uc.DataContext = mvm;
+            //    PropiedadesOD.Add(uc);
+            //}
 
-            //-------------------Perfil ID-------------------
-            PerfilID.Propiedades = new ObservableCollection<Propiedad>();
-            PerfilID.Propiedades.Add(new Propiedad { Nombre = "P1", DescripcionCorta = "P1", DescripcionLarga = "P1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            //PanelPropiedadesOD = SetNumericEntryToStackPanel(PropiedadesOD, PerfilOD.Propiedades);
+            ////-------------------Perfil OD-------------------
 
-            PerfilID.Propiedades = SortObservableCollectionPropiedad(PerfilID.Propiedades);
+            ////-------------------Perfil Puntas-------------------
+            //PerfilPuntas.Propiedades = new ObservableCollection<Propiedad>();
+            //PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "Q1 MIN", DescripcionCorta = "Q1 MIN", DescripcionLarga = "Q1 MIN", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            //PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "Q1 MAX", DescripcionCorta = "Q1 MAX", DescripcionLarga = "Q1 MAX", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            //PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "A1", DescripcionCorta = "A1", DescripcionLarga = "A1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            //PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "Y6", DescripcionCorta = "Y6", DescripcionLarga = "Y6", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
 
-            PropiedadesID.Clear();
+            //PerfilPuntas.Propiedades = SortObservableCollectionPropiedad(PerfilPuntas.Propiedades);
 
-            foreach (var item in PerfilID.Propiedades)
-            {
-                NumericEntry uc = new NumericEntry();
-                PropiedadViewModel mvm = new PropiedadViewModel(item);
-                uc.DataContext = mvm;
-                PropiedadesID.Add(uc);
-            }
-            panelPropiedadesID = SetNumericEntryToStackPanel(PropiedadesID, PerfilID.Propiedades);
-            //-------------------Perfil ID-------------------
+            //PropiedadesPuntas.Clear();
 
-            //-------------------Perfil Lateral-------------------
-            PerfilLateral.Propiedades = new ObservableCollection<Propiedad>();
-            PerfilLateral.Propiedades.Add(new Propiedad { Nombre = "T1", DescripcionCorta = "T1", DescripcionLarga = "T1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            //foreach (var item in PerfilPuntas.Propiedades)
+            //{
+            //    NumericEntry uc = new NumericEntry();
+            //    PropiedadViewModel mvm = new PropiedadViewModel(item);
+            //    uc.DataContext = mvm;
+            //    PropiedadesPuntas.Add(uc);
+            //}
+            //PanelPropiedadesPuntas = SetNumericEntryToStackPanel(PropiedadesPuntas, PerfilPuntas.Propiedades);
+            ////-------------------Perfil Puntas-------------------
 
-            PerfilLateral.Propiedades = SortObservableCollectionPropiedad(PerfilLateral.Propiedades);
+            ////-------------------Perfil ID-------------------
+            //PerfilID.Propiedades = new ObservableCollection<Propiedad>();
+            //PerfilID.Propiedades.Add(new Propiedad { Nombre = "P1", DescripcionCorta = "P1", DescripcionLarga = "P1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
 
-            PropiedadesLateral.Clear();
+            //PerfilID.Propiedades = SortObservableCollectionPropiedad(PerfilID.Propiedades);
 
-            foreach (var item in PerfilLateral.Propiedades)
-            {
-                NumericEntry uc = new NumericEntry();
-                PropiedadViewModel mvm = new PropiedadViewModel(item);
-                uc.DataContext = mvm;
-                PropiedadesLateral.Add(uc);
-            }
-            PanelPropiedadesLateral = SetNumericEntryToStackPanel(PropiedadesLateral, PerfilLateral.Propiedades);
-            //-------------------Perfil Lateral-------------------
+            //PropiedadesID.Clear();
+
+            //foreach (var item in PerfilID.Propiedades)
+            //{
+            //    NumericEntry uc = new NumericEntry();
+            //    PropiedadViewModel mvm = new PropiedadViewModel(item);
+            //    uc.DataContext = mvm;
+            //    PropiedadesID.Add(uc);
+            //}
+            //panelPropiedadesID = SetNumericEntryToStackPanel(PropiedadesID, PerfilID.Propiedades);
+            ////-------------------Perfil ID-------------------
+
+            ////-------------------Perfil Lateral-------------------
+            //PerfilLateral.Propiedades = new ObservableCollection<Propiedad>();
+            //PerfilLateral.Propiedades.Add(new Propiedad { Nombre = "T1", DescripcionCorta = "T1", DescripcionLarga = "T1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+
+            //PerfilLateral.Propiedades = SortObservableCollectionPropiedad(PerfilLateral.Propiedades);
+
+            //PropiedadesLateral.Clear();
+
+            //foreach (var item in PerfilLateral.Propiedades)
+            //{
+            //    NumericEntry uc = new NumericEntry();
+            //    PropiedadViewModel mvm = new PropiedadViewModel(item);
+            //    uc.DataContext = mvm;
+            //    PropiedadesLateral.Add(uc);
+            //}
+            //PanelPropiedadesLateral = SetNumericEntryToStackPanel(PropiedadesLateral, PerfilLateral.Propiedades);
+            ////-------------------Perfil Lateral-------------------
 
         }
 
+        /// <summary>
+        /// Método que guarda el componente.
+        /// </summary>
+        private void savePlano()
+        {
+            DescripcionGeneral = string.Format("{0:0.00000}", D1.Valor) + " X " + string.Format("{0:0.00000}", H1.Valor) + " " + TipoAnillo;
+
+            int confirmacionSaveArquetipo = DataManager.InsertArquetipo(Codigo, DescripcionGeneral, null, true);
+
+            if (confirmacionSaveArquetipo > 0)
+            {
+                DataManager.InsertPerfilArquetipo(Codigo, PerfilOD.idPerfil);
+                foreach (Propiedad propiedad in PerfilOD.Propiedades)
+                {
+                    DataManager.InsertArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
+                }
+
+                DataManager.InsertPerfilArquetipo(Codigo, PerfilLateral.idPerfil);
+                foreach (Propiedad propiedad in PerfilLateral.Propiedades)
+                {
+                    DataManager.InsertArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
+                }
+
+                DataManager.InsertPerfilArquetipo(Codigo, PerfilID.idPerfil);
+                foreach (Propiedad propiedad in PerfilID.Propiedades)
+                {
+                    DataManager.InsertArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
+                }
+
+                DataManager.InsertPerfilArquetipo(Codigo, PerfilPuntas.idPerfil);
+                foreach (Propiedad propiedad in PerfilPuntas.Propiedades)
+                {
+                    DataManager.InsertArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
+                }
+
+                
+            }
+            else
+            {
+                //Notificar que ocurrio un error.
+            }
+        }
+        
         /// <summary>
         /// /
         /// </summary>
@@ -2057,7 +2207,7 @@ namespace View.Services.ViewModel
                 {
                     Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.ContentSave },
                     Label = StringResources.lblGuardar,
-                    //Command = SavePlano,
+                    Command = SavePlano,
                     Tag = StringResources.lblGuardar,
                 });
             //Boton para calcular la ruta
@@ -2142,19 +2292,22 @@ namespace View.Services.ViewModel
 
             createRing.DataContext = this;
             createRing.ShowDialog();
-
-
+            
             PerfilOD = PerfilSeleccionadoOD;
             PerfilID = PerfilSeleccionadoID;
             PerfilLateral = PerfilSeleccionadoLateral;
             PerfilPuntas = PerfilSeleccionadoPuntas;
-
-
+            
             PerfilOD.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilOD.idPerfil,IsMilimeter);
             PerfilID.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilID.idPerfil,IsMilimeter);
             PerfilLateral.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilLateral.idPerfil,IsMilimeter);
             PerfilPuntas.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilPuntas.idPerfil,IsMilimeter);
+            
+            createNumeric();
+        }
 
+        private void createNumeric()
+        {
             foreach (Propiedad propiedad in PerfilOD.Propiedades)
             {
                 NumericEntry numeric = new NumericEntry();
@@ -2202,7 +2355,6 @@ namespace View.Services.ViewModel
             }
 
             PanelPropiedadesPuntas = SetNumericEntryToStackPanel(PropiedadesPuntas, PerfilPuntas.Propiedades);
-
         }
         #endregion
     }

@@ -1611,4 +1611,8 @@
     <value>Inch (in)</value>
     <comment>Label para pulgadas</comment>
   </data>
+  <data name="lblUbicacion" xml:space="preserve">
+    <value>Location</value>
+    <comment>Título para ubicación</comment>
+  </data>
 </root>

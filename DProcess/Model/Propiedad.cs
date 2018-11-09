@@ -58,6 +58,11 @@
         /// Arreglo de bytes que representa la imagen de la propiedad.
         /// </summary>
         public byte[] Imagen { get; set; }
+
+        /// <summary>
+        /// Cadena que representa al tipo de perfil a la que pertenece la propiedad.
+        /// </summary>
+        public string TipoPerfil { get; set; }
         #endregion
 
         #region Métodos

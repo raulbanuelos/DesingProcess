@@ -32,8 +32,8 @@
     <SuiteName>Diseño del proceso</SuiteName>
     <MinimumRequiredVersion>1.0.1.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.2.0.%2a</ApplicationVersion>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>1.3.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -305,6 +305,9 @@
     <Compile Include="Forms\RawMaterial\CalculoPlacaModelo.xaml.cs">
       <DependentUpon>CalculoPlacaModelo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RawMaterial\frmSelectIronRawMaterial.xaml.cs">
+      <DependentUpon>frmSelectIronRawMaterial.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RawMaterial\frmSelectRawMaterial.xaml.cs">
       <DependentUpon>frmSelectRawMaterial.xaml</DependentUpon>
     </Compile>
@@ -328,6 +331,9 @@
     </Compile>
     <Compile Include="Forms\Routing\WRouting.xaml.cs">
       <DependentUpon>WRouting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Routing\WSelectComponent.xaml.cs">
+      <DependentUpon>WSelectComponent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Routing\WSelectPerfil.xaml.cs">
       <DependentUpon>WSelectPerfil.xaml</DependentUpon>
@@ -524,6 +530,7 @@
     <Compile Include="Services\ExportToExcel.cs" />
     <Compile Include="Services\GenerarPDF.cs" />
     <Compile Include="Services\ImportExcel.cs" />
+    <Compile Include="Services\IObservableCollection.cs" />
     <Compile Include="Services\MathUtils.cs" />
     <Compile Include="Services\Matrix3DStack.cs" />
     <Compile Include="Services\Module.cs" />
@@ -991,6 +998,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\RawMaterial\frmSelectIronRawMaterial.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\RawMaterial\frmSelectRawMaterial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1020,6 +1031,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Routing\WRouting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Routing\WSelectComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

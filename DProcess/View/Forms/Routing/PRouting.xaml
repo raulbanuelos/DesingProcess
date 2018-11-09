@@ -103,7 +103,7 @@
 
                                 <!--Comienza panel de Treatment-->
                                 <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
-                                    <ComboBox materialDesign:HintAssist.Hint="TREATMENT" FontSize="16" ItemsSource="{Binding ListaTreatment}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="300">
+                                    <ComboBox materialDesign:HintAssist.Hint="TREATMENT" FontSize="16" ItemsSource="{Binding ListaTreatment}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="300" SelectedItem="{Binding Treatment}">
                                     </ComboBox>
                                 </StackPanel>
                                 <!--Termina panel de Treatment-->
