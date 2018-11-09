@@ -830,6 +830,7 @@ namespace View.Services.ViewModel
 
                 case 1005:
                 case 1012:
+                case 1011:
                     ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasEspecifico();
                     if (!Module.IsNumeric(Version) || (Module.IsNumeric(Version) && Convert.ToInt32(Version) > 1))
                     {
@@ -1470,7 +1471,7 @@ namespace View.Services.ViewModel
 
                     //Filtar los documentos por extensión 
                     //Si es procedimiento o formatos, sólo mostrar documentos word
-                    if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
+                    if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
                         dlg.Filter = "Word (97-2003)|*.doc";
                     else
                         dlg.Filter = "PDF Files (.pdf)|*.pdf";
@@ -1519,7 +1520,7 @@ namespace View.Services.ViewModel
                                 }
 
                                 //Verificamos de nuevo que se hayan insertado los tipos de archivos correspondiente al tipo de documento
-                                if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
+                                if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
                                 {
                                     //si el archivo es igual a cualquiera de los id anteriores se comprueba que sea un archivo .doc
                                     if (obj.ext == ".doc")
@@ -1595,7 +1596,7 @@ namespace View.Services.ViewModel
 
                             //Filtar los documentos por extensión 
                             //Si es procedimiento o formatos, sólo mostrar documentos word
-                            if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
+                            if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
                                 dlg.Filter = "Word (97-2003)|*.doc";
                             else
                                 dlg.Filter = "PDF Files (.pdf)|*.pdf";
@@ -1644,7 +1645,7 @@ namespace View.Services.ViewModel
 
                                         //despues de que el usuario haya seleccionado el archivo a insertar 
                                         //consultamos de que tipo es el archivo
-                                        if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
+                                        if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
                                         {
                                             //si el archivo es igual a cualquiera de los id anteriores se comprueba que sea un archivo .doc
                                             if (ArchivoTemporal.ext == ".doc")
@@ -1819,7 +1820,7 @@ namespace View.Services.ViewModel
             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
             //comprobamos que se haya seleccionado un area frames para poder insertarlo
-            if(id_areasealed == "0" && (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014))
+            if(id_areasealed == "0" && (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011))
             {
                 //si no se selecciono el area, no se libera el documento
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblInsertarAreaFrames);
@@ -1885,7 +1886,7 @@ namespace View.Services.ViewModel
                                             string confirmacionFrames = r > 0 ? StringResources.msgFramesExito : StringResources.msgFramesIncorrecto;
                                             string confirmacionCorreo = string.Empty;
 
-                                            if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
+                                            if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
                                             {
                                                 if (NotificarNuevaVersion())
                                                     confirmacionCorreo = StringResources.msgNotificacionCorreo;
@@ -2006,7 +2007,7 @@ namespace View.Services.ViewModel
                                             string confirmacionFrames = r > 0 ? StringResources.msgFramesExito : StringResources.msgFramesIncorrecto;
                                             string confirmacionCorreo = string.Empty;
 
-                                            if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
+                                            if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
                                             {
                                                 if (NotificarActualizacionVersion())
                                                     confirmacionCorreo = StringResources.msgNotificacionCorreo;
@@ -2925,24 +2926,30 @@ namespace View.Services.ViewModel
         /// Metodo que elimina el documento de la base de datos del frames
         /// </summary>
         /// <returns>Retorna el número de filas afectadas. Si ocurre un error retorna un 0</returns>
-        private int DeleteDocumentoSealed()
+        private int DeleteDocumentoSealed(out bool banEliminarFrames)
         {
             int r = 0;
+            banEliminarFrames = false;
+
             switch (id_tipo)
             {
                 case 1003:
                 case 1013:
                     r = DataManagerControlDocumentos.DeleteDocumentoOHSAS(SelectedDocumento.nombre);
+                    banEliminarFrames = true;
                     break;
 
                 case 1005:
                 case 1012:
+                case 1011:
                     r = DataManagerControlDocumentos.DeleteDocumentoEspecifico(SelectedDocumento.nombre);
+                    banEliminarFrames = true;
                     break;
 
                 case 1006:
                 case 1014:
                     r = DataManagerControlDocumentos.DeleteDocumentoISO(SelectedDocumento.nombre);
+                    banEliminarFrames = true;
                     break;
 
                 default:
@@ -2967,6 +2974,7 @@ namespace View.Services.ViewModel
 
                 case 1005:
                 case 1012:
+                case 1011:
                     r = DataManagerControlDocumentos.InsertDocumentoEspecifico(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
                     break;
 
@@ -2998,6 +3006,7 @@ namespace View.Services.ViewModel
 
                 case 1005:
                 case 1012:
+                case 1011:
                     r = DataManagerControlDocumentos.UpdateDocumentoEspecifico(Convert.ToInt32(id_areasealed), SelectedDocumento.nombre, Descripcion, Version, Module.GetFormatFechaSealed(Fecha), "CIT", 0, SelectedDocumento.nombre);
                     break;
 
@@ -3021,7 +3030,7 @@ namespace View.Services.ViewModel
             string nombre_tipo;
             try
             {   //Si es documneto de tipo especifico o formato
-                if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014)
+                if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
                 {
                     string path = @"\\sealed\documents__";
                     //Switch del tipo de documento
@@ -3036,6 +3045,7 @@ namespace View.Services.ViewModel
                         //Si es de tipo específicos
                         case 1005:
                         case 1012:
+                        case 1011:
                             nombre_tipo = "ESPECIFICOS";
                             path = string.Concat(path, @"\", nombre_tipo, @"\", nombre, version);
                             break;
@@ -3073,7 +3083,7 @@ namespace View.Services.ViewModel
         private async Task<bool> SetElectronicStamp(Model.ControlDocumentos.Version version)
         {
             bool res = false;
-            if (id_tipo != 1003 && id_tipo != 1005 && id_tipo != 1006 && id_tipo != 1012 && id_tipo != 1013 && id_tipo != 1014)
+            if (id_tipo != 1003 && id_tipo != 1005 && id_tipo != 1006 && id_tipo != 1012 && id_tipo != 1013 && id_tipo != 1014 && id_tipo != 1011)
             {
                 //Incializamos los servicios de dialog.
                 DialogService dialog = new DialogService();
@@ -3524,30 +3534,8 @@ namespace View.Services.ViewModel
                             bool banEliminarFrames = false;
                             int eliminoFrames = 0;
 
-                            //Eliminamos el documento del sistema frames.
-                            switch (id_tipo)
-                            {
-                                case 1003:
-                                case 1013:
-                                    banEliminarFrames = true;
-                                    eliminoFrames = DataManagerControlDocumentos.DeleteDocumentoOHSAS(objDoc_Eliminado.nombre);
-                                    break;
-
-                                case 1005:
-                                case 1012:
-                                    banEliminarFrames = true;
-                                    eliminoFrames = DataManagerControlDocumentos.DeleteDocumentoEspecifico(objDoc_Eliminado.nombre);
-                                    break;
-
-                                case 1006:
-                                case 1014:
-                                    banEliminarFrames = true;
-                                    eliminoFrames = DataManagerControlDocumentos.DeleteDocumentoISO(objDoc_Eliminado.nombre);
-                                    break;
-                                default:
-                                    banEliminarFrames = false;
-                                    break;
-                            }
+                            //Mandamos llamar el metodo que elimina el registro de la base de datos
+                            eliminoFrames = DeleteDocumentoSealed(out banEliminarFrames);
 
                             string confirmacionFrames = string.Empty;
 
