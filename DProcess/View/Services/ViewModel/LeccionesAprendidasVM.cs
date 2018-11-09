@@ -128,6 +128,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => editarleccion(user));
             }
         }
+
         /// <summary>
         /// comando para buscar una leccion
         /// </summary>
@@ -138,14 +139,12 @@ namespace View.Services.ViewModel
                 return new RelayCommand(param => buscarleccion((string)param));
             }
         }
-        /// <summary>
-        /// Comando para crear una nueva leccion
-        /// </summary>
-        public ICommand IrNuevaLeccion
+
+        public ICommand InsertNuevaLeccion
         {
             get
             {
-                return new RelayCommand(o => irnuevaleccion(user));
+                return new RelayCommand(a => InsertarNuevaLeccion(user));
             }
         }
         #endregion
@@ -158,19 +157,6 @@ namespace View.Services.ViewModel
         {
             Lista = DataManagerControlDocumentos.GetLec("");
             CreateMenuItems();
-        }
-
-        /// <summary>
-        /// Metodo que inicializa los valores para crear una nueva leccion
-        /// </summary>
-        private void irnuevaleccion(Usuario ModelUsuario)
-        {
-            //Creamos un objeto de la ventana
-            ModificarLeccion frm = new ModificarLeccion();
-            ModificarLeccionVM context = new ModificarLeccionVM(ModelUsuario);
-            frm.DataContext = context;
-            //Mostramos la ventana
-            frm.ShowDialog();
         }
 
         /// <summary>
@@ -216,10 +202,22 @@ namespace View.Services.ViewModel
                  {
                      Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.File },
                      Label = StringResources.lblNuevaLeccion,
-                     Command = IrNuevaLeccion,
+                     Command = InsertNuevaLeccion,
                      Tag = StringResources.lblNuevaLeccion,
                  }
             );
+        }
+
+        /// <summary>
+        /// Método que muetra la pantalla para insertar una nueva lección aprendida
+        /// </summary>
+        private void InsertarNuevaLeccion(Usuario ModelUsuario)
+        {
+            InsertarNuevaLeccion Insertar = new InsertarNuevaLeccion();
+            InsertarNuevaLeccionVW InsertarVW = new InsertarNuevaLeccionVW(ModelUsuario);
+            Insertar.DataContext = InsertarVW;
+            Insertar.ShowDialog();
+            Lista = DataManagerControlDocumentos.GetLec("");
         }
         #endregion
     }

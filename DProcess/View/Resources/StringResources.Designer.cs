@@ -241,6 +241,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Previous.
+        /// </summary>
+        public static string lblAnterior {
+            get {
+                return ResourceManager.GetString("lblAnterior", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Mother&apos;s Last Name.
         /// </summary>
         public static string lblApellidoMaterno {
@@ -399,6 +408,15 @@ namespace View.Resources {
         public static string lblCambios {
             get {
                 return ResourceManager.GetString("lblCambios", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Special characters are not allowed in the description.
+        /// </summary>
+        public static string lblCaracteresEspeciales {
+            get {
+                return ResourceManager.GetString("lblCaracteresEspeciales", resourceCulture);
             }
         }
         
@@ -1474,6 +1492,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Next.
+        /// </summary>
+        public static string lblSiguiente {
+            get {
+                return ResourceManager.GetString("lblSiguiente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Engineering Job Request.
         /// </summary>
         public static string lblSolicitudTrabajoIng {
@@ -1587,6 +1614,15 @@ namespace View.Resources {
         public static string lblUsuarioElaboro {
             get {
                 return ResourceManager.GetString("lblUsuarioElaboro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please, select the user who authorized your document.
+        /// </summary>
+        public static string lblUsuarioPermitido {
+            get {
+                return ResourceManager.GetString("lblUsuarioPermitido", resourceCulture);
             }
         }
         

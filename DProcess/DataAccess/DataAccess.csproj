@@ -508,6 +508,9 @@
     <Compile Include="ServiceObjects\Unidades\UnidadTiempo.cs">
       <DependentUpon>ModelUnidades.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Usuario\CentroTrabajo.cs">
+      <DependentUpon>ModelUsuario.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Usuario\ModelUsuario.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -530,12 +533,25 @@
       <DependentUpon>ModelUsuario.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Usuario\SO_Archivo_Lecciones.cs" />
+    <Compile Include="ServiceObjects\Usuario\SO_CentrosDeTrabajo.cs" />
     <Compile Include="ServiceObjects\Usuario\SO_Lecciones.cs" />
+    <Compile Include="ServiceObjects\Usuario\SO_LeccionesCentroTrabajo.cs" />
+    <Compile Include="ServiceObjects\Usuario\SO_LeccionesTipoCambio.cs" />
+    <Compile Include="ServiceObjects\Usuario\SO_TipoCambio.cs" />
     <Compile Include="ServiceObjects\Usuario\SO_Usuario.cs" />
     <Compile Include="ServiceObjects\Usuario\TBL_ARCHIVO_LECCIONES.cs">
       <DependentUpon>ModelUsuario.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Usuario\TBL_LECCIONES_APRENDIDAS.cs">
+      <DependentUpon>ModelUsuario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Usuario\TBL_TIPOCAMBIO.cs">
+      <DependentUpon>ModelUsuario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Usuario\TR_LECCIONES_CENTROSTRABAJO.cs">
+      <DependentUpon>ModelUsuario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Usuario\TR_LECCIONES_TIPOCAMBIO.cs">
       <DependentUpon>ModelUsuario.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Usuario\Usuarios.cs">

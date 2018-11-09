@@ -1591,6 +1591,18 @@
   <data name="msgSustituirArchivo" xml:space="preserve">
     <value>Do you want to change the file?</value>
   </data>
+  <data name="lblSiguiente" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="lblCaracteresEspeciales" xml:space="preserve">
+    <value>Special characters are not allowed in the description</value>
+  </data>
+  <data name="lblUsuarioPermitido" xml:space="preserve">
+    <value>Please, select the user who authorized your document</value>
+  </data>
   <data name="lblMilimetros" xml:space="preserve">
     <value>Milimeter (mm)</value>
     <comment>Label para Milimetros</comment>

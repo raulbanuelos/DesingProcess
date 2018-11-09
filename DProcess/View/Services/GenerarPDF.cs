@@ -356,6 +356,8 @@ namespace View.Services
             }
             return margensup;
         }
-    }
+
         #endregion
+    }
+
 }

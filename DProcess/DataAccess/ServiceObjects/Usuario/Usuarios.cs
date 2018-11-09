@@ -19,6 +19,8 @@ namespace DataAccess.ServiceObjects.Usuario
         {
             this.PerfilUsuario = new HashSet<PerfilUsuario>();
             this.PrivilegioUsuario = new HashSet<PrivilegioUsuario>();
+            this.TBL_LECCIONES_APRENDIDAS = new HashSet<TBL_LECCIONES_APRENDIDAS>();
+            this.TBL_LECCIONES_APRENDIDAS1 = new HashSet<TBL_LECCIONES_APRENDIDAS>();
         }
     
         public string Usuario { get; set; }
@@ -37,5 +39,9 @@ namespace DataAccess.ServiceObjects.Usuario
         public virtual ICollection<PerfilUsuario> PerfilUsuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PrivilegioUsuario> PrivilegioUsuario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_LECCIONES_APRENDIDAS> TBL_LECCIONES_APRENDIDAS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_LECCIONES_APRENDIDAS> TBL_LECCIONES_APRENDIDAS1 { get; set; }
     }
 }

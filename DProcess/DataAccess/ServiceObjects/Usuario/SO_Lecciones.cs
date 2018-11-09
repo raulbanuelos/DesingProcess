@@ -31,8 +31,7 @@ namespace DataAccess.ServiceObjects.Usuario
                                                where p.ID_USUARIO.Contains(user) ||
                                                p.DESCRIPCION_PROBLEMA.Contains(TextoBuscar) ||
                                                p.COMPONENTE.Contains(TextoBuscar)||
-                                               p.REPORTADO_POR.Contains(TextoBuscar)||
-                                               p.CENTRO_DE_TRABAJO.Contains(TextoBuscar)
+                                               p.REPORTADO_POR.Contains(TextoBuscar)
 
                                                select p).ToList();
                     //retornamos la lista
@@ -42,6 +41,34 @@ namespace DataAccess.ServiceObjects.Usuario
             catch (Exception)
             {
                 //si existe error retornamos nulo
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los datos de los componentes similares
+        /// </summary>
+        /// <param name="NombreComponente"></param>
+        /// <returns></returns>
+        public IList GetComponentesSimilares(string NombreComponente)
+        {
+            try
+            {
+                //Declaramos la conexíon a la BD
+                using (EntitiesUsuario Conexion = new EntitiesUsuario())
+                {
+                    //Obtenemos todos los datos de los componentes similares
+                    var ComponentesSimilares = (from a in Conexion.TBL_LECCIONES_APRENDIDAS
+                                                where a.COMPONENTE.Contains(NombreComponente)
+                                                select a).ToList();
+
+                    //Retornamos la lista con todos los componentes similares
+                    return ComponentesSimilares;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error regresamos un valor nulo
                 return null;
             }
         }
@@ -61,11 +88,8 @@ namespace DataAccess.ServiceObjects.Usuario
         /// <param name="criterio_1"></param>
         /// <param name="fecha_actualizacion"></param>
         /// <returns></returns>
-        public int SetLeccion(string idusuario, string componente,
-            string nivel_cambio, string c_trabajo, string operacion,
-            string desc_probl, DateTime fecha_ultimo_cambio , DateTime fecha_actualizacion, 
-            string reportado_por, string solicitud_Tingenieria,
-            string criterio_1, string cambio_requerido)
+        public int SetLeccion(string Componente, string CambioRequerido, string DescripcionProblema, DateTime FechaUltimoCambio, DateTime FechaActualizacion,
+            string ReportadoPor, string SolicitudTrabajoIngenieria, string IdUsuario)
         {
             try
             {
@@ -76,18 +100,14 @@ namespace DataAccess.ServiceObjects.Usuario
                     TBL_LECCIONES_APRENDIDAS obj = new TBL_LECCIONES_APRENDIDAS();
 
                     //insertamos los valores
-                    obj.ID_USUARIO = idusuario;
-                    obj.COMPONENTE = componente;
-                    obj.NIVEL_DE_CAMBIO = nivel_cambio;
-                    obj.CENTRO_DE_TRABAJO = c_trabajo;
-                    obj.OPERACION = operacion;
-                    obj.DESCRIPCION_PROBLEMA = desc_probl;
-                    obj.FECHA_ACTUALIZACION = fecha_actualizacion;
-                    obj.FECHA_ULTIMO_CAMBIO = fecha_ultimo_cambio;
-                    obj.REPORTADO_POR = reportado_por;
-                    obj.SOLICITUD_DE_TRABAJO_INGENIERIA = solicitud_Tingenieria;
-                    obj.CRITERIO_1 = criterio_1;
-                    obj.CAMBIO_REQUERIDO = cambio_requerido;
+                    obj.ID_USUARIO = IdUsuario;
+                    obj.COMPONENTE = Componente;
+                    obj.DESCRIPCION_PROBLEMA = DescripcionProblema;
+                    obj.FECHA_ACTUALIZACION = FechaActualizacion;
+                    obj.FECHA_ULTIMO_CAMBIO = FechaUltimoCambio;
+                    obj.REPORTADO_POR = ReportadoPor;
+                    obj.SOLICITUD_DE_TRABAJO_INGENIERIA = SolicitudTrabajoIngenieria;
+                    obj.CAMBIO_REQUERIDO = CambioRequerido;
 
 
                     //insertamos los valores de la nueva leccion aprendida a la BD
@@ -99,7 +119,7 @@ namespace DataAccess.ServiceObjects.Usuario
                     return obj.ID_LECCIONES_APRENDIDAS;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //si existe eroror regresemos 0
                 return 0;
@@ -130,7 +150,33 @@ namespace DataAccess.ServiceObjects.Usuario
                     //guardamos los cambios.
                     conexion.SaveChanges();
 
-                    //despues de haber eliminado cada archivo relacionado, borramos la leccion aprendida
+                    //Obtenemos los centros de trabajo que contenga la leccion aprendida
+                    var CentrosTrabajo = (from a in conexion.TR_LECCIONES_CENTROSTRABAJO
+                                          where a.ID_LECCIONESAPRENDIDAS == id_leccion
+                                          select a).ToList();
+
+                    //Eliminamos cada centro de trabajo correspondiente
+                    foreach (var item in CentrosTrabajo)
+                    {
+                        conexion.Entry(item).State = EntityState.Deleted;
+                    }
+                    //guardamos los cambios
+                    conexion.SaveChanges();
+
+                    //Obtenemos los niveles de cambio que contenga la leccion aprendida
+                    var NivelesDeCambio = (from a in conexion.TR_LECCIONES_TIPOCAMBIO
+                                             where a.ID_LECCIONAPRENDIDA == id_leccion
+                                             select a).ToList();
+
+                    //Eliminamos cada nivel de cambio
+                    foreach (var item in NivelesDeCambio)
+                    {
+                        conexion.Entry(item).State = EntityState.Deleted;
+                    }
+                    //Guardamos cambio
+                    conexion.SaveChanges();
+
+                    //despues de haber eliminado cada archivo,centro de trabajo y nivel de cambio relacionados, borramos la leccion aprendida
                     TBL_LECCIONES_APRENDIDAS datos = (from o in conexion.TBL_LECCIONES_APRENDIDAS
                                  where o.ID_LECCIONES_APRENDIDAS == id_leccion
                                  select o).FirstOrDefault();
@@ -162,8 +208,7 @@ namespace DataAccess.ServiceObjects.Usuario
                                  DateTime fecha_ultimo_cambio,
                                  DateTime fecha_actualizacion,
                                  string reportado_por,
-                                 string solicitud_trabajo_ingenieria,
-                                 string criterio_1)
+                                 string solicitud_trabajo_ingenieria)
         {
             try
             {
@@ -177,13 +222,9 @@ namespace DataAccess.ServiceObjects.Usuario
                     obj.ID_USUARIO = id_usuario;
                     obj.COMPONENTE = componente;
                     obj.CAMBIO_REQUERIDO = cambio_requerido;
-                    obj.NIVEL_DE_CAMBIO = nivel_de_cambio;
-                    obj.CENTRO_DE_TRABAJO = centro_de_trabajo;
-                    obj.OPERACION = operacion;
                     obj.DESCRIPCION_PROBLEMA = descripcion_problema;
                     obj.REPORTADO_POR = reportado_por;
                     obj.SOLICITUD_DE_TRABAJO_INGENIERIA = solicitud_trabajo_ingenieria ;
-                    obj.CRITERIO_1 = criterio_1;
                     obj.FECHA_ULTIMO_CAMBIO = fecha_ultimo_cambio ;
                     obj.FECHA_ACTUALIZACION = fecha_actualizacion;
 

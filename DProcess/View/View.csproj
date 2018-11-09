@@ -275,11 +275,26 @@
     <Compile Include="Forms\Index\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\LeccionesAprendidas\CentrosDeTrabajo.xaml.cs">
+      <DependentUpon>CentrosDeTrabajo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\LeccionesAprendidas\FrmLeccionesAprendidas.xaml.cs">
       <DependentUpon>FrmLeccionesAprendidas.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\LeccionesAprendidas\InformacionCambios.xaml.cs">
+      <DependentUpon>InformacionCambios.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LeccionesAprendidas\InformacionDescripcion.xaml.cs">
+      <DependentUpon>InformacionDescripcion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LeccionesAprendidas\InsertarNuevaLeccion.xaml.cs">
+      <DependentUpon>InsertarNuevaLeccion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\LeccionesAprendidas\ModificarLeccion.xaml.cs">
       <DependentUpon>ModificarLeccion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LeccionesAprendidas\TiposDeCambio.xaml.cs">
+      <DependentUpon>TiposDeCambio.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\LogIn\LogIn.xaml.cs">
       <DependentUpon>LogIn.xaml</DependentUpon>
@@ -741,6 +756,7 @@
     <Compile Include="Services\ViewModel\GuillotinaSimVM.cs" />
     <Compile Include="Services\ViewModel\HistorialFiltrado_VM.cs" />
     <Compile Include="Services\ViewModel\HistorialVM.cs" />
+    <Compile Include="Services\ViewModel\InsertarNuevaLeccionVW.cs" />
     <Compile Include="Services\ViewModel\LeccionesAprendidasVM.cs" />
     <Compile Include="Services\ViewModel\ListItemViewModel.cs" />
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
@@ -935,11 +951,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Forms\LeccionesAprendidas\CentrosDeTrabajo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\LeccionesAprendidas\FrmLeccionesAprendidas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\LeccionesAprendidas\InformacionCambios.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\LeccionesAprendidas\InformacionDescripcion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\LeccionesAprendidas\InsertarNuevaLeccion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\LeccionesAprendidas\ModificarLeccion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\LeccionesAprendidas\TiposDeCambio.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

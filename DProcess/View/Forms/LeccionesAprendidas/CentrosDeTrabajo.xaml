@@ -1,0 +1,50 @@
+﻿<Controls:MetroWindow x:Class="View.Forms.LeccionesAprendidas.CentrosDeTrabajo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
+        xmlns:recursos="clr-namespace:View.Resources"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="{x:Static recursos:StringResources.lblCentroTrabajo}" Height="400" Width="750" 
+        BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="90*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="28"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="55"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="1" Grid.Row="0" Content="Centros de Trabajo" VerticalAlignment="Bottom"></Label>
+
+        <DataGrid Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ListaCentrosDeTrabajo}" 
+                                      ScrollViewer.CanContentScroll="True" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                      AutoGenerateColumns="False"
+                                      >
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            Header="{x:Static recursos:StringResources.lblSeleccionar}"
+                                            Binding="{Binding IsSelected}"/>
+                <DataGridTextColumn Header="{x:Static recursos:StringResources.lblCentroTrabajo}" Binding="{Binding CentroTrabajo}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="{x:Static recursos:StringResources.lblOperacion}" Binding="{Binding NombreOperacion}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Column="1" Grid.Row="2">
+            <Button Content="Aceptar" Width="100" HorizontalAlignment="Right" Command="{Binding CerrarVentana}"/>
+        </Grid>
+    </Grid>
+    </Controls:MetroWindow>

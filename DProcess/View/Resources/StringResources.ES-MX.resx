@@ -1597,4 +1597,16 @@
     <value>Pulgadas(in)</value>
     <comment>Label para pulgadas</comment>
   </data>
+  <data name="lblAnterior" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="lblSiguiente" xml:space="preserve">
+    <value>Siguiente</value>
+  </data>
+  <data name="lblCaracteresEspeciales" xml:space="preserve">
+    <value>No se permiten caracteres especiales en la descripción</value>
+  </data>
+  <data name="lblUsuarioPermitido" xml:space="preserve">
+    <value>Por favor, seleccione el usuario que autorizó su documento</value>
+  </data>
 </root>
