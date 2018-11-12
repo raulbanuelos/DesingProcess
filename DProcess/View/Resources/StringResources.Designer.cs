@@ -1033,6 +1033,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a You can add 1 o more files to record of lesson learned.
+        /// </summary>
+        public static string lblInstruccionesLeccion {
+            get {
+                return ResourceManager.GetString("lblInstruccionesLeccion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Released.
         /// </summary>
         public static string lblLiberado {

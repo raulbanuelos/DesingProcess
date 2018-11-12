@@ -99,14 +99,18 @@
         <!--ListBox con los archivos que se van a adjuntar-->
         <Grid Grid.Row="4" Grid.Column="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label Content="{x:Static recursos:StringResources.lblVerArchivo}" FontWeight="Bold" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-            <Grid Grid.Row="1">
+
+            <Label Content="{x:Static recursos:StringResources.lblInstruccionesLeccion}" FontWeight="Bold" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="420"/>
+            <Label Content="{x:Static recursos:StringResources.lblVerArchivo}" FontWeight="Bold" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="420"/>
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="380"/>
+                    <ColumnDefinition Width="370"/>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>

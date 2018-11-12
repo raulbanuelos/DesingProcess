@@ -38,11 +38,11 @@
         <TextBox Text="{Binding DescripcionProblema}" Grid.Row ="1" Grid.Column="1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblDescripcion}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="50"  Width="620" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" SpellCheck.IsEnabled="True" Language="es-ES"/>
         
         <!--Fecha Ultimo Cambio-->
-        <DatePicker Grid.Row="2" Grid.Column="1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFecha}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FechaUltimoCambio}"
+        <DatePicker Grid.Row="2" Grid.Column="1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaUltimoCambio}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FechaUltimoCambio}"
                         IsEnabled="{Binding EnabledFecha}" />
         
         <!--Fecha de actualización-->      
-        <DatePicker Grid.Row="3" Grid.Column="1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFecha}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FechaActualizacion}"
+        <DatePicker Grid.Row="3" Grid.Column="1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaActualizacion}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FechaActualizacion}"
                         IsEnabled="{Binding EnabledFecha}" />
         <Grid Grid.Row="4" Grid.RowSpan="2" Grid.Column="1">
             <Grid.RowDefinitions>

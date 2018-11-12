@@ -1170,7 +1170,7 @@
     <comment>Etiqueta para el campo de la nueva contraseña</comment>
   </data>
   <data name="lblNuevaLeccion" xml:space="preserve">
-    <value>Nueva Leccion</value>
+    <value>Nueva Lección</value>
     <comment>Etiqueta para el campo de la Nueva leccion</comment>
   </data>
   <data name="lblNuevoTipoDocumento" xml:space="preserve">
@@ -1600,5 +1600,8 @@
   </data>
   <data name="lblUsuarioPermitido" xml:space="preserve">
     <value>Por favor, seleccione el usuario que autorizó su documento</value>
+  </data>
+  <data name="lblInstruccionesLeccion" xml:space="preserve">
+    <value>Puedes agregar 1 ó mas archivos al registro de la leccion aprendida</value>
   </data>
 </root>

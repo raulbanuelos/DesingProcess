@@ -1603,4 +1603,7 @@
   <data name="lblUsuarioPermitido" xml:space="preserve">
     <value>Please, select the user who authorized your document</value>
   </data>
+  <data name="lblInstruccionesLeccion" xml:space="preserve">
+    <value>You can add 1 o more files to record of lesson learned</value>
+  </data>
 </root>

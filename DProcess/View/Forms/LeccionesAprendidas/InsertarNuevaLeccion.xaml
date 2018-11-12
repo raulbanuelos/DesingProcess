@@ -43,7 +43,6 @@
         <!--Número del Componente-->
         <TextBox Text="{Binding Componente}"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblComponente}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="49"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
                         SpellCheck.IsEnabled="True" Language="es-ES" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
-        
         <!--Número del Cambio Requerido-->
         <TextBox Text="{Binding CambioRequerido}"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCambioRequerido}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="49"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
                         Language="es-ES" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="2"/>
@@ -61,8 +60,9 @@
         <!--Datos Seleccionados Nievel de cambio y centros de trabajo-->
         <Grid Grid.Column="1" Grid.Row="4" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="320"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="320"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
@@ -86,10 +86,12 @@
             </DataGrid>
             
             <!--Titulo de los tipos de cambio seleccionados-->
-            <Label Grid.Column="1" Grid.Row="0" Content="Tipos de cambio seleccionados" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Grid.Column="2" Grid.Row="0" Content="Tipos de cambio seleccionados" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            
+            
             
             <!--Datagrid de los tipos de cambio seleccionados-->
-            <DataGrid Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ListaNivelesDeCambioSeleccionados}" 
+            <DataGrid Grid.Column="2" Grid.Row="1" ItemsSource="{Binding ListaNivelesDeCambioSeleccionados}" 
                                       ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
