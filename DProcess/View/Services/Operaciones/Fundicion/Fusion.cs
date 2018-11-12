@@ -10,10 +10,11 @@ using View.Services.TiempoEstandar.Fundicion;
 
 namespace View.Services.Operaciones.Fundicion
 {
-    public class Fusion : IOperacion
+    public class Fusion : GenericOperation, IOperacion
     {
 
         #region Propiedades de IOperacion
+
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -149,7 +150,7 @@ namespace View.Services.Operaciones.Fundicion
 
             //Agregamos la materia prima para la placa modelo.
             double pesoCasting = Module.GetValorPropiedad("PesoCasting", elPlano.PropiedadesAdquiridasProceso);
-            ListaMateriaPrima = DataManager.GetMaterialPrimaPlacaModelo(elPlano.MaterialBase.Especificacion.Valor, pesoCasting);
+            ListaMateriaPrima = DataManager.GetMaterialPrimaPlacaModelo(elPlano.MaterialBase.Especificacion, pesoCasting);
 
         }
 

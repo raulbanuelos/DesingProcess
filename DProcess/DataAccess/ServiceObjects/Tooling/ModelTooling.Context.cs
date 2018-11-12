@@ -71,5 +71,6 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<ProtectorInfMoly_> ProtectorInfMoly_ { get; set; }
         public virtual DbSet<ProtectorSupMoly_> ProtectorSupMoly_ { get; set; }
         public virtual DbSet<CollarScotchbrite_> CollarScotchbrite_ { get; set; }
+        public virtual DbSet<DiscoDiskus_> DiscoDiskus_ { get; set; }
     }
 }

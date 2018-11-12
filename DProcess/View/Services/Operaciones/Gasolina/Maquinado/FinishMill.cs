@@ -5,10 +5,11 @@ using System.Collections.ObjectModel;
 
 namespace View.Services.Operaciones.Gasolina.Maquinado
 {
-    public class FinishMill : IOperacion, IObserverDiametro
+    public class FinishMill : GenericOperation, IOperacion, IObserverDiametro
     {
         #region Properties
         #region Propiedades de IOperacion
+        
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>

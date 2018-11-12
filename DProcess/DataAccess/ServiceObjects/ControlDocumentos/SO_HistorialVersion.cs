@@ -9,27 +9,43 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 {
     public class SO_HistorialVersion
     {
+        /// <summary>
+        /// Método que inserta un registro en la tabla de historial versión.
+        /// </summary>
+        /// <param name="idVersion"></param>
+        /// <param name="fecha"></param>
+        /// <param name="descripcion"></param>
+        /// <param name="nombreUsuario"></param>
+        /// <param name="nombreDocumento"></param>
+        /// <param name="version"></param>
+        /// <returns></returns>
         public int Insert(int idVersion, DateTime fecha, string descripcion, string nombreUsuario,string nombreDocumento, string version)
         {
             try
             {
+                //Creamos la conexion
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
+                    //Creamos un objeto el cual será el que insertemos.
                     TBL_HISTORIAL_VERSION registro = new TBL_HISTORIAL_VERSION();
-
+                    
+                    //Mapeamos los valores a las propiedades correspondientes.
                     registro.NOMBRE_DOCUMENTO = nombreDocumento;
                     registro.NO_VERSION = version;
                     registro.FECHA = fecha;
                     registro.DESCRIPCION = descripcion;
                     registro.NOMBRE_USUARIO = nombreUsuario;
 
+                    //Agregamos el registro.
                     Conexion.TBL_HISTORIAL_VERSION.Add(registro);
 
+                    //Guardamos los cambios y retornamos el resultado.
                     return Conexion.SaveChanges();
                 }
             }
             catch (Exception er)
             {
+                //Si ocurre un error retornamos un cero.
                 return 0;
             }
         }

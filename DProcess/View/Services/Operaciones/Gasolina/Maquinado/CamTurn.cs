@@ -6,7 +6,7 @@ using View.Services.TiempoEstandar.Gasolina.Maquinado;
 
 namespace View.Services.Operaciones.Gasolina.Maquinado
 {
-    public class CamTurn : IOperacion, IObserverDiametro, IObserverThickness
+    public class CamTurn : GenericOperation,IOperacion, IObserverDiametro, IObserverThickness
     {
 
         #region Attributes
@@ -39,6 +39,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         #region Properties
 
         #region Properties of IOperacion
+
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -315,7 +316,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             ListaHerramentales.Add(herramentalPortaInserto);
 
             //Inserto
-            string tipoMaterial = DataManager.GetTipoMaterial(elPlano.MaterialBase.Especificacion.Valor);
+            string tipoMaterial = DataManager.GetTipoMaterial(elPlano.MaterialBase.Especificacion);
             Herramental inserto;
             if (tipoMaterial.Equals("HIERRO GRIS ALTO MODULO"))
             {
@@ -400,6 +401,16 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         public void UpdateState(ISubjectThickness sender, double MaterialRemoverAfterOperacion, double ThicknessAfterOperacion)
         {
             Thickness = ThicknessAfterOperacion + MaterialRemoverAfterOperacion;
+        }
+
+        /// <summary>
+        /// Método que establece la cantidad de material a remover/agregar en la operación.
+        /// </summary>
+        /// <param name="operaciones"></param>
+        /// <param name="posOperacion"></param>
+        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion)
+        {
+
         }
         #endregion
 

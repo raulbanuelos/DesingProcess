@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 
 namespace View.Services.Operaciones.Gasolina.PreMaquinado
 {
-    public class SecondRoughGrind : IOperacion, IObserverWidth
+    public class SecondRoughGrind : GenericOperation, IOperacion, IObserverWidth
     {
         #region Propiedades
 
         #region Propiedades de IOperacion
+        
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -158,8 +159,8 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         #endregion
 
         #region Methods
-            #region Métodos de IOperacion
-            /// <summary>
+        #region Métodos de IOperacion
+        /// <summary>
             /// Método en el cual se calcula la operación.
             /// </summary>
             /// <param name="ElAnilloProcesado">Anillo que presenta el anillo como se recibe de la operación anterior.</param>
@@ -215,6 +216,16 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
                 double widthSplitter = DataManager.GetWidthSplitterCasting(proceso, Module.ConvertTo("Distance", elPlano.H1.Unidad, "Inch (in)", elPlano.H1.Valor));
                 MatRemoverWidth = widthSplitter - WidthOperacion;
             }
+        }
+
+        /// <summary>
+        /// Método que establece que cantidad de material a remover va tener la operación.
+        /// </summary>
+        /// <param name="operaciones"></param>
+        /// <param name="posOperacion"></param>
+        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion)
+        {
+
         }
 
         #endregion 

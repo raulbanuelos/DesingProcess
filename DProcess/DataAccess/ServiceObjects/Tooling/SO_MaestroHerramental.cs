@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.ServiceObjects.Tooling
 {
@@ -34,6 +32,7 @@ namespace DataAccess.ServiceObjects.Tooling
 
                 //LLamamos al método para ejecutar el procedimiento, el resultado lo guardamos 
                 datos = conexion.EjecutarStoredProcedure("SP_RGP_GetMaestroHerramentales", parametros);
+
                 return datos;
             }
             catch (Exception er)

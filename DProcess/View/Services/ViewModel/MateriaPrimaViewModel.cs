@@ -18,7 +18,7 @@ namespace View.Services.ViewModel
         /// <example>
         /// SPR-128,MF012-S,etc.
         /// </example>
-        public PropiedadCadena Especificacion
+        public string Especificacion
         {
             get
             {
@@ -27,7 +27,7 @@ namespace View.Services.ViewModel
             set
             {
                 model.Especificacion = value;
-                TipoDeMaterial = DataManager.GetTipoMaterial(model.Especificacion.Valor);
+                TipoDeMaterial = DataManager.GetTipoMaterial(model.Especificacion);
 
                 NotifyChange("Especificacion");
                 NotifyChange("TipoDeMaterial");

@@ -53,7 +53,7 @@
                                 ItemTemplate="{StaticResource MenuItemTemplate}"
                                 OptionsItemTemplate="{StaticResource MenuItemTemplate}"
                                 PaneBackground="#33a6cc" Grid.RowSpan="3">
-        <Grid ShowGridLines="True" Margin="5">
+        <Grid ShowGridLines="False" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0"/>
                 <RowDefinition Height="*"/>
@@ -69,6 +69,9 @@
 
             <!--Comienza Panel Lateral Derecho-->
             <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom">
+                <Button Content="Calcular" Margin="15" Width="150" Command="{Binding CalcularRuta}">
+                    
+                </Button>
                 <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
                     <GroupBox HorizontalAlignment="Right"  VerticalAlignment="Top" Header="{x:Static recursos:StringResources.lblCambios}" Style="{DynamicResource MaterialDesignGroupBox}" Width="Auto"  UseLayoutRounding="True" SnapsToDevicePixels="True">
                         <DataGrid ItemsSource="{Binding Customers}" AutoGenerateColumns="False" >
@@ -80,6 +83,7 @@
                         </DataGrid>
                     </GroupBox>
                 </Border>
+                
                 <StackPanel Orientation="Vertical">
                     <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignBackground}">
                         <GroupBox HorizontalAlignment="Center"  VerticalAlignment="Top" Header="{x:Static recursos:StringResources.lblObservaciones}" Style="{DynamicResource MaterialDesignGroupBox}" UseLayoutRounding="True" SnapsToDevicePixels="True">
@@ -99,7 +103,7 @@
 
                                 <!--Comienza panel de Treatment-->
                                 <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
-                                    <ComboBox materialDesign:HintAssist.Hint="TREATMENT" FontSize="16" ItemsSource="{Binding ListaTreatment}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="300">
+                                    <ComboBox materialDesign:HintAssist.Hint="TREATMENT" FontSize="16" ItemsSource="{Binding ListaTreatment}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="300" SelectedItem="{Binding Treatment}">
                                     </ComboBox>
                                 </StackPanel>
                                 <!--Termina panel de Treatment-->
@@ -150,7 +154,7 @@
 
                                 <!--Comienza panel de material-->
                                 <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
-                                    <ComboBox materialDesign:HintAssist.Hint="MATERIAL" FontSize="16" ItemsSource="{Binding ListaEspecificacionesMateriaPrima}" Text="{Binding  MaterialBase.Especificacion.Valor}" 
+                                    <ComboBox materialDesign:HintAssist.Hint="MATERIAL" FontSize="16" ItemsSource="{Binding ListaEspecificacionesMateriaPrima, Mode=OneWay}" SelectedItem="{Binding EspecificacionMaterialSeleccionada}" 
                                                   IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="150">
 
                                     </ComboBox>
@@ -223,7 +227,7 @@
             <!--Termina Panel Lateral Derecho-->
 
             <!--Comienza Grid Central-->
-            <Grid Grid.Column="1" Grid.Row="1" ShowGridLines="True">
+            <Grid Grid.Column="1" Grid.Row="1" ShowGridLines="False">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="80"/>
@@ -231,7 +235,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Row="0" Grid.Column="0" ShowGridLines="True">
+                <Grid Grid.Row="0" Grid.Column="0" ShowGridLines="False">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100*"></ColumnDefinition>
                         <ColumnDefinition Width="100*"></ColumnDefinition>
@@ -242,30 +246,31 @@
                     </Grid.RowDefinitions>
 
                     <!--Comienza Perfil Puntas-->
-                    <Grid Grid.Column="0" Grid.Row="0" ShowGridLines="True">
+                    <Grid Grid.Column="0" Grid.Row="0" ShowGridLines="False">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="450" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="260" />
                         </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0"/>
+                        <StackPanel Grid.Column="0">
+                            <Image Source="{Binding PerfilPuntas.Imagen}"></Image>
+                        </StackPanel>
                         <StackPanel Grid.Column="1" Grid.Row="0">
                             <ItemsControl ItemsSource="{Binding PanelPropiedadesPuntas}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal"></StackPanel>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
+                                
                             </ItemsControl>
                         </StackPanel>
                     </Grid>
                     <!--Termina Perfil Puntas-->
 
                     <!--Comienza Pefil OD-->
-                    <Grid Grid.Column="1" Grid.Row="0" ShowGridLines="True">
+                    <Grid Grid.Column="1" Grid.Row="0" ShowGridLines="False">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="450" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <Image Source="{Binding PerfilOD.Imagen}"></Image>
+                        </StackPanel>
                         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
                             <ItemsControl ItemsSource="{Binding PanelPropiedadesOD}">
                             </ItemsControl>
@@ -274,12 +279,14 @@
                     <!--Termina Pefil OD-->
 
                     <!--Comienza Perfil lateral-->
-                    <Grid Grid.Column="0" Grid.Row="1" ShowGridLines="True">
+                    <Grid Grid.Column="0" Grid.Row="1" ShowGridLines="False">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="450" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-
+                        <StackPanel Grid.Column="0">
+                            <Image Source="{Binding PerfilLateral.Imagen}"></Image>
+                        </StackPanel>
                         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
                             <ItemsControl ItemsSource="{Binding PanelPropiedadesLateral}">
                             </ItemsControl>
@@ -288,14 +295,16 @@
                     <!--Termina Perfil lateral-->
 
                     <!--Comienza Perfil ID-->
-                    <Grid Grid.Column="1" Grid.Row="1" ShowGridLines="True">
+                    <Grid Grid.Column="1" Grid.Row="1" ShowGridLines="False">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="450" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-
+                        <StackPanel Grid.Column="0">
+                            <Image Source="{Binding PerfilID.Imagen}"></Image>
+                        </StackPanel>
                         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
-                            <ItemsControl ItemsSource="{Binding PanelPropiedadesLateral}">
+                            <ItemsControl ItemsSource="{Binding PanelPropiedadesID}">
                             </ItemsControl>
                         </StackPanel>
                     </Grid>
@@ -315,7 +324,7 @@
 
                             <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
 
-                            <TextBox materialDesign:HintAssist.Hint="STD" FontSize="16" TextAlignment="Center" Width="70" Text="{Binding STD.Valor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="Size" FontSize="16" TextAlignment="Center" Width="70" Text="{Binding STD.Valor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
 
                         </StackPanel>
                     </GroupBox>

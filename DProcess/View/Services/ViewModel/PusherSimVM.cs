@@ -1,6 +1,7 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
@@ -145,8 +146,9 @@ namespace View.Services.ViewModel
             //Si los campos son difrentes de nulo o cero.
             if (Diam != 0)
             {
+                ObservableCollection<Herramental> ListaHerramentales = new ObservableCollection<Herramental>();
                 //Obtenemos la lista de los herramentales optimos.
-                ListaOptimos = DataManager.GetPusherSim(Diam);
+                ListaOptimos = DataManager.GetPusherSim(Diam,out ListaHerramentales);
                 //Obtenemos la lista del mejor herramental.
 
                 ListaMejores = DataManager.SelectBest_PusherSim(ListaOptimos);

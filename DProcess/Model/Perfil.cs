@@ -4,6 +4,12 @@ namespace Model
     public class Perfil
     {
         #region Propiedades
+
+        /// <summary>
+        /// Entero que representa el ID de la base de datos.
+        /// </summary>
+        public int idPerfil { get; set; }
+
         /// <summary>
         /// Cadena que representa el nombre del perfil.
         /// </summary>
@@ -40,9 +46,9 @@ namespace Model
         public byte[] Imagen { get; set; }
 
         /// <summary>
-        /// Cadena que representa el tipo de anillo.
+        /// Cadena que representa el tipo de perfil
         /// </summary>
-        public string Tipo { get; set; }
+        public string TipoPerfil { get; set; }
         #endregion
 
         #region Constructores
@@ -56,7 +62,7 @@ namespace Model
             Nombre = string.Empty;
             Descripcion = string.Empty;
             Imagen = null;
-            Tipo = string.Empty;
+            TipoPerfil = string.Empty;
             Recubrimiento = new MateriaPrima();
             Propiedades = new ObservableCollection<Propiedad>();
             PropiedadesBool = new ObservableCollection<PropiedadBool>();

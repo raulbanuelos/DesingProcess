@@ -66,7 +66,7 @@ namespace Model
         public Propiedad HardnessMin { get; set; }
         public Propiedad HardnessMax { get; set; }
         public PropiedadCadena Proceso { get; set; }
-        public PropiedadCadena EspecMaterialAnillo { get; set; }
+        public string EspecMaterialAnillo { get; set; }
         //public PropiedadCadena TipoMaterial { get; set; }
         #endregion
 
@@ -129,6 +129,7 @@ namespace Model
             ring_th_min = new Propiedad();
             ring_th_max = new Propiedad();
             TipoMateriaPrima = new FO_Item();
+            
         }
          
         #endregion

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,5 +32,12 @@ namespace Model.Interfaces
         /// <param name="MaterialRemoverAfterOperacion"></param>
         /// <param name="ThicknessAfterOperacion"></param>
         void UpdateState(ISubjectThickness sender, double MaterialRemoverAfterOperacion, double ThicknessAfterOperacion);
+
+        /// <summary>
+        /// Método que establece la cantidad de material a remover/agregar en la operación.
+        /// </summary>
+        /// <param name="operaciones"></param>
+        /// <param name="posOperacion"></param>
+        void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion);
     }
 }

@@ -40,6 +40,13 @@ namespace View.Services.ViewModel
         #region Properties
         public ObservableCollection<string> ListaEspecificacionesMateriaPrima { get; set; }
 
+        private ObservableCollection<MateriaPrimaRolado> _ListaIronRawMaterial;
+        public ObservableCollection<MateriaPrimaRolado> ListaIronRawMaterial
+        {
+            get { return _ListaIronRawMaterial; }
+            set { _ListaIronRawMaterial = value; NotifyChange("ListaIronRawMaterial"); }
+        }
+        
         public ObservableCollection<Cliente> ListaClientes { get; set; }
 
         public ObservableCollection<string> ListaTreatment { get; set; }
@@ -131,14 +138,105 @@ namespace View.Services.ViewModel
                 NotifyChange("MenuOptionItems");
             }
         }
+
+        private IOperacion operationSelected;
+        public IOperacion OperationSelected
+        {
+            get { return operationSelected; }
+            set { operationSelected = value; NotifyChange("OperationSelected"); }
+        }
+
+        private ObservableCollection<Perfil> _AllPerfilesOD;
+        public ObservableCollection<Perfil> AllPerfilesOD
+        {
+            get { return _AllPerfilesOD; }
+            set { _AllPerfilesOD = value; NotifyChange("AllPerfilesOD"); }
+        }
+
+        private Perfil _PerfilSeleccionadoOD;
+        public Perfil PerfilSeleccionadoOD
+        {
+            get { return _PerfilSeleccionadoOD; }
+            set { _PerfilSeleccionadoOD = value; NotifyChange("PerfilSeleccionadoOD"); }
+        }
+
+
+        private ObservableCollection<Perfil> _AllPerfilesID;
+        public ObservableCollection<Perfil> AllPerfilesID
+        {
+            get { return _AllPerfilesID; }
+            set { _AllPerfilesID = value; NotifyChange("AllPerfilesID"); }
+        }
+
+        private Perfil _PerfilSeleccionadoID;
+        public Perfil PerfilSeleccionadoID
+        {
+            get { return _PerfilSeleccionadoID; }
+            set { _PerfilSeleccionadoID = value; NotifyChange("_PerfilSeleccionadoID"); }
+        }
+
+
+        private ObservableCollection<Perfil> _AllPerfilesLateral;
+        public ObservableCollection<Perfil> AllPerfilesLateral
+        {
+            get { return _AllPerfilesLateral; }
+            set { _AllPerfilesLateral = value; NotifyChange("AllPerfilesLateral"); }
+        }
+
+        private Perfil _PerfilSeleccionadoLateral;
+        public Perfil PerfilSeleccionadoLateral
+        {
+            get { return _PerfilSeleccionadoLateral; }
+            set { _PerfilSeleccionadoLateral = value; NotifyChange("PerfilSeleccionadoLateral"); }
+        }
+
+
+        private ObservableCollection<Perfil> _AllPerfilesPuntas;
+        public ObservableCollection<Perfil> AllPerfilesPuntas
+        {
+            get { return _AllPerfilesPuntas; }
+            set { _AllPerfilesPuntas = value; NotifyChange("AllPerfilesPuntas"); }
+        }
+
+        public ObservableCollection<Arquetipo> ListaComponentes { get; set; }
+
+        private Arquetipo _ComponenteSeleccionado;
+        public Arquetipo ComponenteSeleccionado
+        {
+            get { return _ComponenteSeleccionado; }
+            set { _ComponenteSeleccionado = value; NotifyChange("ComponenteSeleccionado"); }
+        }
+        
+        private Perfil _PerfilSeleccionadoPuntas;
+        public Perfil PerfilSeleccionadoPuntas
+        {
+            get { return _PerfilSeleccionadoPuntas; }
+            set { _PerfilSeleccionadoPuntas = value; NotifyChange("PerfilSeleccionadoPuntas"); }
+        }
+
+        private string _EspecificacionMaterialSeleccionada;
+        public string EspecificacionMaterialSeleccionada
+        {
+            get { return _EspecificacionMaterialSeleccionada; }
+            set { _EspecificacionMaterialSeleccionada = value; NotifyChange("EspecificacionMaterialSeleccionada"); }
+        }
+
+        private bool _IsMilimeter;
+
+        public bool IsMilimeter
+        {
+            get { return _IsMilimeter; }
+            set { _IsMilimeter = value; NotifyChange("IsMilimeter"); }
+        }
+
         #endregion
 
         #region Propiedades del Modelo Anillo
 
         /// <summary>
-		/// Cadena que representa el código general de algún elemento existente en sistema ERP.
-		/// </summary>
-		public string Codigo {
+        /// Cadena que representa el código general de algún elemento existente en sistema ERP.
+        /// </summary>
+        public string Codigo {
             get
             {
                 return ModelAnillo.Codigo;
@@ -644,11 +742,17 @@ namespace View.Services.ViewModel
             ListaEspecificacionesMateriaPrima = DataManager.GetAllEspecificacionesMateriaPrima();
             ListaClientes = DataManager.GetAllClientes();
             ListaTreatment = DataManager.GetAllTreatment();
-            
+            ListaIronRawMaterial = new ObservableCollection<MateriaPrimaRolado>();
+
             PropiedadesOD = new ObservableCollection<NumericEntry>();
             PropiedadesID = new ObservableCollection<NumericEntry>();
             PropiedadesLateral = new ObservableCollection<NumericEntry>();
             PropiedadesPuntas = new ObservableCollection<NumericEntry>();
+
+            PerfilSeleccionadoID = new Perfil();
+            PerfilSeleccionadoOD = new Perfil();
+            PerfilSeleccionadoLateral = new Perfil();
+            PerfilSeleccionadoPuntas = new Perfil();
 
             //Inicializamos el plano;
             newPlano();
@@ -657,6 +761,12 @@ namespace View.Services.ViewModel
 
             //Mandamos llamar el metodo que genera el Menú
             CreateMenuItems();
+
+            AllPerfilesOD = DataManager.GetAllPerfiles("PERFIL O.D.");
+            AllPerfilesID = DataManager.GetAllPerfiles("PERFIL I.D.");
+            AllPerfilesLateral = DataManager.GetAllPerfiles("PERFIL CARAS LATERALES");
+            AllPerfilesPuntas = DataManager.GetAllPerfiles("PERFIL PUNTAS");
+            
         }
 
         #endregion
@@ -787,6 +897,14 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand SavePlano
+        {
+            get
+            {
+                return new RelayCommand(o => savePlano());
+            }
+        }
+
         public ICommand OpenCalculateDimencions
         {
             get
@@ -808,6 +926,14 @@ namespace View.Services.ViewModel
             get
             {
                 return new RelayCommand(o => calcularRuta());
+            }
+        }
+
+        public ICommand ReCalcularRuta
+        {
+            get
+            {
+                return new RelayCommand(o => calcularRuta(false));
             }
         }
 
@@ -834,11 +960,33 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => ConversionDeFTaFD());
             }
         }
+
+        public ICommand SetMaterialRemover
+        {
+            get
+            {
+                return new RelayCommand(o => setMaterialRemover());
+            }
+        }
+
+        public ICommand CreateRing
+        {
+            get
+            {
+                return new RelayCommand(o => createRing());
+            }
+        }
         #endregion
 
         #region Methods
-        private async void calcularRuta()
+
+        /// <summary>
+        /// Método que calcula las operaciones.
+        /// </summary>
+        /// <param name="banCalcularOperaciones">Si es false, solo re calcularan las medidas (Thickness, width, diámetro) con las mismas operaciones que previamente se definieron.</param>
+        private async void calcularRuta(bool banCalcularOperaciones = true)
         {
+            
 
             #region Simulacion anillo HIERRO GRIS
             ////Comenzamos a simular el anillo
@@ -893,38 +1041,50 @@ namespace View.Services.ViewModel
 
 
             #region Simulacion Anillo ACERO AL CARBON (ROLADOS)
-            PropiedadCadena especificacion = new PropiedadCadena();
-            especificacion.DescripcionCorta = "MATERIAL";
-            especificacion.DescripcionLarga = "Especificación de material";
-            especificacion.Imagen = null;
-            especificacion.Nombre = "Material MAHLE";
-            especificacion.Valor = "MS064-1";
+            //PropiedadCadena especificacion = new PropiedadCadena();
+            //especificacion.DescripcionCorta = "MATERIAL";
+            //especificacion.DescripcionLarga = "Especificación de material";
+            //especificacion.Imagen = null;
+            //especificacion.Nombre = "Material MAHLE";
+            //especificacion.Valor = "MS064-1";
 
-            ModelAnillo.MaterialBase.Especificacion = especificacion;
+            //ModelAnillo.MaterialBase.Especificacion = especificacion;
 
-            Propiedad Thickness = new Propiedad { DescripcionCorta = "Thickness", DescripcionLarga = "Thickness", Imagen = null, Nombre = "a1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.131 };
-            Propiedad ThicknessMin = new Propiedad { DescripcionCorta = "Thickness Min", DescripcionLarga = "Thickness Min", Imagen = null, Nombre = "a1 Tol Min", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.005 };
-            Propiedad ThicknessMax = new Propiedad { DescripcionCorta = "Thickness Max", DescripcionLarga = "Thickness Max", Imagen = null, Nombre = "a1 Tol Max", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.005 };
+            //H1 = new Propiedad { DescripcionCorta = "H1", DescripcionLarga = "Width nominal", Imagen = null, Nombre = "H1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.05866 };
+            //D1 = new Propiedad { DescripcionCorta = "D1", DescripcionLarga = "Diámetro nominal", Imagen = null, Nombre = "D1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 4.4055 };
+            
+            //FreeGap = new Propiedad { DescripcionCorta = "Free Gap", DescripcionLarga = "Free Gap", Imagen = null, Nombre = "Total Free Gap Max", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.302 };
 
-            PerfilID.Propiedades.Add(Thickness);
-            PerfilID.Propiedades.Add(ThicknessMin);
-            PerfilID.Propiedades.Add(ThicknessMax);
+            //Propiedad h1 = new Propiedad { DescripcionCorta = "h1", DescripcionLarga = "Width", Imagen = null, Nombre = "h1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.05866 };
+            //Propiedad h1Tol = new Propiedad { DescripcionCorta = "h1 Tol", DescripcionLarga = "Width", Imagen = null, Nombre = "h1 Tol", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.00078 };
+            //PerfilLateral.Propiedades.Add(h1);
+            //PerfilLateral.Propiedades.Add(h1Tol);
 
+            //Propiedad Thickness = new Propiedad { DescripcionCorta = "Thickness", DescripcionLarga = "Thickness", Imagen = null, Nombre = "a1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.131 };
+            //Propiedad ThicknessMin = new Propiedad { DescripcionCorta = "Thickness Min", DescripcionLarga = "Thickness Min", Imagen = null, Nombre = "a1 Tol Min", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.005 };
+            //Propiedad ThicknessMax = new Propiedad { DescripcionCorta = "Thickness Max", DescripcionLarga = "Thickness Max", Imagen = null, Nombre = "a1 Tol Max", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.005 };
+            
+            //PerfilID.Propiedades.Add(Thickness);
+            //PerfilID.Propiedades.Add(ThicknessMin);
+            //PerfilID.Propiedades.Add(ThicknessMax);
+            
             #endregion
 
             Anillo anilloProcesado = new Anillo();
             DescripcionGeneral = string.Format("{0:0.00000}", D1.Valor) + " X " + string.Format("{0:0.00000}", H1.Valor) + " " + TipoAnillo;
+            MaterialBase.Especificacion = EspecificacionMaterialSeleccionada;
 
-            if (ModelAnillo.MaterialBase.TipoDeMaterial == "HIERRO GRIS")
+            if (MaterialBase.TipoDeMaterial == "HIERRO GRIS")
             {
 
                 //Ingresar calculo de placa modelo.
                 calcularMateriaPrima = new CalculaMateriaPrima(ModelAnillo);
                 MaterialBase = calcularMateriaPrima.CalcularPlacaModelo();
 
-                //Se cambio el órden.
-                Operaciones = Router.CalcularHierroGris(ModelAnillo);
+                if (banCalcularOperaciones)
+                    Operaciones = Router.CalcularHierroGris(ModelAnillo);
                 
+
                 if (MaterialBase.Codigo.Equals("CODIFICAR"))
                 {
                     MetroDialogSettings setting = new MetroDialogSettings();
@@ -947,14 +1107,9 @@ namespace View.Services.ViewModel
 
                             nuevaPlaca.diametro = D1;
                             nuevaPlaca.medida = H1;
-
-                            //Begin - Solo para el ejemplo, despues tendremos que cambiar dependiendo si en el plano vienen las tolerancias o los valores mínimos y máximos.
-                            ThicknessMin.Valor = Thickness.Valor - ThicknessMin.Valor;
-                            ThicknessMax.Valor = Thickness.Valor + ThicknessMax.Valor;
-                            //--End
-
-                            nuevaPlaca.ring_th_max = ThicknessMax;
-                            nuevaPlaca.ring_th_min = ThicknessMin;
+                            
+                            nuevaPlaca.ring_th_max = Module.GetPropiedad("a1", PerfilID.Propiedades, "Max");
+                            nuevaPlaca.ring_th_min = Module.GetPropiedad("a1", PerfilOD.Propiedades, "Min");
 
                             //Begin
                             double widthMin1 = Module.GetValorPropiedadMin("h1", PerfilLateral.Propiedades, true);
@@ -968,7 +1123,7 @@ namespace View.Services.ViewModel
                             nuevaPlaca.ring_w_min = WidthMin;
 
                             nuevaPlaca.piece_in_patt = new Propiedad { DescripcionCorta = "Piece", DescripcionLarga = "Piece", Imagen = null, Nombre = "Piece", TipoDato = "Distance", Unidad = "Inch (in)", Valor = calcularMateriaPrima.Piece };
-                            nuevaPlaca.esp_inst = new PropiedadCadena { DescripcionCorta = "Especial Instruccions", DescripcionLarga = "Especial Instruccions", Imagen = null, Nombre = "EspecInst", Valor = Codigo + Environment.NewLine + "MATERIAL: " + ModelAnillo.MaterialBase.Especificacion.Valor };
+                            nuevaPlaca.esp_inst = new PropiedadCadena { DescripcionCorta = "Especial Instruccions", DescripcionLarga = "Especial Instruccions", Imagen = null, Nombre = "EspecInst", Valor = Codigo + Environment.NewLine + "MATERIAL: " + ModelAnillo.MaterialBase.Especificacion };
 
                             //Falta agregar material
                             //nuevaPlaca.Material
@@ -1008,110 +1163,52 @@ namespace View.Services.ViewModel
                 anilloProcesado.PropiedadesCadenaAdquiridasProceso = new ObservableCollection<PropiedadCadena>();
 
                 anilloProcesado.PropiedadesAdquiridasProceso.Add(new Propiedad { TipoDato = "Distance", DescripcionCorta = "Piece", DescripcionLarga = "Piece", Imagen = null, Nombre = "Piece", Unidad = "Inch (in)", Valor = calcularMateriaPrima.Piece });
+
+                calcularDimenciones();
+
             }
             else
             {
                 if (ModelAnillo.MaterialBase.TipoDeMaterial == "ACERO AL CARBON")
                 {
-                    Operaciones = Router.CalcularAceroRolado(ModelAnillo);
+                    //Se define la ruta primero antes de que se calcule la materia prima y se establece el material a remover en cada operación.
+                    if (banCalcularOperaciones)
+                    {
+                        Operaciones = Router.CalcularAceroRolado(ModelAnillo);
 
+                        int c = 0;
+                        foreach (var operacion in Operaciones)
+                        {
+                            if (operacion is IObserverWidth)
+                                ((IObserverWidth)operacion).setMaterialRemover(Operaciones, c);
 
+                            if (operacion is IObserverThickness)
+                                ((IObserverThickness)operacion).setMaterialRemover(Operaciones, c);
+                            c++;
+                        }
 
+                    }
 
+                    calcularMateriaPrima = new CalculaMateriaPrima(ModelAnillo);
 
+                    
+                    List<MateriaPrimaRolado> listaOpcionales = calcularMateriaPrima.CalcularAceroAlCarbon();
+                    ListaIronRawMaterial.Clear();
+
+                    foreach (var opcion in listaOpcionales)
+                        ListaIronRawMaterial.Add(opcion);
+
+                    //Mostramos la ventana para que el usuario seleccione la materia prima.
+                    frmSelectIronRawMaterial wOpciones = new frmSelectIronRawMaterial();
+                    wOpciones.DataContext = this;
+                    wOpciones.ShowDialog();
+                    
+                    Operaciones[0].ListaMateriaPrima.Add(ListaIronRawMaterial.Where(x =>x.IsSelected).FirstOrDefault());
+
+                    calcularDimenciones();
                 }
             }
-
-            //Empieza cálculo de width
-            int i = Operaciones.Count - 1;
-            int c = 0;
-            double widthMin = Module.GetValorPropiedadMin("h1", PerfilLateral.Propiedades, true);
-            double widthMax = Module.GetValorPropiedadMax("h1", PerfilLateral.Propiedades, true);
-            double widthFinal = (widthMin + widthMax) / 2;
-
-            SubjectWidth subjectWidth = new SubjectWidth();
-            bool banUltimaOperacionWidth = true;
-            while (i >= 0)
-            {
-                if (Operaciones[i] is IObserverWidth)
-                {
-                    if (banUltimaOperacionWidth)
-                    {
-                        subjectWidth.Subscribe(Operaciones[i] as IObserverWidth, widthFinal);
-                        banUltimaOperacionWidth = false;
-                    }
-                    else
-                    {
-                        subjectWidth.Subscribe(Operaciones[i] as IObserverWidth);
-                        subjectWidth.Notify(c);
-                    }
-                    c += 1;
-                }
-                i = i - 1;
-            }
-
-            //Termina cálculo de width
-
-            /*Cálculo de diámetro*/
-
-
-            i = Operaciones.Count - 1;
-            c = 0;
-            SubjectDiametro subjectDiametro = new SubjectDiametro();
-            bool banUltimaOperacionDiametro = true;
-            double mediaGap = Math.Round(Module.GetValorPropiedad("s1", ModelAnillo.PerfilPuntas.Propiedades), 3);
-            while (i >= 0)
-            {
-                if (Operaciones[i] is IObserverDiametro)
-                {
-                    if (banUltimaOperacionDiametro)
-                    {
-                        var operacion = (IObserverDiametro)Operaciones[i];
-                        operacion.Gap = mediaGap;
-                        subjectDiametro.Subscribe(operacion, D1.Valor);
-                        banUltimaOperacionDiametro = false;
-                    }
-                    else
-                    {
-                        var operacion = (IObserverDiametro)Operaciones[i];
-                        operacion.Gap = mediaGap;
-                        subjectDiametro.Subscribe(operacion);
-                        subjectDiametro.Notify(c);
-                    }
-                    c += 1;
-                }
-                i = i - 1;
-            }
-
-
-            /* Cálculo de thickness */
-
-
-            i = Operaciones.Count - 1;
-            c = 0;
-            double mediaThickness = Module.GetValorPropiedad("a1", PerfilID.Propiedades);
-            SubjectThickness subjectThickness = new SubjectThickness();
-            bool banUltimaOperacionThickness = true;
-            while (i >= 0)
-            {
-                if (Operaciones[i] is IObserverThickness)
-                {
-                    if (banUltimaOperacionThickness)
-                    {
-                        subjectThickness.Subscribe(Operaciones[i] as IObserverThickness, mediaThickness);
-                        banUltimaOperacionThickness = false;
-                    }
-                    else
-                    {
-                        subjectThickness.Subscribe(Operaciones[i] as IObserverThickness);
-                        subjectThickness.Notify(c);
-                    }
-                    c += 1;
-                }
-
-                i = i - 1;
-            }
-
+            
             anilloProcesado.Activo = ModelAnillo.Activo;
             anilloProcesado.cliente = ModelAnillo.cliente;
             anilloProcesado.Codigo = ModelAnillo.Codigo;
@@ -1138,7 +1235,6 @@ namespace View.Services.ViewModel
             anilloProcesado.TipoAnillo = ModelAnillo.TipoAnillo;
 
             //Realizamos las operaciones
-
             bool ban = true;
             Anillo aProcesado = new Anillo();
 
@@ -1151,9 +1247,11 @@ namespace View.Services.ViewModel
             double currentWidth = 0.0;
             double currentThickness = 0.0;
             double currentDiameter = 0.0;
+            int noOperacion = 10;
 
             foreach (IOperacion element in Operaciones)
             {
+                element.NoOperacion = noOperacion;
                 bool IsMaking = false;
                 if (element is IObserverWidth)
                 {
@@ -1200,7 +1298,7 @@ namespace View.Services.ViewModel
                 else
                     await Task.Delay(800);
 
-
+                noOperacion += 10;
                 count += count;
             }
 
@@ -1213,6 +1311,106 @@ namespace View.Services.ViewModel
 
             ModelAnillo.Caratula = PrimerBloque;
              */
+        }
+
+        private void calcularDimenciones()
+        {
+            #region Calculo de width
+            int i = Operaciones.Count - 1;
+            int c = 0;
+            double widthMin = Module.GetValorPropiedadMin("h1", PerfilLateral.Propiedades, true);
+            double widthMax = Module.GetValorPropiedadMax("h1", PerfilLateral.Propiedades, true);
+            double widthFinal = (widthMin + widthMax) / 2;
+
+            SubjectWidth subjectWidth = new SubjectWidth();
+            bool banUltimaOperacionWidth = true;
+            while (i >= 0)
+            {
+                if (Operaciones[i] is IObserverWidth)
+                {
+                    if (banUltimaOperacionWidth)
+                    {
+                        subjectWidth.Subscribe(Operaciones[i] as IObserverWidth, widthFinal);
+                        banUltimaOperacionWidth = false;
+                    }
+                    else
+                    {
+                        subjectWidth.Subscribe(Operaciones[i] as IObserverWidth);
+                        subjectWidth.Notify(c);
+                    }
+                    c += 1;
+                }
+                i = i - 1;
+            }
+            #endregion
+
+            #region Calculo de Diámetro
+            
+            i = Operaciones.Count - 1;
+            c = 0;
+            SubjectDiametro subjectDiametro = new SubjectDiametro();
+            bool banUltimaOperacionDiametro = true;
+
+            double gapMinimo = Module.GetValorPropiedadMin("s1", PerfilPuntas.Propiedades, true);
+            double gapMaximo = Module.GetValorPropiedadMax("s1", PerfilPuntas.Propiedades, true);
+            double mediaGap = Math.Round((gapMinimo + gapMaximo)/2, 3);
+
+            while (i >= 0)
+            {
+                if (Operaciones[i] is IObserverDiametro)
+                {
+                    if (banUltimaOperacionDiametro)
+                    {
+                        var operacion = (IObserverDiametro)Operaciones[i];
+                        operacion.Gap = mediaGap;
+                        subjectDiametro.Subscribe(operacion, D1.Valor);
+                        banUltimaOperacionDiametro = false;
+                    }
+                    else
+                    {
+                        var operacion = (IObserverDiametro)Operaciones[i];
+                        operacion.Gap = mediaGap;
+                        subjectDiametro.Subscribe(operacion);
+                        subjectDiametro.Notify(c);
+                    }
+                    c += 1;
+                }
+                i = i - 1;
+            }
+            #endregion
+
+            #region Calculo de thickness
+
+            i = Operaciones.Count - 1;
+            c = 0;
+
+            double thicknessMin = Module.GetValorPropiedadMin("a1", PerfilID.Propiedades, true);
+            double thicknessMax = Module.GetValorPropiedadMax("a1", PerfilID.Propiedades, true);
+
+            double mediaThickness = Math.Round((thicknessMin + thicknessMax) / 2, 5);
+
+            SubjectThickness subjectThickness = new SubjectThickness();
+            bool banUltimaOperacionThickness = true;
+            while (i >= 0)
+            {
+                if (Operaciones[i] is IObserverThickness)
+                {
+                    if (banUltimaOperacionThickness)
+                    {
+                        subjectThickness.Subscribe(Operaciones[i] as IObserverThickness, mediaThickness);
+                        banUltimaOperacionThickness = false;
+                    }
+                    else
+                    {
+                        subjectThickness.Subscribe(Operaciones[i] as IObserverThickness);
+                        subjectThickness.Notify(c);
+                    }
+                    c += 1;
+                }
+
+                i = i - 1;
+            }
+            #endregion
         }
 
         private void abrirPlano()
@@ -1230,8 +1428,8 @@ namespace View.Services.ViewModel
 
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = StringResources.lblFormato;
-            setting.NegativeButtonText = StringResources.lblViejoFormato;
+            setting.AffirmativeButtonText = StringResources.lblMilimetros;
+            setting.NegativeButtonText = StringResources.lblPulgadas;
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
             MessageDialogResult result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgSeleccionaFormato, setting, MessageDialogStyle.AffirmativeAndNegative);
@@ -1398,6 +1596,12 @@ namespace View.Services.ViewModel
                 {
                     string[] separador = CollectionPropiedades[c].Nombre.Split(' ');
 
+                    StackPanel panel = new StackPanel();
+                    panel.Orientation = System.Windows.Controls.Orientation.Horizontal;
+
+                    panel.Children.Add(CollectionNumeric[c]);
+
+                    CollectionPanel.Add(panel);
 
                     c += 1;
                 }
@@ -1413,84 +1617,184 @@ namespace View.Services.ViewModel
         /// </summary>
         private void openPlano()
         {
-            //-------------------Perfil OD-------------------
-            PerfilOD.Propiedades = new ObservableCollection<Propiedad>();
-            PerfilOD.Propiedades.Add(new Propiedad { Nombre = "S1 MIN", DescripcionCorta = "S1 MIN", DescripcionLarga = "DIÁMETRO NOMINAL DEL ANILLO", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
 
-            PerfilOD.Propiedades = SortObservableCollectionPropiedad(PerfilOD.Propiedades);
+            ListaComponentes =  DataManager.GetAllArquetipo("");
 
-            PropiedadesOD.Clear();
+            WSelectComponent wSelectComponente = new WSelectComponent();
+            wSelectComponente.DataContext = this;
+            wSelectComponente.ShowDialog();
 
-            foreach (var item in PerfilOD.Propiedades)
+            string codigo = ComponenteSeleccionado.Codigo;
+
+            ModelAnillo = DataManager.GetAnillo(codigo);
+
+            int[] vecPerfiles = DataManager.GetPerfilByComponente(codigo);
+
+            int c = 0;
+            while (c < vecPerfiles.Length)
             {
-                NumericEntry uc = new NumericEntry();
-                PropiedadViewModel mvm = new PropiedadViewModel(item);
-                uc.DataContext = mvm;
-                PropiedadesOD.Add(uc);
+                Perfil miPerfil = DataManager.GetPerfilByID(vecPerfiles[c]);
+                
+                switch (miPerfil.TipoPerfil)
+                {
+                    case "PERFIL O.D.":
+                        PerfilOD = miPerfil;
+                        NotifyChange("PerfilOD");
+                        break;
+                    case "PERFIL I.D.":
+                        PerfilID = miPerfil;
+                        NotifyChange("PerfilID");
+                        break;
+                    case "PERFIL CARAS LATERALES":
+                        PerfilLateral = miPerfil;
+                        NotifyChange("PerfilLateral");
+                        break;
+                    case "PERFIL PUNTAS":
+                        PerfilPuntas = miPerfil;
+                        NotifyChange("PerfilPuntas");
+                        break;
+
+                    default:
+                        break;
+                }
+                c += 1;
             }
+            
+            ObservableCollection<Propiedad> ListaTotalesPropiedades = DataManager.GetPropiedadSaved(codigo);
 
-            PanelPropiedadesOD = SetNumericEntryToStackPanel(PropiedadesOD, PerfilOD.Propiedades);
-            //-------------------Perfil OD-------------------
+            PerfilOD.Propiedades = Module.ConvertListToObservableCollectionPropiedad(ListaTotalesPropiedades.Where(x => x.TipoPerfil == "PERFIL O.D.").ToList());
+            PerfilID.Propiedades = Module.ConvertListToObservableCollectionPropiedad(ListaTotalesPropiedades.Where(x => x.TipoPerfil == "PERFIL I.D.").ToList());
+            PerfilLateral.Propiedades = Module.ConvertListToObservableCollectionPropiedad(ListaTotalesPropiedades.Where(x => x.TipoPerfil == "PERFIL CARAS LATERALES").ToList());
+            PerfilPuntas.Propiedades = Module.ConvertListToObservableCollectionPropiedad(ListaTotalesPropiedades.Where(x => x.TipoPerfil == "PERFIL PUNTAS").ToList());
+            
+            NotifyChange("Codigo");
+            NotifyChange("PerfilOD");
+            NotifyChange("PerfilID");
+            NotifyChange("PerfilLateral");
+            NotifyChange("PerfilPuntas");
 
-            //-------------------Perfil Puntas-------------------
-            PerfilPuntas.Propiedades = new ObservableCollection<Propiedad>();
-            PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "Q1 MIN", DescripcionCorta = "Q1 MIN", DescripcionLarga = "Q1 MIN", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
-            PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "Q1 MAX", DescripcionCorta = "Q1 MAX", DescripcionLarga = "Q1 MAX", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
-            PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "A1", DescripcionCorta = "A1", DescripcionLarga = "A1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
-            PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "Y6", DescripcionCorta = "Y6", DescripcionLarga = "Y6", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            createNumeric();
+            ////-------------------Perfil OD-------------------
+            //PerfilOD.Propiedades = new ObservableCollection<Propiedad>();
+            //PerfilOD.Propiedades.Add(new Propiedad { Nombre = "S1 MIN", DescripcionCorta = "S1 MIN", DescripcionLarga = "DIÁMETRO NOMINAL DEL ANILLO", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
 
-            PerfilPuntas.Propiedades = SortObservableCollectionPropiedad(PerfilPuntas.Propiedades);
+            //PerfilOD.Propiedades = SortObservableCollectionPropiedad(PerfilOD.Propiedades);
 
-            PropiedadesPuntas.Clear();
+            //PropiedadesOD.Clear();
 
-            foreach (var item in PerfilPuntas.Propiedades)
-            {
-                NumericEntry uc = new NumericEntry();
-                PropiedadViewModel mvm = new PropiedadViewModel(item);
-                uc.DataContext = mvm;
-                PropiedadesPuntas.Add(uc);
-            }
-            PanelPropiedadesPuntas = SetNumericEntryToStackPanel(PropiedadesPuntas, PerfilPuntas.Propiedades);
-            //-------------------Perfil Puntas-------------------
+            //foreach (var item in PerfilOD.Propiedades)
+            //{
+            //    NumericEntry uc = new NumericEntry();
+            //    PropiedadViewModel mvm = new PropiedadViewModel(item);
+            //    uc.DataContext = mvm;
+            //    PropiedadesOD.Add(uc);
+            //}
 
-            //-------------------Perfil ID-------------------
-            PerfilID.Propiedades = new ObservableCollection<Propiedad>();
-            PerfilID.Propiedades.Add(new Propiedad { Nombre = "P1", DescripcionCorta = "P1", DescripcionLarga = "P1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            //PanelPropiedadesOD = SetNumericEntryToStackPanel(PropiedadesOD, PerfilOD.Propiedades);
+            ////-------------------Perfil OD-------------------
 
-            PerfilID.Propiedades = SortObservableCollectionPropiedad(PerfilID.Propiedades);
+            ////-------------------Perfil Puntas-------------------
+            //PerfilPuntas.Propiedades = new ObservableCollection<Propiedad>();
+            //PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "Q1 MIN", DescripcionCorta = "Q1 MIN", DescripcionLarga = "Q1 MIN", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            //PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "Q1 MAX", DescripcionCorta = "Q1 MAX", DescripcionLarga = "Q1 MAX", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            //PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "A1", DescripcionCorta = "A1", DescripcionLarga = "A1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            //PerfilPuntas.Propiedades.Add(new Propiedad { Nombre = "Y6", DescripcionCorta = "Y6", DescripcionLarga = "Y6", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
 
-            PropiedadesID.Clear();
+            //PerfilPuntas.Propiedades = SortObservableCollectionPropiedad(PerfilPuntas.Propiedades);
 
-            foreach (var item in PerfilID.Propiedades)
-            {
-                NumericEntry uc = new NumericEntry();
-                PropiedadViewModel mvm = new PropiedadViewModel(item);
-                uc.DataContext = mvm;
-                PropiedadesID.Add(uc);
-            }
-            panelPropiedadesID = SetNumericEntryToStackPanel(PropiedadesID, PerfilID.Propiedades);
-            //-------------------Perfil ID-------------------
+            //PropiedadesPuntas.Clear();
 
-            //-------------------Perfil Lateral-------------------
-            PerfilLateral.Propiedades = new ObservableCollection<Propiedad>();
-            PerfilLateral.Propiedades.Add(new Propiedad { Nombre = "T1", DescripcionCorta = "T1", DescripcionLarga = "T1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+            //foreach (var item in PerfilPuntas.Propiedades)
+            //{
+            //    NumericEntry uc = new NumericEntry();
+            //    PropiedadViewModel mvm = new PropiedadViewModel(item);
+            //    uc.DataContext = mvm;
+            //    PropiedadesPuntas.Add(uc);
+            //}
+            //PanelPropiedadesPuntas = SetNumericEntryToStackPanel(PropiedadesPuntas, PerfilPuntas.Propiedades);
+            ////-------------------Perfil Puntas-------------------
 
-            PerfilLateral.Propiedades = SortObservableCollectionPropiedad(PerfilLateral.Propiedades);
+            ////-------------------Perfil ID-------------------
+            //PerfilID.Propiedades = new ObservableCollection<Propiedad>();
+            //PerfilID.Propiedades.Add(new Propiedad { Nombre = "P1", DescripcionCorta = "P1", DescripcionLarga = "P1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
 
-            PropiedadesLateral.Clear();
+            //PerfilID.Propiedades = SortObservableCollectionPropiedad(PerfilID.Propiedades);
 
-            foreach (var item in PerfilLateral.Propiedades)
-            {
-                NumericEntry uc = new NumericEntry();
-                PropiedadViewModel mvm = new PropiedadViewModel(item);
-                uc.DataContext = mvm;
-                PropiedadesLateral.Add(uc);
-            }
-            PanelPropiedadesLateral = SetNumericEntryToStackPanel(PropiedadesLateral, PerfilLateral.Propiedades);
-            //-------------------Perfil Lateral-------------------
+            //PropiedadesID.Clear();
+
+            //foreach (var item in PerfilID.Propiedades)
+            //{
+            //    NumericEntry uc = new NumericEntry();
+            //    PropiedadViewModel mvm = new PropiedadViewModel(item);
+            //    uc.DataContext = mvm;
+            //    PropiedadesID.Add(uc);
+            //}
+            //panelPropiedadesID = SetNumericEntryToStackPanel(PropiedadesID, PerfilID.Propiedades);
+            ////-------------------Perfil ID-------------------
+
+            ////-------------------Perfil Lateral-------------------
+            //PerfilLateral.Propiedades = new ObservableCollection<Propiedad>();
+            //PerfilLateral.Propiedades.Add(new Propiedad { Nombre = "T1", DescripcionCorta = "T1", DescripcionLarga = "T1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
+
+            //PerfilLateral.Propiedades = SortObservableCollectionPropiedad(PerfilLateral.Propiedades);
+
+            //PropiedadesLateral.Clear();
+
+            //foreach (var item in PerfilLateral.Propiedades)
+            //{
+            //    NumericEntry uc = new NumericEntry();
+            //    PropiedadViewModel mvm = new PropiedadViewModel(item);
+            //    uc.DataContext = mvm;
+            //    PropiedadesLateral.Add(uc);
+            //}
+            //PanelPropiedadesLateral = SetNumericEntryToStackPanel(PropiedadesLateral, PerfilLateral.Propiedades);
+            ////-------------------Perfil Lateral-------------------
 
         }
 
+        /// <summary>
+        /// Método que guarda el componente.
+        /// </summary>
+        private void savePlano()
+        {
+            DescripcionGeneral = string.Format("{0:0.00000}", D1.Valor) + " X " + string.Format("{0:0.00000}", H1.Valor) + " " + TipoAnillo;
+
+            int confirmacionSaveArquetipo = DataManager.InsertArquetipo(Codigo, DescripcionGeneral, null, true);
+
+            if (confirmacionSaveArquetipo > 0)
+            {
+                DataManager.InsertPerfilArquetipo(Codigo, PerfilOD.idPerfil);
+                foreach (Propiedad propiedad in PerfilOD.Propiedades)
+                {
+                    DataManager.InsertArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
+                }
+
+                DataManager.InsertPerfilArquetipo(Codigo, PerfilLateral.idPerfil);
+                foreach (Propiedad propiedad in PerfilLateral.Propiedades)
+                {
+                    DataManager.InsertArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
+                }
+
+                DataManager.InsertPerfilArquetipo(Codigo, PerfilID.idPerfil);
+                foreach (Propiedad propiedad in PerfilID.Propiedades)
+                {
+                    DataManager.InsertArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
+                }
+
+                DataManager.InsertPerfilArquetipo(Codigo, PerfilPuntas.idPerfil);
+                foreach (Propiedad propiedad in PerfilPuntas.Propiedades)
+                {
+                    DataManager.InsertArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
+                }
+
+                
+            }
+            else
+            {
+                //Notificar que ocurrio un error.
+            }
+        }
+        
         /// <summary>
         /// /
         /// </summary>
@@ -1523,7 +1827,7 @@ namespace View.Services.ViewModel
                     NoPlano = obj.value;
                     break;
                 case "Material MAHLE":
-                    MaterialBase.Especificacion.Valor = obj.value;
+                    MaterialBase.Especificacion = obj.value;
                     MaterialBase = MaterialBase;
                     break;
                 case "Mass Calculated":
@@ -1735,6 +2039,8 @@ namespace View.Services.ViewModel
         /// </summary>
         private void SetUnidadesDefault(string tipodatodistance, string unidaddistance, string tipodatoforce, string unidadforce, string tipodatodureza, string unidaddureza, string tipodatoMass, string unidadMass)
         {
+            if (EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter) == unidaddistance)
+                IsMilimeter = true;
 
             ModelAnillo.D1.Nombre = "D1";
             ModelAnillo.D1.TipoDato = tipodatodistance;
@@ -1822,15 +2128,21 @@ namespace View.Services.ViewModel
         {
             //Declaramos un objeto el cual es la pantalla.
             WRouting wRouting = new WRouting();
+            if (Operaciones != null && Operaciones.Count > 0)
+            {
+                OperationSelected = Operaciones[0];
 
-            //Declaramos el VW de la pantalla, establaciendo el objeto ModelAnillo como su base.
-            RoutingViewModel routingViewModel = new RoutingViewModel(this.ModelAnillo);
+                //Establecemos el DataContext.
+                wRouting.DataContext = this;
 
-            //Establecemos el DataContext.
-            wRouting.DataContext = routingViewModel;
-
-            //Desplegamos la pantalla-
-            wRouting.ShowDialog();
+                //Desplegamos la pantalla-
+                wRouting.ShowDialog();
+            }
+            else
+            {
+                //Enviar mensaje de no existen operaciones.
+            }
+            
         }
 
         /// <summary>
@@ -1895,7 +2207,7 @@ namespace View.Services.ViewModel
                 {
                     Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.ContentSave },
                     Label = StringResources.lblGuardar,
-                    //Command = SavePlano,
+                    Command = SavePlano,
                     Tag = StringResources.lblGuardar,
                 });
             //Boton para calcular la ruta
@@ -1943,6 +2255,106 @@ namespace View.Services.ViewModel
                     Command = ConversionFTaFD,
                     Tag = StringResources.lblConvertir,
                 });
+
+            this.MenuItems.Add(
+                new HamburgerMenuIconItem
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.AccessPoint},
+                    Label = "Create a ring",
+                    Command = CreateRing,
+                    Tag = "Crea un anillo."
+                });
+        }
+        
+        private void setMaterialRemover()
+        {
+            int c = 0;
+
+            while (c < Operaciones.Count)
+            {
+                if (OperationSelected.NoOperacion == Operaciones[c].NoOperacion)
+                {
+                    Operaciones[c] = OperationSelected;
+                    OperationSelected = Operaciones[c];
+                    NotifyChange("OperationSelected");
+                    break;
+                }
+                c++;
+            }
+        }
+
+        /// <summary>
+        /// Método que muestra la pantalla para que el usuario seleccione los perfiles del anillo.
+        /// </summary>
+        private void createRing()
+        {
+            WCreateRing createRing = new WCreateRing();
+
+            createRing.DataContext = this;
+            createRing.ShowDialog();
+            
+            PerfilOD = PerfilSeleccionadoOD;
+            PerfilID = PerfilSeleccionadoID;
+            PerfilLateral = PerfilSeleccionadoLateral;
+            PerfilPuntas = PerfilSeleccionadoPuntas;
+            
+            PerfilOD.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilOD.idPerfil,IsMilimeter);
+            PerfilID.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilID.idPerfil,IsMilimeter);
+            PerfilLateral.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilLateral.idPerfil,IsMilimeter);
+            PerfilPuntas.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilPuntas.idPerfil,IsMilimeter);
+            
+            createNumeric();
+        }
+
+        private void createNumeric()
+        {
+            foreach (Propiedad propiedad in PerfilOD.Propiedades)
+            {
+                NumericEntry numeric = new NumericEntry();
+
+                PropiedadViewModel propiedadViewModel = new PropiedadViewModel(propiedad);
+                numeric.DataContext = propiedadViewModel;
+
+                PropiedadesOD.Add(numeric);
+            }
+
+            PanelPropiedadesOD = SetNumericEntryToStackPanel(PropiedadesOD, PerfilOD.Propiedades);
+
+            foreach (Propiedad propiedad in PerfilID.Propiedades)
+            {
+                NumericEntry numeric = new NumericEntry();
+
+                PropiedadViewModel propiedadViewModel = new PropiedadViewModel(propiedad);
+                numeric.DataContext = propiedadViewModel;
+
+                PropiedadesID.Add(numeric);
+            }
+
+            PanelPropiedadesID = SetNumericEntryToStackPanel(PropiedadesID, PerfilID.Propiedades);
+
+            foreach (Propiedad propiedad in PerfilLateral.Propiedades)
+            {
+                NumericEntry numeric = new NumericEntry();
+
+                PropiedadViewModel propiedadViewModel = new PropiedadViewModel(propiedad);
+                numeric.DataContext = propiedadViewModel;
+
+                PropiedadesLateral.Add(numeric);
+            }
+
+            PanelPropiedadesLateral = SetNumericEntryToStackPanel(PropiedadesLateral, PerfilLateral.Propiedades);
+
+            foreach (Propiedad propiedad in PerfilPuntas.Propiedades)
+            {
+                NumericEntry numeric = new NumericEntry();
+
+                PropiedadViewModel propiedadViewModel = new PropiedadViewModel(propiedad);
+                numeric.DataContext = propiedadViewModel;
+
+                PropiedadesPuntas.Add(numeric);
+            }
+
+            PanelPropiedadesPuntas = SetNumericEntryToStackPanel(PropiedadesPuntas, PerfilPuntas.Propiedades);
         }
         #endregion
     }

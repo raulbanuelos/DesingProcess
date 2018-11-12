@@ -1,6 +1,7 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
@@ -111,8 +112,11 @@ namespace View.Services.ViewModel
             {
                 ListaOptimos = new DataTable();
                 ListaMejores = new DataTable();
+
+                Herramental idealExitGuide = new Herramental();
+
                 //Obtiene la lista de los mejores herramentales de acuerdo a width y radial
-                ListaOptimos = DataManager.GetEXIT_GUIDE(_width, _radial);
+                ListaOptimos = DataManager.GetEXIT_GUIDE(_width, _radial, out idealExitGuide);
                 //Obtiene el mejor herramental
                 ListaMejores = DataManager.SelectBestCoil(ListaOptimos);
 

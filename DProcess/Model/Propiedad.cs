@@ -5,12 +5,17 @@
         #region Propiedades
 
         /// <summary>
+        /// Entero que representa el id de la base de datos.
+        /// </summary>
+        public int idPropiedad { get; set; }
+
+        /// <summary>
         /// Cadena que representa el nombre de la propiedad.
         /// </summary>
         public string Nombre { get; set; }
 
         /// <summary>
-        /// Cadena que representa la concatecacion del nombre con la unidad.
+        /// READ ONLY. Cadena que representa la concatecacion del nombre con la unidad.
         /// </summary>
         public string TextoPresentacion {
             get {
@@ -53,6 +58,11 @@
         /// Arreglo de bytes que representa la imagen de la propiedad.
         /// </summary>
         public byte[] Imagen { get; set; }
+
+        /// <summary>
+        /// Cadena que representa al tipo de perfil a la que pertenece la propiedad.
+        /// </summary>
+        public string TipoPerfil { get; set; }
         #endregion
 
         #region Métodos

@@ -40,5 +40,6 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         public virtual DbSet<Tipo_Anillo> Tipo_Anillo { get; set; }
         public virtual DbSet<MoutingDia> MoutingDia { get; set; }
         public virtual DbSet<MoutingWidth> MoutingWidth { get; set; }
+        public virtual DbSet<CAT_MATERIA_PRIMA_ROLADO> CAT_MATERIA_PRIMA_ROLADO { get; set; }
     }
 }

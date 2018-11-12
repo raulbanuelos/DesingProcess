@@ -5,11 +5,12 @@ using Model.Interfaces;
 using View.Services.TiempoEstandar.Gasolina.PreMaquinado;
 namespace View.Services.Operaciones.Gasolina.PreMaquinado
 {
-    public class FirstRoughGrind : IOperacion, IObserverWidth
+    public class FirstRoughGrind : GenericOperation, IOperacion, IObserverWidth
     {
         #region Propiedades
 
         #region Propiedades de IOperacion
+        
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -158,6 +159,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         #region Métodos
 
         #region Métodos de IOperacion
+
         /// <summary>
         /// Método en el cual se calcula la operación.
         /// </summary>
@@ -244,6 +246,16 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
 
             //Actualizamos el width de la operación.
             WidthOperacion = WidthAfterOperacion + MaterialRemoverAfterOperacion;
+        }
+
+        /// <summary>
+        /// Método que establece que cantidad de material a remover va tener la operación.
+        /// </summary>
+        /// <param name="operaciones"></param>
+        /// <param name="posOperacion"></param>
+        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion)
+        {
+            CalcularWidth();
         }
 
         #endregion

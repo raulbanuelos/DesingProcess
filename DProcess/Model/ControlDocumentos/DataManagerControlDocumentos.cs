@@ -109,7 +109,6 @@ namespace Model.ControlDocumentos
 
             //Se ejecuta el método y regresa el id del archivo insertado.
             return ServiceArchivo.SetArchivo(archivo.id_version, archivo.archivo, archivo.ext, archivo.nombre);
-
         }
 
         /// <summary>
@@ -1316,6 +1315,7 @@ namespace Model.ControlDocumentos
             // Se ejecuta el método y retorna los registros que se eliminaron.
             return ServiceRol.DeleteRol(rol.id_rol);
         }
+
         /// <summary>
         /// Método que devuelve una lista de los roles que tiene un usuario.
         /// </summary>
@@ -1354,6 +1354,7 @@ namespace Model.ControlDocumentos
             //regresamos la lista.
             return Lista;
         }
+
         /// <summary>
         /// Método que inserta los roles de cada usuario.
         /// </summary>
@@ -1368,6 +1369,7 @@ namespace Model.ControlDocumentos
             //Se ejecuta el método y retorna el id del rol
             return ServiceRol.SetRol_Usuario(rol.id_rol, rol.id_usuario);
         }
+
         /// <summary>
         /// metodo que elimina los roles de un usuario
         /// </summary>
@@ -2431,13 +2433,118 @@ namespace Model.ControlDocumentos
                     obj.usuario = (string)tipo.GetProperty("NOMBRE_USUARIO").GetValue(item, null);
                     obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     obj.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
-
+                    obj.version.id_usuario = (string)tipo.GetProperty("ID_USUARIO_ELABORO").GetValue(item, null);
                     //Agregamos a la lista resultante
                     Lista.Add(obj);
                 }
             }
             //Retornamos la lista
             return Lista;
+        }
+
+        /// <summary>
+        /// Método que obtiene la lista de documentos que ya fueron aprobados y no han sido entregados desde hace dos dias.
+        /// </summary>
+        /// <returns></returns>
+        public static List<DO_DocumentosRechazados> GetDocumentosAprobadosNoRecibidos()
+        {
+            //Declaramos una lista la cual contendrá  los documentos y será la que retornemos en el métod.
+            List<DO_DocumentosRechazados> ListaDocumentos = new List<DO_DocumentosRechazados>();
+
+            //Inicializamos los servicios del historial de documentos.
+            SO_HistorialVersion ServiceHistorial = new SO_HistorialVersion();
+
+            //Declaramos una lista la cual contendrá los documentos pendientes por Liberar. Es decir, documentos que ya fueron aprobados y se está a la espera de recibirlos.
+            ObservableCollection<Documento> DocumentosPendientes = new ObservableCollection<Documento>();
+            
+            //Ejecutamos el método para obtener los documentos.
+            DocumentosPendientes = GetDocumentos_PendientesLiberar(string.Empty);
+
+            //Iteramos la lista de documentos.
+            foreach (Documento documento in DocumentosPendientes)
+            {
+                //Obtenemos el historial de cambios de estatus del documento. Los guardamos en una lista.
+                IList informacionBD = ServiceHistorial.GetHistorial_version(documento.nombre, documento.version.no_version);
+
+                //Validamos que la lista de historial sea distinto de nulo.
+                if (informacionBD != null)
+                {
+                    //Declaramos
+                    DateTime fechaUltimaActualizacion = new DateTime();
+
+                    foreach (var item in informacionBD)
+                    {
+                        Type tipo = item.GetType();
+                        string estatus = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                        if (estatus == "Se cambia el estatus a: APROBADO, PENDIENTE POR LIBERAR")
+                        {
+                            fechaUltimaActualizacion = Convert.ToDateTime(tipo.GetProperty("FECHA").GetValue(item, null));
+                        }
+                    }
+
+                    //Agregamos dos dias habiles a la fecha de actualización.
+                    DateTime fechaCompromisoEntrega = AddBusinessDays(fechaUltimaActualizacion, 2);
+                    DateTime fechaActual = Get_DateTime();
+
+                    if (fechaCompromisoEntrega < fechaActual)
+                    {
+                        Usuario duenoDocumento = new Usuario();
+                        duenoDocumento = DataManager.GetNameUsuario(documento.version.id_usuario);
+
+                        DO_DocumentosRechazados documentoRechazado = new DO_DocumentosRechazados();
+                        documentoRechazado.NombreDocumento = documento.nombre;
+                        documentoRechazado.NoVersion = documento.version.no_version;
+                        documentoRechazado.Correo = duenoDocumento.Correo;
+                        documentoRechazado.DuenoDocumento = duenoDocumento.NombreUsuario;
+                        documentoRechazado.Fecha = fechaCompromisoEntrega.Year + "-" + fechaCompromisoEntrega.Month + "-" + fechaCompromisoEntrega.Day;
+                        ListaDocumentos.Add(documentoRechazado);
+
+                    }
+                }
+            }
+
+            return ListaDocumentos;
+        }
+
+        public static int GetIdVersion(string nombreDocumento, string noVersion)
+        {
+            SO_Version ServiceVersion = new SO_Version();
+
+            return ServiceVersion.GetVersionDocumento(nombreDocumento, noVersion);
+        }
+
+        public static int SetRechazarVersion(int idVersion)
+        {
+            SO_Version ServiceVersion = new SO_Version();
+
+            return ServiceVersion.SetRechazarDocumento(idVersion);
+        }
+
+        /// <summary>
+        /// Funcion que agrega los días indicados sin contar sabados ni domingos.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="nDays"></param>
+        /// <returns></returns>
+        private static DateTime AddBusinessDays(DateTime dt, int nDays)
+        {
+            int weeks = nDays / 5;
+            nDays %= 5;
+            while (dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday)
+            {
+                dt = dt.AddDays(1);
+            }
+
+            while (nDays-- > 0)
+            {
+                dt = dt.AddDays(1);
+                if (dt.DayOfWeek == DayOfWeek.Saturday)
+                {
+                    dt = dt.AddDays(2);
+                }
+            }
+
+            return dt.AddDays(weeks * 7);
         }
 
         /// <summary>
@@ -3404,6 +3511,24 @@ namespace Model.ControlDocumentos
             }
             //Retornamos la lista
             return ListaR;
+        }
+
+        /// <summary>
+        /// Método que inserta un registro en la tabla historial de versión
+        /// </summary>
+        /// <param name="idVersion"></param>
+        /// <param name="usuario"></param>
+        /// <param name="nombreDocumento"></param>
+        /// <param name="version"></param>
+        /// <param name="descripcionCambio"></param>
+        /// <returns></returns>
+        public static int InsertHistorialVersion(int idVersion,string usuario,string nombreDocumento, string version,string descripcionCambio )
+        {
+            //Inicializamos los servicios de historial de versión.
+            SO_HistorialVersion ServiceVersion = new SO_HistorialVersion();
+
+            //Ejecutamos el método y retornamos el resultado.
+            return ServiceVersion.Insert(idVersion, DateTime.Now, descripcionCambio, usuario, nombreDocumento, version);
         }
 
         #endregion

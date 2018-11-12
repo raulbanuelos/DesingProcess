@@ -5,11 +5,12 @@ using System.Collections.ObjectModel;
 
 namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 {
-    public class Lapping : IOperacion
+    public class Lapping : GenericOperation, IOperacion, IObserverDiametro, IObserverThickness
     {
         #region Properties
 
         #region Properties of IOperacion
+        
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -247,6 +248,16 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
         public void UpdateState(ISubjectThickness sender, double MaterialRemoverAfterOperacion, double ThicknessAfterOperacion)
         {
             Thickness = ThicknessAfterOperacion + MaterialRemoverAfterOperacion;
+        }
+
+        /// <summary>
+        /// Método que establece la cantidad de material a remover/agregar en la operación.
+        /// </summary>
+        /// <param name="operaciones"></param>
+        /// <param name="posOperacion"></param>
+        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion)
+        {
+
         }
         #endregion 
 

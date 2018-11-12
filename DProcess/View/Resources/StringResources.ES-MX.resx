@@ -1589,6 +1589,14 @@
     <value>Por favor espere, estamos trabajando.</value>
     <comment>Título para mensaje de estamos trabajando.</comment>
   </data>
+  <data name="lblMilimetros" xml:space="preserve">
+    <value>Milimetros(mm)</value>
+    <comment>Label para Milimetros</comment>
+  </data>
+  <data name="lblPulgadas" xml:space="preserve">
+    <value>Pulgadas(in)</value>
+    <comment>Label para pulgadas</comment>
+  </data>
   <data name="lblAnterior" xml:space="preserve">
     <value>Anterior</value>
   </data>
@@ -1603,5 +1611,9 @@
   </data>
   <data name="lblInstruccionesLeccion" xml:space="preserve">
     <value>Puedes agregar 1 ó mas archivos al registro de la leccion aprendida</value>
+  </data>
+  <data name="lblUbicacion" xml:space="preserve">
+    <value>Ubicación</value>
+    <comment>Título para ubicación.</comment>
   </data>
 </root>

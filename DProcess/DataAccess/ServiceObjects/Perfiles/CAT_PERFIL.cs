@@ -19,8 +19,8 @@ namespace DataAccess.ServiceObjects.Perfiles
         {
             this.TR_PROPIEDAD_BOOL_PERFIL = new HashSet<TR_PROPIEDAD_BOOL_PERFIL>();
             this.TR_PROPIEDAD_CADENA_PERFIL = new HashSet<TR_PROPIEDAD_CADENA_PERFIL>();
-            this.TR_PROPIEDAD_PERFIL = new HashSet<TR_PROPIEDAD_PERFIL>();
             this.TR_PERFIL_ARQUETIPO = new HashSet<TR_PERFIL_ARQUETIPO>();
+            this.TR_PROPIEDAD_PERFIL = new HashSet<TR_PROPIEDAD_PERFIL>();
         }
     
         public int ID_PERFIL { get; set; }
@@ -39,8 +39,8 @@ namespace DataAccess.ServiceObjects.Perfiles
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TR_PROPIEDAD_CADENA_PERFIL> TR_PROPIEDAD_CADENA_PERFIL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TR_PROPIEDAD_PERFIL> TR_PROPIEDAD_PERFIL { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TR_PERFIL_ARQUETIPO> TR_PERFIL_ARQUETIPO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TR_PROPIEDAD_PERFIL> TR_PROPIEDAD_PERFIL { get; set; }
     }
 }

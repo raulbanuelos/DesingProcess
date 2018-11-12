@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 
 namespace View.Services.Operaciones.Gasolina.Miscelaneos
 {
-    public class Molibdenum : IOperacion
+    public class Molibdenum : GenericOperation,  IOperacion
     {
         #region Properties
 
         #region Propiedades de IOperacion
+        
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>

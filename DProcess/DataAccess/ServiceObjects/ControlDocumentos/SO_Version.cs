@@ -47,6 +47,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
+        
         /// <summary>
         /// 
         /// </summary>
@@ -76,6 +77,55 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             {
                 //Si hay algún error, se retorna un nulo.
                 return 0;
+            }
+        }
+
+        public int GetVersionDocumento(string nombreDocumento, string noVersion)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    int idVersion = (from a in Conexion.TBL_VERSION
+                                     join b in Conexion.TBL_DOCUMENTO on a.ID_DOCUMENTO equals b.ID_DOCUMENTO
+                                     where b.NOMBRE == nombreDocumento && a.No_VERSION == noVersion
+                                     select a.ID_VERSION).First();
+
+                    return idVersion;
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que rechaza una  versión y además actualiza la fecha de la versión por la de ahora.
+        /// </summary>
+        /// <param name="idVersion"></param>
+        /// <returns></returns>
+        public int SetRechazarDocumento(int idVersion)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    TBL_VERSION version = Conexion.TBL_VERSION.Where(x => x.ID_VERSION == idVersion).FirstOrDefault();
+
+                    version.FECHA_VERSION = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                    
+                    version.ID_ESTATUS_VERSION = 4;
+
+                    Conexion.Entry(version).State = EntityState.Modified;
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
 

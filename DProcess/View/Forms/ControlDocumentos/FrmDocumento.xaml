@@ -250,6 +250,7 @@
                                       ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                          CanUserAddRows="False"
                                       Height="200"
                               Grid.Row="0" AutoGenerateColumns="False">
                                     <DataGrid.Columns>

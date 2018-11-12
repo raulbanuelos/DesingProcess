@@ -5,11 +5,12 @@ using System.Collections.ObjectModel;
 
 namespace View.Services.Operaciones.Gasolina.Miscelaneos
 {
-    public class GrindChannelNorton : IOperacion
+    public class GrindChannelNorton : GenericOperation, IOperacion
     {
         #region Properties
 
         #region Propiedades de IOperacion
+        
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>

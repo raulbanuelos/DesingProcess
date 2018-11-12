@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:View.Forms.UserControls"
              mc:Ignorable="d" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             d:DesignHeight="30" d:DesignWidth="130">
+             d:DesignHeight="30" d:DesignWidth="170">
     <Grid>
         <StackPanel Orientation="Horizontal">
-            <TextBox materialDesign:HintAssist.Hint="{Binding TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="110" Text="{Binding Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+            <TextBox materialDesign:HintAssist.Hint="{Binding TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="150" Text="{Binding Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
             <Button Width="10" Height="10" Command="{Binding VerUnidades}"></Button>
         </StackPanel>
     </Grid>

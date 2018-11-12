@@ -5,11 +5,12 @@ using System.Collections.ObjectModel;
 
 namespace View.Services.Operaciones.Gasolina
 {
-    public class DegreaseRings : IOperacion
+    public class DegreaseRings : GenericOperation, IOperacion
     {
         #region Properties
 
         #region Propiedades de IOperacion
+        
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -79,7 +80,7 @@ namespace View.Services.Operaciones.Gasolina
         /// Booleano que representa si una operación esta en ejecucioón(Ejecutando el métod CrearOperacion())
         /// </summary>
         public bool IsWorking { get; set; }
-
+        
         /// <summary>
         /// Collección que representa la lista de herramentales de la operación.
         /// </summary>

@@ -1096,6 +1096,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Milimeter (mm).
+        /// </summary>
+        public static string lblMilimetros {
+            get {
+                return ResourceManager.GetString("lblMilimetros", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Modify.
         /// </summary>
         public static string lblModificar {
@@ -1375,6 +1384,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Inch (in).
+        /// </summary>
+        public static string lblPulgadas {
+            get {
+                return ResourceManager.GetString("lblPulgadas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Remove Relation.
         /// </summary>
         public static string lblQuitarRelacion {
@@ -1569,6 +1587,15 @@ namespace View.Resources {
         public static string lblTxtUserName {
             get {
                 return ResourceManager.GetString("lblTxtUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Location.
+        /// </summary>
+        public static string lblUbicacion {
+            get {
+                return ResourceManager.GetString("lblUbicacion", resourceCulture);
             }
         }
         

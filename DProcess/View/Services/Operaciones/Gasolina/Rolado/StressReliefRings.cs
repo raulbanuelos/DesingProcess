@@ -6,9 +6,11 @@ using View.Services.TiempoEstandar.Gasolina.Rolado;
 
 namespace View.Services.Operaciones.Gasolina.Rolado
 {
-    public class StressReliefRings : IOperacion
+    public class StressReliefRings : GenericOperation, IOperacion
     {
+        #region Properties
         #region Propiedades de IOperacion
+        
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -116,6 +118,7 @@ namespace View.Services.Operaciones.Gasolina.Rolado
         /// Anillo que representa el plano ingresado por el usuario.
         /// </summary>
         public Anillo elPlano { get; set; }
+        #endregion 
         #endregion
 
         #region Métodos de IOperacion

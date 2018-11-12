@@ -1603,7 +1603,16 @@
   <data name="lblUsuarioPermitido" xml:space="preserve">
     <value>Please, select the user who authorized your document</value>
   </data>
-  <data name="lblInstruccionesLeccion" xml:space="preserve">
-    <value>You can add 1 o more files to record of lesson learned</value>
+  <data name="lblMilimetros" xml:space="preserve">
+    <value>Milimeter (mm)</value>
+    <comment>Label para Milimetros</comment>
+  </data>
+  <data name="lblPulgadas" xml:space="preserve">
+    <value>Inch (in)</value>
+    <comment>Label para pulgadas</comment>
+  </data>
+  <data name="lblUbicacion" xml:space="preserve">
+    <value>Location</value>
+    <comment>Título para ubicación</comment>
   </data>
 </root>

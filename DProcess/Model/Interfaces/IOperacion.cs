@@ -70,6 +70,21 @@ namespace Model.Interfaces
         bool IsWorking { get; set; }
 
         /// <summary>
+        /// Propiedad que indica si la clase implementa la interfaz IObserverDiametro.
+        /// </summary>
+        bool IsObservableDiametro { get;}
+
+        /// <summary>
+        /// Propiedad que indica si la clase implementa la interfaz IObserverWidth.
+        /// </summary>
+        bool IsObservableWidth { get;}
+
+        /// <summary>
+        /// Propiedad que indica si la clase implementa la interfaz IObserverThickness.
+        /// </summary>
+        bool IsObservableThickness { get;}
+
+        /// <summary>
         /// Colección de herramentales que representan los herramentales que si se encuentran codificados en sistema ERP.
         /// </summary>
         ObservableCollection<Herramental> ListaHerramentales { get; set; }

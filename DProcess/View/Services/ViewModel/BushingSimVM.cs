@@ -1,6 +1,7 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
@@ -145,8 +146,10 @@ namespace View.Services.ViewModel
             //Si los campos son difrentes de nulo o cero.
             if (Diam != 0)
             {
+                ObservableCollection<Herramental> Lista = new ObservableCollection<Herramental>();
+
                 //Obtenemos la lista de los herramentales optimos.
-                ListaOptimos = DataManager.GetBushingSim(Diam);
+                ListaOptimos = DataManager.GetBushingSim(Diam, out Lista);
                 //Obtenemos la lista del mejor herramental.
 
                 ListaMejores = DataManager.SelectBest_BushingSim(ListaOptimos);

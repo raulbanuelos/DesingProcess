@@ -5,11 +5,12 @@ using System.Collections.ObjectModel;
 
 namespace View.Services.Operaciones.Gasolina.Recubrimientos
 {
-    public class Phosphate : IOperacion, IObserverWidth
+    public class Phosphate : GenericOperation, IOperacion, IObserverWidth
     {
         #region Propiedades
 
         #region Propiedades de IOperacion
+        
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -187,6 +188,22 @@ namespace View.Services.Operaciones.Gasolina.Recubrimientos
             WidthOperacion = WidthAfterOperacion + MaterialRemoverAfterOperacion;
         }
 
+        /// <summary>
+        /// Método que establece que cantidad de material a remover va tener la operación.
+        /// </summary>
+        /// <param name="operaciones"></param>
+        /// <param name="posOperacion"></param>
+        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion)
+        {
+            if (elPlano.Treatment == "MANGANESE PHOSPHATE")
+                MatRemoverWidth = -0.0005;
+            else
+                if (elPlano.Treatment == "ZINC PHOSPHATE")
+                MatRemoverWidth = 0;
+            else
+
+                MatRemoverWidth = 0;
+        }
         #endregion
 
         #region Methods override
@@ -207,11 +224,13 @@ namespace View.Services.Operaciones.Gasolina.Recubrimientos
             CentroTrabajo = "750";
             ControlKey = "MA42";
             elPlano = plano;
+            
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
             AlertasOperacion = new ObservableCollection<string>();
             NotasOperacion = new ObservableCollection<string>();
+
         } 
         #endregion
     }

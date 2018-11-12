@@ -37,6 +37,36 @@ namespace DataAccess.ServiceObjects.Perfiles
             }
         }
 
+        public IList GetAllPerfiles(string tipoPerfil)
+        {
+            try
+            {
+                //Establecemos la conexión a la base de datos a través de Entity Framework.
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    //Realizamos la consulta, el resultado lo guardamos en una variable anónima.
+                    var lista = (from a in Conexion.CAT_PERFIL
+                                 join b in Conexion.CAT_TIPO_PERFIL on a.ID_TIPO_PERFIL equals b.ID_TIPO_PERFIL
+                                 where b.PERFIL == tipoPerfil
+                                 select new {
+                                     a.ID_PERFIL,
+                                     a.NOMBRE,
+                                     a.DESCRIPCION,
+                                     a.IMAGEN,
+                                     b.PERFIL
+                                 }).ToList();
+
+                    //Retornamos el resultado de la consulta.
+                    return lista;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si se genero algún error, retornamos un null.
+                return null;
+            }
+        }
+
         public Task<int> SetPerfil(int idTipoPerfil, string Nombre, string Descripcion, byte[] imagen, int idUsuarioCreacion)
         {
             return Task.Run(() =>
@@ -66,5 +96,84 @@ namespace DataAccess.ServiceObjects.Perfiles
                 }
             });
         }
+
+        public int SetPerfilArquetipo(string codigo, int idPerfil)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    TR_PERFIL_ARQUETIPO tr = new TR_PERFIL_ARQUETIPO();
+
+                    tr.CODIGO = codigo;
+                    tr.ID_PERFIL = idPerfil;
+
+                    Conexion.TR_PERFIL_ARQUETIPO.Add(tr);
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene el perfil.
+        /// </summary>
+        /// <param name="idPerfil"></param>
+        /// <returns></returns>
+        public IList GetPerfilByID(int idPerfil)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    var Lista = (from a in Conexion.CAT_PERFIL
+                                 join b in Conexion.CAT_TIPO_PERFIL on a.ID_TIPO_PERFIL equals b.ID_TIPO_PERFIL
+                                 where a.ID_PERFIL == idPerfil
+                                 select new {
+                                     a.ID_PERFIL,
+                                     a.NOMBRE,
+                                     a.DESCRIPCION,
+                                     a.IMAGEN,
+                                     b.PERFIL
+                                 }).ToList();
+
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene los perfiles que tiene guardados un componente.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetPerfilesComponente(string codigo)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    var lista = (from a in Conexion.TR_PERFIL_ARQUETIPO
+                                 where a.CODIGO == codigo
+                                 select a).ToList();
+
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+
     }
 }

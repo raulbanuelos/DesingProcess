@@ -10,9 +10,11 @@ using View.Services.TiempoEstandar.Gasolina.PreMaquinado;
 
 namespace View.Services.Operaciones.Gasolina.PreMaquinado
 {
-    public class VisualInspectPremGasoline : IOperacion
+    public class VisualInspectPremGasoline : GenericOperation, IOperacion
     {
+        #region Properties
         #region Propiedades de IOperacion
+        
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -120,6 +122,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         /// Anillo que representa el plano ingresado por el usuario.
         /// </summary>
         public Anillo elPlano { get; set; }
+        #endregion 
         #endregion
 
         #region Constructors

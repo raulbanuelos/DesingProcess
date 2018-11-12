@@ -1,6 +1,8 @@
 ﻿using Model;
+using Model.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using View.Forms.RawMaterial;
 using View.Services.ViewModel;
 
@@ -33,10 +35,12 @@ namespace View.Services
         #endregion
 
         #region Methods
+
+        #region CALCULO PARA MATERIA PRIMA HIERRO GRIS
         public MateriaPrima CalcularPlacaModelo()
         {
             MateriaPrima m = new MateriaPrima();
-            Piece = calculaPiece();
+            Piece = DataManager.calculaPiece(Module.GetValorPropiedadMin("h1", _elAnillo.PerfilLateral.Propiedades, true), Module.GetValorPropiedadMax("h1", _elAnillo.PerfilLateral.Propiedades, true), Module.GetValorPropiedad("CLOSING STRESS", _elAnillo.PerfilOD.Propiedades), FreeGap, _elAnillo);
 
             char ban = calcula_materia_prima();
             bool mayor_a_15 = false;
@@ -45,7 +49,7 @@ namespace View.Services
                 if (Math.Round(FreeGap + .001, 3) <= Math.Round(_elAnillo.FreeGap.Valor + 0.015, 3))
                 {
                     FreeGap = Math.Round(FreeGap + .001, 3);
-                    Piece = calculaPiece();
+                    Piece = DataManager.calculaPiece(Module.GetValorPropiedadMin("h1", _elAnillo.PerfilLateral.Propiedades, true), Module.GetValorPropiedadMax("h1", _elAnillo.PerfilLateral.Propiedades, true), Module.GetValorPropiedad("CLOSING STRESS", _elAnillo.PerfilOD.Propiedades), FreeGap, _elAnillo);
                     ban = calcula_materia_prima();
                 }
                 else
@@ -61,7 +65,7 @@ namespace View.Services
                 if (Math.Round(FreeGap - .001, 3) >= _elAnillo.FreeGap.Valor - .01)
                 {
                     FreeGap = Math.Round(FreeGap - .001, 3);
-                    Piece = calculaPiece();
+                    Piece = DataManager.calculaPiece(Module.GetValorPropiedadMin("h1", _elAnillo.PerfilLateral.Propiedades, true), Module.GetValorPropiedadMax("h1", _elAnillo.PerfilLateral.Propiedades, true), Module.GetValorPropiedad("CLOSING STRESS", _elAnillo.PerfilOD.Propiedades), FreeGap, _elAnillo);
                     ban = calcula_materia_prima();
                 }
                 else
@@ -71,7 +75,7 @@ namespace View.Services
             }
 
             FreeGap = _elAnillo.FreeGap.Valor;
-            Piece = calculaPiece();
+            Piece = DataManager.calculaPiece(Module.GetValorPropiedadMin("h1", _elAnillo.PerfilLateral.Propiedades, true), Module.GetValorPropiedadMax("h1", _elAnillo.PerfilLateral.Propiedades, true), Module.GetValorPropiedad("CLOSING STRESS", _elAnillo.PerfilOD.Propiedades), FreeGap, _elAnillo);
             if (ban == '3')
             {
                 codigoPlacaModelo = "CODIFICAR";
@@ -113,7 +117,7 @@ namespace View.Services
 
             string cam_detail;
 
-            m = DataManager.GetCamTurnConstant(_elAnillo, ringShape,out cam_detail);
+            m = DataManager.GetCamTurnConstant(_elAnillo, ringShape, out cam_detail);
 
             CamTurnConstant = m;
 
@@ -156,7 +160,7 @@ namespace View.Services
 
             min_piece = Math.Round(l - p, 3);
             max_piece = Math.Round(p + (1 * l), 3);
-            
+
             return busca_materia_prima(diameter, stock_thick, min_piece, max_piece, piece_, a4, m);
 
         }
@@ -176,7 +180,7 @@ namespace View.Services
 
             foreach (string element in ListaProbablesPlacas)
             {
-                if (DataManager.aprobarPlacaModelo(element, diameter, piece_, 0, 0, stock_thick, min_piece, max_piece, a4, widthAnillo, proceso,out resultsAprobar))
+                if (DataManager.aprobarPlacaModelo(element, diameter, piece_, 0, 0, stock_thick, min_piece, max_piece, a4, widthAnillo, proceso, out resultsAprobar))
                 {
                     placasAprobadas.Add(element);
                 }
@@ -237,44 +241,117 @@ namespace View.Services
             double r = .80;
             return r;
         }
-        
+
         /// <summary>
         /// Método para calcular el Piece.
         /// </summary>
         /// <returns></returns>
-        private double calculaPiece()
+        //private double calculaPiece()
+        //{
+        //    double _piece = 0;
+        //    double widthMin = Module.GetValorPropiedadMin("h1", _elAnillo.PerfilLateral.Propiedades,true);
+        //    double widthMax = Module.GetValorPropiedadMax("h1", _elAnillo.PerfilLateral.Propiedades, true);
+
+        //    double promedioWidth = (widthMin + widthMax) / 2;
+
+        //    double closingStress = Module.GetValorPropiedad("CLOSING STRESS", _elAnillo.PerfilOD.Propiedades); //Verificar como se llama la propiedad en el archivo RDCT.
+
+        //    if ((closingStress <= 30000) && (promedioWidth > 0.035) && (promedioWidth < 0.07))
+        //    {
+        //        _piece = FreeGap / 0.96;
+        //    }
+        //    else if ((closingStress >= 30000) && (promedioWidth > 0.035) && (promedioWidth < 0.070))
+        //    {
+        //        _piece = FreeGap / .945;
+        //    }
+        //    else if ((closingStress <= 30000) && (promedioWidth > .0701) && (promedioWidth <= 0.090))
+        //    {
+        //        _piece = FreeGap / .935;
+        //    }
+        //    else if ((closingStress >= 30000) && (promedioWidth > 0.0701) && (promedioWidth < 0.090))
+        //    {
+        //        _piece = FreeGap / .925;
+        //    }
+        //    else if ((promedioWidth > 0.901))
+        //    {
+        //        _piece = FreeGap / .86;
+        //    }
+
+        //    return DataManager.GetCompensacionPiece(_elAnillo, _piece);
+        //} 
+        #endregion
+
+        public List<MateriaPrimaRolado> CalcularAceroAlCarbon()
         {
-            double _piece = 0;
-            double widthMin = Module.GetValorPropiedadMin("h1", _elAnillo.PerfilLateral.Propiedades,true);
-            double widthMax = Module.GetValorPropiedadMax("h1", _elAnillo.PerfilLateral.Propiedades, true);
+            MateriaPrima acero = new MateriaPrima();
 
-            double promedioWidth = (widthMin + widthMax) / 2;
+            //double a1Max = Module.GetValorPropiedadMax("a1", _elAnillo.PerfilID.Propiedades, false);
+            Propiedad a1Max = Module.GetPropiedad("a1", _elAnillo.PerfilID.Propiedades, "Max");
+            a1Max.Valor = Module.ConvertTo("Distance", a1Max.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), a1Max.Valor);
+            a1Max.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter);
 
-            double closingStress = Module.GetValorPropiedad("CLOSING STRESS", _elAnillo.PerfilOD.Propiedades); //Verificar como se llama la propiedad en el archivo RDCT.
 
-            if ((closingStress <= 30000) && (promedioWidth > 0.035) && (promedioWidth < 0.07))
+            //double a1Min = Module.GetValorPropiedadMin("a1", _elAnillo.PerfilID.Propiedades, false);
+            Propiedad a1Min = Module.GetPropiedad("a1", _elAnillo.PerfilID.Propiedades, "Min");
+            a1Min.Valor = Module.ConvertTo("Distance", a1Min.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), a1Min.Valor);
+            a1Min.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter);
+
+            //double h1Max = Module.GetValorPropiedadMax("h1", _elAnillo.PerfilLateral.Propiedades, false);
+            Propiedad h1Max = Module.GetPropiedad("h1", _elAnillo.PerfilLateral.Propiedades, "Max");
+            h1Max.Valor = Module.ConvertTo("Distance", h1Max.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), h1Max.Valor);
+            h1Max.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter);
+
+
+            //double h1Min = Module.GetValorPropiedadMin("h1", _elAnillo.PerfilLateral.Propiedades, false);
+            Propiedad h1Min = Module.GetPropiedad("h1", _elAnillo.PerfilLateral.Propiedades, "Min");
+            h1Min.Valor = Module.ConvertTo("Distance", h1Min.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), h1Min.Valor);
+            h1Min.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter);
+
+            ObservableCollection<IOperacion> Operaciones = _elAnillo.Operaciones;
+
+            //h1Max = Module.ConvertTo()
+
+            double matRemoverWidth = Module.GetMaterialRemoverWidth(Operaciones);
+            double matRemoverWidthInch = matRemoverWidth;
+            matRemoverWidth = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), matRemoverWidth);
+
+            double matRemoverThickness = Module.GetMaterialRemoverThickness(Operaciones);
+            double matRemoverThicknessInch = matRemoverThickness;
+            matRemoverThickness = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), matRemoverThickness);
+            
+            List<MateriaPrimaRolado> ListaMateriaPrimaDisponible =  DataManager.GetMateriaPrimaRolado(h1Min.Valor,h1Max.Valor,a1Min.Valor,a1Max.Valor, _elAnillo.MaterialBase.Especificacion,matRemoverWidth,matRemoverThickness);
+            if (ListaMateriaPrimaDisponible.Count == 0)
             {
-                _piece = FreeGap / 0.96;
-            }
-            else if ((closingStress >= 30000) && (promedioWidth > 0.035) && (promedioWidth < 0.070))
-            {
-                _piece = FreeGap / .945;
-            }
-            else if ((closingStress <= 30000) && (promedioWidth > .0701) && (promedioWidth <= 0.090))
-            {
-                _piece = FreeGap / .935;
-            }
-            else if ((closingStress >= 30000) && (promedioWidth > 0.0701) && (promedioWidth < 0.090))
-            {
-                _piece = FreeGap / .925;
-            }
-            else if ((promedioWidth > 0.901))
-            {
-                _piece = FreeGap / .86;
+                double h1MinInch = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), h1Min.Valor);
+                double h1MaxInch = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), h1Max.Valor);
+                double mediaWidth = Math.Round(((h1MinInch + h1MaxInch) / 2),5);
+
+                double thicknessMinInch = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), a1Min.Valor);
+                double thicknessMaxInch = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), a1Max.Valor);
+                double mediaThickness = Math.Round(((thicknessMaxInch + thicknessMinInch) / 2), 5);
+
+                string descripcionMPIdeal = "Width Anillo:  " + mediaWidth + " " + EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+                descripcionMPIdeal += "\nThickness Anillo:   " + mediaThickness + " " + EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+                descripcionMPIdeal += "\nMaterial a remover durante el proceso (Width): " + matRemoverWidthInch + " " + EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+                descripcionMPIdeal += "\nMaterial a remover durante el proceso(Thcikness)" + matRemoverThicknessInch + " " + EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+
+                double widthIdealMP = mediaWidth + matRemoverWidthInch;
+                double thicknessIdealMP = mediaThickness + matRemoverThicknessInch;
+                descripcionMPIdeal += "\nWidth ideal MP: " + widthIdealMP;
+                descripcionMPIdeal += "\nThickness ideal MP: " + thicknessIdealMP;
+
+                MateriaPrimaRolado mpIdeal = new MateriaPrimaRolado { Codigo = "Codificar", DescripcionGeneral = "Width: " + widthIdealMP + " Thickness: " + thicknessIdealMP , _Width = mediaWidth + matRemoverWidthInch, Thickness = mediaThickness + matRemoverThicknessInch, Especificacion = _elAnillo.MaterialBase.Especificacion, Encontrado = false };
+
+                
+
+                ListaMateriaPrimaDisponible.Add(mpIdeal);
             }
 
-            return DataManager.GetCompensacionPiece(_elAnillo, _piece);
+            return ListaMateriaPrimaDisponible;
+
+
         }
+
         #endregion
     }
 }
