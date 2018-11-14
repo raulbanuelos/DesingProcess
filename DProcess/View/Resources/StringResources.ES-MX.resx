@@ -1616,4 +1616,13 @@
     <value>Ubicación</value>
     <comment>Título para ubicación.</comment>
   </data>
+  <data name="lblRechazarDocumentosViejos" xml:space="preserve">
+    <value>Rechazar documentos viejos</value>
+  </data>
+  <data name="ttlDocumentosNoEntregados" xml:space="preserve">
+    <value>Lista de los documentos no entregados</value>
+  </data>
+  <data name="ttlFechaLimiteEntrega" xml:space="preserve">
+    <value>Fecha límite de entrega</value>
+  </data>
 </root>

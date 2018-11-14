@@ -1033,7 +1033,7 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a You can add 1 o more files to record of lesson learned.
+        ///   Busca una cadena traducida similar a You can add 1 o more files .
         /// </summary>
         public static string lblInstruccionesLeccion {
             get {
@@ -1398,6 +1398,15 @@ namespace View.Resources {
         public static string lblQuitarRelacion {
             get {
                 return ResourceManager.GetString("lblQuitarRelacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Reject old documents.
+        /// </summary>
+        public static string lblRechazarDocumentosViejos {
+            get {
+                return ResourceManager.GetString("lblRechazarDocumentosViejos", resourceCulture);
             }
         }
         
@@ -3274,6 +3283,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a List of documents not delivered.
+        /// </summary>
+        public static string ttlDocumentosNoEntregados {
+            get {
+                return ResourceManager.GetString("ttlDocumentosNoEntregados", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Similar Documents.
         /// </summary>
         public static string ttlDocumentosSimilares {
@@ -3315,6 +3333,15 @@ namespace View.Resources {
         public static string ttlEspereUnMomento {
             get {
                 return ResourceManager.GetString("ttlEspereUnMomento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delivery deadline.
+        /// </summary>
+        public static string ttlFechaLimiteEntrega {
+            get {
+                return ResourceManager.GetString("ttlFechaLimiteEntrega", resourceCulture);
             }
         }
         

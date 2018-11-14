@@ -2446,10 +2446,10 @@ namespace Model.ControlDocumentos
         /// Método que obtiene la lista de documentos que ya fueron aprobados y no han sido entregados desde hace dos dias.
         /// </summary>
         /// <returns></returns>
-        public static List<DO_DocumentosRechazados> GetDocumentosAprobadosNoRecibidos()
+        public static ObservableCollection<DO_DocumentosRechazados> GetDocumentosAprobadosNoRecibidos()
         {
             //Declaramos una lista la cual contendrá  los documentos y será la que retornemos en el métod.
-            List<DO_DocumentosRechazados> ListaDocumentos = new List<DO_DocumentosRechazados>();
+            ObservableCollection<DO_DocumentosRechazados> ListaDocumentos = new ObservableCollection<DO_DocumentosRechazados>();
 
             //Inicializamos los servicios del historial de documentos.
             SO_HistorialVersion ServiceHistorial = new SO_HistorialVersion();

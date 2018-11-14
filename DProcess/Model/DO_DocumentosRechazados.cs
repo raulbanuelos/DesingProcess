@@ -13,5 +13,6 @@ namespace Model
         public string DuenoDocumento { get; set; }
         public string Correo { get; set; }
         public string Fecha { get; set; }
+        public bool IsSelected { get; set; }
     }
 }

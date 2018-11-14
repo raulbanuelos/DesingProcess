@@ -1615,4 +1615,16 @@
     <value>Location</value>
     <comment>Título para ubicación</comment>
   </data>
+  <data name="lblInstruccionesLeccion" xml:space="preserve">
+    <value>You can add 1 o more files</value>
+  </data>
+  <data name="lblRechazarDocumentosViejos" xml:space="preserve">
+    <value>Reject old documents</value>
+  </data>
+  <data name="ttlDocumentosNoEntregados" xml:space="preserve">
+    <value>List of documents not delivered</value>
+  </data>
+  <data name="ttlFechaLimiteEntrega" xml:space="preserve">
+    <value>Delivery deadline</value>
+  </data>
 </root>

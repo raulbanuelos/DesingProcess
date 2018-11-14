@@ -13,6 +13,7 @@ using View.Forms.LeccionesAprendidas;
 using View.Resources;
 using MahApps.Metro.Controls;
 using MahApps.Metro.IconPacks;
+using System.Collections.Generic;
 
 namespace View.Services.ViewModel
 {
@@ -495,7 +496,16 @@ namespace View.Services.ViewModel
             }
         }
 
-
+        /// <summary>
+        /// Comando para rechazar los documentos que tengan mas de dos dias y esten en pendiente por liberar
+        /// </summary>
+        public ICommand RechazarDocumentosAntiguos
+        {
+            get
+            {
+                return new RelayCommand(a => SetDocumentsRejected());
+            }
+        }
         #endregion
 
         #region Methods
@@ -1100,7 +1110,20 @@ namespace View.Services.ViewModel
         private void GetDataGrid(string TextoBusqueda)
         {
             Lista = DataManagerControlDocumentos.GetDataGrid(SelectedTipoDocumento.id_tipo, TextoBusqueda);
-        } 
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los documentos que tengan mas de dos dias y esten en pendientes por liberar
+        /// para modificar el estatus del documento a pendiente por corregir
+        /// </summary>
+        private void SetDocumentsRejected()
+        {         
+            FrmDocumentosNoEntregados Frm = new FrmDocumentosNoEntregados();
+            DocumentosNoEntregadosViewModel Context = new DocumentosNoEntregadosViewModel();
+
+            Frm.DataContext = Context;
+            Frm.ShowDialog();
+        }
 
         /// <summary>
         /// Método para generar el Hamburger menú
@@ -1224,6 +1247,14 @@ namespace View.Services.ViewModel
                         Tag = StringResources.lblDocumentosEliminados,
                     }
                     );
+                //Rechazar documentos que tengan mas de dos dias
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem() {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.DeleteRestore},
+                        Label = StringResources.lblRechazarDocumentosViejos,
+                        Command = RechazarDocumentosAntiguos,
+                        Tag = StringResources.lblRechazarDocumentosViejos,
+                    });
             }
             else
             {

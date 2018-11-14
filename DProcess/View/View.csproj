@@ -215,6 +215,9 @@
     <Compile Include="Forms\ControlDocumentos\FrmDocumento.xaml.cs">
       <DependentUpon>FrmDocumento.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmDocumentosNoEntregados.xaml.cs">
+      <DependentUpon>FrmDocumentosNoEntregados.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmDocumentosValidar.xaml.cs">
       <DependentUpon>FrmDocumentosValidar.xaml</DependentUpon>
     </Compile>
@@ -746,6 +749,7 @@
     <Compile Include="Services\ViewModel\CutterSplitterVM.cs" />
     <Compile Include="Services\ViewModel\DibujaPlacaViewModel.cs" />
     <Compile Include="Services\ViewModel\DimensionsViewModel.cs" />
+    <Compile Include="Services\ViewModel\DocumentosNoEntregadosViewModel.cs" />
     <Compile Include="Services\ViewModel\DocumentosPendientesViewM.cs" />
     <Compile Include="Services\ViewModel\DocumentosVencidosVM.cs" />
     <Compile Include="Services\ViewModel\Documentos_SimilaresVM.cs" />
@@ -873,6 +877,10 @@
     <Page Include="Forms\ControlDocumentos\FrmDocumento.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmDocumentosNoEntregados.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmDocumentosValidar.xaml">
       <SubType>Designer</SubType>
