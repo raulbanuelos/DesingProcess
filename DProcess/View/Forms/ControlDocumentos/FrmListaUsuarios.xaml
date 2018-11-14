@@ -27,7 +27,7 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Column="1" Grid.Row="0" Content="{x:Static recursos:StringResources.lblListaUsuariosDisponibles}" VerticalAlignment="Bottom"></Label>
-        
+
         <DataGrid Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Path=ListaUsuariosCorreo}" 
                                       ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 

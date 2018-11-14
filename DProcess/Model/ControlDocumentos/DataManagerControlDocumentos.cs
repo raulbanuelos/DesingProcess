@@ -2496,7 +2496,15 @@ namespace Model.ControlDocumentos
                         documentoRechazado.NoVersion = documento.version.no_version;
                         documentoRechazado.Correo = duenoDocumento.Correo;
                         documentoRechazado.DuenoDocumento = duenoDocumento.NombreUsuario;
-                        documentoRechazado.Fecha = fechaCompromisoEntrega.Year + "-" + fechaCompromisoEntrega.Month + "-" + fechaCompromisoEntrega.Day;
+                        string hora = fechaCompromisoEntrega.Hour.ToString();
+                        if (fechaCompromisoEntrega.Hour.ToString().Length == 1)
+                            hora = "0" + fechaCompromisoEntrega.Hour;
+
+                        string minuto = fechaCompromisoEntrega.Minute.ToString();
+                        if (fechaCompromisoEntrega.Minute.ToString().Length == 1)
+                            minuto = "0" + fechaCompromisoEntrega.Minute;
+
+                        documentoRechazado.Fecha = fechaCompromisoEntrega.Year + "-" + fechaCompromisoEntrega.Month + "-" + fechaCompromisoEntrega.Day + "  " + hora + ":" + minuto;
                         ListaDocumentos.Add(documentoRechazado);
 
                     }
