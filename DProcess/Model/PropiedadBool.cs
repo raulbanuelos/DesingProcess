@@ -3,6 +3,12 @@
     public class PropiedadBool
     {
         #region Propiedades
+
+        /// <summary>
+        /// Entero que representa el id de la propiedad.
+        /// </summary>
+        public int idPropiedad { get; set; }
+
         /// <summary>
         /// Cadena que representa el nombre de la propiedad.
         /// </summary>

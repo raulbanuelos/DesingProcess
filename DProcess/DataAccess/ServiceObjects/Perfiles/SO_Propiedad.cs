@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.ServiceObjects.Perfiles
 {
@@ -65,6 +63,59 @@ namespace DataAccess.ServiceObjects.Perfiles
             }
         }
 
+        /// <summary>
+        /// Método que obtiene todas las propiedades cadena a partir de un perfil.
+        /// </summary>
+        /// <param name="idPerfil"></param>
+        /// <returns></returns>
+        public IList GetPropiedadesCadenaByPerfil(int idPerfil)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    var Lista = (from a in Conexion.CAT_PROPIEDAD_CADENA
+                                 join b in Conexion.TR_PROPIEDAD_CADENA_PERFIL on a.ID_PROPIEDAD_CADENA equals b.ID_PROPIEDAD_CADENA
+                                 join c in Conexion.CAT_PERFIL on b.ID_PERFIL equals c.ID_PERFIL
+                                 where c.ID_PERFIL == idPerfil
+                                 select a).ToList();
+
+                    return Lista;
+                                 
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene todas las propiedades boolean a partir de un perfil.
+        /// </summary>
+        /// <param name="idPerfil"></param>
+        /// <returns></returns>
+        public IList GetPropiedadesBoolByPerfil(int idPerfil)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    var Lista = (from a in Conexion.CAT_PROPIEDAD_BOOL
+                                 join b in Conexion.TR_PROPIEDAD_BOOL_PERFIL on a.ID_PROPIEDAD_BOOL equals b.ID_PROPIEDAD_BOOL
+                                 join c in Conexion.CAT_PERFIL on b.ID_PERFIL equals c.ID_PERFIL
+                                 where c.ID_PERFIL == idPerfil
+                                 select a).ToList();
+
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public int InsertArquetipoPropiedades(string codigo, int idPropiedad, string unidad, double valor)
         {
             try
@@ -78,6 +129,28 @@ namespace DataAccess.ServiceObjects.Perfiles
                     obj.VALOR = valor;
 
                     Conexion.TBL_ARQUETIPO_PROPIEDADES.Add(obj);
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        public int UpdateArquetipoPropiedades(string codigo, int idPropiedad, string unidad, double valor)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    TBL_ARQUETIPO_PROPIEDADES obj = Conexion.TBL_ARQUETIPO_PROPIEDADES.Where(x => x.CODIGO == codigo && x.ID_PROPIEDAD == idPropiedad).FirstOrDefault();
+
+                    obj.UNIDAD = unidad;
+                    obj.VALOR = valor;
+
+                    Conexion.Entry(obj).State = EntityState.Modified;
 
                     return Conexion.SaveChanges();
                 }
@@ -110,6 +183,27 @@ namespace DataAccess.ServiceObjects.Perfiles
             }
         }
 
+        public int UpdateArquetipoPropiedadesCadena(string codigo, int idPropiedad, string valor)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    TBL_ARQUETIPO_PROPIEDADES_CADENA obj = Conexion.TBL_ARQUETIPO_PROPIEDADES_CADENA.Where(x => x.CODIGO == codigo && x.ID_PROPIEDAD_CADENA == idPropiedad).FirstOrDefault();
+
+                    obj.VALOR = valor;
+
+                    Conexion.Entry(obj).State = EntityState.Modified;
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
         public int InsertArquetipoPropiedadesBool(string codigo, int idPropiedad, bool valor)
         {
             try
@@ -122,6 +216,27 @@ namespace DataAccess.ServiceObjects.Perfiles
                     obj.VALOR = valor;
 
                     Conexion.TBL_ARQUETIPO_PROPIEDADES_BOOL.Add(obj);
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        } 
+
+        public int UpdateArquetipoPropiedadesBool(string codigo, int idPropiedad, bool valor)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    TBL_ARQUETIPO_PROPIEDADES_BOOL obj = Conexion.TBL_ARQUETIPO_PROPIEDADES_BOOL.Where(x => x.CODIGO == codigo && x.ID_PROPIEDAD_BOOL == idPropiedad).FirstOrDefault();
+
+                    obj.VALOR = valor;
+
+                    Conexion.Entry(obj).State = EntityState.Modified;
 
                     return Conexion.SaveChanges();
                 }

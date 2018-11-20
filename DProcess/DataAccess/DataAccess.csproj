@@ -234,7 +234,11 @@
     <Compile Include="ServiceObjects\Notificaciones\TBL_NOTIFICACIONES.cs">
       <DependentUpon>ModelNotificaciones.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Perfiles\ArquetipoRings.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Perfiles\SO_Arquetipo.cs" />
+    <Compile Include="ServiceObjects\Perfiles\SO_ArquetipoRings.cs" />
     <Compile Include="ServiceObjects\Tooling\BushingBatesBore_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>

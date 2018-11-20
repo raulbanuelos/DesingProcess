@@ -273,7 +273,7 @@ namespace View.Services.ViewModel
             //initNotifications();
 
             //if (Module.UsuarioIsRol(ModelUsuario.Roles, 2))
-            //    SetDocumentsRejected();
+            //   SetDocumentsRejected();
 
         }
 

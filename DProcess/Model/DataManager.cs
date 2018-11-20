@@ -230,6 +230,201 @@ namespace Model
         #region Arquetipo
 
         /// <summary>
+        /// Método que inserta un registro en la tabla ArquetipoRing.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="d1Valor"></param>
+        /// <param name="d1Unidad"></param>
+        /// <param name="h1Valor"></param>
+        /// <param name="h1Unidad"></param>
+        /// <param name="freeGapValor"></param>
+        /// <param name="freeGapUnidad"></param>
+        /// <param name="massValor"></param>
+        /// <param name="massUnidad"></param>
+        /// <param name="tensionValor"></param>
+        /// <param name="tensionUnidad"></param>
+        /// <param name="tensionTolValor"></param>
+        /// <param name="tensionTolUnidad"></param>
+        /// <param name="noPlano"></param>
+        /// <param name="customerPartNumber"></param>
+        /// <param name="customerRevisionLevel"></param>
+        /// <param name="size1"></param>
+        /// <param name="tipoAnillo"></param>
+        /// <param name="hardness"></param>
+        /// <param name="customerDocNo"></param>
+        /// <param name="treatment"></param>
+        /// <param name="especTreatment"></param>
+        /// <param name="hardnessMin"></param>
+        /// <param name="hardnessMax"></param>
+        /// <param name="especMaterialBase"></param>
+        /// <returns></returns>
+        public static int InsertArquetipoRing(string codigo, double d1Valor, string d1Unidad, double h1Valor, string h1Unidad, double freeGapValor, string freeGapUnidad,
+            double massValor, string massUnidad, double tensionValor, string tensionUnidad, double tensionTolValor, string tensionTolUnidad, string noPlano, string customerPartNumber, string customerRevisionLevel, string size1, string tipoAnillo,
+            string customerDocNo, string treatment, string especTreatment, double hardnessMinValor, string hardnessMinUnidad, double hardnessMaxValor, string hardnessMaxUnidad, string especMaterialBase, 
+            double ovalityMinValor, string ovalityMinUnidad, double ovalityMaxValor, string ovalityMaxUnidad)
+        {
+            SO_ArquetipoRings ServiceArquetipoRing = new SO_ArquetipoRings();
+
+            return ServiceArquetipoRing.Insert(codigo, d1Valor, d1Unidad, h1Valor, h1Unidad, freeGapValor, freeGapUnidad, massValor, massUnidad, tensionValor, tensionUnidad, tensionTolValor, tensionTolUnidad, noPlano, customerPartNumber, customerRevisionLevel, size1, tipoAnillo, customerDocNo, treatment, especTreatment, hardnessMinValor, hardnessMinUnidad, hardnessMaxValor, hardnessMaxUnidad, especMaterialBase,ovalityMinValor,ovalityMinUnidad,ovalityMaxValor,ovalityMaxUnidad);
+        }
+
+        /// <summary>
+        /// Método que actualiza un registro en la tabla ArquetipoRing.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="d1Valor"></param>
+        /// <param name="d1Unidad"></param>
+        /// <param name="h1Valor"></param>
+        /// <param name="h1Unidad"></param>
+        /// <param name="freeGapValor"></param>
+        /// <param name="freeGapUnidad"></param>
+        /// <param name="massValor"></param>
+        /// <param name="massUnidad"></param>
+        /// <param name="tensionValor"></param>
+        /// <param name="tensionUnidad"></param>
+        /// <param name="tensionTolValor"></param>
+        /// <param name="tensionTolUnidad"></param>
+        /// <param name="noPlano"></param>
+        /// <param name="customerPartNumber"></param>
+        /// <param name="customerRevisionLevel"></param>
+        /// <param name="size1"></param>
+        /// <param name="tipoAnillo"></param>
+        /// <param name="hardness"></param>
+        /// <param name="customerDocNo"></param>
+        /// <param name="treatment"></param>
+        /// <param name="especTreatment"></param>
+        /// <param name="hardnessMin"></param>
+        /// <param name="hardnessMax"></param>
+        /// <param name="especMaterialBase"></param>
+        /// <returns></returns>
+        public static int UpdateArquetipoRing(string codigo, double d1Valor, string d1Unidad, double h1Valor, string h1Unidad, double freeGapValor, string freeGapUnidad,
+            double massValor, string massUnidad, double tensionValor, string tensionUnidad, double tensionTolValor, string tensionTolUnidad, string noPlano, string customerPartNumber, string customerRevisionLevel, string size1, string tipoAnillo,
+            string customerDocNo, string treatment, string especTreatment, double hardnessMinValor, string hardnessMinUnidad, double hardnessMaxValor, string hardnessMaxUnidad, string especMaterialBase,
+            double ovalityMinValor, string ovalityMinUnidad, double ovalityMaxValor, string ovalityMaxUnidad)
+        {
+            SO_ArquetipoRings ServiceArquetipoRing = new SO_ArquetipoRings();
+
+            return ServiceArquetipoRing.Update(codigo, d1Valor, d1Unidad, h1Valor, h1Unidad, freeGapValor, freeGapUnidad, massValor, massUnidad, tensionValor, tensionUnidad, tensionTolValor, tensionTolUnidad, noPlano, customerPartNumber, customerRevisionLevel, size1, tipoAnillo, customerDocNo, treatment, especTreatment, hardnessMinValor, hardnessMinUnidad,hardnessMaxValor,hardnessMaxUnidad, especMaterialBase, ovalityMinValor, ovalityMinUnidad, ovalityMaxValor, ovalityMaxUnidad);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro ArquetipoRing.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static int DeleteArquetipoRing(string codigo)
+        {
+            SO_ArquetipoRings ServiceArquetipoRing = new SO_ArquetipoRings();
+
+            return ServiceArquetipoRing.Delete(codigo);
+        }
+        
+        /// <summary>
+        /// Método que obtiene los datos generales e un componente.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static ArquetipoRing GetArquetipoRing(string codigo)
+        {
+            ArquetipoRing arquetipoRing = new ArquetipoRing();
+
+            SO_ArquetipoRings ServiceArquetipoRing = new SO_ArquetipoRings();
+
+            IList informacionBD = ServiceArquetipoRing.GetArquetipoRing(codigo);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    double d1Valor = (double)tipo.GetProperty("D1Valor").GetValue(item, null);
+                    string d1Unidad = (string)tipo.GetProperty("D1Unidad").GetValue(item, null);
+                    arquetipoRing.D1 = new Propiedad { Nombre = "D1", Valor = d1Valor, Unidad = d1Unidad, TipoDato = EnumEx.GetEnumDescription(TipoDato.Distance), DescripcionCorta = "D1" };
+
+                    double h1Valor = (double)tipo.GetProperty("H1Valor").GetValue(item, null);
+                    string h1Unidad = (string)tipo.GetProperty("H1Unidad").GetValue(item, null);
+                    arquetipoRing.H1 = new Propiedad { Nombre = "H1", Valor = h1Valor, Unidad = h1Unidad, TipoDato = EnumEx.GetEnumDescription(TipoDato.Distance), DescripcionCorta = "H1" };
+
+                    double freeGapValor = (double)tipo.GetProperty("FreeGapValor").GetValue(item, null);
+                    string freeGapUnidad = (string)tipo.GetProperty("FreeGapUnidad").GetValue(item, null);
+                    arquetipoRing.FreeGap = new Propiedad { Nombre = "FreeGap", Valor = freeGapValor, Unidad = freeGapUnidad, TipoDato = EnumEx.GetEnumDescription(TipoDato.Distance), DescripcionCorta = "Free Gap" };
+
+                    double massValor = (double)tipo.GetProperty("MassValor").GetValue(item, null);
+                    string massUnidad = (string)tipo.GetProperty("MassUnidad").GetValue(item, null);
+                    arquetipoRing.Mass = new Propiedad { Nombre = "Mass", Valor = massValor, Unidad = massUnidad, TipoDato = EnumEx.GetEnumDescription(TipoDato.Mass), DescripcionCorta = "Mass" };
+
+                    double tensionValor = (double)tipo.GetProperty("TensionValor").GetValue(item, null);
+                    string tensionUnidad = (string)tipo.GetProperty("TensionUnidad").GetValue(item, null);
+                    arquetipoRing.Tension = new Propiedad { Nombre = "Tension", Valor = tensionValor, Unidad = tensionUnidad, TipoDato = EnumEx.GetEnumDescription(TipoDato.Force), DescripcionCorta = "Tension" };
+
+                    double tensionTolValor = (double)tipo.GetProperty("TensionTolValor").GetValue(item, null);
+                    string tensionTolUnidad = (string)tipo.GetProperty("TensionTolUnidad").GetValue(item, null);
+                    arquetipoRing.TensionTol = new Propiedad { Nombre = "TesionTol", Valor = tensionTolValor, Unidad = tensionTolUnidad, TipoDato = EnumEx.GetEnumDescription(TipoDato.Force), DescripcionCorta = "Tension Tol" };
+
+                    arquetipoRing.NoPlano = (string)tipo.GetProperty("NoPlano").GetValue(item, null);
+                    arquetipoRing.CustomerPartNumber = (string)tipo.GetProperty("CustomerPartNumber").GetValue(item, null);
+                    arquetipoRing.CustomerRevisionLevel = (string)tipo.GetProperty("CustomerRevisionLevel").GetValue(item, null);
+                    arquetipoRing.Size1 = (string)tipo.GetProperty("Size1").GetValue(item, null);
+                    arquetipoRing.TipoAnillo = (string)tipo.GetProperty("TipoAnillo").GetValue(item, null);
+                    arquetipoRing.CustomerDocNo = (string)tipo.GetProperty("CustomerDocNo").GetValue(item, null);
+                    arquetipoRing.Treatment = (string)tipo.GetProperty("Treatment").GetValue(item, null);
+                    arquetipoRing.EspecTreatment = (string)tipo.GetProperty("EspecTreatment").GetValue(item, null);
+
+                    double hardnessMinValor = (double)tipo.GetProperty("HardnessMinValor").GetValue(item, null);
+                    string hardnessMinUnidad = (string)tipo.GetProperty("HardnessMinUnidad").GetValue(item, null);
+                    arquetipoRing.HardnessMin = new Propiedad { Nombre = "HardnessMin", Valor = hardnessMinValor, Unidad = hardnessMinUnidad, TipoDato = EnumEx.GetEnumDescription(TipoDato.Dureza), DescripcionCorta = "Hardness Min" };
+
+                    double hardnessMaxValor = (double)tipo.GetProperty("HardnessMaxValor").GetValue(item, null);
+                    string hardnessMaxUnidad = (string)tipo.GetProperty("HardnessMaxUnidad").GetValue(item, null);
+                    arquetipoRing.HardnessMax = new Propiedad { Nombre = "HardnessMax", Valor = hardnessMaxValor, Unidad = hardnessMaxUnidad, TipoDato = EnumEx.GetEnumDescription(TipoDato.Dureza), DescripcionCorta = "Hardness Max" };
+
+                    arquetipoRing.EspecMaterialBase = (string)tipo.GetProperty("EspecMaterialBase").GetValue(item, null);
+
+
+                    double ovalityMinValor = (double)tipo.GetProperty("OvalityMinValor").GetValue(item, null);
+                    string ovalityMinUnidad = (string)tipo.GetProperty("OvalityMinUnidad").GetValue(item, null);
+                    arquetipoRing.OvalityMin = new Propiedad { Nombre = "OvalityMin", Valor = ovalityMinValor, Unidad = ovalityMinUnidad, TipoDato = EnumEx.GetEnumDescription(TipoDato.Distance), DescripcionCorta = "Ovality Min" };
+
+                    double ovalityMaxValor = (double)tipo.GetProperty("OvalityMaxValor").GetValue(item, null);
+                    string ovalityMaxUnidad = (string)tipo.GetProperty("OvalityMaxUnidad").GetValue(item, null);
+                    arquetipoRing.OvalityMax = new Propiedad { Nombre = "OvalityMax", Valor = ovalityMaxValor, Unidad = ovalityMaxUnidad, TipoDato = EnumEx.GetEnumDescription(TipoDato.Distance) , DescripcionCorta = "Ovality Max"};
+                    
+                }
+            }
+
+            return arquetipoRing;
+        }
+
+        /// <summary>
+        /// Método que indica si un código existe en la tabla de Arquetipo
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static bool ExistArquetipo(string codigo)
+        {
+            SO_Arquetipo ServiceArquetipo = new SO_Arquetipo();
+
+            Arquetipo arquetipo = new Arquetipo();
+
+            arquetipo.Codigo = string.Empty;
+
+            IList informacionBD =  ServiceArquetipo.GetArquetipo(codigo);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    arquetipo.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                }
+            }
+
+            return arquetipo.Codigo != "" ? true : false;
+        }
+
+        /// <summary>
         /// Inserta un registro en la tabla de Arquetipo.
         /// </summary>
         /// <param name="codigo"></param>
@@ -321,6 +516,21 @@ namespace Model
         }
 
         /// <summary>
+        /// Método que actualiza un registro en la tabla TBL_ARQUETIPO_PROPIEDADES
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="idPropiedad"></param>
+        /// <param name="unidad"></param>
+        /// <param name="valor"></param>
+        /// <returns></returns>
+        public static int UpdateArquetipoPropiedades(string codigo, int idPropiedad, string unidad, double valor)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            return ServicePropiedad.UpdateArquetipoPropiedades(codigo, idPropiedad, unidad, valor);
+        }
+
+        /// <summary>
         /// Método que inserta un registro en la tabla TBL_ARQUETIPO_PROPIEDADES_CADENA
         /// </summary>
         /// <param name="codigo"></param>
@@ -336,18 +546,46 @@ namespace Model
         }
 
         /// <summary>
-        /// Método que inserta un registro en la tabla TBL_ARQUETIPO_PROPIEDADES_CADENA
+        /// Método que actualiza un registro en la tabla TBL_ARQUETIPO_PROPIEDADES_CADENA
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="idPropiedad"></param>
+        /// <param name="valor"></param>
+        /// <returns></returns>
+        public static int UpdateArquetipoPropiedadesCadena(string codigo, int idPropiedad, string valor)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            return ServicePropiedad.UpdateArquetipoPropiedadesCadena(codigo, idPropiedad, valor);
+        }
+
+        /// <summary>
+        /// Método que inserta un registro en la tabla TBL_ARQUETIPO_PROPIEDADES_BOOL
         /// </summary>
         /// <param name="codigo"></param>
         /// <param name="idPropiedad"></param>
         /// <param name="unidad"></param>
         /// <param name="valor"></param>
         /// <returns></returns>
-        public static int InsertArquetipoPropiedadesCadena(string codigo, int idPropiedad, string unidad, bool valor)
+        public static int InsertArquetipoPropiedadesBool(string codigo, int idPropiedad, bool valor)
         {
             SO_Propiedad ServicePropiedad = new SO_Propiedad();
 
             return ServicePropiedad.InsertArquetipoPropiedadesBool(codigo, idPropiedad, valor);
+        }
+
+        /// <summary>
+        /// Método que actualiza un registro en la tabla TBL_ARQUETIPO_PROPIEDADES_BOOL
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="idPropiedad"></param>
+        /// <param name="valor"></param>
+        /// <returns></returns>
+        public static int UpdateArquetipoPropiedadesBool(string codigo, int idPropiedad, bool valor)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            return ServicePropiedad.UpdateArquetipoPropiedadesBool(codigo, idPropiedad, valor);
         }
 
         /// <summary>
@@ -11512,7 +11750,7 @@ namespace Model
         #region Propiedades
 
         /// <summary>
-        /// Método que retorna todas las propiedades tipo double de un determinado perfil.
+        /// Método que retorna todas las propiedades tipo double que tiene un determinado perfil.
         /// </summary>
         /// <param name="idPerfil"></param>
         /// <returns></returns>
@@ -11551,6 +11789,74 @@ namespace Model
 
             return ListaPropiedades;
         } 
+
+        /// <summary>
+        /// Método que retorna todas las propiedades de tipo cadena que tiene un determinado perfil.
+        /// </summary>
+        /// <param name="idPerfil"></param>
+        /// <returns></returns>
+        public static ObservableCollection<PropiedadCadena> GetAllPropiedadesCadenaByPerfil(int idPerfil)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            IList informacionBD = ServicePropiedad.GetPropiedadesCadenaByPerfil(idPerfil);
+
+            ObservableCollection<PropiedadCadena> ListaPropiedades = new ObservableCollection<PropiedadCadena>();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    PropiedadCadena propiedad = new PropiedadCadena();
+
+                    propiedad.idPropiedad = (int)tipo.GetProperty("ID_PROPIEDAD_CADENA").GetValue(item, null);
+                    propiedad.Nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    propiedad.DescripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
+                    propiedad.DescripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
+                    propiedad.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
+
+                    ListaPropiedades.Add(propiedad);
+                }
+            }
+
+            return ListaPropiedades;
+        }
+
+        /// <summary>
+        /// Método que retona todas las propiedades de tipo boolean que tiene un determinado perfil.
+        /// </summary>
+        /// <param name="idPerfil"></param>
+        /// <returns></returns>
+        public static ObservableCollection<PropiedadBool> GetallPropiedadesBoolByPerfil(int idPerfil)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            IList informacionBD = ServicePropiedad.GetPropiedadesBoolByPerfil(idPerfil);
+
+            ObservableCollection<PropiedadBool> ListaPropiedades = new ObservableCollection<PropiedadBool>();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    PropiedadBool propiedad = new PropiedadBool();
+
+                    propiedad.idPropiedad = (int)tipo.GetProperty("ID_PROPIEDAD_BOOL").GetValue(item, null);
+                    propiedad.Nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    propiedad.DescripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
+                    propiedad.DescripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
+                    propiedad.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
+
+                    ListaPropiedades.Add(propiedad);
+                }
+            }
+
+            return ListaPropiedades;
+        }
 
         /// <summary>
         /// Método que obtiene la propiedad a partir de el id de la propiedad.

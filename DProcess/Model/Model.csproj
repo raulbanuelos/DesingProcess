@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Anillo.cs" />
     <Compile Include="Arquetipo.cs" />
+    <Compile Include="ArquetipoRing.cs" />
     <Compile Include="ClasificacionHerramental.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="Coil.cs" />

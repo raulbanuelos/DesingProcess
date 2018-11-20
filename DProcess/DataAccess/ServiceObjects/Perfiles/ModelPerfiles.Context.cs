@@ -38,5 +38,6 @@ namespace DataAccess.ServiceObjects.Perfiles
         public virtual DbSet<TBL_ARQUETIPO_PROPIEDADES> TBL_ARQUETIPO_PROPIEDADES { get; set; }
         public virtual DbSet<TBL_ARQUETIPO_PROPIEDADES_BOOL> TBL_ARQUETIPO_PROPIEDADES_BOOL { get; set; }
         public virtual DbSet<TBL_ARQUETIPO_PROPIEDADES_CADENA> TBL_ARQUETIPO_PROPIEDADES_CADENA { get; set; }
+        public virtual DbSet<ArquetipoRings> ArquetipoRings { get; set; }
     }
 }

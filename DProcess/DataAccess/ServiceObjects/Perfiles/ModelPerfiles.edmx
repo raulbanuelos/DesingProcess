@@ -14,6 +14,42 @@
           <Property Name="Imagen" Type="image" />
           <Property Name="Activo" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="ArquetipoRings">
+          <Key>
+            <PropertyRef Name="ID_ARQUETIPO_RINGS" />
+          </Key>
+          <Property Name="ID_ARQUETIPO_RINGS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" />
+          <Property Name="D1Valor" Type="float" />
+          <Property Name="D1Unidad" Type="varchar" MaxLength="50" />
+          <Property Name="H1Valor" Type="float" />
+          <Property Name="H1Unidad" Type="varchar" MaxLength="50" />
+          <Property Name="FreeGapValor" Type="float" />
+          <Property Name="FreeGapUnidad" Type="varchar" MaxLength="50" />
+          <Property Name="MassValor" Type="float" />
+          <Property Name="MassUnidad" Type="varchar" MaxLength="50" />
+          <Property Name="TensionValor" Type="float" />
+          <Property Name="TensionUnidad" Type="varchar" MaxLength="50" />
+          <Property Name="TensionTolValor" Type="float" />
+          <Property Name="TensionTolUnidad" Type="varchar" MaxLength="50" />
+          <Property Name="NoPlano" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerPartNumber" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerRevisionLevel" Type="varchar" MaxLength="50" />
+          <Property Name="Size1" Type="varchar" MaxLength="50" />
+          <Property Name="TipoAnillo" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerDocNo" Type="varchar" MaxLength="50" />
+          <Property Name="Treatment" Type="varchar" MaxLength="50" />
+          <Property Name="EspecTreatment" Type="varchar" MaxLength="50" />
+          <Property Name="HardnessMinValor" Type="float" />
+          <Property Name="HardnessMinUnidad" Type="varchar" MaxLength="50" />
+          <Property Name="HardnessMaxValor" Type="float" />
+          <Property Name="HardnessMaxUnidad" Type="varchar" MaxLength="50" />
+          <Property Name="EspecMaterialBase" Type="varchar" MaxLength="50" />
+          <Property Name="OvalityMinValor" Type="float" />
+          <Property Name="OvalityMinUnidad" Type="varchar" MaxLength="50" />
+          <Property Name="OvalityMaxValor" Type="float" />
+          <Property Name="OvalityMaxUnidad" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="CAT_PERFIL">
           <Key>
             <PropertyRef Name="ID_PERFIL" />
@@ -142,6 +178,18 @@
           <Property Name="ID_PROPIEDAD" Type="int" Nullable="false" />
           <Property Name="ID_PERFIL" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_ArquetipoRings_Arquetipo">
+          <End Role="Arquetipo" Type="Self.Arquetipo" Multiplicity="0..1" />
+          <End Role="ArquetipoRings" Type="Self.ArquetipoRings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arquetipo">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="ArquetipoRings">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CAT_PERFIL_CAT_TIPO_PERFIL">
           <End Role="CAT_TIPO_PERFIL" Type="Self.CAT_TIPO_PERFIL" Multiplicity="1" />
           <End Role="CAT_PERFIL" Type="Self.CAT_PERFIL" Multiplicity="*" />
@@ -324,6 +372,7 @@
         </Association>
         <EntityContainer Name="DataAccessServiceObjectsPerfilesStoreContainer">
           <EntitySet Name="Arquetipo" EntityType="Self.Arquetipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArquetipoRings" EntityType="Self.ArquetipoRings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CAT_PERFIL" EntityType="Self.CAT_PERFIL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CAT_PROPIEDAD" EntityType="Self.CAT_PROPIEDAD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CAT_PROPIEDAD_BOOL" EntityType="Self.CAT_PROPIEDAD_BOOL" Schema="dbo" store:Type="Tables" />
@@ -336,6 +385,10 @@
           <EntitySet Name="TR_PROPIEDAD_BOOL_PERFIL" EntityType="Self.TR_PROPIEDAD_BOOL_PERFIL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TR_PROPIEDAD_CADENA_PERFIL" EntityType="Self.TR_PROPIEDAD_CADENA_PERFIL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TR_PROPIEDAD_PERFIL" EntityType="Self.TR_PROPIEDAD_PERFIL" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ArquetipoRings_Arquetipo" Association="Self.FK_ArquetipoRings_Arquetipo">
+            <End Role="Arquetipo" EntitySet="Arquetipo" />
+            <End Role="ArquetipoRings" EntitySet="ArquetipoRings" />
+          </AssociationSet>
           <AssociationSet Name="FK_CAT_PERFIL_CAT_TIPO_PERFIL" Association="Self.FK_CAT_PERFIL_CAT_TIPO_PERFIL">
             <End Role="CAT_TIPO_PERFIL" EntitySet="CAT_TIPO_PERFIL" />
             <End Role="CAT_PERFIL" EntitySet="CAT_PERFIL" />
@@ -635,6 +688,11 @@
             <End Role="CAT_PROPIEDAD_CADENA" EntitySet="CAT_PROPIEDAD_CADENA" />
             <End Role="TBL_ARQUETIPO_PROPIEDADES_CADENA" EntitySet="TBL_ARQUETIPO_PROPIEDADES_CADENA" />
           </AssociationSet>
+          <EntitySet Name="ArquetipoRings" EntityType="DataAccess.ServiceObjects.Perfiles.ArquetipoRings" />
+          <AssociationSet Name="FK_ArquetipoRings_Arquetipo" Association="DataAccess.ServiceObjects.Perfiles.FK_ArquetipoRings_Arquetipo">
+            <End Role="Arquetipo" EntitySet="Arquetipo" />
+            <End Role="ArquetipoRings" EntitySet="ArquetipoRings" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Arquetipo">
           <Key>
@@ -648,6 +706,7 @@
           <NavigationProperty Name="TBL_ARQUETIPO_PROPIEDADES" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_Arquetipo" FromRole="Arquetipo" ToRole="TBL_ARQUETIPO_PROPIEDADES" />
           <NavigationProperty Name="TBL_ARQUETIPO_PROPIEDADES_BOOL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_BOOL_Arquetipo" FromRole="Arquetipo" ToRole="TBL_ARQUETIPO_PROPIEDADES_BOOL" />
           <NavigationProperty Name="TBL_ARQUETIPO_PROPIEDADES_CADENA" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_Arquetipo" FromRole="Arquetipo" ToRole="TBL_ARQUETIPO_PROPIEDADES_CADENA" />
+          <NavigationProperty Name="ArquetipoRings" Relationship="DataAccess.ServiceObjects.Perfiles.FK_ArquetipoRings_Arquetipo" FromRole="Arquetipo" ToRole="ArquetipoRings" />
         </EntityType>
         <EntityType Name="TR_PERFIL_ARQUETIPO">
           <Key>
@@ -823,6 +882,55 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ArquetipoRings">
+          <Key>
+            <PropertyRef Name="ID_ARQUETIPO_RINGS" />
+          </Key>
+          <Property Name="ID_ARQUETIPO_RINGS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="D1Valor" Type="Double" />
+          <Property Name="D1Unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="H1Valor" Type="Double" />
+          <Property Name="H1Unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FreeGapValor" Type="Double" />
+          <Property Name="FreeGapUnidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MassValor" Type="Double" />
+          <Property Name="MassUnidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TensionValor" Type="Double" />
+          <Property Name="TensionUnidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TensionTolValor" Type="Double" />
+          <Property Name="TensionTolUnidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NoPlano" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerPartNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerRevisionLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Size1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TipoAnillo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerDocNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Treatment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EspecTreatment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HardnessMinValor" Type="Double" />
+          <Property Name="HardnessMinUnidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HardnessMaxValor" Type="Double" />
+          <Property Name="HardnessMaxUnidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EspecMaterialBase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OvalityMinValor" Type="Double" />
+          <Property Name="OvalityMinUnidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OvalityMaxValor" Type="Double" />
+          <Property Name="OvalityMaxUnidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Arquetipo" Relationship="DataAccess.ServiceObjects.Perfiles.FK_ArquetipoRings_Arquetipo" FromRole="ArquetipoRings" ToRole="Arquetipo" />
+        </EntityType>
+        <Association Name="FK_ArquetipoRings_Arquetipo">
+          <End Type="DataAccess.ServiceObjects.Perfiles.Arquetipo" Role="Arquetipo" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Perfiles.ArquetipoRings" Role="ArquetipoRings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arquetipo">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="ArquetipoRings">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -976,6 +1084,43 @@
                 <ScalarProperty Name="ID_PROPIEDAD_CADENA" ColumnName="ID_PROPIEDAD_CADENA" />
                 <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="ID_ARQUETIPO_PROPIEDADES_CADENA" ColumnName="ID_ARQUETIPO_PROPIEDADES_CADENA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArquetipoRings">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.ArquetipoRings">
+              <MappingFragment StoreEntitySet="ArquetipoRings">
+                <ScalarProperty Name="OvalityMaxUnidad" ColumnName="OvalityMaxUnidad" />
+                <ScalarProperty Name="OvalityMaxValor" ColumnName="OvalityMaxValor" />
+                <ScalarProperty Name="OvalityMinUnidad" ColumnName="OvalityMinUnidad" />
+                <ScalarProperty Name="OvalityMinValor" ColumnName="OvalityMinValor" />
+                <ScalarProperty Name="EspecMaterialBase" ColumnName="EspecMaterialBase" />
+                <ScalarProperty Name="HardnessMaxUnidad" ColumnName="HardnessMaxUnidad" />
+                <ScalarProperty Name="HardnessMaxValor" ColumnName="HardnessMaxValor" />
+                <ScalarProperty Name="HardnessMinUnidad" ColumnName="HardnessMinUnidad" />
+                <ScalarProperty Name="HardnessMinValor" ColumnName="HardnessMinValor" />
+                <ScalarProperty Name="EspecTreatment" ColumnName="EspecTreatment" />
+                <ScalarProperty Name="Treatment" ColumnName="Treatment" />
+                <ScalarProperty Name="CustomerDocNo" ColumnName="CustomerDocNo" />
+                <ScalarProperty Name="TipoAnillo" ColumnName="TipoAnillo" />
+                <ScalarProperty Name="Size1" ColumnName="Size1" />
+                <ScalarProperty Name="CustomerRevisionLevel" ColumnName="CustomerRevisionLevel" />
+                <ScalarProperty Name="CustomerPartNumber" ColumnName="CustomerPartNumber" />
+                <ScalarProperty Name="NoPlano" ColumnName="NoPlano" />
+                <ScalarProperty Name="TensionTolUnidad" ColumnName="TensionTolUnidad" />
+                <ScalarProperty Name="TensionTolValor" ColumnName="TensionTolValor" />
+                <ScalarProperty Name="TensionUnidad" ColumnName="TensionUnidad" />
+                <ScalarProperty Name="TensionValor" ColumnName="TensionValor" />
+                <ScalarProperty Name="MassUnidad" ColumnName="MassUnidad" />
+                <ScalarProperty Name="MassValor" ColumnName="MassValor" />
+                <ScalarProperty Name="FreeGapUnidad" ColumnName="FreeGapUnidad" />
+                <ScalarProperty Name="FreeGapValor" ColumnName="FreeGapValor" />
+                <ScalarProperty Name="H1Unidad" ColumnName="H1Unidad" />
+                <ScalarProperty Name="H1Valor" ColumnName="H1Valor" />
+                <ScalarProperty Name="D1Unidad" ColumnName="D1Unidad" />
+                <ScalarProperty Name="D1Valor" ColumnName="D1Valor" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="ID_ARQUETIPO_RINGS" ColumnName="ID_ARQUETIPO_RINGS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

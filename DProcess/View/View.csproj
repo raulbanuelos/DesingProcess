@@ -33,7 +33,7 @@
     <MinimumRequiredVersion>1.0.1.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
     <ApplicationRevision>2</ApplicationRevision>
-    <ApplicationVersion>1.3.0.%2a</ApplicationVersion>
+    <ApplicationVersion>1.4.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -497,8 +497,14 @@
     <Compile Include="Forms\Tooling\WWorkCamTurn.xaml.cs">
       <DependentUpon>WWorkCamTurn.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UserControls\BoolEntry.xaml.cs">
+      <DependentUpon>BoolEntry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\UserControls\NumericEntry.xaml.cs">
       <DependentUpon>NumericEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UserControls\StringEntry.xaml.cs">
+      <DependentUpon>StringEntry.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\User\FrmConsultaDatosUsuario.xaml.cs">
       <DependentUpon>FrmConsultaDatosUsuario.xaml</DependentUpon>
@@ -1254,7 +1260,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\UserControls\BoolEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\UserControls\NumericEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\UserControls\StringEntry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

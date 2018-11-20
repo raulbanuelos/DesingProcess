@@ -33,6 +33,8 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CAT_PROPIEDAD" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_BOOL_CAT_PROPIEDAD_BOOL" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_CAT_PROPIEDAD_CADENA" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.ArquetipoRings" Width="1.5" PointX="12.75" PointY="16.25" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_ArquetipoRings_Arquetipo" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
