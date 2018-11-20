@@ -28,7 +28,7 @@
                             <RowDefinition Height="25"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock FontWeight="Bold" Text="{Binding Path=fecha, StringFormat={}{0:yyyy-MM-dd}}" FontSize="16"></TextBlock>
+                        <TextBlock FontWeight="Bold" Text="{Binding Path=fecha, StringFormat={}{0:yyyy-MM-dd HH:mm}}" FontSize="16"></TextBlock>
                         <TextBlock Text="{Binding Path=descripcion}" FontSize="14" Grid.Row="1"></TextBlock>
                         <TextBlock Text="{Binding Path=Nombre_usuario}" FontSize="16" Grid.Row="2"></TextBlock>
                     </Grid>
