@@ -15,10 +15,6 @@ using System.Linq;
 using System.Collections.Generic;
 using View.Forms.Routing;
 using System.Data;
-using PdfSharp.Pdf;
-using PdfSharp.Drawing;
-using System.Diagnostics;
-using PdfSharp;
 using System.Threading.Tasks;
 using View.Resources;
 using View.Forms.RawMaterial;
@@ -85,6 +81,14 @@ namespace View.Services.ViewModel
             get { return panelPropiedadesOD; }
             set { panelPropiedadesOD = value; NotifyChange("PanelPropiedadesOD"); }
         }
+
+        private ObservableCollection<StackPanel> panelPropiedadesCadenaOD;
+        public ObservableCollection<StackPanel> PanelPropiedadesCadenaOD
+        {
+            get { return panelPropiedadesCadenaOD; }
+            set { panelPropiedadesCadenaOD = value; NotifyChange("PanelPropiedadesCadenaOD"); }
+        }
+
 
         private ObservableCollection<StackPanel> panelPropiedadesPuntas;
         public ObservableCollection<StackPanel> PanelPropiedadesPuntas
@@ -1673,7 +1677,31 @@ namespace View.Services.ViewModel
             NotifyChange("PerfilLateral");
             NotifyChange("PerfilPuntas");
 
-            createNumeric();
+
+            ArquetipoRing arquetipoRing = DataManager.GetArquetipoRing(Codigo);
+
+            D1 = arquetipoRing.D1;
+            H1 = arquetipoRing.H1;
+            FreeGap = arquetipoRing.FreeGap;
+            Mass = arquetipoRing.Mass;
+            Tension = arquetipoRing.Tension;
+            TensionTol = arquetipoRing.TensionTol;
+            NoPlano = arquetipoRing.NoPlano;
+            CustomerPartNumber = arquetipoRing.CustomerPartNumber;
+            CustomerRevisionLevel = arquetipoRing.CustomerRevisionLevel;
+            Size = arquetipoRing.Size1;
+            TipoAnillo = arquetipoRing.TipoAnillo;
+            CustomerDocNo = arquetipoRing.CustomerDocNo;
+            Treatment = arquetipoRing.Treatment;
+            EspecTreatment = arquetipoRing.EspecTreatment;
+            HardnessMax = arquetipoRing.HardnessMax;
+            HardnessMin = arquetipoRing.HardnessMin;
+            EspecificacionMaterialSeleccionada = arquetipoRing.EspecMaterialBase;
+            OvalityMax = arquetipoRing.OvalityMax;
+            OvalityMin = arquetipoRing.OvalityMin;
+
+            createNumericEntry();
+
             ////-------------------Perfil OD-------------------
             //PerfilOD.Propiedades = new ObservableCollection<Propiedad>();
             //PerfilOD.Propiedades.Add(new Propiedad { Nombre = "S1 MIN", DescripcionCorta = "S1 MIN", DescripcionLarga = "DIÁMETRO NOMINAL DEL ANILLO", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0, Imagen = null });
@@ -1757,42 +1785,83 @@ namespace View.Services.ViewModel
         /// </summary>
         private void savePlano()
         {
+
             DescripcionGeneral = string.Format("{0:0.00000}", D1.Valor) + " X " + string.Format("{0:0.00000}", H1.Valor) + " " + TipoAnillo;
 
-            int confirmacionSaveArquetipo = DataManager.InsertArquetipo(Codigo, DescripcionGeneral, null, true);
-
-            if (confirmacionSaveArquetipo > 0)
+            if (DataManager.ExistArquetipo(Codigo))
             {
-                DataManager.InsertPerfilArquetipo(Codigo, PerfilOD.idPerfil);
+                int confirmacionUpdateArquetipo = DataManager.UpdateArquetipo(Codigo, DescripcionGeneral, null, true);
+
+                DataManager.UpdateArquetipoRing(Codigo, D1.Valor, D1.Unidad, H1.Valor, H1.Unidad, FreeGap.Valor, FreeGap.Unidad, Mass.Valor, Mass.Unidad, Tension.Valor, Tension.Unidad, TensionTol.Valor, TensionTol.Unidad, NoPlano, CustomerPartNumber, CustomerRevisionLevel, Size, TipoAnillo, CustomerDocNo, Treatment, EspecTreatment, HardnessMin.Valor, HardnessMin.Unidad, HardnessMax.Valor, HardnessMax.Unidad, EspecificacionMaterialSeleccionada, OvalityMin.Valor, OvalityMin.Unidad, OvalityMax.Valor, OvalityMax.Unidad);
+
                 foreach (Propiedad propiedad in PerfilOD.Propiedades)
                 {
-                    DataManager.InsertArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
+                    DataManager.UpdateArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
                 }
 
-                DataManager.InsertPerfilArquetipo(Codigo, PerfilLateral.idPerfil);
-                foreach (Propiedad propiedad in PerfilLateral.Propiedades)
-                {
-                    DataManager.InsertArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
-                }
-
-                DataManager.InsertPerfilArquetipo(Codigo, PerfilID.idPerfil);
                 foreach (Propiedad propiedad in PerfilID.Propiedades)
                 {
-                    DataManager.InsertArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
+                    DataManager.UpdateArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
                 }
 
-                DataManager.InsertPerfilArquetipo(Codigo, PerfilPuntas.idPerfil);
+                foreach (Propiedad propiedad in PerfilLateral.Propiedades)
+                {
+                    DataManager.UpdateArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
+                }
+
                 foreach (Propiedad propiedad in PerfilPuntas.Propiedades)
                 {
-                    DataManager.InsertArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
+                    DataManager.UpdateArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
                 }
 
-                
             }
             else
             {
-                //Notificar que ocurrio un error.
+                int confirmacionSaveArquetipo = DataManager.InsertArquetipo(Codigo, DescripcionGeneral, null, true);
+
+                if (confirmacionSaveArquetipo > 0)
+                {
+
+                    DataManager.InsertArquetipoRing(Codigo, D1.Valor, D1.Unidad, H1.Valor, H1.Unidad, FreeGap.Valor, FreeGap.Unidad, Mass.Valor, Mass.Unidad, Tension.Valor, Tension.Unidad, TensionTol.Valor, TensionTol.Unidad, NoPlano, CustomerPartNumber, CustomerRevisionLevel, Size, TipoAnillo, CustomerDocNo, Treatment, EspecTreatment, HardnessMin.Valor, HardnessMin.Unidad, HardnessMax.Valor, HardnessMax.Unidad, EspecificacionMaterialSeleccionada, OvalityMin.Valor, OvalityMin.Unidad, OvalityMax.Valor, OvalityMax.Unidad);
+
+                    DataManager.InsertPerfilArquetipo(Codigo, PerfilOD.idPerfil);
+                    foreach (Propiedad propiedad in PerfilOD.Propiedades)
+                    {
+                        DataManager.InsertArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
+                    }
+
+                    foreach (PropiedadCadena propiedad in PerfilOD.PropiedadesCadena)
+                    {
+                        
+                    }
+
+                    DataManager.InsertPerfilArquetipo(Codigo, PerfilLateral.idPerfil);
+                    foreach (Propiedad propiedad in PerfilLateral.Propiedades)
+                    {
+                        DataManager.InsertArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
+                    }
+
+                    DataManager.InsertPerfilArquetipo(Codigo, PerfilID.idPerfil);
+                    foreach (Propiedad propiedad in PerfilID.Propiedades)
+                    {
+                        DataManager.InsertArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
+                    }
+
+                    DataManager.InsertPerfilArquetipo(Codigo, PerfilPuntas.idPerfil);
+                    foreach (Propiedad propiedad in PerfilPuntas.Propiedades)
+                    {
+                        DataManager.InsertArquetipoPropiedades(Codigo, propiedad.idPropiedad, propiedad.Unidad, propiedad.Valor);
+                    }
+
+
+                }
+                else
+                {
+                    //Notificar que ocurrio un error.
+                }
             }
+
+            
         }
         
         /// <summary>
@@ -2299,14 +2368,28 @@ namespace View.Services.ViewModel
             PerfilPuntas = PerfilSeleccionadoPuntas;
             
             PerfilOD.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilOD.idPerfil,IsMilimeter);
+            PerfilOD.PropiedadesCadena = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilOD.idPerfil);
+            PerfilOD.PropiedadesBool = DataManager.GetallPropiedadesBoolByPerfil(PerfilOD.idPerfil);
+
             PerfilID.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilID.idPerfil,IsMilimeter);
+            PerfilID.PropiedadesCadena = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilID.idPerfil);
+            PerfilID.PropiedadesBool = DataManager.GetallPropiedadesBoolByPerfil(PerfilID.idPerfil);
+
             PerfilLateral.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilLateral.idPerfil,IsMilimeter);
+            PerfilLateral.PropiedadesCadena = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilLateral.idPerfil);
+            PerfilLateral.PropiedadesBool = DataManager.GetallPropiedadesBoolByPerfil(PerfilLateral.idPerfil);
+
             PerfilPuntas.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilPuntas.idPerfil,IsMilimeter);
+            PerfilPuntas.PropiedadesCadena = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilPuntas.idPerfil);
+            PerfilPuntas.PropiedadesBool = DataManager.GetallPropiedadesBoolByPerfil(PerfilPuntas.idPerfil);
+
             
-            createNumeric();
+            createNumericEntry();
         }
 
-        private void createNumeric()
+
+
+        private void createNumericEntry()
         {
             foreach (Propiedad propiedad in PerfilOD.Propiedades)
             {
