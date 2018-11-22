@@ -2524,7 +2524,7 @@ namespace View.Services.ViewModel
                 string CadenaEvaluar = descripcion.Replace(" ","");
 
                 //verifica que la descripcion no contenga ningun caracter especial
-                if (Regex.IsMatch(CadenaEvaluar, "^[a-zA-Z0-9-_,;.()áÁéÉíÍóÓúÚÜüñÑ]*$"))
+                if (Regex.IsMatch(CadenaEvaluar, "^[a-zA-Z0-9-_,;.()áÁéÉíÍóÓúÚÜü]*$"))
                 {
                     //Quitamos los espacios en blanco del Nombre del usuario que lo autorizo
                     string UsuariosPermitido = NombreUsuarioAut.Replace(" ", "");
@@ -3265,7 +3265,7 @@ namespace View.Services.ViewModel
                 if (ValidarValores())
                 {
                     string CadenaEvaluar = descripcion.Replace(" ", "");
-                    if (Regex.IsMatch(CadenaEvaluar, "^[a-zA-Z0-9-_,;.()áÁéÉíÍóÓúÚÜüñÑ]*$"))
+                    if (Regex.IsMatch(CadenaEvaluar, "^[a-zA-Z0-9-_,;.()áÁéÉíÍóÓúÚÜü]*$"))
                     {
                         string UsuariosPermitido = NombreUsuarioAut.Replace(" ", "");
                         if (UsuariosPermitido != "SISTEMA")
