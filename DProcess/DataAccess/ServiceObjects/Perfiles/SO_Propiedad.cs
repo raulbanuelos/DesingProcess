@@ -310,5 +310,69 @@ namespace DataAccess.ServiceObjects.Perfiles
                 return null;
             }
         }
+
+        public IList GetPropiedadCadenaSaved(string codigo)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    var lista = (from a in Conexion.TBL_ARQUETIPO_PROPIEDADES_CADENA
+                                 join b in Conexion.CAT_PROPIEDAD_CADENA on a.ID_PROPIEDAD_CADENA equals b.ID_PROPIEDAD_CADENA
+                                 join c in Conexion.TR_PROPIEDAD_CADENA_PERFIL on b.ID_PROPIEDAD_CADENA equals c.ID_PROPIEDAD_CADENA
+                                 join d in Conexion.CAT_PERFIL on c.ID_PERFIL equals d.ID_PERFIL
+                                 join e in Conexion.CAT_TIPO_PERFIL on d.ID_TIPO_PERFIL equals e.ID_TIPO_PERFIL
+                                 where a.CODIGO == codigo
+                                 select new
+                                 {
+                                     ID_PROPIEDAD = b.ID_PROPIEDAD_CADENA,
+                                     b.NOMBRE,
+                                     b.DESCRIPCION_LARGA,
+                                     b.DESCRIPCION_CORTA,
+                                     b.IMAGEN,
+                                     a.VALOR,
+                                     TIPO_PERFIL = e.PERFIL
+                                 }).ToList();
+
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public IList GetPropiedadBoolSaved(string codigo)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    var lista = (from a in Conexion.TBL_ARQUETIPO_PROPIEDADES_BOOL
+                                 join b in Conexion.CAT_PROPIEDAD_BOOL on a.ID_PROPIEDAD_BOOL equals b.ID_PROPIEDAD_BOOL
+                                 join c in Conexion.TR_PROPIEDAD_BOOL_PERFIL on b.ID_PROPIEDAD_BOOL equals c.ID_PROPIEDAD_BOOL
+                                 join d in Conexion.CAT_PERFIL on c.ID_PERFIL equals d.ID_PERFIL
+                                 join e in Conexion.CAT_TIPO_PERFIL on d.ID_TIPO_PERFIL equals e.ID_TIPO_PERFIL
+                                 where a.CODIGO == codigo
+                                 select new
+                                 {
+                                     ID_PROPIEDAD = b.ID_PROPIEDAD_BOOL,
+                                     b.NOMBRE,
+                                     b.DESCRIPCION_LARGA,
+                                     b.DESCRIPCION_CORTA,
+                                     b.IMAGEN,
+                                     a.VALOR,
+                                     TIPO_PERFIL = e.PERFIL
+                                 }).ToList();
+
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

@@ -9,7 +9,7 @@
              d:DesignHeight="30" d:DesignWidth="170">
     <Grid>
         <StackPanel Orientation="Horizontal">
-            <CheckBox Content="{Binding DescripcionCorta}" Checked="{Binding Valor}"></CheckBox>
+            <CheckBox Content="{Binding DescripcionCorta}" IsChecked="{Binding Valor}" Cursor="Hand" ToolTip="{Binding DescripcionLarga}"></CheckBox>
         </StackPanel>
     </Grid>
 </UserControl>

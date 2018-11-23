@@ -54,6 +54,11 @@ namespace View.Services
             return propiedades.Where(x => x.Nombre == nombrePropiedad).ToList().Count > 0 ? true : false;
         }
 
+        public static bool HasPropiedadBool(string nombrePropiedad, ObservableCollection<PropiedadBool> propiedadesBool)
+        {
+            return propiedadesBool.Where(x => x.Nombre == nombrePropiedad).ToList().Count > 0 ? true : false;
+        }
+
         /// <summary>
         /// Método que busca el valor de una propiedad cadena en una lista.
         /// </summary>
@@ -1075,6 +1080,30 @@ namespace View.Services
             {
                 ListaResultante.Add(item);
             }
+            return ListaResultante;
+        }
+
+        public static ObservableCollection<PropiedadCadena> ConvertListToObservableCollectionPropiedadCadena(List<PropiedadCadena> lista)
+        {
+            ObservableCollection<PropiedadCadena> ListaResultante = new ObservableCollection<PropiedadCadena>();
+
+            foreach (var item in lista)
+            {
+                ListaResultante.Add(item);
+            }
+
+            return ListaResultante;
+        }
+
+        public static ObservableCollection<PropiedadBool> ConvertListToObservableCollectionPropiedadBool(List<PropiedadBool> lista)
+        {
+            ObservableCollection<PropiedadBool> ListaResultante = new ObservableCollection<PropiedadBool>();
+
+            foreach (var item in lista)
+            {
+                ListaResultante.Add(item);
+            }
+
             return ListaResultante;
         }
     }

@@ -538,7 +538,7 @@ namespace Model
         /// <param name="unidad"></param>
         /// <param name="valor"></param>
         /// <returns></returns>
-        public static int InsertArquetipoPropiedadesCadena(string codigo, int idPropiedad, string unidad, string valor)
+        public static int InsertArquetipoPropiedadesCadena(string codigo, int idPropiedad, string valor)
         {
             SO_Propiedad ServicePropiedad = new SO_Propiedad();
 
@@ -11931,6 +11931,73 @@ namespace Model
             return ListadoPropiedades;
         }
 
+        /// <summary>
+        /// Método que obtiene todas las propiedades cadena que son relacionadas con un componente
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static ObservableCollection<PropiedadCadena> GetPropiedadCadenaSaved(string codigo)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            ObservableCollection<PropiedadCadena> ListadoPropiedadesCadena = new ObservableCollection<PropiedadCadena>();
+
+            IList informacionBD = ServicePropiedad.GetPropiedadCadenaSaved(codigo);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+                    PropiedadCadena propiedad = new PropiedadCadena();
+
+                    propiedad.idPropiedad = (int)tipo.GetProperty("ID_PROPIEDAD").GetValue(item, null);
+                    propiedad.Nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    propiedad.DescripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
+                    propiedad.DescripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
+                    propiedad.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
+                    propiedad.Valor = (string)tipo.GetProperty("VALOR").GetValue(item, null);
+                    propiedad.TipoPerfil = (string)tipo.GetProperty("TIPO_PERFIL").GetValue(item, null);
+
+                    ListadoPropiedadesCadena.Add(propiedad);
+                }
+            }
+            return ListadoPropiedadesCadena;
+        }
+        
+        /// <summary>
+        /// Método que obtiene todas las propiedades booleanas que son relacionadas con un componente.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static ObservableCollection<PropiedadBool> GetPropiedadBoolSaved(string codigo)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            ObservableCollection<PropiedadBool> ListadoPropiedadesCadena = new ObservableCollection<PropiedadBool>();
+
+            IList informacionBD = ServicePropiedad.GetPropiedadBoolSaved(codigo);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+                    PropiedadBool propiedad = new PropiedadBool();
+
+                    propiedad.idPropiedad = (int)tipo.GetProperty("ID_PROPIEDAD").GetValue(item, null);
+                    propiedad.Nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    propiedad.DescripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
+                    propiedad.DescripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
+                    propiedad.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
+                    propiedad.Valor = (bool)tipo.GetProperty("VALOR").GetValue(item, null);
+                    propiedad.TipoPerfil = (string)tipo.GetProperty("TIPO_PERFIL").GetValue(item, null);
+
+                    ListadoPropiedadesCadena.Add(propiedad);
+                }
+            }
+            return ListadoPropiedadesCadena;
+        }
 
         #endregion
     }

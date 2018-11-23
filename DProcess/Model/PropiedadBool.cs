@@ -33,6 +33,11 @@
         /// Arreglo de bytes que representa la imagen de la propiedad.
         /// </summary>
         public byte[] Imagen { get; set; }
+
+        /// <summary>
+        /// Cadena que representa el tipo de perfil.
+        /// </summary>
+        public string TipoPerfil { get; set; }
         #endregion
 
         #region Constructores

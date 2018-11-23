@@ -14,6 +14,12 @@ namespace View.Services
 {
     public class Router
     {
+        #region Attributes
+        private static ObservableCollection<IOperacion> ListaOperaciones;
+        private static Anillo _ElAnillo;
+        private static double rangoGap;
+        #endregion
+
         /// <summary>
         /// Método que calculo las operaciones para generar una placa modelo
         /// </summary>
@@ -35,7 +41,6 @@ namespace View.Services
 		/// <returns>Colección que representa las operaciones que se necesitan para fabricar el anillo.</returns>
 		public static ObservableCollection<IOperacion> CalcularHierroGris(Anillo elAnillo)
         {
-            Anillo _ElAnillo;
             _ElAnillo = elAnillo;
 
             //Obtenemos algunos valores que utilizaremos en el método.
@@ -47,10 +52,10 @@ namespace View.Services
 
             double s1Min = Module.GetValorPropiedadMin("s1", elAnillo.PerfilPuntas.Propiedades,true);
             double s1Max = Module.GetValorPropiedadMax("s1", elAnillo.PerfilPuntas.Propiedades, true);
-            double rangoGap = s1Max - s1Min;
+            rangoGap = s1Max - s1Min;
 
-            //Declaramos una lista observable la cual guardará las operaciones y será la que retornemos en el método.
-            ObservableCollection<IOperacion> ListaOperaciones = new ObservableCollection<IOperacion>();
+            //Inicializamos una lista observable la cual guardará las operaciones y será la que retornemos en el método.
+            ListaOperaciones = new ObservableCollection<IOperacion>();
 
             //Agregamos las operaciones necesarias. Se sigue el diagrama de flujo del archivo de excel ubicado en resprutas\RrrrUUUUUULLL\Diagrama de flujo Router.xlsx
             ListaOperaciones.Add(new FirstRoughGrind(elAnillo));
@@ -158,36 +163,21 @@ namespace View.Services
             if (Module.HasPropiedad("PistaLapeado",elAnillo.PerfilOD.Propiedades))
                 ListaOperaciones.Add(new Lapping(elAnillo));
 
-            if (!elAnillo.Treatment.Equals("NONE"))
-                ListaOperaciones.Add(new Phosphate(elAnillo));
+            OperacionesFinales();
 
-            if (Module.HasPropiedad("LasserEngrave",elAnillo.PerfilLateral.Propiedades))
-                ListaOperaciones.Add(new LasserEngrave(elAnillo));
-
-            ListaOperaciones.Add(new InspeccionFinal(elAnillo));
-
-            if (rangoGap < 0.008)
-                ListaOperaciones.Add(new AutoGap(elAnillo));
-
-            //Asignamos el número de operación a cada operación. (Saltando de 10 en 10).
-            int noOperacion = 0;
-            foreach (IOperacion operacion in ListaOperaciones)
-            {
-                noOperacion += 10;
-                operacion.NoOperacion = noOperacion;
-            }
-
+            asignarNumeroOperacion();
+            
             //Retornamos la lista generada.
             return ListaOperaciones;
         }
 
         public static ObservableCollection<IOperacion> CalcularAceroRolado(Anillo elAnillo)
         {
-            Anillo _ElAnillo;
+            
             _ElAnillo = elAnillo;
 
             //Declaramos una lista observable la cual guardará las operaciones y será la que retornemos en el método.
-            ObservableCollection<IOperacion> ListaOperaciones = new ObservableCollection<IOperacion>();
+            ListaOperaciones = new ObservableCollection<IOperacion>();
 
             ListaOperaciones.Add(new CoilRings(elAnillo));
             ListaOperaciones.Add(new DegreaseRings(elAnillo));
@@ -201,18 +191,38 @@ namespace View.Services
             ListaOperaciones.Add(new DegreaseRings(elAnillo));
             ListaOperaciones.Add(new Lapping(elAnillo));
             ListaOperaciones.Add(new DegreaseRings(elAnillo));
-
-            if (!elAnillo.Treatment.Equals("NONE"))
-                ListaOperaciones.Add(new Phosphate(elAnillo));
-
-            ListaOperaciones.Add(new LasserEngrave(elAnillo));
-            ListaOperaciones.Add(new InspeccionFinal(elAnillo));
             
-            //Preguntar la condición para autogap.
-            ListaOperaciones.Add(new AutoGap(elAnillo));
+            OperacionesFinales();
 
-
+            asignarNumeroOperacion();
+            
             return ListaOperaciones;
+        }
+
+        private static void asignarNumeroOperacion()
+        {
+            //Asignamos el número de operación a cada operación. (Saltando de 10 en 10).
+            int noOperacion = 0;
+            foreach (IOperacion operacion in ListaOperaciones)
+            {
+                noOperacion += 10;
+                operacion.NoOperacion = noOperacion;
+            }
+        }
+
+        private static void OperacionesFinales()
+        {
+            if (!_ElAnillo.Treatment.Equals("NONE") && !_ElAnillo.Treatment.Equals(string.Empty))
+                ListaOperaciones.Add(new Phosphate(_ElAnillo));
+            
+            if (Module.GetValorPropiedadBool("LASSER ENGRAVE", _ElAnillo.PerfilLateral.PropiedadesBool))
+                ListaOperaciones.Add(new LasserEngrave(_ElAnillo));
+                
+
+            ListaOperaciones.Add(new InspeccionFinal(_ElAnillo));
+
+            if (rangoGap < 0.008)
+                ListaOperaciones.Add(new AutoGap(_ElAnillo));
         }
     }
 }

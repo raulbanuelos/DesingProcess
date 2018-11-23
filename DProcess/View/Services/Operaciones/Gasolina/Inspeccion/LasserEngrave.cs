@@ -136,7 +136,8 @@ namespace View.Services.Operaciones.Gasolina.Inspeccion
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "*LASSER ENGRAVE";
+            TextoProceso = "*LASSER ENGRAVE\n";
+            TextoProceso += "DE ACUERDO AL ESTANDAR S-R-PS-0014\n";
 
 
             //Ejecutamos el método para calculo de Herramentales.
