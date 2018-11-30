@@ -7,6 +7,11 @@ namespace View.Services.ViewModel
     {
         #region Atributos
         private PropiedadCadena model;
+
+        public PropiedadCadenaViewModel(PropiedadCadena propiedad)
+        {
+            this.model = propiedad;
+        }
         #endregion
 
         #region Propiedades del modelo

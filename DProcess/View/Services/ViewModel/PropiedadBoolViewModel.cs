@@ -77,8 +77,11 @@ namespace View.Services.ViewModel
         }
         #endregion
 
-        #region Constructores
-
+        #region Contructors
+        public PropiedadBoolViewModel(PropiedadBool propiedad)
+        {
+            model = propiedad;
+        }
         #endregion
 
         #region Events INotifyPropertyChanged

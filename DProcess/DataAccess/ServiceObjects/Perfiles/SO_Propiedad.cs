@@ -8,6 +8,114 @@ namespace DataAccess.ServiceObjects.Perfiles
     public class SO_Propiedad
     {
         /// <summary>
+        /// Método que inserta un registro en la tabla CAT_PROPIEDAD.
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <param name="descripcionCorta"></param>
+        /// <param name="descripcionLarga"></param>
+        /// <param name="imagen"></param>
+        /// <param name="tipoDato"></param>
+        /// <returns></returns>
+        public int Insert(string nombre, string descripcionCorta, string descripcionLarga, byte[] imagen, string tipoDato)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    CAT_PROPIEDAD propiedad = new CAT_PROPIEDAD();
+                    
+                    propiedad.NOMBRE = nombre;
+                    propiedad.DESCRIPCION_CORTA = descripcionCorta;
+                    propiedad.DESCRIPCION_LARGA = descripcionLarga;
+                    propiedad.IMAGEN = imagen;
+                    propiedad.TIPO_DATO = tipoDato;
+                    
+                    propiedad.FECHA_ACTUALIZACION = DateTime.Now;
+                    propiedad.FECHA_CREACION = DateTime.Now;
+                    propiedad.ID_USUARIO_ACTUALIZACION = 1;
+                    propiedad.ID_USUARIO_CREACION = 1;
+
+                    Conexion.CAT_PROPIEDAD.Add(propiedad);
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Método que actualiza un registro en la tabla CAT_PROPIEDAD.
+        /// </summary>
+        /// <param name="idPropiedad"></param>
+        /// <param name="nombre"></param>
+        /// <param name="descripcionCorta"></param>
+        /// <param name="descripcionLarga"></param>
+        /// <param name="imagen"></param>
+        /// <param name="tipoDato"></param>
+        /// <returns></returns>
+        public int Update(int idPropiedad,string nombre, string descripcionCorta, string descripcionLarga, byte[] imagen, string tipoDato)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    CAT_PROPIEDAD propiedad = Conexion.CAT_PROPIEDAD.Where(x => x.ID_PROPIEDAD == idPropiedad).FirstOrDefault();
+
+                    propiedad.NOMBRE = nombre;
+                    propiedad.DESCRIPCION_CORTA = descripcionCorta;
+                    propiedad.DESCRIPCION_LARGA = descripcionLarga;
+                    propiedad.IMAGEN = imagen;
+                    propiedad.TIPO_DATO = tipoDato;
+
+                    propiedad.FECHA_ACTUALIZACION = DateTime.Now;
+                    propiedad.FECHA_CREACION = DateTime.Now;
+                    propiedad.ID_USUARIO_ACTUALIZACION = 1;
+                    propiedad.ID_USUARIO_CREACION = 1;
+
+                    Conexion.Entry(propiedad).State = EntityState.Modified;
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Método que elimina un registro en la tabla CAT_PROPIEDAD.
+        /// </summary>
+        /// <param name="idPropiedad"></param>
+        /// <returns></returns>
+        public int Delete(int idPropiedad)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    CAT_PROPIEDAD propiedad = Conexion.CAT_PROPIEDAD.Where(x => x.ID_PROPIEDAD == idPropiedad).FirstOrDefault();
+
+                    Conexion.Entry(propiedad).State = EntityState.Deleted;
+
+                    return Conexion.SaveChanges();
+                }
+                
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Método que retorna todas las propiedades.
         /// </summary>
         /// <returns></returns>
@@ -298,6 +406,70 @@ namespace DataAccess.ServiceObjects.Perfiles
                                      b.TIPO_DATO,
                                      b.IMAGEN,
                                      a.UNIDAD,
+                                     a.VALOR,
+                                     TIPO_PERFIL = e.PERFIL
+                                 }).ToList();
+
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public IList GetPropiedadCadenaSaved(string codigo)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    var lista = (from a in Conexion.TBL_ARQUETIPO_PROPIEDADES_CADENA
+                                 join b in Conexion.CAT_PROPIEDAD_CADENA on a.ID_PROPIEDAD_CADENA equals b.ID_PROPIEDAD_CADENA
+                                 join c in Conexion.TR_PROPIEDAD_CADENA_PERFIL on b.ID_PROPIEDAD_CADENA equals c.ID_PROPIEDAD_CADENA
+                                 join d in Conexion.CAT_PERFIL on c.ID_PERFIL equals d.ID_PERFIL
+                                 join e in Conexion.CAT_TIPO_PERFIL on d.ID_TIPO_PERFIL equals e.ID_TIPO_PERFIL
+                                 where a.CODIGO == codigo
+                                 select new
+                                 {
+                                     ID_PROPIEDAD = b.ID_PROPIEDAD_CADENA,
+                                     b.NOMBRE,
+                                     b.DESCRIPCION_LARGA,
+                                     b.DESCRIPCION_CORTA,
+                                     b.IMAGEN,
+                                     a.VALOR,
+                                     TIPO_PERFIL = e.PERFIL
+                                 }).ToList();
+
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public IList GetPropiedadBoolSaved(string codigo)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    var lista = (from a in Conexion.TBL_ARQUETIPO_PROPIEDADES_BOOL
+                                 join b in Conexion.CAT_PROPIEDAD_BOOL on a.ID_PROPIEDAD_BOOL equals b.ID_PROPIEDAD_BOOL
+                                 join c in Conexion.TR_PROPIEDAD_BOOL_PERFIL on b.ID_PROPIEDAD_BOOL equals c.ID_PROPIEDAD_BOOL
+                                 join d in Conexion.CAT_PERFIL on c.ID_PERFIL equals d.ID_PERFIL
+                                 join e in Conexion.CAT_TIPO_PERFIL on d.ID_TIPO_PERFIL equals e.ID_TIPO_PERFIL
+                                 where a.CODIGO == codigo
+                                 select new
+                                 {
+                                     ID_PROPIEDAD = b.ID_PROPIEDAD_BOOL,
+                                     b.NOMBRE,
+                                     b.DESCRIPCION_LARGA,
+                                     b.DESCRIPCION_CORTA,
+                                     b.IMAGEN,
                                      a.VALOR,
                                      TIPO_PERFIL = e.PERFIL
                                  }).ToList();

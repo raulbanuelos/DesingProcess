@@ -9,7 +9,8 @@
              d:DesignHeight="30" d:DesignWidth="170">
     <Grid>
         <StackPanel Orientation="Horizontal">
-            <TextBox materialDesign:HintAssist.Hint="{Binding DescripcionCorta}" FontSize="16" TextAlignment="Center" Width="150" Text="{Binding Valor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+            <TextBox materialDesign:HintAssist.Hint="{Binding DescripcionCorta}" FontSize="16" TextAlignment="Center" Width="150" Text="{Binding Valor}" 
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" ToolTip="{Binding DescripcionLarga}" ></TextBox>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -87,7 +87,9 @@
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal" Margin="0,1,0,0">
-                                    <TextBox materialDesign:HintAssist.Hint="Espec Treatment " Width="300" FontSize="16" Text="{Binding EspecTreatment}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                    <TextBox materialDesign:HintAssist.Hint="Espec Treatment " Width="300" FontSize="16" 
+                                             Text="{Binding EspecTreatment}" ToolTip="{Binding DescripcionLarga}"
+                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                                 </StackPanel>
                                 
                                 <!--Termina panel de Treatment-->
@@ -96,7 +98,11 @@
                                 <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBox materialDesign:HintAssist.Hint="{Binding OvalityMin.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
-                                                     Width="150" Text="{Binding OvalityMin.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                                 Width="150" Text="{Binding OvalityMin.Valor,StringFormat=\{0:0.00000\}}" 
+                                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                 ToolTip="{Binding DescripcionLarga}">
+                                            
+                                        </TextBox>
                                         <Button Width="10" Height="10" Command="{Binding  VerUnidadesOvalityMin}"></Button>
                                     </StackPanel>
                                     <StackPanel VerticalAlignment="Center" Margin="5">
@@ -104,7 +110,9 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBox materialDesign:HintAssist.Hint="{Binding OvalityMax.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
-                                                     Width="150" Text="{Binding OvalityMax.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                                 Width="150" Text="{Binding OvalityMax.Valor,StringFormat=\{0:0.00000\}}" 
+                                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                 ToolTip="{Binding DescripcionLarga}"></TextBox>
                                         <Button Width="10" Height="10" Command="{Binding VerUnidadesOvalityMax}"></Button>
                                     </StackPanel>
                                 </StackPanel>
@@ -114,7 +122,9 @@
                                 <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBox materialDesign:HintAssist.Hint="{Binding Tension.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
-                                                     Width="150" Text="{Binding Tension.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                                 Width="150" Text="{Binding Tension.Valor,StringFormat=\{0:0.00000\}}" 
+                                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                 ToolTip="{Binding DescripcionLarga}"></TextBox>
                                         <Button Width="10" Height="10" Command="{Binding VerUnidadesTension}"></Button>
                                     </StackPanel>
                                     <StackPanel VerticalAlignment="Center" Margin="5">
@@ -122,7 +132,10 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBox materialDesign:HintAssist.Hint="{Binding TensionTol.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
-                                                     Width="150" Text="{Binding TensionTol.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                                 Width="150" 
+                                                 Text="{Binding TensionTol.Valor,StringFormat=\{0:0.00000\}}" 
+                                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                 ToolTip="{Binding DescripcionLarga}"></TextBox>
                                         <Button Width="10" Height="10" Command="{Binding VerUnidadesTensionTol}"></Button>
                                     </StackPanel>
                                 </StackPanel>
@@ -131,7 +144,9 @@
                                 <!--Comienza panel Free Gap-->
                                 <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
                                     <TextBox materialDesign:HintAssist.Hint="{Binding FreeGap.TextoPresentacion}" FontSize="16"  TextAlignment="Center" 
-                                                 Width="150" Text="{Binding FreeGap.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                             Width="150" Text="{Binding FreeGap.Valor,StringFormat=\{0:0.00000\}}" 
+                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                             ToolTip="{Binding DescripcionLarga}"></TextBox>
                                     <Button Width="10" Height="10" Command="{Binding VerUnidadesFreeGap}"></Button>
                                 </StackPanel>
                                 <!--Termina panel de Free Gap-->
@@ -144,7 +159,9 @@
                                     </ComboBox>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBox materialDesign:HintAssist.Hint="{Binding Mass.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
-                                                     Width="150" Text="{Binding Mass.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                                 Width="150" Text="{Binding Mass.Valor,StringFormat=\{0:0.00000\}}" 
+                                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                 ToolTip="{Binding DescripcionLarga}"></TextBox>
                                         <Button Width="10" Height="10" Command="{Binding VerUnidadesMass}"></Button>
                                     </StackPanel>
 
@@ -155,15 +172,20 @@
                                 <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBox materialDesign:HintAssist.Hint="{Binding HardnessMin.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
-                                                     Width="150" Text="{Binding HardnessMin.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                                 Width="150" Text="{Binding HardnessMin.Valor,StringFormat=\{0:0.00000\}}" 
+                                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                 ToolTip="{Binding DescripcionLarga}"></TextBox>
                                         <Button Width="10" Height="10" Command="{Binding VerUnidadesHardnessMin}"></Button>
                                     </StackPanel>
                                     <StackPanel VerticalAlignment="Center" Margin="5">
                                         <TextBlock Text="-" FontSize="20"></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBox materialDesign:HintAssist.Hint="{Binding HardnessMax.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
-                                                     Width="150" Text="{Binding HardnessMax.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                        <TextBox materialDesign:HintAssist.Hint="{Binding HardnessMax.TextoPresentacion}" 
+                                                 FontSize="16" TextAlignment="Center" 
+                                                 Width="150" Text="{Binding HardnessMax.Valor,StringFormat=\{0:0.00000\}}"
+                                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                 ToolTip="{Binding DescripcionLarga}"></TextBox>
                                         <Button Width="10" Height="10" Command="{Binding VerUnidadesHardnessMax}"></Button>
                                     </StackPanel>
                                 </StackPanel>
@@ -174,45 +196,44 @@
                                     <ComboBox materialDesign:HintAssist.Hint="CUSTOMER" SelectedItem="{Binding cliente}" FontSize="16" Text="{Binding cliente.NombreCliente}" ItemsSource="{Binding ListaClientes}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="150">
 
                                     </ComboBox>
-                                    
-                                    <StackPanel VerticalAlignment="Center" Margin="5">
-                                        <TextBlock Text="-" FontSize="20"></TextBlock>
+
+                                    <!--Comienza tipo de anillo-->
+                                    <StackPanel Orientation="Horizontal" Margin="20,1,0,0">
+                                        <TextBox materialDesign:HintAssist.Hint="Tipo de anillo" Width="150" FontSize="16" 
+                                                 Text="{Binding TipoAnillo}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                 ToolTip="{Binding DescripcionLarga}"/>
                                     </StackPanel>
-                                    
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBox materialDesign:HintAssist.Hint="{Binding Mass.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
-                                                     Width="150" Text="{Binding Mass.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                        <Button Width="10" Height="10" Command="{Binding VerUnidadesMass}"></Button>
-                                    </StackPanel>
+                                    <!--Termina tipo de anillo-->
                                 </StackPanel>
                                 <!--Termina Cliente-->
-                                    
-                                <!--Comienza tipo de anillo-->
-                                <StackPanel Orientation="Horizontal" Margin="0,1,0,0">
-                                    <TextBox materialDesign:HintAssist.Hint="Tipo de anillo" Width="150" FontSize="16" Text="{Binding TipoAnillo}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                                </StackPanel>
-                                <!--Termina tipo de anillo-->
                                 
                                 <!--Comienza Diámetro y Width-->
                                 <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
-                                                     Width="150" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                                 Width="150" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" 
+                                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                 ToolTip="{Binding DescripcionLarga}"></TextBox>
                                         <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
                                     </StackPanel>
                                     <StackPanel VerticalAlignment="Center" Margin="5">
                                         <TextBlock Text="-" FontSize="20"></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBox materialDesign:HintAssist.Hint="{Binding H1.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
-                                                     Width="150" Text="{Binding H1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                        <TextBox materialDesign:HintAssist.Hint="{Binding H1.TextoPresentacion}" FontSize="16" 
+                                                 TextAlignment="Center" 
+                                                 Width="150" Text="{Binding H1.Valor,StringFormat=\{0:0.00000\}}" 
+                                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                 ToolTip="{Binding DescripcionLarga}"></TextBox>
                                         <Button Width="10" Height="10" Command="{Binding VerUnidadesH1}"></Button>
                                     </StackPanel>
                                 </StackPanel>
                                 <!--Temmina Diámetro y Width-->
 
                                 <StackPanel Orientation="Horizontal" Margin="0,1,0,0">
-                                    <TextBox materialDesign:HintAssist.Hint="Doc. no" Width="300" FontSize="16" Text="{Binding NoPlano}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                    <TextBox materialDesign:HintAssist.Hint="Doc. no" Width="300" FontSize="16" 
+                                             Text="{Binding NoPlano}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                             ToolTip="{Binding DescripcionLarga}"/>
                                 </StackPanel>
                             </StackPanel>
                             <!--Termina panel de Characteristics-->
@@ -246,23 +267,48 @@
 
                     <!--Comienza Perfil Puntas-->
                     <Grid Grid.Column="0" Grid.Row="0" ShowGridLines="False">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="450" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0">
-                            <Image Source="{Binding PerfilPuntas.Imagen}"></Image>
-                        </StackPanel>
-                        <StackPanel Grid.Column="1" Grid.Row="0">
-                            <ItemsControl ItemsSource="{Binding PanelPropiedadesPuntas}">
-                                
-                            </ItemsControl>
-                        </StackPanel>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70*"></RowDefinition>
+                            <RowDefinition Height="30*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70*"></ColumnDefinition>
+                                <ColumnDefinition Width="30*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Grid.Row="0">
+                                <Image Source="{Binding PerfilPuntas.Imagen}"></Image>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1">
+                                <ItemsControl ItemsSource="{Binding PanelPropiedadesPuntas}">
+                                </ItemsControl>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid ShowGridLines="False" Grid.Column="0" Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*"></ColumnDefinition>
+                                <ColumnDefinition Width="50*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="0">
+                                <ItemsControl ItemsSource="{Binding PanelPropiedadesCadenaPuntas}">
+                                </ItemsControl>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1">
+                                <ItemsControl ItemsSource="{Binding PanelPropiedadesBoolPuntas}">
+                                </ItemsControl>
+                            </StackPanel>
+                        </Grid>
                     </Grid>
                     <!--Termina Perfil Puntas-->
 
                     <!--Comienza Pefil OD-->
-                    <Grid Grid.Column="1" Grid.Row="0" ShowGridLines="True">
+                    <Grid Grid.Column="1" Grid.Row="0" ShowGridLines="False">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="70*"></RowDefinition>
                             <RowDefinition Height="30*"></RowDefinition>
@@ -284,7 +330,7 @@
                             </StackPanel>
                         </Grid>
 
-                        <Grid ShowGridLines="True" Grid.Column="0" Grid.Row="1">
+                        <Grid ShowGridLines="False" Grid.Column="0" Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
@@ -294,45 +340,96 @@
                                 <ItemsControl ItemsSource="{Binding PanelPropiedadesCadenaOD}">
                                 </ItemsControl>
                             </StackPanel>
-                            
+
                             <StackPanel Orientation="Vertical" Grid.Column="1">
                                 <ItemsControl ItemsSource="{Binding PanelPropiedadesBoolOD}">
                                 </ItemsControl>
                             </StackPanel>
-
                         </Grid>
                     </Grid>
                     <!--Termina Pefil OD-->
 
                     <!--Comienza Perfil lateral-->
                     <Grid Grid.Column="0" Grid.Row="1" ShowGridLines="False">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="450" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0">
-                            <Image Source="{Binding PerfilLateral.Imagen}"></Image>
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
-                            <ItemsControl ItemsSource="{Binding PanelPropiedadesLateral}">
-                            </ItemsControl>
-                        </StackPanel>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70*"></RowDefinition>
+                            <RowDefinition Height="30*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70*"></ColumnDefinition>
+                                <ColumnDefinition Width="30*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Grid.Row="0">
+                                <Image Source="{Binding PerfilLateral.Imagen}"></Image>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1">
+                                <ItemsControl ItemsSource="{Binding PanelPropiedadesLateral}">
+                                </ItemsControl>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid ShowGridLines="False" Grid.Column="0" Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*"></ColumnDefinition>
+                                <ColumnDefinition Width="50*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="0">
+                                <ItemsControl ItemsSource="{Binding PanelPropiedadesCadenaLateral}">
+                                </ItemsControl>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1">
+                                <ItemsControl ItemsSource="{Binding PanelPropiedadesBoolLateral}">
+                                </ItemsControl>
+                            </StackPanel>
+                        </Grid>
                     </Grid>
                     <!--Termina Perfil lateral-->
 
                     <!--Comienza Perfil ID-->
                     <Grid Grid.Column="1" Grid.Row="1" ShowGridLines="False">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="450" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0">
-                            <Image Source="{Binding PerfilID.Imagen}"></Image>
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
-                            <ItemsControl ItemsSource="{Binding PanelPropiedadesID}">
-                            </ItemsControl>
-                        </StackPanel>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70*"></RowDefinition>
+                            <RowDefinition Height="30*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70*"></ColumnDefinition>
+                                <ColumnDefinition Width="30*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Grid.Row="0">
+                                <Image Source="{Binding PerfilID.Imagen}"></Image>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1">
+                                <ItemsControl ItemsSource="{Binding PanelPropiedadesID}">
+                                </ItemsControl>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid ShowGridLines="False" Grid.Column="0" Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*"></ColumnDefinition>
+                                <ColumnDefinition Width="50*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="0">
+                                <ItemsControl ItemsSource="{Binding PanelPropiedadesCadenaID}">
+                                </ItemsControl>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1">
+                                <ItemsControl ItemsSource="{Binding PanelPropiedadesBoolID}">
+                                </ItemsControl>
+                            </StackPanel>
+                        </Grid>
                     </Grid>
                     <!--Termina Perfil ID-->
                 </Grid>
@@ -342,16 +439,29 @@
                     <GroupBox HorizontalAlignment="Center" VerticalAlignment="Top" Height="80" Style="{DynamicResource MaterialDesignGroupBox}" UseLayoutRounding="True" SnapsToDevicePixels="True">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 
-                            <TextBox materialDesign:HintAssist.Hint="Customer Part No" MaxLength="18" FontSize="16" TextAlignment="Center" Width="180" Text="{Binding CustomerPartNumber}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                            <TextBox materialDesign:HintAssist.Hint="Customer Revision Level No" MaxLength="18" FontSize="16" TextAlignment="Center" Width="180" Text="{Binding CustomerRevisionLevel}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="Customer Part No" MaxLength="18" FontSize="16" 
+                                     TextAlignment="Center" Width="180" Text="{Binding CustomerPartNumber}" 
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                     ToolTip="{Binding DescripcionLarga}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="Customer Revision Level No" MaxLength="18" FontSize="16" 
+                                     TextAlignment="Center" Width="180" Text="{Binding CustomerRevisionLevel}" 
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                     ToolTip="{Binding DescripcionLarga}"></TextBox>
 
-                            <TextBox materialDesign:HintAssist.Hint="Mahle Part No" MaxLength="18" FontSize="16" TextAlignment="Center" Width="180" Text="{Binding Codigo}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="Mahle Part No" MaxLength="18" FontSize="16" TextAlignment="Center"
+                                     Width="180" Text="{Binding Codigo}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                     ToolTip="{Binding DescripcionLarga}"></TextBox>
 
-                            <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" Width="180" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center"
+                                     Width="180" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" 
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                     ToolTip="{Binding DescripcionLarga}"></TextBox>
 
                             <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
 
-                            <TextBox materialDesign:HintAssist.Hint="Size" FontSize="16" TextAlignment="Center" Width="70" Text="{Binding Size}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="Size" FontSize="16" TextAlignment="Center" Width="70" 
+                                     Text="{Binding Size}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                     ToolTip="{Binding DescripcionLarga}"></TextBox>
 
                         </StackPanel>
                     </GroupBox>

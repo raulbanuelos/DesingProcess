@@ -538,7 +538,7 @@ namespace Model
         /// <param name="unidad"></param>
         /// <param name="valor"></param>
         /// <returns></returns>
-        public static int InsertArquetipoPropiedadesCadena(string codigo, int idPropiedad, string unidad, string valor)
+        public static int InsertArquetipoPropiedadesCadena(string codigo, int idPropiedad, string valor)
         {
             SO_Propiedad ServicePropiedad = new SO_Propiedad();
 
@@ -613,9 +613,7 @@ namespace Model
                     anillo.Activo = (bool)tipo.GetProperty("Activo").GetValue(item, null);
                 }
             }
-
             
-
             return anillo;
         }
         #endregion
@@ -11623,6 +11621,43 @@ namespace Model
             return ListaResultante;
         }
 
+        public static ObservableCollection<Perfil> GetAllPerfiles()
+        {
+            //Inicializamos los servicios de SO_Perfil.
+            SO_Perfil ServicePerfil = new SO_Perfil();
+
+            //Declaramos una lista la cual será la que retornamos en el método.
+            ObservableCollection<Perfil> ListaPerfiles = new ObservableCollection<Perfil>();
+
+            //Ejecutamos el método para obtener la inforamción, el resultado lo guardamos en una variable local.
+            IList informacionBD = ServicePerfil.GetAllPerfiles();
+
+            //Comparamos que la información sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la informancón.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo.
+                    Type tipo = item.GetType();
+
+                    //Mapeamos los valores a un objeto de tipo perfil.
+                    Perfil perfil = new Perfil();
+                    perfil.Nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    perfil.TipoPerfil = (string)tipo.GetProperty("PERFIL").GetValue(item, null);
+                    perfil.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
+                    perfil.Descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    perfil.idPerfil = (int)tipo.GetProperty("ID_PERFIL").GetValue(item, null);
+
+                    //Guardamos el perfil en la lista.
+                    ListaPerfiles.Add(perfil);
+                }
+            }
+
+            //Retornamos la lista.
+            return ListaPerfiles;
+        }
+
         /// <summary>
         /// Método que retorna todos los perfiles de un determinado tipo de perfil.
         /// </summary>
@@ -11750,6 +11785,42 @@ namespace Model
         #region Propiedades
 
         /// <summary>
+        /// Método que inserta un registro en la tabla CAT_PROPIEDAD.
+        /// </summary>
+        /// <param name="propiedad"></param>
+        /// <returns></returns>
+        public static int SetPropiedad(Propiedad propiedad)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            return ServicePropiedad.Insert(propiedad.Nombre, propiedad.DescripcionCorta, propiedad.DescripcionLarga, propiedad.Imagen, propiedad.TipoDato);
+        }
+
+        /// <summary>
+        /// Método que actualiza un registro en la tabla CAT_PROPIEDAD.
+        /// </summary>
+        /// <param name="propiedad"></param>
+        /// <returns></returns>
+        public static int UpdatePropiedad(Propiedad propiedad)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            return ServicePropiedad.Update(propiedad.idPropiedad, propiedad.Nombre, propiedad.DescripcionCorta, propiedad.DescripcionLarga, propiedad.Imagen, propiedad.TipoDato);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro en la tabla CAT_PROPIEDAD.
+        /// </summary>
+        /// <param name="idPropiedad"></param>
+        /// <returns></returns>
+        public static int DeletePropiedad(int idPropiedad)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            return ServicePropiedad.Delete(idPropiedad);
+        }
+
+        /// <summary>
         /// Método que retorna todas las propiedades tipo double que tiene un determinado perfil.
         /// </summary>
         /// <param name="idPerfil"></param>
@@ -11789,6 +11860,40 @@ namespace Model
 
             return ListaPropiedades;
         } 
+
+        /// <summary>
+        /// Método que obtiene todas las propiedades de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<Propiedad> GetAllPropiedades()
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            ObservableCollection<Propiedad> ListaResultante = new ObservableCollection<Propiedad>();
+
+            IList informacionBD = ServicePropiedad.GetAllPropiedades();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    Propiedad propiedad = new Propiedad();
+
+                    propiedad.idPropiedad = (int)tipo.GetProperty("ID_PROPIEDAD").GetValue(item, null);
+                    propiedad.Nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    propiedad.DescripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
+                    propiedad.DescripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
+                    propiedad.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
+                    propiedad.TipoDato = (string)tipo.GetProperty("TIPO_DATO").GetValue(item, null);
+
+                    ListaResultante.Add(propiedad);
+                }
+            }
+
+            return ListaResultante;
+        }
 
         /// <summary>
         /// Método que retorna todas las propiedades de tipo cadena que tiene un determinado perfil.
@@ -11931,7 +12036,74 @@ namespace Model
             return ListadoPropiedades;
         }
 
+        /// <summary>
+        /// Método que obtiene todas las propiedades cadena que son relacionadas con un componente
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static ObservableCollection<PropiedadCadena> GetPropiedadCadenaSaved(string codigo)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
 
+            ObservableCollection<PropiedadCadena> ListadoPropiedadesCadena = new ObservableCollection<PropiedadCadena>();
+
+            IList informacionBD = ServicePropiedad.GetPropiedadCadenaSaved(codigo);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+                    PropiedadCadena propiedad = new PropiedadCadena();
+
+                    propiedad.idPropiedad = (int)tipo.GetProperty("ID_PROPIEDAD").GetValue(item, null);
+                    propiedad.Nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    propiedad.DescripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
+                    propiedad.DescripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
+                    propiedad.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
+                    propiedad.Valor = (string)tipo.GetProperty("VALOR").GetValue(item, null);
+                    propiedad.TipoPerfil = (string)tipo.GetProperty("TIPO_PERFIL").GetValue(item, null);
+
+                    ListadoPropiedadesCadena.Add(propiedad);
+                }
+            }
+            return ListadoPropiedadesCadena;
+        }
+        
+        /// <summary>
+        /// Método que obtiene todas las propiedades booleanas que son relacionadas con un componente.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static ObservableCollection<PropiedadBool> GetPropiedadBoolSaved(string codigo)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            ObservableCollection<PropiedadBool> ListadoPropiedadesCadena = new ObservableCollection<PropiedadBool>();
+
+            IList informacionBD = ServicePropiedad.GetPropiedadBoolSaved(codigo);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+                    PropiedadBool propiedad = new PropiedadBool();
+
+                    propiedad.idPropiedad = (int)tipo.GetProperty("ID_PROPIEDAD").GetValue(item, null);
+                    propiedad.Nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    propiedad.DescripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
+                    propiedad.DescripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
+                    propiedad.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
+                    propiedad.Valor = (bool)tipo.GetProperty("VALOR").GetValue(item, null);
+                    propiedad.TipoPerfil = (string)tipo.GetProperty("TIPO_PERFIL").GetValue(item, null);
+
+                    ListadoPropiedadesCadena.Add(propiedad);
+                }
+            }
+            return ListadoPropiedadesCadena;
+        }
+        
         #endregion
     }
 }

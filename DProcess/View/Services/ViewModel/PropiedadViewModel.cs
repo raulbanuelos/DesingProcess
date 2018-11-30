@@ -5,6 +5,10 @@ using Model;
 using View.Forms.Modals;
 using MahApps.Metro.Controls.Dialogs;
 using View.Resources;
+using System;
+using View.Forms.Routing;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace View.Services.ViewModel
 {
@@ -18,6 +22,8 @@ namespace View.Services.ViewModel
 
         private DialogService dialogService;
 
+        WPropiedadNumeric ventanaNumeric;
+
         #endregion
 
         #region Properties
@@ -28,21 +34,60 @@ namespace View.Services.ViewModel
             set { _allTipoUnidad = value; NotifyChange("AllTipoUnidad"); }
         }
 
-        #endregion
+        private ObservableCollection<Propiedad> listaPropiedades;
 
-        #region Events INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged; 
-        #endregion
+        public ObservableCollection<Propiedad> ListaPropiedades
+        {
+            get { return listaPropiedades; }
+            set { listaPropiedades = value; NotifyChange("ListaPropiedades"); }
+        }
 
-        #region Propiedades de Modelo
+        private Propiedad propiedadSeleccionada;
+        public Propiedad PropiedadSeleccionada
+        {
+            get { return propiedadSeleccionada; }
+            set { propiedadSeleccionada = value; NotifyChange("PropiedadSeleccionada"); }
+        }
+
+        private bool _enabledEliminar;
+        public bool EnabledEliminar
+        {
+            get
+            {
+                return _enabledEliminar;
+            }
+            set
+            {
+                _enabledEliminar = value;
+                NotifyChange("EnabledEliminar");
+            }
+        }
+
+        #region Properties of Model
+
+        public int idPropiedad
+        {
+            get
+            {
+                return model.idPropiedad;
+            }
+            set {
+                model.idPropiedad = value;
+                NotifyChange("idPropiedad");
+            }
+        }
+
         /// <summary>
         /// Cadena que representa el nombre de la propiedad.
         /// </summary>
-        public string Nombre {
-            get {
+        public string Nombre
+        {
+            get
+            {
                 return model.Nombre;
             }
-            set {
+            set
+            {
                 model.Nombre = value;
                 NotifyChange("Nombre");
                 NotifyChange("TextoPresentacion");
@@ -52,8 +97,10 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Cadena que representa la concatecacion del nombre con la unidad.
         /// </summary>
-        public string TextoPresentacion {
-            get {
+        public string TextoPresentacion
+        {
+            get
+            {
                 return model.DescripcionCorta + ":" + model.Unidad;
             }
         }
@@ -61,57 +108,68 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Cadena que representa una descripción larga de la propiedad.
         /// </summary>
-        public string DescripcionLarga {
+        public string DescripcionLarga
+        {
             get
             {
                 return model.DescripcionLarga;
             }
-            set {
+            set
+            {
                 model.DescripcionLarga = value;
                 NotifyChange("DescripcionLarga");
             }
         }
-        
+
         /// <summary>
         /// Cadena que representa una descripción corta de la propiedad.
         /// </summary>
-        public string DescripcionCorta {
-            get {
+        public string DescripcionCorta
+        {
+            get
+            {
                 return model.DescripcionCorta;
             }
-            set {
+            set
+            {
                 model.DescripcionCorta = value;
                 NotifyChange("DescripcionCorta");
             }
         }
-        
+
         /// <summary>
         /// Cadena que representa el tipo de dato de la propiedad.
         /// </summary>
         /// <example>
         /// Angle,Distance,Presion, etc.
         /// </example>
-        public string TipoDato {
-            get {
+        public string TipoDato
+        {
+            get
+            {
                 return model.TipoDato;
             }
-            set {
+            set
+            {
                 model.TipoDato = value;
                 NotifyChange("TipoDato");
             }
         }
-        
+
         /// <summary>
         /// Cadena que representa la unidad de la propiedad.
         /// </summary>
         /// <example>
         /// degree(°),Inch (in),PSI
         /// </example>
-        public string Unidad {
-            get {
+        public string Unidad
+        {
+            get
+            {
                 return model.Unidad;
             }
-            set {
+            set
+            {
                 if (model.Unidad != value)
                 {
                     SetNewValor(value);
@@ -123,30 +181,42 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Double que representa el valor de la propiedad.
         /// </summary>
-        public double Valor {
-            get {
+        public double Valor
+        {
+            get
+            {
                 return model.Valor;
             }
-            set {
+            set
+            {
                 model.Valor = value;
                 NotifyChange("Valor");
             }
         }
-        
+
         /// <summary>
         /// Arreglo de bytes que representa la imagen de la propiedad.
         /// </summary>
-        public byte[] Imagen {
-            get {
+        public byte[] Imagen
+        {
+            get
+            {
                 return model.Imagen;
             }
-            set {
-                model.Imagen  = value;
+            set
+            {
+                model.Imagen = value;
                 NotifyChange("Imagen");
             }
         }
         #endregion
+        
+        #endregion
 
+        #region Events INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged; 
+        #endregion
+        
         #region Constructores
 
         /// <summary>
@@ -159,7 +229,8 @@ namespace View.Services.ViewModel
             model = Model;
 
             //Ejecutamos el método para obtener la lista de unidades, asignamos el resultado a la lista de la clase.
-            AllTipoUnidad = DataManager.GetUnidades(model.TipoDato);
+            if(!string.IsNullOrEmpty(model.TipoDato))
+                AllTipoUnidad = DataManager.GetUnidades(model.TipoDato);
 
             dialogService = new DialogService();
         }
@@ -226,7 +297,17 @@ namespace View.Services.ViewModel
                 Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDureza.RB);
             }
         }
-        
+
+        /// <summary>
+        /// Constructor para cuando se requieran administrar todas las propiedades.
+        /// </summary>
+        /// <param name="sTl"></param>
+        public PropiedadViewModel(bool sTl)
+        {
+
+            //Obtenemos todas las propiedades.
+            ListaPropiedades = DataManager.GetAllPropiedades();
+        }
         #endregion
 
         #region INotifyPropertyChanged Métodos
@@ -246,10 +327,172 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => verListaUnidades());
             }
         }
+
+        /// <summary>
+        /// Comando para visualizar la propiedad seleccionada.
+        /// </summary>
+        public ICommand EditarPropiedad
+        {
+            get
+            {
+                return new RelayCommand(o => editarDocumento());
+            }
+        }
+
+        public ICommand GuardarPropiedad
+        {
+            get
+            {
+                return new RelayCommand(o => guardarPropiedad());
+            }
+        }
+
+        public ICommand SeleccionarImagen
+        {
+            get
+            {
+                return new RelayCommand(o => seleccionarImagen());
+            }
+        }
+
+        public ICommand EliminarPropiedad
+        {
+            get
+            {
+                return new RelayCommand(o => eliminarPropiedad());
+            }
+        }
+
+        public ICommand NewPropiedad
+        {
+            get
+            {
+                return new RelayCommand(o => newPropiedad());
+            }
+        }
         #endregion
 
         #region Methods
 
+        private void newPropiedad()
+        {
+            PropiedadViewModel wmNumeric = new PropiedadViewModel(new Propiedad());
+            ventanaNumeric = new WPropiedadNumeric();
+            wmNumeric.EnabledEliminar = false;
+            ventanaNumeric.DataContext = wmNumeric;
+            ventanaNumeric.ShowDialog();
+
+            //Obtenemos todas las propiedades.
+            ListaPropiedades = DataManager.GetAllPropiedades();
+        }
+
+        private async void eliminarPropiedad()
+        {
+            if (idPropiedad > 0)
+            {
+                //Incializamos los servicios de dialog.
+                DialogService dialogService = new DialogService();
+
+                //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+                MetroDialogSettings setting = new MetroDialogSettings();
+                setting.AffirmativeButtonText = StringResources.lblYes;
+                setting.NegativeButtonText = StringResources.lblNo;
+
+                //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+                MessageDialogResult result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgEliminarRegistro, setting, MessageDialogStyle.AffirmativeAndNegative);
+                if (result == MessageDialogResult.Affirmative)
+                {
+                    DataManager.DeletePropiedad(idPropiedad);
+                    await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.ttlDone);
+
+                    //Obtenemos todas las propiedades.
+                    ListaPropiedades = DataManager.GetAllPropiedades();
+
+                }
+            }
+            
+        }
+
+        private async void seleccionarImagen()
+        {
+            //Abre la ventana de explorador de archivos
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.Filter = "Imagenes|*.png";
+            // Mostrar el explorador de archivos
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                string filename = dlg.FileName;
+                if (!Module.IsFileInUse(filename))
+                {
+                    Imagen = await Task.Run(() => File.ReadAllBytes(filename));
+                }
+            }
+
+        }
+
+        private async void guardarPropiedad()
+        {
+            //Incializamos los servicios de dialog.
+            DialogService dialogService = new DialogService();
+
+            if (validar())
+            {
+                int r = 0;
+
+                //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+                MetroDialogSettings setting = new MetroDialogSettings();
+                setting.AffirmativeButtonText = StringResources.lblYes;
+                setting.NegativeButtonText = StringResources.lblNo;
+                //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+                MessageDialogResult result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, setting, MessageDialogStyle.AffirmativeAndNegative);
+
+                if (result == MessageDialogResult.Affirmative)
+                {
+                    if (idPropiedad > 0)
+                        r = DataManager.UpdatePropiedad(model);
+                    else
+                        r = DataManager.SetPropiedad(model);
+
+                    if (r > 0)
+                        await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.ttlDone);
+                    else
+                        await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgError);
+                }
+            }
+            else
+            {
+                await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
+            }
+            
+        }
+
+        private bool validar()
+        {
+            if (string.IsNullOrEmpty(Nombre) || string.IsNullOrEmpty(DescripcionCorta) || string.IsNullOrEmpty(DescripcionLarga) || string.IsNullOrEmpty(TipoDato) || Imagen == null)
+                return false;
+            else
+                return true;
+        }
+
+        private void editarDocumento()
+        {
+            if (PropiedadSeleccionada.idPropiedad > 0)
+            {
+                PropiedadViewModel wmNumeric = new PropiedadViewModel(PropiedadSeleccionada);
+                wmNumeric.EnabledEliminar = true;
+                ventanaNumeric = new WPropiedadNumeric();
+                ventanaNumeric.DataContext = wmNumeric;
+
+                ventanaNumeric.ShowDialog();
+
+                //Obtenemos todas las propiedades.
+                ListaPropiedades = DataManager.GetAllPropiedades();
+
+            }
+        }
+        
         private void verListaUnidades()
         {
             frmViewUnidades modal = new frmViewUnidades();
