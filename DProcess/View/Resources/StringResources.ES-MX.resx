@@ -194,7 +194,7 @@
     <comment>Mensaje de por favor llena todos los campos</comment>
   </data>
   <data name="msgPatternInserted" xml:space="preserve">
-    <value>La placa modelo fué dada de alta con el código: </value>
+    <value>La placa modelo fue dada de alta con el código: </value>
     <comment>Mensaje para confirmar que una placa modelo fué insertada</comment>
   </data>
   <data name="msgRoutingReady" xml:space="preserve">
@@ -326,11 +326,11 @@
     <comment>Mensaje para notificar que se esta elaborando el archivo excel</comment>
   </data>
   <data name="msgHerramental" xml:space="preserve">
-    <value>No se encontro herramental con estas caracteristicas</value>
+    <value>No se encontró herramental con estas características</value>
     <comment>Mensaje que notifica que no se encontro un herramental con las ciertas caracteristicas</comment>
   </data>
   <data name="msgNumeroDocumentoDisp" xml:space="preserve">
-    <value>Usted no tiene ningun número de documento disponible</value>
+    <value>Usted no tiene ningún número de documento disponible</value>
     <comment>Mensaje para notificar que el usuario no tiene numeros de documentos disponibles</comment>
   </data>
   <data name="msgNumeroFijo" xml:space="preserve">
@@ -366,7 +366,7 @@
     <comment>Mensaje para notificar que los cambios se guardaron correctamene</comment>
   </data>
   <data name="msgCamposInvalidos" xml:space="preserve">
-    <value>Campos invalidos, ingrese solo números</value>
+    <value>Campos inválidos, ingrese solo números</value>
     <comment>Mensaje que notifica que solo se deben ingresar números</comment>
   </data>
   <data name="msgCierreArchivo" xml:space="preserve">
@@ -410,7 +410,7 @@
     <comment>Mensaje para notificar que no se pudo eliminar la version</comment>
   </data>
   <data name="msgEliminaVersion" xml:space="preserve">
-    <value>Se elimina version</value>
+    <value>Se elimina versión</value>
     <comment>Mensaje que notifica que se elimina la version</comment>
   </data>
   <data name="msgErrorActualizarVersion" xml:space="preserve">
@@ -422,7 +422,7 @@
     <comment>Mensaje para notificar que el documento no se pudo eliminar</comment>
   </data>
   <data name="msgErrorBorrarVersion" xml:space="preserve">
-    <value>No se puedo elimnar la version</value>
+    <value>No se puedo eliminar la versión</value>
     <comment>Mensaje para notificar que no se pudo borrar la version</comment>
   </data>
   <data name="msgErrorCambiosDocumentos" xml:space="preserve">
@@ -458,7 +458,7 @@
     <comment>Mensaje que indica que hubo un error al regitrar la version</comment>
   </data>
   <data name="msgErrorVersion" xml:space="preserve">
-    <value>El documento no tiene version anterior</value>
+    <value>El documento no tiene versión anterior</value>
     <comment>Mensaje para notificar que el documento no tiene version anterior</comment>
   </data>
   <data name="msgEspera" xml:space="preserve">
@@ -522,7 +522,7 @@
     <comment>Mensaje que notifica que se mando el correo exitosamente</comment>
   </data>
   <data name="msgNotificacionCorreoFallida" xml:space="preserve">
-    <value>Ocurrio un error al notificar por correo. Favor de notificar manualmente desde Lotus Notes</value>
+    <value>Ocurrió un error al notificar por correo. Favor de notificar manualmente desde Lotus Notes</value>
     <comment>Mensaje que notifica que hubo un error al notificar via correo</comment>
   </data>
   <data name="msgNotificacionMatriz" xml:space="preserve">
@@ -534,7 +534,7 @@
     <comment>Mensaje que hace seleccionar a una persiona para notificar la baja</comment>
   </data>
   <data name="msgNuevaVersion" xml:space="preserve">
-    <value>La nueva version del documento es la número</value>
+    <value>La nueva versión del documento es la número</value>
     <comment>Mensaje para notificar la nueva version del documento</comment>
   </data>
   <data name="msgNumeroCopias" xml:space="preserve">
@@ -542,7 +542,7 @@
     <comment>Mensaje que captural el numero de copias</comment>
   </data>
   <data name="msgNumeroVersion" xml:space="preserve">
-    <value>Versón número</value>
+    <value>Versión número</value>
     <comment>Mensaje que indica el numero de la version</comment>
   </data>
   <data name="msgRegistroEliminado" xml:space="preserve">
@@ -558,7 +558,7 @@
     <comment>Mensaje para notificar que se regresara a la version anterior</comment>
   </data>
   <data name="ttlGuardarVersion" xml:space="preserve">
-    <value>Guardar Version</value>
+    <value>Guardar Versión</value>
     <comment>Titulo para el boton de guardar</comment>
   </data>
   <data name="ttlVerArchivos" xml:space="preserve">
@@ -650,7 +650,7 @@
     <comment>Mensaje para notificar que hubo error al generar el numero</comment>
   </data>
   <data name="msgErrorGuardarDocumento" xml:space="preserve">
-    <value>Error al guardar el documento,favor de comunicarse con el administrador del sistema</value>
+    <value>Error al guardar el documento, favor de comunicarse con el administrador del sistema</value>
     <comment>Mensaje que notifica que hubo un error al guardar el documento y se tiene que contactar al administrador del sistema</comment>
   </data>
   <data name="msgErrorInsertarArchivo" xml:space="preserve">
@@ -686,7 +686,7 @@
     <comment>Mensaje que notifica que se actualizo el estatus de la version</comment>
   </data>
   <data name="msgExtencionNSF" xml:space="preserve">
-    <value>Solo se permiten rutas con extención .nsf</value>
+    <value>Solo se permiten rutas con extensión .nsf</value>
     <comment>Mensaje que notifica que solo se permiten rutas con extencio .nsf</comment>
   </data>
   <data name="msgGenerarNumero" xml:space="preserve">
@@ -754,7 +754,7 @@
     <comment>Mensaje que notifica que se dio de salta al usuario</comment>
   </data>
   <data name="msgUsuarioAltaError" xml:space="preserve">
-    <value>Error al registar el usuario</value>
+    <value>Error al registrar el usuario</value>
     <comment>Mensaje que notifica que hubo un error al dar de alta a un usuario</comment>
   </data>
   <data name="msgUsuarioExistente" xml:space="preserve">
@@ -874,7 +874,7 @@
     <comment>Etiqueta para el campo de fecha actualizada</comment>
   </data>
   <data name="lblFechaEmision" xml:space="preserve">
-    <value>Fecha de Emision</value>
+    <value>Fecha de Emisión</value>
     <comment>Etiqueta para el campo de fecha de emision</comment>
   </data>
   <data name="lblFechaFinal" xml:space="preserve">
@@ -902,7 +902,7 @@
     <comment>Etiqueta para el tooltip del boton</comment>
   </data>
   <data name="lblGenerarVersion" xml:space="preserve">
-    <value>Generar Version</value>
+    <value>Generar Versión</value>
     <comment>Etiqueta para el boton de generar version</comment>
   </data>
   <data name="lblGuardar" xml:space="preserve">
@@ -950,7 +950,7 @@
     <comment>Etiqueta para el campo de notificar a </comment>
   </data>
   <data name="lblNotificarA" xml:space="preserve">
-    <value>Notificar despues de liberar a:</value>
+    <value>Notificar después de liberar a:</value>
     <comment>Etiqueta para el campo de notificar</comment>
   </data>
   <data name="lblNuevoDocumento" xml:space="preserve">
@@ -1310,7 +1310,7 @@
     <value>Click para ver las materias primas</value>
   </data>
   <data name="ttlTiempoEstandarAux" xml:space="preserve">
-    <value>Click para administrar el tiempo estandar</value>
+    <value>Click para administrar el tiempo estándar</value>
   </data>
   <data name="ttlUsuariosAux" xml:space="preserve">
     <value>Click para administrar tu perfil</value>
@@ -1349,7 +1349,7 @@
     <value>Cambios</value>
   </data>
   <data name="lblCaracteristicas" xml:space="preserve">
-    <value>Caracteristicas</value>
+    <value>Características</value>
   </data>
   <data name="lblCorrer" xml:space="preserve">
     <value>Correr</value>
@@ -1385,7 +1385,7 @@
     <value>Borrar operación</value>
   </data>
   <data name="lblDiametro" xml:space="preserve">
-    <value>Diametro</value>
+    <value>Diámetro</value>
   </data>
   <data name="lblEspesor" xml:space="preserve">
     <value>Espesor</value>
@@ -1487,7 +1487,7 @@
     <value>Agregar Maestro Herramental</value>
   </data>
   <data name="ttlBusquedHerramental" xml:space="preserve">
-    <value>Busqueda de Herramental</value>
+    <value>Búsqueda de Herramental</value>
   </data>
   <data name="ttlMaestroHerramental" xml:space="preserve">
     <value>Maestro Herramental</value>
@@ -1502,7 +1502,7 @@
     <value>Proceso</value>
   </data>
   <data name="ttlCorrigioDocumento" xml:space="preserve">
-    <value>Corrigío el documento</value>
+    <value>Corrigió el documento</value>
     <comment>Titulo para la ventana de notificaciones</comment>
   </data>
   <data name="ttlCreadoDocumento" xml:space="preserve">
@@ -1518,7 +1518,7 @@
     <comment>Titulo para la ventana de notificaciones</comment>
   </data>
   <data name="ttlEntregarDocumento" xml:space="preserve">
-    <value>Fué aprobado y ya lo puedes entregar al administrador de documentos</value>
+    <value>Fue aprobado y ya lo puedes entregar al administrador de documentos</value>
     <comment>Titulo para la ventana de notificaciones</comment>
   </data>
   <data name="ttlNuevoDocumentoValidar" xml:space="preserve">
@@ -1533,7 +1533,7 @@
     <comment>Titulo para la ventana de notificaciones</comment>
   </data>
   <data name="msgExitWithOutSaveChanges" xml:space="preserve">
-    <value>¿Esta seguro de slir sin guardar cambios?</value>
+    <value>¿Esta seguro de salir sin guardar cambios?</value>
     <comment>Mensaje para salir sin guardar cambios</comment>
   </data>
   <data name="msgSeleccioneNumero" xml:space="preserve">
@@ -1590,7 +1590,7 @@
     <comment>Título para mensaje de estamos trabajando.</comment>
   </data>
   <data name="lblMilimetros" xml:space="preserve">
-    <value>Milimetros(mm)</value>
+    <value>Milímetros(mm)</value>
     <comment>Label para Milimetros</comment>
   </data>
   <data name="lblPulgadas" xml:space="preserve">
@@ -1610,7 +1610,7 @@
     <value>Por favor, seleccione el usuario que autorizó su documento</value>
   </data>
   <data name="lblInstruccionesLeccion" xml:space="preserve">
-    <value>Puedes agregar 1 ó mas archivos al registro de la leccion aprendida</value>
+    <value>Puedes agregar 1 o mas archivos al registro de la lección aprendida</value>
   </data>
   <data name="lblUbicacion" xml:space="preserve">
     <value>Ubicación</value>
@@ -1624,5 +1624,32 @@
   </data>
   <data name="ttlFechaLimiteEntrega" xml:space="preserve">
     <value>Fecha límite de entrega</value>
+  </data>
+  <data name="ttlElegirCentroTrabajo" xml:space="preserve">
+    <value>Elegir centro de trabajo</value>
+  </data>
+  <data name="ttlElegirTipoCambio" xml:space="preserve">
+    <value>Elegir tipo de cambio</value>
+  </data>
+  <data name="ttlTipoCambioSeleccionado" xml:space="preserve">
+    <value>Tipos de cambio seleccionados</value>
+  </data>
+  <data name="ttlTipoCentroSeleccionado" xml:space="preserve">
+    <value>Centros de trabajo seleccionados</value>
+  </data>
+  <data name="lblAgregarOtroComponente" xml:space="preserve">
+    <value>¿Deseas agregar otro componente?</value>
+  </data>
+  <data name="lblArchivoLeccionesAprendidas" xml:space="preserve">
+    <value>Para ver/eliminar el archivo, debes dar clic en el icono del archivo</value>
+  </data>
+  <data name="lblComponenteNoEncontrado" xml:space="preserve">
+    <value>Ningún componente similar fue encontrado, la fecha del ultimo cambio será la del día de hoy</value>
+  </data>
+  <data name="lblDescripcionSimilar" xml:space="preserve">
+    <value>¿Cuantos componentes se van a ingresar?</value>
+  </data>
+  <data name="lblIngreseNumeroComponente" xml:space="preserve">
+    <value>Ingrese el número del componente</value>
   </data>
 </root>

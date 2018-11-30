@@ -26,7 +26,7 @@
             <RowDefinition Height="55"/>
         </Grid.RowDefinitions>
 
-        <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" HorizontalAlignment="Left" Grid.Column="1">
+        <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="15" HorizontalAlignment="Left" Grid.Column="1">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="TextChanged">
                     <i:InvokeCommandAction
@@ -39,8 +39,7 @@
                                       ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                      AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,55,0,0" Grid.RowSpan="2"
-                                      >
+                                      AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,15,0,0">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                         EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
@@ -52,8 +51,10 @@
                 <DataGridTextColumn Header="{x:Static recursos:StringResources.lblOperacion}" Binding="{Binding NombreOperacion}" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
+        
         <Grid Grid.Column="1" Grid.Row="2">
             <Button Content="Aceptar" Width="100" HorizontalAlignment="Right" Command="{Binding CerrarVentana}"/>
         </Grid>
+        
     </Grid>
     </Controls:MetroWindow>

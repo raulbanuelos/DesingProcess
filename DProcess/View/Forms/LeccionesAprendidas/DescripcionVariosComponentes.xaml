@@ -38,8 +38,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Elegir Centro de Trabajo" Width="200" Command="{Binding ElegirCentroTrabajo}"/>
-            <Button Grid.Column="1" Content="Elegir Tipo de Cambio" Width="200" Command="{Binding ElegirNivelCambio}"/>
+            <Button Grid.Column="0" Content="{x:Static recursos:StringResources.ttlElegirCentroTrabajo}" Width="200" Command="{Binding ElegirCentroTrabajo}"/>
+            <Button Grid.Column="1" Content="{x:Static recursos:StringResources.ttlElegirTipoCambio}" Width="200" Command="{Binding ElegirNivelCambio}"/>
         </Grid>
         
         <!--Titulos de centros de trabajo y niveles de cambio-->
@@ -48,8 +48,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Grid.Row="0" Content="Centros de trabajo seleccionados" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Label Grid.Column="2" Grid.Row="0" Content="Tipos de cambio seleccionados" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="0" Content="{x:Static recursos:StringResources.ttlTipoCentroSeleccionado}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Grid.Column="2" Grid.Row="0" Content="{x:Static recursos:StringResources.ttlTipoCambioSeleccionado}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
 
         <!--Datagrid para los centros de trabajo y los tipos de cambio seleccionados-->
@@ -87,7 +87,7 @@
         </Grid>
 
         <Grid Grid.Row="5" Grid.Column="1">
-            <TextBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblDescripcionProblema}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="230"  Width="650"  BorderBrush="#89535353" FontSize="18" Text="{Binding DescripcionProblema}" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+            <TextBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblDescripcionProblema}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="230"  Width="650"  BorderBrush="#89535353" FontSize="18" Text="{Binding DescripcionProblema}" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" CharacterCasing="Upper"/>
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="6">

@@ -160,6 +160,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to add another component?.
+        /// </summary>
+        public static string lblAgregarOtroComponente {
+            get {
+                return ResourceManager.GetString("lblAgregarOtroComponente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Add Type.
         /// </summary>
         public static string lblAgregarTipo {
@@ -282,6 +291,15 @@ namespace View.Resources {
         public static string lblArchivo {
             get {
                 return ResourceManager.GetString("lblArchivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a To see/delete the file, first you need to click in the icon of the file.
+        /// </summary>
+        public static string lblArchivoLeccionesAprendidas {
+            get {
+                return ResourceManager.GetString("lblArchivoLeccionesAprendidas", resourceCulture);
             }
         }
         
@@ -502,6 +520,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Any similar component wasn´t found, the date of the last change will be today.
+        /// </summary>
+        public static string lblComponenteNoEncontrado {
+            get {
+                return ResourceManager.GetString("lblComponenteNoEncontrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Confirm Password.
         /// </summary>
         public static string lblConfirmarContraseña {
@@ -624,6 +651,15 @@ namespace View.Resources {
         public static string lblDescripcionProblema {
             get {
                 return ResourceManager.GetString("lblDescripcionProblema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a How many components are going to be inserted?.
+        /// </summary>
+        public static string lblDescripcionSimilar {
+            get {
+                return ResourceManager.GetString("lblDescripcionSimilar", resourceCulture);
             }
         }
         
@@ -1002,6 +1038,15 @@ namespace View.Resources {
         public static string lblInformation {
             get {
                 return ResourceManager.GetString("lblInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Insert component number.
+        /// </summary>
+        public static string lblIngreseNumeroComponente {
+            get {
+                return ResourceManager.GetString("lblIngreseNumeroComponente", resourceCulture);
             }
         }
         
@@ -3319,6 +3364,24 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Choose work center.
+        /// </summary>
+        public static string ttlElegirCentroTrabajo {
+            get {
+                return ResourceManager.GetString("ttlElegirCentroTrabajo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Choose type of change.
+        /// </summary>
+        public static string ttlElegirTipoCambio {
+            get {
+                return ResourceManager.GetString("ttlElegirTipoCambio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Was approved and you can deliver it to the document manager.
         /// </summary>
         public static string ttlEntregarDocumento {
@@ -3585,6 +3648,24 @@ namespace View.Resources {
         public static string ttlTiempoEstandarAux {
             get {
                 return ResourceManager.GetString("ttlTiempoEstandarAux", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Type of changue selected.
+        /// </summary>
+        public static string ttlTipoCambioSeleccionado {
+            get {
+                return ResourceManager.GetString("ttlTipoCambioSeleccionado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Work center selected.
+        /// </summary>
+        public static string ttlTipoCentroSeleccionado {
+            get {
+                return ResourceManager.GetString("ttlTipoCentroSeleccionado", resourceCulture);
             }
         }
         
