@@ -8,6 +8,114 @@ namespace DataAccess.ServiceObjects.Perfiles
     public class SO_Propiedad
     {
         /// <summary>
+        /// Método que inserta un registro en la tabla CAT_PROPIEDAD.
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <param name="descripcionCorta"></param>
+        /// <param name="descripcionLarga"></param>
+        /// <param name="imagen"></param>
+        /// <param name="tipoDato"></param>
+        /// <returns></returns>
+        public int Insert(string nombre, string descripcionCorta, string descripcionLarga, byte[] imagen, string tipoDato)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    CAT_PROPIEDAD propiedad = new CAT_PROPIEDAD();
+                    
+                    propiedad.NOMBRE = nombre;
+                    propiedad.DESCRIPCION_CORTA = descripcionCorta;
+                    propiedad.DESCRIPCION_LARGA = descripcionLarga;
+                    propiedad.IMAGEN = imagen;
+                    propiedad.TIPO_DATO = tipoDato;
+                    
+                    propiedad.FECHA_ACTUALIZACION = DateTime.Now;
+                    propiedad.FECHA_CREACION = DateTime.Now;
+                    propiedad.ID_USUARIO_ACTUALIZACION = 1;
+                    propiedad.ID_USUARIO_CREACION = 1;
+
+                    Conexion.CAT_PROPIEDAD.Add(propiedad);
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Método que actualiza un registro en la tabla CAT_PROPIEDAD.
+        /// </summary>
+        /// <param name="idPropiedad"></param>
+        /// <param name="nombre"></param>
+        /// <param name="descripcionCorta"></param>
+        /// <param name="descripcionLarga"></param>
+        /// <param name="imagen"></param>
+        /// <param name="tipoDato"></param>
+        /// <returns></returns>
+        public int Update(int idPropiedad,string nombre, string descripcionCorta, string descripcionLarga, byte[] imagen, string tipoDato)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    CAT_PROPIEDAD propiedad = Conexion.CAT_PROPIEDAD.Where(x => x.ID_PROPIEDAD == idPropiedad).FirstOrDefault();
+
+                    propiedad.NOMBRE = nombre;
+                    propiedad.DESCRIPCION_CORTA = descripcionCorta;
+                    propiedad.DESCRIPCION_LARGA = descripcionLarga;
+                    propiedad.IMAGEN = imagen;
+                    propiedad.TIPO_DATO = tipoDato;
+
+                    propiedad.FECHA_ACTUALIZACION = DateTime.Now;
+                    propiedad.FECHA_CREACION = DateTime.Now;
+                    propiedad.ID_USUARIO_ACTUALIZACION = 1;
+                    propiedad.ID_USUARIO_CREACION = 1;
+
+                    Conexion.Entry(propiedad).State = EntityState.Modified;
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Método que elimina un registro en la tabla CAT_PROPIEDAD.
+        /// </summary>
+        /// <param name="idPropiedad"></param>
+        /// <returns></returns>
+        public int Delete(int idPropiedad)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    CAT_PROPIEDAD propiedad = Conexion.CAT_PROPIEDAD.Where(x => x.ID_PROPIEDAD == idPropiedad).FirstOrDefault();
+
+                    Conexion.Entry(propiedad).State = EntityState.Deleted;
+
+                    return Conexion.SaveChanges();
+                }
+                
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Método que retorna todas las propiedades.
         /// </summary>
         /// <returns></returns>

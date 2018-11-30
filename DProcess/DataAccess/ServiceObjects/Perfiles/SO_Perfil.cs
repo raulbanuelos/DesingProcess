@@ -24,7 +24,19 @@ namespace DataAccess.ServiceObjects.Perfiles
                 {
                     //Realizamos la consulta, el resultado lo guardamos en una variable anónima.
                     var lista = (from a in Conexion.CAT_PERFIL
-                                 select a).ToList();
+                                 join b in Conexion.CAT_TIPO_PERFIL on a.ID_TIPO_PERFIL equals b.ID_TIPO_PERFIL
+                                 select new
+                                 {
+                                     a.ID_PERFIL,
+                                     a.NOMBRE,
+                                     a.DESCRIPCION,
+                                     a.IMAGEN,
+                                     b.PERFIL,
+                                     a.FECHA_ACTUALIZACION,
+                                     a.FECHA_CREACION,
+                                     a.ID_USUARIO_CREACION,
+                                     a.ID_USUARIO_ACTUALIZACION,
+                                 }).ToList();
 
                     //Retornamos el resultado de la consulta.
                     return lista;

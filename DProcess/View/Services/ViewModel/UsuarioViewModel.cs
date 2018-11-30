@@ -271,10 +271,6 @@ namespace View.Services.ViewModel
             ModelUsuario = modelUsuario;
             this.pagina = pagina;
             //initNotifications();
-
-            //if (Module.UsuarioIsRol(ModelUsuario.Roles, 2))
-            //   SetDocumentsRejected();
-
         }
 
         #endregion
@@ -392,7 +388,20 @@ namespace View.Services.ViewModel
 
             //Pagina = pantallaData;
 
-            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("es-MX");
+            //Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("es-MX");
+
+            //WPropiedadesNumeric ventana = new WPropiedadesNumeric();
+            //ventana.DataContext = new PropiedadViewModel(true);
+
+            //ventana.ShowDialog();
+
+            WViewAllPerfiles ventana = new WViewAllPerfiles();
+            PerfilViewModel vmPerfil = new PerfilViewModel();
+            ventana.DataContext = vmPerfil;
+
+            ventana.ShowDialog();
+
+
         }
 
         private void irPerfil()

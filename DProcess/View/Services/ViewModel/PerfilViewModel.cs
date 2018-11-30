@@ -71,6 +71,20 @@ namespace View.Services.ViewModel
             set { selectedTipoPerfil = value; NotifyChange("SelectedTipoPerfil"); }
         }
 
+        private ObservableCollection<Perfil> listaAllPerfiles;
+        public ObservableCollection<Perfil> ListaAllPerfiles
+        {
+            get { return listaAllPerfiles; }
+            set { listaAllPerfiles = value; NotifyChange("ListaAllPerfiles"); }
+        }
+
+        private Perfil _PerfilSeleccionado;
+        public Perfil PerfilSeleccionado
+        {
+            get { return _PerfilSeleccionado; }
+            set { _PerfilSeleccionado = value; NotifyChange("PerfilSeleccionado"); }
+        }
+
 
         #endregion
 
@@ -91,6 +105,8 @@ namespace View.Services.ViewModel
 
             //Inicializamos los servicios de DialogService.
             dialogService = new DialogService();
+
+            ListaAllPerfiles = DataManager.GetAllPerfiles();
         }
         #endregion
 
