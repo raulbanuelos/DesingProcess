@@ -17,7 +17,7 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK__TR_LECCIO__ID_TI__271AA44F" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.TR_LECCIONES_CENTROSTRABAJO" Width="1.5" PointX="6" PointY="9.375" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK__TR_LECCIO__ID_CE__328C56FB" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.TBL_LECCIONES_APRENDIDAS" Width="1.5" PointX="3" PointY="10.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.TBL_LECCIONES_APRENDIDAS" Width="1.5" PointX="3" PointY="10.375" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK__TBL_ARCHI__ID_LE__1EBA6878" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK__TBL_LECCI__ID_US__0BA79404" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK__TBL_LECCI__ID_US__1DC6443F" />

@@ -11,13 +11,14 @@ namespace DataAccess.ServiceObjects.Usuario
     {
         #region Métodos
 
-        public IList GetCentrosTrabajo()
+        public IList GetCentrosTrabajo(string TextoBuscar)
         {
             try
             {
                 using (EntitiesUsuario Conexion = new EntitiesUsuario())
                 {
                     var CentrosDeTrabajo = (from a in Conexion.CentroTrabajo
+                                            where a.CentroTrabajo1.Contains(TextoBuscar) || a.NombreOperacion.Contains(TextoBuscar)
                                             select a).ToList();
 
                     return CentrosDeTrabajo;

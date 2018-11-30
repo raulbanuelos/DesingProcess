@@ -3076,12 +3076,12 @@ namespace Model.ControlDocumentos
         /// <param name="fecha_ultimo_cambio"></param>
         /// <param name="fecha_actualizacion"></param>
         /// <returns></returns>
-        public static int InsertLeccion(string Componente, string CambioRequerido, string DescripcionProblema, DateTime FechaUltimoCambio, DateTime FechaActualizacion,
+        public static int InsertLeccion(string Componente, string DescripcionProblema, DateTime FechaUltimoCambio, DateTime FechaActualizacion,
             string ReportadoPor, string SolicitudTrabajoIngenieria, string IdUsuario)
         {
             SO_Lecciones servicio = new SO_Lecciones();
 
-            return servicio.SetLeccion(Componente, CambioRequerido, DescripcionProblema, FechaUltimoCambio, FechaActualizacion, ReportadoPor, SolicitudTrabajoIngenieria, IdUsuario);
+            return servicio.SetLeccion(Componente, DescripcionProblema, FechaUltimoCambio, FechaActualizacion, ReportadoPor, SolicitudTrabajoIngenieria, IdUsuario);
         }
 
         /// <summary>
@@ -3115,7 +3115,6 @@ namespace Model.ControlDocumentos
         public static int UpdateLecccion(int id_lecciones,
                                          string id_usuario,
                                          string componente,
-                                         string cambio_requerido,
                                          string nivel_de_cambio,
                                          string centro_de_trabajo,
                                          string operacion,
@@ -3128,7 +3127,7 @@ namespace Model.ControlDocumentos
         {
             SO_Lecciones servicio = new SO_Lecciones();
 
-            return servicio.UpdateLeccion(id_lecciones,id_usuario,componente,cambio_requerido,nivel_de_cambio,centro_de_trabajo,operacion,descripcion_problema,fecha_ultimo_cambio,fecha_actualizacion,reportado_por,solicitud_trabajo_ingenieria);
+            return servicio.UpdateLeccion(id_lecciones, id_usuario, componente, nivel_de_cambio, centro_de_trabajo, operacion, descripcion_problema, fecha_ultimo_cambio, fecha_actualizacion, reportado_por, solicitud_trabajo_ingenieria);
         }
         /// <summary>
         /// Método que agrega un archivo nuevo de las lecciones aprendidas
@@ -3191,7 +3190,6 @@ namespace Model.ControlDocumentos
                     ObjLec.ID_LECCIONES_APRENDIDAS = (int)tipo.GetProperty("ID_LECCIONES_APRENDIDAS").GetValue(item, null);
                     ObjLec.ID_USUARIO = encript.desencript((string)tipo.GetProperty("ID_USUARIO").GetValue(item, null));
                     ObjLec.COMPONENTE = (string)tipo.GetProperty("COMPONENTE").GetValue(item, null);                    
-                    ObjLec.CAMBIO_REQUERIDO = (string)tipo.GetProperty("CAMBIO_REQUERIDO").GetValue(item, null);
                     ObjLec.DESCRIPCION_PROBLEMA = (string)tipo.GetProperty("DESCRIPCION_PROBLEMA").GetValue(item, null);
                     ObjLec.FECHA_ULTIMO_CAMBIO = (DateTime)tipo.GetProperty("FECHA_ULTIMO_CAMBIO").GetValue(item, null);
                     ObjLec.FECHA_ACTUALIZACION = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
@@ -3370,12 +3368,12 @@ namespace Model.ControlDocumentos
         /// Método que obtiene todos los centros de trabajo para insertarlos en un combobox
         /// </summary>
         /// <returns></returns>
-        public static ObservableCollection<CentrosTrabajo> GetCentrosDeTrabajo()
+        public static ObservableCollection<CentrosTrabajo> GetCentrosDeTrabajo(string TextoBuscar)
         {
             SO_CentrosDeTrabajo Servicio = new SO_CentrosDeTrabajo();
             ObservableCollection<CentrosTrabajo> ListaCentrosDeTrabajo = new ObservableCollection<CentrosTrabajo>();
 
-            IList ObjCentros = Servicio.GetCentrosTrabajo();
+            IList ObjCentros = Servicio.GetCentrosTrabajo(TextoBuscar);
 
             if (ObjCentros != null)
             {
@@ -3439,11 +3437,45 @@ namespace Model.ControlDocumentos
             return Servicio.DeleteLeccionesCentroTrabajo(Id_Leccion);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id_leccion"></param>
+        /// <returns></returns>
         public static int DeleteTiposDeCambioLeccion(int id_leccion)
         {
             SO_LeccionesTipoCambio Servicio = new SO_LeccionesTipoCambio();
 
             return Servicio.DeleteLeccionesTipoCambio(id_leccion);
+        }
+
+        /// <summary>
+        /// Método que obtiene la fecha del ultimo cambio de componente que se vaya a ingresar nuevo
+        /// </summary>
+        /// <param name="Componente"></param>
+        /// <returns></returns>
+        public static ObservableCollection<LeccionesAprendidas> ConsultaFechaUltimoCambio(string Componente)
+        {
+            SO_Lecciones Servicio = new SO_Lecciones();
+
+            ObservableCollection<LeccionesAprendidas> ComponentesSimilares = new ObservableCollection<LeccionesAprendidas>();
+
+            IList Obj = Servicio.FechaUltimoCamio(Componente);
+
+            foreach (var item in Obj)
+            {
+                System.Type tipo = item.GetType();
+
+                LeccionesAprendidas ObjLec = new LeccionesAprendidas();
+
+                ObjLec.DESCRIPCION_PROBLEMA = (string)tipo.GetProperty("DESCRIPCION_PROBLEMA").GetValue(item, null);
+                ObjLec.FECHA_ULTIMO_CAMBIO = (DateTime)tipo.GetProperty("FECHA_ULTIMO_CAMBIO").GetValue(item, null);
+
+                ComponentesSimilares.Add(ObjLec);
+            }
+
+            //retornamos la lista que contiene el componente y la fecha del ultimo cambio del componente a ingresar
+            return ComponentesSimilares;
         }
         #endregion
 

@@ -341,7 +341,7 @@ namespace View.Services.ViewModel
                 ListaTipoCambioLeccion = DataManagerControlDocumentos.GetTipoCambioLecciones(SelectedLeccion.ID_LECCIONES_APRENDIDAS);
 
                 //Obtenemos todos los centros de trabajo
-                ListaCentrosDeTrabajo = DataManagerControlDocumentos.GetCentrosDeTrabajo();
+                ListaCentrosDeTrabajo = DataManagerControlDocumentos.GetCentrosDeTrabajo("");
 
 
                 //Obtenemos todos los tipos de cambio
@@ -541,7 +541,6 @@ namespace View.Services.ViewModel
                     int i = DataManagerControlDocumentos.UpdateLecccion(id_leccion,
                                                                         NewData.ID_USUARIO,
                                                                         NewData.COMPONENTE,
-                                                                        NewData.CAMBIO_REQUERIDO,
                                                                         NewData.NIVEL_DE_CAMBIO,
                                                                         NewData.CENTRO_DE_TRABAJO,
                                                                         NewData.OPERACION,

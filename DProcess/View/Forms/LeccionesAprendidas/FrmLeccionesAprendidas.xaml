@@ -88,7 +88,6 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding ID_LECCIONES_APRENDIDAS}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblNombreUsuario}" Visibility="Hidden"/>
                         <DataGridTextColumn Binding="{Binding COMPONENTE}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblComponente}" Width="Auto"/>
-                        <DataGridTextColumn Binding="{Binding CAMBIO_REQUERIDO}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblCambioRequerido}" Width="Auto"/>
                         <DataGridTextColumn Binding="{Binding DESCRIPCION_PROBLEMA}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblDescripcionProblema}" Width="auto"/>
                         <DataGridTextColumn Binding="{Binding FECHA_ULTIMO_CAMBIO, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaUltimoCambio}"/>
                         <DataGridTextColumn Binding="{Binding FECHA_ACTUALIZACION, StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblFechaActualizacion}"/>

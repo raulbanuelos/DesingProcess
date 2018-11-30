@@ -136,6 +136,20 @@ namespace View.Services.ViewModel
             }
         }
 
+        private ObservableCollection<DatosCambioLeccionAprendida> _ListaCambiosDescripcionSimilar;
+        public ObservableCollection<DatosCambioLeccionAprendida> ListaCambiosDescripcionSimilar
+        {
+            get
+            {
+                return _ListaCambiosDescripcionSimilar;
+            }
+            set
+            {
+                _ListaCambiosDescripcionSimilar = value;
+                NotifyChange("ListaCambiosDescripcionSimilar");
+            }
+        }
+
         private string _Componente;
         public string Componente
         {
@@ -147,20 +161,6 @@ namespace View.Services.ViewModel
             {
                 _Componente = value;
                 NotifyChange("Componente");
-            }
-        }
-
-        private  string _CambioRequerido;
-        public string CambioRequerido
-        {
-            get
-            {
-                return _CambioRequerido;
-            }
-            set
-            {
-                _CambioRequerido = value;
-                NotifyChange("CambioRequerido");
             }
         }
 
@@ -318,23 +318,55 @@ namespace View.Services.ViewModel
             }
         }
 
+        private string _txt_busqueda;
+        public string txt_busqueda
+        {
+            get
+            {
+                return _txt_busqueda;
+            }
+            set
+            {
+                _txt_busqueda = value;
+                NotifyChange("txt_busqueda");
+            }
+        }
+
+        private LeccionesAprendidas _FechaSeleccionada;
+        public LeccionesAprendidas FechaSeleccionada
+        {
+            get
+            {
+                return _FechaSeleccionada;
+            }
+            set
+            {
+                _FechaSeleccionada = value;
+                NotifyChange("FechaSeleccionada");
+            }
+        }
+
+        public bool InsertarVariosComponentes;
+
+        public int SetLeccion;
         #endregion
 
         #region Constructor
 
-        public InsertarNuevaLeccionVW(Usuario ModelUsuario)
+        public InsertarNuevaLeccionVW(Usuario ModelUsuario, bool VariosComponentes)
         {
             User = ModelUsuario;
             usuario = User.NombreUsuario;
 
             //Obtenemos los datos que se van a mostrar en las listas
-            ListaCentrosDeTrabajo = DataManagerControlDocumentos.GetCentrosDeTrabajo();
+            ListaCentrosDeTrabajo = DataManagerControlDocumentos.GetCentrosDeTrabajo("");
             ListaNivelesDeCambio = DataManagerControlDocumentos.GetNivelesDeCambio();
             ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
 
             //Inicializamos las listas para poder guardar datos 
             ListaCentrosDeTrabajoSeleccionados = new ObservableCollection<CentrosTrabajo>();
             ListaNivelesDeCambioSeleccionados = new ObservableCollection<TIPOCAMBIO>();
+            ListaCambiosDescripcionSimilar = new ObservableCollection<DatosCambioLeccionAprendida>();
             ListaDocumentos = new ObservableCollection<Archivo_LeccionesAprendidas>();
             ListaComponentesSimilares = new ObservableCollection<LeccionesAprendidas>();
 
@@ -347,6 +379,9 @@ namespace View.Services.ViewModel
             //Obtenemos la fecha del sistema
             FechaUltimoCambio = DataManagerControlDocumentos.Get_DateTime();
             FechaActualizacion = DataManagerControlDocumentos.Get_DateTime();
+
+            //Obtenemos le valor de VariosComponentes para saber cual método de guardar utilizaremos 
+            InsertarVariosComponentes = VariosComponentes;
         }
 
         #endregion
@@ -441,6 +476,54 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand BuscarCentroTrabajo
+        {
+            get
+            {
+                return new RelayCommand(a => EncontrarCentroTrabajo((string)a));
+            }
+        }
+
+        public ICommand AgregarNuevoComponente
+        {
+            get
+            {
+                return new RelayCommand(a => AgregarOtroComponente());
+            }
+        }
+
+        public ICommand _VerificarComponente
+        {
+            get
+            {
+                return new RelayCommand(a => VerificarComponente(_Componente));
+            }
+        }
+
+        public ICommand SeleccionarFechaUltimoCambio
+        {
+            get
+            {
+                return new RelayCommand(a => _SeleccionarFechaUltimoCambio());
+            }
+        }
+
+        public ICommand IrDescripcionVariosComponentes
+        {
+            get
+            {
+                return new RelayCommand(a => _IrDescripcionVariosComponentes());
+            }
+        }
+
+        public ICommand IrArchivosVariosComponentes
+        {
+            get
+            {
+                return new RelayCommand(a => _IrArchivosVariosComponentes());
+            }
+        }
+
         #endregion
 
         #region Métodos
@@ -532,17 +615,38 @@ namespace View.Services.ViewModel
         /// </summary>
         public void RegPagInformacionCambios()
         {
-            var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-            if (frm != null)
+            //verificamos cual ventana vamos a abrir
+            if (InsertarVariosComponentes == true)
             {
-                frm.Close();
-            }
+                //obtenemos la pagina actual
+                var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
-            InformacionDescripcion Form = new InformacionDescripcion();
-            Form.DataContext = this;
-            Form.ShowDialog();
-        
+                //cerramos la ventana
+                if (frm != null)
+                {
+                    frm.Close();
+                }
+                //Abrimos la ventana de la descripcion para varios componentes
+                DescripcionVariosComponentes Form = new DescripcionVariosComponentes();
+                Form.DataContext = this;
+                Form.ShowDialog();
+            }
+            else
+            {
+                //obtenemos la página actual
+                var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                //Cerramos la ventana
+                if (frm != null)
+                {
+                    frm.Close();
+                }
+
+                //Abrimos la ventana de la descripcion para un solo componente
+                InformacionDescripcion Form = new InformacionDescripcion();
+                Form.DataContext = this;
+                Form.ShowDialog();
+            }   
         }
 
         /// <summary>
@@ -555,14 +659,40 @@ namespace View.Services.ViewModel
             Form.DataContext = this;
             Form.ShowDialog();
 
-            ListaCentrosDeTrabajoSeleccionados.Clear();
+            //ListaCentrosDeTrabajoSeleccionados.Clear();
 
             foreach (var item in ListaCentrosDeTrabajo)
             {
                 if (item.IsSelected)
                 {
                     //Mostramos en la lista los Centros de trabajo que se hayan seleccionado en la vista anterior
-                    ListaCentrosDeTrabajoSeleccionados.Add(item);
+                    if (ListaCentrosDeTrabajoSeleccionados.Where(x => x.CentroTrabajo == item.CentroTrabajo).ToList().Count == 0)
+                    {
+                        ListaCentrosDeTrabajoSeleccionados.Add(item);
+                    }
+                }
+            }
+
+            foreach (var item in ListaCentrosDeTrabajo)
+            {
+                if (!item.IsSelected)
+                {
+                    if (ListaCentrosDeTrabajoSeleccionados.Where(x => x.CentroTrabajo == item.CentroTrabajo).ToList().Count > 0)
+                    {
+                        CentrosTrabajo ct = ListaCentrosDeTrabajoSeleccionados.Where(x => x.CentroTrabajo == item.CentroTrabajo).FirstOrDefault();
+                        ListaCentrosDeTrabajoSeleccionados.Remove(ct);
+                    }
+                }
+            }
+
+
+            ListaCentrosDeTrabajo = DataManagerControlDocumentos.GetCentrosDeTrabajo("");
+
+            foreach (var item in ListaCentrosDeTrabajo)
+            {
+                if (ListaCentrosDeTrabajoSeleccionados.Where(x => x.CentroTrabajo == item.CentroTrabajo).ToList().Count > 0)
+                {
+                    item.IsSelected = true;
                 }
             }
         }
@@ -796,84 +926,351 @@ namespace View.Services.ViewModel
 
             if (Guardar == true)
             {
-                //Declaramos una variable de tipo Lecciones aprendidas que usaremos para guardar los datos
-                LeccionesAprendidas ObjLec = new LeccionesAprendidas();
-                Archivo_LeccionesAprendidas ObjArc = new Archivo_LeccionesAprendidas();
-                LeccionesTipoCambio ObjTipo = new LeccionesTipoCambio();
-                LeccionesCentroTrabajo ObjCentros = new LeccionesCentroTrabajo();
-                
-                //Obtenemos los datos capturados
-                ObjLec.COMPONENTE = _Componente;
-                ObjLec.CAMBIO_REQUERIDO = _CambioRequerido;
-                ObjLec.DESCRIPCION_PROBLEMA = _DescripcionProblema;
-                ObjLec.FECHA_ULTIMO_CAMBIO = _FechaUltimoCambio;
-                ObjLec.FECHA_ACTUALIZACION = _FechaActualizacion;
-                ObjLec.REPORTADO_POR = _ReportadoPor;
-                ObjLec.SOLICITUD_DE_TRABAJO = _SolicitudTrabajoIng;
-                ObjLec.ID_USUARIO = _usuario;
-
-                //Mandamos llamar el metodo para insertar la nueva leccion. Nos regresara el id de la leccion insertada y con eso podremos insertar los centros de trabajo seleccionados y los tipos de cambios
-                int Id_Leccion_Aprendida_Insertada = DataManagerControlDocumentos.InsertLeccion(ObjLec.COMPONENTE,ObjLec.CAMBIO_REQUERIDO,ObjLec.DESCRIPCION_PROBLEMA,ObjLec.FECHA_ULTIMO_CAMBIO,ObjLec.FECHA_ACTUALIZACION,ObjLec.REPORTADO_POR,ObjLec.SOLICITUD_DE_TRABAJO,ObjLec.ID_USUARIO);
-
-                if (Id_Leccion_Aprendida_Insertada != 0)
+                if (InsertarVariosComponentes != true)
                 {
-                    //Obtenemos los datos de los centros de trabajo seleccionados
-                    foreach (var item in ListaCentrosDeTrabajoSeleccionados)
-                    {
-                        ObjCentros.ID_CENTROTRABAJO = item.CentroTrabajo;
-                        ObjCentros.ID_LECCIONESAPRENDIDAS = Id_Leccion_Aprendida_Insertada;
+                    //Declaramos una variable de tipo Lecciones aprendidas que usaremos para guardar los datos
+                    LeccionesAprendidas ObjLec = new LeccionesAprendidas();
+                    Archivo_LeccionesAprendidas ObjArc = new Archivo_LeccionesAprendidas();
+                    LeccionesTipoCambio ObjTipo = new LeccionesTipoCambio();
+                    LeccionesCentroTrabajo ObjCentros = new LeccionesCentroTrabajo();
 
-                        //Mandamos llamar el metodo que los inserta en la base de datos
-                        int i = DataManagerControlDocumentos.InsertLeccionesCentroDeTrabajo(ObjCentros.ID_CENTROTRABAJO, ObjCentros.ID_LECCIONESAPRENDIDAS);
+                    //Obtenemos los datos capturados
+                    ObjLec.COMPONENTE = _Componente;
+                    ObjLec.DESCRIPCION_PROBLEMA = _DescripcionProblema;
+                    ObjLec.FECHA_ULTIMO_CAMBIO = _FechaUltimoCambio;
+                    ObjLec.FECHA_ACTUALIZACION = _FechaActualizacion;
+                    ObjLec.REPORTADO_POR = _ReportadoPor;
+                    ObjLec.SOLICITUD_DE_TRABAJO = _SolicitudTrabajoIng;
+                    ObjLec.ID_USUARIO = _usuario;
+
+                    //Mandamos llamar el metodo para insertar la nueva leccion. Nos regresara el id de la leccion insertada y con eso podremos insertar los centros de trabajo seleccionados y los tipos de cambios
+                    int Id_Leccion_Aprendida_Insertada = DataManagerControlDocumentos.InsertLeccion(ObjLec.COMPONENTE, ObjLec.DESCRIPCION_PROBLEMA, ObjLec.FECHA_ULTIMO_CAMBIO, ObjLec.FECHA_ACTUALIZACION, ObjLec.REPORTADO_POR, ObjLec.SOLICITUD_DE_TRABAJO, ObjLec.ID_USUARIO);
+
+                    if (Id_Leccion_Aprendida_Insertada != 0)
+                    {
+                        //Obtenemos los datos de los centros de trabajo seleccionados
+                        foreach (var item in ListaCentrosDeTrabajoSeleccionados)
+                        {
+                            ObjCentros.ID_CENTROTRABAJO = item.CentroTrabajo;
+                            ObjCentros.ID_LECCIONESAPRENDIDAS = Id_Leccion_Aprendida_Insertada;
+
+                            //Mandamos llamar el metodo que los inserta en la base de datos
+                            int i = DataManagerControlDocumentos.InsertLeccionesCentroDeTrabajo(ObjCentros.ID_CENTROTRABAJO, ObjCentros.ID_LECCIONESAPRENDIDAS);
+                        }
+
+                        //Obtenemos los datos de los tipos de cambios seleccionados
+                        foreach (var item in ListaNivelesDeCambioSeleccionados)
+                        {
+                            ObjTipo.ID_TIPO_CAMBIO = item.ID_TIPOCAMBIO;
+                            ObjTipo.ID_LECCIONAPRENDIDA = Id_Leccion_Aprendida_Insertada;
+
+                            //Mandamos llamar el metodo que los inserta en la base de datos
+                            int i = DataManagerControlDocumentos.InsertLeccionesNivelCambio(ObjTipo.ID_TIPO_CAMBIO, ObjTipo.ID_LECCIONAPRENDIDA);
+                        }
+
+                        //Obtenemos los datos de los archivos adjuntados
+                        foreach (var item in ListaDocumentos)
+                        {
+                            ObjArc.ID_LECCIONES_APRENDIDAS = Id_Leccion_Aprendida_Insertada;
+                            ObjArc.ARCHIVO = item.ARCHIVO;
+                            ObjArc.NOMBRE_ARCHIVO = item.NOMBRE_ARCHIVO;
+                            ObjArc.EXT = item.EXT;
+
+                            //Mandamos llamar el metodo que inserta todos los documentos que se hayan adjuntado
+                            int i = await DataManagerControlDocumentos.SetArchivo_Lecciones(ObjArc.ARCHIVO, ObjArc.EXT, ObjArc.NOMBRE_ARCHIVO, ObjArc.ID_LECCIONES_APRENDIDAS);
+                        }
+
+                        //Mandamos un mensaje de que se guardaron todos los datos correctamente
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertoExitoLeccion);
+
+                        //Cerramos la ventana
+                        var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                        if (window != null)
+                        {
+                            //cerramos la ventana 
+                            window.Close();
+                        }
                     }
-
-                    //Obtenemos los datos de los tipos de cambios seleccionados
-                    foreach (var item in ListaNivelesDeCambioSeleccionados)
+                    else
                     {
-                        ObjTipo.ID_TIPO_CAMBIO = item.ID_TIPOCAMBIO;
-                        ObjTipo.ID_LECCIONAPRENDIDA = Id_Leccion_Aprendida_Insertada;
-
-                        //Mandamos llamar el metodo que los inserta en la base de datos
-                        int i = DataManagerControlDocumentos.InsertLeccionesNivelCambio(ObjTipo.ID_TIPO_CAMBIO, ObjTipo.ID_LECCIONAPRENDIDA);
+                        //Si ocurrio un error al insertar la leccion aprendida se notificara al usuario
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgError);
                     }
+                }else
+                {
 
-                    //Obtenemos los datos de los archivos adjuntados
-                    foreach (var item in ListaDocumentos)
+                    DatosCambioLeccionAprendida ObjDesc = new DatosCambioLeccionAprendida();
+
+                    LeccionesAprendidas ObjLec = new LeccionesAprendidas();
+                    Archivo_LeccionesAprendidas ObjArc = new Archivo_LeccionesAprendidas();
+                    LeccionesTipoCambio ObjTipo = new LeccionesTipoCambio();
+                    LeccionesCentroTrabajo ObjCentros = new LeccionesCentroTrabajo();
+
+                    //desglosamos todos los componentes que se hayan insertado
+                    foreach (var item in ListaCambiosDescripcionSimilar)
                     {
-                        ObjArc.ID_LECCIONES_APRENDIDAS = Id_Leccion_Aprendida_Insertada;
-                        ObjArc.ARCHIVO = item.ARCHIVO;
-                        ObjArc.NOMBRE_ARCHIVO = item.NOMBRE_ARCHIVO;
-                        ObjArc.EXT = item.EXT;
+                        //Obtenemos los datos que NO se van a repeir, y por cada lista se insertaran los demas datos
+                        ObjDesc.Componente = item.Componente;
+                        ObjDesc.Fecha_Ultimo_Cambio = item.Fecha_Ultimo_Cambio;
+                        ObjDesc.Fecha_Actualizacion = item.Fecha_Actualizacion;
 
-                        //Mandamos llamar el metodo que inserta todos los documentos que se hayan adjuntado
-                        int i = await DataManagerControlDocumentos.SetArchivo_Lecciones(ObjArc.ARCHIVO, ObjArc.EXT, ObjArc.NOMBRE_ARCHIVO, ObjArc.ID_LECCIONES_APRENDIDAS);
+                        //Insertamos la leccion aprendida
+                        SetLeccion = DataManagerControlDocumentos.InsertLeccion(ObjDesc.Componente, _DescripcionProblema, ObjDesc.Fecha_Ultimo_Cambio, ObjDesc.Fecha_Actualizacion, _ReportadoPor, _SolicitudTrabajoIng, _usuario);
+
+                        foreach (var Centro in ListaCentrosDeTrabajoSeleccionados)
+                        {
+                            //obtenemos los datos de los centros de trabajo seleccionados
+                            ObjCentros.ID_CENTROTRABAJO = Centro.CentroTrabajo;
+                            ObjCentros.ID_LECCIONESAPRENDIDAS = SetLeccion;
+
+                            //Insertamos los centros de trabajo seleccionados
+                            int i = DataManagerControlDocumentos.InsertLeccionesCentroDeTrabajo(ObjCentros.ID_CENTROTRABAJO, ObjCentros.ID_LECCIONESAPRENDIDAS);
+                        }
+
+                        foreach (var TipoC in ListaNivelesDeCambioSeleccionados)
+                        {
+                            //obtenemos los datos de los tipos de cambio seleccionados
+                            ObjTipo.ID_TIPO_CAMBIO = TipoC.ID_TIPOCAMBIO;
+                            ObjTipo.ID_LECCIONAPRENDIDA = SetLeccion;
+
+                            //insertamos los tipos de cambio seleccionados
+                            int j = DataManagerControlDocumentos.InsertLeccionesNivelCambio(ObjTipo.ID_TIPO_CAMBIO, ObjTipo.ID_LECCIONAPRENDIDA);
+
+                        }
+
+                        foreach (var Arc in ListaDocumentos)
+                        {
+                            //obtenemos los datos de los archivos que se van a seleccionar
+                            ObjArc.ARCHIVO = Arc.ARCHIVO;
+                            ObjArc.EXT = Arc.EXT;
+                            ObjArc.NOMBRE_ARCHIVO = Arc.NOMBRE_ARCHIVO;
+                            ObjArc.ID_LECCIONES_APRENDIDAS = SetLeccion;
+
+                            //insertamos los archivos
+                            int i = await DataManagerControlDocumentos.SetArchivo_Lecciones(ObjArc.ARCHIVO, ObjArc.EXT, ObjArc.NOMBRE_ARCHIVO, ObjArc.ID_LECCIONES_APRENDIDAS);
+                        }
                     }
-
-                    //Mandamos un mensaje de que se guardaron todos los datos correctamente
-                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertoExitoLeccion);
-
-                    //Cerramos la ventana
-                    var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                    if (window != null)
+                    //verificamos que la leccion aprendida se haya insertado correctamente
+                    if (SetLeccion !=0 )
                     {
-                        //cerramos la ventana 
-                        window.Close();
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertoExitoLeccion);
+
+                        //Obtenemos la ventana actual
+                        var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                        if (window != null)
+                        {
+                            //cerramos la ventana 
+                            window.Close();
+                        }
+
+                    }
+                    else
+                    {
+                        //si hubo un error se manda el mensaje 
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgError);
                     }
                 }
-                else
-                {
-                    //Si ocurrio un error al insertar la leccion aprendida se notificara al usuario
-                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgError);
-                }
-            }
-            else
+            }else
             {
-                //si aun faltan datos por capturar manda la notificacion de que se tienen que capturar todos
+                //si faltan datos por capturar se manda el mensaje
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
+            }        
+        }
+
+        /// <summary>
+        /// Método que muestra la ventana para ingresar la descripcion de varios componentes
+        /// </summary>
+        public async void _IrDescripcionVariosComponentes()
+        {
+
+            DialogService dialog = new DialogService();
+
+            //verificamos que al menos se tenga un registro antes de mostrar la ventana
+            if (ListaCambiosDescripcionSimilar.Count>0)
+            {
+                DatosCambioLeccionAprendida datos = new DatosCambioLeccionAprendida();
+
+                if (!string.IsNullOrEmpty(_Componente))
+                {
+                    datos.Componente = _Componente;
+                    datos.Fecha_Actualizacion = _FechaActualizacion;
+                    datos.Fecha_Ultimo_Cambio = _FechaUltimoCambio;
+                    ListaCambiosDescripcionSimilar.Add(datos);
+                }
+                //obtenemos la ventana actual 
+                var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                //cerramos la ventana actual
+                if (frm != null)
+                {
+                    frm.Close();
+                }
+
+                //Mostramos la ventana para ingresar la descripcion de varios componentes
+                DescripcionVariosComponentes Form = new DescripcionVariosComponentes();
+                Form.DataContext = this;
+                Form.ShowDialog();
+
+            }else
+            {
+                await dialog.SendMessage(StringResources.ttlAlerta, "Si solo es un componente, favor de llenar el otro formulario");
+            }
+        }
+
+        /// <summary>
+        /// Método para ir a la ventana de insertar archivos a varios componentes
+        /// </summary>
+        public async void _IrArchivosVariosComponentes()
+        {
+            DialogService dialog = new DialogService();
+
+            //verificamos que se hayan capturado todos los datos
+            if (ListaCentrosDeTrabajoSeleccionados.Count>0 && ListaNivelesDeCambio.Count>0 && !string.IsNullOrEmpty(_DescripcionProblema))
+            {
+                //obtenemos la ventana actual 
+                var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                //cerramos la ventana actual
+                if (frm != null)
+                {
+                    frm.Close();
+                }
+
+                //mostramos la ventana para ingresar a la ventana
+                InformacionCambios form = new InformacionCambios();
+                form.DataContext = this;
+                form.ShowDialog();
+            }else
+            {
+                //si falta algun campo por capturar se manda un mensaje
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
             }
         }
 
+        /// <summary>
+        /// Método que busca los centros de trabajo
+        /// </summary>
+        /// <param name="TextoBuscar"></param>
+        public void EncontrarCentroTrabajo(string TextoBuscar)
+        {
+            foreach (var item in ListaCentrosDeTrabajo)
+            {
+                if (item.IsSelected)
+                {
+                    //Mostramos en la lista los niveles de cambio que se hayan seleccionado en la vista anterior
+                    if (ListaCentrosDeTrabajoSeleccionados.Where(x => x.CentroTrabajo == item.CentroTrabajo).ToList().Count == 0)
+                    {
+                        ListaCentrosDeTrabajoSeleccionados.Add(item);
+                    }
+                }
+            }
+
+
+            ListaCentrosDeTrabajo = DataManagerControlDocumentos.GetCentrosDeTrabajo(TextoBuscar);
+
+            foreach (var item in ListaCentrosDeTrabajo)
+            {
+                if (ListaCentrosDeTrabajoSeleccionados.Where(x=> x.CentroTrabajo == item.CentroTrabajo).ToList().Count > 0 )
+                {
+                    item.IsSelected = true;
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Método que agrega varios componentes con la misma descripción
+        /// </summary>
+        public async void AgregarOtroComponente()
+        {
+
+            DialogService dialog = new DialogService();
+            MetroDialogSettings settings = new MetroDialogSettings();
+            settings.AffirmativeButtonText = StringResources.lblYes;
+            settings.NegativeButtonText = StringResources.lblNo;
+
+
+            MessageDialogResult Result = await dialog.SendMessage(StringResources.ttlAlerta, "¿Desea Agregar otro componente?", settings, MessageDialogStyle.AffirmativeAndNegative);
+
+            if (Result == MessageDialogResult.Affirmative)
+            {
+                if (!string.IsNullOrEmpty(_Componente))
+                {
+                    DatosCambioLeccionAprendida Datos = new DatosCambioLeccionAprendida();
+
+                    Datos.Componente = _Componente;
+                    Datos.Fecha_Ultimo_Cambio = _FechaUltimoCambio;
+                    Datos.Fecha_Actualizacion = _FechaActualizacion;
+
+
+                    ListaCambiosDescripcionSimilar.Add(Datos);
+
+                    //limpiamos el campo del componente a ingresar
+                    Componente = "";
+
+                    //limpiamos la lista de los componentes similares
+                    ListaComponentesSimilares.Clear();
+
+                    FechaUltimoCambio = DataManagerControlDocumentos.Get_DateTime();
+                    FechaActualizacion = DataManagerControlDocumentos.Get_DateTime();
+                }
+                else
+                {
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene los componentes similares
+        /// </summary>
+        public async void VerificarComponente(string NoComponente)
+        {
+            DialogService dialog = new DialogService();
+
+            if (!string.IsNullOrEmpty(NoComponente))
+            {
+                //Mandamos llamar el método que selecciona todos los componentes similares
+                ListaComponentesSimilares = DataManagerControlDocumentos.ConsultaFechaUltimoCambio(NoComponente);
+
+                //si se encontraton componentes similares entra
+                if (ListaComponentesSimilares.Count > 0)
+                {
+                    foreach (var item in ListaComponentesSimilares)
+                    {
+                        //Obtenemos la fecha del ultimo componente registrado
+                        FechaUltimoCambio = item.FECHA_ULTIMO_CAMBIO;
+                        //rcompemos el ciclo
+                        break;
+                    }
+                }
+                else
+                {
+                    //si no se encontro ningun componente similar, se notifica al usuario y se selecciona la fecha actual
+                    await dialog.SendMessage(StringResources.ttlAlerta, "No se encontro ningun componente similar, la fecha sera la del dia de hoy");
+                    FechaUltimoCambio = DataManagerControlDocumentos.Get_DateTime();
+
+                }
+
+            }else
+            {
+                await dialog.SendMessage(StringResources.ttlAlerta, "Ingrese el número del componente");
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene la fecha de un componente similar seleccionado
+        /// </summary>
+        public void _SeleccionarFechaUltimoCambio()
+        {
+            if (FechaSeleccionada != null)
+            {
+
+                FechaUltimoCambio = FechaSeleccionada.FECHA_ULTIMO_CAMBIO;
+
+            }
+        }
         #endregion
 
         #region Funciones
@@ -884,7 +1281,7 @@ namespace View.Services.ViewModel
         /// <returns></returns>
         public bool PaginaDescripcion()
         {
-            if (!string.IsNullOrEmpty(_Componente) && !string.IsNullOrEmpty(_CambioRequerido) && _ListaNivelesDeCambioSeleccionados.Count > 0 && _ListaCentrosDeTrabajoSeleccionados.Count > 0)
+            if (!string.IsNullOrEmpty(_Componente) && _ListaNivelesDeCambioSeleccionados.Count > 0 && _ListaCentrosDeTrabajoSeleccionados.Count > 0)
             {
                 return true;
             }
@@ -940,7 +1337,6 @@ namespace View.Services.ViewModel
             //retornamos el nombre que se generó
             return filename;
         }
-
         #endregion
     }
 }

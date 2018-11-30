@@ -281,6 +281,9 @@
     <Compile Include="Forms\LeccionesAprendidas\CentrosDeTrabajo.xaml.cs">
       <DependentUpon>CentrosDeTrabajo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\LeccionesAprendidas\DescripcionVariosComponentes.xaml.cs">
+      <DependentUpon>DescripcionVariosComponentes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\LeccionesAprendidas\FrmLeccionesAprendidas.xaml.cs">
       <DependentUpon>FrmLeccionesAprendidas.xaml</DependentUpon>
     </Compile>
@@ -289,6 +292,9 @@
     </Compile>
     <Compile Include="Forms\LeccionesAprendidas\InformacionDescripcion.xaml.cs">
       <DependentUpon>InformacionDescripcion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LeccionesAprendidas\InsertarComponentes.xaml.cs">
+      <DependentUpon>InsertarComponentes.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\LeccionesAprendidas\InsertarNuevaLeccion.xaml.cs">
       <DependentUpon>InsertarNuevaLeccion.xaml</DependentUpon>
@@ -976,6 +982,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\LeccionesAprendidas\DescripcionVariosComponentes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\LeccionesAprendidas\FrmLeccionesAprendidas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -987,6 +997,10 @@
     <Page Include="Forms\LeccionesAprendidas\InformacionDescripcion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\LeccionesAprendidas\InsertarComponentes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\LeccionesAprendidas\InsertarNuevaLeccion.xaml">
       <SubType>Designer</SubType>

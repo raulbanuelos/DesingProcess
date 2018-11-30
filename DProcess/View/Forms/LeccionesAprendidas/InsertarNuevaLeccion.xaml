@@ -38,15 +38,10 @@
         </Grid.RowDefinitions>
         
         <!--Información General del componente-->
-
         <Label Content="{x:Static recursos:StringResources.lblNuevaLeccion}" Grid.Column="1" FontSize="18" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="Bold"/>
         <!--Número del Componente-->
         <TextBox Text="{Binding Componente}"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblComponente}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="49"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
                         SpellCheck.IsEnabled="True" Language="es-ES" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
-        <!--Número del Cambio Requerido-->
-        <TextBox Text="{Binding CambioRequerido}"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCambioRequerido}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="49"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
-                        Language="es-ES" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="2"/>
-        
         <!--Botones para elegir Centro de Trabajo y Nivel de Cambio-->
         <Grid Grid.Column="1" Grid.Row="3">
             <Grid.ColumnDefinitions>
@@ -54,9 +49,8 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Content="Elegir Centro de Trabajo" Width="200" Command="{Binding ElegirCentroTrabajo}"/>
-            <Button Grid.Column="1" Content="Elegir Nivel de Cambio" Width="200" Command="{Binding ElegirNivelCambio}"/>
+            <Button Grid.Column="1" Content="Elegir Tipo de Cambio" Width="200" Command="{Binding ElegirNivelCambio}"/>
         </Grid>
-        
         <!--Datos Seleccionados Nievel de cambio y centros de trabajo-->
         <Grid Grid.Column="1" Grid.Row="4" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
@@ -68,10 +62,10 @@
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
+
             <!--Titulo de los centros de trabajo seleccionados-->
             <Label Grid.Column="0" Grid.Row="0" Content="Centros de trabajo seleccionados" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            
+
             <!--Datagrid de los centros de trabajo seleccionados-->
             <DataGrid Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ListaCentrosDeTrabajoSeleccionados}" 
                                       ScrollViewer.CanContentScroll="True" 
@@ -84,12 +78,12 @@
                     <DataGridTextColumn Header="{x:Static recursos:StringResources.lblOperacion}" Binding="{Binding NombreOperacion}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            
+
             <!--Titulo de los tipos de cambio seleccionados-->
             <Label Grid.Column="2" Grid.Row="0" Content="Tipos de cambio seleccionados" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            
-            
-            
+
+
+
             <!--Datagrid de los tipos de cambio seleccionados-->
             <DataGrid Grid.Column="2" Grid.Row="1" ItemsSource="{Binding ListaNivelesDeCambioSeleccionados}" 
                                       ScrollViewer.CanContentScroll="True" 
@@ -101,9 +95,8 @@
                     <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNombre}" Binding="{Binding NOMBRETIPOCAMBIO}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            
-        </Grid>
 
+        </Grid>
         <!--Botones de Navegación-->
         <Grid Grid.Column="1" Grid.Row="6">
             <Grid.ColumnDefinitions>

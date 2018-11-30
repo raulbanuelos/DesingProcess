@@ -88,7 +88,7 @@ namespace DataAccess.ServiceObjects.Usuario
         /// <param name="criterio_1"></param>
         /// <param name="fecha_actualizacion"></param>
         /// <returns></returns>
-        public int SetLeccion(string Componente, string CambioRequerido, string DescripcionProblema, DateTime FechaUltimoCambio, DateTime FechaActualizacion,
+        public int SetLeccion(string Componente, string DescripcionProblema, DateTime FechaUltimoCambio, DateTime FechaActualizacion,
             string ReportadoPor, string SolicitudTrabajoIngenieria, string IdUsuario)
         {
             try
@@ -107,7 +107,6 @@ namespace DataAccess.ServiceObjects.Usuario
                     obj.FECHA_ULTIMO_CAMBIO = FechaUltimoCambio;
                     obj.REPORTADO_POR = ReportadoPor;
                     obj.SOLICITUD_DE_TRABAJO_INGENIERIA = SolicitudTrabajoIngenieria;
-                    obj.CAMBIO_REQUERIDO = CambioRequerido;
 
 
                     //insertamos los valores de la nueva leccion aprendida a la BD
@@ -200,7 +199,6 @@ namespace DataAccess.ServiceObjects.Usuario
         public int UpdateLeccion(int id_leccion,
                                  string id_usuario,
                                  string componente,
-                                 string cambio_requerido,
                                  string nivel_de_cambio,
                                  string centro_de_trabajo,
                                  string operacion,
@@ -221,7 +219,6 @@ namespace DataAccess.ServiceObjects.Usuario
                     //insertamos los nuevos valores de los campos
                     obj.ID_USUARIO = id_usuario;
                     obj.COMPONENTE = componente;
-                    obj.CAMBIO_REQUERIDO = cambio_requerido;
                     obj.DESCRIPCION_PROBLEMA = descripcion_problema;
                     obj.REPORTADO_POR = reportado_por;
                     obj.SOLICITUD_DE_TRABAJO_INGENIERIA = solicitud_trabajo_ingenieria ;
@@ -239,6 +236,31 @@ namespace DataAccess.ServiceObjects.Usuario
             {
                 //si existe error regresamos 0
                 return 0;
+            }
+        }
+
+       
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Componente"></param>
+        /// <returns></returns>
+        public IList FechaUltimoCamio(string Componente)
+        {
+            try
+            {
+                using (EntitiesUsuario conexion = new EntitiesUsuario())
+                {
+                    var FechaUltimoCambio = (from a in conexion.TBL_LECCIONES_APRENDIDAS
+                                             where a.COMPONENTE == Componente orderby a.FECHA_ULTIMO_CAMBIO descending
+                                             select a).ToList();
+
+                    return FechaUltimoCambio;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
         #endregion

@@ -58,6 +58,7 @@
     <Compile Include="ControlDocumentos\Bloqueo.cs" />
     <Compile Include="ControlDocumentos\CentrosTrabajo.cs" />
     <Compile Include="ControlDocumentos\DataManagerControlDocumentos.cs" />
+    <Compile Include="ControlDocumentos\DatosCambioLeccionAprendida.cs" />
     <Compile Include="ControlDocumentos\Departamento.cs" />
     <Compile Include="ControlDocumentos\Documento.cs" />
     <Compile Include="ControlDocumentos\EstatusDocumento.cs" />

@@ -25,7 +25,6 @@ namespace DataAccess.ServiceObjects.Usuario
         public int ID_LECCIONES_APRENDIDAS { get; set; }
         public string ID_USUARIO { get; set; }
         public string COMPONENTE { get; set; }
-        public string CAMBIO_REQUERIDO { get; set; }
         public string DESCRIPCION_PROBLEMA { get; set; }
         public Nullable<System.DateTime> FECHA_ULTIMO_CAMBIO { get; set; }
         public Nullable<System.DateTime> FECHA_ACTUALIZACION { get; set; }

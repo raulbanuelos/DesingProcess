@@ -132,7 +132,6 @@ namespace DataAccess.ServiceObjects.Usuario
                 return 0;
             }
         }
-
         #endregion
     }
 }

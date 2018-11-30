@@ -1,0 +1,95 @@
+﻿<controls:MetroWindow x:Class="View.Forms.LeccionesAprendidas.InsertarComponentes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:recursos="clr-namespace:View.Resources"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:core="clr-namespace:HamburgerMenuApp.Core;assembly=HamburgerMenuApp.Core"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:View.Forms.LeccionesAprendidas"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Height="750" Width="750" 
+        BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Title="Insertar Nueva Lección">
+    
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        
+        <!--Información General del componente-->
+        <Label Content="{x:Static recursos:StringResources.lblNuevaLeccion}" Grid.Column="1" FontSize="18" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="Bold"/>
+        <!--Número del Componente-->
+        <TextBox Text="{Binding Componente}"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblComponente}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="49"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
+                        SpellCheck.IsEnabled="True" Language="es-ES" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+        <!--Boton para verificar las fechas-->
+        <Button Grid.Column="1" Grid.Row="2" Width="180" Content="Componentes similares" Command="{Binding _VerificarComponente}"/>
+
+        <!--Titulo del Datagrid Componentes similares-->
+        <Label Content="Componentes similares" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="5"/>
+        
+        <!--Instrucciones para elegir la fecha del ultimo cambio-->
+        <Label Content="Para elegir la fecha del ultimo cambio selecciona la descripción correspondiente" Grid.Column="1" Grid.Row="6" FontSize="16" FontWeight="Bold"/>
+        
+        <!--Datagrid con informacion de los cambios hechos al mismo componente-->
+        <DataGrid Grid.Row="7" Grid.Column="1" ItemsSource="{Binding ListaComponentesSimilares}" 
+                                      SelectedItem="{Binding FechaSeleccionada,Mode=TwoWay}"
+                                      ScrollViewer.CanContentScroll="True" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                      AutoGenerateColumns="False"
+                                      IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{x:Static recursos:StringResources.lblDescripcion}" Binding="{Binding DESCRIPCION_PROBLEMA}" ClipboardContentBinding="{x:Null}"/>
+                <DataGridTextColumn Header="{x:Static recursos:StringResources.lblFechaUltimoCambio}" Binding="{Binding FECHA_ULTIMO_CAMBIO , StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}"/>
+            </DataGrid.Columns>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding SeleccionarFechaUltimoCambio}"
+                             CommandParameter="{Binding FECHA_ULTIMO_CAMBIO}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </DataGrid>
+
+        <!--Fecha Ultimo Cambio-->
+        <DatePicker Grid.Row="3" Grid.Column="1"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaUltimoCambio}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FechaUltimoCambio}" 
+                        IsEnabled="False" />
+        <!--Fecha de actualización-->
+        <DatePicker Grid.Row="4" Grid.Column="1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaActualizacion}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FechaActualizacion}"
+                        IsEnabled="{Binding EnabledFecha}" />
+        
+        
+        <!--Botones de Navegación-->
+        <Grid Grid.Column="1" Grid.Row="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Width="150" Command="{Binding IrDescripcionVariosComponentes}" Content="{x:Static recursos:StringResources.lblSiguiente}"/>
+            <Button Grid.Column="0"  Width="200" Command="{Binding AgregarNuevoComponente}" Content="Agregar otro componente"/>
+        </Grid>
+        
+    </Grid>
+</controls:MetroWindow>

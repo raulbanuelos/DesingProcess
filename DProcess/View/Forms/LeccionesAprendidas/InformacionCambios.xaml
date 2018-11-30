@@ -121,14 +121,16 @@
                 <Label Content="{materialDesign:PackIcon eye}" HorizontalAlignment="Left" Grid.Column="1"/>
                 <Label Content=" ó " FontWeight="Bold" Grid.Column="2"/>
                 <Label Content="{materialDesign:PackIcon Close}" Grid.Column="3"/>
+
                 <!--Boton para adjuntar archivos-->
                 <Button Grid.Column="5" Grid.Row="1" HorizontalAlignment="Center" Margin="10" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding _AdjuntarArchivo}"  ToolTip="{x:Static recursos:StringResources.lblAdjuntarArchivo}">
                     <materialDesign:PackIcon Kind="Paperclip" Height="24" Width="24" />
                 </Button>
+
             </Grid>
             
-            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="2" Margin="60,5,0,0">
-                <StackPanel Grid.Row="2">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="4">
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="120,0,30,0">
                     <ListBox  ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" HorizontalAlignment="Center" BorderBrush="#FFB8B6B6" Background="Transparent" Foreground="#DD040404" SelectedItem="{Binding Path=ArchivoSeleccionado}" Margin="5"  Grid.Column="1" Grid.Row="4" Grid.RowSpan="2"/>
                 </StackPanel>
             </ScrollViewer>

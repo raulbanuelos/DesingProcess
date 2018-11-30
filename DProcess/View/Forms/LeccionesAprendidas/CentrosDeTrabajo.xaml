@@ -21,24 +21,33 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="28"/>
+            <RowDefinition Height="45"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="55"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="1" Grid.Row="0" Content="Centros de Trabajo" VerticalAlignment="Bottom"></Label>
+        <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" HorizontalAlignment="Left" Grid.Column="1">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction
+									Command="{Binding BuscarCentroTrabajo}" CommandParameter="{Binding ElementName=txt_busqueda, Path=Text}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
 
-        <DataGrid Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ListaCentrosDeTrabajo}" 
+        <DataGrid Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ListaCentrosDeTrabajo,UpdateSourceTrigger=PropertyChanged}" 
                                       ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                      AutoGenerateColumns="False" CanUserAddRows="False"
+                                      AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,55,0,0" Grid.RowSpan="2"
                                       >
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                            Header="{x:Static recursos:StringResources.lblSeleccionar}"
-                                            Binding="{Binding IsSelected}"/>
+                                        EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                        Header="{x:Static recursos:StringResources.lblSeleccionar}"
+                                        Binding="{Binding IsSelected}"
+                                        />
+
                 <DataGridTextColumn Header="{x:Static recursos:StringResources.lblCentroTrabajo}" Binding="{Binding CentroTrabajo}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="{x:Static recursos:StringResources.lblOperacion}" Binding="{Binding NombreOperacion}" IsReadOnly="True"/>
             </DataGrid.Columns>

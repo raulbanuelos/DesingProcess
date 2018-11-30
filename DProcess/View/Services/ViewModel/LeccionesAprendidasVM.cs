@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using MahApps.Metro.IconPacks;
 using Model;
 using Model.ControlDocumentos;
@@ -106,6 +107,7 @@ namespace View.Services.ViewModel
                 NotifyChange("MenuOptionItems");
             }
         }
+
         #endregion
 
         #region Constructor
@@ -211,13 +213,34 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Método que muetra la pantalla para insertar una nueva lección aprendida
         /// </summary>
-        private void InsertarNuevaLeccion(Usuario ModelUsuario)
+        private async void InsertarNuevaLeccion(Usuario ModelUsuario)
         {
-            InsertarNuevaLeccion Insertar = new InsertarNuevaLeccion();
-            InsertarNuevaLeccionVW InsertarVW = new InsertarNuevaLeccionVW(ModelUsuario);
-            Insertar.DataContext = InsertarVW;
-            Insertar.ShowDialog();
-            Lista = DataManagerControlDocumentos.GetLec("");
+            DialogService dialog = new DialogService();
+
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
+
+            MessageDialogResult resul = await dialog.SendMessage(StringResources.ttlAlerta,"¿La descripción va a ser la misma para varios componentes?",setting , MessageDialogStyle.AffirmativeAndNegative);
+
+            if (resul == MessageDialogResult.Affirmative)
+            {
+                InsertarComponentes Descripcion = new InsertarComponentes();
+                InsertarNuevaLeccionVW Context = new InsertarNuevaLeccionVW(ModelUsuario, true);
+
+                Descripcion.DataContext = Context;
+                Descripcion.ShowDialog();
+                Lista = DataManagerControlDocumentos.GetLec("");
+
+            }
+            else
+            {
+                InsertarNuevaLeccion Insertar = new InsertarNuevaLeccion();
+                InsertarNuevaLeccionVW InsertarVW = new InsertarNuevaLeccionVW(ModelUsuario,false);
+                Insertar.DataContext = InsertarVW;
+                Insertar.ShowDialog();
+                Lista = DataManagerControlDocumentos.GetLec("");
+            }
         }
         #endregion
     }
