@@ -56,7 +56,11 @@
         #endregion
 
         #region Métodos
-
+        public override string ToString()
+        {
+            //Retornamos una cadena con el valor de la propiedad con el formato 0.00000
+            return Nombre;
+        }
         #endregion
     }
 }

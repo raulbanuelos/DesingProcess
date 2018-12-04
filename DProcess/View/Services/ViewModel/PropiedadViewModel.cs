@@ -407,7 +407,6 @@ namespace View.Services.ViewModel
 
                     //Obtenemos todas las propiedades.
                     ListaPropiedades = DataManager.GetAllPropiedades();
-
                 }
             }
             

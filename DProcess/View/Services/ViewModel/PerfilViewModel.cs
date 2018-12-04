@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using View.Forms.Routing;
 using View.Resources;
 
 namespace View.Services.ViewModel
@@ -25,6 +26,13 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Properties
+        
+        public int idPerfil
+        {
+            get { return  modelPerfil.idPerfil; }
+            set { modelPerfil.idPerfil = value; NotifyChange("idPerfil"); }
+        }
+
 
         public string Nombre {
             get
@@ -85,6 +93,28 @@ namespace View.Services.ViewModel
             set { _PerfilSeleccionado = value; NotifyChange("PerfilSeleccionado"); }
         }
 
+        private ObservableCollection<Propiedad> _ListaPropiedades;
+        public ObservableCollection<Propiedad> ListaPropiedades
+        {
+            get { return _ListaPropiedades; }
+            set { _ListaPropiedades = value; NotifyChange("ListaPropiedades"); }
+        }
+
+        private ObservableCollection<PropiedadCadena> _ListaPropiedadesCadena;
+        public ObservableCollection<PropiedadCadena> ListaPropiedadesCadena
+        {
+            get { return _ListaPropiedadesCadena; }
+            set { _ListaPropiedadesCadena = value; NotifyChange("ListaPropiedadesCadena"); }
+        }
+
+        private ObservableCollection<PropiedadBool> _ListaPropiedadesBool;
+        public ObservableCollection<PropiedadBool> ListaPropiedadesBool
+        {
+            get { return _ListaPropiedadesBool; }
+            set { _ListaPropiedadesBool = value; NotifyChange("ListaPropiedadesBool"); }
+        }
+
+
 
         #endregion
 
@@ -126,9 +156,31 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => seleccionarImagen());
             }
         }
+
+        public ICommand EditarPerfil
+        {
+            get
+            {
+                return new RelayCommand(o => editarPerfil());
+            }
+        }
         #endregion
-        
+
         #region Methods
+
+        private void editarPerfil()
+        {
+            if (PerfilSeleccionado.idPerfil > 0)
+            {
+                WViewPerfil ventana = new WViewPerfil();
+                ListaPropiedades = DataManager.GetAllPropiedadesByPerfil(PerfilSeleccionado.idPerfil,false);
+                ListaPropiedadesCadena = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilSeleccionado.idPerfil);
+                ListaPropiedadesBool = DataManager.GetallPropiedadesBoolByPerfil(PerfilSeleccionado.idPerfil);
+                ventana.DataContext = this;
+
+                ventana.ShowDialog();
+            }
+        }
 
         private void seleccionarImagen()
         {
