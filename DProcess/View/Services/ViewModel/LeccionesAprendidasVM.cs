@@ -218,11 +218,10 @@ namespace View.Services.ViewModel
             DialogService dialog = new DialogService();
 
             MetroDialogSettings setting = new MetroDialogSettings();
-            setting.AffirmativeButtonText = StringResources.lblYes;
-            setting.NegativeButtonText = StringResources.lblNo;
+            setting.AffirmativeButtonText = "+2";
+            setting.NegativeButtonText = "1";
 
-            MessageDialogResult resul = await dialog.SendMessage(StringResources.ttlAlerta,"¿La descripción va a ser la misma para varios componentes?",setting , MessageDialogStyle.AffirmativeAndNegative);
-
+            MessageDialogResult resul = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblDescripcionSimilar, setting, MessageDialogStyle.AffirmativeAndNegative);
             if (resul == MessageDialogResult.Affirmative)
             {
                 InsertarComponentes Descripcion = new InsertarComponentes();

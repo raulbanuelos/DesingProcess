@@ -45,6 +45,7 @@
                 <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNivelCambio}" Binding="{Binding NOMBRETIPOCAMBIO}" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
+        
         <Grid Grid.Column="1" Grid.Row="2">
             <Button Content="Aceptar" Width="100" HorizontalAlignment="Right" Command="{Binding CerrarVentana}"/>
         </Grid>

@@ -48,8 +48,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Elegir Centro de Trabajo" Width="200" Command="{Binding ElegirCentroTrabajo}"/>
-            <Button Grid.Column="1" Content="Elegir Tipo de Cambio" Width="200" Command="{Binding ElegirNivelCambio}"/>
+            <Button Grid.Column="0" Content="{x:Static recursos:StringResources.ttlElegirCentroTrabajo}" Width="200" Command="{Binding ElegirCentroTrabajo}"/>
+            <Button Grid.Column="1" Content="{x:Static recursos:StringResources.ttlElegirTipoCambio}" Width="200" Command="{Binding ElegirNivelCambio}"/>
         </Grid>
         <!--Datos Seleccionados Nievel de cambio y centros de trabajo-->
         <Grid Grid.Column="1" Grid.Row="4" Grid.RowSpan="2">
@@ -64,7 +64,7 @@
             </Grid.RowDefinitions>
 
             <!--Titulo de los centros de trabajo seleccionados-->
-            <Label Grid.Column="0" Grid.Row="0" Content="Centros de trabajo seleccionados" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="0" Content="{x:Static recursos:StringResources.ttlTipoCentroSeleccionado}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             <!--Datagrid de los centros de trabajo seleccionados-->
             <DataGrid Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ListaCentrosDeTrabajoSeleccionados}" 
@@ -80,7 +80,7 @@
             </DataGrid>
 
             <!--Titulo de los tipos de cambio seleccionados-->
-            <Label Grid.Column="2" Grid.Row="0" Content="Tipos de cambio seleccionados" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Grid.Column="2" Grid.Row="0" Content="{x:Static recursos:StringResources.ttlTipoCambioSeleccionado}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
 
 

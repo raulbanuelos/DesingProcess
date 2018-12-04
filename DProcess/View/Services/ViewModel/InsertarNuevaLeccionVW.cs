@@ -1191,7 +1191,7 @@ namespace View.Services.ViewModel
             settings.NegativeButtonText = StringResources.lblNo;
 
 
-            MessageDialogResult Result = await dialog.SendMessage(StringResources.ttlAlerta, "¿Desea Agregar otro componente?", settings, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult Result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblAgregarOtroComponente, settings, MessageDialogStyle.AffirmativeAndNegative);
 
             if (Result == MessageDialogResult.Affirmative)
             {
@@ -1248,14 +1248,14 @@ namespace View.Services.ViewModel
                 else
                 {
                     //si no se encontro ningun componente similar, se notifica al usuario y se selecciona la fecha actual
-                    await dialog.SendMessage(StringResources.ttlAlerta, "No se encontro ningun componente similar, la fecha sera la del dia de hoy");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblComponenteNoEncontrado);
                     FechaUltimoCambio = DataManagerControlDocumentos.Get_DateTime();
 
                 }
 
             }else
             {
-                await dialog.SendMessage(StringResources.ttlAlerta, "Ingrese el número del componente");
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblIngreseNumeroComponente);
             }
         }
 

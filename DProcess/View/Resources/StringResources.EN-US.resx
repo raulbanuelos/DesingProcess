@@ -1627,4 +1627,31 @@
   <data name="ttlFechaLimiteEntrega" xml:space="preserve">
     <value>Delivery deadline</value>
   </data>
+  <data name="ttlElegirCentroTrabajo" xml:space="preserve">
+    <value>Choose work center</value>
+  </data>
+  <data name="ttlElegirTipoCambio" xml:space="preserve">
+    <value>Choose type of change</value>
+  </data>
+  <data name="ttlTipoCambioSeleccionado" xml:space="preserve">
+    <value>Types  of changes selected</value>
+  </data>
+  <data name="ttlTipoCentroSeleccionado" xml:space="preserve">
+    <value>Work centers selected</value>
+  </data>
+  <data name="lblAgregarOtroComponente" xml:space="preserve">
+    <value>Do you want to add another component?</value>
+  </data>
+  <data name="lblArchivoLeccionesAprendidas" xml:space="preserve">
+    <value>To see/delete the file, first you need to click in the icon of the file</value>
+  </data>
+  <data name="lblComponenteNoEncontrado" xml:space="preserve">
+    <value>Any similar component wasn´t found, the date of the last change will be today</value>
+  </data>
+  <data name="lblDescripcionSimilar" xml:space="preserve">
+    <value>how many components are going to be inserted?</value>
+  </data>
+  <data name="lblIngreseNumeroComponente" xml:space="preserve">
+    <value>Insert component number</value>
+  </data>
 </root>
