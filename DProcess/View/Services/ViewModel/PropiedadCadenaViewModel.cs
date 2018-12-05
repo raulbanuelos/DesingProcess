@@ -96,5 +96,9 @@ namespace View.Services.ViewModel
         }
         #endregion
 
+        #region Métodos
+
+        #endregion
+
     }
 }

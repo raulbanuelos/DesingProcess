@@ -1,4 +1,4 @@
-﻿<Controls:MetroWindow x:Class="View.Forms.Routing.WPropiedadNumeric"
+﻿<Controls:MetroWindow x:Class="View.Forms.Routing.WPropiedadCadena"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
@@ -10,6 +10,7 @@
         BorderThickness="2" ScrollViewer.VerticalScrollBarVisibility="Auto" BorderBrush="Blue"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="WPropiedadNumeric" Height="396.068" Width="656.246">
+    
     <Grid>
         <Grid.Resources>
             <BooleanToVisibilityConverter x:Key="BoolToVis"/>
@@ -20,18 +21,17 @@
             <ColumnDefinition Width="58*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="98*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
-        
+
         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
             <TextBox materialDesign:HintAssist.Hint="Nombre" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Nombre}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-            <TextBox materialDesign:HintAssist.Hint="Descripcion Corta" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding DescripcionCorta}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-            <TextBox materialDesign:HintAssist.Hint="Descripción Larga" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding DescripcionLarga}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-            <TextBox materialDesign:HintAssist.Hint="Tipo de dato" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding TipoDato}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+            <TextBox materialDesign:HintAssist.Hint="Descripcion Corta" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding DescripcionCorta}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox materialDesign:HintAssist.Hint="Descripción Larga" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding DescripcionLarga}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <StackPanel Orientation="Horizontal">
                 <Button Content="Guardar" Width="120" Margin="5" Command="{Binding GuardarPropiedad}"></Button>
                 <Button Background="red" Content="Eliminar" Width="120" Margin="5" Command="{Binding EliminarPropiedad}"
@@ -53,6 +53,7 @@
                 <Button Content="Seleccionar imagen" Command="{Binding SeleccionarImagen}"></Button>
             </StackPanel>
         </Grid>
-        
+
     </Grid>
+    
 </Controls:MetroWindow>
