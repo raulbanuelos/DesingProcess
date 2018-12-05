@@ -390,10 +390,15 @@ namespace View.Services.ViewModel
 
             //Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("es-MX");
 
-            WPropiedadesNumeric ventana = new WPropiedadesNumeric();
-            ventana.DataContext = new PropiedadViewModel(true);
+            //WPropiedadesNumeric ventana = new WPropiedadesNumeric();
+            //ventana.DataContext = new PropiedadViewModel(true);
 
-            ventana.ShowDialog();
+            //ventana.ShowDialog();
+
+            WPropiedadesBool Form = new WPropiedadesBool();
+            Form.DataContext = new PropiedadBoolViewModel(true);
+
+            Form.ShowDialog();
 
             //WViewAllPerfiles ventana = new WViewAllPerfiles();
             //PerfilViewModel vmPerfil = new PerfilViewModel();

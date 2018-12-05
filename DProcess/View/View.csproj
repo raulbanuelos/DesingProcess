@@ -338,6 +338,18 @@
     <Compile Include="Forms\Routing\WPattern.xaml.cs">
       <DependentUpon>WPattern.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Routing\WPropiedadBool.xaml.cs">
+      <DependentUpon>WPropiedadBool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Routing\WPropiedadCadena.xaml.cs">
+      <DependentUpon>WPropiedadCadena.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Routing\WPropiedadesBool.xaml.cs">
+      <DependentUpon>WPropiedadesBool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Routing\WPropiedadesCadena.xaml.cs">
+      <DependentUpon>WPropiedadesCadena.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Routing\WPropiedadesNumeric.xaml.cs">
       <DependentUpon>WPropiedadesNumeric.xaml</DependentUpon>
     </Compile>
@@ -1067,6 +1079,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Routing\WPattern.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Routing\WPropiedadBool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Routing\WPropiedadCadena.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Routing\WPropiedadesBool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Routing\WPropiedadesCadena.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

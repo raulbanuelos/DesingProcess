@@ -1,4 +1,4 @@
-﻿<Controls:MetroWindow x:Class="View.Forms.Routing.WPropiedadesNumeric"
+﻿<Controls:MetroWindow x:Class="View.Forms.Routing.WPropiedadesBool"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
@@ -9,7 +9,6 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         Title="WPropiedadesNumeric" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
          Height="500" Width="700" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"></ColumnDefinition>
@@ -22,7 +21,7 @@
             <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
 
-        
+
         <Button Grid.Column="1" Grid.Row="0" Content="Nueva propiedad" Command="{Binding NewPropiedad}" Width="150" HorizontalAlignment="Right" Margin="5"></Button>
 
         <DataGrid Grid.Column="1" Grid.Row="1"  ItemsSource="{Binding ListaPropiedades}" SelectedItem="{Binding PropiedadSeleccionada, Mode=TwoWay}"
@@ -32,7 +31,6 @@
                 <DataGridTextColumn Binding="{Binding Nombre}" Header="Nombre"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding DescripcionCorta}" Header="Descripción Corta"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding DescripcionLarga}" Header="Descripción Larga"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding TipoDato}" Header="Tipo de dato"></DataGridTextColumn>
             </DataGrid.Columns>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
@@ -41,5 +39,4 @@
             </i:Interaction.Triggers>
         </DataGrid>
     </Grid>
-    
 </Controls:MetroWindow>

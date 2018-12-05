@@ -239,6 +239,8 @@
     </Compile>
     <Compile Include="ServiceObjects\Perfiles\SO_Arquetipo.cs" />
     <Compile Include="ServiceObjects\Perfiles\SO_ArquetipoRings.cs" />
+    <Compile Include="ServiceObjects\Perfiles\SO_PropiedadBool.cs" />
+    <Compile Include="ServiceObjects\Perfiles\SO_PropiedadCadena.cs" />
     <Compile Include="ServiceObjects\Tooling\BushingBatesBore_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>

@@ -260,12 +260,12 @@ namespace Model
         /// <returns></returns>
         public static int InsertArquetipoRing(string codigo, double d1Valor, string d1Unidad, double h1Valor, string h1Unidad, double freeGapValor, string freeGapUnidad,
             double massValor, string massUnidad, double tensionValor, string tensionUnidad, double tensionTolValor, string tensionTolUnidad, string noPlano, string customerPartNumber, string customerRevisionLevel, string size1, string tipoAnillo,
-            string customerDocNo, string treatment, string especTreatment, double hardnessMinValor, string hardnessMinUnidad, double hardnessMaxValor, string hardnessMaxUnidad, string especMaterialBase, 
+            string customerDocNo, string treatment, string especTreatment, double hardnessMinValor, string hardnessMinUnidad, double hardnessMaxValor, string hardnessMaxUnidad, string especMaterialBase,
             double ovalityMinValor, string ovalityMinUnidad, double ovalityMaxValor, string ovalityMaxUnidad)
         {
             SO_ArquetipoRings ServiceArquetipoRing = new SO_ArquetipoRings();
 
-            return ServiceArquetipoRing.Insert(codigo, d1Valor, d1Unidad, h1Valor, h1Unidad, freeGapValor, freeGapUnidad, massValor, massUnidad, tensionValor, tensionUnidad, tensionTolValor, tensionTolUnidad, noPlano, customerPartNumber, customerRevisionLevel, size1, tipoAnillo, customerDocNo, treatment, especTreatment, hardnessMinValor, hardnessMinUnidad, hardnessMaxValor, hardnessMaxUnidad, especMaterialBase,ovalityMinValor,ovalityMinUnidad,ovalityMaxValor,ovalityMaxUnidad);
+            return ServiceArquetipoRing.Insert(codigo, d1Valor, d1Unidad, h1Valor, h1Unidad, freeGapValor, freeGapUnidad, massValor, massUnidad, tensionValor, tensionUnidad, tensionTolValor, tensionTolUnidad, noPlano, customerPartNumber, customerRevisionLevel, size1, tipoAnillo, customerDocNo, treatment, especTreatment, hardnessMinValor, hardnessMinUnidad, hardnessMaxValor, hardnessMaxUnidad, especMaterialBase, ovalityMinValor, ovalityMinUnidad, ovalityMaxValor, ovalityMaxUnidad);
         }
 
         /// <summary>
@@ -304,7 +304,7 @@ namespace Model
         {
             SO_ArquetipoRings ServiceArquetipoRing = new SO_ArquetipoRings();
 
-            return ServiceArquetipoRing.Update(codigo, d1Valor, d1Unidad, h1Valor, h1Unidad, freeGapValor, freeGapUnidad, massValor, massUnidad, tensionValor, tensionUnidad, tensionTolValor, tensionTolUnidad, noPlano, customerPartNumber, customerRevisionLevel, size1, tipoAnillo, customerDocNo, treatment, especTreatment, hardnessMinValor, hardnessMinUnidad,hardnessMaxValor,hardnessMaxUnidad, especMaterialBase, ovalityMinValor, ovalityMinUnidad, ovalityMaxValor, ovalityMaxUnidad);
+            return ServiceArquetipoRing.Update(codigo, d1Valor, d1Unidad, h1Valor, h1Unidad, freeGapValor, freeGapUnidad, massValor, massUnidad, tensionValor, tensionUnidad, tensionTolValor, tensionTolUnidad, noPlano, customerPartNumber, customerRevisionLevel, size1, tipoAnillo, customerDocNo, treatment, especTreatment, hardnessMinValor, hardnessMinUnidad, hardnessMaxValor, hardnessMaxUnidad, especMaterialBase, ovalityMinValor, ovalityMinUnidad, ovalityMaxValor, ovalityMaxUnidad);
         }
 
         /// <summary>
@@ -318,7 +318,7 @@ namespace Model
 
             return ServiceArquetipoRing.Delete(codigo);
         }
-        
+
         /// <summary>
         /// Método que obtiene los datos generales e un componente.
         /// </summary>
@@ -388,8 +388,8 @@ namespace Model
 
                     double ovalityMaxValor = (double)tipo.GetProperty("OvalityMaxValor").GetValue(item, null);
                     string ovalityMaxUnidad = (string)tipo.GetProperty("OvalityMaxUnidad").GetValue(item, null);
-                    arquetipoRing.OvalityMax = new Propiedad { Nombre = "OvalityMax", Valor = ovalityMaxValor, Unidad = ovalityMaxUnidad, TipoDato = EnumEx.GetEnumDescription(TipoDato.Distance) , DescripcionCorta = "Ovality Max"};
-                    
+                    arquetipoRing.OvalityMax = new Propiedad { Nombre = "OvalityMax", Valor = ovalityMaxValor, Unidad = ovalityMaxUnidad, TipoDato = EnumEx.GetEnumDescription(TipoDato.Distance), DescripcionCorta = "Ovality Max" };
+
                 }
             }
 
@@ -409,7 +409,7 @@ namespace Model
 
             arquetipo.Codigo = string.Empty;
 
-            IList informacionBD =  ServiceArquetipo.GetArquetipo(codigo);
+            IList informacionBD = ServiceArquetipo.GetArquetipo(codigo);
 
             if (informacionBD != null)
             {
@@ -613,7 +613,7 @@ namespace Model
                     anillo.Activo = (bool)tipo.GetProperty("Activo").GetValue(item, null);
                 }
             }
-            
+
             return anillo;
         }
         #endregion
@@ -2218,7 +2218,7 @@ namespace Model
                     //Mapeamos el valor a DescipcionRuta.
                     herramental.DescripcionRuta = "GUIDE BAR   " + espesorBarraGuia;
                 }
-            }else
+            } else
             {
                 //Si no se encontró.
             }
@@ -7028,7 +7028,7 @@ namespace Model
         /// <param name="h1"></param>
         /// <param name="freeGap"></param>
         /// <returns></returns>
-        public static string GetDetalleDiscoDiskus(string especMaterial,double d1,double piece,double h1, double freeGap,out List<string> ListaAlertas)
+        public static string GetDetalleDiscoDiskus(string especMaterial, double d1, double piece, double h1, double freeGap, out List<string> ListaAlertas)
         {
             ListaAlertas = new List<string>();
             //El detalle esta compuesto por 3 valores cada uno separado por un guión (-). Ejemplo 10-G-3
@@ -7045,9 +7045,9 @@ namespace Model
             List<string> AlertasDetalles2 = new List<string>();
             List<string> AlertasDetalles3 = new List<string>();
 
-            string detalle1 = GetDetalle1DiscoDiskus(d1, piece, lossFactor,out AlertasDetalles1);
+            string detalle1 = GetDetalle1DiscoDiskus(d1, piece, lossFactor, out AlertasDetalles1);
             ListaAlertas.AddRange(AlertasDetalles1);
-            
+
             string detalle2 = GetDetalle2DiscoDiskus(h1, out AlertasDetalles2);
             ListaAlertas.AddRange(AlertasDetalles2);
 
@@ -7055,7 +7055,7 @@ namespace Model
             ListaAlertas.AddRange(AlertasDetalles3);
 
             detalle = detalle1 + "-" + detalle2 + "-" + detalle3;
-            
+
             //Retornamos el detalle.
             return detalle;
         }
@@ -7065,7 +7065,7 @@ namespace Model
         /// </summary>
         /// <param name="h1">Width nominal del anillo.</param>
         /// <returns></returns>
-        public static string GetDetalle3DiscoDiskus(double freeGap,out List<string> ListaAlertas)
+        public static string GetDetalle3DiscoDiskus(double freeGap, out List<string> ListaAlertas)
         {
             //Declaramos los servicios de SO_Diskus.
             SO_Diskus ServiceDiskus = new SO_Diskus();
@@ -7095,8 +7095,8 @@ namespace Model
 
             if (string.IsNullOrEmpty(detalle))
             {
-                ListaAlertas.Add("Detalle No3 no encontrado en la tabla HerrDiskus3. \n" + 
-                    "Valor buscado: " + freeGap + " que esté entre las columnas GapMin and GapMax de la tabla HerrDiskus3.\n" + 
+                ListaAlertas.Add("Detalle No3 no encontrado en la tabla HerrDiskus3. \n" +
+                    "Valor buscado: " + freeGap + " que esté entre las columnas GapMin and GapMax de la tabla HerrDiskus3.\n" +
                     "Donde:\n" +
                     "       " + freeGap + "= Free gap");
             }
@@ -7119,7 +7119,7 @@ namespace Model
 
             //Declaramos una cadena la cual será la que retornemos en el método.
             string detalle = string.Empty;
-            
+
 
             //Obtenemos los criterios.
             double diskus2Min = GetCriterio("Diskus2Min");
@@ -7145,13 +7145,13 @@ namespace Model
 
             if (string.IsNullOrEmpty(detalle))
             {
-                ListaAlertas.Add("Detalle No2 No encontrado en la tabla HerrDiskus2. \n" + 
-                    "Valor buscado: Columna \"Pulg\" esté entre los valores " + (h1 - diskus2Min) + " y " + (h1 - diskus2Max) + "\n" + 
+                ListaAlertas.Add("Detalle No2 No encontrado en la tabla HerrDiskus2. \n" +
+                    "Valor buscado: Columna \"Pulg\" esté entre los valores " + (h1 - diskus2Min) + " y " + (h1 - diskus2Max) + "\n" +
                     "Donde:\n" +
                     "       Calculo del valor mínimo = " + h1 + " - " + diskus2Min + "\n" +
                     "       " + h1 + "= Width nominal del anillo\n" +
-                    "       " + diskus2Min + "= Criterio de la tabla Criterios\n" + 
-                    "       Calculo del valor máximo =  "+ h1  +" - " + diskus2Max + "\n" + 
+                    "       " + diskus2Min + "= Criterio de la tabla Criterios\n" +
+                    "       Calculo del valor máximo =  " + h1 + " - " + diskus2Max + "\n" +
                     "       " + diskus2Max + " = Criterio de la tabla Criterios");
             }
 
@@ -7202,13 +7202,13 @@ namespace Model
 
             if (string.IsNullOrEmpty(detalle))
             {
-                ListaAlerta.Add("Detalle No1 no encontrado en la tabla HerrDiskus1. \n "+ 
-                    "Valor buscado: Columna \"A\" de la tabla esté entre los siguientes valores : " + (valorCalculado + diskus1Min)  + " y " + (valorCalculado + diskus1Max) + "\n" +
-                    "Cálculo de valor mínimo : " + valorCalculado + " + " + diskus1Min + "\n "+ 
+                ListaAlerta.Add("Detalle No1 no encontrado en la tabla HerrDiskus1. \n " +
+                    "Valor buscado: Columna \"A\" de la tabla esté entre los siguientes valores : " + (valorCalculado + diskus1Min) + " y " + (valorCalculado + diskus1Max) + "\n" +
+                    "Cálculo de valor mínimo : " + valorCalculado + " + " + diskus1Min + "\n " +
                     "Donde:\n" +
-                    "       " + valorCalculado + "=  Math.Round(d1 + (Math.Round(piece, 3) * ((1 - (lossFactor / 100))) / 3.141516), 3) \n" + 
+                    "       " + valorCalculado + "=  Math.Round(d1 + (Math.Round(piece, 3) * ((1 - (lossFactor / 100))) / 3.141516), 3) \n" +
                     "       " + diskus1Min + "= Criterio de la tabla Criterios.\n" +
-                    "       Calculo de valor máximo: " + valorCalculado + " + " + diskus1Max + "\n" + 
+                    "       Calculo de valor máximo: " + valorCalculado + " + " + diskus1Max + "\n" +
                     "       " + diskus1Max + "= Criterio de la tabla Criterios.");
             }
 
@@ -7259,11 +7259,11 @@ namespace Model
         /// <param name="h1"></param>
         /// <param name="freeGap"></param>
         /// <returns></returns>
-        public static DataTable GetDiscoDiskus(string especMaterial,double d1,double piece, double h1,double freeGap, out ObservableCollection<Herramental> ListaResultante, out List<string> ListaAlertas)
+        public static DataTable GetDiscoDiskus(string especMaterial, double d1, double piece, double h1, double freeGap, out ObservableCollection<Herramental> ListaResultante, out List<string> ListaAlertas)
         {
             SO_Diskus ServiceDiskus = new SO_Diskus();
 
-            string detalle = GetDetalleDiscoDiskus(especMaterial, d1, piece, h1, freeGap,out ListaAlertas);
+            string detalle = GetDetalleDiscoDiskus(especMaterial, d1, piece, h1, freeGap, out ListaAlertas);
 
             IList informacionBD = ServiceDiskus.GetDisco(detalle);
 
@@ -7278,7 +7278,7 @@ namespace Model
                     Type tipo = item.GetType();
 
                     Herramental herramental = new Herramental();
-                    
+
                     herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
                     PropiedadCadena propiedadDetalle = new PropiedadCadena();
@@ -8198,7 +8198,7 @@ namespace Model
         {
             SO_COIL ServicioCoil = new SO_COIL();
 
-            idealHerramental = new Herramental { Encontrado = false } ;
+            idealHerramental = new Herramental { Encontrado = false };
 
             //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
@@ -11130,7 +11130,7 @@ namespace Model
                     Type tipo = item.GetType();
 
                     materiaPrima.Codigo = (string)tipo.GetProperty("ID_MATERIA_PRIMA_ROLADO").GetValue(item, null);
-                    materiaPrima.Especificacion =  (string)tipo.GetProperty("ID_ESPECIFICACION").GetValue(item, null);
+                    materiaPrima.Especificacion = (string)tipo.GetProperty("ID_ESPECIFICACION").GetValue(item, null);
                     materiaPrima.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
                     materiaPrima.UM = (string)tipo.GetProperty("UM").GetValue(item, null);
                     materiaPrima._Width = (double)tipo.GetProperty("WIDTH").GetValue(item, null);
@@ -11151,7 +11151,7 @@ namespace Model
 
             SO_MateriaPrimaRolado ServiceMPRolado = new SO_MateriaPrimaRolado();
 
-            IList informacionBD = ServiceMPRolado.GetMateriaPrimaRoladoIdeal(_h1Min,_h1Max,a1Min,a1Max,especificacion,matRemoverWidth,matRemoverThickness);
+            IList informacionBD = ServiceMPRolado.GetMateriaPrimaRoladoIdeal(_h1Min, _h1Max, a1Min, a1Max, especificacion, matRemoverWidth, matRemoverThickness);
 
             if (informacionBD != null)
             {
@@ -11184,7 +11184,7 @@ namespace Model
             SO_MateriaPrimaRolado ServiceRolado = new SO_MateriaPrimaRolado();
 
             return ServiceRolado.Insert(codigoMateriaPrima, especificacion, thickness, groove, unidadMedida, _width, descripcion, ubicacion);
-        } 
+        }
 
         public static int UpdateMateriaPrimaRolado(string codigoMateriaPrima, string especificacion, double thickness, double groove, string unidadMedida, double _width, string descripcion, string ubicacion)
         {
@@ -11202,7 +11202,7 @@ namespace Model
         }
 
         #endregion
-        
+
         #endregion
 
         #region Unidades
@@ -11298,7 +11298,6 @@ namespace Model
             return ListaResultante;
 
         }
-
         #endregion
 
         #region Clientes
@@ -11528,7 +11527,7 @@ namespace Model
             SO_Usuario serviceUsuario = new SO_Usuario();
 
             return serviceUsuario.EliminarPerfilUsuario(usuario);
-        } 
+        }
 
         /// <summary>
         /// 
@@ -11732,14 +11731,14 @@ namespace Model
                     perfil.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
                     perfil.Descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
                     perfil.idPerfil = (int)tipo.GetProperty("ID_PERFIL").GetValue(item, null);
-                    
+
                 }
             }
 
             //Retornamos la lista.
             return perfil;
         }
-        
+
         /// <summary>
         /// Método que obtiene los id´s de los perfiles que tiene un componente.
         /// </summary>
@@ -11852,14 +11851,14 @@ namespace Model
                         propiedad.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter);
                     else
                         propiedad.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
-                    
+
 
                     ListaPropiedades.Add(propiedad);
                 }
             }
 
             return ListaPropiedades;
-        } 
+        }
 
         /// <summary>
         /// Método que obtiene todas las propiedades de la base de datos.
@@ -11893,6 +11892,142 @@ namespace Model
             }
 
             return ListaResultante;
+        }
+
+        /// <summary>
+        /// Método que obtiene todas las propiedades de tipo bool de la base de datos CAT_PROPIEDAD_BOOL
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<PropiedadBool> GetAllPropiedadesBool()
+        {
+            SO_PropiedadBool Servicio = new SO_PropiedadBool();
+            ObservableCollection<PropiedadBool> ListaResultante = new ObservableCollection<PropiedadBool>();
+
+            IList InformacionConsulta = Servicio.GetAllPropiedades();
+
+            if (InformacionConsulta != null)
+            {
+                foreach (var item in InformacionConsulta)
+                {
+                    Type tipo = item.GetType();
+
+                    PropiedadBool DatosPropiedad = new PropiedadBool();
+
+                    DatosPropiedad.idPropiedad = (int)tipo.GetProperty("ID_PROPIEDAD_BOOL").GetValue(item, null);
+                    DatosPropiedad.Nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    DatosPropiedad.DescripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
+                    DatosPropiedad.DescripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
+                    DatosPropiedad.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
+
+
+                    ListaResultante.Add(DatosPropiedad);
+                }
+            }
+            return ListaResultante;
+        }
+
+        /// <summary>
+        /// Método que insertar una nueva propiedad a la tabla CAT_PROPIEDAD_BOOL
+        /// </summary>
+        /// <param name="Data"></param>
+        /// <returns></returns>
+        public static int InsertarNuevaPropiedadBool(PropiedadBool Data)
+        {
+            SO_PropiedadBool servicio = new SO_PropiedadBool();
+
+            return servicio.InsertNewPropiedad(Data.Nombre, Data.DescripcionLarga, Data.DescripcionCorta, Data.Imagen);
+
+        }
+
+        /// <summary>
+        /// Método que actualiza los datos de una propiedad en la tabla CAT_PROPIEDAD_BOOL
+        /// </summary>
+        /// <param name="Data"></param>
+        /// <returns></returns>
+        public static int UpdatePropiedadBool(PropiedadBool Data)
+        {
+            SO_PropiedadBool servicio = new SO_PropiedadBool();
+
+            return servicio.UpdatePropiedad(Data.idPropiedad,Data.Nombre,Data.DescripcionCorta,Data.DescripcionLarga,Data.Imagen);
+        }
+
+        /// <summary>
+        /// Método para eliminar una propiedad de la tabla CAT_PROPIEDAD_BOOL
+        /// </summary>
+        /// <param name="IdPropiedad"></param>
+        /// <returns></returns>
+        public static int DeletePropiedadBool(int IdPropiedad)
+        {
+            SO_PropiedadBool servicio = new SO_PropiedadBool();
+
+            return servicio.DeletePropiedad(IdPropiedad);
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros de la tabla CAT_PROPIEDAD_CADENA
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<PropiedadCadena> GetAllPropiedadCadena()
+        {
+            SO_PropiedadCadena servicio = new SO_PropiedadCadena();
+            ObservableCollection<PropiedadCadena> Lista = new ObservableCollection<PropiedadCadena>();
+
+            IList InformacionConsulta = servicio.GetAllPropiedadesCadena();
+
+            if (InformacionConsulta != null)
+            {
+                foreach (var item in InformacionConsulta)
+                {
+                    Type tipo = item.GetType();
+
+                    PropiedadCadena datos = new PropiedadCadena();
+
+                    datos.idPropiedad = (int)tipo.GetProperty("ID_PROPIEDAD_BOOL").GetValue(item, null);
+                    datos.Nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    datos.DescripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
+                    datos.DescripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
+                    datos.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
+
+                    Lista.Add(datos);
+                }
+            }
+            return Lista;
+        }
+
+        /// <summary>
+        /// Método para insertar una nueva propiedad a la tabla CAT_PROPIEDAD_CADENA
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static int InsertarNuevaPropiedadCadena(PropiedadCadena data)
+        {
+            SO_PropiedadCadena servicio = new SO_PropiedadCadena();
+
+            return servicio.InsertNewPropiedadCadena(data.Nombre, data.DescripcionLarga, data.DescripcionCorta, data.Imagen);
+        }
+
+        /// <summary>
+        /// Método para actuallizar los campos de una propiedad de la tabla CAT_PROPIEDAD_CADENA
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static int UpdatePropiedadCadena(PropiedadCadena data)
+        {
+            SO_PropiedadCadena servicio = new SO_PropiedadCadena();
+
+            return servicio.UpdatePropiedadCadena(data.idPropiedad, data.Nombre, data.DescripcionLarga, data.DescripcionCorta, data.Imagen);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla CAT_PROPIEDAD_CADENA
+        /// </summary>
+        /// <param name="IdPropiedad"></param>
+        /// <returns></returns>
+        public static int DeletePropiedadCadena(int IdPropiedad)
+        {
+            SO_PropiedadCadena servicio = new SO_PropiedadCadena();
+
+            return servicio.DeletePropiedadCadena(IdPropiedad);
         }
 
         /// <summary>
