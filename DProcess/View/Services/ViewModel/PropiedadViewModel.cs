@@ -304,7 +304,6 @@ namespace View.Services.ViewModel
         /// <param name="sTl"></param>
         public PropiedadViewModel(bool sTl)
         {
-
             //Obtenemos todas las propiedades.
             ListaPropiedades = DataManager.GetAllPropiedades();
         }

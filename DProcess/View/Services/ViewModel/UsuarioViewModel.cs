@@ -400,11 +400,16 @@ namespace View.Services.ViewModel
 
             //Form.ShowDialog();
 
-            WViewAllPerfiles ventana = new WViewAllPerfiles();
-            PerfilViewModel vmPerfil = new PerfilViewModel();
-            ventana.DataContext = vmPerfil;
+            WPropiedadesCadena Form = new WPropiedadesCadena();
+            Form.DataContext = new PropiedadCadenaViewModel(true);
 
-            ventana.ShowDialog();
+            Form.ShowDialog();
+
+            //WViewAllPerfiles ventana = new WViewAllPerfiles();
+            //PerfilViewModel vmPerfil = new PerfilViewModel();
+            //ventana.DataContext = vmPerfil;
+
+            //ventana.ShowDialog();
 
 
         }
