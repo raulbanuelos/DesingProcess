@@ -368,6 +368,9 @@
     <Compile Include="Forms\Shared\WOptionList.xaml.cs">
       <DependentUpon>WOptionList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Shared\WSelectedOption.xaml.cs">
+      <DependentUpon>WSelectedOption.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlBushing.xaml.cs">
       <DependentUpon>ControlBushing.xaml</DependentUpon>
     </Compile>
@@ -785,6 +788,7 @@
     <Compile Include="Services\ViewModel\External_GR_3P_1VM.cs" />
     <Compile Include="Services\ViewModel\External_GR_3P_2VM.cs" />
     <Compile Include="Services\ViewModel\External_GR_3P_3VM.cs" />
+    <Compile Include="Services\ViewModel\FO_ItemViewModel.cs" />
     <Compile Include="Services\ViewModel\GeneradorViewModel.cs" />
     <Compile Include="Services\ViewModel\GuidePlateBK_VM.cs" />
     <Compile Include="Services\ViewModel\GuillotinaBK_VM.cs" />
@@ -1107,6 +1111,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\Shared\WOptionList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Shared\WSelectedOption.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using View.Forms.Routing;
+using View.Forms.Shared;
 using View.Resources;
 
 namespace View.Services.ViewModel
@@ -32,8 +33,7 @@ namespace View.Services.ViewModel
             get { return  modelPerfil.idPerfil; }
             set { modelPerfil.idPerfil = value; NotifyChange("idPerfil"); }
         }
-
-
+        
         public string Nombre {
             get
             {
@@ -114,8 +114,27 @@ namespace View.Services.ViewModel
             set { _ListaPropiedadesBool = value; NotifyChange("ListaPropiedadesBool"); }
         }
 
+        private string _EtiquetaPropiedades;
+        public string EtiquetaPropiedades
+        {
+            get { return _EtiquetaPropiedades; }
+            set { _EtiquetaPropiedades = value; NotifyChange("EtiquetaPropiedades"); }
+        }
 
+        private string _EtiquetaPropiedadesCadena;
+        public string EtiquetaPropiedadesCadena
+        {
+            get { return _EtiquetaPropiedadesCadena; }
+            set { _EtiquetaPropiedadesCadena = value; NotifyChange("EtiquetaPropiedadesCadena"); }
+        }
 
+        private string _EtiquetaPropiedadesBool;
+        public string EtiquetaPropiedadesBool
+        {
+            get { return _EtiquetaPropiedadesBool; }
+            set { _EtiquetaPropiedadesBool = value; NotifyChange("EtiquetaPropiedadesBool"); }
+        }
+        
         #endregion
 
         #region Constructor
@@ -164,9 +183,77 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => editarPerfil());
             }
         }
+
+        public ICommand EditarPropiedades
+        {
+            get
+            {
+                return new RelayCommand(o => editarPropiedades());
+            }
+        }
+
+        public ICommand EditarPropiedadesCadena
+        {
+            get
+            {
+                return new RelayCommand(o => editarPropiedadesCadena());
+            }
+        }
         #endregion
 
+        private ObservableCollection<Propiedad> allPropiedades;
+        private ObservableCollection<PropiedadCadena> allPropiedadesCadena;
+
         #region Methods
+
+        private void editarPropiedadesCadena()
+        {
+            //if (allPropiedadesCadena == null || allPropiedadesCadena.Count == 0)
+            //    / allPropiedadesCadena = DataManager.GetAllPropiedades
+        }
+
+        /// <summary>
+        /// Método que abre una ventana con las posibles propiedades numéricas a seleccionar.
+        /// </summary>
+        private void editarPropiedades()
+        {
+            //Identificamos si ya consultamos por primera vez todas las propiedades. Si ya lo consultamos, no volvemos a consultar.
+            if (allPropiedades == null || allPropiedades.Count == 0)
+                allPropiedades = DataManager.GetAllPropiedades();
+
+
+            ObservableCollection<FO_Item> listadoPropiedades = new ObservableCollection<FO_Item>();
+
+            foreach (Propiedad propiedad in allPropiedades)
+            {
+                FO_Item item = new FO_Item();
+                item.Nombre = propiedad.Nombre;
+                item.id = propiedad.idPropiedad;
+                item.Descripcion = propiedad.DescripcionCorta;
+                if (ListaPropiedades.Where(x => x.idPropiedad == propiedad.idPropiedad).ToList().Count > 0)
+                    item.IsSelected = true;
+                else
+                    item.IsSelected = false;
+
+                listadoPropiedades.Add(item);
+            }
+            
+            FO_ItemViewModel vm = new FO_ItemViewModel(listadoPropiedades, "Lista de propiedades numéricas");
+
+            WSelectedOption ventana = new WSelectedOption();
+            ventana.DataContext = vm;
+
+            ventana.ShowDialog();
+
+            ListaPropiedades.Clear();
+            foreach (FO_Item item in vm.ListaAllOptions)
+            {
+                if (item.IsSelected)
+                {
+                    ListaPropiedades.Add(DataManager.GetPropiedadById(item.id));
+                }
+            }
+        }
 
         private void editarPerfil()
         {
@@ -174,8 +261,14 @@ namespace View.Services.ViewModel
             {
                 WViewPerfil ventana = new WViewPerfil();
                 ListaPropiedades = DataManager.GetAllPropiedadesByPerfil(PerfilSeleccionado.idPerfil,false);
+                EtiquetaPropiedades = ListaPropiedades.Count > 0 ? "Hay " + ListaPropiedades.Count + " propiedades asignadas." : "No ha propiedades numéricas asignadas.";
+
                 ListaPropiedadesCadena = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilSeleccionado.idPerfil);
+                EtiquetaPropiedadesCadena = ListaPropiedadesCadena.Count > 0 ? "Hay " + ListaPropiedadesCadena.Count + " propiedades asignadas." : "No hay propiedades cadena asignadas.";
+
                 ListaPropiedadesBool = DataManager.GetallPropiedadesBoolByPerfil(PerfilSeleccionado.idPerfil);
+                EtiquetaPropiedadesBool = ListaPropiedadesBool.Count > 0 ? "Hay " + ListaPropiedadesBool.Count + " propiedades asignadas." : "No hay propiedades booleanas asignadas.";
+
                 ventana.DataContext = this;
 
                 ventana.ShowDialog();
