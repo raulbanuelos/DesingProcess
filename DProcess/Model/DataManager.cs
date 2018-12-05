@@ -11982,7 +11982,7 @@ namespace Model
 
                     PropiedadCadena datos = new PropiedadCadena();
 
-                    datos.idPropiedad = (int)tipo.GetProperty("ID_PROPIEDAD_BOOL").GetValue(item, null);
+                    datos.idPropiedad = (int)tipo.GetProperty("ID_PROPIEDAD_CADENA").GetValue(item, null);
                     datos.Nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
                     datos.DescripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
                     datos.DescripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);

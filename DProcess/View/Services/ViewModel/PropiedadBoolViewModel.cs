@@ -247,7 +247,9 @@ namespace View.Services.ViewModel
             ListaPropiedades = DataManager.GetAllPropiedadesBool();
         }
 
-
+        /// <summary>
+        /// Método para guardar la informacion de una propiedad
+        /// </summary>
         public async void _GuardarPropiedad()
         {
             int r = 0;
@@ -302,6 +304,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Método para eliminar un registro
+        /// </summary>
         public async void _EliminarPropiedad()
         {
             if (model.idPropiedad != 0)

@@ -395,8 +395,13 @@ namespace View.Services.ViewModel
 
             //ventana.ShowDialog();
 
-            WPropiedadesBool Form = new WPropiedadesBool();
-            Form.DataContext = new PropiedadBoolViewModel(true);
+            //WPropiedadesBool Form = new WPropiedadesBool();
+            //Form.DataContext = new PropiedadBoolViewModel(true);
+
+            //Form.ShowDialog();
+
+            WPropiedadesCadena Form = new WPropiedadesCadena();
+            Form.DataContext = new PropiedadCadenaViewModel(true);
 
             Form.ShowDialog();
 
