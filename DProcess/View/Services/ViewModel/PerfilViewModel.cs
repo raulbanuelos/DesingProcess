@@ -24,10 +24,13 @@ namespace View.Services.ViewModel
         #region Attributes
         Perfil modelPerfil;
         DialogService dialogService;
+        private ObservableCollection<Propiedad> allPropiedades;
+        private ObservableCollection<PropiedadCadena> allPropiedadesCadena;
+        private ObservableCollection<PropiedadBool> allPropiedadesBool;
         #endregion
 
         #region Properties
-        
+
         public int idPerfil
         {
             get { return  modelPerfil.idPerfil; }
@@ -199,17 +202,179 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => editarPropiedadesCadena());
             }
         }
-        #endregion
 
-        private ObservableCollection<Propiedad> allPropiedades;
-        private ObservableCollection<PropiedadCadena> allPropiedadesCadena;
+        public ICommand EditarPropiedadesBool
+        {
+            get
+            {
+                return new RelayCommand(o => editarPropiedadesBool());
+            }
+        }
+
+        public ICommand GuardarPerfilPropiedades
+        {
+            get
+            {
+                return new RelayCommand(o => guardarPerfilPropiedades());
+            }
+        }
+        #endregion
 
         #region Methods
 
+        private void guardarPerfilPropiedades()
+        {
+            ObservableCollection<Propiedad> ListaPropiedadesOriginales = DataManager.GetAllPropiedadesByPerfil(PerfilSeleccionado.idPerfil, false);
+
+            ObservableCollection<PropiedadCadena> ListaPropiedadesCadenaOriginales = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilSeleccionado.idPerfil);
+
+            ObservableCollection<PropiedadBool> ListaPropiedadesBoolOriginales = DataManager.GetallPropiedadesBoolByPerfil(PerfilSeleccionado.idPerfil);
+
+            //Iteramos la lista
+            foreach (Propiedad item in ListaPropiedades)
+            {
+                if (ListaPropiedadesOriginales.Where(x => x.idPropiedad == item.idPropiedad).ToList().Count == 0)
+                {
+                    //Insertamos a la base de datos.
+                }
+
+            }
+            
+            foreach (Propiedad item in ListaPropiedadesOriginales)
+            {
+                if (ListaPropiedades.Where(x => x.idPropiedad == item.idPropiedad).ToList().Count == 0)
+                {
+                    //Eliminamos desde la base de datos.
+                }
+            }
+
+
+            foreach (PropiedadCadena item in ListaPropiedadesCadena)
+            {
+                if (ListaPropiedadesCadenaOriginales.Where(x => x.idPropiedad == item.idPropiedad).ToList().Count == 0)
+                {
+                    //Insertamos desde la base de datos.
+                }
+            }
+
+            foreach (PropiedadCadena item in ListaPropiedadesCadenaOriginales)
+            {
+                if (ListaPropiedadesCadena.Where(x => x.idPropiedad == item.idPropiedad).ToList().Count == 0)
+                {
+                    //Eliminamos desde la base de datos.
+                }
+            }
+
+            foreach (PropiedadBool item in ListaPropiedadesBool)
+            {
+                if (ListaPropiedadesBoolOriginales.Where(x => x.idPropiedad == item.idPropiedad).ToList().Count ==0)
+                {
+                    //Insertamos desde la base de datos.
+                }
+            }
+
+            foreach (PropiedadBool item in ListaPropiedadesBoolOriginales)
+            {
+                if (ListaPropiedadesBool.Where(x => x.idPropiedad == item.idPropiedad).ToList().Count == 0)
+                {
+                    //Eliminamos desde la base de datos.
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// Método que abre una ventana con las posibles propiedades bool a seleccionar.
+        /// </summary>
+        private void editarPropiedadesBool()
+        {
+            if (allPropiedadesBool == null || allPropiedadesBool.Count == 0)
+                allPropiedadesBool = DataManager.GetAllPropiedadesBool();
+
+            ObservableCollection<FO_Item> listadoPropiedadesBool = new ObservableCollection<FO_Item>();
+
+            foreach (PropiedadBool propiedad in allPropiedadesBool)
+            {
+                FO_Item item = new FO_Item();
+                item.Nombre = propiedad.Nombre;
+                item.id = propiedad.idPropiedad;
+                item.Descripcion = propiedad.DescripcionCorta;
+                if (ListaPropiedadesBool.Where(x => x.idPropiedad == propiedad.idPropiedad).ToList().Count > 0)
+                    item.IsSelected = true;
+                else
+                    item.IsSelected = false;
+                listadoPropiedadesBool.Add(item);
+            }
+
+            FO_ItemViewModel vm = new FO_ItemViewModel(listadoPropiedadesBool, "Lista de propiedades bool");
+
+            WSelectedOption ventana = new WSelectedOption();
+            ventana.DataContext = vm;
+            ventana.ShowDialog();
+
+
+            if (ventana.DialogResult.HasValue && ventana.DialogResult.Value)
+            {
+                ListaPropiedadesBool.Clear();
+
+                foreach (FO_Item item in vm.ListaAllOptions)
+                {
+                    if (item.IsSelected)
+                    {
+                        ListaPropiedadesBool.Add(DataManager.GetPropiedadBoolByID(item.id));
+                    }
+                }
+
+                setTitulos();  
+            }
+
+        }
+
+        /// <summary>
+        /// Métodos que abre una ventana con las posibles propiedades cadena a seleccionar.
+        /// </summary>
         private void editarPropiedadesCadena()
         {
-            //if (allPropiedadesCadena == null || allPropiedadesCadena.Count == 0)
-            //    / allPropiedadesCadena = DataManager.GetAllPropiedades
+            if (allPropiedadesCadena == null || allPropiedadesCadena.Count == 0)
+                allPropiedadesCadena = DataManager.GetAllPropiedadCadena();
+
+            ObservableCollection<FO_Item> listadoPropiedadesCadena = new ObservableCollection<FO_Item>();
+
+            foreach (PropiedadCadena propiedad in allPropiedadesCadena)
+            {
+                FO_Item item = new FO_Item();
+                item.Nombre = propiedad.Nombre;
+                item.id = propiedad.idPropiedad;
+                item.Descripcion = propiedad.DescripcionCorta;
+                if (ListaPropiedadesCadena.Where(x => x.idPropiedad == propiedad.idPropiedad).ToList().Count > 0)
+                    item.IsSelected = true;
+                else
+                    item.IsSelected = false;
+
+                listadoPropiedadesCadena.Add(item);
+            }
+
+            FO_ItemViewModel vm = new FO_ItemViewModel(listadoPropiedadesCadena, "Lista de propiedades cadena");
+
+            WSelectedOption ventana = new WSelectedOption();
+            ventana.DataContext = vm;
+            ventana.ShowDialog();
+
+            if (ventana.DialogResult.HasValue && ventana.DialogResult.Value)
+            {
+                ListaPropiedadesCadena.Clear();
+
+                foreach (FO_Item item in vm.ListaAllOptions)
+                {
+                    if (item.IsSelected)
+                    {
+                        ListaPropiedadesCadena.Add(DataManager.GetPropiedadCadenaByID(item.id));
+                    }
+                }
+
+                setTitulos();
+            }
+                
         }
 
         /// <summary>
@@ -245,13 +410,18 @@ namespace View.Services.ViewModel
 
             ventana.ShowDialog();
 
-            ListaPropiedades.Clear();
-            foreach (FO_Item item in vm.ListaAllOptions)
+            if (ventana.DialogResult.HasValue && ventana.DialogResult.Value)
             {
-                if (item.IsSelected)
+                ListaPropiedades.Clear();
+                foreach (FO_Item item in vm.ListaAllOptions)
                 {
-                    ListaPropiedades.Add(DataManager.GetPropiedadById(item.id));
+                    if (item.IsSelected)
+                    {
+                        ListaPropiedades.Add(DataManager.GetPropiedadById(item.id));
+                    }
                 }
+
+                setTitulos();
             }
         }
 
@@ -261,18 +431,27 @@ namespace View.Services.ViewModel
             {
                 WViewPerfil ventana = new WViewPerfil();
                 ListaPropiedades = DataManager.GetAllPropiedadesByPerfil(PerfilSeleccionado.idPerfil,false);
-                EtiquetaPropiedades = ListaPropiedades.Count > 0 ? "Hay " + ListaPropiedades.Count + " propiedades asignadas." : "No ha propiedades numéricas asignadas.";
-
+                
                 ListaPropiedadesCadena = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilSeleccionado.idPerfil);
-                EtiquetaPropiedadesCadena = ListaPropiedadesCadena.Count > 0 ? "Hay " + ListaPropiedadesCadena.Count + " propiedades asignadas." : "No hay propiedades cadena asignadas.";
-
+                
                 ListaPropiedadesBool = DataManager.GetallPropiedadesBoolByPerfil(PerfilSeleccionado.idPerfil);
-                EtiquetaPropiedadesBool = ListaPropiedadesBool.Count > 0 ? "Hay " + ListaPropiedadesBool.Count + " propiedades asignadas." : "No hay propiedades booleanas asignadas.";
-
+                
                 ventana.DataContext = this;
+
+                setTitulos();
 
                 ventana.ShowDialog();
             }
+        }
+
+        /// <summary>
+        /// Método que establese los titulos de las ventanas.
+        /// </summary>
+        private void setTitulos()
+        {
+            EtiquetaPropiedades = ListaPropiedades.Count > 0 ? "Hay " + ListaPropiedades.Count + " propiedades asignadas." : "No ha propiedades numéricas asignadas.";
+            EtiquetaPropiedadesCadena = ListaPropiedadesCadena.Count > 0 ? "Hay " + ListaPropiedadesCadena.Count + " propiedades asignadas." : "No hay propiedades cadena asignadas.";
+            EtiquetaPropiedadesBool = ListaPropiedadesBool.Count > 0 ? "Hay " + ListaPropiedadesBool.Count + " propiedades asignadas." : "No hay propiedades booleanas asignadas.";
         }
 
         private void seleccionarImagen()

@@ -30,8 +30,7 @@ namespace DataAccess.ServiceObjects.Perfiles
                 return null;
             }
         }
-
-
+        
         /// <summary>
         /// Método que actualiza un registro seleccionado
         /// </summary>
@@ -129,6 +128,30 @@ namespace DataAccess.ServiceObjects.Perfiles
             {
 
                 throw;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene un registro a partir del ID de la tabla CAT_PROPIEDAD_CADENA
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IList GetPropiedadCadenaByID(int id)
+        {
+            try
+            {
+                using (EntitiesPerfiles conexion = new EntitiesPerfiles())
+                {
+                    var lista = (from a in conexion.CAT_PROPIEDAD_CADENA
+                                 where a.ID_PROPIEDAD_CADENA == id
+                                 select a).ToList();
+
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
     }

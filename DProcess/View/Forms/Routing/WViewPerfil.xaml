@@ -118,7 +118,7 @@
                         <ListView ItemsSource="{Binding ListaPropiedadesBool}" Grid.Row="1" ItemTemplate="{StaticResource listTemplate}">
 
                         </ListView>
-                        <Button Grid.Row="2" Width="170" HorizontalAlignment="Right" Margin="5" Content="Agregar/Quitar"></Button>
+                        <Button Grid.Row="2" Width="170" HorizontalAlignment="Right" Margin="5" Content="Agregar/Quitar" Command="{Binding EditarPropiedadesBool}"></Button>
                     </Grid>
                 </Border>
             </Grid>
@@ -126,8 +126,8 @@
 
         <!--StackPanel de botones de Guardar y eliminar.-->
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Guardar" Margin="5"></Button>
-            <Button Content="Eliminar" Background="red"></Button>
+            <Button Content="Guardar" Margin="5" Command="{Binding GuardarPerfilPropiedades}"></Button>
+            <Button Content="Cancelar" IsCancel="True"></Button>
         </StackPanel>
     </Grid>
 </Controls:MetroWindow>

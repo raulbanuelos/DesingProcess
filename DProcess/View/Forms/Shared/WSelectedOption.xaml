@@ -12,7 +12,7 @@
 
     <Window.Resources>
         <DataTemplate x:Key="lstTemplate">
-            <Border Background="GhostWhite" Margin="0,3,0,0" BorderBrush="Silver" BorderThickness="1" CornerRadius="3">
+            <Border Background="GhostWhite" Margin="0,1,0,0" BorderBrush="Silver" BorderThickness="1" CornerRadius="3">
                 <Grid Height="70">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="350"></ColumnDefinition>
@@ -22,7 +22,7 @@
                         <RowDefinition Height="35"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <CheckBox Grid.Row="0" Grid.Column="0"
+                    <CheckBox Grid.Row="0" Grid.Column="0" Cursor="Hand"
                               Content="{Binding Descripcion}" IsChecked="{Binding IsSelected}"></CheckBox>
                     <Label Grid.Row="1" Grid.Column="0"
                         Content="{Binding Nombre}" FontStyle="Italic" Foreground="Gray"></Label>
@@ -44,15 +44,15 @@
 
         <!--StackPanel de lista de opciones.-->
         <StackPanel Grid.Row="1">
-            <ListView Height="390" ItemsSource="{Binding ListaAllOptions}" ItemTemplate="{StaticResource lstTemplate}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListView Height="380" ItemsSource="{Binding ListaAllOptions}" ItemTemplate="{StaticResource lstTemplate}" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="3">
                 
             </ListView>
         </StackPanel>
         
         <!--StackPanel de Botones Aceptar y cancelar-->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
-            <Button Content="Aceptar" Margin="5"></Button>
-            <Button Content="Cancelar" Margin="5"></Button>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Bottom">
+            <Button Content="Aceptar" Name="btn_Ok" Click="btn_Ok_Click"></Button>
+            <Button Content="Cancelar" Margin="5,0,0,0" IsCancel="True"></Button>
         </StackPanel>
     </Grid>
     

@@ -11,5 +11,10 @@ namespace View.Forms.Shared
         {
             InitializeComponent();
         }
+
+        private void btn_Ok_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
     }
 }

@@ -395,16 +395,16 @@ namespace View.Services.ViewModel
 
             //ventana.ShowDialog();
 
-            WPropiedadesBool Form = new WPropiedadesBool();
-            Form.DataContext = new PropiedadBoolViewModel(true);
+            //WPropiedadesBool Form = new WPropiedadesBool();
+            //Form.DataContext = new PropiedadBoolViewModel(true);
 
-            Form.ShowDialog();
+            //Form.ShowDialog();
 
-            //WViewAllPerfiles ventana = new WViewAllPerfiles();
-            //PerfilViewModel vmPerfil = new PerfilViewModel();
-            //ventana.DataContext = vmPerfil;
+            WViewAllPerfiles ventana = new WViewAllPerfiles();
+            PerfilViewModel vmPerfil = new PerfilViewModel();
+            ventana.DataContext = vmPerfil;
 
-            //ventana.ShowDialog();
+            ventana.ShowDialog();
 
 
         }

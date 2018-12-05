@@ -11927,6 +11927,37 @@ namespace Model
         }
 
         /// <summary>
+        /// Método que retorna un registro a partir de un ID de la tabla CAT_PROPIEDAD_BOOL.
+        /// </summary>
+        /// <param name="idPropiedadBool"></param>
+        /// <returns></returns>
+        public static PropiedadBool GetPropiedadBoolByID(int idPropiedadBool)
+        {
+            SO_PropiedadBool Servicio = new SO_PropiedadBool();
+            PropiedadBool DatosPropiedad = new PropiedadBool();
+
+            IList InformacionConsulta = Servicio.GetAllPropiedades();
+
+            if (InformacionConsulta != null)
+            {
+                foreach (var item in InformacionConsulta)
+                {
+                    Type tipo = item.GetType();
+
+                    DatosPropiedad = new PropiedadBool();
+
+                    DatosPropiedad.idPropiedad = (int)tipo.GetProperty("ID_PROPIEDAD_BOOL").GetValue(item, null);
+                    DatosPropiedad.Nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    DatosPropiedad.DescripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
+                    DatosPropiedad.DescripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
+                    DatosPropiedad.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
+                    
+                }
+            }
+            return DatosPropiedad;
+        }
+
+        /// <summary>
         /// Método que insertar una nueva propiedad a la tabla CAT_PROPIEDAD_BOOL
         /// </summary>
         /// <param name="Data"></param>
@@ -11964,6 +11995,37 @@ namespace Model
         }
 
         /// <summary>
+        /// Método que retorna un objeto de tipo PropiedadCadena a partir de un ID.
+        /// </summary>
+        /// <param name="idPropiedadCadena"></param>
+        /// <returns></returns>
+        public static PropiedadCadena GetPropiedadCadenaByID(int idPropiedadCadena)
+        {
+            SO_PropiedadCadena servicio = new SO_PropiedadCadena();
+            PropiedadCadena propiedadCadena = new PropiedadCadena();
+
+            IList InformacionConsulta = servicio.GetPropiedadCadenaByID(idPropiedadCadena);
+
+            if (InformacionConsulta != null)
+            {
+                foreach (var item in InformacionConsulta)
+                {
+                    Type tipo = item.GetType();
+
+                    propiedadCadena = new PropiedadCadena();
+
+                    propiedadCadena.idPropiedad = (int)tipo.GetProperty("ID_PROPIEDAD_CADENA").GetValue(item, null);
+                    propiedadCadena.Nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    propiedadCadena.DescripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
+                    propiedadCadena.DescripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
+                    propiedadCadena.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
+                    
+                }
+            }
+            return propiedadCadena;
+        }
+
+        /// <summary>
         /// Método que obtiene todos los registros de la tabla CAT_PROPIEDAD_CADENA
         /// </summary>
         /// <returns></returns>
@@ -11982,7 +12044,7 @@ namespace Model
 
                     PropiedadCadena datos = new PropiedadCadena();
 
-                    datos.idPropiedad = (int)tipo.GetProperty("ID_PROPIEDAD_BOOL").GetValue(item, null);
+                    datos.idPropiedad = (int)tipo.GetProperty("ID_PROPIEDAD_CADENA").GetValue(item, null);
                     datos.Nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
                     datos.DescripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
                     datos.DescripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);

@@ -140,5 +140,33 @@ namespace DataAccess.ServiceObjects.Perfiles
                 return 0;
             }
         }
+
+        /// <summary>
+        /// Método que obtiene un registro a partir de un ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IList GetPropiedadByID(int id)
+        {
+            try
+            {
+                //declaramos la conexion a la base de datos
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    //seleccionamos todos los registros de la base de datos
+                    var lista = (from a in Conexion.CAT_PROPIEDAD_BOOL
+                                 where a.ID_PROPIEDAD_BOOL == id
+                                 select a).ToList();
+
+                    //regresamos la lista con los valores seleccionados
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error regresa un valor nulo
+                return null;
+            }
+        }
     }
 }
