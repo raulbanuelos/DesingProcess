@@ -9,6 +9,8 @@ namespace DataAccess.ServiceObjects.Perfiles
 {
     public class SO_PropiedadCadena
     {
+        #region CAT_PROPIEDAD_CADENA
+
         /// <summary>
         /// Método que muestra todos los registros de la tabla
         /// </summary>
@@ -154,5 +156,62 @@ namespace DataAccess.ServiceObjects.Perfiles
                 return null;
             }
         }
+
+        #endregion
+
+        #region TR_PROPIEDAD_CADENA_PERFIL
+
+        /// <summary>
+        /// Método para insertar un registro
+        /// </summary>
+        /// <param name="IdPropiedadCadena"></param>
+        /// <param name="IdPerfil"></param>
+        /// <returns></returns>
+        public int InsertNewPropiedadCadenaPerfil(int IdPropiedadCadena, int IdPerfil)
+        {
+            try
+            {
+                using (EntitiesPerfiles conexion = new EntitiesPerfiles())
+                {
+                    TR_PROPIEDAD_CADENA_PERFIL data = new TR_PROPIEDAD_CADENA_PERFIL();
+
+                    data.ID_PROPIEDAD_CADENA = IdPropiedadCadena;
+                    data.ID_PERFIL = IdPerfil;
+
+                    conexion.TR_PROPIEDAD_CADENA_PERFIL.Add(data);
+
+                    return conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro
+        /// </summary>
+        /// <returns></returns>
+        public int DeletePropiedadCadenaPerfil(int IdPropiedadCadena, int IdPerfil)
+        {
+            try
+            {
+                using (EntitiesPerfiles conexion = new EntitiesPerfiles())
+                {
+                    TR_PROPIEDAD_CADENA_PERFIL data = conexion.TR_PROPIEDAD_CADENA_PERFIL.Where(a => a.ID_PROPIEDAD_CADENA == IdPropiedadCadena || a.ID_PERFIL == IdPerfil).FirstOrDefault();
+
+                    conexion.Entry(data).State = System.Data.Entity.EntityState.Deleted;
+
+                    return conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        #endregion
     }
 }

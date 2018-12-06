@@ -9,6 +9,8 @@ namespace DataAccess.ServiceObjects.Perfiles
 {
     public class SO_PropiedadBool
     {
+        #region CAT_PROPIEDAD_BOOL
+
         /// <summary>
         /// Método que obtiene todos los datos de la base de datos
         /// </summary>
@@ -168,5 +170,66 @@ namespace DataAccess.ServiceObjects.Perfiles
                 return null;
             }
         }
+
+        #endregion
+
+        #region TR_PROPIEDAD_BOOL_PERFIL
+
+        /// <summary>
+        /// Método que inserta un registro nuevo
+        /// </summary>
+        /// <param name="IdPropiedadBool"></param>
+        /// <param name="IdPerfil"></param>
+        /// <returns></returns>
+        public int InsertNewPropiedadBoolPerfil(int IdPropiedadBool, int IdPerfil)
+        {
+            try
+            {
+                using (EntitiesPerfiles conexion = new EntitiesPerfiles())
+                {
+                    TR_PROPIEDAD_BOOL_PERFIL data = new TR_PROPIEDAD_BOOL_PERFIL();
+
+                    data.ID_PROPIEDAD_BOOL = IdPropiedadBool;
+                    data.ID_PERFIL = IdPerfil;
+
+                    //Agregamos los registros a la base de datos
+                    conexion.TR_PROPIEDAD_BOOL_PERFIL.Add(data);
+
+                    //Guardamos los cambios
+                    return conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro
+        /// </summary>
+        /// <param name="IdPropiedadBoolPerfil"></param>
+        /// <param name="IdPropiedadBool"></param>
+        /// <returns></returns>
+        public int DeletePropiedadBoolPerfil(int IdPropiedadBool, int IdPerfil)
+        {
+            try
+            {
+                using (EntitiesPerfiles conexion = new EntitiesPerfiles())
+                {
+                    TR_PROPIEDAD_BOOL_PERFIL data = conexion.TR_PROPIEDAD_BOOL_PERFIL.Where(a => a.ID_PROPIEDAD_BOOL == IdPropiedadBool || a.ID_PERFIL == IdPerfil).FirstOrDefault();
+
+                    conexion.Entry(data).State = System.Data.Entity.EntityState.Deleted;
+
+                    return conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        #endregion
     }
 }

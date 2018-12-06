@@ -12300,7 +12300,52 @@ namespace Model
             }
             return ListadoPropiedadesCadena;
         }
-        
+
+        /// <summary>
+        /// Método para insertar un registro nuevo en la tabla TR_PROPIEDAD_BOOL_PERFIL
+        /// </summary>
+        /// <returns></returns>
+        public static int InsertNewPropiedadBoolPerfil(int IdPropiedadBool, int IdPerfil)
+        {
+            SO_PropiedadBool servicio = new SO_PropiedadBool();
+
+            return servicio.InsertNewPropiedadBoolPerfil(IdPropiedadBool, IdPerfil);
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro en la tabla TR_PROPIEDAD_BOOL_PERFIL
+        /// </summary>
+        /// <returns></returns>
+        public static int DeletePropiedadBoolPerfil(int IdPropiedadBool, int IdPerfil)
+        {
+            SO_PropiedadBool servicio = new SO_PropiedadBool();
+
+            return servicio.DeletePropiedadBoolPerfil(IdPropiedadBool, IdPerfil);
+        }
+
+        /// <summary>
+        /// Método para insertar un nuevo registro en la tabla TR_PROPIEDAD_CADENA_PERFIL
+        /// </summary>
+        /// <param name="IdPropiedadCadena"></param>
+        /// <param name="IdPerfil"></param>
+        /// <returns></returns>
+        public static int InsertNewPropiedadCadenaPerfil(int IdPropiedadCadena, int IdPerfil)
+        {
+            SO_PropiedadCadena servicio = new SO_PropiedadCadena();
+
+            return servicio.InsertNewPropiedadCadenaPerfil(IdPropiedadCadena,IdPerfil);
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro en la tabla TR_PROPIEDAD_CADENA_PERFIL
+        /// </summary>
+        /// <returns></returns>
+        public static int DeletePropiedadCadenaPerfil(int IdPropiedadCadena, int IdPerfil)
+        {
+            SO_PropiedadCadena servicio = new SO_PropiedadCadena();
+
+            return servicio.DeletePropiedadCadenaPerfil(IdPropiedadCadena, IdPerfil);
+        }
         #endregion
     }
 }
