@@ -1240,7 +1240,7 @@ namespace View.Services.ViewModel
                     foreach (var item in ListaComponentesSimilares)
                     {
                         //Obtenemos la fecha del ultimo componente registrado
-                        FechaUltimoCambio = item.FECHA_ULTIMO_CAMBIO;
+                        FechaUltimoCambio = item.FECHA_ACTUALIZACION;
                         //rcompemos el ciclo
                         break;
                     }

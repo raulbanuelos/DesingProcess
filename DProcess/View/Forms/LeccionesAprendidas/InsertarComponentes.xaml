@@ -45,7 +45,7 @@
         <TextBox Text="{Binding Componente}"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblComponente}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="49"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
                         SpellCheck.IsEnabled="True" Language="es-ES" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
         <!--Boton para verificar las fechas-->
-        <Button Grid.Column="1" Grid.Row="2" Width="180" Content="Componentes similares" Command="{Binding _VerificarComponente}"/>
+        <Button Grid.Column="1" Grid.Row="2" Width="280" Content="Ver ultimo cambio del componente" Command="{Binding _VerificarComponente}"/>
 
         <!--Titulo del Datagrid Componentes similares-->
         <Label Content="Componentes similares" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="5"/>
