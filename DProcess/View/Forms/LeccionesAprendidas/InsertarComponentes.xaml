@@ -63,7 +63,7 @@
                                       IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static recursos:StringResources.lblDescripcion}" Binding="{Binding DESCRIPCION_PROBLEMA}" ClipboardContentBinding="{x:Null}"/>
-                <DataGridTextColumn Header="{x:Static recursos:StringResources.lblFechaUltimoCambio}" Binding="{Binding FECHA_ULTIMO_CAMBIO , StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}"/>
+                <DataGridTextColumn Header="{x:Static recursos:StringResources.lblFechaUltimoCambio}" Binding="{Binding FECHA_ACTUALIZACION , StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}"/>
             </DataGrid.Columns>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
