@@ -309,6 +309,21 @@ namespace View.Services.ViewModel
         public int id_leccion;
         public Usuario User;
 
+        private ObservableCollection<CentrosTrabajo> _ListaCentrosDeTrabajoSeleccionados;
+        public ObservableCollection<CentrosTrabajo> ListaCentrosDeTrabajoSeleccionados
+        {
+            get
+            {
+                return _ListaCentrosDeTrabajoSeleccionados;
+            }
+            set
+            {
+                _ListaCentrosDeTrabajoSeleccionados = value;
+                NotifyChange("ListaCentrosDeTrabajoSeleccionados");
+            }
+        }
+
+        public LeccionesAprendidas AuxLeccionSeleccionada;
         #endregion
 
         #region Constructor
@@ -319,13 +334,14 @@ namespace View.Services.ViewModel
         /// <param name="SelectedLeccion"></param>
         public ModificarLeccionVM(LeccionesAprendidas SelectedLeccion,Usuario ModelUsuario)
         {
+            AuxLeccionSeleccionada = SelectedLeccion;
             User = ModelUsuario;
             //verificamos que se haya seleccionado una leccion
             if (SelectedLeccion != null)
             {
 
                 CreateMenuItems();
-
+                ListaCentrosDeTrabajoSeleccionados = new ObservableCollection<CentrosTrabajo>();
                 User = ModelUsuario;
                 //asignamos los valores a los botones
                 IsEnabled = false;
@@ -335,7 +351,7 @@ namespace View.Services.ViewModel
                 ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
 
                 //Obtenemos los centros de trabajo que esten relacionados con la lección aprendida
-                ListaCentroTrabajoLeccion = DataManagerControlDocumentos.GetCentrosDetrabajoLecciones(SelectedLeccion.ID_LECCIONES_APRENDIDAS);
+                ListaCentrosDeTrabajoSeleccionados = DataManagerControlDocumentos.GetCentrosDetrabajoLecciones(SelectedLeccion.ID_LECCIONES_APRENDIDAS);
 
                 //Obtenemos los tipos de cambio que esten relacionados con la leccion aprendida
                 ListaTipoCambioLeccion = DataManagerControlDocumentos.GetTipoCambioLecciones(SelectedLeccion.ID_LECCIONES_APRENDIDAS);
@@ -350,7 +366,7 @@ namespace View.Services.ViewModel
                 //
                 foreach (var item in ListaCentrosDeTrabajo)
                 {
-                    if (ExisteCentroDeTrabajo(item.CentroTrabajo, ListaCentroTrabajoLeccion))
+                    if (ExisteCentroDeTrabajo(item.CentroTrabajo, ListaCentrosDeTrabajoSeleccionados))
                     {
                         item.IsSelected = true;
                     }
@@ -493,6 +509,14 @@ namespace View.Services.ViewModel
             get
             {
                 return new RelayCommand(o => AdjuntarArchivo());
+            }
+        }
+
+        public ICommand BuscarCentroTrabajo
+        {
+            get
+            {
+                return new RelayCommand(a => EncontrarCentroTrabajo((string)a));
             }
         }
 
@@ -853,15 +877,45 @@ namespace View.Services.ViewModel
         public void ElegirCentroTrabajo()
         {
             CentrosDeTrabajo Form = new CentrosDeTrabajo();
+            ListaCentrosDeTrabajoSeleccionados.Clear();
+
             Form.DataContext = this;
             Form.ShowDialog();
 
-            ListaCentroTrabajoLeccion.Clear();
+            //ListaCentrosDeTrabajoSeleccionados.Clear();
+
             foreach (var item in ListaCentrosDeTrabajo)
             {
                 if (item.IsSelected)
                 {
-                    ListaCentroTrabajoLeccion.Add(item);
+                    //Mostramos en la lista los Centros de trabajo que se hayan seleccionado en la vista anterior
+                    if (ListaCentrosDeTrabajoSeleccionados.Where(x => x.CentroTrabajo == item.CentroTrabajo).ToList().Count == 0)
+                    {
+                        ListaCentrosDeTrabajoSeleccionados.Add(item);
+                    }
+                }
+            }
+
+            foreach (var item in ListaCentrosDeTrabajo)
+            {
+                if (!item.IsSelected)
+                {
+                    if (ListaCentrosDeTrabajoSeleccionados.Where(x => x.CentroTrabajo == item.CentroTrabajo).ToList().Count > 0)
+                    {
+                        CentrosTrabajo ct = ListaCentrosDeTrabajoSeleccionados.Where(x => x.CentroTrabajo == item.CentroTrabajo).FirstOrDefault();
+                        ListaCentrosDeTrabajoSeleccionados.Remove(ct);
+                    }
+                }
+            }
+
+
+            ListaCentrosDeTrabajo = DataManagerControlDocumentos.GetCentrosDeTrabajo("");
+
+            foreach (var item in ListaCentrosDeTrabajo)
+            {
+                if (ListaCentrosDeTrabajoSeleccionados.Where(x => x.CentroTrabajo == item.CentroTrabajo).ToList().Count > 0)
+                {
+                    item.IsSelected = true;
                 }
             }
         }
@@ -942,7 +996,7 @@ namespace View.Services.ViewModel
 
             if (BorrarCentrosTrabajo != 0)
             {
-                foreach (var item in ListaCentroTrabajoLeccion)
+                foreach (var item in ListaCentrosDeTrabajoSeleccionados)
                 {
                     int f = DataManagerControlDocumentos.InsertLeccionesCentroDeTrabajo(item.CentroTrabajo, id_leccion);
                     if (f != 0)
@@ -978,6 +1032,46 @@ namespace View.Services.ViewModel
             return DatosInsertados;
         }
 
+        /// <summary>
+        /// Método que busca los centros de trabajo
+        /// </summary>
+        /// <param name="TextoBuscar"></param>
+        public void EncontrarCentroTrabajo(string TextoBuscar)
+        {
+            foreach (var item in ListaCentrosDeTrabajo)
+            {
+                if (item.IsSelected)
+                {
+                    //Mostramos en la lista los niveles de cambio que se hayan seleccionado en la vista anterior
+                    if (ListaCentrosDeTrabajoSeleccionados.Where(x => x.CentroTrabajo == item.CentroTrabajo).ToList().Count == 0)
+                    {
+                        ListaCentrosDeTrabajoSeleccionados.Add(item);
+                    }
+                }
+            }
+
+            //ListaCentrosDeTrabajo.Clear();
+            ObservableCollection<CentrosTrabajo> Aux = new ObservableCollection<CentrosTrabajo>();
+
+            //ListaCentrosDeTrabajo = DataManagerControlDocumentos.GetCentrosDeTrabajo(TextoBuscar);
+
+            Aux = DataManagerControlDocumentos.GetCentrosDeTrabajo(TextoBuscar);
+
+            ListaCentrosDeTrabajo.Clear();
+
+            foreach (var item in Aux)
+            {
+                ListaCentrosDeTrabajo.Add(item);
+            }
+
+            foreach (var item in ListaCentrosDeTrabajo)
+            {
+                if (ListaCentrosDeTrabajoSeleccionados.Where(x => x.CentroTrabajo == item.CentroTrabajo).ToList().Count > 0)
+                {
+                    item.IsSelected = true;
+                }
+            }
+        }
         #endregion
 
         #region Funciones
@@ -1029,9 +1123,9 @@ namespace View.Services.ViewModel
         {
             bool DatosCompletos = false;
 
-            if (!string.IsNullOrEmpty(_usuarioAutorizo) && !string.IsNullOrEmpty(_COMPONENTE) && !string.IsNullOrEmpty(_CAMBIO_REQUERIDO) &&
+            if (!string.IsNullOrEmpty(_usuarioAutorizo) && !string.IsNullOrEmpty(_COMPONENTE) && 
                     !string.IsNullOrEmpty(_DESCRIPCION_PROBLEMA) && !string.IsNullOrEmpty(_REPORTADO_POR) && !string.IsNullOrEmpty(_SOLICITUD_TRABAJO_DE_ING) &&
-                    _FECHA_ULTIMO_CAMBIO != null && (_FECHA_ACTUALIZACION) != null && ListaCentroTrabajoLeccion.Count > 0 && ListaTipoCambioLeccion.Count>0)
+                    _FECHA_ULTIMO_CAMBIO != null && (_FECHA_ACTUALIZACION) != null )
             {
                 DatosCompletos = true;
             }

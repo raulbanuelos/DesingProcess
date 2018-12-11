@@ -101,37 +101,34 @@
                 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="60"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
                     <RowDefinition Height="50"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!--Componente-->
                 <TextBox Grid.Row="1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblComponente}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding COMPONENTE}"/>
-                
-                <!--Cambio Requerido-->
-                <TextBox Grid.Row="2" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCambioRequerido}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding CAMBIO_REQUERIDO}" />
-                
+
                 <!--Fecha del Ultimo Cambio-->
-                <DatePicker Grid.Row="3" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaUltimoCambio}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FECHA_ULTIMO_CAMBIO}"
+                <DatePicker Grid.Row="2" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaUltimoCambio}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FECHA_ULTIMO_CAMBIO}"
                         IsEnabled="{Binding EnabledFecha}" />
                 
                 <!--Fecha de la actualización-->
-                <DatePicker Grid.Row="4" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaActualizacion}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FECHA_ACTUALIZACION}"
+                <DatePicker Grid.Row="3" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaActualizacion}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FECHA_ACTUALIZACION}"
                         IsEnabled="{Binding EnabledFecha}" />
                 
                 <!--Reportado Por-->
-                <TextBox Grid.Row="5" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblReportadoPor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420"  BorderBrush="#FFBDBDBD"  FontSize="18" Text="{Binding REPORTADO_POR}"/>
+                <TextBox Grid.Row="4" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblReportadoPor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420"  BorderBrush="#FFBDBDBD"  FontSize="18" Text="{Binding REPORTADO_POR}"/>
                 
                 <!--Solicitud Trabajo de Ingeniería-->
-                <TextBox Grid.Row="6" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblSolicitudTrabajoIng}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Text="{Binding SOLICITUD_TRABAJO_DE_ING}"/>
+                <TextBox Grid.Row="5" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblSolicitudTrabajoIng}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Text="{Binding SOLICITUD_TRABAJO_DE_ING}"/>
                 
                 <!--Cambio Realizado Por-->
-                <ComboBox Grid.Row="7" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCambioRealizadoPor}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  
+                <ComboBox Grid.Row="6" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCambioRealizadoPor}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  
                                Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" 
                                ItemsSource="{Binding Path=ListaUsuarios}"  
                                SelectedValuePath="usuario"
@@ -160,7 +157,7 @@
                 </ComboBox>
                 
                 <!--Descripcion del Problema-->
-                <TextBox Grid.Row="8" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblDescripcionProblema}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="350"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding DESCRIPCION_PROBLEMA}" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+                <TextBox Grid.Row="7" Grid.RowSpan="2" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblDescripcionProblema}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="350"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding DESCRIPCION_PROBLEMA}" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
             </Grid>
             
             <!--Columna con las listas-->
@@ -180,7 +177,7 @@
                 <Button Grid.Row="1" Width="210" HorizontalAlignment="Right" Content="Elegir centro de trabajo" Command="{Binding IrElegirCentroTrabajo}"></Button>
                 
                 <!--Datagrid con informacion de los cambios hechos al mismo componente-->
-                <DataGrid Grid.Row="2" ItemsSource="{Binding ListaCentroTrabajoLeccion}" 
+                <DataGrid Grid.Row="2" ItemsSource="{Binding ListaCentrosDeTrabajoSeleccionados, Mode=TwoWay}" 
                                       ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"

@@ -80,7 +80,7 @@
         
         
         <!--Combobox con los nombres de los usuarios del sistema-->
-        <ComboBox Grid.Row="3" Grid.Column="1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblUsuarioAutorizo}" 
+        <ComboBox Grid.Row="3" Grid.Column="1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCambioRealizadoPor}" 
                                Style="{StaticResource MaterialDesignFloatingHintComboBox}"  
                                Height="51" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" 
                                ItemsSource="{Binding Path=ListaUsuarios}" 

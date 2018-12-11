@@ -3265,6 +3265,7 @@ namespace Model.ControlDocumentos
 
                     ObjCent.CentroTrabajo = (string)tipo.GetProperty("CentroTrabajo1").GetValue(item, null);
                     ObjCent.NombreOperacion = (string)tipo.GetProperty("NombreOperacion").GetValue(item, null);
+                    ObjCent.IsSelected = true;
 
                     ListaCentrosTrabajoLeccion.Add(ObjCent);
                 }

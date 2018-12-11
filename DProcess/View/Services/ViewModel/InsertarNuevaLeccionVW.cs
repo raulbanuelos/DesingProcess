@@ -383,7 +383,6 @@ namespace View.Services.ViewModel
             //Obtenemos le valor de VariosComponentes para saber cual método de guardar utilizaremos 
             InsertarVariosComponentes = VariosComponentes;
         }
-
         #endregion
 
         #region Comandos
@@ -1336,6 +1335,26 @@ namespace View.Services.ViewModel
 
             //retornamos el nombre que se generó
             return filename;
+        }
+
+        /// <summary>
+        /// Funcion que obtiene los centros de trabajo que tiene una leccion
+        /// </summary>
+        /// <param name="idRol"></param>
+        /// <param name="lista"></param>
+        /// <returns></returns>
+        private bool ExisteCentroDeTrabajo(string Id_CentroTrabajo, ObservableCollection<CentrosTrabajo> ListaCentrosTrabajo)
+        {
+            bool respuesta = false;
+
+            foreach (var item in ListaCentrosTrabajo)
+            {
+                if (item.CentroTrabajo == Id_CentroTrabajo)
+                {
+                    respuesta = true;
+                }
+            }
+            return respuesta;
         }
         #endregion
     }
