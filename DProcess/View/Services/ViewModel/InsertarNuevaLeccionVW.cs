@@ -1278,7 +1278,7 @@ namespace View.Services.ViewModel
             if (FechaSeleccionada != null)
             {
 
-                FechaUltimoCambio = FechaSeleccionada.FECHA_ULTIMO_CAMBIO;
+                FechaUltimoCambio = FechaSeleccionada.FECHA_ACTUALIZACION;
 
             }
         }
