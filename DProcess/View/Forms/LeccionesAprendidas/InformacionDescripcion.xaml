@@ -7,6 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Forms.LeccionesAprendidas"
         xmlns:recursos="clr-namespace:View.Resources"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"                      
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         WindowStyle="None"
@@ -54,18 +55,25 @@
             <Label Content="Componentes similares" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" />
             
             <!--Datagrid con informacion de los cambios hechos al mismo componente-->
-            <DataGrid Grid.Row="1" ItemsSource="{Binding ListaComponentesSimilares}" 
+            <DataGrid Grid.Row="7" Grid.Column="1" ItemsSource="{Binding ListaComponentesSimilares}" 
+                                      SelectedItem="{Binding FechaSeleccionada,Mode=TwoWay}"
                                       ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                       AutoGenerateColumns="False"
                                       IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{x:Static recursos:StringResources.lblComponente}" Binding="{Binding COMPONENTE}" ClipboardContentBinding="{x:Null}"/>
                     <DataGridTextColumn Header="{x:Static recursos:StringResources.lblDescripcion}" Binding="{Binding DESCRIPCION_PROBLEMA}" ClipboardContentBinding="{x:Null}"/>
+                    <DataGridTextColumn Header="{x:Static recursos:StringResources.lblFechaUltimoCambio}" Binding="{Binding FECHA_ACTUALIZACION , StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}"/>
                 </DataGrid.Columns>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding SeleccionarFechaUltimoCambio}"
+                             CommandParameter="{Binding FECHA_ULTIMO_CAMBIO}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             </DataGrid>
-            
+
         </Grid>
 
 

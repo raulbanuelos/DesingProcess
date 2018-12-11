@@ -548,7 +548,19 @@ namespace View.Services.ViewModel
                 }
 
                 //Obtenemos la lista de los componentes similares y la mostramos
-                ListaComponentesSimilares = DataManagerControlDocumentos.GetComponentesSimilares(_Componente);
+                ListaComponentesSimilares = DataManagerControlDocumentos.ConsultaFechaUltimoCambio(_Componente);
+                if (ListaComponentesSimilares.Count > 0)
+                {
+                    foreach (var item in ListaComponentesSimilares)
+                    {
+                        FechaUltimoCambio = item.FECHA_ACTUALIZACION;
+                        break;
+                    }
+                }else
+                {
+                    FechaUltimoCambio = DataManagerControlDocumentos.Get_DateTime();
+                }
+
 
                 //Mostramos la siguiente pantalla
                 InformacionDescripcion Form = new InformacionDescripcion();
