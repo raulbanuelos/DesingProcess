@@ -552,7 +552,13 @@ namespace View.Services.ViewModel
                     LeccionesAprendidas NewData = new LeccionesAprendidas();
 
                     //asigamos los valores
-                    NewData.ID_USUARIO = _AuxUsuarioAutorizo;
+                    if (Module.UsuarioIsRol(User.Roles, 2))
+                    {
+                        NewData.ID_USUARIO = _usuarioAutorizo;
+                    }else
+                    {
+                        NewData.ID_USUARIO = AuxUsuarioAutorizo;
+                    }
                     NewData.COMPONENTE = _COMPONENTE;
                     NewData.CAMBIO_REQUERIDO = _CAMBIO_REQUERIDO;
                     NewData.DESCRIPCION_PROBLEMA = _DESCRIPCION_PROBLEMA;
