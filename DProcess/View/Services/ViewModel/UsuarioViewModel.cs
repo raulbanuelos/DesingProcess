@@ -400,16 +400,16 @@ namespace View.Services.ViewModel
 
             //Form.ShowDialog();
 
-            WPropiedadesCadena Form = new WPropiedadesCadena();
-            Form.DataContext = new PropiedadCadenaViewModel(true);
+            //WPropiedadesCadena Form = new WPropiedadesCadena();
+            //Form.DataContext = new PropiedadCadenaViewModel(true);
 
-            Form.ShowDialog();
+            //Form.ShowDialog();
 
-            //WViewAllPerfiles ventana = new WViewAllPerfiles();
-            //PerfilViewModel vmPerfil = new PerfilViewModel();
-            //ventana.DataContext = vmPerfil;
+            WViewAllPerfiles ventana = new WViewAllPerfiles();
+            PerfilViewModel vmPerfil = new PerfilViewModel();
+            ventana.DataContext = vmPerfil;
 
-            //ventana.ShowDialog();
+            ventana.ShowDialog();
 
 
         }
@@ -482,8 +482,7 @@ namespace View.Services.ViewModel
             Pagina = pantallaPattern;
         }
         #endregion
-
-
+        
         public static string definirSaludo()
         {
             DateTime d = DateTime.Now;

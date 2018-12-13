@@ -199,7 +199,7 @@ namespace DataAccess.ServiceObjects.Perfiles
             {
                 using (EntitiesPerfiles conexion = new EntitiesPerfiles())
                 {
-                    TR_PROPIEDAD_CADENA_PERFIL data = conexion.TR_PROPIEDAD_CADENA_PERFIL.Where(a => a.ID_PROPIEDAD_CADENA == IdPropiedadCadena || a.ID_PERFIL == IdPerfil).FirstOrDefault();
+                    TR_PROPIEDAD_CADENA_PERFIL data = conexion.TR_PROPIEDAD_CADENA_PERFIL.Where(a => a.ID_PROPIEDAD_CADENA == IdPropiedadCadena && a.ID_PERFIL == IdPerfil).FirstOrDefault();
 
                     conexion.Entry(data).State = System.Data.Entity.EntityState.Deleted;
 
