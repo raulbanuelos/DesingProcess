@@ -26,6 +26,7 @@
         </Grid.RowDefinitions>
         
         <Label Grid.Column="1" Grid.Row="0" Content="{x:Static recursos:StringResources.ttlDocumentosNoEntregados}" VerticalAlignment="Bottom"></Label>
+        <CheckBox Grid.Column="1" HorizontalAlignment="Center" Content="{Binding Titulo}" IsChecked="True" Command="{Binding SelecDeselec}" CommandParameter="{Binding IsSelected}"/>
 
         <DataGrid Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ListaDocumentos}" 
                                       ScrollViewer.CanContentScroll="True" 
@@ -45,5 +46,6 @@
         </DataGrid>
 
         <Button Grid.Column="1" Grid.Row="2" Width="150" HorizontalAlignment="Right" Content="{x:Static recursos:StringResources.lblAceptar}" Command="{Binding RechazarDocumentos}"/>
+
     </Grid>
 </Controls:MetroWindow>

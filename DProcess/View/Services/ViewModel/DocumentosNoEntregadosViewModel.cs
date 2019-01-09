@@ -6,10 +6,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using View.Resources;
+using MahApps.Metro.Controls;
 
 namespace View.Services.ViewModel
 {
@@ -31,6 +33,7 @@ namespace View.Services.ViewModel
 
         #region Propiedades
         public Usuario usuario;
+        public bool IsSelected;
 
         private ObservableCollection<DO_DocumentosRechazados> _ListaDocumentos;
         public ObservableCollection<DO_DocumentosRechazados> ListaDocumentos
@@ -45,18 +48,28 @@ namespace View.Services.ViewModel
                 NotifyChange("ListaDocumentos");
             }
         }
+
+        private string _Titulo = "Deseleccionar Todos";
+        public string Titulo
+        {
+            get
+            {
+                return _Titulo;
+            }
+            set
+            {
+                _Titulo = value;
+                NotifyChange("Titulo");
+            }
+        }
         #endregion
 
         #region Constructor
-        public DocumentosNoEntregadosViewModel()
+        public DocumentosNoEntregadosViewModel(Usuario ModelUsuario)
         {
-            ListaDocumentos = DataManagerControlDocumentos.GetDocumentosAprobadosNoRecibidos();
-
-            //Seleccionamos todos los documentos
-            foreach (var item in ListaDocumentos)
-            {
-                item.IsSelected = true;
-            }
+            ListaDocumentos = DataManagerControlDocumentos.GetDocumentosAprobadosNoRecibidos(true);
+            usuario = new Usuario();
+            usuario = ModelUsuario;
         }
         #endregion
 
@@ -75,6 +88,13 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand SelecDeselec
+        {
+            get
+            {
+                return new RelayCommand(a => _SelecDeselec());
+            }
+        }
         #endregion
 
         #region Métodos
@@ -152,7 +172,27 @@ namespace View.Services.ViewModel
                             body += "</body>";
                             body += "</HTML>";
 
-                            serviceEmail.SendEmailLotusCustom(usuario.Pathnsf, correos, "Documento rechazado - " + documentoRezadado.NombreDocumento, body);
+                            bool Resultado =serviceEmail.SendEmailLotusCustom(usuario.Pathnsf, correos, "Documento rechazado - " + documentoRezadado.NombreDocumento, body);
+
+                            if (Resultado)
+                            {
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgNotificacionCorreo);
+
+                                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                                //Verificamos que la pantalla sea diferente de nulo.
+                                if (window != null)
+                                {
+                                    //Cerramos la pantalla
+                                    window.Close();
+                                }
+
+                            }
+                            else
+                            {
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgNotificacionCorreoFallida);
+                            }
 
                         }
                     }
@@ -160,6 +200,63 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Método que selecciona todos los archivos
+        /// </summary>
+        public void _SeleccionarTodos()
+        {
+            ObservableCollection<DO_DocumentosRechazados> Aux = new ObservableCollection<DO_DocumentosRechazados>();
+
+            foreach (var item in ListaDocumentos)
+            {
+                item.IsSelected = true;
+                Aux.Add(item);
+            }
+            ListaDocumentos.Clear();
+            foreach (var item in Aux)
+            {
+                ListaDocumentos.Add(item);
+            }
+        }
+
+        /// <summary>
+        /// Método que deselecciona todos los archivos
+        /// </summary>
+        public void _DeseleccionarTodos()
+        {
+            ObservableCollection<DO_DocumentosRechazados> Aux = new ObservableCollection<DO_DocumentosRechazados>();
+
+            foreach (var item in ListaDocumentos)
+            {
+                item.IsSelected = false;
+                Aux.Add(item);
+            }
+            ListaDocumentos.Clear();
+            foreach (var item in Aux)
+            {
+                ListaDocumentos.Add(item);
+            }
+        }
+
+        /// <summary>
+        /// Método que selecciona o deselecciona segun sea el caso
+        /// </summary>
+        public void _SelecDeselec()
+        {
+            if (IsSelected)
+            {
+                Titulo = "Deseleccionar Todos";
+                _SeleccionarTodos();
+                IsSelected = false;
+
+            }
+            else
+            {
+                Titulo = "Seleccionar Todos";
+                _DeseleccionarTodos();
+                IsSelected = true;
+            }
+        }
         #endregion
 
     }
