@@ -154,7 +154,7 @@
     <comment>Registro eliminado</comment>
   </data>
   <data name="lblThickness" xml:space="preserve">
-    <value>Espesor</value>
+    <value>Thickness</value>
     <comment>Etiqueta de Espesor</comment>
   </data>
   <data name="lblTxtContrasena" xml:space="preserve">
@@ -174,7 +174,7 @@
     <comment>lblWelcome</comment>
   </data>
   <data name="lblWidth" xml:space="preserve">
-    <value>Ancho</value>
+    <value>Width</value>
     <comment>Etiqueta para Width</comment>
   </data>
   <data name="lblYes" xml:space="preserve">

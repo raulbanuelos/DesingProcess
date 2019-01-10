@@ -8,40 +8,38 @@
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" BorderThickness="1" BorderBrush="Blue"              
         xmlns:recursos="clr-namespace:View.Resources"
         mc:Ignorable="d" Title="Select compoent" Height="400" Width="650">
-    
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="96*"/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="83*"/>
-                <RowDefinition Height="15*"/>
-            </Grid.RowDefinitions>
 
-            <StackPanel Grid.Column="1" Grid.Row="1">
-                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" >
-                    <DataGrid ItemsSource="{Binding ListaComponentes}" SelectedItem="{Binding ComponenteSeleccionado}" 
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="96*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="83*"/>
+            <RowDefinition Height="15*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" >
+                <DataGrid ItemsSource="{Binding ListaComponentes}" SelectedItem="{Binding ComponenteSeleccionado}" 
                                               ScrollViewer.CanContentScroll="True" 
                                               ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                               ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                       AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" Height="300" Width="590">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="{x:Static recursos:StringResources.lblCodigo}" IsReadOnly="True" Binding="{Binding Codigo}"></DataGridTextColumn>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{x:Static recursos:StringResources.lblCodigo}" IsReadOnly="True" Binding="{Binding Codigo}"></DataGridTextColumn>
                         <DataGridTextColumn Header="{x:Static recursos:StringResources.lblDescripcion}" IsReadOnly="True" Binding="{Binding DescripcionGeneral}"></DataGridTextColumn>
                     </DataGrid.Columns>
-                    </DataGrid>
-                </ScrollViewer>
-            </StackPanel>
+                </DataGrid>
+            </ScrollViewer>
+        </StackPanel>
 
-            <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="{x:Static recursos:StringResources.msgCancelar}" Width="90" Command="{Binding AceptarSelectionIronRawMaterial}"></Button>
-                <Button Content="{x:Static recursos:StringResources.lblAceptar}" Width="90" Margin="5" Command="{Binding CancelarSelectionIronRawMaterial}"></Button>
-            </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="btn_ok" Click="btn_ok_Click" Content="{x:Static recursos:StringResources.lblAceptar}" Width="90" Margin="5" Command="{Binding CancelarSelectionIronRawMaterial}"></Button>
+            <Button Content="{x:Static recursos:StringResources.msgCancelar}" Width="90" Command="{Binding AceptarSelectionIronRawMaterial}" IsCancel="True"></Button>
+        </StackPanel>
 
-        </Grid>
-    
-    
+    </Grid>
 </Controls:MetroWindow>

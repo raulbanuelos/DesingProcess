@@ -332,9 +332,6 @@
     <Compile Include="Forms\Routing\WCreateRing.xaml.cs">
       <DependentUpon>WCreateRing.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Routing\WDimensions.xaml.cs">
-      <DependentUpon>WDimensions.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Routing\WPattern.xaml.cs">
       <DependentUpon>WPattern.xaml</DependentUpon>
     </Compile>
@@ -608,6 +605,7 @@
     <Compile Include="Services\Operaciones\Gasolina\RectificadosFinos\Diskus.cs" />
     <Compile Include="Services\Operaciones\Gasolina\RectificadosFinos\GapSizer.cs" />
     <Compile Include="Services\Operaciones\Gasolina\RectificadosFinos\Lapping.cs" />
+    <Compile Include="Services\Operaciones\Gasolina\RectificadosFinos\NISSEI.cs" />
     <Compile Include="Services\Operaciones\Gasolina\Recubrimientos\ChromeOD.cs" />
     <Compile Include="Services\Operaciones\Gasolina\Recubrimientos\Phosphate.cs" />
     <Compile Include="Services\Operaciones\Gasolina\Rolado\CoilRings.cs" />
@@ -1075,10 +1073,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\Routing\WCreateRing.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Forms\Routing\WDimensions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

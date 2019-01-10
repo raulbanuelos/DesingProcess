@@ -337,10 +337,14 @@ namespace View.Services
 
                 double widthIdealMP = mediaWidth + matRemoverWidthInch;
                 double thicknessIdealMP = mediaThickness + matRemoverThicknessInch;
+
+                widthIdealMP = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), widthIdealMP);
+                thicknessIdealMP = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), thicknessIdealMP);
+
                 descripcionMPIdeal += "\nWidth ideal MP: " + widthIdealMP;
                 descripcionMPIdeal += "\nThickness ideal MP: " + thicknessIdealMP;
 
-                MateriaPrimaRolado mpIdeal = new MateriaPrimaRolado { Codigo = "Codificar", DescripcionGeneral = "Width: " + widthIdealMP + " Thickness: " + thicknessIdealMP , _Width = mediaWidth + matRemoverWidthInch, Thickness = mediaThickness + matRemoverThicknessInch, Especificacion = _elAnillo.MaterialBase.Especificacion, Encontrado = false };
+                MateriaPrimaRolado mpIdeal = new MateriaPrimaRolado { Codigo = "Codificar", DescripcionGeneral = "Width: " + widthIdealMP + " Thickness: " + thicknessIdealMP , _Width = widthIdealMP, Thickness = thicknessIdealMP, Especificacion = _elAnillo.MaterialBase.Especificacion, Encontrado = false };
 
                 
 

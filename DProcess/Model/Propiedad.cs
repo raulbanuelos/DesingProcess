@@ -42,7 +42,7 @@
         public string TipoDato { get; set; }
 
         /// <summary>
-        /// Cadena que representa la unidad de la proiedad.
+        /// Cadena que representa la unidad de la propiedad.
         /// </summary>
         /// <example>
         /// degree(°),Inch (in),PSI
