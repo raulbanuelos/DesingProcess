@@ -217,7 +217,7 @@ namespace DataAccess.ServiceObjects.Perfiles
             {
                 using (EntitiesPerfiles conexion = new EntitiesPerfiles())
                 {
-                    TR_PROPIEDAD_BOOL_PERFIL data = conexion.TR_PROPIEDAD_BOOL_PERFIL.Where(a => a.ID_PROPIEDAD_BOOL == IdPropiedadBool || a.ID_PERFIL == IdPerfil).FirstOrDefault();
+                    TR_PROPIEDAD_BOOL_PERFIL data = conexion.TR_PROPIEDAD_BOOL_PERFIL.Where(a => a.ID_PROPIEDAD_BOOL == IdPropiedadBool && a.ID_PERFIL == IdPerfil).FirstOrDefault();
 
                     conexion.Entry(data).State = System.Data.Entity.EntityState.Deleted;
 

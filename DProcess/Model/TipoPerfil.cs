@@ -8,8 +8,17 @@ namespace Model
 {
     public class TipoPerfil
     {
+        #region Properties
         public int IdTipoPerfil { get; set; }
 
-        public string Perfil { get; set; }
+        public string NombreTipoPerfil { get; set; } 
+        #endregion
+
+        #region Methods
+        public override string ToString()
+        {
+            return NombreTipoPerfil;
+        } 
+        #endregion
     }
 }

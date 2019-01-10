@@ -3,9 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.ServiceObjects.Perfiles
 {
@@ -36,6 +35,7 @@ namespace DataAccess.ServiceObjects.Perfiles
                                      a.FECHA_CREACION,
                                      a.ID_USUARIO_CREACION,
                                      a.ID_USUARIO_ACTUALIZACION,
+                                     a.ID_TIPO_PERFIL
                                  }).ToList();
 
                     //Retornamos el resultado de la consulta.
@@ -79,34 +79,87 @@ namespace DataAccess.ServiceObjects.Perfiles
             }
         }
 
-        public Task<int> SetPerfil(int idTipoPerfil, string Nombre, string Descripcion, byte[] imagen, int idUsuarioCreacion)
+        public int SetPerfil(int idTipoPerfil, string Nombre, string Descripcion, byte[] imagen, int idUsuarioCreacion, DateTime fecha)
         {
-            return Task.Run(() =>
+            try
             {
-                try
+                //DataSet datos = null;
+
+                //Desing_SQL conexion = new Desing_SQL();
+
+                //Dictionary<string, object> parametros = new Dictionary<string, object>();
+
+                //parametros.Add("idTipoPerfil", idTipoPerfil);
+                //parametros.Add("Nombre", Nombre);
+                //parametros.Add("Descripcion", Descripcion);
+                //parametros.Add("Imagen", imagen);
+                //parametros.Add("idUsuarioCreacion", idUsuarioCreacion);
+
+                //datos = conexion.EjecutarStoredProcedure("SP_RGP_INSERT_PERFIL", parametros);
+
+                ////Retorna el número de elementos en la tabla.
+                //return datos.Tables.Count;
+
+                using (var Conexion = new EntitiesPerfiles())
                 {
-                    DataSet datos = null;
+                    CAT_PERFIL perfil = new CAT_PERFIL();
 
-                    Desing_SQL conexion = new Desing_SQL();
+                    perfil.ID_TIPO_PERFIL = idTipoPerfil;
+                    perfil.NOMBRE = Nombre;
+                    perfil.DESCRIPCION = Descripcion;
+                    perfil.IMAGEN = imagen;
+                    perfil.FECHA_ACTUALIZACION = fecha;
+                    perfil.FECHA_CREACION = fecha;
+                    perfil.ID_USUARIO_ACTUALIZACION = idUsuarioCreacion;
+                    perfil.ID_USUARIO_CREACION = idUsuarioCreacion;
 
-                    Dictionary<string, object> parametros = new Dictionary<string, object>();
+                    Conexion.CAT_PERFIL.Add(perfil);
 
-                    parametros.Add("idTipoPerfil", idTipoPerfil);
-                    parametros.Add("Nombre", Nombre);
-                    parametros.Add("Descripcion", Descripcion);
-                    parametros.Add("Imagen", imagen);
-                    parametros.Add("idUsuarioCreacion", idUsuarioCreacion);
+                    Conexion.SaveChanges();
 
-                    datos = conexion.EjecutarStoredProcedure("SP_RGP_INSERT_PERFIL", parametros);
-
-                    //Retorna el número de elementos en la tabla.
-                    return datos.Tables.Count;
+                    return perfil.ID_PERFIL;
                 }
-                catch (Exception)
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que actualiza un registro de la tabla CAT_PERFIL.
+        /// </summary>
+        /// <param name="idPerfil"></param>
+        /// <param name="idTipoPerfil"></param>
+        /// <param name="Nombre"></param>
+        /// <param name="Descripcion"></param>
+        /// <param name="imagen"></param>
+        /// <param name="fechaActualizacion"></param>
+        /// <returns></returns>
+        public int UpdatePerfil(int idPerfil, int idTipoPerfil, string Nombre, string Descripcion, byte[] imagen,DateTime fechaActualizacion)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
                 {
-                    return 0;
+                    CAT_PERFIL perfil = Conexion.CAT_PERFIL.Where(x => x.ID_PERFIL == idPerfil).FirstOrDefault();
+
+                    perfil.ID_TIPO_PERFIL = idTipoPerfil;
+                    perfil.NOMBRE = Nombre;
+                    perfil.DESCRIPCION = Descripcion;
+                    perfil.IMAGEN = imagen;
+                    perfil.FECHA_ACTUALIZACION = fechaActualizacion;
+
+                    Conexion.Entry(perfil).State = EntityState.Modified;
+
+                    return Conexion.SaveChanges();
                 }
-            });
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public int SetPerfilArquetipo(string codigo, int idPerfil)
@@ -150,7 +203,8 @@ namespace DataAccess.ServiceObjects.Perfiles
                                      a.NOMBRE,
                                      a.DESCRIPCION,
                                      a.IMAGEN,
-                                     b.PERFIL
+                                     b.PERFIL,
+                                     b.ID_TIPO_PERFIL
                                  }).ToList();
 
                     return Lista;

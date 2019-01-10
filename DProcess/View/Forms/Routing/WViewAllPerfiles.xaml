@@ -25,11 +25,11 @@
 
         <DataGrid Grid.Column="1" Grid.Row="1"  ItemsSource="{Binding ListaAllPerfiles}" SelectedItem="{Binding PerfilSeleccionado, Mode=TwoWay}"
                             x:Name="dataGrid" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,5,0,0" 
-                           HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="False" IsReadOnly="True"  Width="650">
+                           HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="False" IsReadOnly="True"  Width="750">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding TipoPerfil}" Header="TipoPerfil"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Nombre}" Header="Nombre"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Descripción}" Header="Descripción"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Descripcion}" Header="Descripción"></DataGridTextColumn>
             </DataGrid.Columns>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">

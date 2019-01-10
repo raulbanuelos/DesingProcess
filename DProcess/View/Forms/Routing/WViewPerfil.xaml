@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:View.Forms.Routing"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
-        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
-        Title="WViewPerfil" Height="750" Width="950">
+                      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Title="{Binding Nombre}"
+        Height="750" Width="950">
     <Window.Resources>
         <DataTemplate x:Key="listTemplate">
             <WrapPanel>
@@ -46,12 +47,50 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="45"></RowDefinition>
+                            <RowDefinition Height="120"></RowDefinition>
                         </Grid.RowDefinitions>
 
-                        <Button Content="Seleccionar imagen" Grid.Row="1" Width="170" HorizontalAlignment="Right" Margin="5"></Button>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*"></ColumnDefinition>
+                                <ColumnDefinition Width="50*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
 
-                        <Image Source="{Binding PerfilSeleccionado.Imagen}" Grid.Row="0" Margin="0,5,0,0"></Image>
+                            <Grid Grid.Row="0" Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50*"></RowDefinition>
+                                    <RowDefinition Height="50*"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Nombre" Grid.Row="0"
+                                         FontWeight="Bold" 
+                                         Text="{Binding Nombre}"></TextBox>
+                                
+                                <TextBox Margin="5,15,0,0" VerticalAlignment="Top" FontWeight="Bold" Grid.Row="1"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Descripción" 
+                                     Text="{Binding Descripcion}" TextWrapping="Wrap" AcceptsReturn="True" FontSize="14"></TextBox>
+                            </Grid>
+                            
+                            
+
+                            <Grid Grid.Row="0" Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50*"></RowDefinition>
+                                    <RowDefinition Height="50*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                
+                                <Button Content="Seleccionar imagen" Grid.Row="0"  Width="170" HorizontalAlignment="Right" Margin="5" Command="{Binding SeleccionarImagen}"></Button>
+                                <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Tipo de Perfil"
+                                    Grid.Row="1" ItemsSource="{Binding ListaTipoPerfil}" DisplayMemberPath="NombreTipoPerfil" SelectedItem="{Binding TipoPerfilSeleccionado}">
+                                    
+                                </ComboBox>
+                                
+                            </Grid>
+                            
+                        </Grid>
+                        
+
+                        <Image Source="{Binding Imagen}" Grid.Row="0" Margin="0,5,0,0"></Image>
                     </Grid>
                 </Border>
 

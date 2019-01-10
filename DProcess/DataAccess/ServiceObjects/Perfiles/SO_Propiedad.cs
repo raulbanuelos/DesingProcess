@@ -482,5 +482,58 @@ namespace DataAccess.ServiceObjects.Perfiles
                 return null;
             }
         }
+
+        /// <summary>
+        /// Método que inserta un registro en la tabla TR_PROPIEDAD_PERFIL
+        /// </summary>
+        /// <param name="idPropiedad"></param>
+        /// <param name="idPerfil"></param>
+        /// <returns></returns>
+        public int InsertPropiedadPerfil(int idPropiedad, int idPerfil)
+        {
+            try
+            {
+                using (EntitiesPerfiles Conexion = new EntitiesPerfiles())
+                {
+                    TR_PROPIEDAD_PERFIL tr = new TR_PROPIEDAD_PERFIL();
+
+                    tr.ID_PROPIEDAD = idPropiedad;
+                    tr.ID_PERFIL = idPerfil;
+
+                    Conexion.TR_PROPIEDAD_PERFIL.Add(tr);
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla TR_PROPIEDAD_PERFIL
+        /// </summary>
+        /// <param name="idPropiedad"></param>
+        /// <param name="idPerfil"></param>
+        /// <returns></returns>
+        public int DeletePropiedadPerfil(int idPropiedad, int idPerfil)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    TR_PROPIEDAD_PERFIL tr = Conexion.TR_PROPIEDAD_PERFIL.Where(x => x.ID_PROPIEDAD == idPropiedad && x.ID_PERFIL == idPerfil).FirstOrDefault();
+
+                    Conexion.Entry(tr).State = EntityState.Deleted;
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
     }
 }

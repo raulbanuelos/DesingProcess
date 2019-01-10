@@ -11609,7 +11609,7 @@ namespace Model
 
                     //Mapeamos los valores en cada propiedad correspondiente.
                     tipoperfil.IdTipoPerfil = (int)tipo.GetProperty("ID_TIPO_PERFIL").GetValue(item, null);
-                    tipoperfil.Perfil = (string)tipo.GetProperty("PERFIL").GetValue(item, null);
+                    tipoperfil.NombreTipoPerfil = (string)tipo.GetProperty("PERFIL").GetValue(item, null);
 
                     //Agregamos el objeto a la lista.
                     ListaResultante.Add(tipoperfil);
@@ -11647,7 +11647,7 @@ namespace Model
                     perfil.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
                     perfil.Descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
                     perfil.idPerfil = (int)tipo.GetProperty("ID_PERFIL").GetValue(item, null);
-
+                    perfil.IdTipoPerfil = (int)tipo.GetProperty("ID_TIPO_PERFIL").GetValue(item, null);
                     //Guardamos el perfil en la lista.
                     ListaPerfiles.Add(perfil);
                 }
@@ -11731,7 +11731,7 @@ namespace Model
                     perfil.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
                     perfil.Descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
                     perfil.idPerfil = (int)tipo.GetProperty("ID_PERFIL").GetValue(item, null);
-
+                    perfil.IdTipoPerfil = (int)tipo.GetProperty("ID_TIPO_PERFIL").GetValue(item, null);
                 }
             }
 
@@ -11778,6 +11778,24 @@ namespace Model
             SO_Perfil ServicePerfil = new SO_Perfil();
 
             return ServicePerfil.SetPerfilArquetipo(codigo, idPerfil);
+        }
+
+        public static int UpdatePerfil(int idPerfil, int idTipoPerfil, string Nombre, string Descripcion, byte[] imagen)
+        {
+            SO_Perfil ServicePerfil = new SO_Perfil();
+
+            DateTime fechaActualizacion = DataManagerControlDocumentos.Get_DateTime();
+
+            return ServicePerfil.UpdatePerfil(idPerfil, idTipoPerfil, Nombre, Descripcion, imagen, fechaActualizacion);
+        }
+
+        public static int InsertPerfil(int idTipoPerfil, string Nombre, string Descripcion, byte[] imagen, int idUsuarioCreacion)
+        {
+            SO_Perfil ServicePerfil = new SO_Perfil();
+
+            DateTime fecha = DataManagerControlDocumentos.Get_DateTime();
+
+            return ServicePerfil.SetPerfil(idTipoPerfil, Nombre, Descripcion, imagen, idUsuarioCreacion,fecha);
         }
         #endregion
 
@@ -12346,6 +12364,34 @@ namespace Model
 
             return servicio.DeletePropiedadCadenaPerfil(IdPropiedadCadena, IdPerfil);
         }
+
+        /// <summary>
+        /// Método que inserta un registro en la tabla TR_PROPIEDAD_PERFIL
+        /// </summary>
+        /// <param name="idPropiedad"></param>
+        /// <param name="idPerfil"></param>
+        /// <returns></returns>
+        public static int InsertNewPropiedadPerfil(int idPropiedad, int idPerfil)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            return ServicePropiedad.InsertPropiedadPerfil(idPropiedad, idPerfil);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro en la tabla TR_PROPIEDAD_PERFIL
+        /// </summary>
+        /// <param name="idPropiedad"></param>
+        /// <param name="idPerfil"></param>
+        /// <returns></returns>
+        public static int DeletePropiedadPerfil(int idPropiedad, int idPerfil)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            return ServicePropiedad.DeletePropiedadPerfil(idPropiedad, idPerfil);
+        }
+
+
         #endregion
     }
 }

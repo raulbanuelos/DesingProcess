@@ -49,6 +49,11 @@ namespace Model
         /// Cadena que representa el tipo de perfil
         /// </summary>
         public string TipoPerfil { get; set; }
+
+        /// <summary>
+        /// Entero que representa el id del tipo de perfil.
+        /// </summary>
+        public int IdTipoPerfil { get; set; }
         #endregion
 
         #region Constructores
@@ -71,7 +76,10 @@ namespace Model
         #endregion
 
         #region Métodos
-
+        public override string ToString()
+        {
+            return Nombre;
+        }
         #endregion
     }
 }

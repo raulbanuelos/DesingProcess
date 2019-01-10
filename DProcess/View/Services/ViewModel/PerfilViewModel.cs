@@ -1,15 +1,11 @@
 ﻿using DataAccess.ServiceObjects.Perfiles;
-using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
 using Model;
-using Model.ControlDocumentos;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using View.Forms.Routing;
@@ -20,7 +16,6 @@ namespace View.Services.ViewModel
 {
     public class PerfilViewModel : INotifyPropertyChanged
     {
-
         #region Attributes
         Perfil modelPerfil;
         DialogService dialogService;
@@ -73,8 +68,39 @@ namespace View.Services.ViewModel
             }
         }
 
+        public string TipoPerfil {
+            get
+            {
+                return modelPerfil.TipoPerfil;
+            }
+            set
+            {
+                modelPerfil.TipoPerfil = value;
+                NotifyChange("TipoPerfil");
+            }
+        }
+
+        public int IdTipoPerfil {
+            get
+            {
+                return modelPerfil.IdTipoPerfil;
+            }
+            set
+            {
+                modelPerfil.IdTipoPerfil = value;
+                NotifyChange("IdTipoPerfil");
+            }
+        }
+
         public ObservableCollection<TipoPerfil> ListaTipoPerfil { get; set; }
 
+        private TipoPerfil _TipoPerfilSeleccionado;
+        public TipoPerfil TipoPerfilSeleccionado
+        {
+            get { return _TipoPerfilSeleccionado; }
+            set { _TipoPerfilSeleccionado = value; NotifyChange("TipoPerfilSeleccionado"); }
+        }
+        
         private TipoPerfil selectedTipoPerfil;
         public TipoPerfil SelectedTipoPerfil
         {
@@ -218,69 +244,133 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => guardarPerfilPropiedades());
             }
         }
+
+        public ICommand NewPerfil
+        {
+            get
+            {
+                return new RelayCommand(o => newPerfil());
+            }
+        }
         #endregion
 
         #region Methods
 
-        private void guardarPerfilPropiedades()
+        private void newPerfil()
         {
-            ObservableCollection<Propiedad> ListaPropiedadesOriginales = DataManager.GetAllPropiedadesByPerfil(PerfilSeleccionado.idPerfil, false);
+            WViewPerfil ventana = new WViewPerfil();
 
-            ObservableCollection<PropiedadCadena> ListaPropiedadesCadenaOriginales = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilSeleccionado.idPerfil);
+            modelPerfil = new Perfil();
+            PerfilSeleccionado = new Perfil();
+            ListaPropiedades = new ObservableCollection<Propiedad>();
+            ListaPropiedadesBool = new ObservableCollection<PropiedadBool>();
+            ListaPropiedadesCadena = new ObservableCollection<PropiedadCadena>();
 
-            ObservableCollection<PropiedadBool> ListaPropiedadesBoolOriginales = DataManager.GetallPropiedadesBoolByPerfil(PerfilSeleccionado.idPerfil);
+            allPropiedades = DataManager.GetAllPropiedades();
+            allPropiedadesCadena = DataManager.GetAllPropiedadCadena();
+            allPropiedadesBool = DataManager.GetAllPropiedadesBool();
 
-            //Iteramos la lista
-            foreach (Propiedad item in ListaPropiedades)
+            ventana.DataContext = this;
+
+            ventana.ShowDialog();
+        }
+
+        private async void guardarPerfilPropiedades()
+        {
+            if (PerfilSeleccionado.idPerfil > 0)
             {
-                if (ListaPropiedadesOriginales.Where(x => x.idPropiedad == item.idPropiedad).ToList().Count == 0)
+                int r = DataManager.UpdatePerfil(idPerfil, TipoPerfilSeleccionado.IdTipoPerfil, Nombre, Descripcion, Imagen);
+
+                ObservableCollection<Propiedad> ListaPropiedadesOriginales = DataManager.GetAllPropiedadesByPerfil(PerfilSeleccionado.idPerfil, false);
+
+                ObservableCollection<PropiedadCadena> ListaPropiedadesCadenaOriginales = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilSeleccionado.idPerfil);
+
+                ObservableCollection<PropiedadBool> ListaPropiedadesBoolOriginales = DataManager.GetallPropiedadesBoolByPerfil(PerfilSeleccionado.idPerfil);
+
+                //Iteramos la lista
+                foreach (Propiedad item in ListaPropiedades)
                 {
-                    //Insertamos a la base de datos.
+                    if (ListaPropiedadesOriginales.Where(x => x.idPropiedad == item.idPropiedad).ToList().Count == 0)
+                    {
+                        //Insertamos a la base de datos.
+                        DataManager.InsertNewPropiedadPerfil(item.idPropiedad, PerfilSeleccionado.idPerfil);
+                    }
+
                 }
 
-            }
-            
-            foreach (Propiedad item in ListaPropiedadesOriginales)
-            {
-                if (ListaPropiedades.Where(x => x.idPropiedad == item.idPropiedad).ToList().Count == 0)
+                foreach (Propiedad item in ListaPropiedadesOriginales)
                 {
-                    //Eliminamos desde la base de datos.
+                    if (ListaPropiedades.Where(x => x.idPropiedad == item.idPropiedad).ToList().Count == 0)
+                    {
+                        //Eliminamos desde la base de datos.
+                        DataManager.DeletePropiedadPerfil(item.idPropiedad, PerfilSeleccionado.idPerfil);
+                    }
                 }
-            }
 
 
-            foreach (PropiedadCadena item in ListaPropiedadesCadena)
-            {
-                if (ListaPropiedadesCadenaOriginales.Where(x => x.idPropiedad == item.idPropiedad).ToList().Count == 0)
+                foreach (PropiedadCadena item in ListaPropiedadesCadena)
                 {
-                    //Insertamos desde la base de datos.
+                    if (ListaPropiedadesCadenaOriginales.Where(x => x.idPropiedad == item.idPropiedad).ToList().Count == 0)
+                    {
+                        //Insertamos desde la base de datos.
+                        DataManager.InsertNewPropiedadCadenaPerfil(item.idPropiedad, PerfilSeleccionado.idPerfil);
+                    }
                 }
-            }
 
-            foreach (PropiedadCadena item in ListaPropiedadesCadenaOriginales)
-            {
-                if (ListaPropiedadesCadena.Where(x => x.idPropiedad == item.idPropiedad).ToList().Count == 0)
+                foreach (PropiedadCadena item in ListaPropiedadesCadenaOriginales)
                 {
-                    //Eliminamos desde la base de datos.
+                    if (ListaPropiedadesCadena.Where(x => x.idPropiedad == item.idPropiedad).ToList().Count == 0)
+                    {
+                        //Eliminamos desde la base de datos.
+                        DataManager.DeletePropiedadCadenaPerfil(item.idPropiedad, PerfilSeleccionado.idPerfil);
+                    }
                 }
-            }
 
-            foreach (PropiedadBool item in ListaPropiedadesBool)
-            {
-                if (ListaPropiedadesBoolOriginales.Where(x => x.idPropiedad == item.idPropiedad).ToList().Count ==0)
+                foreach (PropiedadBool item in ListaPropiedadesBool)
                 {
-                    //Insertamos desde la base de datos.
+                    if (ListaPropiedadesBoolOriginales.Where(x => x.idPropiedad == item.idPropiedad).ToList().Count == 0)
+                    {
+                        //Insertamos desde la base de datos.
+                        DataManager.InsertNewPropiedadBoolPerfil(item.idPropiedad, PerfilSeleccionado.idPerfil);
+                    }
                 }
-            }
 
-            foreach (PropiedadBool item in ListaPropiedadesBoolOriginales)
-            {
-                if (ListaPropiedadesBool.Where(x => x.idPropiedad == item.idPropiedad).ToList().Count == 0)
+                foreach (PropiedadBool item in ListaPropiedadesBoolOriginales)
                 {
-                    //Eliminamos desde la base de datos.
+                    if (ListaPropiedadesBool.Where(x => x.idPropiedad == item.idPropiedad).ToList().Count == 0)
+                    {
+                        //Eliminamos desde la base de datos.
+                        DataManager.DeletePropiedadBoolPerfil(item.idPropiedad, PerfilSeleccionado.idPerfil);
+                    }
                 }
-            }
 
+                if (r > 0)
+                    await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.ttlDone);
+                else
+                    await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgError);  
+            }
+            else
+            {
+                //int r = DataManager(idPerfil, TipoPerfilSeleccionado.IdTipoPerfil, Nombre, Descripcion, Imagen);
+                int _idPerfil = DataManager.InsertPerfil(TipoPerfilSeleccionado.IdTipoPerfil, Nombre, Descripcion, Imagen, 1);
+
+                foreach (var item in ListaPropiedades)
+                {
+                    DataManager.InsertNewPropiedadPerfil(item.idPropiedad, _idPerfil);
+                }
+
+                foreach (var item in ListaPropiedadesCadena)
+                {
+                    DataManager.InsertNewPropiedadCadenaPerfil(item.idPropiedad, _idPerfil);
+                }
+
+                foreach (var item in ListaPropiedadesBool)
+                {
+                    DataManager.InsertNewPropiedadBoolPerfil(item.idPropiedad, _idPerfil);
+                }
+
+                await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.ttlDone);
+            }
         }
 
         /// <summary>
@@ -430,6 +520,11 @@ namespace View.Services.ViewModel
             if (PerfilSeleccionado.idPerfil > 0)
             {
                 WViewPerfil ventana = new WViewPerfil();
+
+                modelPerfil = PerfilSeleccionado;
+
+                TipoPerfilSeleccionado = ListaTipoPerfil.Where(x => x.IdTipoPerfil == PerfilSeleccionado.IdTipoPerfil).FirstOrDefault();
+
                 ListaPropiedades = DataManager.GetAllPropiedadesByPerfil(PerfilSeleccionado.idPerfil,false);
                 
                 ListaPropiedadesCadena = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilSeleccionado.idPerfil);
@@ -454,40 +549,35 @@ namespace View.Services.ViewModel
             EtiquetaPropiedadesBool = ListaPropiedadesBool.Count > 0 ? "Hay " + ListaPropiedadesBool.Count + " propiedades asignadas." : "No hay propiedades booleanas asignadas.";
         }
 
-        private void seleccionarImagen()
+        private async void seleccionarImagen()
         {
-            OpenFileDialog dialog = new OpenFileDialog();
-
-            dialog.Filter = "PNG Files (.png)|*.png";
-
-            Nullable<bool> result = dialog.ShowDialog();
+            //Abre la ventana de explorador de archivos
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "Imagenes|*.png;*.bmp;*.jpg;*.jpeg";
+            // Mostrar el explorador de archivos
+            Nullable<bool> result = dlg.ShowDialog();
 
             if (result == true)
             {
-                string fileName = dialog.FileName;
-                Imagen = File.ReadAllBytes(fileName);
+                string filename = dlg.FileName;
+                if (!Module.IsFileInUse(filename))
+                {
+                    Imagen = await Task.Run(() => File.ReadAllBytes(filename));
+                }
             }
+
         }
 
-        private async void guardarPerfil()
+        private int guardarPerfil()
         {
             //Inicializamos los servicios de SO_Perfil.
             SO_Perfil ServicioPerfil = new SO_Perfil();
-
-            //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
-            ProgressDialogController controllerProgressAsync;
-
-            //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
-            controllerProgressAsync = await dialogService.SendProgressAsync(StringResources.msgEspera, StringResources.msgGuardando);
-
+            
             //Ejecutamos el método para guardar los datos del perfil.
-            await ServicioPerfil.SetPerfil(SelectedTipoPerfil.IdTipoPerfil, Nombre, Descripcion, Imagen, 1);
-
-            //Ejecutamos el método para cerrar el mensaje de espera.
-            await controllerProgressAsync.CloseAsync();
-
-            //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
-            await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
+            int id =  ServicioPerfil.SetPerfil(SelectedTipoPerfil.IdTipoPerfil, Nombre, Descripcion, Imagen, 1, DateTime.Now);
+            
+            //Retornamos el id.
+            return id;
         }
         #endregion
 
@@ -503,6 +593,5 @@ namespace View.Services.ViewModel
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
-
     }
 }
