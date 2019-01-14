@@ -2446,7 +2446,7 @@ namespace Model.ControlDocumentos
         /// Método que obtiene la lista de documentos que ya fueron aprobados y no han sido entregados desde hace dos dias.
         /// </summary>
         /// <returns></returns>
-        public static ObservableCollection<DO_DocumentosRechazados> GetDocumentosAprobadosNoRecibidos()
+        public static ObservableCollection<DO_DocumentosRechazados> GetDocumentosAprobadosNoRecibidos(bool Seleccionado)
         {
             //Declaramos una lista la cual contendrá  los documentos y será la que retornemos en el métod.
             ObservableCollection<DO_DocumentosRechazados> ListaDocumentos = new ObservableCollection<DO_DocumentosRechazados>();
@@ -2496,6 +2496,7 @@ namespace Model.ControlDocumentos
                         documentoRechazado.NoVersion = documento.version.no_version;
                         documentoRechazado.Correo = duenoDocumento.Correo;
                         documentoRechazado.DuenoDocumento = duenoDocumento.NombreUsuario;
+
                         string hora = fechaCompromisoEntrega.Hour.ToString();
                         if (fechaCompromisoEntrega.Hour.ToString().Length == 1)
                             hora = "0" + fechaCompromisoEntrega.Hour;
@@ -2504,7 +2505,16 @@ namespace Model.ControlDocumentos
                         if (fechaCompromisoEntrega.Minute.ToString().Length == 1)
                             minuto = "0" + fechaCompromisoEntrega.Minute;
 
-                        documentoRechazado.Fecha = fechaCompromisoEntrega.Year + "-" + fechaCompromisoEntrega.Month + "-" + fechaCompromisoEntrega.Day + "  " + hora + ":" + minuto;
+                        string FechaMes = fechaCompromisoEntrega.Month.ToString();
+                        if (fechaCompromisoEntrega.Month.ToString().Length == 1)
+                            FechaMes = "0" + fechaCompromisoEntrega.Month;
+
+                        string FechaDia = fechaCompromisoEntrega.Day.ToString();
+                        if (fechaCompromisoEntrega.Day.ToString().Length == 1)
+                            FechaDia = "0" + fechaCompromisoEntrega.Day;
+
+                        documentoRechazado.Fecha = fechaCompromisoEntrega.Year + "-" + FechaMes + "-" + FechaDia + "  " + hora + ":" + minuto;
+                        documentoRechazado.IsSelected = Seleccionado;
                         ListaDocumentos.Add(documentoRechazado);
 
                     }

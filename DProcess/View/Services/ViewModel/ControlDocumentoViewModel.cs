@@ -1119,7 +1119,7 @@ namespace View.Services.ViewModel
         private void SetDocumentsRejected()
         {         
             FrmDocumentosNoEntregados Frm = new FrmDocumentosNoEntregados();
-            DocumentosNoEntregadosViewModel Context = new DocumentosNoEntregadosViewModel();
+            DocumentosNoEntregadosViewModel Context = new DocumentosNoEntregadosViewModel(usuario);
 
             Frm.DataContext = Context;
             Frm.ShowDialog();
