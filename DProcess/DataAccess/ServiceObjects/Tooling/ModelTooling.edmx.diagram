@@ -91,6 +91,8 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CollarScotchbrite__MaestroHerramentales" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.DiscoDiskus_" Width="1.5" PointX="17.25" PointY="13.375" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_DiscoDiskus__MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_FEED_WHEEL_RECTIFICADOS_FINOS" Width="3" PointX="17.75" PointY="16.5" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_FEED_WHEEL_RECTIFICADOS_FINOS_MaestroHerramentales" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

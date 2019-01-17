@@ -446,6 +446,9 @@
     <Compile Include="Forms\Tooling\ControlExternalGR3P_3.xaml.cs">
       <DependentUpon>ControlExternalGR3P_3.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlFeedWheelNisseiRectificadosFinos.xaml.cs">
+      <DependentUpon>ControlFeedWheelNisseiRectificadosFinos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlGuideBarFirstRG.xaml.cs">
       <DependentUpon>ControlGuideBarFirstRG.xaml</DependentUpon>
     </Compile>
@@ -517,6 +520,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\WCutterSplitter.xaml.cs">
       <DependentUpon>WCutterSplitter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\WFeedWheelNisseiRecFin.xaml.cs">
+      <DependentUpon>WFeedWheelNisseiRecFin.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\WGuillotinaBK.xaml.cs">
       <DependentUpon>WGuillotinaBK.xaml</DependentUpon>
@@ -798,6 +804,7 @@
     <Compile Include="Services\ViewModel\External_GR_3P_1VM.cs" />
     <Compile Include="Services\ViewModel\External_GR_3P_2VM.cs" />
     <Compile Include="Services\ViewModel\External_GR_3P_3VM.cs" />
+    <Compile Include="Services\ViewModel\FeedWheelNisseiRectificadosFinos_VM.cs" />
     <Compile Include="Services\ViewModel\FO_ItemViewModel.cs" />
     <Compile Include="Services\ViewModel\GeneradorViewModel.cs" />
     <Compile Include="Services\ViewModel\GuidePlateBK_VM.cs" />
@@ -1228,6 +1235,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlFeedWheelNisseiRectificadosFinos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\ControlGuideBarFirstRG.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1321,6 +1332,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\WCutterSplitter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WFeedWheelNisseiRecFin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

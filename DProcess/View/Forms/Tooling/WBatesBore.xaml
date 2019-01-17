@@ -18,6 +18,7 @@
     </Controls:MetroWindow.Resources>
     <Grid>
         <TabControl>
+            <!--Primera Pestaña-->
             <TabItem>
                 <TabItem.Header>
                     <Label Content="{x:Static recursos:StringResources.lblDatos}" Style="{StaticResource TabHeader}"></Label>

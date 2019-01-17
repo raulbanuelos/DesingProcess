@@ -478,6 +478,17 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => irCollarScotchbrite());
             }
         }
+
+        /// <summary>
+        /// Comando que abre la ventana de nissei rectificados finos
+        /// </summary>
+        public ICommand IrRecFinFeedWheel
+        {
+            get
+            {
+                return new RelayCommand(a => _IrRecFinFeedWheel());
+            }
+        }
         #endregion
 
         #region Methods
@@ -885,6 +896,18 @@ namespace View.Services.ViewModel
             WBatesBore frm = new WBatesBore();
             CollarScotchbrite_VM context = new CollarScotchbrite_VM();
             frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Comando que abre la ventana de Feed Wheel Nissei Rectificados finos
+        /// </summary>
+        public void _IrRecFinFeedWheel()
+        {
+            WFeedWheelNisseiRecFin frm = new WFeedWheelNisseiRecFin();
+            FeedWheelNisseiRectificadosFinos_VM datacontext = new FeedWheelNisseiRectificadosFinos_VM();
+
+            frm.DataContext = datacontext;
             frm.ShowDialog();
         }
         #endregion

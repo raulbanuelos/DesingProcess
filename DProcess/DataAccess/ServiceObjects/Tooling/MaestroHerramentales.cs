@@ -53,6 +53,7 @@ namespace DataAccess.ServiceObjects.Tooling
             this.ProtectorInfMoly_ = new HashSet<ProtectorInfMoly_>();
             this.ProtectorSupMoly_ = new HashSet<ProtectorSupMoly_>();
             this.CollarScotchbrite_ = new HashSet<CollarScotchbrite_>();
+            this.TBL_FEED_WHEEL_RECTIFICADOS_FINOS = new HashSet<TBL_FEED_WHEEL_RECTIFICADOS_FINOS>();
         }
     
         public string Codigo { get; set; }
@@ -140,5 +141,7 @@ namespace DataAccess.ServiceObjects.Tooling
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CollarScotchbrite_> CollarScotchbrite_ { get; set; }
         public virtual DiscoDiskus_ DiscoDiskus_ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_FEED_WHEEL_RECTIFICADOS_FINOS> TBL_FEED_WHEEL_RECTIFICADOS_FINOS { get; set; }
     }
 }
