@@ -165,6 +165,10 @@ namespace View.Forms.Tooling
             return DataManager.UpdateBushingBB(herram);
         }
 
+        /// <summary>
+        /// Carga los datos cuando se va a modificar o eliminar
+        /// </summary>
+        /// <param name="codigoHerramental"></param>
         public void InicializaCampos(string codigoHerramental)
         {
             obj = DataManager.GetInfoBushing_BatesBore(codigoHerramental);

@@ -4729,6 +4729,7 @@ namespace Model
             //Ejecutamos el método y regresa el resultado.
             return ServiceBatesBore.DeleteBushing(id);
         }
+
         #endregion
 
         #region FinishMill
@@ -9683,6 +9684,142 @@ namespace Model
             //Retornamos la lista
             return ListaResultante;
         }
+        #endregion
+
+        #region Nissei Rectificados Finos
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static DataTable GetAllNisseiRectificadosFinos(string TextoBuscar)
+        {
+            SO_NisseiRectificadosFinos servicio = new SO_NisseiRectificadosFinos();
+
+            IList Informacion = servicio.GetAllNisseiRectificadosFinos(TextoBuscar);
+
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            if (Informacion != null)
+            {
+                foreach (var item in Informacion)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_FEED_WHEEL_RECTIFICADOS_FINOS").GetValue(item, null);
+
+                    Propiedad Dim_Diametro = new Propiedad();
+                    Dim_Diametro.Unidad = "";
+                    Dim_Diametro.Valor = (double)tipo.GetProperty("DIM_DIAMETRO").GetValue(item, null);
+                    Dim_Diametro.DescripcionCorta = "Dimensión Diámetro";
+                    herramental.Propiedades.Add(Dim_Diametro);
+
+                    Propiedad Dim_Width = new Propiedad();
+                    Dim_Width.Unidad = "";
+                    Dim_Width.Valor = (double)tipo.GetProperty("DIM_WIDTH").GetValue(item, null);
+                    Dim_Width.DescripcionCorta = "Dimensión Width";
+                    herramental.Propiedades.Add(Dim_Width);
+
+                    Propiedad Dim_F = new Propiedad();
+                    Dim_F.Unidad = "";
+                    Dim_F.Valor = (double)tipo.GetProperty("DIM_F").GetValue(item, null);
+                    Dim_F.DescripcionCorta = "Dimensión F";
+                    herramental.Propiedades.Add(Dim_F);
+
+                    ListaResultante.Add(herramental);
+                }
+            }
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "NisseiRecFinBB");
+        }
+
+        /// <summary>
+        /// Obtiene la información de un herramental
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoNisseiRecFin(string codigo)
+        {
+            Herramental herramental = new Herramental();
+
+            SO_NisseiRectificadosFinos servicio = new SO_NisseiRectificadosFinos();
+
+            IList InformacionDB = servicio.GetInfoNisseiRectificadosFinos(codigo);
+
+            if (InformacionDB != null)
+            {
+                foreach (var item in InformacionDB)
+                {
+                    Type tipo = item.GetType();
+
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_FEED_WHEEL_RECTIFICADOS_FINOS").GetValue(item, null);
+
+                    Propiedad Dim_Diametro = new Propiedad();
+                    Dim_Diametro.Unidad = "";
+                    Dim_Diametro.Valor = (double)tipo.GetProperty("DIM_DIAMETRO").GetValue(item, null);
+                    Dim_Diametro.DescripcionCorta = "Dimensión Diámetro";
+                    herramental.Propiedades.Add(Dim_Diametro);
+
+                    Propiedad Dim_Width = new Propiedad();
+                    Dim_Width.Unidad = "";
+                    Dim_Width.Valor = (double)tipo.GetProperty("DIM_WIDTH").GetValue(item, null);
+                    Dim_Width.DescripcionCorta = "Dimensión Width";
+                    herramental.Propiedades.Add(Dim_Width);
+
+                    Propiedad Dim_F = new Propiedad();
+                    Dim_F.Unidad = "";
+                    Dim_F.Valor = (double)tipo.GetProperty("DIM_F").GetValue(item, null);
+                    Dim_F.DescripcionCorta = "Dimensión F";
+                    herramental.Propiedades.Add(Dim_F);
+
+                }
+            }
+
+            return herramental;
+        }
+
+        /// <summary>
+        /// Método para insertar un nuevo registro a la base de datos
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetNisseiRectificadosFinos(Herramental obj)
+        {
+            SO_NisseiRectificadosFinos servicio = new SO_NisseiRectificadosFinos();
+
+            return servicio.SetNisseiRectificadosFinos(obj.Codigo, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.Propiedades[2].Valor);
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro en la base de datos
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteNisseiRectificadosFinos(int id)
+        {
+            SO_NisseiRectificadosFinos servicio = new SO_NisseiRectificadosFinos();
+
+            return servicio.DeleteNisseiRectificadosFinos(id);
+        }
+
+        /// <summary>
+        /// Método para actualizar los campos de un registro en la tabla
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateNisseiRectificadosFinos(Herramental obj)
+        {
+            SO_NisseiRectificadosFinos servicio = new SO_NisseiRectificadosFinos();
+
+            return servicio.UpdateNisseiRectificadosFinos(obj.idHerramental, obj.Codigo, obj.Propiedades[0].Valor, obj.Propiedades[1].Valor, obj.Propiedades[2].Valor);
+        }
+
         #endregion
 
         #endregion

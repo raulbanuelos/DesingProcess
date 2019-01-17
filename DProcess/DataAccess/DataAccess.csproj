@@ -436,6 +436,7 @@
     <Compile Include="ServiceObjects\Tooling\SO_FinishMill.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_MaestroHerramental.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_Moly.cs" />
+    <Compile Include="ServiceObjects\Tooling\SO_NisseiRectificadosFinos.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_Plano.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_Scotchbrite.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_Sim.cs" />
@@ -464,6 +465,9 @@
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_FEED_WHEEL_RECTIFICADOS_FINOS.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_SHIM_OF_THE_CUT_SYSTEM.cs">

@@ -53,7 +53,6 @@
                     <MenuItem Header="Chuck Splitter" Command="{Binding IrChuckSplitter}"/>
                     <MenuItem Header="Uretano Splitter" Command="{Binding IrUretanoSplitter}" />
                 </MenuItem>
-
                 <MenuItem Header="Cam Turn">
                     <MenuItem Header="Collar spacer" Cursor="Hand" Command="{Binding IrCollarSpacer}"/>
                     <MenuItem Header="WorkCam" Cursor="Hand" Command="{Binding IrWorkCam}"/>
@@ -65,7 +64,6 @@
                 <MenuItem Header="Finish Mill" Cursor="Hand">
                     <MenuItem Header="Bushing" Cursor="Hand" Command="{Binding IrBushingFM}"/>
                 </MenuItem>
-               
                 <MenuItem Header="Auto Finish Turn" Cursor="Hand">
                     <MenuItem Header="Collar" Cursor="Hand" Command="{Binding IrCollarBK}"/>
                     <MenuItem Header="Guide plate" Cursor="Hand" Command="{Binding IrGuidePlate}"/>
@@ -95,6 +93,9 @@
                 <MenuItem Header="Scotchbrite" Cursor="Hand">
                     <MenuItem Header="Collar" Cursor="Hand" Command="{Binding IrCollarScotch}"/>
                     
+                </MenuItem>
+                <MenuItem Header="Nissei Rectificados Finos" Cursor="Hand">
+                    <MenuItem Header="Feed Wheel" Cursor="Hand" Command="{Binding IrRecFinFeedWheel}"/>
                 </MenuItem>
             </MenuItem>
         </Menu>

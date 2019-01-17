@@ -527,6 +527,16 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <Property Name="WIRE_WIDTH_MIN" Type="float" />
           <Property Name="WIDE_WIDTH_MAX" Type="float" />
         </EntityType>
+        <EntityType Name="TBL_FEED_WHEEL_RECTIFICADOS_FINOS">
+          <Key>
+            <PropertyRef Name="ID_FEED_WHEEL_RECTIFICADOS_FINOS" />
+          </Key>
+          <Property Name="ID_FEED_WHEEL_RECTIFICADOS_FINOS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGO" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="DIM_DIAMETRO" Type="float" />
+          <Property Name="DIM_WIDTH" Type="float" />
+          <Property Name="DIM_F" Type="float" />
+        </EntityType>
         <EntityType Name="TBL_SHIM_OF_THE_CUT_SYSTEM">
           <Key>
             <PropertyRef Name="ID_SHIM_OTCS" />
@@ -1036,6 +1046,18 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBL_FEED_WHEEL_RECTIFICADOS_FINOS_MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1" />
+          <End Role="TBL_FEED_WHEEL_RECTIFICADOS_FINOS" Type="Self.TBL_FEED_WHEEL_RECTIFICADOS_FINOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_FEED_WHEEL_RECTIFICADOS_FINOS">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales">
           <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1" />
           <End Role="TBL_SHIM_OF_THE_CUT_SYSTEM" Type="Self.TBL_SHIM_OF_THE_CUT_SYSTEM" Multiplicity="*" />
@@ -1118,6 +1140,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" EntityType="Self.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" EntityType="Self.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" EntityType="Self.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_FEED_WHEEL_RECTIFICADOS_FINOS" EntityType="Self.TBL_FEED_WHEEL_RECTIFICADOS_FINOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_SHIM_OF_THE_CUT_SYSTEM" EntityType="Self.TBL_SHIM_OF_THE_CUT_SYSTEM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UretanoSplitter" EntityType="Self.UretanoSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkCam" EntityType="Self.WorkCam" Schema="dbo" store:Type="Tables" />
@@ -1272,6 +1295,10 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" EntitySet="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" />
           </AssociationSet>
+          <AssociationSet Name="FK_TBL_FEED_WHEEL_RECTIFICADOS_FINOS_MaestroHerramentales" Association="Self.FK_TBL_FEED_WHEEL_RECTIFICADOS_FINOS_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_FEED_WHEEL_RECTIFICADOS_FINOS" EntitySet="TBL_FEED_WHEEL_RECTIFICADOS_FINOS" />
+          </AssociationSet>
           <AssociationSet Name="FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales" Association="Self.FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="TBL_SHIM_OF_THE_CUT_SYSTEM" EntitySet="TBL_SHIM_OF_THE_CUT_SYSTEM" />
@@ -1341,6 +1368,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <NavigationProperty Name="ProtectorSupMoly_" Relationship="DataAccess.ServiceObjects.Tooling.FK_ProtectorSupMoly__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="ProtectorSupMoly_" />
           <NavigationProperty Name="CollarScotchbrite_" Relationship="DataAccess.ServiceObjects.Tooling.FK_CollarScotchbrite__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="CollarScotchbrite_" />
           <NavigationProperty Name="DiscoDiskus_" Relationship="DataAccess.ServiceObjects.Tooling.FK_DiscoDiskus__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="DiscoDiskus_" />
+          <NavigationProperty Name="TBL_FEED_WHEEL_RECTIFICADOS_FINOS" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_FEED_WHEEL_RECTIFICADOS_FINOS_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_FEED_WHEEL_RECTIFICADOS_FINOS" />
         </EntityType>
         <EntityContainer Name="EntitiesTooling" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="MaestroHerramentales" EntityType="Self.MaestroHerramentales" />
@@ -1545,6 +1573,11 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <AssociationSet Name="FK_DiscoDiskus__MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_DiscoDiskus__MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="DiscoDiskus_" EntitySet="DiscoDiskus_" />
+          </AssociationSet>
+          <EntitySet Name="TBL_FEED_WHEEL_RECTIFICADOS_FINOS" EntityType="DataAccess.ServiceObjects.Tooling.TBL_FEED_WHEEL_RECTIFICADOS_FINOS" />
+          <AssociationSet Name="FK_TBL_FEED_WHEEL_RECTIFICADOS_FINOS_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_FEED_WHEEL_RECTIFICADOS_FINOS_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_FEED_WHEEL_RECTIFICADOS_FINOS" EntitySet="TBL_FEED_WHEEL_RECTIFICADOS_FINOS" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="UretanoSplitter">
@@ -2639,6 +2672,29 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_FEED_WHEEL_RECTIFICADOS_FINOS">
+          <Key>
+            <PropertyRef Name="ID_FEED_WHEEL_RECTIFICADOS_FINOS" />
+          </Key>
+          <Property Name="ID_FEED_WHEEL_RECTIFICADOS_FINOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DIM_DIAMETRO" Type="Double" />
+          <Property Name="DIM_WIDTH" Type="Double" />
+          <Property Name="DIM_F" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_FEED_WHEEL_RECTIFICADOS_FINOS_MaestroHerramentales" FromRole="TBL_FEED_WHEEL_RECTIFICADOS_FINOS" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_TBL_FEED_WHEEL_RECTIFICADOS_FINOS_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.TBL_FEED_WHEEL_RECTIFICADOS_FINOS" Role="TBL_FEED_WHEEL_RECTIFICADOS_FINOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_FEED_WHEEL_RECTIFICADOS_FINOS">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3242,6 +3298,17 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
                 <ScalarProperty Name="Plano" ColumnName="Plano" />
                 <ScalarProperty Name="Detalle" ColumnName="Detalle" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_FEED_WHEEL_RECTIFICADOS_FINOS">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_FEED_WHEEL_RECTIFICADOS_FINOS">
+              <MappingFragment StoreEntitySet="TBL_FEED_WHEEL_RECTIFICADOS_FINOS">
+                <ScalarProperty Name="DIM_F" ColumnName="DIM_F" />
+                <ScalarProperty Name="DIM_WIDTH" ColumnName="DIM_WIDTH" />
+                <ScalarProperty Name="DIM_DIAMETRO" ColumnName="DIM_DIAMETRO" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_FEED_WHEEL_RECTIFICADOS_FINOS" ColumnName="ID_FEED_WHEEL_RECTIFICADOS_FINOS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
