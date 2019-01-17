@@ -156,6 +156,20 @@ namespace View.Services.Operaciones.Gasolina.Miscelaneos
         {
 
         }
+
+        public void InicializarDatosGenerales()
+        {
+            //Asignamos los valores por default a las propiedades.
+            NombreOperacion = "DUPLEX";
+            CentroCostos = "32012537";
+            CentroTrabajo = "430";
+            ControlKey = "MA42";
+            
+            ListaHerramentales = new ObservableCollection<Herramental>();
+            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
+            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+        }
+
         #endregion
 
         #region Methods override
@@ -170,16 +184,14 @@ namespace View.Services.Operaciones.Gasolina.Miscelaneos
         #region Constructors
         public Duplex(Anillo plano)
         {
-            //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "DUPLEX";
-            CentroCostos = "32012537";
-            CentroTrabajo = "430";
-            ControlKey = "MA42";
+            InicializarDatosGenerales();
             elPlano = plano;
-            ListaHerramentales = new ObservableCollection<Herramental>();
-            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
-            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-        } 
+        }
+
+        public Duplex()
+        {
+            InicializarDatosGenerales();
+        }
         #endregion
     }
 }

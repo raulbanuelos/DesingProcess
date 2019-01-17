@@ -200,22 +200,33 @@ namespace View.Services.Operaciones.Fundicion
                 AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
             }
         }
-        #endregion
 
-        #region Constructors
-        public FundicionEsmeriladoIntExtGas(Anillo plano)
+        public void InicializarDatosGenerales()
         {
             //Asignamos los valores por default a las propiedades.
             NombreOperacion = "FUND.ESMERILADO INT. Y EXT";
             CentroCostos = "32011542";
             CentroTrabajo = "040";
             ControlKey = "MA40";
-            elPlano = plano;
+            
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
             NotasOperacion = new ObservableCollection<string>();
             AlertasOperacion = new ObservableCollection<string>();
+        }
+        #endregion
+
+        #region Constructors
+        public FundicionEsmeriladoIntExtGas(Anillo plano)
+        {
+            InicializarDatosGenerales();
+            elPlano = plano;
+        }
+
+        public FundicionEsmeriladoIntExtGas()
+        {
+            InicializarDatosGenerales();
         }
         #endregion
 

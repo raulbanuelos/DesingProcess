@@ -1,21 +1,25 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Threading.Tasks;
-using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using Model.ControlDocumentos;
+using Model.Interfaces;
 using DataAccess.ServiceObjects;
-using DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado;
+using DataAccess.ServiceObjects.Operaciones;
 using DataAccess.ServiceObjects.MateriasPrimas;
 using DataAccess.ServiceObjects.Usuario;
 using DataAccess.ServiceObjects.Unidades;
 using DataAccess.ServiceObjects.ControlDocumentos;
 using DataAccess.ServiceObjects.Perfiles;
 using DataAccess.ServiceObjects.Tooling;
-using DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado;
-using System.ComponentModel;
-using Model.ControlDocumentos;
 using DataAccess.ServiceObjects.Tooling.Operaciones;
+using DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado;
+using DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado;
+using Spring.Objects.Factory.Xml;
 
 namespace Model
 {
@@ -7302,6 +7306,51 @@ namespace Model
         }
 
         #endregion
+
+        /// <summary>
+        /// Método que obtiene todas las operaciones que estén en la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<IOperacion> GetAllOperaciones()
+        {
+            SO_Operaciones ServiceObject = new SO_Operaciones();
+
+            IList informacionBD = ServiceObject.GetAllOperaciones();
+
+            ObservableCollection<IOperacion> ListaResultante = new ObservableCollection<IOperacion>();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    string idObjectXML = (string)tipo.GetProperty("IDObjectXML").GetValue(item, null);
+
+                    IOperacion operacion = createIOperacion(idObjectXML);
+
+                    ListaResultante.Add(operacion);
+                }
+            }
+
+            return ListaResultante;
+        }
+
+        /// <summary>
+        /// Método que crea una operación a partir de un objeto inyectado.
+        /// </summary>
+        /// <param name="idNombreOperacion"></param>
+        /// <returns></returns>
+        public static IOperacion createIOperacion(string idNombreOperacion)
+        {
+            using (Stream stream = File.OpenRead(@"\\AGUFILESERV2\RoutingGenerationProgram\RepositoryOperations.xml"))
+            {
+                Spring.Core.IO.InputStreamResource resource = new Spring.Core.IO.InputStreamResource(stream, "");
+                XmlObjectFactory xmlObjectFactory = new XmlObjectFactory(resource);
+                IOperacion IOperacionObj = (IOperacion)xmlObjectFactory.GetObject(idNombreOperacion);
+                return IOperacionObj;
+            }
+        }
 
         #endregion
 

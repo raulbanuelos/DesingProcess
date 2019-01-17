@@ -15,6 +15,14 @@ namespace DProcess.Model.Test
     public class DataManagerTest
     {
         #region DataManager
+
+        [TestMethod]
+        public void testGetAllOPeraciones()
+        {
+            ObservableCollection<IOperacion> operaciones = DataManager.GetAllOperaciones();
+
+        }
+
         [TestMethod]
         public void removeDuplicatesTest()
         {

@@ -139,20 +139,13 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         #region Constructores
         public FirstRoughGrind(Anillo plano)
         {
-            //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "FIRST ROUGH GRIND";
-            CentroCostos = "32012524";
-            CentroTrabajo = "110";
-            ControlKey = "MA42";
+            InicializarDatosGenerales();
             elPlano = plano;
-            ListaHerramentales = new ObservableCollection<Herramental>();
-            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
-            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-            AlertasOperacion = new ObservableCollection<string>();
-            NotasOperacion = new ObservableCollection<string>();
+        }
 
-            //Ejecutamos el método para calcular el width y el meterial a remover.
-            CalcularWidth();
+        public FirstRoughGrind()
+        {
+            InicializarDatosGenerales();
         }
         #endregion
 
@@ -231,6 +224,24 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
                 AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
             }
         }
+
+        public void InicializarDatosGenerales()
+        {
+            //Asignamos los valores por default a las propiedades.
+            NombreOperacion = "FIRST ROUGH GRIND";
+            CentroCostos = "32012524";
+            CentroTrabajo = "110";
+            ControlKey = "MA42";
+
+            ListaHerramentales = new ObservableCollection<Herramental>();
+            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
+            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+            AlertasOperacion = new ObservableCollection<string>();
+            NotasOperacion = new ObservableCollection<string>();
+
+            //Ejecutamos el método para calcular el width y el meterial a remover.
+            CalcularWidth();
+        }
         #endregion
 
         #region Métodos de IObserverWidth
@@ -253,8 +264,11 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         /// </summary>
         /// <param name="operaciones"></param>
         /// <param name="posOperacion"></param>
-        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion)
+        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion, Anillo plano_)
         {
+            if (elPlano == null)
+                elPlano = plano_;
+
             CalcularWidth();
         }
 
@@ -265,6 +279,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         /// </summary>
         private void CalcularWidth()
         {
+
             //Obtenemos el valor de la propiedad Proceso que ingresó el usuario.
             string proceso = Module.GetValorPropiedadString("Proceso", elPlano.PerfilOD.PropiedadesCadena);
 

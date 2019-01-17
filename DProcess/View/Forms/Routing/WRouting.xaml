@@ -38,17 +38,39 @@
             <!--Lista de operaciones-->
             <!--<ListBox Grid.Column="0" ItemsSource="{Binding Operaciones}" SelectedItem="{Binding OperationSelected}">
             </ListBox>-->
-            <ListView Name="lvOperaciones" ItemsSource="{Binding Operaciones}" SelectedItem="{Binding OperationSelected}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <WrapPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding NoOperacion}" Margin="20,0,0,0"></TextBlock>
-                            <TextBlock Text="{Binding CentroTrabajo}" Margin="20,0,0,0"></TextBlock>
-                            <TextBlock Text="{Binding NombreOperacion}" Width="300" Margin="20,0,0,0"></TextBlock>
-                        </WrapPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="200"></RowDefinition>
+                </Grid.RowDefinitions>
+                <ListView Name="lvOperaciones" ItemsSource="{Binding Operaciones}" SelectedItem="{Binding OperationSelected}" Grid.Row="0" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding NoOperacion}" Margin="20,0,0,0"></TextBlock>
+                                <TextBlock Text="{Binding CentroTrabajo}" Margin="20,0,0,0"></TextBlock>
+                                <TextBlock Text="{Binding NombreOperacion}" Width="300" Margin="20,0,0,0"></TextBlock>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <StackPanel Orientation="Vertical" Grid.Row="1" Margin="10" VerticalAlignment="Top">
+
+                    <ComboBox ItemsSource="{Binding ListaOperacionesOpcionales}" Width="300" HorizontalAlignment="Left" Margin="15,0,0,0" SelectedItem="{Binding OperacionSeleccionadaOpcional}" >
+                        
+                    </ComboBox> 
+                    <StackPanel Orientation="Horizontal" Margin="15">
+                        <Label Content="Después de la operación: "></Label>
+                        <ComboBox ItemsSource="{Binding Operaciones}" Width="300" SelectedItem="{Binding OperacionAntesAddOperacion}"></ComboBox>
+                    </StackPanel>
+
+                    <Button Width="170" HorizontalAlignment="Right" Margin="15" Command="{Binding AddOperation}">Agregar</Button>
+                </StackPanel>
+            </Grid>
+            
+            
             
             <Controls:MetroTabControl Grid.Column="1" Controls:TabControlHelper.IsUnderlined="True" TabStripPlacement="Top" >
                 <TabItem Header="{x:Static recursos:StringResources.lblTextoLargo}">

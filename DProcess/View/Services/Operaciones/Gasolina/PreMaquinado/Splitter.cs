@@ -21,19 +21,13 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
 
         public Splitter(Anillo _elAnillo)
         {
-            NombreOperacion = "SPLITTER CASTINGS";
-            CentroCostos = "32014170";
-            CentroTrabajo = "130";
-            ControlKey = "MA42";
+            InicializarDatosGenerales();
             elPlano = _elAnillo;
+        }
 
-            ListaHerramentales = new ObservableCollection<Herramental>();
-            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
-            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-            NotasOperacion = new ObservableCollection<string>();
-            AlertasOperacion = new ObservableCollection<string>();
-            
-            CalcularWidth();
+        public Splitter()
+        {
+            InicializarDatosGenerales();
         }
 
         #endregion
@@ -279,6 +273,22 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             }
 
         }
+
+        public void InicializarDatosGenerales()
+        {
+            NombreOperacion = "SPLITTER CASTINGS";
+            CentroCostos = "32014170";
+            CentroTrabajo = "130";
+            ControlKey = "MA42";
+
+            ListaHerramentales = new ObservableCollection<Herramental>();
+            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
+            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+            NotasOperacion = new ObservableCollection<string>();
+            AlertasOperacion = new ObservableCollection<string>();
+
+            CalcularWidth();
+        }
         #endregion
 
         #region Methods of IObserverWidth
@@ -301,7 +311,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         /// </summary>
         /// <param name="operaciones"></param>
         /// <param name="posOperacion"></param>
-        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion)
+        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion, Anillo plano_)
         {
             
         }

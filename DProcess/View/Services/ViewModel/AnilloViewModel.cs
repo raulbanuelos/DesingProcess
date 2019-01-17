@@ -36,6 +36,27 @@ namespace View.Services.ViewModel
         #region Properties
         public ObservableCollection<string> ListaEspecificacionesMateriaPrima { get; set; }
 
+        private ObservableCollection<IOperacion> _ListaOperacionesOpcionales;
+        public ObservableCollection<IOperacion> ListaOperacionesOpcionales
+        {
+            get { return _ListaOperacionesOpcionales; }
+            set { _ListaOperacionesOpcionales = value; NotifyChange("ListaOperacionesOpcionales"); }
+        }
+
+        private IOperacion _OperacionAntesAddOperacion;
+        public IOperacion OperacionAntesAddOperacion
+        {
+            get { return _OperacionAntesAddOperacion; }
+            set { _OperacionAntesAddOperacion = value; NotifyChange("OperacionAntesAddOperacion"); }
+        }
+
+        private IOperacion _OperacionSeleccionadaOpcional;
+        public IOperacion OperacionSeleccionadaOpcional
+        {
+            get { return _OperacionSeleccionadaOpcional; }
+            set { _OperacionSeleccionadaOpcional = value; NotifyChange("OperacionSeleccionadaOpcional"); }
+        }
+        
         private ObservableCollection<MateriaPrimaRolado> _ListaIronRawMaterial;
         public ObservableCollection<MateriaPrimaRolado> ListaIronRawMaterial
         {
@@ -892,6 +913,20 @@ namespace View.Services.ViewModel
 
         #region Commands
 
+        public ICommand AddOperation
+        {
+            get
+            {
+                return new RelayCommand(o => addOperation());
+            }
+        }
+
+        private void addOperation()
+        {
+            int index = (OperacionAntesAddOperacion.NoOperacion / 10);
+            Operaciones.Insert(index, OperacionSeleccionadaOpcional);
+        }
+
         /// <summary>
         /// Comando que reponde a la acción de consultar/Modificar la unidad de la propiedad D1(Diámetro nominal del anillo).
         /// </summary>
@@ -1287,22 +1322,19 @@ namespace View.Services.ViewModel
             {
                 if (ModelAnillo.MaterialBase.TipoDeMaterial == "ACERO AL CARBON")
                 {
-                    //Se define la ruta primero antes de que se calcule la materia prima y se establece el material a remover en cada operación.
+                    //Se define la ruta primero antes de que se calcule la materia prima.
                     if (banCalcularOperaciones)
-                    {
                         Operaciones = Router.CalcularAceroRolado(ModelAnillo);
 
-                        int c = 0;
-                        foreach (var operacion in Operaciones)
-                        {
-                            if (operacion is IObserverWidth)
-                                ((IObserverWidth)operacion).setMaterialRemover(Operaciones, c);
+                    int c = 0;
+                    foreach (var operacion in Operaciones)
+                    {
+                        if (operacion is IObserverWidth)
+                            ((IObserverWidth)operacion).setMaterialRemover(Operaciones, c, ModelAnillo);
 
-                            if (operacion is IObserverThickness)
-                                ((IObserverThickness)operacion).setMaterialRemover(Operaciones, c);
-                            c++;
-                        }
-
+                        if (operacion is IObserverThickness)
+                            ((IObserverThickness)operacion).setMaterialRemover(Operaciones, c);
+                        c++;
                     }
 
                     calcularMateriaPrima = new CalculaMateriaPrima(ModelAnillo);
@@ -1407,7 +1439,8 @@ namespace View.Services.ViewModel
                     IsMaking = true;
                 }
 
-                string mensaje = Resources.StringResources.msgDoingOperation + element.NombreOperacion +
+                string mensaje = "                                                                                                                    " + noOperacion / 10 + "/" + Operaciones.Count + Environment.NewLine +
+                    Resources.StringResources.msgDoingOperation + " " + noOperacion + "    " + element.NombreOperacion  + 
                                 Environment.NewLine + Environment.NewLine + Resources.StringResources.lblWidth + ": " + currentWidth +
                                 "    " + Resources.StringResources.lblThickness + ": " + currentThickness +
                                 "    " + Resources.StringResources.lblDiameter + ": " + currentDiameter;
@@ -1801,7 +1834,6 @@ namespace View.Services.ViewModel
             {
                 if (ComponenteSeleccionado != null)
                 {
-
                     dialogService = new DialogService();
                     var Controller = await dialogService.SendProgressAsync(Resources.StringResources.ttlEspereUnMomento, "Estoy realizando su petición...");
 
@@ -2516,6 +2548,8 @@ namespace View.Services.ViewModel
             if (Operaciones != null && Operaciones.Count > 0)
             {
                 OperationSelected = Operaciones[0];
+
+                ListaOperacionesOpcionales = DataManager.GetAllOperaciones();
 
                 //Establecemos el DataContext.
                 wRouting.DataContext = this;

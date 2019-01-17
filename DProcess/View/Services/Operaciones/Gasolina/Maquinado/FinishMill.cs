@@ -189,6 +189,21 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         {
 
         }
+
+        public void InicializarDatosGenerales()
+        {
+            //Asignamos los valores por default a las propiedades.
+            NombreOperacion = "FINISH MILL";
+            CentroCostos = "32012526";
+            CentroTrabajo = "410";
+            ControlKey = "MA42";
+
+            ListaHerramentales = new ObservableCollection<Herramental>();
+            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
+            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+
+            MatRemoverDiametro = 0.050;
+        }
         #endregion
 
         #region Methods of IObserverDiametro
@@ -222,18 +237,14 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         #region Constructors
         public FinishMill(Anillo plano)
         {
-            //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "FINISH MILL";
-            CentroCostos = "32012526";
-            CentroTrabajo = "410";
-            ControlKey = "MA42";
+            InicializarDatosGenerales();
             elPlano = plano;
-            ListaHerramentales = new ObservableCollection<Herramental>();
-            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
-            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
 
-            MatRemoverDiametro = 0.050;
-            
+        }
+
+        public FinishMill()
+        {
+            InicializarDatosGenerales();
         }
         #endregion
     }

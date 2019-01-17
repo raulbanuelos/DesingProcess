@@ -143,18 +143,12 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         #region Constructors
         public SecondRoughGrind(Anillo plano)
         {
-            //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "SECOND ROUGH GRIND";
-            CentroCostos = "32012524";
-            CentroTrabajo = "112";
-            ControlKey = "MA42";
+            InicializarDatosGenerales();
             elPlano = plano;
-            ListaHerramentales = new ObservableCollection<Herramental>();
-            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
-            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-            AlertasOperacion = new ObservableCollection<string>();
-            NotasOperacion = new ObservableCollection<string>();
-            
+        }
+        public SecondRoughGrind()
+        {
+            InicializarDatosGenerales();
         }
         #endregion
 
@@ -195,6 +189,21 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         {
             
         }
+
+        public void InicializarDatosGenerales()
+        {
+            //Asignamos los valores por default a las propiedades.
+            NombreOperacion = "SECOND ROUGH GRIND";
+            CentroCostos = "32012524";
+            CentroTrabajo = "112";
+            ControlKey = "MA42";
+
+            ListaHerramentales = new ObservableCollection<Herramental>();
+            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
+            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+            AlertasOperacion = new ObservableCollection<string>();
+            NotasOperacion = new ObservableCollection<string>();
+        }
         #endregion
 
         #region Métodos de IObserverWidth
@@ -223,7 +232,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         /// </summary>
         /// <param name="operaciones"></param>
         /// <param name="posOperacion"></param>
-        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion)
+        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion, Anillo plano_)
         {
 
         }

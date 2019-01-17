@@ -158,6 +158,19 @@ namespace View.Services.Operaciones.Gasolina.Inspeccion
         {
 
         }
+
+        public void InicializarDatosGenerales()
+        {
+            //Asignamos los valores por default a las propiedades.
+            NombreOperacion = "FINAL INSP. RINGS";
+            CentroCostos = "32012562";
+            CentroTrabajo = "830";
+            ControlKey = "MA42";
+
+            ListaHerramentales = new ObservableCollection<Herramental>();
+            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
+            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+        }
         #endregion
 
         #region Methods override
@@ -172,16 +185,14 @@ namespace View.Services.Operaciones.Gasolina.Inspeccion
         #region Constructors
         public InspeccionFinal(Anillo plano)
         {
-            //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "FINAL INSP. RINGS";
-            CentroCostos = "32012562";
-            CentroTrabajo = "830";
-            ControlKey = "MA42";
+            InicializarDatosGenerales();
             elPlano = plano;
-            ListaHerramentales = new ObservableCollection<Herramental>();
-            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
-            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-        } 
+        }
+
+        public InspeccionFinal()
+        {
+            InicializarDatosGenerales();
+        }
         #endregion
     }
 }

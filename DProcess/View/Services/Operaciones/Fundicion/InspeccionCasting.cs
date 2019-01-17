@@ -203,22 +203,33 @@ namespace View.Services.Operaciones.Fundicion
                 AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
             }
         }
-        #endregion
 
-        #region Constructors
-        public InspeccionCasting(Anillo plano)
+        public void InicializarDatosGenerales()
         {
             //Asignamos los valores por default a las propiedades.
             NombreOperacion = "INSPECCION CASTING";
             CentroCostos = "32011542";
             CentroTrabajo = "065";
             ControlKey = "MA45";
-            elPlano = plano;
+
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
             NotasOperacion = new ObservableCollection<string>();
             AlertasOperacion = new ObservableCollection<string>();
+        }
+        #endregion
+
+        #region Constructors
+        public InspeccionCasting(Anillo plano)
+        {
+            InicializarDatosGenerales();
+            elPlano = plano;
+        }
+
+        public InspeccionCasting()
+        {
+            InicializarDatosGenerales();
         }
         #endregion
 

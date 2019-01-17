@@ -210,6 +210,21 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
         {
 
         }
+
+        public void InicializarDatosGenerales()
+        {
+            //Asignamos los valores por default a las propiedades.
+            NombreOperacion = "FIN GRIND (DISKUS)";
+            CentroCostos = "32012529";
+            CentroTrabajo = "160";
+            ControlKey = "MA42";
+
+            ListaHerramentales = new ObservableCollection<Herramental>();
+            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
+            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+            AlertasOperacion = new ObservableCollection<string>();
+            NotasOperacion = new ObservableCollection<string>();
+        }
         #endregion
 
         #region Métodos de IObserverWidth
@@ -232,12 +247,16 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
         /// </summary>
         /// <param name="operaciones"></param>
         /// <param name="posOperacion"></param>
-        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion)
+        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion, Anillo plano_)
         {
 
             int paso = Module.GetNumPasoOperacion(operaciones, posOperacion, NombreOperacion);
             MatRemoverWidth = 0.0005;
             //MatRemoverWidth = 0.0005;
+
+            if (elPlano == null)
+                elPlano = plano_;
+
             if (elPlano.MaterialBase.TipoDeMaterial == "ACERO AL CARBON" && paso == 1)
                 NoPasadas = 2;
             else
@@ -261,19 +280,14 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
         #region Constructors
         public Diskus(Anillo plano)
         {
-            //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "FIN GRIND (DISKUS)";
-            CentroCostos = "32012529";
-            CentroTrabajo = "160";
-            ControlKey = "MA42";
-            
+            InicializarDatosGenerales();
             elPlano = plano;
-            ListaHerramentales = new ObservableCollection<Herramental>();
-            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
-            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-            AlertasOperacion = new ObservableCollection<string>();
-            NotasOperacion = new ObservableCollection<string>();
-        } 
+        }
+
+        public Diskus()
+        {
+            InicializarDatosGenerales();
+        }
         #endregion
     }
 }
