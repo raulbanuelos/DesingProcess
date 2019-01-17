@@ -11,7 +11,7 @@
     mc:Ignorable="d"
     x:Class="View.Forms.Routing.PRouting"
 	Title="PRouting"  Height="Auto" Width="Auto">
-
+    
     <Page.Resources>
         <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type controls:HamburgerMenuIconItem}">
             <Grid x:Name="RootGrid"
@@ -43,7 +43,7 @@
             </DataTemplate.Triggers>
         </DataTemplate>
     </Page.Resources>
-
+    
     <controls:HamburgerMenu x:Name="HamburgerMenuControl"
                                 DisplayMode="CompactOverlay"
                                 Foreground="Black"

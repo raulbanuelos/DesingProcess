@@ -1,15 +1,11 @@
 ﻿using Model;
 using Model.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 {
-    public class Diskus : GenericOperation, IOperacion, IObserverWidth
+    public class NISSEI : GenericOperation, IOperacion, IObserverWidth
     {
         #region Propiedades
 
@@ -158,7 +154,7 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
             //Agregamos el texto con las instrucciones de la operación.
             //TextoProceso = "Width operación: " + WidthOperacion;
 
-            double widthDecimal = Math.Round(WidthOperacion * 25.4,3);
+            double widthDecimal = Math.Round(WidthOperacion * 25.4, 3);
 
             TextoProceso = "*FIN GRIND \n";
             TextoProceso += "mm(1) (" + widthDecimal + " +- 0.0060) \n";
@@ -166,7 +162,7 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
             TextoProceso += "REF.BLOCK PATRON:\n";
             TextoProceso += "IN(" + WidthOperacion + " +- 0.0060)\n";
             TextoProceso += "ROUGHNESS 25 Ra MAX.\n";
-            
+
             anilloProcesado.H1.Valor = WidthOperacion;
 
             //Ejecutamos el método para calculo de Herramentales.
@@ -178,26 +174,6 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 
         public void BuscarHerramentales()
         {
-            ObservableCollection<Herramental> listaDiscos = new ObservableCollection<Herramental>();
-            List<string> ListaAlertasDisco = new List<string>();
-
-            double piece = 0;
-            if (Module.HasPropiedad("piece", anilloProcesado.PropiedadesAdquiridasProceso))
-                piece = Module.GetValorPropiedad("piece", anilloProcesado.PropiedadesAdquiridasProceso);
-            else
-                piece = anilloProcesado.FreeGap.Valor;
-            
-            DataManager.GetDiscoDiskus(anilloProcesado.MaterialBase.Especificacion, anilloProcesado.D1.Valor, piece, anilloProcesado.H1.Valor, anilloProcesado.FreeGap.Valor, out listaDiscos, out ListaAlertasDisco);
-
-            if (listaDiscos.Where(x => x.Encontrado == false).ToList().Count > 0)
-                AlertasOperacion.Add("Herramental Disco no encontrado.");
-
-            foreach (string alerta in ListaAlertasDisco)
-            {
-                AlertasOperacion.Add(alerta);
-            }
-
-            ListaHerramentales.Add(listaDiscos[0]);
             
             TextoHerramienta = Module.GetTextoListaHerramentales(ListaHerramentales);
 
@@ -242,7 +218,7 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
                 NoPasadas = 2;
             else
                 if (elPlano.MaterialBase.TipoDeMaterial == "ACERO AL CARBON" && paso == 2)
-                    NoPasadas = 1;
+                NoPasadas = 1;
 
             MatRemoverWidth = MatRemoverWidth * NoPasadas;
         }
@@ -258,15 +234,15 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 
         #endregion
 
-        #region Constructors
-        public Diskus(Anillo plano)
+        #region Contructors
+        public NISSEI(Anillo plano)
         {
             //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "FIN GRIND (DISKUS)";
+            NombreOperacion = "FINISH GRIND (NISSEI)";
             CentroCostos = "32012529";
-            CentroTrabajo = "160";
+            CentroTrabajo = "180";
             ControlKey = "MA42";
-            
+
             elPlano = plano;
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();

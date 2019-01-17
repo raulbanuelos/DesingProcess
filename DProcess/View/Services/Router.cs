@@ -183,11 +183,11 @@ namespace View.Services
             ListaOperaciones.Add(new DegreaseRings(elAnillo));
             ListaOperaciones.Add(new StressReliefRings(elAnillo));
             ListaOperaciones.Add(new Engrave(elAnillo));
-            ListaOperaciones.Add(new Diskus(elAnillo));
+            ListaOperaciones.Add(new NISSEI(elAnillo));
             ListaOperaciones.Add(new DegreaseRings(elAnillo));
             ListaOperaciones.Add(new GapSizer(elAnillo));
             ListaOperaciones.Add(new DegreaseRings(elAnillo));
-            ListaOperaciones.Add(new Diskus(elAnillo));
+            ListaOperaciones.Add(new NISSEI(elAnillo));
             ListaOperaciones.Add(new DegreaseRings(elAnillo));
             ListaOperaciones.Add(new Lapping(elAnillo));
             ListaOperaciones.Add(new DegreaseRings(elAnillo));

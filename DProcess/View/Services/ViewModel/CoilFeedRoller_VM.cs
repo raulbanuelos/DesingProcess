@@ -104,8 +104,12 @@ namespace View.Services.ViewModel
             {
                 ListaOptimos = new DataTable();
                 ListaMejores = new DataTable();
+
+                //Declaramos un objeto el cual almacenará el herramental ideal.
+                Herramental herrIdeal = new Herramental();
+
                 //Obtiene la lista de los herramentales optimos
-                ListaOptimos = DataManager.GetCOIL_Feed_Roller(Width);
+                ListaOptimos = DataManager.GetCOIL_Feed_Roller(Width, out herrIdeal);
                 //Obtiene la lista del mejor herramental
                 ListaMejores = DataManager.SelectBestCoil(ListaOptimos);
 

@@ -10,5 +10,10 @@ namespace View.Forms.RawMaterial
         {
             InitializeComponent();
         }
+
+        private void btn_ok_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
     }
 }

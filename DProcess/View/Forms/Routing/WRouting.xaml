@@ -20,14 +20,12 @@
 
         <Grid Grid.Row="0">
             <StackPanel Orientation="Vertical">
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="{Binding Codigo}" Style="{StaticResource stylelblBig}" ></Label>
-                </StackPanel>
+                
+                <Label Content="{Binding Codigo}" Style="{StaticResource stylelblBig}" ></Label>
 
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="{Binding DescripcionGeneral}" Style="{StaticResource stylelblBig}"></Label>
-                    <Button Content="Re calcular" Command="{Binding ReCalcularRuta}"></Button>
-                </StackPanel>
+                <Label Content="{Binding DescripcionGeneral}" Style="{StaticResource stylelblBig}"></Label>
+
+                <Button Content="Re calcular" Command="{Binding ReCalcularRuta}" Width="120" HorizontalAlignment="Right"></Button>
             </StackPanel>
         </Grid>
         
@@ -104,19 +102,12 @@
                     <Label Content="{x:Static recursos:StringResources.ttlRawMaterial}"></Label>
                 </Controls:MetroTabItem>
 
-                <Controls:MetroTabItem Header="{x:Static recursos:StringResources.lblOperacion}">
-                    <Label Content="{x:Static recursos:StringResources.lblOperacion}"></Label>
-                </Controls:MetroTabItem>
-
                 <Controls:MetroTabItem Header="{x:Static recursos:StringResources.lblAlertas}">
                     <ListBox ItemsSource="{Binding OperationSelected.AlertasOperacion}">
                         
                     </ListBox>
                 </Controls:MetroTabItem>
 
-                <Controls:MetroTabItem Header="{x:Static recursos:StringResources.lblDimensiones}">
-                    <Label Content="{x:Static recursos:StringResources.lblOperacion}"></Label>
-                </Controls:MetroTabItem>
             </Controls:MetroTabControl>
             
         </Grid>

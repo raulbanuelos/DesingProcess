@@ -9,10 +9,41 @@
              d:DesignHeight="30" d:DesignWidth="170">
     <Grid>
         <StackPanel Orientation="Horizontal">
-            <TextBox materialDesign:HintAssist.Hint="{Binding TextoPresentacion}"
+            <TextBox materialDesign:HintAssist.Hint="{Binding TextoPresentacion}" ToolTipService.ShowDuration="50000"
                      FontSize="16" TextAlignment="Center" Width="150" Text="{Binding Valor,StringFormat=\{0:0.00000\}}"
-                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                     ToolTip="{Binding DescripcionLarga}"></TextBox>
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <TextBox.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard Completed="Storyboard_Completed">
+                                <DoubleAnimation Storyboard.TargetName="myStoryBoard" Storyboard.TargetProperty="Height" From="0" To="200" Duration="0:0:0.250" BeginTime="0:0:2"></DoubleAnimation>
+                                <DoubleAnimation Storyboard.TargetName="myStoryBoard" Storyboard.TargetProperty="Height" From="200" To="0" Duration="0:0:0.250" BeginTime="0:0:30"></DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </TextBox.Triggers>
+                
+                <TextBox.ToolTip>
+                    <ToolTip ToolTipService.ShowOnDisabled="True" Background="Silver" Width="Auto">
+                        <StackPanel Width="300" Orientation="Vertical">
+                            <Label Content="{Binding Nombre}" FontWeight="Bold"></Label>
+                            
+                            <Label Content="{Binding DescripcionCorta}"></Label>
+                            
+                            <Separator BorderThickness="2"></Separator>
+
+                            <StackPanel Name="myStoryBoard" Height="0" Orientation="Vertical">
+                                <Label Content="{Binding DescripcionLarga}"></Label>
+                                <Image Source="{Binding Imagen}" Margin="5"></Image>
+                            </StackPanel>
+                            
+                            <Separator Margin="0,15,0,0"></Separator>
+                            <Label Content="The image is only like reference" FontWeight="Bold"></Label>
+
+                        </StackPanel>
+                    </ToolTip>
+                </TextBox.ToolTip>
+            </TextBox>
             <Button Width="10" Height="10" Command="{Binding VerUnidades}"></Button>
         </StackPanel>
     </Grid>

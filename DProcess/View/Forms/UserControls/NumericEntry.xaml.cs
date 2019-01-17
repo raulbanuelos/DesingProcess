@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace View.Forms.UserControls
 {
@@ -9,7 +11,15 @@ namespace View.Forms.UserControls
     {
         public NumericEntry()
         {
+            
             InitializeComponent();
+            
+            myStoryBoard.Height = 0;
+        }
+
+        private void Storyboard_Completed(object sender, System.EventArgs e)
+        {
+            this.myStoryBoard.Height = 0;
         }
     }
 }

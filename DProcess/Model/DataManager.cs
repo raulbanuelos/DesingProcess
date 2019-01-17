@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Data;
-using Encriptar;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using DataAccess.ServiceObjects;
@@ -7655,9 +7654,11 @@ namespace Model
         /// </summary>
         /// <param name="widthAlambre">Milimetros</param>
         /// <returns></returns>
-        public static DataTable GetCOIL_Feed_Roller(double widthAlambre)
+        public static DataTable GetCOIL_Feed_Roller(double widthAlambre, out Herramental idealHerramental)
         {
             SO_COIL ServicioCoil = new SO_COIL();
+
+            idealHerramental = new Herramental { Encontrado = false };
 
             //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
@@ -7673,6 +7674,11 @@ namespace Model
                     //Obtenemos el tipo
                     Type tipo = item.GetType();
 
+                    idealHerramental = new Herramental();
+
+                    //Convertimos la información a tipo Herramental.
+                    idealHerramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
+
                     Herramental herramental = new Herramental();
 
                     //Convertimos la información a tipo Herramental.
@@ -7684,6 +7690,7 @@ namespace Model
                     propCode.DescripcionCorta = "Detalle";
                     propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
+                    idealHerramental.PropiedadesCadena.Add(propCode);
 
                     //Dimensiones
                     Propiedad propiedadDimA = new Propiedad();
@@ -7691,32 +7698,43 @@ namespace Model
                     propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
                     propiedadDimA.DescripcionCorta = "Dim A";
                     herramental.Propiedades.Add(propiedadDimA);
+                    idealHerramental.Propiedades.Add(propiedadDimA);
 
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.Unidad = "Milimeters (mm)";
                     propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
                     propiedadDimB.DescripcionCorta = "Dim B";
                     herramental.Propiedades.Add(propiedadDimB);
+                    idealHerramental.Propiedades.Add(propiedadDimB);
 
                     Propiedad propiedadDimC = new Propiedad();
                     propiedadDimC.Unidad = "Milimeters (mm)";
                     propiedadDimC.Valor = (double)tipo.GetProperty("DIMC").GetValue(item, null);
                     propiedadDimC.DescripcionCorta = "Dim C";
                     herramental.Propiedades.Add(propiedadDimC);
+                    idealHerramental.Propiedades.Add(propiedadDimC);
 
                     Propiedad propiedadDimD = new Propiedad();
                     propiedadDimD.Unidad = "Milimeters (mm)";
                     propiedadDimD.Valor = (double)tipo.GetProperty("DIMD").GetValue(item, null);
                     propiedadDimD.DescripcionCorta = "Dim D";
                     herramental.Propiedades.Add(propiedadDimD);
+                    idealHerramental.Propiedades.Add(propiedadDimD);
 
                     //Mapeamos el valor a DescipcionRuta.
                     herramental.DescripcionRuta = "COIL FEED ROLLER ";
+                    idealHerramental.DescripcionRuta = "COIL FEED ROLLER " + propCode.Valor;
+
+                    idealHerramental.Encontrado = true;
 
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
                 }
             }
+
+            if (!idealHerramental.Encontrado)
+                idealHerramental.DescripcionRuta = "COIL FEED ROLLER " + "DETALLE DESCONOCIDO";
+
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Feed_Roller");
         }
@@ -7978,6 +7996,9 @@ namespace Model
                     ListaResultante.Add(idealCenterGuide);
                 }
             }
+
+            if (!idealCenterGuide.Encontrado)
+                idealCenterGuide.DescripcionRuta = "CENTER GUIDE " + "DETALLE DESCONOCIDO";
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Center_Guide");
         }

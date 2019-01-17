@@ -235,6 +235,10 @@ namespace View.Services.Operaciones.Gasolina.Rolado
         public void BuscarHerramentales()
         {
 
+            Herramental idealFeedRoller = new Herramental();
+            DataManager.GetCOIL_Feed_Roller(widthMateriaPrima, out idealFeedRoller);
+            ListaHerramentales.Add(idealFeedRoller);
+
             Herramental idealExitGuide = new Herramental();
             DataManager.GetEXIT_GUIDE(widthMateriaPrima, thicknessMateriaPrima, out idealExitGuide);
             ListaHerramentales.Add(idealExitGuide);
@@ -242,6 +246,8 @@ namespace View.Services.Operaciones.Gasolina.Rolado
             Herramental idealCenterGuide = new Herramental();
             DataManager.GetCOIL_CENTER_GUIDE(widthMateriaPrima, thicknessMateriaPrima, out idealCenterGuide);
             ListaHerramentales.Add(idealCenterGuide);
+
+            
 
             TextoHerramienta = Module.GetTextoListaHerramentales(ListaHerramentales);
         }
@@ -278,7 +284,7 @@ namespace View.Services.Operaciones.Gasolina.Rolado
             catch (Exception er)
             {
                 //Si ocurrio algún error, lo agregamos a la lista de alertas de la operación.
-                AlertasOperacion.Add("Error en cálculo de tiempos estádar. \n" + er.StackTrace);
+                AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
             }
         }
         #endregion 
