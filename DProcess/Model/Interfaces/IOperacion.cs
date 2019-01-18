@@ -133,5 +133,10 @@ namespace Model.Interfaces
         /// Método en el cual se calculan los tiempos estandar.
         /// </summary>
         void CalcularTiemposEstandar();
+
+        /// <summary>
+        /// Método donde se inicilizaran los datos generales de la operación (Nombre, CentroTrabajo, CentroCostos, etc)
+        /// </summary>
+        void InicializarDatosGenerales();
     }
 }

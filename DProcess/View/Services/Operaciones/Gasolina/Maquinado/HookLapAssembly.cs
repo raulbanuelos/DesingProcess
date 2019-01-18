@@ -158,7 +158,19 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         {
 
         }
-        #endregion 
+
+        public void InicializarDatosGenerales()
+        {
+            //Asignamos los valores por default a las propiedades.
+            NombreOperacion = "HOOK LAP ASSEMBLY (FRANKLIN)";
+            CentroCostos = "32015007";
+            CentroTrabajo = "2150";
+            ControlKey = "MA42";
+            ListaHerramentales = new ObservableCollection<Herramental>();
+            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
+            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+        }
+        #endregion
 
         #region Methods override
         public override string ToString()
@@ -172,16 +184,14 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         #region Constructors
         public HookLapAssembly(Anillo plano)
         {
-            //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "HOOK LAP ASSEMBLY (FRANKLIN)";
-            CentroCostos = "32015007";
-            CentroTrabajo = "2150";
-            ControlKey = "MA42";
+            InicializarDatosGenerales();
             elPlano = plano;
-            ListaHerramentales = new ObservableCollection<Herramental>();
-            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
-            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-        } 
+        }
+
+        public HookLapAssembly()
+        {
+            InicializarDatosGenerales();
+        }
         #endregion
     }
 }

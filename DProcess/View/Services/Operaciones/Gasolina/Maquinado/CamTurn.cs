@@ -18,21 +18,13 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         #region Constructor
         public CamTurn(Anillo plano)
         {
-            //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "ROUGH CAM TURN";
-            CentroCostos = "32012526";
-            CentroTrabajo = "230";
-            ControlKey = "MA42";
+            InicializarDatosGenerales();
             elPlano = plano;
-            ListaHerramentales = new ObservableCollection<Herramental>();
-            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
-            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-            NotasOperacion = new ObservableCollection<string>();
         }
 
         public CamTurn()
         {
-            
+            InicializarDatosGenerales();
         }
         #endregion
 
@@ -374,6 +366,20 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
                 //Si ocurrio algún error, lo agregamos a la lista de alertas de la operación.
                 AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
             }
+        }
+
+        public void InicializarDatosGenerales()
+        {
+            //Asignamos los valores por default a las propiedades.
+            NombreOperacion = "ROUGH CAM TURN";
+            CentroCostos = "32012526";
+            CentroTrabajo = "230";
+            ControlKey = "MA42";
+
+            ListaHerramentales = new ObservableCollection<Herramental>();
+            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
+            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+            NotasOperacion = new ObservableCollection<string>();
         }
         #endregion
 

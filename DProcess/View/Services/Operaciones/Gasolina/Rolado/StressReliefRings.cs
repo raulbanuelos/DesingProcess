@@ -201,21 +201,31 @@ namespace View.Services.Operaciones.Gasolina.Rolado
                 AlertasOperacion.Add("Error en cálculo de tiempos estádar. \n" + er.StackTrace);
             }
         }
-        #endregion
 
-        #region Constructors
-        public StressReliefRings(Anillo plano)
+        public void InicializarDatosGenerales()
         {
             //Asignamos los valores por default a las propiedades.
             NombreOperacion = "STRESS RELIEF FOR STEEL COMP. RINGS";
             CentroCostos = "32012674";
             CentroTrabajo = "496";
             ControlKey = "MA42";
-            elPlano = plano;
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
             AlertasOperacion = new ObservableCollection<string>();
+        }
+        #endregion
+
+        #region Constructors
+        public StressReliefRings(Anillo plano)
+        {
+            InicializarDatosGenerales();
+            elPlano = plano;
+        }
+
+        public StressReliefRings()
+        {
+            InicializarDatosGenerales();
         }
         #endregion
 

@@ -226,6 +226,23 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
                 AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
             }
         }
+
+        public void InicializarDatosGenerales()
+        {
+            //Asignamos los valores por default a las propiedades.
+            NombreOperacion = "AUTO. FINISH TURN";
+            CentroCostos = "32012528";
+            CentroTrabajo = "420";
+            ControlKey = "MA42";
+            ListaHerramentales = new ObservableCollection<Herramental>();
+            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
+            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+            NotasOperacion = new ObservableCollection<string>();
+
+            MatRemoverThickness = 0.016;
+
+            MatRemoverDiametro = 0.015;
+        }
         #endregion
 
         #region Methods of IObserverDiametro
@@ -277,21 +294,14 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         #region Constructors
         public AutoFinTurn(Anillo plano)
         {
-            //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "AUTO. FINISH TURN";
-            CentroCostos = "32012528";
-            CentroTrabajo = "420";
-            ControlKey = "MA42";
+            InicializarDatosGenerales();
             elPlano = plano;
-            ListaHerramentales = new ObservableCollection<Herramental>();
-            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
-            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-            NotasOperacion = new ObservableCollection<string>();
+        }
 
-            MatRemoverThickness = 0.016;
-
-            MatRemoverDiametro = 0.015;
-        } 
+        public AutoFinTurn()
+        {
+            InicializarDatosGenerales();
+        }
         #endregion
     }
 }

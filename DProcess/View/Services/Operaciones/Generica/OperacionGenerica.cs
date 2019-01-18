@@ -374,6 +374,11 @@ namespace View.Services.Operaciones.Generica
             throw new NotImplementedException();
         }
 
+        public void InicializarDatosGenerales()
+        {
+
+        }
+
         public void CrearOperacion(Anillo ElAnilloProcesado, Anillo elPlano)
         {
             throw new NotImplementedException();

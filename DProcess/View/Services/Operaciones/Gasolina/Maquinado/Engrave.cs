@@ -161,7 +161,21 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         {
 
         }
-        #endregion 
+
+        public void InicializarDatosGenerales()
+        {
+            //Asignamos los valores por default a las propiedades.
+            NombreOperacion = "ENGRAVE";
+            CentroCostos = "32012526";
+            CentroTrabajo = "260";
+            ControlKey = "MA42";
+
+            ListaHerramentales = new ObservableCollection<Herramental>();
+            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
+            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+        }
+
+        #endregion
 
         #region Methods override
         public override string ToString()
@@ -175,16 +189,15 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         #region Constructors
         public Engrave(Anillo plano)
         {
-            //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "ENGRAVE";
-            CentroCostos = "32012526";
-            CentroTrabajo = "260";
-            ControlKey = "MA42";
+            InicializarDatosGenerales();
             elPlano = plano;
-            ListaHerramentales = new ObservableCollection<Herramental>();
-            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
-            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-        } 
+        }
+
+        public Engrave()
+        {
+            InicializarDatosGenerales();
+        }
+         
         #endregion
     }
 }

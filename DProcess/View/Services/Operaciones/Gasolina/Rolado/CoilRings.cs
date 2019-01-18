@@ -287,22 +287,33 @@ namespace View.Services.Operaciones.Gasolina.Rolado
                 AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
             }
         }
-        #endregion 
-        #endregion
 
-        #region Constructors
-        public CoilRings(Anillo plano)
+        public void InicializarDatosGenerales()
         {
             //Asignamos los valores por default a las propiedades.
             NombreOperacion = "COIL (RINGS)";
             CentroCostos = "32012674";
             CentroTrabajo = "495";
             ControlKey = "MA42";
-            elPlano = plano;
+
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
             AlertasOperacion = new ObservableCollection<string>();
+        }
+        #endregion
+        #endregion
+
+        #region Constructors
+        public CoilRings(Anillo plano)
+        {
+            InicializarDatosGenerales();
+            elPlano = plano;
+        }
+
+        public CoilRings()
+        {
+            InicializarDatosGenerales();
         }
         #endregion
 

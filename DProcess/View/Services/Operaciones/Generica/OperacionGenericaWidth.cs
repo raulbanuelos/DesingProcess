@@ -171,6 +171,11 @@ namespace View.Services.Operaciones.Generica
         {
 
         }
+
+        public void InicializarDatosGenerales()
+        {
+
+        }
         #endregion
 
         #region Métodos de IObserverWidth
@@ -193,7 +198,7 @@ namespace View.Services.Operaciones.Generica
         /// </summary>
         /// <param name="operaciones"></param>
         /// <param name="posOperacion"></param>
-        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion)
+        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion, Anillo plano_)
         {
             
         }

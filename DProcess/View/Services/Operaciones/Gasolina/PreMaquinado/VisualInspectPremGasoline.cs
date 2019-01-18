@@ -128,16 +128,13 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         #region Constructors
         public VisualInspectPremGasoline(Anillo plano)
         {
-            //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "VISUAL INSPECT. PREM GASOLINE";
-            CentroCostos = "32014190";
-            CentroTrabajo = "810";
-            ControlKey = "MA42";
+            InicializarDatosGenerales();
             elPlano = plano;
-            ListaHerramentales = new ObservableCollection<Herramental>();
-            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
-            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-            NotasOperacion = new ObservableCollection<string>();
+        }
+
+        public VisualInspectPremGasoline()
+        {
+            InicializarDatosGenerales();
         }
         #endregion
 
@@ -203,6 +200,20 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             {
                 AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
             }
+        }
+
+        public void InicializarDatosGenerales()
+        {
+            //Asignamos los valores por default a las propiedades.
+            NombreOperacion = "VISUAL INSPECT. PREM GASOLINE";
+            CentroCostos = "32014190";
+            CentroTrabajo = "810";
+            ControlKey = "MA42";
+
+            ListaHerramentales = new ObservableCollection<Herramental>();
+            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
+            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+            NotasOperacion = new ObservableCollection<string>();
         }
         #endregion
 

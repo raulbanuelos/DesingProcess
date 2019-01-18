@@ -152,21 +152,32 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         {
 
         }
-        #endregion
 
-        #region Constructors
-        public BatesBore(Anillo plano)
+        public void InicializarDatosGenerales()
         {
             //Asignamos los valores por default a las propiedades.
             NombreOperacion = "BATES BORE";
             CentroCostos = "32012526";
             CentroTrabajo = "280";
             ControlKey = "MA42";
-            elPlano = plano;
+
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
             MatRemoverThickness = 0.007;
+        }
+        #endregion
+
+        #region Constructors
+        public BatesBore(Anillo plano)
+        {
+            InicializarDatosGenerales();
+            elPlano = plano;
+        }
+
+        public BatesBore()
+        {
+            InicializarDatosGenerales();
         }
         #endregion
 

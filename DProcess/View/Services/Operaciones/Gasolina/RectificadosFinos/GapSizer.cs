@@ -225,6 +225,21 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
         {
 
         }
+
+        public void InicializarDatosGenerales()
+        {
+            //Asignamos los valores por default a las propiedades.
+            NombreOperacion = "GAP SIZER (SIM WET)";
+            CentroCostos = "32012529";
+            CentroTrabajo = "255";
+            ControlKey = "MA42";
+
+            ListaHerramentales = new ObservableCollection<Herramental>();
+            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
+            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+
+            MatRemoverDiametro = 0.0125; // <--Significan .004 totales
+        }
         #endregion
 
         #region Methods of IObserverDiametro
@@ -258,18 +273,14 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
         #region Constructors
         public GapSizer(Anillo plano)
         {
-            //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "GAP SIZER (SIM WET)";
-            CentroCostos = "32012529";
-            CentroTrabajo = "255";
-            ControlKey = "MA42";
+            InicializarDatosGenerales();
             elPlano = plano;
-            ListaHerramentales = new ObservableCollection<Herramental>();
-            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
-            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+        }
 
-            MatRemoverDiametro = 0.0125; // <--Significan .004 totales
-        } 
+        public GapSizer()
+        {
+            InicializarDatosGenerales();
+        }
         #endregion
     }
 }

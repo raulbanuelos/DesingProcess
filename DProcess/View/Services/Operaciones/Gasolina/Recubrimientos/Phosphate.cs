@@ -171,6 +171,21 @@ namespace View.Services.Operaciones.Gasolina.Recubrimientos
         {
 
         }
+
+        public void InicializarDatosGenerales()
+        {
+            //Asignamos los valores por default a las propiedades.
+            NombreOperacion = "PHOSPHATE GASOLINE";
+            CentroCostos = "32015021";
+            CentroTrabajo = "750";
+            ControlKey = "MA42";
+
+            ListaHerramentales = new ObservableCollection<Herramental>();
+            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
+            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+            AlertasOperacion = new ObservableCollection<string>();
+            NotasOperacion = new ObservableCollection<string>();
+        }
         #endregion
 
         #region Métodos de IObserverWidth
@@ -193,8 +208,12 @@ namespace View.Services.Operaciones.Gasolina.Recubrimientos
         /// </summary>
         /// <param name="operaciones"></param>
         /// <param name="posOperacion"></param>
-        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion)
+        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion, Anillo plano_)
         {
+
+            if (elPlano == null)
+                elPlano = plano_;
+
             if (elPlano.Treatment == "MANGANESE PHOSPHATE")
                 MatRemoverWidth = -0.0005;
             else
@@ -218,20 +237,14 @@ namespace View.Services.Operaciones.Gasolina.Recubrimientos
         #region Constructors
         public Phosphate(Anillo plano)
         {
-            //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "PHOSPHATE GASOLINE";
-            CentroCostos = "32015021";
-            CentroTrabajo = "750";
-            ControlKey = "MA42";
+            InicializarDatosGenerales();
             elPlano = plano;
-            
-            ListaHerramentales = new ObservableCollection<Herramental>();
-            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
-            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-            AlertasOperacion = new ObservableCollection<string>();
-            NotasOperacion = new ObservableCollection<string>();
+        }
 
-        } 
+        public Phosphate()
+        {
+            InicializarDatosGenerales();
+        }
         #endregion
     }
 }

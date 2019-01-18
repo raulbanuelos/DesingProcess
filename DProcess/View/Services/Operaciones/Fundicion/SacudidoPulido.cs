@@ -185,22 +185,33 @@ namespace View.Services.Operaciones.Fundicion
                 AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
             }
         }
-        #endregion
 
-        #region Constructors
-        public SacudidoPulido(Anillo plano)
+        public void InicializarDatosGenerales()
         {
             //Asignamos los valores por default a las propiedades.
             NombreOperacion = "SACUDIDO Y PULIDO GAS.";
             CentroCostos = "32011542";
             CentroTrabajo = "030";
             ControlKey = "MA40";
-            elPlano = plano;
+
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
             NotasOperacion = new ObservableCollection<string>();
             AlertasOperacion = new ObservableCollection<string>();
+        }
+        #endregion
+
+        #region Constructors
+        public SacudidoPulido(Anillo plano)
+        {
+            InicializarDatosGenerales();
+            elPlano = plano;
+        }
+
+        public SacudidoPulido()
+        {
+            InicializarDatosGenerales();
         }
         #endregion
 

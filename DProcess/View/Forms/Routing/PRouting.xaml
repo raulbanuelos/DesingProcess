@@ -68,9 +68,7 @@
 
             <!--Comienza Panel Lateral Derecho-->
             <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom">
-                <Button Content="Calcular" Margin="15" Width="150" Command="{Binding CalcularRuta}">
-
-                </Button>
+                <Button Content="Calcular" Margin="15" Width="150" Command="{Binding CalcularRuta}"></Button>
                 
                 <StackPanel Orientation="Vertical">
                     <!--Comienza GroupBox de Characteristics-->

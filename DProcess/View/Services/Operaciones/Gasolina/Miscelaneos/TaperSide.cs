@@ -158,6 +158,18 @@ namespace View.Services.Operaciones.Gasolina.Miscelaneos
         {
 
         }
+
+        public void InicializarDatosGenerales()
+        {
+            NombreOperacion = "TAPER SIDE";
+            CentroCostos = "32012537";
+            CentroTrabajo = "440";
+            ControlKey = "MA42";
+
+            ListaHerramentales = new ObservableCollection<Herramental>();
+            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
+            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+        }
         #endregion
 
         #region Methods override
@@ -172,15 +184,14 @@ namespace View.Services.Operaciones.Gasolina.Miscelaneos
         #region Constructors
         public TaperSide(Anillo plano)
         {
-            NombreOperacion = "TAPER SIDE";
-            CentroCostos = "32012537";
-            CentroTrabajo = "440";
-            ControlKey = "MA42";
+            InicializarDatosGenerales();
             elPlano = plano;
-            ListaHerramentales = new ObservableCollection<Herramental>();
-            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
-            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-        } 
+        }
+
+        public TaperSide()
+        {
+            InicializarDatosGenerales();
+        }
         #endregion
     }
 }

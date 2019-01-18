@@ -222,6 +222,20 @@ namespace View.Services.Operaciones.Gasolina.Recubrimientos
                 AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
             }
         }
+
+        public void InicializarDatosGenerales()
+        {
+            //Asignamos los valores por default a las propiedades.
+            NombreOperacion = "OD CHROME PLATE RINGS";
+            CentroCostos = "32015020";
+            CentroTrabajo = "715";
+            ControlKey = "MA42";
+
+            ListaHerramentales = new ObservableCollection<Herramental>();
+            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
+            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+            NotasOperacion = new ObservableCollection<string>();
+        }
         #endregion
 
         #region Methods of IObserverDiametro
@@ -273,17 +287,14 @@ namespace View.Services.Operaciones.Gasolina.Recubrimientos
         #region Constructors
         public ChromeOD(Anillo plano)
         {
-            //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "OD CHROME PLATE RINGS";
-            CentroCostos = "32015020";
-            CentroTrabajo = "715";
-            ControlKey = "MA42";
+            InicializarDatosGenerales();
             elPlano = plano;
-            ListaHerramentales = new ObservableCollection<Herramental>();
-            ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
-            ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-            NotasOperacion = new ObservableCollection<string>();
-        } 
+        }
+
+        public ChromeOD()
+        {
+            InicializarDatosGenerales();
+        }
         #endregion
     }
 }

@@ -28,6 +28,6 @@ namespace Model.Interfaces
         /// </summary>
         /// <param name="operaciones"></param>
         /// <param name="posOperacion"></param>
-        void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion);
+        void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion, Anillo planoAnillo);
     }
 }
