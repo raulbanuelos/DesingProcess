@@ -3467,26 +3467,31 @@ namespace Model.ControlDocumentos
         /// <returns></returns>
         public static ObservableCollection<LeccionesAprendidas> ConsultaFechaUltimoCambio(string Componente)
         {
+
             SO_Lecciones Servicio = new SO_Lecciones();
 
             ObservableCollection<LeccionesAprendidas> ComponentesSimilares = new ObservableCollection<LeccionesAprendidas>();
 
-            IList Obj = Servicio.FechaUltimoCamio(Componente);
+            DataSet Obj = Servicio.GetUltimosCambiosComponentesSimilares(Componente);
 
-            foreach (var item in Obj)
+            if (Obj != null)
             {
-                System.Type tipo = item.GetType();
+                if (Obj.Tables.Count > 0 && Obj.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow item in Obj.Tables[0].Rows)
+                    {
+                        LeccionesAprendidas Lec = new LeccionesAprendidas();
 
-                LeccionesAprendidas ObjLec = new LeccionesAprendidas();
 
-                ObjLec.DESCRIPCION_PROBLEMA = (string)tipo.GetProperty("DESCRIPCION_PROBLEMA").GetValue(item, null);
-                ObjLec.FECHA_ULTIMO_CAMBIO = (DateTime)tipo.GetProperty("FECHA_ULTIMO_CAMBIO").GetValue(item, null);
-                ObjLec.FECHA_ACTUALIZACION = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+                        Lec.DESCRIPCION_PROBLEMA = Convert.ToString(item["DESCRIPCION_PROBLEMA"]);
+                        Lec.FECHA_ULTIMO_CAMBIO = Convert.ToDateTime(item["FECHA_ULTIMO_CAMBIO"]);
+                        Lec.FECHA_ACTUALIZACION = Convert.ToDateTime(item["FECHA_ACTUALIZACION"]);
 
-                ComponentesSimilares.Add(ObjLec);
+
+                        ComponentesSimilares.Add(Lec);
+                    }
+                }
             }
-
-            //retornamos la lista que contiene el componente y la fecha del ultimo cambio del componente a ingresar
             return ComponentesSimilares;
         }
         #endregion
@@ -3989,3 +3994,30 @@ namespace Model.ControlDocumentos
 
     }
 }
+
+
+
+
+
+//SO_Lecciones Servicio = new SO_Lecciones();
+
+//ObservableCollection<LeccionesAprendidas> ComponentesSimilares = new ObservableCollection<LeccionesAprendidas>();
+
+//DataSet Obj = Servicio.GetUltimosCambiosComponentesSimilares(Componente);
+
+//            if (Obj != null)
+//            {
+//                if (Obj.Tables.Count > 0 && Obj.Tables[0].Rows.Count > 0)
+//                {
+//                    foreach (DataRow item in Obj.Tables[0].Rows)
+//                    {
+//                        LeccionesAprendidas Lec = new LeccionesAprendidas();
+
+
+//Lec.DESCRIPCION_PROBLEMA = Convert.ToString(item["DESCRIPCION_PROBLEMA"]);
+//                        Lec.FECHA_ULTIMO_CAMBIO = Convert.ToDateTime(item["FECHA_ULTIMO_CAMBIO"]);
+//                        Lec.FECHA_ACTUALIZACION = Convert.ToDateTime(item["FECHA_ACTUALIZACION"]);
+
+//                    }
+//                }
+//            }

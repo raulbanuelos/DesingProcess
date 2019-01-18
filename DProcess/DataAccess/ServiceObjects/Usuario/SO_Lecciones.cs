@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess.ServiceObjects.ControlDocumentos;
+using System.Data;
+using DataAccess.SQLServer;
 
 namespace DataAccess.ServiceObjects.Usuario
 {
@@ -263,6 +265,38 @@ namespace DataAccess.ServiceObjects.Usuario
                 return null;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="COMPONENTE"></param>
+        /// <returns></returns>
+        public DataSet GetUltimosCambiosComponentesSimilares(string COMPONENTE)
+        {
+            try
+            {
+                DataSet Lista = null;
+
+                Desing_SQL conexion = new Desing_SQL();
+                Dictionary<string, object> parametros = new Dictionary<string, object>();
+
+                parametros.Add("COMPONENTE", COMPONENTE);
+
+                Lista = conexion.EjecutarStoredProcedure("SP_LA_GET_COMPONENTES_SIMILARES", parametros);
+
+                return Lista;
+
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
         #endregion
     }
 }
+
+
+
+
+//SP_LA_GET_COMPONENTES_SIMILARES
