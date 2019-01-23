@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DataAccess.ServiceObjects.Operaciones.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DataAccess.ServiceObjects.Operaciones.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="OperacionesRouter">
           <Key>
             <PropertyRef Name="IdOperacion" />
@@ -18,11 +18,13 @@
         <EntityContainer Name="DataAccessServiceObjectsOperacionesStoreContainer">
           <EntitySet Name="OperacionesRouter" EntityType="Self.OperacionesRouter" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DataAccess.ServiceObjects.Operaciones" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="EntityOperaciones" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="OperacionesRouter" EntityType="DataAccess.ServiceObjects.Operaciones.OperacionesRouter" />
+        </EntityContainer>
         <EntityType Name="OperacionesRouter">
           <Key>
             <PropertyRef Name="IdOperacion" />
@@ -33,9 +35,6 @@
           <Property Name="NombreEspañol" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="IDObjectXML" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityContainer Name="EntityOperaciones" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="OperacionesRouter" EntityType="Self.OperacionesRouter" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -45,11 +44,11 @@
           <EntitySetMapping Name="OperacionesRouter">
             <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Operaciones.OperacionesRouter">
               <MappingFragment StoreEntitySet="OperacionesRouter">
-                <ScalarProperty Name="IdOperacion" ColumnName="IdOperacion" />
-                <ScalarProperty Name="CentroTrabajo" ColumnName="CentroTrabajo" />
-                <ScalarProperty Name="NombreIngles" ColumnName="NombreIngles" />
-                <ScalarProperty Name="NombreEspañol" ColumnName="NombreEspañol" />
                 <ScalarProperty Name="IDObjectXML" ColumnName="IDObjectXML" />
+                <ScalarProperty Name="NombreEspañol" ColumnName="NombreEspañol" />
+                <ScalarProperty Name="NombreIngles" ColumnName="NombreIngles" />
+                <ScalarProperty Name="CentroTrabajo" ColumnName="CentroTrabajo" />
+                <ScalarProperty Name="IdOperacion" ColumnName="IdOperacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
