@@ -1229,9 +1229,12 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 //Se inicializa un dictionario que contiene propiedades de tipo string y un objeto.
                 Dictionary<string, object> parametros = new Dictionary<string, object>();
 
+                string fInicio = fecha_inicio.Year + "-" + fecha_inicio.Month + "-" + fecha_inicio.Day;
+                string fFinal = fecha_fin.Year + "-" + fecha_fin.Month + "-" + fecha_fin.Day;
+
                 //se agregan el nombre y el objeto de los parámetros.
-                parametros.Add("fecha_inicio", fecha_inicio);
-                parametros.Add("fecha_fin", fecha_fin);
+                parametros.Add("fecha_inicio", fInicio);
+                parametros.Add("fecha_fin", fFinal);
                 parametros.Add("estatus", descripcion);
                 parametros.Add("id_dep", id_departamento);
                 parametros.Add("id_tipo", id_tipo);
