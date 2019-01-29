@@ -306,6 +306,20 @@ namespace View.Services.ViewModel
             }
         }
 
+        private bool bttnEnabled = false;
+        public bool BttnEnabled
+        {
+            get
+            {
+                return bttnEnabled;
+            }
+            set
+            {
+                bttnEnabled = value;
+                NotifyChange("BttnEnabled");
+            }
+        }
+
         public int id_leccion;
         public Usuario User;
 
@@ -336,9 +350,14 @@ namespace View.Services.ViewModel
         {
             AuxLeccionSeleccionada = SelectedLeccion;
             User = ModelUsuario;
+
             //verificamos que se haya seleccionado una leccion
             if (SelectedLeccion != null)
             {
+                if (Module.UsuarioIsRol(User.Roles, 2))
+                {
+                    BttnEnabled = true;
+                }
 
                 CreateMenuItems();
                 ListaCentrosDeTrabajoSeleccionados = new ObservableCollection<CentrosTrabajo>();
@@ -969,26 +988,29 @@ namespace View.Services.ViewModel
             MenuItems = new HamburgerMenuItemCollection();
             MenuOptionItems = new HamburgerMenuItemCollection();
 
-            this.MenuItems.Add(
-                 new HamburgerMenuIconItem()
-                 {
-                     //Icono del Menú para guardar los cambios hechos a la lección aprendida
-                     Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.ContentSaveAll },
-                     Label = StringResources.ttlGuardar,
-                     Command = GuardarLeccion,
-                     Tag = StringResources.ttlGuardar,
-                 }
+            if (BttnEnabled == true)
+            {
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        //Icono del Menú para guardar los cambios hechos a la lección aprendida
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.ContentSaveAll },
+                        Label = StringResources.ttlGuardar,
+                        Command = GuardarLeccion,
+                        Tag = StringResources.ttlGuardar,
+                    }
                 );
-            this.MenuItems.Add(
-                new HamburgerMenuIconItem()
-                {
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
                     //Icono del menu para eliminar la leccion aprendida seleccionada
                     Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Delete },
                     Label = StringResources.lblEliminar,
                     Command = EliminarLeccion,
                     Tag = StringResources.lblEliminar,
-                }
+                    }
                 );
+            }
         }
 
         /// <summary>

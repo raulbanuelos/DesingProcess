@@ -534,43 +534,110 @@ namespace View.Services.ViewModel
         {
             DialogService dialog = new DialogService();
 
-            bool CambiarPagina = PaginaDescripcion();
-            if (CambiarPagina == true)
+            //Primero Verificamos que se haya seleccionado algun centro de trabajo
+
+            if (_ListaCentrosDeTrabajoSeleccionados.Count > 0)
             {
-                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                //Verificamos que la pantalla sea diferente de nulo.
-                if (frm != null)
+                bool CambiarPagina = PaginaDescripcion();
+                if (CambiarPagina == true)
                 {
-                    //Ocultamos la pantalla
-                    frm.Close();
-                }
+                    //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                    var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
-                //Obtenemos la lista de los componentes similares y la mostramos
-                ListaComponentesSimilares = DataManagerControlDocumentos.ConsultaFechaUltimoCambio(_Componente);
-                if (ListaComponentesSimilares.Count > 0)
-                {
-                    foreach (var item in ListaComponentesSimilares)
+                    //Verificamos que la pantalla sea diferente de nulo.
+                    if (frm != null)
                     {
-                        FechaUltimoCambio = item.FECHA_ACTUALIZACION;
-                        break;
+                        //Ocultamos la pantalla
+                        frm.Close();
                     }
-                }else
-                {
-                    FechaUltimoCambio = DataManagerControlDocumentos.Get_DateTime();
+
+                    //Obtenemos la lista de los componentes similares y la mostramos
+                    ListaComponentesSimilares = DataManagerControlDocumentos.ConsultaFechaUltimoCambio(_Componente);
+                    if (ListaComponentesSimilares.Count > 0)
+                    {
+                        foreach (var item in ListaComponentesSimilares)
+                        {
+                            FechaUltimoCambio = item.FECHA_ACTUALIZACION;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        FechaUltimoCambio = DataManagerControlDocumentos.Get_DateTime();
+                    }
+
+                    string aux = string.Empty;
+
+                    if (ListaCentrosDeTrabajoSeleccionados.Count > 0)
+                    {
+                        foreach (var item in ListaCentrosDeTrabajoSeleccionados)
+                        {
+                            aux += item.CentroTrabajo + "-" + item.NombreOperacion + " : " + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine;
+                        }
+                    }
+
+                    DescripcionProblema = aux;
+
+                    //Mostramos la siguiente pantalla
+                    InformacionDescripcion Form = new InformacionDescripcion();
+                    Form.DataContext = this;
+                    Form.ShowDialog();
                 }
-
-
-                //Mostramos la siguiente pantalla
-                InformacionDescripcion Form = new InformacionDescripcion();
-                Form.DataContext = this;
-                Form.ShowDialog();
+                else
+                {
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
+                }
             }else
             {
-                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
-            }
+                MetroDialogSettings settings = new MetroDialogSettings();
+                settings.AffirmativeButtonText = StringResources.lblYes;
+                settings.NegativeButtonText = StringResources.lblNo;
 
+
+                MessageDialogResult Result = await dialog.SendMessage(StringResources.ttlAlerta, "No se seleccionó ningun centro de trabajo, Desea continuar?", settings, MessageDialogStyle.AffirmativeAndNegative);
+
+                if (MessageDialogResult.Affirmative == Result)
+                {
+                    bool CambiarPagina = PaginaDescripcion();
+                    if (CambiarPagina == true)
+                    {
+                        //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                        var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                        //Verificamos que la pantalla sea diferente de nulo.
+                        if (frm != null)
+                        {
+                            //Ocultamos la pantalla
+                            frm.Close();
+                        }
+
+                        //Obtenemos la lista de los componentes similares y la mostramos
+                        ListaComponentesSimilares = DataManagerControlDocumentos.ConsultaFechaUltimoCambio(_Componente);
+                        if (ListaComponentesSimilares.Count > 0)
+                        {
+                            foreach (var item in ListaComponentesSimilares)
+                            {
+                                FechaUltimoCambio = item.FECHA_ACTUALIZACION;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            FechaUltimoCambio = DataManagerControlDocumentos.Get_DateTime();
+                        }
+
+
+                        //Mostramos la siguiente pantalla
+                        InformacionDescripcion Form = new InformacionDescripcion();
+                        Form.DataContext = this;
+                        Form.ShowDialog();
+                    }
+                    else
+                    {
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -1138,25 +1205,62 @@ namespace View.Services.ViewModel
             DialogService dialog = new DialogService();
 
             //verificamos que se hayan capturado todos los datos
-            if (ListaCentrosDeTrabajoSeleccionados.Count>0 && ListaNivelesDeCambio.Count>0 && !string.IsNullOrEmpty(_DescripcionProblema))
+            if (ListaCentrosDeTrabajoSeleccionados.Count > 0)
             {
-                //obtenemos la ventana actual 
-                var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                //cerramos la ventana actual
-                if (frm != null)
+                if (ListaNivelesDeCambio.Count > 0 && !string.IsNullOrEmpty(_DescripcionProblema))
                 {
-                    frm.Close();
-                }
+                    //obtenemos la ventana actual 
+                    var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
-                //mostramos la ventana para ingresar a la ventana
-                InformacionCambios form = new InformacionCambios();
-                form.DataContext = this;
-                form.ShowDialog();
+                    //cerramos la ventana actual
+                    if (frm != null)
+                    {
+                        frm.Close();
+                    }
+
+                    //mostramos la ventana para ingresar a la ventana
+                    InformacionCambios form = new InformacionCambios();
+                    form.DataContext = this;
+                    form.ShowDialog();
+                }
+                else
+                {
+                    //si falta algun campo por capturar se manda un mensaje
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
+                }
             }else
             {
-                //si falta algun campo por capturar se manda un mensaje
-                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
+                MetroDialogSettings settings = new MetroDialogSettings();
+                settings.AffirmativeButtonText = StringResources.lblYes;
+                settings.NegativeButtonText = StringResources.lblNo;
+
+
+                MessageDialogResult Result = await dialog.SendMessage(StringResources.ttlAlerta, "No se seleccionó ningun centro de trabajo, Desea continuar?", settings, MessageDialogStyle.AffirmativeAndNegative);
+
+                if (MessageDialogResult.Affirmative == Result)
+                {
+                    if (ListaNivelesDeCambio.Count > 0 && !string.IsNullOrEmpty(_DescripcionProblema))
+                    {
+                        //obtenemos la ventana actual 
+                        var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                        //cerramos la ventana actual
+                        if (frm != null)
+                        {
+                            frm.Close();
+                        }
+
+                        //mostramos la ventana para ingresar a la ventana
+                        InformacionCambios form = new InformacionCambios();
+                        form.DataContext = this;
+                        form.ShowDialog();
+                    }
+                    else
+                    {
+                        //si falta algun campo por capturar se manda un mensaje
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
+                    }
+                }
             }
         }
 
@@ -1292,7 +1396,7 @@ namespace View.Services.ViewModel
         /// <returns></returns>
         public bool PaginaDescripcion()
         {
-            if (!string.IsNullOrEmpty(_Componente) && _ListaNivelesDeCambioSeleccionados.Count > 0 && _ListaCentrosDeTrabajoSeleccionados.Count > 0)
+            if (!string.IsNullOrEmpty(_Componente) && _ListaNivelesDeCambioSeleccionados.Count > 0 )
             {
                 return true;
             }

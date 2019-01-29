@@ -98,37 +98,36 @@
 
             <!--Columnas Información General-->
             <Grid Grid.Column="0" Margin="5,0,0,0">
-                
+
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="60"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="200"/>
                 </Grid.RowDefinitions>
                 <!--Componente-->
-                <TextBox Grid.Row="1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblComponente}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding COMPONENTE}"/>
+                <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblComponente}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding COMPONENTE}"/>
 
                 <!--Fecha del Ultimo Cambio-->
-                <DatePicker Grid.Row="2" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaUltimoCambio}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FECHA_ULTIMO_CAMBIO}"
+                <DatePicker Grid.Row="1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaUltimoCambio}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FECHA_ULTIMO_CAMBIO}"
                         IsEnabled="{Binding EnabledFecha}" />
                 
                 <!--Fecha de la actualización-->
-                <DatePicker Grid.Row="3" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaActualizacion}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FECHA_ACTUALIZACION}"
+                <DatePicker Grid.Row="2" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaActualizacion}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FECHA_ACTUALIZACION}"
                         IsEnabled="{Binding EnabledFecha}" />
                 
                 <!--Reportado Por-->
-                <TextBox Grid.Row="4" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblReportadoPor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420"  BorderBrush="#FFBDBDBD"  FontSize="18" Text="{Binding REPORTADO_POR}"/>
+                <TextBox Grid.Row="3" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblReportadoPor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420"  BorderBrush="#FFBDBDBD"  FontSize="18" Text="{Binding REPORTADO_POR}"/>
                 
                 <!--Solicitud Trabajo de Ingeniería-->
-                <TextBox Grid.Row="5" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblSolicitudTrabajoIng}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Text="{Binding SOLICITUD_TRABAJO_DE_ING}"/>
+                <TextBox Grid.Row="4" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblSolicitudTrabajoIng}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Text="{Binding SOLICITUD_TRABAJO_DE_ING}"/>
                 
                 <!--Cambio Realizado Por-->
-                <ComboBox Grid.Row="6" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCambioRealizadoPor}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  
+                <ComboBox Grid.Row="5" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCambioRealizadoPor}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  
                                Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" 
                                ItemsSource="{Binding Path=ListaUsuarios}"  
                                SelectedValuePath="usuario"
@@ -156,60 +155,64 @@
                     </i:Interaction.Triggers>
                 </ComboBox>
                 
-                <!--Descripcion del Problema-->
-                <TextBox Grid.Row="7" Grid.RowSpan="2" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblDescripcionProblema}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="350"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding DESCRIPCION_PROBLEMA}" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+                <StackPanel Grid.Row="6" >
+
+                    <!--Titulo para el datagrid de los centros de trabajo-->
+                    <Label Grid.Row="1" Content="Centros de Trabajo" FontSize="18" FontWeight="Bold"/>
+                    <Button Grid.Row="1" Width="210" HorizontalAlignment="Right" Content="Elegir centro de trabajo" Command="{Binding IrElegirCentroTrabajo}"></Button>
+
+                    <!--Datagrid con informacion de los cambios hechos al mismo componente-->
+                    <DataGrid Grid.Row="2" ItemsSource="{Binding ListaCentrosDeTrabajoSeleccionados, Mode=TwoWay}" 
+                                      ScrollViewer.CanContentScroll="True" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                      AutoGenerateColumns="False"
+                                      IsReadOnly="True" 
+                                      Height ="130" Width="430">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{x:Static recursos:StringResources.lblCentroTrabajo}" Binding="{Binding CentroTrabajo}" ClipboardContentBinding="{x:Null}"/>
+                            <DataGridTextColumn Header="{x:Static recursos:StringResources.lblOperacion}" Binding="{Binding NombreOperacion}" ClipboardContentBinding="{x:Null}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+
+                <StackPanel Grid.Row="7">
+                    <!--Titulo para el datagrid de los tipos de cambio-->
+                    <Label Grid.Row="3" Content="Tipos de Cambio" FontSize="18" FontWeight="Bold"/>
+                    <Button Grid.Row="3" Width="210" HorizontalAlignment="Right" Content="Elegir tipo de cambio" Command="{Binding IrElegirNivelCambio}"></Button>
+
+                    <!--Datagrid con informacion de los cambios hechos al mismo componente-->
+                    <DataGrid Grid.Row="4" ItemsSource="{Binding ListaTipoCambioLeccion}" 
+                                      ScrollViewer.CanContentScroll="True" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                      AutoGenerateColumns="False"
+                                      IsReadOnly="True"
+                                      Height ="130" Width="430">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNivelCambio}" Binding="{Binding NOMBRETIPOCAMBIO}" ClipboardContentBinding="{x:Null}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
             </Grid>
             
             <!--Columna con las listas-->
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="65*"/>
+                    <RowDefinition Height="35*"/>
                 </Grid.RowDefinitions>
 
-                <!--Titulo para el datagrid de los centros de trabajo-->
-                <Label Grid.Row="1" Content="Centros de Trabajo" FontSize="18" FontWeight="Bold"/>
-                <Button Grid.Row="1" Width="210" HorizontalAlignment="Right" Content="Elegir centro de trabajo" Command="{Binding IrElegirCentroTrabajo}"></Button>
-                
-                <!--Datagrid con informacion de los cambios hechos al mismo componente-->
-                <DataGrid Grid.Row="2" ItemsSource="{Binding ListaCentrosDeTrabajoSeleccionados, Mode=TwoWay}" 
-                                      ScrollViewer.CanContentScroll="True" 
-                                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                      AutoGenerateColumns="False"
-                                      IsReadOnly="True">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="{x:Static recursos:StringResources.lblCentroTrabajo}" Binding="{Binding CentroTrabajo}" ClipboardContentBinding="{x:Null}"/>
-                        <DataGridTextColumn Header="{x:Static recursos:StringResources.lblOperacion}" Binding="{Binding NombreOperacion}" ClipboardContentBinding="{x:Null}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
 
-                <!--Titulo para el datagrid de los tipos de cambio-->
-                <Label Grid.Row="3" Content="Tipos de Cambio" FontSize="18" FontWeight="Bold"/>
-                <Button Grid.Row="3" Width="210" HorizontalAlignment="Right" Content="Elegir tipo de cambio" Command="{Binding IrElegirNivelCambio}"></Button>
-                
-                <!--Datagrid con informacion de los cambios hechos al mismo componente-->
-                <DataGrid Grid.Row="4" ItemsSource="{Binding ListaTipoCambioLeccion}" 
-                                      ScrollViewer.CanContentScroll="True" 
-                                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                      AutoGenerateColumns="False"
-                                      IsReadOnly="True">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNivelCambio}" Binding="{Binding NOMBRETIPOCAMBIO}" ClipboardContentBinding="{x:Null}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-                
+                <StackPanel Grid.Row="0">
+                <TextBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblDescripcionProblema}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="350"  Width="400"  BorderBrush="#89535353" FontSize="18" Text="{Binding DESCRIPCION_PROBLEMA}" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" CharacterCasing="Upper" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </StackPanel>
                 <!--Grid para la lista de los archivos adjuntados a la lección-->
-                <Grid Grid.Row="5">
+                <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition/>
+                        <RowDefinition Height="15*"/>
+                        <RowDefinition Height="25*"/>
+                        <RowDefinition Height="60*"/>
                     </Grid.RowDefinitions>
 
                     <!--Primera linea -->
@@ -236,15 +239,18 @@
                         </Button>
 
                     </Grid>
+                    
+                    <!--Lista de los archivos adjuntados-->
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="2">
+                        <StackPanel Grid.Row="2">
+                            <ListBox  ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" HorizontalAlignment="Center" BorderBrush="#FFB8B6B6" Background="Transparent" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" Margin="5"  Grid.Column="1" Grid.Row="4" Grid.RowSpan="2"/>
+                        </StackPanel>
+                    </ScrollViewer>
                 </Grid>
                 
-                <!--Lista de los archivos adjuntados-->
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="7">
-                    <StackPanel Grid.Row="2">
-                        <ListBox  ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" HorizontalAlignment="Center" BorderBrush="#FFB8B6B6" Background="Transparent" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" Margin="5"  Grid.Column="1" Grid.Row="4" Grid.RowSpan="2"/>
-                    </StackPanel>
-                </ScrollViewer>
+
             </Grid>
+            
         </Grid>
     </controls:HamburgerMenu>
 </controls:MetroWindow>
