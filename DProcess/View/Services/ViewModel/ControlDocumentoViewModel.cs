@@ -506,6 +506,18 @@ namespace View.Services.ViewModel
                 return new RelayCommand(a => SetDocumentsRejected());
             }
         }
+
+        /// <summary>
+        /// Comando que muestra la ventana que contiene los documentos con su estatus
+        /// </summary>
+        public ICommand _VerEstatusDocumentos
+        {
+            get
+            {
+                return new RelayCommand(o => VerEstatusDocumentos(usuario));
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -1117,12 +1129,17 @@ namespace View.Services.ViewModel
         /// para modificar el estatus del documento a pendiente por corregir
         /// </summary>
         private void SetDocumentsRejected()
-        {         
+        {
             FrmDocumentosNoEntregados Frm = new FrmDocumentosNoEntregados();
             DocumentosNoEntregadosViewModel Context = new DocumentosNoEntregadosViewModel(usuario);
 
             Frm.DataContext = Context;
             Frm.ShowDialog();
+
+            //initControlDocumentos();
+            TextoBuscar = string.Empty;
+            GetDataGrid(string.Empty);
+            initSnack();
         }
 
         /// <summary>
@@ -1255,6 +1272,17 @@ namespace View.Services.ViewModel
                         Command = RechazarDocumentosAntiguos,
                         Tag = StringResources.lblRechazarDocumentosViejos,
                     });
+                //Ver el estatus de los documentos subidos por los usuarios
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.EyePlusOutline },
+                        Label = StringResources.lblVerEstatusDocumentos,
+                        Command = _VerEstatusDocumentos,
+                        Tag = StringResources.lblVerEstatusDocumentos,
+
+                    }
+                );
             }
             else
             {
@@ -1319,7 +1347,35 @@ namespace View.Services.ViewModel
                         Tag = StringResources.lblDocumentosEliminados,
                     }
                 );
+                //Ver el estatus de los documentos subidos por los usuarios
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem() {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.EyePlusOutline },
+                        Label = StringResources.lblVerEstatusDocumentos,
+                        Command = _VerEstatusDocumentos,
+                        Tag = StringResources.lblVerEstatusDocumentos,
+
+                    }
+                );
             }
+        }
+
+        /// <summary>
+        /// Método para que los usuarios puedan ver el estatus de sus documentos
+        /// y si lo quieren ellos mismos ponerlos en estatus pendiente por corregir
+        /// </summary>
+        private void VerEstatusDocumentos(Usuario Modelusuario)
+        {
+            FrmEstatusDocumentos form = new FrmEstatusDocumentos();
+            EstatusDocumentosVM conext = new EstatusDocumentosVM(Modelusuario.NombreUsuario);
+
+            form.DataContext = conext;
+            form.ShowDialog();
+
+            //initControlDocumentos();
+            TextoBuscar = string.Empty;
+            GetDataGrid(string.Empty);
+            initSnack();
         }
         #endregion
     }

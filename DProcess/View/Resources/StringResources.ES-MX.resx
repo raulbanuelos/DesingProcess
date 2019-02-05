@@ -1652,4 +1652,16 @@
   <data name="lblIngreseNumeroComponente" xml:space="preserve">
     <value>Ingrese el número del componente</value>
   </data>
+  <data name="lblVerEstatusDocumentos" xml:space="preserve">
+    <value>Estatus de los documentos</value>
+  </data>
+  <data name="lblDocumentosPendientesCorregir" xml:space="preserve">
+    <value>Los documentos seleccionados ya se encuentran en estatus pendiente por corregir</value>
+  </data>
+  <data name="lblRegresarPendienteCorregir" xml:space="preserve">
+    <value>¿Deseas regresar a pendiente por corregir los documentos seleccionados?</value>
+  </data>
+  <data name="lblPendienteValidar" xml:space="preserve">
+    <value>PENDIENTE POR VALIDAR</value>
+  </data>
 </root>

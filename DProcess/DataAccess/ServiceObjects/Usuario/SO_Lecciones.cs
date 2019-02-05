@@ -32,9 +32,9 @@ namespace DataAccess.ServiceObjects.Usuario
                     var LeccionesAprendidas = (from p in conexion.TBL_LECCIONES_APRENDIDAS
                                                where p.ID_USUARIO.Contains(user) ||
                                                p.DESCRIPCION_PROBLEMA.Contains(TextoBuscar) ||
-                                               p.COMPONENTE.Contains(TextoBuscar)||
+                                               p.COMPONENTE.Contains(TextoBuscar) ||
                                                p.REPORTADO_POR.Contains(TextoBuscar)
-
+                                               orderby p.FECHA_ACTUALIZACION descending
                                                select p).ToList();
                     //retornamos la lista
                     return LeccionesAprendidas;

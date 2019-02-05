@@ -55,6 +55,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
+
         /// <summary>
         /// metodo que obtiene los documentos de un usuario
         /// </summary>
@@ -82,6 +83,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
+
         /// <summary>
         /// Método para insertar un registro en la tabla TBL_Documento.
         /// </summary>
@@ -1270,6 +1272,46 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             catch (Exception)
             {
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene el estatus de los documentos de un usuario
+        /// </summary>
+        /// <param name="IdUsuario"></param>
+        /// <returns></returns>
+        public IList GetDocumentoEstatus(string IdUsuario,string DocumentoBuscar)
+        {
+            try
+            {
+                using (var conexion = new EntitiesControlDocumentos())
+                {
+                    var lista = (from a in conexion.TBL_DOCUMENTO
+                                 join b in conexion.TBL_VERSION on a.ID_DOCUMENTO equals b.ID_DOCUMENTO
+                                 join d in conexion.Usuarios on b.ID_USUARIO_ELABORO equals d.Usuario
+                                 join c in conexion.TBL_ESTATUS_VERSION on b.ID_ESTATUS_VERSION equals c.ID_ESTATUS_VERSION
+                                 where b.ID_USUARIO_ELABORO == IdUsuario && 
+                                 a.NOMBRE.Contains(DocumentoBuscar) &&
+                                 b.ID_ESTATUS_VERSION != 1 &&
+                                 b.ID_ESTATUS_VERSION != 2
+                                 orderby c.ESTATUS_VERSION descending
+                                 select new
+                                 {
+                                     a.ID_DOCUMENTO,
+                                     a.NOMBRE,
+                                     b.No_VERSION,
+                                     b.FECHA_VERSION,
+                                     c.ESTATUS_VERSION,
+                                     c.ID_ESTATUS_VERSION
+                                 }).ToList();
+
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error retornamos nulo
+                return null;
             }
         }
     }

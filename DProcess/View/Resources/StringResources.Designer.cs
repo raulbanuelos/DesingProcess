@@ -745,6 +745,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The selected documents are already in the status to be corrected..
+        /// </summary>
+        public static string lblDocumentosPendientesCorregir {
+            get {
+                return ResourceManager.GetString("lblDocumentosPendientesCorregir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Pending Documents to Deliver.
         /// </summary>
         public static string lblDocumentosPendientesEntregar {
@@ -1393,6 +1402,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a PENDING TO VALIDATE.
+        /// </summary>
+        public static string lblPendienteValidar {
+            get {
+                return ResourceManager.GetString("lblPendienteValidar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Profile.
         /// </summary>
         public static string lblPerfil {
@@ -1461,6 +1479,15 @@ namespace View.Resources {
         public static string lblRecordDeleted {
             get {
                 return ResourceManager.GetString("lblRecordDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to return to pending to correct the selected documents?.
+        /// </summary>
+        public static string lblRegresarPendienteCorregir {
+            get {
+                return ResourceManager.GetString("lblRegresarPendienteCorregir", resourceCulture);
             }
         }
         
@@ -1758,6 +1785,15 @@ namespace View.Resources {
         public static string lblverarchivo2 {
             get {
                 return ResourceManager.GetString("lblverarchivo2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a See status of documents.
+        /// </summary>
+        public static string lblVerEstatusDocumentos {
+            get {
+                return ResourceManager.GetString("lblVerEstatusDocumentos", resourceCulture);
             }
         }
         

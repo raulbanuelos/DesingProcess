@@ -1220,6 +1220,41 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
+        /// Método que obtiene todos los documentos con su estatus correspondiente de un usuario
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<Documento> GetDocumentosEstatus(string usuario, string DocumentoBuscar)
+        {
+            SO_Documento ServiceDocument = new SO_Documento();
+
+            ObservableCollection<Documento> List = new ObservableCollection<Documento>();
+
+            IList Data = ServiceDocument.GetDocumentoEstatus(usuario,DocumentoBuscar);
+
+            if (Data != null)
+            {
+                foreach (var item in Data)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+                    //Declaramos el objeto 
+                    Documento obj = new Documento();
+
+                    obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    obj.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
+                    obj.version.estatus = (string)tipo.GetProperty("ESTATUS_VERSION").GetValue(item, null);
+                    obj.version.id_estatus_version = (int)tipo.GetProperty("ID_ESTATUS_VERSION").GetValue(item, null);
+
+                    List.Add(obj);
+
+                }
+            }
+            //Regresamos la lista
+            return List;
+        }
+        /// <summary>
         /// Método para eliminar un documento que contenga sello electronico cuando se modifique su estado a pendiente por corregir
         /// </summary>
         /// <param name="id_Version"></param>
@@ -3994,30 +4029,3 @@ namespace Model.ControlDocumentos
 
     }
 }
-
-
-
-
-
-//SO_Lecciones Servicio = new SO_Lecciones();
-
-//ObservableCollection<LeccionesAprendidas> ComponentesSimilares = new ObservableCollection<LeccionesAprendidas>();
-
-//DataSet Obj = Servicio.GetUltimosCambiosComponentesSimilares(Componente);
-
-//            if (Obj != null)
-//            {
-//                if (Obj.Tables.Count > 0 && Obj.Tables[0].Rows.Count > 0)
-//                {
-//                    foreach (DataRow item in Obj.Tables[0].Rows)
-//                    {
-//                        LeccionesAprendidas Lec = new LeccionesAprendidas();
-
-
-//Lec.DESCRIPCION_PROBLEMA = Convert.ToString(item["DESCRIPCION_PROBLEMA"]);
-//                        Lec.FECHA_ULTIMO_CAMBIO = Convert.ToDateTime(item["FECHA_ULTIMO_CAMBIO"]);
-//                        Lec.FECHA_ACTUALIZACION = Convert.ToDateTime(item["FECHA_ACTUALIZACION"]);
-
-//                    }
-//                }
-//            }

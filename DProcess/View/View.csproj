@@ -227,6 +227,9 @@
     <Compile Include="Forms\ControlDocumentos\FrmDocumentos_Vencidos.xaml.cs">
       <DependentUpon>FrmDocumentos_Vencidos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmEstatusDocumentos.xaml.cs">
+      <DependentUpon>FrmEstatusDocumentos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmGenerador_Numero.xaml.cs">
       <DependentUpon>FrmGenerador_Numero.xaml</DependentUpon>
     </Compile>
@@ -799,6 +802,7 @@
     <Compile Include="Services\ViewModel\DocumentoValidarViewModel.cs" />
     <Compile Include="Services\ViewModel\DocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\Documento_EliminadoVM.cs" />
+    <Compile Include="Services\ViewModel\EstatusDocumentosVM.cs" />
     <Compile Include="Services\ViewModel\ExitGuide_VM.cs" />
     <Compile Include="Services\ViewModel\External_GR_1P.cs" />
     <Compile Include="Services\ViewModel\External_GR_3P_1VM.cs" />
@@ -936,6 +940,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmDocumentos_Vencidos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmEstatusDocumentos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1501,6 +1509,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="iconDProcess.ico" />
+    <Resource Include="Images\TLAMARILLO.png" />
+    <Resource Include="Images\TLROJO.png" />
+    <Resource Include="Images\TLVERDE.png" />
     <Resource Include="Images\E.jpg" />
     <Resource Include="Images\PP.png" />
     <Resource Include="Images\I.png" />

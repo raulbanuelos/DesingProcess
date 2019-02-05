@@ -1,0 +1,85 @@
+﻿<Controls:MetroWindow x:Class="View.Forms.ControlDocumentos.FrmEstatusDocumentos"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:recursos="clr-namespace:View.Resources"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
+        mc:Ignorable="d"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="Estatus de los documentos"         Height="750" Width="1230" 
+        BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <!--Definiciones Columnas y Filas-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="90*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="70"/>
+        </Grid.RowDefinitions>
+
+        <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" TextAlignment="Center" Width="300" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="15" HorizontalAlignment="Left" Grid.Column="1">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction
+									Command="{Binding BuscarEstatusDocumento}" CommandParameter="{Binding ElementName=txt_busqueda, Path=Text}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+
+        <DataGrid Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ListaDocumentosConEstatus}" 
+                                      ScrollViewer.CanContentScroll="True" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                              AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            Header="{x:Static recursos:StringResources.lblSeleccionar}"
+                                            Binding="{Binding IsSelected}"/>
+                <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNombre}" Binding="{Binding nombre}"/>
+                <DataGridTextColumn Header="{x:Static recursos:StringResources.lblVersion}" Binding="{Binding version.no_version}"/>
+                <DataGridTextColumn Header="{x:Static recursos:StringResources.lblFechaRevision}" Binding="{Binding version.fecha_version, StringFormat={}{0:yyyy-MM-dd}}"/>
+                <DataGridTemplateColumn Header="{x:Static recursos:StringResources.lblEstado}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Path=ruta}" Height="50" Width="50"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Column="1" Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="70"/>
+            </Grid.ColumnDefinitions>
+
+            <Image Source="/View;component/Images/TLROJO.png" HorizontalAlignment="Left" Grid.Row="0"/>
+            <Label Grid.Row="0" Grid.Column="1" Content="{x:Static recursos:StringResources.lblPendientePorCorregir}"/>
+            <Image Source="/View;component/Images/TLAMARILLO.png" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2"/>
+            <Label Grid.Row="0" Grid.Column="3" Content="{x:Static recursos:StringResources.lblPendienteValidar}"/>
+            <Image Source="/View;component/Images/TLVERDE.png" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="4"/>
+            <Label Grid.Row="0" Grid.Column="5" Content="{x:Static recursos:StringResources.lblAprobadoPendienteLiberar}"/>
+
+
+        </Grid>
+        <Button Grid.Column="1" Grid.Row="2" Width="150" HorizontalAlignment="Right" Content="{x:Static recursos:StringResources.lblAceptar}" Command="{Binding RechazarDocumentos}"/>
+        
+    </Grid>
+</Controls:MetroWindow>

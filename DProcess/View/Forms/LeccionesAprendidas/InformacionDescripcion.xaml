@@ -12,79 +12,84 @@
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
-        Height="750" Width="750" 
+        Height="750" Width="1024" 
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
+        
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50*"></ColumnDefinition>
+            <ColumnDefinition Width="50*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="70"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
-        </Grid.RowDefinitions>
         
-        <!--Titulo de la ventana-->
-        <Label Content="{x:Static recursos:StringResources.lblNuevaLeccion}" Grid.Column="1" FontSize="18" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="Bold"/>
-        
-        <!--Descripción del problema-->
-        <TextBox Text="{Binding DescripcionProblema}" Grid.Row ="1" Grid.Column="1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblDescripcion}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="50"  Width="620" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" SpellCheck.IsEnabled="True" Language="es-ES"/>
-        
-        <!--Fecha Ultimo Cambio-->
-        <DatePicker Grid.Row="2" Grid.Column="1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaUltimoCambio}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FechaUltimoCambio}"
-                        IsEnabled="{Binding EnabledFecha}" />
-        
-        <!--Fecha de actualización-->      
-        <DatePicker Grid.Row="3" Grid.Column="1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaActualizacion}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FechaActualizacion}"
-                        IsEnabled="{Binding EnabledFecha}" />
-        <Grid Grid.Row="4" Grid.RowSpan="2" Grid.Column="1">
+        <!--Columna con los datos generales-->
+        <Grid Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="70"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
+
+            <!--Fecha Ultimo Cambio-->
+            <DatePicker Grid.Row="1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaUltimoCambio}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FechaUltimoCambio}"
+                        IsEnabled="{Binding EnabledFecha}" />
+
+            <!--Fecha de actualización-->
+            <DatePicker Grid.Row="2" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFechaActualizacion}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding FechaActualizacion}"
+                        IsEnabled="{Binding EnabledFecha}" />
             
-            <!--Titulo del Datagrid Componentes similares-->
-            <Label Content="Componentes similares" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" />
-            
-            <!--Datagrid con informacion de los cambios hechos al mismo componente-->
-            <DataGrid Grid.Row="7" Grid.Column="1" ItemsSource="{Binding ListaComponentesSimilares}" 
+            <!--Componentes similares-->
+            <StackPanel Grid.Row="3">
+                <!--Titulo del Datagrid Componentes similares-->
+                <Label Content="Componentes similares" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" />
+
+                <!--Datagrid con informacion de los cambios hechos al mismo componente-->
+                <DataGrid ItemsSource="{Binding ListaComponentesSimilares}" 
                                       SelectedItem="{Binding FechaSeleccionada,Mode=TwoWay}"
                                       ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                       AutoGenerateColumns="False"
-                                      IsReadOnly="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="{x:Static recursos:StringResources.lblDescripcion}" Binding="{Binding DESCRIPCION_PROBLEMA}" ClipboardContentBinding="{x:Null}"/>
-                    <DataGridTextColumn Header="{x:Static recursos:StringResources.lblFechaUltimoCambio}" Binding="{Binding FECHA_ACTUALIZACION , StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}"/>
-                </DataGrid.Columns>
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDoubleClick">
-                        <i:InvokeCommandAction Command="{Binding SeleccionarFechaUltimoCambio}"
+                                      IsReadOnly="True"
+                                      Width="500"
+                                      Height="400">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{x:Static recursos:StringResources.lblFechaUltimoCambio}" Binding="{Binding FECHA_ACTUALIZACION , StringFormat={}{0:yyyy-MM-dd}}" ClipboardContentBinding="{x:Null}"/>
+                        <DataGridTextColumn Header="{x:Static recursos:StringResources.lblDescripcion}" Binding="{Binding DESCRIPCION_PROBLEMA}" ClipboardContentBinding="{x:Null}"/>
+                    </DataGrid.Columns>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding SeleccionarFechaUltimoCambio}"
                              CommandParameter="{Binding FECHA_ULTIMO_CAMBIO}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </DataGrid>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </DataGrid>
+                
+            </StackPanel>
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Width="150" Command="{Binding RegresarPaginaNuevaLeccion}" Content="{x:Static recursos:StringResources.lblAnterior}"/>
+                <Button Grid.Column="1" Width="150" Command="{Binding IrPaginaInformacionCambios}" Content="{x:Static recursos:StringResources.lblSiguiente}"/>
+            </Grid>
 
         </Grid>
+        
+        <!--Columna con la descripción-->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100*"/>
 
-
-        <!--Botones de Navegación-->
-        <Grid Grid.Column="1" Grid.Row="6">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Width="150" Command="{Binding RegresarPaginaNuevaLeccion}" Content="{x:Static recursos:StringResources.lblAnterior}"/>
-            <Button Grid.Column="1" Width="150" Command="{Binding IrPaginaInformacionCambios}" Content="{x:Static recursos:StringResources.lblSiguiente}"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <Label Content="Descripción del problema" FontSize="20" FontWeight="Bold"/>
+                <TextBox TextWrapping="Wrap" BorderBrush="#89535353" FontSize="18" Text="{Binding DescripcionProblema}" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="650" />
+                
+            </StackPanel>
         </Grid>
     </Grid>
     </controls:MetroWindow>
