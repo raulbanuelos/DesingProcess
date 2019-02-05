@@ -20,6 +20,7 @@ using iTextSharp.text.pdf;
 using iTextSharp.text;
 using MahApps.Metro.IconPacks;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace View.Services.ViewModel
 {
@@ -683,6 +684,8 @@ namespace View.Services.ViewModel
                 BttnArchivos = true;
                 EnabledFecha = false;
                 Fecha = DataManagerControlDocumentos.Get_DateTime();
+                string ventana = "DocumentoPorCorregir";
+                CreateMenuItems(ventana);
                 //Si es administrador del CIT muestra la fecha.
                 if (Module.UsuarioIsRol(User.Roles, 2))
                     EnabledFecha = true;                
@@ -932,6 +935,22 @@ namespace View.Services.ViewModel
 
         #region Commands
 
+        public ICommand GenerarArchivo
+        {
+            get
+            {
+                return new RelayCommand(o => generarArchivo());
+            }
+        }
+
+        public ICommand ValidarArchivo
+        {
+            get
+            {
+                return new RelayCommand(x => validarArchivo());
+            }
+        }
+
         /// <summary>
         /// Comando para guardar un registro de documento
         /// </summary>
@@ -1124,6 +1143,201 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Methods
+
+        private async void validarArchivo()
+        {
+            //Incializamos los servicios de dialog.
+            DialogService dialog = new DialogService();
+
+            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
+            MetroDialogSettings setting = new MetroDialogSettings();
+            setting.AffirmativeButtonText = StringResources.lblYes;
+            setting.NegativeButtonText = StringResources.lblNo;
+
+            string mensaje = string.Empty;
+            bool validacion = validarJES(out mensaje);
+
+            if (validacion)
+            {
+                await dialog.SendMessage(StringResources.ttlAlerta, mensaje);
+            }
+            else
+            {
+                await dialog.SendMessage(StringResources.ttlAlerta, mensaje);
+            }
+
+        }
+
+        private bool validarJES(out string mensaje)
+        {
+            object unknownType = Type.Missing;
+            foreach (Archivo archivo in _ListaDocumentos)
+            {
+                mensaje = string.Empty;
+                string pathExcel = GetPathTempFile(archivo);
+
+                Archivo archivoPDF = archivo;
+                archivoPDF.ext = ".pdf";
+                string pathPDF = GetPathTempFile(archivoPDF);
+                
+                //Crea un archivo nuevo temporal, escribe en él los bytes extraídos de la BD.
+                File.WriteAllBytes(pathExcel, archivo.archivo);
+
+                Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+
+                Microsoft.Office.Interop.Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(pathExcel, true);
+
+                foreach (Microsoft.Office.Interop.Excel.Worksheet sheet in ExcelWork.Sheets)
+                {
+                    string fecha = sheet.Range["FECHA_LIBERACION"].Value;
+                    string descripcion = sheet.Range["DESCRIPCION_JES"].Value;
+                    string elaboro = sheet.Range["ELABORO"].Value;
+                    string reviso = sheet.Range["REVISO"].Value;
+                    string codigo = sheet.Range["CODIGO"].Value;
+                    string departamento = sheet.Range["PROCESO"].Value;
+
+                    DateTime date = Convert.ToDateTime(fecha);
+
+                    if (date.Year != FechaFin.Year || date.Month != FechaFin.Month || date.Day != FechaFin.Day)
+                    {
+                        mensaje = "La fecha es incorrecta.\nLa Fecha en el archivo debe ser: " + FechaFin.Year + "-" + FechaFin.Month + "-" + FechaFin.Day;
+                        return false;
+                    }
+                    if (descripcion != Descripcion)
+                    {
+                        mensaje = "La descripción es incorrecta.\nLa descripción en el archivo debe ser: " + Descripcion;
+                        return false;
+                    }
+                    if (elaboro != ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto)
+                    {
+                        mensaje = "El usuario Elaboró está incorrecto.\nEl usuario elaboró en el archivo debe ser: " + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto;
+                        return false;
+                    }
+
+                    if (reviso != ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto)
+                    {
+                        mensaje = "El usuario Autorizó está incorrecto.\nEl usuario Autorizo en el archivo debe ser: " + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto;
+                        return false;
+                    }
+
+                    if (codigo != SelectedDocumento.nombre)
+                    {
+                        mensaje = "El Código está incorrecto.\nEl Código en el archivo debe ser: " + SelectedDocumento.nombre;
+                        return false;
+                    }
+
+                    if (departamento != ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep)
+                    {
+                        mensaje = "El Nombre del departamento está incorrecto.\nEl nombre del departamento en el archivo debe ser: " + ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep;
+                        return false;
+                    }
+
+                }
+                ExcelApp.Visible = false;
+
+                if (ExcelWork != null)
+                    ExcelWork.Close(unknownType, unknownType, unknownType);
+
+                if (ExcelApp != null)
+                    ExcelApp.Quit();
+
+                short resPDF = excel2Pdf(pathExcel, pathPDF);
+
+                if (resPDF == '0')
+                {
+
+                }
+
+            }
+
+            
+            mensaje = "Archivo correcto.";
+            return true;
+        }
+
+        public short excel2Pdf(string originalXlsPath, string pdfPath)
+        {
+            Console.WriteLine("Class: " + GetType() + " Method: " + MethodBase.GetCurrentMethod().Name + " Started ");
+            short convertExcel2PdfResult = -1;
+
+            // Create COM Objects
+            Microsoft.Office.Interop.Excel.Application excelApplication = null;
+            Microsoft.Office.Interop.Excel.Workbook excelWorkbook = null;
+            object unknownType = Type.Missing;
+
+            // Create new instance of Excel
+            try
+            {
+                //open excel application
+                excelApplication = new Microsoft.Office.Interop.Excel.Application
+                {
+                    ScreenUpdating = false,
+                    DisplayAlerts = false
+                };
+
+                //open excel sheet
+                if (excelApplication != null)
+
+                    excelWorkbook = excelApplication.Workbooks.Open(originalXlsPath, unknownType, unknownType,
+                    unknownType, unknownType, unknownType,
+                    unknownType, unknownType, unknownType,
+                    unknownType, unknownType, unknownType,
+                    unknownType, unknownType, unknownType);
+
+                if (excelWorkbook != null)
+                {
+
+                    // Call Excel's native export function (valid in Office 2007 and Office 2010, AFAIK)
+                    excelWorkbook.ExportAsFixedFormat(Microsoft.Office.Interop.Excel.XlFixedFormatType.xlTypePDF,
+                    pdfPath,
+                    unknownType, unknownType, unknownType, unknownType, unknownType,
+                    unknownType, unknownType);
+
+                    convertExcel2PdfResult = 0;
+                }
+                else
+                {
+                    Console.WriteLine("Error occured for conversion of office excel to PDF ");
+                    convertExcel2PdfResult = 504;
+                }
+            }
+
+            catch (Exception exExcel2Pdf)
+            {
+                Console.WriteLine("Error occured for conversion of office excel to PDF, Exception: ", exExcel2Pdf);
+                convertExcel2PdfResult = 504;
+            }
+            finally
+            {
+                // Close the workbook, quit the Excel, and clean up regardless of the results...
+                if (excelWorkbook != null)
+                    excelWorkbook.Close(unknownType, unknownType, unknownType);
+
+                if (excelApplication != null) excelApplication.Quit();
+
+                //Util.releaseObject(excelWorkbook);
+                //Util.releaseObject(excelApplication);
+            }
+
+            Console.WriteLine("Class: " + GetType() + " Method: " + MethodBase.GetCurrentMethod().Name + " Ended ");
+            return convertExcel2PdfResult;
+        }
+
+        private void generarArchivo()
+        {
+            ObservableCollection<Archivo> recursos = new ObservableCollection<Archivo>();
+            recursos = DataManagerControlDocumentos.GetRecursosTipoDocumento(1015);
+
+            Archivo formatoJES = recursos[0];
+
+            string path = GetPathTempFile(formatoJES);
+
+            File.WriteAllBytes(path, formatoJES.archivo);
+
+            ImportExcel.ExportFormatoJES(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version));
+            
+
+        }
 
         /// <summary>
         /// Método que obtiene el nombre completo del usuario de acuerdo al id
@@ -1474,7 +1688,16 @@ namespace View.Services.ViewModel
                     if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
                         dlg.Filter = "Word (97-2003)|*.doc";
                     else
-                        dlg.Filter = "PDF Files (.pdf)|*.pdf";
+                    {
+                        if (id_tipo == 1015)
+                        {
+                            dlg.Filter = "Excel Files (.xlsx)|*.xlsx";
+                        }
+                        else
+                        {
+                            dlg.Filter = "PDF Files (.pdf)|*.pdf";
+                        }
+                    }
                     // Mostrar el explorador de archivos
                     Nullable<bool> result = dlg.ShowDialog();
 
@@ -1543,24 +1766,48 @@ namespace View.Services.ViewModel
                                 }
                                 else
                                 {
-                                    //cualquier id que sea diferente de los anteriores tiene que ser un archivo .pdf.
-                                    //Verificamos de nuevo que no se haya insertado un archivo que no corresponde
-                                    if (obj.ext == ".pdf")
+                                    //Verificamos si son de Tipo JES, para permitir archivos de excel.
+                                    if (id_tipo == 1015)
                                     {
-                                        //si se agrego el archivo correspondiente lo agregamos a la lista temporal
-                                        ListaDocumentos.Add(obj);
-                                        //deshabilitamos el boton de agregar archivos
-                                        BttnArchivos = false;
+                                        if (obj.ext == ".xlsx")
+                                        {
+                                            //si se agrego el archivo correspondiente lo agregamos a la lista temporal
+                                            ListaDocumentos.Add(obj);
+                                            //deshabilitamos el boton de agregar archivos
+                                            BttnArchivos = false;
+                                        }
+                                        else
+                                        {
+                                            //si se llegara a insertar un tipo de archivo que no corresponde se manda un mensaje indicando que tipo de archivo se debe adjuntar
+                                            await dialog.SendMessage(StringResources.ttlAlerta, "Solo se permiten archivos de excel");
+                                            //se borra de la lista temporal
+                                            Lista.Clear();
+                                            //habilitamos el boton de adjuntar archivos
+                                            BttnArchivos = true;
+                                        }
                                     }
                                     else
                                     {
-                                        //si se llegara a insertar un tipo de archivo que no corresponde se manda un mensaje indicando que tipo de archivo se debe adjuntar
-                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarTipoArchivoPDF);
-                                        //se borra de la lista temporal
-                                        Lista.Clear();
-                                        //habilitamos el boton de adjuntar archivos
-                                        BttnArchivos = true;
+                                        //cualquier id que sea diferente de los anteriores tiene que ser un archivo .pdf.
+                                        //Verificamos de nuevo que no se haya insertado un archivo que no corresponde
+                                        if (obj.ext == ".pdf")
+                                        {
+                                            //si se agrego el archivo correspondiente lo agregamos a la lista temporal
+                                            ListaDocumentos.Add(obj);
+                                            //deshabilitamos el boton de agregar archivos
+                                            BttnArchivos = false;
+                                        }
+                                        else
+                                        {
+                                            //si se llegara a insertar un tipo de archivo que no corresponde se manda un mensaje indicando que tipo de archivo se debe adjuntar
+                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarTipoArchivoPDF);
+                                            //se borra de la lista temporal
+                                            Lista.Clear();
+                                            //habilitamos el boton de adjuntar archivos
+                                            BttnArchivos = true;
+                                        }
                                     }
+                                    
                                 }
 
                                 //Ejecutamos el método para cerrar el mensaje de espera.
@@ -3230,7 +3477,7 @@ namespace View.Services.ViewModel
             ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
             ListaUsuariosCorreo = DataManagerControlDocumentos.GetUsuarios();
         }
-
+        
         /// <summary>
         /// Método para modificar el contenido
         /// </summary>
@@ -4087,6 +4334,27 @@ namespace View.Services.ViewModel
                             Label = StringResources.lblActualizarCopias,
                             Command = ActNoCopias,
                             Tag = StringResources.lblActualizarCopias
+                        }
+                        );
+                    break;
+                case "DocumentoPorCorregir":
+                    this.MenuItems.Add(
+                        new HamburgerMenuIconItem()
+                        {
+                            Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FileExcel},
+                            Label = "Crear  archivo",
+                            Command = GenerarArchivo,
+                            Tag = "Crear archivo"
+                        }
+                        );
+
+                    this.MenuItems.Add(
+                        new HamburgerMenuIconItem()
+                        {
+                            Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Check },
+                            Label = "Validar",
+                            Command = ValidarArchivo,
+                            Tag = "Validar"
                         }
                         );
                     break;

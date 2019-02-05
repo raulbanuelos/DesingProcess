@@ -163,6 +163,57 @@ namespace View.Services
             }
         }
 
+        public static string ExportFormatoJES(string filename, DateTime fechaFin, string personaCreo, string personaAutorizo, string descripcion, string codigo, string departamento, int version)
+        {
+            string a = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
+            string[] vec = a.Split(',');
+            
+            try
+            {
+                Excel.Application ExcelApp = new Excel.Application();
+
+                Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(filename, true);
+
+                string dia = fechaFin.Day.ToString().Length > 1 ? fechaFin.Day.ToString() : "0" + fechaFin.Day.ToString();
+                string mes = fechaFin.Month.ToString().Length > 1 ? fechaFin.Month.ToString() : "0" + fechaFin.Month.ToString();
+
+                foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                {
+                    //sheet.Cells[6,28] = "'" + fechaFin.Year + "-" + mes + "-" + dia;
+                    //sheet.Cells[6, 14] = personaCreo;
+                    //sheet.Cells[6, 17] = personaAutorizo;
+                    //sheet.Cells[6, 21] = personaAutorizo;
+                    //sheet.Cells[7, 6] = descripcion;
+                    
+                    //sheet.Cells[2, 28] = codigo;
+                    //sheet.Cells[6, 5] = departamento;
+                    //sheet.Cells[42, 5] = personaCreo;
+                    //sheet.Cells[43, 5] = version;
+                    //sheet.Cells[44, 5] = "'" + fechaFin.Year + "-" + mes + "-" + dia;
+                    //sheet.Cells[45, 5] = vec[version - 1];
+
+                    //sheet.Cells["DESCRIPCION_JES"].Value = descripcion;
+
+                    sheet.Range["FECHA_LIBERACION"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
+                    sheet.Range["DESCRIPCION_JES"].Value = descripcion;
+                    sheet.Range["ELABORO"].Value = personaCreo;
+                    sheet.Range["REVISO"].Value = personaAutorizo;
+                    sheet.Range["APROBO"].Value = personaAutorizo;
+                    sheet.Range["CODIGO"].Value = codigo;
+                    sheet.Range["PROCESO"].Value = departamento;
+
+                }
+
+                ExcelApp.Visible = true;
+
+                return "Ok";
+            }
+            catch (Exception er)
+            {
+                return er.Message;
+            }
+        }
+
         /// <summary>
         /// Método para importar un archivo excel, la información de ClosingSleeveBk.
         /// </summary>

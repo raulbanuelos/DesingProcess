@@ -268,6 +268,8 @@ namespace View.Services.ViewModel
                     {
                         var dc = stamper.GetOverContent(i);
 
+                        
+
                         Rectangle realPageSize = reader.GetPageSizeWithRotation(i);
 
                         AddWaterMarkText2(dc, watermarkText, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 6), Convert.ToInt32(realPageSize.Bottom + 245));
