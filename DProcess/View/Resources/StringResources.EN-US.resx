@@ -1654,4 +1654,16 @@
   <data name="lblIngreseNumeroComponente" xml:space="preserve">
     <value>Insert component number</value>
   </data>
+  <data name="lblVerEstatusDocumentos" xml:space="preserve">
+    <value>See status of documents</value>
+  </data>
+  <data name="lblDocumentosPendientesCorregir" xml:space="preserve">
+    <value>The selected documents are already in the status to be corrected.</value>
+  </data>
+  <data name="lblRegresarPendienteCorregir" xml:space="preserve">
+    <value>Do you want to return to pending to correct the selected documents?</value>
+  </data>
+  <data name="lblPendienteValidar" xml:space="preserve">
+    <value>PENDING TO VALIDATE</value>
+  </data>
 </root>
