@@ -14,13 +14,16 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using View.Forms.ControlDocumentos;
-using System.Collections;
 using View.Resources;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using MahApps.Metro.IconPacks;
-using System.Collections.Generic;
 using System.Reflection;
+using System.Drawing.Imaging;
+using QRCoder;
+using System.Drawing;
+using Gma.QrCodeNet.Encoding;
+using Gma.QrCodeNet.Encoding.Windows.Render;
 
 namespace View.Services.ViewModel
 {
@@ -1254,8 +1257,15 @@ namespace View.Services.ViewModel
 
                 if (resPDF == 0)
                 {
-                    //
-                    QuitarExcelPonerPDF(archivo, pathPDF);
+                    string pdfFinal = GetPathTempFile(new Archivo { nombre = "tempOuputPdf", numero = 1 });
+                    string qrFinal = GetPathTempFile(new Archivo { nombre = "tempOuputQR", numero = 1 });
+                    generateQRCode(qrFinal);
+
+                    insertQR(pathPDF, pdfFinal, qrFinal);
+
+                    QuitarExcelPonerPDF(archivo, pdfFinal);
+
+
                 }else
                 {
                     mensaje = "error al convertir el archivo";
@@ -1266,16 +1276,22 @@ namespace View.Services.ViewModel
             return true;
         }
 
-        private void generateQRCode()
+        private void generateQRCode(string path)
         {
             string codigo = string.Empty;
 
-            codigo = SelectedDocumento.nombre + "*" + SelectedDocumento.version.no_version + "*" + SelectedDocumento.version.fecha_version + "*" +  Module.GetRandomString(8);
+            codigo = SelectedDocumento.nombre + "*" + Version + "*" + Fecha + "*" +  Module.GetRandomString(8);
+            
+            var qrEncoder = new QrEncoder(ErrorCorrectionLevel.H);
+            var qrCode = qrEncoder.Encode(codigo);
 
+            var renderer = new GraphicsRenderer(new FixedModuleSize(5, QuietZoneModules.Two), Brushes.Black, Brushes.White);
+            using (var stream = new FileStream(path, FileMode.Create))
+                renderer.WriteToStream(qrCode.Matrix, ImageFormat.Png, stream);
 
         }
 
-        private void insertQR(string pathPDF,string pathPDFOuput, string imgCode)
+        private bool insertQR(string pathPDF,string pathPDFOuput, string imgCode)
         {
             
             using (Stream inputPdfStream = new FileStream(pathPDF, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -1289,7 +1305,7 @@ namespace View.Services.ViewModel
                     for (int i = 1; i <= pages; i++)
                     {
                         var pdfContentByte = stamper.GetOverContent(i);
-                        Image image = Image.GetInstance(new FileStream(imgCode, FileMode.Open, FileAccess.Read, FileShare.Read));
+                        iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(new FileStream(imgCode, FileMode.Open, FileAccess.Read, FileShare.Read));
                         image.ScaleAbsoluteHeight(40);
                         image.ScaleAbsoluteWidth(40);
                         image.SetAbsolutePosition(940, 723);
@@ -1298,6 +1314,8 @@ namespace View.Services.ViewModel
                     stamper.Close();
                 }
             }
+
+            return true;
         }
 
         public short excel2Pdf(string originalXlsPath, string pdfPath)
@@ -3453,7 +3471,7 @@ namespace View.Services.ViewModel
                         //AddWaterMarkText(dc, watermarkText, baseFont, 8, 0, BaseColor.BLACK, reader.GetPageSizeWithRotation(i), 10, 315);
                         //AddWaterMarkText(dc, waterMarkText2, baseFont, 8, 0, BaseColor.BLACK, reader.GetPageSizeWithRotation(i), 20, 290);
 
-                        Rectangle realPageSize = reader.GetPageSizeWithRotation(i);
+                        iTextSharp.text.Rectangle realPageSize = reader.GetPageSizeWithRotation(i);
                         
                         AddWaterMarkText2(dc, watermarkText, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 6), Convert.ToInt32(realPageSize.Bottom + 245));
                         AddWaterMarkText2(dc, waterMarkText2, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 12), Convert.ToInt32(realPageSize.Bottom + 160));

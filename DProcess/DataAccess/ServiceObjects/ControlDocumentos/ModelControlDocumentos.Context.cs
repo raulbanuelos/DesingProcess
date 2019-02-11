@@ -36,12 +36,12 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public virtual DbSet<TR_VALIDACION_TIPO_DOCUMENTO> TR_VALIDACION_TIPO_DOCUMENTO { get; set; }
         public virtual DbSet<TBL_BLOQUEO> TBL_BLOQUEO { get; set; }
         public virtual DbSet<TBL_DOCUMENTO> TBL_DOCUMENTO { get; set; }
-        public virtual DbSet<TBL_VERSION> TBL_VERSION { get; set; }
         public virtual DbSet<TBL_RECURSO_TIPO_DOCUMENTO> TBL_RECURSO_TIPO_DOCUMENTO { get; set; }
         public virtual DbSet<TBL_TIPO_DOCUMENTO> TBL_TIPO_DOCUMENTO { get; set; }
         public virtual DbSet<TBL_HISTORIAL_VERSION> TBL_HISTORIAL_VERSION { get; set; }
         public virtual DbSet<TBL_VALIDACION_VERSION> TBL_VALIDACION_VERSION { get; set; }
         public virtual DbSet<TBL_DOCUMENTO_ELIMINADO> TBL_DOCUMENTO_ELIMINADO { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<TBL_VERSION> TBL_VERSION { get; set; }
     }
 }
