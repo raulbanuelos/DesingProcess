@@ -1186,6 +1186,7 @@ namespace View.Services.ViewModel
 
                 Archivo archivoPDF = archivo;
                 archivoPDF.ext = ".pdf";
+                archivo.ruta = @"/Images/p.png";
                 string pathPDF = GetPathTempFile(archivoPDF);
                 
                 //Crea un archivo nuevo temporal, escribe en él los bytes extraídos de la BD.
@@ -1251,9 +1252,14 @@ namespace View.Services.ViewModel
 
                 short resPDF = excel2Pdf(pathExcel, pathPDF);
 
-                if (resPDF == '0')
+                if (resPDF == 0)
                 {
-
+                    //
+                    QuitarExcelPonerPDF(archivo, pathPDF);
+                }else
+                {
+                    mensaje = "error al convertir el archivo";
+                    return false;
                 }
             }
             mensaje = "Archivo correcto.";
@@ -1777,6 +1783,10 @@ namespace View.Services.ViewModel
                                 }
                                 else
                                 {
+                                    if (obj.ext == ".xlsx")
+                                    {
+                                        obj.ruta = @"/Images/E.png";
+                                    }
                                     //Si es archivo de word asigna la imagen correspondiente.
                                     obj.ruta = @"/Images/w.png";
                                 }
@@ -4423,6 +4433,20 @@ namespace View.Services.ViewModel
                 window.Close();
             }
             #endregion
+        }
+
+        /// <summary>
+        ///´Función para quitar el Excel y poner el pdf
+        /// </summary>
+        public async void QuitarExcelPonerPDF(Archivo Arc, string PathPdf)
+        {
+            //Se convierte el archvio a tipo byte y se le asigna al objeto
+            Arc.archivo = await Task.Run(() => File.ReadAllBytes(PathPdf));
+
+            ListaDocumentos.Clear();
+
+            ListaDocumentos.Add(Arc);
+
         }
         #endregion
     }
