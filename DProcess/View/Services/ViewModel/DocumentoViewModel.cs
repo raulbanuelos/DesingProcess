@@ -935,6 +935,14 @@ namespace View.Services.ViewModel
 
         #region Commands
 
+        public ICommand InsertarQR
+        {
+            get
+            {
+                return new RelayCommand(o => insertQR(string.Empty,string.Empty,string.Empty));
+            }
+        }
+
         public ICommand GenerarArchivo
         {
             get
@@ -1247,12 +1255,43 @@ namespace View.Services.ViewModel
                 {
 
                 }
-
             }
-
-            
             mensaje = "Archivo correcto.";
             return true;
+        }
+
+        private void generateQRCode()
+        {
+            string codigo = string.Empty;
+
+            codigo = SelectedDocumento.nombre + "*" + SelectedDocumento.version.no_version + "*" + SelectedDocumento.version.fecha_version + "*" +  Module.GetRandomString(8);
+
+
+        }
+
+        private void insertQR(string pathPDF,string pathPDFOuput, string imgCode)
+        {
+            
+            using (Stream inputPdfStream = new FileStream(pathPDF, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (Stream outputPdfStream = new FileStream(pathPDFOuput, FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                var reader = new PdfReader(inputPdfStream);
+                using (var stamper = new PdfStamper(reader, outputPdfStream))
+                {
+                    var pages = reader.NumberOfPages;
+
+                    for (int i = 1; i <= pages; i++)
+                    {
+                        var pdfContentByte = stamper.GetOverContent(i);
+                        Image image = Image.GetInstance(new FileStream(imgCode, FileMode.Open, FileAccess.Read, FileShare.Read));
+                        image.ScaleAbsoluteHeight(40);
+                        image.ScaleAbsoluteWidth(40);
+                        image.SetAbsolutePosition(940, 723);
+                        pdfContentByte.AddImage(image);
+                    }
+                    stamper.Close();
+                }
+            }
         }
 
         public short excel2Pdf(string originalXlsPath, string pdfPath)
@@ -4355,6 +4394,16 @@ namespace View.Services.ViewModel
                             Label = "Validar",
                             Command = ValidarArchivo,
                             Tag = "Validar"
+                        }
+                        );
+
+                    this.MenuItems.Add(
+                        new HamburgerMenuIconItem()
+                        {
+                            Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Qrcode },
+                            Label = "Insertar QR",
+                            Command = InsertarQR,
+                            Tag = "Insertar QR"
                         }
                         );
                     break;
