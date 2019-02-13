@@ -109,7 +109,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Gma.QrCodeNet.Encoding">
-      <HintPath>..\..\..\..\..\Desktop\Gma.QrCodeNet.Encoding.dll</HintPath>
+      <HintPath>Z:\RrrrUUUUUULLL\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
     <Reference Include="HamburgerMenuApp.Core">
       <HintPath>bin\HamburgerMenuApp.Core.dll</HintPath>
