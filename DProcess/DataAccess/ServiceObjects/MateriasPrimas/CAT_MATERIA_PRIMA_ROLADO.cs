@@ -22,6 +22,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         public double GROOVE { get; set; }
         public double THICKNESS { get; set; }
         public string UBICACION { get; set; }
+        public string ESPEC_PERFIL { get; set; }
     
         public virtual material material { get; set; }
     }

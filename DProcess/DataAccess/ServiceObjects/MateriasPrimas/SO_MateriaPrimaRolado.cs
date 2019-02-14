@@ -1,6 +1,8 @@
-﻿using System;
+﻿using DataAccess.SQLServer;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -10,6 +12,24 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
 {
     public class SO_MateriaPrimaRolado
     {
+
+        #region Attributes
+        private string SP_RGP_GET_MATERIA_PRIMA_ROLADO = "SP_RGP_GET_MATERIA_PRIMA_ROLADO"; 
+        #endregion
+
+        #region Propiedades
+        //Cadena de conexión
+        string StringDeConexion = string.Empty;
+        #endregion
+
+        #region Constructors
+        public SO_MateriaPrimaRolado()
+        {
+            //Obtenemos la cadena de conexión.
+            StringDeConexion = System.Configuration.ConfigurationManager.AppSettings["CadenaConexion"];
+        } 
+        #endregion
+
         public IList GetAll(string busqueda)
         {
             try
@@ -28,28 +48,41 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
             }
         }
 
-        public IList GetMateriaPrimaRoladoIdeal(double _h1Min, double _h1Max, double a1Min, double a1Max, string especificacion, double matRemoverWidth, double matRemoverThickness)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="widthCalculado">Media del Width del anillo menos(-) cantidad de material a agregar durante el proceso. Inch</param>
+        /// <param name="especMaterial"></param>
+        /// <param name="especPerfil"></param>
+        /// <returns></returns>
+        public DataSet GetMateriaPrimaRoladoIdeal(double widthCalculado, double thicknessCalculado,string especMaterial, string especPerfil)
         {
+            DataSet informacionBD = new DataSet();
             try
             {
-                using (var Conexion = new EntitiesMateriaPrima())
+                if (StringDeConexion != string.Empty)
                 {
-                    var lista = (from a in Conexion.CAT_MATERIA_PRIMA_ROLADO
-                                 where a.WIDTH - matRemoverWidth >= _h1Min && 
-                                        a.WIDTH - matRemoverWidth <= _h1Max &&
+                    Desing_SQL ConexionSQL = new Desing_SQL();
 
+                    //Declaramos un diccionario para guardar los parámetros necesarios del procedimiento.
+                    Dictionary<string, object> parametros = new Dictionary<string, object>();
 
-                                        a.THICKNESS - matRemoverThickness >= a1Min &&
-                                        a.THICKNESS - matRemoverThickness <= a1Max
+                    //Agregamos los paramentros al diccionario.
+                    parametros.Add("withCalculado", widthCalculado);
+                    parametros.Add("thicknessCalculado", thicknessCalculado);
+                    parametros.Add("especPerfil", especPerfil);
+                    parametros.Add("especMaterial", especMaterial);
+                    
+                    informacionBD = ConexionSQL.EjecutarStoredProcedure(SP_RGP_GET_MATERIA_PRIMA_ROLADO, parametros);
 
-                                 select a).ToList();
-                    return lista;
                 }
             }
             catch (Exception er)
             {
-                return null;
+                return informacionBD;
             }
+
+            return informacionBD;
         }
 
         public int Insert(string codigoMateriaPrima, string especificacion, double thickness, double groove,string unidadMedida, double _width,string descripcion, string ubicacion)

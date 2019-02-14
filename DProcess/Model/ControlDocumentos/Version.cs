@@ -22,6 +22,7 @@ namespace Model.ControlDocumentos
         public string nombre_usuario_autorizo { get; set; }
         public string nombre_usuario_elaboro { get; set; }
         public string descripcion_v { get; set; }
+        public string CodeValidation { get; set; }
         #endregion
 
         #region Constructores

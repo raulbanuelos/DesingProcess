@@ -179,21 +179,6 @@ namespace View.Services
 
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                 {
-                    //sheet.Cells[6,28] = "'" + fechaFin.Year + "-" + mes + "-" + dia;
-                    //sheet.Cells[6, 14] = personaCreo;
-                    //sheet.Cells[6, 17] = personaAutorizo;
-                    //sheet.Cells[6, 21] = personaAutorizo;
-                    //sheet.Cells[7, 6] = descripcion;
-                    
-                    //sheet.Cells[2, 28] = codigo;
-                    //sheet.Cells[6, 5] = departamento;
-                    //sheet.Cells[42, 5] = personaCreo;
-                    //sheet.Cells[43, 5] = version;
-                    //sheet.Cells[44, 5] = "'" + fechaFin.Year + "-" + mes + "-" + dia;
-                    //sheet.Cells[45, 5] = vec[version - 1];
-
-                    //sheet.Cells["DESCRIPCION_JES"].Value = descripcion;
-
                     sheet.Range["FECHA_LIBERACION"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
                     sheet.Range["DESCRIPCION_JES"].Value = descripcion;
                     sheet.Range["ELABORO"].Value = personaCreo;

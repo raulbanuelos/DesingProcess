@@ -1666,4 +1666,28 @@
   <data name="lblPendienteValidar" xml:space="preserve">
     <value>PENDING TO VALIDATE</value>
   </data>
+  <data name="lblReturnPendient" xml:space="preserve">
+    <value>Return to pending to correct</value>
+    <comment>Etiqueta para regresar a pendiente por corregir</comment>
+  </data>
+  <data name="msgArchivoNoEncontrado" xml:space="preserve">
+    <value>The file was not found, please re-attach it.</value>
+    <comment>Mensaje archivo no encontrado.</comment>
+  </data>
+  <data name="msgDocumentoNoEstaPendiente" xml:space="preserve">
+    <value>The document is not pending pending release, please check the status of the document.</value>
+    <comment>Mensaje documento no esta en pendiente por corregir</comment>
+  </data>
+  <data name="msgLiberarDocumento" xml:space="preserve">
+    <value>Do you want to release the document?</value>
+    <comment>Mensaje para preguntar si desea liberar el documento.</comment>
+  </data>
+  <data name="msgQRNoCorresponde" xml:space="preserve">
+    <value>The QR code does not correspond to the document, please contact the system administrator.</value>
+    <comment>Mensaje QR no corresponde.</comment>
+  </data>
+  <data name="msgQRNoValido" xml:space="preserve">
+    <value>The QR code does not correspond to a valid code.</value>
+    <comment>Mensaje de QR no valido</comment>
+  </data>
 </root>

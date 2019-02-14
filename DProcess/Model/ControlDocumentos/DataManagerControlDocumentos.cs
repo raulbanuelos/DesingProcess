@@ -1828,7 +1828,7 @@ namespace Model.ControlDocumentos
         }
         #endregion
 
-        #region version
+        #region Version
 
         /// <summary>
         /// Método para obtener los registros de la BD.
@@ -2465,10 +2465,19 @@ namespace Model.ControlDocumentos
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
                     obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
                     obj.usuario = (string)tipo.GetProperty("NOMBRE_USUARIO").GetValue(item, null);
+                    
+                    
                     obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     obj.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
                     obj.version.id_usuario = (string)tipo.GetProperty("ID_USUARIO_ELABORO").GetValue(item, null);
+                    obj.version.id_usuario_autorizo = (string)tipo.GetProperty("ID_USUARIO_AUTORIZO").GetValue(item, null);
+                    obj.version.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    obj.version.CodeValidation = (string)tipo.GetProperty("CODE_VALIDATION").GetValue(item, null);
+                    obj.version.id_documento = obj.id_documento;
+                    obj.version.descripcion_v = (string)tipo.GetProperty("DESCRIPCION_VERSION").GetValue(item, null);
+
                     //Agregamos a la lista resultante
                     Lista.Add(obj);
                 }
@@ -2702,6 +2711,38 @@ namespace Model.ControlDocumentos
             }
             //retornamos la lista
             return Lista;
+        }
+
+        /// <summary>
+        /// Méto que indica si un CODE_VALIDATION esta repetido en la base de datos.
+        /// </summary>
+        /// <param name="codeValidation"></param>
+        /// <returns></returns>
+        public static bool ExistsCodeValidation(string codeValidation)
+        {
+            SO_Version ServiceVersion = new SO_Version();
+
+            IList informacionBD = ServiceVersion.GetCodeValidation(codeValidation);
+
+            if (informacionBD != null)
+            {
+                return informacionBD.Count > 0 ? true : false;
+            }
+            else
+                return true;
+        }
+
+        /// <summary>
+        /// Método que actualiza el codigo de validación.
+        /// </summary>
+        /// <param name="idVersion"></param>
+        /// <param name="codeValidation"></param>
+        /// <returns></returns>
+        public static int UpdateCodeValidation(int idVersion, string codeValidation)
+        {
+            SO_Version ServiceVersion = new SO_Version();
+
+            return ServiceVersion.UpdateCodeValidation(idVersion, codeValidation);
         }
 
         #endregion

@@ -276,6 +276,15 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Commands
+
+        public ICommand LiberarQR
+        {
+            get
+            {
+                return new RelayCommand(o => liberarQR());
+            }
+        }
+
         /// <summary>
         /// Comando que muestra la ventana para crear un documento o generar un número de documento
         /// </summary>
@@ -521,6 +530,17 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Methods
+
+        private void liberarQR()
+        {
+            FrmLiberarQR ventana = new FrmLiberarQR();
+
+            ventana.DataContext = new DocumentosLiberarQR(usuario);
+
+            ventana.ShowDialog();
+
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -1283,6 +1303,15 @@ namespace View.Services.ViewModel
 
                     }
                 );
+
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Qrcode},
+                        Label = "Liberar por QR",
+                        Command = LiberarQR,
+                        Tag = "Liberar por QR"
+                    });
             }
             else
             {

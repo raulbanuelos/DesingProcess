@@ -23,7 +23,9 @@ namespace Model
         public string Pathnsf { get; set; }
 
         public bool IsSelected { get; set; }
-        
+
+        public string IdUsuario { get; set; }
+
         //Perfiles
         public bool PerfilRGP{ get; set;  }
         

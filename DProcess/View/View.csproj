@@ -246,6 +246,9 @@
     <Compile Include="Forms\ControlDocumentos\FrmHistorial_Filtrado.xaml.cs">
       <DependentUpon>FrmHistorial_Filtrado.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmLiberarQR.xaml.cs">
+      <DependentUpon>FrmLiberarQR.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmListaUsuarios.xaml.cs">
       <DependentUpon>FrmListaUsuarios.xaml</DependentUpon>
     </Compile>
@@ -633,6 +636,7 @@
     <Compile Include="Services\RotateSurface.cs" />
     <Compile Include="Services\SAP.cs" />
     <Compile Include="Services\ScreenSpaceLines3D.cs" />
+    <Compile Include="Services\Seguridad.cs" />
     <Compile Include="Services\ServiceEmail.cs" />
     <Compile Include="Services\TiempoEstandar\Expansores\CentroTrabajo499.cs" />
     <Compile Include="Services\TiempoEstandar\Expansores\CentroTrabajo516.cs" />
@@ -802,6 +806,7 @@
     <Compile Include="Services\ViewModel\CutterSplitterVM.cs" />
     <Compile Include="Services\ViewModel\DibujaPlacaViewModel.cs" />
     <Compile Include="Services\ViewModel\DimensionsViewModel.cs" />
+    <Compile Include="Services\ViewModel\DocumentosLiberarQR.cs" />
     <Compile Include="Services\ViewModel\DocumentosNoEntregadosViewModel.cs" />
     <Compile Include="Services\ViewModel\DocumentosPendientesViewM.cs" />
     <Compile Include="Services\ViewModel\DocumentosVencidosVM.cs" />
@@ -963,6 +968,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmHistorial_Filtrado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmLiberarQR.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

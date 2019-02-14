@@ -8,13 +8,34 @@ using View.Services.Operaciones.Generica;
 using View.Services;
 using View.Services.Operaciones.Gasolina.Maquinado;
 using Model.Interfaces;
+using Model.ControlDocumentos;
 
 namespace DProcess.Model.Test
 {
     [TestClass]
     public class DataManagerTest
     {
+
+        #region DataManagerControlDocumentos
+        [TestMethod]
+        public void testExistsCodeValidation()
+        {
+            bool resp = DataManagerControlDocumentos.ExistsCodeValidation("11111111");
+
+            Assert.AreEqual(true, resp);
+        } 
+        #endregion
+
         #region DataManager
+
+        [TestMethod]
+        public void GetMateriaPrimaRolado()
+        {
+            int nCortes = 0;
+            List<MateriaPrimaRolado> ListaResultante = DataManager.GetMateriaPrimaRolado(.0463, "ES-343", "", out nCortes);
+
+            Assert.AreEqual(nCortes, 6);
+        }
 
         [TestMethod]
         public void testGetAllOPeraciones()

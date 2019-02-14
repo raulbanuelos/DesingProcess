@@ -18,5 +18,8 @@
 
         public string Comentarios { get; set; }
 
+        public int nCortesWidth { get; set; }
+
+        public double MatMustRemoveThickness { get; set; }
     }
 }

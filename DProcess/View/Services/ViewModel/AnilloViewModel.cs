@@ -1322,6 +1322,12 @@ namespace View.Services.ViewModel
             {
                 if (ModelAnillo.MaterialBase.TipoDeMaterial == "ACERO AL CARBON")
                 {
+                    //HardCode. 
+                    //Preguntar al usuario a través de un mensaje que capture la especificación del perfil.
+                    ModelAnillo.PropiedadesCadenaAdquiridasProceso = new ObservableCollection<PropiedadCadena>();
+                    PropiedadCadena especPerfil = new PropiedadCadena { Nombre = "especPerfil", Valor = "ES-423" };
+                    ModelAnillo.PropiedadesCadenaAdquiridasProceso.Add(especPerfil);
+
                     //Se define la ruta primero antes de que se calcule la materia prima.
                     if (banCalcularOperaciones)
                         Operaciones = Router.CalcularAceroRolado(ModelAnillo);

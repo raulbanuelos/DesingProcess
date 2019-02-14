@@ -3,11 +3,11 @@
 namespace View.Forms.ControlDocumentos
 {
     /// <summary>
-    /// Lógica de interacción para FrmDocumentosValidar.xaml
+    /// Lógica de interacción para FrmLiberarQR.xaml
     /// </summary>
-    public partial class FrmDocumentosValidar : MetroWindow
+    public partial class FrmLiberarQR : MetroWindow
     {
-        public FrmDocumentosValidar()
+        public FrmLiberarQR()
         {
             InitializeComponent();
         }

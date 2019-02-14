@@ -1519,6 +1519,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Return to pending to correct.
+        /// </summary>
+        public static string lblReturnPendient {
+            get {
+                return ResourceManager.GetString("lblReturnPendient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Checked by.
         /// </summary>
         public static string lblRevisadoPor {
@@ -1951,6 +1960,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The file was not found, please re-attach it..
+        /// </summary>
+        public static string msgArchivoNoEncontrado {
+            get {
+                return ResourceManager.GetString("msgArchivoNoEncontrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The changes were saved successfully, the files will be verified by the document manager.
         /// </summary>
         public static string msgCambiosGuardadosExito {
@@ -2127,6 +2145,15 @@ namespace View.Resources {
         public static string msgDocumentoDisponible {
             get {
                 return ResourceManager.GetString("msgDocumentoDisponible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The document is not pending pending release, please check the status of the document..
+        /// </summary>
+        public static string msgDocumentoNoEstaPendiente {
+            get {
+                return ResourceManager.GetString("msgDocumentoNoEstaPendiente", resourceCulture);
             }
         }
         
@@ -2815,6 +2842,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to release the document?.
+        /// </summary>
+        public static string msgLiberarDocumento {
+            get {
+                return ResourceManager.GetString("msgLiberarDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The tooling master already exist.
         /// </summary>
         public static string msgMaestroHerramentalExistente {
@@ -2964,6 +3000,24 @@ namespace View.Resources {
         public static string msgPrivilegiosUsuario {
             get {
                 return ResourceManager.GetString("msgPrivilegiosUsuario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The QR code does not correspond to the document, please contact the system administrator..
+        /// </summary>
+        public static string msgQRNoCorresponde {
+            get {
+                return ResourceManager.GetString("msgQRNoCorresponde", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The QR code does not correspond to a valid code..
+        /// </summary>
+        public static string msgQRNoValido {
+            get {
+                return ResourceManager.GetString("msgQRNoValido", resourceCulture);
             }
         }
         

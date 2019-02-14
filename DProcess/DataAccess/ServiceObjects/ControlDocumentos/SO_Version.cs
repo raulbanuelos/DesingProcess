@@ -645,5 +645,56 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        /// <summary>
+        /// Método que obtiene los registro que sean iguales en su columna CodeValidation.
+        /// </summary>
+        /// <param name="codeValidation"></param>
+        /// <returns></returns>
+        public IList GetCodeValidation(string codeValidation)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    var Lista = (from a in Conexion.TBL_VERSION
+                                 where a.CODE_VALIDATION == codeValidation
+                                 select a).ToList();
+
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que actualiza el campo CODE_VALIDATION
+        /// </summary>
+        /// <param name="idVersion"></param>
+        /// <param name="codeValidation"></param>
+        /// <returns></returns>
+        public int UpdateCodeValidation(int idVersion,string codeValidation)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    TBL_VERSION version = Conexion.TBL_VERSION.Where(x => x.ID_VERSION == idVersion).FirstOrDefault();
+
+                    version.CODE_VALIDATION = codeValidation;
+
+                    Conexion.Entry(version).State = EntityState.Modified;
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
     }
 }

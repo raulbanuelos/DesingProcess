@@ -11352,33 +11352,44 @@ namespace Model
             return ListaResultante;
         }
 
-        public static List<MateriaPrimaRolado> GetMateriaPrimaRolado(double _h1Min, double _h1Max, double a1Min, double a1Max, string especificacion, double matRemoverWidth, double matRemoverThickness)
+        /// <summary>
+        /// Método que retorna la materia prima ideal a partir de los datos recibidos en los parámetros.
+        /// </summary>
+        /// <param name="widthCalculado">Media del Width del anillo menos(-) cantidad de material a agregar durante el proceso. Inch</param>
+        /// <param name="thicknessCalculado">Media del Thickness del anillo menos(-) cantidad de material a agregar durante el proceso. Inch</param>
+        /// <param name="especMaterial"></param>
+        /// <param name="especPerfil"></param>
+        /// <param name="nCortesWidth"></param>
+        /// <returns></returns>
+        public static List<MateriaPrimaRolado> GetMateriaPrimaRolado(double widthCalculado,double thicknessCalculado,string especMaterial, string especPerfil)
         {
             List<MateriaPrimaRolado> ListaResultante = new List<MateriaPrimaRolado>();
 
             SO_MateriaPrimaRolado ServiceMPRolado = new SO_MateriaPrimaRolado();
 
-            IList informacionBD = ServiceMPRolado.GetMateriaPrimaRoladoIdeal(_h1Min, _h1Max, a1Min, a1Max, especificacion, matRemoverWidth, matRemoverThickness);
+            DataSet informacionBD = ServiceMPRolado.GetMateriaPrimaRoladoIdeal(widthCalculado, thicknessCalculado,especMaterial,especPerfil);
 
             if (informacionBD != null)
             {
-                foreach (var item in informacionBD)
+                if (informacionBD.Tables.Count > 0 && informacionBD.Tables[0].Rows.Count > 0)
                 {
-                    MateriaPrimaRolado materiaPrima = new MateriaPrimaRolado();
-
-                    Type tipo = item.GetType();
-
-                    materiaPrima.Codigo = (string)tipo.GetProperty("ID_MATERIA_PRIMA_ROLADO").GetValue(item, null);
-                    materiaPrima.Especificacion = (string)tipo.GetProperty("ID_ESPECIFICACION").GetValue(item, null);
-                    materiaPrima.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
-                    materiaPrima.UM = (string)tipo.GetProperty("UM").GetValue(item, null);
-                    materiaPrima._Width = Convert.ToDouble(tipo.GetProperty("WIDTH").GetValue(item, null));
-                    materiaPrima.Groove = Convert.ToDouble(tipo.GetProperty("GROOVE").GetValue(item, null));
-                    materiaPrima.Thickness = Convert.ToDouble(tipo.GetProperty("THICKNESS").GetValue(item, null));
-                    materiaPrima.Ubicacion = (string)tipo.GetProperty("UBICACION").GetValue(item, null);
-                    materiaPrima.Encontrado = true;
-
-                    ListaResultante.Add(materiaPrima);
+                    foreach (DataRow item in informacionBD.Tables[0].Rows)
+                    {
+                        MateriaPrimaRolado materiaPrima = new MateriaPrimaRolado();
+                        materiaPrima.Codigo = item["ID_MATERIA_PRIMA_ROLADO"].ToString();
+                        materiaPrima.Especificacion = item["ID_ESPECIFICACION"].ToString();
+                        materiaPrima.DescripcionGeneral = item["DESCRIPCION"].ToString();
+                        materiaPrima.UM = item["UM"].ToString();
+                        materiaPrima._Width = Convert.ToDouble(item["WIDTH"].ToString());
+                        materiaPrima.Groove = Convert.ToDouble(item["GROOVE"].ToString());
+                        materiaPrima.Thickness = Convert.ToDouble(item["THICKNESS"].ToString());
+                        materiaPrima.Ubicacion = item["UBICACION"].ToString();
+                        materiaPrima.Encontrado = true;
+                        materiaPrima.nCortesWidth = Convert.ToInt32(item["NUMERO_CORTES"].ToString());
+                        materiaPrima.MatMustRemoveThickness = Convert.ToDouble(item["MAT_REMOVER_THICKNESS"].ToString());
+                        
+                        ListaResultante.Add(materiaPrima);
+                    }
 
                 }
             }
@@ -11781,6 +11792,33 @@ namespace Model
             }
 
             //Retornamos el objeto.
+            return user;
+        }
+
+        public static Usuario GetUsuario(string idUsuario)
+        {
+            SO_Usuario ServiceUsuario = new SO_Usuario();
+
+            Usuario user = new Usuario();
+
+            IList informacionBD = ServiceUsuario.GetUsuario(idUsuario);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    user.ApellidoMaterno = (string)tipo.GetProperty("AMaterno").GetValue(item, null);
+                    user.ApellidoPaterno = (string)tipo.GetProperty("APaterno").GetValue(item, null);
+                    user.Block = (bool)tipo.GetProperty("Bloqueado").GetValue(item, null);
+                    user.Correo = (string)tipo.GetProperty("Correo").GetValue(item, null);
+                    user.Nombre = (string)tipo.GetProperty("Nombre").GetValue(item, null);
+                    user.Pathnsf = (string)tipo.GetProperty("Pathnsf").GetValue(item, null);
+                    user.IdUsuario = (string)tipo.GetProperty("Usuario").GetValue(item, null);
+                }
+            }
+
             return user;
         }
         #endregion

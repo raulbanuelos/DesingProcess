@@ -304,6 +304,30 @@ namespace DataAccess.ServiceObjects.Usuario
                 return 0;
             }
         }
+
+        /// <summary>
+        /// Método
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <returns></returns>
+        public IList GetUsuario(string idUsuario)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesUsuario())
+                {
+                    var Lista = (from a in Conexion.Usuarios
+                                 where a.Usuario == idUsuario
+                                 select a).ToList();
+
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
         #endregion
     }
 }

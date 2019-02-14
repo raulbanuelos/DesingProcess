@@ -1026,6 +1026,28 @@ namespace View.Services
         }
 
         /// <summary>
+        /// Método que obtiene la cantidad de material que se le va a agregar en width durante el proceso.
+        /// </summary>
+        /// <param name="operaciones"></param>
+        /// <returns></returns>
+        public static double GetMaterialAddWidth(ObservableCollection<IOperacion> operaciones)
+        {
+            double materialAddWidth = 0;
+            foreach (var operacion in operaciones)
+            {
+                if (operacion is IObserverWidth)
+                {
+                    if (((IObserverWidth)operacion).MatRemoverWidth < 0)
+                    {
+                        materialAddWidth += ((IObserverWidth)operacion).MatRemoverWidth;
+                    }
+                }
+            }
+
+            return materialAddWidth;
+        }
+
+        /// <summary>
         /// Método que obtiene la cantidad de material a remover en thickness de una serie de operaciones.
         /// </summary>
         /// <param name="operaciones"></param>
@@ -1042,6 +1064,28 @@ namespace View.Services
             }
 
             return materialRemoverThickness;
+        }
+
+        /// <summary>
+        /// Método que obtiene la cantidad de material que se le va a agregar en thickness durante el proceso.
+        /// </summary>
+        /// <param name="operaciones"></param>
+        /// <returns></returns>
+        public static double GetMaterialAddThickness(ObservableCollection<IOperacion> operaciones)
+        {
+            double materialAddThickness = 0;
+            foreach (var operacion in operaciones)
+            {
+                if (operacion is IObserverThickness)
+                {
+                    if (((IObserverThickness)operacion).MatRemoverThickness < 0)
+                    {
+                        materialAddThickness += ((IObserverThickness)operacion).MatRemoverThickness;
+                    }
+                }
+            }
+
+            return materialAddThickness;
         }
 
         /// <summary>

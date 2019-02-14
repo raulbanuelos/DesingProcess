@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
         mc:Ignorable="d"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        Title="Estatus de los documentos"         Height="750" Width="1230" 
+        Title="Estatus de los documentos"         Height="750" Width="1250" 
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
@@ -79,7 +79,7 @@
 
 
         </Grid>
-        <Button Grid.Column="1" Grid.Row="2" Width="150" HorizontalAlignment="Right" Content="{x:Static recursos:StringResources.lblAceptar}" Command="{Binding RechazarDocumentos}"/>
+        <Button Grid.Column="1" Grid.Row="2" Width="250" Cursor="Hand" HorizontalAlignment="Right" Content="{x:Static recursos:StringResources.lblReturnPendient}" Command="{Binding RechazarDocumentos}"/>
         
     </Grid>
 </Controls:MetroWindow>

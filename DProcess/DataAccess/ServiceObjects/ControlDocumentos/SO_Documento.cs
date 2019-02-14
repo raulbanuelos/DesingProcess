@@ -845,7 +845,12 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      t.TIPO_DOCUMENTO,
                                      v.No_VERSION,
                                      v.FECHA_VERSION,
-                                     v.ID_USUARIO_ELABORO
+                                     v.ID_USUARIO_ELABORO,
+                                     ID_VERSION = v.ID_VERSION,
+                                     ID_USUARIO_AUTORIZO = v.ID_USUARIO_AUTORIZO,
+                                     ID_TIPO_DOCUMENTO = d.ID_TIPO_DOCUMENTO,
+                                     CODE_VALIDATION = v.CODE_VALIDATION,
+                                     DESCRIPCION_VERSION = v.DESCRIPCION
                                  }).ToList();
 
                     //Retorna la lista

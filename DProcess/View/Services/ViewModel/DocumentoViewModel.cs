@@ -1176,7 +1176,6 @@ namespace View.Services.ViewModel
             {
                 await dialog.SendMessage(StringResources.ttlAlerta, mensaje);
             }
-
         }
 
         private bool validarJES(out string mensaje)
@@ -1279,15 +1278,31 @@ namespace View.Services.ViewModel
         private void generateQRCode(string path)
         {
             string codigo = string.Empty;
+            string codeValidation = string.Empty;
+            bool ban = true;
 
-            codigo = SelectedDocumento.nombre + "*" + Version + "*" + Fecha + "*" +  Module.GetRandomString(8);
-            
+            while (ban)
+            {
+                codeValidation = Module.GetRandomString(8);
+                ban = DataManagerControlDocumentos.ExistsCodeValidation(codeValidation);
+            }
+
+            codigo = SelectedDocumento.nombre + "*" + Version + "*" + Fecha + "*" + codeValidation;
+
+            //Actualizamos el código generado en la tabla TBL_VERSION.
+            DataManagerControlDocumentos.UpdateCodeValidation(idVersion, codeValidation);
+
+            //Encriptamos el codigo.
+            string codigoEncriptado = Seguridad.Encriptar(codigo);
+
             var qrEncoder = new QrEncoder(ErrorCorrectionLevel.H);
-            var qrCode = qrEncoder.Encode(codigo);
+            var qrCode = qrEncoder.Encode(codigoEncriptado);
 
             var renderer = new GraphicsRenderer(new FixedModuleSize(5, QuietZoneModules.Two), Brushes.Black, Brushes.White);
             using (var stream = new FileStream(path, FileMode.Create))
                 renderer.WriteToStream(qrCode.Matrix, ImageFormat.Png, stream);
+
+            
 
         }
 
@@ -2200,6 +2215,7 @@ namespace View.Services.ViewModel
                                             string confirmacionFrames = r > 0 ? StringResources.msgFramesExito : StringResources.msgFramesIncorrecto;
                                             string confirmacionCorreo = string.Empty;
 
+                                            //Verificamos si son documentos Procedimientos y Formatos
                                             if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
                                             {
                                                 if (NotificarNuevaVersion())
