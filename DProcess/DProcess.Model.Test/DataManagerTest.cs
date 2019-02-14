@@ -32,7 +32,7 @@ namespace DProcess.Model.Test
         public void GetMateriaPrimaRolado()
         {
             int nCortes = 0;
-            List<MateriaPrimaRolado> ListaResultante = DataManager.GetMateriaPrimaRolado(.0463, "ES-343", "", out nCortes);
+            //List<MateriaPrimaRolado> ListaResultante = DataManager.GetMateriaPrimaRolado(.0463, "ES-343", "", out nCortes);
 
             Assert.AreEqual(nCortes, 6);
         }

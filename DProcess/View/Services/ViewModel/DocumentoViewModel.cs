@@ -38,6 +38,7 @@ namespace View.Services.ViewModel
         private DateTime auxFecha;
         public Usuario User;
         Archivo ArchivoTemporal;
+        string codeValidation = string.Empty;
         #endregion
 
         #region PropertyChanged
@@ -981,14 +982,6 @@ namespace View.Services.ViewModel
             }
         }
 
-        public ICommand ValidarArchivo
-        {
-            get
-            {
-                return new RelayCommand(x => validarArchivo());
-            }
-        }
-
         /// <summary>
         /// Comando para guardar un registro de documento
         /// </summary>
@@ -1186,15 +1179,7 @@ namespace View.Services.ViewModel
         {
             bool validacion = validarJES(out mensaje);
 
-            if (validacion)
-            {
-                await dialog.SendMessage(StringResources.ttlAlerta, mensaje);
-            }
-            else
-            {
-                await dialog.SendMessage(StringResources.ttlAlerta, mensaje);
-            }
-
+            return validacion;
         }
 
         private bool validarJES(out string mensaje)
@@ -1327,7 +1312,7 @@ namespace View.Services.ViewModel
         private void generateQRCode(string path)
         {
             string codigo = string.Empty;
-            string codeValidation = string.Empty;
+            
             bool ban = true;
 
             while (ban)
@@ -1337,10 +1322,7 @@ namespace View.Services.ViewModel
             }
 
             codigo = SelectedDocumento.nombre + "*" + Version + "*" + Fecha + "*" + codeValidation;
-
-            //Actualizamos el código generado en la tabla TBL_VERSION.
-            DataManagerControlDocumentos.UpdateCodeValidation(idVersion, codeValidation);
-
+            
             //Encriptamos el codigo.
             string codigoEncriptado = Seguridad.Encriptar(codigo);
 
@@ -3147,6 +3129,10 @@ namespace View.Services.ViewModel
                                             //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
                                             int id_version = DataManagerControlDocumentos.SetVersion(objVersion, obj.nombre);
 
+                                            //Actualizamos el código generado en la tabla TBL_VERSION.
+                                            DataManagerControlDocumentos.UpdateCodeValidation(id_version, codeValidation);
+                                            codeValidation = string.Empty;
+
                                             //si se guardó correctamente el registro en la tabla versión.
                                             if (id_version != 0)
                                             {
@@ -3177,8 +3163,7 @@ namespace View.Services.ViewModel
                                                         await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
                                                     }
                                                 }
-
-
+                                                
                                                 //Ejecutamos el método para cerrar el mensaje de espera.
                                                 await controllerProgressAsync.CloseAsync();
 
@@ -3200,7 +3185,7 @@ namespace View.Services.ViewModel
                                             else
                                             {
                                                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorRegistrarVersion);
-                                            }
+                                            }  
                                         }
                                         else
                                         {
@@ -3274,6 +3259,8 @@ namespace View.Services.ViewModel
                                         {
                                             //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
                                             int id_version = DataManagerControlDocumentos.SetVersion(objVersion, nombre);
+
+                                            DataManagerControlDocumentos.UpdateCodeValidation(id_version, codeValidation);
 
                                             //si se realizo guardo la versión 
                                             if (id_version != 0)
