@@ -1206,15 +1206,35 @@ namespace View.Services.ViewModel
                 {
                     try
                     {
+                        string VersionRevisar = "VERSION_11";
+                        string FechaRevisar = "FECHA_A11";
+                        string UsuarioRevisar = "USUARIO_A11";
+                        if (Convert.ToInt32(Version) <= 11)
+                        {
+                            VersionRevisar = "VERSION_" + Version;
+                            FechaRevisar = "FECHA_A" + Version;
+                            UsuarioRevisar = "USUARIO_A" + Version;
+                        }
 
-                        string fecha = sheet.Range["FECHA_LIBERACION"].Value;
-                        string descripcion = sheet.Range["DESCRIPCION_JES"].Value;
-                        string elaboro = sheet.Range["ELABORO"].Value;
-                        string reviso = sheet.Range["REVISO"].Value;
-                        string codigo = sheet.Range["CODIGO"].Value;
-                        string departamento = sheet.Range["PROCESO"].Value;
+
+                        string fecha = Convert.ToString(sheet.Range["FECHA_LIBERACION"].Value);
+                        string descripcion = Convert.ToString(sheet.Range["DESCRIPCION_JES"].Value);
+                        string elaboro = Convert.ToString(sheet.Range["ELABORO"].Value);
+                        string reviso = Convert.ToString(sheet.Range["REVISO"].Value);
+                        string codigo = Convert.ToString(sheet.Range["CODIGO"].Value);
+                        string departamento = Convert.ToString(sheet.Range["PROCESO"].Value);
+                        string no_version = Convert.ToString(sheet.Range[VersionRevisar].Value);
+                        string UsuarioRev = Convert.ToString(sheet.Range[UsuarioRevisar].Value);
+                        string FechaRev = Convert.ToString(sheet.Range[FechaRevisar].Value);
+
+
+
+
+
+
 
                         DateTime date = Convert.ToDateTime(fecha);
+                        DateTime date1 = Convert.ToDateTime(FechaRev);
 
                         if (date.Year != FechaFin.Year || date.Month != FechaFin.Month || date.Day != FechaFin.Day)
                         {
@@ -1261,10 +1281,27 @@ namespace View.Services.ViewModel
                             return false;
                         }
 
+                        if (no_version != Version)
+                        {
+                            mensaje = "La versión del documento esta incorrecta: " + Version;
+                            return false;
+                        }
+                        string NombreAbreviado = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
+                        if (UsuarioRev != NombreAbreviado)
+                        {
+                            mensaje = "El usuario Elaboró está incorrecto.\nEl usuario elaboró en el archivo debe ser: " + NombreAbreviado;
+                            return false;
+                        }
+                        if (date1.Year != FechaFin.Year || date1.Month != FechaFin.Month || date1.Day != FechaFin.Day)
+                        {
+                            mensaje = "La fecha es incorrecta.\nLa Fecha en el archivo debe ser: " + FechaFin.Year + "-" + FechaFin.Month + "-" + FechaFin.Day;
+                            return false;
+                        }
+
                     }
-                    catch (Exception)
+                    catch (Exception er)
                     {
-                        mensaje = "Archivo incorrecto";
+                        mensaje = "Archivo incorrecto : \n" + er.Message;
                         return false;
                     }
                 }
@@ -1456,7 +1493,9 @@ namespace View.Services.ViewModel
 
                                     File.WriteAllBytes(path, formatoJES.archivo);
 
-                                    ImportExcel.ExportFormatoJES(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version));
+                                    string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
+
+                                    ImportExcel.ExportFormatoJES(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
                                 }
                                 else
                                 {
@@ -1487,8 +1526,9 @@ namespace View.Services.ViewModel
                                 string path = GetPathTempFile(formatoJES);
 
                                 File.WriteAllBytes(path, formatoJES.archivo);
+                                string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
 
-                                ImportExcel.ExportFormatoJES(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version));
+                                ImportExcel.ExportFormatoJES(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
                             }
                             else
                             {

@@ -48,6 +48,36 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
         
+        ///// <summary>
+        ///// Método que obtiene todos los regsitros de una version
+        ///// </summary>
+        ///// <param name="Id_Documento"></param>
+        ///// <returns></returns>
+        //public IList GetVersionesDocumento(int Id_Documento)
+        //{
+        //    try
+        //    {
+        //        using (var conexion = new EntitiesControlDocumentos())
+        //        {
+        //            var Lista = (from v in conexion.TBL_VERSION
+        //                         join u in conexion.Usuarios on v.ID_USUARIO_AUTORIZO equals u.Usuario
+        //                         select new
+        //                         {
+        //                             u.Nombre,
+        //                             u.APaterno,
+        //                             v.No_VERSION,
+        //                             v.FECHA_VERSION,
+        //                         }
+        //                         ).ToList();
+        //            return Lista;
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return null;
+        //    }
+        //}
+
         /// <summary>
         /// 
         /// </summary>
@@ -624,6 +654,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                         join us in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals us.Usuario
                                         join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
                                         where d.ID_DOCUMENTO == id_doc && (v.ID_ESTATUS_VERSION==1 | v.ID_ESTATUS_VERSION==2)
+                                        orderby v.ID_VERSION descending
                                         select new
                                         {
                                             v.ID_VERSION,
@@ -633,10 +664,9 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                             v.DESCRIPCION,
                                             USUARIO_AUTORIZO = u.Nombre + " " + u.APaterno + " " + u.AMaterno,
                                             USUARIO_ELABORO = us.Nombre + " " + us.APaterno + " " + us.AMaterno,
-                                        }).OrderBy(x => x.ID_VERSION).Distinct().ToList();
-
-                    //Retornamos la lista
-                    return ListaVersion;
+                                        }).ToList();
+                //Retornamos la lista
+                return ListaVersion;
                 }
 
             }
@@ -695,6 +725,48 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             catch (Exception)
             {
                 return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene una lista de las versiones liberadas de un documento correspondiente
+        /// </summary>
+        /// <param name="id_doc"></param>
+        /// <returns></returns>
+        public IList GetVersionesXDocumento(int id_doc)
+        {
+            try
+            {
+                //Se establece la conexion 
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Se realiza la consulta, el resultado se guarda en una lista
+                    var ListaVersion = (from d in Conexion.TBL_DOCUMENTO
+                                        join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                        join u in Conexion.Usuarios on v.ID_USUARIO_AUTORIZO equals u.Usuario
+                                        join us in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals us.Usuario
+                                        join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
+                                        where d.ID_DOCUMENTO == id_doc && (v.ID_ESTATUS_VERSION == 1 | v.ID_ESTATUS_VERSION == 2)
+                                        orderby v.ID_VERSION descending
+                                        select new
+                                        {
+                                            v.ID_VERSION,
+                                            v.No_VERSION,
+                                            v.FECHA_VERSION,
+                                            v.NO_COPIAS,
+                                            v.DESCRIPCION,
+                                            USUARIO_AUTORIZO = u.Nombre.Substring(0,1) + "." + u.APaterno,
+                                            USUARIO_ELABORO = us.Nombre.Substring(0,1) + "." + us.APaterno,
+                                        }).Take(10).ToList();
+                    //Retornamos la lista
+                    return ListaVersion;
+                }
+
+            }
+            catch (Exception er)
+            {
+                //Si hay error, se regresa nulo
+                return null;
             }
         }
 

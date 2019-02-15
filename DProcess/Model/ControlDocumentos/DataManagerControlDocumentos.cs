@@ -1876,6 +1876,37 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
+        /// Método que obtiene todos los registros de las versiones de un documento en especifico
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Version> GetVersionesAnterioresXDocumento(int id_documento)
+        {
+            SO_Version servicio = new SO_Version();
+            ObservableCollection<Version> ListaDatos = new ObservableCollection<Version>();
+
+            IList Obj = servicio.GetVersionesXDocumento(id_documento);
+
+            if (Obj != null)
+            {
+                foreach (var item in Obj)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos on objeto de tipo version que contendrá la información de un registro.
+                    Version objver = new Version();
+                    //Asignamos los valores correspondientes.
+                    objver.id_usuario = (string)tipo.GetProperty("USUARIO_ELABORO").GetValue(item, null);
+                    objver.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    objver.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
+                    //Agregamos el objeto a la lista resultante.
+                    ListaDatos.Add(objver);
+                }
+            }
+            return ListaDatos;
+        }
+        /// <summary>
         /// Método que obtiene la version actual de un documento seleccionado
         /// </summary>
         /// <returns></returns>
