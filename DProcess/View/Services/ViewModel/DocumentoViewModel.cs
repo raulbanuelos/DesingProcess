@@ -1202,108 +1202,123 @@ namespace View.Services.ViewModel
 
                 Microsoft.Office.Interop.Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(pathExcel, true);
 
-                foreach (Microsoft.Office.Interop.Excel.Worksheet sheet in ExcelWork.Sheets)
+                Microsoft.Office.Interop.Excel.Worksheet sheet = ExcelWork.Sheets["JES"];
+
+                try
                 {
-                    try
+                    int Aux = 1;
+                    bool ValidacionNumeracion = true;
+
+                    //Evaluamos la numeración de las hojas
+                    foreach (Microsoft.Office.Interop.Excel.Worksheet sheet1 in ExcelWork.Sheets)
                     {
-                        string VersionRevisar = "VERSION_11";
-                        string FechaRevisar = "FECHA_A11";
-                        string UsuarioRevisar = "USUARIO_A11";
-                        if (Convert.ToInt32(Version) <= 11)
+                        string Numeracion = Convert.ToString(sheet1.Range["X7"].Value);
+
+                        if (Numeracion != "Hoja " + Aux + " de " + ExcelWork.Sheets.Count)
                         {
-                            VersionRevisar = "VERSION_" + Version;
-                            FechaRevisar = "FECHA_A" + Version;
-                            UsuarioRevisar = "USUARIO_A" + Version;
+                            ValidacionNumeracion = false;
                         }
-
-
-                        string fecha = Convert.ToString(sheet.Range["FECHA_LIBERACION"].Value);
-                        string descripcion = Convert.ToString(sheet.Range["DESCRIPCION_JES"].Value);
-                        string elaboro = Convert.ToString(sheet.Range["ELABORO"].Value);
-                        string reviso = Convert.ToString(sheet.Range["REVISO"].Value);
-                        string codigo = Convert.ToString(sheet.Range["CODIGO"].Value);
-                        string departamento = Convert.ToString(sheet.Range["PROCESO"].Value);
-                        string no_version = Convert.ToString(sheet.Range[VersionRevisar].Value);
-                        string UsuarioRev = Convert.ToString(sheet.Range[UsuarioRevisar].Value);
-                        string FechaRev = Convert.ToString(sheet.Range[FechaRevisar].Value);
-
-
-
-
-
-
-
-                        DateTime date = Convert.ToDateTime(fecha);
-                        DateTime date1 = Convert.ToDateTime(FechaRev);
-
-                        if (date.Year != FechaFin.Year || date.Month != FechaFin.Month || date.Day != FechaFin.Day)
-                        {
-                            mensaje = "La fecha es incorrecta.\nLa Fecha en el archivo debe ser: " + FechaFin.Year + "-" + FechaFin.Month + "-" + FechaFin.Day;
-                            return false;
-                        }
-                        string CadenaEvaluar = descripcion.Replace(" ", "");
-                        if (!Regex.IsMatch(CadenaEvaluar, "^[a-zA-Z0-9-_,;.()áÁéÉíÍóÓúÚÜüñÑ]*$"))
-                        {
-                            mensaje = "La descripción no puede tener caracteres especiales, favor de escribirla de nuevo";
-                            return false;
-                        }
-                        if (descripcion != Descripcion)
-                        {
-                            mensaje = "La descripción es incorrecta.\nLa descripción en el archivo debe ser: " + Descripcion;
-                            return false;
-                        }
-                        if (elaboro != ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto)
-                        {
-                            mensaje = "El usuario Elaboró está incorrecto.\nEl usuario elaboró en el archivo debe ser: " + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto;
-                            return false;
-                        }
-                        string UsuariosPermitido = NombreUsuarioAut.Replace(" ", "");
-                        if (UsuariosPermitido == "SISTEMA")
-                        {
-                            mensaje = "El usuario Autorizo no debe ser SISTEMA, favor de seleccionar el correspondiente";
-                            return false;
-                        }
-                        if (reviso != ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto)
-                        {
-                            mensaje = "El usuario Autorizó está incorrecto.\nEl usuario Autorizo en el archivo debe ser: " + ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto;
-                            return false;
-                        }
-
-                        if (codigo != SelectedDocumento.nombre)
-                        {
-                            mensaje = "El Código está incorrecto.\nEl Código en el archivo debe ser: " + SelectedDocumento.nombre;
-                            return false;
-                        }
-
-                        if (departamento != ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep)
-                        {
-                            mensaje = "El Nombre del departamento está incorrecto.\nEl nombre del departamento en el archivo debe ser: " + ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep;
-                            return false;
-                        }
-
-                        if (no_version != Version)
-                        {
-                            mensaje = "La versión del documento esta incorrecta: " + Version;
-                            return false;
-                        }
-                        string NombreAbreviado = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
-                        if (UsuarioRev != NombreAbreviado)
-                        {
-                            mensaje = "El usuario Elaboró está incorrecto.\nEl usuario elaboró en el archivo debe ser: " + NombreAbreviado;
-                            return false;
-                        }
-                        if (date1.Year != FechaFin.Year || date1.Month != FechaFin.Month || date1.Day != FechaFin.Day)
-                        {
-                            mensaje = "La fecha es incorrecta.\nLa Fecha en el archivo debe ser: " + FechaFin.Year + "-" + FechaFin.Month + "-" + FechaFin.Day;
-                            return false;
-                        }
-
+                        Aux++;
                     }
-                    catch (Exception er)
+
+                    if (ValidacionNumeracion == false)
                     {
-                        mensaje = "Archivo incorrecto : \n" + er.Message;
+                        mensaje = "La numeración de las hojas esta mal";
                         return false;
                     }
+                    string VersionRevisar = "VERSION_11";
+                    string FechaRevisar = "FECHA_A11";
+                    string UsuarioRevisar = "USUARIO_A11";
+                    if (Convert.ToInt32(Version) <= 11)
+                    {
+                        VersionRevisar = "VERSION_" + Version;
+                        FechaRevisar = "FECHA_A" + Version;
+                        UsuarioRevisar = "USUARIO_A" + Version;
+                    }
+
+
+                    string fecha = Convert.ToString(sheet.Range["FECHA_LIBERACION"].Value);
+                    string descripcion = Convert.ToString(sheet.Range["DESCRIPCION_JES"].Value);
+                    string elaboro = Convert.ToString(sheet.Range["ELABORO"].Value);
+                    string reviso = Convert.ToString(sheet.Range["REVISO"].Value);
+                    string codigo = Convert.ToString(sheet.Range["CODIGO"].Value);
+                    string departamento = Convert.ToString(sheet.Range["PROCESO"].Value);
+                    string no_version = Convert.ToString(sheet.Range[VersionRevisar].Value);
+                    string UsuarioRev = Convert.ToString(sheet.Range[UsuarioRevisar].Value);
+                    string FechaRev = Convert.ToString(sheet.Range[FechaRevisar].Value);
+
+                    DateTime date = Convert.ToDateTime(fecha);
+                    DateTime date1 = Convert.ToDateTime(FechaRev);
+
+                    if (date.Year != FechaFin.Year || date.Month != FechaFin.Month || date.Day != FechaFin.Day)
+                    {
+                        mensaje = "La fecha es incorrecta.\nLa Fecha en el archivo debe ser: " + FechaFin.Year + "-" + FechaFin.Month + "-" + FechaFin.Day;
+                        return false;
+                    }
+                    string CadenaEvaluar = descripcion.Replace(" ", "");
+                    if (!Regex.IsMatch(CadenaEvaluar, "^[a-zA-Z0-9-_,;.()áÁéÉíÍóÓúÚÜüñÑ]*$"))
+                    {
+                        mensaje = "La descripción no puede tener caracteres especiales, favor de escribirla de nuevo";
+                        return false;
+                    }
+                    if (descripcion != Descripcion)
+                    {
+                        mensaje = "La descripción es incorrecta.\nLa descripción en el archivo debe ser: " + Descripcion;
+                        return false;
+                    }
+                    if (elaboro != ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto)
+                    {
+                        mensaje = "El usuario Elaboró está incorrecto.\nEl usuario elaboró en el archivo debe ser: " + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto;
+                        return false;
+                    }
+                    string UsuariosPermitido = NombreUsuarioAut.Replace(" ", "");
+                    if (UsuariosPermitido == "SISTEMA")
+                    {
+                        mensaje = "El usuario Autorizo no debe ser SISTEMA, favor de seleccionar el correspondiente";
+                        return false;
+                    }
+                    if (reviso != ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto)
+                    {
+                        mensaje = "El usuario Autorizó está incorrecto.\nEl usuario Autorizo en el archivo debe ser: " + ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto;
+                        return false;
+                    }
+
+                    if (codigo != SelectedDocumento.nombre)
+                    {
+                        mensaje = "El Código está incorrecto.\nEl Código en el archivo debe ser: " + SelectedDocumento.nombre;
+                        return false;
+                    }
+
+                    if (departamento != ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep)
+                    {
+                        mensaje = "El Nombre del departamento está incorrecto.\nEl nombre del departamento en el archivo debe ser: " + ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep;
+                        return false;
+                    }
+
+                    if (no_version != Version)
+                    {
+                        mensaje = "La versión del documento esta incorrecta: " + Version;
+                        return false;
+                    }
+                    string NombreAbreviado = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
+                    if (UsuarioRev != NombreAbreviado)
+                    {
+                        mensaje = "El usuario Elaboró está incorrecto.\nEl usuario elaboró en el archivo debe ser: " + NombreAbreviado;
+                        return false;
+                    }
+                    if (date1.Year != FechaFin.Year || date1.Month != FechaFin.Month || date1.Day != FechaFin.Day)
+                    {
+                        mensaje = "La fecha es incorrecta.\nLa Fecha en el archivo debe ser: " + FechaFin.Year + "-" + FechaFin.Month + "-" + FechaFin.Day;
+                        return false;
+                    }
+
+
+
+                }
+                catch (Exception er)
+                {
+                    mensaje = "Archivo incorrecto : \n" + er.Message;
+                    return false;
                 }
 
 
@@ -1349,7 +1364,7 @@ namespace View.Services.ViewModel
         private void generateQRCode(string path)
         {
             string codigo = string.Empty;
-            
+
             bool ban = true;
 
             while (ban)
@@ -1359,7 +1374,7 @@ namespace View.Services.ViewModel
             }
 
             codigo = SelectedDocumento.nombre + "*" + Version + "*" + Fecha + "*" + codeValidation;
-            
+
             //Encriptamos el codigo.
             string codigoEncriptado = Seguridad.Encriptar(codigo);
 
@@ -1370,7 +1385,7 @@ namespace View.Services.ViewModel
             using (var stream = new FileStream(path, FileMode.Create))
                 renderer.WriteToStream(qrCode.Matrix, ImageFormat.Png, stream);
 
-            
+
 
         }
 
@@ -1543,13 +1558,14 @@ namespace View.Services.ViewModel
                 }
                 else
                 {
-                    await dialog.SendMessage(StringResources.ttlAlerta, "Por el momento solo se puede generar el formato de archivos tipos JES");
+                    await dialog.SendMessage(StringResources.ttlAlerta, "Por el momento solo se puede generar el formato de archivos tipo JES");
                 }
-            }else
+            }
+            else
             {
                 await dialog.SendMessage(StringResources.ttlAlerta, "Seleccione el número de documento");
             }
-            
+
         }
 
         /// <summary>
@@ -3203,7 +3219,7 @@ namespace View.Services.ViewModel
                                                         await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
                                                     }
                                                 }
-                                                
+
                                                 //Ejecutamos el método para cerrar el mensaje de espera.
                                                 await controllerProgressAsync.CloseAsync();
 
@@ -3225,7 +3241,7 @@ namespace View.Services.ViewModel
                                             else
                                             {
                                                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorRegistrarVersion);
-                                            }  
+                                            }
                                         }
                                         else
                                         {
@@ -4667,7 +4683,7 @@ namespace View.Services.ViewModel
                                 Command = GenerarArchivo,
                                 Tag = "Crear Archivo",
                             }
-                        );                    
+                        );
                     if (Module.UsuarioIsRol(User.Roles, 2))
                     {
                         //Regresa la versión anterior de un documento si es que tiene
@@ -4988,6 +5004,7 @@ namespace View.Services.ViewModel
 
 
             #endregion
+
         }
     }
 }
