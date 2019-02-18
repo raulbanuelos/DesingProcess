@@ -966,14 +966,9 @@ namespace View.Services.ViewModel
 
         #region Commands
 
-        public ICommand InsertarQR
-        {
-            get
-            {
-                return new RelayCommand(o => insertQR(string.Empty, string.Empty, string.Empty));
-            }
-        }
-
+        /// <summary>
+        /// Comando que genera el archivo automáticamente.
+        /// </summary>
         public ICommand GenerarArchivo
         {
             get
@@ -1206,6 +1201,7 @@ namespace View.Services.ViewModel
                 {
                     try
                     {
+                        //ExcelWork.Sheets.Count
                         string VersionRevisar = "VERSION_11";
                         string FechaRevisar = "FECHA_A11";
                         string UsuarioRevisar = "USUARIO_A11";
@@ -1226,13 +1222,7 @@ namespace View.Services.ViewModel
                         string no_version = Convert.ToString(sheet.Range[VersionRevisar].Value);
                         string UsuarioRev = Convert.ToString(sheet.Range[UsuarioRevisar].Value);
                         string FechaRev = Convert.ToString(sheet.Range[FechaRevisar].Value);
-
-
-
-
-
-
-
+                        
                         DateTime date = Convert.ToDateTime(fecha);
                         DateTime date1 = Convert.ToDateTime(FechaRev);
 
@@ -4732,15 +4722,6 @@ namespace View.Services.ViewModel
                             Label = "Crear  archivo",
                             Command = GenerarArchivo,
                             Tag = "Crear archivo"
-                        }
-                        );
-                    this.MenuItems.Add(
-                        new HamburgerMenuIconItem()
-                        {
-                            Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Qrcode },
-                            Label = "Insertar QR",
-                            Command = InsertarQR,
-                            Tag = "Insertar QR"
                         }
                         );
                     break;

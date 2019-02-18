@@ -303,12 +303,15 @@ namespace View.Services
 
             
             double matAddWidth = Module.GetMaterialAddWidth(Operaciones);
+            matAddWidth = matAddWidth * -1;
             h1Max.Valor = Module.ConvertTo("Distance", h1Max.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), h1Max.Valor);
             h1Max.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
 
             h1Min.Valor = Module.ConvertTo("Distance", h1Min.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), h1Min.Valor);
             h1Min.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
             double promedioWidth = Math.Round((h1Min.Valor + h1Max.Valor) / 2,5);
+
+            promedioWidth = Module.TruncateDouble(promedioWidth, 4);
 
             double matAddThickness = Module.GetMaterialAddThickness(Operaciones);
             a1Max.Valor = Module.ConvertTo("Distance", a1Max.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), a1Max.Valor);
@@ -317,38 +320,14 @@ namespace View.Services
             a1Min.Valor = Module.ConvertTo("Distance", a1Min.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), a1Min.Valor);
             a1Min.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
             double promedioThickness = Math.Round((a1Max.Valor + a1Min.Valor) / 2,4);
+
+            double restaWidth = Math.Round(promedioWidth - matAddWidth,4);
             
-            List<MateriaPrimaRolado> ListaMateriaPrimaDisponible = DataManager.GetMateriaPrimaRolado(promedioWidth - matAddWidth,promedioThickness - matAddThickness, _elAnillo.MaterialBase.Especificacion, especPerfil.Valor);
+            List<MateriaPrimaRolado> ListaMateriaPrimaDisponible = DataManager.GetMateriaPrimaRolado(restaWidth,promedioThickness - matAddThickness, _elAnillo.MaterialBase.Especificacion, especPerfil.Valor);
 
             if (ListaMateriaPrimaDisponible.Count == 0)
             {
-                //double h1MinInch = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), h1Min.Valor);
-                //double h1MaxInch = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), h1Max.Valor);
-                //double mediaWidth = Math.Round(((h1MinInch + h1MaxInch) / 2),5);
-
-                //double thicknessMinInch = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), a1Min.Valor);
-                //double thicknessMaxInch = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), a1Max.Valor);
-                //double mediaThickness = Math.Round(((thicknessMaxInch + thicknessMinInch) / 2), 5);
-
-                //string descripcionMPIdeal = "Width Anillo:  " + mediaWidth + " " + EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
-                //descripcionMPIdeal += "\nThickness Anillo:   " + mediaThickness + " " + EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
-                //descripcionMPIdeal += "\nMaterial a remover durante el proceso (Width): " + matRemoverWidthInch + " " + EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
-                //descripcionMPIdeal += "\nMaterial a remover durante el proceso(Thcikness)" + matRemoverThicknessInch + " " + EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
-
-                //double widthIdealMP = mediaWidth + matRemoverWidthInch;
-                //double thicknessIdealMP = mediaThickness + matRemoverThicknessInch;
-
-                //widthIdealMP = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), widthIdealMP);
-                //thicknessIdealMP = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), thicknessIdealMP);
-
-                //descripcionMPIdeal += "\nWidth ideal MP: " + widthIdealMP;
-                //descripcionMPIdeal += "\nThickness ideal MP: " + thicknessIdealMP;
-
-                //MateriaPrimaRolado mpIdeal = new MateriaPrimaRolado { Codigo = "Codificar", DescripcionGeneral = "Width: " + widthIdealMP + " Thickness: " + thicknessIdealMP , _Width = widthIdealMP, Thickness = thicknessIdealMP, Especificacion = _elAnillo.MaterialBase.Especificacion, Encontrado = false };
-
-                
-
-                //ListaMateriaPrimaDisponible.Add(mpIdeal);
+                //Si no encontró MP
             }
 
             return ListaMateriaPrimaDisponible;

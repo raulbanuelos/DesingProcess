@@ -59,7 +59,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 {
                     var lista = (from a in conexion.TBL_ARCHIVO
                                  join b in conexion.TBL_VERSION on a.ID_VERSION equals b.ID_VERSION
-                                 where a.ID_VERSION== id_version
+                                 where a.ID_VERSION == id_version
                                  select a).ToList();
 
                     return lista;
