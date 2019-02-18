@@ -1322,10 +1322,14 @@ namespace View.Services.ViewModel
             {
                 if (ModelAnillo.MaterialBase.TipoDeMaterial == "ACERO AL CARBON")
                 {
-                    //HardCode. 
-                    //Preguntar al usuario a través de un mensaje que capture la especificación del perfil.
+                    //Obtenemos la ventana actual para mandar un mensaje de capturar la especificación del perfil
+                    var window = System.Windows.Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                    //Formulario para ingresar el número de copias, 
+                    string _especPerfil = await window.ShowInputAsync(StringResources.lblAlertas, "Por favor ingrese la especificación del perfil del anillo.", null);
+
                     ModelAnillo.PropiedadesCadenaAdquiridasProceso = new ObservableCollection<PropiedadCadena>();
-                    PropiedadCadena especPerfil = new PropiedadCadena { Nombre = "especPerfil", Valor = "ES-423" };
+                    PropiedadCadena especPerfil = new PropiedadCadena { Nombre = "especPerfil", Valor = _especPerfil };
                     ModelAnillo.PropiedadesCadenaAdquiridasProceso.Add(especPerfil);
 
                     //Se define la ruta primero antes de que se calcule la materia prima.
@@ -1363,6 +1367,8 @@ namespace View.Services.ViewModel
                         {
                             MateriaPrimaRolado mpSeleccionada = ListaIronRawMaterial.Where(x => x.IsSelected).FirstOrDefault();
                             Operaciones[0].ListaMateriaPrima.Add(mpSeleccionada);
+
+
 
                             currentWidth = mpSeleccionada._Width;
                             currentThickness = mpSeleccionada.Thickness;

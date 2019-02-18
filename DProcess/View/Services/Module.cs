@@ -780,6 +780,9 @@ namespace View.Services
             double valorUnidadInicial = 0;
             double valorUnidadDestino = 0;
 
+            if (UnidadInicial == UnidadDestino)
+                return valor;
+
             //Verificamos que tipo de dato es, y obtenemos en cada una de las opciones el valor equivalente por default.
             if (TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance)))
             {
@@ -1114,7 +1117,19 @@ namespace View.Services
 
             return paso;
         }
-        
+
+        /// <summary>
+        /// Método para obtener un double con los decimales esperados.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="precision"></param>
+        /// <returns></returns>
+        public static double TruncateDouble(double value, int precision)
+        {
+            double step = (double)Math.Pow(10, precision);
+            double tmp = Math.Truncate(step * value);
+            return tmp / step;
+        }
 
         public static ObservableCollection<Propiedad> ConvertListToObservableCollectionPropiedad(List<Propiedad> lista)
         {
@@ -1150,5 +1165,7 @@ namespace View.Services
 
             return ListaResultante;
         }
+
+
     }
 }

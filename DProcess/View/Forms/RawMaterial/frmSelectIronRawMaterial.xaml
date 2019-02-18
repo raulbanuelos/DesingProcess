@@ -7,7 +7,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
         mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" BorderThickness="1" BorderBrush="Blue"
         xmlns:recursos="clr-namespace:View.Resources"          
-        Title="frmSelectIronRawMaterial" Height="300" Width="850">
+        Title="frmSelectIronRawMaterial" Height="300" Width="1000">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>

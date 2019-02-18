@@ -966,14 +966,9 @@ namespace View.Services.ViewModel
 
         #region Commands
 
-        public ICommand InsertarQR
-        {
-            get
-            {
-                return new RelayCommand(o => insertQR(string.Empty, string.Empty, string.Empty));
-            }
-        }
-
+        /// <summary>
+        /// Comando que genera el archivo automáticamente.
+        /// </summary>
         public ICommand GenerarArchivo
         {
             get
@@ -4748,15 +4743,6 @@ namespace View.Services.ViewModel
                             Label = "Crear  archivo",
                             Command = GenerarArchivo,
                             Tag = "Crear archivo"
-                        }
-                        );
-                    this.MenuItems.Add(
-                        new HamburgerMenuIconItem()
-                        {
-                            Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Qrcode },
-                            Label = "Insertar QR",
-                            Command = InsertarQR,
-                            Tag = "Insertar QR"
                         }
                         );
                     break;

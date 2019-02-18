@@ -215,7 +215,7 @@ namespace View.Services.Operaciones.Gasolina.Recubrimientos
                 elPlano = plano_;
 
             if (elPlano.Treatment == "MANGANESE PHOSPHATE")
-                MatRemoverWidth = -0.0005;
+                MatRemoverWidth = -0.0001;
             else
                 if (elPlano.Treatment == "ZINC PHOSPHATE")
                 MatRemoverWidth = 0;
