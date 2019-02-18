@@ -1505,7 +1505,10 @@ namespace View.Services.ViewModel
 
                                     string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
 
+                                    await dialog.SendMessage(StringResources.ttlAlerta, "El formato se genero correctamente.\nFavor de no modificar los datos generales del formato.\nAl momento de guardar el archivo, asegurate de que sea ARCHIVO DE EXCEL (.XLSX)");
                                     ImportExcel.ExportFormatoJES(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+
+                                    
                                 }
                                 else
                                 {
@@ -1538,7 +1541,9 @@ namespace View.Services.ViewModel
                                 File.WriteAllBytes(path, formatoJES.archivo);
                                 string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
 
+                                await dialog.SendMessage(StringResources.ttlAlerta, "El formato se genero correctamente. \n Favor de no modificar los datos generales del formato. \n y al momento de guardar el archivo, asegurate de que sea ARCHIVO DE EXCEL (.XLSX)");
                                 ImportExcel.ExportFormatoJES(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                
                             }
                             else
                             {
