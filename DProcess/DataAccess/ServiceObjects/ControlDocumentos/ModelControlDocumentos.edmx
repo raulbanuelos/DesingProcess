@@ -162,7 +162,7 @@
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="200" />
           <Property Name="FECHA_VERSION" Type="date" />
           <Property Name="NO_COPIAS" Type="int" />
-          <Property Name="CODE_VALIDATION" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="CODE_VALIDATION" Type="varchar" MaxLength="8" />
         </EntityType>
         <EntityType Name="TR_ROL_USUARIOS">
           <Key>
@@ -579,7 +579,6 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
           </AssociationSet>
-         
           </EntityContainer>
         <EntityType Name="TBL_ARCHIVO">
           <Key>
@@ -892,7 +891,7 @@
           <NavigationProperty Name="TR_ROL_USUARIOS" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_ROL_USUARIOS_Usuarios" FromRole="Usuarios" ToRole="TR_ROL_USUARIOS" />
           <NavigationProperty Name="TBL_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios" FromRole="Usuarios" ToRole="TBL_VERSION" />
           <NavigationProperty Name="TBL_VERSION1" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios1" FromRole="Usuarios" ToRole="TBL_VERSION" />
-        </EntityType>
+          </EntityType>
         <Association Name="FK_TBL_DOCUMENTO_Usuarios">
           <End Type="DataAccess.ServiceObjects.ControlDocumentos.Usuarios" Role="Usuarios" Multiplicity="1" />
           <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_DOCUMENTO" Role="TBL_DOCUMENTO" Multiplicity="*" />
@@ -930,7 +929,7 @@
           <Property Name="DESCRIPCION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="FECHA_VERSION" Type="DateTime" Precision="0" />
           <Property Name="NO_COPIAS" Type="Int32" />
-          <Property Name="CODE_VALIDATION" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="CODE_VALIDATION" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TBL_ARCHIVO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_ARCHIVO_TBL_VERSION" FromRole="TBL_VERSION" ToRole="TBL_ARCHIVO" />
           <NavigationProperty Name="TBL_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_TBL_DOCUMENTOS" FromRole="TBL_VERSION" ToRole="TBL_DOCUMENTO" />
           <NavigationProperty Name="TBL_ESTATUS_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_TBL_ESTATUS_VERSION" FromRole="TBL_VERSION" ToRole="TBL_ESTATUS_VERSION" />
@@ -1010,7 +1009,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-       
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
