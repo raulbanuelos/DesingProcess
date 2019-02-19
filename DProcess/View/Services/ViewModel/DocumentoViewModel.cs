@@ -1402,7 +1402,7 @@ namespace View.Services.ViewModel
                         image.ScaleAbsoluteHeight(40);
                         image.ScaleAbsoluteWidth(40);
                         image.SetAbsolutePosition(940, 723);
-                        pdfContentByte.AddImage(image);
+                        //pdfContentByte.AddImage(image);
                     }
                     stamper.Close();
                 }
