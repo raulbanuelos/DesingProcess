@@ -4918,11 +4918,20 @@ namespace View.Services.ViewModel
                             }
                             else
                             {
-                                //Entramos a este else si el documento tiene mas versiones y se cuenta con registro de ellas. Aqui solo se modifican los datos de la 
-                                //tabla de version en la base de datos
+                                //Entramos a este else si el documento tiene mas versiones y se cuenta con registro de ellas.
+                                Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+                                
+                                objVersion.no_version = version;
+                                objVersion.id_documento = id_documento;
+                                objVersion.id_usuario = _usuario;
+                                objVersion.id_usuario_autorizo = _usuarioAutorizo;
+                                objVersion.fecha_version = fecha;
+                                objVersion.id_estatus_version = 5;
+                                objVersion.no_copias = 0;
+                                objVersion.descripcion_v = Descripcion;
 
-                                //mandamos llamar el metodo que modifica los datos de la version
-                                int update_version = modificaVersion("JES");
+                                int update_version = DataManagerControlDocumentos.SetVersion(objVersion, Nombre);
+
                                 if (update_version != 0)
                                 {
                                     bool banOk = true;
@@ -4933,7 +4942,7 @@ namespace View.Services.ViewModel
                                         //Declaramos un objeto de tipo Archivo.
                                         Archivo objArchivo = new Archivo();
                                         //Asiganmos los valores, el nombre se guarda con el nombre de documento y versión
-                                        objArchivo.id_version = idVersion;
+                                        objArchivo.id_version = update_version;
                                         objArchivo.archivo = item.archivo;
                                         objArchivo.ext = item.ext;
                                         objArchivo.nombre = string.Concat(nombre, version);
