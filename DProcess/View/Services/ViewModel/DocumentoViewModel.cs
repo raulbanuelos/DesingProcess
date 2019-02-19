@@ -688,8 +688,8 @@ namespace View.Services.ViewModel
                 EnabledFecha = true;
                 BttnArchivos = true;
                 VersionEnabled = true;
-                //establecemos la ventana
-                //string Ventana = "DocumentoLiberado";
+                if (id_tipo == 1015)
+                    BttnGuardar = false;
                 //si band contiene true, significa que el documento esta liberado, caso contrario es por que esta en pendiente por corregir
                 if (band == true)
                 {
@@ -1284,15 +1284,15 @@ namespace View.Services.ViewModel
                         return false;
                     }
 
-                    if (departamento != ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep)
-                    {
-                        mensaje = "El Nombre del departamento está incorrecto.\nEl nombre del departamento en el archivo debe ser: " + ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep;
-                        return false;
-                    }
+                    //if (departamento != ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep)
+                    //{
+                    //    mensaje = "El Nombre del departamento está incorrecto.\nEl nombre del departamento en el archivo debe ser: " + ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep;
+                    //    return false;
+                    //}
 
                     if (no_version != Version)
                     {
-                        mensaje = "La versión del documento esta incorrecta: " + Version;
+                        mensaje = "La versión del documento esta incorrecta: \nLa versión en el archivo debe ser : " + Version;
                         return false;
                     }
                     string NombreAbreviado = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
@@ -1918,7 +1918,7 @@ namespace View.Services.ViewModel
                     {
                         if (id_tipo == 1015)
                         {
-                            dlg.Filter = "Excel Files (.xlsx)|*.xlsx";
+                            dlg.Filter = "Excel Files (.xlsm)|*.xlsm";
                         }
                         else
                         {
@@ -1966,7 +1966,7 @@ namespace View.Services.ViewModel
                                 }
                                 else
                                 {
-                                    if (obj.ext == ".xlsx")
+                                    if (obj.ext == ".xlsm")
                                     {
                                         obj.ruta = @"/Images/E.jpg";
                                     }
@@ -2005,7 +2005,7 @@ namespace View.Services.ViewModel
                                     if (id_tipo == 1015)
                                     {
                                         //si el archivo es de tipo JES se comprueba que se haya insertado una hoja de calculo
-                                        if (obj.ext == ".xlsx")
+                                        if (obj.ext == ".xlsm")
                                         {
                                             ListaDocumentos.Add(obj);
 
@@ -2107,7 +2107,7 @@ namespace View.Services.ViewModel
                             {
                                 if (id_tipo == 1015)
                                 {
-                                    dlg.Filter = "Excel Files (.xlsx)|*.xlsx";
+                                    dlg.Filter = "Excel Files (.xlsm)|*.xlsm";
                                 }
                                 else
                                 {
@@ -2154,7 +2154,7 @@ namespace View.Services.ViewModel
                                         }
                                         else
                                         {
-                                            if (ArchivoTemporal.ext == ".xlsx")
+                                            if (ArchivoTemporal.ext == ".xlsm")
                                             {
                                                 ArchivoTemporal.ruta = @"/Images/E.jpg";
                                             }
@@ -2194,7 +2194,7 @@ namespace View.Services.ViewModel
                                             if (id_tipo == 1015)
                                             {
                                                 //si el archivo es igual a cualquiera de los id anteriores se comprueba que sea un archivo .xlsx
-                                                if (ArchivoTemporal.ext == ".xlsx")
+                                                if (ArchivoTemporal.ext == ".xlsm")
                                                 {
                                                     //BORRAMOS EL ARCHIVO DE LA BASE DE DATOS, EL ARCHIVO QUE SE BORRA ES EL QUE SE ENCUENTRA EN LA LISTA DE DOCUMENTOS
                                                     int n = DataManagerControlDocumentos.DeleteArchivo(ListaDocumentos[0]);
