@@ -1820,7 +1820,7 @@ namespace View.Services.ViewModel
                 if (last_id != 0)
                 {
                     //Elimina los documentos de la lista 
-                    foreach (var item in _ListaDocumentos)
+                    foreach (var item in ListaDocumentos)
                     {
                         //Manda a la función para eliminar los archivos
                         int n = DataManagerControlDocumentos.DeleteArchivo(item);
@@ -2378,7 +2378,7 @@ namespace View.Services.ViewModel
         /// <returns></returns>
         private bool ValidarValores()
         {
-            if (nombre != null & version != null & fecha != null & !string.IsNullOrEmpty(descripcion) & id_tipo != 0 & _ListaDocumentos.Count != 0 & _usuario != null & _id_dep != 0 & usuarioAutorizo != null & !string.IsNullOrWhiteSpace(descripcion))
+            if (nombre != null & version != null & fecha != null & !string.IsNullOrEmpty(descripcion) & id_tipo != 0 & ListaDocumentos.Count != 0 & _usuario != null & _id_dep != 0 & usuarioAutorizo != null & !string.IsNullOrWhiteSpace(descripcion))
                 return true;
             else
                 return false;
@@ -3194,7 +3194,7 @@ namespace View.Services.ViewModel
                                             {
                                                 bool banOk = true;
                                                 //Iteramos la lista de documentos.
-                                                foreach (var item in _ListaDocumentos)
+                                                foreach (var item in ListaDocumentos)
                                                 {
                                                     //Declaramos un objeto de tipo Archivo.
                                                     Archivo objArchivo = new Archivo();
@@ -3323,7 +3323,7 @@ namespace View.Services.ViewModel
                                             {
                                                 bool banOk = true;
                                                 //Iteramos la lista de documentos.
-                                                foreach (var item in _ListaDocumentos)
+                                                foreach (var item in ListaDocumentos)
                                                 {
                                                     Archivo objArchivo = new Archivo();
                                                     //Mapeamos los valores al objeto creado, se guarda el archivo con el nombre del documento y la versión
@@ -3927,7 +3927,7 @@ namespace View.Services.ViewModel
                                                 bool banOk = true;
 
                                                 //obtenemos los datos que se habian guardado localmente en el metodo de adjuntar archivo
-                                                foreach (var item in _ListaDocumentos)
+                                                foreach (var item in ListaDocumentos)
                                                 {
                                                     //Declaramos un objeto de tipo Archivo.
                                                     Archivo objArchivo = new Archivo();
@@ -3982,7 +3982,7 @@ namespace View.Services.ViewModel
                                             bool banOk = true;
 
                                             //Iteramos la lista de los archivos de la versión
-                                            foreach (var item in _ListaDocumentos)
+                                            foreach (var item in ListaDocumentos)
                                             {
                                                 //Declaramos un objeto de tipo Archivo.
                                                 Archivo objArchivo = new Archivo();
@@ -4091,7 +4091,7 @@ namespace View.Services.ViewModel
                 {
                     Documento objDoc_Eliminado = new Documento();
                     //Elimina los documentos de la lista 
-                    foreach (var item in _ListaDocumentos)
+                    foreach (var item in ListaDocumentos)
                     {
 
                         objDoc_Eliminado.version.archivo.archivo = item.archivo;
@@ -4315,7 +4315,7 @@ namespace View.Services.ViewModel
         private bool ValidaTipo()
         {
             //Si la lista tiene más de un archivo, retorna falso
-            if (_ListaDocumentos.Count > 1)
+            if (ListaDocumentos.Count > 1)
                 return false;
             else
                 return true;
@@ -4876,7 +4876,7 @@ namespace View.Services.ViewModel
                                         bool banOk = true;
 
                                         //obtenemos los datos que se habian guardado localmente en el metodo de adjuntar archivo
-                                        foreach (var item in _ListaDocumentos)
+                                        foreach (var item in ListaDocumentos)
                                         {
                                             //Declaramos un objeto de tipo Archivo.
                                             Archivo objArchivo = new Archivo();
@@ -4928,7 +4928,7 @@ namespace View.Services.ViewModel
                                     bool banOk = true;
 
                                     //Iteramos la lista de los archivos de la versión
-                                    foreach (var item in _ListaDocumentos)
+                                    foreach (var item in ListaDocumentos)
                                     {
                                         //Declaramos un objeto de tipo Archivo.
                                         Archivo objArchivo = new Archivo();
