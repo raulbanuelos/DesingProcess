@@ -1197,10 +1197,10 @@ namespace View.Services.ViewModel
 
                 Microsoft.Office.Interop.Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(pathExcel, true);
 
-                Microsoft.Office.Interop.Excel.Worksheet sheet = ExcelWork.Sheets["JES"];
-
                 try
                 {
+                    Microsoft.Office.Interop.Excel.Worksheet sheet = ExcelWork.Sheets["JES"];
+                    
                     int Aux = 1;
                     bool ValidacionNumeracion = true;
 
@@ -1918,7 +1918,7 @@ namespace View.Services.ViewModel
                     {
                         if (id_tipo == 1015)
                         {
-                            dlg.Filter = "Excel Files (.xlsm)|*.xlsm";
+                            dlg.Filter = "Excel Files (.xlsm, .xlsx)|*.xlsm; *.xlsx";
                         }
                         else
                         {
@@ -1966,7 +1966,7 @@ namespace View.Services.ViewModel
                                 }
                                 else
                                 {
-                                    if (obj.ext == ".xlsm")
+                                    if (obj.ext == ".xlsm" || obj.ext == ".xlsx")
                                     {
                                         obj.ruta = @"/Images/E.jpg";
                                     }
@@ -2005,7 +2005,7 @@ namespace View.Services.ViewModel
                                     if (id_tipo == 1015)
                                     {
                                         //si el archivo es de tipo JES se comprueba que se haya insertado una hoja de calculo
-                                        if (obj.ext == ".xlsm")
+                                        if (obj.ext == ".xlsm" || obj.ext == ".xlsx")
                                         {
                                             ListaDocumentos.Add(obj);
 
@@ -2107,7 +2107,7 @@ namespace View.Services.ViewModel
                             {
                                 if (id_tipo == 1015)
                                 {
-                                    dlg.Filter = "Excel Files (.xlsm)|*.xlsm";
+                                    dlg.Filter = "Excel Files (.xlsm, .xlsx)|*.xlsm; *.xlsx";
                                 }
                                 else
                                 {
@@ -2154,7 +2154,7 @@ namespace View.Services.ViewModel
                                         }
                                         else
                                         {
-                                            if (ArchivoTemporal.ext == ".xlsm")
+                                            if (ArchivoTemporal.ext == ".xlsm" || ArchivoTemporal.ext == ".xlsx")
                                             {
                                                 ArchivoTemporal.ruta = @"/Images/E.jpg";
                                             }
@@ -2194,7 +2194,7 @@ namespace View.Services.ViewModel
                                             if (id_tipo == 1015)
                                             {
                                                 //si el archivo es igual a cualquiera de los id anteriores se comprueba que sea un archivo .xlsx
-                                                if (ArchivoTemporal.ext == ".xlsm")
+                                                if (ArchivoTemporal.ext == ".xlsm" || ArchivoTemporal.ext == ".xlsx")
                                                 {
                                                     //BORRAMOS EL ARCHIVO DE LA BASE DE DATOS, EL ARCHIVO QUE SE BORRA ES EL QUE SE ENCUENTRA EN LA LISTA DE DOCUMENTOS
                                                     int n = DataManagerControlDocumentos.DeleteArchivo(ListaDocumentos[0]);
