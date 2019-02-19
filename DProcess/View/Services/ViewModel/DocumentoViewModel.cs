@@ -20,7 +20,6 @@ using iTextSharp.text;
 using MahApps.Metro.IconPacks;
 using System.Reflection;
 using System.Drawing.Imaging;
-using QRCoder;
 using System.Drawing;
 using Gma.QrCodeNet.Encoding;
 using Gma.QrCodeNet.Encoding.Windows.Render;
