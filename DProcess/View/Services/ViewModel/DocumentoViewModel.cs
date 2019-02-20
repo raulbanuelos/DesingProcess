@@ -677,6 +677,14 @@ namespace View.Services.ViewModel
             //Si es ventana para generar una nueva versión, band= true
             BttnVersion = band;
 
+            //si band contiene true, significa que el documento esta liberado, caso contrario es por que esta en pendiente por corregir
+            if (band == true)
+            {
+                //mandamos llamar el menú que lo construye
+                //CreateMenuItems(Ventana);
+                AdjuntarDocumento = true;
+            }
+
             //si es personal del CIT y es ventana para generar una nueva versión
             if (Module.UsuarioIsRol(User.Roles, 2))
             {
@@ -689,13 +697,6 @@ namespace View.Services.ViewModel
                 VersionEnabled = true;
                 if (id_tipo == 1015)
                     BttnGuardar = false;
-                //si band contiene true, significa que el documento esta liberado, caso contrario es por que esta en pendiente por corregir
-                if (band == true)
-                {
-                    //mandamos llamar el menú que lo construye
-                    //CreateMenuItems(Ventana);
-                    AdjuntarDocumento = true;
-                }
             }
             VentanaProcedencia = "DocumentoLiberado";
             CreateMenuItems(VentanaProcedencia);
@@ -4917,19 +4918,9 @@ namespace View.Services.ViewModel
                             }
                             else
                             {
-                                //Entramos a este else si el documento tiene mas versiones y se cuenta con registro de ellas.
-                                Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
-                                
-                                objVersion.no_version = version;
-                                objVersion.id_documento = id_documento;
-                                objVersion.id_usuario = _usuario;
-                                objVersion.id_usuario_autorizo = _usuarioAutorizo;
-                                objVersion.fecha_version = fecha;
-                                objVersion.id_estatus_version = 5;
-                                objVersion.no_copias = 0;
-                                objVersion.descripcion_v = Descripcion;
-
-                                int update_version = DataManagerControlDocumentos.SetVersion(objVersion, Nombre);
+                                //Entramos a este else si el documento tiene mas versiones y se cuenta con registro de ellas.Aqui solo se modifican los datos de la 
+                                //tabla de version en la base de datos
+                                int update_version = modificaVersion("JES");
 
                                 if (update_version != 0)
                                 {
@@ -4941,7 +4932,7 @@ namespace View.Services.ViewModel
                                         //Declaramos un objeto de tipo Archivo.
                                         Archivo objArchivo = new Archivo();
                                         //Asiganmos los valores, el nombre se guarda con el nombre de documento y versión
-                                        objArchivo.id_version = update_version;
+                                        objArchivo.id_version = idVersion;
                                         objArchivo.archivo = item.archivo;
                                         objArchivo.ext = item.ext;
                                         objArchivo.nombre = string.Concat(nombre, version);
