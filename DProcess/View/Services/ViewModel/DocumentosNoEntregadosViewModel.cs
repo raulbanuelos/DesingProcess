@@ -72,9 +72,7 @@ namespace View.Services.ViewModel
             usuario = ModelUsuario;
         }
         #endregion
-
-
-
+        
         #region Comandos
 
         /// <summary>
@@ -113,6 +111,8 @@ namespace View.Services.ViewModel
                 MetroDialogSettings setting = new MetroDialogSettings();
                 setting.AffirmativeButtonText = StringResources.lblYes;
                 setting.NegativeButtonText = StringResources.lblNo;
+
+                bool Resultado = false;
 
                 //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
                 MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, "¿Deseas rechazar los documentos que tienen mas de dos dias sin entregar? \n Si rechazas los documentos se notificará al dueño del documento vía correo. ", setting, MessageDialogStyle.AffirmativeAndNegative);
@@ -172,30 +172,22 @@ namespace View.Services.ViewModel
                             body += "</body>";
                             body += "</HTML>";
 
-                            bool Resultado =serviceEmail.SendEmailLotusCustom(usuario.Pathnsf, correos, "Documento rechazado - " + documentoRezadado.NombreDocumento, body);
-
-                            if (Resultado)
-                            {
-                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgNotificacionCorreo);
-
-                                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                                //Verificamos que la pantalla sea diferente de nulo.
-                                if (window != null)
-                                {
-                                    //Cerramos la pantalla
-                                    window.Close();
-                                }
-
-                            }
-                            else
-                            {
-                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgNotificacionCorreoFallida);
-                            }
-
+                            Resultado = serviceEmail.SendEmailLotusCustom(usuario.Pathnsf, correos, "Documento rechazado - " + documentoRezadado.NombreDocumento, body);
+                            
                         }
                     }
+
+                    if (Resultado)
+                    {
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgNotificacionCorreo);
+
+                    }
+                    else
+                    {
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgNotificacionCorreoFallida);
+                    }
+
+                    ListaDocumentos = DataManagerControlDocumentos.GetDocumentosAprobadosNoRecibidos(true);
                 }
             }
         }
