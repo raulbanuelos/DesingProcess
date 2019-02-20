@@ -174,8 +174,11 @@ namespace View.Services
             try
             {
                 Excel.Application ExcelApp = new Excel.Application();
+                //var ExcelApp = new Excel.Application();
+                //Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(filename, ReadOnly: false, Password: "SISTEMA2019");
 
                 Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(filename, true);
+                //Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(filename, 0, false, 5, "SISTEMA2019", "SISTEMA2019", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
 
                 string dia = fechaFin.Day.ToString().Length > 1 ? fechaFin.Day.ToString() : "0" + fechaFin.Day.ToString();
                 string mes = fechaFin.Month.ToString().Length > 1 ? fechaFin.Month.ToString() : "0" + fechaFin.Month.ToString();
@@ -197,7 +200,7 @@ namespace View.Services
                         string FechaVersiones = "FECHA_A" + CVF;
                         string NivelVersiones = "NIVEL_C" + (CVF);
 
-
+                        
                         foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                         {
                             sheet.Range[UsuarioVersiones].Value = item.id_usuario;
@@ -220,6 +223,7 @@ namespace View.Services
 
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
+                        
                         sheet.Range["FECHA_LIBERACION"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
                         sheet.Range["DESCRIPCION_JES"].Value = descripcion;
                         sheet.Range["ELABORO"].Value = personaCreo;

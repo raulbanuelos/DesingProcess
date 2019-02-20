@@ -326,6 +326,9 @@
     <Compile Include="Forms\RawMaterial\CalculoPlacaModelo.xaml.cs">
       <DependentUpon>CalculoPlacaModelo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RawMaterial\CatMateriaPrimaRolado.xaml.cs">
+      <DependentUpon>CatMateriaPrimaRolado.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RawMaterial\frmSelectIronRawMaterial.xaml.cs">
       <DependentUpon>frmSelectIronRawMaterial.xaml</DependentUpon>
     </Compile>
@@ -788,6 +791,7 @@
     <Compile Include="Services\ViewModel\CalculoPlacaModeloViewModel.cs" />
     <Compile Include="Services\ViewModel\CamBK_VM.cs" />
     <Compile Include="Services\ViewModel\CamisaMolyVM.cs" />
+    <Compile Include="Services\ViewModel\CatMateriaPrimaRoladoVM.cs" />
     <Compile Include="Services\ViewModel\ChuckSplitterVM.cs" />
     <Compile Include="Services\ViewModel\ClosingSleeveVM.cs" />
     <Compile Include="Services\ViewModel\CoilCenterG_VM.cs" />
@@ -1079,6 +1083,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\RawMaterial\CalculoPlacaModelo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\RawMaterial\CatMateriaPrimaRolado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
