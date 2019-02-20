@@ -677,6 +677,14 @@ namespace View.Services.ViewModel
             //Si es ventana para generar una nueva versión, band= true
             BttnVersion = band;
 
+            //si band contiene true, significa que el documento esta liberado, caso contrario es por que esta en pendiente por corregir
+            if (band == true)
+            {
+                //mandamos llamar el menú que lo construye
+                //CreateMenuItems(Ventana);
+                AdjuntarDocumento = true;
+            }
+
             //si es personal del CIT y es ventana para generar una nueva versión
             if (Module.UsuarioIsRol(User.Roles, 2))
             {
@@ -689,13 +697,7 @@ namespace View.Services.ViewModel
                 VersionEnabled = true;
                 if (id_tipo == 1015)
                     BttnGuardar = false;
-                //si band contiene true, significa que el documento esta liberado, caso contrario es por que esta en pendiente por corregir
-                if (band == true)
-                {
-                    //mandamos llamar el menú que lo construye
-                    //CreateMenuItems(Ventana);
-                    AdjuntarDocumento = true;
-                }
+                
             }
             VentanaProcedencia = "DocumentoLiberado";
             CreateMenuItems(VentanaProcedencia);
