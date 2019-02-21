@@ -1396,7 +1396,7 @@ namespace View.Services.ViewModel
         private void VerEstatusDocumentos(Usuario Modelusuario)
         {
             FrmEstatusDocumentos form = new FrmEstatusDocumentos();
-            EstatusDocumentosVM conext = new EstatusDocumentosVM(Modelusuario.NombreUsuario);
+            EstatusDocumentosVM conext = new EstatusDocumentosVM(Modelusuario);
 
             form.DataContext = conext;
             form.ShowDialog();

@@ -270,7 +270,7 @@ namespace View.Services.ViewModel
         {
             ModelUsuario = modelUsuario;
             this.pagina = pagina;
-            //initNotifications();
+            initNotifications();
         }
 
         #endregion
@@ -474,12 +474,18 @@ namespace View.Services.ViewModel
 
         private void irRawMaterial()
         {
-            PPattern pantallaPattern = new PPattern();
+            //PPattern pantallaPattern = new PPattern();
 
-            PatternViewModel context = new PatternViewModel();
+            //PatternViewModel context = new PatternViewModel();
 
-            pantallaPattern.DataContext = context;
-            Pagina = pantallaPattern;
+            //pantallaPattern.DataContext = context;
+            //Pagina = pantallaPattern;
+
+            CatMateriaPrimaRolado Form = new CatMateriaPrimaRolado();
+            CatMateriaPrimaRoladoVM Context = new CatMateriaPrimaRoladoVM();
+
+            Form.DataContext = Context;
+            Pagina = Form;
         }
         #endregion
         
