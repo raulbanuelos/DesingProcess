@@ -85,7 +85,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
             return informacionBD;
         }
 
-        public int Insert(string codigoMateriaPrima, string especificacion, double thickness, double groove,string unidadMedida, double _width,string descripcion, string ubicacion)
+        public int Insert(string codigoMateriaPrima, string especificacion, double thickness, double groove,string unidadMedida, double _width,string descripcion, string ubicacion, string Especificacion_Perfil)
         {
             try
             {
@@ -101,6 +101,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     materiaPrima.GROOVE = groove;
                     materiaPrima.DESCRIPCION = descripcion;
                     materiaPrima.UBICACION = ubicacion;
+                    materiaPrima.ESPEC_PERFIL = Especificacion_Perfil;
 
                     Conexion.CAT_MATERIA_PRIMA_ROLADO.Add(materiaPrima);
 

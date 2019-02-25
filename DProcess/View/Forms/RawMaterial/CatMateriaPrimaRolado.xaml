@@ -56,64 +56,94 @@
                                 OptionsItemTemplate="{StaticResource MenuItemTemplate}"
                                 PaneBackground="#33a6cc" Grid.RowSpan="3">
         <Grid>
+            
             <Grid.RowDefinitions>
                 <RowDefinition Height="25*"></RowDefinition>
                 <RowDefinition Height="75*"></RowDefinition>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <StackPanel Orientation="Horizontal" Margin="50,10,10,10" Grid.Column="0">
+                <Grid Margin="50,10,10,10" Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="250"/>
+                    </Grid.ColumnDefinitions>
                     
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="1" VerticalAlignment="Center">
-                        <ComboBox materialDesign:HintAssist.Hint="ESPECIFICACIÓN MATERIAL" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListaMateriaPrima}" DisplayMemberPath="id_material" SelectedValuePath="id_material" SelectedValue="id_material"/>
-                        <TextBox materialDesign:HintAssist.Hint="DESCRIPCIÓN" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Descripcion}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                    </StackPanel>
+                    <Grid  HorizontalAlignment="Left">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                        </Grid.RowDefinitions>
+                        <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="CÓDIGO MATERIA PRIMA" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding CodigoMateriaPrima}"  Height="60"  TextWrapping="Wrap" Width="375" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                        <ComboBox Grid.Row="1" materialDesign:HintAssist.Hint="ESPECIFICACIÓN MATERIAL" 
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                                  ItemsSource="{Binding ListaMateriaPrima}"
+                                  DisplayMemberPath="id_material" SelectedValuePath="id_material" Width="170" 
+                                  HorizontalAlignment="Left" 
+                                  SelectedValue="{Binding IdMaterial}"/>
 
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1" Grid.Column="1" >
-                        <TextBox materialDesign:HintAssist.Hint="UM" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding UM}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                        <TextBox materialDesign:HintAssist.Hint="WIDTH" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Width}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                        <TextBox materialDesign:HintAssist.Hint="GROOVE" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Groove}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                        <TextBox Grid.Row="2" materialDesign:HintAssist.Hint="DESCRIPCIÓN" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Descripcion}"  Height="60"  TextWrapping="Wrap" Width="375" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" CharacterCasing="Upper"/>
+                    </Grid>
 
-                    </StackPanel>
+                    <Grid Margin="20,1,1,1" Grid.Column="1" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                        </Grid.RowDefinitions>
+                        <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="UM" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding UM}"  Height="60"  TextWrapping="Wrap" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" CharacterCasing="Upper"/>
+                        <TextBox Grid.Row="1" materialDesign:HintAssist.Hint="WIDTH" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Width}"  Height="60"  TextWrapping="Wrap"  Width="140" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"   PreviewTextInput="NumberValidation" PreviewKeyDown="KeyValidation"/>
+                        <TextBox Grid.Row="2" materialDesign:HintAssist.Hint="GROOVE" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Groove}"  Height="60"  TextWrapping="Wrap"  Width="140" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"   PreviewTextInput="NumberValidation" PreviewKeyDown="KeyValidation"/>
+                    </Grid>
 
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1" Grid.Column="2">
-                        <TextBox materialDesign:HintAssist.Hint="THICKNESS" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Thickness}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                        <TextBox materialDesign:HintAssist.Hint="UBICACIÓN" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Ubicacion}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                        <TextBox materialDesign:HintAssist.Hint="ESPECIFICACIÓN PERFIL" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Especificacion_Perfil}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="200" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                    </StackPanel>
+                    <Grid Margin="20,1,1,1" Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                        </Grid.RowDefinitions>
+                        <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="THICKNESS" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Thickness}"  Height="60"  TextWrapping="Wrap" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  PreviewTextInput="NumberValidation" PreviewKeyDown="KeyValidation"/>
+                        <TextBox Grid.Row="1" materialDesign:HintAssist.Hint="UBICACIÓN" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Ubicacion}"  Height="60"  TextWrapping="Wrap" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" CharacterCasing="Upper"/>
+                        <TextBox Grid.Row="2" materialDesign:HintAssist.Hint="ESPECIFICACIÓN PERFIL" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Especificacion_Perfil}"  Height="60"  TextWrapping="Wrap"  Width="200" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" CharacterCasing="Upper"/>
+                    </Grid>
                     
-                </StackPanel>
+                </Grid>
             </Grid>
+            
             <DataGrid Grid.Row="1" ItemsSource="{Binding ListaCatMateriaRolado}" x:Name="dataGrid"
                                       ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                      AutoGenerateColumns="False" SelectedItem="{Binding SelectedPattern,Mode=TwoWay}">
+                                      AutoGenerateColumns="False" SelectedItem="{Binding SelectedMateriaPrima,Mode=TwoWay}"
+                      CanUserAddRows="False" IsReadOnly="True">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding SelecccionarPlaca}"
                              CommandParameter="{Binding extension}" />
                     </i:EventTrigger>
 
-                    <i:EventTrigger EventName="MouseDoubleClick">
+                    <!--<i:EventTrigger EventName="MouseDoubleClick">
                         <i:InvokeCommandAction Command="{Binding AbrirPlaca}"
                              CommandParameter="{Binding extension}" />
-                    </i:EventTrigger>
+                    </i:EventTrigger>-->
                 </i:Interaction.Triggers>
 
                 <DataGrid.Columns>
-
-                    <DataGridTextColumn Header="ESPECIFICACIÓN MATERIAL" Binding="{Binding Codigo}"/>
+                    <DataGridTextColumn Header="CÓDIGO MATERIA PRIMA" Binding="{Binding Codigo}"/>
+                    <DataGridTextColumn Header="ESPECIFICACIÓN MATERIAL" Binding="{Binding Especificacion}"/>
                     <DataGridTextColumn Header="DESCRIPCIÓN" Binding="{Binding DescripcionGeneral}"/>
                     <DataGridTextColumn Header="UM" Binding="{Binding UM}"/>
                     <DataGridTextColumn Header="WIDTH" Binding="{Binding _Width}"/>
                     <DataGridTextColumn Header="GROOVE" Binding="{Binding Groove}"/>
                     <DataGridTextColumn Header="THICKNESS" Binding="{Binding Thickness}"/>
-                    <DataGridTextColumn Header="UBICACIÓN" Binding="{Binding ring_w_max.Valor}"/>
-                    <DataGridTextColumn Header="ESPECIFICACIÓN PERFIL" Binding="{Binding B_Dia.Valor}"/>
+                    <DataGridTextColumn Header="UBICACIÓN" Binding="{Binding Ubicacion}"/>
+                    <DataGridTextColumn Header="ESPECIFICACIÓN PERFIL" Binding="{Binding EspecPefil}"/>
                 </DataGrid.Columns>
 
             </DataGrid>
+            
         </Grid>
     </controls:HamburgerMenu>
 

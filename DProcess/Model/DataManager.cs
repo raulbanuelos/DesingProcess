@@ -863,34 +863,13 @@ namespace Model
             return ListaR;
         }
 
-        public static ObservableCollection<Material> GetAllMaterialID()
+        public static int SetMateriaPrimaRolado(MateriaPrimaRolado Data)
         {
-            SO_Material ServiceMaterial = new SO_Material();
-            //Ejecutamos el método para obtener la inforamación de base de datos.
-            IList informacionBD = ServiceMaterial.GetMaterial();
+            SO_MateriaPrimaRolado servicio = new SO_MateriaPrimaRolado();
 
-            ObservableCollection<Material> ListaR = new ObservableCollection<Material>();
-            //Declaramos un entero el cual será el que retornemos en el método.
+            return servicio.Insert(Data.Codigo,Data.Especificacion,Data.Thickness,Data.Groove,Data.UM,Data._Width,Data.DescripcionGeneral,Data.Ubicacion,Data.EspecPefil);
 
-            //Verificamos que la información de base de datos sea direferente de nulo.
-            if (informacionBD != null)
-            {
-                //Iteramos la lista obtenida de la consulta.
-                foreach (var item in informacionBD)
-                {
-                    //Obtenemos el tipo del elemento iterado.
-                    System.Type tipo = item.GetType();
-
-                    Material obj = new Material();
-
-                    //Obtenemos el valor.
-                    obj.id_material = (string)tipo.GetProperty("id").GetValue(item, null);
-                    ListaR.Add(obj);
-                }
-            }
-            return ListaR;
         }
-
         /// <summary>
         /// 
         /// </summary>
@@ -11348,39 +11327,7 @@ namespace Model
 
         #region Materia Prima Rolado
 
-        public static List<MateriaPrimaRolado> GetAllMateriaPrimaRolado(string busqueda)
-        {
-            List<MateriaPrimaRolado> ListaResultante = new List<MateriaPrimaRolado>();
-
-            SO_MateriaPrimaRolado ServiceMPRolado = new SO_MateriaPrimaRolado();
-
-            IList informacionBD = ServiceMPRolado.GetAll(busqueda);
-
-            if (informacionBD != null)
-            {
-                foreach (var item in informacionBD)
-                {
-                    MateriaPrimaRolado materiaPrima = new MateriaPrimaRolado();
-
-                    Type tipo = item.GetType();
-
-                    materiaPrima.Codigo = (string)tipo.GetProperty("ID_MATERIA_PRIMA_ROLADO").GetValue(item, null);
-                    materiaPrima.Especificacion = (string)tipo.GetProperty("ID_ESPECIFICACION").GetValue(item, null);
-                    materiaPrima.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
-                    materiaPrima.UM = (string)tipo.GetProperty("UM").GetValue(item, null);
-                    materiaPrima._Width = (double)tipo.GetProperty("WIDTH").GetValue(item, null);
-                    materiaPrima.Groove = (double)tipo.GetProperty("GROOVE").GetValue(item, null);
-                    materiaPrima.Thickness = (double)tipo.GetProperty("THICKNESS").GetValue(item, null);
-
-                    ListaResultante.Add(materiaPrima);
-
-                }
-            }
-
-            return ListaResultante;
-        }
-
-        public static ObservableCollection<MateriaPrimaRolado> GetAllCatMateriaPrimaRolado(string busqueda)
+        public static ObservableCollection<MateriaPrimaRolado> GetAllMateriaPrimaRolado(string busqueda)
         {
             ObservableCollection<MateriaPrimaRolado> ListaResultante = new ObservableCollection<MateriaPrimaRolado>();
 
@@ -11403,6 +11350,8 @@ namespace Model
                     materiaPrima._Width = (double)tipo.GetProperty("WIDTH").GetValue(item, null);
                     materiaPrima.Groove = (double)tipo.GetProperty("GROOVE").GetValue(item, null);
                     materiaPrima.Thickness = (double)tipo.GetProperty("THICKNESS").GetValue(item, null);
+                    materiaPrima.Ubicacion = (string)tipo.GetProperty("UBICACION").GetValue(item, null);
+                    materiaPrima.EspecPefil = (string)tipo.GetProperty("ESPEC_PERFIL").GetValue(item, null);
 
                     ListaResultante.Add(materiaPrima);
 
@@ -11455,20 +11404,13 @@ namespace Model
             }
 
             return ListaResultante;
-        }
+        }        
 
-        public static int InsertMateriaPrimaRolado(string codigoMateriaPrima, string especificacion, double thickness, double groove, string unidadMedida, double _width, string descripcion, string ubicacion)
+        public static int UpdateMateriaPrimaRolado(MateriaPrimaRolado data)
         {
             SO_MateriaPrimaRolado ServiceRolado = new SO_MateriaPrimaRolado();
 
-            return ServiceRolado.Insert(codigoMateriaPrima, especificacion, thickness, groove, unidadMedida, _width, descripcion, ubicacion);
-        }
-
-        public static int UpdateMateriaPrimaRolado(string codigoMateriaPrima, string especificacion, double thickness, double groove, string unidadMedida, double _width, string descripcion, string ubicacion)
-        {
-            SO_MateriaPrimaRolado ServiceRolado = new SO_MateriaPrimaRolado();
-
-            return ServiceRolado.Update(codigoMateriaPrima, especificacion, thickness, groove, unidadMedida, _width, descripcion, ubicacion);
+            return ServiceRolado.Update(data.Codigo,data.Especificacion,data.Thickness,data.Groove,data.UM,data._Width,data.DescripcionGeneral,data.Ubicacion);
 
         }
 

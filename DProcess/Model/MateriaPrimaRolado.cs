@@ -21,5 +21,7 @@
         public int nCortesWidth { get; set; }
 
         public double MatMustRemoveThickness { get; set; }
+
+        public string EspecPefil { get; set; }
     }
 }

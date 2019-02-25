@@ -147,7 +147,8 @@
                                       ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                      AutoGenerateColumns="False" SelectedItem="{Binding SelectedPattern,Mode=TwoWay}">
+                                      AutoGenerateColumns="False" SelectedItem="{Binding SelectedPattern,Mode=TwoWay}"
+                      CanUserAddRows="False" IsReadOnly="False">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding SelecccionarPlaca}"
