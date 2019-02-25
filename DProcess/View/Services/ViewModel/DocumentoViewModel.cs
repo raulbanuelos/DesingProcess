@@ -4991,10 +4991,7 @@ namespace View.Services.ViewModel
                 //El sistema se encuentra bloqueado
                 await dialog.SendMessage(StringResources.msgSistemaBloqueado, objBloqueo.observaciones);
             }
-
-
-            #endregion
-
         }
+        #endregion
     }
 }
