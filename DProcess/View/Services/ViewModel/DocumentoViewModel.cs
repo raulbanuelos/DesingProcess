@@ -1199,7 +1199,16 @@ namespace View.Services.ViewModel
 
                 try
                 {
-                    Microsoft.Office.Interop.Excel.Worksheet sheet = ExcelWork.Sheets["JES"];
+                    Microsoft.Office.Interop.Excel.Worksheet sheet;
+                    if (id_tipo == 1015)
+                    {
+                        sheet = ExcelWork.Sheets["JES"];
+                    }
+                    else
+                    {
+                        sheet = ExcelWork.Sheets["HOE"];
+                    }
+
                     
                     int Aux = 1;
                     bool ValidacionNumeracion = true;
@@ -1224,7 +1233,17 @@ namespace View.Services.ViewModel
                     string VersionRevisar = "VERSION_11";
                     string FechaRevisar = "FECHA_A11";
                     string UsuarioRevisar = "USUARIO_A11";
-                    if (Convert.ToInt32(Version) <= 11)
+
+                    int VRevisar = 11;
+                    if (id_tipo == 2)
+                    {
+                        VersionRevisar = "VERSION_10";
+                        FechaRevisar = "FECHA_A10";
+                        UsuarioRevisar = "USUARIO_A10";
+                        VRevisar = 10;
+                    }
+
+                    if (Convert.ToInt32(Version) <= VRevisar)
                     {
                         VersionRevisar = "VERSION_" + Version;
                         FechaRevisar = "FECHA_A" + Version;
@@ -1233,7 +1252,11 @@ namespace View.Services.ViewModel
 
 
                     string fecha = Convert.ToString(sheet.Range["FECHA_LIBERACION"].Value);
-                    string descripcion = Convert.ToString(sheet.Range["DESCRIPCION_JES"].Value);
+                    if (id_tipo == 1015)
+                    {
+                        string descripcion = Convert.ToString(sheet.Range["DESCRIPCION"].Value);
+                    }
+                    
                     string elaboro = Convert.ToString(sheet.Range["ELABORO"].Value);
                     string reviso = Convert.ToString(sheet.Range["REVISO"].Value);
                     string codigo = Convert.ToString(sheet.Range["CODIGO"].Value);
@@ -1250,17 +1273,21 @@ namespace View.Services.ViewModel
                         mensaje = "La fecha es incorrecta.\nLa Fecha en el archivo debe ser: " + FechaFin.Year + "-" + FechaFin.Month + "-" + FechaFin.Day;
                         return false;
                     }
-                    string CadenaEvaluar = descripcion.Replace(" ", "");
-                    if (!Regex.IsMatch(CadenaEvaluar, "^[a-zA-Z0-9-_,;.()áÁéÉíÍóÓúÚÜüñÑ]*$"))
+                    if (id_tipo == 1015)
                     {
-                        mensaje = "La descripción no puede tener caracteres especiales, favor de escribirla de nuevo";
-                        return false;
+                        string CadenaEvaluar = descripcion.Replace(" ", "");
+                        if (!Regex.IsMatch(CadenaEvaluar, "^[a-zA-Z0-9-_,;.()áÁéÉíÍóÓúÚÜüñÑ]*$"))
+                        {
+                            mensaje = "La descripción no puede tener caracteres especiales, favor de escribirla de nuevo";
+                            return false;
+                        }
+                        if (descripcion != Descripcion)
+                        {
+                            mensaje = "La descripción es incorrecta.\nLa descripción en el archivo debe ser: " + Descripcion;
+                            return false;
+                        }
                     }
-                    if (descripcion != Descripcion)
-                    {
-                        mensaje = "La descripción es incorrecta.\nLa descripción en el archivo debe ser: " + Descripcion;
-                        return false;
-                    }
+
                     if (elaboro != ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto)
                     {
                         mensaje = "El usuario Elaboró está incorrecto.\nEl usuario elaboró en el archivo debe ser: " + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto;
@@ -1283,13 +1310,6 @@ namespace View.Services.ViewModel
                         mensaje = "El Código está incorrecto.\nEl Código en el archivo debe ser: " + SelectedDocumento.nombre;
                         return false;
                     }
-
-                    //if (departamento != ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep)
-                    //{
-                    //    mensaje = "El Nombre del departamento está incorrecto.\nEl nombre del departamento en el archivo debe ser: " + ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep;
-                    //    return false;
-                    //}
-
                     if (no_version != Version)
                     {
                         mensaje = "La versión del documento esta incorrecta: \nLa versión en el archivo debe ser : " + Version;
@@ -1484,7 +1504,7 @@ namespace View.Services.ViewModel
             DialogService dialog = new DialogService();
             if (!string.IsNullOrEmpty(nombre))
             {
-                if (id_tipo == 1015)
+                if (id_tipo == 1015 || id_tipo == 2)
                 {
                     if (VentanaProcedencia == "DocumentoLiberado")
                     {
@@ -1495,18 +1515,28 @@ namespace View.Services.ViewModel
                                 if (ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault() != null)
                                 {
                                     ObservableCollection<Archivo> recursos = new ObservableCollection<Archivo>();
-                                    recursos = DataManagerControlDocumentos.GetRecursosTipoDocumento(1015);
 
-                                    Archivo formatoJES = recursos[0];
+                                    if (id_tipo == 1015)
+                                    {
+                                        //Si es de tipo JES se trae el formato correspondiente
+                                        recursos = DataManagerControlDocumentos.GetRecursosTipoDocumento(1015);
+                                    }else
+                                    {
+                                        //si es de tipo HOE se trae el formato correspondiente
+                                        recursos = DataManagerControlDocumentos.GetRecursosTipoDocumento(2);
+                                    }
+                                    
+                                    Archivo TipoFormato = recursos[0];
 
-                                    string path = GetPathTempFile(formatoJES);
+                                    string path = GetPathTempFile(TipoFormato);
 
-                                    File.WriteAllBytes(path, formatoJES.archivo);
+                                    File.WriteAllBytes(path, TipoFormato.archivo);
 
                                     string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
 
                                     await dialog.SendMessage(StringResources.ttlAlerta, "El formato se genero correctamente.\nFavor de no modificar los datos generales del formato.\nAl momento de guardar el archivo, asegurate de que sea ARCHIVO DE EXCEL (.XLSX)");
-                                    ImportExcel.ExportFormatoJES(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+
+                                    ImportExcel.ExportTipoFormato(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento, id_tipo);
 
                                     
                                 }
@@ -1532,17 +1562,26 @@ namespace View.Services.ViewModel
                             if (ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault() != null)
                             {
                                 ObservableCollection<Archivo> recursos = new ObservableCollection<Archivo>();
-                                recursos = DataManagerControlDocumentos.GetRecursosTipoDocumento(1015);
 
-                                Archivo formatoJES = recursos[0];
+                                if (id_tipo == 1015)
+                                {
+                                    recursos = DataManagerControlDocumentos.GetRecursosTipoDocumento(1015);
+                                }
+                                else
+                                {
+                                    recursos = DataManagerControlDocumentos.GetRecursosTipoDocumento(2);
+                                }
 
-                                string path = GetPathTempFile(formatoJES);
 
-                                File.WriteAllBytes(path, formatoJES.archivo);
+                                Archivo formato = recursos[0];
+
+                                string path = GetPathTempFile(formato);
+
+                                File.WriteAllBytes(path, formato.archivo);
                                 string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
 
                                 await dialog.SendMessage(StringResources.ttlAlerta, "El formato se genero correctamente. \n Favor de no modificar los datos generales del formato. \n y al momento de guardar el archivo, asegurate de que sea ARCHIVO DE EXCEL (.XLSX)");
-                                ImportExcel.ExportFormatoJES(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                ImportExcel.ExportTipoFormato(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento, id_tipo);
                                 
                             }
                             else
@@ -1916,7 +1955,7 @@ namespace View.Services.ViewModel
                         dlg.Filter = "Word (97-2003)|*.doc";
                     else
                     {
-                        if (id_tipo == 1015)
+                        if (id_tipo == 1015 || id_tipo == 2)
                         {
                             dlg.Filter = "Excel Files (.xlsm, .xlsx)|*.xlsm; *.xlsx";
                         }
@@ -1931,7 +1970,7 @@ namespace View.Services.ViewModel
 
                     //Se crea el objeto de tipo archivo
                     Archivo obj = new Archivo();
-
+                    
                     // Si fue seleccionado un documento 
                     if (result == true)
                     {
@@ -2002,7 +2041,7 @@ namespace View.Services.ViewModel
                                 else
                                 {
                                     //Verificamos de nuevo que se hayan insertado los tipos de archivos correspondiente al tipo de documento
-                                    if (id_tipo == 1015)
+                                    if (id_tipo == 1015 || id_tipo == 2)
                                     {
                                         //si el archivo es de tipo JES se comprueba que se haya insertado una hoja de calculo
                                         if (obj.ext == ".xlsm" || obj.ext == ".xlsx")
@@ -2029,7 +2068,7 @@ namespace View.Services.ViewModel
                                                 if (AdjuntarDocumento || DocumentoNuevo)
                                                 {
                                                     //si el registro ya esta liberado y se busca hacer una nueva version entramos aqui
-                                                    guardarControl("JES");
+                                                    guardarControl("FORMATO DEL SISTEMA");
                                                 }
                                                 else
                                                 {
@@ -2105,7 +2144,7 @@ namespace View.Services.ViewModel
                                 dlg.Filter = "Word (97-2003)|*.doc";
                             else
                             {
-                                if (id_tipo == 1015)
+                                if (id_tipo == 1015 || id_tipo == 2)
                                 {
                                     dlg.Filter = "Excel Files (.xlsm, .xlsx)|*.xlsm; *.xlsx";
                                 }
@@ -2191,7 +2230,7 @@ namespace View.Services.ViewModel
                                         else
                                         {
 
-                                            if (id_tipo == 1015)
+                                            if (id_tipo == 1015 || id_tipo == 2)
                                             {
                                                 //si el archivo es igual a cualquiera de los id anteriores se comprueba que sea un archivo .xlsx
                                                 if (ArchivoTemporal.ext == ".xlsm" || ArchivoTemporal.ext == ".xlsx")
@@ -2222,7 +2261,7 @@ namespace View.Services.ViewModel
                                                     {
                                                         if (DocumentoNuevo)
                                                         {
-                                                            guardarControl("JES");
+                                                            guardarControl("FORMATO DEL SISTEMA");
                                                         }
                                                         else
                                                         {
@@ -3147,7 +3186,7 @@ namespace View.Services.ViewModel
                                         obj.fecha_actualizacion = _FechaFin;
                                         obj.fecha_emision = fecha;
                                         //si el archivo es una JES, se pone el estatus de documento en pendiente por liberar
-                                        if (TipoDocumento == "JES")
+                                        if (TipoDocumento == "FORMATO DEL SISTEMA")
                                         {
                                             obj.id_estatus = 4;
                                         }
@@ -3171,7 +3210,7 @@ namespace View.Services.ViewModel
                                             objVersion.id_usuario_autorizo = _usuarioAutorizo;
                                             objVersion.fecha_version = fecha;
                                             //si es una JES, se pone el estatus de version en pendiente por liberar
-                                            if (TipoDocumento == "JES")
+                                            if (TipoDocumento == "FORMATO DEL SISTEMA")
                                             {
                                                 objVersion.id_estatus_version = 5;
                                             }
@@ -3295,7 +3334,7 @@ namespace View.Services.ViewModel
                                         objVersion.fecha_version = fecha;
 
                                         //si es archivo JES, se pasa automaticamente a pendiente por liberar
-                                        if (TipoDocumento == "JES")
+                                        if (TipoDocumento == "FORMATO DEL SISTEMA")
                                         {
                                             objVersion.id_estatus_version = 5;
                                         }
@@ -4249,7 +4288,7 @@ namespace View.Services.ViewModel
         /// <returns></returns>
         private int modificaVersion(string TipoDocumento)
         {
-            if (TipoDocumento == "JES")
+            if (TipoDocumento == "FORMATO DEL SISTEMA")
             {
                 //SI ES JES, SE PASA A PENDIENTE POR LIBERAR
                 Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
@@ -4869,7 +4908,7 @@ namespace View.Services.ViewModel
                                 if (n != 0)
                                 {
                                     //Se ejecuta el metodo que modifica la version actual, el resultado lo guardamos en una variable local
-                                    int update_version = modificaVersion("JES");
+                                    int update_version = modificaVersion("FORMATO DEL SISTEMA");
 
                                     if (update_version != 0)
                                     {
@@ -4920,7 +4959,7 @@ namespace View.Services.ViewModel
                             {
                                 //Entramos a este else si el documento tiene mas versiones y se cuenta con registro de ellas.Aqui solo se modifican los datos de la 
                                 //tabla de version en la base de datos
-                                int update_version = modificaVersion("JES");
+                                int update_version = modificaVersion("FORMATO DEL SISTEMA");
 
                                 if (update_version != 0)
                                 {

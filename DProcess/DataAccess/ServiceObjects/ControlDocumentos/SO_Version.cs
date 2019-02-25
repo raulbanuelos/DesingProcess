@@ -733,7 +733,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// </summary>
         /// <param name="id_doc"></param>
         /// <returns></returns>
-        public IList GetVersionesXDocumento(int id_doc)
+        public IList GetVersionesXDocumento(int id_doc, int No_Tomar)
         {
             try
             {
@@ -757,7 +757,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                             v.DESCRIPCION,
                                             USUARIO_AUTORIZO = u.Nombre.Substring(0,1) + "." + u.APaterno,
                                             USUARIO_ELABORO = us.Nombre.Substring(0,1) + "." + us.APaterno,
-                                        }).Take(10).ToList();
+                                        }).Take(No_Tomar).ToList();
                     //Retornamos la lista
                     return ListaVersion;
                 }
