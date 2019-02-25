@@ -1880,12 +1880,12 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="id_documento"></param>
         /// <returns></returns>
-        public static ObservableCollection<Version> GetVersionesAnterioresXDocumento(int id_documento)
+        public static ObservableCollection<Version> GetVersionesAnterioresXDocumento(int id_documento, int Numero_Tomar)
         {
             SO_Version servicio = new SO_Version();
             ObservableCollection<Version> ListaDatos = new ObservableCollection<Version>();
 
-            IList Obj = servicio.GetVersionesXDocumento(id_documento);
+            IList Obj = servicio.GetVersionesXDocumento(id_documento, Numero_Tomar);
 
             if (Obj != null)
             {

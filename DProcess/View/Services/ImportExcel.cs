@@ -166,7 +166,7 @@ namespace View.Services
             }
         }
 
-        public static string ExportFormatoJES(string filename, DateTime fechaFin,string NombreAbreviado ,string personaCreo, string personaAutorizo, string descripcion, string codigo, string departamento, int version, int id_documento)
+        public static string ExportTipoFormato(string filename, DateTime fechaFin,string NombreAbreviado ,string personaCreo, string personaAutorizo, string descripcion, string codigo, string departamento, int version, int id_documento, int id_tipo)
         {
             string a = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
             string[] vec = a.Split(',');
@@ -174,11 +174,8 @@ namespace View.Services
             try
             {
                 Excel.Application ExcelApp = new Excel.Application();
-                //var ExcelApp = new Excel.Application();
-                //Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(filename, ReadOnly: false, Password: "SISTEMA2019");
-
                 Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(filename, true);
-                //Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(filename, 0, false, 5, "SISTEMA2019", "SISTEMA2019", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
+                
 
                 string dia = fechaFin.Day.ToString().Length > 1 ? fechaFin.Day.ToString() : "0" + fechaFin.Day.ToString();
                 string mes = fechaFin.Month.ToString().Length > 1 ? fechaFin.Month.ToString() : "0" + fechaFin.Month.ToString();
@@ -186,7 +183,12 @@ namespace View.Services
                 if (version > 1)
                 {
                     int CVF = 1;
-                    ObservableCollection<Model.ControlDocumentos.Version> L = DataManagerControlDocumentos.GetVersionesAnterioresXDocumento(id_documento);
+                    int Take = 9;
+                    if (id_tipo == 1015)
+                    {
+                        Take = 10;
+                    }
+                    ObservableCollection<Model.ControlDocumentos.Version> L = DataManagerControlDocumentos.GetVersionesAnterioresXDocumento(id_documento, Take);
 
 
                     foreach (var item in L.Reverse())
@@ -211,9 +213,14 @@ namespace View.Services
                         CVF++;
                     }
                     int Aux = 0;
-                    if (version > 11)
+                    int AuxCTipoDocumento = 11;
+                    if (id_tipo == 2)
                     {
-                        Aux = version - 11;
+                        AuxCTipoDocumento = 10;
+                    }
+                    if (version > AuxCTipoDocumento)
+                    {
+                        Aux = version - AuxCTipoDocumento;
                     }
 
                     string UsuarioActual = "USUARIO_A" + (version - Aux);
@@ -225,7 +232,10 @@ namespace View.Services
                     {
                         
                         sheet.Range["FECHA_LIBERACION"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
-                        sheet.Range["DESCRIPCION_JES"].Value = descripcion;
+                        if (id_tipo == 1015)
+                        {
+                            sheet.Range["DESCRIPCION"].Value = descripcion;
+                        }
                         sheet.Range["ELABORO"].Value = personaCreo;
                         sheet.Range["REVISO"].Value = personaAutorizo;
                         sheet.Range["APROBO"].Value = personaAutorizo;
@@ -253,7 +263,11 @@ namespace View.Services
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
                         sheet.Range["FECHA_LIBERACION"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
-                        sheet.Range["DESCRIPCION_JES"].Value = descripcion;
+                        if (id_tipo == 1015)
+                        {
+                            sheet.Range["DESCRIPCION"].Value = descripcion;
+                        }
+
                         sheet.Range["ELABORO"].Value = personaCreo;
                         sheet.Range["REVISO"].Value = personaAutorizo;
                         sheet.Range["APROBO"].Value = personaAutorizo;
