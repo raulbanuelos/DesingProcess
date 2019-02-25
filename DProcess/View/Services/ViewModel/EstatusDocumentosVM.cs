@@ -34,7 +34,6 @@ namespace View.Services.ViewModel
         #region Propiedades
 
         public Usuario usuario;
-        public string AuxUsuario;
 
         private ObservableCollection<Documento> _ListaDocumentosConEstatus;
         public ObservableCollection<Documento> ListaDocumentosConEstatus
@@ -69,10 +68,10 @@ namespace View.Services.ViewModel
 
 
         #region Constructor
-        public EstatusDocumentosVM(string usuario)
+        public EstatusDocumentosVM(Usuario _usuario)
         {
-            AuxUsuario = usuario;
-            ListaDocumentosConEstatus = DataManagerControlDocumentos.GetDocumentosEstatus(usuario,"");
+            usuario = _usuario;
+            ListaDocumentosConEstatus = DataManagerControlDocumentos.GetDocumentosEstatus(usuario.NombreUsuario,"");
             ListaDocumentosSeleccionados = new ObservableCollection<Documento>();
 
             foreach (Documento item in ListaDocumentosConEstatus)
@@ -150,6 +149,7 @@ namespace View.Services.ViewModel
                             ////Rechazamos el documento
                             v = DataManagerControlDocumentos.SetRechazarVersion(idVersion);
 
+                            //Registramos el cambio en la bitácora.
                             DataManagerControlDocumentos.InsertHistorialVersion(idVersion, usuario.Nombre + " " + usuario.ApellidoPaterno + " " + usuario.ApellidoMaterno, doc.nombre, doc.version.no_version, "Se cambia el estatus a: PENDIENTE POR CORREGIR");
 
                         }
@@ -213,7 +213,7 @@ namespace View.Services.ViewModel
                 }
             }
 
-            ListaDocumentosConEstatus = DataManagerControlDocumentos.GetDocumentosEstatus(AuxUsuario,Texto);
+            ListaDocumentosConEstatus = DataManagerControlDocumentos.GetDocumentosEstatus(usuario.NombreUsuario,Texto);
 
             foreach (var item in ListaDocumentosConEstatus)
             {
