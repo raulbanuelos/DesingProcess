@@ -32,8 +32,7 @@
                                       ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                              AutoGenerateColumns="False" CanUserAddRows="False"
-                  IsReadOnly="True">
+                              AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                             EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"

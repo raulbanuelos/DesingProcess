@@ -3147,8 +3147,17 @@ namespace View.Services.ViewModel
                     //Solo se puede guardar el documento si el nombre es diferente de sistema
                     if (UsuariosPermitido != "SISTEMA")
                     {
+                        MessageDialogResult result;
+
+                        if (TipoDocumento == "FORMATO DEL SISTEMA")
+                        {
+                            result = await dialog.SendMessage(StringResources.msgGuardarDocumento, mensaje, setting, MessageDialogStyle.Affirmative);
+                        }
+                        else
+                        {
+                            result = await dialog.SendMessage(StringResources.msgGuardarDocumento, mensaje, setting, MessageDialogStyle.AffirmativeAndNegative);
+                        }
                         //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
-                        MessageDialogResult result = await dialog.SendMessage(StringResources.msgGuardarDocumento, mensaje, setting, MessageDialogStyle.AffirmativeAndNegative);
 
                         //Verificamos que el botón contenga la leyenda Guardar, esto indica que el registro es nuevo.
                         if (BotonGuardar == StringResources.ttlGuardar)
@@ -4869,7 +4878,7 @@ namespace View.Services.ViewModel
                 if (ValidarValores())
                 {
                     //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
-                    MessageDialogResult result = await dialog.SendMessage(StringResources.msgGuardarDocumento, mensaje, setting, MessageDialogStyle.AffirmativeAndNegative);
+                    MessageDialogResult result = await dialog.SendMessage(StringResources.msgGuardarDocumento, mensaje, setting, MessageDialogStyle.Affirmative);
 
                     if (result == MessageDialogResult.Affirmative)
                     {
