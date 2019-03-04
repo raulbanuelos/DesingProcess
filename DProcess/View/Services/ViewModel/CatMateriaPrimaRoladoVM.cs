@@ -237,25 +237,31 @@ namespace View.Services.ViewModel
             setting.AffirmativeButtonText = StringResources.lblYes;
             setting.NegativeButtonText = StringResources.lblNo;
 
-
             if (SelectedMateriaPrima != null)
             {
-                //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
-                MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, "¿Desea eliminar el registro seleccionado?", setting, MessageDialogStyle.AffirmativeAndNegative);
-
-                MateriaPrimaRolado obj = new MateriaPrimaRolado();
-
-                int i = DataManager.DeleteMateriaPrimaRolado(SelectedMateriaPrima.Codigo);
-
-                if (i != 0)
+                if (!string.IsNullOrEmpty(_Descripcion) || !string.IsNullOrEmpty(_CodigoMateriaPrima) || !string.IsNullOrEmpty(_UM) || !string.IsNullOrEmpty(_Ubicacion) || !string.IsNullOrEmpty(_Especificacion_Perfil))
                 {
-                    await dialog.SendMessage(StringResources.ttlAlerta, "Registro eliminado correctamente");
-                    _NuevoMateriaPrima();
-                    ListaCatMateriaRolado = DataManager.GetAllMateriaPrimaRolado(string.Empty);
+                    //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
+                    MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, "¿Desea eliminar el registro seleccionado?", setting, MessageDialogStyle.AffirmativeAndNegative);
+
+                    MateriaPrimaRolado obj = new MateriaPrimaRolado();
+
+                    int i = DataManager.DeleteMateriaPrimaRolado(SelectedMateriaPrima.Codigo);
+
+                    if (i != 0)
+                    {
+                        await dialog.SendMessage(StringResources.ttlAlerta, "Registro eliminado correctamente");
+                        _NuevoMateriaPrima();
+                        ListaCatMateriaRolado = DataManager.GetAllMateriaPrimaRolado(string.Empty);
+                    }
+                    else
+                    {
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgError);
+                    }
                 }
                 else
                 {
-                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgError);
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblSeleccionaeElemento);
                 }
             }
             else
