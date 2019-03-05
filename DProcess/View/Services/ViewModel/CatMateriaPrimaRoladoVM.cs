@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using View.Forms.RawMaterial;
 using View.Resources;
 
 namespace View.Services.ViewModel
@@ -32,6 +33,18 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Propiedades
+
+        private Page pagina;
+        public Page Pagina
+        {
+            get { return pagina; }
+            set
+            {
+                pagina = value;
+                NotifyChange("Pagina");
+            }
+        }
+
         private HamburgerMenuItemCollection _menuItems;
         public HamburgerMenuItemCollection MenuItems
         {
@@ -147,6 +160,7 @@ namespace View.Services.ViewModel
         #region Constructor
         public CatMateriaPrimaRoladoVM()
         {
+
             TipoEspec = new Material();
             ListaMateriaPrima = DataManager.GetAllMaterial();
             ListaCatMateriaRolado = DataManager.GetAllMateriaPrimaRolado(string.Empty);

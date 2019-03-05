@@ -389,6 +389,9 @@
     <Compile Include="Forms\Shared\Layout.xaml.cs">
       <DependentUpon>Layout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Shared\MateriasPrimas.xaml.cs">
+      <DependentUpon>MateriasPrimas.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Shared\WOptionList.xaml.cs">
       <DependentUpon>WOptionList.xaml</DependentUpon>
     </Compile>
@@ -1169,6 +1172,10 @@
     <Page Include="Forms\Shared\Layout.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\Shared\MateriasPrimas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Shared\WOptionList.xaml">
       <SubType>Designer</SubType>

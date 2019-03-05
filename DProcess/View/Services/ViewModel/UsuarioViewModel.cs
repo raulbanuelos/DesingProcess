@@ -16,6 +16,7 @@ using TableDependency.SqlClient;
 using Notifications.Wpf;
 using View.Resources;
 using MahApps.Metro.Controls.Dialogs;
+using View.Forms.Shared;
 
 namespace View.Services.ViewModel
 {
@@ -124,6 +125,17 @@ namespace View.Services.ViewModel
             {
                 pagina = value;
                 NotifyChange("Pagina");
+            }
+        }
+
+        private Page pag;
+        public Page Pag
+        {
+            get { return pag; }
+            set
+            {
+                pag = value;
+                NotifyChange("Pag");
             }
         }
 
@@ -268,7 +280,7 @@ namespace View.Services.ViewModel
 
         public UsuarioViewModel(Usuario modelUsuario, Page pagina)
         {
-            ModelUsuario = modelUsuario;
+            //ModelUsuario = modelUsuario;
             this.pagina = pagina;
             //initNotifications();
         }
@@ -357,9 +369,26 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand IrPattern
+        {
+            get
+            {
+                return new RelayCommand(a => _IrPattern());
+            }
+        }
+
+        public ICommand IrMateriaPrimaRolado
+        {
+            get
+            {
+                return new RelayCommand(a => _IrMateriaPrimaRolado());
+            }
+        }
+
         #endregion
 
         #region Métodos
+
         #region Métodos de navegación
 
         /// <summary>
@@ -481,14 +510,33 @@ namespace View.Services.ViewModel
             //pantallaPattern.DataContext = context;
             //Pagina = pantallaPattern;
 
-            CatMateriaPrimaRolado Form = new CatMateriaPrimaRolado();
-            CatMateriaPrimaRoladoVM Context = new CatMateriaPrimaRoladoVM();
-
-            Form.DataContext = Context;
+            MateriasPrimas Form = new MateriasPrimas();            
+            Form.DataContext = this;
             Pagina = Form;
         }
+
+        private void _IrPattern()
+        {
+            PPattern form = new PPattern();
+            PatternViewModel context = new PatternViewModel();
+
+            form.DataContext = context;
+
+            Pag = form;
+
+        }
+
+        private void _IrMateriaPrimaRolado()
+        {
+            CatMateriaPrimaRolado form = new CatMateriaPrimaRolado();
+            CatMateriaPrimaRoladoVM context = new CatMateriaPrimaRoladoVM();
+
+            form.DataContext = context;
+
+            Pag = form;
+        }
         #endregion
-        
+
         public static string definirSaludo()
         {
             DateTime d = DateTime.Now;

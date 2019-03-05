@@ -3535,6 +3535,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Iron cast.
+        /// </summary>
+        public static string ttlIronCast {
+            get {
+                return ResourceManager.GetString("ttlIronCast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Lessons.
         /// </summary>
         public static string ttlLecciones {
@@ -3648,6 +3657,15 @@ namespace View.Resources {
         public static string ttlNuevoUsuario {
             get {
                 return ResourceManager.GetString("ttlNuevoUsuario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Pattern.
+        /// </summary>
+        public static string ttlPatern {
+            get {
+                return ResourceManager.GetString("ttlPatern", resourceCulture);
             }
         }
         

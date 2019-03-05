@@ -6,6 +6,6 @@
 	Title="Desing Process" WindowStartupLocation="CenterScreen">
 	<DockPanel>
 		<!--<Frame x:Name="_mainFrame" Source="/Forms/Index/Home.xaml"></Frame>-->
-        <Frame x:Name="_mainFrame" Content="{Binding Path=Pagina,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></Frame>
-	</DockPanel>
+        <Frame x:Name="_mainFrame" Content="{Binding Path=Pagina,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+    </DockPanel>
 </Controls:MetroWindow>
