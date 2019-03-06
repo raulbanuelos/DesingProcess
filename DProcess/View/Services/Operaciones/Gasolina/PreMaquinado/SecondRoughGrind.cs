@@ -136,6 +136,11 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         /// </summary>
         public double MatRemoverWidth { get; set; }
 
+        /// <summary>
+        /// Double que representa el número de cortes en la operación.
+        /// </summary>
+        public double CortesOPasadas { get; set; }
+
         #endregion
 
         #endregion

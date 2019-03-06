@@ -16,6 +16,11 @@ namespace Model.Interfaces
         double MatRemoverWidth { get; set; }
 
         /// <summary>
+        /// Double que representa el número de cortes en la operación.
+        /// </summary>
+        double CortesOPasadas { get; set; }
+
+        /// <summary>
         /// Método que calcula el width de la operación.
         /// </summary>
         /// <param name="sender"></param>
