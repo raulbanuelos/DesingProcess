@@ -1132,8 +1132,6 @@ namespace View.Services.ViewModel
         /// <param name="banCalcularOperaciones">Si es false, solo re calcularan las medidas (Thickness, width, diámetro) con las mismas operaciones que previamente se definieron.</param>
         private async void calcularRuta(bool banCalcularOperaciones = true)
         {
-            
-
             #region Simulacion anillo HIERRO GRIS
             ////Comenzamos a simular el anillo
 
@@ -1184,8 +1182,7 @@ namespace View.Services.ViewModel
 
             ////Terminamos de simular el anillo 
             #endregion
-
-
+            
             #region Simulacion Anillo ACERO AL CARBON (ROLADOS)
             //PropiedadCadena especificacion = new PropiedadCadena();
             //especificacion.DescripcionCorta = "MATERIAL";
@@ -1224,8 +1221,7 @@ namespace View.Services.ViewModel
             double currentThickness = 0.0;
             double currentDiameter = 0.0;
             int noOperacion = 10;
-
-
+            
             if (MaterialBase.TipoDeMaterial == "HIERRO GRIS")
             {
 
@@ -1367,13 +1363,12 @@ namespace View.Services.ViewModel
                         {
                             MateriaPrimaRolado mpSeleccionada = ListaIronRawMaterial.Where(x => x.IsSelected).FirstOrDefault();
                             Operaciones[0].ListaMateriaPrima.Add(mpSeleccionada);
-
-
-
+                            
                             currentWidth = mpSeleccionada._Width;
                             currentThickness = mpSeleccionada.Thickness;
+                            int nCortesWith = mpSeleccionada.nCortesWidth;
 
-                            calcularDimenciones();
+                            calcularDimenciones(nCortesWith);
                         }
                         else
                         {
@@ -1489,6 +1484,110 @@ namespace View.Services.ViewModel
 
             ModelAnillo.Caratula = PrimerBloque;
              */
+        }
+
+        private void calcularDimenciones(int nCortesWith)
+        {
+            int nPasosNISSEI = Operaciones.Where(x => x.NombreOperacion == "FINISH GRIND (NISSEI)").ToList().Count;
+
+            double cortesXPaso = Math.Ceiling(Convert.ToDouble(nCortesWith) / Convert.ToDouble(nPasosNISSEI));
+
+            #region Calculo de width
+            int i = Operaciones.Count - 1;
+            int c = 0;
+            double widthMin = Module.GetValorPropiedadMin("h1", PerfilLateral.Propiedades, true);
+            double widthMax = Module.GetValorPropiedadMax("h1", PerfilLateral.Propiedades, true);
+            double widthFinal = (widthMin + widthMax) / 2;
+
+            SubjectWidth subjectWidth = new SubjectWidth();
+            bool banUltimaOperacionWidth = true;
+            while (i >= 0)
+            {
+                if (Operaciones[i] is IObserverWidth)
+                {
+                    if (banUltimaOperacionWidth)
+                    {
+                        subjectWidth.Subscribe(Operaciones[i] as IObserverWidth, widthFinal);
+                        banUltimaOperacionWidth = false;
+                    }
+                    else
+                    {
+                        subjectWidth.Subscribe(Operaciones[i] as IObserverWidth);
+                        subjectWidth.Notify(c);
+                    }
+                    c += 1;
+                }
+                i = i - 1;
+            }
+            #endregion
+
+            #region Calculo de Diámetro
+
+            i = Operaciones.Count - 1;
+            c = 0;
+            SubjectDiametro subjectDiametro = new SubjectDiametro();
+            bool banUltimaOperacionDiametro = true;
+
+            double gapMinimo = Module.GetValorPropiedadMin("s1", PerfilPuntas.Propiedades, true);
+            double gapMaximo = Module.GetValorPropiedadMax("s1", PerfilPuntas.Propiedades, true);
+            double mediaGap = Math.Round((gapMinimo + gapMaximo) / 2, 3);
+
+            while (i >= 0)
+            {
+                if (Operaciones[i] is IObserverDiametro)
+                {
+                    if (banUltimaOperacionDiametro)
+                    {
+                        var operacion = (IObserverDiametro)Operaciones[i];
+                        operacion.Gap = mediaGap;
+                        subjectDiametro.Subscribe(operacion, D1.Valor);
+                        banUltimaOperacionDiametro = false;
+                    }
+                    else
+                    {
+                        var operacion = (IObserverDiametro)Operaciones[i];
+                        operacion.Gap = mediaGap;
+                        subjectDiametro.Subscribe(operacion);
+                        subjectDiametro.Notify(c);
+                    }
+                    c += 1;
+                }
+                i = i - 1;
+            }
+            #endregion
+
+            #region Calculo de thickness
+
+            i = Operaciones.Count - 1;
+            c = 0;
+
+            double thicknessMin = Module.GetValorPropiedadMin("a1", PerfilID.Propiedades, true);
+            double thicknessMax = Module.GetValorPropiedadMax("a1", PerfilID.Propiedades, true);
+
+            double mediaThickness = Math.Round((thicknessMin + thicknessMax) / 2, 5);
+
+            SubjectThickness subjectThickness = new SubjectThickness();
+            bool banUltimaOperacionThickness = true;
+            while (i >= 0)
+            {
+                if (Operaciones[i] is IObserverThickness)
+                {
+                    if (banUltimaOperacionThickness)
+                    {
+                        subjectThickness.Subscribe(Operaciones[i] as IObserverThickness, mediaThickness);
+                        banUltimaOperacionThickness = false;
+                    }
+                    else
+                    {
+                        subjectThickness.Subscribe(Operaciones[i] as IObserverThickness);
+                        subjectThickness.Notify(c);
+                    }
+                    c += 1;
+                }
+
+                i = i - 1;
+            }
+            #endregion
         }
 
         private void calcularDimenciones()
@@ -1825,8 +1924,7 @@ namespace View.Services.ViewModel
                     c += 1;
                 }
             }
-
-
+            
             //Retornamos la colección creada.
             return CollectionPanel;
         }

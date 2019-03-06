@@ -55,7 +55,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         /// <param name="especMaterial"></param>
         /// <param name="especPerfil"></param>
         /// <returns></returns>
-        public DataSet GetMateriaPrimaRoladoIdeal(double widthCalculado, double thicknessCalculado,string especMaterial, string especPerfil)
+        public DataSet GetMateriaPrimaRoladoIdeal(double widthCalculado, double thicknessCalculado,string especMaterial, string especPerfil, bool banThickness, double thicknessMin, double thicknessMax)
         {
             DataSet informacionBD = new DataSet();
             try
@@ -72,6 +72,9 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     parametros.Add("thicknessCalculado", thicknessCalculado);
                     parametros.Add("especPerfil", especPerfil);
                     parametros.Add("especMaterial", especMaterial);
+                    parametros.Add("banThickness", banThickness);
+                    parametros.Add("a1Min", thicknessMin);
+                    parametros.Add("a1Max", thicknessMax);
                     
                     informacionBD = ConexionSQL.EjecutarStoredProcedure(SP_RGP_GET_MATERIA_PRIMA_ROLADO, parametros);
 

@@ -323,7 +323,10 @@ namespace View.Services
 
             double restaWidth = Math.Round(promedioWidth - matAddWidth,4);
             
-            List<MateriaPrimaRolado> ListaMateriaPrimaDisponible = DataManager.GetMateriaPrimaRolado(restaWidth,promedioThickness - matAddThickness, _elAnillo.MaterialBase.Especificacion, especPerfil.Valor);
+            //Indica si existe material a agregar en thickness durante el proceso.
+            bool banThickness = matAddThickness == 0 ? true : false;
+            
+            List<MateriaPrimaRolado> ListaMateriaPrimaDisponible = DataManager.GetMateriaPrimaRolado(restaWidth,promedioThickness - matAddThickness, _elAnillo.MaterialBase.Especificacion, especPerfil.Valor, banThickness, a1Min.Valor, a1Max.Valor);
 
             if (ListaMateriaPrimaDisponible.Count == 0)
             {
