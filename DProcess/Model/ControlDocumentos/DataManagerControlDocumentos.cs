@@ -3763,7 +3763,9 @@ namespace Model.ControlDocumentos
                     obj.nombre = (string)tipo.GetProperty("NUM_DOCUMENTO").GetValue(item, null);
                     obj.version.no_version= (string)tipo.GetProperty("NO_VERSION").GetValue(item, null);
                     obj.fecha_actualizacion= (DateTime)tipo.GetProperty("FECHA_ELIMINO").GetValue(item, null);
-                    
+                    obj.version.archivo.archivo = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
+                    obj.version.archivo.ext = (string)tipo.GetProperty("EXT").GetValue(item, null);
+
                     //Agregamos el objeto a la lista.
                     Lista.Add(obj);
                 }
@@ -3822,6 +3824,15 @@ namespace Model.ControlDocumentos
              }
             //Retornamos la lista
             return Lista;
+        }
+
+        public static int UpdateDocumentoEliminado(int Id_registro, byte[] Archivo)
+        {
+            //Se inician los servicios de Documento.
+            SO_Documento_Eliminado ServiceDocumento = new SO_Documento_Eliminado();
+
+            // Se ejecuta el método y retorna los registros que se modificaron.
+            return ServiceDocumento.UpdateDocumentoEliminado(Id_registro, Archivo);
         }
         #endregion
 

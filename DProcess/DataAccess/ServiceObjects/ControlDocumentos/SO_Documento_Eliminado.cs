@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,9 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      d.ID_ELIMINADO,
                                      d.NUM_DOCUMENTO,
                                      d.NO_VERSION,
-                                     d.FECHA_ELIMINO
+                                     d.FECHA_ELIMINO,
+                                     d.ARCHIVO,
+                                     d.EXT
                                  }).OrderBy(x => x.NUM_DOCUMENTO).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -114,5 +117,36 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
+
+        /// <summary>
+        /// Método que modifica el campo de archivo para liberar espacio en la memoria
+        /// </summary>
+        /// <param name="Id_Registro"></param>
+        /// <param name="archivo"></param>
+        /// <returns></returns>
+        public int UpdateDocumentoEliminado(int Id_Registro,byte[] archivo)
+        {
+            try
+            {
+                using (var conexion = new EntitiesControlDocumentos())
+                {
+                    TBL_DOCUMENTO_ELIMINADO obj = conexion.TBL_DOCUMENTO_ELIMINADO.Where(x => x.ID_ELIMINADO == Id_Registro).FirstOrDefault();
+
+                    //Asignamos los  parámetros recibidos a cada uno de los valores de los objetos.
+                    obj.ARCHIVO = archivo;
+
+                    //Se cambia el estado de registro a modificado.
+                    conexion.Entry(obj).State = EntityState.Modified;
+
+                    //Se guardan los cambios y se retorna el número de registros afectados.
+                    return conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
     }
 }

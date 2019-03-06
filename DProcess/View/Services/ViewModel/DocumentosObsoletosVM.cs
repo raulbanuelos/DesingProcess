@@ -42,6 +42,20 @@ namespace View.Services.ViewModel
             }
         }
 
+        private ObservableCollection<Documento> _ListaDocumentosEliminados;
+        public ObservableCollection<Documento> ListaDocumentosEliminados
+        {
+            get
+            {
+                return _ListaDocumentosEliminados;
+            }
+            set
+            {
+                _ListaDocumentosEliminados = value;
+                NotifyChange("ListaDocumentosEliminados");
+            }
+        }
+
         private string _Titulo = "Deseleccionar Todos";
         public string Titulo
         {
@@ -65,7 +79,8 @@ namespace View.Services.ViewModel
         #region Constructor
         public DocumentosObsoletosVM()
         {
-            ListaDocumentosObsoletos = DataManagerControlDocumentos.GetDocumentosObsoletos(string.Empty);
+            //ListaDocumentosObsoletos = DataManagerControlDocumentos.GetDocumentosObsoletos(string.Empty);
+            ListaDocumentosEliminados = DataManagerControlDocumentos.GetAllDocumento_Eliminado(string.Empty);
         }
         #endregion
 
@@ -83,7 +98,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(a => _LiberarEspacioBD());
+                return new RelayCommand(a => DocEliminados());
             }
         }
         #endregion
@@ -164,40 +179,40 @@ namespace View.Services.ViewModel
                     {                       
                         case 2:
                             //asignamos la ruta donde se va a crear el nuevo folder mas el nombre del folder
-                            NombreFolder = @"Z:\RrrrUUUUUULLL\Respaldo\HOJA DE OPERACION ESTANDAR\" + item.nombre;
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\HOJA DE OPERACION ESTANDAR\" + item.nombre;
                             break;
                         case 1002:
-                            NombreFolder = @"Z:\RrrrUUUUUULLL\Respaldo\HOJA DE INSTRUCCION DE INSPECCION\" + item.nombre;
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\HOJA DE INSTRUCCION DE INSPECCION\" + item.nombre;
                             break;                                          
                         case 1003:
-                            NombreFolder = @"Z:\RrrrUUUUUULLL\Respaldo\PROCEDIMIENTO OHSAS\" + item.nombre;
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\PROCEDIMIENTO OHSAS\" + item.nombre;
                             break;                       
                         case 1004:
-                            NombreFolder = @"Z:\RrrrUUUUUULLL\Respaldo\AYUDAS VISUALES\" + item.nombre;
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\AYUDAS VISUALES\" + item.nombre;
                             break;                  
                         case 1005:
-                            NombreFolder = @"Z:\RrrrUUUUUULLL\Respaldo\PROCEDIMIENTO ESPECIFICO\" + item.nombre;
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\PROCEDIMIENTO ESPECIFICO\" + item.nombre;
                             break;         
                         case 1006:
-                            NombreFolder = @"Z:\RrrrUUUUUULLL\Respaldo\PROCEDIMIENTO ISO\" + item.nombre;
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\PROCEDIMIENTO ISO\" + item.nombre;
                             break;                       
                         case 1007:
-                            NombreFolder = @"Z:\RrrrUUUUUULLL\Respaldo\HOJA DE METODO DE TRABAJO ESTANDAR\" + item.nombre;
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\HOJA DE METODO DE TRABAJO ESTANDAR\" + item.nombre;
                             break;
                         case 1011:
-                            NombreFolder = @"Z:\RrrrUUUUUULLL\Respaldo\METODO DE INSPECCION ESTANDARIZADO\" + item.nombre;
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\METODO DE INSPECCION ESTANDARIZADO\" + item.nombre;
                             break;
                         case 1012:
-                            NombreFolder = @"Z:\RrrrUUUUUULLL\Respaldo\FORMATO ESPECIFICO\" + item.nombre;
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\FORMATO ESPECIFICO\" + item.nombre;
                             break;        
                         case 1013:
-                            NombreFolder = @"Z:\RrrrUUUUUULLL\Respaldo\FORMATO OHSAS\" + item.nombre;
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\FORMATO OHSAS\" + item.nombre;
                             break;              
                         case 1014:
-                            NombreFolder = @"Z:\RrrrUUUUUULLL\Respaldo\FORMATO ISO\" + item.nombre;
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\FORMATO ISO\" + item.nombre;
                             break;                      
                         case 1015:
-                            NombreFolder = @"Z:\RrrrUUUUUULLL\Respaldo\JES\" + item.nombre;
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\JES\" + item.nombre;
                             break;
                     }
 
@@ -231,11 +246,61 @@ namespace View.Services.ViewModel
             }
         }
 
+        public string DocEliminados()
+        {
+            try
+            {
+                foreach (var item in ListaDocumentosEliminados)
+                {
+                    string NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\DOCUMENTOS ELIMINADOS\";
+
+                    //if (!System.IO.Directory.Exists(NombreFolder))
+                    //{
+                    //    //creamos el folder
+                    //    System.IO.Directory.CreateDirectory(NombreFolder);
+                    //}
+
+                    //Asignamos el nombre del archivo, concatenamos el nombre y el número de la version.
+                    string NombreArchivo = item.nombre + "_" + item.version.no_version + item.version.archivo.ext;
+
+                    //Creamos la ruta donde se pondran los archivos
+                    string pathString = System.IO.Path.Combine(NombreFolder, NombreArchivo);
+
+                    //Obtenemos el arreglo de bytes que representan el archivo
+                    byte[] file = item.version.archivo.archivo;
+
+                    //Lo copiamos a la carpeta
+                    System.IO.File.WriteAllBytes(pathString, file);
+
+                }
+
+                EliminarArchivoDocEliminados();
+
+                return "Ok";
+            }
+            catch (Exception error)
+            {
+                return error.Message;
+            }
+        }
+
         public void EliminarDocumentos()
         {
             foreach (var item in ListaDocumentosObsoletos)
             {
                 DataManagerControlDocumentos.DeleteArchivo(item.version.archivo);
+            }
+        }
+
+        /// <summary>
+        /// Método para eliminar los archivos de los registros que esten en documentos eliminados
+        /// </summary>
+        public void EliminarArchivoDocEliminados()
+        {
+            foreach (var item in ListaDocumentosEliminados)
+            {
+                item.version.archivo.archivo = new byte[0];
+                DataManagerControlDocumentos.UpdateDocumentoEliminado(item.id_documento, item.version.archivo.archivo);
             }
         }
     }

@@ -27,17 +27,13 @@
 
         <Label Grid.Column="1" Grid.Row="0" Content="Lista de Documentos Obsoletos" VerticalAlignment="Bottom"></Label>
         <!--<CheckBox Grid.Column="1" HorizontalAlignment="Center" Content="{Binding Titulo}" IsChecked="True" Command="{Binding SelecDeselec}" CommandParameter="{Binding IsSelected}"/>-->
-        <DataGrid Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ListaDocumentosObsoletos}" 
+        <DataGrid Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ListaDocumentosEliminados}" 
                                       ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
                               AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
-                <!--<DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                            Header="{x:Static recursos:StringResources.lblSeleccionar}"
-                                            Binding="{Binding IsSelected}"
-                                            />-->
+
                 <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNombre}" Binding="{Binding nombre}"/>
                 <DataGridTextColumn Header="{x:Static recursos:StringResources.lblVersion}" Binding="{Binding version.no_version}"/>
             </DataGrid.Columns>
