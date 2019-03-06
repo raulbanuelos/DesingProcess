@@ -2612,13 +2612,17 @@ namespace View.Services.ViewModel
 
                                     //si se actualizó correctamente
                                     if (update != 0)
-                                    {
+                                    {                                       
                                         //Guardamos el documento, si es procedimiento o formato
                                         string file = SaveFile();
 
                                         if (file == null)
                                         {
                                             int r = UpdateDocumentoSealed();
+
+                                            //Si los registros fueron guardados exitosamente el archivo que queda como obsoleto se pasa a la carpeta de respaldo y se elimina de la base de datos
+                                            _LiberarEspacioBD(last_id);
+
                                             string confirmacionFrames = r > 0 ? StringResources.msgFramesExito : StringResources.msgFramesIncorrecto;
                                             string confirmacionCorreo = string.Empty;
 
@@ -4191,6 +4195,10 @@ namespace View.Services.ViewModel
                             objDoc_Eliminado.nombre = nombre;
                             objDoc_Eliminado.version.no_version = Version;
                             int docElim = DataManagerControlDocumentos.SetDocumento_Eliminado(objDoc_Eliminado);
+
+                            //Eliminamos el archivo de la BD
+                            BorrarArchivosRegistrosEliminados(objDoc_Eliminado.nombre,objDoc_Eliminado.version.no_version);
+
                             bool banEliminarFrames = false;
                             int eliminoFrames = 0;
 
@@ -5040,6 +5048,153 @@ namespace View.Services.ViewModel
                 await dialog.SendMessage(StringResources.msgSistemaBloqueado, objBloqueo.observaciones);
             }
         }
+
+        /// <summary>
+        /// Método que copia los archivos que tengan estatus obsoleto a una carpeta de respaldo
+        /// </summary>
+        public string _LiberarEspacioBD(int IdVersionEliminar)
+        {
+            try
+            {
+                ObservableCollection<Documento> data = DataManagerControlDocumentos.GetDocumentosObsoletos(IdVersionEliminar);
+
+                foreach (var item in data)
+                {
+                    string NombreFolder = string.Empty;
+
+                    switch (item.id_tipo_documento)
+                    {
+                        case 2:
+                            //asignamos la ruta donde se va a crear el nuevo folder mas el nombre del folder
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\HOJA DE OPERACION ESTANDAR\" + item.nombre;
+                            break;
+                        case 1002:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\HOJA DE INSTRUCCION DE INSPECCION\" + item.nombre;
+                            break;
+                        case 1003:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\PROCEDIMIENTO OHSAS\" + item.nombre;
+                            break;
+                        case 1004:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\AYUDAS VISUALES\" + item.nombre;
+                            break;
+                        case 1005:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\PROCEDIMIENTO ESPECIFICO\" + item.nombre;
+                            break;
+                        case 1006:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\PROCEDIMIENTO ISO\" + item.nombre;
+                            break;
+                        case 1007:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\HOJA DE METODO DE TRABAJO ESTANDAR\" + item.nombre;
+                            break;
+                        case 1011:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\METODO DE INSPECCION ESTANDARIZADO\" + item.nombre;
+                            break;
+                        case 1012:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\FORMATO ESPECIFICO\" + item.nombre;
+                            break;
+                        case 1013:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\FORMATO OHSAS\" + item.nombre;
+                            break;
+                        case 1014:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\FORMATO ISO\" + item.nombre;
+                            break;
+                        case 1015:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\JES\" + item.nombre;
+                            break;
+                    }
+
+                    if (!System.IO.Directory.Exists(NombreFolder))
+                    {
+                        //creamos el folder
+                        System.IO.Directory.CreateDirectory(NombreFolder);
+                    }
+
+                    //Asignamos el nombre del archivo, concatenamos el nombre y el número de la version.
+                    string NombreArchivo = item.nombre + "_" + item.version.no_version + item.version.archivo.ext;
+
+                    //Creamos la ruta donde se pondran los archivos
+                    string pathString = System.IO.Path.Combine(NombreFolder, NombreArchivo);
+
+                    //Obtenemos el arreglo de bytes que representan el archivo
+                    byte[] file = item.version.archivo.archivo;
+
+                    //Lo copiamos a la carpeta
+                    System.IO.File.WriteAllBytes(pathString, file);
+
+                }
+
+                EliminarDocumentos(data);
+
+                return "Ok";
+            }
+            catch (Exception error)
+            {
+                return error.Message;
+            }
+        }
+
+        /// <summary>
+        /// Método que elimina los archivos que esten en estatus obsoleto
+        /// </summary>
+        /// <param name="data"></param>
+        public void EliminarDocumentos(ObservableCollection<Documento> data)
+        {
+            foreach (var item in data)
+            {
+                DataManagerControlDocumentos.DeleteArchivo(item.version.archivo);
+            }
+        }
+
+        /// <summary>
+        /// Método que copia los archivos de los registros eliminados a una carpeta de respaldo
+        /// </summary>
+        /// <returns></returns>
+        public string BorrarArchivosRegistrosEliminados(string Nombre, string No_Version)
+        {
+            try
+            {
+                ObservableCollection<Documento> ListaDocumentosEliminados =DataManagerControlDocumentos.GetDocumentoEliminar(Nombre, No_Version);
+
+                foreach (var item in ListaDocumentosEliminados)
+                {
+                    string NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\DOCUMENTOS ELIMINADOS\";
+
+                    //Asignamos el nombre del archivo, concatenamos el nombre y el número de la version.
+                    string NombreArchivo = item.nombre + "_" + item.version.no_version + item.version.archivo.ext;
+
+                    //Creamos la ruta donde se pondran los archivos
+                    string pathString = System.IO.Path.Combine(NombreFolder, NombreArchivo);
+
+                    //Obtenemos el arreglo de bytes que representan el archivo
+                    byte[] file = item.version.archivo.archivo;
+
+                    //Lo copiamos a la carpeta
+                    System.IO.File.WriteAllBytes(pathString, file);
+
+                }
+
+                EliminarArchivoDocEliminados(ListaDocumentosEliminados);
+
+                return "Ok";
+            }
+            catch (Exception error)
+            {
+                return error.Message;
+            }
+        }
+
+        /// <summary>
+        /// Método para eliminar los archivos que esten en la tabla de documentos eliminados
+        /// </summary>
+        public void EliminarArchivoDocEliminados(ObservableCollection<Documento> data)
+        {
+            foreach (var item in data)
+            {
+                item.version.archivo.archivo = new byte[0];
+                DataManagerControlDocumentos.UpdateDocumentoEliminado(item.id_documento, item.version.archivo.archivo);
+            }
+        }
+
         #endregion
     }
 }

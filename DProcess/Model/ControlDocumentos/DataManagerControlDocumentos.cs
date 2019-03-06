@@ -1255,13 +1255,13 @@ namespace Model.ControlDocumentos
             return List;
         }
 
-        public static ObservableCollection<Documento> GetDocumentosObsoletos(string TextoBuscar)
+        public static ObservableCollection<Documento> GetDocumentosObsoletos(int IdVersion)
         {
             SO_Documento servicio = new SO_Documento();
 
             ObservableCollection<Documento> list = new ObservableCollection<Documento>();
 
-            IList Data = servicio.GetDocumentosObsoletos(TextoBuscar);
+            IList Data = servicio.GetDocumentosObsoletos(IdVersion);
 
             if (Data != null)
             {
@@ -3834,6 +3834,51 @@ namespace Model.ControlDocumentos
             // Se ejecuta el método y retorna los registros que se modificaron.
             return ServiceDocumento.UpdateDocumentoEliminado(Id_registro, Archivo);
         }
+
+
+        /// <summary>
+        /// Método que obtiene todos los registros de la tabla 
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Documento> GetDocumentoEliminar(string Nombre, string No_Version)
+        {
+            //Inicializamos los servicios
+            SO_Documento_Eliminado ServiceDoc_Eliminado = new SO_Documento_Eliminado();
+
+            //Se crea una lista de tipo documento, la cual se va a retornar
+            ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
+
+            //obtenemos todo de la BD.
+            IList ListaResul = ServiceDoc_Eliminado.GetDocumentoEliminar(Nombre, No_Version);
+
+            if (ListaResul != null)
+            {
+                //Iteramos la lista 
+                foreach (var item in ListaResul)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    Documento obj = new Documento();
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_documento = (int)tipo.GetProperty("ID_ELIMINADO").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NUM_DOCUMENTO").GetValue(item, null);
+                    obj.version.no_version = (string)tipo.GetProperty("NO_VERSION").GetValue(item, null);
+                    obj.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ELIMINO").GetValue(item, null);
+                    obj.version.archivo.archivo = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
+                    obj.version.archivo.ext = (string)tipo.GetProperty("EXT").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista.
+                    Lista.Add(obj);
+                }
+            }
+            //regresamos la lista.
+            return Lista;
+        }
+
         #endregion
 
         #region SEALED

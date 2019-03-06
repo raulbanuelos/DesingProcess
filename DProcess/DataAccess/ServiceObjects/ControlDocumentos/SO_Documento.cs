@@ -1325,7 +1325,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// </summary>
         /// <param name="TextoBuscar"></param>
         /// <returns></returns>
-        public IList GetDocumentosObsoletos(string TextoBuscar)
+        public IList GetDocumentosObsoletos(int IdVersion)
         {
             try
             {
@@ -1334,7 +1334,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     var lista = (from a in conexion.TBL_DOCUMENTO
                                  join b in conexion.TBL_VERSION on a.ID_DOCUMENTO equals b.ID_DOCUMENTO
                                  join c in conexion.TBL_ARCHIVO on b.ID_VERSION equals c.ID_VERSION
-                                 where b.ID_ESTATUS_VERSION == 2
+                                 where b.ID_ESTATUS_VERSION == 2 && b.ID_VERSION == IdVersion
                                  orderby a.NOMBRE                                
                                  select new
                                  {
