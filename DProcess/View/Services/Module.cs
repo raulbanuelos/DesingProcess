@@ -1166,6 +1166,68 @@ namespace View.Services
             return ListaResultante;
         }
 
+        /// <summary>
+        /// Método que ayuda a indicar el número de cortes en cada paso. (NISSEI, DISKUS)
+        /// </summary>
+        /// <param name="cortes">Número de cortes totales.</param>
+        /// <param name="pasos">Número de pasos totales.</param>
+        /// <returns></returns>
+        public static int[] GetCortesByPaso(int cortes, int pasos)
+        {
+            //Declaramos el vector del tamaño de numero de pasos.
+            int[] vector = new int[pasos];
 
+            //Si los pasos y los cortes son iguales, se les asigna a cada paso un (1) corte.
+            if (pasos == cortes)
+            {
+                for (int i = 0; i < vector.Length; i++)
+                    vector[i] = 1;
+
+                return vector;
+            }
+
+            //Verificamos si son mas de dos pasos.
+            if (pasos > 1)
+            {
+                int a = cortes % pasos;
+                if (a == 0)
+                {
+                    int b = cortes / pasos;
+                    int primerPaso = b + 1;
+                    int ultimoPaso = b - 1;
+
+                    //Último paso
+                    vector[pasos - 1] = ultimoPaso;
+
+                    //Primer paso
+                    vector[0] = primerPaso;
+
+                    for (int i = 1; i < vector.Length - 1; i++)
+                        vector[i] = b;
+                }
+                else
+                {
+                    int h = cortes / pasos;
+
+                    //Último paso
+                    vector[pasos - 1] = h;
+
+                    int f = cortes - h;
+                    int g = pasos - 1;
+
+                    //Mandamos llamar el método para asignar de nuevo los cortes a los pasos. (RECURSIVO).
+                    int[] vectorAux = GetCortesByPaso(f, g);
+
+                    for (int i = 0; i < vector.Length - 1; i++)
+                        vector[i] = vectorAux[i];
+                }
+            }
+            else //Si es solo un paso, el número total de cortes se asignan al primer paso.
+
+                //Primer paso.
+                vector[0] = cortes;
+
+            return vector;
+        }
     }
 }

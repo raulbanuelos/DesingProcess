@@ -25,7 +25,6 @@ namespace View.Services.ViewModel
 {
     public class AnilloViewModel : INotifyPropertyChanged
     {
-
         #region Attributes
         private Anillo ModelAnillo;
         private CalculaMateriaPrima calcularMateriaPrima;
@@ -1489,8 +1488,8 @@ namespace View.Services.ViewModel
         private void calcularDimenciones(int nCortesWith)
         {
             int nPasosNISSEI = Operaciones.Where(x => x.NombreOperacion == "FINISH GRIND (NISSEI)").ToList().Count;
-
-            double cortesXPaso = Math.Ceiling(Convert.ToDouble(nCortesWith) / Convert.ToDouble(nPasosNISSEI));
+            
+            int[] cortesXPaso = Module.GetCortesByPaso(nCortesWith, nPasosNISSEI);
 
             #region Calculo de width
             int i = Operaciones.Count - 1;
