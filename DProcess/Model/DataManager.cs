@@ -11370,13 +11370,13 @@ namespace Model
         /// <param name="especPerfil"></param>
         /// <param name="nCortesWidth"></param>
         /// <returns></returns>
-        public static List<MateriaPrimaRolado> GetMateriaPrimaRolado(double widthCalculado,double thicknessCalculado,string especMaterial, string especPerfil)
+        public static List<MateriaPrimaRolado> GetMateriaPrimaRolado(double widthCalculado,double thicknessCalculado,string especMaterial, string especPerfil, bool banThickness, double thicknessMin, double thicknessMax)
         {
             List<MateriaPrimaRolado> ListaResultante = new List<MateriaPrimaRolado>();
 
             SO_MateriaPrimaRolado ServiceMPRolado = new SO_MateriaPrimaRolado();
 
-            DataSet informacionBD = ServiceMPRolado.GetMateriaPrimaRoladoIdeal(widthCalculado, thicknessCalculado,especMaterial,especPerfil);
+            DataSet informacionBD = ServiceMPRolado.GetMateriaPrimaRoladoIdeal(widthCalculado, thicknessCalculado,especMaterial,especPerfil,banThickness,thicknessMin,thicknessMax);
 
             if (informacionBD != null)
             {

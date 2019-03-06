@@ -17,21 +17,22 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>C:\Publicar\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>\\agufileserv2\TODOSP\R%40ul\Deploy\</UpdateUrl>
+    <InstallUrl>\\agufileserv2\TODOSP\R%40ul\DeployTest\</InstallUrl>
+    <UpdateUrl>\\agufileserv2\TODOSP\R%40ul\DeployTest\</UpdateUrl>
     <ProductName>Diseño del proceso</ProductName>
     <PublisherName>Diseño del proceso</PublisherName>
     <SuiteName>Diseño del proceso</SuiteName>
     <MinimumRequiredVersion>1.0.1.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>10</ApplicationRevision>
+    <ApplicationRevision>13</ApplicationRevision>
     <ApplicationVersion>1.5.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
