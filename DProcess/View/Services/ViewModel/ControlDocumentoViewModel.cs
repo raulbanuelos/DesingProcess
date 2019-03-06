@@ -527,14 +527,6 @@ namespace View.Services.ViewModel
             }
         }
 
-        public ICommand LiberarEspacio
-        {
-            get
-            {
-                return new RelayCommand(a => _LiberarEspacio());
-            }
-        }
-
         #endregion
 
         #region Methods
@@ -1320,14 +1312,6 @@ namespace View.Services.ViewModel
                         Command = LiberarQR,
                         Tag = "Liberar por QR"
                     });
-                this.MenuItems.Add(
-                    new HamburgerMenuIconItem()
-                    {
-                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.DatabaseMinus},
-                        Label = "Liberar espacio en BD",
-                        Command = LiberarEspacio,
-                        Tag = "Liberar espacio en BD"
-                    });
             }
             else
             {
@@ -1421,21 +1405,6 @@ namespace View.Services.ViewModel
             TextoBuscar = string.Empty;
             GetDataGrid(string.Empty);
             initSnack();
-        }
-
-        /// <summary>
-        /// Método que muestra la lista de los documentos obsoletos para liberar espacio en la base de datos
-        /// </summary>
-        private void _LiberarEspacio()
-        {
-
-            FrmDocumentosObsoletos frm = new FrmDocumentosObsoletos();
-            DocumentosObsoletosVM context = new DocumentosObsoletosVM();
-
-            frm.DataContext = context;
-
-            frm.ShowDialog();
-
         }
         #endregion
     }

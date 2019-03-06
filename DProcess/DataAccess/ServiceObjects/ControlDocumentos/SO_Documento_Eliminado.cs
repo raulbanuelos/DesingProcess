@@ -148,5 +148,35 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        public IList GetDocumentoEliminar(string Nombre, string No_version)
+        {
+            try
+            {
+                //Se establece conexión a la BD.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Ejecutamos el método 
+                    var Lista = (from d in Conexion.TBL_DOCUMENTO_ELIMINADO
+                                 where d.NUM_DOCUMENTO.Equals(Nombre) && d.NO_VERSION.Equals(No_version)
+                                 select new
+                                 {
+                                     d.ID_ELIMINADO,
+                                     d.NUM_DOCUMENTO,
+                                     d.NO_VERSION,
+                                     d.FECHA_ELIMINO,
+                                     d.ARCHIVO,
+                                     d.EXT
+                                 }).OrderBy(x => x.NUM_DOCUMENTO).ToList();
+                    //Retornamos la lista
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error, retornamos nulo
+                return null;
+            }
+        }
+
     }
 }
