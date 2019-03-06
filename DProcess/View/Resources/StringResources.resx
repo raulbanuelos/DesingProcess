@@ -1690,4 +1690,10 @@
     <value>The QR code does not correspond to a valid code.</value>
     <comment>Mensaje de QR no valido</comment>
   </data>
+  <data name="ttlIronCast" xml:space="preserve">
+    <value>Iron cast</value>
+  </data>
+  <data name="ttlPatern" xml:space="preserve">
+    <value>Pattern</value>
+  </data>
 </root>

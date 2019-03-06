@@ -1254,6 +1254,38 @@ namespace Model.ControlDocumentos
             //Regresamos la lista
             return List;
         }
+
+        public static ObservableCollection<Documento> GetDocumentosObsoletos(string TextoBuscar)
+        {
+            SO_Documento servicio = new SO_Documento();
+
+            ObservableCollection<Documento> list = new ObservableCollection<Documento>();
+
+            IList Data = servicio.GetDocumentosObsoletos(TextoBuscar);
+
+            if (Data != null)
+            {
+                foreach (var item in Data)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+                    //Declaramos el objeto 
+                    Documento obj = new Documento();
+
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    obj.version.archivo.archivo = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
+                    obj.version.archivo.ext = (string)tipo.GetProperty("EXT").GetValue(item, null);
+                    obj.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.version.archivo.id_archivo = (int)tipo.GetProperty("ID_ARCHIVO").GetValue(item, null);
+
+                    list.Add(obj);
+
+                }
+            }
+            return list;
+        }
+
         /// <summary>
         /// Método para eliminar un documento que contenga sello electronico cuando se modifique su estado a pendiente por corregir
         /// </summary>

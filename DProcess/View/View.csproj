@@ -210,6 +210,9 @@
     <Compile Include="Forms\ControlDocumentos\ControlDocumento.xaml.cs">
       <DependentUpon>ControlDocumento.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmDocumentosObsoletos.xaml.cs">
+      <DependentUpon>FrmDocumentosObsoletos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmBloqueo.xaml.cs">
       <DependentUpon>FrmBloqueo.xaml</DependentUpon>
     </Compile>
@@ -389,6 +392,9 @@
     </Compile>
     <Compile Include="Forms\Shared\Layout.xaml.cs">
       <DependentUpon>Layout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Shared\MateriasPrimas.xaml.cs">
+      <DependentUpon>MateriasPrimas.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Shared\WOptionList.xaml.cs">
       <DependentUpon>WOptionList.xaml</DependentUpon>
@@ -812,6 +818,7 @@
     <Compile Include="Services\ViewModel\DimensionsViewModel.cs" />
     <Compile Include="Services\ViewModel\DocumentosLiberarQR.cs" />
     <Compile Include="Services\ViewModel\DocumentosNoEntregadosViewModel.cs" />
+    <Compile Include="Services\ViewModel\DocumentosObsoletosVM.cs" />
     <Compile Include="Services\ViewModel\DocumentosPendientesViewM.cs" />
     <Compile Include="Services\ViewModel\DocumentosVencidosVM.cs" />
     <Compile Include="Services\ViewModel\Documentos_SimilaresVM.cs" />
@@ -924,6 +931,10 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="Forms\ControlDocumentos\ControlDocumento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmDocumentosObsoletos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1170,6 +1181,10 @@
     <Page Include="Forms\Shared\Layout.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\Shared\MateriasPrimas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Shared\WOptionList.xaml">
       <SubType>Designer</SubType>

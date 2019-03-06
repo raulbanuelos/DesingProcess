@@ -57,8 +57,8 @@
                                 PaneBackground="#33a6cc" Grid.RowSpan="3">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="45*"></RowDefinition>
-                <RowDefinition Height="55*"></RowDefinition>
+                <RowDefinition Height="50*"></RowDefinition>
+                <RowDefinition Height="50*"></RowDefinition>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>

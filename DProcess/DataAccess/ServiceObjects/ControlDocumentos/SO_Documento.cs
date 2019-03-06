@@ -1319,5 +1319,42 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
+
+        /// <summary>
+        /// Método que obtiene los documentos obsoletos para poder liberar espacio en la base de datos
+        /// </summary>
+        /// <param name="TextoBuscar"></param>
+        /// <returns></returns>
+        public IList GetDocumentosObsoletos(string TextoBuscar)
+        {
+            try
+            {
+                using (var conexion = new EntitiesControlDocumentos())
+                {
+                    var lista = (from a in conexion.TBL_DOCUMENTO
+                                 join b in conexion.TBL_VERSION on a.ID_DOCUMENTO equals b.ID_DOCUMENTO
+                                 join c in conexion.TBL_ARCHIVO on b.ID_VERSION equals c.ID_VERSION
+                                 where b.ID_ESTATUS_VERSION == 2
+                                 orderby a.NOMBRE                                
+                                 select new
+                                 {
+                                     a.NOMBRE,
+                                     a.ID_TIPO_DOCUMENTO,
+                                     b.No_VERSION,
+                                     c.ARCHIVO,
+                                     c.EXT,
+                                     c.ID_ARCHIVO
+
+                                 }
+                                 ).Take(100).ToList();
+
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }
