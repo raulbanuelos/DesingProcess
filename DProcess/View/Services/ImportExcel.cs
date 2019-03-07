@@ -16,7 +16,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 namespace View.Services
 {
 
-    public  static class ImportExcel
+    public static class ImportExcel
     {
         /// <summary>
         /// Método para importar a un archivo excel, la información de collarBk
@@ -35,13 +35,14 @@ namespace View.Services
                 // Mostrar el explorador de archivos
                 Nullable<bool> result = dlg.ShowDialog();
 
-                if (result== true) {
+                if (result == true)
+                {
                     //Se obtiene el nombre del documento
                     string filename = dlg.FileName;
 
                     //Creamos una instancia de la aplicación.
                     Excel.Application ExcelApp = new Excel.Application();
-          
+
                     //Abre el documento
                     Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(filename, true);
 
@@ -51,7 +52,8 @@ namespace View.Services
                     DataTable table = new DataTable();
 
                     //Iteramos las hojas del archivo leído
-                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets) {
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                    {
 
                         //Tabla donde se guardará la información del nuevo archivo de excel
                         DataTable dTable = new DataTable();
@@ -66,7 +68,8 @@ namespace View.Services
                         int rowCount = range.Rows.Count;
 
                         //Verifica que la hoja no esté vacía.
-                        if (rowCount > 1) {
+                        if (rowCount > 1)
+                        {
                             //Se empieza a leer el documento en la fila 2.
                             int aux = 2;
                             string componente, MaxA, MaxB;
@@ -80,7 +83,8 @@ namespace View.Services
                             dTable.Columns.Add("Descripción");
 
                             //Repite mientras que el auxiliar sea menor al número de columnas.
-                            while (aux <= rowCount) {
+                            while (aux <= rowCount)
+                            {
 
                                 //Extraemos los datos del archivo de excel, los guardamos el variables locales.
                                 componente = range.Cells[aux, 1].Value2.ToString();
@@ -108,7 +112,8 @@ namespace View.Services
                                         newRow["Código"] = code;
                                         newRow["Descripción"] = descp;
 
-                                    } else if (cont == 2)
+                                    }
+                                    else if (cont == 2)
                                     {
                                         //Como es el mismo componente, sólo de agrega el código y descripción
                                         newRow["Componente"] = "";
@@ -143,17 +148,17 @@ namespace View.Services
 
                     //Cerramos el excel
                     ExcelWork.Close();
-                    
+
                     //Se manda a llamar a la función para crear el archivo de Excel
-                  string e =await ExportToExcel.Export(ds);
+                    string e = await ExportToExcel.Export(ds);
 
                     //Si hubo un error al generar el excel, regresa el error.
                     if (e != null)
                         return e;
                 }
                 //Si no hay error retorna nulo
-                    return null;
-               
+                return null;
+
             }
             catch (IOException er)
             {
@@ -166,16 +171,16 @@ namespace View.Services
             }
         }
 
-        public static string ExportTipoFormato(string filename, DateTime fechaFin,string NombreAbreviado ,string personaCreo, string personaAutorizo, string descripcion, string codigo, string departamento, int version, int id_documento, int id_tipo)
+        public static string ExportTipoFormato(string filename, DateTime fechaFin, string NombreAbreviado, string personaCreo, string personaAutorizo, string descripcion, string codigo, string departamento, int version, int id_documento, int id_tipo)
         {
             string a = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
             string[] vec = a.Split(',');
-            
+
             try
             {
                 Excel.Application ExcelApp = new Excel.Application();
                 Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(filename, true);
-                
+
 
                 string dia = fechaFin.Day.ToString().Length > 1 ? fechaFin.Day.ToString() : "0" + fechaFin.Day.ToString();
                 string mes = fechaFin.Month.ToString().Length > 1 ? fechaFin.Month.ToString() : "0" + fechaFin.Month.ToString();
@@ -202,13 +207,13 @@ namespace View.Services
                         string FechaVersiones = "FECHA_A" + CVF;
                         string NivelVersiones = "NIVEL_C" + (CVF);
 
-                        
+
                         foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                         {
                             sheet.Range[UsuarioVersiones].Value = item.id_usuario;
                             sheet.Range[VersionVersiones].Value = item.no_version;
                             sheet.Range[FechaVersiones].Value = "'" + FechaV.Year + "-" + mesV + "-" + diaV;
-                            sheet.Range[NivelVersiones].Value = vec[CVF-1];
+                            sheet.Range[NivelVersiones].Value = vec[CVF - 1];
                         }
                         CVF++;
                     }
@@ -230,7 +235,7 @@ namespace View.Services
 
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
-                        
+
                         sheet.Range["FECHA_LIBERACION"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
                         if (id_tipo == 1015)
                         {
@@ -245,7 +250,7 @@ namespace View.Services
                         sheet.Range[UsuarioActual].Value = NombreAbreviado;
                         sheet.Range[VersionActual].Value = version;
                         sheet.Range[FechaActual].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
-                        sheet.Range[NivelActual].Value = vec[version-1];
+                        sheet.Range[NivelActual].Value = vec[version - 1];
 
                     }
 
@@ -277,7 +282,7 @@ namespace View.Services
                         sheet.Range[UsuarioActual].Value = NombreAbreviado;
                         sheet.Range[VersionActual].Value = version;
                         sheet.Range[FechaActual].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
-                        sheet.Range[NivelActual].Value = vec[version-1];
+                        sheet.Range[NivelActual].Value = vec[version - 1];
 
                     }
 
@@ -289,6 +294,72 @@ namespace View.Services
             catch (Exception er)
             {
                 return er.Message;
+            }
+        }
+
+        /// <summary>
+        /// Método para crear el formato de las HII
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="fechaFin"></param>
+        /// <param name="NombreAbreviado"></param>
+        /// <param name="personaCreo"></param>
+        /// <param name="personaAutorizo"></param>
+        /// <param name="descripcion"></param>
+        /// <param name="codigo"></param>
+        /// <param name="departamento"></param>
+        /// <param name="version"></param>
+        /// <param name="id_documento"></param>
+        /// <param name="id_tipo"></param>
+        /// <returns></returns>
+        public static string ExportFormatoHII(string filename, DateTime fechaFin, string personaCreo, string personaAutorizo, string descripcion, string codigo, string departamento, int version, int id_documento)
+        {
+            try
+            {
+                Excel.Application ExcelApp = new Excel.Application();
+                Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(filename, true);
+
+                string dia = fechaFin.Day.ToString().Length > 1 ? fechaFin.Day.ToString() : "0" + fechaFin.Day.ToString();
+                string mes = fechaFin.Month.ToString().Length > 1 ? fechaFin.Month.ToString() : "0" + fechaFin.Month.ToString();
+
+                //Si el archivo tiene mas versiones
+
+                string FechaPrimerVersion = DataManagerControlDocumentos.GetFechaPrimeraVersion(id_documento);
+
+                if (id_documento == 0)
+                {
+                    FechaPrimerVersion = fechaFin.ToString();
+                }
+
+                DateTime FV1 = Convert.ToDateTime(FechaPrimerVersion);
+
+                string dia1 = FV1.Day.ToString().Length > 1 ? FV1.Day.ToString() : "0" + FV1.Day.ToString();
+                string mes1 = FV1.Month.ToString().Length > 1 ? FV1.Month.ToString() : "0" + FV1.Month.ToString();
+
+                foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                {
+                    sheet.Range["FECHA_V1"].Value = "'" + FV1.Year + "-" + mes1 + "-" + dia1; ;
+                    if (id_documento == 0)
+                    {
+                        sheet.Range["FECHA_V1"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
+                    }                    
+                    sheet.Range["FECHA_ACTUAL"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
+                    sheet.Range["DESCRIPCION"].Value = descripcion;
+                    sheet.Range["NOMBRE_ELABORO"].Value = personaCreo;
+                    sheet.Range["NOMBRE_REVISO"].Value = personaAutorizo;
+                    sheet.Range["CODIGO"].Value = codigo;
+                    sheet.Range["NOMBRE_DEPARTAMENTO"].Value = departamento;
+                    sheet.Range["VERSION_ACTUAL"].Value = version;
+                }
+
+                ExcelApp.Visible = true;
+
+                return "Ok";
+
+            }
+            catch (Exception error)
+            {
+                return error.Message;
             }
         }
 

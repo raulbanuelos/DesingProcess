@@ -362,6 +362,7 @@ namespace Model.ControlDocumentos
             //regresamos la lista.
             return Lista;
         }
+
         /// <summary>
         /// metodo para contar los documentos de un usario en especifico
         /// si tiene documentos no se puede eliminar el usuario, solo se eliminan los privilegios y perfiles
@@ -1297,6 +1298,19 @@ namespace Model.ControlDocumentos
             return Archivo.ElimiarDocumentoSellado(id_Version);
 
         }
+
+        /// <summary>
+        /// Método que obtiene la fecha de la primera versión que se creo
+        /// </summary>
+        /// <param name="Id_Documento"></param>
+        /// <returns></returns>
+        public static string GetFechaPrimeraVersion(int Id_Documento)
+        {
+            SO_Version servicio = new SO_Version();
+
+            return servicio.GetFechaPrimerVersion(Id_Documento);
+        }
+
         #endregion
 
         #region Rol

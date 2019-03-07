@@ -770,5 +770,25 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        public string GetFechaPrimerVersion(int id_Documento)
+        {
+            try
+            {
+                using (var conexion = new EntitiesControlDocumentos())
+                {
+                    var PrimerFecha = (from a in conexion.TBL_VERSION
+                                       where a.ID_DOCUMENTO == id_Documento
+                                       orderby a.No_VERSION ascending
+                                       select a.FECHA_VERSION).First().ToString();
+
+                    return PrimerFecha;
+                }
+            }
+            catch (Exception)
+            {
+                return "Error";
+            }
+        }
+
     }
 }
