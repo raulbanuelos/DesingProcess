@@ -54,6 +54,8 @@ namespace DataAccess.ServiceObjects.Tooling
             this.ProtectorSupMoly_ = new HashSet<ProtectorSupMoly_>();
             this.CollarScotchbrite_ = new HashSet<CollarScotchbrite_>();
             this.TBL_FEED_WHEEL_RECTIFICADOS_FINOS = new HashSet<TBL_FEED_WHEEL_RECTIFICADOS_FINOS>();
+            this.GuillotinaEngrave_ = new HashSet<GuillotinaEngrave_>();
+            this.BarrelLapAnillos_ = new HashSet<BarrelLapAnillos_>();
         }
     
         public string Codigo { get; set; }
@@ -143,5 +145,9 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DiscoDiskus_ DiscoDiskus_ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_FEED_WHEEL_RECTIFICADOS_FINOS> TBL_FEED_WHEEL_RECTIFICADOS_FINOS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GuillotinaEngrave_> GuillotinaEngrave_ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BarrelLapAnillos_> BarrelLapAnillos_ { get; set; }
     }
 }

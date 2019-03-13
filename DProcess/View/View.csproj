@@ -399,6 +399,9 @@
     <Compile Include="Forms\Shared\WSelectedOption.xaml.cs">
       <DependentUpon>WSelectedOption.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlBarrelLapAnillos_.xaml.cs">
+      <DependentUpon>ControlBarrelLapAnillos_.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlBushing.xaml.cs">
       <DependentUpon>ControlBushing.xaml</DependentUpon>
     </Compile>
@@ -480,6 +483,9 @@
     <Compile Include="Forms\Tooling\ControlGuillotinaBK.xaml.cs">
       <DependentUpon>ControlGuillotinaBK.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlGuillotinaEngrave_.xaml.cs">
+      <DependentUpon>ControlGuillotinaEngrave_.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlGuillotinaSim.xaml.cs">
       <DependentUpon>ControlGuillotinaSim.xaml</DependentUpon>
     </Compile>
@@ -509,6 +515,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\PTooling.xaml.cs">
       <DependentUpon>PTooling.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\WBarrelLapAnillos_.xaml.cs">
+      <DependentUpon>WBarrelLapAnillos_.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\WBatesBore.xaml.cs">
       <DependentUpon>WBatesBore.xaml</DependentUpon>
@@ -545,6 +554,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\WGuillotinaBK.xaml.cs">
       <DependentUpon>WGuillotinaBK.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\WGuillotinaEngrave_.xaml.cs">
+      <DependentUpon>WGuillotinaEngrave_.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\WMaestroHerramental.xaml.cs">
       <DependentUpon>WMaestroHerramental.xaml</DependentUpon>
@@ -785,6 +797,7 @@
     <Compile Include="Services\TiempoEstandar\Segmentos\CentroTrabajo831.cs" />
     <Compile Include="Services\Utility.cs" />
     <Compile Include="Services\ViewModel\AnilloViewModel.cs" />
+    <Compile Include="Services\ViewModel\BarrelLapAnillos_VM.cs" />
     <Compile Include="Services\ViewModel\BloqueoVM.cs" />
     <Compile Include="Services\ViewModel\Buscar_DocumentoVM.cs" />
     <Compile Include="Services\ViewModel\BushingBatesBoreVM.cs" />
@@ -832,6 +845,7 @@
     <Compile Include="Services\ViewModel\GeneradorViewModel.cs" />
     <Compile Include="Services\ViewModel\GuidePlateBK_VM.cs" />
     <Compile Include="Services\ViewModel\GuillotinaBK_VM.cs" />
+    <Compile Include="Services\ViewModel\GuillotinaEngroveVM.cs" />
     <Compile Include="Services\ViewModel\GuillotinaSimVM.cs" />
     <Compile Include="Services\ViewModel\HistorialFiltrado_VM.cs" />
     <Compile Include="Services\ViewModel\HistorialVM.cs" />
@@ -1186,6 +1200,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlBarrelLapAnillos_.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\ControlBushing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1294,6 +1312,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlGuillotinaEngrave_.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\ControlGuillotinaSim.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1331,6 +1353,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\PTooling.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WBarrelLapAnillos_.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1379,6 +1405,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\WGuillotinaBK.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WGuillotinaEngrave_.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

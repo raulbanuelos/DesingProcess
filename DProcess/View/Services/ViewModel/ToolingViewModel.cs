@@ -489,6 +489,22 @@ namespace View.Services.ViewModel
                 return new RelayCommand(a => _IrRecFinFeedWheel());
             }
         }
+
+        public ICommand IrGuillotinaEngrove
+        {
+            get
+            {
+                return new RelayCommand(a => _IrGuillotinaEngrove());
+            }
+        }
+
+        public ICommand IrBarrelLapAnillos
+        {
+            get
+            {
+                return new RelayCommand(a => _IrBarrelLapAnillos());
+            }
+        }
         #endregion
 
         #region Methods
@@ -908,6 +924,30 @@ namespace View.Services.ViewModel
             FeedWheelNisseiRectificadosFinos_VM datacontext = new FeedWheelNisseiRectificadosFinos_VM();
 
             frm.DataContext = datacontext;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Comando que abre la ventana de GuilltinaEngrove
+        /// </summary>
+        public void _IrGuillotinaEngrove()
+        {
+            WGuillotinaEngrave_ frm = new WGuillotinaEngrave_();
+            GuillotinaEngroveVM context = new GuillotinaEngroveVM();
+
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Comando que abre la ventana de Barrel Lap Anillos
+        /// </summary>
+        public void _IrBarrelLapAnillos()
+        {
+            WBarrelLapAnillos_ frm = new WBarrelLapAnillos_();
+            BarrelLapAnillos_VM context = new BarrelLapAnillos_VM();
+
+            frm.DataContext = context;
             frm.ShowDialog();
         }
         #endregion
