@@ -10130,6 +10130,151 @@ namespace Model
 
         #endregion
 
+        #region FrontRearCollarAnillos
+
+        /// <summary>
+        /// Método que obtiene toda la informacion
+        /// </summary>
+        /// <param name="TextoBuscar"></param>
+        /// <returns></returns>
+        public static DataTable GetAllFrontRearCollarAnillos(string TextoBuscar)
+        {
+            SO_FrontRearCollarAnillos servicio = new SO_FrontRearCollarAnillos();
+
+            IList Informacion = servicio.GetAllFrontRearCollarAnillos(TextoBuscar);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            if (Informacion != null)
+            {
+                foreach (var item in Informacion)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("IdFrontRearCollarAnillos").GetValue(item, null);
+
+                    PropiedadCadena Descripcion = new PropiedadCadena();
+                    Descripcion.DescripcionCorta = "Descripción";
+                    Descripcion.Valor = (string)tipo.GetProperty("Descripcion_Herramental").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Descripcion);
+
+                    PropiedadCadena MedidaNominal = new PropiedadCadena();
+                    MedidaNominal.DescripcionCorta = "Medida Nominal";
+                    MedidaNominal.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(MedidaNominal);
+
+                    PropiedadCadena Notas = new PropiedadCadena();
+                    Notas.DescripcionCorta = "Notas";
+                    Notas.Valor = (string)tipo.GetProperty("Notas").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Notas);
+
+                    PropiedadCadena Parte = new PropiedadCadena();
+                    Parte.DescripcionCorta = "Parte";
+                    Parte.Valor = (string)tipo.GetProperty("Parte").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Parte);
+
+                    ListaResultante.Add(herramental);
+                }
+            }
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "FrontRearCollarAnillos");
+        }
+
+        /// <summary>
+        /// Método que obtiene toda la informacion para poder eliminarla o modificarla
+        /// </summary>
+        /// <param name="TextoBuscar"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoFrontRearCollarAnillos(string TextoBuscar)
+        {
+            SO_FrontRearCollarAnillos servicio = new SO_FrontRearCollarAnillos();
+
+            IList Data = servicio.GetInfoFrontRearCollarAnillos(TextoBuscar);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            Herramental herramental = new Herramental();
+
+            if (Data != null)
+            {
+                foreach (var item in Data)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+                    
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("IdFrontRearCollarAnillos").GetValue(item, null);
+
+                    PropiedadCadena Descripcion = new PropiedadCadena();
+                    Descripcion.DescripcionCorta = "Descripción";
+                    Descripcion.Valor = (string)tipo.GetProperty("Descripcion_Herramental").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Descripcion);
+
+                    PropiedadCadena MedidaNominal = new PropiedadCadena();
+                    MedidaNominal.DescripcionCorta = "Medida Nominal";
+                    MedidaNominal.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(MedidaNominal);
+
+                    PropiedadCadena Notas = new PropiedadCadena();
+                    Notas.DescripcionCorta = "Notas";
+                    Notas.Valor = (string)tipo.GetProperty("Notas").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Notas);
+
+                    PropiedadCadena Parte = new PropiedadCadena();
+                    Parte.DescripcionCorta = "Parte";
+                    Parte.Valor = (string)tipo.GetProperty("Parte").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Parte);
+
+                    ListaResultante.Add(herramental);
+                }
+            }
+            return herramental;
+        }
+
+        /// <summary>
+        /// Método que inserta un nuevo registro
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetNeWFrontRearCollarAnillos(Herramental obj)
+        {
+            SO_FrontRearCollarAnillos servicio = new SO_FrontRearCollarAnillos();
+
+            return servicio.SetNewFrontRearCollarAnillos(obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.PropiedadesCadena[1].Valor, obj.PropiedadesCadena[2].Valor, obj.PropiedadesCadena[3].Valor);
+        }
+
+        /// <summary>
+        /// Método que actualiza los valores de un registro
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateFrontRearCollarAnillos(Herramental obj)
+        {
+            SO_FrontRearCollarAnillos servicio = new SO_FrontRearCollarAnillos();
+
+            return servicio.UpdateFrontRearCollarAnillos(obj.idHerramental, obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.PropiedadesCadena[1].Valor, obj.PropiedadesCadena[2].Valor, obj.PropiedadesCadena[3].Valor);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro
+        /// </summary>
+        /// <param name="IdFrontRearCollarAnillos"></param>
+        /// <returns></returns>
+        public static int DeleteFrontRearCollarAnillos(int IdFrontRearCollarAnillos)
+        {
+            SO_FrontRearCollarAnillos servicio = new SO_FrontRearCollarAnillos();
+
+            return servicio.DeleteFrontRearCollarAnillos(IdFrontRearCollarAnillos);
+        }
+
+        #endregion
+
         #endregion
 
         #region Métodos Genéricos

@@ -102,6 +102,7 @@
                 </MenuItem>
                 <MenuItem Header="Lapeado" Cursor="Hand">
                     <MenuItem Header="Barrel Anillos" Cursor="Hand" Command="{Binding IrBarrelLapAnillos}"/>
+                    <MenuItem Header="Front Rear Collar" Cursor="Hand" Command="{Binding IrFrontRearAnillos}"/>
                 </MenuItem>
 
             </MenuItem>

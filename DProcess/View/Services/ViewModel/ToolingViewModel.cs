@@ -505,6 +505,14 @@ namespace View.Services.ViewModel
                 return new RelayCommand(a => _IrBarrelLapAnillos());
             }
         }
+
+        public ICommand IrFrontRearAnillos
+        {
+            get
+            {
+                return new RelayCommand(a => _IrFrontRearAnillos());
+            }
+        }
         #endregion
 
         #region Methods
@@ -949,6 +957,16 @@ namespace View.Services.ViewModel
 
             frm.DataContext = context;
             frm.ShowDialog();
+        }
+
+        public void _IrFrontRearAnillos()
+        {
+            WFrontRearCollarAnillos_ frm = new WFrontRearCollarAnillos_();
+            FrontRearAnillosVM context = new FrontRearAnillosVM();
+
+            frm.DataContext = context;
+            frm.ShowDialog();
+
         }
         #endregion
     }

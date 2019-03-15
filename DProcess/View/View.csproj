@@ -552,6 +552,12 @@
     <Compile Include="Forms\Tooling\WFeedWheelNisseiRecFin.xaml.cs">
       <DependentUpon>WFeedWheelNisseiRecFin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlFrontoRearCollarAnillos_.xaml.cs">
+      <DependentUpon>ControlFrontoRearCollarAnillos_.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\WFrontRearCollarAnillos_.xaml.cs">
+      <DependentUpon>WFrontRearCollarAnillos_.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\WGuillotinaBK.xaml.cs">
       <DependentUpon>WGuillotinaBK.xaml</DependentUpon>
     </Compile>
@@ -842,6 +848,7 @@
     <Compile Include="Services\ViewModel\External_GR_3P_3VM.cs" />
     <Compile Include="Services\ViewModel\FeedWheelNisseiRectificadosFinos_VM.cs" />
     <Compile Include="Services\ViewModel\FO_ItemViewModel.cs" />
+    <Compile Include="Services\ViewModel\FrontRearAnillosVM.cs" />
     <Compile Include="Services\ViewModel\GeneradorViewModel.cs" />
     <Compile Include="Services\ViewModel\GuidePlateBK_VM.cs" />
     <Compile Include="Services\ViewModel\GuillotinaBK_VM.cs" />
@@ -1401,6 +1408,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\WFeedWheelNisseiRecFin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlFrontoRearCollarAnillos_.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WFrontRearCollarAnillos_.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

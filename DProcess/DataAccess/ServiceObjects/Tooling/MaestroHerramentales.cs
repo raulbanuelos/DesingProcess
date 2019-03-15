@@ -56,6 +56,7 @@ namespace DataAccess.ServiceObjects.Tooling
             this.TBL_FEED_WHEEL_RECTIFICADOS_FINOS = new HashSet<TBL_FEED_WHEEL_RECTIFICADOS_FINOS>();
             this.GuillotinaEngrave_ = new HashSet<GuillotinaEngrave_>();
             this.BarrelLapAnillos_ = new HashSet<BarrelLapAnillos_>();
+            this.FrontRearCollarAnillos_ = new HashSet<FrontRearCollarAnillos_>();
         }
     
         public string Codigo { get; set; }
@@ -149,5 +150,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual ICollection<GuillotinaEngrave_> GuillotinaEngrave_ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BarrelLapAnillos_> BarrelLapAnillos_ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FrontRearCollarAnillos_> FrontRearCollarAnillos_ { get; set; }
     }
 }

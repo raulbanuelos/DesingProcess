@@ -286,6 +286,17 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <Property Name="Detalle" Type="varchar" MaxLength="50" />
           <Property Name="Plano" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="FrontRearCollarAnillos_">
+          <Key>
+            <PropertyRef Name="IdFrontRearCollarAnillos" />
+          </Key>
+          <Property Name="IdFrontRearCollarAnillos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" />
+          <Property Name="Descripcion_Herramental" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MedidaNominal" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Notas" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Parte" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="GuideBarFinGrind">
           <Key>
             <PropertyRef Name="ID_GUIDE_BAR_FINISH_GRIND" />
@@ -595,6 +606,18 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
               <PropertyRef Name="Codigo" />
             </Principal>
             <Dependent Role="BarrelLapAnillos_">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FrontRear__Codig__65D6F0D7">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="0..1" />
+          <End Role="FrontRearCollarAnillos_" Type="Self.FrontRearCollarAnillos_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="FrontRearCollarAnillos_">
               <PropertyRef Name="Codigo" />
             </Dependent>
           </ReferentialConstraint>
@@ -1161,6 +1184,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <EntitySet Name="CutterCamTurn" EntityType="Self.CutterCamTurn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CutterSpacerSplitter" EntityType="Self.CutterSpacerSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CutterSplitter" EntityType="Self.CutterSplitter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FrontRearCollarAnillos_" EntityType="Self.FrontRearCollarAnillos_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GuideBarFinGrind" EntityType="Self.GuideBarFinGrind" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GuideBarFirstRoughGrind" EntityType="Self.GuideBarFirstRoughGrind" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GuideBarSecondRoughGrind" EntityType="Self.GuideBarSecondRoughGrind" Schema="dbo" store:Type="Tables" />
@@ -1197,6 +1221,10 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <AssociationSet Name="FK__BarrelLap__Codig__4EF38B7F" Association="Self.FK__BarrelLap__Codig__4EF38B7F">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="BarrelLapAnillos_" EntitySet="BarrelLapAnillos_" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FrontRear__Codig__65D6F0D7" Association="Self.FK__FrontRear__Codig__65D6F0D7">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="FrontRearCollarAnillos_" EntitySet="FrontRearCollarAnillos_" />
           </AssociationSet>
           <AssociationSet Name="FK__Guillotin__Codig__493AB229" Association="Self.FK__Guillotin__Codig__493AB229">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -1422,6 +1450,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <NavigationProperty Name="TBL_FEED_WHEEL_RECTIFICADOS_FINOS" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_FEED_WHEEL_RECTIFICADOS_FINOS_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_FEED_WHEEL_RECTIFICADOS_FINOS" />
           <NavigationProperty Name="GuillotinaEngrave_" Relationship="DataAccess.ServiceObjects.Tooling.FK__Guillotin__Codig__493AB229" FromRole="MaestroHerramentales" ToRole="GuillotinaEngrave_" />
           <NavigationProperty Name="BarrelLapAnillos_" Relationship="DataAccess.ServiceObjects.Tooling.FK__BarrelLap__Codig__4EF38B7F" FromRole="MaestroHerramentales" ToRole="BarrelLapAnillos_" />
+          <NavigationProperty Name="FrontRearCollarAnillos_" Relationship="DataAccess.ServiceObjects.Tooling.FK__FrontRear__Codig__65D6F0D7" FromRole="MaestroHerramentales" ToRole="FrontRearCollarAnillos_" />
         </EntityType>
         <EntityContainer Name="EntitiesTooling" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="MaestroHerramentales" EntityType="Self.MaestroHerramentales" />
@@ -1641,6 +1670,11 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <AssociationSet Name="FK__BarrelLap__Codig__4EF38B7F" Association="DataAccess.ServiceObjects.Tooling.FK__BarrelLap__Codig__4EF38B7F">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="BarrelLapAnillos_" EntitySet="BarrelLapAnillos_" />
+          </AssociationSet>
+          <EntitySet Name="FrontRearCollarAnillos_" EntityType="DataAccess.ServiceObjects.Tooling.FrontRearCollarAnillos_" />
+          <AssociationSet Name="FK__FrontRear__Codig__65D6F0D7" Association="DataAccess.ServiceObjects.Tooling.FK__FrontRear__Codig__65D6F0D7">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="FrontRearCollarAnillos_" EntitySet="FrontRearCollarAnillos_" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="UretanoSplitter">
@@ -2801,6 +2835,30 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="FrontRearCollarAnillos_">
+          <Key>
+            <PropertyRef Name="IdFrontRearCollarAnillos" />
+          </Key>
+          <Property Name="IdFrontRearCollarAnillos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="Descripcion_Herramental" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MedidaNominal" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Notas" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Parte" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK__FrontRear__Codig__65D6F0D7" FromRole="FrontRearCollarAnillos_" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK__FrontRear__Codig__65D6F0D7">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.FrontRearCollarAnillos_" Role="FrontRearCollarAnillos_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="FrontRearCollarAnillos_">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3434,6 +3492,18 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
                 <ScalarProperty Name="MedidaNominal" ColumnName="MedidaNominal" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="IdBarrelLapAnillos" ColumnName="IdBarrelLapAnillos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FrontRearCollarAnillos_">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.FrontRearCollarAnillos_">
+              <MappingFragment StoreEntitySet="FrontRearCollarAnillos_">
+                <ScalarProperty Name="Parte" ColumnName="Parte" />
+                <ScalarProperty Name="Notas" ColumnName="Notas" />
+                <ScalarProperty Name="MedidaNominal" ColumnName="MedidaNominal" />
+                <ScalarProperty Name="Descripcion_Herramental" ColumnName="Descripcion_Herramental" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="IdFrontRearCollarAnillos" ColumnName="IdFrontRearCollarAnillos" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

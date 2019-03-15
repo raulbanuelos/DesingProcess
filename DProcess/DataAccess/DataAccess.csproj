@@ -332,6 +332,9 @@
     <Compile Include="ServiceObjects\Tooling\DiscoDiskus_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\FrontRearCollarAnillos_.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\GuideBarFinGrind.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -460,6 +463,7 @@
     <Compile Include="ServiceObjects\Tooling\SO_Cromo.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_CutterAngle.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_FinishMill.cs" />
+    <Compile Include="ServiceObjects\Tooling\SO_FrontRearCollarAnillos.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_GuillotinaEngrave.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_MaestroHerramental.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_Moly.cs" />

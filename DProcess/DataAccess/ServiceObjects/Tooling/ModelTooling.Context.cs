@@ -75,5 +75,6 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<TBL_FEED_WHEEL_RECTIFICADOS_FINOS> TBL_FEED_WHEEL_RECTIFICADOS_FINOS { get; set; }
         public virtual DbSet<GuillotinaEngrave_> GuillotinaEngrave_ { get; set; }
         public virtual DbSet<BarrelLapAnillos_> BarrelLapAnillos_ { get; set; }
+        public virtual DbSet<FrontRearCollarAnillos_> FrontRearCollarAnillos_ { get; set; }
     }
 }
