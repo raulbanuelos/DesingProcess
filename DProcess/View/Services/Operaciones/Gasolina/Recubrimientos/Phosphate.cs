@@ -137,6 +137,10 @@ namespace View.Services.Operaciones.Gasolina.Recubrimientos
         /// </summary>
         public double CortesOPasadas { get; set; }
 
+        /// <summary>
+        /// Clase que representa las características de los cortes que están en la operación.
+        /// </summary>
+        public PasoNISSEI PasoNISSEI { get; set; }
         #endregion
 
         #endregion
@@ -156,6 +160,7 @@ namespace View.Services.Operaciones.Gasolina.Recubrimientos
 
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "*PHOSPHATE \n";
+            TextoProceso += "WIDTH : " + WidthOperacion + "\n";
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();

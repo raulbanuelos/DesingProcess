@@ -325,7 +325,10 @@ namespace View.Services
             
             //Indica si existe material a agregar en thickness durante el proceso.
             bool banThickness = matAddThickness == 0 ? true : false;
-            
+
+            int pasosTotalesNISSEI = Module.GetNumPasosTotalesOperacion(Operaciones, "FINISH GRIND (NISSEI)");
+
+
             List<MateriaPrimaRolado> ListaMateriaPrimaDisponible = DataManager.GetMateriaPrimaRolado(restaWidth,promedioThickness - matAddThickness, _elAnillo.MaterialBase.Especificacion, especPerfil.Valor, banThickness, a1Min.Valor, a1Max.Valor);
 
             if (ListaMateriaPrimaDisponible.Count == 0)

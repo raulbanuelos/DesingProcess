@@ -9,8 +9,6 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
     {
         #region Propiedades
 
-        public int NoPasadas { get; set; }
-
         #region Propiedades de IOperacion
 
         /// <summary>
@@ -139,6 +137,11 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
         /// </summary>
         public double CortesOPasadas { get; set; }
 
+        /// <summary>
+        /// Clase que representa las características de los cortes que están en la operación.
+        /// </summary>
+        public PasoNISSEI PasoNISSEI { get; set; }
+
         #endregion
 
         #endregion
@@ -162,11 +165,15 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
             double widthDecimal = Math.Round(WidthOperacion * 25.4, 3);
 
             TextoProceso = "*FIN GRIND \n";
-            TextoProceso += "mm(1) (" + widthDecimal + " +- 0.0060) \n";
+            TextoProceso += "mm\n";
+            TextoProceso += GetMedidadasCorte2(true);
             TextoProceso += "\n";
             TextoProceso += "REF.BLOCK PATRON:\n";
-            TextoProceso += "IN(" + WidthOperacion + " +- 0.0060)\n";
+            
+            TextoProceso += GetMedidadasCorte2(false);
+
             TextoProceso += "ROUGHNESS 25 Ra MAX.\n";
+            TextoProceso += "NÚMERO DE CORTES: " + CortesOPasadas + "\n"; 
 
             anilloProcesado.H1.Valor = WidthOperacion;
 
@@ -176,6 +183,67 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
             //Ejecutamos el méotodo para calcular los tiempos estándar.
             CalcularTiemposEstandar();
         }
+
+
+        private string GetMedidadasCorte2(bool isDecimal)
+        {
+            double widthCalculado = WidthOperacion;
+            double[] vec = new double[PasoNISSEI.Cortes.Length];
+            vec[0] = widthCalculado;
+
+            int c = 1;
+            for (int i = PasoNISSEI.Cortes.Length - 1; i > 0; i--)
+            {
+                vec[c] = widthCalculado + PasoNISSEI.Cortes[i].MatRemover;
+                widthCalculado = vec[c];
+                c++;
+            }
+
+            string text = string.Empty;
+            int j = 1;
+            for (int i = vec.Length - 1; i >= 0; i--)
+            {
+                if (isDecimal)
+                    text += "(" + j + ")" + "(" + Math.Round(vec[i] * 25.4,3) + ")\n";
+                else
+                    text += "(" + j + ")" + "(" + vec[i] + ")\n";
+                
+                j++;
+            }
+            return text;
+        }
+
+        //private string GetMedidasCortes()
+        //{
+        //    double[] vMedidas = new double[Convert.ToInt32(CortesOPasadas)];
+
+        //    int c = vMedidas.Length - 1;
+
+        //    vMedidas[c] = WidthOperacion;
+        //    c--;
+
+        //    double aux = WidthOperacion;
+        //    double MatRemoverPorCorte = MatRemoverWidth / CortesOPasadas;
+
+        //    while (c >= 0)
+        //    {
+        //        vMedidas[c] = aux + MatRemoverPorCorte;
+        //        aux = vMedidas[c];
+        //        c--;
+        //    }
+
+        //    string texto = "in ";
+
+        //    foreach (double medida in vMedidas)
+        //    {
+        //        texto += "(" + medida + ")";
+        //    }
+
+        //    texto += "\n";
+
+        //    return texto;
+
+        //}
 
         public void BuscarHerramentales()
         {
@@ -230,21 +298,11 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
         /// <param name="posOperacion"></param>
         public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion, Anillo plano_)
         {
-
-            int paso = Module.GetNumPasoOperacion(operaciones, posOperacion, NombreOperacion);
+            //Por corte.
             MatRemoverWidth = 0.0005;
-            //MatRemoverWidth = 0.0005;
-
+            
             if (elPlano == null)
                 elPlano = plano_;
-
-            if (elPlano.MaterialBase.TipoDeMaterial == "ACERO AL CARBON" && paso == 1)
-                NoPasadas = 2;
-            else
-                if (elPlano.MaterialBase.TipoDeMaterial == "ACERO AL CARBON" && paso == 2)
-                NoPasadas = 1;
-
-            MatRemoverWidth = MatRemoverWidth * NoPasadas;
         }
 
         #endregion

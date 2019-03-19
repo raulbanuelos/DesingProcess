@@ -1491,6 +1491,124 @@ namespace View.Services.ViewModel
             
             int[] cortesXPaso = Module.GetCortesByPaso(nCortesWith, nPasosNISSEI);
 
+            double sum = 0.0;
+            foreach (int totalCortes in cortesXPaso)
+            {
+                double t = totalCortes * .0005;
+                sum += t;
+            }
+
+            PasoNISSEI[] pasosNISSEI = new PasoNISSEI[nPasosNISSEI];
+
+            for (int j = 0; j < pasosNISSEI.Length; j++)
+            {
+                pasosNISSEI[j] = new PasoNISSEI();
+                pasosNISSEI[j].NumPaso = j + 1;
+                pasosNISSEI[j].Cortes = new CorteNISSEI[cortesXPaso[j]];
+                for (int k = 0; k < pasosNISSEI[j].Cortes.Length ; k++)
+                {
+                    pasosNISSEI[j].Cortes[k] = new CorteNISSEI();
+                }
+            }
+
+            #region Relgas (Constantes)
+            /*Reglas:
+            1.- Primer corte de primer paso siempre debe ser 0.0008 .
+            2.- Todos los cortes del último paso deben ser 0.0004 .
+            3.- Todos los últimos cortes de cada paso debe ser 0.0004 .
+            4.- Todos los primeros cortes de pasos intermedios deben ser 0.0006
+            Pasos intermedio : Pasos que NO SON el primer paso ni el último paso.
+            */
+
+            //Preparamos Regla #1
+            pasosNISSEI[0].Cortes[0].MatRemover = .0008;
+            pasosNISSEI[0].Cortes[0].WasAssigned = true;
+
+            //Preparamos Regla #2
+            for (int j = 0; j < pasosNISSEI[nPasosNISSEI - 1].Cortes.Length; j++)
+            {
+                pasosNISSEI[nPasosNISSEI - 1].Cortes[j].MatRemover = 0.0004;
+                pasosNISSEI[nPasosNISSEI - 1].Cortes[j].WasAssigned = true;
+            }
+
+            //Preparamos Regla #3
+            for (int j = 0; j < pasosNISSEI.Length; j++)
+            {
+                pasosNISSEI[j].Cortes[pasosNISSEI[j].Cortes.Length - 1].MatRemover = .0004;
+                pasosNISSEI[j].Cortes[pasosNISSEI[j].Cortes.Length - 1].WasAssigned = true;
+            }
+
+            //Preparamos Regla #4
+            for (int j = 1; j < pasosNISSEI.Length - 1; j++)
+            {
+                pasosNISSEI[j].Cortes[0].MatRemover = .0006;
+                pasosNISSEI[j].Cortes[0].WasAssigned = true;
+            }
+            #endregion
+
+            //Asignamos el número de corte a todos los pasos.
+            for (int j = 0; j < pasosNISSEI.Length; j++)
+            {
+                for (int k = 0; k < pasosNISSEI[j].Cortes.Length; k++)
+                {
+                    pasosNISSEI[j].Cortes[k].NumCorte = k + 1;
+                }
+            }
+
+            //Contamos el material a remover que llevamos hasta el momento. (Se lleva hasta el momento solo las cantidades constantes.)
+            double sumConstante = 0.0;
+            for (int j = 0; j < pasosNISSEI.Length; j++)
+            {
+                for (int k = 0; k < pasosNISSEI[j].Cortes.Length; k++)
+                {
+                    sumConstante += pasosNISSEI[j].Cortes[k].MatRemover;
+                }
+            }
+
+            double faltante = sum - sumConstante;
+
+            int num0006 = Convert.ToInt32(faltante / 0.0006);
+
+            double v = faltante - (num0006 * .0006);
+            if (v < .0004)
+                num0006--;
+
+            v = faltante -  (num0006 * .0006);
+
+            int num0004 = Convert.ToInt32(v / .0006);
+
+            if (num0006 > 0)
+            {
+                for (int j = 0; j < pasosNISSEI.Length; j++)
+                {
+                    for (int k = 0; k < pasosNISSEI[j].Cortes.Length; k++)
+                    {
+                        if (!pasosNISSEI[j].Cortes[k].WasAssigned && num0006 > 0)
+                        {
+                            pasosNISSEI[j].Cortes[k].MatRemover = 0.0006;
+                            pasosNISSEI[j].Cortes[k].WasAssigned = true;
+                            num0006--;
+                        }
+                    }
+                } 
+            }
+
+            if (num0004 > 0)
+            {
+                for (int j = 0; j < pasosNISSEI.Length; j++)
+                {
+                    for (int k = 0; k < pasosNISSEI[j].Cortes.Length; k++)
+                    {
+                        if (!pasosNISSEI[j].Cortes[k].WasAssigned && num0004 > 0)
+                        {
+                            pasosNISSEI[j].Cortes[k].MatRemover = 0.0004;
+                            pasosNISSEI[j].Cortes[k].WasAssigned = true;
+                            num0004--;
+                        }
+                    }
+                }
+            }
+
             #region Calculo de width
             int i = Operaciones.Count - 1;
             int c = 0;
@@ -1500,18 +1618,39 @@ namespace View.Services.ViewModel
 
             SubjectWidth subjectWidth = new SubjectWidth();
             bool banUltimaOperacionWidth = true;
+
+            //Contador de operaciones NISSEI
+            int cNissei = cortesXPaso.Length - 1;
+
             while (i >= 0)
             {
                 if (Operaciones[i] is IObserverWidth)
                 {
                     if (banUltimaOperacionWidth)
                     {
-                        subjectWidth.Subscribe(Operaciones[i] as IObserverWidth, widthFinal);
+                        IObserverWidth ope = (Operaciones[i] as IObserverWidth);
+                        if (Operaciones[i].NombreOperacion == "FINISH GRIND (NISSEI)")
+                        {
+                            ope.CortesOPasadas = cortesXPaso[cNissei];
+                            ope.PasoNISSEI = pasosNISSEI[cNissei];
+                            ope.MatRemoverWidth = GetMatRemoverPASONissei(pasosNISSEI[cNissei]);
+                            cNissei--;
+                        }
+
+                        subjectWidth.Subscribe(ope, widthFinal);
                         banUltimaOperacionWidth = false;
                     }
                     else
                     {
-                        subjectWidth.Subscribe(Operaciones[i] as IObserverWidth);
+                        IObserverWidth ope = (Operaciones[i] as IObserverWidth);
+                        if (Operaciones[i].NombreOperacion == "FINISH GRIND (NISSEI)")
+                        {
+                            ope.CortesOPasadas = cortesXPaso[cNissei];
+                            ope.PasoNISSEI = pasosNISSEI[cNissei];
+                            ope.MatRemoverWidth = GetMatRemoverPASONissei(pasosNISSEI[cNissei]);
+                            cNissei--;
+                        }
+                        subjectWidth.Subscribe(ope);
                         subjectWidth.Notify(c);
                     }
                     c += 1;
@@ -1587,6 +1726,17 @@ namespace View.Services.ViewModel
                 i = i - 1;
             }
             #endregion
+        }
+
+        private double GetMatRemoverPASONissei(PasoNISSEI paso)
+        {
+            double matRemover = 0.0;
+            for (int i = 0; i < paso.Cortes.Length; i++)
+            {
+                matRemover += paso.Cortes[i].MatRemover;
+            }
+
+            return matRemover;
         }
 
         private void calcularDimenciones()

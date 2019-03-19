@@ -160,6 +160,11 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         /// </summary>
         public double CortesOPasadas { get; set; }
 
+        /// <summary>
+        /// Clase que representa las características de los cortes que están en la operación.
+        /// </summary>
+        public PasoNISSEI PasoNISSEI { get; set; }
+
         #endregion
 
         #region Methods

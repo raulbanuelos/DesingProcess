@@ -280,7 +280,7 @@ namespace View.Services.ViewModel
 
         public UsuarioViewModel(Usuario modelUsuario, Page pagina)
         {
-            //ModelUsuario = modelUsuario;
+            ModelUsuario = modelUsuario;
             this.pagina = pagina;
             //initNotifications();
         }

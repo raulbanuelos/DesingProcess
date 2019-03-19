@@ -21,6 +21,11 @@ namespace Model.Interfaces
         double CortesOPasadas { get; set; }
 
         /// <summary>
+        /// Clase que representa las características de los cortes que están en la operación.
+        /// </summary>
+        PasoNISSEI PasoNISSEI { get; set; }
+
+        /// <summary>
         /// Método que calcula el width de la operación.
         /// </summary>
         /// <param name="sender"></param>

@@ -84,6 +84,7 @@
     <Compile Include="ControlDocumentos\Usuarios.cs" />
     <Compile Include="ControlDocumentos\ValidacionDocumento.cs" />
     <Compile Include="ControlDocumentos\Version.cs" />
+    <Compile Include="CorteNISSEI.cs" />
     <Compile Include="Cuffs.cs" />
     <Compile Include="DataManager.cs" />
     <Compile Include="DO_DocumentosRechazados.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="MateriaPrimaRolado.cs" />
     <Compile Include="MoutingDia.cs" />
     <Compile Include="MoutingWidth.cs" />
+    <Compile Include="PasoNISSEI.cs" />
     <Compile Include="Pattern.cs" />
     <Compile Include="Perfil.cs" />
     <Compile Include="PinturaAnillo.cs" />

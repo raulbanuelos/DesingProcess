@@ -9,6 +9,7 @@ using View.Services;
 using View.Services.Operaciones.Gasolina.Maquinado;
 using Model.Interfaces;
 using Model.ControlDocumentos;
+using View.Services.Operaciones.Gasolina.RectificadosFinos;
 
 namespace DProcess.Model.Test
 {
@@ -152,6 +153,26 @@ namespace DProcess.Model.Test
         #endregion
 
         #region Module
+
+        [TestMethod]
+        public void GetCortesByPaso()
+        {
+            int[] vec = Module.GetCortesByPaso(12, 3);
+
+            Assert.AreEqual(new int[2], vec);
+        }
+
+        [TestMethod]
+        public void GetNumPasosTotalesOperacion()
+        {
+            ObservableCollection<IOperacion> ListaOperaciones = new ObservableCollection<IOperacion>();
+            ListaOperaciones.Add(new NISSEI { NombreOperacion = "FINISH GRIND (NISSEI)"});
+            ListaOperaciones.Add(new NISSEI { NombreOperacion = "FINISH GRIND (NISSEI)"});
+            ListaOperaciones.Add(new NISSEI { NombreOperacion = "Fasdasdasd" });
+            int n = Module.GetNumPasosTotalesOperacion(ListaOperaciones, "FINISH GRIND (NISSEI)");
+
+            Assert.AreEqual(2, n);
+        }
 
         [TestMethod]
         public void GetDiametroOperacion()

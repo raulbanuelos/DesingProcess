@@ -1119,6 +1119,25 @@ namespace View.Services
         }
 
         /// <summary>
+        /// Métodoq ue devuelve el número de pasos totales de una operacion dentro de una lista de operaciones.
+        /// </summary>
+        /// <param name="operaciones"></param>
+        /// <param name="nombreOperacionBuscada"></param>
+        /// <returns></returns>
+        public static int GetNumPasosTotalesOperacion(ObservableCollection<IOperacion> operaciones, string nombreOperacionBuscada)
+        {
+            int pasos = 0;
+            foreach (var operacion in operaciones)
+            {
+                if (operacion.NombreOperacion == nombreOperacionBuscada)
+                {
+                    pasos++;
+                }
+            }
+            return pasos;
+        }
+
+        /// <summary>
         /// Método para obtener un double con los decimales esperados.
         /// </summary>
         /// <param name="value"></param>

@@ -45,7 +45,7 @@ namespace Model
         {
             Observers.Add(observer);
         }
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -56,6 +56,38 @@ namespace Model
             observer.WidthOperacion = WidthFinal;
             Observers.Add(observer);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="observer"></param>
+        /// <param name="WidthFinal"></param>
+        //public void Subscribe(IObserverWidth observer, double WidthFinal, int cortes)
+        //{
+        //    observer.WidthOperacion = WidthFinal;
+        //    observer.CortesOPasadas = cortes;
+
+        //    //Total de material a remover.
+        //    observer.MatRemoverWidth = observer.MatRemoverWidth * cortes;
+
+        //    Observers.Add(observer);
+        //}
+
+        //public void Subcribe(IObserverWidth observer, double WidthFinal, PasoNISSEI paso)
+        //{
+        //    observer.WidthOperacion = WidthFinal;
+        //    observer.CortesOPasadas = paso.Cortes.Length;
+
+        //    observer.PasoNISSEI = paso;
+
+        //    double totalMatRemover = 0.0;
+        //    for (int i = 0; i < paso.Cortes.Length; i++)
+        //    {
+        //        totalMatRemover += paso.Cortes[i].MatRemover;
+        //    }
+
+        //    Observers.Add(observer);
+        //}
 
         /// <summary>
         /// 
