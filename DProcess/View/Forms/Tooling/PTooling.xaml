@@ -104,6 +104,7 @@
                     <MenuItem Header="Barrel Anillos" Cursor="Hand" Command="{Binding IrBarrelLapAnillos}"/>
                     <MenuItem Header="Front Rear Collar" Cursor="Hand" Command="{Binding IrFrontRearAnillos}"/>
                     <MenuItem Header="Closing Band" Cursor="Hand" Command="{Binding IrClosingBand}"/>
+                    <MenuItem Header="Loading Guide" Cursor="Hand" Command="{Binding IrLoadingGuide}"/>
                 </MenuItem>
 
             </MenuItem>

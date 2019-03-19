@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
-using System.Data;
 using System.Threading.Tasks;
-using Model;
 
 namespace View.Services.ViewModel
 {
-    public class BarrelLapAnillos_VM : INotifyPropertyChanged
+    public class LoadingGuideAnillosVM : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged Métodos
         void NotifyChange(params string[] ids)
@@ -25,17 +25,17 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Propiedades
-        private DataTable _ListaHerramentalesBarrelLapAnillo;
-        public DataTable ListaHerramentalesBarrelLapAnillo
+        private DataTable _ListaHerramentalesLoadingGuideAnillos;
+        public DataTable ListaHerramentalesLoadingGuideAnillos
         {
             get
             {
-                return _ListaHerramentalesBarrelLapAnillo;
+                return _ListaHerramentalesLoadingGuideAnillos;
             }
             set
             {
-                _ListaHerramentalesBarrelLapAnillo = value;
-                NotifyChange("ListaHerramentalesBarrelLapAnillo");
+                _ListaHerramentalesLoadingGuideAnillos = value;
+                NotifyChange("ListaHerramentalesLoadingGuideAnillos");
             }
         }
 
@@ -75,19 +75,16 @@ namespace View.Services.ViewModel
         }
         #endregion
 
-        #region Construcor
-        public BarrelLapAnillos_VM()
+        public LoadingGuideAnillosVM()
         {
             Busqueda(string.Empty);
         }
-        #endregion
 
         #region Métodos
         public void Busqueda(string TextoBuscar)
         {
-            ListaHerramentalesBarrelLapAnillo = DataManager.GetALLBarrelLapAnillos_(TextoBuscar);
+            ListaHerramentalesLoadingGuideAnillos = DataManager.GetAllLoadingGuideAnillos(TextoBuscar);
         }
         #endregion
-
     }
 }

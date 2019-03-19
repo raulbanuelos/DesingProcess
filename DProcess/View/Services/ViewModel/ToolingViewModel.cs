@@ -521,6 +521,14 @@ namespace View.Services.ViewModel
                 return new RelayCommand(a => _IrClosingBand());
             }
         }
+
+        public ICommand IrLoadingGuide
+        {
+            get
+            {
+                return new RelayCommand(a => _IrLoadingGuide());
+            }
+        }
         #endregion
 
         #region Methods
@@ -985,6 +993,16 @@ namespace View.Services.ViewModel
             form.DataContext = context;
             form.ShowDialog();
         }
+
+        public void _IrLoadingGuide()
+        {
+            WLoadingGuideAnillos frm = new WLoadingGuideAnillos();
+            LoadingGuideAnillosVM context = new LoadingGuideAnillosVM();
+
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
         #endregion
     }
 }

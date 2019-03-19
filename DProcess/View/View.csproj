@@ -492,6 +492,9 @@
     <Compile Include="Forms\Tooling\ControlGuillotinaSim.xaml.cs">
       <DependentUpon>ControlGuillotinaSim.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlLoadingGuideAnillos_.xaml.cs">
+      <DependentUpon>ControlLoadingGuideAnillos_.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlProtectorInf_Moly.xaml.cs">
       <DependentUpon>ControlProtectorInf_Moly.xaml</DependentUpon>
     </Compile>
@@ -569,6 +572,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\WGuillotinaEngrave_.xaml.cs">
       <DependentUpon>WGuillotinaEngrave_.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\WLoadingGuideAnillos.xaml.cs">
+      <DependentUpon>WLoadingGuideAnillos.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\WMaestroHerramental.xaml.cs">
       <DependentUpon>WMaestroHerramental.xaml</DependentUpon>
@@ -866,6 +872,7 @@
     <Compile Include="Services\ViewModel\InsertarNuevaLeccionVW.cs" />
     <Compile Include="Services\ViewModel\LeccionesAprendidasVM.cs" />
     <Compile Include="Services\ViewModel\ListItemViewModel.cs" />
+    <Compile Include="Services\ViewModel\LoadingGuideAnillosVM.cs" />
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
     <Compile Include="Services\ViewModel\ModificarDatosUsuario.cs" />
     <Compile Include="Services\ViewModel\ModificarLeccionVM.cs" />
@@ -1338,6 +1345,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlLoadingGuideAnillos_.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\ControlProtectorInf_Moly.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1439,6 +1450,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\WGuillotinaEngrave_.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WLoadingGuideAnillos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

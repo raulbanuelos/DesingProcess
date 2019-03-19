@@ -10398,6 +10398,119 @@ namespace Model
 
         #endregion
 
+        #region LoadingGuideAnillos
+
+        /// <summary>
+        /// Método que obtiene todos los registros para visualizarlos
+        /// </summary>
+        /// <param name="TextoBuscar"></param>
+        /// <returns></returns>
+        public static DataTable GetAllLoadingGuideAnillos(string TextoBuscar)
+        {
+            SO_LoadingGuideAnillos_ servicio = new SO_LoadingGuideAnillos_();
+
+            IList Data = servicio.GetAllLoadingGuideAnillos(TextoBuscar);
+
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            if (Data != null)
+            {
+                foreach (var item in Data)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("IdLoadingGuideAnillos").GetValue(item, null);
+
+                    PropiedadCadena MedidaNominal = new PropiedadCadena();
+                    MedidaNominal.DescripcionCorta = "Medida Nominal";
+                    MedidaNominal.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(MedidaNominal);
+
+                    ListaResultante.Add(herramental);
+
+                }
+            }
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "LoadingGuideAnillos");
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros para poder modificarlos o eliminarlos
+        /// </summary>
+        /// <param name="TextoBuscar"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoLoadingGuideAnillos(string TextoBuscar)
+        {
+            SO_LoadingGuideAnillos_ servicio = new SO_LoadingGuideAnillos_();
+
+            IList Data = servicio.GetInfoLoadingGuideAnillos(TextoBuscar);
+
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+            Herramental herramental = new Herramental();
+
+            if (Data != null)
+            {
+                foreach (var item in Data)
+                {
+                    System.Type tipo = item.GetType();
+
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("IdLoadingGuideAnillos").GetValue(item, null);
+
+                    PropiedadCadena MedidaNominal = new PropiedadCadena();
+                    MedidaNominal.DescripcionCorta = "Medida Nominal";
+                    MedidaNominal.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(MedidaNominal);
+
+                    ListaResultante.Add(herramental);
+
+                }
+            }
+            return herramental;
+        }
+
+        /// <summary>
+        /// Método que inserta un nuevo registro
+        /// </summary>
+        /// <param name="Obj"></param>
+        /// <returns></returns>
+        public static int SetNewLoadingGuideAnillos(Herramental Obj)
+        {
+            SO_LoadingGuideAnillos_ servicio = new SO_LoadingGuideAnillos_();
+
+            return servicio.SetNewLoadingGuideAnillos(Obj.Codigo, Obj.PropiedadesCadena[0].Valor);
+        }
+
+        /// <summary>
+        /// Método que actualiza un registro
+        /// </summary>
+        /// <param name="Obj"></param>
+        /// <returns></returns>
+        public static int UpdateLoadingGuideAnillos(Herramental Obj)
+        {
+            SO_LoadingGuideAnillos_ servicio = new SO_LoadingGuideAnillos_();
+
+            return servicio.UpdateLoadingGuideAnillos(Obj.idHerramental, Obj.PropiedadesCadena[0].Valor);
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro
+        /// </summary>
+        /// <param name="IdClosing"></param>
+        /// <returns></returns>
+        public static int DeleteLoadingGuideAnillos(int IdClosing)
+        {
+            SO_LoadingGuideAnillos_ servicio = new SO_LoadingGuideAnillos_();
+
+            return servicio.DeleteLoadingGuideAnillos(IdClosing);
+        }
+
+        #endregion
+
         #endregion
 
         #region Métodos Genéricos

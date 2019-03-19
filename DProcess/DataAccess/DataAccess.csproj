@@ -359,6 +359,9 @@
     <Compile Include="ServiceObjects\Tooling\GuillotinaSIM_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\LoadingGuideAnillos_.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\MaestroHerramentales.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -469,6 +472,7 @@
     <Compile Include="ServiceObjects\Tooling\SO_FinishMill.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_FrontRearCollarAnillos.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_GuillotinaEngrave.cs" />
+    <Compile Include="ServiceObjects\Tooling\SO_LoadingGuideAnillos_.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_MaestroHerramental.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_Moly.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_NisseiRectificadosFinos.cs" />

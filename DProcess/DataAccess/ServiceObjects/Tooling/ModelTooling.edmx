@@ -374,6 +374,14 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <Property Name="DimA" Type="float" />
           <Property Name="CantidadAnillos" Type="int" />
         </EntityType>
+        <EntityType Name="LoadingGuideAnillos_">
+          <Key>
+            <PropertyRef Name="IdLoadingGuideAnillos" />
+          </Key>
+          <Property Name="IdLoadingGuideAnillos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" />
+          <Property Name="MedidaNominal" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="MaestroHerramentales">
           <Key>
             <PropertyRef Name="Codigo" />
@@ -651,6 +659,18 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
               <PropertyRef Name="Codigo" />
             </Principal>
             <Dependent Role="GuillotinaEngrave_">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LoadingGu__Codig__6D78129F">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="0..1" />
+          <End Role="LoadingGuideAnillos_" Type="Self.LoadingGuideAnillos_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="LoadingGuideAnillos_">
               <PropertyRef Name="Codigo" />
             </Dependent>
           </ReferentialConstraint>
@@ -1214,6 +1234,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <EntitySet Name="GuillotinaBK_" EntityType="Self.GuillotinaBK_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GuillotinaEngrave_" EntityType="Self.GuillotinaEngrave_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GuillotinaSIM_" EntityType="Self.GuillotinaSIM_" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoadingGuideAnillos_" EntityType="Self.LoadingGuideAnillos_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MaestroHerramentales" EntityType="Self.MaestroHerramentales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PLANO_HERRAMENTAL" EntityType="Self.PLANO_HERRAMENTAL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProtectorInfMoly_" EntityType="Self.ProtectorInfMoly_" Schema="dbo" store:Type="Tables" />
@@ -1255,6 +1276,10 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <AssociationSet Name="FK__Guillotin__Codig__493AB229" Association="Self.FK__Guillotin__Codig__493AB229">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="GuillotinaEngrave_" EntitySet="GuillotinaEngrave_" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LoadingGu__Codig__6D78129F" Association="Self.FK__LoadingGu__Codig__6D78129F">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="LoadingGuideAnillos_" EntitySet="LoadingGuideAnillos_" />
           </AssociationSet>
           <AssociationSet Name="FK_BushingBatesBore__MaestroHerramentales" Association="Self.FK_BushingBatesBore__MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -1478,6 +1503,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <NavigationProperty Name="BarrelLapAnillos_" Relationship="DataAccess.ServiceObjects.Tooling.FK__BarrelLap__Codig__4EF38B7F" FromRole="MaestroHerramentales" ToRole="BarrelLapAnillos_" />
           <NavigationProperty Name="FrontRearCollarAnillos_" Relationship="DataAccess.ServiceObjects.Tooling.FK__FrontRear__Codig__65D6F0D7" FromRole="MaestroHerramentales" ToRole="FrontRearCollarAnillos_" />
           <NavigationProperty Name="ClosingBandLapeado" Relationship="DataAccess.ServiceObjects.Tooling.FK__ClosingBa__Codig__68B35D82" FromRole="MaestroHerramentales" ToRole="ClosingBandLapeado" />
+          <NavigationProperty Name="LoadingGuideAnillos_" Relationship="DataAccess.ServiceObjects.Tooling.FK__LoadingGu__Codig__6D78129F" FromRole="MaestroHerramentales" ToRole="LoadingGuideAnillos_" />
         </EntityType>
         <EntityContainer Name="EntitiesTooling" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="MaestroHerramentales" EntityType="Self.MaestroHerramentales" />
@@ -1707,6 +1733,11 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <AssociationSet Name="FK__ClosingBa__Codig__68B35D82" Association="DataAccess.ServiceObjects.Tooling.FK__ClosingBa__Codig__68B35D82">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="ClosingBandLapeado" EntitySet="ClosingBandLapeado" />
+          </AssociationSet>
+          <EntitySet Name="LoadingGuideAnillos_" EntityType="DataAccess.ServiceObjects.Tooling.LoadingGuideAnillos_" />
+          <AssociationSet Name="FK__LoadingGu__Codig__6D78129F" Association="DataAccess.ServiceObjects.Tooling.FK__LoadingGu__Codig__6D78129F">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="LoadingGuideAnillos_" EntitySet="LoadingGuideAnillos_" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="UretanoSplitter">
@@ -2913,6 +2944,27 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="LoadingGuideAnillos_">
+          <Key>
+            <PropertyRef Name="IdLoadingGuideAnillos" />
+          </Key>
+          <Property Name="IdLoadingGuideAnillos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="MedidaNominal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK__LoadingGu__Codig__6D78129F" FromRole="LoadingGuideAnillos_" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK__LoadingGu__Codig__6D78129F">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.LoadingGuideAnillos_" Role="LoadingGuideAnillos_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="LoadingGuideAnillos_">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3568,6 +3620,15 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
                 <ScalarProperty Name="Descripcion_Herramental" ColumnName="Descripcion_Herramental" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="IdClosingBandLapeado" ColumnName="IdClosingBandLapeado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoadingGuideAnillos_">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.LoadingGuideAnillos_">
+              <MappingFragment StoreEntitySet="LoadingGuideAnillos_">
+                <ScalarProperty Name="MedidaNominal" ColumnName="MedidaNominal" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="IdLoadingGuideAnillos" ColumnName="IdLoadingGuideAnillos" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

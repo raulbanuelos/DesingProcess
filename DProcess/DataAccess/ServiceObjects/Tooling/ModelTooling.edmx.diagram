@@ -101,6 +101,8 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK__FrontRear__Codig__65D6F0D7" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ClosingBandLapeado" Width="1.5" PointX="17.25" PointY="22.75" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK__ClosingBa__Codig__68B35D82" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.LoadingGuideAnillos_" Width="1.5" PointX="17.25" PointY="25.875" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK__LoadingGu__Codig__6D78129F" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
