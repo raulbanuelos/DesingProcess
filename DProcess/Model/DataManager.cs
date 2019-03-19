@@ -10113,7 +10113,7 @@ namespace Model
         {
             SO_BarrelLapAnillos_ servicio = new SO_BarrelLapAnillos_();
 
-            return servicio.UpdateBarrelLapAnillos_(obj.idHerramental,obj.Codigo,obj.PropiedadesCadena[0].Valor);
+            return servicio.UpdateBarrelLapAnillos_(obj.idHerramental, obj.Codigo, obj.PropiedadesCadena[0].Valor);
         }
 
         /// <summary>
@@ -10159,7 +10159,7 @@ namespace Model
                     herramental.idHerramental = (int)tipo.GetProperty("IdFrontRearCollarAnillos").GetValue(item, null);
 
                     PropiedadCadena Descripcion = new PropiedadCadena();
-                    Descripcion.DescripcionCorta = "Descripción";
+                    Descripcion.DescripcionCorta = "Descripción Herramental";
                     Descripcion.Valor = (string)tipo.GetProperty("Descripcion_Herramental").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(Descripcion);
 
@@ -10206,7 +10206,7 @@ namespace Model
                 {
                     //Obtenemos el tipo del elemento iterado.
                     System.Type tipo = item.GetType();
-                    
+
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
                     herramental.idHerramental = (int)tipo.GetProperty("IdFrontRearCollarAnillos").GetValue(item, null);
@@ -10271,6 +10271,129 @@ namespace Model
             SO_FrontRearCollarAnillos servicio = new SO_FrontRearCollarAnillos();
 
             return servicio.DeleteFrontRearCollarAnillos(IdFrontRearCollarAnillos);
+        }
+
+        #endregion
+
+        #region ClosingBandLapeado
+
+        /// <summary>
+        /// Método que obtiene todos los registros para visualizarlos
+        /// </summary>
+        /// <param name="TextoBuscar"></param>
+        /// <returns></returns>
+        public static DataTable GetAllClosingbandLapeado(string TextoBuscar)
+        {
+            SO_ClosingBandLapeado servicio = new SO_ClosingBandLapeado();
+
+            IList Data = servicio.GetAllClosingBandLapeado(TextoBuscar);
+            
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            if (Data !=  null)
+            {
+                foreach (var item in Data)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("IdClosingBandLapeado").GetValue(item, null);
+
+                    PropiedadCadena Descripcion = new PropiedadCadena();
+                    Descripcion.DescripcionCorta = "Descripción Herramental";
+                    Descripcion.Valor = (string)tipo.GetProperty("Descripcion_Herramental").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Descripcion);
+
+                    PropiedadCadena MedidaNominal = new PropiedadCadena();
+                    MedidaNominal.DescripcionCorta = "Medida Nominal";
+                    MedidaNominal.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(MedidaNominal);
+
+                    ListaResultante.Add(herramental);
+
+                }
+            }
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "ClosingBandLapeado");
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros para poder modificarlos o eliminarlos
+        /// </summary>
+        /// <param name="TextoBuscar"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoClosingBandLapeado(string TextoBuscar)
+        {
+            SO_ClosingBandLapeado servicio = new SO_ClosingBandLapeado();
+
+            IList Data = servicio.GetInfoClosingBandLapeado(TextoBuscar);
+
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+            Herramental herramental = new Herramental();
+
+            if (Data != null)
+            {
+                foreach  (var item in Data)
+                {
+                    System.Type tipo = item.GetType();
+
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("IdClosingBandLapeado").GetValue(item, null);
+
+                    PropiedadCadena Descripcion = new PropiedadCadena();
+                    Descripcion.DescripcionCorta = "Descripción";
+                    Descripcion.Valor = (string)tipo.GetProperty("Descripcion_Herramental").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Descripcion);
+
+                    PropiedadCadena MedidaNominal = new PropiedadCadena();
+                    MedidaNominal.DescripcionCorta = "Medida Nominal";
+                    MedidaNominal.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(MedidaNominal);
+
+                    ListaResultante.Add(herramental);
+
+                }
+            }
+            return herramental;
+        }
+
+        /// <summary>
+        /// Método que inserta un nuevo registro
+        /// </summary>
+        /// <param name="Obj"></param>
+        /// <returns></returns>
+        public static int SetNewClosingBandLapeado(Herramental Obj)
+        {
+            SO_ClosingBandLapeado servicio = new SO_ClosingBandLapeado();
+
+            return servicio.SetNewClosingBandLapeado(Obj.Codigo, Obj.PropiedadesCadena[0].Valor, Obj.PropiedadesCadena[1].Valor);
+        }
+
+        /// <summary>
+        /// Método que actualiza un registro
+        /// </summary>
+        /// <param name="Obj"></param>
+        /// <returns></returns>
+        public static int UpdateClosingBandLapeado(Herramental Obj)
+        {
+            SO_ClosingBandLapeado servicio = new SO_ClosingBandLapeado();
+
+            return servicio.UpdateClosingBandLapeado(Obj.idHerramental, Obj.Codigo, Obj.PropiedadesCadena[0].Valor, Obj.PropiedadesCadena[1].Valor);
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro
+        /// </summary>
+        /// <param name="IdClosing"></param>
+        /// <returns></returns>
+        public static int DeleteClosingBandLapeado(int IdClosing)
+        {
+            SO_ClosingBandLapeado servicio = new SO_ClosingBandLapeado();
+
+            return servicio.DeleteClosingBandLapeado(IdClosing);
         }
 
         #endregion

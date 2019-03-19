@@ -513,6 +513,14 @@ namespace View.Services.ViewModel
                 return new RelayCommand(a => _IrFrontRearAnillos());
             }
         }
+
+        public ICommand IrClosingBand
+        {
+            get
+            {
+                return new RelayCommand(a => _IrClosingBand());
+            }
+        }
         #endregion
 
         #region Methods
@@ -967,6 +975,15 @@ namespace View.Services.ViewModel
             frm.DataContext = context;
             frm.ShowDialog();
 
+        }
+
+        public void _IrClosingBand()
+        {
+            WClosingBandLapeado form = new WClosingBandLapeado();
+            ClosingBandLapeadoVM context = new ClosingBandLapeadoVM();
+
+            form.DataContext = context;
+            form.ShowDialog();
         }
         #endregion
     }

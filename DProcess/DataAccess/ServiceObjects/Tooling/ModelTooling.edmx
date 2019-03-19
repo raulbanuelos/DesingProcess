@@ -95,6 +95,15 @@
           <Property Name="TablaDetalles" Type="varchar" MaxLength="50" />
           <Property Name="FechaModificacion" Type="datetime" />
         </EntityType>
+        <EntityType Name="ClosingBandLapeado">
+          <Key>
+            <PropertyRef Name="IdClosingBandLapeado" />
+          </Key>
+          <Property Name="IdClosingBandLapeado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" />
+          <Property Name="Descripcion_Herramental" Type="varchar" MaxLength="50" />
+          <Property Name="MedidaNominal" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="ClosingSleeveBK">
           <Key>
             <PropertyRef Name="ID_CLOSINGSLEEVE_BK" />
@@ -606,6 +615,18 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
               <PropertyRef Name="Codigo" />
             </Principal>
             <Dependent Role="BarrelLapAnillos_">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ClosingBa__Codig__68B35D82">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="0..1" />
+          <End Role="ClosingBandLapeado" Type="Self.ClosingBandLapeado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="ClosingBandLapeado">
               <PropertyRef Name="Codigo" />
             </Dependent>
           </ReferentialConstraint>
@@ -1170,6 +1191,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <EntitySet Name="CamisaMoly_" EntityType="Self.CamisaMoly_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChuckSplitter" EntityType="Self.ChuckSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClasificacionHerramental" EntityType="Self.ClasificacionHerramental" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClosingBandLapeado" EntityType="Self.ClosingBandLapeado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClosingSleeveBK" EntityType="Self.ClosingSleeveBK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CollarBK" EntityType="Self.CollarBK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CollarMoly_" EntityType="Self.CollarMoly_" Schema="dbo" store:Type="Tables" />
@@ -1221,6 +1243,10 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <AssociationSet Name="FK__BarrelLap__Codig__4EF38B7F" Association="Self.FK__BarrelLap__Codig__4EF38B7F">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="BarrelLapAnillos_" EntitySet="BarrelLapAnillos_" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ClosingBa__Codig__68B35D82" Association="Self.FK__ClosingBa__Codig__68B35D82">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="ClosingBandLapeado" EntitySet="ClosingBandLapeado" />
           </AssociationSet>
           <AssociationSet Name="FK__FrontRear__Codig__65D6F0D7" Association="Self.FK__FrontRear__Codig__65D6F0D7">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -1451,6 +1477,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <NavigationProperty Name="GuillotinaEngrave_" Relationship="DataAccess.ServiceObjects.Tooling.FK__Guillotin__Codig__493AB229" FromRole="MaestroHerramentales" ToRole="GuillotinaEngrave_" />
           <NavigationProperty Name="BarrelLapAnillos_" Relationship="DataAccess.ServiceObjects.Tooling.FK__BarrelLap__Codig__4EF38B7F" FromRole="MaestroHerramentales" ToRole="BarrelLapAnillos_" />
           <NavigationProperty Name="FrontRearCollarAnillos_" Relationship="DataAccess.ServiceObjects.Tooling.FK__FrontRear__Codig__65D6F0D7" FromRole="MaestroHerramentales" ToRole="FrontRearCollarAnillos_" />
+          <NavigationProperty Name="ClosingBandLapeado" Relationship="DataAccess.ServiceObjects.Tooling.FK__ClosingBa__Codig__68B35D82" FromRole="MaestroHerramentales" ToRole="ClosingBandLapeado" />
         </EntityType>
         <EntityContainer Name="EntitiesTooling" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="MaestroHerramentales" EntityType="Self.MaestroHerramentales" />
@@ -1675,6 +1702,11 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <AssociationSet Name="FK__FrontRear__Codig__65D6F0D7" Association="DataAccess.ServiceObjects.Tooling.FK__FrontRear__Codig__65D6F0D7">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="FrontRearCollarAnillos_" EntitySet="FrontRearCollarAnillos_" />
+          </AssociationSet>
+          <EntitySet Name="ClosingBandLapeado" EntityType="DataAccess.ServiceObjects.Tooling.ClosingBandLapeado" />
+          <AssociationSet Name="FK__ClosingBa__Codig__68B35D82" Association="DataAccess.ServiceObjects.Tooling.FK__ClosingBa__Codig__68B35D82">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="ClosingBandLapeado" EntitySet="ClosingBandLapeado" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="UretanoSplitter">
@@ -2859,6 +2891,28 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ClosingBandLapeado">
+          <Key>
+            <PropertyRef Name="IdClosingBandLapeado" />
+          </Key>
+          <Property Name="IdClosingBandLapeado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="Descripcion_Herramental" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MedidaNominal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK__ClosingBa__Codig__68B35D82" FromRole="ClosingBandLapeado" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK__ClosingBa__Codig__68B35D82">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.ClosingBandLapeado" Role="ClosingBandLapeado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="ClosingBandLapeado">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3504,6 +3558,16 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
                 <ScalarProperty Name="Descripcion_Herramental" ColumnName="Descripcion_Herramental" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="IdFrontRearCollarAnillos" ColumnName="IdFrontRearCollarAnillos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClosingBandLapeado">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.ClosingBandLapeado">
+              <MappingFragment StoreEntitySet="ClosingBandLapeado">
+                <ScalarProperty Name="MedidaNominal" ColumnName="MedidaNominal" />
+                <ScalarProperty Name="Descripcion_Herramental" ColumnName="Descripcion_Herramental" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="IdClosingBandLapeado" ColumnName="IdClosingBandLapeado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

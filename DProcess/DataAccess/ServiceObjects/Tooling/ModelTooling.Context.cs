@@ -76,5 +76,6 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<GuillotinaEngrave_> GuillotinaEngrave_ { get; set; }
         public virtual DbSet<BarrelLapAnillos_> BarrelLapAnillos_ { get; set; }
         public virtual DbSet<FrontRearCollarAnillos_> FrontRearCollarAnillos_ { get; set; }
+        public virtual DbSet<ClosingBandLapeado> ClosingBandLapeado { get; set; }
     }
 }

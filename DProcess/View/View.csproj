@@ -423,6 +423,9 @@
     <Compile Include="Forms\Tooling\ControlChuckSplitterCasting.xaml.cs">
       <DependentUpon>ControlChuckSplitterCasting.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlClosingBandLapeado.xaml.cs">
+      <DependentUpon>ControlClosingBandLapeado.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlClosingSleeveBK.xaml.cs">
       <DependentUpon>ControlClosingSleeveBK.xaml</DependentUpon>
     </Compile>
@@ -527,6 +530,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\WCamTurn.xaml.cs">
       <DependentUpon>WCamTurn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\WClosingBandLapeado.xaml.cs">
+      <DependentUpon>WClosingBandLapeado.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\WClosingSleeve.xaml.cs">
       <DependentUpon>WClosingSleeve.xaml</DependentUpon>
@@ -816,6 +822,7 @@
     <Compile Include="Services\ViewModel\CamisaMolyVM.cs" />
     <Compile Include="Services\ViewModel\CatMateriaPrimaRoladoVM.cs" />
     <Compile Include="Services\ViewModel\ChuckSplitterVM.cs" />
+    <Compile Include="Services\ViewModel\ClosingBandLapeadoVM.cs" />
     <Compile Include="Services\ViewModel\ClosingSleeveVM.cs" />
     <Compile Include="Services\ViewModel\CoilCenterG_VM.cs" />
     <Compile Include="Services\ViewModel\CoilFeedRoller_VM.cs" />
@@ -1239,6 +1246,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlClosingBandLapeado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\ControlClosingSleeveBK.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1376,6 +1387,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\WCamTurn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WClosingBandLapeado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

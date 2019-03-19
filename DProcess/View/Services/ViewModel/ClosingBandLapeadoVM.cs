@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
-using System.Data;
 using System.Threading.Tasks;
-using Model;
 
 namespace View.Services.ViewModel
 {
-    public class BarrelLapAnillos_VM : INotifyPropertyChanged
+    public class ClosingBandLapeadoVM : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged Métodos
         void NotifyChange(params string[] ids)
@@ -25,17 +25,17 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Propiedades
-        private DataTable _ListaHerramentalesBarrelLapAnillo;
-        public DataTable ListaHerramentalesBarrelLapAnillo
+        private DataTable _ListaHerramentalesClosingBand;
+        public DataTable ListaHerramentalesClosingBand
         {
             get
             {
-                return _ListaHerramentalesBarrelLapAnillo;
+                return _ListaHerramentalesClosingBand;
             }
             set
             {
-                _ListaHerramentalesBarrelLapAnillo = value;
-                NotifyChange("ListaHerramentalesBarrelLapAnillo");
+                _ListaHerramentalesClosingBand = value;
+                NotifyChange("ListaHerramentalesClosingBand");
             }
         }
 
@@ -73,22 +73,23 @@ namespace View.Services.ViewModel
             get { return _MedidaNominal; }
             set { _MedidaNominal = value; NotifyChange("MedidaNominal"); }
         }
+
+        private string _DescripcionHerramental;
+        public string DescripcionHerramental
+        {
+            get { return _DescripcionHerramental; }
+            set { _DescripcionHerramental = value; NotifyChange("DescripcionHerramental"); }
+        }
         #endregion
 
-        #region Construcor
-        public BarrelLapAnillos_VM()
+        public ClosingBandLapeadoVM()
         {
             Busqueda(string.Empty);
         }
-        #endregion
 
-        #region Métodos
         public void Busqueda(string TextoBuscar)
         {
-            ListaHerramentalesBarrelLapAnillo = DataManager.GetALLBarrelLapAnillos_(TextoBuscar);
+            ListaHerramentalesClosingBand = DataManager.GetAllClosingbandLapeado(TextoBuscar);
         }
-        #endregion
-
-
     }
 }
