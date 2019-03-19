@@ -399,6 +399,9 @@
     <Compile Include="Forms\Shared\WSelectedOption.xaml.cs">
       <DependentUpon>WSelectedOption.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlBarrelLapAnillos_.xaml.cs">
+      <DependentUpon>ControlBarrelLapAnillos_.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlBushing.xaml.cs">
       <DependentUpon>ControlBushing.xaml</DependentUpon>
     </Compile>
@@ -419,6 +422,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\ControlChuckSplitterCasting.xaml.cs">
       <DependentUpon>ControlChuckSplitterCasting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlClosingBandLapeado.xaml.cs">
+      <DependentUpon>ControlClosingBandLapeado.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\ControlClosingSleeveBK.xaml.cs">
       <DependentUpon>ControlClosingSleeveBK.xaml</DependentUpon>
@@ -480,6 +486,9 @@
     <Compile Include="Forms\Tooling\ControlGuillotinaBK.xaml.cs">
       <DependentUpon>ControlGuillotinaBK.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlGuillotinaEngrave_.xaml.cs">
+      <DependentUpon>ControlGuillotinaEngrave_.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlGuillotinaSim.xaml.cs">
       <DependentUpon>ControlGuillotinaSim.xaml</DependentUpon>
     </Compile>
@@ -510,6 +519,9 @@
     <Compile Include="Forms\Tooling\PTooling.xaml.cs">
       <DependentUpon>PTooling.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\WBarrelLapAnillos_.xaml.cs">
+      <DependentUpon>WBarrelLapAnillos_.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\WBatesBore.xaml.cs">
       <DependentUpon>WBatesBore.xaml</DependentUpon>
     </Compile>
@@ -518,6 +530,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\WCamTurn.xaml.cs">
       <DependentUpon>WCamTurn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\WClosingBandLapeado.xaml.cs">
+      <DependentUpon>WClosingBandLapeado.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\WClosingSleeve.xaml.cs">
       <DependentUpon>WClosingSleeve.xaml</DependentUpon>
@@ -543,8 +558,17 @@
     <Compile Include="Forms\Tooling\WFeedWheelNisseiRecFin.xaml.cs">
       <DependentUpon>WFeedWheelNisseiRecFin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlFrontoRearCollarAnillos_.xaml.cs">
+      <DependentUpon>ControlFrontoRearCollarAnillos_.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\WFrontRearCollarAnillos_.xaml.cs">
+      <DependentUpon>WFrontRearCollarAnillos_.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\WGuillotinaBK.xaml.cs">
       <DependentUpon>WGuillotinaBK.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\WGuillotinaEngrave_.xaml.cs">
+      <DependentUpon>WGuillotinaEngrave_.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\WMaestroHerramental.xaml.cs">
       <DependentUpon>WMaestroHerramental.xaml</DependentUpon>
@@ -785,6 +809,7 @@
     <Compile Include="Services\TiempoEstandar\Segmentos\CentroTrabajo831.cs" />
     <Compile Include="Services\Utility.cs" />
     <Compile Include="Services\ViewModel\AnilloViewModel.cs" />
+    <Compile Include="Services\ViewModel\BarrelLapAnillos_VM.cs" />
     <Compile Include="Services\ViewModel\BloqueoVM.cs" />
     <Compile Include="Services\ViewModel\Buscar_DocumentoVM.cs" />
     <Compile Include="Services\ViewModel\BushingBatesBoreVM.cs" />
@@ -797,6 +822,7 @@
     <Compile Include="Services\ViewModel\CamisaMolyVM.cs" />
     <Compile Include="Services\ViewModel\CatMateriaPrimaRoladoVM.cs" />
     <Compile Include="Services\ViewModel\ChuckSplitterVM.cs" />
+    <Compile Include="Services\ViewModel\ClosingBandLapeadoVM.cs" />
     <Compile Include="Services\ViewModel\ClosingSleeveVM.cs" />
     <Compile Include="Services\ViewModel\CoilCenterG_VM.cs" />
     <Compile Include="Services\ViewModel\CoilFeedRoller_VM.cs" />
@@ -829,9 +855,11 @@
     <Compile Include="Services\ViewModel\External_GR_3P_3VM.cs" />
     <Compile Include="Services\ViewModel\FeedWheelNisseiRectificadosFinos_VM.cs" />
     <Compile Include="Services\ViewModel\FO_ItemViewModel.cs" />
+    <Compile Include="Services\ViewModel\FrontRearAnillosVM.cs" />
     <Compile Include="Services\ViewModel\GeneradorViewModel.cs" />
     <Compile Include="Services\ViewModel\GuidePlateBK_VM.cs" />
     <Compile Include="Services\ViewModel\GuillotinaBK_VM.cs" />
+    <Compile Include="Services\ViewModel\GuillotinaEngroveVM.cs" />
     <Compile Include="Services\ViewModel\GuillotinaSimVM.cs" />
     <Compile Include="Services\ViewModel\HistorialFiltrado_VM.cs" />
     <Compile Include="Services\ViewModel\HistorialVM.cs" />
@@ -1186,6 +1214,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlBarrelLapAnillos_.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\ControlBushing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1211,6 +1243,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\ControlChuckSplitterCasting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlClosingBandLapeado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1294,6 +1330,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlGuillotinaEngrave_.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\ControlGuillotinaSim.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1334,6 +1374,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\WBarrelLapAnillos_.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\WBatesBore.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1343,6 +1387,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\WCamTurn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WClosingBandLapeado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1378,7 +1426,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlFrontoRearCollarAnillos_.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WFrontRearCollarAnillos_.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\WGuillotinaBK.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WGuillotinaEngrave_.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

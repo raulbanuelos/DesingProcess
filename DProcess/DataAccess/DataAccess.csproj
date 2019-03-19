@@ -260,6 +260,9 @@
     <Compile Include="ServiceObjects\Perfiles\SO_PropiedadBool.cs" />
     <Compile Include="ServiceObjects\Perfiles\SO_PropiedadCadena.cs" />
     <Compile Include="ServiceObjects\Operaciones\SO_Operaciones.cs" />
+    <Compile Include="ServiceObjects\Tooling\BarrelLapAnillos_.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\BushingBatesBore_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -282,6 +285,9 @@
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\ClasificacionHerramental.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\ClosingBandLapeado.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\ClosingSleeveBK.cs">
@@ -329,6 +335,9 @@
     <Compile Include="ServiceObjects\Tooling\DiscoDiskus_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\FrontRearCollarAnillos_.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\GuideBarFinGrind.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -342,6 +351,9 @@
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\GuillotinaBK_.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\GuillotinaEngrave_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\GuillotinaSIM_.cs">
@@ -445,14 +457,18 @@
     <Compile Include="ServiceObjects\Tooling\ShieldBK_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\SO_BarrelLapAnillos_.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_BatesBore.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_BK.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_ClasificacionHerramental.cs" />
+    <Compile Include="ServiceObjects\Tooling\SO_ClosingBandLapeado.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_COIL.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_CriteriosAnillos.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_Cromo.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_CutterAngle.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_FinishMill.cs" />
+    <Compile Include="ServiceObjects\Tooling\SO_FrontRearCollarAnillos.cs" />
+    <Compile Include="ServiceObjects\Tooling\SO_GuillotinaEngrave.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_MaestroHerramental.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_Moly.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_NisseiRectificadosFinos.cs" />

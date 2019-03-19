@@ -489,6 +489,38 @@ namespace View.Services.ViewModel
                 return new RelayCommand(a => _IrRecFinFeedWheel());
             }
         }
+
+        public ICommand IrGuillotinaEngrove
+        {
+            get
+            {
+                return new RelayCommand(a => _IrGuillotinaEngrove());
+            }
+        }
+
+        public ICommand IrBarrelLapAnillos
+        {
+            get
+            {
+                return new RelayCommand(a => _IrBarrelLapAnillos());
+            }
+        }
+
+        public ICommand IrFrontRearAnillos
+        {
+            get
+            {
+                return new RelayCommand(a => _IrFrontRearAnillos());
+            }
+        }
+
+        public ICommand IrClosingBand
+        {
+            get
+            {
+                return new RelayCommand(a => _IrClosingBand());
+            }
+        }
         #endregion
 
         #region Methods
@@ -909,6 +941,49 @@ namespace View.Services.ViewModel
 
             frm.DataContext = datacontext;
             frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Comando que abre la ventana de GuilltinaEngrove
+        /// </summary>
+        public void _IrGuillotinaEngrove()
+        {
+            WGuillotinaEngrave_ frm = new WGuillotinaEngrave_();
+            GuillotinaEngroveVM context = new GuillotinaEngroveVM();
+
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Comando que abre la ventana de Barrel Lap Anillos
+        /// </summary>
+        public void _IrBarrelLapAnillos()
+        {
+            WBarrelLapAnillos_ frm = new WBarrelLapAnillos_();
+            BarrelLapAnillos_VM context = new BarrelLapAnillos_VM();
+
+            frm.DataContext = context;
+            frm.ShowDialog();
+        }
+
+        public void _IrFrontRearAnillos()
+        {
+            WFrontRearCollarAnillos_ frm = new WFrontRearCollarAnillos_();
+            FrontRearAnillosVM context = new FrontRearAnillosVM();
+
+            frm.DataContext = context;
+            frm.ShowDialog();
+
+        }
+
+        public void _IrClosingBand()
+        {
+            WClosingBandLapeado form = new WClosingBandLapeado();
+            ClosingBandLapeadoVM context = new ClosingBandLapeadoVM();
+
+            form.DataContext = context;
+            form.ShowDialog();
         }
         #endregion
     }

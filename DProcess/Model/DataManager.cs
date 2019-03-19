@@ -867,7 +867,7 @@ namespace Model
         {
             SO_MateriaPrimaRolado servicio = new SO_MateriaPrimaRolado();
 
-            return servicio.Insert(Data.Codigo,Data.Especificacion,Data.Thickness,Data.Groove,Data.UM,Data._Width,Data.DescripcionGeneral,Data.Ubicacion,Data.EspecPefil);
+            return servicio.Insert(Data.Codigo, Data.Especificacion, Data.Thickness, Data.Groove, Data.UM, Data._Width, Data.DescripcionGeneral, Data.Ubicacion, Data.EspecPefil);
 
         }
         /// <summary>
@@ -2228,7 +2228,8 @@ namespace Model
                     //Mapeamos el valor a DescipcionRuta.
                     herramental.DescripcionRuta = "GUIDE BAR   " + espesorBarraGuia;
                 }
-            } else
+            }
+            else
             {
                 //Si no se encontró.
             }
@@ -9899,6 +9900,504 @@ namespace Model
 
         #endregion
 
+        #region GuillotinaEngrave_
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static DataTable GetAllGuillotinaEngrave_(string TextoBuscar)
+        {
+            SO_GuillotinaEngrave servicio = new SO_GuillotinaEngrave();
+
+            IList Informacion = servicio.GetAllGuilltinaEngrave_(TextoBuscar);
+
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            if (Informacion != null)
+            {
+                foreach (var item in Informacion)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("IdGuillotinaEngrave").GetValue(item, null);
+
+                    PropiedadCadena Detalle = new PropiedadCadena();
+                    Detalle.DescripcionCorta = "Detalle";
+                    Detalle.Valor = (string)tipo.GetProperty("Detalle").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Detalle);
+
+                    Propiedad Dimension = new Propiedad();
+                    Dimension.DescripcionCorta = "Dimesión";
+                    Dimension.Unidad = string.Empty;
+                    Dimension.Valor = (double)tipo.GetProperty("Dimension").GetValue(item, null);
+                    herramental.Propiedades.Add(Dimension);
+
+
+                    ListaResultante.Add(herramental);
+                }
+            }
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "GuillotinaEngrave_");
+        }
+
+        public static Herramental GetInfoGuillotinaEngrave_(string TextoBuscar)
+        {
+            SO_GuillotinaEngrave servicio = new SO_GuillotinaEngrave();
+
+            IList Data = servicio.GetInfoGuillotinaEngrave_(TextoBuscar);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            Herramental herramental = new Herramental();
+
+            if (Data != null)
+            {
+                foreach (var item in Data)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("IdGuillotinaEngrave").GetValue(item, null);
+
+                    PropiedadCadena Detalle = new PropiedadCadena();
+                    Detalle.Nombre = (string)tipo.GetProperty("Detalle").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Detalle);
+
+                    Propiedad Dimension = new Propiedad();
+                    Dimension.DescripcionCorta = "Dimesión";
+                    Dimension.Unidad = string.Empty;
+                    Dimension.Valor = (double)tipo.GetProperty("Dimension").GetValue(item, null);
+                    herramental.Propiedades.Add(Dimension);
+
+                    ListaResultante.Add(herramental);
+                }
+            }
+            return herramental;
+        }
+
+        /// <summary>
+        /// Método para insertar un nuevo registro a la base de datos
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetGuillotinaEngrave_(Herramental obj)
+        {
+            SO_GuillotinaEngrave servicio = new SO_GuillotinaEngrave();
+
+            return servicio.SetGuillotinaEngrave_(obj.Codigo, obj.Propiedades[0].Valor, obj.PropiedadesCadena[0].Valor);
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro de la BD
+        /// </summary>
+        /// <param name="IdGuillotinaEngrave"></param>
+        /// <returns></returns>
+        public static int DeleteGuillotinaEngrave_(int IdGuillotinaEngrave)
+        {
+            SO_GuillotinaEngrave servicio = new SO_GuillotinaEngrave();
+
+            return servicio.DeleteGuillotinaEngrave(IdGuillotinaEngrave);
+        }
+
+        public static int UpdateGuillotinaEngrave_(Herramental data)
+        {
+            SO_GuillotinaEngrave servicio = new SO_GuillotinaEngrave();
+
+            return servicio.UpdateGuillotinaEngrave_(data.idHerramental, data.Codigo, data.Propiedades[0].Valor, data.PropiedadesCadena[0].Valor);
+        }
+        #endregion
+
+        #region BarrelLapAnillo
+
+        /// <summary>
+        /// Método que obtiene toda la informacion para cuando se quiere eliminar o modificar un registro
+        /// </summary>
+        /// <param name="TextoBuscar"></param>
+        /// <returns></returns>
+        public static DataTable GetALLBarrelLapAnillos_(string TextoBuscar)
+        {
+            SO_BarrelLapAnillos_ servicio = new SO_BarrelLapAnillos_();
+
+            IList Informacion = servicio.GetAllBarrelLapAnillos_(TextoBuscar);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            if (Informacion != null)
+            {
+                foreach (var item in Informacion)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("IdBarrelLapAnillos").GetValue(item, null);
+
+                    PropiedadCadena Detalle = new PropiedadCadena();
+                    Detalle.DescripcionCorta = "Medida Nominal";
+                    Detalle.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Detalle);
+
+                    ListaResultante.Add(herramental);
+                }
+            }
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "BarrelLapAnillos_");
+        }
+
+        /// <summary>
+        /// Método que obtiene toda la informacion para cuando se quiere eliminar o modificar un registro
+        /// </summary>
+        /// <param name="TextoBuscar"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoBarrelLapAnillos(string TextoBuscar)
+        {
+            SO_BarrelLapAnillos_ servicio = new SO_BarrelLapAnillos_();
+
+            IList Data = servicio.GetInfoBarrelLapAnillos_(TextoBuscar);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            Herramental herramental = new Herramental();
+
+            if (Data != null)
+            {
+                foreach (var item in Data)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("IdBarrelLapAnillos").GetValue(item, null);
+
+                    PropiedadCadena MedidaNominal = new PropiedadCadena();
+                    MedidaNominal.Nombre = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(MedidaNominal);
+
+                    ListaResultante.Add(herramental);
+                }
+            }
+            return herramental;
+        }
+
+        /// <summary>
+        /// Método para insertar un nuevo registro
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetBarrelLapAnillos(Herramental obj)
+        {
+            SO_BarrelLapAnillos_ servicio = new SO_BarrelLapAnillos_();
+
+            return servicio.SetBarrelLapAnillos_(obj.Codigo, obj.PropiedadesCadena[0].Valor);
+        }
+
+        /// <summary>
+        /// Método que actualiza los registros
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateBarrelLapAnillos(Herramental obj)
+        {
+            SO_BarrelLapAnillos_ servicio = new SO_BarrelLapAnillos_();
+
+            return servicio.UpdateBarrelLapAnillos_(obj.idHerramental, obj.Codigo, obj.PropiedadesCadena[0].Valor);
+        }
+
+        /// <summary>
+        /// Método que borra el registro
+        /// </summary>
+        /// <param name="IdBarrelLapAnillos"></param>
+        /// <returns></returns>
+        public static int DeleteBarrelLapAnillos(int IdBarrelLapAnillos)
+        {
+            SO_BarrelLapAnillos_ servicio = new SO_BarrelLapAnillos_();
+
+            return servicio.DeleteBarrelLapAnillos_(IdBarrelLapAnillos);
+        }
+
+        #endregion
+
+        #region FrontRearCollarAnillos
+
+        /// <summary>
+        /// Método que obtiene toda la informacion
+        /// </summary>
+        /// <param name="TextoBuscar"></param>
+        /// <returns></returns>
+        public static DataTable GetAllFrontRearCollarAnillos(string TextoBuscar)
+        {
+            SO_FrontRearCollarAnillos servicio = new SO_FrontRearCollarAnillos();
+
+            IList Informacion = servicio.GetAllFrontRearCollarAnillos(TextoBuscar);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            if (Informacion != null)
+            {
+                foreach (var item in Informacion)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("IdFrontRearCollarAnillos").GetValue(item, null);
+
+                    PropiedadCadena Descripcion = new PropiedadCadena();
+                    Descripcion.DescripcionCorta = "Descripción Herramental";
+                    Descripcion.Valor = (string)tipo.GetProperty("Descripcion_Herramental").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Descripcion);
+
+                    PropiedadCadena MedidaNominal = new PropiedadCadena();
+                    MedidaNominal.DescripcionCorta = "Medida Nominal";
+                    MedidaNominal.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(MedidaNominal);
+
+                    PropiedadCadena Notas = new PropiedadCadena();
+                    Notas.DescripcionCorta = "Notas";
+                    Notas.Valor = (string)tipo.GetProperty("Notas").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Notas);
+
+                    PropiedadCadena Parte = new PropiedadCadena();
+                    Parte.DescripcionCorta = "Parte";
+                    Parte.Valor = (string)tipo.GetProperty("Parte").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Parte);
+
+                    ListaResultante.Add(herramental);
+                }
+            }
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "FrontRearCollarAnillos");
+        }
+
+        /// <summary>
+        /// Método que obtiene toda la informacion para poder eliminarla o modificarla
+        /// </summary>
+        /// <param name="TextoBuscar"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoFrontRearCollarAnillos(string TextoBuscar)
+        {
+            SO_FrontRearCollarAnillos servicio = new SO_FrontRearCollarAnillos();
+
+            IList Data = servicio.GetInfoFrontRearCollarAnillos(TextoBuscar);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            Herramental herramental = new Herramental();
+
+            if (Data != null)
+            {
+                foreach (var item in Data)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("IdFrontRearCollarAnillos").GetValue(item, null);
+
+                    PropiedadCadena Descripcion = new PropiedadCadena();
+                    Descripcion.DescripcionCorta = "Descripción";
+                    Descripcion.Valor = (string)tipo.GetProperty("Descripcion_Herramental").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Descripcion);
+
+                    PropiedadCadena MedidaNominal = new PropiedadCadena();
+                    MedidaNominal.DescripcionCorta = "Medida Nominal";
+                    MedidaNominal.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(MedidaNominal);
+
+                    PropiedadCadena Notas = new PropiedadCadena();
+                    Notas.DescripcionCorta = "Notas";
+                    Notas.Valor = (string)tipo.GetProperty("Notas").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Notas);
+
+                    PropiedadCadena Parte = new PropiedadCadena();
+                    Parte.DescripcionCorta = "Parte";
+                    Parte.Valor = (string)tipo.GetProperty("Parte").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Parte);
+
+                    ListaResultante.Add(herramental);
+                }
+            }
+            return herramental;
+        }
+
+        /// <summary>
+        /// Método que inserta un nuevo registro
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetNeWFrontRearCollarAnillos(Herramental obj)
+        {
+            SO_FrontRearCollarAnillos servicio = new SO_FrontRearCollarAnillos();
+
+            return servicio.SetNewFrontRearCollarAnillos(obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.PropiedadesCadena[1].Valor, obj.PropiedadesCadena[2].Valor, obj.PropiedadesCadena[3].Valor);
+        }
+
+        /// <summary>
+        /// Método que actualiza los valores de un registro
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateFrontRearCollarAnillos(Herramental obj)
+        {
+            SO_FrontRearCollarAnillos servicio = new SO_FrontRearCollarAnillos();
+
+            return servicio.UpdateFrontRearCollarAnillos(obj.idHerramental, obj.Codigo, obj.PropiedadesCadena[0].Valor, obj.PropiedadesCadena[1].Valor, obj.PropiedadesCadena[2].Valor, obj.PropiedadesCadena[3].Valor);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro
+        /// </summary>
+        /// <param name="IdFrontRearCollarAnillos"></param>
+        /// <returns></returns>
+        public static int DeleteFrontRearCollarAnillos(int IdFrontRearCollarAnillos)
+        {
+            SO_FrontRearCollarAnillos servicio = new SO_FrontRearCollarAnillos();
+
+            return servicio.DeleteFrontRearCollarAnillos(IdFrontRearCollarAnillos);
+        }
+
+        #endregion
+
+        #region ClosingBandLapeado
+
+        /// <summary>
+        /// Método que obtiene todos los registros para visualizarlos
+        /// </summary>
+        /// <param name="TextoBuscar"></param>
+        /// <returns></returns>
+        public static DataTable GetAllClosingbandLapeado(string TextoBuscar)
+        {
+            SO_ClosingBandLapeado servicio = new SO_ClosingBandLapeado();
+
+            IList Data = servicio.GetAllClosingBandLapeado(TextoBuscar);
+            
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            if (Data !=  null)
+            {
+                foreach (var item in Data)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("IdClosingBandLapeado").GetValue(item, null);
+
+                    PropiedadCadena Descripcion = new PropiedadCadena();
+                    Descripcion.DescripcionCorta = "Descripción Herramental";
+                    Descripcion.Valor = (string)tipo.GetProperty("Descripcion_Herramental").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Descripcion);
+
+                    PropiedadCadena MedidaNominal = new PropiedadCadena();
+                    MedidaNominal.DescripcionCorta = "Medida Nominal";
+                    MedidaNominal.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(MedidaNominal);
+
+                    ListaResultante.Add(herramental);
+
+                }
+            }
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "ClosingBandLapeado");
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros para poder modificarlos o eliminarlos
+        /// </summary>
+        /// <param name="TextoBuscar"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoClosingBandLapeado(string TextoBuscar)
+        {
+            SO_ClosingBandLapeado servicio = new SO_ClosingBandLapeado();
+
+            IList Data = servicio.GetInfoClosingBandLapeado(TextoBuscar);
+
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+            Herramental herramental = new Herramental();
+
+            if (Data != null)
+            {
+                foreach  (var item in Data)
+                {
+                    System.Type tipo = item.GetType();
+
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("IdClosingBandLapeado").GetValue(item, null);
+
+                    PropiedadCadena Descripcion = new PropiedadCadena();
+                    Descripcion.DescripcionCorta = "Descripción";
+                    Descripcion.Valor = (string)tipo.GetProperty("Descripcion_Herramental").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Descripcion);
+
+                    PropiedadCadena MedidaNominal = new PropiedadCadena();
+                    MedidaNominal.DescripcionCorta = "Medida Nominal";
+                    MedidaNominal.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(MedidaNominal);
+
+                    ListaResultante.Add(herramental);
+
+                }
+            }
+            return herramental;
+        }
+
+        /// <summary>
+        /// Método que inserta un nuevo registro
+        /// </summary>
+        /// <param name="Obj"></param>
+        /// <returns></returns>
+        public static int SetNewClosingBandLapeado(Herramental Obj)
+        {
+            SO_ClosingBandLapeado servicio = new SO_ClosingBandLapeado();
+
+            return servicio.SetNewClosingBandLapeado(Obj.Codigo, Obj.PropiedadesCadena[0].Valor, Obj.PropiedadesCadena[1].Valor);
+        }
+
+        /// <summary>
+        /// Método que actualiza un registro
+        /// </summary>
+        /// <param name="Obj"></param>
+        /// <returns></returns>
+        public static int UpdateClosingBandLapeado(Herramental Obj)
+        {
+            SO_ClosingBandLapeado servicio = new SO_ClosingBandLapeado();
+
+            return servicio.UpdateClosingBandLapeado(Obj.idHerramental, Obj.Codigo, Obj.PropiedadesCadena[0].Valor, Obj.PropiedadesCadena[1].Valor);
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro
+        /// </summary>
+        /// <param name="IdClosing"></param>
+        /// <returns></returns>
+        public static int DeleteClosingBandLapeado(int IdClosing)
+        {
+            SO_ClosingBandLapeado servicio = new SO_ClosingBandLapeado();
+
+            return servicio.DeleteClosingBandLapeado(IdClosing);
+        }
+
+        #endregion
+
         #endregion
 
         #region Métodos Genéricos
@@ -10262,7 +10761,8 @@ namespace Model
             //Si la ifnormación de la base de datos es diferente de nulo.
             if (InfoBD != null)
             {
-                if (InfoBD.Tables.Count > 0 && InfoBD.Tables[0].Rows.Count > 0) {
+                if (InfoBD.Tables.Count > 0 && InfoBD.Tables[0].Rows.Count > 0)
+                {
 
                     //Recorremos la tabla
                     foreach (DataRow element in InfoBD.Tables[0].Rows)
@@ -11370,13 +11870,13 @@ namespace Model
         /// <param name="especPerfil"></param>
         /// <param name="nCortesWidth"></param>
         /// <returns></returns>
-        public static List<MateriaPrimaRolado> GetMateriaPrimaRolado(double widthCalculado,double thicknessCalculado,string especMaterial, string especPerfil, bool banThickness, double thicknessMin, double thicknessMax)
+        public static List<MateriaPrimaRolado> GetMateriaPrimaRolado(double widthCalculado, double thicknessCalculado, string especMaterial, string especPerfil, bool banThickness, double thicknessMin, double thicknessMax)
         {
             List<MateriaPrimaRolado> ListaResultante = new List<MateriaPrimaRolado>();
 
             SO_MateriaPrimaRolado ServiceMPRolado = new SO_MateriaPrimaRolado();
 
-            DataSet informacionBD = ServiceMPRolado.GetMateriaPrimaRoladoIdeal(widthCalculado, thicknessCalculado,especMaterial,especPerfil,banThickness,thicknessMin,thicknessMax);
+            DataSet informacionBD = ServiceMPRolado.GetMateriaPrimaRoladoIdeal(widthCalculado, thicknessCalculado, especMaterial, especPerfil, banThickness, thicknessMin, thicknessMax);
 
             if (informacionBD != null)
             {
@@ -11396,7 +11896,7 @@ namespace Model
                         materiaPrima.Encontrado = true;
                         materiaPrima.nCortesWidth = Convert.ToInt32(item["NUMERO_CORTES"].ToString());
                         materiaPrima.MatMustRemoveThickness = Convert.ToDouble(item["MAT_REMOVER_THICKNESS"].ToString());
-                        
+
                         ListaResultante.Add(materiaPrima);
                     }
 
@@ -11404,13 +11904,13 @@ namespace Model
             }
 
             return ListaResultante;
-        }        
+        }
 
         public static int UpdateMateriaPrimaRolado(MateriaPrimaRolado data)
         {
             SO_MateriaPrimaRolado ServiceRolado = new SO_MateriaPrimaRolado();
 
-            return ServiceRolado.Update(data.Codigo,data.Especificacion,data.Thickness,data.Groove,data.UM,data._Width,data.DescripcionGeneral,data.Ubicacion);
+            return ServiceRolado.Update(data.Codigo, data.Especificacion, data.Thickness, data.Groove, data.UM, data._Width, data.DescripcionGeneral, data.Ubicacion);
 
         }
 
@@ -11448,42 +11948,50 @@ namespace Model
             {
                 InformacionBD = ServiceUnidades.GetUnidadesDistancia();
             }
-            else {
+            else
+            {
                 if (_TipoDato.Equals(EnumEx.GetEnumDescription(TipoDato.Force)))
                 {
                     InformacionBD = ServiceUnidades.GetUnidadesForce();
                 }
-                else {
+                else
+                {
                     if (_TipoDato.Equals(EnumEx.GetEnumDescription(TipoDato.Mass)))
                     {
                         InformacionBD = ServiceUnidades.GetUnidadesMas();
                     }
-                    else {
+                    else
+                    {
                         if (_TipoDato.Equals(EnumEx.GetEnumDescription(TipoDato.Presion)))
                         {
                             InformacionBD = ServiceUnidades.GetUnidadesPresion();
                         }
-                        else {
+                        else
+                        {
                             if (_TipoDato.Equals(EnumEx.GetEnumDescription(TipoDato.Tiempo)))
                             {
                                 InformacionBD = ServiceUnidades.GetUnidadesTiempo();
                             }
-                            else {
+                            else
+                            {
                                 if (_TipoDato.Equals(EnumEx.GetEnumDescription(TipoDato.Cantidad)))
                                 {
                                     InformacionBD = ServiceUnidades.GetUnidadesCantidad();
                                 }
-                                else {
+                                else
+                                {
                                     if (_TipoDato.Equals(EnumEx.GetEnumDescription(TipoDato.Angle)))
                                     {
                                         InformacionBD = ServiceUnidades.GetUnidadesAngle();
                                     }
-                                    else {
+                                    else
+                                    {
                                         if (_TipoDato.Equals(EnumEx.GetEnumDescription(TipoDato.Dureza)))
                                         {
                                             InformacionBD = ServiceUnidades.GetUnidadesDureza();
                                         }
-                                        else {
+                                        else
+                                        {
                                             InformacionBD = null;
                                         }
                                     }
@@ -12042,7 +12550,7 @@ namespace Model
 
             DateTime fecha = DataManagerControlDocumentos.Get_DateTime();
 
-            return ServicePerfil.SetPerfil(idTipoPerfil, Nombre, Descripcion, imagen, idUsuarioCreacion,fecha);
+            return ServicePerfil.SetPerfil(idTipoPerfil, Nombre, Descripcion, imagen, idUsuarioCreacion, fecha);
         }
         #endregion
 
@@ -12216,7 +12724,7 @@ namespace Model
                     DatosPropiedad.DescripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
                     DatosPropiedad.DescripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
                     DatosPropiedad.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
-                    
+
                 }
             }
             return DatosPropiedad;
@@ -12244,7 +12752,7 @@ namespace Model
         {
             SO_PropiedadBool servicio = new SO_PropiedadBool();
 
-            return servicio.UpdatePropiedad(Data.idPropiedad,Data.Nombre,Data.DescripcionCorta,Data.DescripcionLarga,Data.Imagen);
+            return servicio.UpdatePropiedad(Data.idPropiedad, Data.Nombre, Data.DescripcionCorta, Data.DescripcionLarga, Data.Imagen);
         }
 
         /// <summary>
@@ -12284,7 +12792,7 @@ namespace Model
                     propiedadCadena.DescripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
                     propiedadCadena.DescripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
                     propiedadCadena.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
-                    
+
                 }
             }
             return propiedadCadena;
@@ -12531,7 +13039,7 @@ namespace Model
             }
             return ListadoPropiedadesCadena;
         }
-        
+
         /// <summary>
         /// Método que obtiene todas las propiedades booleanas que son relacionadas con un componente.
         /// </summary>
@@ -12598,7 +13106,7 @@ namespace Model
         {
             SO_PropiedadCadena servicio = new SO_PropiedadCadena();
 
-            return servicio.InsertNewPropiedadCadenaPerfil(IdPropiedadCadena,IdPerfil);
+            return servicio.InsertNewPropiedadCadenaPerfil(IdPropiedadCadena, IdPerfil);
         }
 
         /// <summary>

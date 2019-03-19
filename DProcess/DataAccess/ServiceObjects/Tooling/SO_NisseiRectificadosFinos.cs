@@ -59,7 +59,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                  where a.CODIGO.Equals(codigo)
                                  select new
                                  {
-                                     a.CODIGO,
+                                     b.Codigo,
                                      a.DIM_DIAMETRO,
                                      a.DIM_WIDTH,
                                      a.DIM_F,
