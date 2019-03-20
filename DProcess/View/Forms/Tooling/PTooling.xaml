@@ -97,8 +97,8 @@
                 <MenuItem Header="Nissei Rectificados Finos" Cursor="Hand">
                     <MenuItem Header="Feed Wheel" Cursor="Hand" Command="{Binding IrRecFinFeedWheel}"/>
                 </MenuItem>
-                <MenuItem Header="Guillotina" Cursor="Hand">
-                    <MenuItem Header="Engrave" Cursor="Hand" Command="{Binding IrGuillotinaEngrove}"/>
+                <MenuItem Header="Engrave" Cursor="Hand">
+                    <MenuItem Header="Guillotina" Cursor="Hand" Command="{Binding IrGuillotinaEngrove}"/>
                 </MenuItem>
                 <MenuItem Header="Lapeado" Cursor="Hand">
                     <MenuItem Header="Barrel Anillos" Cursor="Hand" Command="{Binding IrBarrelLapAnillos}"/>
