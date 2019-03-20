@@ -1578,7 +1578,23 @@ namespace View.Services.ViewModel
                         iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(new FileStream(imgCode, FileMode.Open, FileAccess.Read, FileShare.Read));
                         image.ScaleAbsoluteHeight(40);
                         image.ScaleAbsoluteWidth(40);
-                        image.SetAbsolutePosition(940, 723);
+
+                        switch (id_tipo)
+                        {
+                            //JES
+                            case 1015:
+                                image.SetAbsolutePosition(940, 723);
+                                break;
+                            //HOE
+                            case 2:
+                                image.SetAbsolutePosition(940, 728);
+                                break;
+                            //HII
+                            case 1002:
+                                image.SetAbsolutePosition(860, 732);
+                                break;
+                        }
+
                         //pdfContentByte.AddImage(image);
                     }
                     stamper.Close();
