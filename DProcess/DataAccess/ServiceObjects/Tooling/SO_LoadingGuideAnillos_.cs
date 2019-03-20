@@ -25,7 +25,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                  where b.Codigo.Contains(TextoBuscar) || b.Descripcion.Contains(TextoBuscar)
                                  select new
                                  {
-                                     b.Codigo,
+                                     a.Codigo,
                                      a.IdLoadingGuideAnillos,
                                      a.MedidaNominal,
                                      b.Descripcion

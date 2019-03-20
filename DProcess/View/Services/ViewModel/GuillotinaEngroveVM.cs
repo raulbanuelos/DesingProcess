@@ -6,6 +6,7 @@ using System.Text;
 using System.Data;
 using System.Threading.Tasks;
 using Model;
+using System.Windows.Input;
 
 namespace View.Services.ViewModel
 {
@@ -82,10 +83,18 @@ namespace View.Services.ViewModel
         }
         #endregion
 
+        public ICommand BusquedaGuillotina
+        {
+            get
+            {
+                return new RelayCommand(param => Busqueda((string)param));
+            }
+        }
+
         #region Constructor
         public GuillotinaEngroveVM()
         {
-            BusquedaGuillotina(string.Empty);
+            Busqueda(string.Empty);
         }
         #endregion
 
@@ -94,7 +103,7 @@ namespace View.Services.ViewModel
 
         #region Métodos
 
-        public void BusquedaGuillotina(string TextoBuscar)
+        public void Busqueda(string TextoBuscar)
         {
             ListaHerramentalesGuillotinaEngrove = DataManager.GetAllGuillotinaEngrave_(TextoBuscar);
         }

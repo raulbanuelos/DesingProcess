@@ -23,7 +23,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 {
                     var lista = (from a in conexion.ClosingBandLapeado
                                  join b in conexion.MaestroHerramentales on a.Codigo equals b.Codigo
-                                 where a.Codigo.Contains(TextoBuscar) || b.Descripcion.Contains(TextoBuscar)
+                                 where a.Codigo.Contains(TextoBuscar) || b.Descripcion.Contains(TextoBuscar) || a.Descripcion_Herramental.Contains(TextoBuscar)
                                  select new
                                  {
                                      a.IdClosingBandLapeado,

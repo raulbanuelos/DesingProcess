@@ -41,7 +41,7 @@
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="TextChanged">
                                 <i:InvokeCommandAction
-									Command="{Binding BusquedaGuillotina}"
+									Command="{Binding BusquedaLoadingGuideAnillos}"
                                     CommandParameter="{Binding ElementName=txt_busqueda, Path=Text}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
@@ -51,7 +51,7 @@
 
                     <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
                         <Label Content="Total: " FontSize="14"></Label>
-                        <Label Content="{Binding ListaHerramentales.Count}"></Label>
+                        <Label Content="{Binding ListaHerramentalesLoadingGuideAnillos.Count}"></Label>
                     </StackPanel>
                 </Grid>
             </TabItem.Content>

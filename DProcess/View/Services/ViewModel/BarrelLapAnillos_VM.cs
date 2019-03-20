@@ -6,6 +6,7 @@ using System.Text;
 using System.Data;
 using System.Threading.Tasks;
 using Model;
+using System.Windows.Input;
 
 namespace View.Services.ViewModel
 {
@@ -73,6 +74,18 @@ namespace View.Services.ViewModel
             get { return _MedidaNominal; }
             set { _MedidaNominal = value; NotifyChange("MedidaNominal"); }
         }
+        #endregion
+
+        #region Comandos
+
+        public ICommand BusquedaBarrel
+        {
+            get
+            {
+                return new RelayCommand(param => Busqueda((string)param));
+            }
+        }
+
         #endregion
 
         #region Construcor

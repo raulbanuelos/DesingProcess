@@ -58,16 +58,16 @@ namespace DataAccess.ServiceObjects.Tooling
                 {
                     var lista = (from a in conexion.FrontRearCollarAnillos_
                                  join b in conexion.MaestroHerramentales on a.Codigo equals b.Codigo
-                                 where a.Codigo.Contains(TextoBuscar) || b.Descripcion.Contains(TextoBuscar)
+                                 where a.Codigo.Contains(TextoBuscar) || b.Descripcion.Contains(TextoBuscar) || a.Descripcion_Herramental.Contains(TextoBuscar)
                                  select new
                                  {
                                      a.IdFrontRearCollarAnillos,
                                      a.Codigo,
                                      a.Descripcion_Herramental,
-                                     b.Descripcion,
                                      a.MedidaNominal,
                                      a.Notas,
-                                     a.Parte
+                                     a.Parte,
+                                     b.Descripcion
                                  }
                                  ).ToList();
 

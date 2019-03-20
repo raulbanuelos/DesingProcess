@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace View.Services.ViewModel
 {
@@ -95,12 +96,21 @@ namespace View.Services.ViewModel
             set { _Parte = value; NotifyChange("Parte"); }
         }
 
-        public FrontRearAnillosVM()
+
+        public ICommand BusquedaFrontRearAnillos
         {
-            BusquedaFrontRearCollarAnillos(string.Empty);
+            get
+            {
+                return new RelayCommand(param => Busqueda((string)param));
+            }
         }
 
-        public void BusquedaFrontRearCollarAnillos(string TextoBuscar)
+        public FrontRearAnillosVM()
+        {
+            Busqueda(string.Empty);
+        }
+
+        public void Busqueda(string TextoBuscar)
         {
             ListaFrontRearCollarAnillos = DataManager.GetAllFrontRearCollarAnillos(TextoBuscar);
         }

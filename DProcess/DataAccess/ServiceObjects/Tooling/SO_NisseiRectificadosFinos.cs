@@ -28,9 +28,8 @@ namespace DataAccess.ServiceObjects.Tooling
                                     a.DIM_DIAMETRO,
                                     a.DIM_WIDTH,
                                     a.DIM_F,
-                                    b.Descripcion,
-                                    b.Activo,
-                                    a.ID_FEED_WHEEL_RECTIFICADOS_FINOS
+                                    a.ID_FEED_WHEEL_RECTIFICADOS_FINOS,
+                                    b.Descripcion
                                 }).ToList();
 
                     return lista;

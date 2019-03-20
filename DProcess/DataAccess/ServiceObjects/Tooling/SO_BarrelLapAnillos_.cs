@@ -29,7 +29,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      a.IdBarrelLapAnillos,
                                      a.Codigo,
                                      a.MedidaNominal,
-                                     b.Descripcion,
+                                     b.Descripcion
                                  }
                                  ).ToList();
                     return lista;

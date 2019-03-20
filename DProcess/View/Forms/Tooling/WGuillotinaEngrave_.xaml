@@ -51,7 +51,7 @@
 
                     <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
                         <Label Content="Total: " FontSize="14"></Label>
-                        <Label Content="{Binding ListaHerramentales.Count}"></Label>
+                        <Label Content="{Binding ListaHerramentalesGuillotinaEngrove.Count}"></Label>
                     </StackPanel>
                 </Grid>
             </TabItem.Content>

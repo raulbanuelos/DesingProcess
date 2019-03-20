@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace View.Services.ViewModel
 {
@@ -81,6 +82,14 @@ namespace View.Services.ViewModel
             set { _DescripcionHerramental = value; NotifyChange("DescripcionHerramental"); }
         }
         #endregion
+
+        public ICommand BusquedaClosingBand
+        {
+            get
+            {
+                return new RelayCommand(param => Busqueda((string)param));
+            }
+        }
 
         public ClosingBandLapeadoVM()
         {

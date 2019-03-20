@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace View.Services.ViewModel
 {
@@ -74,6 +75,14 @@ namespace View.Services.ViewModel
             set { _MedidaNominal = value; NotifyChange("MedidaNominal"); }
         }
         #endregion
+
+        public ICommand BusquedaLoadingGuideAnillos
+        {
+            get
+            {
+                return new RelayCommand(param => Busqueda((string)param));
+            }
+        }
 
         public LoadingGuideAnillosVM()
         {
