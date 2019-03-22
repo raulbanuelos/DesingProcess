@@ -131,6 +131,7 @@ namespace View.Services.ViewModel
                 {
                     Herramental NewCodigo = new Herramental();
                     PropiedadCadena NewMedidaNominal = new PropiedadCadena();
+                    PropiedadCadena DescripcionHerramental = new PropiedadCadena();
 
                     decimal Fraccion = Module.ConvertFracToDecimal(item.PropiedadesCadena[0].Valor);
 
@@ -144,6 +145,8 @@ namespace View.Services.ViewModel
                         NewMedidaNominal.DescripcionCorta = "Medida Nominal";
                         NewMedidaNominal.Valor = Convert.ToString(Fraccion);
 
+                        DescripcionHerramental.DescripcionCorta = "Descripcion Herramental";
+
                         NewCodigo.PropiedadesCadena.Add(NewMedidaNominal);
 
                         DatosConvertidos.Add(NewCodigo);
@@ -153,7 +156,13 @@ namespace View.Services.ViewModel
                 //llenamos la lista con los datos con los datos optimos
                 ListaOptimos = DataManager.ConverToObservableCollectionHerramental_DataSet(DatosConvertidos, "ListaOptimos");
 
-                ListaMejores = DataManager.SelectBestOptionLoadingGuideAnillos(ListaOptimos);             
+                ListaMejores = DataManager.SelectBestOptionLoadingGuideAnillos(ListaOptimos);
+
+                //Si la lista no tiene información.
+                if (ListaMejores.Rows.Count == 0)
+                    //Enviamos un mensaje si no hay herramentales.
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHerramental);
+
             }
             else
             {

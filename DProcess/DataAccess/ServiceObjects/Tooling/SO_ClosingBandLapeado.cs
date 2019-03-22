@@ -39,6 +39,24 @@ namespace DataAccess.ServiceObjects.Tooling
             {
                 return null;
             }
+        } 
+
+        public IList GetOptimosClosingBandLapeado(string TipoAnillo)
+        {
+            try
+            {
+                using (var conexion = new EntitiesTooling())
+                {
+                    var lista = (from a in conexion.ClosingBandLapeado
+                                 where a.Descripcion_Herramental == TipoAnillo
+                                 select a).ToList();
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         /// <summary>
