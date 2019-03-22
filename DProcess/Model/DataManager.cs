@@ -9934,7 +9934,7 @@ namespace Model
                     herramental.PropiedadesCadena.Add(Detalle);
 
                     Propiedad Dimension = new Propiedad();
-                    Dimension.DescripcionCorta = "Dimesión";
+                    Dimension.DescripcionCorta = "Dimensión";
                     Dimension.Unidad = string.Empty;
                     Dimension.Valor = (double)tipo.GetProperty("Dimension").GetValue(item, null);
                     herramental.Propiedades.Add(Dimension);
@@ -9944,6 +9944,97 @@ namespace Model
                 }
             }
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "GuillotinaEngrave_");
+        }
+
+        /// <summary>
+        /// Método que obtiene la lista de los herramentales optimos de Guillotina Engrave
+        /// </summary>
+        /// <param name="WidthAnillo"></param>
+        /// <returns></returns>
+        public static DataTable GetOptimosGuillotinaEngrave(double WidthAnillo)
+        {
+            SO_GuillotinaEngrave servicio = new SO_GuillotinaEngrave();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = servicio.GetOptimosGuillotinaEngrave(WidthAnillo);
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("IdGuillotinaEngrave").GetValue(item, null);
+
+                    PropiedadCadena Detalle = new PropiedadCadena();
+                    Detalle.DescripcionCorta = "Detalle";
+                    Detalle.Valor = (string)tipo.GetProperty("Detalle").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(Detalle);
+
+                    Propiedad Dimension = new Propiedad();
+                    Dimension.DescripcionCorta = "Dimensión";
+                    Dimension.Unidad = string.Empty;
+                    Dimension.Valor = (double)tipo.GetProperty("Dimension").GetValue(item, null);
+                    herramental.Propiedades.Add(Dimension);
+
+                    ListaResultante.Add(herramental);
+                }
+            }
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "GuillotinaEngraveOptimo");
+        }
+
+        /// <summary>
+        /// Método que selecciona la mejor opción de la lista GetOptimosGuillotinaEngrave que obtiene los herramentales optimos
+        /// </summary>
+        /// <param name="Data"></param>
+        /// <returns></returns>
+        public static DataTable SelectBestGuillotinaEngrave(DataTable Data)
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Dimensión");
+            DataR.Columns.Add("Detalle");
+
+            DataRow dr = DataR.NewRow();
+
+            //Obtenemos el ultimo valor del datatable
+            if (Data.Rows.Count > 1)
+            {
+                DataRow lastRow = Data.Rows[Data.Rows.Count - 1];
+                //Mapeamos los valores de código y descripción en un datarow.
+
+                dr["Code"] = lastRow["Code"].ToString();
+                dr["Dimensión"] = lastRow["Dimensión"].ToString();
+                dr["Detalle"] = lastRow["Detalle"].ToString();
+
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+            }
+            else if(Data.Rows.Count != 0)
+            {
+                //Sólo se hace la iteración una vez
+                foreach (DataRow row in Data.Rows)
+                {
+                    dr["Code"] = row["Code"].ToString();
+                    dr["Dimensión"] = row["Dimensión"].ToString();
+                    dr["Detalle"] = row["Detalle"].ToString();
+
+                    //Agregamnos el datarow al datatable resultante.
+                    DataR.Rows.Add(dr);
+                    break;
+                }
+            }          
+
+            return DataR;
         }
 
         public static Herramental GetInfoGuillotinaEngrave_(string TextoBuscar)
@@ -10287,10 +10378,10 @@ namespace Model
             SO_ClosingBandLapeado servicio = new SO_ClosingBandLapeado();
 
             IList Data = servicio.GetAllClosingBandLapeado(TextoBuscar);
-            
+
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
 
-            if (Data !=  null)
+            if (Data != null)
             {
                 foreach (var item in Data)
                 {
@@ -10335,7 +10426,7 @@ namespace Model
 
             if (Data != null)
             {
-                foreach  (var item in Data)
+                foreach (var item in Data)
                 {
                     System.Type tipo = item.GetType();
 
@@ -10435,6 +10526,81 @@ namespace Model
                 }
             }
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "LoadingGuideAnillos");
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros para saber cual es el optimo
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<Herramental> GetOptimosLoadingGuideAnillos()
+        {
+            SO_LoadingGuideAnillos_ servicio = new SO_LoadingGuideAnillos_();
+
+            IList informacionBD = servicio.GetAllLoadingGuideAnillos(string.Empty);
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("IdLoadingGuideAnillos").GetValue(item, null);
+
+                    PropiedadCadena MedidaNominal = new PropiedadCadena();
+                    MedidaNominal.DescripcionCorta = "Medida Nominal";
+                    MedidaNominal.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(MedidaNominal);
+
+                    ListaResultante.Add(herramental);
+                }
+            }
+            return ListaResultante;
+        }
+
+        /// <summary>
+        /// Método que obtiene la mejor opcion para la operacion loading guide anillos
+        /// </summary>
+        /// <param name="Data"></param>
+        /// <returns></returns>
+        public static DataTable SelectBestOptionLoadingGuideAnillos(DataTable Data)
+        {
+            DataTable DataR = new DataTable();
+
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Medida Nominal");
+
+            DataRow dr = DataR.NewRow();
+
+            if (Data.Rows.Count > 1)
+            {
+                DataRow lastRow = Data.Rows[Data.Rows.Count - 1];
+                //Mapeamos los valores de código y descripción en un datarow.
+
+                dr["Code"] = lastRow["Code"].ToString();
+                dr["Medida Nominal"] = lastRow["Medida Nominal"].ToString();
+
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+            }
+            else if (Data.Rows.Count != 0)
+            {
+                //Sólo se hace la iteración una vez
+                foreach (DataRow row in Data.Rows)
+                {
+                    dr["Code"] = row["Code"].ToString();
+                    dr["Medida Nominal"] = row["Medida Nominal"].ToString();
+
+                    //Agregamnos el datarow al datatable resultante.
+                    DataR.Rows.Add(dr);
+                    break;
+                }
+            }
+            return DataR;
         }
 
         /// <summary>

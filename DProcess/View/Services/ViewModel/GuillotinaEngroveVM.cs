@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Data;
 using System.Threading.Tasks;
 using Model;
 using System.Windows.Input;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -68,11 +70,11 @@ namespace View.Services.ViewModel
             }
         }
 
-        private double _Dimension;
-        public double Dimension
+        private double _WidthAnillo;
+        public double WidthAnillo
         {
-            get { return _Dimension; }
-            set { _Dimension = value; NotifyChange("Dimension"); }
+            get { return _WidthAnillo; }
+            set { _WidthAnillo = value; NotifyChange("WidthAnillo"); }
         }
 
         private string _Detalle;
@@ -91,9 +93,20 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand BuscarOptimos
+        {
+            get
+            {
+                return new RelayCommand(a => BusquedaMejorOpcion());
+            }
+        }
+
         #region Constructor
         public GuillotinaEngroveVM()
         {
+            ListaOptimos = new DataTable();
+            ListaMejores = new DataTable();
+
             Busqueda(string.Empty);
         }
         #endregion
@@ -106,6 +119,32 @@ namespace View.Services.ViewModel
         public void Busqueda(string TextoBuscar)
         {
             ListaHerramentalesGuillotinaEngrove = DataManager.GetAllGuillotinaEngrave_(TextoBuscar);
+        }
+
+        private async void BusquedaMejorOpcion()
+        {
+            DialogService dialog = new DialogService();
+
+            ListaMejores.Clear();
+            ListaOptimos.Clear();
+
+            if (WidthAnillo != 0)
+            {
+                //Obtenemos la lista de los herramentales optimos.
+                ListaOptimos = DataManager.GetOptimosGuillotinaEngrave(WidthAnillo);
+                //Obtenemos la lista del mejor herramental.                
+
+                ListaMejores = DataManager.SelectBestGuillotinaEngrave(ListaOptimos);
+
+                //Si la lista no tiene información.
+                if (ListaMejores.Rows.Count == 0)
+                    //Enviamos un mensaje si no hay herramentales.
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHerramental);
+            }
+            else
+            {
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
+            }
         }
         #endregion
     }

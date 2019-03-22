@@ -160,7 +160,7 @@ namespace View.Services
         /// <param name="lista"></param>
         /// <param name="tolerancia">Min ó Max</param>
         /// <returns></returns>
-        public static Propiedad GetPropiedad(string nombrePropiedad, ObservableCollection<Propiedad> lista,string tolerancia)
+        public static Propiedad GetPropiedad(string nombrePropiedad, ObservableCollection<Propiedad> lista, string tolerancia)
         {
 
             int a = lista.Where(x => x.Nombre == nombrePropiedad + " " + tolerancia).ToList().Count;
@@ -183,7 +183,8 @@ namespace View.Services
                         pMinimo.Valor = p.Valor - pTolerancia.Valor;
 
                         return pMinimo;
-                    }else
+                    }
+                    else
                     {
                         Propiedad pTolerancia = lista.Where(x => x.Nombre == nombrePropiedad + " Tol").FirstOrDefault();
                         Propiedad pMaximo = p;
@@ -241,7 +242,7 @@ namespace View.Services
         /// <param name="Lista"></param>
         /// <param name="ConvertToInch"></param>
         /// <returns></returns>
-        public static double GetValorPropiedadMin(string NombrePropiedad, ObservableCollection<Propiedad> Lista,bool ConvertToInch)
+        public static double GetValorPropiedadMin(string NombrePropiedad, ObservableCollection<Propiedad> Lista, bool ConvertToInch)
         {
 
             //Obtenemos el valor de la propiedad.
@@ -257,7 +258,7 @@ namespace View.Services
                 {
                     Propiedad propiedadMin = GetPropiedad(NombrePropiedad + " Tol Min", Lista);
                     Propiedad propiedad = GetPropiedad(NombrePropiedad, Lista);
-                    
+
                     double valorToleranciaInchMin = ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), propiedadMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), propiedadMin.Valor);
                     double valorPropiedadInch = ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), propiedad.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), propiedad.Valor);
 
@@ -296,7 +297,8 @@ namespace View.Services
                         return valorPropiedad - tolerancia;
                     }
                 }
-                else {
+                else
+                {
 
                     //Buscamos la propiedad con la concatenación de " Tol" y contamos los registros encontrados.
                     a = Lista.Where(x => x.Nombre == NombrePropiedad + " Min").ToList().Count;
@@ -318,18 +320,19 @@ namespace View.Services
 
                             return valorPropiedad;
                         }
-                    }else
+                    }
+                    else
                     {
                         //Si no se encontraron las toleracias retornamos el valor de la propiedad.
                         return valorPropiedad;
                     }
 
-                    
+
                 }
 
             }
         }
-        
+
         /// <summary>
         /// Método que obtiene el valor mínimo de tolerancia de una propiedad. Además si así lo requerimos lo podemos convertir en Pulgadas.
         /// Generalmente en el plano puede venir de dos opciones: como tolerancia o como valor mínimo y máximo. 
@@ -446,7 +449,7 @@ namespace View.Services
 
             }
         }
-        
+
         /// <summary>
         /// Método que obtiene el diámetro de una operación a partir de una lista de operaciones.
         /// </summary>
@@ -768,7 +771,7 @@ namespace View.Services
         /// <param name="UnidadDestino">Cadena que representa la unidad a la que se requiere convertir el valor.</param>
         /// <param name="valor">Numérico que representa el valor.</param>
         /// <returns></returns>
-        public static double ConvertTo(string TipoDato, string UnidadInicial, string UnidadDestino,double valor)
+        public static double ConvertTo(string TipoDato, string UnidadInicial, string UnidadDestino, double valor)
         {
             //Incializamos los servicios de Unidad.
             SO_Unidades ServicioUnidades = new SO_Unidades();
@@ -789,43 +792,50 @@ namespace View.Services
                 valorUnidadInicial = ServicioUnidades.GetValueInchUnidadDistance(UnidadInicial);
                 valorUnidadDestino = ServicioUnidades.GetValueInchUnidadDistance(UnidadDestino);
             }
-            else {
+            else
+            {
                 if (TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Force)))
                 {
                     valorUnidadInicial = ServicioUnidades.GetValueLBSUnidadForce(UnidadInicial);
                     valorUnidadDestino = ServicioUnidades.GetValueLBSUnidadForce(UnidadDestino);
                 }
-                else {
+                else
+                {
                     if (TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Mass)))
                     {
                         valorUnidadInicial = ServicioUnidades.GetValueGramUnidadMass(UnidadInicial);
                         valorUnidadDestino = ServicioUnidades.GetValueGramUnidadMass(UnidadDestino);
                     }
-                    else {
+                    else
+                    {
                         if (TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Tiempo)))
                         {
                             valorUnidadInicial = ServicioUnidades.GetValueSegUnidadTiempo(UnidadInicial);
                             valorUnidadDestino = ServicioUnidades.GetValueSegUnidadTiempo(UnidadDestino);
                         }
-                        else {
+                        else
+                        {
                             if (TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Presion)))
                             {
                                 valorUnidadInicial = ServicioUnidades.GetValuePSIUnidadPresion(UnidadInicial);
                                 valorUnidadDestino = ServicioUnidades.GetValuePSIUnidadPresion(UnidadDestino);
                             }
-                            else {
+                            else
+                            {
                                 if (TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Angle)))
                                 {
                                     valorUnidadInicial = ServicioUnidades.GetValueGradosUnidadAngle(UnidadInicial);
                                     valorUnidadDestino = ServicioUnidades.GetValueGradosUnidadAngle(UnidadDestino);
                                 }
-                                else {
+                                else
+                                {
                                     if (TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad)))
                                     {
                                         valorUnidadInicial = ServicioUnidades.GetValueUnidadUnidadCantidad(UnidadInicial);
                                         valorUnidadDestino = ServicioUnidades.GetValueUnidadUnidadCantidad(UnidadDestino);
                                     }
-                                    else {
+                                    else
+                                    {
                                         if (TipoDato.Equals(EnumEx.GetEnumDescription(DataManager.TipoDato.Dureza)))
                                         {
                                             valorUnidadInicial = ServicioUnidades.GetValueDurezaUnidadDureza(UnidadInicial);
@@ -841,10 +851,10 @@ namespace View.Services
 
             //Convertimos primeramente a la unidad por defautl. 
             //Ejemplo para el caso del tipo de unidad distancia, primeramente lo convertimos a Pulgadas.
-            double valorUnidadDefault = Math.Round(valorUnidadInicial * valor,4);
+            double valorUnidadDefault = Math.Round(valorUnidadInicial * valor, 4);
 
             //Convertimos el valor de pulgadas a la unidad requerida.
-            respuesta = Math.Round(valorUnidadDefault / valorUnidadDestino,4);
+            respuesta = Math.Round(valorUnidadDefault / valorUnidadDestino, 4);
 
             //Retornamos el valor.
             return respuesta;
@@ -904,7 +914,7 @@ namespace View.Services
         {
             string fechaR = string.Empty;
             string mes = string.Empty;
-            
+
             switch (fecha.Month)
             {
                 case 1:
@@ -1098,7 +1108,7 @@ namespace View.Services
         /// <param name="posicionInicial"></param>
         /// <param name="nombreOperacionBuscada"></param>
         /// <returns></returns>
-        public static int GetNumPasoOperacion(ObservableCollection<IOperacion> operaciones, int posicionInicial,string nombreOperacionBuscada)
+        public static int GetNumPasoOperacion(ObservableCollection<IOperacion> operaciones, int posicionInicial, string nombreOperacionBuscada)
         {
             int paso = 0;
 
@@ -1247,6 +1257,85 @@ namespace View.Services
                 vector[0] = cortes;
 
             return vector;
+        }
+
+        public static decimal ConvertFracToDecimal(string Fraccion)
+        {
+            decimal NumeroDecimal;
+            string Entero = "";
+            string Numerador = "";
+            string Denominador = "";
+            int Contador = 0;
+            bool Band = true;
+            string Aux;
+            bool ParteDecimal = false;
+
+            if (IsNumeric(Fraccion))
+            {
+                NumeroDecimal = Convert.ToDecimal(Fraccion);
+            }
+            else
+            {
+                try
+                {
+                    while (Band == true)
+                    {
+                        Aux = Fraccion.Substring(Contador, 1);
+                        if (Aux == " " || Aux == "/")
+                        {
+                            if (Aux == "/")
+                            {
+                                ParteDecimal = true;
+                            }
+                            Band = false;
+                        }
+                        else
+                        {
+                            Entero = Entero + Aux;   
+                        }
+                        Contador++;
+                    }
+
+                    Band = true;
+
+                    if (ParteDecimal == true)
+                    {
+                        Numerador = Entero;
+                        Entero = "0";
+                    }
+                    else
+                    {
+                        while (Band == true)
+                        {
+                            Aux = Fraccion.Substring(Contador, 1);
+                            if (Aux == "/")
+                            {
+                                Band = false;
+                            }
+                            else
+                            {
+                                Numerador = Numerador + Aux;
+                            }
+                            Contador++;
+                        }
+                    }
+
+                    while(Contador != Fraccion.Length)
+                    {
+                        Aux = Fraccion.Substring(Contador, 1);
+                        Denominador = Denominador + Aux;
+                        Contador++;
+                    }
+
+                    NumeroDecimal = Convert.ToDecimal((Convert.ToDecimal(Entero) * 1) + (Convert.ToDecimal(Numerador) / Convert.ToDecimal(Denominador)));
+
+                }
+                catch (Exception er)
+                {
+                    return 0;
+                }
+            }
+            return NumeroDecimal;
         }
     }
 }

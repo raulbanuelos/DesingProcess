@@ -68,6 +68,26 @@ namespace DataAccess.ServiceObjects.Tooling
             }
         }
 
+        public IList GetOptimosGuillotinaEngrave(double WidthAnillo)
+        {
+            try
+            {
+                using (var conexion = new EntitiesTooling())
+                {
+                    var lista = (from a in conexion.GuillotinaEngrave_
+                                 where a.Dimension < WidthAnillo
+                                 orderby a.Dimension ascending
+                                 select a).ToList();
+
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// Método que inserta un nuevo registro en la BD de GuillotinaEngrave
         /// </summary>

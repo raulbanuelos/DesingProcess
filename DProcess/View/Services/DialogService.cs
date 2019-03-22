@@ -3,6 +3,7 @@ using MahApps.Metro.Controls.Dialogs;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System;
 
 namespace View.Services
 {
@@ -91,6 +92,11 @@ namespace View.Services
             else
                 //Si la ventana no fue encontrada, retornamos un valor Negative.
                 return MessageDialogResult.Negative;
+        }
+
+        internal Task SendMessage(object stringresources)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
