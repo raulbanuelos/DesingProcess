@@ -1595,7 +1595,7 @@ namespace View.Services.ViewModel
                                 break;
                         }
 
-                        //pdfContentByte.AddImage(image);
+                        pdfContentByte.AddImage(image);
                     }
                     stamper.Close();
                 }
