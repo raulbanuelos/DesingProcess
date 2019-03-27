@@ -1,12 +1,14 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -68,19 +70,29 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _MedidaNominal;
-        public string MedidaNominal
+        private decimal _Diam;
+        public decimal Diam
         {
-            get { return _MedidaNominal; }
-            set { _MedidaNominal = value; NotifyChange("MedidaNominal"); }
+            get { return _Diam; }
+            set { _Diam = value; NotifyChange("Diam"); }
         }
 
-        private string _DescripcionHerramental;
-        public string DescripcionHerramental
+        private string _TipoA;
+        public string TipoA
         {
-            get { return _DescripcionHerramental; }
-            set { _DescripcionHerramental = value; NotifyChange("DescripcionHerramental"); }
+            get
+            {
+                return _TipoA;
+            }
+            set
+            {
+                _TipoA = value;
+                NotifyChange("TipoA");
+            }
         }
+
+        public string TipoAnillo = string.Empty;
+
         #endregion
 
         public ICommand BusquedaClosingBand
@@ -91,14 +103,89 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand BuscarOptimos
+        {
+            get
+            {
+                return new RelayCommand(a => BuscarOptimoClosingBand());
+            }
+        }
+
         public ClosingBandLapeadoVM()
         {
+
+            ListaOptimos = new DataTable();
+            ListaMejores = new DataTable();
+
             Busqueda(string.Empty);
         }
 
         public void Busqueda(string TextoBuscar)
         {
             ListaHerramentalesClosingBand = DataManager.GetAllClosingbandLapeado(TextoBuscar);
+        }
+
+        public async void BuscarOptimoClosingBand()
+        {
+            DialogService dialog = new DialogService();
+
+            ListaMejores.Clear();
+            ListaOptimos.Clear();
+
+            if (Diam != 0)
+            {
+                TipoAnillo = "CLOSING BAND (CORTA)";
+
+                if (TipoA == "RF10U" || TipoA == "RF18U" || TipoA == "00K10U" || TipoA == "BR18U" || TipoA == "RFK18U" || TipoA == "GTK18U")
+                {
+                    TipoAnillo = "CLOSING BAND (LARGA)";
+                }
+
+                ObservableCollection<Herramental> Data = DataManager.GetOptimosClosingBandLapeado(TipoAnillo);
+
+                ObservableCollection<Herramental> NewData = new ObservableCollection<Herramental>();
+
+                foreach (var item in Data)
+                {
+                    Herramental NewCodigo = new Herramental();
+                    PropiedadCadena DescripcionHerramental = new PropiedadCadena();
+                    PropiedadCadena NewMedidaNominal = new PropiedadCadena();
+
+                    decimal Fraccion = Module.ConvertFracToDecimal(item.PropiedadesCadena[1].Valor);
+
+                    decimal comparacion = (Diam - Fraccion);
+                    decimal ValorEstatico = Convert.ToDecimal(0.0625);
+
+                    if (comparacion <= ValorEstatico)
+                    {
+                        NewCodigo.Codigo = item.Codigo;
+
+                        DescripcionHerramental.DescripcionCorta = "Descripción Herramental";
+                        DescripcionHerramental.Valor = item.PropiedadesCadena[0].Valor;
+                        NewCodigo.PropiedadesCadena.Add(DescripcionHerramental);
+
+                        NewMedidaNominal.DescripcionCorta = "Medida Nominal";
+                        NewMedidaNominal.Valor = Convert.ToString(Fraccion);
+                        NewCodigo.PropiedadesCadena.Add(NewMedidaNominal);
+
+                        NewData.Add(NewCodigo);
+                    }
+                }
+
+                ListaOptimos = DataManager.ConverToObservableCollectionHerramental_DataSet(NewData, "ListaOptimos");
+
+                ListaMejores = DataManager.SelectBestClosingBandLapeado(ListaOptimos);
+
+                //Si la lista no tiene información.
+                if (ListaMejores.Rows.Count == 0)
+                    //Enviamos un mensaje si no hay herramentales.
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHerramental);
+
+            }
+            else
+            {
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
+            }
         }
     }
 }

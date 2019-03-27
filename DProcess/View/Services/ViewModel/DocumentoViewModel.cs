@@ -1266,6 +1266,7 @@ namespace View.Services.ViewModel
                     }
 
                     string elaboro = Convert.ToString(sheet.Range["ELABORO"].Value);
+                    string aprobo = Convert.ToString(sheet.Range["APROBO"].Value);
                     string reviso = Convert.ToString(sheet.Range["REVISO"].Value);
                     string codigo = Convert.ToString(sheet.Range["CODIGO"].Value);
                     string departamento = Convert.ToString(sheet.Range["PROCESO"].Value);
@@ -1299,6 +1300,11 @@ namespace View.Services.ViewModel
                     if (elaboro != ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto)
                     {
                         mensaje = "El usuario Elaboró está incorrecto.\nEl usuario elaboró en el archivo debe ser: " + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto;
+                        return false;
+                    }
+                    if (aprobo != ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto)
+                    {
+                        mensaje = "El usuario Elaboró está incorrecto.\nEl usuario autorizó en el archivo debe ser: " + ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto;
                         return false;
                     }
                     string UsuariosPermitido = NombreUsuarioAut.Replace(" ", "");
@@ -1545,7 +1551,7 @@ namespace View.Services.ViewModel
                 ban = DataManagerControlDocumentos.ExistsCodeValidation(codeValidation);
             }
 
-            codigo = SelectedDocumento.nombre + "*" + Version + "*" + Fecha + "*" + codeValidation;
+            codigo = SelectedDocumento.nombre + "*" + Version + "*" + codeValidation + "*";
 
             //Encriptamos el codigo.
             string codigoEncriptado = Seguridad.Encriptar(codigo);

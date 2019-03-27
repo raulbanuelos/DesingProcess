@@ -21,7 +21,7 @@ namespace View.Services.ViewModel
     {
 
         #region Attributes
-        public Usuario User; 
+        public Usuario User;
         #endregion
 
         #region PropertyChanged
@@ -51,16 +51,31 @@ namespace View.Services.ViewModel
                 NotifyChange("ListaDocumentosValidar");
             }
         }
+        private string _TextoBuscar;
+        public string TextoBuscar
+        {
+            get
+            {
+                return _TextoBuscar;
+            }
+            set
+            {
+                _TextoBuscar = value;
+                NotifyChange("TextoBuscar");
+            }
+        }
+        public int contador = 1;
+
         #endregion
 
         #region Constructors
         public DocumentosLiberarQR(Usuario ModelUsuario)
         {
             User = ModelUsuario;
-            ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar(string.Empty);
+            inicampo(string.Empty);
         }
         #endregion
-        
+
         #region Commands
         /// <summary>
         ///Comando que busca el documento
@@ -80,61 +95,68 @@ namespace View.Services.ViewModel
         private async void GetDocument(string param)
         {
             DialogService dialog = new DialogService();
-            try
-            {
-                string desc = Seguridad.DesEncriptar(param);
 
-                string[] vec = desc.Split('*');
-                if (vec.Length == 4)
+            string desc = string.Empty;
+            string[] vec = new string[] { };
+
+                try
                 {
-                    string codigo = vec[0];
-                    string codigoValidacion = vec[3];
+                    desc = Seguridad.DesEncriptar(param);
 
-                    ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar(codigo);
+                    vec = desc.Split('*');
 
-                    if (ListaDocumentosValidar.Count == 1)
+                if (contador < 2)
+                {
+                    if (vec.Length == 4)
                     {
-                        Documento doc = ListaDocumentosValidar[0];
-                        if (doc.version.CodeValidation == codigoValidacion)
+                        contador++;
+                        string codigo = vec[0];
+                        string codigoValidacion = vec[2];
+
+                        ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar(codigo);
+
+                        if (ListaDocumentosValidar.Count == 1)
                         {
-                            List<Archivo> ListArchivo = DataManagerControlDocumentos.GetArchivoFiltrado(doc.version.id_version);
-
-                            if (ListArchivo.Count > 0)
+                            Documento doc = ListaDocumentosValidar[0];
+                            if (doc.version.CodeValidation == codigoValidacion)
                             {
-                                verArchivo(ListArchivo[0]);
+                                List<Archivo> ListArchivo = DataManagerControlDocumentos.GetArchivoFiltrado(doc.version.id_version);
 
-                                //Liberamos el documento.
-                                liberarDocumento(doc);
+                                if (ListArchivo.Count > 0)
+                                {
+                                    verArchivo(ListArchivo[0]);
+
+                                    //Liberamos el documento.
+                                    liberarDocumento(doc);
+                                }
+                                else
+                                {
+                                    //Mensaje de no se encontró ningún archivo
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgArchivoNoEncontrado);
+                                    inicampo(string.Empty);
+                                }
                             }
                             else
                             {
-                                //Mensaje de no se encontró ningún archivo
-                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgArchivoNoEncontrado);
+                                //Mensaje de codigo de validación esta mal.
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgQRNoCorresponde);
+                                inicampo(string.Empty);
                             }
                         }
                         else
                         {
-                            //Mensaje de codigo de validación esta mal.
-                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgQRNoCorresponde);
+                            //Mensaje de no se encontro el documento. Aquí probablemente se pueda indicar al usuario el estatus del documento.
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgDocumentoNoEstaPendiente);
+                            inicampo(string.Empty);
                         }
                     }
-                    else
-                    {
-                        //Mensaje de no se encontro el documento. Aquí probablemente se pueda indicar al usuario el estatus del documento.
-                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgDocumentoNoEstaPendiente);
-                    }
                 }
-                else
+                    
+                }
+                catch (Exception)
                 {
-                    //Mensaje Codigo sifrado erroneo;
-                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgQRNoValido);
+
                 }
-                
-            }
-            catch (Exception)
-            {
-                
-            }
         }
 
         private async void liberarDocumento(Documento documento)
@@ -202,6 +224,8 @@ namespace View.Services.ViewModel
                         //Mensaje de no se pudo actualizar la tabla TBL_DOCUMENTO
                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusDocumento);
                     }
+                    // Actualizar lista de documentos pendientes por liberara cuando selecciona si
+                    inicampo(string.Empty);
                 }
                 else
                 {
@@ -238,6 +262,7 @@ namespace View.Services.ViewModel
 
                         if (update != 0)
                         {
+                            _LiberarEspacioBD(last_id);
                             string confirmacionCorreo = string.Empty;
 
                             if (NotificarDocumentoDisponibleConSello(documento))
@@ -255,6 +280,14 @@ namespace View.Services.ViewModel
                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorActualizarVersion);
                     }
                 }
+                // Se actualiza lista de documentos a liberar cuando la version es diferente a 1
+                inicampo(string.Empty);
+            }
+            else
+            {
+                // Vuelve a cargar la lista cuando no se quiere liberar documento
+                inicampo(string.Empty);
+                
             }
         }
 
@@ -265,7 +298,7 @@ namespace View.Services.ViewModel
         private bool NotificarDocumentoDisponibleConSello(Documento documento)
         {
             ServiceEmail serviceMail = new ServiceEmail();
-            
+
             string[] correos = new string[2];
             correos[0] = DataManager.GetUsuario(documento.version.id_usuario).Correo;
             correos[1] = DataManager.GetUsuario(documento.version.id_usuario_autorizo).Correo;
@@ -358,7 +391,7 @@ namespace View.Services.ViewModel
         private bool SetElectronicStamp(Model.ControlDocumentos.Version version)
         {
             bool res = false;
-            
+
             BaseFont bfTimes = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, false);
             ObservableCollection<Archivo> archivos = DataManagerControlDocumentos.GetArchivos(version.id_version);
 
@@ -455,7 +488,7 @@ namespace View.Services.ViewModel
             pdfData.RestoreState();
 
         }
-        
+
         /// <summary>
         /// Método para ver el contenido de los archivos
         /// </summary>
@@ -504,6 +537,104 @@ namespace View.Services.ViewModel
 
             //retornamos el nombre que se generó
             return filename;
+        }
+
+        public void inicampo (string texto)
+        {
+            TextoBuscar = string.Empty;
+            ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar(texto);
+            contador = 1;
+        }
+        public string _LiberarEspacioBD(int IdVersionEliminar)
+        {
+            try
+            {
+                ObservableCollection<Documento> data = DataManagerControlDocumentos.GetDocumentosObsoletos(IdVersionEliminar);
+
+                foreach (var item in data)
+                {
+                    string NombreFolder = string.Empty;
+
+                    switch (item.id_tipo_documento)
+                    {
+                        case 2:
+                            //asignamos la ruta donde se va a crear el nuevo folder mas el nombre del folder
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\HOJA DE OPERACION ESTANDAR\" + item.nombre;
+                            break;
+                        case 1002:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\HOJA DE INSTRUCCION DE INSPECCION\" + item.nombre;
+                            break;
+                        case 1003:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\PROCEDIMIENTO OHSAS\" + item.nombre;
+                            break;
+                        case 1004:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\AYUDAS VISUALES\" + item.nombre;
+                            break;
+                        case 1005:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\PROCEDIMIENTO ESPECIFICO\" + item.nombre;
+                            break;
+                        case 1006:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\PROCEDIMIENTO ISO\" + item.nombre;
+                            break;
+                        case 1007:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\HOJA DE METODO DE TRABAJO ESTANDAR\" + item.nombre;
+                            break;
+                        case 1011:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\METODO DE INSPECCION ESTANDARIZADO\" + item.nombre;
+                            break;
+                        case 1012:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\FORMATO ESPECIFICO\" + item.nombre;
+                            break;
+                        case 1013:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\FORMATO OHSAS\" + item.nombre;
+                            break;
+                        case 1014:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\FORMATO ISO\" + item.nombre;
+                            break;
+                        case 1015:
+                            NombreFolder = @"Z:\NUEVO SOFTWARE RUTAS\RespaldoControlDocumentos\JES\" + item.nombre;
+                            break;
+                    }
+
+                    if (!System.IO.Directory.Exists(NombreFolder))
+                    {
+                        //creamos el folder
+                        System.IO.Directory.CreateDirectory(NombreFolder);
+                    }
+
+                    //Asignamos el nombre del archivo, concatenamos el nombre y el número de la version.
+                    string NombreArchivo = item.nombre + "_" + item.version.no_version + item.version.archivo.ext;
+
+                    //Creamos la ruta donde se pondran los archivos
+                    string pathString = System.IO.Path.Combine(NombreFolder, NombreArchivo);
+
+                    //Obtenemos el arreglo de bytes que representan el archivo
+                    byte[] file = item.version.archivo.archivo;
+
+                    //Lo copiamos a la carpeta
+                    System.IO.File.WriteAllBytes(pathString, file);
+
+                }
+
+                EliminarDocumentos(data);
+
+                return "Ok";
+            }
+            catch (Exception error)
+            {
+                return error.Message;
+            }
+        }
+        /// <summary>
+        /// Método que elimina los archivos que esten en estatus obsoleto
+        /// </summary>
+        /// <param name="data"></param>
+        public void EliminarDocumentos(ObservableCollection<Documento> data)
+        {
+            foreach (var item in data)
+            {
+                DataManagerControlDocumentos.DeleteArchivo(item.version.archivo);
+            }
         }
         #endregion
     }

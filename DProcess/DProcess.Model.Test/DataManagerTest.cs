@@ -205,5 +205,12 @@ namespace DProcess.Model.Test
             //Assert.AreEqual(obj._diaHerramienta, 0.38249);
 
         }
+        [TestMethod]
+        public void desencriptar ()
+        {
+            string auxiliar = Seguridad.DesEncriptar("SgBFAFMASQBOAEcAUgB");
+            // Seguridad.DesEncriptar("SgBFAFMASQBOAEcAUgBVAC0AMAAwADEANQAqADEAKgA4AFkATgBZADMANgBNADQA");
+
+        }
     }
 }

@@ -10410,6 +10410,84 @@ namespace Model
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "ClosingBandLapeado");
         }
 
+        public static ObservableCollection<Herramental> GetOptimosClosingBandLapeado(string TipoAnillo)
+        {
+            SO_ClosingBandLapeado servicio = new SO_ClosingBandLapeado();
+
+            IList InformacionBD = servicio.GetOptimosClosingBandLapeado(TipoAnillo);
+
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            if (InformacionBD != null)
+            {
+                foreach (var item in InformacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("IdClosingBandLapeado").GetValue(item, null);
+
+                    PropiedadCadena DescripcionHerramental = new PropiedadCadena();
+                    DescripcionHerramental.DescripcionCorta = "Descripcion Herramental";
+                    DescripcionHerramental.Valor = (string)tipo.GetProperty("Descripcion_Herramental").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(DescripcionHerramental);
+
+                    PropiedadCadena MedidaNominal = new PropiedadCadena();
+                    MedidaNominal.DescripcionCorta = "Medida Nominal";
+                    MedidaNominal.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(MedidaNominal);
+
+                    ListaResultante.Add(herramental);
+                }
+            }
+            return ListaResultante;
+        }
+
+        public static DataTable SelectBestClosingBandLapeado(DataTable Data)
+        {
+            //Declaramos un objeto de tipo de DataTable que será el que retornemos en el método.
+            DataTable DataR = new DataTable();
+
+            //Agregamos las columnas de code y description a la tabla.
+            DataR.Columns.Add("Code");
+            DataR.Columns.Add("Descripción Herramental");
+            DataR.Columns.Add("Medida Nominal");
+
+            DataRow dr = DataR.NewRow();
+
+            //Obtenemos el ultimo valor del datatable
+            if (Data.Rows.Count > 1)
+            {
+                DataRow lastRow = Data.Rows[Data.Rows.Count - 1];
+                //Mapeamos los valores de código y descripción en un datarow.
+
+                dr["Code"] = lastRow["Code"].ToString();
+                dr["Descripción Herramental"] = lastRow["Descripción Herramental"].ToString();
+                dr["Medida Nominal"] = lastRow["Medida Nominal"].ToString();
+
+                //Agregamnos el datarow al datatable resultante.
+                DataR.Rows.Add(dr);
+            }
+            else if (Data.Rows.Count != 0)
+            {
+                //Sólo se hace la iteración una vez
+                foreach (DataRow row in Data.Rows)
+                {
+                    dr["Code"] = row["Code"].ToString();
+                    dr["Descripción Herramental"] = row["Descripción Herramental"].ToString();
+                    dr["Medida Nominal"] = row["Medida Nominal"].ToString();
+
+                    //Agregamnos el datarow al datatable resultante.
+                    DataR.Rows.Add(dr);
+                    break;
+                }
+            }
+
+            return DataR;
+        }
+
         /// <summary>
         /// Método que obtiene todos los registros para poder modificarlos o eliminarlos
         /// </summary>
