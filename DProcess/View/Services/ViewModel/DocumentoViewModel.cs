@@ -1551,7 +1551,7 @@ namespace View.Services.ViewModel
                 ban = DataManagerControlDocumentos.ExistsCodeValidation(codeValidation);
             }
 
-            codigo = SelectedDocumento.nombre + "*" + Version + "*" + Fecha + "*" + codeValidation;
+            codigo = SelectedDocumento.nombre + "*" + Version + "*" + codeValidation + "*";
 
             //Encriptamos el codigo.
             string codigoEncriptado = Seguridad.Encriptar(codigo);
@@ -1601,7 +1601,7 @@ namespace View.Services.ViewModel
                                 break;
                         }
 
-                        //pdfContentByte.AddImage(image);
+                        pdfContentByte.AddImage(image);
                     }
                     stamper.Close();
                 }

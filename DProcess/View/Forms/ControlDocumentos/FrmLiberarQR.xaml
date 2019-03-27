@@ -36,7 +36,7 @@
             </i:Interaction.Triggers>
         </DataGrid>
         <StackPanel Grid.Row="0" Grid.Column="1">
-            <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" HorizontalAlignment="Left">
+            <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" HorizontalAlignment="Left" Text="{Binding TextoBuscar}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="TextChanged">
                         <i:InvokeCommandAction
