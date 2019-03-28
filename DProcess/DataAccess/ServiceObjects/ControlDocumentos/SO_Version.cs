@@ -702,7 +702,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
-        /// Método que actualiza el campo CODE_VALIDATION
+        /// Método que actua liza el campo CODE_VALIDATION
         /// </summary>
         /// <param name="idVersion"></param>
         /// <param name="codeValidation"></param>

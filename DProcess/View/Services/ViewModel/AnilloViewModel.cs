@@ -1311,7 +1311,6 @@ namespace View.Services.ViewModel
                 anilloProcesado.PropiedadesAdquiridasProceso.Add(new Propiedad { TipoDato = "Distance", DescripcionCorta = "Piece", DescripcionLarga = "Piece", Imagen = null, Nombre = "Piece", Unidad = "Inch (in)", Valor = calcularMateriaPrima.Piece });
 
                 calcularDimenciones();
-
             }
             else
             {
