@@ -570,7 +570,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método que muestra la ventana con todos los documentos en estátus de Pendiente po corregir.
+        /// Método que muestra la ventana con todos los documentos en estátus de Pendiente por corregir.
         /// </summary>
         private void irTodosDocumentosPendientesCorregir()
         {
@@ -591,7 +591,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método que muestra la ventada de documentos pendientes por liberar de un usuario
+        /// Método que muestra la ventana de documentos pendientes por liberar de un usuario
         /// </summary>
         private void _irPendientesLiberar()
         {

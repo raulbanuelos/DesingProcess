@@ -1551,7 +1551,8 @@ namespace View.Services.ViewModel
                 ban = DataManagerControlDocumentos.ExistsCodeValidation(codeValidation);
             }
 
-            codigo = SelectedDocumento.nombre + "*" + Version + "*" + codeValidation + "*";
+           // codigo = SelectedDocumento.nombre + " " + Version + " " + codeValidation + " ";
+            codigo =  codeValidation + "*";
 
             //Encriptamos el codigo.
             string codigoEncriptado = Seguridad.Encriptar(codigo);

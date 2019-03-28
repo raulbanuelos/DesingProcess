@@ -97,6 +97,36 @@ namespace Model.ControlDocumentos
             return documento;
         }
 
+        public static List<Archivo> GetArchivoFiltrado(string CodigoValidacion)
+        {
+
+            SO_Archivo ServiceArchivo = new SO_Archivo();
+
+            List<Archivo> documento = new List<Archivo>();
+            IList ObjArchivo = ServiceArchivo.GetArchivoFiltrado(CodigoValidacion);
+
+            if (ObjArchivo != null)
+            {
+                foreach (var item in ObjArchivo)
+                {
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    Archivo obj = new Archivo();
+
+                    obj.id_archivo = (int)tipo.GetProperty("ID_ARCHIVO").GetValue(item, null);
+                    obj.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    obj.archivo = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
+                    obj.ext = (string)tipo.GetProperty("EXT").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
+
+                    documento.Add(obj);
+
+                }
+            }
+            return documento;
+        }
+
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_Archivo
         /// </summary>
@@ -2546,6 +2576,55 @@ namespace Model.ControlDocumentos
                     obj.usuario = (string)tipo.GetProperty("NOMBRE_USUARIO").GetValue(item, null);
                     
                     
+                    obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    obj.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
+                    obj.version.id_usuario = (string)tipo.GetProperty("ID_USUARIO_ELABORO").GetValue(item, null);
+                    obj.version.id_usuario_autorizo = (string)tipo.GetProperty("ID_USUARIO_AUTORIZO").GetValue(item, null);
+                    obj.version.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    obj.version.CodeValidation = (string)tipo.GetProperty("CODE_VALIDATION").GetValue(item, null);
+                    obj.version.id_documento = obj.id_documento;
+                    obj.version.descripcion_v = (string)tipo.GetProperty("DESCRIPCION_VERSION").GetValue(item, null);
+
+                    //Agregamos a la lista resultante
+                    Lista.Add(obj);
+                }
+            }
+            //Retornamos la lista
+            return Lista;
+        }
+
+        public static ObservableCollection<Documento> GetDocumentos_PendientesXLiberar(string CodigoValidacion)
+        {
+            //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
+            ObservableCollection<Documento> Lista = new ObservableCollection<Documento>();
+
+            //Inicializamos los servicios de documento.
+            SO_Documento ServicioDocumento = new SO_Documento();
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            //le mandamos un parametro que servira para filtrar los datos
+            IList informacionBD = ServicioDocumento.GetDocumentosAprobadosBuscadosCodigoValidacion(CodigoValidacion);
+
+            //Si la lista es diferente de nulo
+            if (informacionBD != null)
+            {
+                //Iteramos la lista
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Creamos un objeto de tipo Documento
+                    Documento obj = new Documento();
+
+                    //Asignamos los valores correspondientes.
+                    obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.usuario = (string)tipo.GetProperty("NOMBRE_USUARIO").GetValue(item, null);
+
+
                     obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     obj.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
                     obj.version.id_usuario = (string)tipo.GetProperty("ID_USUARIO_ELABORO").GetValue(item, null);

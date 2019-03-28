@@ -71,6 +71,33 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="codigoValidacion"></param>
+        /// <returns></returns>
+        public IList GetArchivoFiltrado(string codigoValidacion)
+        {
+            try
+            {
+                using (var conexion = new EntitiesControlDocumentos())
+                {
+                    var lista = (from a in conexion.TBL_ARCHIVO
+                                 join b in conexion.TBL_VERSION on a.ID_VERSION equals b.ID_VERSION
+                                 where b.CODE_VALIDATION == codigoValidacion
+                                 select a).ToList();
+
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+
         /// <summary>
         /// Método par insertar un registro en la tabla TBL_archivo.
         /// </summary>

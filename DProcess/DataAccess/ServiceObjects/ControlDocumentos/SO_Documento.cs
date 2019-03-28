@@ -864,6 +864,46 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        public IList GetDocumentosAprobadosBuscadosCodigoValidacion(string CodigoValidacion)
+        {
+            try
+            {
+                //Se inician los servicios de Entity Control Documento
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Se realiza la consulta
+                    var Lista = (from d in Conexion.TBL_DOCUMENTO
+                                 join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                 join u in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals u.Usuario
+                                 join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
+                                 where v.ID_ESTATUS_VERSION == 5 && v.CODE_VALIDATION == CodigoValidacion
+                                 select new
+                                 {
+                                     d.ID_DOCUMENTO,
+                                     d.NOMBRE,
+                                     NOMBRE_USUARIO = u.Nombre + " " + u.APaterno + " " + u.AMaterno,
+                                     t.TIPO_DOCUMENTO,
+                                     v.No_VERSION,
+                                     v.FECHA_VERSION,
+                                     v.ID_USUARIO_ELABORO,
+                                     ID_VERSION = v.ID_VERSION,
+                                     ID_USUARIO_AUTORIZO = v.ID_USUARIO_AUTORIZO,
+                                     ID_TIPO_DOCUMENTO = d.ID_TIPO_DOCUMENTO,
+                                     CODE_VALIDATION = v.CODE_VALIDATION,
+                                     DESCRIPCION_VERSION = v.DESCRIPCION
+                                 }).ToList();
+
+                    //Retorna la lista
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Retorna nulo, si hay error
+                return null;
+            }
+        }
+
         /// <summary>
         /// Método que obtiene todos los documentos pendientes por liberar de un determinado usuarip
         /// </summary>

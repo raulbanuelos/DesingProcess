@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using View.Resources;
+using Encriptar;
 
 namespace View.Services.ViewModel
 {
@@ -71,6 +72,7 @@ namespace View.Services.ViewModel
         #region Constructors
         public DocumentosLiberarQR(Usuario ModelUsuario)
         {
+
             User = ModelUsuario;
             inicampo(string.Empty);
         }
@@ -96,7 +98,8 @@ namespace View.Services.ViewModel
         {
             DialogService dialog = new DialogService();
 
-            string desc = string.Empty;
+
+            string desc = string.Empty; 
             string[] vec = new string[] { };
 
                 try
@@ -107,20 +110,21 @@ namespace View.Services.ViewModel
 
                 if (contador < 2)
                 {
-                    if (vec.Length == 4)
+                   if (vec.Length == 2)
                     {
                         contador++;
-                        string codigo = vec[0];
-                        string codigoValidacion = vec[2];
 
-                        ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesLiberar(codigo);
+                        string codigoValidacion = vec[0];
+
+
+                        ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesXLiberar(codigoValidacion);
 
                         if (ListaDocumentosValidar.Count == 1)
                         {
                             Documento doc = ListaDocumentosValidar[0];
                             if (doc.version.CodeValidation == codigoValidacion)
                             {
-                                List<Archivo> ListArchivo = DataManagerControlDocumentos.GetArchivoFiltrado(doc.version.id_version);
+                                List<Archivo> ListArchivo = DataManagerControlDocumentos.GetArchivoFiltrado(doc.version.CodeValidation);
 
                                 if (ListArchivo.Count > 0)
                                 {
