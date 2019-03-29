@@ -10,6 +10,7 @@ namespace View.Forms.ControlDocumentos
         public FrmLiberarQR()
         {
             InitializeComponent();
+            txt_busqueda.Focus();
         }
     }
 }
