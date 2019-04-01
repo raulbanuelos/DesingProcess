@@ -1811,7 +1811,6 @@ namespace Model.ControlDocumentos
 
         }
 
-
         /// <summary>
         /// Método para modificar un registro en la tabla.
         /// </summary>
@@ -1902,6 +1901,28 @@ namespace Model.ControlDocumentos
             //Se ejecuta el método y retorna número de registros eliminados.
             return ServiceUsuarios.GetNombreUsuario(usuario);
         }
+
+        /// <summary>
+        /// Método que obtiene el correo filtrado por nombre 
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <returns></returns>
+        public static string GetCorreoUsuario(string idUsuario)
+        {
+            //Inicializamos los servicios del usuario.
+            SO_Usuarios ServicioUsuario = new SO_Usuarios();
+
+            return ServicioUsuario.GetCorreoUsuario(idUsuario);
+        }
+
+        public static string GetPath(string idUsuario)
+        {
+            //Inicializamos los servicios del usuario.
+            SO_Usuarios ServicioUsuario = new SO_Usuarios();
+
+            return ServicioUsuario.GetPathSnf(idUsuario);
+        }
+
         #endregion
 
         #region Version
@@ -2744,7 +2765,7 @@ namespace Model.ControlDocumentos
         /// <param name="dt"></param>
         /// <param name="nDays"></param>
         /// <returns></returns>
-        private static DateTime AddBusinessDays(DateTime dt, int nDays)
+        public static DateTime AddBusinessDays(DateTime dt, int nDays)
         {
             int weeks = nDays / 5;
             nDays %= 5;
@@ -2900,6 +2921,7 @@ namespace Model.ControlDocumentos
 
             return ServiceVersion.UpdateCodeValidation(idVersion, codeValidation);
         }
+
 
         #endregion
 

@@ -21,7 +21,7 @@ namespace View.Services.ViewModel
     public class ValidarDocumentoViewM : INotifyPropertyChanged
     {
         #region Attributes
-        private Usuario _usuarioLogueado; 
+        private Usuario _usuarioLogueado;
         #endregion
 
         #region Propiedades
@@ -84,7 +84,8 @@ namespace View.Services.ViewModel
         }
 
         private bool isSelected = false;
-        public bool IsSelected {
+        public bool IsSelected
+        {
             get
             {
                 return isSelected;
@@ -235,7 +236,7 @@ namespace View.Services.ViewModel
 
                     //se asigna el nombre del archivo temporal, se concatena el nombre del archivo, la posicion de la lista y la extensión.
                     string filename = GetPathTempFile(archivo);
-                    
+
                     string waterMarkText = "MAHLE CONTROL DE DOCUMENTOS / DOCUMENTO LIBERADO ELECTRÓNICAMENTE Y TIENE VELIDEZ SIN FIRMA." + " DISPOSICIÓN: " + "00/00/0000";
                     string waterMarkText2 = "ÚNICAMENTE EL SELLO ES PARA PRUEBA Y NO TIENE NINGUNA VALIDEZ.";
                     string waterMarkText3 = "LAS COPIAS CON ESTE  SELLO NO TIENEN   NINGUNA VALIDEZ OFICIAL.";
@@ -268,7 +269,7 @@ namespace View.Services.ViewModel
                     {
                         var dc = stamper.GetOverContent(i);
 
-                        
+
 
                         Rectangle realPageSize = reader.GetPageSizeWithRotation(i);
 
@@ -320,7 +321,7 @@ namespace View.Services.ViewModel
                 {
                     DO_Notification notificacion = new DO_Notification();
                     notificacion.TITLE = StringResources.ttlDocumentoAprobado;
-                    notificacion.MSG =StringResources.msgDocumento +" "+ SelectedDocumento.nombre + "\n"+ StringResources.lblVersion +" " +selectedDocumento.version.no_version + "\n"+ StringResources.ttlEntregarDocumento;
+                    notificacion.MSG = StringResources.msgDocumento + " " + SelectedDocumento.nombre + "\n" + StringResources.lblVersion + " " + selectedDocumento.version.no_version + "\n" + StringResources.ttlEntregarDocumento;
                     notificacion.TYPE_NOTIFICATION = 1;
                     notificacion.ID_USUARIO_RECEIVER = Usuario.id_usuario;
                     notificacion.ID_USUARIO_SEND = "ADMINISTRADOR";
@@ -332,7 +333,7 @@ namespace View.Services.ViewModel
                 {
                     DO_Notification notificacion = new DO_Notification();
                     notificacion.TITLE = StringResources.ttlDocumentoRechazado;
-                    notificacion.MSG = StringResources.msgDocumento +" " + SelectedDocumento.nombre + "\n"+ StringResources.lblVersion +" "+ selectedDocumento.version.no_version + "\n"+ StringResources.ttlRechazarDocumento;
+                    notificacion.MSG = StringResources.msgDocumento + " " + SelectedDocumento.nombre + "\n" + StringResources.lblVersion + " " + selectedDocumento.version.no_version + "\n" + StringResources.ttlRechazarDocumento;
                     notificacion.TYPE_NOTIFICATION = 3;
                     notificacion.ID_USUARIO_RECEIVER = Usuario.id_usuario;
                     notificacion.ID_USUARIO_SEND = "ADMINISTRADOR";
@@ -388,6 +389,22 @@ namespace View.Services.ViewModel
                     {
                         //Se llama a la función para actualizar el estatus de la versión
                         UpdateVersion(objVersion);
+
+                        // Se manda notificación al correo
+                        if (selectedDocumento.id_tipo_documento == 1003 || selectedDocumento.id_tipo_documento == 1005 || selectedDocumento.id_tipo_documento == 1006 || selectedDocumento.id_tipo_documento == 1011 || selectedDocumento.id_tipo_documento == 1012 || selectedDocumento.id_tipo_documento == 1013 || selectedDocumento.id_tipo_documento == 1014)
+                        {
+                            string confirmacion = string.Empty;
+                            if (NotificarDocumentoAprobado())
+                            {
+                                confirmacion = StringResources.msgNotificacionCorreo;
+                            }
+                            else
+                            {
+                                confirmacion = StringResources.msgNotificacionCorreoFallida;
+
+                            }
+                            await dialog.SendMessage(StringResources.ttlAlerta, confirmacion);
+                        }
                     }
                     else
                     {
@@ -422,6 +439,24 @@ namespace View.Services.ViewModel
                     {
                         //Se llama a la función para actualizar el estatus de la versión
                         UpdateVersion(objVersion);
+
+                        // Se manda notificación al correo
+                        if (selectedDocumento.id_tipo_documento == 1003 || selectedDocumento.id_tipo_documento == 1005 || selectedDocumento.id_tipo_documento == 1006 || selectedDocumento.id_tipo_documento == 1011 || selectedDocumento.id_tipo_documento == 1012 || selectedDocumento.id_tipo_documento == 1013 || selectedDocumento.id_tipo_documento == 1014)
+                        {
+                            string confirmacion = string.Empty;
+                            if (NotificarDocumentoAprobado())
+                            {
+                                confirmacion = StringResources.msgNotificacionCorreo;
+                            }
+                            else
+                            {
+                               confirmacion = StringResources.msgNotificacionCorreoFallida;
+
+                            }
+                            await dialog.SendMessage(StringResources.ttlAlerta, confirmacion);
+
+                        }
+
                     }
                     else
                     {
@@ -506,6 +541,112 @@ namespace View.Services.ViewModel
             } while (File.Exists(filename));
 
             return filename;
+        }
+
+        private bool NotificarDocumentoAprobado()
+        {
+            ServiceEmail serviceMail = new ServiceEmail();
+            string CorreoUsuarioElaboro = DataManagerControlDocumentos.GetCorreoUsuario(SelectedDocumento.version.id_usuario);
+            DateTime fechahoy = DataManagerControlDocumentos.Get_DateTime();
+            DateTime fechaCompromisoEntrega = DataManagerControlDocumentos.AddBusinessDays(fechahoy, 2);
+
+            string hora = fechaCompromisoEntrega.Hour.ToString();
+            if (fechaCompromisoEntrega.Hour.ToString().Length == 1)
+                hora = "0" + fechaCompromisoEntrega.Hour;
+
+            string minuto = fechaCompromisoEntrega.Minute.ToString();
+            if (fechaCompromisoEntrega.Minute.ToString().Length == 1)
+                minuto = "0" + fechaCompromisoEntrega.Minute;
+
+            string FechaMes = fechaCompromisoEntrega.Month.ToString();
+            if (fechaCompromisoEntrega.Month.ToString().Length == 1)
+                FechaMes = "0" + fechaCompromisoEntrega.Month;
+
+            string FechaDia = fechaCompromisoEntrega.Day.ToString();
+            if (fechaCompromisoEntrega.Day.ToString().Length == 1)
+                FechaDia = "0" + fechaCompromisoEntrega.Day;
+
+            string fechacompromiso = fechaCompromisoEntrega.Year + "-" + FechaMes + "-" + FechaDia + "  " + hora + ":" + minuto;
+
+            string[] correos = new string[2];
+            correos[0] = CorreoUsuarioElaboro;
+            correos[1] = "raul.banuelos@mx.mahle.com";
+
+            string path = _usuarioLogueado.Pathnsf;
+            string title = "Documento aprobado - " + SelectedDocumento.nombre;
+            string body = string.Empty;
+            string tipo_documento = string.Empty;
+
+            switch (SelectedDocumento.id_tipo_documento)
+            {
+                case 1012:
+                    tipo_documento = "EL FORMATO ESPECÍFICO";
+                    break;
+                case 1013:
+                    tipo_documento = "EL FORMATO OHSAS";
+                    break;
+                case 1014:
+                    tipo_documento = "EL FORMATO ISO";
+                    break;
+                case 1011:
+                    tipo_documento = "LA MIE";
+                    break;
+                case 1003:
+                    tipo_documento = "EL PROCEDIMIENTO OHSAS";
+                    break;
+                case 1005:
+                    tipo_documento = "EL PROCEDIMIENTO ESPECÍFICO";
+                    break;
+                case 1006:
+                    tipo_documento = "EL PROCEDIMIENTO ISO";
+                    break;
+
+                default:
+                    break;
+            }
+
+            body = "<HTML>";
+            body += "<head>";
+            body += "<meta http-equiv=\"Content - Type\" content=\"text / html; charset = utf - 8\"/>";
+            body += "</head>";
+            body += "<body text=\"white\">";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
+            body += "<ul>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + SelectedDocumento.nombre + "</b> versión <b> " + SelectedDocumento.version.no_version + ".0" + " </b> ha sido aprobado y tiene hasta el día <b>  " + fechacompromiso + " </b> si no el sistema lo rechazará automáticamente. </font> </li>";
+            body += "<br/>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + SelectedDocumento.nombre + "</b></font></li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Descripción : <b>" + SelectedDocumento.descripcion + "</b></font></li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Versión : <b>" + SelectedDocumento.version.no_version + ".0" + "</b></font></li>";
+            body += "</ul>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
+            body += "<br/>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Este correo se ha generado automáticamente, por favor no responda.</font> </p>";
+            body += "<br/>";
+            body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
+            body += "<ul>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + _usuarioLogueado.Nombre + " " + "</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">MAHLE Componentes de Motor de México, S. de R.L. de C.V.</font></li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Engineering (ENG)</font> </li>";
+            body += "<li></li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Km. 0.3 Carr. Maravillas-Jesús María , 20900 Aguascalientes, Mexico</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Teléfono: +52 449 910 8200-82 90, Fax: +52 449 910 8200 - 267</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + _usuarioLogueado.Correo + ",</font> <a href=\"http://www.mx.mahle.com\">http://www.mx.mahle.com</a>  </li>";
+            body += "</ul>";
+            body += "</body>";
+            body += "</HTML>";
+
+            bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body);
+
+            return respuesta;
+
+        }
+
+        private string definirSaludo()
+        {
+            DateTime d = DateTime.Now;
+            string saludo = string.Empty;
+
+            return d.Hour <= 11 ? "Buenos días;" : "Buenas tardes;";
         }
 
         #endregion

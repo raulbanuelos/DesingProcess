@@ -66,7 +66,6 @@ namespace View.Services.ViewModel
 
         #endregion
 
-
         #region Constructor
         public EstatusDocumentosVM(Usuario _usuario)
         {

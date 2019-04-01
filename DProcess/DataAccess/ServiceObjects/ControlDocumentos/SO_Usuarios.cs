@@ -447,5 +447,55 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        /// <summary>
+        /// Método que obtiene el correo de un usuario
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <returns></returns>
+        public string GetCorreoUsuario(string idUsuario)
+        {
+            try
+            {
+                using (var conexio = new EntitiesControlDocumentos())
+                {
+
+                    string Correo = (from u in conexio.Usuarios
+                                 where u.Usuario == idUsuario
+                                 select u.Correo).FirstOrDefault();
+
+                    return Correo;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene el pathsnf de un usuario
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <returns></returns>
+        public string GetPathSnf(string idUsuario)
+        {
+            try
+            {
+                using (var conexio = new EntitiesControlDocumentos())
+                {
+
+                    string Pathsnf = (from u in conexio.Usuarios
+                                     where u.Usuario == idUsuario
+                                     select u.Pathnsf).FirstOrDefault();
+
+                    return Pathsnf;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
     }
 }
