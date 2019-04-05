@@ -81,6 +81,7 @@
     <Compile Include="ControlDocumentos\TIPOCAMBIO.cs" />
     <Compile Include="ControlDocumentos\Rol.cs" />
     <Compile Include="ControlDocumentos\TipoDocumento.cs" />
+    <Compile Include="ControlDocumentos\TipoError.cs" />
     <Compile Include="ControlDocumentos\Usuarios.cs" />
     <Compile Include="ControlDocumentos\ValidacionDocumento.cs" />
     <Compile Include="ControlDocumentos\Version.cs" />

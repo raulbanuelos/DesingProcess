@@ -130,7 +130,7 @@ namespace View.Services
         /// <returns>Valor de la propiedad.</returns>
         public static double GetValorPropiedad(string NombrePropiedad, List<Propiedad> Lista)
         {
-            //Declaramos una variable doubble que será la que retornemos en el método.
+            //Declaramos una variable double que será la que retornemos en el método.
             double valor = 0;
 
             //Itermamos la lista para buscar el valor de la propiedad.
@@ -1337,5 +1337,35 @@ namespace View.Services
             }
             return NumeroDecimal;
         }
+
+
+
+        //public static string EliminarUsuarioIgual(string[] correos)
+        //{
+        //    Declaramos vector que retornaremos en el método
+        //    string[] listacorreos;
+        //    int contador = 0;
+
+        //    Recorremos el vector buscando usuario en caso de que se repita
+        //    foreach (string i in listacorreos)
+        //    {
+        //        if (listacorreos.Contains(i))
+        //        {
+        //            contador++;
+        //            if (contador >= 2)
+        //            {
+        //                correos = [];
+        //                listacorreos = set(correos);
+        //                listacorreos;
+        //            }
+        //            List(listacorreos);
+        //        }
+
+        //    }
+
+        //    Retornamos vector
+        //    return listacorreos;
+        //}
+
     }
 }

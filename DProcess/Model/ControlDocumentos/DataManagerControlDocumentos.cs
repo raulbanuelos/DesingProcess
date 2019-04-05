@@ -1341,6 +1341,35 @@ namespace Model.ControlDocumentos
             return servicio.GetFechaPrimerVersion(Id_Documento);
         }
 
+        public static ObservableCollection<TipoError> GetAllTipoError()
+        {
+            SO_TipoError errortipo = new SO_TipoError();
+
+            ObservableCollection<TipoError> List = new ObservableCollection<TipoError>();
+
+            IList Data = errortipo.GetAllTipoError();
+
+            if (Data != null)
+            {
+                foreach (var item in Data)
+                {
+                    //Obtenemos el tipo
+                    System.Type tipo = item.GetType();
+                    //Declaramos el objeto 
+                    TipoError obj = new TipoError();
+                    obj.IsSelected = false;
+
+                    obj.ID_NOTIFICACION_ERROR = (int)tipo.GetProperty("ID_NOTIFICACION_ERROR").GetValue(item, null);
+                    obj.DESCRIPCION_ERROR = (string)tipo.GetProperty("DESCRIPCION_ERROR").GetValue(item, null);
+
+                    List.Add(obj);
+                }
+            }
+
+            //Regresamos la lista
+            return List;
+        }
+
         #endregion
 
         #region Rol

@@ -586,7 +586,6 @@ namespace View.Services.ViewModel
             //Mostramos la pantalla.
             frm.ShowDialog();
 
-
             initSnack();
         }
 
@@ -703,11 +702,11 @@ namespace View.Services.ViewModel
         /// </summary>
         private void initControlDocumentos()
         {
-            _ListaTipoDocumento = DataManagerControlDocumentos.GetTipo();
+            ListaTipoDocumento = DataManagerControlDocumentos.GetTipo();
         
-            if (_ListaTipoDocumento.Count > 0)
+            if (ListaTipoDocumento.Count > 0)
             {
-                SelectedTipoDocumento = _ListaTipoDocumento[0];
+                SelectedTipoDocumento = ListaTipoDocumento[0];
             }
             GetDataGrid(string.Empty);       
         }

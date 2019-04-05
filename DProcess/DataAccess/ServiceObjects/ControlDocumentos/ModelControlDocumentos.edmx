@@ -97,6 +97,13 @@
           <Property Name="DESCRIPCION" Type="varchar(max)" />
           <Property Name="NOMBRE_USUARIO" Type="varchar" MaxLength="200" />
         </EntityType>
+        <EntityType Name="TBL_NOTIFICACION_ERROR">
+          <Key>
+            <PropertyRef Name="ID_NOTIFICACION_ERROR" />
+          </Key>
+          <Property Name="ID_NOTIFICACION_ERROR" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRIPCION_ERROR" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="TBL_RECURSO_TIPO_DOCUMENTO">
           <Key>
             <PropertyRef Name="ID_RECURSO_TIPO_DOCUMENTO" />
@@ -410,6 +417,7 @@
           <EntitySet Name="TBL_ESTATUS_DOCUMENTO" EntityType="Self.TBL_ESTATUS_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ESTATUS_VERSION" EntityType="Self.TBL_ESTATUS_VERSION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_HISTORIAL_VERSION" EntityType="Self.TBL_HISTORIAL_VERSION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_NOTIFICACION_ERROR" EntityType="Self.TBL_NOTIFICACION_ERROR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_RECURSO_TIPO_DOCUMENTO" EntityType="Self.TBL_RECURSO_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ROL" EntityType="Self.TBL_ROL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_TIPO_DOCUMENTO" EntityType="Self.TBL_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
@@ -579,6 +587,7 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
           </AssociationSet>
+          <EntitySet Name="TBL_NOTIFICACION_ERROR" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_NOTIFICACION_ERROR" />
           </EntityContainer>
         <EntityType Name="TBL_ARCHIVO">
           <Key>
@@ -1009,6 +1018,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_NOTIFICACION_ERROR">
+          <Key>
+            <PropertyRef Name="ID_NOTIFICACION_ERROR" />
+          </Key>
+          <Property Name="ID_NOTIFICACION_ERROR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRIPCION_ERROR" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1221,6 +1237,14 @@
                 <ScalarProperty Name="ID_USUARIO_ELABORO" ColumnName="ID_USUARIO_ELABORO" />
                 <ScalarProperty Name="ID_ESTATUS_VERSION" ColumnName="ID_ESTATUS_VERSION" />
                 <ScalarProperty Name="ID_VERSION" ColumnName="ID_VERSION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_NOTIFICACION_ERROR">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TBL_NOTIFICACION_ERROR">
+              <MappingFragment StoreEntitySet="TBL_NOTIFICACION_ERROR">
+                <ScalarProperty Name="DESCRIPCION_ERROR" ColumnName="DESCRIPCION_ERROR" />
+                <ScalarProperty Name="ID_NOTIFICACION_ERROR" ColumnName="ID_NOTIFICACION_ERROR" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

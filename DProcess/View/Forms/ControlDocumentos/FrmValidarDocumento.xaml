@@ -103,6 +103,25 @@
                         <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblUsuarioAutorizo}" Text="{Binding Usuario.nombre_usuario_autorizo}" Width="420" Height="50" FontSize="18" IsReadOnly="True"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
                     <Button Content="{x:Static recursos:StringResources.ttlVistaPrevia}" Width="120" HorizontalAlignment="Left" Command="{Binding VerVistaPrevia}"></Button>
+                    <StackPanel>
+                        <DataGrid ItemsSource="{Binding ListaNotificacionError}" 
+                                      ScrollViewer.CanContentScroll="True" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                          CanUserAddRows="False"
+                                      Height="200"
+                              Grid.Row="0" AutoGenerateColumns="False" SelectionChanged="DataGrid_SelectionChanged" Margin="0,30,0,0"  Visibility="{Binding visible}">
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            Header="{x:Static recursos:StringResources.lblNotificar}"
+                                            Binding="{Binding IsSelected}"
+                                            />
+                                <DataGridTextColumn Header="Tipo de error" Binding="{Binding DESCRIPCION_ERROR}" IsReadOnly="True">
+                                </DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
                 </StackPanel>
 
                 <Grid Grid.Row="1">
@@ -113,7 +132,7 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel  Orientation="Horizontal">
                         <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" VerticalAlignment="Top"
-                          ToolTip="{x:Static recursos:StringResources.lblLiberado}" Height="70"  Width="60"  IsChecked="{Binding IsSelected}">
+                          ToolTip="{x:Static recursos:StringResources.lblLiberado}" Height="70"  Width="60"  IsChecked="{Binding IsSelected}" Checked="ToggleButton_Checked">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Checked">
                                     <i:InvokeCommandAction
@@ -130,7 +149,7 @@
                         </ToggleButton>
                     </StackPanel>
                     <Button x:Name="button" Content="{x:Static recursos:StringResources.lblGuardar}"  HorizontalAlignment="Left" Height="40" Width="90" Grid.Column="2" VerticalAlignment="Top"
-                    Command="{Binding Guardar}" Margin="5,10,0,0" />
+                    Command="{Binding Guardar}" Margin="5,10,0,0"/>
                 <Label Content="{Binding Estatus}" FontSize="15" FontWeight="Bold"  HorizontalAlignment="Left" Height="31" Grid.Column="1" VerticalAlignment="Top" Width="281" IsEnabled="False" Margin="0,19,0,0" />
                 </Grid>
             </Grid>

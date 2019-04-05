@@ -43,5 +43,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public virtual DbSet<TBL_DOCUMENTO_ELIMINADO> TBL_DOCUMENTO_ELIMINADO { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<TBL_VERSION> TBL_VERSION { get; set; }
+        public virtual DbSet<TBL_NOTIFICACION_ERROR> TBL_NOTIFICACION_ERROR { get; set; }
     }
 }

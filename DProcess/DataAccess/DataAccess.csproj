@@ -82,6 +82,7 @@
     <Compile Include="ServiceObjects\ControlDocumentos\SO_RecursoTipoDocumento.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Rol.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Sealed.cs" />
+    <Compile Include="ServiceObjects\ControlDocumentos\SO_TipoError.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Usuarios.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Validacion.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Version.cs" />
@@ -110,6 +111,9 @@
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_HISTORIAL_VERSION.cs">
+      <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\TBL_NOTIFICACION_ERROR.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_RECURSO_TIPO_DOCUMENTO.cs">
