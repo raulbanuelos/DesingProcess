@@ -357,7 +357,7 @@ namespace View.Services.ViewModel
         /// Funcíón que modifica la versión
         /// </summary>
         /// <param name="objVersion"></param>
-        public async void UpdateVersion(Model.ControlDocumentos.Version objVersion, bool Confirmar)
+        public async void UpdateVersion(Model.ControlDocumentos.Version objVersion, bool Confirmar, bool Aprobado)
         {
             //Se llama al método para actualizar el estatus de la version
             int update_version = DataManagerControlDocumentos.Update_EstatusVersion(objVersion, _usuarioLogueado, SelectedDocumento.nombre);
@@ -368,14 +368,30 @@ namespace View.Services.ViewModel
                 if (Confirmar == true)
                 {
                     string confirmacion = string.Empty;
-                    if (NotificarDocumentoAprobado())
+                    if (Aprobado == true)
                     {
-                        confirmacion = StringResources.msgNotificacionCorreo + "\n" + "ESTATUS DE LA VERSION ACTUALIZADA";
+
+                        if (NotificarDocumentoAprobado())
+                        {
+                            confirmacion = StringResources.msgNotificacionCorreo + "\n" + "ESTATUS DE LA VERSION ACTUALIZADA";
+                        }
+                        else
+                        {
+                            confirmacion = StringResources.msgNotificacionCorreoFallida + "\n" + "ESTATUS DE LA VERSION ACTUALIZADA";
+
+                        }
                     }
                     else
                     {
-                        confirmacion = StringResources.msgNotificacionCorreoFallida + "\n" + "ESTATUS DE LA VERSION ACTUALIZADA";
+                        if (NotificarDocumentoRechazado())
+                        {
+                            confirmacion = StringResources.msgNotificacionCorreo + "\n" + "ESTATUS DE LA VERSION ACTUALIZADA";
+                        }
+                        else
+                        {
+                            confirmacion = StringResources.msgNotificacionCorreoFallida + "\n" + "ESTATUS DE LA VERSION ACTUALIZADA";
 
+                        }
                     }
                     await dialog.SendMessage(StringResources.ttlAlerta, confirmacion);
                 }else
@@ -436,6 +452,7 @@ namespace View.Services.ViewModel
             //isSelected es falso, id_estatus=pendiente por corregir, verdadero estatus= aprobado pendiente por liberar
             //
             bool Confirmacion = false;
+            bool Aprobado = false;
             string version = SelectedDocumento.version.no_version;
             Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
             objVersion.id_version = SelectedDocumento.version.id_version;
@@ -443,14 +460,15 @@ namespace View.Services.ViewModel
 
             int last_id = DataManagerControlDocumentos.GetID_LastVersion(SelectedDocumento.id_documento, SelectedDocumento.version.id_version);
 
+            if (selectedDocumento.id_tipo_documento == 1003 || selectedDocumento.id_tipo_documento == 1005 || selectedDocumento.id_tipo_documento == 1006 || selectedDocumento.id_tipo_documento == 1011 || selectedDocumento.id_tipo_documento == 1012 || selectedDocumento.id_tipo_documento == 1013 || selectedDocumento.id_tipo_documento == 1014)
+            {
+                Confirmacion = true;
+            }
+
             // Si el checkbox es verdadero
             if (isSelected == true)
             {
-                if (selectedDocumento.id_tipo_documento == 1003 || selectedDocumento.id_tipo_documento == 1005 || selectedDocumento.id_tipo_documento == 1006 || selectedDocumento.id_tipo_documento == 1011 || selectedDocumento.id_tipo_documento == 1012 || selectedDocumento.id_tipo_documento == 1013 || selectedDocumento.id_tipo_documento == 1014)
-                {
-                    Confirmacion = true;
-                }
-
+                Aprobado = true;
                 //Si el documento no tiene otra versión
                 if (last_id == 0)
                 {
@@ -465,7 +483,7 @@ namespace View.Services.ViewModel
                     if (n != 0)
                     {
                         //Se llama a la función para actualizar el estatus de la versión
-                        UpdateVersion(objVersion,Confirmacion);
+                        UpdateVersion(objVersion,Confirmacion,Aprobado);
                     }
                     else
                     {
@@ -479,7 +497,7 @@ namespace View.Services.ViewModel
                     objVersion.id_estatus_version = 5;
 
                     //Se llama a la función para actualizar el estatus de la versión
-                    UpdateVersion(objVersion,Confirmacion);
+                    UpdateVersion(objVersion,Confirmacion,Aprobado);
                 }
 
             }
@@ -510,7 +528,7 @@ namespace View.Services.ViewModel
                         if (n != 0)
                         {
                             //Se llama a la función para actualizar el estatus de la versión
-                            UpdateVersion(objVersion,Confirmacion);
+                            UpdateVersion(objVersion,Confirmacion,Aprobado);
                         }
                         else
                         {
@@ -524,7 +542,7 @@ namespace View.Services.ViewModel
                         //Estatus pendiente por corregir.
                         objVersion.id_estatus_version = 4;
                         //Se llama a la función para actualizar el estatus de la versión
-                        UpdateVersion(objVersion,Confirmacion);
+                        UpdateVersion(objVersion,Confirmacion,Aprobado);
                     }
                 }
                 else
