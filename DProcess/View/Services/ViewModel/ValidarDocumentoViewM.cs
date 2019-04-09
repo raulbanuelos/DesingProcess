@@ -483,7 +483,7 @@ namespace View.Services.ViewModel
                     if (n != 0)
                     {
                         //Se llama a la función para actualizar el estatus de la versión
-                        UpdateVersion(objVersion,Confirmacion,Aprobado);
+                        UpdateVersion(objVersion, Confirmacion, Aprobado);
                     }
                     else
                     {
@@ -497,13 +497,14 @@ namespace View.Services.ViewModel
                     objVersion.id_estatus_version = 5;
 
                     //Se llama a la función para actualizar el estatus de la versión
-                    UpdateVersion(objVersion,Confirmacion,Aprobado);
+                    UpdateVersion(objVersion, Confirmacion, Aprobado);
                 }
 
             }
             else // Aquí se va cuando el documento es incorrecto
             {
-                if (ListaNotificacionError.Where(x => x.IsSelected).ToList().Count > 0)
+                // Validación para que se seleccione al menos un tipo de error o no pida tipo de error cuando es un documento PDF
+                if (ListaNotificacionError.Where(x => x.IsSelected).ToList().Count > 0 || visible == "Hidden")
                 {
                     //Si el documento no tiene una versión anterior liberada
                     if (last_id == 0)
@@ -548,7 +549,7 @@ namespace View.Services.ViewModel
                 else
                 {
                     //mensaje de no selecciono ninguno.
-                    //Se muestra un mensaje de qu no ha seleccionado ningun tipo de error.
+                    //Se muestra un mensaje de que no ha seleccionado ningun tipo de error.
                     await dialog.SendMessage(StringResources.ttlAlerta, "Por favor seleccione al menos un tipo de error del documento.");
                 }
                 
@@ -569,7 +570,7 @@ namespace View.Services.ViewModel
             {
                 visible = "Hidden";
             }
-            
+
             else
             {
                 visible = "Visible";
@@ -667,6 +668,9 @@ namespace View.Services.ViewModel
             correos[1] = CorreoUsuarioReviso;
             correos[2] = "raul.banuelos@mx.mahle.com";
 
+            //  Se manda llamar el método que elimina correos duplicados
+            correos = Module.EliminarCorreosDuplicados(correos);
+
             string path = _usuarioLogueado.Pathnsf;
             string title = "Documento aprobado - " + SelectedDocumento.nombre;
             string body = string.Empty;
@@ -707,7 +711,7 @@ namespace View.Services.ViewModel
             body += "<body text=\"white\">";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
             body += "<ul>";
-            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + SelectedDocumento.nombre + "</b> versión <b> " + SelectedDocumento.version.no_version + ".0" + " </b> ha sido aprobado y tiene hasta el día <b>  " + fechacompromiso + " </b> si no el sistema lo rechazará automáticamente. </font> </li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> Para notificar que " + tipo_documento + " con el número <b> " + SelectedDocumento.nombre + "</b> versión <b> " + SelectedDocumento.version.no_version + ".0" + " </b> ha sido aprobado y tiene hasta el día <b>  " + fechacompromiso + " </b> para entregarlo, de lo contrario el sistema lo rechazará automáticamente. </font> </li>";
             body += "<br/>";
             body += "<br/>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + SelectedDocumento.nombre + "</b></font></li>";
@@ -756,6 +760,9 @@ namespace View.Services.ViewModel
             correos[1] = CorreoUsuarioReviso;
             correos[2] = "raul.banuelos@mx.mahle.com";
 
+            //  Se manda llamar el método que elimina correos duplicados
+            correos = Module.EliminarCorreosDuplicados(correos);
+            
             string path = _usuarioLogueado.Pathnsf;
             string title = "Documento no aprobado - " + SelectedDocumento.nombre;
             string body = string.Empty;
@@ -793,7 +800,7 @@ namespace View.Services.ViewModel
             body += "<body text=\"white\">";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
             body += "<ul>";
-            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + SelectedDocumento.nombre + "</b> versión <b> " + SelectedDocumento.version.no_version + ".0" + " </b> ha sido rechazado por los siguientes motivos: </font> </li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> Para notificar que " + tipo_documento + " con el número <b> " + SelectedDocumento.nombre + "</b> versión <b> " + SelectedDocumento.version.no_version + ".0" + " </b> ha sido rechazado por los siguientes motivos: </font> </li>";
             body += "<br/>";
             body += "<br/>";
             foreach (var item in ListaErroresSeleccionados)
@@ -839,9 +846,5 @@ namespace View.Services.ViewModel
                     PropertyChanged(this, new PropertyChangedEventArgs(id));
         }
         #endregion
-
-
-
-
     }
 }

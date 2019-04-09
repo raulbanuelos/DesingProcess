@@ -192,6 +192,26 @@ namespace DProcess.Model.Test
             Assert.AreEqual(a, 1.990);
         }
 
+
+        [TestMethod]
+        public void EliminarDuplicados()
+        {
+            string[] vector1 = new string[4];
+            vector1[0] = "raul.banuelos.diaz@mx.mahle.com";
+            vector1[1] = "raul.banuelos.diaz@mx.mahle.com";
+            vector1[2] = "raul.banuelos.diaz@mx.mahle.com";
+            vector1[3] = "jorge.rodriguez@mx.mahle.com";
+
+            string[] vector2 = new string[2];
+            vector2[0] = "raul.banuelos.diaz@mx.mahle.com";
+            vector2[1] = "jorge.rodriguez@mx.mahle.com";
+
+            string[] vectorresultante = Module.EliminarCorreosDuplicados(vector1);
+
+            Assert.AreEqual(vectorresultante, vector2);
+        }
+
+
         #endregion
 
         [TestMethod]

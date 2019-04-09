@@ -1338,34 +1338,14 @@ namespace View.Services
             return NumeroDecimal;
         }
 
+        // Método que elimina correos duplicados
+        public static string[] EliminarCorreosDuplicados(string[] correos)
+        {
 
+            string[] correosfiltrados = correos.Distinct().ToArray();
+            return correosfiltrados;
 
-        //public static string EliminarUsuarioIgual(string[] correos)
-        //{
-        //    Declaramos vector que retornaremos en el método
-        //    string[] listacorreos;
-        //    int contador = 0;
-
-        //    Recorremos el vector buscando usuario en caso de que se repita
-        //    foreach (string i in listacorreos)
-        //    {
-        //        if (listacorreos.Contains(i))
-        //        {
-        //            contador++;
-        //            if (contador >= 2)
-        //            {
-        //                correos = [];
-        //                listacorreos = set(correos);
-        //                listacorreos;
-        //            }
-        //            List(listacorreos);
-        //        }
-
-        //    }
-
-        //    Retornamos vector
-        //    return listacorreos;
-        //}
+        }
 
     }
 }
