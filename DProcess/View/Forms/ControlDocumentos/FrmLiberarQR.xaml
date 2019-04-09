@@ -10,7 +10,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" BorderBrush="Blue"
         Title="FrmLiberarQR" Height="500" Width="900">
-    <Grid>
+    <Grid KeyboardNavigation.TabIndex="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -35,8 +35,8 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </DataGrid>
-        <StackPanel Grid.Row="0" Grid.Column="1">
-            <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" HorizontalAlignment="Left" Text="{Binding TextoBuscar}">
+        <StackPanel Grid.Row="0" Grid.Column="1" KeyboardNavigation.TabIndex="0">
+            <TextBox KeyboardNavigation.TabIndex="0" Name="txt_busqueda" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" TextAlignment="Center" Width="500" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" HorizontalAlignment="Left" Text="{Binding TextoBuscar}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="TextChanged">
                         <i:InvokeCommandAction

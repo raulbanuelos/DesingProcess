@@ -821,9 +821,7 @@ namespace View.Services.ViewModel
                     PropertyChanged(this, new PropertyChangedEventArgs(id));
         }
         #endregion
-
-
-
+        
 
     }
 }

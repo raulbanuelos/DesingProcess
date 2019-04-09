@@ -1318,7 +1318,7 @@ namespace View.Services.ViewModel
                 {
                     //Obtenemos la ventana actual para mandar un mensaje de capturar la especificación del perfil
                     var window = System.Windows.Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
+                    
                     //Formulario para ingresar el número de copias, 
                     string _especPerfil = await window.ShowInputAsync(StringResources.lblAlertas, "Por favor ingrese la especificación del perfil del anillo.", null);
 
