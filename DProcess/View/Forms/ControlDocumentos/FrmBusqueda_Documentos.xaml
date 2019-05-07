@@ -47,7 +47,7 @@
             </StackPanel>
         </StackPanel>
 
-        <DataGrid x:Name="dataGrid" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,5,0,0" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding ListaDocumentos}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}" Width="991">
+        <DataGrid x:Name="dataGrid" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,5,0,0" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding ListaDocumentos}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}" Width="990">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblNumeroDocumento}"/>
                 <DataGridTextColumn Binding="{Binding descripcion}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblDescripcion}"/>

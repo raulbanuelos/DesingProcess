@@ -23,6 +23,7 @@ namespace View.Forms.ControlDocumentos
         public FrmHistorial()
         {
             InitializeComponent();
+            txt_busqueda.Focus();
         }
     }
 }

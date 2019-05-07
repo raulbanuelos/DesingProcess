@@ -39,6 +39,34 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
+        /// Método que obtiene todos los documentos (recursos) de un tipo de documento.
+        /// </summary>
+        /// <param name="idTipoDocumento"></param>
+        /// <returns></returns>
+        public IList GetArchivosByIdRecurso(int idRecurso)
+        {
+            try
+            {
+                //Establecemos la conexión a través de Entity Framework.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta y le resultado lo guardamos en una lista anónima.
+                    var Lista = (from a in Conexion.TBL_RECURSO_TIPO_DOCUMENTO
+                                 where a.ID_RECURSO_TIPO_DOCUMENTO == idRecurso
+                                 select a).ToList();
+
+                    //Retornamos el resultado de la lista.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si ocurre algún error, retornamos un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Método que inserta un registro en la tabla Recurso tipo documento.
         /// </summary>
         /// <param name="archivo"></param>

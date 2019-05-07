@@ -130,10 +130,10 @@ namespace View.Services
             //Definimos un objeto para escribir en el PDF
             gfx = XGraphics.FromPdfPage(pag);
 
-            //establecemos el valor del Margen Izquierdo
+            //establacemos el valor del Margen Izquierdo
             int MargenIzquierdo = 35;
 
-            //Separamos los valores que tenga la caratulo por saltos de linea y los guardamos en un vector
+            //Separamos los valores que tenga la caratula por saltos de linea y los guardamos en un vector
             string[] vector = Componente.Caratula.Split('\n');
 
             int margenSuperior = 65;
@@ -219,7 +219,7 @@ namespace View.Services
             //separamos la variable por saltos de linea
             string[] vector = SegundoParrafo.Split('\n');
 
-            //Imprimimosel cuadro
+            //Imprimimos el cuadro
             for (int i = 0; i < vector.Length; i++)
             {
                 gfx.DrawString(vector[i], TextoGeneral, XBrushes.Black, new XRect(margenizq, margensup, pag.Width.Point, pag.Height.Point), XStringFormats.TopLeft);

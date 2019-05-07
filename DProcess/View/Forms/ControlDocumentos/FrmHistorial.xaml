@@ -9,7 +9,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
-        Title="{x:Static recursos:StringResources.lblHistorial}" Height="700" Width="950" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="{x:Static recursos:StringResources.lblHistorial}" Height="700" Width="700" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <DataTemplate x:Key="ListaHistorial">
             <Border x:Name="Border" Padding="8" BorderThickness="0 0 0 1" Width="500"  BorderBrush="{DynamicResource MaterialDesignDivider}">
@@ -45,10 +45,11 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="1" Grid.Row="1">
+        <StackPanel Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
             <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" Text="{Binding TextoBuscar}" TextAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" Width="400">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="TextChanged">
@@ -59,12 +60,12 @@
                 </i:Interaction.Triggers>
             </TextBox>
         </StackPanel>
-        <Grid Grid.Column="1" Grid.Row="2">
+        <Grid Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400"/>
-                <ColumnDefinition  Width="500"/>
+                <ColumnDefinition Width="60*"/>
+                <ColumnDefinition  Width="40*"/>
             </Grid.ColumnDefinitions>
-            <DataGrid   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,5,0,0" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding ListaDocumentos}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedVersion,Mode=TwoWay}" Width="395">
+            <DataGrid VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,5,0,0" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding ListaDocumentos}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedVersion,Mode=TwoWay}" Width="395">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNombreDocumento}" Binding="{Binding nombre_documento}"></DataGridTextColumn>
                     <DataGridTextColumn Header="{x:Static recursos:StringResources.lblVersion}" Binding="{Binding no_version}"></DataGridTextColumn>

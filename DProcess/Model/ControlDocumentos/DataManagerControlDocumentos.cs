@@ -3319,7 +3319,51 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// Método que inseta un recurso.
+        /// 
+        /// </summary>
+        /// <param name="idRecurso"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Archivo> GetRecursoByIdRecurso(int idRecurso)
+        {
+            //Inicializamos los servicios de Recursos.
+            SO_RecursoTipoDocumento ServiceRecurso = new SO_RecursoTipoDocumento();
+
+            //Declaramos una lista que será la que retornemos en el método.
+            ObservableCollection<Archivo> ListaResultante = new ObservableCollection<Archivo>();
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList informacionBD = ServiceRecurso.GetArchivosByIdRecurso(idRecurso);
+
+            //Verificamos que la información de la base de datos sea diferente de nulo.
+            if (informacionBD != null)
+            {
+                //Iteramos la lista obtenida.
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo del elemento iterado.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto de tipo archivo.
+                    Archivo archivo = new Archivo();
+
+                    //Asignamos los valores a las propiedades correspondientes.
+                    archivo.id_archivo = (int)tipo.GetProperty("ID_RECURSO_TIPO_DOCUMENTO").GetValue(item, null);
+                    archivo.archivo = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
+                    archivo.ext = (string)tipo.GetProperty("EXT").GetValue(item, null);
+                    archivo.nombre = (string)tipo.GetProperty("NOMBRE_ARCHVO").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista.
+                    ListaResultante.Add(archivo);
+
+                }
+            }
+
+            //Retornamos la lista
+            return ListaResultante;
+        }
+
+        /// <summary>
+        /// Método que inserta un recurso.
         /// </summary>
         /// <param name="archivo"></param>
         /// <param name="descripcion"></param>
@@ -3337,7 +3381,7 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// étodo que elimina un recurso.
+        /// Método que elimina un recurso.
         /// </summary>
         /// <param name="idRecurso"></param>
         /// <returns></returns>

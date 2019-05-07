@@ -10,6 +10,7 @@ namespace View.Forms.ControlDocumentos
         public FrmDocumentosValidar()
         {
             InitializeComponent();
+            txt_busqueda.Focus();
         }
     }
 }
