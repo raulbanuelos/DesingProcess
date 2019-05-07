@@ -48,6 +48,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -743,6 +744,7 @@
     <Compile Include="Services\TiempoEstandar\Fundicion\CentroTrabajo5032.cs" />
     <Compile Include="Services\TiempoEstandar\Fundicion\CentroTrabajo5033.cs" />
     <Compile Include="Services\TiempoEstandar\Fundicion\CentroTrabajo5035.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo140.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\Maquinado\CentroTrabajo230.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo130.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo150.cs" />

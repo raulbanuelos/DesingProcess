@@ -234,7 +234,6 @@ namespace View.Services.Operaciones.Gasolina.Rolado
 
         public void BuscarHerramentales()
         {
-
             Herramental idealFeedRoller = new Herramental();
             DataManager.GetCOIL_Feed_Roller(widthMateriaPrima, out idealFeedRoller);
             ListaHerramentales.Add(idealFeedRoller);
@@ -246,9 +245,7 @@ namespace View.Services.Operaciones.Gasolina.Rolado
             Herramental idealCenterGuide = new Herramental();
             DataManager.GetCOIL_CENTER_GUIDE(widthMateriaPrima, thicknessMateriaPrima, out idealCenterGuide);
             ListaHerramentales.Add(idealCenterGuide);
-
             
-
             TextoHerramienta = Module.GetTextoListaHerramentales(ListaHerramentales);
         }
 

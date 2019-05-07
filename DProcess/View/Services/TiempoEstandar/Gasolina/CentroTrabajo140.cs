@@ -2,14 +2,17 @@
 using Model.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace View.Services.TiempoEstandar.Gasolina.Rolado
+namespace View.Services.TiempoEstandar.Gasolina
 {
-    public class CentroTrabajo495 : ICentroTrabajo
+    public class CentroTrabajo140 : ICentroTrabajo
     {
-        #region Propiedades
+        #region Properties
 
-        #region Propiedades ICentroTrabajo
+        #region Properties of ICentroTrabajo
         public double TiempoSetup
         {
             get;
@@ -65,10 +68,14 @@ namespace View.Services.TiempoEstandar.Gasolina.Rolado
         }
         #endregion
 
+        private double d1;
+        private double h1;
+        private int origen;
+
         #endregion
 
         #region Métodos
-        
+
         #region Métodos de ICentroTrabajo
 
         /// <summary>
@@ -108,13 +115,70 @@ namespace View.Services.TiempoEstandar.Gasolina.Rolado
         /// </summary>
         public void Calcular()
         {
-
             TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-            double diametroNominal = Module.GetValorPropiedad("D1", PropiedadesRequeridadas);
-            TiempoMachine = Math.Round(((0.0120 + ((2.06 * diametroNominal) / 3.91730)) / 36) * 100,3);
+            d1  = Module.GetValorPropiedad("D1", PropiedadesRequeridadas);
+            h1 = Module.GetValorPropiedad("H1", PropiedadesRequeridadas);
+            origen = Convert.ToInt32(Module.GetValorPropiedad("origenDesengrase", PropiedadesRequeridadas));
+
+            int rieles = GetNumRieles();
+            double carga = Math.Round(((rieles * 20) / h1), 0);
+            if (origen == 1 || origen == 2)
+            {
+                double cicloCarga = (507.59 + 61.846 + 0);
+                TiempoMachine = 100 * ((cicloCarga) / 3600) / (carga);
+            }
+            else
+            {
+                double tciclo = 688.19;
+                int rielesPremaquinado = GetRielesPremaquinado();
+                TiempoMachine = ((478.6622 + tciclo) / (36 * (2 * rielesPremaquinado * (29.5 / h1))));
+            }
+
+            TiempoMachine = Math.Round(TiempoMachine * 100, 3);
+
             TiempoLabor = TiempoMachine * FactorLabor;
         }
         #endregion
+
+        private int GetRielesPremaquinado()
+        {
+
+            if (d1 >= 0 && d1 <= 1.7499)
+                return 28;
+            else
+            {
+                if (d1 >= 1.75 && d1 <= 3.499)
+                    return 14;
+                else
+                {
+                    if (d1 >= 3.5 && d1 <=4.899)
+                        return 10;
+                    else
+                    {
+                        if (d1 >= 4.9 && d1<=5.699)
+                            return 8;
+                        else
+                            return 5;
+                    }
+                }
+            }
+        }
+
+        private int GetNumRieles()
+        {
+            int rieles = 0;
+            if (d1 >= 0 && d1 <= 4.2999)
+                rieles = 12;
+            else
+            {
+                if (d1 >= 4.3 && d1<=5.59999)
+                    rieles = 5;
+                else
+                    rieles = 3;
+            }
+
+            return rieles;
+        }
 
         #endregion
 
@@ -130,17 +194,23 @@ namespace View.Services.TiempoEstandar.Gasolina.Rolado
         #endregion
 
         #region Constructors
-        public CentroTrabajo495()
+        public CentroTrabajo140()
         {
-            CentroTrabajo = "495";
-            FactorLabor = 0.50;
+            CentroTrabajo = "140";
+            FactorLabor = 1;
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
 
             //Inicializamos los datos requeridos para el cálculo.
-            Propiedad _d1 = new Propiedad { Nombre = "D1", TipoDato = "Distance", DescripcionCorta = "Diámetro nominal", DescripcionLarga = "Diámetro nominal del anillo", Imagen = null, Unidad = "inches (in)", Valor = 0 };
+            Propiedad _d1 = new Propiedad { Nombre = "D1", TipoDato = "Distance", DescripcionCorta = "Diámetro nominal", DescripcionLarga = "Diámetro nominal del anillo", Imagen = null, Unidad = "Inch (in)", Valor = 0 };
             PropiedadesRequeridadas.Add(_d1);
+
+            Propiedad _h1 = new Propiedad { Nombre = "H1", TipoDato = "Distance", DescripcionCorta = "Width nominal", DescripcionLarga = "Width nominal del anillo", Imagen = null, Unidad = "Inch (in)", Valor = 0 };
+            PropiedadesRequeridadas.Add(_h1);
+
+            Propiedad _origenDesengrase = new Propiedad { Nombre = "origenDesengrase", TipoDato = "Distance", DescripcionCorta = "Origen desengrase:", DescripcionLarga = "Ingresar 1.-ByK; 2.- Diskus", Imagen = null, Unidad = "Cantidad", Valor = 0 };
+            PropiedadesRequeridadas.Add(_origenDesengrase);
 
         } 
         #endregion

@@ -357,7 +357,7 @@ namespace View.Services.ViewModel
         /// Funcíón que modifica la versión
         /// </summary>
         /// <param name="objVersion"></param>
-        public async void UpdateVersion(Model.ControlDocumentos.Version objVersion, bool Confirmar)
+        public async void UpdateVersion(Model.ControlDocumentos.Version objVersion, bool Confirmar, bool Aprobado)
         {
             //Se llama al método para actualizar el estatus de la version
             int update_version = DataManagerControlDocumentos.Update_EstatusVersion(objVersion, _usuarioLogueado, SelectedDocumento.nombre);
@@ -368,14 +368,30 @@ namespace View.Services.ViewModel
                 if (Confirmar == true)
                 {
                     string confirmacion = string.Empty;
-                    if (NotificarDocumentoAprobado())
+                    if (Aprobado == true)
                     {
-                        confirmacion = StringResources.msgNotificacionCorreo + "\n" + "ESTATUS DE LA VERSION ACTUALIZADA";
+
+                        if (NotificarDocumentoAprobado())
+                        {
+                            confirmacion = StringResources.msgNotificacionCorreo + "\n" + "ESTATUS DE LA VERSION ACTUALIZADA";
+                        }
+                        else
+                        {
+                            confirmacion = StringResources.msgNotificacionCorreoFallida + "\n" + "ESTATUS DE LA VERSION ACTUALIZADA";
+
+                        }
                     }
                     else
                     {
-                        confirmacion = StringResources.msgNotificacionCorreoFallida + "\n" + "ESTATUS DE LA VERSION ACTUALIZADA";
+                        if (NotificarDocumentoRechazado())
+                        {
+                            confirmacion = StringResources.msgNotificacionCorreo + "\n" + "ESTATUS DE LA VERSION ACTUALIZADA";
+                        }
+                        else
+                        {
+                            confirmacion = StringResources.msgNotificacionCorreoFallida + "\n" + "ESTATUS DE LA VERSION ACTUALIZADA";
 
+                        }
                     }
                     await dialog.SendMessage(StringResources.ttlAlerta, confirmacion);
                 }else
@@ -436,6 +452,7 @@ namespace View.Services.ViewModel
             //isSelected es falso, id_estatus=pendiente por corregir, verdadero estatus= aprobado pendiente por liberar
             //
             bool Confirmacion = false;
+            bool Aprobado = false;
             string version = SelectedDocumento.version.no_version;
             Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
             objVersion.id_version = SelectedDocumento.version.id_version;
@@ -443,14 +460,15 @@ namespace View.Services.ViewModel
 
             int last_id = DataManagerControlDocumentos.GetID_LastVersion(SelectedDocumento.id_documento, SelectedDocumento.version.id_version);
 
+            if (selectedDocumento.id_tipo_documento == 1003 || selectedDocumento.id_tipo_documento == 1005 || selectedDocumento.id_tipo_documento == 1006 || selectedDocumento.id_tipo_documento == 1011 || selectedDocumento.id_tipo_documento == 1012 || selectedDocumento.id_tipo_documento == 1013 || selectedDocumento.id_tipo_documento == 1014)
+            {
+                Confirmacion = true;
+            }
+
             // Si el checkbox es verdadero
             if (isSelected == true)
             {
-                if (selectedDocumento.id_tipo_documento == 1003 || selectedDocumento.id_tipo_documento == 1005 || selectedDocumento.id_tipo_documento == 1006 || selectedDocumento.id_tipo_documento == 1011 || selectedDocumento.id_tipo_documento == 1012 || selectedDocumento.id_tipo_documento == 1013 || selectedDocumento.id_tipo_documento == 1014)
-                {
-                    Confirmacion = true;
-                }
-
+                Aprobado = true;
                 //Si el documento no tiene otra versión
                 if (last_id == 0)
                 {
@@ -465,7 +483,7 @@ namespace View.Services.ViewModel
                     if (n != 0)
                     {
                         //Se llama a la función para actualizar el estatus de la versión
-                        UpdateVersion(objVersion,Confirmacion);
+                        UpdateVersion(objVersion, Confirmacion, Aprobado);
                     }
                     else
                     {
@@ -479,13 +497,14 @@ namespace View.Services.ViewModel
                     objVersion.id_estatus_version = 5;
 
                     //Se llama a la función para actualizar el estatus de la versión
-                    UpdateVersion(objVersion,Confirmacion);
+                    UpdateVersion(objVersion, Confirmacion, Aprobado);
                 }
 
             }
             else // Aquí se va cuando el documento es incorrecto
             {
-                if (ListaNotificacionError.Where(x => x.IsSelected).ToList().Count > 0)
+                // Validación para que se seleccione al menos un tipo de error o no pida tipo de error cuando es un documento PDF
+                if (ListaNotificacionError.Where(x => x.IsSelected).ToList().Count > 0 || visible == "Hidden")
                 {
                     //Si el documento no tiene una versión anterior liberada
                     if (last_id == 0)
@@ -510,7 +529,7 @@ namespace View.Services.ViewModel
                         if (n != 0)
                         {
                             //Se llama a la función para actualizar el estatus de la versión
-                            UpdateVersion(objVersion,Confirmacion);
+                            UpdateVersion(objVersion,Confirmacion,Aprobado);
                         }
                         else
                         {
@@ -524,13 +543,13 @@ namespace View.Services.ViewModel
                         //Estatus pendiente por corregir.
                         objVersion.id_estatus_version = 4;
                         //Se llama a la función para actualizar el estatus de la versión
-                        UpdateVersion(objVersion,Confirmacion);
+                        UpdateVersion(objVersion,Confirmacion,Aprobado);
                     }
                 }
                 else
                 {
                     //mensaje de no selecciono ninguno.
-                    //Se muestra un mensaje de qu no ha seleccionado ningun tipo de error.
+                    //Se muestra un mensaje de que no ha seleccionado ningun tipo de error.
                     await dialog.SendMessage(StringResources.ttlAlerta, "Por favor seleccione al menos un tipo de error del documento.");
                 }
                 
@@ -551,7 +570,7 @@ namespace View.Services.ViewModel
             {
                 visible = "Hidden";
             }
-            
+
             else
             {
                 visible = "Visible";
@@ -649,6 +668,9 @@ namespace View.Services.ViewModel
             correos[1] = CorreoUsuarioReviso;
             correos[2] = "raul.banuelos@mx.mahle.com";
 
+            //  Se manda llamar el método que elimina correos duplicados
+            correos = Module.EliminarCorreosDuplicados(correos);
+
             string path = _usuarioLogueado.Pathnsf;
             string title = "Documento aprobado - " + SelectedDocumento.nombre;
             string body = string.Empty;
@@ -689,7 +711,7 @@ namespace View.Services.ViewModel
             body += "<body text=\"white\">";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
             body += "<ul>";
-            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + SelectedDocumento.nombre + "</b> versión <b> " + SelectedDocumento.version.no_version + ".0" + " </b> ha sido aprobado y tiene hasta el día <b>  " + fechacompromiso + " </b> si no el sistema lo rechazará automáticamente. </font> </li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> Para notificar que " + tipo_documento + " con el número <b> " + SelectedDocumento.nombre + "</b> versión <b> " + SelectedDocumento.version.no_version + ".0" + " </b> ha sido aprobado y tiene hasta el día <b>  " + fechacompromiso + " </b> para entregarlo, de lo contrario el sistema lo rechazará automáticamente. </font> </li>";
             body += "<br/>";
             body += "<br/>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + SelectedDocumento.nombre + "</b></font></li>";
@@ -738,6 +760,9 @@ namespace View.Services.ViewModel
             correos[1] = CorreoUsuarioReviso;
             correos[2] = "raul.banuelos@mx.mahle.com";
 
+            //  Se manda llamar el método que elimina correos duplicados
+            correos = Module.EliminarCorreosDuplicados(correos);
+            
             string path = _usuarioLogueado.Pathnsf;
             string title = "Documento no aprobado - " + SelectedDocumento.nombre;
             string body = string.Empty;
@@ -775,7 +800,7 @@ namespace View.Services.ViewModel
             body += "<body text=\"white\">";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
             body += "<ul>";
-            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + tipo_documento + " con el número <b> " + SelectedDocumento.nombre + "</b> versión <b> " + SelectedDocumento.version.no_version + ".0" + " </b> ha sido rechazado por los siguientes motivos: </font> </li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> Para notificar que " + tipo_documento + " con el número <b> " + SelectedDocumento.nombre + "</b> versión <b> " + SelectedDocumento.version.no_version + ".0" + " </b> ha sido rechazado por los siguientes motivos: </font> </li>";
             body += "<br/>";
             body += "<br/>";
             foreach (var item in ListaErroresSeleccionados)
@@ -821,7 +846,5 @@ namespace View.Services.ViewModel
                     PropertyChanged(this, new PropertyChangedEventArgs(id));
         }
         #endregion
-        
-
     }
 }
