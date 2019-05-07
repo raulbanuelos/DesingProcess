@@ -10,10 +10,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-
 namespace DataAccess.ServiceObjects.ControlDocumentos
 {
-
     public class SO_Documento
     {
         /// <summary>
@@ -181,7 +179,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <returns></returns>
         public int UpdateFecha_Actualizacion(int id_documento, DateTime fecha_actualizacion)
         {
-
             try
             {
                 //Se establece la conexión a la base de datos.
@@ -198,7 +195,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 
                     //Se guardan los cambios y se retorna el número de registros afectados.
                     return Conexion.SaveChanges();
-
                 }
             }
             catch (Exception)
@@ -256,7 +252,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 
                     //Renornamos el resultado de la consulta.
                     return Lista;
-
                 }
             }
             catch (Exception er)
@@ -523,8 +518,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                             string num = vec[c - 1];
                             resultString = num;
                         }
-                            
-
 
                         //Sumamos uno al número 
                         int number = Int32.Parse(resultString);
@@ -587,7 +580,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 //Si hay algun error, retorna nulo
                 return null;
             }
-           
         }
 
         /// <summary>
@@ -1141,7 +1133,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             {
                 return DateTime.Now;
             }
-
         }
 
         /// <summary>
@@ -1245,7 +1236,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                          }).OrderBy(x => x.FechaHistorial).ToList();
                         //Retornamos la lista.
                             return Lista;
-                        
                     }                  
                 }
             }

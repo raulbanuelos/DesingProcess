@@ -23,6 +23,7 @@ namespace View.Forms.ControlDocumentos
         public FrmBusqueda_Documentos()
         {
             InitializeComponent();
+            txt_busqueda.Focus();
         }
     }
 }

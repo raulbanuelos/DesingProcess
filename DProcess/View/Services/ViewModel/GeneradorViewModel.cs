@@ -146,7 +146,6 @@ namespace View.Services.ViewModel
             }
         }
         
-
         #endregion
 
         #region Comandos

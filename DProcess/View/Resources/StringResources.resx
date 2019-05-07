@@ -1696,4 +1696,16 @@
   <data name="ttlPatern" xml:space="preserve">
     <value>Pattern</value>
   </data>
+  <data name="lblHorizontal" xml:space="preserve">
+    <value>Horizontal</value>
+    <comment>Selecciona la orientacion horizontal del formato</comment>
+  </data>
+  <data name="lblVertical" xml:space="preserve">
+    <value>Vertical</value>
+    <comment>Selecciona la orientación vertical del formato</comment>
+  </data>
+  <data name="msgElegirFormato" xml:space="preserve">
+    <value>What format do you want to use?</value>
+    <comment>Mensaje para elegir el tipo de formato</comment>
+  </data>
 </root>

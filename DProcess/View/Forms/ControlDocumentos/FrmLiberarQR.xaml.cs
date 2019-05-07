@@ -11,6 +11,7 @@ namespace View.Forms.ControlDocumentos
         {
             InitializeComponent();
             txt_busqueda.Focus();
+
         }
     }
 }

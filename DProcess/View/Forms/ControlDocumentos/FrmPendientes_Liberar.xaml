@@ -22,7 +22,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label Content="{x:Static recursos:StringResources.lblDocumentosPendientesEntregar}" Grid.Column="1" FontSize="18" FontWeight="Bold"></Label>
-        <DataGrid x:Name="dataGrid" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding ListaDocumentosValidar}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}">
+        <DataGrid x:Name="dataGrid" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  ItemsSource="{Binding ListaDocumentosValidar}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}" Width="850">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding id_documento}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblIdDocumento}"/>
                 <DataGridTextColumn Binding="{Binding nombre}" ClipboardContentBinding="{x:Null}" Header="{x:Static recursos:StringResources.lblNombre}"/>

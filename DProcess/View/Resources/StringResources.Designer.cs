@@ -1024,6 +1024,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Horizontal.
+        /// </summary>
+        public static string lblHorizontal {
+            get {
+                return ResourceManager.GetString("lblHorizontal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Document Id.
         /// </summary>
         public static string lblIdDocumento {
@@ -1852,6 +1861,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Vertical.
+        /// </summary>
+        public static string lblVertical {
+            get {
+                return ResourceManager.GetString("lblVertical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Old Format.
         /// </summary>
         public static string lblViejoFormato {
@@ -2208,6 +2226,15 @@ namespace View.Resources {
         public static string msgEditarDocumento {
             get {
                 return ResourceManager.GetString("msgEditarDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a What format do you want to use?.
+        /// </summary>
+        public static string msgElegirFormato {
+            get {
+                return ResourceManager.GetString("msgElegirFormato", resourceCulture);
             }
         }
         

@@ -229,7 +229,6 @@ namespace IMPORTEXCEL
             }
             catch (Exception er)
             {
-
                 er.ToString();
             }
         }

@@ -28,11 +28,10 @@ namespace View.Services.ViewModel
 {
     public class DocumentoViewModel : INotifyPropertyChanged
     {
-
         #region Attributes
         UsuariosViewModel vmUsuarios;
         private int idVersion;
-        // variables auxiliar, guarda la información  cuando se genera una nueva versión
+        // variables auxiliar, guarda la información cuando se genera una nueva versión
         private string auxversion, auxUsuario, auxUsuario_Autorizo, auxDescripcion;
         private DateTime auxFecha;
         public Usuario User;
@@ -54,6 +53,7 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Propiedades
+        private static int id_recurso;
 
         public Documento DatosDocumento = new Documento();
 
@@ -103,6 +103,20 @@ namespace View.Services.ViewModel
             {
                 this.fecha = value;
                 NotifyChange("Fecha");
+            }
+        }
+
+        private DateTime fecharev = DataManagerControlDocumentos.Get_DateTime();
+        public DateTime Fecharev
+        {
+            get
+            {
+                return this.fecharev;
+            }
+            set
+            {
+                this.fecharev = value;
+                NotifyChange("Fecharev");
             }
         }
 
@@ -668,13 +682,12 @@ namespace View.Services.ViewModel
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
             NombreTipo = DataManagerControlDocumentos.GetNombretipo(id_tipo);
 
-
             BotonGuardar = StringResources.ttlGuardar;
             BttnGuardar = false;
             EnabledEliminar = false;
             IsEnabled = false;
             BttnArchivos = false;
-            //Si es ventana para generar una nueva versión, band= true
+            //Si es ventana para generar una nueva versión, band = true
             BttnVersion = band;
 
             //si band contiene true, significa que el documento esta liberado, caso contrario es por que esta en pendiente por corregir
@@ -839,7 +852,7 @@ namespace View.Services.ViewModel
             //Obtenemos el tipo de documento
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
 
-            //si es personal del CIT, el campo de usuario elaboro es editable.
+            //Si es personal del CIT, el campo de usuario elaboro es editable.
             if (Module.UsuarioIsRol(User.Roles, 2))
                 VersionEnabled = true;
 
@@ -893,7 +906,6 @@ namespace View.Services.ViewModel
                     break;
             }
 
-
             //obtenemos el nombre del documento
             _ListaNumeroDocumento = DataManagerControlDocumentos.GetNombre_Documento(id_documento);
 
@@ -912,7 +924,7 @@ namespace View.Services.ViewModel
             //para seleciconar los usuarios a notificar al momento de abrirse la ventana
             foreach (var item in ListaUsuariosCorreo)
             {
-                //sleccionamos el administrado del sistema para notificar
+                //seleccionamos el administrado del sistema para notificar
                 if (item.usuario == "¢¥®ª¯")
                 {
                     item.IsSelected = true;
@@ -955,7 +967,7 @@ namespace View.Services.ViewModel
                 ListaDocumentos.Add(objArchivo);
             }
 
-            //establecemos el tipo de ventana para saber que opciones del menu se vana mostrar        
+            //establecemos el tipo de ventana para saber que opciones del menu se van a mostrar        
             VentanaProcedencia = "PendienteLiberar";
             //mandamos llamar el método que construye el menú
             CreateMenuItems(VentanaProcedencia);
@@ -1179,7 +1191,11 @@ namespace View.Services.ViewModel
                 validacion = validarHII(out mensaje);
                 return validacion;
             }
-
+            if (id_tipo == 1004)
+            {
+                validacion = validarAVY(out mensaje);
+                return validacion;
+            }
             validacion = validarJES(out mensaje);
 
             return validacion;
@@ -1257,8 +1273,8 @@ namespace View.Services.ViewModel
                         UsuarioRevisar = "USUARIO_A" + Version;
                     }
 
-
                     string fecha = Convert.ToString(sheet.Range["FECHA_LIBERACION"].Value);
+
                     if (id_tipo == 1015)
                     {
                         string descripcion = Convert.ToString(sheet.Range["DESCRIPCION"].Value);
@@ -1339,8 +1355,6 @@ namespace View.Services.ViewModel
                         mensaje = "La fecha es incorrecta.\nLa Fecha en el archivo debe ser: " + FechaFin.Year + "-" + FechaFin.Month + "-" + FechaFin.Day;
                         return false;
                     }
-
-
 
                 }
                 catch (Exception er)
@@ -1498,7 +1512,6 @@ namespace View.Services.ViewModel
                     return false;
                 }
 
-
                 ExcelApp.Visible = false;
 
                 if (ExcelWork != null)
@@ -1538,6 +1551,166 @@ namespace View.Services.ViewModel
             return true;
         }
 
+        private bool validarAVY(out string mensaje)
+        {
+            object unknownType = Type.Missing;
+            bool ban = true;
+            foreach (Archivo archivo in ListaDocumentos)
+            {
+                mensaje = string.Empty;
+                string pathExcel = GetPathTempFile(archivo);
+
+                Archivo archivoPDF = archivo;
+                archivoPDF.ext = ".pdf";
+                archivo.ruta = @"/Images/p.png";
+                string pathPDF = GetPathTempFile(archivoPDF);
+
+                // Crea una archivo temporal, escribe en él los bytes extraídos de la BD
+                File.WriteAllBytes(pathExcel, archivo.archivo);
+
+                Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+                Microsoft.Office.Interop.Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(pathExcel, true);
+
+                try
+                {
+                    Microsoft.Office.Interop.Excel.Worksheet sheet;
+
+                    sheet = ExcelWork.Sheets["AYUDA_VISUAL"];
+                    
+                    int Aux = 1;
+                    bool ValidacionNumeracion = true;
+
+                    // Evaluamos la numeración de las hojas
+                    foreach (Microsoft.Office.Interop.Excel.Worksheet sheet1 in ExcelWork.Sheets)
+                    {
+                        string Numeracion = Convert.ToString(sheet1.Range["NUMERACION"].Value);
+                        if (Numeracion != "Hoja:(" + Aux + "/" + ExcelWork.Sheets.Count + ")")
+                        {
+                            ValidacionNumeracion = false;
+                        }
+                        Aux++;
+                    }
+
+                    if (ValidacionNumeracion == false)
+                    {
+                        mensaje = "La numeración de las hojas está incorrecta.";
+                        ban = false;
+                        //return false;
+                    }
+                    
+                    string codigo = Convert.ToString(sheet.Range["CODIGO"].Value);
+                    string no_version = Convert.ToString(sheet.Range["Version"].Value);
+                    string fecha = Convert.ToString(sheet.Range["FECHA_ELABORACION"].Value);
+                    string fecharev = Convert.ToString(sheet.Range["FECHA_REVISION"].Value);
+                    string elaboro = Convert.ToString(sheet.Range["ELABORO"].Value);
+                    string aprobo = Convert.ToString(sheet.Range["APROBO"].Value);
+                    string departamento = Convert.ToString(sheet.Range["NOMBRE_DEPARTAMENTO"].Value);
+
+                    //Fecha elaboración
+                    DateTime date = Convert.ToDateTime(fecha);
+                    if (date.Year != FechaFin.Year || date.Month != FechaFin.Month || date.Day != FechaFin.Day)
+                    {
+                        string mes = "";
+                        mes = FechaFin.Month < 10 ? "0" + FechaFin.Month : "" + FechaFin.Month;
+                        
+                        string dia = "";
+                        dia = FechaFin.Day < 10 ? "0" + FechaFin.Day : "" + FechaFin.Day;
+
+                        mensaje += "\nLa fecha elaboró es incorrecta, debe ser: " + FechaFin.Year + "-" + mes + "-" + dia;
+                        ban = false;
+                        //return false;
+                    }
+
+                    //Fecha revisión 
+                    DateTime date1 = Convert.ToDateTime(fecharev);
+                    if (date1.Year != FechaFin.Year || date1.Month != FechaFin.Month || date1.Day != FechaFin.Day)
+                    {
+                        string mes = "";
+
+                        mes = FechaFin.Month < 10 ? "0" + FechaFin.Month : "" + FechaFin.Month;
+
+                        string dia = "";
+
+                        dia = FechaFin.Day < 10 ? "0" + FechaFin.Day : "" + FechaFin.Day;
+
+                        mensaje += "\nLa fecha revisión es incorrecta, debe ser: " + FechaFin.Year + "-" + mes + "-" + dia;
+                        ban = false;
+                        //return false;
+
+                    }
+                    if (elaboro != ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto)
+                    {
+                        mensaje += "\nEl usuario elaboró es incorrecto, debe ser: " + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto;
+                        ban = false;
+                        //return false;
+                    }
+                    if (aprobo != ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto)
+                    {
+                        mensaje += "\nEl usuario aprobó es incorrecto, debe ser: " + ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto;
+                        ban = false;
+                        //return false;
+                    }
+                    if (codigo != SelectedDocumento.nombre)
+                    {
+                        mensaje += "\nEl código es incorrecto, debe ser: " + SelectedDocumento.nombre;
+                        ban = false;
+                        //return false;
+                    }
+                    if (no_version != Version)
+                    {
+                        mensaje += "\nLa versión del documento es incorrecta, debe ser : " + Version;
+                        ban = false;
+                        //return false;
+                    }
+
+                }
+                catch (Exception er)
+                {
+                    mensaje = "Archivo incorrecto : \n" + er.Message;
+                    ban = false;
+                }
+
+                ExcelApp.Visible = false;
+
+                if (ExcelWork != null)
+                    ExcelWork.Close(unknownType, unknownType, unknownType);
+
+                if (ExcelApp != null)
+                    ExcelApp.Quit();
+
+                if (!ban)
+                    return false;
+
+                short resPDF = excel2Pdf(pathExcel, pathPDF);
+
+                if (resPDF == 0)
+                {
+                    string pdfFinal = GetPathTempFile(new Archivo { nombre = "tempOuputPdf", numero = 1 });
+                    string qrFinal = GetPathTempFile(new Archivo { nombre = "tempOuputQR", numero = 1 });
+                    generateQRCode(qrFinal);
+
+                    insertQR(pathPDF, pdfFinal, qrFinal);
+
+                    QuitarExcelPonerPDF(archivo, pdfFinal);
+                }
+                else
+                {
+                    mensaje = "error al convertir el archivo";
+                    return false;
+                }
+            }
+
+            if (ListaDocumentos.Count == 0)
+            {
+                mensaje = "No se encontro ningun archivo, favor de cargar uno";
+                return false;
+            }
+
+            mensaje = "Archivo correcto.";
+            return true;
+
+        }
+
         private void generateQRCode(string path)
         {
             string codigo = string.Empty;
@@ -1562,14 +1735,10 @@ namespace View.Services.ViewModel
             var renderer = new GraphicsRenderer(new FixedModuleSize(5, QuietZoneModules.Two), Brushes.Black, Brushes.White);
             using (var stream = new FileStream(path, FileMode.Create))
                 renderer.WriteToStream(qrCode.Matrix, ImageFormat.Png, stream);
-
-
-
         }
 
         private bool insertQR(string pathPDF, string pathPDFOuput, string imgCode)
         {
-
             using (Stream inputPdfStream = new FileStream(pathPDF, FileMode.Open, FileAccess.Read, FileShare.Read))
             using (Stream outputPdfStream = new FileStream(pathPDFOuput, FileMode.Create, FileAccess.Write, FileShare.None))
             {
@@ -1587,6 +1756,7 @@ namespace View.Services.ViewModel
 
                         switch (id_tipo)
                         {
+                            //Posición Código QR en documento
                             //JES
                             case 1015:
                                 image.SetAbsolutePosition(940, 723);
@@ -1599,8 +1769,20 @@ namespace View.Services.ViewModel
                             case 1002:
                                 image.SetAbsolutePosition(860, 732);
                                 break;
+                            //AVY
+                            case 1004:
+                                // Vertical
+                                if (id_recurso == 1054)
+                                {
+                                    image.SetAbsolutePosition(40,730);
+                                }
+                                // Horizontal
+                                else
+                                {
+                                    image.SetAbsolutePosition(50,532);
+                                }
+                                break;
                         }
-
                         pdfContentByte.AddImage(image);
                     }
                     stamper.Close();
@@ -1683,7 +1865,7 @@ namespace View.Services.ViewModel
             DialogService dialog = new DialogService();
             if (!string.IsNullOrEmpty(nombre))
             {
-                if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002)
+                if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002 || id_tipo == 1004)
                 {
                     if (VentanaProcedencia == "DocumentoLiberado")
                     {
@@ -1706,8 +1888,36 @@ namespace View.Services.ViewModel
                                             recursos = DataManagerControlDocumentos.GetRecursosTipoDocumento(2);
                                             break;
                                         case 1002:
-                                            //si es de tipo hii se trae el formato correspondiente
+                                            //si es de tipo HII se trae el formato correspondiente
                                             recursos = DataManagerControlDocumentos.GetRecursosTipoDocumento(1002);
+                                            break;
+                                        case 1004:
+                                            {
+                                                //Inicializamos los servicios de dialog
+                                                DialogService dialogService = new DialogService();
+
+                                                //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal. 
+                                                MetroDialogSettings setting = new MetroDialogSettings();
+                                                setting.AffirmativeButtonText = StringResources.lblVertical;
+                                                setting.NegativeButtonText = StringResources.lblHorizontal;
+
+                                                //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local
+                                                MessageDialogResult result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgElegirFormato, setting, MessageDialogStyle.AffirmativeAndNegative);
+                                                                                                                                        
+                                                //Vertical
+                                                if (result == MessageDialogResult.Affirmative)
+                                                {
+                                                    id_recurso = 1054;
+                                                }
+                                                //Horizontal
+                                                else 
+                                                {
+                                                    id_recurso = 1055;
+                                                }
+
+                                                //Si es de tipo AVY se trae el formato correspondiente
+                                                recursos = DataManagerControlDocumentos.GetRecursoByIdRecurso(id_recurso);
+                                            }
                                             break;
                                     }
 
@@ -1727,7 +1937,16 @@ namespace View.Services.ViewModel
                                     }
                                     else
                                     {
-                                        ImportExcel.ExportTipoFormato(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento, id_tipo);
+                                        // Comparar si es AVY
+                                        if (id_tipo == 1004)
+                                        {
+                                            ImportExcel.ExportFormatoAVY(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                        }
+                                        else
+                                        {
+                                            //Comparar si es hoe o jes
+                                            ImportExcel.ExportTipoFormato(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento, id_tipo);
+                                        }
                                     }
                                 }
                                 else
@@ -1767,8 +1986,35 @@ namespace View.Services.ViewModel
                                         //si es de tipo hii se trae el formato correspondiente
                                         recursos = DataManagerControlDocumentos.GetRecursosTipoDocumento(1002);
                                         break;
-                                }
+                                    case 1004:
+                                        {
+                                            //Inicializamos los servicios de dialog
+                                            DialogService dialogService = new DialogService();
 
+                                            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal. 
+                                            MetroDialogSettings setting = new MetroDialogSettings();
+                                            setting.AffirmativeButtonText = StringResources.lblVertical;
+                                            setting.NegativeButtonText = StringResources.lblHorizontal;
+
+                                            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
+                                            MessageDialogResult result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgElegirFormato, setting, MessageDialogStyle.AffirmativeAndNegative);
+                                                                                                                                    
+                                            //Vertical
+                                            if (result == MessageDialogResult.Affirmative)
+                                            {
+                                                id_recurso = 1054;
+                                            }
+                                            //Horizontal
+                                            else
+                                            {
+                                                id_recurso = 1055;
+                                            }
+
+                                            //Si es de tipo AVY se trae el formato correspondiente
+                                            recursos = DataManagerControlDocumentos.GetRecursoByIdRecurso(id_recurso);
+                                        }
+                                        break;
+                                }
 
                                 Archivo formato = recursos[0];
 
@@ -1783,9 +2029,17 @@ namespace View.Services.ViewModel
                                 }
                                 else
                                 {
-                                    ImportExcel.ExportTipoFormato(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento, id_tipo);
+                                    // Comparar si es AVY
+                                    if (id_tipo == 1004)
+                                    {
+                                        ImportExcel.ExportFormatoAVY(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                    }
+                                    else
+                                    {
+                                        //Comparar si es hoe o jes
+                                        ImportExcel.ExportTipoFormato(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCompleto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCompleto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento, id_tipo);
+                                    }
                                 }
-
                             }
                             else
                             {
@@ -1800,7 +2054,7 @@ namespace View.Services.ViewModel
                 }
                 else
                 {
-                    await dialog.SendMessage(StringResources.ttlAlerta, "Por el momento solo se puede generar el formato de archivos tipo JES, HOE y HII");
+                    await dialog.SendMessage(StringResources.ttlAlerta, "Por el momento solo se puede generar el formato de archivos tipo JES, HOE, HII y AVY");
                 }
             }
             else
@@ -1855,7 +2109,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método para cambiar el estadus de un archivo a pendiente por corregir
+        /// Método para cambiar el estatus de un archivo a pendiente por corregir
         /// </summary>
         private async void regresarCorregir()
         {
@@ -1870,7 +2124,7 @@ namespace View.Services.ViewModel
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
             MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgRegresarCorregir, setting, MessageDialogStyle.AffirmativeAndNegative);
-
+                                                                                                           
             if (result == MessageDialogResult.Affirmative)
             {
                 //Ejecutamos el método para obtener el id de la versión anterior
@@ -2056,7 +2310,6 @@ namespace View.Services.ViewModel
             if (result == MessageDialogResult.Affirmative)
             {
                 //Obtiene el id de la última versión
-
                 int last_id = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
                 //Si tiene una versión anterior
                 if (last_id != 0)
@@ -2158,7 +2411,7 @@ namespace View.Services.ViewModel
                         dlg.Filter = "Word (97-2003)|*.doc";
                     else
                     {
-                        if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002)
+                        if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002 || id_tipo == 1004)
                         {
                             dlg.Filter = "Excel Files (.xlsm, .xlsx)|*.xlsm; *.xlsx";
                         }
@@ -2244,7 +2497,7 @@ namespace View.Services.ViewModel
                                 else
                                 {
                                     //Verificamos de nuevo que se hayan insertado los tipos de archivos correspondiente al tipo de documento
-                                    if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002)
+                                    if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002 || id_tipo == 1004)
                                     {
                                         //si el archivo es de tipo JES se comprueba que se haya insertado una hoja de calculo
                                         if (obj.ext == ".xlsm" || obj.ext == ".xlsx")
@@ -2347,7 +2600,7 @@ namespace View.Services.ViewModel
                                 dlg.Filter = "Word (97-2003)|*.doc";
                             else
                             {
-                                if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002)
+                                if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002 || id_tipo == 1004)
                                 {
                                     dlg.Filter = "Excel Files (.xlsm, .xlsx)|*.xlsm; *.xlsx";
                                 }
@@ -2433,7 +2686,7 @@ namespace View.Services.ViewModel
                                         else
                                         {
 
-                                            if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002)
+                                            if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002 || id_tipo == 1004)
                                             {
                                                 //si el archivo es igual a cualquiera de los id anteriores se comprueba que sea un archivo .xlsx
                                                 if (ArchivoTemporal.ext == ".xlsm" || ArchivoTemporal.ext == ".xlsx")
@@ -2523,7 +2776,7 @@ namespace View.Services.ViewModel
                     }
                     else
                     {
-                        //Si el documento ya esta liberado y se quiere agregar un nuevo archivo se mostrata el mensaje que indique que solo se puede ag
+                        //Si el documento ya esta liberado y se quiere agregar un nuevo archivo se mostrara el mensaje que indique que solo se puede ag
                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarUnoSolo);
                     }
                 }
@@ -3980,9 +4233,9 @@ namespace View.Services.ViewModel
 
                         string waterMarkText = "MAHLE CONTROL DE DOCUMENTOS / DOCUMENTO LIBERADO ELECTRÓNICAMENTE Y TIENE VALIDEZ SIN FIRMA." + " DISPOSICIÓN: " + fecha;
                         string waterMarkText2 = "ÚNICAMENTE TIENE VALIDEZ EL DOCUMENTO DISPONIBLE EN INTRANET.";
-                        string waterMarkText3 = "LAS COPIAS NO ESTÁN SUJETAS A NINGÚN SERVICIO DE ACTUALIZACIÓN";
+                        string waterMarkText3 = "LAS COPIAS NO ESTÁN SUJETAS A NINGÚN SERVICIO DE ACTUALIZACIÓN.";
 
-                        byte[] newarchivo = AddWatermark(item.archivo, bfTimes, waterMarkText, waterMarkText2, waterMarkText3);
+                        byte[] newarchivo = AddWatermark(item.archivo, bfTimes, waterMarkText, waterMarkText2, waterMarkText3,id_recurso);
 
                         item.archivo = newarchivo;
 
@@ -4007,7 +4260,7 @@ namespace View.Services.ViewModel
         /// <param name="waterMarkText2"></param>
         /// <param name="waterMarkText3"></param>
         /// <returns></returns>
-        private static byte[] AddWatermark(byte[] bytes, BaseFont baseFont, string watermarkText, string waterMarkText2, string waterMarkText3)
+        public static byte[] AddWatermark(byte[] bytes, BaseFont baseFont, string watermarkText, string waterMarkText2, string waterMarkText3, int recurso)
         {
             using (var ms = new MemoryStream(10 * 1024))
             {
@@ -4015,7 +4268,7 @@ namespace View.Services.ViewModel
                 using (var stamper = new PdfStamper(reader, ms))
                 {
                     var pages = reader.NumberOfPages;
-
+                    
                     for (var i = 1; i <= pages; i++)
                     {
                         var dc = stamper.GetOverContent(i);
@@ -4024,10 +4277,29 @@ namespace View.Services.ViewModel
 
                         iTextSharp.text.Rectangle realPageSize = reader.GetPageSizeWithRotation(i);
 
-                        AddWaterMarkText2(dc, watermarkText, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 6), Convert.ToInt32(realPageSize.Bottom + 245));
-                        AddWaterMarkText2(dc, waterMarkText2, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 12), Convert.ToInt32(realPageSize.Bottom + 160));
-                        AddWaterMarkText2(dc, waterMarkText3, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 18), Convert.ToInt32(realPageSize.Bottom + 160));
-
+                        if (recurso != 0 && (recurso == 1054 || recurso == 1055 ))
+                        {
+                            if (recurso == 1054)
+                            {
+                                //Vertical
+                                AddWaterMarkText2(dc, watermarkText, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 28), Convert.ToInt32(realPageSize.Bottom + 295));
+                                AddWaterMarkText2(dc, waterMarkText2, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 34), Convert.ToInt32(realPageSize.Bottom + 210));
+                                AddWaterMarkText2(dc, waterMarkText3, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 40), Convert.ToInt32(realPageSize.Bottom + 210));
+                            }
+                            else
+                            {
+                                //Horizontal
+                                AddWaterMarkText2(dc, watermarkText, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 28), Convert.ToInt32(realPageSize.Bottom + 285));
+                                AddWaterMarkText2(dc, waterMarkText2, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 34), Convert.ToInt32(realPageSize.Bottom + 210));
+                                AddWaterMarkText2(dc, waterMarkText3, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 40), Convert.ToInt32(realPageSize.Bottom + 210));
+                            }
+                        }
+                        else
+                        {
+                            AddWaterMarkText2(dc, watermarkText, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 6), Convert.ToInt32(realPageSize.Bottom + 245));
+                            AddWaterMarkText2(dc, waterMarkText2, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 12), Convert.ToInt32(realPageSize.Bottom + 160));
+                            AddWaterMarkText2(dc, waterMarkText3, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 18), Convert.ToInt32(realPageSize.Bottom + 160));
+                        }
                     }
                     stamper.Close();
                 }
@@ -4825,7 +5097,6 @@ namespace View.Services.ViewModel
                         objVersion.no_copias = 0;
                         objVersion.descripcion_v = Descripcion;
 
-
                         //Eliminamos el archivo que contiene el sello electronico
                         int EliminarSello = DataManagerControlDocumentos.EliminarDocumentoSellado(objVersion.id_version);
 
@@ -4858,10 +5129,8 @@ namespace View.Services.ViewModel
                 else
                 {
                     //si el documento tiene más de un versión, sólo se modifica el estatus de la versión a pendiente por corregir
-
                     //eliminamos el archivo que contiene el sello electronico
-
-
+                    
                     objVersion.id_version = idVersion;
                     objVersion.no_version = version;
                     objVersion.id_documento = id_documento;

@@ -37,7 +37,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                  }).ToList();
                     //se retorna la lista
                     return Lista;
-
                 }
             }
             catch (Exception)
@@ -71,7 +70,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -96,7 +94,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
-
 
         /// <summary>
         /// Método par insertar un registro en la tabla TBL_archivo.

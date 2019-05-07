@@ -364,6 +364,64 @@ namespace View.Services
         }
 
         /// <summary>
+        /// Método para crear el formato de las AVY
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="fechaFin"></param>
+        /// <param name="NombreAbreviado"></param>
+        /// <param name="personaCreo"></param>
+        /// <param name="personaAutorizo"></param>
+        /// <param name="descripcion"></param>
+        /// <param name="codigo"></param>
+        /// <param name="departamento"></param>
+        /// <param name="version"></param>
+        /// <param name="id_documento"></param>
+        /// <param name="id_tipo"></param>
+        /// <returns></returns>
+        
+        public static string ExportFormatoAVY(string filename, DateTime fechaFin, string personaCreo, string personaAutorizo, string descripcion, string codigo, string departamento, int version, int id_documento)
+        {
+            try
+            {
+                Excel.Application ExcelApp = new Excel.Application();
+                Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(filename, true);
+
+                string dia = fechaFin.Day.ToString().Length > 1 ? fechaFin.Day.ToString() : "0" + fechaFin.Day.ToString();
+                string mes = fechaFin.Month.ToString().Length > 1 ? fechaFin.Month.ToString() : "0" + fechaFin.Month.ToString();
+
+                string FechaPrimerVersion = DataManagerControlDocumentos.GetFechaPrimeraVersion(id_documento);
+
+                if (id_documento == 0)
+                {
+                    FechaPrimerVersion = fechaFin.ToString();
+                }
+
+                DateTime FV1 = Convert.ToDateTime(FechaPrimerVersion);
+
+                string dia1 = FV1.Day.ToString().Length > 1 ? FV1.Day.ToString() : "0" + FV1.Day.ToString();
+                string mes1 = FV1.Month.ToString().Length > 1 ? FV1.Month.ToString() : "0" + FV1.Month.ToString();
+
+                foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                {
+                    sheet.Range["FECHA_ELABORACION"].Value = "'" + FV1.Year + "-" + mes1 + "-" + dia1;
+                    sheet.Range["CODIGO"].Value = codigo;
+                    sheet.Range["ELABORO"].Value = personaCreo;
+                    sheet.Range["APROBO"].Value = personaAutorizo;
+                    sheet.Range["Version"].Value = version;
+                    sheet.Range["NOMBRE_DEPARTAMENTO"].Value = departamento;
+                    sheet.Range["FECHA_REVISION"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
+                }
+
+                ExcelApp.Visible = true;
+
+                return "Ok";
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        /// <summary>
         /// Método para importar un archivo excel, la información de ClosingSleeveBk.
         /// </summary>
         /// <returns></returns>

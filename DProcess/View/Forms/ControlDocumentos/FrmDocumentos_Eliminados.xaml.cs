@@ -23,6 +23,12 @@ namespace View.Forms.ControlDocumentos
         public FrmDocumentos_Eliminados()
         {
             InitializeComponent();
+            txt_busqueda.Focus();
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

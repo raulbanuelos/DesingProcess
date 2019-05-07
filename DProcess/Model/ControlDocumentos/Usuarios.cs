@@ -30,12 +30,28 @@ namespace Model.ControlDocumentos
             }
         }
 
+        public string NombreCorto
+        {
+            get
+            {
+                return nombre + " " + APaterno;
+            }
+        }
+
+        public string NombreAbreviado
+        {
+            get
+            {
+                return nombre.Substring(0, 1) + "." + APaterno;
+            }
+        }
+
         //string usuario,string password,string nombre,string APaterno,string AMaterno,
         // int estado,string usql,string psql,bool bloqueado, int id_departartemento
         #endregion
 
         #region Constructores
-        
+
         #endregion
     }
 }
