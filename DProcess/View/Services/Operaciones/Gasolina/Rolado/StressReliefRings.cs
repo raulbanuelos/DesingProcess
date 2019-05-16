@@ -213,6 +213,7 @@ namespace View.Services.Operaciones.Gasolina.Rolado
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
             AlertasOperacion = new ObservableCollection<string>();
+            NotasOperacion = new ObservableCollection<string>();
         }
         #endregion
 

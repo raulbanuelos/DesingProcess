@@ -2,6 +2,7 @@
 using Model.Interfaces;
 using System;
 using System.Collections.ObjectModel;
+using View.Services.TiempoEstandar.Gasolina.RectificadosFinos;
 
 namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 {
@@ -180,6 +181,8 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
 
+            anilloProcesado.PropiedadesAdquiridasProceso.Add(new Propiedad { Nombre = "NUM_PASADAS_180", DescripcionCorta = "Num. Cortes NISSEI", DescripcionLarga = "Representa el número de cortes en la operación NISSEI", Valor = PasoNISSEI.Cortes.Length});
+
             //Ejecutamos el méotodo para calcular los tiempos estándar.
             CalcularTiemposEstandar();
         }
@@ -257,7 +260,33 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
         /// </summary>
         public void CalcularTiemposEstandar()
         {
+            try
+            {
+                CentroTrabajo180 objTiempo = new CentroTrabajo180();
 
+                //Ejecutamos el método para calcular los tiempos.
+                objTiempo.Calcular(anilloProcesado);
+
+                //Mapeamos los valores correspondientes.
+                this.TiempoLabor = objTiempo.TiempoLabor;
+                this.TiempoMachine = objTiempo.TiempoMachine;
+                this.TiempoSetup = objTiempo.TiempoSetup;
+
+                //Verificamos si no se generaron alertas durante el calculo de tiempos.
+                if (objTiempo.Alertas.Count > 0)
+                {
+                    AlertasOperacion.Add("Error en cálculo de tiempo estándar.");
+                    AlertasOperacion.CopyTo(objTiempo.Alertas.ToArray(), 0);
+                }
+                else
+                {
+                    NotasOperacion.Add("Tiempos estándar calculados correctamente.");
+                }
+            }
+            catch (Exception er)
+            {
+                AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
+            }
         }
 
         public void InicializarDatosGenerales()

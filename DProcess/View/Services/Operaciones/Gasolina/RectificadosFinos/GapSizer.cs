@@ -2,6 +2,7 @@
 using Model.Interfaces;
 using System;
 using System.Collections.ObjectModel;
+using View.Services.TiempoEstandar.Gasolina.RectificadosFinos;
 
 namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 {
@@ -223,7 +224,35 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
         /// </summary>
         public void CalcularTiemposEstandar()
         {
+            try
+            {
+                //Declaramos un objeto del tipo CentroTrabajo495.
+                CentroTrabajo255 objTiempo = new CentroTrabajo255();
 
+                //Ejecutamos el método para calcular los tiempos.
+                objTiempo.Calcular(anilloProcesado);
+
+                //Mapeamos los valores correspondientes.
+                this.TiempoLabor = objTiempo.TiempoLabor;
+                this.TiempoMachine = objTiempo.TiempoMachine;
+                this.TiempoSetup = objTiempo.TiempoSetup;
+
+                //Verificamos si no se generaron alertas durante el calculo de tiempos.
+                if (objTiempo.Alertas.Count > 0)
+                {
+                    AlertasOperacion.Add("Error en cálculo de tiempo estándar.");
+                    AlertasOperacion.CopyTo(objTiempo.Alertas.ToArray(), 0);
+                }
+                else
+                {
+                    NotasOperacion.Add("Tiempos estándar calculados correctamente.");
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurrio algún error, lo agregamos a la lista de alertas de la operación.
+                AlertasOperacion.Add("Error en cálculo de tiempos estádar. \n" + er.StackTrace);
+            }
         }
 
         public void InicializarDatosGenerales()
@@ -237,7 +266,8 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-
+            AlertasOperacion = new ObservableCollection<string>();
+            NotasOperacion = new ObservableCollection<string>();
             MatRemoverDiametro = 0.0125; // <--Significan .004 totales
         }
         #endregion

@@ -7,15 +7,15 @@
         xmlns:local="clr-namespace:View.Forms.Routing"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" BorderThickness="2" BorderBrush="Blue" ShowMaxRestoreButton="False"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        Title="WRouting" Height="800" Width="1200">
+        Title="WRouting" Height="800" Width="1550">
     <Grid ShowGridLines="True">
 
         <Grid.Resources>
             <BooleanToVisibilityConverter x:Key="BoolToVis"/>
         </Grid.Resources>
         <Grid.RowDefinitions>
-            <RowDefinition Height="15*"></RowDefinition>
-            <RowDefinition Height="85*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="90*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -31,8 +31,8 @@
         
         <Grid ShowGridLines="True" Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="45*"></ColumnDefinition>
-                <ColumnDefinition Width="55*"></ColumnDefinition>
+                <ColumnDefinition Width="40*"></ColumnDefinition>
+                <ColumnDefinition Width="60*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
             <!--Lista de operaciones-->
@@ -69,16 +69,16 @@
                     <Button Width="170" HorizontalAlignment="Right" Margin="15" Command="{Binding AddOperation}">Agregar</Button>
                 </StackPanel>
             </Grid>
-            
-            
-            
+
+
+
             <Controls:MetroTabControl Grid.Column="1" Controls:TabControlHelper.IsUnderlined="True" TabStripPlacement="Top" >
                 <TabItem Header="{x:Static recursos:StringResources.lblTextoLargo}">
                     <StackPanel Orientation="Vertical">
                         <TextBox Text="{Binding OperationSelected.TextoSyteline}"
-                                 TextAlignment="Left"
-                                 VerticalContentAlignment="Top"
-                                 VerticalAlignment="Top" Height="350" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                     TextAlignment="Left"
+                                     VerticalContentAlignment="Top"
+                                     VerticalAlignment="Top" Height="350" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Auto">
 
                         </TextBox>
                         <StackPanel Orientation="Vertical">
@@ -91,7 +91,7 @@
 
                                 <TextBlock Text="Material a remover" Margin="40,0,0,0"></TextBlock>
                                 <TextBox Text="{Binding OperationSelected.MatRemoverDiametro}" TextAlignment="Center" Width="120"></TextBox>
-                                
+
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Visibility="{Binding OperationSelected.IsObservableThickness, Converter={StaticResource BoolToVis}, FallbackValue=Visible}">
@@ -113,21 +113,50 @@
                                 <Button Command="{Binding SetMaterialRemover}" Content="Establecer material a remover"></Button>
                             </StackPanel>
                         </StackPanel>
-                        
+
                     </StackPanel>
-                    
                 </TabItem>
                 <Controls:MetroTabItem Header="{x:Static recursos:StringResources.lblHerramientas}">
                     <Label Content="{x:Static recursos:StringResources.lblHerramientas}"></Label>
+                    
                 </Controls:MetroTabItem>
                 <Controls:MetroTabItem Header="{x:Static recursos:StringResources.ttlRawMaterial}">
-                    <Label Content="{x:Static recursos:StringResources.ttlRawMaterial}"></Label>
+                    <Controls:Badged Width="120" Height="30" Badge="3" BadgePlacementMode="BottomRight">
+                    <StackPanel>
+                        
+                            <Button Content="Notifications" Width="120"></Button>
+                        
+                    </StackPanel>
+                    </Controls:Badged>
+                    
                 </Controls:MetroTabItem>
+
 
                 <Controls:MetroTabItem Header="{x:Static recursos:StringResources.lblAlertas}">
                     <ListBox ItemsSource="{Binding OperationSelected.AlertasOperacion}">
                         
                     </ListBox>
+                </Controls:MetroTabItem>
+                
+                
+                <Controls:MetroTabItem Header="Tiempos estandar">
+                    <StackPanel Orientation="Vertical" Margin="10,20,10,20">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="SETUP:"></Label>
+                            <Label Content="{Binding OperationSelected.TiempoSetup}"></Label>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="MACHINE:"></Label>
+                            <Label Content="{Binding OperationSelected.TiempoMachine}"></Label>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="LABOR:"></Label>
+                            <Label Content="{Binding OperationSelected.TiempoLabor}"></Label>
+                        </StackPanel>
+
+                    </StackPanel>
                 </Controls:MetroTabItem>
 
             </Controls:MetroTabControl>

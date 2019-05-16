@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using View.Services.TiempoEstandar.Gasolina.Maquinado;
 
 namespace View.Services.Operaciones.Gasolina.Maquinado
 {
@@ -159,7 +160,33 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         /// </summary>
         public void CalcularTiemposEstandar()
         {
+            try
+            {
+                CentroTrabajo260 objTiempo = new CentroTrabajo260();
 
+                objTiempo.Calcular(anilloProcesado);
+
+                //Mapeamos los valores correspondientes.
+                this.TiempoLabor = objTiempo.TiempoLabor;
+                this.TiempoMachine = objTiempo.TiempoMachine;
+                this.TiempoSetup = objTiempo.TiempoSetup;
+
+                //Verificamos si no se generaron alertas durante el calculo de tiempos.
+                if (objTiempo.Alertas.Count > 0)
+                {
+                    AlertasOperacion.Add("Error en cálculo de tiempo estándar.");
+                    AlertasOperacion.CopyTo(objTiempo.Alertas.ToArray(), 0);
+                }
+                else
+                {
+                    NotasOperacion.Add("Tiempos estándar cancilados correctamente");
+                }
+            }
+            catch (Exception er)
+            {
+                //Si ocurrio algún error, lo agregamos a la lista de alertas de la operación.
+                AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
+            }
         }
 
         public void InicializarDatosGenerales()
@@ -173,6 +200,8 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+            NotasOperacion = new ObservableCollection<string>();
+            AlertasOperacion = new ObservableCollection<string>();
         }
 
         #endregion

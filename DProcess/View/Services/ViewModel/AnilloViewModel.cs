@@ -1,25 +1,25 @@
 ﻿using System;
 using System.IO;
 using System.Xml;
+using System.Data;
+using System.Linq;
 using System.Windows.Input;
 using System.Windows.Forms;
-using System.Windows.Controls;
 using System.ComponentModel;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Model;
 using Model.Interfaces;
-using View.Forms.Modals;
-using View.Forms.UserControls;
-using MahApps.Metro.Controls.Dialogs;
-using System.Linq;
-using System.Collections.Generic;
-using View.Forms.Routing;
-using System.Data;
-using System.Threading.Tasks;
 using View.Resources;
+using View.Forms.Modals;
+using View.Forms.Routing;
 using View.Forms.RawMaterial;
+using View.Forms.UserControls;
 using MahApps.Metro.Controls;
 using MahApps.Metro.IconPacks;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace View.Services.ViewModel
 {
@@ -1215,6 +1215,12 @@ namespace View.Services.ViewModel
             Anillo anilloProcesado = new Anillo();
             DescripcionGeneral = string.Format("{0:0.00000}", D1.Valor) + " X " + string.Format("{0:0.00000}", H1.Valor) + " " + TipoAnillo;
             MaterialBase.Especificacion = EspecificacionMaterialSeleccionada;
+
+            //Agregamos los valores iniciales del anillo. Esto se utiliza para el calculo de tiempos estandar.
+            anilloProcesado.PropiedadesAdquiridasProceso.Add(D1);
+            anilloProcesado.PropiedadesAdquiridasProceso.Add(H1);
+            anilloProcesado.PropiedadesCadenaAdquiridasProceso.Add(new PropiedadCadena { Nombre = "ESPEC_MATERIAL", Valor = MaterialBase.Especificacion });
+            anilloProcesado.PropiedadesCadenaAdquiridasProceso.Add(new PropiedadCadena { Nombre = "TIPO_MATERIAL", Valor = MaterialBase.TipoDeMaterial });
 
             double currentWidth = 0.0;
             double currentThickness = 0.0;

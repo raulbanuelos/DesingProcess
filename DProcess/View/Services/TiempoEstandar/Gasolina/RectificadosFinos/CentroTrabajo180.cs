@@ -2,10 +2,13 @@
 using Model.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace View.Services.TiempoEstandar.Gasolina.Rolado
+namespace View.Services.TiempoEstandar.Gasolina.RectificadosFinos
 {
-    public class CentroTrabajo496 : ICentroTrabajo
+    public class CentroTrabajo180 : ICentroTrabajo
     {
         #region Propiedades
 
@@ -68,20 +71,20 @@ namespace View.Services.TiempoEstandar.Gasolina.Rolado
         #endregion
 
         #region Contructors
-        public CentroTrabajo496()
+        public CentroTrabajo180()
         {
-            CentroTrabajo = "496";
-            FactorLabor = 0.50;
+            CentroTrabajo = "180";
+            FactorLabor = 1;
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
-            Alertas = new List<string>();
+
             //Inicializamos los datos requeridos para el cálculo.
-            Propiedad _d1 = new Propiedad { Nombre = "D1", TipoDato = "Distance", DescripcionCorta = "Diámetro nominal", DescripcionLarga = "Diámetro nominal del anillo", Imagen = null, Unidad = "Inches (in)", Valor = 0 };
+            Propiedad _d1 = new Propiedad { Nombre = "NUM_PASADAS_180", TipoDato = "Cantidad", DescripcionCorta = "Num. Cortes NISSEI", DescripcionLarga = "Número de cortes en la operación NISSEI", Imagen = null, Unidad = "Unidades", Valor = 0 };
             PropiedadesRequeridadas.Add(_d1);
 
-            Propiedad _h1 = new Propiedad { Nombre = "H1", TipoDato = "Distance", DescripcionCorta = "Width nominal", DescripcionLarga = "Width nominal del anillo", Imagen = null, Unidad = "Inches (in)", Valor = 0 };
-            PropiedadesRequeridadas.Add(_h1);
+            PropiedadCadena _especAnillo = new PropiedadCadena { Nombre = "ESPEC_MATERIAL", DescripcionCorta = "Especificación de material", DescripcionLarga = "Especificación de material del anillo(MF012-S, SPR-128, ect)", Imagen = null };
+            PropiedadesRequeridasCadena.Add(_especAnillo);
 
         }
         #endregion
@@ -127,22 +130,24 @@ namespace View.Services.TiempoEstandar.Gasolina.Rolado
         /// </summary>
         public void Calcular()
         {
-
             TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-            double diametroNominal = Module.GetValorPropiedad("D1", PropiedadesRequeridadas);
-            double widthNominal = Module.GetValorPropiedad("H1", PropiedadesRequeridadas);
-            int cantPinoNivel = getCargaPino(diametroNominal) == 11.92 ? 35 : 69;
-            int cantPinoTotales = cantPinoNivel * 2;
+            string espec = Module.GetValorPropiedadString("ESPEC_MATERIAL", PropiedadesRequeridasCadena);
+            string tipoMaterial = DataManager.GetTipoMaterial(espec);
 
-            TiempoMachine = Math.Round(((35026 * widthNominal) / ((cantPinoNivel * cantPinoTotales)) * 36) * 100, 3);
+            double numCortes = Module.GetValorPropiedad("NUM_PASADAS_180", PropiedadesRequeridadas);
+
+            double t_ciclo = 0;
+            if (tipoMaterial == "ACERO AL CARBON" || tipoMaterial == "ACERO INOXIDABLE")
+            {
+                t_ciclo = 1.07;
+            }
+
+            TiempoMachine = Math.Round(((t_ciclo * numCortes) + 0.082) / 36, 3) * 100;
+            
             TiempoLabor = TiempoMachine * FactorLabor;
         }
-        #endregion
 
-        private double getCargaPino(double diametro)
-        {
-            return diametro <= 4.3307 ? 12.1 : 11.92;
-        }
+        #endregion
 
         #endregion
 

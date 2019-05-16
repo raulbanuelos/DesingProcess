@@ -2,10 +2,13 @@
 using Model.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace View.Services.TiempoEstandar.Gasolina.Rolado
+namespace View.Services.TiempoEstandar.Gasolina.RectificadosFinos
 {
-    public class CentroTrabajo496 : ICentroTrabajo
+    public class CentroTrabajo255 : ICentroTrabajo
     {
         #region Propiedades
 
@@ -68,17 +71,17 @@ namespace View.Services.TiempoEstandar.Gasolina.Rolado
         #endregion
 
         #region Contructors
-        public CentroTrabajo496()
+        public CentroTrabajo255()
         {
-            CentroTrabajo = "496";
-            FactorLabor = 0.50;
+            CentroTrabajo = "255";
+            FactorLabor = 1;
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
             Alertas = new List<string>();
             //Inicializamos los datos requeridos para el cálculo.
-            Propiedad _d1 = new Propiedad { Nombre = "D1", TipoDato = "Distance", DescripcionCorta = "Diámetro nominal", DescripcionLarga = "Diámetro nominal del anillo", Imagen = null, Unidad = "Inches (in)", Valor = 0 };
-            PropiedadesRequeridadas.Add(_d1);
+            PropiedadCadena _especAnillo = new PropiedadCadena { Nombre = "ESPEC_MATERIAL", DescripcionCorta = "Especificación de material", DescripcionLarga = "Especificación de material del anillo(MF012-S, SPR-128, ect)", Imagen = null };
+            PropiedadesRequeridasCadena.Add(_especAnillo);
 
             Propiedad _h1 = new Propiedad { Nombre = "H1", TipoDato = "Distance", DescripcionCorta = "Width nominal", DescripcionLarga = "Width nominal del anillo", Imagen = null, Unidad = "Inches (in)", Valor = 0 };
             PropiedadesRequeridadas.Add(_h1);
@@ -127,23 +130,122 @@ namespace View.Services.TiempoEstandar.Gasolina.Rolado
         /// </summary>
         public void Calcular()
         {
-
             TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-            double diametroNominal = Module.GetValorPropiedad("D1", PropiedadesRequeridadas);
+            
+            string espec = Module.GetValorPropiedadString("ESPEC_MATERIAL", PropiedadesRequeridasCadena);
+            string tipoMaterial = DataManager.GetTipoMaterial(espec);
             double widthNominal = Module.GetValorPropiedad("H1", PropiedadesRequeridadas);
-            int cantPinoNivel = getCargaPino(diametroNominal) == 11.92 ? 35 : 69;
-            int cantPinoTotales = cantPinoNivel * 2;
+            double t_ciclo = GetTiempoCiclo(tipoMaterial);
+            double dim_guillotina = GetDimGuillotina(widthNominal);
+            
+            TiempoMachine = Math.Round((((t_ciclo + 1.42539013) / (36 * dim_guillotina / widthNominal))) * 100, 3);
 
-            TiempoMachine = Math.Round(((35026 * widthNominal) / ((cantPinoNivel * cantPinoTotales)) * 36) * 100, 3);
             TiempoLabor = TiempoMachine * FactorLabor;
         }
         #endregion
 
-        private double getCargaPino(double diametro)
+        private double GetDimGuillotina(double _h1)
         {
-            return diametro <= 4.3307 ? 12.1 : 11.92;
+            double dim_guillotina = 0;
+            if (_h1 >= 0.02 & _h1 < 0.046)
+            {
+                dim_guillotina = 0.274;
+            }
+            else if (_h1 >= 0.046 & _h1 < 0.058)
+            {
+                dim_guillotina = 0.274;
+            }
+            else if (_h1 >= 0.058 & _h1 < 0.0625)
+            {
+                dim_guillotina = 0.352;
+            }
+            else if (_h1 >= 0.0625 & _h1 < 0.068)
+            {
+                dim_guillotina = 0.373;
+            }
+            else if (_h1 >= 0.068 & _h1 < 0.078)
+            {
+                dim_guillotina = 0.406;
+            }
+            else if (_h1 >= 0.078 & _h1 < 0.0935)
+            {
+                dim_guillotina = 0.388;
+            }
+            else if (_h1 >= 0.0935 & _h1 < 0.096)
+            {
+                dim_guillotina = 0.465;
+            }
+            else if (_h1 >= 0.096 & _h1 < 0.098)
+            {
+                dim_guillotina = 0.325;
+            }
+            else if (_h1 >= 0.098 & _h1 < 0.118)
+            {
+                dim_guillotina = 0.388;
+            }
+            else if (_h1 >= 0.118 & _h1 < 0.125)
+            {
+                dim_guillotina = 0.352;
+            }
+            else if (_h1 >= 0.125 & _h1 < 0.137)
+            {
+                dim_guillotina = 0.373;
+            }
+            else if (_h1 >= 0.137 & _h1 < 0.155)
+            {
+                dim_guillotina = 0.274;
+            }
+            else if (_h1 >= 0.155 & _h1 < 0.157)
+            {
+                dim_guillotina = 0.31;
+            }
+            else if (_h1 >= 0.157 & _h1 < 0.187)
+            {
+                dim_guillotina = 0.465;
+            }
+            else if (_h1 >= 0.187 & _h1 < 0.195)
+            {
+                dim_guillotina = 0.373;
+            }
+            else if (_h1 >= 0.195 & _h1 < 0.249)
+            {
+                dim_guillotina = 0.388;
+            }
+            else if (_h1 >= 0.249 & _h1 < 0.3)
+            {
+                dim_guillotina = 0.499;
+            }
+
+            return dim_guillotina;
         }
 
+        private double GetTiempoCiclo(string tipoMaterial)
+        {
+            double t_ciclo = 0;
+            if (tipoMaterial == "HIERRO GRIS" | tipoMaterial == "HIERRO GRIS CENTRIFUGADO")
+            {
+                t_ciclo = 5.06;
+            }
+            else if (tipoMaterial == "HIERRO DUCTIL")
+            {
+                t_ciclo = 8.32;
+            }
+            else if (tipoMaterial == "ACERO INOXIDABLE" | tipoMaterial == "ACERO AL CARBON")
+            {
+                t_ciclo = 12.076;
+            }
+            else if (tipoMaterial == "HIERRO GRIS ALTO MODULO")
+            {
+                t_ciclo = 7.065;
+            }
+            else if (tipoMaterial == "HIERRO GRIS INTERMEDIO")
+            {
+                t_ciclo = 10.79;
+            }
+
+            return t_ciclo;
+        }
+        
         #endregion
 
         #region Functions

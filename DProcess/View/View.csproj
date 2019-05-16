@@ -746,9 +746,13 @@
     <Compile Include="Services\TiempoEstandar\Fundicion\CentroTrabajo5035.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo140.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\Maquinado\CentroTrabajo230.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\Maquinado\CentroTrabajo260.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo130.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo150.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo810.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\RectificadosFinos\CentroTrabajo180.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\RectificadosFinos\CentroTrabajo255.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\RectificadosFinos\CentroTrabajo455.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\Rolado\CentroTrabajo495.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\Rolado\CentroTrabajo496.cs" />
     <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9201.cs" />

@@ -201,6 +201,7 @@ namespace View.Services.TiempoEstandar.Gasolina
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
+            Alertas = new List<string>();
 
             //Inicializamos los datos requeridos para el cálculo.
             Propiedad _d1 = new Propiedad { Nombre = "D1", TipoDato = "Distance", DescripcionCorta = "Diámetro nominal", DescripcionLarga = "Diámetro nominal del anillo", Imagen = null, Unidad = "Inch (in)", Valor = 0 };
@@ -211,6 +212,7 @@ namespace View.Services.TiempoEstandar.Gasolina
 
             Propiedad _origenDesengrase = new Propiedad { Nombre = "origenDesengrase", TipoDato = "Distance", DescripcionCorta = "Origen desengrase:", DescripcionLarga = "Ingresar 1.-ByK; 2.- Diskus", Imagen = null, Unidad = "Cantidad", Valor = 0 };
             PropiedadesRequeridadas.Add(_origenDesengrase);
+
 
         } 
         #endregion
