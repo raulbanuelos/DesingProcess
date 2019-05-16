@@ -171,7 +171,23 @@ namespace View.Services
             }
         }
 
-        public static string ExportTipoFormato(string filename, DateTime fechaFin, string NombreAbreviado, string personaCreo, string personaAutorizo, string descripcion, string codigo, string departamento, int version, int id_documento, int id_tipo)
+        /// <summary>
+        /// Método para crear el formato de las HOE
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="fechaFin"></param>
+        /// <param name="NombreAbreviado"></param>
+        /// <param name="personaCreo"></param>
+        /// <param name="personaAutorizo"></param>
+        /// <param name="descripcion"></param>
+        /// <param name="codigo"></param>
+        /// <param name="departamento"></param>
+        /// <param name="version"></param>
+        /// <param name="id_documento"></param>
+        /// <param name="id_tipo"></param>
+        /// <returns></returns>
+
+        public static string ExportFormatoHOE(string filename, DateTime fechaFin, string NombreAbreviado, string personaCreo, string personaAutorizo, string codigo, string departamento, int version, int id_documento)
         {
             string a = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
             string[] vec = a.Split(',');
@@ -181,7 +197,6 @@ namespace View.Services
                 Excel.Application ExcelApp = new Excel.Application();
                 Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(filename, true);
 
-
                 string dia = fechaFin.Day.ToString().Length > 1 ? fechaFin.Day.ToString() : "0" + fechaFin.Day.ToString();
                 string mes = fechaFin.Month.ToString().Length > 1 ? fechaFin.Month.ToString() : "0" + fechaFin.Month.ToString();
 
@@ -189,16 +204,13 @@ namespace View.Services
                 {
                     int CVF = 1;
                     int Take = 9;
-                    if (id_tipo == 1015)
-                    {
-                        Take = 10;
-                    }
-                    ObservableCollection<Model.ControlDocumentos.Version> L = DataManagerControlDocumentos.GetVersionesAnterioresXDocumento(id_documento, Take);
 
+                    ObservableCollection<Model.ControlDocumentos.Version> L = DataManagerControlDocumentos.GetVersionesAnterioresXDocumento(id_documento, Take);
 
                     foreach (var item in L.Reverse())
                     {
                         DateTime FechaV = item.fecha_version;
+
                         string diaV = FechaV.Day.ToString().Length > 1 ? FechaV.Day.ToString() : "0" + FechaV.Day.ToString();
                         string mesV = FechaV.Month.ToString().Length > 1 ? FechaV.Month.ToString() : "0" + FechaV.Month.ToString();
 
@@ -206,7 +218,6 @@ namespace View.Services
                         string VersionVersiones = "VERSION_" + CVF;
                         string FechaVersiones = "FECHA_A" + CVF;
                         string NivelVersiones = "NIVEL_C" + (CVF);
-
 
                         foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                         {
@@ -217,15 +228,13 @@ namespace View.Services
                         }
                         CVF++;
                     }
+
                     int Aux = 0;
-                    int AuxCTipoDocumento = 11;
-                    if (id_tipo == 2)
+                    int AuxTipoDocumento = 10;
+
+                    if (version > AuxTipoDocumento)
                     {
-                        AuxCTipoDocumento = 10;
-                    }
-                    if (version > AuxCTipoDocumento)
-                    {
-                        Aux = version - AuxCTipoDocumento;
+                        Aux = version - AuxTipoDocumento;
                     }
 
                     string UsuarioActual = "USUARIO_A" + (version - Aux);
@@ -235,12 +244,7 @@ namespace View.Services
 
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
-
                         sheet.Range["FECHA_LIBERACION"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
-                        if (id_tipo == 1015)
-                        {
-                            sheet.Range["DESCRIPCION"].Value = descripcion;
-                        }
                         sheet.Range["ELABORO"].Value = personaCreo;
                         sheet.Range["REVISO"].Value = personaAutorizo;
                         sheet.Range["APROBO"].Value = personaAutorizo;
@@ -251,7 +255,6 @@ namespace View.Services
                         sheet.Range[VersionActual].Value = version;
                         sheet.Range[FechaActual].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
                         sheet.Range[NivelActual].Value = vec[version - 1];
-
                     }
 
                     ExcelApp.Visible = true;
@@ -268,11 +271,6 @@ namespace View.Services
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
                         sheet.Range["FECHA_LIBERACION"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
-                        if (id_tipo == 1015)
-                        {
-                            sheet.Range["DESCRIPCION"].Value = descripcion;
-                        }
-
                         sheet.Range["ELABORO"].Value = personaCreo;
                         sheet.Range["REVISO"].Value = personaAutorizo;
                         sheet.Range["APROBO"].Value = personaAutorizo;
@@ -283,9 +281,131 @@ namespace View.Services
                         sheet.Range[VersionActual].Value = version;
                         sheet.Range[FechaActual].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
                         sheet.Range[NivelActual].Value = vec[version - 1];
-
                     }
 
+                    ExcelApp.Visible = true;
+
+                    return "Ok";
+                }
+            }
+            catch (Exception er)
+            {
+                return er.Message;
+            }
+        }
+
+        /// <summary>
+        /// Método para crear el formato de las JES
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="fechaFin"></param>
+        /// <param name="NombreAbreviado"></param>
+        /// <param name="personaCreo"></param>
+        /// <param name="personaAutorizo"></param>
+        /// <param name="descripcion"></param>
+        /// <param name="codigo"></param>
+        /// <param name="departamento"></param>
+        /// <param name="version"></param>
+        /// <param name="id_documento"></param>
+        /// <param name="id_tipo"></param>
+        /// <returns></returns>
+
+        public static string ExportFormatoJES(string filename, DateTime fechaFin, string NombreAbreviado, string personaCreo, string personaAutorizo, string descripcion, string codigo, string departamento, int version, int id_documento)
+        {
+            string a = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
+            string[] vec = a.Split(',');
+
+            try
+            {
+                Excel.Application ExcelApp = new Excel.Application();
+                Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(filename, true);
+
+                string dia = fechaFin.Day.ToString().Length > 1 ? fechaFin.Day.ToString() : "0" + fechaFin.Day.ToString();
+                string mes = fechaFin.Month.ToString().Length > 1 ? fechaFin.Month.ToString() : "0" + fechaFin.Month.ToString();
+
+                if (version > 1)
+                {
+                    int CVF = 1;
+                    int Take = 10;
+
+                    ObservableCollection<Model.ControlDocumentos.Version> L = DataManagerControlDocumentos.GetVersionesAnterioresXDocumento(id_documento, Take);
+
+                    foreach (var item in L.Reverse())
+                    {
+                        DateTime FechaV = item.fecha_version;
+                        string diaV = FechaV.Day.ToString().Length > 1 ? FechaV.Day.ToString() : "0" + FechaV.Day.ToString();
+                        string mesV = FechaV.Month.ToString().Length > 1 ? FechaV.Month.ToString() : "0" + FechaV.Month.ToString();
+
+                        string UsuarioVersiones = "USUARIO_A" + CVF;
+                        string VersionVersiones = "VERSION_" + CVF;
+                        string FechaVersiones = "FECHA_A" + CVF;
+                        string NivelVersiones = "NIVEL_C" + (CVF);
+
+                        foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                        {
+                            sheet.Range[UsuarioVersiones].Value = item.id_usuario;
+                            sheet.Range[VersionVersiones].Value = item.no_version;
+                            sheet.Range[FechaVersiones].Value = "'" + FechaV.Year + "-" + mesV + "-" + diaV;
+                            sheet.Range[NivelVersiones].Value = vec[CVF - 1];
+                        }
+                        CVF++;
+                    }
+
+                    int Aux = 0;
+                    int AuxTipoDocumento = 11;
+
+                    if (version > AuxTipoDocumento)
+                    {
+                        Aux = version - AuxTipoDocumento;
+                    }
+
+                    string UsuarioActual = "USUARIO_A" + (version - Aux);
+                    string VersionActual = "VERSION_" + (version - Aux);
+                    string FechaActual = "FECHA_A" + (version - Aux);
+                    string NivelActual = "NIVEL_C" + (version - Aux);
+
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                    {                         
+                        sheet.Range["FECHA_LIBERACION"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
+                        sheet.Range["DESCRIPCION"].Value = descripcion;
+                        sheet.Range["ELABORO"].Value = personaCreo;
+                        sheet.Range["REVISO"].Value = personaAutorizo;
+                        sheet.Range["APROBO"].Value = personaAutorizo;
+                        sheet.Range["CODIGO"].Value = codigo;
+                        sheet.Range["PROCESO"].Value = departamento;
+
+                        sheet.Range[UsuarioActual].Value = NombreAbreviado;
+                        sheet.Range[VersionActual].Value = version;
+                        sheet.Range[FechaActual].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
+                        sheet.Range[NivelActual].Value = vec[version - 1];
+                    }
+
+                    ExcelApp.Visible = true;
+
+                    return "Ok";
+                }
+                else
+                {
+                    string UsuarioActual = "USUARIO_A" + version;
+                    string VersionActual = "VERSION_" + version;
+                    string FechaActual = "FECHA_A" + version;
+                    string NivelActual = "NIVEL_C" + version;
+
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                    {
+                        sheet.Range["FECHA_LIBERACION"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
+                        sheet.Range["DESCRIPCION"].Value = descripcion;
+                        sheet.Range["ELABORO"].Value = personaCreo;
+                        sheet.Range["REVISO"].Value = personaAutorizo;
+                        sheet.Range["APROBO"].Value = personaAutorizo;
+                        sheet.Range["CODIGO"].Value = codigo;
+                        sheet.Range["PROCESO"].Value = departamento;
+
+                        sheet.Range[UsuarioActual].Value = NombreAbreviado;
+                        sheet.Range[VersionActual].Value = version;
+                        sheet.Range[FechaActual].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
+                        sheet.Range[NivelActual].Value = vec[version - 1];
+                    }
                     ExcelApp.Visible = true;
 
                     return "Ok";

@@ -745,8 +745,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                         join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
                                         join u in Conexion.Usuarios on v.ID_USUARIO_AUTORIZO equals u.Usuario
                                         join us in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals us.Usuario
-                                        join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
-                                        where d.ID_DOCUMENTO == id_doc && (v.ID_ESTATUS_VERSION == 1 | v.ID_ESTATUS_VERSION == 2)
+                                        where d.ID_DOCUMENTO == id_doc && (v.ID_ESTATUS_VERSION == 1 || v.ID_ESTATUS_VERSION == 2)
                                         orderby v.ID_VERSION descending
                                         select new
                                         {
