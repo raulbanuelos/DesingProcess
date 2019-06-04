@@ -204,6 +204,8 @@ namespace Model
             CondicionesDeEmpaque = new Empaquetado();
             NivelRevicion = new Revision();
             PropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+            PropiedadesBoolAdquiridasProceso = new ObservableCollection<PropiedadBool>();
+            PropiedadesCadenaAdquiridasProceso = new ObservableCollection<PropiedadCadena>();
             Operaciones = new ObservableCollection<IOperacion>();
             FranjasPintura = new ObservableCollection<PinturaAnillo>();
             OvalityMax = new Propiedad();

@@ -264,7 +264,7 @@ namespace View.Services.Operaciones.Gasolina.Rolado
 
                 //Mapeamos los valores correspondientes.
                 this.TiempoLabor = objTiempo.TiempoLabor;
-                this.TiempoMachine = objTiempo.TiempoMachine;
+                this.TiempoMachine = objTiempo.TiempoMachine; 
                 this.TiempoSetup = objTiempo.TiempoSetup;
 
                 //Verificamos si no se generaron alertas durante el calculo de tiempos.
@@ -297,6 +297,7 @@ namespace View.Services.Operaciones.Gasolina.Rolado
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
             AlertasOperacion = new ObservableCollection<string>();
+            NotasOperacion = new ObservableCollection<string>();
         }
         #endregion
         #endregion

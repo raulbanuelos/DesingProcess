@@ -141,6 +141,7 @@ namespace View.Services.TiempoEstandar.Gasolina.Rolado
             //Inicializamos los datos requeridos para el cálculo.
             Propiedad _d1 = new Propiedad { Nombre = "D1", TipoDato = "Distance", DescripcionCorta = "Diámetro nominal", DescripcionLarga = "Diámetro nominal del anillo", Imagen = null, Unidad = "inches (in)", Valor = 0 };
             PropiedadesRequeridadas.Add(_d1);
+            Alertas = new List<string>();
 
         } 
         #endregion

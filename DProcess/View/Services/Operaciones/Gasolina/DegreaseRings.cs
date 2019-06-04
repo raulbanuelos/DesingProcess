@@ -2,6 +2,7 @@
 using Model.Interfaces;
 using System;
 using System.Collections.ObjectModel;
+using View.Services.TiempoEstandar.Gasolina;
 
 namespace View.Services.Operaciones.Gasolina
 {
@@ -156,7 +157,30 @@ namespace View.Services.Operaciones.Gasolina
         /// </summary>
         public void CalcularTiemposEstandar()
         {
+            try
+            {
+                CentroTrabajo140 objTiempo = new CentroTrabajo140();
 
+                objTiempo.Calcular(anilloProcesado);
+
+                this.TiempoLabor = objTiempo.TiempoLabor;
+                this.TiempoMachine = objTiempo.TiempoMachine;
+                this.TiempoSetup = objTiempo.TiempoSetup;
+
+                if (objTiempo.Alertas.Count > 0)
+                {
+                    AlertasOperacion.Add("Error en cálculo de tiempo estándar.");
+                    AlertasOperacion.CopyTo(objTiempo.Alertas.ToArray(), 0);
+                }
+                else
+                    NotasOperacion.Add("Tiempos estándar calculados correctamente");
+
+            }
+            catch (Exception er)
+            {
+                //Si ocurrio algún error, lo agregamos a la lista de alertas de la operación.
+                AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
+            }
         }
 
         public void InicializarDatosGenerales()
@@ -169,6 +193,8 @@ namespace View.Services.Operaciones.Gasolina
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+            AlertasOperacion = new ObservableCollection<string>();
+            NotasOperacion = new ObservableCollection<string>();
         }
         #endregion
 

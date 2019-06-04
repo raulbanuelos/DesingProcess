@@ -191,7 +191,7 @@ namespace View.Services
             ListaOperaciones.Add(new DegreaseRings(elAnillo));
             ListaOperaciones.Add(new Lapping(elAnillo));
             ListaOperaciones.Add(new DegreaseRings(elAnillo));
-            
+
             OperacionesFinales();
 
             asignarNumeroOperacion();
