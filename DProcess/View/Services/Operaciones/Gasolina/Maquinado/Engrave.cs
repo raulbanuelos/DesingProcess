@@ -140,8 +140,10 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "*ENGRAVE";
-
+            TextoProceso = "*ENGRAVE\n";
+            TextoProceso += "PIP RADIAL LOC. \n";
+            TextoProceso += "ANGULAR LOC. \n";
+            TextoProceso += "DEPTH \n";
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
@@ -152,7 +154,10 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
 
         public void BuscarHerramentales()
         {
+            double widthAnillo = elPlano.H1.Valor;
+            ListaHerramentales.Add(DataManager.GetGuillotinaEngrave(widthAnillo));
 
+            TextoHerramienta = Module.GetTextoListaHerramentales(ListaHerramentales);
         }
 
         /// <summary>

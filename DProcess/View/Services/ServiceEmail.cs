@@ -5,6 +5,10 @@ namespace View.Services
 {
     public class ServiceEmail
     {
+        //var AttachME = nDocument.CreateRichTextItem("Attachment"); //agregado
+
+
+        //var EmbedObj = AttachME.EmbedObject(1454, "", sAttachment, "Attachment");
         public bool SendEmailLotus(string pathDBEmail, string[] recipients,string title,string body)
         {
             try
@@ -43,6 +47,58 @@ namespace View.Services
             }
         }
 
+        public bool SendEmailWithImage(string pathDBEmail, string[] recipients, string title, string body)
+        {
+            try
+            {
+                NotesSession nSession = new NotesSession();
+                nSession.Initialize("");
+                NotesStream stream = nSession.CreateStream();
+                nSession.ConvertMime = false;
+                NotesDatabase nDatabase;
+                
+                string MailDbName = pathDBEmail;
+                nDatabase = nSession.GetDatabase(null, MailDbName, false);
+
+                if (!nDatabase.IsOpen)
+                {
+                    nDatabase.Open();
+                }
+
+                var nDocument = nDatabase.CreateDocument();
+                var AttachME = nDocument.CreateRichTextItem("Attachment"); //agregado
+
+                var EmbedObj = AttachME.EmbedObject(EMBED_TYPE.EMBED_ATTACHMENT, "Attachment", @"C:\raul\bnstagram@2x.png", "Attachment");
+                var EmbedObj1 = AttachME.EmbedObject(EMBED_TYPE.EMBED_ATTACHMENT, "Attachment", @"C:\raul\facebook@2x.png", "Attachment");
+                var EmbedObj2 = AttachME.EmbedObject(EMBED_TYPE.EMBED_ATTACHMENT, "Attachment", @"C:\raul\twitter@2x.png", "Attachment");
+                var EmbedObj3 = AttachME.EmbedObject(EMBED_TYPE.EMBED_ATTACHMENT, "Attachment", @"C:\raul\xconMahle.png", "Attachment");
+
+                //setup Form
+                nDocument.ReplaceItemValue("Form", "Memo");
+                nDocument.ReplaceItemValue("SentTo", recipients);
+                nDocument.ReplaceItemValue("Subject", title);
+
+
+                NotesMIMEEntity sBody = nDocument.CreateMIMEEntity();
+                NotesMIMEEntity chield = sBody.CreateChildEntity();
+                
+                stream.WriteText(body);
+                
+                
+                chield.SetContentFromText(stream, "text/html;charset=iso-8859-1", MIME_ENCODING.ENC_IDENTITY_8BIT);
+                stream.Close();
+                stream.Truncate();
+
+                nDocument.Send(false, recipients);
+
+                return true;
+            }
+            catch (Exception er)
+            {
+                return false;
+            }
+        }
+
         public bool SendEmailLotusCustom(string pathDBEmail, string[] recipients, string title, string body)
         {
             try
@@ -61,14 +117,19 @@ namespace View.Services
                 }
 
                 var nDocument = nDatabase.CreateDocument();
+                
                 //setup Form
                 nDocument.ReplaceItemValue("Form", "Memo");
                 nDocument.ReplaceItemValue("SentTo", recipients);
                 nDocument.ReplaceItemValue("Subject", title);
                 
+                
                 NotesMIMEEntity sBody =  nDocument.CreateMIMEEntity();
                 NotesMIMEEntity chield = sBody.CreateChildEntity();
+                
                 stream.WriteText(body);
+
+                
                 chield.SetContentFromText(stream, "text/html;charset=iso-8859-1", MIME_ENCODING.ENC_NONE);
                 stream.Close();
                 stream.Truncate();
