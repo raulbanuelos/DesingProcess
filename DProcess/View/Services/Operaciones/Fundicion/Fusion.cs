@@ -1,18 +1,13 @@
 ﻿using Model;
 using Model.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using View.Services.TiempoEstandar.Fundicion;
 
 namespace View.Services.Operaciones.Fundicion
 {
     public class Fusion : GenericOperation, IOperacion
     {
-
         #region Propiedades de IOperacion
 
         /// <summary>

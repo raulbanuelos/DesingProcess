@@ -9946,6 +9946,21 @@ namespace Model
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "GuillotinaEngrave_");
         }
 
+        public static Herramental GetGuillotinaEngrave(double widthAnillo)
+        {
+            Herramental herramental = new Herramental();
+            DataTable dt = SelectBestGuillotinaEngrave(GetOptimosGuillotinaEngrave(widthAnillo));
+
+            if (dt.Rows.Count>1)
+            {
+                DataRow lastRow = dt.Rows[dt.Rows.Count - 1];
+
+                herramental.Codigo = lastRow["Code"].ToString();
+            }
+
+            return herramental;
+        }
+
         /// <summary>
         /// Método que obtiene la lista de los herramentales optimos de Guillotina Engrave
         /// </summary>
