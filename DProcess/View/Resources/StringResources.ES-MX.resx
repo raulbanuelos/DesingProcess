@@ -1706,4 +1706,144 @@
     <value>¿Qué formato deseas utilizar?</value>
     <comment>Mensaje para elegir el tipo de formato</comment>
   </data>
+  <data name="lblAutomaticamente" xml:space="preserve">
+    <value>Automáticamente</value>
+    <comment>Selecciona el modo para corregir un archivo</comment>
+  </data>
+  <data name="lblManualmente" xml:space="preserve">
+    <value>Manualmente</value>
+    <comment>Selecciona el modo para corregir un archivo</comment>
+  </data>
+  <data name="msgModoCorregir" xml:space="preserve">
+    <value>¿Cómo deseas corregir el archivo?</value>
+    <comment>Mensaje para elegir la manera de corregir el archivo</comment>
+  </data>
+  <data name="msgArchivoCorregido" xml:space="preserve">
+    <value>El documento ha sido corregido. 
+Por favor vuelve a adjuntarlo.</value>
+    <comment>Mensaje que muestra que el archivo ha sido corregido automáticamente.</comment>
+  </data>
+  <data name="msgCorrigeArchivo" xml:space="preserve">
+    <value>Por favor corrige el archivo y adjuntalo de nuevo.</value>
+    <comment>Mensaje que pide que se corrija el archivo.</comment>
+  </data>
+  <data name="msgCodIncorrecto" xml:space="preserve">
+    <value>El Código es incorrecto en la hoja: </value>
+    <comment>Mensaje que muestra que el Código es incorrecto</comment>
+  </data>
+  <data name="msgDescIncorrecta" xml:space="preserve">
+    <value>La Descripción es incorrecta en la hoja: </value>
+    <comment>Mensaje que muestra que la Descripción es incorrecta</comment>
+  </data>
+  <data name="msgDescNotEspeciales" xml:space="preserve">
+    <value>La Descripción no puede tener caracteres especiales, favor de escribirla de nuevo.</value>
+    <comment>Mensaje que muestra que la Descripción no debe tener caracteres especiales</comment>
+  </data>
+  <data name="msgFElaboraIncorrecta" xml:space="preserve">
+    <value>La Fecha Elaboración es incorrecta en la hoja: </value>
+    <comment>Mensaje que muestra que la Fecha de Elaboración es incorrecta</comment>
+  </data>
+  <data name="msgFEmisIncorrecta" xml:space="preserve">
+    <value>La Fecha Emisión es incorrecta en la hoja: </value>
+    <comment>Mensaje que muestra que la Fecha de Emisión es incorrecta</comment>
+  </data>
+  <data name="msgFReviIncorrecta" xml:space="preserve">
+    <value>La Fecha Revisión es incorrecta en la hoja: </value>
+    <comment>Mensaje que muestra que la Fecha de Revisión es incorrecta</comment>
+  </data>
+  <data name="msgNumeracionIncorrecta" xml:space="preserve">
+    <value>La numeración de las hojas está incorrecta en la hoja: </value>
+    <comment>Mensaje que muestra que la Numeración de hojas es un documento está incorrecta</comment>
+  </data>
+  <data name="msgUAproIncorrecto" xml:space="preserve">
+    <value>El Usuario Aprobó es incorrecto en la hoja: </value>
+    <comment>Mensaje que muestra que el Usuario Aprobó es incorrecto</comment>
+  </data>
+  <data name="msgUAutoIncorrecto" xml:space="preserve">
+    <value>El Usuario Autorizó es incorrecto en la hoja: </value>
+    <comment>Mensaje que muestra que el Usuario Autorizó es incorrecto</comment>
+  </data>
+  <data name="msgUElabIncorrecto" xml:space="preserve">
+    <value>El Usuario Elaboró es incorrecto en la hoja: </value>
+    <comment>Mensaje que muestra que el Usuario Elaboró es incorrecto</comment>
+  </data>
+  <data name="msgUNotSISTEMA" xml:space="preserve">
+    <value>El Usuario Autorizó no debe ser SISTEMA, favor de seleccionar el correspondiente.</value>
+    <comment>Mensaje que muestra que el Usuario Autorizó no debe ser SISTEMA</comment>
+  </data>
+  <data name="msgVersIncorrecta" xml:space="preserve">
+    <value>La Versión del documento es incorrecta en la hoja: </value>
+    <comment>Mensaje que muestra que la Versión es incorrecta</comment>
+  </data>
+  <data name="msgDBCr" xml:space="preserve">
+    <value>, debe ser: </value>
+    <comment>Mensaje que muestra que datos debe llevar un documento</comment>
+  </data>
+  <data name="msgCorrectFile" xml:space="preserve">
+    <value>Archivo correcto</value>
+    <comment>Mensaje que muestra que está correcto el archivo</comment>
+  </data>
+  <data name="msgEliminaVers" xml:space="preserve">
+    <value>Se elimina versión </value>
+    <comment>Indica que se elimina la versión</comment>
+  </data>
+  <data name="msgErrorConvertFile" xml:space="preserve">
+    <value>error al convertir el archivo</value>
+    <comment>Mensaje que muestra que ha habido un error al convertir el archivo</comment>
+  </data>
+  <data name="msgFileIncorrect" xml:space="preserve">
+    <value>Archivo incorrecto: 
+</value>
+    <comment>Mensaje que muestra que el archivo está incorrecto</comment>
+  </data>
+  <data name="msgFormatoGCorrect" xml:space="preserve">
+    <value>El formato se genero correctamente.
+Favor de no modificar los datos generales del formato.
+Al momento de guardar el archivo, asegurate de que sea ARCHIVO DE EXCEL (.XLSX)</value>
+    <comment>Mensaje que indica que el formato se generó correctamente el formato</comment>
+  </data>
+  <data name="msgGenerar1roVers" xml:space="preserve">
+    <value>Para generar el formato, primero genere una nueva versión</value>
+    <comment>Pide generar primero la versión</comment>
+  </data>
+  <data name="msgHuboError" xml:space="preserve">
+    <value>Hubo un error al adjuntar el documento, por favor intente más tarde.</value>
+    <comment>Notifica que hubo un error</comment>
+  </data>
+  <data name="msgInDescDoc" xml:space="preserve">
+    <value>Ingrese la descripción del documento</value>
+    <comment>Mensaje que pide que se ingrese la descripción de documento</comment>
+  </data>
+  <data name="msgNoAdjFile" xml:space="preserve">
+    <value>No se ha adjuntado ningún archivo</value>
+    <comment>Mensaje que muestra que no se ha adjuntado archivo</comment>
+  </data>
+  <data name="msgNotFoundFile" xml:space="preserve">
+    <value>No se encontro ningun archivo, favor de cargar uno</value>
+    <comment>Mensaje que muestra que no se ha encontrado archivo</comment>
+  </data>
+  <data name="msgRegresaVers" xml:space="preserve">
+    <value>, se regresa a versión anterior</value>
+    <comment>Indica que se regresa a la versión anterior</comment>
+  </data>
+  <data name="msgSelectNotify" xml:space="preserve">
+    <value>Debe seleccionar a quien notificar</value>
+    <comment>Mensaje que pide que se notifique a alguien</comment>
+  </data>
+  <data name="msgSelectNumDoc" xml:space="preserve">
+    <value>Seleccione el número de documento</value>
+    <comment>Mensaje que pide que se seleccione el numero del documento</comment>
+  </data>
+  <data name="msgSelectUserAuto" xml:space="preserve">
+    <value>Seleccione el usuario que autorizó</value>
+    <comment>Mensaje que pide que se seleccione el usuario autorizó</comment>
+  </data>
+  <data name="msgSoloExcel" xml:space="preserve">
+    <value>Sólo se permiten archivos de Excel</value>
+    <comment>Solo permite archivos excel</comment>
+  </data>
+  <data name="msgSoloFormatos" xml:space="preserve">
+    <value>Por el momento solo se puede generar el formato de archivos tipo JES, HOE, HII y AVY</value>
+    <comment>Indica cuales son los formatos que se pueden generar</comment>
+  </data>
 </root>

@@ -1205,10 +1205,6 @@ namespace View.Services.ViewModel
 
             validacion = validarJES(out mensaje);
             return validacion;
-
-            //validacion = validarJES(out mensaje);
-
-            //return validacion;
         }
 
         private bool validarHOE(out string mensaje)
@@ -1231,127 +1227,122 @@ namespace View.Services.ViewModel
                 Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
                 Microsoft.Office.Interop.Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(pathExcel, true);
 
-                try
+                for (int i = 1; i <= ExcelWork.Sheets.Count; i++)
                 {
-                    Microsoft.Office.Interop.Excel.Worksheet sheet;
-                    sheet = ExcelWork.Sheets["HOE"];
-
-                    int Aux = 1;
-                    bool ValidacionNumeracion = true;
-
-                    //Evaluamos la numeración de las hojas
-                    foreach (Microsoft.Office.Interop.Excel.Worksheet sheet1 in ExcelWork.Sheets)
+                    try
                     {
-                        string Numeracion = Convert.ToString(sheet1.Range["X7"].Value);
+                        Microsoft.Office.Interop.Excel.Worksheet sheet;
+                        sheet = ExcelWork.Sheets[i];
 
-                        if (Numeracion != "Hoja " + Aux + " de " + ExcelWork.Sheets.Count)
+                        bool ValidacionNumeracion = true;
+                        //Evaluamos la numeración de las hojas
+                        string Numeracion = Convert.ToString(sheet.Range["X7"].Value);
+
+                        if (Numeracion != "Hoja " + i + " de " + ExcelWork.Sheets.Count)
                         {
                             ValidacionNumeracion = false;
                         }
-                        Aux++;
+
+                        if (ValidacionNumeracion == false)
+                        {
+                            mensaje += "\n" + StringResources.msgNumeracionIncorrecta + ExcelWork.Sheets[i].Name;
+                            ban = false;
+                        }
+
+                        int VRevisar = 10;
+                        string VersionRevisar = "VERSION_10";
+                        string FechaRevisar = "FECHA_A10";
+                        string UsuarioRevisar = "USUARIO_A10";
+
+                        if (Convert.ToInt32(Version) <= VRevisar)
+                        {
+                            VersionRevisar = "VERSION_" + Version;
+                            FechaRevisar = "FECHA_A" + Version;
+                            UsuarioRevisar = "USUARIO_A" + Version;
+                        }
+
+                        string fecha = Convert.ToString(sheet.Range["FECHA_LIBERACION"].Value);
+                        string elaboro = Convert.ToString(sheet.Range["ELABORO"].Value);
+                        string aprobo = Convert.ToString(sheet.Range["APROBO"].Value);
+                        string reviso = Convert.ToString(sheet.Range["REVISO"].Value);
+                        string codigo = Convert.ToString(sheet.Range["CODIGO"].Value);
+                        string departamento = Convert.ToString(sheet.Range["PROCESO"].Value);
+                        string no_version = Convert.ToString(sheet.Range[VersionRevisar].Value);
+                        string UsuarioRev = Convert.ToString(sheet.Range[UsuarioRevisar].Value);
+                        string FechaRev = Convert.ToString(sheet.Range[FechaRevisar].Value);
+
+                        //Validar fecha elaboración
+                        DateTime date = Convert.ToDateTime(fecha);
+                        if (date.Year != FechaFin.Year || date.Month != FechaFin.Month || date.Day != FechaFin.Day)
+                        {
+                            string mes = "";
+                            mes = FechaFin.Month < 10 ? "0" + FechaFin.Month : "" + FechaFin.Month;
+
+                            string dia = "";
+                            dia = FechaFin.Day < 10 ? "0" + FechaFin.Day : "" + FechaFin.Day;
+
+                            mensaje += "\n" + StringResources.msgFElaboraIncorrecta + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + FechaFin.Year + "-" + mes + "-" + dia;
+                            ban = false;
+                        }
+
+                        //Validar fecha revisión
+                        DateTime date1 = Convert.ToDateTime(FechaRev);
+                        if (date1.Year != FechaFin.Year || date1.Month != FechaFin.Month || date1.Day != FechaFin.Day)
+                        {
+                            string mes = "";
+                            mes = FechaFin.Month < 10 ? "0" + FechaFin.Month : "" + FechaFin.Month;
+
+                            string dia = "";
+                            dia = FechaFin.Day < 10 ? "0" + FechaFin.Day : "" + FechaFin.Day;
+
+                            mensaje += "\n" + StringResources.msgFReviIncorrecta + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + FechaFin.Year + "-" + mes + "-" + dia;
+                            ban = false;
+                        }
+                        if (elaboro != ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto)
+                        {
+                            mensaje += "\n" + StringResources.msgUElabIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto;
+                            ban = false;
+                        }
+                        if (aprobo != ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto)
+                        {
+                            mensaje += "\n" + StringResources.msgUAproIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto;
+                            ban = false;
+                        }
+
+                        string UsuariosPermitido = NombreUsuarioAut.Replace(" ", "");
+                        if (UsuariosPermitido == "SISTEMA")
+                        {
+                            mensaje += "\n" + StringResources.msgUNotSISTEMA;
+                            ban = false;
+                        }
+                        if (reviso != ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto)
+                        {
+                            mensaje += "\n" + StringResources.msgUAutoIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto;
+                            ban = false;
+                        }
+                        if (codigo != SelectedDocumento.nombre)
+                        {
+                            mensaje += "\n" + StringResources.msgCodIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + SelectedDocumento.nombre;
+                            ban = false;
+                        }
+                        if (no_version != Version)
+                        {
+                            mensaje += "\n" + StringResources.msgVersIncorrecta + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + Version;
+                            ban = false;
+                        }
+
+                        string NombreAbreviado = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
+                        if (UsuarioRev != NombreAbreviado)
+                        {
+                            mensaje += "\n" + StringResources.msgUElabIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + NombreAbreviado;
+                            ban = false;
+                        }
                     }
-                    if (ValidacionNumeracion == false)
+                    catch (Exception er)
                     {
-                        mensaje += "La numeración de las hojas está incorrecta";
-                        ban = false;
+                        mensaje = StringResources.msgFileIncorrect + er.Message;
+                        return false;
                     }
-
-                    int VRevisar = 10;
-                    string VersionRevisar = "VERSION_10";
-                    string FechaRevisar = "FECHA_A10";
-                    string UsuarioRevisar = "USUARIO_A10";
-
-                    if (Convert.ToInt32(Version) <= VRevisar)
-                    {
-                        VersionRevisar = "VERSION_" + Version;
-                        FechaRevisar = "FECHA_A" + Version;
-                        UsuarioRevisar = "USUARIO_A" + Version;
-                    }
-
-                    string fecha = Convert.ToString(sheet.Range["FECHA_LIBERACION"].Value);
-                    string elaboro = Convert.ToString(sheet.Range["ELABORO"].Value);
-                    string aprobo = Convert.ToString(sheet.Range["APROBO"].Value);
-                    string reviso = Convert.ToString(sheet.Range["REVISO"].Value);
-                    string codigo = Convert.ToString(sheet.Range["CODIGO"].Value);
-                    string departamento = Convert.ToString(sheet.Range["PROCESO"].Value);
-                    string no_version = Convert.ToString(sheet.Range[VersionRevisar].Value);
-                    string UsuarioRev = Convert.ToString(sheet.Range[UsuarioRevisar].Value);
-                    string FechaRev = Convert.ToString(sheet.Range[FechaRevisar].Value);
-
-                    //Validar fecha elaboración
-                    DateTime date = Convert.ToDateTime(fecha);
-                    if (date.Year != FechaFin.Year || date.Month != FechaFin.Month || date.Day != FechaFin.Day)
-                    {
-                        string mes = "";
-                        mes = FechaFin.Month < 10 ? "0" + FechaFin.Month : "" + FechaFin.Month;
-
-                        string dia = "";
-                        dia = FechaFin.Day < 10 ? "0" + FechaFin.Day : "" + FechaFin.Day;
-
-                        mensaje += "\nLa fecha elaboración es incorrecta, debe ser: " + FechaFin.Year + "-" + mes + "-" + dia;
-                        ban = false;
-                    }
-
-                    //Validar fecha revisión
-                    DateTime date1 = Convert.ToDateTime(FechaRev);                    
-                    if (date1.Year != FechaFin.Year || date1.Month != FechaFin.Month || date1.Day != FechaFin.Day)
-                    {
-                        string mes = "";
-                        mes = FechaFin.Month < 10 ? "0" + FechaFin.Month : "" + FechaFin.Month;
-
-                        string dia = "";
-                        dia = FechaFin.Day < 10 ? "0" + FechaFin.Day : "" + FechaFin.Day;
-
-                        mensaje += "\nLa fecha revisión es incorrecta, debe ser: " + FechaFin.Year + "-" + mes + "-" + dia;
-                        ban = false;
-                    }
-
-                    if (elaboro != ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto)
-                    {
-                        mensaje += "\nEl usuario Elaboró es incorrecto, debe ser: " + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto;
-                        ban = false;
-                    }
-                    if (aprobo != ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto)
-                    {
-                        mensaje += "\nEl usuario Aprobó es incorrecto, debe ser: " + ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto;
-                        ban = false;
-                    }
-                    string UsuariosPermitido = NombreUsuarioAut.Replace(" ", "");
-                    if (UsuariosPermitido == "SISTEMA")
-                    {
-                        mensaje += "\nEl usuario Autorizo no debe ser SISTEMA, favor de seleccionar el correspondiente";
-                        ban = false;
-                    }
-                    if (reviso != ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto)
-                    {
-                        mensaje += "\nEl usuario Autorizó es incorrecto, debe ser: " + ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto;
-                        ban = false;
-                    }
-
-                    if (codigo != SelectedDocumento.nombre)
-                    {
-                        mensaje += "\nEl Código es incorrecto, debe ser: " + SelectedDocumento.nombre;
-                        ban = false;
-                    }
-                    if (no_version != Version)
-                    {
-                        mensaje += "\nLa versión del documento es incorrecta, debe ser : " + Version;
-                        ban = false;
-                    }
-
-                    string NombreAbreviado = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
-                    if (UsuarioRev != NombreAbreviado)
-                    {
-                        mensaje += "\nEl usuario Elaboró es incorrecto, debe ser: " + NombreAbreviado;
-                        ban = false;
-                    }
-
-                    //***No se valida el PROCESO o departamento***
-                }
-                catch (Exception er)
-                {
-                    mensaje = "Archivo incorrecto: \n" + er.Message;
-                    return false;
                 }
 
                 ExcelApp.Visible = false;
@@ -1379,17 +1370,16 @@ namespace View.Services.ViewModel
                 }
                 else
                 {
-                    mensaje = "error al convertir el archivo";
+                    mensaje = StringResources.msgErrorConvertFile;
                     return false;
                 }
             }
             if (ListaDocumentos.Count == 0)
-            {
-                mensaje = "No se encontro ningun archivo, favor de cargar uno";
+            {               
+                mensaje = StringResources.msgNotFoundFile;
                 return false;
             }
-
-            mensaje = "Archivo correcto.";
+            mensaje = StringResources.msgCorrectFile;
             return true;
         }
 
@@ -1413,138 +1403,135 @@ namespace View.Services.ViewModel
                 Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
                 Microsoft.Office.Interop.Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(pathExcel, true);
 
-                try
+                for (int i = 1; i <= ExcelWork.Sheets.Count; i++)
                 {
-                    Microsoft.Office.Interop.Excel.Worksheet sheet;
-                    sheet = ExcelWork.Sheets["JES"];
-
-                    int Aux = 1;
-                    bool ValidacionNumeracion = true;
-
-                    //Evaluamos la numeración de las hojas
-                    foreach (Microsoft.Office.Interop.Excel.Worksheet sheet1 in ExcelWork.Sheets)
+                    try
                     {
-                        string Numeracion = Convert.ToString(sheet1.Range["X7"].Value);
+                        Microsoft.Office.Interop.Excel.Worksheet sheet;
+                        sheet = ExcelWork.Sheets[i];
 
-                        if (Numeracion != "Hoja " + Aux + " de " + ExcelWork.Sheets.Count)
+                        bool ValidacionNumeracion = true;
+                        //Evaluamos la numeración de las hojas
+                        string Numeracion = Convert.ToString(sheet.Range["X7"].Value);
+
+                        if (Numeracion != "Hoja " + i + " de " + ExcelWork.Sheets.Count)
                         {
                             ValidacionNumeracion = false;
                         }
-                        Aux++;
-                    }
-                    if (ValidacionNumeracion == false)
-                    {
-                        mensaje += "La numeración de las hojas está incorecta";
-                        ban = false;
-                    }
 
-                    int VRevisar = 11;
-                    string VersionRevisar = "VERSION_11";
-                    string FechaRevisar = "FECHA_A11";
-                    string UsuarioRevisar = "USUARIO_A11";
+                        if (ValidacionNumeracion == false)
+                        {
+                            mensaje += "\n" + StringResources.msgNumeracionIncorrecta + ExcelWork.Sheets[i].Name;
+                            ban = false;
+                        }
 
-                    if (Convert.ToInt32(Version) <= VRevisar)
-                    {
-                        VersionRevisar = "VERSION_" + Version;
-                        FechaRevisar = "FECHA_A" + Version;
-                        UsuarioRevisar = "USUARIO_A" + Version;
-                    }
+                        int VRevisar = 11;
+                        string VersionRevisar = "VERSION_11";
+                        string FechaRevisar = "FECHA_A11";
+                        string UsuarioRevisar = "USUARIO_A11";
 
-                    string fecha = Convert.ToString(sheet.Range["FECHA_LIBERACION"].Value);
-                    string descripcion = Convert.ToString(sheet.Range["DESCRIPCION"].Value);
-                    string elaboro = Convert.ToString(sheet.Range["ELABORO"].Value);
-                    string aprobo = Convert.ToString(sheet.Range["APROBO"].Value);
-                    string reviso = Convert.ToString(sheet.Range["REVISO"].Value);
-                    string codigo = Convert.ToString(sheet.Range["CODIGO"].Value);
-                    string departamento = Convert.ToString(sheet.Range["PROCESO"].Value);
-                    string no_version = Convert.ToString(sheet.Range[VersionRevisar].Value);
-                    string UsuarioRev = Convert.ToString(sheet.Range[UsuarioRevisar].Value);
-                    string FechaRev = Convert.ToString(sheet.Range[FechaRevisar].Value);
+                        if (Convert.ToInt32(Version) <= VRevisar)
+                        {
+                            VersionRevisar = "VERSION_" + Version;
+                            FechaRevisar = "FECHA_A" + Version;
+                            UsuarioRevisar = "USUARIO_A" + Version;
+                        }
 
-                    //Validar fecha elaboración
-                    DateTime date = Convert.ToDateTime(fecha);
-                    if (date.Year != FechaFin.Year || date.Month != FechaFin.Month || date.Day != FechaFin.Day)
-                    {
-                        string mes = "";
-                        mes = FechaFin.Month < 10 ? "0" + FechaFin.Month : "" + FechaFin.Month;
+                        string fecha = Convert.ToString(sheet.Range["FECHA_LIBERACION"].Value);
+                        string descripcion = Convert.ToString(sheet.Range["DESCRIPCION"].Value);
+                        string elaboro = Convert.ToString(sheet.Range["ELABORO"].Value);
+                        string aprobo = Convert.ToString(sheet.Range["APROBO"].Value);
+                        string reviso = Convert.ToString(sheet.Range["REVISO"].Value);
+                        string codigo = Convert.ToString(sheet.Range["CODIGO"].Value);
+                        string departamento = Convert.ToString(sheet.Range["PROCESO"].Value);
+                        string no_version = Convert.ToString(sheet.Range[VersionRevisar].Value);
+                        string UsuarioRev = Convert.ToString(sheet.Range[UsuarioRevisar].Value);
+                        string FechaRev = Convert.ToString(sheet.Range[FechaRevisar].Value);
 
-                        string dia = "";
-                        dia = FechaFin.Day < 10 ? "0" + FechaFin.Day : "" + FechaFin.Day;
+                        //Validar fecha elaboración
+                        DateTime date = Convert.ToDateTime(fecha);
+                        if (date.Year != FechaFin.Year || date.Month != FechaFin.Month || date.Day != FechaFin.Day)
+                        {
+                            string mes = "";
+                            mes = FechaFin.Month < 10 ? "0" + FechaFin.Month : "" + FechaFin.Month;
 
-                        mensaje += "\nLa fecha elaboración es incorrecta, debe ser: " + FechaFin.Year + "-" + mes + "-" + dia;
-                        ban = false;
-                    }
+                            string dia = "";
+                            dia = FechaFin.Day < 10 ? "0" + FechaFin.Day : "" + FechaFin.Day;
 
-                    //Validar fecha revisión
-                    DateTime date1 = Convert.ToDateTime(FechaRev);
-                    if (date1.Year != FechaFin.Year || date1.Month != FechaFin.Month || date1.Day != FechaFin.Day)
-                    {
-                        string mes = "";
-                        mes = FechaFin.Month < 10 ? "0" + FechaFin.Month : "" + FechaFin.Month;
+                            mensaje += "\n" + StringResources.msgFElaboraIncorrecta + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + FechaFin.Year + "-" + mes + "-" + dia;
+                            ban = false;
+                        }
 
-                        string dia = "";
-                        dia = FechaFin.Day < 10 ? "0" + FechaFin.Day : "" + FechaFin.Day;
+                        //Validar fecha revisión
+                        DateTime date1 = Convert.ToDateTime(FechaRev);
+                        if (date1.Year != FechaFin.Year || date1.Month != FechaFin.Month || date1.Day != FechaFin.Day)
+                        {
+                            string mes = "";
+                            mes = FechaFin.Month < 10 ? "0" + FechaFin.Month : "" + FechaFin.Month;
 
-                        mensaje += "\nLa fecha revisión es incorrecta, debe ser: " + FechaFin.Year + "-" + mes + "-" + dia;
-                        ban = false;
-                    }
+                            string dia = "";
+                            dia = FechaFin.Day < 10 ? "0" + FechaFin.Day : "" + FechaFin.Day;
 
-                    string CadenaEvaluar = descripcion.Replace(" ", "");
-                    if (!Regex.IsMatch(CadenaEvaluar, "^[a-zA-Z0-9-_,;.()áÁéÉíÍóÓúÚÜüñÑ]*$"))
-                    {
-                        mensaje += "\nLa descripción no puede tener caracteres especiales, favor de escribirla de nuevo";
-                        ban = false;
-                    }
-                    if (descripcion != Descripcion)
-                    {
-                        mensaje += "\nLa descripción es incorrecta, debe ser: " + Descripcion;
-                        ban = false;
-                    }
-                    if (elaboro != ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto)
-                    {
-                        mensaje += "\nEl usuario Elaboró es incorrecto, debe ser: " + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto;
-                        ban = false;
-                    }
-                    if (aprobo != ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto)
-                    {
-                        mensaje += "\nEl usuario Aprobó es incorrecto, debe ser: " + ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto;
-                        ban = false;
-                    }
-                    string UsuariosPermitido = NombreUsuarioAut.Replace(" ", "");
-                    if (UsuariosPermitido == "SISTEMA")
-                    {
-                        mensaje += "\nEl usuario Autorizo no debe ser SISTEMA, favor de seleccionar el correspondiente";
-                        ban = false;
-                    }
-                    if (reviso != ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto)
-                    {
-                        mensaje += "\nEl usuario Autorizó es incorrecto, debe ser: " + ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto;
-                        ban = false;
-                    }
+                            mensaje += "\n" + StringResources.msgFReviIncorrecta+ ExcelWork.Sheets[i].Name + StringResources.msgDBCr + FechaFin.Year + "-" + mes + "-" + dia;
+                            ban = false;
+                        }
 
-                    if (codigo != SelectedDocumento.nombre)
-                    {
-                        mensaje += "\nEl Código es incorrecto, debe ser: " + SelectedDocumento.nombre;
-                        ban = false;
-                    }
-                    if (no_version != Version)
-                    {
-                        mensaje += "\nLa versión del documento es incorrecta, debe ser : " + Version;
-                        ban = false;
-                    }
-                    string NombreAbreviado = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
-                    if (UsuarioRev != NombreAbreviado)
-                    {
-                        mensaje += "\nEl usuario Elaboró es incorrecto, debe ser: " + NombreAbreviado;
-                        ban = false;
-                    }
+                        string CadenaEvaluar = descripcion.Replace(" ", "");
+                        if (!Regex.IsMatch(CadenaEvaluar, "^[a-zA-Z0-9-_,;.()áÁéÉíÍóÓúÚÜüñÑ]*$"))
+                        {
+                            mensaje += "\n" + StringResources.msgDescNotEspeciales;
+                            ban = false;
+                        }
+                        if (descripcion != Descripcion)
+                        {
+                            mensaje += "\n" + StringResources.msgDescIncorrecta + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + Descripcion;
+                            ban = false;
+                        }
+                        if (elaboro != ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto)
+                        {
+                            mensaje += "\n" + StringResources.msgUElabIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto;
+                            ban = false;
+                        }
+                        if (aprobo != ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto)
+                        {
+                            mensaje += "\n" + StringResources.msgUAproIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto;
+                            ban = false;
+                        }
 
-                    //***No se valida PROCESO o departamento
-                }
-                catch (Exception er)
-                {
-                    mensaje = "Archivo incorrecto: \n" + er.Message;
-                    return false;
+                        string UsuariosPermitido = NombreUsuarioAut.Replace(" ", "");
+                        if (UsuariosPermitido == "SISTEMA")
+                        {
+                            mensaje += "\n" + StringResources.msgUNotSISTEMA;
+                            ban = false;
+                        }
+                        if (reviso != ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto)
+                        {
+                            mensaje += "\n" + StringResources.msgUAutoIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto;
+                            ban = false;
+                        }
+                        if (codigo != SelectedDocumento.nombre)
+                        {
+                            mensaje += "\n" + StringResources.msgCodIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + SelectedDocumento.nombre;
+                            ban = false;
+                        }
+                        if (no_version != Version)
+                        {
+                            mensaje += "\n" + StringResources.msgVersIncorrecta + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + Version;
+                            ban = false;
+                        }
+
+                        string NombreAbreviado = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
+                        if (UsuarioRev != NombreAbreviado)
+                        {
+                            mensaje += "\n" + StringResources.msgUElabIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + NombreAbreviado;
+                            ban = false;
+                        }
+                    }
+                    catch (Exception er)
+                    {   
+                        mensaje = StringResources.msgFileIncorrect + er.Message;
+                        return false;
+                    }
                 }
 
                 ExcelApp.Visible = false;
@@ -1571,18 +1558,17 @@ namespace View.Services.ViewModel
                     QuitarExcelPonerPDF(archivo, pdfFinal);
                 }
                 else
-                {
-                    mensaje = "error al convertir el archivo";
+                {               
+                    mensaje = StringResources.msgErrorConvertFile;
                     return false;
                 }
             }
             if (ListaDocumentos.Count == 0)
-            {
-                mensaje = "No se encontro ningun archivo, favor de cargar uno";
+            {             
+                mensaje = StringResources.msgNotFoundFile;
                 return false;
             }
-
-            mensaje = "Archivo correcto.";
+            mensaje = StringResources.msgCorrectFile;
             return true;
         }
 
@@ -1606,133 +1592,129 @@ namespace View.Services.ViewModel
                 Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
                 Microsoft.Office.Interop.Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(pathExcel, true);
 
-                try
+                for (int i = 1; i <= ExcelWork.Sheets.Count; i++)
                 {
-                    Microsoft.Office.Interop.Excel.Worksheet sheet;
-                    sheet = ExcelWork.Sheets["HII"];
-
-                    int Aux = 1;
-                    bool ValidacionNumeracion = true;
-
-                    //Evaluamos la numeración de las hojas
-                    foreach (Microsoft.Office.Interop.Excel.Worksheet sheet1 in ExcelWork.Sheets)
+                    try
                     {
-                        string Numeracion = Convert.ToString(sheet1.Range["HOJAS"].Value);
+                        Microsoft.Office.Interop.Excel.Worksheet sheet;
+                        sheet = ExcelWork.Sheets[i];
 
-                        if (Numeracion != "Hoja " + Aux + " de " + ExcelWork.Sheets.Count)
+                        bool ValidacionNumeracion = true;
+                        //Evaluamos la numeración de las hojas                        
+                        string Numeracion = Convert.ToString(sheet.Range["HOJAS"].Value);
+
+                        if (Numeracion != "Hoja " + i + " de " + ExcelWork.Sheets.Count)
                         {
                             ValidacionNumeracion = false;
                         }
-                        Aux++;
+
+                        if (ValidacionNumeracion == false)
+                        {
+                            mensaje += "\n" + StringResources.msgNumeracionIncorrecta + ExcelWork.Sheets[i].Name;
+                            ban = false;
+                        }
+
+                        string fecharevision = Convert.ToString(sheet.Range["FECHA_ACTUAL"].Value);
+                        string fechaemision = Convert.ToString(sheet.Range["FECHA_V1"].Value);
+                        string descripcion = Convert.ToString(sheet.Range["DESCRIPCION"].Value);
+                        string elaboro = Convert.ToString(sheet.Range["NOMBRE_ELABORO"].Value);
+                        string reviso = Convert.ToString(sheet.Range["NOMBRE_REVISO"].Value);
+                        string codigo = Convert.ToString(sheet.Range["CODIGO"].Value);
+                        string departamento = Convert.ToString(sheet.Range["NOMBRE_DEPARTAMENTO"].Value);
+                        string no_version = Convert.ToString(sheet.Range["VERSION_ACTUAL"].Value);
+
+                        //Validar fecha revisión
+                        DateTime date = Convert.ToDateTime(fecharevision);
+                        if (date.Year != FechaFin.Year || date.Month != FechaFin.Month || date.Day != FechaFin.Day)
+                        {
+                            string mes = "";
+                            mes = FechaFin.Month < 10 ? "0" + FechaFin.Month : "" + FechaFin.Month;
+
+                            string dia = "";
+                            dia = FechaFin.Day < 10 ? "0" + FechaFin.Day : "" + FechaFin.Day;
+
+                            mensaje += "\n" + StringResources.msgFReviIncorrecta + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + FechaFin.Year + "-" + mes + "-" + dia;
+                            ban = false;
+                        }
+                        //Validar fecha emisión
+                        DateTime date1 = Convert.ToDateTime(fechaemision);
+                        string FechaPrimerVersion = string.Empty;
+
+                        if (id_documento != 0)
+                        {
+                            FechaPrimerVersion = DataManagerControlDocumentos.GetFechaPrimeraVersion(id_documento);
+                        }
+                        else
+                        {
+                            string mes = "";
+                            mes = FechaFin.Month < 10 ? "0" + FechaFin.Month : "" + FechaFin.Month;
+
+                            string dia = "";
+                            dia = FechaFin.Day < 10 ? "0" + FechaFin.Day : "" + FechaFin.Day;
+
+                            FechaPrimerVersion = FechaFin.Year + "-" + mes + "-" + dia;
+                        }
+
+                        DateTime fechaElaboracion = Convert.ToDateTime(FechaPrimerVersion);
+
+                        if (date1.Year != fechaElaboracion.Year || date1.Month != fechaElaboracion.Month || date1.Day != fechaElaboracion.Day)
+                        {
+                            string mes = "";
+                            mes = fechaElaboracion.Month < 10 ? "0" + fechaElaboracion.Month : "" + fechaElaboracion.Month;
+
+                            string dia = "";
+                            dia = fechaElaboracion.Day < 10 ? "0" + fechaElaboracion.Day : "" + fechaElaboracion.Day;
+
+                            mensaje += "\n" + StringResources.msgFEmisIncorrecta + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + fechaElaboracion.Year + "-" + mes + "-" + dia;
+                            ban = false;
+                        }
+
+                        string CadenaEvaluar = descripcion.Replace(" ", "");
+                        if (!Regex.IsMatch(CadenaEvaluar, "^[a-zA-Z0-9-_,;.()áÁéÉíÍóÓúÚÜüñÑ]*$"))
+                        {
+                            mensaje += "\n" + StringResources.msgDescNotEspeciales;
+                            ban = false;
+                        }
+                        if (descripcion != Descripcion)
+                        {
+                            mensaje += "\n" + StringResources.msgDescIncorrecta + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + Descripcion;
+                            ban = false;
+                        }
+
+                        if (elaboro != ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto)
+                        {
+                            mensaje += "\n" + StringResources.msgUElabIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto;
+                            ban = false;
+                        }
+
+                        string UsuariosPermitido = NombreUsuarioAut.Replace(" ", "");
+                        if (UsuariosPermitido == "SISTEMA")
+                        {
+                            mensaje += "\n" + StringResources.msgUNotSISTEMA;
+                            ban = false;
+                        }
+                        if (reviso != ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto)
+                        {
+                            mensaje += "\n" + StringResources.msgUAutoIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto;
+                            ban = false;
+                        }
+
+                        if (codigo != SelectedDocumento.nombre)
+                        {
+                            mensaje += "\n" + StringResources.msgCodIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + SelectedDocumento.nombre;
+                            ban = false;
+                        }
+                        if (no_version != Version)
+                        {
+                            mensaje += "\n" + StringResources.msgVersIncorrecta + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + Version;
+                            ban = false;
+                        }
                     }
-
-                    if (ValidacionNumeracion == false)
-                    {
-                        mensaje += "La numeración de las hojas está incorrecta";
-                        ban = false;
+                    catch (Exception er)
+                    {               
+                        mensaje = StringResources.msgFileIncorrect + er.Message;
+                        return false;
                     }
-
-                    string fecharevision = Convert.ToString(sheet.Range["FECHA_ACTUAL"].Value);
-                    string fechaemision = Convert.ToString(sheet.Range["FECHA_V1"].Value);
-                    string descripcion = Convert.ToString(sheet.Range["DESCRIPCION"].Value);
-                    string elaboro = Convert.ToString(sheet.Range["NOMBRE_ELABORO"].Value);
-                    string reviso = Convert.ToString(sheet.Range["NOMBRE_REVISO"].Value);
-                    string codigo = Convert.ToString(sheet.Range["CODIGO"].Value);
-                    string departamento = Convert.ToString(sheet.Range["NOMBRE_DEPARTAMENTO"].Value);
-                    string no_version = Convert.ToString(sheet.Range["VERSION_ACTUAL"].Value);
-
-                    //Validar fecha revisión
-                    DateTime date = Convert.ToDateTime(fecharevision);
-                    if (date.Year != FechaFin.Year || date.Month != FechaFin.Month || date.Day != FechaFin.Day)
-                    {
-                        string mes = "";
-                        mes = FechaFin.Month < 10 ? "0" + FechaFin.Month : "" + FechaFin.Month;
-
-                        string dia = "";
-                        dia = FechaFin.Day < 10 ? "0" + FechaFin.Day : "" + FechaFin.Day;
-
-                        mensaje += "\nLa fecha revisión es incorrecta, debe ser: " + FechaFin.Year + "-" + mes + "-" + dia;
-                        ban = false;
-                    }
-                    //Validar fecha emisión
-                    DateTime date1 = Convert.ToDateTime(fechaemision);
-                    string FechaPrimerVersion = string.Empty;
-
-                    if (id_documento != 0)
-                    {
-                        FechaPrimerVersion = DataManagerControlDocumentos.GetFechaPrimeraVersion(id_documento);
-                    }
-                    else
-                    {
-                        string mes = "";
-                        mes = FechaFin.Month < 10 ? "0" + FechaFin.Month : "" + FechaFin.Month;
-
-                        string dia = "";
-                        dia = FechaFin.Day < 10 ? "0" + FechaFin.Day : "" + FechaFin.Day;
-
-                        FechaPrimerVersion = FechaFin.Year + "-" + mes + "-" + dia;
-                    }
-
-                    DateTime fechaElaboracion = Convert.ToDateTime(FechaPrimerVersion);
-
-                    if (date1.Year != fechaElaboracion.Year || date1.Month != fechaElaboracion.Month || date1.Day != fechaElaboracion.Day)
-                    {
-                        string mes = "";
-                        mes = fechaElaboracion.Month < 10 ? "0" + fechaElaboracion.Month : "" + fechaElaboracion.Month;
-
-                        string dia = "";
-                        dia = fechaElaboracion.Day < 10 ? "0" + fechaElaboracion.Day : "" + fechaElaboracion.Day;
-
-                        mensaje += "\nLa fecha emisión es incorrecta, debe ser: " + fechaElaboracion.Year + "-" + mes + "-" + dia;
-                        ban = false;
-                    }
-
-                    string CadenaEvaluar = descripcion.Replace(" ", "");
-                    if (!Regex.IsMatch(CadenaEvaluar, "^[a-zA-Z0-9-_,;.()áÁéÉíÍóÓúÚÜüñÑ]*$"))
-                    {
-                        mensaje += "\nLa descripción no puede tener caracteres especiales, favor de escribirla de nuevo";
-                        ban = false;
-                    }
-                    if (descripcion != Descripcion)
-                    {
-                        mensaje += "\nLa descripción es incorrecta, debe ser: " + Descripcion;
-                        ban = false;
-                    }
-
-                    if (elaboro != ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto)
-                    {
-                        mensaje += "\nEl usuario Elaboró es incorrecto, debe ser: " + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto;
-                        ban = false;
-                    }
-                    string UsuariosPermitido = NombreUsuarioAut.Replace(" ", "");
-                    if (UsuariosPermitido == "SISTEMA")
-                    {
-                        mensaje += "\nEl usuario Autorizo no debe ser SISTEMA, favor de seleccionar el correspondiente";
-                        ban = false;
-                    }
-                    if (reviso != ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto)
-                    {
-                        mensaje += "\nEl usuario Autorizó es incorrecto, debe ser: " + ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto;
-                        ban = false;
-                    }
-
-                    if (codigo != SelectedDocumento.nombre)
-                    {
-                        mensaje += "\nEl Código es incorrecto, debe ser: " + SelectedDocumento.nombre;
-                        ban = false;
-                    }
-                    if (no_version != Version)
-                    {
-                        mensaje += "\nLa versión del documento es incorrecta, debe ser : " + Version;
-                        ban = false;
-                    }
-
-                    //***No se valida NOMBRE DEPARTAMENTO***
-                }
-                catch (Exception er)
-                {
-                    mensaje = "Archivo incorrecto: \n" + er.Message;
-                    return false;
                 }
 
                 ExcelApp.Visible = false;
@@ -1760,18 +1742,17 @@ namespace View.Services.ViewModel
                 }
                 else
                 {
-                    mensaje = "error al convertir el archivo";
+                    mensaje = StringResources.msgErrorConvertFile;
                     return false;
                 }
             }
 
             if (ListaDocumentos.Count == 0)
-            {
-                mensaje = "No se encontro ningun archivo, favor de cargar uno";
+            {              
+                mensaje = StringResources.msgNotFoundFile;
                 return false;
             }
-
-            mensaje = "Archivo correcto.";
+            mensaje = StringResources.msgCorrectFile;
             return true;
         }
 
@@ -1779,6 +1760,7 @@ namespace View.Services.ViewModel
         {
             object unknownType = Type.Missing;
             bool ban = true;
+
             foreach (Archivo archivo in ListaDocumentos)
             {
                 mensaje = string.Empty;
@@ -1795,113 +1777,108 @@ namespace View.Services.ViewModel
                 Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
                 Microsoft.Office.Interop.Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(pathExcel, true);
 
-                try
+                for (int i = 1; i <= ExcelWork.Sheets.Count; i++)
                 {
-                    Microsoft.Office.Interop.Excel.Worksheet sheet;
-
-                    sheet = ExcelWork.Sheets["AYUDA_VISUAL"];
-                    
-                    int Aux = 1;
-                    bool ValidacionNumeracion = true;
-
-                    // Evaluamos la numeración de las hojas
-                    foreach (Microsoft.Office.Interop.Excel.Worksheet sheet1 in ExcelWork.Sheets)
+                    try
                     {
-                        string Numeracion = Convert.ToString(sheet1.Range["NUMERACION"].Value);
-                        if (Numeracion != "Hoja:(" + Aux + "/" + ExcelWork.Sheets.Count + ")")
+                        Microsoft.Office.Interop.Excel.Worksheet sheet;
+                        sheet = ExcelWork.Sheets[i];
+
+                        bool ValidacionNumeracion = true;
+                        //Evaluamos la numeración de las hojas 
+                        string Numeracion = Convert.ToString(sheet.Range["NUMERACION"].Value);
+
+                        if (Numeracion != "Hoja:(" + i + "/" + ExcelWork.Sheets.Count + ")")
                         {
                             ValidacionNumeracion = false;
                         }
-                        Aux++;
-                    }
 
-                    if (ValidacionNumeracion == false)
-                    {
-                        mensaje = "La numeración de las hojas está incorrecta.";
+                        if (ValidacionNumeracion == false)
+                        {
+                            mensaje += "\n" + StringResources.msgNumeracionIncorrecta + ExcelWork.Sheets[i].Name;
+                            ban = false;
+                        }
+
+                        string codigo = Convert.ToString(sheet.Range["CODIGO"].Value);
+                        string no_version = Convert.ToString(sheet.Range["Version"].Value);
+                        string fechaelaboracion = Convert.ToString(sheet.Range["FECHA_ELABORACION"].Value);
+                        string fecharevision = Convert.ToString(sheet.Range["FECHA_REVISION"].Value);
+                        string elaboro = Convert.ToString(sheet.Range["ELABORO"].Value);
+                        string aprobo = Convert.ToString(sheet.Range["APROBO"].Value);
+                        string departamento = Convert.ToString(sheet.Range["NOMBRE_DEPARTAMENTO"].Value);
+
+                        //Validar fecha revisión
+                        DateTime date = Convert.ToDateTime(fecharevision);
+                        if (date.Year != FechaFin.Year || date.Month != FechaFin.Month || date.Day != FechaFin.Day)
+                        {
+                            string mes = "";
+                            mes = FechaFin.Month < 10 ? "0" + FechaFin.Month : "" + FechaFin.Month;
+
+                            string dia = "";
+                            dia = FechaFin.Day < 10 ? "0" + FechaFin.Day : "" + FechaFin.Day;
+
+                            mensaje += "\n" + StringResources.msgFReviIncorrecta + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + FechaFin.Year + "-" + mes + "-" + dia;
+                            ban = false;
+                        }
+
+                        //Validar fecha elaboración
+                        DateTime date1 = Convert.ToDateTime(fechaelaboracion);
+                        string FechaPrimerVersion = string.Empty;
+
+                        if (id_documento != 0)
+                        {
+                            FechaPrimerVersion = DataManagerControlDocumentos.GetFechaPrimeraVersion(id_documento);
+                        }
+                        else
+                        {
+                            string mes = "";
+                            mes = FechaFin.Month < 10 ? "0" + FechaFin.Month : "" + FechaFin.Month;
+
+                            string dia = "";
+                            dia = FechaFin.Day < 10 ? "0" + FechaFin.Day : "" + FechaFin.Day;
+
+                            FechaPrimerVersion = FechaFin.Year + "-" + mes + "-" + dia;
+                        }
+
+                        DateTime fechaElaboracion = Convert.ToDateTime(FechaPrimerVersion);
+
+                        if (date1.Year != fechaElaboracion.Year || date1.Month != fechaElaboracion.Month || date1.Day != fechaElaboracion.Day)
+                        {
+                            string mes = "";
+                            mes = fechaElaboracion.Month < 10 ? "0" + fechaElaboracion.Month : "" + fechaElaboracion.Month;
+
+                            string dia = "";
+                            dia = fechaElaboracion.Day < 10 ? "0" + fechaElaboracion.Day : "" + fechaElaboracion.Day;
+
+                            mensaje += "\n" + StringResources.msgFElaboraIncorrecta + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + fechaElaboracion.Year+ "-" + mes + "-" + dia;
+                            ban = false;
+                        }
+                        if (elaboro != ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto)
+                        {
+                            mensaje += "\n" + StringResources.msgUElabIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto;
+                            ban = false;
+                        }
+                        if (aprobo != ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto)
+                        {
+                            mensaje +=  "\n" + StringResources.msgUAproIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto;
+                            ban = false;
+                        }
+                        if (codigo != SelectedDocumento.nombre)
+                        {
+                            mensaje += "\n" +StringResources.msgCodIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + SelectedDocumento.nombre;
+                            ban = false;
+                        }
+                        if (no_version != Version)
+                        {
+                            mensaje += "\n" + StringResources.msgVersIncorrecta + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + Version;
+                            ban = false;
+                        }
+                    }
+                    catch (Exception er)
+                    {   
+                        mensaje = StringResources.msgFileIncorrect + er.Message;
                         ban = false;
                     }
-                    
-                    string codigo = Convert.ToString(sheet.Range["CODIGO"].Value);
-                    string no_version = Convert.ToString(sheet.Range["Version"].Value);
-                    string fechaelaboracion = Convert.ToString(sheet.Range["FECHA_ELABORACION"].Value);
-                    string fecharevision = Convert.ToString(sheet.Range["FECHA_REVISION"].Value);
-                    string elaboro = Convert.ToString(sheet.Range["ELABORO"].Value);
-                    string aprobo = Convert.ToString(sheet.Range["APROBO"].Value);
-                    string departamento = Convert.ToString(sheet.Range["NOMBRE_DEPARTAMENTO"].Value);
-
-                    //Validar fecha revisión
-                    DateTime date = Convert.ToDateTime(fecharevision);
-                    if (date.Year != FechaFin.Year || date.Month != FechaFin.Month || date.Day != FechaFin.Day)
-                    {
-                        string mes = "";
-                        mes = FechaFin.Month < 10 ? "0" + FechaFin.Month : "" + FechaFin.Month;
-
-                        string dia = "";
-                        dia = FechaFin.Day < 10 ? "0" + FechaFin.Day : "" + FechaFin.Day;
-
-                        mensaje += "\nLa fecha revisión es incorrecta, debe ser: " + FechaFin.Year + "-" + mes + "-" + dia;
-                        ban = false;
-                    }
-
-                    //Validar fecha elaboración
-                    DateTime date1 = Convert.ToDateTime(fechaelaboracion);
-                    string FechaPrimerVersion = string.Empty;
-
-                    if (id_documento != 0)
-                    {
-                        FechaPrimerVersion = DataManagerControlDocumentos.GetFechaPrimeraVersion(id_documento);
-                    }
-                    else
-                    {
-                        string mes = "";
-                        mes = FechaFin.Month < 10 ? "0" + FechaFin.Month : "" + FechaFin.Month;
-
-                        string dia = "";
-                        dia = FechaFin.Day < 10 ? "0" + FechaFin.Day : "" + FechaFin.Day;
-
-                        FechaPrimerVersion = FechaFin.Year + "-" + mes + "-" + dia;
-                    }
-
-                    DateTime fechaElaboracion = Convert.ToDateTime(FechaPrimerVersion);
-
-                    if (date1.Year != fechaElaboracion.Year || date1.Month != fechaElaboracion.Month || date1.Day != fechaElaboracion.Day)
-                    {
-                        string mes = "";
-                        mes = fechaElaboracion.Month < 10 ? "0" + fechaElaboracion.Month : "" + fechaElaboracion.Month;
-
-                        string dia = "";
-                        dia = fechaElaboracion.Day < 10 ? "0" + fechaElaboracion.Day : "" + fechaElaboracion.Day;
-
-                        mensaje += "\nLa fecha elaboración es incorrecta, debe ser: " + fechaElaboracion.Year + "-" + mes + "-" + dia;
-                        ban = false;
-                    }
-                    if (elaboro != ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto)
-                    {
-                        mensaje += "\nEl usuario elaboró es incorrecto, debe ser: " + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto;
-                        ban = false;
-                    }
-                    if (aprobo != ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto)
-                    {
-                        mensaje += "\nEl usuario aprobó es incorrecto, debe ser: " + ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto;
-                        ban = false;
-                    }
-                    if (codigo != SelectedDocumento.nombre)
-                    {
-                        mensaje += "\nEl código es incorrecto, debe ser: " + SelectedDocumento.nombre;
-                        ban = false;
-                    }
-                    if (no_version != Version)
-                    {
-                        mensaje += "\nLa versión del documento es incorrecta, debe ser: " + Version;
-                        ban = false;
-                    }
-
-                    //***No se valida el departamento
-                }
-                catch (Exception er)
-                {
-                    mensaje = "Archivo incorrecto: \n" + er.Message;
-                    ban = false;
                 }
 
                 ExcelApp.Visible = false;
@@ -1928,19 +1905,18 @@ namespace View.Services.ViewModel
                     QuitarExcelPonerPDF(archivo, pdfFinal);
                 }
                 else
-                {
-                    mensaje = "error al convertir el archivo";
+                {               
+                    mensaje = StringResources.msgErrorConvertFile;
                     return false;
                 }
             }
 
             if (ListaDocumentos.Count == 0)
-            {
-                mensaje = "No se encontro ningun archivo, favor de cargar uno";
+            {               
+                mensaje = StringResources.msgNotFoundFile;
                 return false;
             }
-
-            mensaje = "Archivo correcto.";
+            mensaje = StringResources.msgCorrectFile;
             return true;
 
         }
@@ -1957,8 +1933,8 @@ namespace View.Services.ViewModel
                 ban = DataManagerControlDocumentos.ExistsCodeValidation(codeValidation);
             }
 
-           // codigo = SelectedDocumento.nombre + " " + Version + " " + codeValidation + " ";
-            codigo =  codeValidation + "*";
+            // codigo = SelectedDocumento.nombre + " " + Version + " " + codeValidation + " ";
+            codigo = codeValidation + "*";
 
             //Encriptamos el codigo.
             string codigoEncriptado = Seguridad.Encriptar(codigo);
@@ -2019,7 +1995,6 @@ namespace View.Services.ViewModel
                         }
                         if (id_tipo != 1004)
                             pdfContentByte.AddImage(image);
-                        
                     }
                     stamper.Close();
                 }
@@ -2139,14 +2114,14 @@ namespace View.Services.ViewModel
 
                                                 //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local
                                                 MessageDialogResult result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgElegirFormato, setting, MessageDialogStyle.AffirmativeAndNegative);
-                                                                                                                                        
+
                                                 //Vertical
                                                 if (result == MessageDialogResult.Affirmative)
                                                 {
                                                     id_recurso = 1054;
                                                 }
                                                 //Horizontal
-                                                else 
+                                                else
                                                 {
                                                     id_recurso = 1055;
                                                 }
@@ -2158,21 +2133,18 @@ namespace View.Services.ViewModel
                                     }
 
                                     Archivo TipoFormato = recursos[0];
-
                                     string path = GetPathTempFile(TipoFormato);
-
                                     File.WriteAllBytes(path, TipoFormato.archivo);
-
                                     string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
-
-                                    await dialog.SendMessage(StringResources.ttlAlerta, "El formato se genero correctamente.\nFavor de no modificar los datos generales del formato.\nAl momento de guardar el archivo, asegurate de que sea ARCHIVO DE EXCEL (.XLSX)");
-
+                                                                                      
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFormatoGCorrect);
+                                                                                   
                                     if (id_tipo == 1002)
                                     {
                                         ImportExcel.ExportFormatoHII(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
                                     }
                                     if (id_tipo == 1004)
-                                    {                             
+                                    {
                                         ImportExcel.ExportFormatoAVY(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
                                     }
                                     if (id_tipo == 2)
@@ -2185,18 +2157,18 @@ namespace View.Services.ViewModel
                                     }
                                 }
                                 else
-                                {
-                                    await dialog.SendMessage(StringResources.ttlAlerta, "Seleccione el usuario que autorizó");
+                                {                                                      
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSelectUserAuto);
                                 }
                             }
                             else
-                            {
-                                await dialog.SendMessage(StringResources.ttlAlerta, "Ingrese la descripción del documento");
+                            {                                                     
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInDescDoc);
                             }
                         }
                         else
-                        {
-                            await dialog.SendMessage(StringResources.ttlAlerta, "Para general el formato primero genere una nueva versión");
+                        {                                                       
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgGenerar1roVers);
                         }
                     }
                     else
@@ -2233,7 +2205,7 @@ namespace View.Services.ViewModel
 
                                             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
                                             MessageDialogResult result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgElegirFormato, setting, MessageDialogStyle.AffirmativeAndNegative);
-                                                                                                                                    
+
                                             //Vertical
                                             if (result == MessageDialogResult.Affirmative)
                                             {
@@ -2252,9 +2224,7 @@ namespace View.Services.ViewModel
                                 }
 
                                 Archivo formato = recursos[0];
-
                                 string path = GetPathTempFile(formato);
-
                                 File.WriteAllBytes(path, formato.archivo);
                                 string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
 
@@ -2276,24 +2246,24 @@ namespace View.Services.ViewModel
                                 }
                             }
                             else
-                            {
-                                await dialog.SendMessage(StringResources.ttlAlerta, "Seleccione el usuario que autorizó");
+                            {                                                      
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSelectUserAuto);
                             }
                         }
                         else
-                        {
-                            await dialog.SendMessage(StringResources.ttlAlerta, "Ingrese la descripción del documento");
+                        {                                                       
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInDescDoc);
                         }
                     }
                 }
                 else
-                {
-                    await dialog.SendMessage(StringResources.ttlAlerta, "Por el momento solo se puede generar el formato de archivos tipo JES, HOE, HII y AVY");
+                {                                                       
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSoloFormatos);
                 }
             }
             else
-            {
-                await dialog.SendMessage(StringResources.ttlAlerta, "Seleccione el número de documento");
+            {                                                       
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSelectNumDoc);
             }
 
         }
@@ -2358,7 +2328,7 @@ namespace View.Services.ViewModel
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
             MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgRegresarCorregir, setting, MessageDialogStyle.AffirmativeAndNegative);
-                                                                                                           
+
             if (result == MessageDialogResult.Affirmative)
             {
                 //Ejecutamos el método para obtener el id de la versión anterior
@@ -2559,8 +2529,9 @@ namespace View.Services.ViewModel
                     //Se asigna el id 
                     objVersion.id_version = idVersion;
                     objVersion.no_version = version;
-
-                    string mensaje = "Se elimina versión " + Version + ",Se regresa a versión anterior";
+                                                          
+                    //string mensaje = "Se elimina versión " + Version + ",Se regresa a versión anterior";
+                    string mensaje = StringResources.msgEliminaVers + Version + StringResources.msgRegresaVers;
 
                     //Mandamos a llamar a la  función para eliminar la versión.
                     int delete_version = DataManagerControlDocumentos.DeleteVersion(objVersion, mensaje, User, nombre);
@@ -2601,7 +2572,6 @@ namespace View.Services.ViewModel
                     {
                         await dialog.SendMessage(StringResources.msgError, StringResources.msgErrorBorrarVersion);
                     }
-
                 }
                 else
                 {
@@ -2654,7 +2624,6 @@ namespace View.Services.ViewModel
                             dlg.Filter = "PDF Files (.pdf)|*.pdf";
                         }
                     }
-
                     // Mostrar el explorador de archivos
                     Nullable<bool> result = dlg.ShowDialog();
 
@@ -2751,9 +2720,44 @@ namespace View.Services.ViewModel
                                                 //se habilita el boton para poder adjuntar un archivo
                                                 BttnArchivos = true;
 
-                                                await dialog.SendMessage(StringResources.ttlAlerta, mensaje);
+                                                setting.AffirmativeButtonText = StringResources.lblAutomaticamente;
+                                                setting.NegativeButtonText = StringResources.lblManualmente;
+
+                                                //Modo de corregir un documento
+                                                MessageDialogResult resp = await dialog.SendMessage(StringResources.ttlAlerta, mensaje + "\n\n" + StringResources.msgModoCorregir, setting, MessageDialogStyle.AffirmativeAndNegative);
+
+                                                string nfilename = dlg.FileName;
+                                                string path = nfilename;
+                                                string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
+                                                
+                                                //Métodos para corregir los archivos
+                                                if (resp == MessageDialogResult.Affirmative)
+                                                {
+                                                    if (id_tipo == 1004)
+                                                    {
+                                                        ImportExcel.ExportAVYCorrecto(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                    }
+                                                    if (id_tipo == 2)
+                                                    {
+                                                        ImportExcel.ExportHOECorrecto(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                    }
+                                                    if (id_tipo == 1015)
+                                                    {
+                                                        ImportExcel.ExportJESCorrecto(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                    }
+                                                    if (id_tipo == 1002)
+                                                    {
+                                                        ImportExcel.ExportHIICorrecto(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                    }
+
+                                                    await dialog.SendMessage(StringResources.ttlEspereUnMomento, StringResources.msgArchivoCorregido);
+                                                }
+                                                else
+                                                {
+                                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCorrigeArchivo);
+                                                }
                                             }
-                                            else//si el archivo insertado corresponde con el que se pide entramos al else
+                                            else //si el archivo insertado corresponde con el que se pide entramos al else
                                             {
                                                 if (AdjuntarDocumento || DocumentoNuevo)
                                                 {
@@ -2769,8 +2773,8 @@ namespace View.Services.ViewModel
                                         }
                                         else
                                         {
-                                            //si se llegara a insertar un tipo de archivo que no corresponde se manda un mensaje indicando que tipo de archivo se debe adjuntar
-                                            await dialog.SendMessage(StringResources.ttlAlerta, "Solo se permiten archivos de excel");
+                                            //si se llegara a insertar un tipo de archivo que no corresponde se manda un mensaje indicando que tipo de archivo se debe adjuntar                                                                                           
+                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSoloExcel);
                                             //se borra de la lista temporal
                                             ListaDocumentos.Clear();
                                             //habilitamos el boton de adjuntar archivos
@@ -2919,7 +2923,6 @@ namespace View.Services.ViewModel
                                         }
                                         else
                                         {
-
                                             if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002 || id_tipo == 1004)
                                             {
                                                 //si el archivo es igual a cualquiera de los id anteriores se comprueba que sea un archivo .xlsx
@@ -3051,7 +3054,6 @@ namespace View.Services.ViewModel
                     //Si el documento no tiene versiones pendientes 
                     if (ListaEstatus.Count == 0)
                     {
-
                         //Obtiene la últuma version del documento.
                         Version = DataManagerControlDocumentos.GetLastVersion(id_documento);
 
@@ -3199,7 +3201,6 @@ namespace View.Services.ViewModel
                                                     confirmacionCorreo = StringResources.msgNotificacionCorreoFallida;
 
                                                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada + "\n" + confirmacionFrames + "\n" + confirmacionCorreo);
-
                                             }
                                             else
                                             {
@@ -3248,7 +3249,6 @@ namespace View.Services.ViewModel
                                     }
                                     else
                                     {
-
                                         objDocumento.id_estatus = 2;
                                         update_documento = DataManagerControlDocumentos.Update_EstatusDocumento(objDocumento);
                                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusVersionDocumento);
@@ -3368,7 +3368,6 @@ namespace View.Services.ViewModel
                                 }
                                 else
                                 {
-
                                     //Si hubo error al actualizar la última versión
                                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorActualizarVersion);
                                 }
@@ -3958,7 +3957,8 @@ namespace View.Services.ViewModel
                                                         //Rechazamos el documento.
                                                         DataManagerControlDocumentos.UpdateVersion(objVersion, User, objArchivo.nombre);
 
-                                                        await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
+                                                        //await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
+                                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHuboError);
                                                     }
                                                 }
 
@@ -3968,7 +3968,6 @@ namespace View.Services.ViewModel
                                                 if (banOk)
                                                     //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
                                                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
-
 
                                                 //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                                 var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -4046,7 +4045,6 @@ namespace View.Services.ViewModel
                                             objVersion.id_estatus_version = 3;
                                         }
 
-
                                         objVersion.no_copias = 0;
                                         objVersion.descripcion_v = Descripcion;
 
@@ -4085,8 +4083,8 @@ namespace View.Services.ViewModel
                                                         //Rechazamos el documento.
                                                         DataManagerControlDocumentos.UpdateVersion(objVersion, User, objArchivo.nombre);
 
-                                                        await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
-
+                                                        //await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
+                                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHuboError);
                                                     }
                                                 }
 
@@ -4338,7 +4336,6 @@ namespace View.Services.ViewModel
                 default:
                     break;
             }
-
             return r;
         }
 
@@ -4370,7 +4367,6 @@ namespace View.Services.ViewModel
                 default:
                     break;
             }
-
             return r;
         }
 
@@ -4415,7 +4411,6 @@ namespace View.Services.ViewModel
                         path = string.Concat(path, item.version.archivo.ext);
                         //Guardamos el archivo
                         File.WriteAllBytes(path, item.version.archivo.archivo);
-
                     }
                 }
                 //Si no hay error se retorna nulo
@@ -4461,27 +4456,23 @@ namespace View.Services.ViewModel
 
                     string fecha = dia + "/" + mes + "/" + anio;
 
-
                     foreach (Archivo item in archivos)
                     {
-
                         string waterMarkText = "MAHLE CONTROL DE DOCUMENTOS / DOCUMENTO LIBERADO ELECTRÓNICAMENTE Y TIENE VALIDEZ SIN FIRMA." + " DISPOSICIÓN: " + fecha;
                         string waterMarkText2 = "ÚNICAMENTE TIENE VALIDEZ EL DOCUMENTO DISPONIBLE EN INTRANET.";
                         string waterMarkText3 = "LAS COPIAS NO ESTÁN SUJETAS A NINGÚN SERVICIO DE ACTUALIZACIÓN.";
 
-                        byte[] newarchivo = AddWatermark(item.archivo, bfTimes, waterMarkText, waterMarkText2, waterMarkText3,id_recurso);
+                        byte[] newarchivo = AddWatermark(item.archivo, bfTimes, waterMarkText, waterMarkText2, waterMarkText3, id_recurso);
 
                         item.archivo = newarchivo;
 
                         int r = DataManagerControlDocumentos.UpdateArchivo(item);
 
                         res = r == 0 ? false : true;
-
                     }
                 }
 
             }
-
             return res;
         }
 
@@ -4502,7 +4493,7 @@ namespace View.Services.ViewModel
                 using (var stamper = new PdfStamper(reader, ms))
                 {
                     var pages = reader.NumberOfPages;
-                    
+
                     for (var i = 1; i <= pages; i++)
                     {
                         var dc = stamper.GetOverContent(i);
@@ -4511,7 +4502,7 @@ namespace View.Services.ViewModel
 
                         iTextSharp.text.Rectangle realPageSize = reader.GetPageSizeWithRotation(i);
 
-                        if (recurso != 0 && (recurso == 1054 || recurso == 1055 ))
+                        if (recurso != 0 && (recurso == 1054 || recurso == 1055))
                         {
                             if (recurso == 1054)
                             {
@@ -4590,7 +4581,6 @@ namespace View.Services.ViewModel
         //    pdfData.RestoreState();
 
         //}
-
         /// <summary>
         /// Método que inicializa la lista de los departamentos, tipos y usuarios
         /// </summary>
@@ -4646,7 +4636,6 @@ namespace View.Services.ViewModel
 
                             if (result == MessageDialogResult.Affirmative)
                             {
-
                                 //Valída si existe documentos que se aprecezcan al documento a subir, el resultado se guarda en una variable local.
                                 ObservableCollection<Documento> ListDocSimilares = ValidaSimilares();
 
@@ -4658,7 +4647,6 @@ namespace View.Services.ViewModel
                                     //Mandamos llamar el metodo que obtiene el id de la version si es que es una version mayor
                                     //y nos indica si tenemos registro de la version anterior
                                     int last_id = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
-
 
                                     //Si es la primer versión del documento se modifica los campos de la tabla de documento en la base de datos
                                     if (last_id == 0)
@@ -4708,7 +4696,8 @@ namespace View.Services.ViewModel
                                                         {
                                                             banOk = false;
                                                             rechazaVersion();
-                                                            await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
+                                                            //await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
+                                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHuboError);
                                                             break;
                                                         }
 
@@ -4763,7 +4752,8 @@ namespace View.Services.ViewModel
                                                     {
                                                         rechazaVersion();
                                                         banOk = false;
-                                                        await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
+
+                                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHuboError);
                                                         break;
                                                     }
                                                 }
@@ -4854,7 +4844,6 @@ namespace View.Services.ViewModel
                     //Elimina los documentos de la lista 
                     foreach (var item in ListaDocumentos)
                     {
-
                         objDoc_Eliminado.version.archivo.archivo = item.archivo;
                         objDoc_Eliminado.version.archivo.ext = item.ext;
                         int n = DataManagerControlDocumentos.DeleteArchivo(item);
@@ -4883,11 +4872,9 @@ namespace View.Services.ViewModel
                             //Eliminamos el archivo
                             int a = DataManagerControlDocumentos.DeleteArchivo(archivo);
                         }
-
                         //Mandamos a llamar la funcion para eliminar la version iterada
                         int v = DataManagerControlDocumentos.DeleteVersion(item, mensaje_historial, User, nombre);
                     }
-
                     //Si se elimino correctamente la versión
                     if (Dversion != 0)
                     {
@@ -5187,7 +5174,8 @@ namespace View.Services.ViewModel
                 //Consultamos los archivos que tenga el registro, si no contiene ningun archivo y el documento esta liberado no se permite salir de la ventana
                 if (DataManagerControlDocumentos.GetArchivoFiltrado(idVersion).Count == 0 && AdjuntarDocumento)
                 {
-                    await dialog.SendMessage(StringResources.ttlAlerta, "No se ha adjuntado ningun archivo");
+                    //await dialog.SendMessage(StringResources.ttlAlerta, "No se ha adjuntado ningun archivo");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgNoAdjFile);
                 }
                 else
                 {
@@ -5275,7 +5263,7 @@ namespace View.Services.ViewModel
                 else
                 {
                     //se notifica si el usuario no selecciono a mas de un usuario para notificar
-                    await dialog.SendMessage(StringResources.ttlAlerta, "Debe Seleccionar a quien notificar");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSelectNotify);
                 }
 
             }
@@ -5290,7 +5278,6 @@ namespace View.Services.ViewModel
             DialogService dialog = new DialogService();
 
             Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
-
 
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
@@ -5336,9 +5323,7 @@ namespace View.Services.ViewModel
 
                         //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
                         int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
-                        //
-
-
+                        
                         if (update_version != 0)
                         {
                             await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusPendienteCorregir);
@@ -5364,7 +5349,7 @@ namespace View.Services.ViewModel
                 {
                     //si el documento tiene más de un versión, sólo se modifica el estatus de la versión a pendiente por corregir
                     //eliminamos el archivo que contiene el sello electronico
-                    
+
                     objVersion.id_version = idVersion;
                     objVersion.no_version = version;
                     objVersion.id_documento = id_documento;
@@ -5500,7 +5485,6 @@ namespace View.Services.ViewModel
                             }
                             );
                     }
-
                     break;
                 case "DocumentoPorCorregir":
                     this.MenuItems.Add(
@@ -5609,7 +5593,6 @@ namespace View.Services.ViewModel
 
 
                             //Si es la primer versión del documento se modifica los campos de la tabla de documento en la base de datos
-
                             if (last_id == 0)
                             {
                                 //Se crea un objeto de tipo Documento.
@@ -5658,7 +5641,7 @@ namespace View.Services.ViewModel
                                                 {
                                                     banOk = false;
                                                     rechazaVersion();
-                                                    await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
+                                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHuboError);
                                                     break;
                                                 }
                                             }
@@ -5709,7 +5692,7 @@ namespace View.Services.ViewModel
                                             {
                                                 rechazaVersion();
                                                 banOk = false;
-                                                await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
+                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHuboError);
                                                 break;
                                             }
                                         }

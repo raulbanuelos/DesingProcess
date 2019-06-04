@@ -1341,11 +1341,8 @@ namespace View.Services
         // Método que elimina correos duplicados
         public static string[] EliminarCorreosDuplicados(string[] correos)
         {
-
             string[] correosfiltrados = correos.Distinct().ToArray();
             return correosfiltrados;
-
-        }
-
+        }        
     }
 }

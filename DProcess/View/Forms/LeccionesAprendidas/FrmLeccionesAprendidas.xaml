@@ -103,7 +103,7 @@
                     </i:Interaction.Triggers>
                 </DataGrid>
                 <Canvas Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <Image x:Name="image" HorizontalAlignment="Right" Height="65" VerticalAlignment="Top" Source="/View;component/Images/MahleRight.png" Grid.Column="1"  Grid.Row="1" Width="184"/>
+                <Image x:Name="image"  Height="65"  VerticalAlignment="Top"  Source="/View;component/Images/MahleRight.png"  Grid.Column="1"  Grid.Row="1"  Width="184"  Margin="900,0,0,0"/>
             </Grid>
         </ScrollViewer>
     </controls:HamburgerMenu>

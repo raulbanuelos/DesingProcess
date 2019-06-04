@@ -322,6 +322,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Automatically.
+        /// </summary>
+        public static string lblAutomaticamente {
+            get {
+                return ResourceManager.GetString("lblAutomaticamente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Lock System.
         /// </summary>
         public static string lblBloquearSistema {
@@ -1141,6 +1150,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Manually.
+        /// </summary>
+        public static string lblManualmente {
+            get {
+                return ResourceManager.GetString("lblManualmente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Select a plate measurement.
         /// </summary>
         public static string lblMedidaPlato {
@@ -1951,6 +1969,16 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The document has been corrected. 
+        ///Please re-attach it..
+        /// </summary>
+        public static string msgArchivoCorregido {
+            get {
+                return ResourceManager.GetString("msgArchivoCorregido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The file was deleted correctly.
         /// </summary>
         public static string msgArchivoEliminadoCorrectamente {
@@ -2041,6 +2069,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The Code is incorrect on the sheet: .
+        /// </summary>
+        public static string msgCodIncorrecto {
+            get {
+                return ResourceManager.GetString("msgCodIncorrecto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Do you want to save the changes?.
         /// </summary>
         public static string msgConfirmacion {
@@ -2095,11 +2132,38 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Correct file.
+        /// </summary>
+        public static string msgCorrectFile {
+            get {
+                return ResourceManager.GetString("msgCorrectFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please correct the file and attach it again..
+        /// </summary>
+        public static string msgCorrigeArchivo {
+            get {
+                return ResourceManager.GetString("msgCorrigeArchivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Create new number.
         /// </summary>
         public static string msgCrearDocumento {
             get {
                 return ResourceManager.GetString("msgCrearDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a , must be: .
+        /// </summary>
+        public static string msgDBCr {
+            get {
+                return ResourceManager.GetString("msgDBCr", resourceCulture);
             }
         }
         
@@ -2136,6 +2200,24 @@ namespace View.Resources {
         public static string msgDesbloquearSistema {
             get {
                 return ResourceManager.GetString("msgDesbloquearSistema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The description is incorrect on the sheet: .
+        /// </summary>
+        public static string msgDescIncorrecta {
+            get {
+                return ResourceManager.GetString("msgDescIncorrecta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The Description can not have special characters, please write it again..
+        /// </summary>
+        public static string msgDescNotEspeciales {
+            get {
+                return ResourceManager.GetString("msgDescNotEspeciales", resourceCulture);
             }
         }
         
@@ -2302,6 +2384,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a It is deleted version .
+        /// </summary>
+        public static string msgEliminaVers {
+            get {
+                return ResourceManager.GetString("msgEliminaVers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Version deleted.
         /// </summary>
         public static string msgEliminaVersion {
@@ -2397,6 +2488,15 @@ namespace View.Resources {
         public static string msgErrorCambiosVersion {
             get {
                 return ResourceManager.GetString("msgErrorCambiosVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a error when converting the file.
+        /// </summary>
+        public static string msgErrorConvertFile {
+            get {
+                return ResourceManager.GetString("msgErrorConvertFile", resourceCulture);
             }
         }
         
@@ -2725,11 +2825,50 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The Elaboration Date is incorrect on the sheet: .
+        /// </summary>
+        public static string msgFElaboraIncorrecta {
+            get {
+                return ResourceManager.GetString("msgFElaboraIncorrecta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The Issuance Date is incorrect on the sheet: .
+        /// </summary>
+        public static string msgFEmisIncorrecta {
+            get {
+                return ResourceManager.GetString("msgFEmisIncorrecta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Incorrect file: 
+        ///.
+        /// </summary>
+        public static string msgFileIncorrect {
+            get {
+                return ResourceManager.GetString("msgFileIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Please, fill all fields.
         /// </summary>
         public static string msgFillFlields {
             get {
                 return ResourceManager.GetString("msgFillFlields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The format was generated correctly.
+        ///Please do not modify the general data of the format.
+        ///When saving the file, make sure it is EXCEL FILE (.XLSX).
+        /// </summary>
+        public static string msgFormatoGCorrect {
+            get {
+                return ResourceManager.GetString("msgFormatoGCorrect", resourceCulture);
             }
         }
         
@@ -2752,11 +2891,29 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The Revision Date is incorrect on the sheet: .
+        /// </summary>
+        public static string msgFReviIncorrecta {
+            get {
+                return ResourceManager.GetString("msgFReviIncorrecta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Elaborating Excel file.
         /// </summary>
         public static string msgGenerandoExcell {
             get {
                 return ResourceManager.GetString("msgGenerandoExcell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a To generate the format, first generate a new version.
+        /// </summary>
+        public static string msgGenerar1roVers {
+            get {
+                return ResourceManager.GetString("msgGenerar1roVers", resourceCulture);
             }
         }
         
@@ -2802,6 +2959,24 @@ namespace View.Resources {
         public static string msgHerramental {
             get {
                 return ResourceManager.GetString("msgHerramental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a There was an error in attaching the document, please try later..
+        /// </summary>
+        public static string msgHuboError {
+            get {
+                return ResourceManager.GetString("msgHuboError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enter the description of the document.
+        /// </summary>
+        public static string msgInDescDoc {
+            get {
+                return ResourceManager.GetString("msgInDescDoc", resourceCulture);
             }
         }
         
@@ -2905,6 +3080,33 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a How do you want to correct the file?.
+        /// </summary>
+        public static string msgModoCorregir {
+            get {
+                return ResourceManager.GetString("msgModoCorregir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No file has been attached.
+        /// </summary>
+        public static string msgNoAdjFile {
+            get {
+                return ResourceManager.GetString("msgNoAdjFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No file found, please upload one.
+        /// </summary>
+        public static string msgNotFoundFile {
+            get {
+                return ResourceManager.GetString("msgNotFoundFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a It was notified by email successfully.
         /// </summary>
         public static string msgNotificacionCorreo {
@@ -2946,6 +3148,15 @@ namespace View.Resources {
         public static string msgNuevaVersion {
             get {
                 return ResourceManager.GetString("msgNuevaVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The numbering of the sheets is incorrect on the sheet: .
+        /// </summary>
+        public static string msgNumeracionIncorrecta {
+            get {
+                return ResourceManager.GetString("msgNumeracionIncorrecta", resourceCulture);
             }
         }
         
@@ -3085,6 +3296,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a , it is returned to previous version.
+        /// </summary>
+        public static string msgRegresaVers {
+            get {
+                return ResourceManager.GetString("msgRegresaVers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The routing is ready.
         /// </summary>
         public static string msgRoutingReady {
@@ -3139,6 +3359,33 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a You must select who to notify.
+        /// </summary>
+        public static string msgSelectNotify {
+            get {
+                return ResourceManager.GetString("msgSelectNotify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select the document number.
+        /// </summary>
+        public static string msgSelectNumDoc {
+            get {
+                return ResourceManager.GetString("msgSelectNumDoc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select the user who authorized.
+        /// </summary>
+        public static string msgSelectUserAuto {
+            get {
+                return ResourceManager.GetString("msgSelectUserAuto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Do you whant set electronic stamp in the file?.
         /// </summary>
         public static string msgSellarDocumento {
@@ -3153,6 +3400,24 @@ namespace View.Resources {
         public static string msgSistemaBloqueado {
             get {
                 return ResourceManager.GetString("msgSistemaBloqueado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Only Excel files are allowed.
+        /// </summary>
+        public static string msgSoloExcel {
+            get {
+                return ResourceManager.GetString("msgSoloExcel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a At the moment you can only generate the file format type JES, HOE, HII and AVY.
+        /// </summary>
+        public static string msgSoloFormatos {
+            get {
+                return ResourceManager.GetString("msgSoloFormatos", resourceCulture);
             }
         }
         
@@ -3189,6 +3454,42 @@ namespace View.Resources {
         public static string msgTipoDocumentoExistente {
             get {
                 return ResourceManager.GetString("msgTipoDocumentoExistente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The Approved User is incorrect on the sheet: .
+        /// </summary>
+        public static string msgUAproIncorrecto {
+            get {
+                return ResourceManager.GetString("msgUAproIncorrecto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The Authorized User is incorrect on the sheet: .
+        /// </summary>
+        public static string msgUAutoIncorrecto {
+            get {
+                return ResourceManager.GetString("msgUAutoIncorrecto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The User Produced is incorrect on the sheet: .
+        /// </summary>
+        public static string msgUElabIncorrecto {
+            get {
+                return ResourceManager.GetString("msgUElabIncorrecto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The Authorized User must not be a SYSTEM, please select the corresponding one.
+        /// </summary>
+        public static string msgUNotSISTEMA {
+            get {
+                return ResourceManager.GetString("msgUNotSISTEMA", resourceCulture);
             }
         }
         
@@ -3243,6 +3544,15 @@ namespace View.Resources {
         public static string msgVerDocumentosLiberar {
             get {
                 return ResourceManager.GetString("msgVerDocumentosLiberar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The Version of the document is incorrect on the sheet: .
+        /// </summary>
+        public static string msgVersIncorrecta {
+            get {
+                return ResourceManager.GetString("msgVersIncorrecta", resourceCulture);
             }
         }
         
