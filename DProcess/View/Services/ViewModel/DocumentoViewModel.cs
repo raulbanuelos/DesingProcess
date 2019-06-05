@@ -1245,7 +1245,7 @@ namespace View.Services.ViewModel
 
                         if (ValidacionNumeracion == false)
                         {
-                            mensaje += "\n" + StringResources.msgNumeracionIncorrecta + ExcelWork.Sheets[i].Name;
+                            mensaje += "\n" + StringResources.msgNumeracionIncorrecta + ExcelWork.Sheets[i].Name + " " + StringResources.msgDBCr + "Hoja " + i + " de " + ExcelWork.Sheets.Count;
                             ban = false;
                         }
 
@@ -1421,7 +1421,7 @@ namespace View.Services.ViewModel
 
                         if (ValidacionNumeracion == false)
                         {
-                            mensaje += "\n" + StringResources.msgNumeracionIncorrecta + ExcelWork.Sheets[i].Name;
+                            mensaje += "\n" + StringResources.msgNumeracionIncorrecta + ExcelWork.Sheets[i].Name + " " + StringResources.msgDBCr + "Hoja " + i + " de " + ExcelWork.Sheets.Count;
                             ban = false;
                         }
 
@@ -1610,7 +1610,7 @@ namespace View.Services.ViewModel
 
                         if (ValidacionNumeracion == false)
                         {
-                            mensaje += "\n" + StringResources.msgNumeracionIncorrecta + ExcelWork.Sheets[i].Name;
+                            mensaje += "\n" + StringResources.msgNumeracionIncorrecta + ExcelWork.Sheets[i].Name + " " + StringResources.msgDBCr + "Hoja " + i + " de " + ExcelWork.Sheets.Count;
                             ban = false;
                         }
 
@@ -2581,7 +2581,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método que llena la lista para visualizar los archivos de la versión
+        /// Método que llena la lista para visualizar los archivos de la versión y permite adjuntar un documento automáticamente cuando ya se corrigió el archivo
         /// </summary>
         private async void AdjuntarArchivo(string filename = "")
         {
@@ -2626,18 +2626,19 @@ namespace View.Services.ViewModel
                     }
 
                     Nullable<bool> result;
+
+                    //Permite decidir si se debe o no, mostrar el explorador de archivos
                     if (string.IsNullOrEmpty(filename))
                     {
                         // Mostrar el explorador de archivos
                         result = dlg.ShowDialog();
 
-                    }else
+                    } else
                     {
                         result = true;
                         dlg.FileName = filename;
                     }
                     
-
                     //Se crea el objeto de tipo archivo
                     Archivo obj = new Archivo();
 

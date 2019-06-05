@@ -363,7 +363,7 @@ namespace View.Services
                     string NivelActual = "NIVEL_C" + (version - Aux);
 
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
-                    {                         
+                    {
                         sheet.Range["FECHA_LIBERACION"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
                         sheet.Range["DESCRIPCION"].Value = descripcion;
                         sheet.Range["ELABORO"].Value = personaCreo;
@@ -460,7 +460,7 @@ namespace View.Services
                     if (id_documento == 0)
                     {
                         sheet.Range["FECHA_V1"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
-                    }                    
+                    }
                     sheet.Range["FECHA_ACTUAL"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
                     sheet.Range["DESCRIPCION"].Value = descripcion;
                     sheet.Range["NOMBRE_ELABORO"].Value = personaCreo;
@@ -530,7 +530,7 @@ namespace View.Services
                 }
 
                 ExcelApp.Visible = true;
-                
+
                 return "Ok";
             }
             catch (Exception)
@@ -538,7 +538,7 @@ namespace View.Services
                 throw;
             }
         }
-        
+
         /// <summary>
         /// Método para importar un archivo excel, la información de ClosingSleeveBk.
         /// </summary>
@@ -750,7 +750,7 @@ namespace View.Services
                             sheet.Range["X7"].Value = "Hoja " + Aux2 + " de " + ExcelWork.Sheets.Count;
                         }
                         Aux2++;
-                        
+
                         sheet.Range["FECHA_LIBERACION"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
                         sheet.Range["ELABORO"].Value = personaCreo;
                         sheet.Range["REVISO"].Value = personaAutorizo;
@@ -777,7 +777,7 @@ namespace View.Services
                     string FechaActual = "FECHA_A" + version;
                     string NivelActual = "NIVEL_C" + version;
 
-                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets  )
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
                         foreach (Excel.Worksheet sheets in ExcelWork.Sheets)
                         {
@@ -871,7 +871,7 @@ namespace View.Services
 
                     int Aux = 0;
                     int AuxTipoDocumento = 11;
-                    
+
                     if (version > AuxTipoDocumento)
                     {
                         Aux = version - AuxTipoDocumento;
@@ -881,7 +881,7 @@ namespace View.Services
                     string VersionActual = "VERSION_" + (version - Aux);
                     string FechaActual = "FECHA_A" + (version - Aux);
                     string NivelActual = "NIVEL_C" + (version - Aux);
-                    
+
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
                         foreach (Excel.Worksheet sheets in ExcelWork.Sheets)
@@ -1061,9 +1061,9 @@ namespace View.Services
                 DateTime FV1 = Convert.ToDateTime(FechaPrimerVersion);
 
                 string dia1 = FV1.Day.ToString().Length > 1 ? FV1.Day.ToString() : "0" + FV1.Day.ToString();
-                string mes1 = FV1.Month.ToString().Length > 1 ? FV1.Month.ToString() : "0" + FV1.Month.ToString();                
+                string mes1 = FV1.Month.ToString().Length > 1 ? FV1.Month.ToString() : "0" + FV1.Month.ToString();
                 int Aux = 1;
-                
+
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                 {
                     foreach (Excel.Worksheet sheets in ExcelWork.Sheets)
@@ -1084,13 +1084,14 @@ namespace View.Services
                 ExcelWork.Save();
                 ExcelApp.Visible = false;
                 ExcelWork.Close();
-                
+
                 return "Ok";
             }
             catch (Exception)
             {
                 throw;
-            }            
+            }
         }
+
     }
 }
