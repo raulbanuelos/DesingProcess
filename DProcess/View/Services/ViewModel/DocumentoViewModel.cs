@@ -1795,7 +1795,7 @@ namespace View.Services.ViewModel
 
                         if (ValidacionNumeracion == false)
                         {
-                            mensaje += "\n" + StringResources.msgNumeracionIncorrecta + ExcelWork.Sheets[i].Name;
+                            mensaje += "\n" + StringResources.msgNumeracionIncorrecta + ExcelWork.Sheets[i].Name + " " +  StringResources.msgDBCr + "Hoja:(" + i + " / " + ExcelWork.Sheets.Count + ")";
                             ban = false;
                         }
 
@@ -2583,7 +2583,7 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Método que llena la lista para visualizar los archivos de la versión
         /// </summary>
-        private async void AdjuntarArchivo()
+        private async void AdjuntarArchivo(string filename = "")
         {
             //Incializamos los servicios de dialog.
             DialogService dialog = new DialogService();
@@ -2624,8 +2624,19 @@ namespace View.Services.ViewModel
                             dlg.Filter = "PDF Files (.pdf)|*.pdf";
                         }
                     }
-                    // Mostrar el explorador de archivos
-                    Nullable<bool> result = dlg.ShowDialog();
+
+                    Nullable<bool> result;
+                    if (string.IsNullOrEmpty(filename))
+                    {
+                        // Mostrar el explorador de archivos
+                        result = dlg.ShowDialog();
+
+                    }else
+                    {
+                        result = true;
+                        dlg.FileName = filename;
+                    }
+                    
 
                     //Se crea el objeto de tipo archivo
                     Archivo obj = new Archivo();
@@ -2636,7 +2647,7 @@ namespace View.Services.ViewModel
                         try
                         {
                             //Se obtiene el nombre del documento
-                            string filename = dlg.FileName;
+                            filename = dlg.FileName;
 
                             //Si el archivo no está en uso
                             if (!Module.IsFileInUse(filename))
@@ -2736,21 +2747,23 @@ namespace View.Services.ViewModel
                                                     if (id_tipo == 1004)
                                                     {
                                                         ImportExcel.ExportAVYCorrecto(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                        AdjuntarArchivo(path);
                                                     }
                                                     if (id_tipo == 2)
                                                     {
                                                         ImportExcel.ExportHOECorrecto(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                        AdjuntarArchivo(path);
                                                     }
                                                     if (id_tipo == 1015)
                                                     {
                                                         ImportExcel.ExportJESCorrecto(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                        AdjuntarArchivo(path);
                                                     }
                                                     if (id_tipo == 1002)
                                                     {
                                                         ImportExcel.ExportHIICorrecto(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                        AdjuntarArchivo(path);
                                                     }
-
-                                                    await dialog.SendMessage(StringResources.ttlEspereUnMomento, StringResources.msgArchivoCorregido);
                                                 }
                                                 else
                                                 {
@@ -2857,7 +2870,7 @@ namespace View.Services.ViewModel
                                 try
                                 {
                                     //Se obtiene el nombre del documento
-                                    string filename = dlg.FileName;
+                                    filename = dlg.FileName;
 
                                     //Si el archivo no está en uso
                                     if (!Module.IsFileInUse(filename))
@@ -2948,7 +2961,44 @@ namespace View.Services.ViewModel
                                                         //deshabilitamos el boton de agregar archivos
                                                         BttnArchivos = true;
 
-                                                        await dialog.SendMessage(StringResources.ttlAlerta, mensaje);
+                                                        setting.AffirmativeButtonText = StringResources.lblAutomaticamente;
+                                                        setting.NegativeButtonText = StringResources.lblManualmente;
+
+                                                        //Modo de corregir un documento
+                                                        MessageDialogResult resp = await dialog.SendMessage(StringResources.ttlAlerta, mensaje + "\n\n" + StringResources.msgModoCorregir, setting, MessageDialogStyle.AffirmativeAndNegative);
+
+                                                        string nfilename = dlg.FileName;
+                                                        string path = nfilename;
+                                                        string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
+
+                                                        //Métodos para corregir los archivos
+                                                        if (resp == MessageDialogResult.Affirmative)
+                                                        {
+                                                            if (id_tipo == 1004)
+                                                            {
+                                                                ImportExcel.ExportAVYCorrecto(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                                AdjuntarArchivo(path);
+                                                            }
+                                                            if (id_tipo == 2)
+                                                            {
+                                                                ImportExcel.ExportHOECorrecto(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                                AdjuntarArchivo(path);
+                                                            }
+                                                            if (id_tipo == 1015)
+                                                            {
+                                                                ImportExcel.ExportJESCorrecto(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                                AdjuntarArchivo(path);
+                                                            }
+                                                            if (id_tipo == 1002)
+                                                            {
+                                                                ImportExcel.ExportHIICorrecto(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                                AdjuntarArchivo(path);
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCorrigeArchivo);
+                                                        }
                                                     }
                                                     else
                                                     {

@@ -1229,7 +1229,6 @@ namespace View.Services.ViewModel
             
             if (MaterialBase.TipoDeMaterial == "HIERRO GRIS")
             {
-
                 //Ingresar calculo de placa modelo.
                 calcularMateriaPrima = new CalculaMateriaPrima(ModelAnillo);
                 MaterialBase = calcularMateriaPrima.CalcularPlacaModelo();
