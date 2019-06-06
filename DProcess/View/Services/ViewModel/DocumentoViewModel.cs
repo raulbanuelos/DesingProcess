@@ -1375,7 +1375,7 @@ namespace View.Services.ViewModel
                 }
             }
             if (ListaDocumentos.Count == 0)
-            {               
+            {
                 mensaje = StringResources.msgNotFoundFile;
                 return false;
             }
@@ -1472,7 +1472,7 @@ namespace View.Services.ViewModel
                             string dia = "";
                             dia = FechaFin.Day < 10 ? "0" + FechaFin.Day : "" + FechaFin.Day;
 
-                            mensaje += "\n" + StringResources.msgFReviIncorrecta+ ExcelWork.Sheets[i].Name + StringResources.msgDBCr + FechaFin.Year + "-" + mes + "-" + dia;
+                            mensaje += "\n" + StringResources.msgFReviIncorrecta + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + FechaFin.Year + "-" + mes + "-" + dia;
                             ban = false;
                         }
 
@@ -1528,7 +1528,7 @@ namespace View.Services.ViewModel
                         }
                     }
                     catch (Exception er)
-                    {   
+                    {
                         mensaje = StringResources.msgFileIncorrect + er.Message;
                         return false;
                     }
@@ -1558,13 +1558,13 @@ namespace View.Services.ViewModel
                     QuitarExcelPonerPDF(archivo, pdfFinal);
                 }
                 else
-                {               
+                {
                     mensaje = StringResources.msgErrorConvertFile;
                     return false;
                 }
             }
             if (ListaDocumentos.Count == 0)
-            {             
+            {
                 mensaje = StringResources.msgNotFoundFile;
                 return false;
             }
@@ -1711,7 +1711,7 @@ namespace View.Services.ViewModel
                         }
                     }
                     catch (Exception er)
-                    {               
+                    {
                         mensaje = StringResources.msgFileIncorrect + er.Message;
                         return false;
                     }
@@ -1748,7 +1748,7 @@ namespace View.Services.ViewModel
             }
 
             if (ListaDocumentos.Count == 0)
-            {              
+            {
                 mensaje = StringResources.msgNotFoundFile;
                 return false;
             }
@@ -1795,7 +1795,7 @@ namespace View.Services.ViewModel
 
                         if (ValidacionNumeracion == false)
                         {
-                            mensaje += "\n" + StringResources.msgNumeracionIncorrecta + ExcelWork.Sheets[i].Name + " " +  StringResources.msgDBCr + "Hoja:(" + i + " / " + ExcelWork.Sheets.Count + ")";
+                            mensaje += "\n" + StringResources.msgNumeracionIncorrecta + ExcelWork.Sheets[i].Name + " " + StringResources.msgDBCr + "Hoja:(" + i + " / " + ExcelWork.Sheets.Count + ")";
                             ban = false;
                         }
 
@@ -1850,7 +1850,7 @@ namespace View.Services.ViewModel
                             string dia = "";
                             dia = fechaElaboracion.Day < 10 ? "0" + fechaElaboracion.Day : "" + fechaElaboracion.Day;
 
-                            mensaje += "\n" + StringResources.msgFElaboraIncorrecta + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + fechaElaboracion.Year+ "-" + mes + "-" + dia;
+                            mensaje += "\n" + StringResources.msgFElaboraIncorrecta + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + fechaElaboracion.Year + "-" + mes + "-" + dia;
                             ban = false;
                         }
                         if (elaboro != ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto)
@@ -1860,12 +1860,12 @@ namespace View.Services.ViewModel
                         }
                         if (aprobo != ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto)
                         {
-                            mensaje +=  "\n" + StringResources.msgUAproIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto;
+                            mensaje += "\n" + StringResources.msgUAproIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto;
                             ban = false;
                         }
                         if (codigo != SelectedDocumento.nombre)
                         {
-                            mensaje += "\n" +StringResources.msgCodIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + SelectedDocumento.nombre;
+                            mensaje += "\n" + StringResources.msgCodIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + SelectedDocumento.nombre;
                             ban = false;
                         }
                         if (no_version != Version)
@@ -1875,7 +1875,7 @@ namespace View.Services.ViewModel
                         }
                     }
                     catch (Exception er)
-                    {   
+                    {
                         mensaje = StringResources.msgFileIncorrect + er.Message;
                         ban = false;
                     }
@@ -1905,14 +1905,14 @@ namespace View.Services.ViewModel
                     QuitarExcelPonerPDF(archivo, pdfFinal);
                 }
                 else
-                {               
+                {
                     mensaje = StringResources.msgErrorConvertFile;
                     return false;
                 }
             }
 
             if (ListaDocumentos.Count == 0)
-            {               
+            {
                 mensaje = StringResources.msgNotFoundFile;
                 return false;
             }
@@ -2136,9 +2136,9 @@ namespace View.Services.ViewModel
                                     string path = GetPathTempFile(TipoFormato);
                                     File.WriteAllBytes(path, TipoFormato.archivo);
                                     string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
-                                                                                      
+
                                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFormatoGCorrect);
-                                                                                   
+
                                     if (id_tipo == 1002)
                                     {
                                         ImportExcel.ExportFormatoHII(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
@@ -2157,17 +2157,17 @@ namespace View.Services.ViewModel
                                     }
                                 }
                                 else
-                                {                                                      
+                                {
                                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSelectUserAuto);
                                 }
                             }
                             else
-                            {                                                     
+                            {
                                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInDescDoc);
                             }
                         }
                         else
-                        {                                                       
+                        {
                             await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgGenerar1roVers);
                         }
                     }
@@ -2246,23 +2246,23 @@ namespace View.Services.ViewModel
                                 }
                             }
                             else
-                            {                                                      
+                            {
                                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSelectUserAuto);
                             }
                         }
                         else
-                        {                                                       
+                        {
                             await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInDescDoc);
                         }
                     }
                 }
                 else
-                {                                                       
+                {
                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSoloFormatos);
                 }
             }
             else
-            {                                                       
+            {
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSelectNumDoc);
             }
 
@@ -2529,7 +2529,7 @@ namespace View.Services.ViewModel
                     //Se asigna el id 
                     objVersion.id_version = idVersion;
                     objVersion.no_version = version;
-                                                          
+
                     //string mensaje = "Se elimina versión " + Version + ",Se regresa a versión anterior";
                     string mensaje = StringResources.msgEliminaVers + Version + StringResources.msgRegresaVers;
 
@@ -2633,12 +2633,13 @@ namespace View.Services.ViewModel
                         // Mostrar el explorador de archivos
                         result = dlg.ShowDialog();
 
-                    } else
+                    }
+                    else
                     {
                         result = true;
                         dlg.FileName = filename;
                     }
-                    
+
                     //Se crea el objeto de tipo archivo
                     Archivo obj = new Archivo();
 
@@ -2741,7 +2742,7 @@ namespace View.Services.ViewModel
                                                 string nfilename = dlg.FileName;
                                                 string path = nfilename;
                                                 string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
-                                                
+
                                                 //Métodos para corregir los archivos
                                                 if (resp == MessageDialogResult.Affirmative)
                                                 {
@@ -5374,7 +5375,7 @@ namespace View.Services.ViewModel
 
                         //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
                         int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
-                        
+
                         if (update_version != 0)
                         {
                             await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusPendienteCorregir);
