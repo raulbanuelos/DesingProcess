@@ -331,6 +331,7 @@ namespace View.Services
                     foreach (var item in L.Reverse())
                     {
                         DateTime FechaV = item.fecha_version;
+
                         string diaV = FechaV.Day.ToString().Length > 1 ? FechaV.Day.ToString() : "0" + FechaV.Day.ToString();
                         string mesV = FechaV.Month.ToString().Length > 1 ? FechaV.Month.ToString() : "0" + FechaV.Month.ToString();
 

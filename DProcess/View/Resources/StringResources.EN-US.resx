@@ -1848,4 +1848,12 @@ When saving the file, make sure it is EXCEL FILE (.XLSX)</value>
     <value>At the moment you can only generate the file format type JES, HOE, HII and AVY</value>
     <comment>Indica cuales son los formatos que se pueden generar</comment>
   </data>
+  <data name="msgOcurrioError" xml:space="preserve">
+    <value>An error occurred, please attach the file again.</value>
+    <comment>Mensaje ocurrió un error</comment>
+  </data>
+  <data name="msgDocDifFormato" xml:space="preserve">
+    <value>Apparently the document you attached does not belong to the format.</value>
+    <comment>Mensaje que muestra que documento y formato no coinciden</comment>
+  </data>
 </root>
