@@ -135,9 +135,29 @@ namespace View.Services.Operaciones.Gasolina.Inspeccion
             //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
 
-            //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "*INSPECCIÓN FINAL";
+            TextoProceso += "" + Environment.NewLine;
 
+            //Agregamos el texto con las instrucciones de la operación.
+            TextoProceso = "*INSPECCIÓN FINAL" + Environment.NewLine + Environment.NewLine;
+            TextoProceso += "*AUDITORIA DIM." + Environment.NewLine;
+            TextoProceso += "WIDTH     " + Environment.NewLine;
+            TextoProceso += "GAP       " + Environment.NewLine;
+            TextoProceso += "THICKNESS " +Environment.NewLine;
+            TextoProceso += "TENSION   " + Environment.NewLine;
+
+            TextoProceso += "*PINTURA" + Environment.NewLine;
+            TextoProceso += "PINTAR FRANJAS COLOR:" + Environment.NewLine;
+            TextoProceso += "1)           DE" + Environment.NewLine;
+            TextoProceso += "2)           DE" + Environment.NewLine;
+            TextoProceso += "3)           DE" + Environment.NewLine;
+            TextoProceso += "UBICACION FRANJA:" + Environment.NewLine;
+            TextoProceso += "1)" + Environment.NewLine;
+            TextoProceso += "2)" + Environment.NewLine;
+            TextoProceso += "3)" + Environment.NewLine;
+            TextoProceso += "NOTAS:" + Environment.NewLine;
+            TextoProceso += "." + Environment.NewLine;
+            TextoProceso += "." + Environment.NewLine;
+            TextoProceso += "." + Environment.NewLine;
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
