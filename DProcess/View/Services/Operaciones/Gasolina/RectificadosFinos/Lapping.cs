@@ -193,8 +193,11 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "Diámetro: " + String.Format("{0:0.00000}", Diameter) + Environment.NewLine;
-            TextoProceso += "Thickness: " + String.Format("{0:0.0000}", Thickness);
+            //TextoProceso = "Diámetro: " + String.Format("{0:0.00000}", Diameter) + Environment.NewLine;
+            //TextoProceso += "Thickness: " + String.Format("{0:0.0000}", Thickness);
+
+            TextoProceso = "PROG. \"44\" 10 STROKES" + Environment.NewLine;
+            TextoProceso += "*LAP" + Environment.NewLine;
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();

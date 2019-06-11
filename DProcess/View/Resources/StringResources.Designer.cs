@@ -2222,6 +2222,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Apparently the document you attached does not belong to the format..
+        /// </summary>
+        public static string msgDocDifFormato {
+            get {
+                return ResourceManager.GetString("msgDocDifFormato", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The document.
         /// </summary>
         public static string msgDocumento {
@@ -3202,6 +3211,15 @@ namespace View.Resources {
         public static string msgNumeroVersion {
             get {
                 return ResourceManager.GetString("msgNumeroVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a An error occurred, please attach the file again..
+        /// </summary>
+        public static string msgOcurrioError {
+            get {
+                return ResourceManager.GetString("msgOcurrioError", resourceCulture);
             }
         }
         
