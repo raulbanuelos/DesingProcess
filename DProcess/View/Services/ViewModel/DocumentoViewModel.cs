@@ -1215,12 +1215,12 @@ namespace View.Services.ViewModel
         /// <param name="mensaje"></param>
         /// <returns></returns>
         private int validarHOE(out string mensaje)
-        {
+        {    
             try
             {
                 object unknownType = Type.Missing;
-                // ban = true;
                 int ban = 1;
+                string CodigoFormato = "Código de formato:  : F-3571-R18-es";
 
                 foreach (Archivo archivo in ListaDocumentos)
                 {
@@ -1278,6 +1278,7 @@ namespace View.Services.ViewModel
                             string reviso = Convert.ToString(sheet.Range["REVISO"].Value);
                             string codigo = Convert.ToString(sheet.Range["CODIGO"].Value);
                             string departamento = Convert.ToString(sheet.Range["PROCESO"].Value);
+                            string codformato = Convert.ToString(sheet.Range["CODFORMATO"].Value);
                             string no_version = Convert.ToString(sheet.Range[VersionRevisar].Value);
                             string UsuarioRev = Convert.ToString(sheet.Range[UsuarioRevisar].Value);
                             string FechaRev = Convert.ToString(sheet.Range[FechaRevisar].Value);
@@ -1347,6 +1348,21 @@ namespace View.Services.ViewModel
                             {
                                 mensaje += "\n" + StringResources.msgUElabIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + NombreAbreviado;
                                 ban = 2;
+                            }
+                            if (codformato != CodigoFormato)
+                            {
+                                // Cerrar Excel cuando se adjunta archivo que no corresponde al formato
+                                ExcelApp.Visible = false;
+
+                                if (ExcelWork != null)
+                                    ExcelWork.Close(unknownType, unknownType, unknownType);
+
+                                if (ExcelApp != null)
+                                    ExcelApp.Quit();
+                                // Retornar cuando el archivo no pertenece al formato
+
+                                mensaje += "\n" + StringResources.ttlAlerta + StringResources.msgDocDifFormato;
+                                return 4;
                             }
                         }
                         catch (Exception er)
@@ -1419,8 +1435,8 @@ namespace View.Services.ViewModel
             try
             {
                 object unknownType = Type.Missing;
-                // ban = true;
                 int ban = 1;
+                string CodigoFormato = "Código de formato:  : F-3571-R19-es";
 
                 foreach (Archivo archivo in ListaDocumentos)
                 {
@@ -1479,6 +1495,7 @@ namespace View.Services.ViewModel
                             string reviso = Convert.ToString(sheet.Range["REVISO"].Value);
                             string codigo = Convert.ToString(sheet.Range["CODIGO"].Value);
                             string departamento = Convert.ToString(sheet.Range["PROCESO"].Value);
+                            string codformato = Convert.ToString(sheet.Range["CODFORMATO"].Value);
                             string no_version = Convert.ToString(sheet.Range[VersionRevisar].Value);
                             string UsuarioRev = Convert.ToString(sheet.Range[UsuarioRevisar].Value);
                             string FechaRev = Convert.ToString(sheet.Range[FechaRevisar].Value);
@@ -1560,6 +1577,21 @@ namespace View.Services.ViewModel
                             {
                                 mensaje += "\n" + StringResources.msgUElabIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + NombreAbreviado;
                                 ban = 2;
+                            }
+                            if (codformato != CodigoFormato)
+                            {
+                                // Cerrar Excel cuando se adjunta archivo que no corresponde al formato
+                                ExcelApp.Visible = false;
+
+                                if (ExcelWork != null)
+                                    ExcelWork.Close(unknownType, unknownType, unknownType);
+
+                                if (ExcelApp != null)
+                                    ExcelApp.Quit();
+                                // Retornar cuando el archivo no pertenece al formato
+
+                                mensaje += "\n" + StringResources.ttlAlerta + StringResources.msgDocDifFormato;
+                                return 4;
                             }
                         }
                         catch (Exception er)
@@ -2884,7 +2916,13 @@ namespace View.Services.ViewModel
                                                     }
                                                 }
                                                 else
-                                                {   // Si ocurrió un error
+                                                {
+                                                    //se elimina de la lista temporal
+                                                    ListaDocumentos.Clear();
+                                                    //se habilita el boton para poder adjuntar un archivo
+                                                    BttnArchivos = true;
+
+                                                    // Si ocurrió un error
                                                     if (r == 3)
                                                     {
                                                         // Mandar mensaje de por favor intente otra vez adjuntar el archivo cuando ocurre error
@@ -2892,7 +2930,8 @@ namespace View.Services.ViewModel
                                                     }
                                                     // Si el archivo no pertenece al formato
                                                     else
-                                                    {   // Mandar mensaje de que se adjunto un documento que no pertenece al formato
+                                                    {
+                                                        // Mandar mensaje de que se adjunto un documento que no pertenece al formato
                                                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgDocDifFormato);
                                                     }
                                                     
@@ -3133,7 +3172,13 @@ namespace View.Services.ViewModel
                                                             }
                                                         }
                                                         else
-                                                        {   // Si ocurrió un error
+                                                        {
+                                                            //se elimina de la lista temporal
+                                                            ListaDocumentos.Clear();
+                                                            //se habilita el boton para poder adjuntar un archivo
+                                                            BttnArchivos = true;
+
+                                                            // Si ocurrió un error
                                                             if (r == 3)
                                                             {
                                                                 // Mandar mensaje de por favor intente otra vez adjuntar el archivo cuando ocurre error
