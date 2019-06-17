@@ -1238,6 +1238,24 @@ namespace View.Services.ViewModel
                     Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
                     Microsoft.Office.Interop.Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(pathExcel, true);
 
+                    Microsoft.Office.Interop.Excel.Worksheet sheet1;
+                    sheet1 = ExcelWork.Sheets[1];
+
+                    if (sheet1.Name != "HOE")
+                    {
+                        mensaje += StringResources.msgLaHoja1 + "HOE";
+
+                        ExcelApp.Visible = false;
+
+                        if (ExcelWork != null)
+                            ExcelWork.Close(unknownType, unknownType, unknownType);
+
+                        if (ExcelApp != null)
+                            ExcelApp.Quit(); 
+
+                        return 4;
+                    }
+
                     for (int i = 1; i <= ExcelWork.Sheets.Count; i++)
                     {
                         try
@@ -1388,7 +1406,7 @@ namespace View.Services.ViewModel
 
                     if (ExcelApp != null)
                         ExcelApp.Quit();
-                    // ban = false;
+
                     if (ban ==2)
                         return 2;
 
@@ -1453,6 +1471,24 @@ namespace View.Services.ViewModel
 
                     Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
                     Microsoft.Office.Interop.Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(pathExcel, true);
+
+                    Microsoft.Office.Interop.Excel.Worksheet sheet1;
+                    sheet1 = ExcelWork.Sheets[1];
+
+                    if (sheet1.Name != "JES")
+                    {
+                        mensaje += StringResources.msgLaHoja1 + "JES";
+
+                        ExcelApp.Visible = false;
+
+                        if (ExcelWork != null)
+                            ExcelWork.Close(unknownType, unknownType, unknownType);
+
+                        if (ExcelApp != null)
+                            ExcelApp.Quit();
+
+                        return 4;
+                    }
 
                     for (int i = 1; i <= ExcelWork.Sheets.Count; i++)
                     {
@@ -1617,7 +1653,7 @@ namespace View.Services.ViewModel
 
                     if (ExcelApp != null)
                         ExcelApp.Quit();
-                    // ban = false;
+
                     if (ban == 2)
                         return 2;
 
@@ -1665,7 +1701,6 @@ namespace View.Services.ViewModel
             try
             {
                 object unknownType = Type.Missing;
-                // ban = true;
                 int ban = 1;
 
                 foreach (Archivo archivo in ListaDocumentos)
@@ -1683,6 +1718,24 @@ namespace View.Services.ViewModel
 
                     Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
                     Microsoft.Office.Interop.Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(pathExcel, true);
+
+                    Microsoft.Office.Interop.Excel.Worksheet sheet1;
+                    sheet1 = ExcelWork.Sheets[1];
+
+                    if (sheet1.Name != "HII")
+                    {
+                        mensaje += StringResources.msgLaHoja1 + "HII";
+
+                        ExcelApp.Visible = false;
+
+                        if (ExcelWork != null)
+                            ExcelWork.Close(unknownType, unknownType, unknownType);
+
+                        if (ExcelApp != null)
+                            ExcelApp.Quit();
+
+                        return 4;
+                    }
 
                     for (int i = 1; i <= ExcelWork.Sheets.Count; i++)
                     {
@@ -1825,7 +1878,7 @@ namespace View.Services.ViewModel
 
                     if (ExcelApp != null)
                         ExcelApp.Quit();
-                    // ban = false;
+
                     if (ban == 2)
                         return 2;
 
@@ -1873,7 +1926,6 @@ namespace View.Services.ViewModel
             try
             {
                 object unknownType = Type.Missing;
-                // ban = true;
                 int ban = 1;
 
                 foreach (Archivo archivo in ListaDocumentos)
@@ -1891,6 +1943,24 @@ namespace View.Services.ViewModel
 
                     Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
                     Microsoft.Office.Interop.Excel.Workbook ExcelWork = ExcelApp.Workbooks.Open(pathExcel, true);
+
+                    Microsoft.Office.Interop.Excel.Worksheet sheet1;
+                    sheet1 = ExcelWork.Sheets[1];
+
+                    if (sheet1.Name != "AYUDA_VISUAL")
+                    {
+                        mensaje += StringResources.msgLaHoja1 + "AYUDA_VISUAL";
+
+                        ExcelApp.Visible = false;
+
+                        if (ExcelWork != null)
+                            ExcelWork.Close(unknownType, unknownType, unknownType);
+
+                        if (ExcelApp != null)
+                            ExcelApp.Quit();
+
+                        return 4;
+                    }
 
                     for (int i = 1; i <= ExcelWork.Sheets.Count; i++)
                     {
@@ -1910,7 +1980,7 @@ namespace View.Services.ViewModel
 
                             if (ValidacionNumeracion == false)
                             {
-                                mensaje += "\n" + StringResources.msgNumeracionIncorrecta + ExcelWork.Sheets[i].Name + " " + StringResources.msgDBCr + "Hoja:(" + i + " / " + ExcelWork.Sheets.Count + ")";
+                                mensaje += "\n" + StringResources.msgNumeracionIncorrecta + ExcelWork.Sheets[i].Name + " " + StringResources.msgDBCr + "Hoja:(" + i + "/" + ExcelWork.Sheets.Count + ")";
                                 ban = 2;
                             }
 
@@ -2012,7 +2082,7 @@ namespace View.Services.ViewModel
 
                     if (ExcelApp != null)
                         ExcelApp.Quit();
-                    // ban = false;
+
                     if (ban == 2)
                         return 2;
 
@@ -2762,7 +2832,8 @@ namespace View.Services.ViewModel
                         // Mostrar el explorador de archivos
                         result = dlg.ShowDialog();
 
-                    } else
+                    }
+                    else
                     {
                         result = true;
                         dlg.FileName = filename;
@@ -2932,7 +3003,7 @@ namespace View.Services.ViewModel
                                                     else
                                                     {
                                                         // Mandar mensaje de que se adjunto un documento que no pertenece al formato
-                                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgDocDifFormato);
+                                                        await dialog.SendMessage(StringResources.ttlAlerta, mensaje + "\n\n" + StringResources.msgDocDifFormato + "\n" + StringResources.msgCorrigeArchivo);
                                                     }
                                                     
                                                 }
@@ -3187,9 +3258,9 @@ namespace View.Services.ViewModel
                                                             // Si el archivo no pertenece al formato
                                                             else
                                                             {   // Mandar mensaje de que se adjunto un documento que no pertenece al formato
-                                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgDocDifFormato);
+                                                                await dialog.SendMessage(StringResources.ttlAlerta, mensaje + "\n\n" + StringResources.msgDocDifFormato + "\n" + StringResources.msgCorrigeArchivo);
                                                             }
-                                                            
+
                                                         }
                                                     }
                                                 }
