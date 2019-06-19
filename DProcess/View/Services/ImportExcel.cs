@@ -224,6 +224,7 @@ namespace View.Services
                             sheet.Range[VersionVersiones].Value = item.no_version;
                             sheet.Range[FechaVersiones].Value = "'" + FechaV.Year + "-" + mesV + "-" + diaV;
                             sheet.Range[NivelVersiones].Value = vec[CVF - 1];
+                            
                         }
                         CVF++;
                     }
@@ -280,7 +281,10 @@ namespace View.Services
                         sheet.Range[VersionActual].Value = version;
                         sheet.Range[FechaActual].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
                         sheet.Range[NivelActual].Value = vec[version - 1];
+
                     }
+
+                    
 
                     ExcelApp.Visible = true;
 
@@ -521,6 +525,11 @@ namespace View.Services
 
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                 {
+                    sheet.Unprotect("12345678");
+                }
+
+                foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                {
                     sheet.Range["FECHA_ELABORACION"].Value = "'" + FV1.Year + "-" + mes1 + "-" + dia1;
                     sheet.Range["CODIGO"].Value = codigo;
                     sheet.Range["ELABORO"].Value = personaCreo;
@@ -528,6 +537,11 @@ namespace View.Services
                     sheet.Range["Version"].Value = version;
                     sheet.Range["NOMBRE_DEPARTAMENTO"].Value = departamento;
                     sheet.Range["FECHA_REVISION"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
+                }
+
+                foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                {
+                    sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                 }
 
                 ExcelApp.Visible = true;

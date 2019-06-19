@@ -6,9 +6,8 @@ using View.Services.TiempoEstandar.Gasolina.Rolado;
 
 namespace View.Services.Operaciones.Gasolina.Rolado
 {
-    public class CoilRings : GenericOperation, IOperacion,IObserverDiametro 
+    public class CoilRings : GenericOperation, IOperacion,IObserverDiametro
     {
-
         #region Properties
 
         private double widthMateriaPrima;
