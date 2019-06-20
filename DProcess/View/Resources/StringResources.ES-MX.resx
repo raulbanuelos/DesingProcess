@@ -1653,7 +1653,7 @@
     <value>Ingrese el número del componente</value>
   </data>
   <data name="lblVerEstatusDocumentos" xml:space="preserve">
-    <value>Estatus de los documentos</value>
+    <value>Estatus de mis documentos</value>
   </data>
   <data name="lblDocumentosPendientesCorregir" xml:space="preserve">
     <value>Los documentos seleccionados ya se encuentran en estatus pendiente por corregir</value>
