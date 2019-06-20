@@ -1185,7 +1185,7 @@ namespace View.Services.ViewModel
 
         private int validarArchivo(out string mensaje)
         {
-            // 4 posibles salidas al momento de validar
+            // 4 posibles salidas para validar
             int validacion = 2;
 
             if (id_tipo == 1002)

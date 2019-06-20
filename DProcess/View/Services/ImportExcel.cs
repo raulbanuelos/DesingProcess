@@ -171,6 +171,8 @@ namespace View.Services
             }
         }
 
+        // *NO SE BLOQUEA LA CELDA DE NUMERACIÓN PARA QUE NO AFECTE A LA MACRO Y PUEDAN GENERAR MÁS HOJAS EN EL DOCUMENTO SIN ERROR.
+
         /// <summary>
         /// Método para crear el formato de las HOE
         /// </summary>
