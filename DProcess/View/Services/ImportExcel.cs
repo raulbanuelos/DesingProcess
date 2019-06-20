@@ -209,7 +209,7 @@ namespace View.Services
                     // Desbloqueamos el archivo para poder escribir la información
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
-                        sheet.Unprotect("12345678");
+                        sheet.Unprotect("?W3s.t7/");
                     }
 
                     foreach (var item in L.Reverse())
@@ -265,7 +265,7 @@ namespace View.Services
                     // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
-                        sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                        sheet.Protect("?W3s.t7/", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                     }
 
                     ExcelApp.Visible = true;
@@ -277,7 +277,7 @@ namespace View.Services
                     // Desbloqueamos el archivo para poder escribir la información
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
-                        sheet.Unprotect("12345678");
+                        sheet.Unprotect("?W3s.t7/");
                     }
 
                     string UsuarioActual = "USUARIO_A" + version;
@@ -303,7 +303,7 @@ namespace View.Services
                     // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
-                        sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                        sheet.Protect("?W3s.t7/", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                     }
 
                     ExcelApp.Visible = true;
@@ -355,7 +355,7 @@ namespace View.Services
                     // Desbloqueamos el archivo para poder escribir la información
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
-                        sheet.Unprotect("12345678");
+                        sheet.Unprotect("?W3s.t7/");
                     }
 
                     foreach (var item in L.Reverse())
@@ -412,7 +412,7 @@ namespace View.Services
                     // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
-                        sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                        sheet.Protect("?W3s.t7/", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                     }
 
                     ExcelApp.Visible = true;
@@ -424,7 +424,7 @@ namespace View.Services
                     // Desbloqueamos el archivo para poder escribir la información
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
-                        sheet.Unprotect("12345678");
+                        sheet.Unprotect("?W3s.t7/");
                     }
 
                     string UsuarioActual = "USUARIO_A" + version;
@@ -451,7 +451,7 @@ namespace View.Services
                     // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
-                        sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                        sheet.Protect("?W3s.t7/", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                     }
 
                     ExcelApp.Visible = true;
@@ -507,7 +507,7 @@ namespace View.Services
                 // Desbloqueamos el archivo para poder escribir la información
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                 {
-                    sheet.Unprotect("12345678");
+                    sheet.Unprotect("?W3s.t7/");
                 }
 
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
@@ -529,7 +529,7 @@ namespace View.Services
                 // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                 {
-                    sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                    sheet.Protect("?W3s.t7/", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                 }
 
                 ExcelApp.Visible = true;
@@ -583,7 +583,7 @@ namespace View.Services
                 // Desbloqueamos el archivo para poder escribir la información
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                 {
-                    sheet.Unprotect("12345678");
+                    sheet.Unprotect("?W3s.t7/");
                 }
 
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
@@ -600,7 +600,7 @@ namespace View.Services
                 // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                 {
-                    sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                    sheet.Protect("?W3s.t7/", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                 }
 
                 ExcelApp.Visible = true;
@@ -785,7 +785,7 @@ namespace View.Services
                     // Desbloqueamos el archivo para poder escribir la información
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
-                        sheet.Unprotect("12345678");
+                        sheet.Unprotect("?W3s.t7/");
                     }
 
                     foreach (var item in L.Reverse())
@@ -847,7 +847,7 @@ namespace View.Services
                     // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
-                        sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                        sheet.Protect("?W3s.t7/", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                     }
 
                     ExcelWork.Save();
@@ -861,7 +861,7 @@ namespace View.Services
                     // Desbloqueamos el archivo para poder escribir la información
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
-                        sheet.Unprotect("12345678");
+                        sheet.Unprotect("?W3s.t7/");
                     }
 
                     string UsuarioActual = "USUARIO_A" + version;
@@ -893,7 +893,7 @@ namespace View.Services
                     // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
-                        sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                        sheet.Protect("?W3s.t7/", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                     }
 
                     ExcelWork.Save();
@@ -948,7 +948,7 @@ namespace View.Services
                     // Desbloqueamos el archivo para poder escribir la información
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
-                        sheet.Unprotect("12345678");
+                        sheet.Unprotect("?W3s.t7/");
                     }
 
                     foreach (var item in L.Reverse())
@@ -1011,7 +1011,7 @@ namespace View.Services
                     // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
-                        sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                        sheet.Protect("?W3s.t7/", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                     }
 
                     ExcelWork.Save();
@@ -1025,7 +1025,7 @@ namespace View.Services
                     // Desbloqueamos el archivo para poder escribir la información
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
-                        sheet.Unprotect("12345678");
+                        sheet.Unprotect("?W3s.t7/");
                     }
 
                     string UsuarioActual = "USUARIO_A" + version;
@@ -1058,7 +1058,7 @@ namespace View.Services
                     // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
-                        sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                        sheet.Protect("?W3s.t7/", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                     }
 
                     ExcelWork.Save();
@@ -1115,7 +1115,7 @@ namespace View.Services
                 // Desbloqueamos el archivo para poder escribir la información
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                 {
-                    sheet.Unprotect("12345678");
+                    sheet.Unprotect("?W3s.t7/");
                 }
 
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
@@ -1144,7 +1144,7 @@ namespace View.Services
                 // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                 {
-                    sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                    sheet.Protect("?W3s.t7/", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                 }
 
                 ExcelWork.Save();
@@ -1201,7 +1201,7 @@ namespace View.Services
                 // Desbloqueamos el archivo para poder escribir la información
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                 {
-                    sheet.Unprotect("12345678");
+                    sheet.Unprotect("?W3s.t7/");
                 }
 
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
@@ -1224,7 +1224,7 @@ namespace View.Services
                 // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                 {
-                    sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                    sheet.Protect("?W3s.t7/", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                 }
 
                 ExcelWork.Save();

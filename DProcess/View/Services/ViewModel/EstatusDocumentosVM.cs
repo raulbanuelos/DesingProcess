@@ -124,7 +124,6 @@ namespace View.Services.ViewModel
         {
             if (ListaDocumentosConEstatus.Count > 0)
             {
-                usuario = new Usuario();
                 int v = 0;
                 //Incializamos los servicios de dialog.
                 DialogService dialog = new DialogService();
