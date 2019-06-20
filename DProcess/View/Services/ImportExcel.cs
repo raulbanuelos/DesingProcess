@@ -206,6 +206,12 @@ namespace View.Services
 
                     ObservableCollection<Model.ControlDocumentos.Version> L = DataManagerControlDocumentos.GetVersionesAnterioresXDocumento(id_documento, Take);
 
+                    // Desbloqueamos el archivo para poder escribir la información
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                    {
+                        sheet.Unprotect("12345678");
+                    }
+
                     foreach (var item in L.Reverse())
                     {
                         DateTime FechaV = item.fecha_version;
@@ -224,7 +230,6 @@ namespace View.Services
                             sheet.Range[VersionVersiones].Value = item.no_version;
                             sheet.Range[FechaVersiones].Value = "'" + FechaV.Year + "-" + mesV + "-" + diaV;
                             sheet.Range[NivelVersiones].Value = vec[CVF - 1];
-                            
                         }
                         CVF++;
                     }
@@ -257,12 +262,24 @@ namespace View.Services
                         sheet.Range[NivelActual].Value = vec[version - 1];
                     }
 
+                    // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                    {
+                        sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                    }
+
                     ExcelApp.Visible = true;
 
                     return "Ok";
                 }
                 else
                 {
+                    // Desbloqueamos el archivo para poder escribir la información
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                    {
+                        sheet.Unprotect("12345678");
+                    }
+
                     string UsuarioActual = "USUARIO_A" + version;
                     string VersionActual = "VERSION_" + version;
                     string FechaActual = "FECHA_A" + version;
@@ -281,10 +298,13 @@ namespace View.Services
                         sheet.Range[VersionActual].Value = version;
                         sheet.Range[FechaActual].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
                         sheet.Range[NivelActual].Value = vec[version - 1];
-
                     }
 
-                    
+                    // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                    {
+                        sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                    }
 
                     ExcelApp.Visible = true;
 
@@ -331,6 +351,12 @@ namespace View.Services
                     int Take = 10;
 
                     ObservableCollection<Model.ControlDocumentos.Version> L = DataManagerControlDocumentos.GetVersionesAnterioresXDocumento(id_documento, Take);
+
+                    // Desbloqueamos el archivo para poder escribir la información
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                    {
+                        sheet.Unprotect("12345678");
+                    }
 
                     foreach (var item in L.Reverse())
                     {
@@ -383,12 +409,24 @@ namespace View.Services
                         sheet.Range[NivelActual].Value = vec[version - 1];
                     }
 
+                    // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                    {
+                        sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                    }
+
                     ExcelApp.Visible = true;
 
                     return "Ok";
                 }
                 else
                 {
+                    // Desbloqueamos el archivo para poder escribir la información
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                    {
+                        sheet.Unprotect("12345678");
+                    }
+
                     string UsuarioActual = "USUARIO_A" + version;
                     string VersionActual = "VERSION_" + version;
                     string FechaActual = "FECHA_A" + version;
@@ -409,6 +447,13 @@ namespace View.Services
                         sheet.Range[FechaActual].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
                         sheet.Range[NivelActual].Value = vec[version - 1];
                     }
+
+                    // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                    {
+                        sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                    }
+
                     ExcelApp.Visible = true;
 
                     return "Ok";
@@ -459,6 +504,12 @@ namespace View.Services
                 string dia1 = FV1.Day.ToString().Length > 1 ? FV1.Day.ToString() : "0" + FV1.Day.ToString();
                 string mes1 = FV1.Month.ToString().Length > 1 ? FV1.Month.ToString() : "0" + FV1.Month.ToString();
 
+                // Desbloqueamos el archivo para poder escribir la información
+                foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                {
+                    sheet.Unprotect("12345678");
+                }
+
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                 {
                     sheet.Range["FECHA_V1"].Value = "'" + FV1.Year + "-" + mes1 + "-" + dia1; ;
@@ -473,6 +524,12 @@ namespace View.Services
                     sheet.Range["CODIGO"].Value = codigo;
                     sheet.Range["NOMBRE_DEPARTAMENTO"].Value = departamento;
                     sheet.Range["VERSION_ACTUAL"].Value = version;
+                }
+
+                // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
+                foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                {
+                    sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                 }
 
                 ExcelApp.Visible = true;
@@ -523,6 +580,7 @@ namespace View.Services
                 string dia1 = FV1.Day.ToString().Length > 1 ? FV1.Day.ToString() : "0" + FV1.Day.ToString();
                 string mes1 = FV1.Month.ToString().Length > 1 ? FV1.Month.ToString() : "0" + FV1.Month.ToString();
 
+                // Desbloqueamos el archivo para poder escribir la información
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                 {
                     sheet.Unprotect("12345678");
@@ -539,6 +597,7 @@ namespace View.Services
                     sheet.Range["FECHA_REVISION"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
                 }
 
+                // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                 {
                     sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
@@ -723,6 +782,12 @@ namespace View.Services
 
                     ObservableCollection<Model.ControlDocumentos.Version> L = DataManagerControlDocumentos.GetVersionesAnterioresXDocumento(id_documento, Take);
 
+                    // Desbloqueamos el archivo para poder escribir la información
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                    {
+                        sheet.Unprotect("12345678");
+                    }
+
                     foreach (var item in L.Reverse())
                     {
                         DateTime FechaV = item.fecha_version;
@@ -779,6 +844,12 @@ namespace View.Services
                         sheet.Range[NivelActual].Value = vec[version - 1];
                     }
 
+                    // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                    {
+                        sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                    }
+
                     ExcelWork.Save();
                     ExcelApp.Visible = false;
                     ExcelWork.Close();
@@ -787,6 +858,12 @@ namespace View.Services
                 }
                 else
                 {
+                    // Desbloqueamos el archivo para poder escribir la información
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                    {
+                        sheet.Unprotect("12345678");
+                    }
+
                     string UsuarioActual = "USUARIO_A" + version;
                     string VersionActual = "VERSION_" + version;
                     string FechaActual = "FECHA_A" + version;
@@ -811,6 +888,12 @@ namespace View.Services
                         sheet.Range[VersionActual].Value = version;
                         sheet.Range[FechaActual].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
                         sheet.Range[NivelActual].Value = vec[version - 1];
+                    }
+
+                    // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                    {
+                        sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                     }
 
                     ExcelWork.Save();
@@ -861,6 +944,12 @@ namespace View.Services
                     int Take = 10;
 
                     ObservableCollection<Model.ControlDocumentos.Version> L = DataManagerControlDocumentos.GetVersionesAnterioresXDocumento(id_documento, Take);
+
+                    // Desbloqueamos el archivo para poder escribir la información
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                    {
+                        sheet.Unprotect("12345678");
+                    }
 
                     foreach (var item in L.Reverse())
                     {
@@ -919,6 +1008,12 @@ namespace View.Services
                         sheet.Range[NivelActual].Value = vec[version - 1];
                     }
 
+                    // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                    {
+                        sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                    }
+
                     ExcelWork.Save();
                     ExcelApp.Visible = false;
                     ExcelWork.Close();
@@ -927,6 +1022,12 @@ namespace View.Services
                 }
                 else
                 {
+                    // Desbloqueamos el archivo para poder escribir la información
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                    {
+                        sheet.Unprotect("12345678");
+                    }
+
                     string UsuarioActual = "USUARIO_A" + version;
                     string VersionActual = "VERSION_" + version;
                     string FechaActual = "FECHA_A" + version;
@@ -952,6 +1053,12 @@ namespace View.Services
                         sheet.Range[VersionActual].Value = version;
                         sheet.Range[FechaActual].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
                         sheet.Range[NivelActual].Value = vec[version - 1];
+                    }
+
+                    // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
+                    foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                    {
+                        sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                     }
 
                     ExcelWork.Save();
@@ -1005,6 +1112,12 @@ namespace View.Services
                 string mes1 = FV1.Month.ToString().Length > 1 ? FV1.Month.ToString() : "0" + FV1.Month.ToString();
                 int Aux = 1;
 
+                // Desbloqueamos el archivo para poder escribir la información
+                foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                {
+                    sheet.Unprotect("12345678");
+                }
+
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                 {
                     foreach (Excel.Worksheet sheets in ExcelWork.Sheets)
@@ -1026,6 +1139,12 @@ namespace View.Services
                     sheet.Range["CODIGO"].Value = codigo;
                     sheet.Range["NOMBRE_DEPARTAMENTO"].Value = departamento;
                     sheet.Range["VERSION_ACTUAL"].Value = version;
+                }
+
+                // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
+                foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                {
+                    sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                 }
 
                 ExcelWork.Save();
@@ -1079,6 +1198,12 @@ namespace View.Services
                 string mes1 = FV1.Month.ToString().Length > 1 ? FV1.Month.ToString() : "0" + FV1.Month.ToString();
                 int Aux = 1;
 
+                // Desbloqueamos el archivo para poder escribir la información
+                foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                {
+                    sheet.Unprotect("12345678");
+                }
+
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                 {
                     foreach (Excel.Worksheet sheets in ExcelWork.Sheets)
@@ -1094,6 +1219,12 @@ namespace View.Services
                     sheet.Range["Version"].Value = version;
                     sheet.Range["NOMBRE_DEPARTAMENTO"].Value = departamento;
                     sheet.Range["FECHA_REVISION"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;
+                }
+
+                // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
+                foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
+                {
+                    sheet.Protect("12345678", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                 }
 
                 ExcelWork.Save();

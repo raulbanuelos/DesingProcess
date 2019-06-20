@@ -1856,4 +1856,8 @@ When saving the file, make sure it is EXCEL FILE (.XLSX)</value>
     <value>Apparently the document you attached does not belong to the format.</value>
     <comment>Mensaje que muestra que documento y formato no coinciden</comment>
   </data>
+  <data name="msgLaHoja1" xml:space="preserve">
+    <value>THE SHEET NUMBER 1 MUST BE CALLED: </value>
+    <comment>Nombre que debe de llevar la primer hoja</comment>
+  </data>
 </root>

@@ -1854,4 +1854,8 @@ Al momento de guardar el archivo, asegurate de que sea ARCHIVO DE EXCEL (.XLSX)<
     <value>Al parecer el documento que adjuntaste no pertenece al formato.</value>
     <comment>Mensaje que muestra que documento y formato no coinciden</comment>
   </data>
+  <data name="msgLaHoja1" xml:space="preserve">
+    <value>LA HOJA NÚMERO 1 DEBE LLAMARSE: </value>
+    <comment>Nombre que debe de llevar la primer hoja</comment>
+  </data>
 </root>

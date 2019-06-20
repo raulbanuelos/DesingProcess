@@ -3053,6 +3053,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a THE SHEET NUMBER 1 MUST BE CALLED: .
+        /// </summary>
+        public static string msgLaHoja1 {
+            get {
+                return ResourceManager.GetString("msgLaHoja1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Do you want to release the document?.
         /// </summary>
         public static string msgLiberarDocumento {
