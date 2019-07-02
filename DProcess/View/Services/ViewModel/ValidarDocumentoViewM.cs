@@ -548,7 +548,7 @@ namespace View.Services.ViewModel
                 }
                 else
                 {
-                    //mensaje de no selecciono ninguno.
+                    //Mensaje de no selecciono ninguno.
                     //Se muestra un mensaje de que no ha seleccionado ningun tipo de error.
                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSelecciona1error);
                 }
