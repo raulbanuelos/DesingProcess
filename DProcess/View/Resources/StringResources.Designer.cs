@@ -2411,6 +2411,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Please select again the mistakes found..
+        /// </summary>
+        public static string msgErrEncontrados {
+            get {
+                return ResourceManager.GetString("msgErrEncontrados", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Woops, something went wrong.
         /// </summary>
         public static string msgError {
@@ -3337,6 +3346,15 @@ namespace View.Resources {
         public static string msgRoutingReady {
             get {
                 return ResourceManager.GetString("msgRoutingReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please select at least one type of document error..
+        /// </summary>
+        public static string msgSelecciona1error {
+            get {
+                return ResourceManager.GetString("msgSelecciona1error", resourceCulture);
             }
         }
         

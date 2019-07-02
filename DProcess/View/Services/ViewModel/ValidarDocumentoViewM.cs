@@ -550,10 +550,8 @@ namespace View.Services.ViewModel
                 {
                     //mensaje de no selecciono ninguno.
                     //Se muestra un mensaje de que no ha seleccionado ningun tipo de error.
-                    await dialog.SendMessage(StringResources.ttlAlerta, "Por favor seleccione al menos un tipo de error del documento.");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSelecciona1error);
                 }
-                
-
             }
         }
 
@@ -767,6 +765,7 @@ namespace View.Services.ViewModel
             string title = "Documento no aprobado - " + SelectedDocumento.nombre;
             string body = string.Empty;
             string tipo_documento = string.Empty;
+            string mensaje = string.Empty;
 
             switch (SelectedDocumento.id_tipo_documento)
             {
@@ -793,43 +792,54 @@ namespace View.Services.ViewModel
                     break;
             }
 
-            body = "<HTML>";
-            body += "<head>";
-            body += "<meta http-equiv=\"Content - Type\" content=\"text / html; charset = utf - 8\"/>";
-            body += "</head>";
-            body += "<body text=\"white\">";
-            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
-            body += "<ul>";
-            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> Para notificar que " + tipo_documento + " con el número <b> " + SelectedDocumento.nombre + "</b> versión <b> " + SelectedDocumento.version.no_version + ".0" + " </b> ha sido rechazado por los siguientes motivos: </font> </li>";
-            body += "<br/>";
-            body += "<br/>";
-            foreach (var item in ListaErroresSeleccionados)
+            if (ListaErroresSeleccionados.Count != 0)
             {
-                body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> <b>" + item.DESCRIPCION_ERROR + "</b></font></li>";
+                body = "<HTML>";
+                body += "<head>";
+                body += "<meta http-equiv=\"Content - Type\" content=\"text / html; charset = utf - 8\"/>";
+                body += "</head>";
+                body += "<body text=\"white\">";
+                body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
+                body += "<ul>";
+                body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> Para notificar que " + tipo_documento + " con el número <b> " + SelectedDocumento.nombre + "</b> versión <b> " + SelectedDocumento.version.no_version + ".0" + " </b> ha sido rechazado por los siguientes motivos: </font> </li>";
+                body += "<br/>";
+                body += "<br/>";
 
+                foreach (var item in ListaErroresSeleccionados)
+                {
+                    body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> <b>" + item.DESCRIPCION_ERROR + "</b></font></li>";
+                }
+
+                body += "</ul>";
+                body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
+                body += "<br/>";
+                body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Este correo se ha generado automáticamente, por favor no responda.</font> </p>";
+                body += "<br/>";
+                body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
+                body += "<ul>";
+                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + _usuarioLogueado.Nombre + " " + _usuarioLogueado.ApellidoPaterno + " " + _usuarioLogueado.ApellidoMaterno + " " + "</font> </li>";
+                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">MAHLE Componentes de Motor de México, S. de R.L. de C.V.</font></li>";
+                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Engineering (ENG)</font> </li>";
+                body += "<li></li>";
+                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Km. 0.3 Carr. Maravillas-Jesús María , 20900 Aguascalientes, Mexico</font> </li>";
+                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Teléfono: +52 449 910 8200-82 90, Fax: +52 449 910 8200 - 267</font> </li>";
+                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + _usuarioLogueado.Correo + ",</font> <a href=\"http://www.mx.mahle.com\">http://www.mx.mahle.com</a>  </li>";
+                body += "</ul>";
+                body += "</body>";
+                body += "</HTML>";
             }
-            body += "</ul>";
-            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
-            body += "<br/>";
-            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Este correo se ha generado automáticamente, por favor no responda.</font> </p>";
-            body += "<br/>";
-            body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
-            body += "<ul>";
-            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + _usuarioLogueado.Nombre + " " + _usuarioLogueado.ApellidoPaterno + " " + _usuarioLogueado.ApellidoMaterno + " " + "</font> </li>";
-            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">MAHLE Componentes de Motor de México, S. de R.L. de C.V.</font></li>";
-            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Engineering (ENG)</font> </li>";
-            body += "<li></li>";
-            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Km. 0.3 Carr. Maravillas-Jesús María , 20900 Aguascalientes, Mexico</font> </li>";
-            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Teléfono: +52 449 910 8200-82 90, Fax: +52 449 910 8200 - 267</font> </li>";
-            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + _usuarioLogueado.Correo + ",</font> <a href=\"http://www.mx.mahle.com\">http://www.mx.mahle.com</a>  </li>";
-            body += "</ul>";
-            body += "</body>";
-            body += "</HTML>";
+            else
+            {
+                mensaje += StringResources.ttlAlerta + StringResources.msgErrEncontrados;
+
+                foreach (var item in ListaErroresSeleccionados)
+                {
+                    mensaje += "\n" + item.DESCRIPCION_ERROR;
+                }
+            }
 
             bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body);
-
             return respuesta;
-
         }
 
         #endregion

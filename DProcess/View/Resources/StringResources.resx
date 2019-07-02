@@ -1860,4 +1860,12 @@ When saving the file, make sure it is EXCEL FILE (.XLSX)</value>
     <value>THE SHEET NUMBER 1 MUST BE CALLED: </value>
     <comment>Nombre que debe de llevar la primer hoja</comment>
   </data>
+  <data name="msgErrEncontrados" xml:space="preserve">
+    <value>Please select again the mistakes found.</value>
+    <comment>Pide que vuelvan a ser seleccionados los errores.</comment>
+  </data>
+  <data name="msgSelecciona1error" xml:space="preserve">
+    <value>Please select at least one type of document error.</value>
+    <comment>Debe seleccionar al menos 1 error para mandar a corregir.</comment>
+  </data>
 </root>
