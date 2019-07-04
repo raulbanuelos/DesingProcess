@@ -235,6 +235,25 @@
     <Compile Include="ServiceObjects\MateriasPrimas\TubosHD.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Normas\ModelNormas.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelNormas.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Normas\ModelNormas.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelNormas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Normas\ModelNormas.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelNormas.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Normas\SO_Normas.cs" />
+    <Compile Include="ServiceObjects\Normas\TBL_NORMAS.cs">
+      <DependentUpon>ModelNormas.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Notificaciones\ModelNotificaciones.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -651,6 +670,16 @@
       <DependentUpon>ModelMateriasPrimas.edmx</DependentUpon>
       <LastGenOutput>ModelMateriasPrimas.cs</LastGenOutput>
     </Content>
+    <Content Include="ServiceObjects\Normas\ModelNormas.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelNormas.edmx</DependentUpon>
+      <LastGenOutput>ModelNormas.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ServiceObjects\Normas\ModelNormas.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelNormas.edmx</DependentUpon>
+      <LastGenOutput>ModelNormas.cs</LastGenOutput>
+    </Content>
     <Content Include="ServiceObjects\Notificaciones\ModelNotificaciones.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelNotificaciones.edmx</DependentUpon>
@@ -729,6 +758,13 @@
       <LastGenOutput>ModelNotificaciones.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="packages.config" />
+    <EntityDeploy Include="ServiceObjects\Normas\ModelNormas.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelNormas.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ServiceObjects\Normas\ModelNormas.edmx.diagram">
+      <DependentUpon>ModelNormas.edmx</DependentUpon>
+    </None>
     <None Include="ServiceObjects\Notificaciones\ModelNotificaciones.edmx.diagram">
       <DependentUpon>ModelNotificaciones.edmx</DependentUpon>
     </None>

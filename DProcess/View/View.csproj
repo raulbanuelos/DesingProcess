@@ -15,31 +15,31 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>C:\Publicar\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>\\agufileserv2\TODOSP\R%40ul\DeployTest\</InstallUrl>
-    <UpdateUrl>\\agufileserv2\TODOSP\R%40ul\DeployTest\</UpdateUrl>
+    <InstallUrl>\\agufileserv2\TODOSP\R%40ul\Deploy\</InstallUrl>
+    <UpdateUrl>\\agufileserv2\TODOSP\R%40ul\Deploy\</UpdateUrl>
     <ProductName>Diseño del proceso</ProductName>
     <PublisherName>Diseño del proceso</PublisherName>
     <SuiteName>Diseño del proceso</SuiteName>
-    <MinimumRequiredVersion>1.0.1.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>2.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>15</ApplicationRevision>
-    <ApplicationVersion>1.5.0.%2a</ApplicationVersion>
+    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -671,6 +671,7 @@
     <Compile Include="Services\Operaciones\Generica\OperacionGenerica.cs" />
     <Compile Include="Services\Operaciones\Generica\OperacionGenericaWidth.cs" />
     <Compile Include="Services\Operaciones\GenericOperation.cs" />
+    <Compile Include="Services\Operaciones\Segmentos\Bobinado.cs" />
     <Compile Include="Services\ParametricSurface.cs" />
     <Compile Include="Services\RotateSurface.cs" />
     <Compile Include="Services\SAP.cs" />

@@ -163,7 +163,7 @@ namespace View.Services
             if (Module.HasPropiedad("PistaLapeado",elAnillo.PerfilOD.Propiedades))
                 ListaOperaciones.Add(new Lapping(elAnillo));
 
-            OperacionesFinales();
+            OperacionesFinalesGasolina();
 
             asignarNumeroOperacion();
             
@@ -192,7 +192,7 @@ namespace View.Services
             ListaOperaciones.Add(new Lapping(elAnillo));
             ListaOperaciones.Add(new DegreaseRings(elAnillo));
 
-            OperacionesFinales();
+            OperacionesFinalesGasolina();
 
             asignarNumeroOperacion();
             
@@ -210,7 +210,7 @@ namespace View.Services
             }
         }
 
-        private static void OperacionesFinales()
+        private static void OperacionesFinalesGasolina()
         {
             if (!_ElAnillo.Treatment.Equals("NONE") && !_ElAnillo.Treatment.Equals(string.Empty))
                 ListaOperaciones.Add(new Phosphate(_ElAnillo));

@@ -1,20 +1,19 @@
 ﻿using Model;
 using Model.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace View.Services.Operaciones.Gasolina.RectificadosFinos
+namespace View.Services.Operaciones.Segmentos
 {
-    public class Lapping : GenericOperation, IOperacion, IObserverDiametro, IObserverThickness
+    public class Bobinado : GenericOperation, IOperacion
     {
-        #region Attributes
-        private int noPrograma;
-        private int noStrokes; 
-        #endregion
-
         #region Properties
 
-        #region Properties of IOperacion
+        #region Propiedades de IOperacion
 
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
@@ -123,70 +122,13 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
         /// Anillo que representa el plano ingresado por el usuario.
         /// </summary>
         public Anillo elPlano { get; set; }
-        #endregion
-
-        #region Properties of IObserverDiametro
-        public double Diameter
-        {
-            get;
-            set;
-        }
-
-        public double MatRemoverDiametro
-        {
-            get;
-            set;
-        }
-
-        public double Gap
-        {
-            get;
-
-            set;
-        }
-
-        private bool _RemueveGap = false;
-        public bool RemueveGap
-        {
-            get
-            {
-                return _RemueveGap;
-            }
-
-            set
-            {
-                _RemueveGap = value;
-            }
-        }
-        #endregion
-
-        #region Properties of IObserverThickness
-        public double Thickness
-        {
-            get;
-
-            set;
-        }
-
-        public double MatRemoverThickness
-        {
-            get;
-
-            set;
-        }
-
-        public bool TrabajaOD
-        {
-            get;
-
-            set;
-        }
-        #endregion
+        #endregion 
 
         #endregion
 
         #region Methods
-        #region Methods of IOperacion
+
+        #region Métodos de IOperacion
         /// <summary>
         /// Método en el cual se calcula la operación.
         /// </summary>
@@ -197,30 +139,31 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
             //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
 
+            double diaBobinado = 0;
+            double pesoAlambre = 0;
+
             //Agregamos el texto con las instrucciones de la operación.
-            //TextoProceso = "Diámetro: " + String.Format("{0:0.00000}", Diameter) + Environment.NewLine;
-            //TextoProceso += "Thickness: " + String.Format("{0:0.0000}", Thickness);
-
-            //Para los NNSI siempre es el programa 44.
-            noPrograma = 44;
-
-            //If Width(mm) <= 1.2 : 10, Else Width(mm) > 1.5 : 15
-            noStrokes = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), elPlano.H1.Valor) <= 1.2 ? 10 : 15;
-
-            TextoProceso = "PROG. \" " + noPrograma + " \" " + noStrokes + " STROKES" + Environment.NewLine;
-            TextoProceso += "*LAP" + Environment.NewLine;
-
-            //Fijo para los tipos NNSI
-            TextoProceso += "LAPEAR EL DIAMETRO EXTERIOR PARA" + Environment.NewLine;
-            TextoProceso += "OBTENER UNA PISTA CONTINUA EN LOS 360" + Environment.NewLine;
-            TextoProceso += "GRADOS DEL ANILLO" + Environment.NewLine;
-
-
-
+            TextoProceso = "*BOBINADO" + Environment.NewLine;
+            TextoProceso += "LONG DE LA BOBINA 6.330-.000+.072" + Environment.NewLine;
+            TextoProceso += "PULL - BACK 8%" + Environment.NewLine;
+            TextoProceso += "VELOCIDAD 250 RPM +/- 25 RPM" + Environment.NewLine;
+            TextoProceso += "PRESION DEL ROLADOR SUPERIOR 15 - 45PSI" + Environment.NewLine;
+            TextoProceso += "DIA DE LA BOBINA  " + diaBobinado + " +- .004" + Environment.NewLine;
+            TextoProceso += "PESO ALAMBRE  " + pesoAlambre + Environment.NewLine;
+            TextoProceso += "ESPESOR 0.0169MAX. DEBIDO AL PROCESO" + Environment.NewLine;
+            TextoProceso += "MEDIDA DEL ALAMBRE REF." + Environment.NewLine;
+            TextoProceso += "0.018	+/- 0.0003		0.018	+/-0.0017" + Environment.NewLine;
+            TextoProceso += "CODIGO ALMACEN: " + Environment.NewLine;
+            TextoProceso += "HELICE: HACER PRUEBA DE PLACAS PARALELAS" + Environment.NewLine;
+            TextoProceso += "CON UN SEPARADOR DE  " + Environment.NewLine;
+            TextoProceso += "DISH:  " + Environment.NewLine;
+            TextoProceso += "APARENCIA: SIN GOLPES EN EL DIAMETRO" + Environment.NewLine;
+            TextoProceso += "EXTERIOR" + Environment.NewLine;
+            
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
 
-            //Ejecutamos el método para calcular los tiempos estándar.
+            //Ejecutamos el méotodo para calcular los tiempos estándar.
             CalcularTiemposEstandar();
         }
 
@@ -240,6 +183,7 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
             }
             catch (Exception er)
             {
+                //Si ocurrio algún error, lo agregamos a la lista de alertas de la operación.
                 AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
             }
         }
@@ -247,72 +191,35 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
         public void InicializarDatosGenerales()
         {
             //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "LAPPING (ANILLOS)";
-            CentroCostos = "32012529";
-            CentroTrabajo = "455";
+            NombreOperacion = "BOBINADO SEGMENTOS";
+            CentroCostos = "32012536";
+            CentroTrabajo = "510";
             ControlKey = "MA42";
-
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+            AlertasOperacion = new ObservableCollection<string>();
             NotasOperacion = new ObservableCollection<string>();
         }
         #endregion
-
-        #region Methods of IObserverDiametro
-        public void UpdateState(ISubjectDiametro sender, double MaterialRemoverAfterOperacion, double DiametroAfterOperacion, double GapAfterOperacion, bool RemueveGap)
-        {
-            if (RemueveGap)
-            {
-                double p, q;
-                p = (MaterialRemoverAfterOperacion / Math.PI);
-                q = ((GapAfterOperacion - Gap) / Math.PI);
-                Diameter = Math.Round(p - q + (DiametroAfterOperacion), 3);
-            }
-            else
-            {
-                double p, q;
-                p = Math.Round((Gap - GapAfterOperacion) / 3.1416, 4);
-                q = DiametroAfterOperacion + MaterialRemoverAfterOperacion;
-                Diameter = p + q;
-            }
-        }
-        #endregion
-
-        #region Methods of IObserverThickness
-        public void UpdateState(ISubjectThickness sender, double MaterialRemoverAfterOperacion, double ThicknessAfterOperacion)
-        {
-            Thickness = ThicknessAfterOperacion + MaterialRemoverAfterOperacion;
-        }
-
-        /// <summary>
-        /// Método que establece la cantidad de material a remover/agregar en la operación.
-        /// </summary>
-        /// <param name="operaciones"></param>
-        /// <param name="posOperacion"></param>
-        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion)
-        {
-
-        }
-        #endregion 
 
         #region Methods override
         public override string ToString()
         {
             return NombreOperacion;
         }
-        #endregion
+        #endregion 
 
         #endregion
 
         #region Constructors
-        public Lapping(Anillo plano)
+        public Bobinado(Anillo plano)
         {
             InicializarDatosGenerales();
             elPlano = plano;
         }
 
-        public Lapping()
+        public Bobinado()
         {
             InicializarDatosGenerales();
         }

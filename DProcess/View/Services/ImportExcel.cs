@@ -514,7 +514,7 @@ namespace View.Services
 
                 foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                 {
-                    sheet.Range["FECHA_V1"].Value = "'" + FV1.Year + "-" + mes1 + "-" + dia1; ;
+                    sheet.Range["FECHA_V1"].Value = "'" + FV1.Year + "-" + mes1 + "-" + dia1;
                     if (id_documento == 0)
                     {
                         sheet.Range["FECHA_V1"].Value = "'" + fechaFin.Year + "-" + mes + "-" + dia;

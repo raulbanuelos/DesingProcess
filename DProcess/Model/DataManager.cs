@@ -20,6 +20,7 @@ using DataAccess.ServiceObjects.Tooling.Operaciones;
 using DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado;
 using DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado;
 using Spring.Objects.Factory.Xml;
+using DataAccess.ServiceObjects.Normas;
 
 namespace Model
 {
@@ -13518,6 +13519,39 @@ namespace Model
             return ServicePropiedad.DeletePropiedadPerfil(idPropiedad, idPerfil);
         }
 
+
+        #endregion
+
+        #region Normas
+
+        public static ObservableCollection<DO_Norma> GetAllNormas()
+        {
+            SO_Normas ServiceNormas = new SO_Normas();
+
+            IList informacionBD = ServiceNormas.GetAll();
+
+            ObservableCollection<DO_Norma> listaResultante = new ObservableCollection<DO_Norma>();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    DO_Norma norma = new DO_Norma();
+
+                    Type tipo = item.GetType();
+
+                    norma.idNorma = (int)tipo.GetProperty("ID_NORMA").GetValue(item, null);
+                    norma.IsSelected = false;
+                    norma.descripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
+                    norma.descripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
+                    norma.especificacion = (string)tipo.GetProperty("ESPECIFICACION").GetValue(item, null);
+
+                    listaResultante.Add(norma);
+                }
+            }
+
+            return listaResultante;
+        }
 
         #endregion
     }

@@ -167,7 +167,9 @@ namespace Model
         /// <summary>
         /// Colección de tipo PinturaAnillo la cual contiene todas las franjas de pintura que tiene el anillo.
         /// </summary>
-        public ObservableCollection<PinturaAnillo> FranjasPintura { get; set; } //Falta agregar la tabla para ir guardando los datos		
+        public ObservableCollection<PinturaAnillo> FranjasPintura { get; set; } //Falta agregar la tabla para ir guardando los datos
+        
+        public ObservableCollection<DO_Norma> ListaNormas { get; set; }
         #endregion
 
         #region Constructores

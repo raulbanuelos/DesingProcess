@@ -831,6 +831,18 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ObservableCollection<DO_Norma> ListaNormas {
+            get
+            {
+                return ModelAnillo.ListaNormas;
+            }
+            set
+            {
+                ModelAnillo.ListaNormas = value;
+                NotifyChange("ListaNormas");
+            }
+        }
+
         /// <summary>
         /// Colección de tipo PinturaAnillo la cual contiene todas las franjas de pintura que tiene el anillo.
         /// </summary>
@@ -905,6 +917,8 @@ namespace View.Services.ViewModel
             AllPerfilesID = DataManager.GetAllPerfiles("PERFIL I.D.");
             AllPerfilesLateral = DataManager.GetAllPerfiles("PERFIL CARAS LATERALES");
             AllPerfilesPuntas = DataManager.GetAllPerfiles("PERFIL PUNTAS");
+
+            ListaNormas = DataManager.GetAllNormas();
             
         }
 

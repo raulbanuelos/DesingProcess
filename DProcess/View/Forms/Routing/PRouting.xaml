@@ -68,6 +68,34 @@
 
             <!--Comienza Panel Lateral Derecho-->
             <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom">
+
+                <StackPanel Orientation="Vertical">
+                    <DataGrid Height="300" Margin="5" 
+                          ItemsSource="{Binding ListaNormas}" 
+                          ScrollViewer.CanContentScroll="True" 
+                          ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                          CanUserAddRows="False" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            Header=""
+                                            Binding="{Binding IsSelected}" IsReadOnly="True"
+                                            />
+                            <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNombre}" Binding="{Binding especificacion}">
+
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="{x:Static recursos:StringResources.lblDescripcion}" Binding="{Binding descripcionCorta}">
+
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Content="..." Width="45" HorizontalAlignment="Right"></Button>
+                </StackPanel>
+                
+                
+                
                 <Button Content="Calcular" Margin="15" Width="150" Command="{Binding CalcularRuta}"></Button>
                 
                 <StackPanel Orientation="Vertical">
