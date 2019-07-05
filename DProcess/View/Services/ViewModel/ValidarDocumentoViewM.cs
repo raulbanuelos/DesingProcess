@@ -321,14 +321,11 @@ namespace View.Services.ViewModel
                     {
                         var dc = stamper.GetOverContent(i);
 
-
-
                         Rectangle realPageSize = reader.GetPageSizeWithRotation(i);
 
                         AddWaterMarkText2(dc, watermarkText, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 6), Convert.ToInt32(realPageSize.Bottom + 245));
                         AddWaterMarkText2(dc, waterMarkText2, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 12), Convert.ToInt32(realPageSize.Bottom + 160));
                         AddWaterMarkText2(dc, waterMarkText3, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 18), Convert.ToInt32(realPageSize.Bottom + 160));
-
                     }
                     stamper.Close();
                 }
@@ -371,7 +368,6 @@ namespace View.Services.ViewModel
                     string confirmacion = string.Empty;
                     if (Aprobado == true)
                     {
-
                         if (NotificarDocumentoAprobado())
                         {
                             confirmacion = StringResources.msgNotificacionCorreo + "\n" + "ESTATUS DE LA VERSION ACTUALIZADA";
@@ -379,7 +375,6 @@ namespace View.Services.ViewModel
                         else
                         {
                             confirmacion = StringResources.msgNotificacionCorreoFallida + "\n" + "ESTATUS DE LA VERSION ACTUALIZADA";
-
                         }
                     }
                     else
@@ -391,11 +386,11 @@ namespace View.Services.ViewModel
                         else
                         {
                             confirmacion = StringResources.msgNotificacionCorreoFallida + "\n" + "ESTATUS DE LA VERSION ACTUALIZADA";
-
                         }
                     }
                     await dialog.SendMessage(StringResources.ttlAlerta, confirmacion);
-                }else
+                }
+                else
                 {
                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusVersionActualizada);
                 }
@@ -413,7 +408,6 @@ namespace View.Services.ViewModel
                     notificacion.ID_USUARIO_SEND = "ADMINISTRADOR";
 
                     DataManagerControlDocumentos.insertNotificacion(notificacion);
-
                 }
                 else
                 {
@@ -451,7 +445,6 @@ namespace View.Services.ViewModel
         private async void guardarEstatus()
         {
             //isSelected es falso, id_estatus=pendiente por corregir, verdadero estatus= aprobado pendiente por liberar
-            //
             bool Confirmacion = false;
             bool Aprobado = false;
             string version = SelectedDocumento.version.no_version;
@@ -500,7 +493,6 @@ namespace View.Services.ViewModel
                     //Se llama a la función para actualizar el estatus de la versión
                     UpdateVersion(objVersion, Confirmacion, Aprobado);
                 }
-
             }
             else // Aquí se va cuando el documento es incorrecto
             {
@@ -568,7 +560,6 @@ namespace View.Services.ViewModel
             {
                 visible = "Hidden";
             }
-
             else
             {
                 visible = "Visible";
@@ -733,7 +724,6 @@ namespace View.Services.ViewModel
             body += "</HTML>";
 
             bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body);
-
             return respuesta;
 
         }
