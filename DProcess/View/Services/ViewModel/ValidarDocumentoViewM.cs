@@ -613,7 +613,6 @@ namespace View.Services.ViewModel
             }
         }
 
-
         /// <summary>
         /// Método que genera una cadena para cargar un archivo en la carpeta temporal del sistema.
         /// </summary>
