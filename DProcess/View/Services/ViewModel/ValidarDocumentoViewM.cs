@@ -507,21 +507,20 @@ namespace View.Services.ViewModel
                 // Validación para que se seleccione al menos un tipo de error o no pida tipo de error cuando es un documento PDF
                 if (ListaNotificacionError.Where(x => x.IsSelected).ToList().Count > 0 || visible == "Hidden")
                 {
+                    // Se copian los errores seleccionados a la lista
+                    foreach (var item in ListaNotificacionError)
+                    {
+                        if (item.IsSelected == true)
+                        {
+                            ListaErroresSeleccionados.Add(item);
+                        }
+                    }
                     //Si el documento no tiene una versión anterior liberada
                     if (last_id == 0)
                     {
                         //Actualiza el estatus de la versión y del documento a pendiente por corregir
                         selectedDocumento.id_estatus = 3;
                         objVersion.id_estatus_version = 4;
-
-                        foreach (var item in ListaNotificacionError)
-                        {
-                            if (item.IsSelected == true)
-                            {
-                                ListaErroresSeleccionados.Add(item);
-                            }
-
-                        }
 
                         //Se llama al método para actualizar el estatus del documento
                         int n = DataManagerControlDocumentos.Update_EstatusDocumento(SelectedDocumento);
@@ -748,8 +747,7 @@ namespace View.Services.ViewModel
         }
 
         private bool NotificarDocumentoRechazado()
-        {
-            
+        {            
                 ServiceEmail serviceMail = new ServiceEmail();
                 string CorreoUsuarioElaboro = DataManagerControlDocumentos.GetCorreoUsuario(SelectedDocumento.version.id_usuario);
                 string CorreoUsuarioReviso = DataManagerControlDocumentos.GetCorreoUsuario(Usuario.id_usuario);
@@ -759,7 +757,7 @@ namespace View.Services.ViewModel
                 correos[1] = CorreoUsuarioReviso;
                 correos[2] = "raul.banuelos@mx.mahle.com";
 
-                //  Se manda llamar el método que elimina correos duplicados
+                // Se manda llamar el método que elimina correos duplicados
                 correos = Module.EliminarCorreosDuplicados(correos);
 
                 string path = _usuarioLogueado.Pathnsf;
@@ -793,8 +791,6 @@ namespace View.Services.ViewModel
                         break;
                 }
 
-                //if (ListaErroresSeleccionados.Count != 0)
-                //{
                 body = "<HTML>";
                 body += "<head>";
                 body += "<meta http-equiv=\"Content - Type\" content=\"text / html; charset = utf - 8\"/>";
@@ -806,23 +802,11 @@ namespace View.Services.ViewModel
                 body += "<br/>";
                 body += "<br/>";
 
-                ListaErroresSeleccionados.Clear();
-                if (ListaErroresSeleccionados.Count == 0)
+                foreach (var item in ListaErroresSeleccionados)
                 {
-                    string erroresEncontrados = string.Empty;
-
-                    erroresEncontrados = Microsoft.VisualBasic.Interaction.InputBox("Prompt", "Title", "Default", 0, 0);
-
-                    body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> <b>" + erroresEncontrados + "</b></font></li>";
+                    body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> <b>" + item.DESCRIPCION_ERROR + "</b></font></li>";
                 }
-                else
-                {
-                    foreach (var item in ListaErroresSeleccionados)
-                    {
-                        body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> <b>" + item.DESCRIPCION_ERROR + "</b></font></li>";
-                    }
-                }
-
+                
                 body += "</ul>";
                 body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
                 body += "<br/>";
@@ -840,22 +824,9 @@ namespace View.Services.ViewModel
                 body += "</ul>";
                 body += "</body>";
                 body += "</HTML>";
-                //}
-                //else
-                //{
-                //    mensaje += StringResources.ttlAlerta + StringResources.msgErrEncontrados;
 
-                //    foreach (var item in ListaErroresSeleccionados)
-                //    {
-                //        mensaje += "\n" + item.DESCRIPCION_ERROR;
-                //    }
-                //}
-
-                bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body);
-
-                return respuesta;
-            
-            
+            bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body);
+            return respuesta;
         }
 
         #endregion
