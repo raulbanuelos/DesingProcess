@@ -321,14 +321,11 @@ namespace View.Services.ViewModel
                     {
                         var dc = stamper.GetOverContent(i);
 
-
-
                         Rectangle realPageSize = reader.GetPageSizeWithRotation(i);
 
                         AddWaterMarkText2(dc, watermarkText, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 6), Convert.ToInt32(realPageSize.Bottom + 245));
                         AddWaterMarkText2(dc, waterMarkText2, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 12), Convert.ToInt32(realPageSize.Bottom + 160));
                         AddWaterMarkText2(dc, waterMarkText3, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 18), Convert.ToInt32(realPageSize.Bottom + 160));
-
                     }
                     stamper.Close();
                 }
@@ -371,7 +368,6 @@ namespace View.Services.ViewModel
                     string confirmacion = string.Empty;
                     if (Aprobado == true)
                     {
-
                         if (NotificarDocumentoAprobado())
                         {
                             confirmacion = StringResources.msgNotificacionCorreo + "\n" + "ESTATUS DE LA VERSION ACTUALIZADA";
@@ -379,7 +375,6 @@ namespace View.Services.ViewModel
                         else
                         {
                             confirmacion = StringResources.msgNotificacionCorreoFallida + "\n" + "ESTATUS DE LA VERSION ACTUALIZADA";
-
                         }
                     }
                     else
@@ -391,11 +386,11 @@ namespace View.Services.ViewModel
                         else
                         {
                             confirmacion = StringResources.msgNotificacionCorreoFallida + "\n" + "ESTATUS DE LA VERSION ACTUALIZADA";
-
                         }
                     }
                     await dialog.SendMessage(StringResources.ttlAlerta, confirmacion);
-                }else
+                }
+                else
                 {
                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusVersionActualizada);
                 }
@@ -413,7 +408,6 @@ namespace View.Services.ViewModel
                     notificacion.ID_USUARIO_SEND = "ADMINISTRADOR";
 
                     DataManagerControlDocumentos.insertNotificacion(notificacion);
-
                 }
                 else
                 {
@@ -451,7 +445,6 @@ namespace View.Services.ViewModel
         private async void guardarEstatus()
         {
             //isSelected es falso, id_estatus=pendiente por corregir, verdadero estatus= aprobado pendiente por liberar
-            //
             bool Confirmacion = false;
             bool Aprobado = false;
             string version = SelectedDocumento.version.no_version;
@@ -500,28 +493,26 @@ namespace View.Services.ViewModel
                     //Se llama a la función para actualizar el estatus de la versión
                     UpdateVersion(objVersion, Confirmacion, Aprobado);
                 }
-
             }
             else // Aquí se va cuando el documento es incorrecto
             {
                 // Validación para que se seleccione al menos un tipo de error o no pida tipo de error cuando es un documento PDF
                 if (ListaNotificacionError.Where(x => x.IsSelected).ToList().Count > 0 || visible == "Hidden")
                 {
+                    // Se copian los errores seleccionados a la lista
+                    foreach (var item in ListaNotificacionError)
+                    {
+                        if (item.IsSelected == true)
+                        {
+                            ListaErroresSeleccionados.Add(item);
+                        }
+                    }
                     //Si el documento no tiene una versión anterior liberada
                     if (last_id == 0)
                     {
                         //Actualiza el estatus de la versión y del documento a pendiente por corregir
                         selectedDocumento.id_estatus = 3;
                         objVersion.id_estatus_version = 4;
-
-                        foreach (var item in ListaNotificacionError)
-                        {
-                            if (item.IsSelected == true)
-                            {
-                                ListaErroresSeleccionados.Add(item);
-                            }
-
-                        }
 
                         //Se llama al método para actualizar el estatus del documento
                         int n = DataManagerControlDocumentos.Update_EstatusDocumento(SelectedDocumento);
@@ -569,7 +560,6 @@ namespace View.Services.ViewModel
             {
                 visible = "Hidden";
             }
-
             else
             {
                 visible = "Visible";
@@ -613,7 +603,6 @@ namespace View.Services.ViewModel
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorAbrir);
             }
         }
-
 
         /// <summary>
         /// Método que genera una cadena para cargar un archivo en la carpeta temporal del sistema.
@@ -735,7 +724,6 @@ namespace View.Services.ViewModel
             body += "</HTML>";
 
             bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body);
-
             return respuesta;
 
         }
@@ -749,8 +737,7 @@ namespace View.Services.ViewModel
         }
 
         private bool NotificarDocumentoRechazado()
-        {
-            
+        {            
                 ServiceEmail serviceMail = new ServiceEmail();
                 string CorreoUsuarioElaboro = DataManagerControlDocumentos.GetCorreoUsuario(SelectedDocumento.version.id_usuario);
                 string CorreoUsuarioReviso = DataManagerControlDocumentos.GetCorreoUsuario(Usuario.id_usuario);
@@ -760,7 +747,7 @@ namespace View.Services.ViewModel
                 correos[1] = CorreoUsuarioReviso;
                 correos[2] = "raul.banuelos@mx.mahle.com";
 
-                //  Se manda llamar el método que elimina correos duplicados
+                // Se manda llamar el método que elimina correos duplicados
                 correos = Module.EliminarCorreosDuplicados(correos);
 
                 string path = _usuarioLogueado.Pathnsf;
@@ -794,8 +781,6 @@ namespace View.Services.ViewModel
                         break;
                 }
 
-                //if (ListaErroresSeleccionados.Count != 0)
-                //{
                 body = "<HTML>";
                 body += "<head>";
                 body += "<meta http-equiv=\"Content - Type\" content=\"text / html; charset = utf - 8\"/>";
@@ -807,23 +792,11 @@ namespace View.Services.ViewModel
                 body += "<br/>";
                 body += "<br/>";
 
-                ListaErroresSeleccionados.Clear();
-                if (ListaErroresSeleccionados.Count == 0)
+                foreach (var item in ListaErroresSeleccionados)
                 {
-                    string erroresEncontrados = string.Empty;
-
-                    erroresEncontrados = Microsoft.VisualBasic.Interaction.InputBox("Prompt", "Title", "Default", 0, 0);
-
-                    body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> <b>" + erroresEncontrados + "</b></font></li>";
+                    body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> <b>" + item.DESCRIPCION_ERROR + "</b></font></li>";
                 }
-                else
-                {
-                    foreach (var item in ListaErroresSeleccionados)
-                    {
-                        body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> <b>" + item.DESCRIPCION_ERROR + "</b></font></li>";
-                    }
-                }
-
+                
                 body += "</ul>";
                 body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
                 body += "<br/>";
@@ -841,22 +814,9 @@ namespace View.Services.ViewModel
                 body += "</ul>";
                 body += "</body>";
                 body += "</HTML>";
-                //}
-                //else
-                //{
-                //    mensaje += StringResources.ttlAlerta + StringResources.msgErrEncontrados;
 
-                //    foreach (var item in ListaErroresSeleccionados)
-                //    {
-                //        mensaje += "\n" + item.DESCRIPCION_ERROR;
-                //    }
-                //}
-
-                bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body);
-
-                return respuesta;
-            
-            
+            bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body);
+            return respuesta;
         }
 
         #endregion
