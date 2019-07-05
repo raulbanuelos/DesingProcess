@@ -214,9 +214,7 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
             TextoProceso += "LAPEAR EL DIAMETRO EXTERIOR PARA" + Environment.NewLine;
             TextoProceso += "OBTENER UNA PISTA CONTINUA EN LOS 360" + Environment.NewLine;
             TextoProceso += "GRADOS DEL ANILLO" + Environment.NewLine;
-
-
-
+            
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
 
