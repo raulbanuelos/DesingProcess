@@ -15,6 +15,7 @@ using Model;
 using View.Resources;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace View.Services.ViewModel
 {
@@ -749,51 +750,52 @@ namespace View.Services.ViewModel
 
         private bool NotificarDocumentoRechazado()
         {
-            ServiceEmail serviceMail = new ServiceEmail();
-            string CorreoUsuarioElaboro = DataManagerControlDocumentos.GetCorreoUsuario(SelectedDocumento.version.id_usuario);
-            string CorreoUsuarioReviso = DataManagerControlDocumentos.GetCorreoUsuario(Usuario.id_usuario);
-
-            string[] correos = new string[3];
-            correos[0] = CorreoUsuarioElaboro;
-            correos[1] = CorreoUsuarioReviso;
-            correos[2] = "raul.banuelos@mx.mahle.com";
-
-            //  Se manda llamar el método que elimina correos duplicados
-            correos = Module.EliminarCorreosDuplicados(correos);
             
-            string path = _usuarioLogueado.Pathnsf;
-            string title = "Documento no aprobado - " + SelectedDocumento.nombre;
-            string body = string.Empty;
-            string tipo_documento = string.Empty;
-            string mensaje = string.Empty;
+                ServiceEmail serviceMail = new ServiceEmail();
+                string CorreoUsuarioElaboro = DataManagerControlDocumentos.GetCorreoUsuario(SelectedDocumento.version.id_usuario);
+                string CorreoUsuarioReviso = DataManagerControlDocumentos.GetCorreoUsuario(Usuario.id_usuario);
 
-            switch (SelectedDocumento.id_tipo_documento)
-            {
-                case 1012:
-                    tipo_documento = "EL FORMATO ESPECÍFICO";
-                    break;
-                case 1013:
-                    tipo_documento = "EL FORMATO OHSAS";
-                    break;
-                case 1014:
-                    tipo_documento = "EL FORMATO ISO";
-                    break;
-                case 1011:
-                    tipo_documento = "LA MIE";
-                    break;
-                case 1003:
-                    tipo_documento = "EL PROCEDIMIENTO OHSAS";
-                    break;
-                case 1005:
-                    tipo_documento = "EL PROCEDIMIENTO ESPECÍFICO";
-                    break;
-                case 1006:
-                    tipo_documento = "EL PROCEDIMIENTO ISO";
-                    break;
-            }
+                string[] correos = new string[3];
+                correos[0] = CorreoUsuarioElaboro;
+                correos[1] = CorreoUsuarioReviso;
+                correos[2] = "raul.banuelos@mx.mahle.com";
 
-            if (ListaErroresSeleccionados.Count != 0)
-            {
+                //  Se manda llamar el método que elimina correos duplicados
+                correos = Module.EliminarCorreosDuplicados(correos);
+
+                string path = _usuarioLogueado.Pathnsf;
+                string title = "Documento no aprobado - " + SelectedDocumento.nombre;
+                string body = string.Empty;
+                string tipo_documento = string.Empty;
+                string mensaje = string.Empty;
+
+                switch (SelectedDocumento.id_tipo_documento)
+                {
+                    case 1012:
+                        tipo_documento = "EL FORMATO ESPECÍFICO";
+                        break;
+                    case 1013:
+                        tipo_documento = "EL FORMATO OHSAS";
+                        break;
+                    case 1014:
+                        tipo_documento = "EL FORMATO ISO";
+                        break;
+                    case 1011:
+                        tipo_documento = "LA MIE";
+                        break;
+                    case 1003:
+                        tipo_documento = "EL PROCEDIMIENTO OHSAS";
+                        break;
+                    case 1005:
+                        tipo_documento = "EL PROCEDIMIENTO ESPECÍFICO";
+                        break;
+                    case 1006:
+                        tipo_documento = "EL PROCEDIMIENTO ISO";
+                        break;
+                }
+
+                //if (ListaErroresSeleccionados.Count != 0)
+                //{
                 body = "<HTML>";
                 body += "<head>";
                 body += "<meta http-equiv=\"Content - Type\" content=\"text / html; charset = utf - 8\"/>";
@@ -805,9 +807,21 @@ namespace View.Services.ViewModel
                 body += "<br/>";
                 body += "<br/>";
 
-                foreach (var item in ListaErroresSeleccionados)
+                ListaErroresSeleccionados.Clear();
+                if (ListaErroresSeleccionados.Count == 0)
                 {
-                    body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> <b>" + item.DESCRIPCION_ERROR + "</b></font></li>";
+                    string erroresEncontrados = string.Empty;
+
+                    erroresEncontrados = Microsoft.VisualBasic.Interaction.InputBox("Prompt", "Title", "Default", 0, 0);
+
+                    body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> <b>" + erroresEncontrados + "</b></font></li>";
+                }
+                else
+                {
+                    foreach (var item in ListaErroresSeleccionados)
+                    {
+                        body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> <b>" + item.DESCRIPCION_ERROR + "</b></font></li>";
+                    }
                 }
 
                 body += "</ul>";
@@ -827,19 +841,22 @@ namespace View.Services.ViewModel
                 body += "</ul>";
                 body += "</body>";
                 body += "</HTML>";
-            }
-            else
-            {
-                mensaje += StringResources.ttlAlerta + StringResources.msgErrEncontrados;
+                //}
+                //else
+                //{
+                //    mensaje += StringResources.ttlAlerta + StringResources.msgErrEncontrados;
 
-                foreach (var item in ListaErroresSeleccionados)
-                {
-                    mensaje += "\n" + item.DESCRIPCION_ERROR;
-                }
-            }
+                //    foreach (var item in ListaErroresSeleccionados)
+                //    {
+                //        mensaje += "\n" + item.DESCRIPCION_ERROR;
+                //    }
+                //}
 
-            bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body);
-            return respuesta;
+                bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body);
+
+                return respuesta;
+            
+            
         }
 
         #endregion
