@@ -199,6 +199,47 @@ namespace View.Services
             return ListaOperaciones;
         }
 
+        public static ObservableCollection<IOperacion> CalcularAceroSegmentosPVD(Anillo elAnillo)
+        {
+            _ElAnillo = elAnillo;
+
+            //Declaramos una lista observable la cual guardará las operaciones y será la que retornemos en el método.
+            ListaOperaciones = new ObservableCollection<IOperacion>();
+
+            int opcion = 1;
+            if (opcion == 1)
+            {
+                //Listar operaciones Opción 1.
+            }
+            else
+            {
+                if (opcion == 2)
+                {
+                    //Listar operaciones Opción 2.
+                }
+                else
+                {
+                    if (opcion == 3)
+                    {
+                        //Listar operaciones Opción 3.
+                    }
+                    else
+                    {
+                        if (opcion == 3)
+                        {
+                            //Listar operaciones Opción 4.
+                        }
+                    }
+                    
+                }
+            }
+
+
+            asignarNumeroOperacion();
+
+            return ListaOperaciones;
+        }
+
         private static void asignarNumeroOperacion()
         {
             //Asignamos el número de operación a cada operación. (Saltando de 10 en 10).
