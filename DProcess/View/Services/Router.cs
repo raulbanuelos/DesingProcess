@@ -9,6 +9,7 @@ using View.Services.Operaciones.Gasolina.Miscelaneos;
 using View.Services.Operaciones.Gasolina.Recubrimientos;
 using View.Services.Operaciones.Gasolina.Inspeccion;
 using View.Services.Operaciones.Gasolina.Rolado;
+using View.Services.Operaciones.Segmentos;
 
 namespace View.Services
 {
@@ -198,7 +199,12 @@ namespace View.Services
             
             return ListaOperaciones;
         }
-
+        
+        /// <summary>
+        /// Ruta Segmentos PVD
+        /// </summary>
+        /// <param name="elAnillo"></param>
+        /// <returns></returns>
         public static ObservableCollection<IOperacion> CalcularAceroSegmentosPVD(Anillo elAnillo)
         {
             _ElAnillo = elAnillo;
@@ -207,9 +213,12 @@ namespace View.Services
             ListaOperaciones = new ObservableCollection<IOperacion>();
 
             int opcion = 1;
+
             if (opcion == 1)
             {
                 //Listar operaciones Opción 1.
+                ListaOperaciones.Add(new Bobinado(elAnillo));
+                ListaOperaciones.Add(new DesengraseBobinado(elAnillo));
             }
             else
             {
@@ -225,7 +234,7 @@ namespace View.Services
                     }
                     else
                     {
-                        if (opcion == 3)
+                        if (opcion == 4)
                         {
                             //Listar operaciones Opción 4.
                         }
@@ -260,7 +269,7 @@ namespace View.Services
                 ListaOperaciones.Add(new LasserEngrave(_ElAnillo));
                 
 
-            ListaOperaciones.Add(new InspeccionFinal(_ElAnillo));
+            ListaOperaciones.Add(new Operaciones.Gasolina.Inspeccion.InspeccionFinal(_ElAnillo));
 
             if (rangoGap < 0.008)
                 ListaOperaciones.Add(new AutoGap(_ElAnillo));
