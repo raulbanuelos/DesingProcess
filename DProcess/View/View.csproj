@@ -34,7 +34,7 @@
     <SuiteName>Diseño del proceso</SuiteName>
     <MinimumRequiredVersion>2.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>6</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -673,6 +673,7 @@
     <Compile Include="Services\Operaciones\Generica\OperacionGenericaWidth.cs" />
     <Compile Include="Services\Operaciones\GenericOperation.cs" />
     <Compile Include="Services\Operaciones\Segmentos\Bobinado.cs" />
+    <Compile Include="Services\Operaciones\Segmentos\DesengraseBobinado.cs" />
     <Compile Include="Services\ParametricSurface.cs" />
     <Compile Include="Services\RotateSurface.cs" />
     <Compile Include="Services\SAP.cs" />
