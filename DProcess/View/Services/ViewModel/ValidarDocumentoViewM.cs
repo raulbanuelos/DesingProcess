@@ -181,7 +181,7 @@ namespace View.Services.ViewModel
 
             // Mandamos llamar la lista de los tipos de error
             ListaNotificacionError = DataManagerControlDocumentos.GetAllTipoError();
-            
+
             //Iteramos la lista de documentos
             foreach (var item in Lista)
             {
@@ -342,13 +342,13 @@ namespace View.Services.ViewModel
             pdfData.SetColorFill(color);
             pdfData.BeginText();
             pdfData.SetFontAndSize(font, fontSize);
+
             var x = pos_x;
             var y = pos_y;
 
             pdfData.ShowTextAligned(Element.ALIGN_CENTER, watermarkText, x, y, angle);
             pdfData.EndText();
             pdfData.RestoreState();
-
         }
 
         /// <summary>
@@ -521,7 +521,7 @@ namespace View.Services.ViewModel
                         if (n != 0)
                         {
                             //Se llama a la función para actualizar el estatus de la versión
-                            UpdateVersion(objVersion,Confirmacion,Aprobado);
+                            UpdateVersion(objVersion, Confirmacion, Aprobado);
                         }
                         else
                         {
@@ -535,7 +535,7 @@ namespace View.Services.ViewModel
                         //Estatus pendiente por corregir.
                         objVersion.id_estatus_version = 4;
                         //Se llama a la función para actualizar el estatus de la versión
-                        UpdateVersion(objVersion,Confirmacion,Aprobado);
+                        UpdateVersion(objVersion, Confirmacion, Aprobado);
                     }
                 }
                 else
@@ -556,6 +556,7 @@ namespace View.Services.ViewModel
             // Oculta la lista de tipo de errores, dependiendo del tipo de documento cuando se manda a corregir
             // Se oculta en documentos del tipo PDF
             Estatus = StringResources.lblPendientePorCorregir;
+
             if (SelectedDocumento.tipo.tipo_documento == "HOJA DE OPERACIÓN ESTÁNDAR" || SelectedDocumento.tipo.tipo_documento == "HOJA DE INSTRUCCIÓN DE INSPECCIÓN" || SelectedDocumento.tipo.tipo_documento == "AYUDA VISUAL" || SelectedDocumento.tipo.tipo_documento == "HOJA DE MÉTODO DE TRABAJO ESTÁNDAR" || SelectedDocumento.tipo.tipo_documento == "HOJA DE AJUSTE ESTÁNDAR" || SelectedDocumento.tipo.tipo_documento == "JES")
             {
                 visible = "Hidden";
@@ -615,6 +616,7 @@ namespace View.Services.ViewModel
             var tempFolder = Path.GetTempPath();
 
             string filename = string.Empty;
+
             do
             {
                 string aleatorio = Module.GetRandomString(5);
@@ -634,6 +636,7 @@ namespace View.Services.ViewModel
             DateTime fechaCompromisoEntrega = DataManagerControlDocumentos.AddBusinessDays(fechahoy, 2);
 
             string hora = fechaCompromisoEntrega.Hour.ToString();
+
             if (fechaCompromisoEntrega.Hour.ToString().Length == 1)
                 hora = "0" + fechaCompromisoEntrega.Hour;
 
@@ -737,83 +740,83 @@ namespace View.Services.ViewModel
         }
 
         private bool NotificarDocumentoRechazado()
-        {            
-                ServiceEmail serviceMail = new ServiceEmail();
-                string CorreoUsuarioElaboro = DataManagerControlDocumentos.GetCorreoUsuario(SelectedDocumento.version.id_usuario);
-                string CorreoUsuarioReviso = DataManagerControlDocumentos.GetCorreoUsuario(Usuario.id_usuario);
+        {
+            ServiceEmail serviceMail = new ServiceEmail();
+            string CorreoUsuarioElaboro = DataManagerControlDocumentos.GetCorreoUsuario(SelectedDocumento.version.id_usuario);
+            string CorreoUsuarioReviso = DataManagerControlDocumentos.GetCorreoUsuario(Usuario.id_usuario);
 
-                string[] correos = new string[3];
-                correos[0] = CorreoUsuarioElaboro;
-                correos[1] = CorreoUsuarioReviso;
-                correos[2] = "raul.banuelos@mx.mahle.com";
+            string[] correos = new string[3];
+            correos[0] = CorreoUsuarioElaboro;
+            correos[1] = CorreoUsuarioReviso;
+            correos[2] = "raul.banuelos@mx.mahle.com";
 
-                // Se manda llamar el método que elimina correos duplicados
-                correos = Module.EliminarCorreosDuplicados(correos);
+            // Se manda llamar el método que elimina correos duplicados
+            correos = Module.EliminarCorreosDuplicados(correos);
 
-                string path = _usuarioLogueado.Pathnsf;
-                string title = "Documento no aprobado - " + SelectedDocumento.nombre;
-                string body = string.Empty;
-                string tipo_documento = string.Empty;
-                string mensaje = string.Empty;
+            string path = _usuarioLogueado.Pathnsf;
+            string title = "Documento no aprobado - " + SelectedDocumento.nombre;
+            string body = string.Empty;
+            string tipo_documento = string.Empty;
+            string mensaje = string.Empty;
 
-                switch (SelectedDocumento.id_tipo_documento)
-                {
-                    case 1012:
-                        tipo_documento = "EL FORMATO ESPECÍFICO";
-                        break;
-                    case 1013:
-                        tipo_documento = "EL FORMATO OHSAS";
-                        break;
-                    case 1014:
-                        tipo_documento = "EL FORMATO ISO";
-                        break;
-                    case 1011:
-                        tipo_documento = "LA MIE";
-                        break;
-                    case 1003:
-                        tipo_documento = "EL PROCEDIMIENTO OHSAS";
-                        break;
-                    case 1005:
-                        tipo_documento = "EL PROCEDIMIENTO ESPECÍFICO";
-                        break;
-                    case 1006:
-                        tipo_documento = "EL PROCEDIMIENTO ISO";
-                        break;
-                }
+            switch (SelectedDocumento.id_tipo_documento)
+            {
+                case 1012:
+                    tipo_documento = "EL FORMATO ESPECÍFICO";
+                    break;
+                case 1013:
+                    tipo_documento = "EL FORMATO OHSAS";
+                    break;
+                case 1014:
+                    tipo_documento = "EL FORMATO ISO";
+                    break;
+                case 1011:
+                    tipo_documento = "LA MIE";
+                    break;
+                case 1003:
+                    tipo_documento = "EL PROCEDIMIENTO OHSAS";
+                    break;
+                case 1005:
+                    tipo_documento = "EL PROCEDIMIENTO ESPECÍFICO";
+                    break;
+                case 1006:
+                    tipo_documento = "EL PROCEDIMIENTO ISO";
+                    break;
+            }
 
-                body = "<HTML>";
-                body += "<head>";
-                body += "<meta http-equiv=\"Content - Type\" content=\"text / html; charset = utf - 8\"/>";
-                body += "</head>";
-                body += "<body text=\"white\">";
-                body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
-                body += "<ul>";
-                body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> Para notificar que " + tipo_documento + " con el número <b> " + SelectedDocumento.nombre + "</b> versión <b> " + SelectedDocumento.version.no_version + ".0" + " </b> ha sido rechazado por los siguientes motivos: </font> </li>";
-                body += "<br/>";
-                body += "<br/>";
+            body = "<HTML>";
+            body += "<head>";
+            body += "<meta http-equiv=\"Content - Type\" content=\"text / html; charset = utf - 8\"/>";
+            body += "</head>";
+            body += "<body text=\"white\">";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
+            body += "<ul>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> Para notificar que " + tipo_documento + " con el número <b> " + SelectedDocumento.nombre + "</b> versión <b> " + SelectedDocumento.version.no_version + ".0" + " </b> ha sido rechazado por los siguientes motivos: </font> </li>";
+            body += "<br/>";
+            body += "<br/>";
 
-                foreach (var item in ListaErroresSeleccionados)
-                {
-                    body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> <b>" + item.DESCRIPCION_ERROR + "</b></font></li>";
-                }
-                
-                body += "</ul>";
-                body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
-                body += "<br/>";
-                body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Este correo se ha generado automáticamente, por favor no responda.</font> </p>";
-                body += "<br/>";
-                body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
-                body += "<ul>";
-                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + _usuarioLogueado.Nombre + " " + _usuarioLogueado.ApellidoPaterno + " " + _usuarioLogueado.ApellidoMaterno + " " + "</font> </li>";
-                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">MAHLE Componentes de Motor de México, S. de R.L. de C.V.</font></li>";
-                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Engineering (ENG)</font> </li>";
-                body += "<li></li>";
-                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Km. 0.3 Carr. Maravillas-Jesús María , 20900 Aguascalientes, Mexico</font> </li>";
-                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Teléfono: +52 449 910 8200-82 90, Fax: +52 449 910 8200 - 267</font> </li>";
-                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + _usuarioLogueado.Correo + ",</font> <a href=\"http://www.mx.mahle.com\">http://www.mx.mahle.com</a>  </li>";
-                body += "</ul>";
-                body += "</body>";
-                body += "</HTML>";
+            foreach (var item in ListaErroresSeleccionados)
+            {
+                body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> <b>" + item.DESCRIPCION_ERROR + "</b></font></li>";
+            }
+
+            body += "</ul>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
+            body += "<br/>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Este correo se ha generado automáticamente, por favor no responda.</font> </p>";
+            body += "<br/>";
+            body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
+            body += "<ul>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + _usuarioLogueado.Nombre + " " + _usuarioLogueado.ApellidoPaterno + " " + _usuarioLogueado.ApellidoMaterno + " " + "</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">MAHLE Componentes de Motor de México, S. de R.L. de C.V.</font></li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Engineering (ENG)</font> </li>";
+            body += "<li></li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Km. 0.3 Carr. Maravillas-Jesús María , 20900 Aguascalientes, Mexico</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Teléfono: +52 449 910 8200-82 90, Fax: +52 449 910 8200 - 267</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + _usuarioLogueado.Correo + ",</font> <a href=\"http://www.mx.mahle.com\">http://www.mx.mahle.com</a>  </li>";
+            body += "</ul>";
+            body += "</body>";
+            body += "</HTML>";
 
             bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body);
             return respuesta;
