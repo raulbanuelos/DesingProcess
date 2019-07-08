@@ -219,24 +219,78 @@ namespace View.Services
                 //Listar operaciones Opción 1.
                 ListaOperaciones.Add(new Bobinado(elAnillo));
                 ListaOperaciones.Add(new DesengraseBobinado(elAnillo));
+                ListaOperaciones.Add(new Nitrurado(elAnillo));
+                ListaOperaciones.Add(new PVDCoatingWash(elAnillo));
+                ListaOperaciones.Add(new PVDCoatingDRYBlast(elAnillo));
+                ListaOperaciones.Add(new PVDCoatingRail(elAnillo));
+                ListaOperaciones.Add(new Scotchbrite(elAnillo));
+                ListaOperaciones.Add(new Thompson(elAnillo));
+                ListaOperaciones.Add(new Lapeado(elAnillo));
+                ListaOperaciones.Add(new DesengraseLapeado(elAnillo));
+                ListaOperaciones.Add(new Scotchbrite(elAnillo));
+                ListaOperaciones.Add(new DesengraseLapeado(elAnillo));
+                ListaOperaciones.Add(new Pavonado(elAnillo));
+                ListaOperaciones.Add(new InspeccionGap(elAnillo));
+                ListaOperaciones.Add(new Operaciones.Segmentos.InspeccionFinal(elAnillo));
             }
             else
             {
                 if (opcion == 2)
                 {
                     //Listar operaciones Opción 2.
+                    ListaOperaciones.Add(new Bobinado(elAnillo));
+                    ListaOperaciones.Add(new DesengraseBobinado(elAnillo));
+                    ListaOperaciones.Add(new Nitrurado(elAnillo));
+                    ListaOperaciones.Add(new PVDCoatingWash(elAnillo));
+                    ListaOperaciones.Add(new PVDCoatingDRYBlast(elAnillo));
+                    ListaOperaciones.Add(new PVDCoatingRail(elAnillo));
+                    ListaOperaciones.Add(new Scotchbrite(elAnillo));
+                    ListaOperaciones.Add(new Thompson(elAnillo));
+                    ListaOperaciones.Add(new Lapeado(elAnillo));
+                    ListaOperaciones.Add(new DesengraseLapeado(elAnillo));
+                    ListaOperaciones.Add(new Pavonado(elAnillo));
+                    ListaOperaciones.Add(new InspeccionGap(elAnillo));
+                    ListaOperaciones.Add(new Operaciones.Segmentos.InspeccionFinal(elAnillo));
                 }
                 else
                 {
                     if (opcion == 3)
                     {
                         //Listar operaciones Opción 3.
+                        ListaOperaciones.Add(new Bobinado(elAnillo));
+                        ListaOperaciones.Add(new DesengraseBobinado(elAnillo));
+                        ListaOperaciones.Add(new PVDCoatingWash(elAnillo));
+                        ListaOperaciones.Add(new PVDCoatingDRYBlast(elAnillo));
+                        ListaOperaciones.Add(new PVDCoatingRail(elAnillo));
+                        ListaOperaciones.Add(new Scotchbrite(elAnillo));
+                        ListaOperaciones.Add(new Thompson(elAnillo));
+                        ListaOperaciones.Add(new Lapeado(elAnillo));
+                        ListaOperaciones.Add(new DesengraseLapeado(elAnillo));
+                        ListaOperaciones.Add(new InspeccionGap(elAnillo));
+                        ListaOperaciones.Add(new TroqueladoPunta(elAnillo));
+                        ListaOperaciones.Add(new Pavonado(elAnillo));
+                        ListaOperaciones.Add(new Operaciones.Segmentos.InspeccionFinal(elAnillo));
                     }
                     else
                     {
                         if (opcion == 4)
                         {
                             //Listar operaciones Opción 4.
+                            ListaOperaciones.Add(new Bobinado(elAnillo));
+                            ListaOperaciones.Add(new DesengraseBobinado(elAnillo));
+                            ListaOperaciones.Add(new PVDCoatingWash(elAnillo));
+                            ListaOperaciones.Add(new PVDCoatingDRYBlast(elAnillo));
+                            ListaOperaciones.Add(new PVDCoatingRail(elAnillo));
+                            ListaOperaciones.Add(new Scotchbrite(elAnillo));
+                            ListaOperaciones.Add(new Thompson(elAnillo));
+                            ListaOperaciones.Add(new Lapeado(elAnillo));
+                            ListaOperaciones.Add(new DesengraseLapeado(elAnillo));
+                            ListaOperaciones.Add(new Scotchbrite(elAnillo));
+                            ListaOperaciones.Add(new DesengraseLapeado(elAnillo));
+                            ListaOperaciones.Add(new InspeccionGap(elAnillo));
+                            ListaOperaciones.Add(new TroqueladoPunta(elAnillo));
+                            ListaOperaciones.Add(new Pavonado(elAnillo));
+                            ListaOperaciones.Add(new Operaciones.Segmentos.InspeccionFinal(elAnillo));
                         }
                     }
                     
