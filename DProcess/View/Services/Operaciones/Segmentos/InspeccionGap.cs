@@ -140,8 +140,10 @@ namespace View.Services.Operaciones.Segmentos
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "*INSPECCION 100% GAP SEGMENTOS";
-
+            TextoProceso = "*BARREL GRADE" + Environment.NewLine;
+            TextoProceso += "INSPECCIONAR AL 100% EL GAP DEL SEG." + Environment.NewLine;
+            TextoProceso += "ABERTURA 0.0059 - 0.0177" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();

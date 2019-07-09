@@ -30,8 +30,6 @@ namespace View.Services
         {
             ObservableCollection<IOperacion> ListaOperaciones = new ObservableCollection<IOperacion>();
 
-
-
             return ListaOperaciones;
         }
 
@@ -173,8 +171,7 @@ namespace View.Services
         }
 
         public static ObservableCollection<IOperacion> CalcularAceroRolado(Anillo elAnillo)
-        {
-            
+        {            
             _ElAnillo = elAnillo;
 
             //Declaramos una lista observable la cual guardará las operaciones y será la que retornemos en el método.
@@ -297,7 +294,6 @@ namespace View.Services
                 }
             }
 
-
             asignarNumeroOperacion();
 
             return ListaOperaciones;
@@ -322,7 +318,6 @@ namespace View.Services
             if (Module.GetValorPropiedadBool("LASSER ENGRAVE", _ElAnillo.PerfilLateral.PropiedadesBool))
                 ListaOperaciones.Add(new LasserEngrave(_ElAnillo));
                 
-
             ListaOperaciones.Add(new Operaciones.Gasolina.Inspeccion.InspeccionFinal(_ElAnillo));
 
             if (rangoGap < 0.008)

@@ -140,7 +140,21 @@ namespace View.Services.Operaciones.Segmentos
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "*PVD/DLC COATING DRY BLAST";
+            TextoProceso = " " + Environment.NewLine;
+            TextoProceso += "SAND BLAST (NORBLAST)" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "RECTA: 1 GNS ACERO INOXIDABLE." + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "RUGOSIDAD:" + Environment.NewLine;
+            TextoProceso += "ESPEC: Rz" + "" + " µm max" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "MEDIR EN TRES PUNTOS(AMBOS EXTREMOS Y ZONA MEDIA)." + Environment.NewLine;
+            TextoProceso += "A TRAVÉS DEL MANDRIL Y REGISTRAR DATOS EN EL" + Environment.NewLine;
+            TextoProceso += "FORMATO F-3571-ED_PVD-002" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "NOTA:" + Environment.NewLine;
+            TextoProceso += "SOPLETAR CON NITRÓGENO AL TERMINAR EL CICLO" + Environment.NewLine;
+            TextoProceso += "PROC: W-3571-TSPVD-0007-es" + Environment.NewLine;
 
 
             //Ejecutamos el método para calculo de Herramentales.

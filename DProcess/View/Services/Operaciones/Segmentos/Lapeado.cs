@@ -140,7 +140,19 @@ namespace View.Services.Operaciones.Segmentos
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "*LAPEADO";
+            TextoProceso = "*LAPEADO" + Environment.NewLine;
+            TextoProceso += "PROGRAMA" + Environment.NewLine;
+            TextoProceso += "USAR PASTA DE CROMO" + Environment.NewLine;
+            TextoProceso += "LAPEAR HASTA OBTENER UNA CAIDA" + Environment.NewLine;
+            TextoProceso += "DE RÁDIO DE" + "" + " -" + "" + " EN" + Environment.NewLine;
+            TextoProceso += "" + " AL CENTRO DEL SEGMENTO" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "ACABADO: EL LAPEADO DEBE SER" + Environment.NewLine;
+            TextoProceso += "CONTINUO A 360° DEL SEGMENTO" + Environment.NewLine;
+            TextoProceso += "HACER PRUEBA DE LUZ" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "CAPA DE DIFUSIÓN_______________________" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
 
 
             //Ejecutamos el método para calculo de Herramentales.

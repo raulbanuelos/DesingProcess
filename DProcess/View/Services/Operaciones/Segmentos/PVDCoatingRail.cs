@@ -140,8 +140,25 @@ namespace View.Services.Operaciones.Segmentos
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "*PVD COATING RAIL";
-
+            TextoProceso = "RECUBRIMIENTO PVD (KOBELCO)" + Environment.NewLine;
+            TextoProceso += "RECETA:" + Environment.NewLine;
+            TextoProceso += "No: 013" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "LLENADO DEL CHECK LIST:F-3571-ED_PVD-003" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "NOTA:" + Environment.NewLine;
+            TextoProceso += "MANEJAR EL MATERIAL CON GUANTES LIMPIOS DE NITRILO O LATEX" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "MONTAR LOS MANDRILES EN LA MESA DE 18 POSICIONES (MESA 1)" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "ESPESOR PVD" + "" + " -" + "" + " mm" + Environment.NewLine;
+            TextoProceso += "DUREZA DE" + "" + " -" + "" + " HV" + Environment.NewLine;
+            TextoProceso += "ESPECIFICACION" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "PROCEDIMIENTOS" + Environment.NewLine;
+            TextoProceso += "W-3571-TSPVD-0011" + Environment.NewLine;
+            TextoProceso += "W-3571-TSPVD-0012" + Environment.NewLine;
+            TextoProceso += "W-3571-TSPVD-0013" + Environment.NewLine;
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();

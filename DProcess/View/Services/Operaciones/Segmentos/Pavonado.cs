@@ -140,9 +140,11 @@ namespace View.Services.Operaciones.Segmentos
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "*PAVONADO SEGMENTOS";
-
-
+            TextoProceso = "*PAVONADO" + Environment.NewLine;
+            TextoProceso += "PAVONAR DE INMEDIATO" + Environment.NewLine;
+            TextoProceso += "PARA PREVENIR EL ÓXIDO" + Environment.NewLine;
+            TextoProceso += "MRP022" + Environment.NewLine;
+            
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
 

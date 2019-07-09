@@ -140,8 +140,26 @@ namespace View.Services.Operaciones.Segmentos
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "*PVD/DLC COATING WASH";
-
+            TextoProceso = "WASHING (NOVATEC)" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "UTILIZAR RECETA:   PROGRAMA" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "DISTRIBUCIÓN DE BOBINAS:" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "BOBINA/RIEL:        1 BOBINA" + Environment.NewLine;
+            TextoProceso += "RIELES/CANASTILLA:  6 MAXIMO" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "DESPÚES DE DESENGRASE UTILIZAR GUANTES DE LATEX O NITRILO PARA MANIPULAR EL MATERIAL" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "**********************************************" + Environment.NewLine;
+            TextoProceso += "ENSAMBLE DE HERRAMENTAL Y BOBINAS" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "MANGA" + "" + " mm" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "ENSAMBLE MANUAL Y MEDIR CON FLEXÓMETRO LA LONGITUD TOTAL DE BOBINAS  IGUAL A 637 mm" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "NOTA:" + Environment.NewLine;
+            TextoProceso += "APRIETE DE COLLARINES CON LA FUERZA DE LA MANO SIN APRETAR EXCESIVAMENTE." + Environment.NewLine;
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();

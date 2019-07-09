@@ -140,8 +140,53 @@ namespace View.Services.Operaciones.Segmentos
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "*INSPECCION FINAL SEGMENTOS";
-
+            TextoProceso = "*INSPECCION FINAL" + Environment.NewLine;
+            TextoProceso += "*AUDITORIA DIM." + Environment.NewLine;
+            TextoProceso += "ABERTURA" + "" + " -" + Environment.NewLine;
+            TextoProceso += "ESPESOR RADIAL" + "" + " -" + Environment.NewLine;
+            TextoProceso += "TH. NITRURADO" + "" + " -" + Environment.NewLine;
+            TextoProceso += "ABERTURA LIBRE" + "" + " -" + Environment.NewLine;
+            TextoProceso += "ESPESOR AXIAL" + "" + " -" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "ESPECIFICACION PVD" + Environment.NewLine;
+            TextoProceso += "ESPESOR PVD" + Environment.NewLine;
+            TextoProceso += "DIMENSION PARA REGIÓN INTERNA" + "" + " -" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "ALINEAR E INSPECCIONAR" + Environment.NewLine;
+            TextoProceso += "*PINTURA" + Environment.NewLine;
+            TextoProceso += "PINTAR FRANJAS COLOR: N O  P I N T A R" + Environment.NewLine;
+            TextoProceso += "1)           DE" + Environment.NewLine;
+            TextoProceso += "2)           DE" + Environment.NewLine;
+            TextoProceso += "3)           DE" + Environment.NewLine;
+            TextoProceso += "UBICACION FRANJA:" + Environment.NewLine;
+            TextoProceso += "1)" + Environment.NewLine;
+            TextoProceso += "2)" + Environment.NewLine;
+            TextoProceso += "3)" + Environment.NewLine;
+            TextoProceso += "NOTAS:" + Environment.NewLine;
+            TextoProceso += "." + Environment.NewLine;
+            TextoProceso += "." + Environment.NewLine;
+            TextoProceso += "." + Environment.NewLine;
+            TextoProceso += "*ENVOLTURA" + Environment.NewLine;
+            TextoProceso += "ACEITE :" + Environment.NewLine;
+            TextoProceso += "TIPO: CRC3-36       CANT: 2 PASOS" + Environment.NewLine;
+            TextoProceso += "NOTA:" + Environment.NewLine;
+            TextoProceso += ".DAR DOS PASADAS DE ACEITE." + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "890 PIEZAS POR ROLLO" + Environment.NewLine;
+            TextoProceso += "PAPEL TIPO VCI AHULADO 24 X 20" + Environment.NewLine;
+            TextoProceso += "5 ROLLOS POR CAJA, CJA M3" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "NOTA:" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += ".LAS MEDIDAS DEL PAPEL Y LA CAJA SON EN PULGADAS" + Environment.NewLine;
+            TextoProceso += ".UTILIZAR MATERIAL DE RELLENO HASTA QUE LOS TUBOS/ROLLOS NO QUEDEN HOLGADOS" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "*IDENTIFICACION" + Environment.NewLine;
+            TextoProceso += "CLIENTE: MAHLE MORRISTOWN" + Environment.NewLine;
+            TextoProceso += "PTE. CLTE." + "" + " REV." + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "MEDIDA" + "" + " X" + Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine;
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
