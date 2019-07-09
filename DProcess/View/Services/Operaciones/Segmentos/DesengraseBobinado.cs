@@ -140,8 +140,9 @@ namespace View.Services.Operaciones.Segmentos
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "*DESENGRASE SEGMENTOS BOBINADO";
-
+            TextoProceso = "*DESENGRASE" + Environment.NewLine;
+            TextoProceso += "ELIMINAR RESIDUOS DE GRASA O ACEITE" + Environment.NewLine;
+            TextoProceso += "" + Environment.NewLine;
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
