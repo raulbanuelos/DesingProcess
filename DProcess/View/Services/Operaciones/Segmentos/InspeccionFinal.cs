@@ -142,15 +142,15 @@ namespace View.Services.Operaciones.Segmentos
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "*INSPECCION FINAL" + Environment.NewLine;
             TextoProceso += "*AUDITORIA DIM." + Environment.NewLine;
-            TextoProceso += "ABERTURA" + "" + " -" + Environment.NewLine;
-            TextoProceso += "ESPESOR RADIAL" + "" + " -" + Environment.NewLine;
-            TextoProceso += "TH. NITRURADO" + "" + " -" + Environment.NewLine;
-            TextoProceso += "ABERTURA LIBRE" + "" + " -" + Environment.NewLine;
-            TextoProceso += "ESPESOR AXIAL" + "" + " -" + Environment.NewLine;
+            TextoProceso += "ABERTURA " + "" + " -" + Environment.NewLine;
+            TextoProceso += "ESPESOR RADIAL " + "" + " -" + Environment.NewLine;
+            TextoProceso += "TH. NITRURADO " + "" + " -" + Environment.NewLine;
+            TextoProceso += "ABERTURA LIBRE " + "" + " -" + Environment.NewLine;
+            TextoProceso += "ESPESOR AXIAL " + "" + " -" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
-            TextoProceso += "ESPECIFICACION PVD" + Environment.NewLine;
-            TextoProceso += "ESPESOR PVD" + Environment.NewLine;
-            TextoProceso += "DIMENSION PARA REGIÓN INTERNA" + "" + " -" + Environment.NewLine;
+            TextoProceso += "ESPECIFICACION PVD " + Environment.NewLine;
+            TextoProceso += "ESPESOR PVD " + Environment.NewLine;
+            TextoProceso += "DIMENSION PARA REGIÓN INTERNA " + "" + " -" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "ALINEAR E INSPECCIONAR" + Environment.NewLine;
             TextoProceso += "*PINTURA" + Environment.NewLine;
@@ -183,9 +183,9 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "*IDENTIFICACION" + Environment.NewLine;
             TextoProceso += "CLIENTE: MAHLE MORRISTOWN" + Environment.NewLine;
-            TextoProceso += "PTE. CLTE." + "" + " REV." + Environment.NewLine;
+            TextoProceso += "PTE. CLTE. " + "" + " REV. " + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
-            TextoProceso += "MEDIDA" + "" + " X" + Environment.NewLine;
+            TextoProceso += "MEDIDA " + "" + " X " + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
 
             //Ejecutamos el método para calculo de Herramentales.

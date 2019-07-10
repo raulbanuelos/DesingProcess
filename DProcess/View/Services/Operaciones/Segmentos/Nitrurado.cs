@@ -141,10 +141,10 @@ namespace View.Services.Operaciones.Segmentos
 
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "*NITRURADO" + Environment.NewLine;
-            TextoProceso += "DIFUSION LAYER THICKNESS" + Environment.NewLine;
+            TextoProceso += "DIFUSION LAYER THICKNESS " + Environment.NewLine;
             TextoProceso += "CONSIDERAR DIAMETRO EXT. E INT." + Environment.NewLine;
-            TextoProceso += "HARDNESS" + "" + " DPH HV" + Environment.NewLine;
-            TextoProceso += "WHITE LAYER" + "" + " MAX" + Environment.NewLine;
+            TextoProceso += "HARDNESS " + "" + " DPH HV " + Environment.NewLine;
+            TextoProceso += "WHITE LAYER " + "" + " MAX " + Environment.NewLine;
             TextoProceso += "EL SEGMENTO NO DEBERA ROMPERSE A" + Environment.NewLine;
             TextoProceso += "180 GRADOS EN LA PRUEBA DE TWIST" + Environment.NewLine;
             TextoProceso += "PROGRAMA PRG-10" + Environment.NewLine;

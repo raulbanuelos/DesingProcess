@@ -143,11 +143,11 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso = "*CORTE DE PUNTAS" + Environment.NewLine;
             TextoProceso += "*Y CHAFLAN VIA" + Environment.NewLine;
             TextoProceso += "*THOMPSON" + Environment.NewLine;
-            TextoProceso += "CALIBRADOR" + Environment.NewLine;
-            TextoProceso += "ESP. AXIAL" + "" + " -" + Environment.NewLine;
-            TextoProceso += "ESP RADIAL" + "" + " -" + Environment.NewLine;
-            TextoProceso += "ABERTURA" + "" + " +/-" + "" + " <SC>" + Environment.NewLine;
-            TextoProceso += "ABERTURA LIBRE" + "" + " -" + Environment.NewLine;
+            TextoProceso += "CALIBRADOR " + Environment.NewLine;
+            TextoProceso += "ESP. AXIAL " + "" + " -" + Environment.NewLine;
+            TextoProceso += "ESP RADIAL " + "" + " -" + Environment.NewLine;
+            TextoProceso += "ABERTURA " + "" + " +/-" + "" + " <SC>" + Environment.NewLine;
+            TextoProceso += "ABERTURA LIBRE " + "" + " -" + Environment.NewLine;
             TextoProceso += "CHAFLÁN DIA. EXT. 0.0004  -  0.0078 X 45 GRADOS" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "NOTA: LIBRE DE REBABAS EN PUNTAS" + Environment.NewLine;

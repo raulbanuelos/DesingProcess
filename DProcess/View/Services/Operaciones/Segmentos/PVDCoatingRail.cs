@@ -141,7 +141,7 @@ namespace View.Services.Operaciones.Segmentos
 
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "RECUBRIMIENTO PVD (KOBELCO)" + Environment.NewLine;
-            TextoProceso += "RECETA:" + Environment.NewLine;
+            TextoProceso += "RECETA: " + Environment.NewLine;
             TextoProceso += "No: 013" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "LLENADO DEL CHECK LIST:F-3571-ED_PVD-003" + Environment.NewLine;
@@ -151,9 +151,9 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "MONTAR LOS MANDRILES EN LA MESA DE 18 POSICIONES (MESA 1)" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
-            TextoProceso += "ESPESOR PVD" + "" + " -" + "" + " mm" + Environment.NewLine;
-            TextoProceso += "DUREZA DE" + "" + " -" + "" + " HV" + Environment.NewLine;
-            TextoProceso += "ESPECIFICACION" + Environment.NewLine;
+            TextoProceso += "ESPESOR PVD " + "" + " -" + "" + " mm" + Environment.NewLine;
+            TextoProceso += "DUREZA DE " + "" + " -" + "" + " HV" + Environment.NewLine;
+            TextoProceso += "ESPECIFICACION " + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "PROCEDIMIENTOS" + Environment.NewLine;
             TextoProceso += "W-3571-TSPVD-0011" + Environment.NewLine;

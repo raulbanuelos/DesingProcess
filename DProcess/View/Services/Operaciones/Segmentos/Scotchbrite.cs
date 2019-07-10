@@ -164,9 +164,9 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso += "TIEMPO CICLO    20 SEG/CICLO" + Environment.NewLine;
             TextoProceso += "CANTIDAD DE CICLOS 2" + Environment.NewLine;
             TextoProceso += "USAR RUEDA  8SFIN" + Environment.NewLine;
-            TextoProceso += "" + " DE CAIDA A" + "" + " GAGE" + Environment.NewLine;
-            TextoProceso += "RADIO" + "" + " EN" + "" + " DEL CENTRO" + Environment.NewLine;
-            TextoProceso += "CARTA COMPARADOR" + Environment.NewLine;
+            TextoProceso += "" + " DE CAIDA A " + "" + " GAGE" + Environment.NewLine;
+            TextoProceso += "RADIO " + "" + " EN " + "" + " DEL CENTRO" + Environment.NewLine;
+            TextoProceso += "CARTA COMPARADOR " + Environment.NewLine;
             TextoProceso += "MEDIR EL PERFIL A 10 PZAS CADA 4 RIELES DE MAT." + Environment.NewLine;
             TextoProceso += "VERIFICAR EL PERFIL DE LA CARA DE" + Environment.NewLine;
             TextoProceso += "CONTACTO DE ACUERDO A  PROCEDIMIENTO" + Environment.NewLine;

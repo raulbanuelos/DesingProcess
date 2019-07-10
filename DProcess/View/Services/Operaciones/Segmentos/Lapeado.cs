@@ -141,10 +141,10 @@ namespace View.Services.Operaciones.Segmentos
 
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "*LAPEADO" + Environment.NewLine;
-            TextoProceso += "PROGRAMA" + Environment.NewLine;
+            TextoProceso += "PROGRAMA " + Environment.NewLine;
             TextoProceso += "USAR PASTA DE CROMO" + Environment.NewLine;
             TextoProceso += "LAPEAR HASTA OBTENER UNA CAIDA" + Environment.NewLine;
-            TextoProceso += "DE RÁDIO DE" + "" + " -" + "" + " EN" + Environment.NewLine;
+            TextoProceso += "DE RÁDIO DE " + "" + " -" + "" + " EN" + Environment.NewLine;
             TextoProceso += "" + " AL CENTRO DEL SEGMENTO" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "ACABADO: EL LAPEADO DEBE SER" + Environment.NewLine;

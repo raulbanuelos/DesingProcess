@@ -146,7 +146,7 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso += "RECTA: 1 GNS ACERO INOXIDABLE." + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "RUGOSIDAD:" + Environment.NewLine;
-            TextoProceso += "ESPEC: Rz" + "" + " µm max" + Environment.NewLine;
+            TextoProceso += "ESPEC: Rz " + "" + " µm max" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "MEDIR EN TRES PUNTOS(AMBOS EXTREMOS Y ZONA MEDIA)." + Environment.NewLine;
             TextoProceso += "A TRAVÉS DEL MANDRIL Y REGISTRAR DATOS EN EL" + Environment.NewLine;
