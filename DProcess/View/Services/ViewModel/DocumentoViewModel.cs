@@ -1704,6 +1704,7 @@ namespace View.Services.ViewModel
             {
                 object unknownType = Type.Missing;
                 int ban = 1;
+                string CodigoFormato = "F-3571-01HII-es\nVersión 03";
 
                 foreach (Archivo archivo in ListaDocumentos)
                 {
@@ -1769,6 +1770,7 @@ namespace View.Services.ViewModel
                             string codigo = Convert.ToString(sheet.Range["CODIGO"].Value);
                             string departamento = Convert.ToString(sheet.Range["NOMBRE_DEPARTAMENTO"].Value);
                             string no_version = Convert.ToString(sheet.Range["VERSION_ACTUAL"].Value);
+                            string codformato = Convert.ToString(sheet.Range["CODFORMATO"].Value);
 
                             //Validar fecha revisión
                             DateTime date = Convert.ToDateTime(fecharevision);
@@ -1855,6 +1857,21 @@ namespace View.Services.ViewModel
                             {
                                 mensaje += "\n" + StringResources.msgVersIncorrecta + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + Version;
                                 ban = 2;
+                            }
+                            if (codformato != CodigoFormato)
+                            {
+                                // Cerrar Excel cuando se adjunta archivo que no corresponde al formato
+                                ExcelApp.Visible = false;
+
+                                if (ExcelWork != null)
+                                    ExcelWork.Close(unknownType, unknownType, unknownType);
+
+                                if (ExcelApp != null)
+                                    ExcelApp.Quit();
+
+                                // Retornar cuando el archivo no pertenece al formato
+                                //mensaje += "\n" + StringResources.ttlAlerta + StringResources.msgDocDifFormato;
+                                return 4;
                             }
                         }
                         catch (Exception er)
