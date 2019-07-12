@@ -1240,164 +1240,183 @@ namespace View.Services.ViewModel
             double currentThickness = 0.0;
             double currentDiameter = 0.0;
             int noOperacion = 10;
-            
-            if (MaterialBase.TipoDeMaterial == "HIERRO GRIS")
+
+            string clasificacionProducto = GetClasificacionProducto();
+
+            if (clasificacionProducto == "Gasolina")
             {
-                //Ingresar calculo de placa modelo.
-                calcularMateriaPrima = new CalculaMateriaPrima(ModelAnillo);
-                MaterialBase = calcularMateriaPrima.CalcularPlacaModelo();
-
-                if (banCalcularOperaciones)
-                    Operaciones = Router.CalcularHierroGris(ModelAnillo);
-                
-
-                if (MaterialBase.Codigo.Equals("CODIFICAR"))
+                if (MaterialBase.TipoDeMaterial == "HIERRO GRIS")
                 {
-                    MetroDialogSettings setting = new MetroDialogSettings();
-                    setting.AffirmativeButtonText = "SI";
-                    setting.NegativeButtonText = "NO";
-                    dialogService = new DialogService();
-
-                    MessageDialogResult result = await dialogService.SendMessage("Atención", "No se encontró ninguna placa modelo para el componente ingresado  ¿Desea generar una placa modelo nueva?", setting, MessageDialogStyle.AffirmativeAndNegative, "Desing Process");
-
-                    switch (result)
-                    {
-                        case MessageDialogResult.Negative:
-                            break;
-                        case MessageDialogResult.Affirmative:
-                            WPattern pattern = new WPattern();
-
-                            Pattern nuevaPlaca = new Pattern();
-
-                            nuevaPlaca.customer = cliente;
-
-                            nuevaPlaca.diametro = D1;
-                            nuevaPlaca.medida = H1;
-                            
-                            nuevaPlaca.ring_th_max = Module.GetPropiedad("a1", PerfilID.Propiedades, "Max");
-                            nuevaPlaca.ring_th_min = Module.GetPropiedad("a1", PerfilOD.Propiedades, "Min");
-
-                            //Begin
-                            double widthMin1 = Module.GetValorPropiedadMin("h1", PerfilLateral.Propiedades, true);
-                            double widthMax1 = Module.GetValorPropiedadMax("h1", PerfilLateral.Propiedades, true);
-
-                            Propiedad WidthMin = new Propiedad { Valor = widthMin1, DescripcionCorta = "WidthMin", DescripcionLarga = "WidthMin", Imagen = null, Nombre = "WidthMin", TipoDato = "Distance", Unidad = "Inch (in)" };
-                            Propiedad WidthMax = new Propiedad { Valor = widthMax1, DescripcionCorta = "WidthMax", DescripcionLarga = "WidthMax", Imagen = null, Nombre = "WidthMax", TipoDato = "Distance", Unidad = "Inch (in)" };
-                            //End
-
-                            nuevaPlaca.ring_w_max = WidthMax;
-                            nuevaPlaca.ring_w_min = WidthMin;
-
-                            nuevaPlaca.piece_in_patt = new Propiedad { DescripcionCorta = "Piece", DescripcionLarga = "Piece", Imagen = null, Nombre = "Piece", TipoDato = "Distance", Unidad = "Inch (in)", Valor = calcularMateriaPrima.Piece };
-                            nuevaPlaca.esp_inst = new PropiedadCadena { DescripcionCorta = "Especial Instruccions", DescripcionLarga = "Especial Instruccions", Imagen = null, Nombre = "EspecInst", Valor = Codigo + Environment.NewLine + "MATERIAL: " + ModelAnillo.MaterialBase.Especificacion };
-
-                            //Falta agregar material
-                            //nuevaPlaca.Material
-                            
-                            nuevaPlaca.Hardness = new PropiedadCadena { DescripcionCorta = "Hardness", DescripcionLarga = "Hardness", Imagen = null, Nombre = "Hardness", Valor = EnumEx.GetEnumDescription(DataManager.UnidadDureza.RB) };
-                            nuevaPlaca.HardnessMin = HardnessMin;
-                            nuevaPlaca.HardnessMax = HardnessMax;
-
-                            nuevaPlaca.turn_allow = new Propiedad { DescripcionCorta = "", DescripcionLarga = "", Imagen = null, Nombre = "", TipoDato = "", Unidad = "", Valor = calcularMateriaPrima.TS };
-                            nuevaPlaca.bore_allow = new Propiedad { DescripcionCorta = "", DescripcionLarga = "", Imagen = null, Nombre = "", TipoDato = "", Unidad = "", Valor = calcularMateriaPrima.BS };
-                            //DataManager.GetCamTurnConstant()
-                            double factork = calcularMateriaPrima.CamTurnConstant * 0.0001;
-
-                            nuevaPlaca.factor_k = new Propiedad { DescripcionCorta = "Factor K", DescripcionLarga = "Factor K", Imagen = null, Nombre = "FactorK", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), Valor = factork };
-                            nuevaPlaca.EspecMaterialAnillo = MaterialBase.Especificacion;
-
-                            nuevaPlaca.Proceso = Module.GetPropiedadCadena("Proceso", PerfilOD.PropiedadesCadena);
-                            nuevaPlaca.TipoAnillo = new PropiedadCadena { DescripcionCorta = "", DescripcionLarga = "", Imagen = null, Nombre = "TipoAnillo", Valor = TipoAnillo };
-                            nuevaPlaca.TipoMateriaPrima = new FO_Item { id = 1, IsSelected = false, Nombre = "TipoMaterial", ValorCadena = "GASOLINA" };
-
-                            PatternViewModel vm = new PatternViewModel(nuevaPlaca, NombreUsuario);
-                            pattern.DataContext = vm;
-                            pattern.Show();
-
-                            break;
-                        case MessageDialogResult.FirstAuxiliary:
-                            break;
-                        case MessageDialogResult.SecondAuxiliary:
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                anilloProcesado.PropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-                anilloProcesado.PropiedadesBoolAdquiridasProceso = new ObservableCollection<PropiedadBool>();
-                anilloProcesado.PropiedadesCadenaAdquiridasProceso = new ObservableCollection<PropiedadCadena>();
-
-                anilloProcesado.PropiedadesAdquiridasProceso.Add(new Propiedad { TipoDato = "Distance", DescripcionCorta = "Piece", DescripcionLarga = "Piece", Imagen = null, Nombre = "Piece", Unidad = "Inch (in)", Valor = calcularMateriaPrima.Piece });
-
-                calcularDimenciones();
-            }
-            else
-            {
-                if (ModelAnillo.MaterialBase.TipoDeMaterial == "ACERO AL CARBON")
-                {
-                    //Obtenemos la ventana actual para mandar un mensaje de capturar la especificación del perfil
-                    var window = System.Windows.Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-                    
-                    //Formulario para ingresar el número de copias, 
-                    string _especPerfil = await window.ShowInputAsync(StringResources.lblAlertas, "Por favor ingrese la especificación del perfil del anillo.", null);
-
-                    ModelAnillo.PropiedadesCadenaAdquiridasProceso = new ObservableCollection<PropiedadCadena>();
-                    PropiedadCadena especPerfil = new PropiedadCadena { Nombre = "especPerfil", Valor = _especPerfil };
-                    ModelAnillo.PropiedadesCadenaAdquiridasProceso.Add(especPerfil);
-
-                    //Se define la ruta primero antes de que se calcule la materia prima.
-                    if (banCalcularOperaciones)
-                        Operaciones = Router.CalcularAceroRolado(ModelAnillo);
-
-                    int c = 0;
-                    foreach (var operacion in Operaciones)
-                    {
-                        if (operacion is IObserverWidth)
-                            ((IObserverWidth)operacion).setMaterialRemover(Operaciones, c, ModelAnillo);
-
-                        if (operacion is IObserverThickness)
-                            ((IObserverThickness)operacion).setMaterialRemover(Operaciones, c);
-                        c++;
-                    }
-
+                    //Ingresar calculo de placa modelo.
                     calcularMateriaPrima = new CalculaMateriaPrima(ModelAnillo);
-                    
-                    List<MateriaPrimaRolado> listaOpcionales = calcularMateriaPrima.CalcularAceroAlCarbon();
-                    ListaIronRawMaterial.Clear();
+                    MaterialBase = calcularMateriaPrima.CalcularPlacaModelo();
 
-                    foreach (var opcion in listaOpcionales)
-                        ListaIronRawMaterial.Add(opcion);
+                    if (banCalcularOperaciones)
+                        Operaciones = Router.CalcularHierroGris(ModelAnillo);
 
-                    //Mostramos la ventana para que el usuario seleccione la materia prima.
-                    frmSelectIronRawMaterial wOpciones = new frmSelectIronRawMaterial();
-                    wOpciones.DataContext = this;
-                    wOpciones.ShowDialog();
 
-                    //Si el usuario hizo clic en Aceptar continuamos con el calculo.
-                    if (wOpciones.DialogResult.HasValue && wOpciones.DialogResult.Value)
+                    if (MaterialBase.Codigo.Equals("CODIFICAR"))
                     {
-                        if (ListaIronRawMaterial.Where(x => x.IsSelected).ToList().Count == 1)
-                        {
-                            MateriaPrimaRolado mpSeleccionada = ListaIronRawMaterial.Where(x => x.IsSelected).FirstOrDefault();
-                            Operaciones[0].ListaMateriaPrima.Add(mpSeleccionada);
-                            
-                            currentWidth = mpSeleccionada._Width;
-                            currentThickness = mpSeleccionada.Thickness;
-                            int nCortesWith = mpSeleccionada.nCortesWidth;
+                        MetroDialogSettings setting = new MetroDialogSettings();
+                        setting.AffirmativeButtonText = "SI";
+                        setting.NegativeButtonText = "NO";
+                        dialogService = new DialogService();
 
-                            calcularDimenciones(nCortesWith);
+                        MessageDialogResult result = await dialogService.SendMessage("Atención", "No se encontró ninguna placa modelo para el componente ingresado  ¿Desea generar una placa modelo nueva?", setting, MessageDialogStyle.AffirmativeAndNegative, "Desing Process");
+
+                        switch (result)
+                        {
+                            case MessageDialogResult.Negative:
+                                break;
+                            case MessageDialogResult.Affirmative:
+                                WPattern pattern = new WPattern();
+
+                                Pattern nuevaPlaca = new Pattern();
+
+                                nuevaPlaca.customer = cliente;
+
+                                nuevaPlaca.diametro = D1;
+                                nuevaPlaca.medida = H1;
+
+                                nuevaPlaca.ring_th_max = Module.GetPropiedad("a1", PerfilID.Propiedades, "Max");
+                                nuevaPlaca.ring_th_min = Module.GetPropiedad("a1", PerfilOD.Propiedades, "Min");
+
+                                //Begin
+                                double widthMin1 = Module.GetValorPropiedadMin("h1", PerfilLateral.Propiedades, true);
+                                double widthMax1 = Module.GetValorPropiedadMax("h1", PerfilLateral.Propiedades, true);
+
+                                Propiedad WidthMin = new Propiedad { Valor = widthMin1, DescripcionCorta = "WidthMin", DescripcionLarga = "WidthMin", Imagen = null, Nombre = "WidthMin", TipoDato = "Distance", Unidad = "Inch (in)" };
+                                Propiedad WidthMax = new Propiedad { Valor = widthMax1, DescripcionCorta = "WidthMax", DescripcionLarga = "WidthMax", Imagen = null, Nombre = "WidthMax", TipoDato = "Distance", Unidad = "Inch (in)" };
+                                //End
+
+                                nuevaPlaca.ring_w_max = WidthMax;
+                                nuevaPlaca.ring_w_min = WidthMin;
+
+                                nuevaPlaca.piece_in_patt = new Propiedad { DescripcionCorta = "Piece", DescripcionLarga = "Piece", Imagen = null, Nombre = "Piece", TipoDato = "Distance", Unidad = "Inch (in)", Valor = calcularMateriaPrima.Piece };
+                                nuevaPlaca.esp_inst = new PropiedadCadena { DescripcionCorta = "Especial Instruccions", DescripcionLarga = "Especial Instruccions", Imagen = null, Nombre = "EspecInst", Valor = Codigo + Environment.NewLine + "MATERIAL: " + ModelAnillo.MaterialBase.Especificacion };
+
+                                //Falta agregar material
+                                //nuevaPlaca.Material
+
+                                nuevaPlaca.Hardness = new PropiedadCadena { DescripcionCorta = "Hardness", DescripcionLarga = "Hardness", Imagen = null, Nombre = "Hardness", Valor = EnumEx.GetEnumDescription(DataManager.UnidadDureza.RB) };
+                                nuevaPlaca.HardnessMin = HardnessMin;
+                                nuevaPlaca.HardnessMax = HardnessMax;
+
+                                nuevaPlaca.turn_allow = new Propiedad { DescripcionCorta = "", DescripcionLarga = "", Imagen = null, Nombre = "", TipoDato = "", Unidad = "", Valor = calcularMateriaPrima.TS };
+                                nuevaPlaca.bore_allow = new Propiedad { DescripcionCorta = "", DescripcionLarga = "", Imagen = null, Nombre = "", TipoDato = "", Unidad = "", Valor = calcularMateriaPrima.BS };
+                                //DataManager.GetCamTurnConstant()
+                                double factork = calcularMateriaPrima.CamTurnConstant * 0.0001;
+
+                                nuevaPlaca.factor_k = new Propiedad { DescripcionCorta = "Factor K", DescripcionLarga = "Factor K", Imagen = null, Nombre = "FactorK", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), Valor = factork };
+                                nuevaPlaca.EspecMaterialAnillo = MaterialBase.Especificacion;
+
+                                nuevaPlaca.Proceso = Module.GetPropiedadCadena("Proceso", PerfilOD.PropiedadesCadena);
+                                nuevaPlaca.TipoAnillo = new PropiedadCadena { DescripcionCorta = "", DescripcionLarga = "", Imagen = null, Nombre = "TipoAnillo", Valor = TipoAnillo };
+                                nuevaPlaca.TipoMateriaPrima = new FO_Item { id = 1, IsSelected = false, Nombre = "TipoMaterial", ValorCadena = "GASOLINA" };
+
+                                PatternViewModel vm = new PatternViewModel(nuevaPlaca, NombreUsuario);
+                                pattern.DataContext = vm;
+                                pattern.Show();
+
+                                break;
+                            case MessageDialogResult.FirstAuxiliary:
+                                break;
+                            case MessageDialogResult.SecondAuxiliary:
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    anilloProcesado.PropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
+                    anilloProcesado.PropiedadesBoolAdquiridasProceso = new ObservableCollection<PropiedadBool>();
+                    anilloProcesado.PropiedadesCadenaAdquiridasProceso = new ObservableCollection<PropiedadCadena>();
+
+                    anilloProcesado.PropiedadesAdquiridasProceso.Add(new Propiedad { TipoDato = "Distance", DescripcionCorta = "Piece", DescripcionLarga = "Piece", Imagen = null, Nombre = "Piece", Unidad = "Inch (in)", Valor = calcularMateriaPrima.Piece });
+
+                    calcularDimenciones();
+                }
+                else
+                {
+                    if (ModelAnillo.MaterialBase.TipoDeMaterial == "ACERO AL CARBON")
+                    {
+                        //Obtenemos la ventana actual para mandar un mensaje de capturar la especificación del perfil
+                        var window = System.Windows.Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                        //Formulario para ingresar el número de copias, 
+                        string _especPerfil = await window.ShowInputAsync(StringResources.lblAlertas, "Por favor ingrese la especificación del perfil del anillo.", null);
+
+                        ModelAnillo.PropiedadesCadenaAdquiridasProceso = new ObservableCollection<PropiedadCadena>();
+                        PropiedadCadena especPerfil = new PropiedadCadena { Nombre = "especPerfil", Valor = _especPerfil };
+                        ModelAnillo.PropiedadesCadenaAdquiridasProceso.Add(especPerfil);
+
+                        //Se define la ruta primero antes de que se calcule la materia prima.
+                        if (banCalcularOperaciones)
+                            Operaciones = Router.CalcularAceroRolado(ModelAnillo);
+
+                        int c = 0;
+                        foreach (var operacion in Operaciones)
+                        {
+                            if (operacion is IObserverWidth)
+                                ((IObserverWidth)operacion).setMaterialRemover(Operaciones, c, ModelAnillo);
+
+                            if (operacion is IObserverThickness)
+                                ((IObserverThickness)operacion).setMaterialRemover(Operaciones, c);
+                            c++;
+                        }
+
+                        calcularMateriaPrima = new CalculaMateriaPrima(ModelAnillo);
+
+                        List<MateriaPrimaRolado> listaOpcionales = calcularMateriaPrima.CalcularAceroAlCarbon();
+                        ListaIronRawMaterial.Clear();
+
+                        foreach (var opcion in listaOpcionales)
+                            ListaIronRawMaterial.Add(opcion);
+
+                        //Mostramos la ventana para que el usuario seleccione la materia prima.
+                        frmSelectIronRawMaterial wOpciones = new frmSelectIronRawMaterial();
+                        wOpciones.DataContext = this;
+                        wOpciones.ShowDialog();
+
+                        //Si el usuario hizo clic en Aceptar continuamos con el calculo.
+                        if (wOpciones.DialogResult.HasValue && wOpciones.DialogResult.Value)
+                        {
+                            if (ListaIronRawMaterial.Where(x => x.IsSelected).ToList().Count == 1)
+                            {
+                                MateriaPrimaRolado mpSeleccionada = ListaIronRawMaterial.Where(x => x.IsSelected).FirstOrDefault();
+                                Operaciones[0].ListaMateriaPrima.Add(mpSeleccionada);
+
+                                currentWidth = mpSeleccionada._Width;
+                                currentThickness = mpSeleccionada.Thickness;
+                                int nCortesWith = mpSeleccionada.nCortesWidth;
+
+                                calcularDimenciones(nCortesWith);
+                            }
+                            else
+                            {
+                                //Enviamos el mensaje que debe de serleccionar una materia prima
+                                await dialogService.SendMessage("Atención", "Debe seleccionar una materia prima");
+
+                                return;
+                            }
                         }
                         else
                         {
-                            //Enviamos el mensaje que debe de serleccionar una materia prima
-                            await dialogService.SendMessage("Atención", "Debe seleccionar una materia prima");
-
                             return;
                         }
                     }
-                    else
+                } 
+            }
+            else
+            {
+                if (clasificacionProducto == "Segmento")
+                {
+                    if (MaterialBase.TipoDeMaterial == "ACERO INOXIDABLE")
                     {
-                        return;
+
+                        //Agregar calculo de materia prima.
+
+                        if (banCalcularOperaciones)
+                            Operaciones = Router.CalcularHierroGris(ModelAnillo);
                     }
                 }
             }
@@ -1501,6 +1520,22 @@ namespace View.Services.ViewModel
 
             ModelAnillo.Caratula = PrimerBloque;
              */
+        }
+
+        /// <summary>
+        /// Método que retorna la clasificación de anillo que es. La clasificación puede ser: "Gasolina", "Segmento", "Expansor", "Large Bore."
+        /// </summary>
+        /// <returns></returns>
+        private string GetClasificacionProducto()
+        {
+            if (ModelAnillo.TipoAnillo == "THM")
+                return "Gasolina";
+
+            if (ModelAnillo.TipoAnillo == "MD52SNCV")
+                return "Segmento";
+
+            return "No disponible";
+           
         }
 
         private void calcularDimenciones(int nCortesWith)

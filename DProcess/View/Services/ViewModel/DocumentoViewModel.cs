@@ -2901,8 +2901,7 @@ namespace View.Services.ViewModel
                                         ListaDocumentos.Add(obj);
                                         //deshabilitamos el boton de agregar archivos
                                         BttnArchivos = false;
-                                    }
-                                    //si no es archivo .doc se manda un mensaje y se elimina
+                                    }//si no es archivo .doc se manda un mensaje y se elimina
                                     else
                                     {
                                         //si se llegara a insertar un tipo de archivo que no corresponde se manda un mensaje indicando que tipo de archivo se debe adjuntar

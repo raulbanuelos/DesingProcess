@@ -4,109 +4,107 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="da0dc206e6ab4ec6bfee909bb16e9885" Name="Diagram1" ZoomLevel="57">
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Width="1.5" PointX="15" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.UretanoSplitter" Width="1.5" PointX="12.75" PointY="1.25" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_UretanoSplitter_MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXIT_GUIDE" Width="1.5" PointX="3" PointY="6" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" Width="1.5" PointX="3" PointY="9.875" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" Width="1.5" PointX="3" PointY="20" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" Width="1.5" PointX="3" PointY="13" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" Width="1.5" PointX="3" PointY="16.5" />
+      <Diagram DiagramId="da0dc206e6ab4ec6bfee909bb16e9885" Name="Diagram1" ZoomLevel="73">
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart" Width="1.5" PointX="7.375" PointY="7.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.cutter_angle" Width="1.5" PointX="9.375" PointY="4.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.DiscoDiskus_" Width="1.5" PointX="17.25" PointY="13.375" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuidePlateBK_" Width="1.5" PointX="17.25" PointY="29.125" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXIT_GUIDE" Width="5.875" PointX="17.25" PointY="32.625" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CollarsCromo_" Width="1.5" PointX="17.25" PointY="37.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" Width="4.75" PointX="17.25" PointY="40.875" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" Width="4.625" PointX="17.25" PointY="52.875" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" Width="6.125" PointX="17.25" PointY="44.875" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" Width="1.5" PointX="17.25" PointY="48.875" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_FEED_WHEEL_RECTIFICADOS_FINOS" Width="1.5" PointX="17.25" PointY="16.125" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_COIL_CENTER_GUIDE" Width="1.5" PointX="17.25" PointY="56.625" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_COIL_FEED_ROLLER" Width="1.5" PointX="17.25" PointY="60.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_SHIM_OF_THE_CUT_SYSTEM" Width="1.5" PointX="17.25" PointY="65" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CollarBK" Width="1.5" PointX="17.25" PointY="68.875" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CriDiaGuillBK" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CriteriosAnillos" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.PLANO_HERRAMENTAL" Width="1.5" PointX="0.75" PointY="4" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.BushingCromo_" Width="1.5" PointX="17.25" PointY="3.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CollarScotchbrite_" Width="1.5" PointX="17.25" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.LoadingGuideAnillos_" Width="1.5" PointX="17.25" PointY="26.375" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ClosingBandLapeado" Width="1.5" PointX="17.25" PointY="22.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuillotinaEngrave_" Width="1.5" PointX="17.25" PointY="10.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.FrontRearCollarAnillos_" Width="1.5" PointX="17.25" PointY="7" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.BarrelLapAnillos_" Width="1.5" PointX="17.25" PointY="19.375" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ProtectorSupMoly_" Width="1.5" PointX="17.25" PointY="73.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ProtectorInfMoly_" Width="1.5" PointX="17.25" PointY="76.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CollarMoly_" Width="1.5" PointX="17.25" PointY="79.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CamisaMoly_" Width="1.5" PointX="17.25" PointY="82.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuillotinaSIM_" Width="1.5" PointX="17.25" PointY="85" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.PusherSIM_" Width="1.5" PointX="17.25" PointY="88.375" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.BushingSIM_" Width="1.5" PointX="17.25" PointY="91.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ShieldBK_" Width="1.5" PointX="17.25" PointY="94.875" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CamBK_" Width="1.5" PointX="17.25" PointY="99.125" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.BushingFinishMill" Width="1.5" PointX="17.25" PointY="102.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.BushingBatesBore_" Width="1.5" PointX="17.25" PointY="105.125" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.WorkCam" Width="1.5" PointX="17.25" PointY="108.125" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CutterCamTurn" Width="1.5" PointX="17.25" PointY="112" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CollarSpacer" Width="1.5" PointX="17.25" PointY="115.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ClosingSleeveBK" Width="1.5" PointX="17.25" PointY="120.125" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CutterSpacerSplitter" Width="2.875" PointX="17.25" PointY="123" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CutterSplitter" Width="1.5" PointX="17.25" PointY="126.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuideBarFirstRoughGrind" Width="1.5" PointX="17.25" PointY="129.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ChuckSplitter" Width="1.5" PointX="17.25" PointY="132" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuideBarFinGrind" Width="1.5" PointX="17.25" PointY="135" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuideBarSecondRoughGrind" Width="1.5" PointX="17.25" PointY="138" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuillotinaBK_" Width="1.5" PointX="17.25" PointY="141" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CriGPBK" Width="1.5" PointX="5.375" PointY="4.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CriGillBK" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.UretanoSplitter" Width="1.5" PointX="17.25" PointY="144.875" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ClasificacionHerramental" Width="1.5" PointX="0.75" PointY="8" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Width="1.5" PointX="10" PointY="8" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK__BarrelLap__Codig__4EF38B7F" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_BushingBatesBore__MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_BushingCromo__MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_BushingFinishMill_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_BushingSIM__MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CamBK__MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CamisaMoly__MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_ChuckSplitter_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.fk_Clasificacion_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK__ClosingBa__Codig__68B35D82" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_ClosingSleeveBK_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CollarBK_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CollarMoly__MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CollarScotchbrite__MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CollarsCromo__MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CollarSpacer_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CutterCamTurn_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CutterSpacerSplitter_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CutterSplitter_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK__FrontRear__Codig__65D6F0D7" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarFinGrind_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarFirstRoughGrind_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarSecondRoughGrind_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuidePlateBK__MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuillotinaBK__MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK__Guillotin__Codig__493AB229" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuillotinaSIM__MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK__LoadingGu__Codig__6D78129F" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_DiscoDiskus__MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.fk_Plano_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_ProtectorInfMoly__MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_ProtectorSupMoly__MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_PusherSIM__MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_ShieldBK__MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_CENTER_GUIDE_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_FEED_ROLLER_MaestroHerramentales" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXIT_GUIDE_MaestroHerramentales" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_1PIECE_MaestroHerramentales" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1_MaestroHerramentales" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2_MaestroHerramentales" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3_MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_COIL_CENTER_GUIDE" Width="1.5" PointX="3" PointY="24.25" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_COIL_FEED_ROLLER" Width="1.5" PointX="3" PointY="28.125" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_SHIM_OF_THE_CUT_SYSTEM" Width="1.5" PointX="3" PointY="31.875" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_CENTER_GUIDE_MaestroHerramentales" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_COIL_FEED_ROLLER_MaestroHerramentales" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuideBarFinGrind" Width="1.5" PointX="3" PointY="44.5" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuideBarSecondRoughGrind" Width="1.5" PointX="3" PointY="38.625" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuidePlateBK_" Width="1.5" PointX="3" PointY="41.5" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuillotinaBK_" Width="1.5" PointX="3" PointY="35.625" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarFinGrind_MaestroHerramentales" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarSecondRoughGrind_MaestroHerramentales" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuidePlateBK__MaestroHerramentales" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuillotinaBK__MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ChuckSplitter" Width="1.5" PointX="3" PointY="47.5" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ClasificacionHerramental" Width="1.5" PointX="0.75" PointY="7.875" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_ChuckSplitter_MaestroHerramentales" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.fk_Clasificacion_MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CutterSpacerSplitter" Width="1.5" PointX="3" PointY="56.25" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CutterSplitter" Width="1.5" PointX="3" PointY="53.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuideBarFirstRoughGrind" Width="1.5" PointX="3" PointY="51.125" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CutterSpacerSplitter_MaestroHerramentales" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CutterSplitter_MaestroHerramentales" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuideBarFirstRoughGrind_MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ClosingSleeveBK" Width="1.5" PointX="3" PointY="59.25" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CollarBK" Width="1.5" PointX="3" PointY="62" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_ClosingSleeveBK_MaestroHerramentales" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CollarBK_MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CriDiaGuillBK" Width="1.5" PointX="5.375" PointY="4.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CriGillBK" Width="1.5" PointX="7.375" PointY="0.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CriGPBK" Width="1.5" PointX="7.375" PointY="4.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CriteriosAnillos" Width="1.5" PointX="5.375" PointY="7.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.PLANO_HERRAMENTAL" Width="1.5" PointX="16.25" PointY="1.875" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart" Width="1.5" PointX="7.375" PointY="7.75" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.fk_Plano_MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" Width="1.5" PointX="9.375" PointY="0.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.cutter_angle" Width="1.5" PointX="9.375" PointY="4.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CollarSpacer" Width="1.5" PointX="3" PointY="71.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CutterCamTurn" Width="1.5" PointX="3" PointY="68.625" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.WorkCam" Width="1.5" PointX="3" PointY="65.75" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CollarSpacer_MaestroHerramentales" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CutterCamTurn_MaestroHerramentales" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_WorkCam_MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.BushingBatesBore_" Width="1.5" PointX="3" PointY="75.5" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_BushingBatesBore__MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.BushingFinishMill" Width="1.5" PointX="3" PointY="78.625" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_BushingFinishMill_MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CamBK_" Width="1.5" PointX="3" PointY="85.375" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ShieldBK_" Width="1.5" PointX="3" PointY="82.125" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CamBK__MaestroHerramentales" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_ShieldBK__MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.BushingCromo_" Width="1.5" PointX="3" PointY="88.625" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CollarsCromo_" Width="1.5" PointX="3" PointY="91.375" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_BushingCromo__MaestroHerramentales" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CollarsCromo__MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.BushingSIM_" Width="1.5" PointX="3" PointY="95" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.PusherSIM_" Width="1.5" PointX="3" PointY="97.625" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_BushingSIM__MaestroHerramentales" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_PusherSIM__MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuillotinaSIM_" Width="1.5" PointX="3" PointY="101.125" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_GuillotinaSIM__MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CamisaMoly_" Width="1.5" PointX="3" PointY="105.125" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CollarMoly_" Width="1.5" PointX="3" PointY="107.875" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ProtectorInfMoly_" Width="1.5" PointX="3" PointY="110.625" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ProtectorSupMoly_" Width="1.5" PointX="3" PointY="113.25" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CamisaMoly__MaestroHerramentales" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CollarMoly__MaestroHerramentales" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_ProtectorInfMoly__MaestroHerramentales" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_ProtectorSupMoly__MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CollarScotchbrite_" Width="1.5" PointX="3" PointY="116.75" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CollarScotchbrite__MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.DiscoDiskus_" Width="1.5" PointX="17.25" PointY="13.375" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_DiscoDiskus__MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_FEED_WHEEL_RECTIFICADOS_FINOS" Width="3" PointX="17.75" PointY="16.5" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_FEED_WHEEL_RECTIFICADOS_FINOS_MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.GuillotinaEngrave_" Width="1.5" PointX="17.25" PointY="10.5" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK__Guillotin__Codig__493AB229" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.BarrelLapAnillos_" Width="1.5" PointX="17.25" PointY="19.625" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK__BarrelLap__Codig__4EF38B7F" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.FrontRearCollarAnillos_" Width="1.5" PointX="17.25" PointY="6.5" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK__FrontRear__Codig__65D6F0D7" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ClosingBandLapeado" Width="1.5" PointX="17.25" PointY="22.75" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK__ClosingBa__Codig__68B35D82" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.LoadingGuideAnillos_" Width="1.5" PointX="17.25" PointY="25.875" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK__LoadingGu__Codig__6D78129F" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_MANGA_PVD_ACERO_CARBON" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_MANGA_PVD_ACERO_INOXIDABLE" Width="1.5" PointX="2.75" PointY="0.75" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.fk_Clasificacion_MaestroHerramentales1" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CollarSpacer_MaestroHerramentales1" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_UretanoSplitter_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_WorkCam_MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_MANGA_PVD_ACERO_CARBON" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_MANGA_PVD_ACERO_INOXIDABLE" Width="1.5" PointX="11.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
