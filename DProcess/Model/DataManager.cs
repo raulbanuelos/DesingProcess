@@ -10771,6 +10771,54 @@ namespace Model
 
         #endregion
 
+        #region Mangas PVD
+        public static void UpdateRecordsMangaPVDInoxidable(double espesorRadial, double d1)
+        {
+            SO_MangaPVDAceroInoxidable serviceManga = new SO_MangaPVDAceroInoxidable();
+
+            IList informacionBD = serviceManga.GetAll();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+                   
+                    int ID = (int)tipo.GetProperty("ID_MANGA_PVD_ACERO_INOXIDABLE").GetValue(item, null);
+                    double FACTOR = (double)tipo.GetProperty("FACTOR").GetValue(item, null);
+
+                    double A = ((d1 + 0.5) - ((2 * espesorRadial) - (FACTOR)));
+
+                    serviceManga.UpdateAceroInoxidable(ID, A);
+                }
+            }
+
+        }
+
+        public static void UpdaterecorsMangaPVDCarbon(double espesorRadial, double d1)
+        {
+            SO_MangaPVDAceroCarbon serviceManga = new SO_MangaPVDAceroCarbon();
+
+            IList informationDB = serviceManga.GetAll();
+
+            if (informationDB != null)
+            {
+                foreach (var item in informationDB)
+                {
+                    Type tipo = item.GetType();
+
+                    int ID = (int)tipo.GetProperty("ID_MANGA_PVD_ACERO_CARBON").GetValue(item, null);
+                    double FACTOR = (double)tipo.GetProperty("FACTOR").GetValue(item, null);
+
+                    double A = (((d1 + 0.5) - ((2 * espesorRadial) - (FACTOR))) - (0.5));
+
+                    serviceManga.UpdateAceroCarbon(ID, A);
+                }
+            }
+        }
+        
+        #endregion
+
         #endregion
 
         #region Métodos Genéricos

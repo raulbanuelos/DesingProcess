@@ -1394,6 +1394,7 @@ namespace View.Services.ViewModel
 
                             if (ExcelApp != null)
                                 ExcelApp.Quit();
+
                             // Retornar cuando el archivo no pertenece al formato
                             return 4;
                         }
@@ -1624,8 +1625,8 @@ namespace View.Services.ViewModel
 
                                 if (ExcelApp != null)
                                     ExcelApp.Quit();
-                                // Retornar cuando el archivo no pertenece al formato
 
+                                // Retornar cuando el archivo no pertenece al formato
                                 mensaje += "\n" + StringResources.ttlAlerta + StringResources.msgDocDifFormato;
                                 return 4;
                             }
@@ -1641,6 +1642,7 @@ namespace View.Services.ViewModel
 
                             if (ExcelApp != null)
                                 ExcelApp.Quit();
+
                             // Retornar cuando el archivo no pertenece al formato
                             return 4;
                         }
@@ -1866,6 +1868,7 @@ namespace View.Services.ViewModel
 
                             if (ExcelApp != null)
                                 ExcelApp.Quit();
+
                             // Retornar cuando el archivo no pertenece al formato
                             return 4;
                         }
@@ -2070,6 +2073,7 @@ namespace View.Services.ViewModel
 
                             if (ExcelApp != null)
                                 ExcelApp.Quit();
+
                             // Retornar cuando el archivo no pertenece al formato
                             return 4;
                         }

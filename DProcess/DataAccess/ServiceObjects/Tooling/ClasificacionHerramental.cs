@@ -18,6 +18,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public ClasificacionHerramental()
         {
             this.MaestroHerramentales = new HashSet<MaestroHerramentales>();
+            this.MaestroHerramentales1 = new HashSet<MaestroHerramentales>();
         }
     
         public int idClasificacion { get; set; }
@@ -31,8 +32,12 @@ namespace DataAccess.ServiceObjects.Tooling
         public string ObjetoXML { get; set; }
         public string TablaDetalles { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public Nullable<bool> VerificacionAnual1 { get; set; }
+        public string ListaCotasRevisar1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MaestroHerramentales> MaestroHerramentales { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MaestroHerramentales> MaestroHerramentales1 { get; set; }
     }
 }

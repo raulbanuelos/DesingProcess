@@ -19,6 +19,8 @@ namespace DataAccess.ServiceObjects.Tooling
         public double DiaMin { get; set; }
         public double DiaMax { get; set; }
         public string TipoEnsamble { get; set; }
+        public int ID_CHUCK_SPLITTER { get; set; }
+        public int Id_Chuck1 { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }

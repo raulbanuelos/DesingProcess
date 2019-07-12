@@ -18,5 +18,6 @@ namespace DataAccess.ServiceObjects.Tooling
         public string Width { get; set; }
         public Nullable<double> A { get; set; }
         public int ident { get; set; }
+        public int Id_CriGPBK1 { get; set; }
     }
 }

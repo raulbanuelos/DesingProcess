@@ -78,5 +78,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<FrontRearCollarAnillos_> FrontRearCollarAnillos_ { get; set; }
         public virtual DbSet<ClosingBandLapeado> ClosingBandLapeado { get; set; }
         public virtual DbSet<LoadingGuideAnillos_> LoadingGuideAnillos_ { get; set; }
+        public virtual DbSet<TBL_MANGA_PVD_ACERO_CARBON> TBL_MANGA_PVD_ACERO_CARBON { get; set; }
+        public virtual DbSet<TBL_MANGA_PVD_ACERO_INOXIDABLE> TBL_MANGA_PVD_ACERO_INOXIDABLE { get; set; }
     }
 }

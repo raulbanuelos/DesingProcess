@@ -20,6 +20,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public Nullable<double> Dimencion { get; set; }
         public string Plano { get; set; }
         public int ident { get; set; }
+        public int Id_CutterCamTurn1 { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }

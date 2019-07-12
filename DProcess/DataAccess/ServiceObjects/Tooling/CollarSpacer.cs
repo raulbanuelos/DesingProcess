@@ -22,7 +22,11 @@ namespace DataAccess.ServiceObjects.Tooling
         public Nullable<double> DimE { get; set; }
         public Nullable<double> DimF { get; set; }
         public Nullable<int> ident { get; set; }
+        public string Catalogo { get; set; }
+        public int Id_CollarSpacer1 { get; set; }
+        public string Codigo1 { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
+        public virtual MaestroHerramentales MaestroHerramentales1 { get; set; }
     }
 }

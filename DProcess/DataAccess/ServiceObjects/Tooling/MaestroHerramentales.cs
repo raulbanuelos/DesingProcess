@@ -59,6 +59,7 @@ namespace DataAccess.ServiceObjects.Tooling
             this.FrontRearCollarAnillos_ = new HashSet<FrontRearCollarAnillos_>();
             this.ClosingBandLapeado = new HashSet<ClosingBandLapeado>();
             this.LoadingGuideAnillos_ = new HashSet<LoadingGuideAnillos_>();
+            this.CollarSpacer1 = new HashSet<CollarSpacer>();
         }
     
         public string Codigo { get; set; }
@@ -70,6 +71,8 @@ namespace DataAccess.ServiceObjects.Tooling
         public Nullable<bool> Activo { get; set; }
         public Nullable<int> idClasificacionHerramental { get; set; }
         public Nullable<int> idPlano { get; set; }
+        public Nullable<int> idClasificacionHerramental1 { get; set; }
+        public Nullable<int> idPlano1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UretanoSplitter> UretanoSplitter { get; set; }
@@ -158,5 +161,8 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual ICollection<ClosingBandLapeado> ClosingBandLapeado { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LoadingGuideAnillos_> LoadingGuideAnillos_ { get; set; }
+        public virtual ClasificacionHerramental ClasificacionHerramental1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CollarSpacer> CollarSpacer1 { get; set; }
     }
 }

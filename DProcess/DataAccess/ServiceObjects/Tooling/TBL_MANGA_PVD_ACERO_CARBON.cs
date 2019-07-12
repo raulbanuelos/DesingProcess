@@ -12,15 +12,12 @@ namespace DataAccess.ServiceObjects.Tooling
     using System;
     using System.Collections.Generic;
     
-    public partial class CamBK_
+    public partial class TBL_MANGA_PVD_ACERO_CARBON
     {
-        public int Id_CamBK { get; set; }
-        public string Codigo { get; set; }
-        public string Detalle { get; set; }
-        public Nullable<double> A { get; set; }
-        public Nullable<double> B { get; set; }
-        public int Id_CamBK1 { get; set; }
-    
-        public virtual MaestroHerramentales MaestroHerramentales { get; set; }
+        public int ID_MANGA_PVD_ACERO_CARBON { get; set; }
+        public double N_MIN { get; set; }
+        public double N_MAX { get; set; }
+        public double A { get; set; }
+        public Nullable<double> FACTOR { get; set; }
     }
 }
