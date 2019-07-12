@@ -78,5 +78,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<UretanoSplitter> UretanoSplitter { get; set; }
         public virtual DbSet<ClasificacionHerramental> ClasificacionHerramental { get; set; }
         public virtual DbSet<MaestroHerramentales> MaestroHerramentales { get; set; }
+        public virtual DbSet<TBL_MANGA_PVD_ACERO_CARBON> TBL_MANGA_PVD_ACERO_CARBON { get; set; }
+        public virtual DbSet<TBL_MANGA_PVD_ACERO_INOXIDABLE> TBL_MANGA_PVD_ACERO_INOXIDABLE { get; set; }
     }
 }

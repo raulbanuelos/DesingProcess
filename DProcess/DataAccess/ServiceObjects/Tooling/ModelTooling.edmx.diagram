@@ -103,6 +103,8 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_UretanoSplitter_MaestroHerramentales" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_WorkCam_MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_MANGA_PVD_ACERO_CARBON" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_MANGA_PVD_ACERO_INOXIDABLE" Width="1.5" PointX="11.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

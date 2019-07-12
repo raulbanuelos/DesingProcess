@@ -582,6 +582,26 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <Property Name="DIM_WIDTH" Type="float" />
           <Property Name="DIM_F" Type="float" />
         </EntityType>
+        <EntityType Name="TBL_MANGA_PVD_ACERO_CARBON">
+          <Key>
+            <PropertyRef Name="ID_MANGA_PVD_ACERO_CARBON" />
+          </Key>
+          <Property Name="ID_MANGA_PVD_ACERO_CARBON" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="N_MIN" Type="float" Nullable="false" />
+          <Property Name="N_MAX" Type="float" Nullable="false" />
+          <Property Name="A" Type="float" Nullable="false" />
+          <Property Name="FACTOR" Type="float" />
+        </EntityType>
+        <EntityType Name="TBL_MANGA_PVD_ACERO_INOXIDABLE">
+          <Key>
+            <PropertyRef Name="ID_MANGA_PVD_ACERO_INOXIDABLE" />
+          </Key>
+          <Property Name="ID_MANGA_PVD_ACERO_INOXIDABLE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="N_MIN" Type="float" Nullable="false" />
+          <Property Name="N_MAX" Type="float" Nullable="false" />
+          <Property Name="A" Type="float" Nullable="false" />
+          <Property Name="FACTOR" Type="float" />
+        </EntityType>
         <EntityType Name="TBL_SHIM_OF_THE_CUT_SYSTEM">
           <Key>
             <PropertyRef Name="ID_SHIM_OTCS" />
@@ -1251,6 +1271,8 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" EntityType="Self.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" EntityType="Self.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_FEED_WHEEL_RECTIFICADOS_FINOS" EntityType="Self.TBL_FEED_WHEEL_RECTIFICADOS_FINOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_MANGA_PVD_ACERO_CARBON" EntityType="Self.TBL_MANGA_PVD_ACERO_CARBON" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_MANGA_PVD_ACERO_INOXIDABLE" EntityType="Self.TBL_MANGA_PVD_ACERO_INOXIDABLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_SHIM_OF_THE_CUT_SYSTEM" EntityType="Self.TBL_SHIM_OF_THE_CUT_SYSTEM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UretanoSplitter" EntityType="Self.UretanoSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkCam" EntityType="Self.WorkCam" Schema="dbo" store:Type="Tables" />
@@ -1680,6 +1702,8 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="WorkCam" EntitySet="WorkCam" />
           </AssociationSet>
+          <EntitySet Name="TBL_MANGA_PVD_ACERO_CARBON" EntityType="DataAccess.ServiceObjects.Tooling.TBL_MANGA_PVD_ACERO_CARBON" />
+          <EntitySet Name="TBL_MANGA_PVD_ACERO_INOXIDABLE" EntityType="DataAccess.ServiceObjects.Tooling.TBL_MANGA_PVD_ACERO_INOXIDABLE" />
         </EntityContainer>
         <EntityType Name="SplitterSpacerChart">
           <Key>
@@ -2965,6 +2989,26 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_MANGA_PVD_ACERO_CARBON">
+          <Key>
+            <PropertyRef Name="ID_MANGA_PVD_ACERO_CARBON" />
+          </Key>
+          <Property Name="ID_MANGA_PVD_ACERO_CARBON" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="N_MIN" Type="Double" Nullable="false" />
+          <Property Name="N_MAX" Type="Double" Nullable="false" />
+          <Property Name="A" Type="Double" Nullable="false" />
+          <Property Name="FACTOR" Type="Double" />
+        </EntityType>
+        <EntityType Name="TBL_MANGA_PVD_ACERO_INOXIDABLE">
+          <Key>
+            <PropertyRef Name="ID_MANGA_PVD_ACERO_INOXIDABLE" />
+          </Key>
+          <Property Name="ID_MANGA_PVD_ACERO_INOXIDABLE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="N_MIN" Type="Double" Nullable="false" />
+          <Property Name="N_MAX" Type="Double" Nullable="false" />
+          <Property Name="A" Type="Double" Nullable="false" />
+          <Property Name="FACTOR" Type="Double" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3629,6 +3673,28 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
                 <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_MANGA_PVD_ACERO_CARBON">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_MANGA_PVD_ACERO_CARBON">
+              <MappingFragment StoreEntitySet="TBL_MANGA_PVD_ACERO_CARBON">
+                <ScalarProperty Name="FACTOR" ColumnName="FACTOR" />
+                <ScalarProperty Name="A" ColumnName="A" />
+                <ScalarProperty Name="N_MAX" ColumnName="N_MAX" />
+                <ScalarProperty Name="N_MIN" ColumnName="N_MIN" />
+                <ScalarProperty Name="ID_MANGA_PVD_ACERO_CARBON" ColumnName="ID_MANGA_PVD_ACERO_CARBON" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_MANGA_PVD_ACERO_INOXIDABLE">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_MANGA_PVD_ACERO_INOXIDABLE">
+              <MappingFragment StoreEntitySet="TBL_MANGA_PVD_ACERO_INOXIDABLE">
+                <ScalarProperty Name="FACTOR" ColumnName="FACTOR" />
+                <ScalarProperty Name="A" ColumnName="A" />
+                <ScalarProperty Name="N_MAX" ColumnName="N_MAX" />
+                <ScalarProperty Name="N_MIN" ColumnName="N_MIN" />
+                <ScalarProperty Name="ID_MANGA_PVD_ACERO_INOXIDABLE" ColumnName="ID_MANGA_PVD_ACERO_INOXIDABLE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

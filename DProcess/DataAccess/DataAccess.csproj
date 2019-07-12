@@ -548,6 +548,12 @@
     <Compile Include="ServiceObjects\Tooling\TBL_FEED_WHEEL_RECTIFICADOS_FINOS.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_MANGA_PVD_ACERO_CARBON.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_MANGA_PVD_ACERO_INOXIDABLE.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_SHIM_OF_THE_CUT_SYSTEM.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
