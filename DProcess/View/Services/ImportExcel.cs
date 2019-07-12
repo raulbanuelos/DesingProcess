@@ -415,7 +415,7 @@ namespace View.Services
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
                         
-                        sheet.Protect("?W3s.t7/", false, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                        sheet.Protect("?W3s.t7/", false, true, true, false, true, true, true, true, true, true, true, true, true, true, true);
                     }
 
                     ExcelApp.Visible = true;
@@ -454,7 +454,7 @@ namespace View.Services
                     // Bloqueamos las celdas para que no puedan ser modificadas por el usuario
                     foreach (Excel.Worksheet sheet in ExcelWork.Sheets)
                     {
-                        sheet.Protect("?W3s.t7/", false, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                        sheet.Protect("?W3s.t7/", false, true, true, false, true, true, true, true, true, true, true, true, true, true, true);
                     }
 
                     ExcelApp.Visible = true;
