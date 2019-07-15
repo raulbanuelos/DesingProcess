@@ -1868,4 +1868,9 @@ When saving the file, make sure it is EXCEL FILE (.XLSX)</value>
     <value>Please select at least one type of document error.</value>
     <comment>Debe seleccionar al menos 1 error para mandar a corregir.</comment>
   </data>
+  <data name="msgErrorListaFrame" xml:space="preserve">
+    <value>There was an error in the Frame's database.
+The document may not be released correctly.</value>
+    <comment>Mensaje que muestra que ha ocurrido un error al traer la lista de las áreas del frame.</comment>
+  </data>
 </root>

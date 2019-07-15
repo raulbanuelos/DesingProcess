@@ -907,6 +907,17 @@ namespace View.Services.ViewModel
                     break;
             }
 
+            string mensaje = string.Empty;
+
+            if (id_tipo == 1003 || id_tipo == 1013 || id_tipo == 1005 || id_tipo == 1012 || id_tipo == 1011 || id_tipo == 1006 || id_tipo == 1014)
+            {
+                // Comprobamos que la lista no venga en 0, de ser así mandará un mensaje de error.
+                if (ListaAreasSealed.Count == 0)
+                {
+                    mensaje = StringResources.ttlAlerta + StringResources.msgErrorListaFrame;
+                }
+            }
+
             //obtenemos el nombre del documento
             _ListaNumeroDocumento = DataManagerControlDocumentos.GetNombre_Documento(id_documento);
 
@@ -1215,7 +1226,7 @@ namespace View.Services.ViewModel
         /// <param name="mensaje"></param>
         /// <returns></returns>
         private int validarHOE(out string mensaje)
-        {    
+        {
             try
             {
                 object unknownType = Type.Missing;
@@ -1251,7 +1262,7 @@ namespace View.Services.ViewModel
                             ExcelWork.Close(unknownType, unknownType, unknownType);
 
                         if (ExcelApp != null)
-                            ExcelApp.Quit(); 
+                            ExcelApp.Quit();
 
                         return 4;
                     }
@@ -1408,7 +1419,7 @@ namespace View.Services.ViewModel
                     if (ExcelApp != null)
                         ExcelApp.Quit();
 
-                    if (ban ==2)
+                    if (ban == 2)
                         return 2;
 
                     short resPDF = excel2Pdf(pathExcel, pathPDF);
@@ -1441,7 +1452,7 @@ namespace View.Services.ViewModel
             {
                 mensaje = StringResources.msgOcurrioError;
                 return 3;
-            }            
+            }
         }
 
         /// <summary>
@@ -1690,7 +1701,7 @@ namespace View.Services.ViewModel
                 mensaje = StringResources.msgOcurrioError;
                 return 3;
             }
-            
+
         }
 
         /// <summary>
@@ -2138,7 +2149,7 @@ namespace View.Services.ViewModel
             {
                 mensaje = StringResources.msgOcurrioError;
                 return 3;
-            }            
+            }
         }
 
         private void generateQRCode(string path)
@@ -2356,9 +2367,9 @@ namespace View.Services.ViewModel
                                     string path = GetPathTempFile(TipoFormato);
                                     File.WriteAllBytes(path, TipoFormato.archivo);
                                     string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
-                                                                                      
+
                                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFormatoGCorrect);
-                                                                                   
+
                                     if (id_tipo == 1002)
                                     {
                                         ImportExcel.ExportFormatoHII(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
@@ -2377,17 +2388,17 @@ namespace View.Services.ViewModel
                                     }
                                 }
                                 else
-                                {                                                      
+                                {
                                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSelectUserAuto);
                                 }
                             }
                             else
-                            {                                                     
+                            {
                                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInDescDoc);
                             }
                         }
                         else
-                        {                                                       
+                        {
                             await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgGenerar1roVers);
                         }
                     }
@@ -2466,23 +2477,23 @@ namespace View.Services.ViewModel
                                 }
                             }
                             else
-                            {                                                      
+                            {
                                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSelectUserAuto);
                             }
                         }
                         else
-                        {                                                       
+                        {
                             await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInDescDoc);
                         }
                     }
                 }
                 else
-                {                                                       
+                {
                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSoloFormatos);
                 }
             }
             else
-            {                                                       
+            {
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSelectNumDoc);
             }
 
@@ -2749,7 +2760,7 @@ namespace View.Services.ViewModel
                     //Se asigna el id 
                     objVersion.id_version = idVersion;
                     objVersion.no_version = version;
-                                                          
+
                     //string mensaje = "Se elimina versión " + Version + ",Se regresa a versión anterior";
                     string mensaje = StringResources.msgEliminaVers + Version + StringResources.msgRegresaVers;
 
@@ -2859,7 +2870,7 @@ namespace View.Services.ViewModel
                         result = true;
                         dlg.FileName = filename;
                     }
-                    
+
                     //Se crea el objeto de tipo archivo
                     Archivo obj = new Archivo();
 
@@ -2961,7 +2972,7 @@ namespace View.Services.ViewModel
                                                 string nfilename = dlg.FileName;
                                                 string path = nfilename;
                                                 string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
-                                                
+
                                                 //Métodos para corregir los archivos
                                                 if (resp == MessageDialogResult.Affirmative)
                                                 {
@@ -3025,7 +3036,7 @@ namespace View.Services.ViewModel
                                                         // Mandar mensaje de que se adjunto un documento que no pertenece al formato
                                                         await dialog.SendMessage(StringResources.ttlAlerta, mensaje + "\n\n" + StringResources.msgDocDifFormato + "\n" + StringResources.msgCorrigeArchivo);
                                                     }
-                                                    
+
                                                 }
                                             }
                                         }
@@ -3450,7 +3461,6 @@ namespace View.Services.ViewModel
             //comprobamos que se haya seleccionado un area frames para poder insertarlo
             if ((id_areasealed == "0" || id_areasealed == "") && (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011))
             {
-
                 //si no se selecciono el area, no se libera el documento
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblInsertarAreaFrames);
             }
@@ -5646,7 +5656,7 @@ namespace View.Services.ViewModel
 
                         //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
                         int update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
-                        
+
                         if (update_version != 0)
                         {
                             await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEstatusPendienteCorregir);
