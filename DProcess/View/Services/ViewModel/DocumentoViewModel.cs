@@ -3448,8 +3448,9 @@ namespace View.Services.ViewModel
             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
             //comprobamos que se haya seleccionado un area frames para poder insertarlo
-            if (id_areasealed == "0" && (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011))
+            if ((id_areasealed == "0" || id_areasealed == "") && (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011))
             {
+
                 //si no se selecciono el area, no se libera el documento
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblInsertarAreaFrames);
             }
@@ -3558,7 +3559,7 @@ namespace View.Services.ViewModel
                                         }
                                         else
                                         {
-                                            //si falla al momento de liberar el documento se regres el estatus del documento a pendiente por aprobar
+                                            //si falla al momento de liberar el documento se regresa el estatus del documento a pendiente por aprobar
                                             objDocumento.id_estatus = 2;
                                             update_documento = DataManagerControlDocumentos.Update_EstatusDocumento(objDocumento);
 
@@ -3675,7 +3676,7 @@ namespace View.Services.ViewModel
                                             lastVersion.id_estatus_version = 1;
                                             update = DataManagerControlDocumentos.Update_EstatusVersion(lastVersion, User, nombre);
 
-                                            //si falla al momneto de liberar el documento se regresa el estatus de la version a aprobado, pendiente por liberar.
+                                            //si falla al momento de liberar el documento se regresa el estatus de la version a aprobado, pendiente por liberar.
                                             objVersion.id_estatus_version = 5;
                                             update_version = DataManagerControlDocumentos.UpdateVersion(objVersion, User, nombre);
 
