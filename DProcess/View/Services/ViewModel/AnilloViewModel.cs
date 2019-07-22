@@ -843,6 +843,10 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ObservableCollection<DO_Norma> ListaAllNormas
+        { get; set;
+        }
+
         /// <summary>
         /// Colección de tipo PinturaAnillo la cual contiene todas las franjas de pintura que tiene el anillo.
         /// </summary>
@@ -918,13 +922,20 @@ namespace View.Services.ViewModel
             AllPerfilesLateral = DataManager.GetAllPerfiles("PERFIL CARAS LATERALES");
             AllPerfilesPuntas = DataManager.GetAllPerfiles("PERFIL PUNTAS");
 
-            ListaNormas = DataManager.GetAllNormas();
-            
+            ListaAllNormas = DataManager.GetAllNormas();
         }
 
         #endregion
 
         #region Commands
+
+        public ICommand VerNormas
+        {
+            get
+            {
+                return new RelayCommand(o => verNormas());
+            }
+        }
 
         public ICommand AddOperation
         {
@@ -1416,7 +1427,7 @@ namespace View.Services.ViewModel
                         //Agregar calculo de materia prima.
 
                         if (banCalcularOperaciones)
-                            Operaciones = Router.CalcularHierroGris(ModelAnillo);
+                            Operaciones = Router.CalcularAceroSegmentosPVD(ModelAnillo);
                     }
                 }
             }
@@ -3211,6 +3222,28 @@ namespace View.Services.ViewModel
             }
             PanelPropiedadesPuntas = SetNumericEntryToStackPanel(PropiedadesPuntas, PerfilPuntas.Propiedades); 
             #endregion
+        }
+
+        private void verNormas()
+        {
+            int x = ListaAllNormas.Count;
+
+            WSelectNorma ventana = new WSelectNorma();
+
+            ventana.DataContext = this;
+
+            ventana.ShowDialog();
+
+            ListaNormas = new ObservableCollection<DO_Norma>();
+
+            foreach (var norma in ListaAllNormas)
+            {
+                if (norma.IsSelected)
+                    ListaNormas.Add(norma);
+            }
+
+            ListaNormas = ListaNormas;
+
         }
         #endregion
     }

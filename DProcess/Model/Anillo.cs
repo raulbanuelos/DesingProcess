@@ -170,6 +170,8 @@ namespace Model
         public ObservableCollection<PinturaAnillo> FranjasPintura { get; set; } //Falta agregar la tabla para ir guardando los datos
         
         public ObservableCollection<DO_Norma> ListaNormas { get; set; }
+
+        public ObservableCollection<DO_Norma> ListaAllNormas { get; set; }
         #endregion
 
         #region Constructores
@@ -212,6 +214,8 @@ namespace Model
             FranjasPintura = new ObservableCollection<PinturaAnillo>();
             OvalityMax = new Propiedad();
             OvalityMin = new Propiedad();
+            ListaNormas = new ObservableCollection<DO_Norma>();
+            ListaAllNormas = new ObservableCollection<DO_Norma>();
         }
         #endregion
 

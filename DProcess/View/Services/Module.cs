@@ -1344,5 +1344,16 @@ namespace View.Services
             string[] correosfiltrados = correos.Distinct().ToArray();
             return correosfiltrados;
         }        
+
+        /// <summary>
+        /// Método que busca si una norma esta seleccionada.
+        /// </summary>
+        /// <param name="ListaNormas"></param>
+        /// <param name="norma"></param>
+        /// <returns></returns>
+        public static bool IsNormaSelected(ObservableCollection<DO_Norma> ListaNormas, string norma)
+        {
+            return ListaNormas.Where(o => o.especificacion == norma && o.IsSelected == true).ToList().Count > 0 ? true : false;
+        }
     }
 }

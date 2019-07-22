@@ -5227,7 +5227,8 @@ namespace View.Services.ViewModel
                             int eliminoFrames = 0;
 
                             //Mandamos llamar el metodo que elimina el registro de la base de datos
-                            eliminoFrames = DeleteDocumentoSealed(out banEliminarFrames);
+                            //eliminoFrames = DeleteDocumentoSealed(out banEliminarFrames);
+                            banEliminarFrames = true;
 
                             string confirmacionFrames = string.Empty;
 
