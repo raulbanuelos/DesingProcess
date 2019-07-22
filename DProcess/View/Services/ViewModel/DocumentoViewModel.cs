@@ -4719,7 +4719,7 @@ namespace View.Services.ViewModel
             {   //Si es documneto de tipo especifico o formato
                 if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
                 {
-                    string path = @"\\sealed\documents__";
+                    string path = @"\\MXAGSQLSRV01\documents__";
                     //Switch del tipo de documento
                     switch (id_tipo)
                     {
