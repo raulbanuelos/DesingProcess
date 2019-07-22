@@ -44,6 +44,7 @@
     <Reference Include="Encriptar">
       <HintPath>..\..\..\..\..\Documents\DesingProcess\View\bin\Debug\Encriptar.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <Reference Include="Spring.Core, Version=2.0.1.45000, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
       <HintPath>..\packages\Spring.Core.2.0.1\lib\net45\Spring.Core.dll</HintPath>
       <Private>True</Private>
@@ -89,6 +90,7 @@
     <Compile Include="ControlDocumentos\ValidacionDocumento.cs" />
     <Compile Include="ControlDocumentos\Version.cs" />
     <Compile Include="CorteNISSEI.cs" />
+    <Compile Include="CriteriosSegmentos.cs" />
     <Compile Include="Cuffs.cs" />
     <Compile Include="DataManager.cs" />
     <Compile Include="DO_DocumentosRechazados.cs" />
@@ -113,6 +115,7 @@
     <Compile Include="MaestroHerramental.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="MateriaPrima.cs" />
+    <Compile Include="MateriaPrimaAceros.cs" />
     <Compile Include="MateriaPrimaRolado.cs" />
     <Compile Include="MoutingDia.cs" />
     <Compile Include="MoutingWidth.cs" />

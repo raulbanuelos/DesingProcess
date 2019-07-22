@@ -127,25 +127,5 @@ namespace DataAccess.ServiceObjects.Tooling
                 throw;
             }
         }
-
-        //
-        double EspesorRadial = 2.1717;
-        double DiametroComponente = 88.9;
-        public double CalculoHerramentalCarbonInoxidable(double EspesorRadial, double DiametroComponente)
-        {
-            try
-            {
-                double A = 0;
-                            
-                A = (((DiametroComponente + 0.5) - ((2 * EspesorRadial) - (1.778))) - (0.5));
-
-                return A;
-            }
-            catch (Exception)
-            {
-                return 0;
-            }
-            
-        }
     }
 }

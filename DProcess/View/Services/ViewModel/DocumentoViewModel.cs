@@ -911,7 +911,7 @@ namespace View.Services.ViewModel
 
             if (id_tipo == 1003 || id_tipo == 1013 || id_tipo == 1005 || id_tipo == 1012 || id_tipo == 1011 || id_tipo == 1006 || id_tipo == 1014)
             {
-                // Comprobamos que la lista no venga en 0, de ser así mandará un mensaje de error.
+                // Comprobamos que la lista venga en 0, de ser así mandará un mensaje de error.
                 if (ListaAreasSealed.Count == 0)
                 {
                     mensaje = StringResources.ttlAlerta + StringResources.msgErrorListaFrame;

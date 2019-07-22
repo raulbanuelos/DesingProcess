@@ -234,17 +234,30 @@ namespace DProcess.Model.Test
 
         //}
 
+        //[TestMethod]
+        //public void updateMangaAceroInoxidable()
+        //{
+        //    DataManager.UpdateRecordsMangaPVDInoxidable(1, 3);
+        //}
+
+        //[TestMethod]
+        //public void updateMangaAceroCarbon()
+        //{
+        //    DataManager.UpdaterecorsMangaPVDCarbon(1, 3);
+        //}
+
         [TestMethod]
-        public void updateMangaAceroInoxidable()
+        public void CriteriosSegmentos()
         {
-            DataManager.UpdateRecordsMangaPVDInoxidable(3, 90);
+            DataManager.GetCriteriosSegmentos();
         }
 
-        public void updateMangaAceroCarbon()
+        [TestMethod]
+        public void MateriaPrimaPVD()
         {
-            DataManager.UpdaterecorsMangaPVDCarbon(3, 90);
+            DataManager.GetMateriaPrimaPVD(0.018, 0.0925, .1125, 0);
         }
-        
+
         //[TestMethod]
         //public void SendEmailWithImage()
         //{

@@ -162,6 +162,9 @@
     <Compile Include="ServiceObjects\MateriasPrimas\castings_widths.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\CAT_MATERIA_PRIMA_ACEROS.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\MateriasPrimas\CAT_MATERIA_PRIMA_ROLADO.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
@@ -172,6 +175,9 @@
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\MateriasPrimas\Compensacion_Piece.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\CriteriosSegmentos_.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\MateriasPrimas\cuffs.cs">
@@ -210,9 +216,11 @@
     <Compile Include="ServiceObjects\MateriasPrimas\patt_actualizaciones.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\SO_CatMateriaPrimaAceros.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Cliente.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Coating.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_CompesacionPiece.cs" />
+    <Compile Include="ServiceObjects\MateriasPrimas\SO_CriteriosSegmentos_.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Cuffs.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Especificaciones.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_MateriaPrimaRolado.cs" />

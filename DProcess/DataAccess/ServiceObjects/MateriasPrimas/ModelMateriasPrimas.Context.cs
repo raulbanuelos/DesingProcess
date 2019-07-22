@@ -26,20 +26,22 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         }
     
         public virtual DbSet<Cliente> Cliente { get; set; }
-        public virtual DbSet<patt_actualizaciones> patt_actualizaciones { get; set; }
         public virtual DbSet<Pattern2> Pattern2 { get; set; }
         public virtual DbSet<Tipo_Materia_Prima> Tipo_Materia_Prima { get; set; }
         public virtual DbSet<cuffs> cuffs { get; set; }
-        public virtual DbSet<TubosCL> TubosCL { get; set; }
-        public virtual DbSet<TubosHD> TubosHD { get; set; }
         public virtual DbSet<material> material { get; set; }
         public virtual DbSet<Esp_MP_Anillos> Esp_MP_Anillos { get; set; }
         public virtual DbSet<Coating> Coating { get; set; }
         public virtual DbSet<castings_widths> castings_widths { get; set; }
-        public virtual DbSet<Compensacion_Piece> Compensacion_Piece { get; set; }
         public virtual DbSet<Tipo_Anillo> Tipo_Anillo { get; set; }
+        public virtual DbSet<CAT_MATERIA_PRIMA_ROLADO> CAT_MATERIA_PRIMA_ROLADO { get; set; }
+        public virtual DbSet<patt_actualizaciones> patt_actualizaciones { get; set; }
+        public virtual DbSet<TubosCL> TubosCL { get; set; }
+        public virtual DbSet<TubosHD> TubosHD { get; set; }
+        public virtual DbSet<Compensacion_Piece> Compensacion_Piece { get; set; }
+        public virtual DbSet<CAT_MATERIA_PRIMA_ACEROS> CAT_MATERIA_PRIMA_ACEROS { get; set; }
         public virtual DbSet<MoutingDia> MoutingDia { get; set; }
         public virtual DbSet<MoutingWidth> MoutingWidth { get; set; }
-        public virtual DbSet<CAT_MATERIA_PRIMA_ROLADO> CAT_MATERIA_PRIMA_ROLADO { get; set; }
+        public virtual DbSet<CriteriosSegmentos_> CriteriosSegmentos_ { get; set; }
     }
 }

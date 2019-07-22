@@ -69,8 +69,8 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         public Nullable<bool> Diseno { get; set; }
     
         public virtual Cliente Cliente { get; set; }
+        public virtual Tipo_Materia_Prima Tipo_Materia_Prima { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<patt_actualizaciones> patt_actualizaciones { get; set; }
-        public virtual Tipo_Materia_Prima Tipo_Materia_Prima { get; set; }
     }
 }
