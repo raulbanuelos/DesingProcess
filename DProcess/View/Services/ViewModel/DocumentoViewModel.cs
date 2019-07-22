@@ -861,51 +861,51 @@ namespace View.Services.ViewModel
             ListaAreasSealed = new ObservableCollection<FO_Item>();
 
             //Llenamos la lista de las áreas y si es una versión superior a 1, obtenemos el área a la cual esta asignada en el sistema frames.
-            switch (id_tipo)
-            {
-                case 1003:
-                case 1013:
-                    ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasOHSAS();
-                    if (!Module.IsNumeric(Version) || (Module.IsNumeric(Version) && Convert.ToInt32(Version) > 1))
-                    {
-                        id_areasealed = DataManagerControlDocumentos.GetIdAreaOHSAS(Nombre);
-                    }
-                    else
-                    {
-                        id_areasealed = "0";
-                    }
-                    break;
+            //switch (id_tipo)
+            //{
+            //    case 1003:
+            //    case 1013:
+            //        ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasOHSAS();
+            //        if (!Module.IsNumeric(Version) || (Module.IsNumeric(Version) && Convert.ToInt32(Version) > 1))
+            //        {
+            //            id_areasealed = DataManagerControlDocumentos.GetIdAreaOHSAS(Nombre);
+            //        }
+            //        else
+            //        {
+            //            id_areasealed = "0";
+            //        }
+            //        break;
 
-                case 1005:
-                case 1012:
-                case 1011:
-                    ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasEspecifico();
-                    if (!Module.IsNumeric(Version) || (Module.IsNumeric(Version) && Convert.ToInt32(Version) > 1))
-                    {
-                        id_areasealed = DataManagerControlDocumentos.GetIdAreaEspecifico(Nombre);
-                    }
-                    else
-                    {
-                        id_areasealed = "0";
-                    }
-                    break;
+            //    case 1005:
+            //    case 1012:
+            //    case 1011:
+            //        ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasEspecifico();
+            //        if (!Module.IsNumeric(Version) || (Module.IsNumeric(Version) && Convert.ToInt32(Version) > 1))
+            //        {
+            //            id_areasealed = DataManagerControlDocumentos.GetIdAreaEspecifico(Nombre);
+            //        }
+            //        else
+            //        {
+            //            id_areasealed = "0";
+            //        }
+            //        break;
 
-                case 1006:
-                case 1014:
-                    ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasISO();
-                    if (!Module.IsNumeric(Version) || (Module.IsNumeric(Version) && Convert.ToInt32(Version) > 1))
-                    {
-                        id_areasealed = DataManagerControlDocumentos.GetIdAreaISO(Nombre);
-                    }
-                    else
-                    {
-                        id_areasealed = "0";
-                    }
-                    break;
+            //    case 1006:
+            //    case 1014:
+            //        ListaAreasSealed = DataManagerControlDocumentos.GetAllAreasISO();
+            //        if (!Module.IsNumeric(Version) || (Module.IsNumeric(Version) && Convert.ToInt32(Version) > 1))
+            //        {
+            //            id_areasealed = DataManagerControlDocumentos.GetIdAreaISO(Nombre);
+            //        }
+            //        else
+            //        {
+            //            id_areasealed = "0";
+            //        }
+            //        break;
 
-                default:
-                    break;
-            }
+            //    default:
+            //        break;
+            //}
 
             //obtenemos el nombre del documento
             _ListaNumeroDocumento = DataManagerControlDocumentos.GetNombre_Documento(id_documento);
@@ -3447,10 +3447,11 @@ namespace View.Services.ViewModel
             //Obtenemos la ventana actual
             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
+            //TO DO
+            id_areasealed = "";
             //comprobamos que se haya seleccionado un area frames para poder insertarlo
-            if ((id_areasealed == "0" || id_areasealed == "") && (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011))
+            if (id_areasealed == "0"  && (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011))
             {
-
                 //si no se selecciono el area, no se libera el documento
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblInsertarAreaFrames);
             }
@@ -3511,7 +3512,9 @@ namespace View.Services.ViewModel
 
                                         if (file == null)
                                         {
-                                            int r = InsertDocumentoSealed();
+                                            //int r = InsertDocumentoSealed();
+                                            //Se modifica esta línea debido a que cambiaron la contraseña del servidor del frames.
+                                            int r = 1;
                                             string confirmacionFrames = r > 0 ? StringResources.msgFramesExito : StringResources.msgFramesIncorrecto;
                                             string confirmacionCorreo = string.Empty;
 
@@ -3631,7 +3634,9 @@ namespace View.Services.ViewModel
 
                                         if (file == null)
                                         {
-                                            int r = UpdateDocumentoSealed();
+                                            //int r = UpdateDocumentoSealed();
+                                            //Se modifica esta línea debido a que cambiaron la contraseña del servidor del frames.
+                                            int r = 1;
 
                                             //Si los registros fueron guardados exitosamente el archivo que queda como obsoleto se pasa a la carpeta de respaldo y se elimina de la base de datos
                                             _LiberarEspacioBD(last_id);
@@ -3726,25 +3731,25 @@ namespace View.Services.ViewModel
             string title = "Actualización de documento - " + Nombre;
             string body = string.Empty;
             string tipo_documento = string.Empty;
-            string AreaFrames = string.Empty;
+            //string AreaFrames = string.Empty;
 
-            switch (id_tipo)
-            {
-                case 1003:
-                case 1013:
-                    AreaFrames = DataManagerControlDocumentos.GetNombreAreaOHSAS(Convert.ToInt32(id_areasealed));
-                    break;
-                case 1014:
-                case 1006:
-                    AreaFrames = DataManagerControlDocumentos.GetNombreAreaISO(Convert.ToInt32(id_areasealed));
-                    break;
-                case 1005:
-                case 1012:
-                    AreaFrames = DataManagerControlDocumentos.GetNombreAreaESPECIFICOS(Convert.ToInt32(id_areasealed));
-                    break;
-                default:
-                    break;
-            }
+            //switch (id_tipo)
+            //{
+            //    case 1003:
+            //    case 1013:
+            //        AreaFrames = DataManagerControlDocumentos.GetNombreAreaOHSAS(Convert.ToInt32(id_areasealed));
+            //        break;
+            //    case 1014:
+            //    case 1006:
+            //        AreaFrames = DataManagerControlDocumentos.GetNombreAreaISO(Convert.ToInt32(id_areasealed));
+            //        break;
+            //    case 1005:
+            //    case 1012:
+            //        AreaFrames = DataManagerControlDocumentos.GetNombreAreaESPECIFICOS(Convert.ToInt32(id_areasealed));
+            //        break;
+            //    default:
+            //        break;
+            //}
 
             switch (id_tipo)
             {
@@ -3775,7 +3780,7 @@ namespace View.Services.ViewModel
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + Nombre + "</b></font></li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Descripción : <b>" + Descripcion + "</b></font></li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Versión : <b>" + Version + ".0" + "</b></font></li>";
-            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Área del Frames en donde se inserto : <b>" + AreaFrames + "</b></font></li>";
+            //body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Área del Frames en donde se inserto : <b>" + AreaFrames + "</b></font></li>";
             body += "</ul>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
             body += "<br/>";
@@ -4034,7 +4039,7 @@ namespace View.Services.ViewModel
         private bool NotificarNuevaVersion()
         {
             ServiceEmail SO_Email = new ServiceEmail();
-            string AreaFrames = string.Empty;
+            //string AreaFrames = string.Empty;
 
             //obtenemos los correos de la vista FRMListaDocumentos
             string[] correos = new string[ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count];
@@ -4056,23 +4061,23 @@ namespace View.Services.ViewModel
             string tipo_documento = string.Empty;
 
             //obtenemos el tipo de documento
-            switch (id_tipo)
-            {
-                case 1003:
-                case 1013:
-                    AreaFrames = DataManagerControlDocumentos.GetNombreAreaOHSAS(Convert.ToInt32(id_areasealed));
-                    break;
-                case 1014:
-                case 1006:
-                    AreaFrames = DataManagerControlDocumentos.GetNombreAreaISO(Convert.ToInt32(id_areasealed));
-                    break;
-                case 1005:
-                case 1012:
-                    AreaFrames = DataManagerControlDocumentos.GetNombreAreaESPECIFICOS(Convert.ToInt32(id_areasealed));
-                    break;
-                default:
-                    break;
-            }
+            //switch (id_tipo)
+            //{
+            //    case 1003:
+            //    case 1013:
+            //        AreaFrames = DataManagerControlDocumentos.GetNombreAreaOHSAS(Convert.ToInt32(id_areasealed));
+            //        break;
+            //    case 1014:
+            //    case 1006:
+            //        AreaFrames = DataManagerControlDocumentos.GetNombreAreaISO(Convert.ToInt32(id_areasealed));
+            //        break;
+            //    case 1005:
+            //    case 1012:
+            //        AreaFrames = DataManagerControlDocumentos.GetNombreAreaESPECIFICOS(Convert.ToInt32(id_areasealed));
+            //        break;
+            //    default:
+            //        break;
+            //}
             switch (id_tipo)
             {
                 case 1003:
@@ -4102,7 +4107,7 @@ namespace View.Services.ViewModel
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + Nombre + "</b></font></li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Descripción : <b>" + Descripcion + "</b></font></li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Versión : <b>" + Version + ".0" + "</b></font></li>";
-            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Área del Frames en donde se inserto : <b>" + AreaFrames + "</b></font></li>";
+            //body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Área del Frames en donde se inserto : <b>" + AreaFrames + "</b></font></li>";
             body += "</ul>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">NOTA: Si este documento sustituye a algún otro, favor de notificarme para realizar la baja correspondiente.</font> </p>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
