@@ -2663,6 +2663,16 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a There was an error in the Frame&apos;s database.
+        ///The document may not be released correctly..
+        /// </summary>
+        public static string msgErrorListaFrame {
+            get {
+                return ResourceManager.GetString("msgErrorListaFrame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Error to save the tooling master.
         /// </summary>
         public static string msgErrorMaestroHerramental {

@@ -1866,4 +1866,9 @@ Al momento de guardar el archivo, asegurate de que sea ARCHIVO DE EXCEL (.XLSX)<
     <value>Por favor selecciona al menos un tipo de error del documento.</value>
     <comment>Debe seleccionar al menos 1 error para mandar a corregir.</comment>
   </data>
+  <data name="msgErrorListaFrame" xml:space="preserve">
+    <value>Hubo un error en la base de datos del Frame.
+El documento podría no liberarse correctamente.</value>
+    <comment>Mensaje que muestra que ha ocurrido un error al traer la lista de las áreas del frame.</comment>
+  </data>
 </root>
