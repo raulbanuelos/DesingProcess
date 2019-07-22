@@ -91,7 +91,7 @@
                             </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button Content="..." Width="45" HorizontalAlignment="Right"></Button>
+                    <Button Content="..." Width="45" HorizontalAlignment="Right" Command="{Binding VerNormas}"></Button>
                 </StackPanel>
                 
                 

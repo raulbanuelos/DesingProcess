@@ -139,9 +139,19 @@ namespace View.Services.Operaciones.Segmentos
             //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
 
-            double diaBobinado = 0;
-            double pesoAlambre = 0;
+            double thicknessMin = Module.GetValorPropiedadMin("a1", elPlano.PerfilID.Propiedades, true);
+            double thicknessMax = Module.GetValorPropiedadMax("a1", elPlano.PerfilID.Propiedades, true);
+            
+            double diaBobinado = elPlano.D1.Valor;
+            double pesoAlambre = (elPlano.D1.Valor)*(Math.PI) * (elPlano.H1.Valor) * (((thicknessMin + thicknessMax) / 2)) * (128.5);
 
+            //Obtenemos las medidas de la materia prima.
+            double espesorAxialMP = 0;
+            double espesorRadialMP = 0;
+
+            espesorAxialMP = Module.GetValorPropiedad("espesorAxialMP", ListaMateriaPrima[0].Propiedades);
+            espesorRadialMP = Module.GetValorPropiedad("espesorRadialMP", ListaMateriaPrima[0].Propiedades);
+            
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "*BOBINADO" + Environment.NewLine;
             TextoProceso += "LONG DE LA BOBINA 6.330-.000+.072" + Environment.NewLine;
@@ -152,11 +162,24 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso += "PESO ALAMBRE  " + pesoAlambre + Environment.NewLine;
             TextoProceso += "ESPESOR 0.0169MAX. DEBIDO AL PROCESO" + Environment.NewLine;
             TextoProceso += "MEDIDA DEL ALAMBRE REF." + Environment.NewLine;
-            TextoProceso += "0.018	+/- 0.0003		0.018	+/-0.0017" + Environment.NewLine;
-            TextoProceso += "CODIGO ALMACEN: " + Environment.NewLine;
-            TextoProceso += "HELICE: HACER PRUEBA DE PLACAS PARALELAS" + Environment.NewLine;
-            TextoProceso += "CON UN SEPARADOR DE  " + Environment.NewLine;
-            TextoProceso += "DISH:  " + Environment.NewLine;
+            TextoProceso += "" + espesorAxialMP + "	+/- 0.0003		"+ espesorRadialMP +"	+/-0.0017" + Environment.NewLine;
+            TextoProceso += "CODIGO ALMACEN: " + ListaMateriaPrima[0].Codigo + Environment.NewLine;
+            
+            if (Module.IsNormaSelected(elPlano.ListaNormas, "ES-349-1"))
+            {
+                double separador = espesorAxialMP + .002;
+                TextoProceso += "HELICE: HACER PRUEBA DE PLACAS PARALELAS" + Environment.NewLine;
+                TextoProceso += "CON UN SEPARADOR DE  " + separador + Environment.NewLine;
+            }
+
+            if (Module.IsNormaSelected(elPlano.ListaNormas, "ES-349-2"))
+            {
+                double gra = (Math.PI / 180) * 1;
+                double senogrados = Math.Sin(gra);
+                double dish = Math.Round(senogrados * diaBobinado, 4);
+                TextoProceso += "DISH: " + dish + " MAX" + Environment.NewLine;
+            }
+            
             TextoProceso += "APARENCIA: SIN GOLPES EN EL DIAMETRO" + Environment.NewLine;
             TextoProceso += "EXTERIOR" + Environment.NewLine;
             

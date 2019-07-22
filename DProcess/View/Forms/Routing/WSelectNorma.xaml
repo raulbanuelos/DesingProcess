@@ -1,0 +1,48 @@
+﻿<Controls:MetroWindow x:Class="View.Forms.Routing.WSelectNorma"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:recursos="clr-namespace:View.Resources"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Forms.Routing"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Title="WSelectNorma" Height="500" Width="450">
+    <Grid Margin="5" ShowGridLines="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Row="0">
+            <DataGrid Margin="5" 
+                          ItemsSource="{Binding ListaAllNormas}" 
+                          ScrollViewer.CanContentScroll="True" 
+                          ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                          CanUserAddRows="False" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            Header=""
+                                            Binding="{Binding IsSelected}" IsReadOnly="False"
+                                            />
+                    <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNombre}" Binding="{Binding especificacion}">
+
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="{x:Static recursos:StringResources.lblDescripcion}" Binding="{Binding descripcionCorta}">
+
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <Button Margin="5">Aceptar</Button>
+            <Button Margin="5">Cancelar</Button>
+        </StackPanel>
+        
+    </Grid>
+</Controls:MetroWindow>

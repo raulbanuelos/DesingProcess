@@ -34,7 +34,7 @@
     <SuiteName>Diseño del proceso</SuiteName>
     <MinimumRequiredVersion>2.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -378,6 +378,9 @@
     </Compile>
     <Compile Include="Forms\Routing\WSelectComponent.xaml.cs">
       <DependentUpon>WSelectComponent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Routing\WSelectNorma.xaml.cs">
+      <DependentUpon>WSelectNorma.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Routing\WSelectPerfil.xaml.cs">
       <DependentUpon>WSelectPerfil.xaml</DependentUpon>
@@ -1209,6 +1212,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Routing\WSelectComponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Routing\WSelectNorma.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
