@@ -1,0 +1,48 @@
+﻿<Controls:MetroWindow x:Class="View.Forms.RawMaterial.frmSelectIronRailsRawMaterial"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Forms.RawMaterial"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" BorderThickness="1" BorderBrush="Blue"
+        xmlns:recursos="clr-namespace:View.Resources"          
+        Title="frmSelectIronRawMaterial" Height="300" Width="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="94*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="70*"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <DataGrid ItemsSource="{Binding ListaIronRailRawMaterial}" 
+                                      ScrollViewer.CanContentScroll="True" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                              AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            Header="{x:Static recursos:StringResources.lblSeleccionar}"
+                                            Binding="{Binding IsSelected}"/>
+                    <DataGridTextColumn Header="{x:Static recursos:StringResources.lblCodigo}" IsReadOnly="True" Binding="{Binding Codigo}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{x:Static recursos:StringResources.lblDescripcion}" IsReadOnly="True" Binding="{Binding DescripcionGeneral}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="ESPESOR AXIAL" IsReadOnly="True" Binding="{Binding ESP_AXIAL}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="ESPESOR RADIAL" IsReadOnly="True" Binding="{Binding ESP_RADIAL}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="btn_ok" Click="btn_ok_Click" Content="{x:Static recursos:StringResources.lblAceptar}" Width="90" Margin="5" Command="{Binding CancelarSelectionIronRawMaterial}"></Button>
+            <Button Content="{x:Static recursos:StringResources.msgCancelar}" Width="90" Command="{Binding AceptarSelectionIronRawMaterial}" IsCancel="True"></Button>
+        </StackPanel>
+
+    </Grid>
+</Controls:MetroWindow>

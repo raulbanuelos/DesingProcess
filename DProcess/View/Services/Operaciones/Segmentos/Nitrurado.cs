@@ -139,11 +139,17 @@ namespace View.Services.Operaciones.Segmentos
             //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
 
+            double nitruradoMin = 0;
+            double nitruradoMax = 0;
+            double hardnessMin = 0;
+            double hardnessMax = 0;
+            double hardnessDPH = 0;
+
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "*NITRURADO" + Environment.NewLine;
-            TextoProceso += "DIFUSION LAYER THICKNESS " + Environment.NewLine;
+            TextoProceso += "DIFUSION LAYER THICKNESS " + nitruradoMin + " - " + nitruradoMax + "" + Environment.NewLine;
             TextoProceso += "CONSIDERAR DIAMETRO EXT. E INT." + Environment.NewLine;
-            TextoProceso += "HARDNESS " + "" + " DPH HV " + Environment.NewLine;
+            TextoProceso += "HARDNESS " + hardnessMin + " - " + hardnessMax + " DPH HV " + hardnessDPH + "" + Environment.NewLine;
             TextoProceso += "WHITE LAYER " + "" + " MAX " + Environment.NewLine;
             TextoProceso += "EL SEGMENTO NO DEBERA ROMPERSE A" + Environment.NewLine;
             TextoProceso += "180 GRADOS EN LA PRUEBA DE TWIST" + Environment.NewLine;

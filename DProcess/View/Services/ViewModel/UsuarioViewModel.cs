@@ -421,25 +421,20 @@ namespace View.Services.ViewModel
 
             //WPropiedadesNumeric ventana = new WPropiedadesNumeric();
             //ventana.DataContext = new PropiedadViewModel(true);
-
             //ventana.ShowDialog();
 
             //WPropiedadesBool Form = new WPropiedadesBool();
             //Form.DataContext = new PropiedadBoolViewModel(true);
-
             //Form.ShowDialog();
 
             //WPropiedadesCadena Form = new WPropiedadesCadena();
             //Form.DataContext = new PropiedadCadenaViewModel(true);
-
             //Form.ShowDialog();
 
             WViewAllPerfiles ventana = new WViewAllPerfiles();
             PerfilViewModel vmPerfil = new PerfilViewModel();
             ventana.DataContext = vmPerfil;
-
             ventana.ShowDialog();
-
 
         }
 

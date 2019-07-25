@@ -334,6 +334,9 @@
     <Compile Include="Forms\RawMaterial\CatMateriaPrimaRolado.xaml.cs">
       <DependentUpon>CatMateriaPrimaRolado.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RawMaterial\frmSelectIronRailsRawMaterial.xaml.cs">
+      <DependentUpon>frmSelectIronRailsRawMaterial.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RawMaterial\frmSelectIronRawMaterial.xaml.cs">
       <DependentUpon>frmSelectIronRawMaterial.xaml</DependentUpon>
     </Compile>
@@ -1152,6 +1155,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\RawMaterial\CatMateriaPrimaRolado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\RawMaterial\frmSelectIronRailsRawMaterial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
