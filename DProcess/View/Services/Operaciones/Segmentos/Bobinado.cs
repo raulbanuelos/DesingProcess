@@ -136,6 +136,9 @@ namespace View.Services.Operaciones.Segmentos
         /// <param name="elPlano">Anillo que representa el plano que ingresó el usuario.</param>
         public void CrearOperacion(Anillo ElAnilloProcesado, Anillo elPlano)
         {
+            //Agregamos la materia prima.
+            ListaMateriaPrima.Add(elPlano.MaterialBase);
+
             //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
 
@@ -143,14 +146,14 @@ namespace View.Services.Operaciones.Segmentos
             double thicknessMax = Module.GetValorPropiedadMax("a1", elPlano.PerfilID.Propiedades, true);
             
             double diaBobinado = elPlano.D1.Valor;
-            double pesoAlambre = (elPlano.D1.Valor)*(Math.PI) * (elPlano.H1.Valor) * (((thicknessMin + thicknessMax) / 2)) * (128.5);
+            double pesoAlambre = Math.Round((elPlano.D1.Valor)*(Math.PI) * (elPlano.H1.Valor) * (((thicknessMin + thicknessMax) / 2)) * (128.5),2);
 
             //Obtenemos las medidas de la materia prima.
             double espesorAxialMP = 0;
             double espesorRadialMP = 0;
-
-            espesorAxialMP = Module.GetValorPropiedad("espesorAxialMP", ListaMateriaPrima[0].Propiedades);
-            espesorRadialMP = Module.GetValorPropiedad("espesorRadialMP", ListaMateriaPrima[0].Propiedades);
+            
+            espesorAxialMP = Module.GetValorPropiedad("espesorAxialMP", elPlano.MaterialBase.Propiedades);
+            espesorRadialMP = Module.GetValorPropiedad("espesorRadialMP", elPlano.MaterialBase.Propiedades);
             
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "*BOBINADO" + Environment.NewLine;
@@ -163,7 +166,7 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso += "ESPESOR 0.0169MAX. DEBIDO AL PROCESO" + Environment.NewLine;
             TextoProceso += "MEDIDA DEL ALAMBRE REF." + Environment.NewLine;
             TextoProceso += "" + espesorAxialMP + "	+/- 0.0003		"+ espesorRadialMP +"	+/-0.0017" + Environment.NewLine;
-            TextoProceso += "CODIGO ALMACEN: " + ListaMateriaPrima[0].Codigo + Environment.NewLine;
+            TextoProceso += "CODIGO ALMACEN: " + elPlano.MaterialBase.Codigo + Environment.NewLine;
             
             if (Module.IsNormaSelected(elPlano.ListaNormas, "ES-349-1"))
             {

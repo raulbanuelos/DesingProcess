@@ -12657,7 +12657,7 @@ namespace Model
         /// Método que obtiene todos los registros de la tabla CAT_MATERIA_PRIMA_ACEROS
         /// </summary>
         /// <returns></returns>
-        public static ObservableCollection<MateriaPrimaAceros> GetMateriaPrimaPVD(double h1, double a1Min, double a1Max, double quita_scotch)
+        public static ObservableCollection<MateriaPrimaAceros> GetMateriaPrimaPVD(double h1, double a1Min, double a1Max, double quita_scotch, string espec_mp)
         {
             CriteriosSegmentos Criterio = GetCriteriosSegmentos();
             //Inicializamos los servicios
@@ -12667,7 +12667,7 @@ namespace Model
             ObservableCollection<MateriaPrimaAceros> Lista = new ObservableCollection<MateriaPrimaAceros>();
 
             //Ejecutamos el método para obtener la información de la base de datos
-            IList GetMateriaPrimaPVD = ServiceMateriaPrima.GetMateriaPrimaPVD(h1, Criterio.MPAxialWidthMinPVD, Criterio.MPAxialWidthMaxPVD, a1Min, a1Max, Criterio.MPRadialThickMinPVD, Criterio.MPRadialThickMaxPVD, quita_scotch);
+            IList GetMateriaPrimaPVD = ServiceMateriaPrima.GetMateriaPrimaPVD(h1, Criterio.MPAxialWidthMinPVD, Criterio.MPAxialWidthMaxPVD, a1Min, a1Max, Criterio.MPRadialThickMinPVD, Criterio.MPRadialThickMaxPVD, quita_scotch, espec_mp);
 
             //Verificamos que la información de base de datos sea difeente a nulo
             if (GetMateriaPrimaPVD != null)
@@ -13726,11 +13726,48 @@ namespace Model
                     propiedad.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
                     propiedad.TipoDato = (string)tipo.GetProperty("TIPO_DATO").GetValue(item, null);
 
-                    if (isMilimeter)
-                        propiedad.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter);
-                    else
-                        propiedad.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+                    if (propiedad.TipoDato == EnumEx.GetEnumDescription(TipoDato.Distance))
+                    {
+                        if (isMilimeter)
+                            propiedad.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter);
+                        else
+                            propiedad.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+                    }
 
+                    if (propiedad.TipoDato == EnumEx.GetEnumDescription(TipoDato.Dureza))
+                    {
+                        propiedad.Unidad = EnumEx.GetEnumDescription(UnidadDureza.RC);
+                    }
+
+                    if (propiedad.TipoDato == EnumEx.GetEnumDescription(TipoDato.Angle))
+                    {
+                        propiedad.Unidad = EnumEx.GetEnumDescription(UnidadAngle.Minute);
+                    }
+
+                    if (propiedad.TipoDato == EnumEx.GetEnumDescription(TipoDato.Cantidad))
+                    {
+                        propiedad.Unidad = EnumEx.GetEnumDescription(UnidadCantidad.Unidades);
+                    }
+
+                    if (propiedad.TipoDato == EnumEx.GetEnumDescription(TipoDato.Force))
+                    {
+                        propiedad.Unidad = EnumEx.GetEnumDescription(UnidadForce.LBS);
+                    }
+                    
+                    if (propiedad.TipoDato == EnumEx.GetEnumDescription(TipoDato.Mass))
+                    {
+                        propiedad.Unidad = EnumEx.GetEnumDescription(UnidadMass.Kilogram);
+                    }
+
+                    if (propiedad.TipoDato == EnumEx.GetEnumDescription(TipoDato.Presion))
+                    {
+                        propiedad.Unidad = EnumEx.GetEnumDescription(UnidadPresion.PSI);
+                    }
+
+                    if (propiedad.TipoDato == EnumEx.GetEnumDescription(TipoDato.Tiempo))
+                    {
+                        propiedad.Unidad = EnumEx.GetEnumDescription(UnidadTiempo.Second);
+                    }
 
                     ListaPropiedades.Add(propiedad);
                 }

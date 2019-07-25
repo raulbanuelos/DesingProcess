@@ -44,6 +44,17 @@ namespace View.Services
         }
 
         /// <summary>
+        /// Método que indica si una lista de normas contiene una norma en específico.
+        /// </summary>
+        /// <param name="nombreNorma"></param>
+        /// <param name="normas"></param>
+        /// <returns></returns>
+        public static bool HasNorma(string nombreNorma, ObservableCollection<DO_Norma> normas)
+        {
+            return normas.Where(x => x.especificacion == nombreNorma).ToList().Count > 0 ? true : false;
+        }
+
+        /// <summary>
         /// Método que indica si una lista de propiedades contiene una propiedad en especifico.
         /// </summary>
         /// <param name="nombrePropiedad"></param>

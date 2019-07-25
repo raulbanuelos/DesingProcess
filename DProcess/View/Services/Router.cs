@@ -209,7 +209,13 @@ namespace View.Services
             //Declaramos una lista observable la cual guardará las operaciones y será la que retornemos en el método.
             ListaOperaciones = new ObservableCollection<IOperacion>();
 
-            int opcion = 1;
+            int opcion = 0;
+
+            //Verificamos las opciones que van a tener.
+            if (Module.HasPropiedad("ODCoatingNitrideMax", elAnillo.PerfilOD.Propiedades) || Module.HasPropiedad("ODCoatingNitrideMin", elAnillo.PerfilOD.Propiedades))
+                opcion = Module.HasNorma("O.D BRUSH", elAnillo.ListaNormas) ? 1 : 2;
+            else
+                opcion = Module.HasNorma("O.D BRUSH", elAnillo.ListaNormas) ? 3 : 4;
 
             if (opcion == 1)
             {

@@ -341,6 +341,31 @@ namespace View.Services
 
         }
 
+        public ObservableCollection<MateriaPrimaAceros> CalcularMateriaPrimaAceroSegmento()
+        {
+            Propiedad a1Max = Module.GetPropiedad("a1", _elAnillo.PerfilID.Propiedades, "Max");
+            Propiedad a1Min = Module.GetPropiedad("a1", _elAnillo.PerfilID.Propiedades, "Min");
+
+            Propiedad h1Max = Module.GetPropiedad("h11", _elAnillo.PerfilLateral.Propiedades, "Max");
+            Propiedad h1Min = Module.GetPropiedad("h11", _elAnillo.PerfilLateral.Propiedades, "Min");
+
+            h1Max.Valor = Module.ConvertTo("Distance", h1Max.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), h1Max.Valor);
+            h1Max.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+
+            h1Min.Valor = Module.ConvertTo("Distance", h1Min.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), h1Min.Valor);
+            h1Min.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+            double promedioWidth = Math.Round((h1Min.Valor + h1Max.Valor) / 2, 5);
+
+            a1Max.Valor = Module.ConvertTo("Distance", a1Max.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), a1Max.Valor);
+            a1Max.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+
+            a1Min.Valor = Module.ConvertTo("Distance", a1Min.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), a1Min.Valor);
+            a1Min.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+            
+            ObservableCollection<MateriaPrimaAceros> oLista = DataManager.GetMateriaPrimaPVD(promedioWidth, a1Min.Valor, a1Max.Valor, 0.005,_elAnillo.MaterialBase.Especificacion);
+            
+            return oLista;
+        }
         #endregion
     }
 }

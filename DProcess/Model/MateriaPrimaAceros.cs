@@ -12,6 +12,7 @@ namespace Model
         public double ESP_RADIAL { get; set; }
         public string PROVEEDOR { get; set; }
         public string PROVEEDOR2 { get; set; }
+        public bool IsSelected { get; set; }
 
     }
 }

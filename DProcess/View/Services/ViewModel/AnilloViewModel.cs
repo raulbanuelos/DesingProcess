@@ -62,7 +62,15 @@ namespace View.Services.ViewModel
             get { return _ListaIronRawMaterial; }
             set { _ListaIronRawMaterial = value; NotifyChange("ListaIronRawMaterial"); }
         }
-        
+
+        private ObservableCollection<MateriaPrimaAceros> _ListaIronRailRawMaterial;
+        public ObservableCollection<MateriaPrimaAceros> ListaIronRailRawMaterial
+        {
+            get { return _ListaIronRailRawMaterial; }
+            set { _ListaIronRailRawMaterial = value; }
+        }
+
+
         public ObservableCollection<Cliente> ListaClientes { get; set; }
 
         public ObservableCollection<string> ListaTreatment { get; set; }
@@ -1401,6 +1409,8 @@ namespace View.Services.ViewModel
                                 int nCortesWith = mpSeleccionada.nCortesWidth;
 
                                 calcularDimenciones(nCortesWith);
+
+                                MaterialBase = mpSeleccionada;
                             }
                             else
                             {
@@ -1424,8 +1434,26 @@ namespace View.Services.ViewModel
                     if (MaterialBase.TipoDeMaterial == "ACERO INOXIDABLE")
                     {
 
-                        //Agregar calculo de materia prima.
+                        calcularMateriaPrima = new CalculaMateriaPrima(ModelAnillo);
+                        ListaIronRailRawMaterial = calcularMateriaPrima.CalcularMateriaPrimaAceroSegmento();
 
+                        frmSelectIronRailsRawMaterial wOpciones = new frmSelectIronRailsRawMaterial();
+                        wOpciones.DataContext = this;
+                        wOpciones.ShowDialog();
+
+                        if (wOpciones.DialogResult.HasValue && wOpciones.DialogResult.Value)
+                        {
+                            if (ListaIronRailRawMaterial.Where(x => x.IsSelected).ToList().Count == 1)
+                            {
+                                MateriaPrimaAceros mpSeleccionada = new MateriaPrimaAceros();
+                                //ListaIronRailRawMaterial.Where(x => x.IsSelected).FirstOrDefault();
+                                mpSeleccionada = ListaIronRailRawMaterial.Where(x => x.IsSelected).FirstOrDefault();
+                                mpSeleccionada.Propiedades.Add(new Propiedad { Nombre = "espesorAxialMP", Valor = mpSeleccionada.ESP_AXIAL, TipoDato = "Distance", Unidad = "Inch (in)" });
+                                mpSeleccionada.Propiedades.Add(new Propiedad { Nombre = "espesorRadialMP", Valor = mpSeleccionada.ESP_RADIAL, TipoDato = "Distance", Unidad = "Inch (in)" });
+                                MaterialBase = mpSeleccionada;
+                            }
+                        }
+                        
                         if (banCalcularOperaciones)
                             Operaciones = Router.CalcularAceroSegmentosPVD(ModelAnillo);
                     }

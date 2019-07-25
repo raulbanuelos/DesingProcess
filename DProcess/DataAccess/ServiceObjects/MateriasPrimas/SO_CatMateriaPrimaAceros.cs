@@ -119,7 +119,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
             }
         }
 
-        public IList GetMateriaPrimaPVD(double h1, double mpaxialWidthMinPVD, double mpaxialWidthMaxPVD, double a1Min, double a1Max, double mpradialThickMinPVD, double MPRadialThickMaxPVD, double quita_scotch)
+        public IList GetMateriaPrimaPVD(double h1, double mpaxialWidthMinPVD, double mpaxialWidthMaxPVD, double a1Min, double a1Max, double mpradialThickMinPVD, double MPRadialThickMaxPVD, double quita_scotch, string espec_mp)
         {
             double a1 = Math.Round((a1Min + a1Max) / 2, 4);
 
@@ -132,7 +132,8 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     var lista = (from c in Conexion.CAT_MATERIA_PRIMA_ACEROS
                                  where c.ESP_AXIAL >= (h1 - mpaxialWidthMinPVD) && c.ESP_AXIAL <= (h1 + mpaxialWidthMaxPVD)
                                         && c.ESP_RADIAL >= (a1 - mpradialThickMinPVD) && c.ESP_RADIAL <= (a1 + MPRadialThickMaxPVD)
-                                        && (c.ESP_RADIAL - quita_scotch - .001) >= a1Min
+                                        && c.ID_MATERIAL == espec_mp
+                                        //&& (c.ESP_RADIAL - quita_scotch - .001) >= a1Min
                                  select new
                                  {
                                      c.CODIGO,

@@ -338,6 +338,7 @@ namespace View.Services.ViewModel
             get
             {
                 return new RelayCommand(o => irUser());
+
             }
         }
 
@@ -410,34 +411,31 @@ namespace View.Services.ViewModel
 
         private void irDataBase()
         {
-            PDataBase pantallaData = new PDataBase();
+            //PDataBase pantallaData = new PDataBase();
 
-            pantallaData.DataContext = new DataBaseViewModel();
+            //pantallaData.DataContext = this;
 
-            Pagina = pantallaData;
+            //Pagina = pantallaData;
 
             //Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("es-MX");
 
             //WPropiedadesNumeric ventana = new WPropiedadesNumeric();
             //ventana.DataContext = new PropiedadViewModel(true);
-
             //ventana.ShowDialog();
 
             //WPropiedadesBool Form = new WPropiedadesBool();
             //Form.DataContext = new PropiedadBoolViewModel(true);
-
             //Form.ShowDialog();
 
             //WPropiedadesCadena Form = new WPropiedadesCadena();
             //Form.DataContext = new PropiedadCadenaViewModel(true);
-
             //Form.ShowDialog();
 
-            //WViewAllPerfiles ventana = new WViewAllPerfiles();
-            //PerfilViewModel vmPerfil = new PerfilViewModel();
-            //ventana.DataContext = vmPerfil;
+            WViewAllPerfiles ventana = new WViewAllPerfiles();
+            PerfilViewModel vmPerfil = new PerfilViewModel();
+            ventana.DataContext = vmPerfil;
+            ventana.ShowDialog();
 
-            //ventana.ShowDialog();
         }
 
         private void irPerfil()
@@ -449,6 +447,7 @@ namespace View.Services.ViewModel
             p.DataContext = vmPerfil;
 
             p.Show();
+
         }
 
         private void irUser()
@@ -482,16 +481,19 @@ namespace View.Services.ViewModel
             frm.DataContext = context;
 
             Pagina = frm;
+
         }
 
         private void irLeccion()
         {
+
             FrmLeccionesAprendidas frm = new FrmLeccionesAprendidas();
 
             LeccionesAprendidasVM context = new LeccionesAprendidasVM(ModelUsuario);
 
             frm.DataContext = context;
             Pagina = frm;
+
         }
 
         private void irRawMaterial()
@@ -516,6 +518,7 @@ namespace View.Services.ViewModel
             form.DataContext = context;
 
             Pag = form;
+
         }
 
         private void _IrMateriaPrimaRolado()
@@ -527,8 +530,6 @@ namespace View.Services.ViewModel
 
             Pag = form;
         }
-
-
         #endregion
 
         public static string definirSaludo()
