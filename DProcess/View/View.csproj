@@ -869,6 +869,7 @@
     <Compile Include="Services\ViewModel\CutterCamTurnVM.cs" />
     <Compile Include="Services\ViewModel\CutterSpacerS_VM.cs" />
     <Compile Include="Services\ViewModel\CutterSplitterVM.cs" />
+    <Compile Include="Services\ViewModel\DataBaseViewModel.cs" />
     <Compile Include="Services\ViewModel\DibujaPlacaViewModel.cs" />
     <Compile Include="Services\ViewModel\DimensionsViewModel.cs" />
     <Compile Include="Services\ViewModel\DocumentosLiberarQR.cs" />

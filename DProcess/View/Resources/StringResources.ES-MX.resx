@@ -1871,4 +1871,36 @@ Al momento de guardar el archivo, asegurate de que sea ARCHIVO DE EXCEL (.XLSX)<
 El documento podría no liberarse correctamente.</value>
     <comment>Mensaje que muestra que ha ocurrido un error al traer la lista de las áreas del frame.</comment>
   </data>
+  <data name="ttlPropiedades" xml:space="preserve">
+    <value>Propiedades</value>
+    <comment>Título de Tile para propiedades</comment>
+  </data>
+  <data name="ttlPropiedadesBool" xml:space="preserve">
+    <value>Click para ir a propiedades bool</value>
+    <comment>Título para propiedades boolean</comment>
+  </data>
+  <data name="ttlPropiedadesCadena" xml:space="preserve">
+    <value>Propiedades Cadena</value>
+    <comment>Título para propeidades cadena</comment>
+  </data>
+  <data name="ttlTextPerfil" xml:space="preserve">
+    <value>Click para ir a perfil</value>
+    <comment>Texto para perfil</comment>
+  </data>
+  <data name="ttlTextPropiedades" xml:space="preserve">
+    <value>Click para ir a propiedades</value>
+    <comment>Texto para propiedades</comment>
+  </data>
+  <data name="ttlTextPropiedadesCadena" xml:space="preserve">
+    <value>Click para ir a propiedades cadena</value>
+    <comment>Texto para propiedades cadena</comment>
+  </data>
+  <data name="ttlTittlePerfil" xml:space="preserve">
+    <value>Perfil</value>
+    <comment>Título para perfiles</comment>
+  </data>
+  <data name="ttlTittlePropiedadesBool" xml:space="preserve">
+    <value>Propiedades Bool</value>
+    <comment>Título para propiedades boolean</comment>
+  </data>
 </root>

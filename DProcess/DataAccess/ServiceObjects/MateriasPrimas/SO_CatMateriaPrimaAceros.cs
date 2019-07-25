@@ -141,6 +141,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                                      c.ID_MATERIAL,
                                      c.PROVEEDOR,
                                      c.PROVEEDOR2,
+
                                  }).ToList();
 
                     //Renornamos el resultado de la consulta

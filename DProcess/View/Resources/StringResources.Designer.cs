@@ -4062,6 +4062,33 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Properties.
+        /// </summary>
+        public static string ttlPropiedades {
+            get {
+                return ResourceManager.GetString("ttlPropiedades", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please click to bool properties.
+        /// </summary>
+        public static string ttlPropiedadesBool {
+            get {
+                return ResourceManager.GetString("ttlPropiedadesBool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a String Properties.
+        /// </summary>
+        public static string ttlPropiedadesCadena {
+            get {
+                return ResourceManager.GetString("ttlPropiedadesCadena", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Quotes.
         /// </summary>
         public static string ttlQuotes {
@@ -4143,6 +4170,33 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Please click to profile.
+        /// </summary>
+        public static string ttlTextPerfil {
+            get {
+                return ResourceManager.GetString("ttlTextPerfil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please click to properties.
+        /// </summary>
+        public static string ttlTextPropiedades {
+            get {
+                return ResourceManager.GetString("ttlTextPropiedades", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please click to string properties.
+        /// </summary>
+        public static string ttlTextPropiedadesCadena {
+            get {
+                return ResourceManager.GetString("ttlTextPropiedadesCadena", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Click here to manage the standar time.
         /// </summary>
         public static string ttlTiempoEstandarAux {
@@ -4166,6 +4220,24 @@ namespace View.Resources {
         public static string ttlTipoCentroSeleccionado {
             get {
                 return ResourceManager.GetString("ttlTipoCentroSeleccionado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Profile.
+        /// </summary>
+        public static string ttlTittlePerfil {
+            get {
+                return ResourceManager.GetString("ttlTittlePerfil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Bool Properties.
+        /// </summary>
+        public static string ttlTittlePropiedadesBool {
+            get {
+                return ResourceManager.GetString("ttlTittlePropiedadesBool", resourceCulture);
             }
         }
         
