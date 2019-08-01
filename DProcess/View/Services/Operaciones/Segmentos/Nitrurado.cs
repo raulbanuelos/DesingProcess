@@ -138,19 +138,22 @@ namespace View.Services.Operaciones.Segmentos
         {
             //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
-
-            double nitruradoMin = 0;
-            double nitruradoMax = 0;
-            double hardnessMin = 0;
-            double hardnessMax = 0;
-            double hardnessDPH = 0;
+            
+            CriteriosSegmentos Criterio = DataManager.GetCriteriosSegmentos();
+            double layermin = Criterio.NitruLayerMin;
+            double layermax = Criterio.NitruLayerMax;
+            double nitruradoMin = Module.GetValorPropiedadMin("ODCoatingNitrideMin", elPlano.PerfilOD.Propiedades, true);
+            double nitruradoMax = Module.GetValorPropiedadMin("ODCoatingNitrideMax", elPlano.PerfilOD.Propiedades, true);
+            double hardnessMin = Module.GetValorPropiedadMin("HardnessNitrideMin", elPlano.PerfilOD.Propiedades, true);
+            double hardnessMax = Module.GetValorPropiedadMin("HardnessNitrideMax", elPlano.PerfilOD.Propiedades, true);
+            double hardnessDPH = Module.GetValorPropiedadMin("DHPNitride", elPlano.PerfilOD.Propiedades, true);
 
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "*NITRURADO" + Environment.NewLine;
             TextoProceso += "DIFUSION LAYER THICKNESS " + nitruradoMin + " - " + nitruradoMax + "" + Environment.NewLine;
             TextoProceso += "CONSIDERAR DIAMETRO EXT. E INT." + Environment.NewLine;
             TextoProceso += "HARDNESS " + hardnessMin + " - " + hardnessMax + " DPH HV " + hardnessDPH + "" + Environment.NewLine;
-            TextoProceso += "WHITE LAYER " + "" + " MAX " + Environment.NewLine;
+            TextoProceso += "WHITE LAYER " + nitruradoMin + " MAX (" + nitruradoMax + " MM MAX)" + Environment.NewLine;
             TextoProceso += "EL SEGMENTO NO DEBERA ROMPERSE A" + Environment.NewLine;
             TextoProceso += "180 GRADOS EN LA PRUEBA DE TWIST" + Environment.NewLine;
             TextoProceso += "PROGRAMA PRG-10" + Environment.NewLine;

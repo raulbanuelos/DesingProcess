@@ -2372,7 +2372,7 @@ namespace View.Services.ViewModel
             dialogService = new DialogService();
             var Controller = await dialogService.SendProgressAsync(Resources.StringResources.ttlEspereUnMomento, "Guardando componente...");
 
-            DescripcionGeneral = string.Format("{0:0.00000}", D1.Valor) + " X " + string.Format("{0:0.00000}", H1.Valor) + " " + TipoAnillo;
+            DescripcionGeneral = string.Format("{0:0.00000}", Module.ConvertTo(D1.TipoDato,D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), D1.Valor)) + " X " + string.Format("{0:0.00000}", Module.ConvertTo(H1.TipoDato, H1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), H1.Valor)) + " " + TipoAnillo;
 
             if (DataManager.ExistArquetipo(Codigo))
             {

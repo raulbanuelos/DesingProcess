@@ -303,7 +303,7 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Column="0" Grid.Row="0">
-                                <Image Source="{Binding PerfilPuntas.Imagen}"></Image>
+                                <Image Source="{Binding PerfilPuntas.Imagen}" Opacity="100"></Image>
                             </StackPanel>
 
                             <StackPanel Orientation="Vertical" Grid.Column="1">
