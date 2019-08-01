@@ -1873,4 +1873,36 @@ When saving the file, make sure it is EXCEL FILE (.XLSX)</value>
 The document may not be released correctly.</value>
     <comment>Mensaje que muestra que ha ocurrido un error al traer la lista de las áreas del frame.</comment>
   </data>
+  <data name="ttlPropiedades" xml:space="preserve">
+    <value>Properties</value>
+    <comment>Título de Tile para propiedades</comment>
+  </data>
+  <data name="ttlPropiedadesBool" xml:space="preserve">
+    <value>Please click to bool properties</value>
+    <comment>Título para propiedades boolean</comment>
+  </data>
+  <data name="ttlPropiedadesCadena" xml:space="preserve">
+    <value>String Properties</value>
+    <comment>Título para propeidades cadena</comment>
+  </data>
+  <data name="ttlTextPerfil" xml:space="preserve">
+    <value>Please click to profile</value>
+    <comment>Texto para perfil</comment>
+  </data>
+  <data name="ttlTextPropiedades" xml:space="preserve">
+    <value>Please click to properties</value>
+    <comment>Texto para propiedades</comment>
+  </data>
+  <data name="ttlTextPropiedadesCadena" xml:space="preserve">
+    <value>Please click to string properties</value>
+    <comment>Texto para propiedades cadena</comment>
+  </data>
+  <data name="ttlTittlePerfil" xml:space="preserve">
+    <value>Profile</value>
+    <comment>Título para perfiles</comment>
+  </data>
+  <data name="ttlTittlePropiedadesBool" xml:space="preserve">
+    <value>Bool Properties</value>
+    <comment>Mensaje para propiedades boolean</comment>
+  </data>
 </root>

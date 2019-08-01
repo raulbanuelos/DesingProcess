@@ -246,17 +246,17 @@ namespace DProcess.Model.Test
         //    DataManager.UpdaterecorsMangaPVDCarbon(1, 3);
         //}
 
-        [TestMethod]
-        public void CriteriosSegmentos()
-        {
-            DataManager.GetCriteriosSegmentos();
-        }
+        //[TestMethod]
+        //public void CriteriosSegmentos()
+        //{
+        //    DataManager.GetCriteriosSegmentos();
+        //}
 
-        [TestMethod]
-        public void MateriaPrimaPVD()
-        {
-            DataManager.GetMateriaPrimaPVD(0.018, 0.0925, .1125, 0);
-        }
+        //[TestMethod]
+        //public void MateriaPrimaPVD()
+        //{
+        //    DataManager.GetMateriaPrimaPVD(0.0157, 0.0900, 0.1000, 0);
+        //}
 
         //[TestMethod]
         //public void SendEmailWithImage()
