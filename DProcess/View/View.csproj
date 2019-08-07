@@ -352,8 +352,14 @@
     <Compile Include="Forms\Routing\PRouting.xaml.cs">
       <DependentUpon>PRouting.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Routing\WAddNorma.xaml.cs">
+      <DependentUpon>WAddNorma.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Routing\WCreateRing.xaml.cs">
       <DependentUpon>WCreateRing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Routing\WNormas.xaml.cs">
+      <DependentUpon>WNormas.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Routing\WPattern.xaml.cs">
       <DependentUpon>WPattern.xaml</DependentUpon>
@@ -906,6 +912,7 @@
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
     <Compile Include="Services\ViewModel\ModificarDatosUsuario.cs" />
     <Compile Include="Services\ViewModel\ModificarLeccionVM.cs" />
+    <Compile Include="Services\ViewModel\NormasViewModel.cs" />
     <Compile Include="Services\ViewModel\NuevoDepartamentoVM.cs" />
     <Compile Include="Services\ViewModel\NuevoMaestroHerramental_VM.cs" />
     <Compile Include="Services\ViewModel\NuevoTipoDocumentoVM.cs" />
@@ -1183,7 +1190,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Forms\Routing\WAddNorma.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Routing\WCreateRing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Routing\WNormas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

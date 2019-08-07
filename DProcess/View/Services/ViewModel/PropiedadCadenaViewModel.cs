@@ -49,7 +49,6 @@ namespace View.Services.ViewModel
 
         #endregion
 
-
         #region Atributos
         private PropiedadCadena model;
         #endregion
