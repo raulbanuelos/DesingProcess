@@ -152,7 +152,7 @@
                 </Controls:Tile>
 
                 <!--NORMAS-->
-                <Controls:Tile Background="#00879D" TiltFactor="2"  Title="Normas" Width="Auto" Height="Auto" Grid.Column="4" Grid.Row="0" Cursor="Hand" Command="{Binding IrNormas}">
+                <Controls:Tile Background="#00879D" TiltFactor="2" Title="{x:Static local:StringResources.ttlNormas}" Width="Auto" Height="Auto" Grid.Column="4" Grid.Row="0" Cursor="Hand" Command="{Binding IrNormas}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
@@ -170,7 +170,7 @@
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <TextBlock Text="Click par ir a Normas" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <TextBlock Text="{x:Static local:StringResources.ttlTextNormas}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>

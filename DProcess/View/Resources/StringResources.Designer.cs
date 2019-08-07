@@ -3621,6 +3621,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a .
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Manage Users.
         /// </summary>
         public static string ttlAdministrarUsuarios {
@@ -4017,6 +4026,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Specifications.
+        /// </summary>
+        public static string ttlNormas {
+            get {
+                return ResourceManager.GetString("ttlNormas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a New Validation.
         /// </summary>
         public static string ttlNuevaValidacion {
@@ -4166,6 +4184,15 @@ namespace View.Resources {
         public static string ttlStandarTime {
             get {
                 return ResourceManager.GetString("ttlStandarTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please click to specifications.
+        /// </summary>
+        public static string ttlTextNormas {
+            get {
+                return ResourceManager.GetString("ttlTextNormas", resourceCulture);
             }
         }
         
