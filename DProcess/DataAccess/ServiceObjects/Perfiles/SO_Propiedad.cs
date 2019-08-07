@@ -396,7 +396,8 @@ namespace DataAccess.ServiceObjects.Perfiles
                                  join c in Conexion.TR_PROPIEDAD_PERFIL on b.ID_PROPIEDAD equals c.ID_PROPIEDAD
                                  join d in Conexion.CAT_PERFIL on c.ID_PERFIL equals d.ID_PERFIL
                                  join e in Conexion.CAT_TIPO_PERFIL on d.ID_TIPO_PERFIL equals e.ID_TIPO_PERFIL
-                                 where a.CODIGO == codigo
+                                 join f in Conexion.TR_PERFIL_ARQUETIPO on d.ID_PERFIL equals f.ID_PERFIL
+                                 where a.CODIGO == codigo && f.CODIGO == codigo
                                  select new
                                  {
                                      b.ID_PROPIEDAD,
@@ -430,7 +431,8 @@ namespace DataAccess.ServiceObjects.Perfiles
                                  join c in Conexion.TR_PROPIEDAD_CADENA_PERFIL on b.ID_PROPIEDAD_CADENA equals c.ID_PROPIEDAD_CADENA
                                  join d in Conexion.CAT_PERFIL on c.ID_PERFIL equals d.ID_PERFIL
                                  join e in Conexion.CAT_TIPO_PERFIL on d.ID_TIPO_PERFIL equals e.ID_TIPO_PERFIL
-                                 where a.CODIGO == codigo
+                                 join f in Conexion.TR_PERFIL_ARQUETIPO on d.ID_PERFIL equals f.ID_PERFIL
+                                 where a.CODIGO == codigo && f.CODIGO == codigo
                                  select new
                                  {
                                      ID_PROPIEDAD = b.ID_PROPIEDAD_CADENA,
@@ -462,7 +464,8 @@ namespace DataAccess.ServiceObjects.Perfiles
                                  join c in Conexion.TR_PROPIEDAD_BOOL_PERFIL on b.ID_PROPIEDAD_BOOL equals c.ID_PROPIEDAD_BOOL
                                  join d in Conexion.CAT_PERFIL on c.ID_PERFIL equals d.ID_PERFIL
                                  join e in Conexion.CAT_TIPO_PERFIL on d.ID_TIPO_PERFIL equals e.ID_TIPO_PERFIL
-                                 where a.CODIGO == codigo
+                                 join f in Conexion.TR_PERFIL_ARQUETIPO on d.ID_PERFIL equals f.ID_PERFIL
+                                 where a.CODIGO == codigo && f.CODIGO == codigo
                                  select new
                                  {
                                      ID_PROPIEDAD = b.ID_PROPIEDAD_BOOL,
