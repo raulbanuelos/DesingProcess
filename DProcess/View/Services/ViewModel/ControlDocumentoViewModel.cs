@@ -256,23 +256,26 @@ namespace View.Services.ViewModel
                 NotifyChange("MenuOptionItems");
             }
         }
+       
         #endregion
 
         #region Constructors
+
         public ControlDocumentoViewModel(Usuario modelUsuario)
         {
             usuario = new Usuario();
             usuario = modelUsuario;
             initControlDocumentos();
             initSnack();
-            //Si el usuario es administrador del CIT muestra los botones para agregar tipo de documento,
-            //departamento, buscar documento y bloquear Sistema
+            //si el usuario es administrador del cit muestra los botones para agregar tipo de documento,
+            //departamento, buscar documento y bloquear sistema
             if (Module.UsuarioIsRol(usuario.Roles, 2))
             {
                 BttnEnabled = true;
             }
-            CreateMenuItems();
+            CreateMenuItems();           
         }
+
         #endregion
 
         #region Commands
@@ -526,7 +529,6 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => VerEstatusDocumentos(usuario));
             }
         }
-
         #endregion
 
         #region Methods
@@ -776,7 +778,6 @@ namespace View.Services.ViewModel
                         //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
                         result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgDocumentoDisponible, setting, MessageDialogStyle.AffirmativeAndNegative);
 
-
                     switch (result)
                     {
                         case MessageDialogResult.Negative:
@@ -807,7 +808,6 @@ namespace View.Services.ViewModel
                             frmCrear.ShowDialog();
 
                             break;
-
 
                         case MessageDialogResult.SecondAuxiliary:
                             break;

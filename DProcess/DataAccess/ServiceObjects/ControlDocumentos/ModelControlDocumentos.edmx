@@ -86,6 +86,14 @@
           <Property Name="FECHA_CREACION" Type="datetime" />
           <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
         </EntityType>
+        <EntityType Name="TBL_GRUPOS">
+          <Key>
+            <PropertyRef Name="ID_GRUPO" />
+          </Key>
+          <Property Name="ID_GRUPO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ID_USUARIO_DUENO" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityType Name="TBL_HISTORIAL_VERSION">
           <Key>
             <PropertyRef Name="ID_HISTORIAL_VERSION" />
@@ -171,6 +179,22 @@
           <Property Name="NO_COPIAS" Type="int" />
           <Property Name="CODE_VALIDATION" Type="varchar" MaxLength="8" />
         </EntityType>
+        <EntityType Name="TR_GRUPO_VERSION">
+          <Key>
+            <PropertyRef Name="ID_GRUPO_VERSION" />
+          </Key>
+          <Property Name="ID_GRUPO_VERSION" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_GRUPO" Type="int" Nullable="false" />
+          <Property Name="ID_VERSION" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TR_INTEGRANTES_GRUPO">
+          <Key>
+            <PropertyRef Name="ID_INTEGRANTES_GRUPO" />
+          </Key>
+          <Property Name="ID_INTEGRANTES_GRUPO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_GRUPO" Type="int" Nullable="false" />
+          <Property Name="ID_USUARIO_INTEGRANTE" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityType Name="TR_ROL_USUARIOS">
           <Key>
             <PropertyRef Name="ID_ROL_USUARIOS" />
@@ -203,6 +227,54 @@
           <Property Name="Correo" Type="varchar" MaxLength="100" />
           <Property Name="Pathnsf" Type="varchar" MaxLength="500" />
         </EntityType>
+        <Association Name="FK__TBL_GRUPO__ID_US__04B07DB2">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="TBL_GRUPOS" Type="Self.TBL_GRUPOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario" />
+            </Principal>
+            <Dependent Role="TBL_GRUPOS">
+              <PropertyRef Name="ID_USUARIO_DUENO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TR_GRUPO___ID_GR__0B5D7B41">
+          <End Role="TBL_GRUPOS" Type="Self.TBL_GRUPOS" Multiplicity="1" />
+          <End Role="TR_GRUPO_VERSION" Type="Self.TR_GRUPO_VERSION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GRUPOS">
+              <PropertyRef Name="ID_GRUPO" />
+            </Principal>
+            <Dependent Role="TR_GRUPO_VERSION">
+              <PropertyRef Name="ID_GRUPO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TR_INTEGR__ID_US__078CEA5D">
+          <End Role="TBL_GRUPOS" Type="Self.TBL_GRUPOS" Multiplicity="1" />
+          <End Role="TR_INTEGRANTES_GRUPO" Type="Self.TR_INTEGRANTES_GRUPO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GRUPOS">
+              <PropertyRef Name="ID_GRUPO" />
+            </Principal>
+            <Dependent Role="TR_INTEGRANTES_GRUPO">
+              <PropertyRef Name="ID_GRUPO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TR_INTEGR__ID_US__08810E96">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="TR_INTEGRANTES_GRUPO" Type="Self.TR_INTEGRANTES_GRUPO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario" />
+            </Principal>
+            <Dependent Role="TR_INTEGRANTES_GRUPO">
+              <PropertyRef Name="ID_USUARIO_INTEGRANTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBL_ARCHIVO_TBL_VERSION">
           <End Role="TBL_VERSION" Type="Self.TBL_VERSION" Multiplicity="1" />
           <End Role="TBL_ARCHIVO" Type="Self.TBL_ARCHIVO" Multiplicity="*" />
@@ -416,6 +488,7 @@
           <EntitySet Name="TBL_DOCUMENTO_ELIMINADO" EntityType="Self.TBL_DOCUMENTO_ELIMINADO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ESTATUS_DOCUMENTO" EntityType="Self.TBL_ESTATUS_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ESTATUS_VERSION" EntityType="Self.TBL_ESTATUS_VERSION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_GRUPOS" EntityType="Self.TBL_GRUPOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_HISTORIAL_VERSION" EntityType="Self.TBL_HISTORIAL_VERSION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_NOTIFICACION_ERROR" EntityType="Self.TBL_NOTIFICACION_ERROR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_RECURSO_TIPO_DOCUMENTO" EntityType="Self.TBL_RECURSO_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
@@ -424,9 +497,27 @@
           <EntitySet Name="TBL_VALIDACION_DOCUMENTO" EntityType="Self.TBL_VALIDACION_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_VALIDACION_VERSION" EntityType="Self.TBL_VALIDACION_VERSION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_VERSION" EntityType="Self.TBL_VERSION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TR_GRUPO_VERSION" EntityType="Self.TR_GRUPO_VERSION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TR_INTEGRANTES_GRUPO" EntityType="Self.TR_INTEGRANTES_GRUPO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TR_ROL_USUARIOS" EntityType="Self.TR_ROL_USUARIOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TR_VALIDACION_TIPO_DOCUMENTO" EntityType="Self.TR_VALIDACION_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__TBL_GRUPO__ID_US__04B07DB2" Association="Self.FK__TBL_GRUPO__ID_US__04B07DB2">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="TBL_GRUPOS" EntitySet="TBL_GRUPOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TR_GRUPO___ID_GR__0B5D7B41" Association="Self.FK__TR_GRUPO___ID_GR__0B5D7B41">
+            <End Role="TBL_GRUPOS" EntitySet="TBL_GRUPOS" />
+            <End Role="TR_GRUPO_VERSION" EntitySet="TR_GRUPO_VERSION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TR_INTEGR__ID_US__078CEA5D" Association="Self.FK__TR_INTEGR__ID_US__078CEA5D">
+            <End Role="TBL_GRUPOS" EntitySet="TBL_GRUPOS" />
+            <End Role="TR_INTEGRANTES_GRUPO" EntitySet="TR_INTEGRANTES_GRUPO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TR_INTEGR__ID_US__08810E96" Association="Self.FK__TR_INTEGR__ID_US__08810E96">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="TR_INTEGRANTES_GRUPO" EntitySet="TR_INTEGRANTES_GRUPO" />
+          </AssociationSet>
           <AssociationSet Name="FK_TBL_ARCHIVO_TBL_VERSION" Association="Self.FK_TBL_ARCHIVO_TBL_VERSION">
             <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
             <End Role="TBL_ARCHIVO" EntitySet="TBL_ARCHIVO" />
@@ -588,6 +679,25 @@
             <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
           </AssociationSet>
           <EntitySet Name="TBL_NOTIFICACION_ERROR" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_NOTIFICACION_ERROR" />
+          <EntitySet Name="TBL_GRUPOS" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_GRUPOS" />
+          <AssociationSet Name="FK__TBL_GRUPO__ID_US__04B07DB2" Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TBL_GRUPO__ID_US__04B07DB2">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="TBL_GRUPOS" EntitySet="TBL_GRUPOS" />
+          </AssociationSet>
+          <EntitySet Name="TR_INTEGRANTES_GRUPO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TR_INTEGRANTES_GRUPO" />
+          <AssociationSet Name="FK__TR_INTEGR__ID_US__078CEA5D" Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_INTEGR__ID_US__078CEA5D">
+            <End Role="TBL_GRUPOS" EntitySet="TBL_GRUPOS" />
+            <End Role="TR_INTEGRANTES_GRUPO" EntitySet="TR_INTEGRANTES_GRUPO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TR_INTEGR__ID_US__08810E96" Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_INTEGR__ID_US__08810E96">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="TR_INTEGRANTES_GRUPO" EntitySet="TR_INTEGRANTES_GRUPO" />
+          </AssociationSet>
+          <EntitySet Name="TR_GRUPO_VERSION" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TR_GRUPO_VERSION" />
+          <AssociationSet Name="FK__TR_GRUPO___ID_GR__0B5D7B41" Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_GRUPO___ID_GR__0B5D7B41">
+            <End Role="TBL_GRUPOS" EntitySet="TBL_GRUPOS" />
+            <End Role="TR_GRUPO_VERSION" EntitySet="TR_GRUPO_VERSION" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="TBL_ARCHIVO">
           <Key>
@@ -900,6 +1010,8 @@
           <NavigationProperty Name="TR_ROL_USUARIOS" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_ROL_USUARIOS_Usuarios" FromRole="Usuarios" ToRole="TR_ROL_USUARIOS" />
           <NavigationProperty Name="TBL_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios" FromRole="Usuarios" ToRole="TBL_VERSION" />
           <NavigationProperty Name="TBL_VERSION1" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios1" FromRole="Usuarios" ToRole="TBL_VERSION" />
+          <NavigationProperty Name="TBL_GRUPOS" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK__TBL_GRUPO__ID_US__04B07DB2" FromRole="Usuarios" ToRole="TBL_GRUPOS" />
+          <NavigationProperty Name="TR_INTEGRANTES_GRUPO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_INTEGR__ID_US__08810E96" FromRole="Usuarios" ToRole="TR_INTEGRANTES_GRUPO" />
           </EntityType>
         <Association Name="FK_TBL_DOCUMENTO_Usuarios">
           <End Type="DataAccess.ServiceObjects.ControlDocumentos.Usuarios" Role="Usuarios" Multiplicity="1" />
@@ -1025,6 +1137,84 @@
           <Property Name="ID_NOTIFICACION_ERROR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DESCRIPCION_ERROR" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="TBL_GRUPOS">
+          <Key>
+            <PropertyRef Name="ID_GRUPO" />
+          </Key>
+          <Property Name="ID_GRUPO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ID_USUARIO_DUENO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuarios" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK__TBL_GRUPO__ID_US__04B07DB2" FromRole="TBL_GRUPOS" ToRole="Usuarios" />
+          <NavigationProperty Name="TR_INTEGRANTES_GRUPO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_INTEGR__ID_US__078CEA5D" FromRole="TBL_GRUPOS" ToRole="TR_INTEGRANTES_GRUPO" />
+          <NavigationProperty Name="TR_GRUPO_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_GRUPO___ID_GR__0B5D7B41" FromRole="TBL_GRUPOS" ToRole="TR_GRUPO_VERSION" />
+        </EntityType>
+        <Association Name="FK__TBL_GRUPO__ID_US__04B07DB2">
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_GRUPOS" Role="TBL_GRUPOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario" />
+            </Principal>
+            <Dependent Role="TBL_GRUPOS">
+              <PropertyRef Name="ID_USUARIO_DUENO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TR_INTEGRANTES_GRUPO">
+          <Key>
+            <PropertyRef Name="ID_INTEGRANTES_GRUPO" />
+          </Key>
+          <Property Name="ID_INTEGRANTES_GRUPO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_GRUPO" Type="Int32" Nullable="false" />
+          <Property Name="ID_USUARIO_INTEGRANTE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_GRUPOS" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_INTEGR__ID_US__078CEA5D" FromRole="TR_INTEGRANTES_GRUPO" ToRole="TBL_GRUPOS" />
+          <NavigationProperty Name="Usuarios" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_INTEGR__ID_US__08810E96" FromRole="TR_INTEGRANTES_GRUPO" ToRole="Usuarios" />
+        </EntityType>
+        <Association Name="FK__TR_INTEGR__ID_US__078CEA5D">
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_GRUPOS" Role="TBL_GRUPOS" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TR_INTEGRANTES_GRUPO" Role="TR_INTEGRANTES_GRUPO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GRUPOS">
+              <PropertyRef Name="ID_GRUPO" />
+            </Principal>
+            <Dependent Role="TR_INTEGRANTES_GRUPO">
+              <PropertyRef Name="ID_GRUPO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TR_INTEGR__ID_US__08810E96">
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TR_INTEGRANTES_GRUPO" Role="TR_INTEGRANTES_GRUPO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario" />
+            </Principal>
+            <Dependent Role="TR_INTEGRANTES_GRUPO">
+              <PropertyRef Name="ID_USUARIO_INTEGRANTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TR_GRUPO_VERSION">
+          <Key>
+            <PropertyRef Name="ID_GRUPO_VERSION" />
+          </Key>
+          <Property Name="ID_GRUPO_VERSION" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_GRUPO" Type="Int32" Nullable="false" />
+          <Property Name="ID_VERSION" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBL_GRUPOS" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_GRUPO___ID_GR__0B5D7B41" FromRole="TR_GRUPO_VERSION" ToRole="TBL_GRUPOS" />
+        </EntityType>
+        <Association Name="FK__TR_GRUPO___ID_GR__0B5D7B41">
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_GRUPOS" Role="TBL_GRUPOS" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TR_GRUPO_VERSION" Role="TR_GRUPO_VERSION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GRUPOS">
+              <PropertyRef Name="ID_GRUPO" />
+            </Principal>
+            <Dependent Role="TR_GRUPO_VERSION">
+              <PropertyRef Name="ID_GRUPO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1245,6 +1435,33 @@
               <MappingFragment StoreEntitySet="TBL_NOTIFICACION_ERROR">
                 <ScalarProperty Name="DESCRIPCION_ERROR" ColumnName="DESCRIPCION_ERROR" />
                 <ScalarProperty Name="ID_NOTIFICACION_ERROR" ColumnName="ID_NOTIFICACION_ERROR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_GRUPOS">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TBL_GRUPOS">
+              <MappingFragment StoreEntitySet="TBL_GRUPOS">
+                <ScalarProperty Name="ID_USUARIO_DUENO" ColumnName="ID_USUARIO_DUENO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ID_GRUPO" ColumnName="ID_GRUPO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TR_INTEGRANTES_GRUPO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TR_INTEGRANTES_GRUPO">
+              <MappingFragment StoreEntitySet="TR_INTEGRANTES_GRUPO">
+                <ScalarProperty Name="ID_USUARIO_INTEGRANTE" ColumnName="ID_USUARIO_INTEGRANTE" />
+                <ScalarProperty Name="ID_GRUPO" ColumnName="ID_GRUPO" />
+                <ScalarProperty Name="ID_INTEGRANTES_GRUPO" ColumnName="ID_INTEGRANTES_GRUPO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TR_GRUPO_VERSION">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TR_GRUPO_VERSION">
+              <MappingFragment StoreEntitySet="TR_GRUPO_VERSION">
+                <ScalarProperty Name="ID_VERSION" ColumnName="ID_VERSION" />
+                <ScalarProperty Name="ID_GRUPO" ColumnName="ID_GRUPO" />
+                <ScalarProperty Name="ID_GRUPO_VERSION" ColumnName="ID_GRUPO_VERSION" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

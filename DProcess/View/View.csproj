@@ -220,6 +220,9 @@
     <Compile Include="Forms\ControlDocumentos\FrmBusqueda_Documentos.xaml.cs">
       <DependentUpon>FrmBusqueda_Documentos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmCrearGrupo.xaml.cs">
+      <DependentUpon>FrmCrearGrupo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmCrear_Numero.xaml.cs">
       <DependentUpon>FrmCrear_Numero.xaml</DependentUpon>
     </Compile>
@@ -279,6 +282,9 @@
     </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmValidarDocumento.xaml.cs">
       <DependentUpon>FrmValidarDocumento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmVerIntegrantesGrupo.xaml.cs">
+      <DependentUpon>FrmVerIntegrantesGrupo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmVersiones.xaml.cs">
       <DependentUpon>FrmVersiones.xaml</DependentUpon>
@@ -900,6 +906,7 @@
     <Compile Include="Services\ViewModel\FO_ItemViewModel.cs" />
     <Compile Include="Services\ViewModel\FrontRearAnillosVM.cs" />
     <Compile Include="Services\ViewModel\GeneradorViewModel.cs" />
+    <Compile Include="Services\ViewModel\GruposViewModel.cs" />
     <Compile Include="Services\ViewModel\GuidePlateBK_VM.cs" />
     <Compile Include="Services\ViewModel\GuillotinaBK_VM.cs" />
     <Compile Include="Services\ViewModel\GuillotinaEngroveVM.cs" />
@@ -1010,6 +1017,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\ControlDocumentos\FrmCrearGrupo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\ControlDocumentos\FrmCrear_Numero.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1091,6 +1102,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmValidarDocumento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmVerIntegrantesGrupo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

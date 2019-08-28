@@ -14,8 +14,8 @@
             <BooleanToVisibilityConverter x:Key="BoolToVis"/>
         </Grid.Resources>
         
-        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
-            <TextBox materialDesign:HintAssist.Hint="Especificación" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding especificacion}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="10,10,0,0">
+            <TextBox materialDesign:HintAssist.Hint="Especificación" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding especificacion}" Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
             <TextBox materialDesign:HintAssist.Hint="Descripcion Corta" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding descripcionCorta}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <TextBox materialDesign:HintAssist.Hint="Descripción Larga" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding descripcionLarga}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <StackPanel Orientation="Horizontal">

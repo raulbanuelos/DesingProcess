@@ -1,0 +1,76 @@
+﻿<Controls:MetroWindow x:Class="View.Forms.ControlDocumentos.FrmVerIntegrantesGrupo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:recursos="clr-namespace:View.Resources"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="FrmVerIntegrantesGrupo" Height="600" Width="400" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
+              WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Content="Agregar/Eliminar Integrantes" Command="{Binding IrAgregarIntegrante}" Width="215" HorizontalAlignment="Right" Margin="0,0,10,0"></Button>
+
+            <DataGrid Grid.Row="1" ItemsSource="{Binding ListaIntegrantes_Grupo}"
+                        x:Name="dataGrid" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5"
+                       HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="False" IsReadOnly="True" Width="385">
+
+                <DataGrid.Columns>
+                    <!--<DataGridTextColumn Binding="{Binding idintegrantegrupo}" Header="ID Integrante"></DataGridTextColumn>-->
+                    <DataGridTextColumn Binding="{Binding nombrecompleto}" Header="Nombre Integrante"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Grid>
+
+
+        <controls:FlyoutsControl>
+
+            <controls:Flyout Theme="Light" Header="Selecciona nuevo(s) integrante(s)." Position="Left"  Width="400" IsOpen="{Binding isopen}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="430"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+                <DataGrid ItemsSource="{Binding ListadeUsuarios}" 
+                                      ScrollViewer.CanContentScroll="True" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                      CanUserAddRows="False"
+                                      Height="410"
+                                      Width="360"
+                                      AutoGenerateColumns="False"
+                                      Grid.Row="0"
+                                      VerticalAlignment="Top" Margin="-10,0,0,15">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            Header="Agregar"
+                                            Binding="{Binding IsSelected}"
+                                            />
+                            <DataGridTextColumn Header="Nombre Integrante" Binding="{Binding NombreCompleto}">
+
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                <Button Grid.Row="1" Content="Guardar" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,15"  Command="{Binding GuardarNIntegrantes}"></Button>
+
+                </Grid>
+            </controls:Flyout>
+        </controls:FlyoutsControl>
+
+    </Grid>
+    
+</Controls:MetroWindow>
