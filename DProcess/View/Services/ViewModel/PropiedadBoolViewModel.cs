@@ -356,7 +356,7 @@ namespace View.Services.ViewModel
         {
             //Abre la ventana de explorador de archivos
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.Filter = "Imagenes|*.png";
+            dlg.Filter = "Imagenes|*.png;*.bmp;*.jpg;*.jpeg";
             // Mostrar el explorador de archivos
             Nullable<bool> result = dlg.ShowDialog();
 

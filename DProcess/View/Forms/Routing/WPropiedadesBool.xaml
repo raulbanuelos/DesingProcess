@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:View.Forms.Routing"
         mc:Ignorable="d" 
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        Title="WPropiedadesNumeric" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
+        Title="Propiedades Bool" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
          Height="500" Width="700" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>

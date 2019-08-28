@@ -139,6 +139,13 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             set;
         }
 
+        public bool GapFijo
+        {
+            get;
+
+            set;
+        }
+
         private bool _RemueveGap = true;
         public bool RemueveGap
         {

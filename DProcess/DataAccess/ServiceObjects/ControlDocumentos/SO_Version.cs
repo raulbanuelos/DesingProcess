@@ -239,7 +239,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     obj.NO_COPIAS = no_copias;
                     obj.ID_ESTATUS_VERSION = id_estatus;
                     obj.DESCRIPCION = descripcion;
-                    obj.CODE_VALIDATION = string.Empty;
+                    //obj.CODE_VALIDATION = string.Empty;
 
                     //Se cambia el estado de registro a modificado.
                     Conexion.Entry(obj).State = EntityState.Modified;

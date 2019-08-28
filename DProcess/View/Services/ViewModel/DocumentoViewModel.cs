@@ -729,7 +729,7 @@ namespace View.Services.ViewModel
                 //Si es administrador del CIT muestra la fecha.
                 if (Module.UsuarioIsRol(User.Roles, 2))
                     EnabledFecha = true;
-                if (id_tipo == 1015)
+                if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002 || id_tipo == 1004 || id_tipo == 1002)
                     BttnModificar = false;
             }
 
@@ -1486,7 +1486,7 @@ namespace View.Services.ViewModel
 
                     Microsoft.Office.Interop.Excel.Worksheet sheet1;
                     sheet1 = ExcelWork.Sheets[1];
-
+                    
                     if (sheet1.Name != "JES")
                     {
                         mensaje += StringResources.msgLaHoja1 + "JES";
@@ -1659,6 +1659,37 @@ namespace View.Services.ViewModel
                         }
                     }
 
+                    //
+                    if (ban != 2)
+                    {
+                        string qrFinal = GetPathTempFile(new Archivo { nombre = "tempOuputQR", numero = 1, ext = ".PNG" });
+                        generateQRCode(qrFinal);
+                        
+                        for (int i = 1; i <= ExcelWork.Sheets.Count; i++)
+                        {
+                            Microsoft.Office.Interop.Excel.Worksheet sheet;
+                            sheet = ExcelWork.Sheets[i];
+                            Microsoft.Office.Interop.Excel.Range oRange = (Microsoft.Office.Interop.Excel.Range)sheet.Cells[2, 25];
+                            float Left = (float)((double)oRange.Left);
+                            float Top = (float)((double)oRange.Top);
+                            const float ImageSize = 128;
+                            sheet.Shapes.AddPicture(qrFinal, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoCTrue, Left, Top, ImageSize, ImageSize);
+                        }
+
+                        ExcelWork.Save();
+
+                        short resPDF = excel2Pdf(pathExcel, pathPDF);
+
+                        QuitarExcelPonerPDF(archivo, pathPDF);
+
+                        if (resPDF != 0)
+                        {
+                            mensaje = StringResources.msgErrorConvertFile;
+                            return 2;
+                        }
+                    }
+                    
+                    ExcelWork.Save();
                     ExcelApp.Visible = false;
 
                     if (ExcelWork != null)
@@ -1670,35 +1701,19 @@ namespace View.Services.ViewModel
                     if (ban == 2)
                         return 2;
 
-                    short resPDF = excel2Pdf(pathExcel, pathPDF);
-
-                    if (resPDF == 0)
-                    {
-                        string pdfFinal = GetPathTempFile(new Archivo { nombre = "tempOuputPdf", numero = 1 });
-                        string qrFinal = GetPathTempFile(new Archivo { nombre = "tempOuputQR", numero = 1 });
-                        generateQRCode(qrFinal);
-
-                        insertQR(pathPDF, pdfFinal, qrFinal);
-
-                        QuitarExcelPonerPDF(archivo, pdfFinal);
-                    }
-                    else
-                    {
-                        mensaje = StringResources.msgErrorConvertFile;
-                        return 2;
-                    }
                 }
-                if (ListaDocumentos.Count == 0)
-                {
-                    mensaje = StringResources.msgNotFoundFile;
-                    return 2;
-                }
+                //if (ListaDocumentos.Count == 0)
+                //{
+                //    mensaje = StringResources.msgNotFoundFile;
+                //    return 2;
+                //}
                 mensaje = StringResources.msgCorrectFile;
                 return 1;
             }
             catch (Exception er)
             {
                 mensaje = StringResources.msgOcurrioError;
+                ListaDocumentos.Clear();
                 return 3;
             }
 
@@ -2069,6 +2084,7 @@ namespace View.Services.ViewModel
                                 mensaje += "\n" + StringResources.msgFElaboraIncorrecta + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + fechaElaboracion.Year + "-" + mes + "-" + dia;
                                 ban = 2;
                             }
+
                             if (elaboro != ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto)
                             {
                                 mensaje += "\n" + StringResources.msgUElabIncorrecto + ExcelWork.Sheets[i].Name + StringResources.msgDBCr + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto;

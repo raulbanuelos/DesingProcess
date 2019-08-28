@@ -1,0 +1,238 @@
+﻿<Controls:MetroWindow x:Class="View.Forms.Routing.WCalculateDimensions"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Forms.Routing"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" WindowStartupLocation="CenterScreen"
+        BorderThickness="2" BorderBrush="Blue"
+        mc:Ignorable="d" Title="WCalculateDimensions" Height="800" Width="1500">
+    
+    <Controls:MetroWindow.Resources>
+        
+    </Controls:MetroWindow.Resources>
+
+    <Grid>
+        
+        <Grid ShowGridLines="True">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="5"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="5"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <!--Medidas de la materia prima-->
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="8"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Medidas Materia Prima:" Grid.Column="0" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"></TextBlock>
+
+                <TextBox materialDesign:HintAssist.Hint="Diámetro " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="2" HorizontalAlignment="Center"
+                                                 Text="{Binding DiametroMateriaPrima}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                 ToolTip="Diámetro materia prima"></TextBox>
+
+                <TextBox materialDesign:HintAssist.Hint="Width " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="6" HorizontalAlignment="Center"
+                                                 Text="{Binding WidthMateriaPrima}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                 ToolTip="Width materia prima"></TextBox>
+
+                <TextBox materialDesign:HintAssist.Hint="Thickness " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="8" HorizontalAlignment="Center"
+                                                 Text="{Binding ThicknessMateriaPrima}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                 ToolTip="Thcikness Materia prima"></TextBox>
+                
+                <Button Grid.Column="10" Command="{Binding Calcular}">Calcular</Button>
+
+                <Button Grid.Column="12" Command="{Binding OpenCloseFlyoutSave}">Guardar</Button>
+
+                <Button Grid.Column="14" Command="{Binding OpenCloseFlyoutAddOperation}">Add Operation</Button>
+                
+                <Button Grid.Column="16" Command="{Binding DeleteOperation}">Delete</Button>
+            </Grid>
+
+            <!--Títulos de la tabla-->
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+
+                </Grid.ColumnDefinitions>
+
+                <TextBlock HorizontalAlignment="Center" FontSize="24" Text="Operación" Width="120" Grid.Column="0"></TextBlock>
+                <TextBlock HorizontalAlignment="Center" FontSize="24" Text="Diámetro" Grid.Column="2"></TextBlock>
+                <TextBlock HorizontalAlignment="Center" FontSize="24" Text="GAP" Grid.Column="4"></TextBlock>
+                <TextBlock HorizontalAlignment="Center" FontSize="24" Text="Width" Grid.Column="6" ></TextBlock>
+                <TextBlock HorizontalAlignment="Center" FontSize="24" Text="Thickness" Grid.Column="8"></TextBlock>
+                <TextBlock HorizontalAlignment="Center" FontSize="16" Text="Mat Remover Diámetro" Grid.Column="10" TextWrapping="Wrap"></TextBlock>
+                <TextBlock HorizontalAlignment="Center" FontSize="16" Text="Mat Remover Width" Grid.Column="12" TextWrapping="Wrap"></TextBlock>
+                <TextBlock HorizontalAlignment="Center" FontSize="16" Text="Mat Remover Thickness" Grid.Column="14" TextWrapping="Wrap"></TextBlock>
+            </Grid>
+
+            <!--Listado de operaciones-->
+            <ListView Grid.Row="3" Grid.Column="1"
+                  Margin="3"  ItemsSource="{Binding Operaciones}" SelectedItem="{Binding OperationRouteSelected}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.Resources>
+                                <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="300"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="110"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="110"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="110"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="110"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="110"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="110"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="110"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{Binding NombreOperacion}" TextAlignment="Left" Width="180" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom"></TextBlock>
+                            <TextBox Text="{Binding Diameter}" Visibility="{Binding IsObservableDiametro, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" TextAlignment="Center" Grid.Column="2" IsReadOnly="True"></TextBox>
+                            <StackPanel Grid.Column="4" Orientation="Horizontal" Visibility="{Binding IsObservableDiametro, Converter={StaticResource BoolToVis}, FallbackValue=Visible}">
+                                <TextBox Text="{Binding Gap}" TextAlignment="Center" Width="70"></TextBox>
+                                <CheckBox IsChecked="{Binding GapFijo}" ></CheckBox>
+                            </StackPanel>
+                            <TextBox Text="{Binding WidthOperacion}" Visibility="{Binding IsObservableWidth, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" TextAlignment="Center" Grid.Column="6" IsReadOnly="True" ></TextBox>
+                            <TextBox Text="{Binding Thickness}" Visibility="{Binding IsObservableThickness, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" TextAlignment="Center" Grid.Column="8" IsReadOnly="True"></TextBox>
+                            <TextBox Text="{Binding MatRemoverDiametro}" Visibility="{Binding IsObservableDiametro, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" TextAlignment="Center" Grid.Column="10"></TextBox>
+                            <TextBox Text="{Binding MatRemoverWidth}" Visibility="{Binding IsObservableWidth, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" TextAlignment="Center" Grid.Column="12"></TextBox>
+                            <TextBox Text="{Binding MatRemoverThickness}" Visibility="{Binding IsObservableThickness, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" TextAlignment="Center" Grid.Column="14"></TextBox>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!--Medidas nominales del anillo-->
+            <Grid Grid.Row="5" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Medidas Nominales Anillo:" Grid.Column="0" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"></TextBlock>
+
+                <TextBox materialDesign:HintAssist.Hint="Diámetro " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="2" HorizontalAlignment="Center"
+                                                 Text="{Binding DiametroAnillo}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                 ToolTip="Diámetro"></TextBox>
+
+                <TextBox materialDesign:HintAssist.Hint="Gap " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="4" HorizontalAlignment="Center"
+                                                 Text="{Binding GapAnillo}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                 ToolTip="Gap"></TextBox>
+
+                <TextBox materialDesign:HintAssist.Hint="Width " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="6" HorizontalAlignment="Center"
+                                                 Text="{Binding WidthAnillo}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                 ToolTip="Width materia prima"></TextBox>
+
+                <TextBox materialDesign:HintAssist.Hint="Thickness " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="8" HorizontalAlignment="Center"
+                                                 Text="{Binding ThicknessAnillo}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                 ToolTip="Thcikness Materia prima"></TextBox>
+            </Grid>
+
+        </Grid>
+
+        <!--Flyouts-->
+        <Controls:FlyoutsControl>
+            <!--Flyout Save-->
+            <Controls:Flyout Header="Guardar Cálculo" Position="Right" IsOpen="{Binding IsOpenSave}" Margin="0,0,2,0" Width="600">
+                <StackPanel Margin="5" Orientation="Vertical">
+                    <TextBox materialDesign:HintAssist.Hint="Nombre Componente" MaxLength="18" FontSize="16" TextAlignment="Center" HorizontalAlignment="Left"
+                                                 Width="270" Text="{Binding Codigo}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                 ToolTip="Nombre del componente"></TextBox>
+
+                    <Label Content="Comentarios:" Foreground="White"></Label>
+                    <TextBox TextWrapping="Wrap"  AcceptsReturn="True" Height="200" MaxLength="255" ></TextBox>
+
+                    <Button Width="120" HorizontalAlignment="Center" Margin="10" Cursor="Hand">Guardar</Button>
+                </StackPanel>
+            </Controls:Flyout>
+
+            <!--Flyout add operation-->
+            <Controls:Flyout Header="Agregar Operación" Position="Right" IsOpen="{Binding IsOpenAddOperation}" Margin="0,0,2,0" Width="600" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                        <TextBlock Text="Operación"></TextBlock>
+                        <ComboBox ItemsSource="{Binding ListaOperacionesOpcionales}" Width="300" HorizontalAlignment="Left" Margin="15,0,0,0" SelectedItem="{Binding OperacionSeleccionadaOpcional}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="1">
+                        <Label Content="Después de la operación: " Foreground="White"></Label>
+                        <ComboBox ItemsSource="{Binding Operaciones}" Width="300" SelectedItem="{Binding OperacionAntesAddOperacion}"></ComboBox>
+                    </StackPanel>
+
+                    <Button Grid.Row="2" Content="Agregar" Width="120" Margin="10" Cursor="Hand" Command="{Binding AddOperation}"></Button>
+                </Grid>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+
+    </Grid>
+    
+</Controls:MetroWindow>

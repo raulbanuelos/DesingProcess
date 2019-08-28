@@ -33,6 +33,43 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Properties
+
+        private string _NotaColorSelected;
+
+        public string NotaColorSelected
+        {
+            get { return _NotaColorSelected; }
+            set { _NotaColorSelected = value; NotifyChange("NotaColorSelected"); }
+        }
+
+
+        private double _WidthFranjaSelected;
+        public double WidthFranjaSelected
+        {
+            get { return _WidthFranjaSelected; }
+            set { _WidthFranjaSelected = value; NotifyChange("WidthFranjaSelected"); }
+        }
+
+
+        public ObservableCollection<UbicacionPintura> ListaUbicaciones { get; set; }
+
+        private UbicacionPintura _UbicacionSelected;
+        public UbicacionPintura UbicacionSelected
+        {
+            get { return _UbicacionSelected; }
+            set { _UbicacionSelected = value; NotifyChange("UbicacionSelected"); }
+        }
+
+
+        public ObservableCollection<string> ListaColores { get; set; }
+
+        private string _ColorSelected;
+        public string ColorSelected
+        {
+            get { return _ColorSelected; }
+            set { _ColorSelected = value; NotifyChange("ColorSelected"); }
+        }
+        
         public ObservableCollection<string> ListaEspecificacionesMateriaPrima { get; set; }
 
         private ObservableCollection<IOperacion> _ListaOperacionesOpcionales;
@@ -48,7 +85,7 @@ namespace View.Services.ViewModel
             get { return _OperacionAntesAddOperacion; }
             set { _OperacionAntesAddOperacion = value; NotifyChange("OperacionAntesAddOperacion"); }
         }
-
+        
         private IOperacion _OperacionSeleccionadaOpcional;
         public IOperacion OperacionSeleccionadaOpcional
         {
@@ -69,8 +106,7 @@ namespace View.Services.ViewModel
             get { return _ListaIronRailRawMaterial; }
             set { _ListaIronRailRawMaterial = value; }
         }
-
-
+        
         public ObservableCollection<Cliente> ListaClientes { get; set; }
 
         public ObservableCollection<string> ListaTreatment { get; set; }
@@ -364,6 +400,30 @@ namespace View.Services.ViewModel
             get { return _IsMilimeter; }
             set { _IsMilimeter = value; NotifyChange("IsMilimeter"); }
         }
+
+        private bool _IsPackageOpen;
+        public bool IsPackageOpen
+        {
+            get { return _IsPackageOpen; }
+            set { _IsPackageOpen = value; NotifyChange("IsPackageOpen"); }
+        }
+
+        private bool _IsPinturaOpen;
+
+        public bool IsPinturaOpen
+        {
+            get { return _IsPinturaOpen; }
+            set { _IsPinturaOpen = value; NotifyChange("IsPinturaOpen"); }
+        }
+
+        private bool _IsNormasOpen;
+        public bool IsNormasOpen
+        {
+            get { return _IsNormasOpen; }
+            set { _IsNormasOpen = value; NotifyChange("IsNormasOpen"); }
+        }
+
+
 
         #endregion
 
@@ -931,11 +991,55 @@ namespace View.Services.ViewModel
             AllPerfilesPuntas = DataManager.GetAllPerfiles("PERFIL PUNTAS");
 
             ListaAllNormas = DataManager.GetAllNormas();
+
+            ListaColores = DataManager.GetAllColores();
+
+            ListaUbicaciones = DataManager.GetUbicacionesSegmentos();
+            FranjasPintura = new ObservableCollection<PinturaAnillo>();
+
+            
         }
 
         #endregion
 
         #region Commands
+
+        public ICommand CalculateDimensions {
+            get {
+                return new RelayCommand(o => calculateDimensions());
+            }
+        }
+
+        public ICommand AddPintura {
+            get
+            {
+                return new RelayCommand(o => addPintura());
+            }
+        }
+
+        public ICommand ChangeFlyoutPackage
+        {
+            get
+            {
+                return new RelayCommand(o => changeFlyoutPackage());
+            }
+        }
+
+        public ICommand ChangeFlyoutPintura
+        {
+            get
+            {
+                return new RelayCommand(o => changeFlyoutPintura());
+            }
+        }
+
+        public ICommand ChangeFlyoutNormas
+        {
+            get
+            {
+                return new RelayCommand(o => changeFlyoutNormas());
+            }
+        }
 
         public ICommand VerNormas
         {
@@ -1157,6 +1261,51 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Methods
+
+        private void calculateDimensions()
+        {
+            WCalculateDimensions frm = new WCalculateDimensions();
+            
+            CalculateDimensionsViewModel viewmodel = new CalculateDimensionsViewModel();
+            
+            frm.DataContext = viewmodel;
+
+            frm.ShowDialog();
+        }
+
+        private void addPintura()
+        {
+            PinturaAnillo objPintura = new PinturaAnillo();
+
+            objPintura.AnchoPintura = WidthFranjaSelected;
+            objPintura.Color = ColorSelected;
+            objPintura.Nota = NotaColorSelected;
+            objPintura.UbicacionFranja = UbicacionSelected;
+
+            FranjasPintura.Add(objPintura);
+            FranjasPintura = FranjasPintura;
+
+            WidthFranjaSelected = 0;
+            ColorSelected = string.Empty;
+            NotaColorSelected = string.Empty;
+            UbicacionSelected = new UbicacionPintura();
+
+        }
+
+        private void changeFlyoutPackage()
+        {
+            IsPackageOpen = IsPackageOpen ? false : true;
+        }
+
+        private void changeFlyoutPintura()
+        {
+            IsPinturaOpen = IsPinturaOpen ? false : true;
+        }
+
+        private void changeFlyoutNormas()
+        {
+            IsNormasOpen = IsNormasOpen ? false : true;
+        }
 
         /// <summary>
         /// Método que calcula las operaciones.
@@ -1433,7 +1582,6 @@ namespace View.Services.ViewModel
                 {
                     if (MaterialBase.TipoDeMaterial == "ACERO INOXIDABLE")
                     {
-
                         calcularMateriaPrima = new CalculaMateriaPrima(ModelAnillo);
                         ListaIronRailRawMaterial = calcularMateriaPrima.CalcularMateriaPrimaAceroSegmento();
 
@@ -1446,7 +1594,6 @@ namespace View.Services.ViewModel
                             if (ListaIronRailRawMaterial.Where(x => x.IsSelected).ToList().Count == 1)
                             {
                                 MateriaPrimaAceros mpSeleccionada = new MateriaPrimaAceros();
-                                //ListaIronRailRawMaterial.Where(x => x.IsSelected).FirstOrDefault();
                                 mpSeleccionada = ListaIronRailRawMaterial.Where(x => x.IsSelected).FirstOrDefault();
                                 mpSeleccionada.Propiedades.Add(new Propiedad { Nombre = "espesorAxialMP", Valor = mpSeleccionada.ESP_AXIAL, TipoDato = "Distance", Unidad = "Inch (in)" });
                                 mpSeleccionada.Propiedades.Add(new Propiedad { Nombre = "espesorRadialMP", Valor = mpSeleccionada.ESP_RADIAL, TipoDato = "Distance", Unidad = "Inch (in)" });
@@ -1752,7 +1899,6 @@ namespace View.Services.ViewModel
             #endregion
 
             #region Calculo de Diámetro
-
             i = Operaciones.Count - 1;
             c = 0;
             SubjectDiametro subjectDiametro = new SubjectDiametro();
@@ -2243,15 +2389,13 @@ namespace View.Services.ViewModel
                     PerfilPuntas.Propiedades = Module.ConvertListToObservableCollectionPropiedad(ListaTotalesPropiedades.Where(x => x.TipoPerfil == "PERFIL PUNTAS").ToList());
                     PerfilPuntas.PropiedadesCadena = Module.ConvertListToObservableCollectionPropiedadCadena(ListaTotalesPropiedadesCadena.Where(x => x.TipoPerfil == "PERFIL PUNTAS").ToList());
                     PerfilPuntas.PropiedadesBool = Module.ConvertListToObservableCollectionPropiedadBool(ListaTotalesPropiedadesBool.Where(x => x.TipoPerfil == "PERFIL PUNTAS").ToList());
-
-
+                    
                     NotifyChange("Codigo");
                     NotifyChange("PerfilOD");
                     NotifyChange("PerfilID");
                     NotifyChange("PerfilLateral");
                     NotifyChange("PerfilPuntas");
-
-
+                    
                     ArquetipoRing arquetipoRing = DataManager.GetArquetipoRing(Codigo);
 
                     D1 = arquetipoRing.D1;
@@ -2277,6 +2421,8 @@ namespace View.Services.ViewModel
                     createNumericEntry();
                     createTextEntry();
                     createBoolEntry();
+
+                    ListaNormas = DataManager.GetNormaByArquetipo(Codigo);
 
                     await Controller.CloseAsync();
                     await dialogService.SendMessage(Resources.StringResources.ttlDone, "El componente está listo.");
@@ -2445,7 +2591,17 @@ namespace View.Services.ViewModel
                 foreach (PropiedadBool propiedad in PerfilPuntas.PropiedadesBool)
                 {
                     DataManager.UpdateArquetipoPropiedadesBool(Codigo, propiedad.idPropiedad, propiedad.Valor);
-                } 
+                }
+                #endregion
+
+                #region Update Normas
+
+                DataManager.DeleteArquetipoNorma(Codigo);
+
+                foreach (var item in ListaNormas)
+                {
+                    DataManager.InsertArquetipoNorma(Codigo, item.idNorma);
+                }
                 #endregion
 
             }
@@ -2528,9 +2684,16 @@ namespace View.Services.ViewModel
                     foreach (PropiedadBool propiedad in PerfilPuntas.PropiedadesBool)
                     {
                         DataManager.InsertArquetipoPropiedadesBool(Codigo, propiedad.idPropiedad, propiedad.Valor);
-                    } 
+                    }
                     #endregion
-                    
+
+                    #region Insert Normas
+                    foreach (var item in ListaNormas)
+                    {
+                        DataManager.InsertArquetipoNorma(Codigo, item.idNorma);
+                    }
+                    #endregion
+
                 }
                 else
                 {
@@ -3026,6 +3189,14 @@ namespace View.Services.ViewModel
                     Label = "Create a ring",
                     Command = CreateRing,
                     Tag = "Crea un anillo."
+                });
+
+            this.MenuItems.Add(
+                new HamburgerMenuIconItem {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.AccountKey },
+                    Label = "Calculate dimensions",
+                    Command = CalculateDimensions,
+                    Tag = "Calculate dimension"
                 });
         }
         

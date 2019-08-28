@@ -86,6 +86,33 @@ namespace View.Services.Operaciones.Segmentos
         public bool IsWorking { get; set; }
 
         /// <summary>
+        /// Propiedad que indica si la clase implementa la interfaz IObserverDiametro.
+        /// </summary>
+        public bool IsObservableDiametro
+        {
+            get { return this is IObserverDiametro; }
+            set { IsObservableDiametro = value; }
+        }
+
+        /// <summary>
+        /// Propiedad que indica si la clase implementa la interfaz IObserverWidth.
+        /// </summary>
+        public bool IsObservableWidth
+        {
+            get { return this is IObserverWidth; }
+            set { IsObservableWidth = value; }
+        }
+
+        /// <summary>
+        /// Propiedad que indica si la clase implementa la interfaz IObserverThickness.
+        /// </summary>
+        public bool IsObservableThickness
+        {
+            get { return this is IObserverThickness; }
+            set { IsObservableThickness = value; }
+        }
+
+        /// <summary>
         /// Collección que representa la lista de herramentales de la operación.
         /// </summary>
         public ObservableCollection<Herramental> ListaHerramentales { get; set; }

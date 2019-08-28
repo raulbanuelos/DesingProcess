@@ -139,19 +139,25 @@ namespace View.Services.Operaciones.Segmentos
             //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
 
-            //Agregamos el texto con las instrucciones de la operación.
-            //Opción 1
-            TextoProceso = "*DESENGRASE" + Environment.NewLine;
-            TextoProceso += "ELIMINAR GRASA Y RESIDUOS" + Environment.NewLine;
-            TextoProceso += "DE LA PASTA DE LAPEADO" + Environment.NewLine;
-            TextoProceso += " " + Environment.NewLine;
-
-            //Opción 2
-            TextoProceso += "*DESENGRASE" + Environment.NewLine;
-            TextoProceso += "ELIMINAR GRASA Y RESIDUOS DE RUEVA ABRASIVA" + Environment.NewLine;
-            TextoProceso += " " + Environment.NewLine;
-            TextoProceso += " " + Environment.NewLine;
-
+            int noPaso = Module.GetNumPasoOperacion(elPlano.Operaciones, NoOperacion / 10, NombreOperacion);
+            if (noPaso == 1)
+            {
+                //Agregamos el texto con las instrucciones de la operación.
+                //Opción 1
+                TextoProceso = "*DESENGRASE" + Environment.NewLine;
+                TextoProceso += "ELIMINAR GRASA Y RESIDUOS" + Environment.NewLine;
+                TextoProceso += "DE LA PASTA DE LAPEADO" + Environment.NewLine;
+                TextoProceso += " " + Environment.NewLine;
+            }
+            else
+            {
+                //Opción 2
+                TextoProceso += "*DESENGRASE" + Environment.NewLine;
+                TextoProceso += "ELIMINAR GRASA Y RESIDUOS DE RUEVA ABRASIVA" + Environment.NewLine;
+                TextoProceso += " " + Environment.NewLine;
+                TextoProceso += " " + Environment.NewLine;
+            }
+            
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
 

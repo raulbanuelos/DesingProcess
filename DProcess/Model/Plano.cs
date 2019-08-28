@@ -20,6 +20,14 @@ namespace Model
         #endregion
 
         #region Métodos
+
+        #region Methods override
+        public override string ToString()
+        {
+            return NoPlano;
+        }
+        #endregion
+
         #endregion
     }
 }

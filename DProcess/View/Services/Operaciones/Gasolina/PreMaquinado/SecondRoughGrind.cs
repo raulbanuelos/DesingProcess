@@ -228,11 +228,14 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             //Actualizamos el width de la operación.
             WidthOperacion = WidthAfterOperacion + MaterialRemoverAfterOperacion;
 
-            string proceso = Module.GetValorPropiedadString("Proceso", elPlano.PerfilOD.PropiedadesCadena);
-            if (proceso != "Sencillo")
+            if (elPlano != null)
             {
-                double widthSplitter = DataManager.GetWidthSplitterCasting(proceso, Module.ConvertTo("Distance", elPlano.H1.Unidad, "Inch (in)", elPlano.H1.Valor));
-                MatRemoverWidth = widthSplitter - WidthOperacion;
+                string proceso = Module.GetValorPropiedadString("Proceso", elPlano.PerfilOD.PropiedadesCadena);
+                if (proceso != "Sencillo")
+                {
+                    double widthSplitter = DataManager.GetWidthSplitterCasting(proceso, Module.ConvertTo("Distance", elPlano.H1.Unidad, "Inch (in)", elPlano.H1.Valor));
+                    MatRemoverWidth = widthSplitter - WidthOperacion;
+                }
             }
         }
 

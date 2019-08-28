@@ -24,6 +24,11 @@ namespace Model.Interfaces
         double Gap { get; set; }
 
         /// <summary>
+        /// Booleano que representa si el usuario desea un gap n especifico, si es false el gap se tomara como la media final.
+        /// </summary>
+        bool GapFijo { get; set; }
+
+        /// <summary>
         /// Booleano que indica si la operación remueve material en Gap.
         /// </summary>
         bool RemueveGap { get; set; }

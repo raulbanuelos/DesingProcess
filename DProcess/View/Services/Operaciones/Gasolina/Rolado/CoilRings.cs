@@ -34,6 +34,13 @@ namespace View.Services.Operaciones.Gasolina.Rolado
             set;
         }
 
+        public bool GapFijo
+        {
+            get;
+
+            set;
+        }
+
         private bool _RemueveGap = false;
         public bool RemueveGap
         {

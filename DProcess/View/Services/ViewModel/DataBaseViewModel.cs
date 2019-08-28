@@ -77,7 +77,7 @@ namespace View.Services.ViewModel
 
             PropiedadCadenaViewModel context = new PropiedadCadenaViewModel(true);
 
-            Form.DataContext = Form;
+            Form.DataContext = context;
 
             Form.ShowDialog();
         }

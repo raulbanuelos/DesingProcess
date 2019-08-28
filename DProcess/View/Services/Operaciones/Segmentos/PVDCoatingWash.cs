@@ -142,7 +142,7 @@ namespace View.Services.Operaciones.Segmentos
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "WASHING (NOVATEC)" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
-            TextoProceso += "UTILIZAR RECETA:   PROGRAMA " + Environment.NewLine;
+            TextoProceso += "UTILIZAR RECETA:   PROGRAMA 3" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "DISTRIBUCIÓN DE BOBINAS:" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;

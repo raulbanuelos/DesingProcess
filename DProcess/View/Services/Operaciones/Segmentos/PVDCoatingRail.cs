@@ -139,9 +139,21 @@ namespace View.Services.Operaciones.Segmentos
             //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
 
+            string receta = Module.GetValorPropiedadString("EspecRecetaPVD", elPlano.PerfilOD.PropiedadesCadena);
+            double minCapaPVD = Module.GetValorPropiedad("CapaPVDMin", elPlano.PerfilOD.Propiedades);
+
+            Propiedad minCapa = Module.GetPropiedad("CapaPVDMin", elPlano.PerfilOD.Propiedades);
+            minCapa.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), minCapa.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), minCapa.Valor);
+
+            Propiedad durezaMinPVD = Module.GetPropiedad("HardnessMinPVD", elPlano.PerfilOD.Propiedades);
+            Propiedad durezaMaxPVD = Module.GetPropiedad("HardnessMaxPVD", elPlano.PerfilOD.Propiedades);
+
+            double minPDV = minCapa.Valor + 0.005;
+            double maxPVD = minPDV + 0.020;
+
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "RECUBRIMIENTO PVD (KOBELCO)" + Environment.NewLine;
-            TextoProceso += "RECETA: " + Environment.NewLine;
+            TextoProceso += "RECETA: " + receta + Environment.NewLine;
             TextoProceso += "No: 013" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "LLENADO DEL CHECK LIST:F-3571-ED_PVD-003" + Environment.NewLine;
@@ -151,9 +163,9 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "MONTAR LOS MANDRILES EN LA MESA DE 18 POSICIONES (MESA 1)" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
-            TextoProceso += "ESPESOR PVD " + "" + " -" + "" + " mm" + Environment.NewLine;
-            TextoProceso += "DUREZA DE " + "" + " -" + "" + " HV" + Environment.NewLine;
-            TextoProceso += "ESPECIFICACION " + Environment.NewLine;
+            TextoProceso += "ESPESOR PVD " + minPDV + " - " + maxPVD + " mm" + Environment.NewLine;
+            TextoProceso += "DUREZA DE " + durezaMinPVD.Valor + " - " + durezaMaxPVD.Valor + " " + durezaMaxPVD.Unidad + Environment.NewLine;
+            TextoProceso += "ESPECIFICACION " + receta + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "PROCEDIMIENTOS" + Environment.NewLine;
             TextoProceso += "W-3571-TSPVD-0011" + Environment.NewLine;

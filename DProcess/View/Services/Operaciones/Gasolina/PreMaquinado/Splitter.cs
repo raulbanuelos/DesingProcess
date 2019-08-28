@@ -171,27 +171,31 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
 
         private void CalcularWidth()
         {
-            proceso = Module.GetValorPropiedadString("Proceso", elPlano.PerfilOD.PropiedadesCadena);
-
-            WidthOperacion = DataManager.GetWidthSplitterCasting(proceso, elPlano.H1.Valor);
-
-            if (WidthOperacion == 0)
+            if (elPlano != null)
             {
-                AlertasOperacion.Add("No se encontró el width de la operación. Favor de checar la tabla SplitterSpacerChart. Cálculo de width en la hoja de ruta incorrecto.");
-            }
-            else
-            {
-                double? widthFirstRoughGrind = DataManager.GetWidthFirstRoughGrind(proceso, elPlano.H1.Valor);
+                proceso = Module.GetValorPropiedadString("Proceso", elPlano.PerfilOD.PropiedadesCadena);
 
-                if (widthFirstRoughGrind != null && widthFirstRoughGrind > 0)
+                WidthOperacion = DataManager.GetWidthSplitterCasting(proceso, elPlano.H1.Valor);
+
+                if (WidthOperacion == 0)
                 {
-                    MatRemoverWidth = Convert.ToDouble(widthFirstRoughGrind) - WidthOperacion;
+                    AlertasOperacion.Add("No se encontró el width de la operación. Favor de checar la tabla SplitterSpacerChart. Cálculo de width en la hoja de ruta incorrecto.");
                 }
                 else
                 {
-                    AlertasOperacion.Add("No se encontró el width de la operación First Rough Grind. Favor de checar la tabla SplitterSpacerChart. Cálculo de width en la hoja de ruta incorrecto.");
+                    double? widthFirstRoughGrind = DataManager.GetWidthFirstRoughGrind(proceso, elPlano.H1.Valor);
+
+                    if (widthFirstRoughGrind != null && widthFirstRoughGrind > 0)
+                    {
+                        MatRemoverWidth = Convert.ToDouble(widthFirstRoughGrind) - WidthOperacion;
+                    }
+                    else
+                    {
+                        AlertasOperacion.Add("No se encontró el width de la operación First Rough Grind. Favor de checar la tabla SplitterSpacerChart. Cálculo de width en la hoja de ruta incorrecto.");
+                    }
                 }
             }
+            
         }
         
         #region Methods of IOperacion

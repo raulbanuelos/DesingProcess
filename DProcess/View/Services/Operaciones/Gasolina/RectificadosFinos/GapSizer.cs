@@ -10,7 +10,7 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
     {
         #region Properties
         #region Propiedades de IOperacion
-        
+
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
         /// </summary>
@@ -80,7 +80,7 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
         /// Booleano que representa si una operación esta en ejecucioón(Ejecutando el métod CrearOperacion())
         /// </summary>
         public bool IsWorking { get; set; }
-
+        
         /// <summary>
         /// Collección que representa la lista de herramentales de la operación.
         /// </summary>
@@ -134,6 +134,13 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
         }
 
         public double Gap
+        {
+            get;
+
+            set;
+        }
+
+        public bool GapFijo
         {
             get;
 

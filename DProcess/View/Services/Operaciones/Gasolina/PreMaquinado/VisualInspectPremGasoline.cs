@@ -84,7 +84,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         /// Booleano que representa si una operación esta en ejecucioón(Ejecutando el métod CrearOperacion())
         /// </summary>
         public bool IsWorking { get; set; }
-
+        
         /// <summary>
         /// Collección que representa la lista de herramentales de la operación.
         /// </summary>

@@ -1,27 +1,30 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DataAccess.ServiceObjects.Normas
+namespace DataAccess.ServiceObjects.Perfiles
 {
-    public class SO_Normas
+    public class SO_ColoresAnillos
     {
         public IList GetAll()
         {
             try
             {
-                using (var Conexion = new EntitiesNormas())
+                using (var Conexion = new EntitiesPerfiles())
                 {
-                    var lista = (from a in Conexion.TBL_NORMAS
+                    var lista = (from a in Conexion.ColoresAnillos
                                  select a).ToList();
 
                     return lista;
-
                 }
             }
             catch (Exception)
             {
-                return null;
+
+                throw;
             }
         }
     }

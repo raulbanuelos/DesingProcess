@@ -139,15 +139,45 @@ namespace View.Services.Operaciones.Segmentos
             //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
 
+            elPlano.D1.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), elPlano.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.D1.Valor);
+            elPlano.D1.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+
+            Propiedad widthMin = Module.GetPropiedad("h11 Min", elPlano.PerfilLateral.Propiedades);
+            Propiedad widthMax = Module.GetPropiedad("h11 Max", elPlano.PerfilLateral.Propiedades);
+
+            widthMin.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), widthMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), widthMin.Valor);
+            widthMax.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), widthMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), widthMax.Valor);
+
+            Propiedad thicknessMin = Module.GetPropiedad("a1 Min", elPlano.PerfilID.Propiedades);
+            Propiedad thicknessMax = Module.GetPropiedad("a1 Max", elPlano.PerfilID.Propiedades);
+
+            thicknessMin.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), thicknessMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), thicknessMin.Valor);
+            thicknessMax.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), thicknessMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), thicknessMax.Valor);
+
+            Propiedad gapMin = Module.GetPropiedad("s1 Min", elPlano.PerfilPuntas.Propiedades);
+            Propiedad gapMax = Module.GetPropiedad("s1 Max", elPlano.PerfilPuntas.Propiedades);
+
+            gapMin.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), gapMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), gapMin.Valor);
+            gapMax.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), gapMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), gapMax.Valor);
+
+            double gapMedia = (gapMin.Valor + gapMax.Valor) / 2;
+            double gapTolerancia = gapMedia - gapMin.Valor;
+
+            Propiedad freeGapMin = Module.GetPropiedad("freeGapMin", elPlano.PerfilPuntas.Propiedades);
+            Propiedad freeGapMax = Module.GetPropiedad("freeGapMax", elPlano.PerfilPuntas.Propiedades);
+
+            freeGapMin.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), freeGapMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), freeGapMin.Valor);
+            freeGapMax.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), freeGapMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), freeGapMax.Valor);
+
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "*CORTE DE PUNTAS" + Environment.NewLine;
             TextoProceso += "*Y CHAFLAN VIA" + Environment.NewLine;
             TextoProceso += "*THOMPSON" + Environment.NewLine;
-            TextoProceso += "CALIBRADOR " + Environment.NewLine;
-            TextoProceso += "ESP. AXIAL " + "" + " -" + Environment.NewLine;
-            TextoProceso += "ESP RADIAL " + "" + " -" + Environment.NewLine;
-            TextoProceso += "ABERTURA " + "" + " +/-" + "" + " <SC>" + Environment.NewLine;
-            TextoProceso += "ABERTURA LIBRE " + "" + " -" + Environment.NewLine;
+            TextoProceso += "CALIBRADOR        " + elPlano.D1.Valor + Environment.NewLine;
+            TextoProceso += "ESP. AXIAL        " + widthMin.Valor + "  -  " + widthMax.Valor + Environment.NewLine;
+            TextoProceso += "ESP RADIAL        " + thicknessMin.Valor + "  -  " + thicknessMax.Valor + Environment.NewLine;
+            TextoProceso += "ABERTURA          " + gapMedia + " +/- " + gapTolerancia + " <SC>" + Environment.NewLine;
+            TextoProceso += "ABERTURA LIBRE    " + freeGapMin.Valor + "  -  " + freeGapMax.Valor + "" + Environment.NewLine;
             TextoProceso += "CHAFLÁN DIA. EXT. 0.0004  -  0.0078 X 45 GRADOS" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "NOTA: LIBRE DE REBABAS EN PUNTAS" + Environment.NewLine;

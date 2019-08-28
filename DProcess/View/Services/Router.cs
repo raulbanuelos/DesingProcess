@@ -33,6 +33,28 @@ namespace View.Services
             return ListaOperaciones;
         }
 
+        public static ObservableCollection<IOperacion> GetExample()
+        {
+            ObservableCollection<IOperacion> ListaOperaciones = new ObservableCollection<IOperacion>();
+
+            //Ejemplo componente RF10U-255
+            ListaOperaciones.Add(new FirstRoughGrind());
+            ListaOperaciones.Add(new Splitter());
+            ListaOperaciones.Add(new SecondRoughGrind());
+            ListaOperaciones.Add(new FinishGrind());
+            ListaOperaciones.Add(new CamTurn());
+            ListaOperaciones.Add(new BatesBore());
+            ListaOperaciones.Add(new FinishMill());
+            ListaOperaciones.Add(new AutoFinTurn());
+            ListaOperaciones.Add(new ChromeOD());
+            ListaOperaciones.Add(new GapSizer());
+            ListaOperaciones.Add(new Lapping());
+            ListaOperaciones.Add(new Diskus());
+            ListaOperaciones.Add(new Phosphate());
+
+            return ListaOperaciones;
+        }
+
         /// <summary>
 		/// Método que calcula las operaciones para el material Hierro Gris.
 		/// </summary>

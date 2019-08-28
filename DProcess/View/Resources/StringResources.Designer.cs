@@ -1456,7 +1456,7 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Tooling flat.
+        ///   Busca una cadena traducida similar a Drawing.
         /// </summary>
         public static string lblPlanoHerramental {
             get {

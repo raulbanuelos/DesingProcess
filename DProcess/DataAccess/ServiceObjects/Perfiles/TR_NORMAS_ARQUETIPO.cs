@@ -7,16 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DataAccess.ServiceObjects.Normas
+namespace DataAccess.ServiceObjects.Perfiles
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class TBL_NORMAS
+    public partial class TR_NORMAS_ARQUETIPO
     {
-        public int ID_NORMA { get; set; }
-        public string ESPECIFICACION { get; set; }
-        public string DESCRIPCION_CORTA { get; set; }
-        public string DESCRIPCION_LARGA { get; set; }
+        public int ID_NORMA_ARQUETIPO { get; set; }
+        public string CODIGO { get; set; }
+        public Nullable<int> ID_NORMA { get; set; }
+    
+        public virtual Arquetipo Arquetipo { get; set; }
+        public virtual TBL_NORMAS TBL_NORMAS { get; set; }
     }
 }

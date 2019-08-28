@@ -680,7 +680,7 @@ namespace View.Services.ViewModel
             ListaClasificacion = DataManager.GetClasificacionHerramental(string.Empty);
             //Obtiene las propiedades del herramental
             MaestroHerramental ObjHerramental = DataManager.GetPropiedadesHerramental(MHerramental.Codigo);
-           
+
             //Asignamos las propiedades 
             bandCambios = true;
             BttnEliminar = true;
@@ -690,6 +690,7 @@ namespace View.Services.ViewModel
             EnabledCodigo = false;
             IsSelected = ObjHerramental.activo;
             Id_clasificacion = ObjHerramental.id_clasificacion;
+            IdPlano = ObjHerramental.id_plano;
             CargarControlador(ObjHerramental.objetoXML);
 
             //Si el herramemtal no tiene clsificación, se habilita el combobox y se muestra el botón de búsqueda.

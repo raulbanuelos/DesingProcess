@@ -96,6 +96,7 @@ namespace View.Services.ViewModel
         #region Methods
         private async void GetDocument(string param)
         {
+            
             DialogService dialog = new DialogService();
 
 

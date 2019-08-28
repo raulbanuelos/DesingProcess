@@ -288,38 +288,38 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         /// </summary>
         private void CalcularWidth()
         {
-
-            //Obtenemos el valor de la propiedad Proceso que ingresó el usuario.
-            string proceso = Module.GetValorPropiedadString("Proceso", elPlano.PerfilOD.PropiedadesCadena);
-
-            //Obtenermos el width para la operación.
-            double? width = DataManager.GetWidthFirstRoughGrind(proceso, elPlano.H1.Valor);
-
-            //Verificamos que el resultado sea un valor válido.
-            if (width != null && width > 0)
+            if (elPlano != null)
             {
-                //Obtenemos el valor del width de la operación First Rough Grind.
-                WidthOperacion = Convert.ToDouble(width);
+                //Obtenemos el valor de la propiedad Proceso que ingresó el usuario.
+                string proceso = Module.GetValorPropiedadString("Proceso", elPlano.PerfilOD.PropiedadesCadena);
 
-                //Comparamos si el proceso es distindo a Sencillo.
-                if (proceso != "Sencillo")
+                //Obtenermos el width para la operación.
+                double? width = DataManager.GetWidthFirstRoughGrind(proceso, elPlano.H1.Valor);
+
+                //Verificamos que el resultado sea un valor válido.
+                if (width != null && width > 0)
                 {
+                    //Obtenemos el valor del width de la operación First Rough Grind.
+                    WidthOperacion = Convert.ToDouble(width);
 
-                    //Obtenemos el valor del width en la operación Splitter.
-                    double widthSplitter = DataManager.GetWidthSplitterCasting(proceso, elPlano.H1.Valor);
+                    //Comparamos si el proceso es distindo a Sencillo.
+                    if (proceso != "Sencillo")
+                    {
 
-                    //Calculamos el valor del material a remover en la operación.
-                    MatRemoverWidth = WidthOperacion - widthSplitter;
+                        //Obtenemos el valor del width en la operación Splitter.
+                        double widthSplitter = DataManager.GetWidthSplitterCasting(proceso, elPlano.H1.Valor);
+
+                        //Calculamos el valor del material a remover en la operación.
+                        MatRemoverWidth = WidthOperacion - widthSplitter;
+                    }
+                }
+                else
+                {
+                    //Si no se encontró el width para la operación, asignamos un valor cero a la propiedad y agregamos una alerta.
+                    WidthOperacion = 0;
+                    AlertasOperacion.Add("No se encontró el width de la operación. Favor de checar la tabla SplitterSpacerChart. Cálculo de width en la hoja de ruta incorrecto.");
                 }
             }
-            else
-            {
-                //Si no se encontró el width para la operación, asignamos un valor cero a la propiedad y agregamos una alerta.
-                WidthOperacion = 0;
-                AlertasOperacion.Add("No se encontró el width de la operación. Favor de checar la tabla SplitterSpacerChart. Cálculo de width en la hoja de ruta incorrecto.");
-            }
-
-           
         }
 
         #endregion

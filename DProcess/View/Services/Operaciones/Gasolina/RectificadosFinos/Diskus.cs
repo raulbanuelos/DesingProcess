@@ -233,6 +233,9 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
             AlertasOperacion = new ObservableCollection<string>();
             NotasOperacion = new ObservableCollection<string>();
+
+            //HARDCODE
+            MatRemoverWidth = 0.0005;
         }
         #endregion
 

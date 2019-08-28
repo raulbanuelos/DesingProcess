@@ -139,54 +139,113 @@ namespace View.Services.Operaciones.Segmentos
             //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
 
+            #region Obtenemos el Width
+            Propiedad widthMin = Module.GetPropiedad("h11 Min", elPlano.PerfilLateral.Propiedades);
+            Propiedad widthMax = Module.GetPropiedad("h11 Max", elPlano.PerfilLateral.Propiedades);
+            widthMin.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), widthMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), widthMin.Valor);
+            widthMax.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), widthMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), widthMax.Valor);
+            #endregion
+
+            #region Obtenemos el Thickness
+            Propiedad thicknessMin = Module.GetPropiedad("a1 Min", elPlano.PerfilID.Propiedades);
+            Propiedad thicknessMax = Module.GetPropiedad("a1 Max", elPlano.PerfilID.Propiedades);
+            thicknessMin.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), thicknessMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), thicknessMin.Valor);
+            thicknessMax.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), thicknessMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), thicknessMax.Valor);
+            #endregion
+
+            #region Obtenemos el Gap
+            Propiedad gapMin = Module.GetPropiedad("s1 Min", elPlano.PerfilPuntas.Propiedades);
+            Propiedad gapMax = Module.GetPropiedad("s1 Max", elPlano.PerfilPuntas.Propiedades);
+            gapMin.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), gapMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), gapMin.Valor);
+            gapMax.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), gapMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), gapMax.Valor);
+            #endregion
+
+            #region Obtenemos el Free Gap
+            Propiedad freeGapMin = Module.GetPropiedad("freeGapMin", elPlano.PerfilPuntas.Propiedades);
+            Propiedad freeGapMax = Module.GetPropiedad("freeGapMax", elPlano.PerfilPuntas.Propiedades);
+            freeGapMin.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), freeGapMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), freeGapMin.Valor);
+            freeGapMax.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), freeGapMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), freeGapMax.Valor);
+            #endregion
+
+            #region Obtenemos la capa de nitrurado
+            Propiedad thicknessNitMin = Module.GetPropiedad("ODCoatingNitrideMin", elPlano.PerfilOD.Propiedades);
+            Propiedad thicknessNitMax = Module.GetPropiedad("ODCoatingNitrideMax", elPlano.PerfilOD.Propiedades);
+            thicknessNitMax.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), thicknessNitMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), thicknessNitMax.Valor);
+            thicknessNitMin.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), thicknessNitMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), thicknessNitMin.Valor);
+            #endregion
+
+            double d1 = Module.ConvertTo(elPlano.D1.TipoDato, elPlano.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.D1.Valor);
+            double h1 = Module.ConvertTo(elPlano.H1.TipoDato, elPlano.H1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.H1.Valor);
+            string recetaPVD = Module.GetValorPropiedadString("EspecRecetaPVD", elPlano.PerfilOD.PropiedadesCadena);
+            
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "*INSPECCION FINAL" + Environment.NewLine;
             TextoProceso += "*AUDITORIA DIM." + Environment.NewLine;
-            TextoProceso += "ABERTURA " + "" + " -" + Environment.NewLine;
-            TextoProceso += "ESPESOR RADIAL " + "" + " -" + Environment.NewLine;
-            TextoProceso += "TH. NITRURADO " + "" + " -" + Environment.NewLine;
-            TextoProceso += "ABERTURA LIBRE " + "" + " -" + Environment.NewLine;
-            TextoProceso += "ESPESOR AXIAL " + "" + " -" + Environment.NewLine;
+            TextoProceso += "ABERTURA       " + gapMin.Valor + " - " + gapMax.Valor + "" + Environment.NewLine;
+            TextoProceso += "ESPESOR RADIAL " + thicknessMin + " - " + thicknessMax.Valor + "" + Environment.NewLine;
+            TextoProceso += "TH. NITRURADO  0.0004 - 0.0023" + Environment.NewLine;
+            TextoProceso += "ABERTURA LIBRE " + freeGapMin.Valor + " - " + freeGapMin.Valor + "" + Environment.NewLine;
+            TextoProceso += "ESPESOR AXIAL  " + widthMin.Valor + " - " + widthMax.Valor + "" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
-            TextoProceso += "ESPECIFICACION PVD " + Environment.NewLine;
-            TextoProceso += "ESPESOR PVD " + Environment.NewLine;
+            TextoProceso += "ESPECIFICACION PVD " + recetaPVD + Environment.NewLine;
+            TextoProceso += "ESPESOR PVD 0.0004 - 0.0011" + Environment.NewLine;
             TextoProceso += "DIMENSION PARA REGIÓN INTERNA " + "" + " -" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "ALINEAR E INSPECCIONAR" + Environment.NewLine;
+
+            #region Pintura
             TextoProceso += "*PINTURA" + Environment.NewLine;
-            TextoProceso += "PINTAR FRANJAS COLOR: N O  P I N T A R" + Environment.NewLine;
-            TextoProceso += "1)           DE" + Environment.NewLine;
-            TextoProceso += "2)           DE" + Environment.NewLine;
-            TextoProceso += "3)           DE" + Environment.NewLine;
-            TextoProceso += "UBICACION FRANJA:" + Environment.NewLine;
-            TextoProceso += "1)" + Environment.NewLine;
-            TextoProceso += "2)" + Environment.NewLine;
-            TextoProceso += "3)" + Environment.NewLine;
-            TextoProceso += "NOTAS:" + Environment.NewLine;
-            TextoProceso += "." + Environment.NewLine;
-            TextoProceso += "." + Environment.NewLine;
-            TextoProceso += "." + Environment.NewLine;
+            if (elPlano.FranjasPintura.Count > 0)
+            {
+                TextoProceso += "PINTAR FRANJAS COLOR:" + Environment.NewLine;
+                int c = 1;
+                foreach (var franja in elPlano.FranjasPintura)
+                {
+                    TextoProceso += c + ")" + franja.Color + "     DE " + franja.AnchoPintura + Environment.NewLine;
+                    c++;
+                }
+
+                TextoProceso += "UBICACION FRANJA:" + Environment.NewLine;
+                c = 1;
+                foreach (var franja in elPlano.FranjasPintura)
+                {
+                    TextoProceso += c + ")" + franja.UbicacionFranja.UbicacionFranjaTexto + Environment.NewLine;
+                    c++;
+                }
+
+                TextoProceso += "NOTAS:" + Environment.NewLine;
+                foreach (var franja in elPlano.FranjasPintura)
+                {
+                    TextoProceso += "." + franja.Nota + Environment.NewLine;
+                }
+            }
+            else
+            {
+                TextoProceso += "PINTAR FRANJAS COLOR: N O  P I N T A R" + Environment.NewLine;
+            }
+            #endregion
+
+            #region Condiciones de empaque
             TextoProceso += "*ENVOLTURA" + Environment.NewLine;
             TextoProceso += "ACEITE :" + Environment.NewLine;
-            TextoProceso += "TIPO: CRC3-36       CANT: 2 PASOS" + Environment.NewLine;
+            TextoProceso += "TIPO: " + elPlano.CondicionesDeEmpaque.AceiteTipo + "       CANT: " + elPlano.CondicionesDeEmpaque.CantidadPasos + " PASOS" + Environment.NewLine;
             TextoProceso += "NOTA:" + Environment.NewLine;
-            TextoProceso += ".DAR DOS PASADAS DE ACEITE." + Environment.NewLine;
-            TextoProceso += " " + Environment.NewLine;
-            TextoProceso += "890 PIEZAS POR ROLLO" + Environment.NewLine;
-            TextoProceso += "PAPEL TIPO VCI AHULADO 24 X 20" + Environment.NewLine;
-            TextoProceso += "5 ROLLOS POR CAJA, CJA M3" + Environment.NewLine;
+            TextoProceso += "" + elPlano.CondicionesDeEmpaque.Nota1 + "" + Environment.NewLine;
+            TextoProceso += "" + elPlano.CondicionesDeEmpaque.Nota2 + "" + Environment.NewLine;
+            TextoProceso += "" + elPlano.CondicionesDeEmpaque.PzasXRollo + " PIEZAS POR ROLLO" + Environment.NewLine;
+            TextoProceso += "" + elPlano.CondicionesDeEmpaque.PapelTipo + Environment.NewLine;
+            TextoProceso += "" + elPlano.CondicionesDeEmpaque.RollosXCaja + " ROLLOS POR CAJA, CJA " + elPlano.CondicionesDeEmpaque.CajaNo + "" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "NOTA:" + Environment.NewLine;
-            TextoProceso += " " + Environment.NewLine;
-            TextoProceso += ".LAS MEDIDAS DEL PAPEL Y LA CAJA SON EN PULGADAS" + Environment.NewLine;
-            TextoProceso += ".UTILIZAR MATERIAL DE RELLENO HASTA QUE LOS TUBOS/ROLLOS NO QUEDEN HOLGADOS" + Environment.NewLine;
+            TextoProceso += "" + elPlano.CondicionesDeEmpaque.NotaGeneral + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "*IDENTIFICACION" + Environment.NewLine;
             TextoProceso += "CLIENTE: MAHLE MORRISTOWN" + Environment.NewLine;
             TextoProceso += "PTE. CLTE. " + "" + " REV. " + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
-            TextoProceso += "MEDIDA " + "" + " X " + Environment.NewLine;
-            TextoProceso += " " + Environment.NewLine;
+            TextoProceso += "MEDIDA " + d1 + " X " + h1 +  Environment.NewLine;
+            TextoProceso += " " + Environment.NewLine; 
+            #endregion
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();

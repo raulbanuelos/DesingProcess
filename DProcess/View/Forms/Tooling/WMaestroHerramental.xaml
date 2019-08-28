@@ -55,7 +55,7 @@
                         <materialDesign:PackIcon Kind="Magnify" Height="30" Width="30" Margin="0,0,0,0" />
                     </Button>
                 </StackPanel>
-                <ComboBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblPlanoHerramental}" HorizontalAlignment="Left" FontSize="17" Height="50" Width="430" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding ListaPlano}"  DisplayMemberPath="NO_PLANO" SelectedItem="{Binding SelectedPlano}" SelectedValuePath="idPlano" SelectedValue="{Binding IdPlano}" />
+                <ComboBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblPlanoHerramental}" HorizontalAlignment="Left" FontSize="17" Height="50" Width="430" Style="{StaticResource MaterialDesignFloatingHintComboBox}"  ItemsSource="{Binding Path=ListaPlano}"  DisplayMemberPath="NoPlano" SelectedItem="{Binding SelectedPlano}" SelectedValuePath="idPlano" SelectedValue="{Binding IdPlano}" />
             </StackPanel>
             <ContentControl Margin="5" Grid.Column="1" Content="{Binding Controlador}"></ContentControl>
         </Grid>

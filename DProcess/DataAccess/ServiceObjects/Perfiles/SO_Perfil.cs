@@ -240,6 +240,65 @@ namespace DataAccess.ServiceObjects.Perfiles
             }
         }
 
+        public int InsertNormasArquetipo(string codigo, int idNorma)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    TR_NORMAS_ARQUETIPO normaCodigo = new TR_NORMAS_ARQUETIPO();
 
+                    normaCodigo.CODIGO = codigo;
+                    normaCodigo.ID_NORMA = idNorma;
+
+                    Conexion.TR_NORMAS_ARQUETIPO.Add(normaCodigo);
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        public int DeleteNormasArquetipo(string Codigo, int idNorma)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    TR_NORMAS_ARQUETIPO normaCodigo = Conexion.TR_NORMAS_ARQUETIPO.Where(x => x.CODIGO == Codigo && x.ID_NORMA == idNorma).FirstOrDefault();
+
+                    Conexion.Entry(normaCodigo).State = EntityState.Deleted;
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        public IList GetNormasByArquetipo(string codigo)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    var Lista = (from a in Conexion.TBL_NORMAS
+                                 join b in Conexion.TR_NORMAS_ARQUETIPO on a.ID_NORMA equals b.ID_NORMA
+                                 where b.CODIGO == codigo
+                                 select a).ToList();
+
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

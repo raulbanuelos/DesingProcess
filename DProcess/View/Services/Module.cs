@@ -1134,7 +1134,7 @@ namespace View.Services
                 posicionInicial--;
             }
 
-            paso++;
+            //paso++; <-- Se comenta debido a que en segmentos no da para el scotchBrite, Falta checar si en diskus/nissei no afecta esta comentada.
 
             return paso;
         }

@@ -139,13 +139,22 @@ namespace View.Services.Operaciones.Segmentos
             //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
 
+            Propiedad caidaRadioMin = Module.GetPropiedad("CaidaRadioSegMin", elPlano.PerfilOD.Propiedades);
+            Propiedad caidaRadioMax = Module.GetPropiedad("CaidaRadioSegMax", elPlano.PerfilOD.Propiedades);
+            Propiedad pistaLapeado = Module.GetPropiedad("PistaLapeado", elPlano.PerfilOD.Propiedades);
+
+            caidaRadioMin.Valor = Module.ConvertTo(caidaRadioMin.TipoDato, caidaRadioMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), caidaRadioMin.Valor);
+            caidaRadioMax.Valor = Module.ConvertTo(caidaRadioMax.TipoDato, caidaRadioMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), caidaRadioMax.Valor);
+            pistaLapeado.Valor = Module.ConvertTo(pistaLapeado.TipoDato, pistaLapeado.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), pistaLapeado.Valor);
+
+
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "*LAPEADO" + Environment.NewLine;
             TextoProceso += "PROGRAMA " + Environment.NewLine;
             TextoProceso += "USAR PASTA DE CROMO" + Environment.NewLine;
             TextoProceso += "LAPEAR HASTA OBTENER UNA CAIDA" + Environment.NewLine;
-            TextoProceso += "DE RÁDIO DE " + "" + " -" + "" + " EN" + Environment.NewLine;
-            TextoProceso += "" + " AL CENTRO DEL SEGMENTO" + Environment.NewLine;
+            TextoProceso += "DE RÁDIO DE " + caidaRadioMin.Valor + " - " + caidaRadioMax.Valor + " EN" + Environment.NewLine;
+            TextoProceso += pistaLapeado.Valor + " AL CENTRO DEL SEGMENTO" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "ACABADO: EL LAPEADO DEBE SER" + Environment.NewLine;
             TextoProceso += "CONTINUO A 360° DEL SEGMENTO" + Environment.NewLine;

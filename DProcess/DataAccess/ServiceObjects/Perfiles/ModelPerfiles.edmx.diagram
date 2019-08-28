@@ -35,6 +35,11 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_CAT_PROPIEDAD_CADENA" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.ArquetipoRings" Width="1.5" PointX="12.75" PointY="16.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_ArquetipoRings_Arquetipo" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TR_NORMAS_ARQUETIPO" Width="1.5" PointX="12.875" PointY="25.125" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_NORMAS_ARQUETIPO_Arquetipo" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_NORMAS" Width="1.5" PointX="7.375" PointY="6.875" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_NORMAS_ARQUETIPO_TBL_NORMAS" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.ColoresAnillos" Width="1.5" PointX="7.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

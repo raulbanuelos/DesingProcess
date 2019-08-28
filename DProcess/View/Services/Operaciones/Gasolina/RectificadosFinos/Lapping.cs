@@ -144,6 +144,13 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 
             set;
         }
+        
+        public bool GapFijo
+        {
+            get;
+
+            set;
+        }
 
         private bool _RemueveGap = false;
         public bool RemueveGap

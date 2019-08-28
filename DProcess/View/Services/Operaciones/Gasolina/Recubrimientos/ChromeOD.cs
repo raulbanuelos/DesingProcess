@@ -140,6 +140,13 @@ namespace View.Services.Operaciones.Gasolina.Recubrimientos
             set;
         }
 
+        public bool GapFijo
+        {
+            get;
+
+            set;
+        }
+
         private bool _RemueveGap = false;
         public bool RemueveGap
         {

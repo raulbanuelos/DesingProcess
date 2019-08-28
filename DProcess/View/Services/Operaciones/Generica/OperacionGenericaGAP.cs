@@ -1,12 +1,17 @@
 ﻿using Model;
 using Model.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace View.Services.Operaciones.Gasolina.Maquinado
+namespace View.Services.Operaciones.Generica
 {
-    public class BatesBore : GenericOperation, IOperacion, IObserverThickness
+    public class OperacionGenericaGAP : GenericOperation, IOperacion, IObserverDiametro
     {
+        #region Properties
         #region Propiedades de IOperacion
 
         /// <summary>
@@ -118,6 +123,50 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         public Anillo elPlano { get; set; }
         #endregion
 
+        #region Properties of IObserverDiametro
+        public double Diameter
+        {
+            get;
+            set;
+        }
+
+        public double MatRemoverDiametro
+        {
+            get;
+            set;
+        }
+
+        public double Gap
+        {
+            get;
+
+            set;
+        }
+
+        public bool GapFijo
+        {
+            get;
+
+            set;
+        }
+
+        private bool _RemueveGap = true;
+        public bool RemueveGap
+        {
+            get
+            {
+                return _RemueveGap;
+            }
+
+            set
+            {
+                _RemueveGap = value;
+            }
+        }
+        #endregion
+        #endregion
+
+        #region Methods
         #region Métodos de IOperacion
         /// <summary>
         /// Método en el cual se calcula la operación.
@@ -130,8 +179,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             anilloProcesado = ElAnilloProcesado;
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = String.Format("{0:0.0000}", Thickness);
-
+            TextoProceso = String.Format("{0:0.00000}", Diameter) + "   GA. " + String.Format("{0:0.000}", Gap) + " \n";
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
@@ -142,6 +190,41 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
 
         public void BuscarHerramentales()
         {
+            ObservableCollection<Herramental> ListaBushing = new ObservableCollection<Herramental>();
+            Herramental bushing = new Herramental();
+            Herramental pusher = new Herramental();
+            Herramental guillotina = new Herramental();
+
+            DataManager.GetBushingSim(elPlano.D1.Valor, out ListaBushing);
+
+            if (ListaBushing.Count > 0)
+                bushing = ListaBushing[0];
+
+            if (bushing.Encontrado)
+            {
+                double dimBBushing;
+                dimBBushing = Module.GetValorPropiedad("DimB", bushing.Propiedades);
+                ObservableCollection<Herramental> ListaPusher = new ObservableCollection<Herramental>();
+                DataManager.GetPusherSim(dimBBushing, out ListaPusher);
+
+                if (ListaPusher.Count > 0)
+                    pusher = ListaPusher[0];
+            }
+
+            ObservableCollection<Herramental> ListaGuillotinas = new ObservableCollection<Herramental>();
+            DataManager.GetGuillotinaSim(elPlano.H1.Valor, out ListaGuillotinas);
+
+            if (ListaGuillotinas.Count > 0)
+                guillotina = ListaGuillotinas[0];
+
+            ListaHerramentales.Add(bushing);
+            ListaHerramentales.Add(pusher);
+            ListaHerramentales.Add(guillotina);
+
+            foreach (var Herramental in ListaHerramentales)
+            {
+                TextoHerramienta += Herramental.DescripcionRuta + "\n";
+            }
 
         }
 
@@ -150,37 +233,53 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         /// </summary>
         public void CalcularTiemposEstandar()
         {
-
+            try
+            {
+                
+            }
+            catch (Exception er)
+            {
+                //Si ocurrio algún error, lo agregamos a la lista de alertas de la operación.
+                AlertasOperacion.Add("Error en cálculo de tiempos estádar. \n" + er.StackTrace);
+            }
         }
 
         public void InicializarDatosGenerales()
         {
             //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "BATES BORE";
-            CentroCostos = "32012526";
-            CentroTrabajo = "280";
+            NombreOperacion = "GAP SIZER (SIM WET)";
+            CentroCostos = "32012529";
+            CentroTrabajo = "255";
             ControlKey = "MA42";
 
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-            MatRemoverThickness = 0.007;
-            
+            AlertasOperacion = new ObservableCollection<string>();
+            NotasOperacion = new ObservableCollection<string>();
+            MatRemoverDiametro = 0.0125; // <--Significan .004 totales
         }
         #endregion
 
-        #region Constructors
-        public BatesBore(Anillo plano)
+        #region Methods of IObserverDiametro
+        public void UpdateState(ISubjectDiametro sender, double MaterialRemoverAfterOperacion, double DiametroAfterOperacion, double GapAfterOperacion, bool RemueveGap)
         {
-            InicializarDatosGenerales();
-            elPlano = plano;
+            if (RemueveGap)
+            {
+                double p, q;
+                p = (MaterialRemoverAfterOperacion / Math.PI);
+                q = ((GapAfterOperacion - Gap) / Math.PI);
+                Diameter = Math.Round(p - q + (DiametroAfterOperacion), 3);
+            }
+            else
+            {
+                double p, q;
+                p = Math.Round((Gap - GapAfterOperacion) / 3.1416, 4);
+                q = DiametroAfterOperacion + MaterialRemoverAfterOperacion;
+                Diameter = p + q;
+            }
         }
-
-        public BatesBore()
-        {
-            InicializarDatosGenerales();
-        }
-        #endregion
+        #endregion 
 
         #region Methods override
         public override string ToString()
@@ -188,61 +287,13 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             return NombreOperacion;
         }
         #endregion
+        #endregion
 
-        #region Propiedades y metodos de IObserverThickness
-        private double _Thickness;
-        public double Thickness
+        #region Constructors
+        public OperacionGenericaGAP()
         {
-            get
-            {
-                return _Thickness;
-            }
-            set
-            {
-                _Thickness = value;
-            }
-        }
-
-        private double _MatRemoverThickness;
-        public double MatRemoverThickness
-        {
-            get
-            {
-                return _MatRemoverThickness;
-            }
-            set
-            {
-                _MatRemoverThickness = value;
-            }
-        }
-
-        private bool _TrabajaOD = false;
-        public bool TrabajaOD
-        {
-            get
-            {
-                return _TrabajaOD;
-            }
-            set
-            {
-                _TrabajaOD = value;
-            }
-        }
-
-        public void UpdateState(ISubjectThickness sender, double MaterialRemoverAfterOperacion, double ThicknessAfterOperacion)
-        {
-            Thickness = ThicknessAfterOperacion + MaterialRemoverAfterOperacion;
-        }
-
-        /// <summary>
-        /// Método que establece la cantidad de material a remover/agregar en la operación.
-        /// </summary>
-        /// <param name="operaciones"></param>
-        /// <param name="posOperacion"></param>
-        public void setMaterialRemover(ObservableCollection<IOperacion> operaciones, int posOperacion)
-        {
-
-        }
+            NombreOperacion = "OPERACIÓN GAP";
+        } 
         #endregion
     }
 }

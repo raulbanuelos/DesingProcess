@@ -139,44 +139,55 @@ namespace View.Services.Operaciones.Segmentos
             //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
 
-            //Agregamos el texto con las instrucciones de la operación.
-            //Opción 1
-            TextoProceso = "OD BRUSH" + Environment.NewLine;
-            TextoProceso += " " + Environment.NewLine;
-            TextoProceso += "FRECUENCIA DE GIRO DE MOTOR DE LIJA 45HZ" + Environment.NewLine;
-            TextoProceso += "FRECUENCIA DE GIRO DE MANDRIL 45HZ" + Environment.NewLine;
-            TextoProceso += "NUMERO DE CICLOS POR CARGA 1" + Environment.NewLine;
-            TextoProceso += " " + Environment.NewLine;
-            TextoProceso += "NOTA: APROXIMAR RUEDA DE FLAP BRUSH A TOPE DEL MANDRIL Y DAR UNA VUELTA MAS PARA APLICAR LA CARGA DE LA RUEDA" + Environment.NewLine;
-            TextoProceso += " " + Environment.NewLine;
-            TextoProceso += "*********************************************" + Environment.NewLine;
-            TextoProceso += " " + Environment.NewLine;
-            TextoProceso += "DESENSAMBLE" + Environment.NewLine;
-            TextoProceso += " " + Environment.NewLine;
-            TextoProceso += "INSPECCION VISUAL DE MATERIAL" + Environment.NewLine;
-            TextoProceso += "(SIN DESPRENDIMIENTO DE PVD Y SIN PITTING)" + Environment.NewLine;
-            TextoProceso += " " + Environment.NewLine;
-            TextoProceso += "LLEVAR MUESTRAS A LABORATORIO DE ACUERDO A HII" + Environment.NewLine;
+            int noPaso = Module.GetNumPasoOperacion(elPlano.Operaciones, NoOperacion / 10, NombreOperacion);
 
-            //Opción 2
-            TextoProceso = "*SCOTCHBRITE" + Environment.NewLine;
-            TextoProceso += "CARGA AL MOTOR  65 - 85 %" + Environment.NewLine;
-            TextoProceso += "TIEMPO CICLO    20 SEG/CICLO" + Environment.NewLine;
-            TextoProceso += "CANTIDAD DE CICLOS 2" + Environment.NewLine;
-            TextoProceso += "USAR RUEDA  8SFIN" + Environment.NewLine;
-            TextoProceso += "" + " DE CAIDA A " + "" + " GAGE" + Environment.NewLine;
-            TextoProceso += "RADIO " + "" + " EN " + "" + " DEL CENTRO" + Environment.NewLine;
-            TextoProceso += "CARTA COMPARADOR " + Environment.NewLine;
-            TextoProceso += "MEDIR EL PERFIL A 10 PZAS CADA 4 RIELES DE MAT." + Environment.NewLine;
-            TextoProceso += "VERIFICAR EL PERFIL DE LA CARA DE" + Environment.NewLine;
-            TextoProceso += "CONTACTO DE ACUERDO A  PROCEDIMIENTO" + Environment.NewLine;
-            TextoProceso += "4.10-1.5.15" + Environment.NewLine;
-            TextoProceso += "NO DOBLAR LAS PIEZAS" + Environment.NewLine;
-            TextoProceso += "ACABADO: CARA DE CONTACTO DE LOS" + Environment.NewLine;
-            TextoProceso += "SEGMENTOS DEBE SER CONTINUO" + Environment.NewLine;
-            TextoProceso += "HACER PRUEBA DE LUZ" + Environment.NewLine;
-            TextoProceso += " " + Environment.NewLine;
+            if (noPaso == 1)
+            {
+                //Para el primer paso
+                TextoProceso = "OD BRUSH" + Environment.NewLine;
+                TextoProceso += " " + Environment.NewLine;
+                TextoProceso += "FRECUENCIA DE GIRO DE MOTOR DE LIJA 45HZ" + Environment.NewLine;
+                TextoProceso += "FRECUENCIA DE GIRO DE MANDRIL 45HZ" + Environment.NewLine;
+                TextoProceso += "NUMERO DE CICLOS POR CARGA 1" + Environment.NewLine;
+                TextoProceso += " " + Environment.NewLine;
+                TextoProceso += "NOTA: APROXIMAR RUEDA DE FLAP BRUSH A TOPE DEL MANDRIL Y DAR UNA VUELTA MAS PARA APLICAR LA CARGA DE LA RUEDA" + Environment.NewLine;
+                TextoProceso += " " + Environment.NewLine;
+                TextoProceso += "*********************************************" + Environment.NewLine;
+                TextoProceso += " " + Environment.NewLine;
+                TextoProceso += "DESENSAMBLE" + Environment.NewLine;
+                TextoProceso += " " + Environment.NewLine;
+                TextoProceso += "INSPECCION VISUAL DE MATERIAL" + Environment.NewLine;
+                TextoProceso += "(SIN DESPRENDIMIENTO DE PVD Y SIN PITTING)" + Environment.NewLine;
+                TextoProceso += " " + Environment.NewLine;
+                TextoProceso += "LLEVAR MUESTRAS A LABORATORIO DE ACUERDO A HII" + Environment.NewLine;
+            }
+            else
+            {
+                if (noPaso == 2)
+                {
+                    List<string> Componente = elPlano.Codigo.Split(' ').ToList();
 
+                    //Para el segundo paso
+                    TextoProceso = "*SCOTCHBRITE" + Environment.NewLine;
+                    TextoProceso += "CARGA AL MOTOR  65 - 85 %" + Environment.NewLine;
+                    TextoProceso += "TIEMPO CICLO    20 SEG/CICLO" + Environment.NewLine;
+                    TextoProceso += "CANTIDAD DE CICLOS 2" + Environment.NewLine;
+                    TextoProceso += "USAR RUEDA  8SFIN" + Environment.NewLine;
+                    TextoProceso += "0.0004 +- 0.0003 DE CAIDA A 0.006 GAGE" + Environment.NewLine;
+                    TextoProceso += "RADIO " + "" + " EN " + "" + " DEL CENTRO" + Environment.NewLine;
+                    TextoProceso += "CARTA COMPARADOR " + Componente[0] + Environment.NewLine;
+                    TextoProceso += "MEDIR EL PERFIL A 10 PZAS CADA 4 RIELES DE MAT." + Environment.NewLine;
+                    TextoProceso += "VERIFICAR EL PERFIL DE LA CARA DE" + Environment.NewLine;
+                    TextoProceso += "CONTACTO DE ACUERDO A  PROCEDIMIENTO" + Environment.NewLine;
+                    TextoProceso += "4.10-1.5.15" + Environment.NewLine;
+                    TextoProceso += "NO DOBLAR LAS PIEZAS" + Environment.NewLine;
+                    TextoProceso += "ACABADO: CARA DE CONTACTO DE LOS" + Environment.NewLine;
+                    TextoProceso += "SEGMENTOS DEBE SER CONTINUO" + Environment.NewLine;
+                    TextoProceso += "HACER PRUEBA DE LUZ" + Environment.NewLine;
+                    TextoProceso += " " + Environment.NewLine;
+                }
+            }
+            
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
 

@@ -218,7 +218,14 @@ namespace View.Services.Operaciones.Generica
         {
             return NombreOperacion;
         }
-        #endregion 
+        #endregion
+        #endregion
+
+        #region Contructors
+        public OperacionGenericaWidth()
+        {
+            NombreOperacion = "OPERACIÓN WIDTH";
+        } 
         #endregion
     }
 }

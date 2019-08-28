@@ -352,6 +352,9 @@
     <Compile Include="Forms\Routing\PRouting.xaml.cs">
       <DependentUpon>PRouting.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Routing\WCalculateDimensions.xaml.cs">
+      <DependentUpon>WCalculateDimensions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Routing\WCreateRing.xaml.cs">
       <DependentUpon>WCreateRing.xaml</DependentUpon>
     </Compile>
@@ -676,6 +679,9 @@
     <Compile Include="Services\Operaciones\Gasolina\Rolado\CoilRings.cs" />
     <Compile Include="Services\Operaciones\Gasolina\Rolado\StressReliefRings.cs" />
     <Compile Include="Services\Operaciones\Generica\OperacionGenerica.cs" />
+    <Compile Include="Services\Operaciones\Generica\OperacionGenericaGAP.cs" />
+    <Compile Include="Services\Operaciones\Generica\OperacionGenericaThicknessID.cs" />
+    <Compile Include="Services\Operaciones\Generica\OperacionGenericaThicknessOD.cs" />
     <Compile Include="Services\Operaciones\Generica\OperacionGenericaWidth.cs" />
     <Compile Include="Services\Operaciones\GenericOperation.cs" />
     <Compile Include="Services\Operaciones\Segmentos\Bobinado.cs" />
@@ -852,6 +858,7 @@
     <Compile Include="Services\ViewModel\BushingFinishMill_VM.cs" />
     <Compile Include="Services\ViewModel\BushingSimVM.cs" />
     <Compile Include="Services\ViewModel\Busqueda_HerramentalVM.cs" />
+    <Compile Include="Services\ViewModel\CalculateDimensionsViewModel.cs" />
     <Compile Include="Services\ViewModel\CalculoPlacaModeloViewModel.cs" />
     <Compile Include="Services\ViewModel\CamBK_VM.cs" />
     <Compile Include="Services\ViewModel\CamisaMolyVM.cs" />
@@ -1182,6 +1189,10 @@
     <Page Include="Forms\Routing\PRouting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\Routing\WCalculateDimensions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Routing\WCreateRing.xaml">
       <SubType>Designer</SubType>

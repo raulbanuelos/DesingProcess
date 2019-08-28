@@ -20,7 +20,6 @@ using DataAccess.ServiceObjects.Tooling.Operaciones;
 using DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado;
 using DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado;
 using Spring.Objects.Factory.Xml;
-using DataAccess.ServiceObjects.Normas;
 using System.Linq;
 using System.Data.Entity;
 
@@ -1655,8 +1654,8 @@ namespace Model
         }
 
         /*ChuckSplitter
-         * 
-         * 
+            * 
+            * 
         */
         /// <summary>
         /// Método que obtiene el herramental Chuck de la operación Splitter.
@@ -2063,9 +2062,9 @@ namespace Model
         }
 
         /*CutterSplitter
-         * 
-         * 
-         */
+            * 
+            * 
+            */
         /// <summary>
         /// Método que obtiene todos los registros de Cutter Splitter
         /// </summary>
@@ -3354,8 +3353,8 @@ namespace Model
             if (maxA >= 2.187 && maxA <= 2.999)
             {
                 /*
-                 * Cálculo para el siguiente plano
-                 * PT. 744 RL40-283
+                    * Cálculo para el siguiente plano
+                    * PT. 744 RL40-283
                 */
                 dimC = maxA + 0.187;
                 dimD = maxA + 0.3750;
@@ -3367,9 +3366,9 @@ namespace Model
             else if (maxA >= 2.938 && maxA <= 3.499)
             {
                 /*
-                 * Cálculo para el siguiente plano
-                 * PT 746 RL40-284
-                 */
+                    * Cálculo para el siguiente plano
+                    * PT 746 RL40-284
+                    */
                 dimC = maxA + 0.062;
                 dimD = maxA + 0.375;
                 dimE = minB - 0.125;
@@ -5176,8 +5175,8 @@ namespace Model
         }
 
         /* Collar
-         *  * 
-         * */
+            *  * 
+            * */
 
         /// <summary>
         /// Método que obtiene todos los registros de Collar Cromo.
@@ -7545,6 +7544,7 @@ namespace Model
                     obj.id_plano = 0; //(int)tipo.GetProperty("idPlano").GetValue(item, null);
                     obj.activo = (bool)tipo.GetProperty("Activo").GetValue(item, null);
                     obj.objetoXML = (string)tipo.GetProperty("ObjetoXML").GetValue(item, null);
+                    obj.id_plano = (int)tipo.GetProperty("idPlano").GetValue(item, null);
                 }
             }
             //Retornamos el objeto
@@ -11430,13 +11430,13 @@ namespace Model
 
             //Se ejecuta el método para insertar un nuevo registro.
             return ServicePattern.SetPattern(code, pattern.medida.Valor, pattern.diametro.Valor, pattern.customer.IdCliente, Convert.ToString(pattern.mounting.Valor),
-                                              pattern.on_14_rd_gate.Valor, pattern.button.Valor, pattern.cone.Valor, pattern.M_Circle.Valor, pattern.ring_w_min.Valor, pattern.ring_w_max.Valor,
-                                              pattern.date_ordered.Valor, pattern.B_Dia.Valor, pattern.fin_Dia.Valor, pattern.turn_allow.Valor, pattern.cstg_sm_od.Valor, pattern.shrink_allow.Valor,
-                                              pattern.patt_sm_od.Valor, pattern.piece_in_patt.Valor, pattern.bore_allow.Valor, pattern.patt_sm_id.Valor, pattern.patt_thickness.Valor, pattern.joint.Valor,
-                                              pattern.nick.Valor, pattern.nick_draf.Valor, pattern.nick_depth.Valor, pattern.side_relief.Valor, pattern.cam.Valor, pattern.cam_roll.Valor, pattern.rise.Valor,
-                                              pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.TipoMateriaPrima.Valor), pattern.mounted.Valor, pattern.ordered.Valor, pattern.Checked.Valor,
-                                              pattern.date_checked.Valor, pattern.esp_inst.Valor, pattern.factor_k.Valor, pattern.rise_built.Valor, pattern.ring_th_min.Valor, pattern.ring_th_max.Valor,
-                                              pattern.estado.Valor, pattern.plato.Valor, pattern.detalle.Valor, pattern.diseno.Valor);
+                                                pattern.on_14_rd_gate.Valor, pattern.button.Valor, pattern.cone.Valor, pattern.M_Circle.Valor, pattern.ring_w_min.Valor, pattern.ring_w_max.Valor,
+                                                pattern.date_ordered.Valor, pattern.B_Dia.Valor, pattern.fin_Dia.Valor, pattern.turn_allow.Valor, pattern.cstg_sm_od.Valor, pattern.shrink_allow.Valor,
+                                                pattern.patt_sm_od.Valor, pattern.piece_in_patt.Valor, pattern.bore_allow.Valor, pattern.patt_sm_id.Valor, pattern.patt_thickness.Valor, pattern.joint.Valor,
+                                                pattern.nick.Valor, pattern.nick_draf.Valor, pattern.nick_depth.Valor, pattern.side_relief.Valor, pattern.cam.Valor, pattern.cam_roll.Valor, pattern.rise.Valor,
+                                                pattern.OD.Valor, pattern.ID.Valor, pattern.diff.Valor, Convert.ToInt32(pattern.TipoMateriaPrima.Valor), pattern.mounted.Valor, pattern.ordered.Valor, pattern.Checked.Valor,
+                                                pattern.date_checked.Valor, pattern.esp_inst.Valor, pattern.factor_k.Valor, pattern.rise_built.Valor, pattern.ring_th_min.Valor, pattern.ring_th_max.Valor,
+                                                pattern.estado.Valor, pattern.plato.Valor, pattern.detalle.Valor, pattern.diseno.Valor);
         }
 
         /// <summary>
@@ -13658,6 +13658,29 @@ namespace Model
 
             return ServicePerfil.SetPerfil(idTipoPerfil, Nombre, Descripcion, imagen, idUsuarioCreacion, fecha);
         }
+
+        public static int InsertArquetipoNorma(string codigo, int idNorma)
+        {
+            SO_Perfil ServicePerfil = new SO_Perfil();
+
+            return ServicePerfil.InsertNormasArquetipo(codigo, idNorma);
+        }
+
+        public static int DeleteArquetipoNorma(string codigo)
+        {
+            SO_Perfil ServicePerfil = new SO_Perfil();
+
+            ObservableCollection<DO_Norma> listaResultante = GetNormaByArquetipo(codigo);
+
+            int r = 0;
+            foreach (var item in listaResultante)
+            {
+                r = ServicePerfil.DeleteNormasArquetipo(codigo,item.idNorma);
+            }
+
+            return r;
+        }
+        
         #endregion
 
         #region Propiedades
@@ -14294,6 +14317,35 @@ namespace Model
 
         #region Normas
 
+        public static ObservableCollection<DO_Norma> GetNormaByArquetipo(string codigo)
+        {
+            SO_Perfil ServicePerfil = new SO_Perfil();
+
+            IList informacionBD = ServicePerfil.GetNormasByArquetipo(codigo);
+
+            ObservableCollection<DO_Norma> listaResultante = new ObservableCollection<DO_Norma>();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    DO_Norma norma = new DO_Norma();
+
+                    Type tipo = item.GetType();
+
+                    norma.idNorma = (int)tipo.GetProperty("ID_NORMA").GetValue(item, null);
+                    norma.IsSelected = true;
+                    norma.descripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
+                    norma.descripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
+                    norma.especificacion = (string)tipo.GetProperty("ESPECIFICACION").GetValue(item, null);
+
+                    listaResultante.Add(norma);
+                }
+            }
+
+            return listaResultante;
+        }
+
         public static ObservableCollection<DO_Norma> GetAllNormas()
         {
             SO_Normas ServiceNormas = new SO_Normas();
@@ -14323,6 +14375,47 @@ namespace Model
             return listaResultante;
         }
 
+        #endregion
+
+        #region Colores y Ubicaciones
+        public static ObservableCollection<string> GetAllColores()
+        {
+            SO_ColoresAnillos serviceColores = new SO_ColoresAnillos();
+
+            ObservableCollection<string> ListaResultante = new ObservableCollection<string>();
+
+            IList informacionBD = serviceColores.GetAll();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    string color;
+                    color = (string)tipo.GetProperty("Color").GetValue(item, null);
+
+                    ListaResultante.Add(color);
+                }
+            }
+
+            return ListaResultante;
+        }
+
+        public static ObservableCollection<UbicacionPintura> GetUbicacionesSegmentos()
+        {
+            ObservableCollection<UbicacionPintura> ubicaciones = new ObservableCollection<UbicacionPintura>();
+
+            ubicaciones.Add(new UbicacionPintura { IDUbicacionFranja = 1, UbicacionFranjaTexto = "CUALQUIER LADO DE LA PUNTA DEL SEG." });
+            ubicaciones.Add(new UbicacionPintura { IDUbicacionFranja = 2, UbicacionFranjaTexto = "A 15 GDS. DE LA ABERTURA DEL SEG." });
+            ubicaciones.Add(new UbicacionPintura { IDUbicacionFranja = 3, UbicacionFranjaTexto = "A 30 GDS. DE LA ABERTURA DEL SEG." });
+            ubicaciones.Add(new UbicacionPintura { IDUbicacionFranja = 4, UbicacionFranjaTexto = "A 45 GDS. DE LA ABERTURA DEL SEG." });
+            ubicaciones.Add(new UbicacionPintura { IDUbicacionFranja = 5, UbicacionFranjaTexto = "A 60 GDS. DE LA ABERTURA DEL SEG." });
+            ubicaciones.Add(new UbicacionPintura { IDUbicacionFranja = 6, UbicacionFranjaTexto = "A 90 GDS. DE LA ABERTURA DEL SEG." });
+            ubicaciones.Add(new UbicacionPintura { IDUbicacionFranja = 7, UbicacionFranjaTexto = "A 180 GDS. DE LA ABERTURA DEL SEG." });
+
+            return ubicaciones;
+        }
         #endregion
     }
 }

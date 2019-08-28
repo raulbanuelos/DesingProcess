@@ -1,13 +1,15 @@
-﻿using Model;
-using Model.Interfaces;
+﻿using Model.Interfaces;
 using System;
+using Model;
 using System.Collections.ObjectModel;
 
-namespace View.Services.Operaciones.Gasolina.Maquinado
+namespace View.Services.Operaciones.Generica
 {
-    public class BatesBore : GenericOperation, IOperacion, IObserverThickness
+    public class OperacionGenericaThicknessID : GenericOperation, IOperacion, IObserverThickness
     {
-        #region Propiedades de IOperacion
+        #region Properties
+
+        #region Properties of IOperacion
 
         /// <summary>
         /// Cadena que representa las instrucciones de una operación en la hoja de ruta.
@@ -118,7 +120,52 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         public Anillo elPlano { get; set; }
         #endregion
 
-        #region Métodos de IOperacion
+        #region Properties of IObserverThickness
+        private double _Thickness;
+        public double Thickness
+        {
+            get
+            {
+                return _Thickness;
+            }
+            set
+            {
+                _Thickness = value;
+            }
+        }
+
+        private double _MatRemoverThickness;
+        public double MatRemoverThickness
+        {
+            get
+            {
+                return _MatRemoverThickness;
+            }
+            set
+            {
+                _MatRemoverThickness = value;
+            }
+        }
+
+        private bool _TrabajaOD = false;
+        public bool TrabajaOD
+        {
+            get
+            {
+                return _TrabajaOD;
+            }
+            set
+            {
+                _TrabajaOD = value;
+            }
+        } 
+        #endregion
+
+        #endregion
+
+        #region Methods
+
+        #region Methods of IOperacion
         /// <summary>
         /// Método en el cual se calcula la operación.
         /// </summary>
@@ -165,70 +212,12 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
             MatRemoverThickness = 0.007;
-            
+
         }
         #endregion
 
-        #region Constructors
-        public BatesBore(Anillo plano)
-        {
-            InicializarDatosGenerales();
-            elPlano = plano;
-        }
 
-        public BatesBore()
-        {
-            InicializarDatosGenerales();
-        }
-        #endregion
-
-        #region Methods override
-        public override string ToString()
-        {
-            return NombreOperacion;
-        }
-        #endregion
-
-        #region Propiedades y metodos de IObserverThickness
-        private double _Thickness;
-        public double Thickness
-        {
-            get
-            {
-                return _Thickness;
-            }
-            set
-            {
-                _Thickness = value;
-            }
-        }
-
-        private double _MatRemoverThickness;
-        public double MatRemoverThickness
-        {
-            get
-            {
-                return _MatRemoverThickness;
-            }
-            set
-            {
-                _MatRemoverThickness = value;
-            }
-        }
-
-        private bool _TrabajaOD = false;
-        public bool TrabajaOD
-        {
-            get
-            {
-                return _TrabajaOD;
-            }
-            set
-            {
-                _TrabajaOD = value;
-            }
-        }
-
+        #region Methods of IObserverThickness
         public void UpdateState(ISubjectThickness sender, double MaterialRemoverAfterOperacion, double ThicknessAfterOperacion)
         {
             Thickness = ThicknessAfterOperacion + MaterialRemoverAfterOperacion;
@@ -244,5 +233,22 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
 
         }
         #endregion
+
+        #region Methods override
+        public override string ToString()
+        {
+            return NombreOperacion;
+        }
+        #endregion
+
+        #endregion
+
+        #region Constructor
+        public OperacionGenericaThicknessID()
+        {
+            NombreOperacion = "OPERACIÓN THICKNESS ID";
+        } 
+        #endregion
+
     }
 }
