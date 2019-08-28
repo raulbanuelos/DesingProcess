@@ -12926,7 +12926,7 @@ namespace Model
                 return 0;
             }
         }
-              
+
         /// <summary>
         /// Método que obtiene todos los registros de la tabla CriteriosSegmentos_
         /// </summary>
@@ -13753,7 +13753,7 @@ namespace Model
                     {
                         propiedad.Unidad = EnumEx.GetEnumDescription(UnidadForce.LBS);
                     }
-                    
+
                     if (propiedad.TipoDato == EnumEx.GetEnumDescription(TipoDato.Mass))
                     {
                         propiedad.Unidad = EnumEx.GetEnumDescription(UnidadMass.Kilogram);
@@ -13834,7 +13834,6 @@ namespace Model
                     DatosPropiedad.DescripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
                     DatosPropiedad.DescripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
                     DatosPropiedad.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
-
 
                     ListaResultante.Add(DatosPropiedad);
                 }

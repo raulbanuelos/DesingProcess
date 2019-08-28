@@ -44,5 +44,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<TBL_VERSION> TBL_VERSION { get; set; }
         public virtual DbSet<TBL_NOTIFICACION_ERROR> TBL_NOTIFICACION_ERROR { get; set; }
+        public virtual DbSet<TBL_GRUPOS> TBL_GRUPOS { get; set; }
+        public virtual DbSet<TR_INTEGRANTES_GRUPO> TR_INTEGRANTES_GRUPO { get; set; }
+        public virtual DbSet<TR_GRUPO_VERSION> TR_GRUPO_VERSION { get; set; }
     }
 }

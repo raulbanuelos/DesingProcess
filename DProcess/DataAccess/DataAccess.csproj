@@ -94,7 +94,9 @@
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Documento.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Documento_Eliminado.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_EstatusVersion.cs" />
+    <Compile Include="ServiceObjects\ControlDocumentos\SO_GRUPOS.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_HistorialVersion.cs" />
+    <Compile Include="ServiceObjects\ControlDocumentos\SO_INTEGRANTES_GRUPO.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_RecursoTipoDocumento.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Rol.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Sealed.cs" />
@@ -126,6 +128,9 @@
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_ESTATUS_VERSION.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\TBL_GRUPOS.cs">
+      <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_HISTORIAL_VERSION.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
@@ -148,6 +153,12 @@
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_VERSION.cs">
+      <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\TR_GRUPO_VERSION.cs">
+      <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\TR_INTEGRANTES_GRUPO.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\ControlDocumentos\TR_ROL_USUARIOS.cs">

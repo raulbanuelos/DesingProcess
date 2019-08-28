@@ -152,7 +152,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                  }).ToList();
                     //se retorna la lista
                     return Lista;
-
                 }
             }
             catch (Exception)
@@ -294,8 +293,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return 0;
             }
         }
-
-
 
         /// <summary>
         /// Valida que el usuario no exista.

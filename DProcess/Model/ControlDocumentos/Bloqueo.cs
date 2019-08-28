@@ -14,8 +14,6 @@ namespace Model.ControlDocumentos
         public DateTime fecha_fin { get; set; }
         public bool estado { get; set; }
         public string observaciones { get; set; }
-
-
         #endregion
 
     }

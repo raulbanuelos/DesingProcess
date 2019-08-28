@@ -9,6 +9,7 @@ namespace Model.ControlDocumentos
     public class Usuarios : Arquetipo
     {
         #region Propiedades
+
         public string usuario { get; set; }
         public string password { get; set; }
         public string nombre { get; set; }
@@ -29,7 +30,6 @@ namespace Model.ControlDocumentos
                 return nombre + " " + APaterno + " " + AMaterno;
             }
         }
-
         public string NombreCorto
         {
             get
@@ -37,7 +37,6 @@ namespace Model.ControlDocumentos
                 return nombre + " " + APaterno;
             }
         }
-
         public string NombreAbreviado
         {
             get

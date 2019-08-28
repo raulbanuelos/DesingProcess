@@ -4375,5 +4375,91 @@ namespace Model.ControlDocumentos
         }
         #endregion
 
+        #region Grupos
+
+        public static ObservableCollection<DO_Grupos> GetAllGrupos(string usuario)
+        {
+            SO_GRUPOS ServiceGrupos = new SO_GRUPOS();
+
+            IList informacionBD = ServiceGrupos.GetAll(usuario);
+
+            ObservableCollection<DO_Grupos> listaResultante = new ObservableCollection<DO_Grupos>();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    DO_Grupos grupo = new DO_Grupos();
+
+                    Type tipo = item.GetType();
+
+                    grupo.idgrupo = (int)tipo.GetProperty("ID_GRUPO").GetValue(item, null);
+                    grupo.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    grupo.idusuariodueno = (string)tipo.GetProperty("ID_USUARIO_DUENO").GetValue(item, null);
+                    grupo.IsSelected = false;
+
+                    listaResultante.Add(grupo);
+                }
+            }
+            return listaResultante;
+        }
+
+        public static ObservableCollection<DO_INTEGRANTES_GRUPO> GetAllIntegrantesGrupo(int idGrupoSeleccionado)
+        {
+            SO_INTEGRANTES_GRUPO ServiceNormas = new SO_INTEGRANTES_GRUPO();
+
+            IList informacionBD = ServiceNormas.GetAll(idGrupoSeleccionado);
+
+            ObservableCollection<DO_INTEGRANTES_GRUPO> listaResultante = new ObservableCollection<DO_INTEGRANTES_GRUPO>();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    DO_INTEGRANTES_GRUPO integrupo = new DO_INTEGRANTES_GRUPO();
+
+                    Type tipo = item.GetType();
+
+                    integrupo.idintegrantegrupo = (int)tipo.GetProperty("ID_INTEGRANTES_GRUPO").GetValue(item, null);
+                    integrupo.idgrupo = (int)tipo.GetProperty("ID_GRUPO").GetValue(item, null);
+                    integrupo.idusuariointegrante = (string)tipo.GetProperty("ID_USUARIO_INTEGRANTE").GetValue(item, null);
+                    integrupo.nombrecompleto = (string)tipo.GetProperty("nombrecompleto").GetValue(item, null);
+                    integrupo.IsSelected = false;
+
+                    listaResultante.Add(integrupo);
+                }
+            }
+            return listaResultante;
+        }
+
+        public static int eliminarintegrantes(int id_grupo, string id_integrante)
+        {
+            SO_INTEGRANTES_GRUPO serviceintegrantes = new SO_INTEGRANTES_GRUPO();
+
+            return serviceintegrantes.DeleteIntegrantesGrupos(id_grupo, id_integrante);
+        }
+
+        public static int agregarintegrante(int id_grupo, string id_integrante_grupo)
+        {
+            SO_INTEGRANTES_GRUPO serviceintegrantes = new SO_INTEGRANTES_GRUPO();
+
+            return serviceintegrantes.SetIntegrantesGrupos(id_grupo, id_integrante_grupo);
+        }
+
+        public static int CrearNuevoGrupo(string nombre_grupo, string id_usuario_dueno)
+        {
+            SO_GRUPOS servicegrupos = new SO_GRUPOS();
+
+            return servicegrupos.SetGrupo(nombre_grupo, id_usuario_dueno);
+        }
+
+        public static int eliminarGrupos(int id_grupo)
+        {
+            SO_GRUPOS servicegrupos = new SO_GRUPOS();
+
+            return servicegrupos.DeleteGrupo(id_grupo);
+        }
+
+        #endregion
     }
 }

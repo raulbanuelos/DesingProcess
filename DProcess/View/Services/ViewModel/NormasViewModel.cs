@@ -49,8 +49,6 @@ namespace View.Services.ViewModel
 
         public bool InsertarNuevaNorma = false;
 
-        
-
         private bool _enabledEliminar;
         public bool EnabledEliminar
         {
@@ -279,7 +277,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método para eliminar una propiedad
+        /// Método para eliminar una norma
         /// </summary>
         public async void eliminarnorma()
         {
@@ -318,24 +316,6 @@ namespace View.Services.ViewModel
                 }
             }
         }
-
-        //public void _EditarNorma()
-        //{
-        //    if (NormaSeleccionada.idNorma != 0)
-        //    {
-
-        //        WNormas Form = new WNormas();
-        //        NormasViewModel Data = new NormasViewModel(NormaSeleccionada);
-
-        //        Form.DataContext = Data;
-        //        Form.ShowDialog();
-
-        //        //Actualizamos los valores de la lista
-        //        ListaNormas = DataManager.GetAllNormas();
-
-        //    }
-        //}
-
         #endregion
 
         #region Events INotifyPropertyChanged

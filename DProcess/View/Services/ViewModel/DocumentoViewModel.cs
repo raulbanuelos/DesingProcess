@@ -402,6 +402,10 @@ namespace View.Services.ViewModel
 
         }
 
+        private DO_Grupos model;
+
+        private DialogService dialogService;
+
         private bool _bttnArchivos;
         public bool BttnArchivos
         {
@@ -570,6 +574,47 @@ namespace View.Services.ViewModel
             }
         }
 
+        private bool _isopen;
+        public bool isopen
+        {
+            get
+            {
+                return _isopen;
+            }
+            set
+            {
+                _isopen = value;
+                NotifyChange("isopen");
+            }
+        }
+
+        public int idgrupo
+        {
+            get
+            {
+                return model.idgrupo;
+            }
+            set
+            {
+                model.idgrupo = value;
+                NotifyChange("idgrupo");
+            }
+        }
+
+        private DO_Grupos _GrupoSeleccionado;
+        public DO_Grupos GrupoSeleccionado
+        {
+            get
+            {
+                return _GrupoSeleccionado;
+            }
+            set
+            {
+                _GrupoSeleccionado = value;
+                NotifyChange("GrupoSeleccionado");
+            }
+        }
+
         private bool _EnabledFecha = false;
         public bool EnabledFecha
         {
@@ -647,6 +692,34 @@ namespace View.Services.ViewModel
             {
                 _AdjuntarDocumento = value;
                 NotifyChange("AdjuntarDocumento");
+            }
+        }
+
+        private ObservableCollection<DO_Grupos> _ListaGrupos;
+        public ObservableCollection<DO_Grupos> ListaGrupos
+        {
+            get
+            {
+                return _ListaGrupos;
+            }
+            set
+            {
+                _ListaGrupos = value;
+                NotifyChange("ListaGrupos");
+            }
+        }
+
+        private ObservableCollection<Usuarios> _ListaUsuarios2;
+        public ObservableCollection<Usuarios> ListaUsuarios2
+        {
+            get
+            {
+                return _ListaUsuarios2;
+            }
+            set
+            {
+                _ListaUsuarios2 = value;
+                NotifyChange("ListaUsuarios2");
             }
         }
         #endregion
@@ -986,6 +1059,21 @@ namespace View.Services.ViewModel
 
         }
 
+        public DocumentoViewModel(DO_Grupos Model)
+        {
+            //Mapeamos el valor del modelo recibido al atributo de la clase.
+            model = Model;
+
+            dialogService = new DialogService();
+        }
+
+        public DocumentoViewModel()
+        {
+            dialogService = new DialogService();
+            ListaUsuarios2 = DataManagerControlDocumentos.GetUsuarios();
+            NotifyChange("ListaIntegrantes_Grupo");
+        }
+
         #endregion
 
         #region Commands
@@ -1190,6 +1278,31 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => EliminarDocumentoSellado());
             }
         }
+
+        public ICommand IrFlyOut
+        {
+            get
+            {
+                return new RelayCommand(o => abrircerrarFlyout());
+            }
+        }
+
+        public ICommand AbrirGrupo
+        {
+            get
+            {
+                return new RelayCommand(a => abrirgrupo());
+            }
+        }
+
+        public ICommand IrCrearGrupo
+        {
+            get
+            {
+                return new RelayCommand(a => ircreargrupo());
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -3461,7 +3574,7 @@ namespace View.Services.ViewModel
             //TO DO
             id_areasealed = "";
             //comprobamos que se haya seleccionado un area frames para poder insertarlo
-            if (id_areasealed == "0"  && (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011))
+            if (id_areasealed == "0" && (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011))
             {
                 //si no se selecciono el area, no se libera el documento
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblInsertarAreaFrames);
@@ -4929,6 +5042,7 @@ namespace View.Services.ViewModel
             ListaTipo = DataManagerControlDocumentos.GetTipo();
             ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
             ListaUsuariosCorreo = DataManagerControlDocumentos.GetUsuarios();
+            ListaGrupos = DataManagerControlDocumentos.GetAllGrupos(User.NombreUsuario);
         }
 
         /// <summary>
@@ -6224,6 +6338,46 @@ namespace View.Services.ViewModel
             }
         }
 
-        #endregion
+        public void abrircerrarFlyout()
+        {
+            if (isopen == true)
+            {
+                isopen = false;
+            } else
+            {
+                isopen = true;
+            }
+        }
+
+        public void abrirgrupo()
+        {
+            if (GrupoSeleccionado.idgrupo != 0)
+            {
+                FrmVerIntegrantesGrupo Form = new FrmVerIntegrantesGrupo();
+
+
+                GruposViewModel Data = new GruposViewModel(GrupoSeleccionado.idgrupo, User);
+
+                Form.DataContext = Data;
+                Form.ShowDialog();
+            }
+        }
+
+        public void ircreargrupo()
+        {
+            FrmCrearGrupo Form = new FrmCrearGrupo();
+
+            DocumentoViewModel Data = new DocumentoViewModel();
+
+            Form.DataContext = Data;
+            Form.ShowDialog();
+        }
+
+        public void ObtenerListaUsuarios2()
+        {
+            ListaUsuarios2 = DataManagerControlDocumentos.GetUsuarios();
+        }
+
+        #endregion       
     }
 }

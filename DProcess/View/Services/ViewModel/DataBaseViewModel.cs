@@ -53,13 +53,6 @@ namespace View.Services.ViewModel
             }
         }
 
-        //public ICommand IrNuevaNorma
-        //{
-        //    get
-        //    {
-        //        return new RelayCommand(a => irAddNorma());
-        //    }
-        //}
         #endregion
 
         #region Métodos de navegación
