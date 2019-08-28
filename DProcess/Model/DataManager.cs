@@ -14363,10 +14363,10 @@ namespace Model
                     Type tipo = item.GetType();
 
                     norma.idNorma = (int)tipo.GetProperty("ID_NORMA").GetValue(item, null);
-                    norma.IsSelected = false;
+                    norma.especificacion = (string)tipo.GetProperty("ESPECIFICACION").GetValue(item, null);
                     norma.descripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
                     norma.descripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
-                    norma.especificacion = (string)tipo.GetProperty("ESPECIFICACION").GetValue(item, null);
+                    norma.IsSelected = false;
 
                     listaResultante.Add(norma);
                 }
@@ -14375,6 +14375,141 @@ namespace Model
             return listaResultante;
         }
 
+        public static IList GetAll()
+        {
+            try
+            {
+                using (var Conexion = new EntitiesNormas())
+                {
+                    var lista = (from a in Conexion.TBL_NORMAS
+                                 select a).ToList();
+
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método para insertar un registro a la tabla TBL_NOMRMAS
+        /// </summary>
+        /// <param name="id_norma"></param>
+        /// <param name="especificacion"></param>
+        /// <param name="descripcion_corta"></param>
+        /// <param name="descripcion_larga"></param>
+        /// <returns></returns>
+        public static int SetNorma(int id_norma, string especificacion, string descripcion_corta, string descripcion_larga)
+        {
+            try
+            {
+                //Realizamos la conexión a través de Entity Framework
+                using (var Conexion = new EntitiesNormas())
+                {
+                    TBL_NORMAS obj = new TBL_NORMAS();
+
+                    //Asignamos valores
+                    obj.ID_NORMA = id_norma;
+                    obj.ESPECIFICACION = especificacion;
+                    obj.DESCRIPCION_CORTA = descripcion_corta;
+                    obj.DESCRIPCION_LARGA = descripcion_larga;
+
+                    //Agregamos el objeto a la tabla
+                    Conexion.TBL_NORMAS.Add(obj);
+
+                    //Guardamos los cambios
+                    Conexion.SaveChanges();
+
+                    //retornamos el ID
+                    return obj.ID_NORMA;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retornamos 0
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método para modificar un registro de la tabla TBL_NORMAS
+        /// </summary>
+        /// <param name="id_norma"></param>
+        /// <param name="especificacion"></param>
+        /// <param name="descripcion_corta"></param>
+        /// <param name="descripcion_larga"></param>
+        /// <returns></returns>
+        public static int UpdateNorma(int id_norma, string especificacion, string descripcion_corta, string descripcion_larga)
+        {
+            try
+            {
+                //Realizamos la conexión a través de Entity Framework
+                using (var Conexion = new EntitiesNormas())
+                {
+                    //Declaramos el objeto de la tabla
+                    TBL_NORMAS obj = Conexion.TBL_NORMAS.Where(x => x.ID_NORMA == id_norma).FirstOrDefault();
+
+                    //Asignamos los valores
+                    obj.ID_NORMA = id_norma;
+                    obj.ESPECIFICACION = especificacion;
+                    obj.DESCRIPCION_CORTA = descripcion_corta;
+                    obj.DESCRIPCION_LARGA = descripcion_larga;
+
+                    //Guardamos los cambios
+                    Conexion.Entry(obj).State = EntityState.Modified;
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error, retornamos cero.
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro de la tabla TBL_NORMAS
+        /// </summary>
+        /// <param name="id_norma"></param>
+        /// <returns></returns>
+        public static int DeleteNorma(int id_norma)
+        {
+            try
+            {
+                //Establecemos conexión a través de Entity Framework
+                using (var Conexion = new EntitiesNormas())
+                {
+                    //Declaramos el objeto de la tabla
+                    TBL_NORMAS obj = Conexion.TBL_NORMAS.Where(x => x.ID_NORMA == id_norma).FirstOrDefault();
+
+                    Conexion.Entry(obj).State = EntityState.Deleted;
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error, retornamos o
+                return 0;
+            }
+        }
+
+        public static int UpdateNorma(DO_Norma norma)
+        {
+            SO_Normas ServicePropiedad = new SO_Normas();
+
+            return ServicePropiedad.UpdateNorma(norma.idNorma, norma.especificacion, norma.descripcionCorta, norma.descripcionLarga);
+        }
+
+        public static int SetNorma(DO_Norma norma)
+        {
+            SO_Normas ServicePropiedad = new SO_Normas();
+
+            return ServicePropiedad.SetNorma(norma.especificacion, norma.descripcionCorta, norma.descripcionLarga);
+        }
         #endregion
 
         #region Colores y Ubicaciones

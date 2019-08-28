@@ -45,6 +45,21 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand IrNormas
+        {
+            get
+            {
+                return new RelayCommand(a => irAllNormas());
+            }
+        }
+
+        //public ICommand IrNuevaNorma
+        //{
+        //    get
+        //    {
+        //        return new RelayCommand(a => irAddNorma());
+        //    }
+        //}
         #endregion
 
         #region Métodos de navegación
@@ -92,6 +107,28 @@ namespace View.Services.ViewModel
 
             ventana.ShowDialog();
         }
+
+        private void irAllNormas()
+        {
+            NormasViewModel vm = new ViewModel.NormasViewModel();
+
+            WNormas ventana = new WNormas();
+
+            ventana.DataContext = vm;
+
+            ventana.ShowDialog();
+        }
+
+        //private void irAddNorma()
+        //{
+        //    NormasViewModel vm = new NormasViewModel();
+
+        //    WAddNorma ventana = new WAddNorma();
+
+        //    ventana.DataContext = vm;
+
+        //    ventana.ShowDialog();
+        //}
 
         #endregion
 

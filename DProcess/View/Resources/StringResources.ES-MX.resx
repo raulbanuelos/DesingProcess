@@ -1903,4 +1903,12 @@ El documento podría no liberarse correctamente.</value>
     <value>Propiedades Bool</value>
     <comment>Título para propiedades boolean</comment>
   </data>
+  <data name="ttlNormas" xml:space="preserve">
+    <value>Normas</value>
+    <comment>Título de Normas</comment>
+  </data>
+  <data name="ttlTextNormas" xml:space="preserve">
+    <value>Click para ir a normas</value>
+    <comment>Texto Normas</comment>
+  </data>
 </root>

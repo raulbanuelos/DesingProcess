@@ -1905,4 +1905,15 @@ The document may not be released correctly.</value>
     <value>Bool Properties</value>
     <comment>Título para propiedades boolean</comment>
   </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ttlNormas" xml:space="preserve">
+    <value>Specifications</value>
+    <comment>Título para Normas</comment>
+  </data>
+  <data name="ttlTextNormas" xml:space="preserve">
+    <value>Please click to specifications</value>
+    <comment>Texto Normas</comment>
+  </data>
 </root>

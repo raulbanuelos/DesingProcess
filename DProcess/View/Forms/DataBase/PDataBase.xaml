@@ -150,6 +150,34 @@
                         </Style>
                     </Controls:Tile.Style>
                 </Controls:Tile>
+
+                <!--NORMAS-->
+                <Controls:Tile Background="#00879D" TiltFactor="2" Title="{x:Static local:StringResources.ttlNormas}" Width="Auto" Height="Auto" Grid.Column="4" Grid.Row="0" Cursor="Hand" Command="{Binding IrNormas}">
+                    <Controls:Tile.Style>
+                        <Style TargetType="Controls:Tile">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <StackPanel Orientation="Vertical">
+                                        <Rectangle Width="90" Height="90" Fill="White">
+                                            <Rectangle.OpacityMask>
+                                                <VisualBrush Visual="{StaticResource appbar_book}" Stretch="Fill"/>
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                    </StackPanel>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <TextBlock Text="{x:Static local:StringResources.ttlTextNormas}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Controls:Tile.Style>
+                </Controls:Tile>
             </Grid>
         </DockPanel>
     </Grid>

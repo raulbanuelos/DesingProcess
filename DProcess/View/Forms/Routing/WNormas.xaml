@@ -1,0 +1,45 @@
+﻿<Controls:MetroWindow x:Class="View.Forms.Routing.WNormas"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Forms.Routing"
+        mc:Ignorable="d"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        Title="WNormas" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
+        Height="500" Width="700" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Column="1" Grid.Row="0" Content="Nueva Norma" Command="{Binding IrNuevaNorma}" Width="150" HorizontalAlignment="Right" Margin="5"></Button>
+
+        <DataGrid Grid.Column="1" Grid.Row="1"  ItemsSource="{Binding ListaNormas}" SelectedItem="{Binding NormaSeleccionada, Mode=TwoWay}"
+                        x:Name="dataGrid" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,5,0,0" 
+                       HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="False" IsReadOnly="True"  Width="650">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding idNorma}" Header="ID Norma"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding especificacion}" Header="Especificación"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding descripcionCorta}" Header="Descripción Corta"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding descripcionLarga}" Header="Descripción Larga"></DataGridTextColumn>
+            </DataGrid.Columns>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding Editarnorma}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+        </DataGrid>
+    </Grid>
+</Controls:MetroWindow>
