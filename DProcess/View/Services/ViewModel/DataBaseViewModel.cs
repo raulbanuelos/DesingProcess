@@ -103,7 +103,7 @@ namespace View.Services.ViewModel
 
         private void irAllNormas()
         {
-            NormasViewModel vm = new ViewModel.NormasViewModel();
+            NormasViewModel vm = new NormasViewModel();
 
             WNormas ventana = new WNormas();
 

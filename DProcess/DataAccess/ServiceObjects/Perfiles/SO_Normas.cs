@@ -41,6 +41,8 @@ namespace DataAccess.ServiceObjects.Perfiles
                     tblNormas.DESCRIPCION_CORTA = descripcionCorta;
                     tblNormas.DESCRIPCION_LARGA = descripcionLarga;
 
+                    Conexion.TBL_NORMAS.Add(tblNormas);
+
                     return Conexion.SaveChanges();
                 }
             }
