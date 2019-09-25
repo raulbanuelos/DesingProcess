@@ -19,7 +19,7 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Content="{x:Static recursos:StringResources.ttlButtonAddDeleteMembers}" Command="{Binding IrAgregarIntegrante}" Width="220" HorizontalAlignment="Right" Margin="0,0,10,0"></Button>
+            <Button Grid.Row="0" Content="{x:Static recursos:StringResources.ttlButtonAddDeleteMembers}" Command="{Binding IrAgregarIntegrante}" Width="225" HorizontalAlignment="Right" Margin="0,0,10,0"></Button>
 
             <DataGrid Grid.Row="1" ItemsSource="{Binding ListaIntegrantes_Grupo}"
                         x:Name="dataGrid" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5"
