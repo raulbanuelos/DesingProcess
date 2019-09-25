@@ -482,19 +482,27 @@ namespace View.Services.ViewModel
             }
         }
 
-        private bool _lblVerAlerta = true;
-        public bool lblVerAlerta
+        private bool _banAlertaCorreo = false;
+        public bool banAlertaCorreo
         {
             get
             {
-                return _lblVerAlerta;
+                return _banAlertaCorreo;
             }
             set
             {
-                _lblVerAlerta = value;
-                NotifyChange("lblVerAlerta");
+                _banAlertaCorreo = value;
+                NotifyChange("banAlertaCorreo");
             }
         }
+
+        private bool _banButtonNotificar;
+        public bool banButtonNotificar
+        {
+            get { return _banButtonNotificar; }
+            set { _banButtonNotificar = value; NotifyChange("banButtonNotificar"); }
+        }
+
 
         private bool nombreEnabled = false;
         public bool NombreEnabled
@@ -812,16 +820,18 @@ namespace View.Services.ViewModel
             BttnArchivos = false;
             //Si es ventana para generar una nueva versión, band = true
             BttnVersion = band;
-
-            //Ocultamos el mensaje en la ventana pendiente por liberar
-            lblVerAlerta = false;
-
+            
             //si band contiene true, significa que el documento esta liberado, caso contrario es por que esta en pendiente por corregir
             if (band == true)
             {
                 //mandamos llamar el menú que lo construye
                 //CreateMenuItems(Ventana);
                 AdjuntarDocumento = true;
+            }else
+            {
+                //Ocultamos el mensaje en la ventana pendiente por liberar
+                banAlertaCorreo = true;
+                banButtonNotificar = true;
             }
 
             //si es personal del CIT y es ventana para generar una nueva versión
@@ -916,6 +926,8 @@ namespace View.Services.ViewModel
             BttnArchivos = true;
             EnabledEliminar = true;
             NombreEnabled = true;
+            banAlertaCorreo = true;
+            banButtonNotificar = true;
             Version = "1";
             User = ModelUsuario;
             usuario = User.NombreUsuario;
@@ -958,7 +970,8 @@ namespace View.Services.ViewModel
             WidthButton = 155;
 
             //Ocultamos el mensaje en la ventana pendiente por liberar
-            lblVerAlerta = false;
+            banAlertaCorreo = false;
+            banButtonNotificar = false;
 
             //si el usuario es administrador del sistema
             //se permite modificar el usuario autorizo
@@ -3692,7 +3705,8 @@ namespace View.Services.ViewModel
                         usuario = User.NombreUsuario;
                         NombreUsuarioElaboro = User.Nombre + " " + User.ApellidoPaterno;
                         usuarioAutorizo = null;
-
+                        banAlertaCorreo = true;
+                        banButtonNotificar = true;
                         VersionGenerada = true;
                     }
                     else
@@ -6819,7 +6833,7 @@ namespace View.Services.ViewModel
         /// </summary>
         public void RecorrerListas()
         {
-            lblVerAlerta = ListaUsuarios.Where(a => a.IsSelected == true).ToList().Count > 0 || ListaGrupos.Where(b => b.IsSelected == true).ToList().Count > 0 ? false : true;
+            banAlertaCorreo = ListaUsuarios.Where(a => a.IsSelected == true).ToList().Count > 0 || ListaGrupos.Where(b => b.IsSelected == true).ToList().Count > 0 ? false : true;
         }
 
         #endregion
