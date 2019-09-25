@@ -12,12 +12,13 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
     using System;
     using System.Collections.Generic;
     
-    public partial class TR_GRUPO_VERSION
+    public partial class TR_USUARIO_NOTIFICACION_VERSION
     {
-        public int ID_GRUPO_VERSION { get; set; }
-        public int ID_GRUPO { get; set; }
+        public int ID_USUARIO_NOTIFICACION_VERSION { get; set; }
+        public string ID_USUARIO { get; set; }
         public int ID_VERSION { get; set; }
     
-        public virtual TBL_GRUPOS TBL_GRUPOS { get; set; }
+        public virtual TBL_VERSION TBL_VERSION { get; set; }
+        public virtual Usuarios Usuarios { get; set; }
     }
 }

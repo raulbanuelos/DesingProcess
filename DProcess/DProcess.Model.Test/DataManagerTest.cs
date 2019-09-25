@@ -258,11 +258,11 @@ namespace DProcess.Model.Test
         //    DataManager.GetMateriaPrimaPVD(0.0157, 0.0900, 0.1000, 0);
         //}
 
-        [TestMethod]
-        public void GetNormas()
-        {
-            DataManager.GetAllNormas();
-        }
+        //[TestMethod]
+        //public void GetNormas()
+        //{
+        //    DataManager.GetAllNormas();
+        //}
 
         //[TestMethod]
         //public void SendEmailWithImage()

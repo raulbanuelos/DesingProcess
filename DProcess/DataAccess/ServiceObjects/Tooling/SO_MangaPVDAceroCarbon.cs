@@ -18,7 +18,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="max"></param>
         /// <param name="a"></param>
         /// <returns></returns>
-        public int SetAceroCarbon(int id, float min, float max, float a, float factor)
+        public int SetAceroCarbon(float min, float max, float a, float factor)
         {
             try
             {
@@ -29,7 +29,6 @@ namespace DataAccess.ServiceObjects.Tooling
                     TBL_MANGA_PVD_ACERO_CARBON obj = new TBL_MANGA_PVD_ACERO_CARBON();
 
                     //Asignamos los valores
-                    obj.ID_MANGA_PVD_ACERO_CARBON = id;
                     obj.N_MIN = min;
                     obj.N_MAX = max;
                     obj.A = a;
@@ -123,7 +122,6 @@ namespace DataAccess.ServiceObjects.Tooling
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

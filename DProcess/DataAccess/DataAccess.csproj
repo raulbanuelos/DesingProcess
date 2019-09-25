@@ -102,6 +102,7 @@
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Sealed.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_TipoError.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Usuarios.cs" />
+    <Compile Include="ServiceObjects\ControlDocumentos\SO_USUARIO_NOTIFICACION_VERSION.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Validacion.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Version.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_ARCHIVO.cs">
@@ -155,13 +156,13 @@
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_VERSION.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
-    <Compile Include="ServiceObjects\ControlDocumentos\TR_GRUPO_VERSION.cs">
-      <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
-    </Compile>
     <Compile Include="ServiceObjects\ControlDocumentos\TR_INTEGRANTES_GRUPO.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\ControlDocumentos\TR_ROL_USUARIOS.cs">
+      <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\TR_USUARIO_NOTIFICACION_VERSION.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\ControlDocumentos\TR_VALIDACION_TIPO_DOCUMENTO.cs">

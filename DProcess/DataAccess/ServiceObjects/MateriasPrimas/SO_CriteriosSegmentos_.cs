@@ -14,7 +14,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         /// Método para insertar un registro a la tabla CriteriosSegmentos_
         /// </summary>
         /// <returns></returns>
-        public int SetCriteriosSegmentos_(int id_criterio_segmento, double mpaxialWidthMinPVD, double mpaxialWidthMaxPVD, double mpradialThickMinPVD, double mpradialThickMaxPVD, double mpaxialWidthMin, double mpaxialWidthMax, double mpradialThickMin, double mpradialThickMax, double mpradialCromoMin,
+        public int SetCriteriosSegmentos_(double mpaxialWidthMinPVD, double mpaxialWidthMaxPVD, double mpradialThickMinPVD, double mpradialThickMaxPVD, double mpaxialWidthMin, double mpaxialWidthMax, double mpradialThickMin, double mpradialThickMax, double mpradialCromoMin,
                                             double mpradialCromoMax, double discoMin, double discoMax, double cromoServicio, double cromoEO, double cromoFreeGapMin, double cromoFreeGapMax, double nitruFreeGapMin, double nitruFreeGapMax, double nitru2FreeGapMin, double nitru2FreeGapMax, double freeGapSinCromoMin,
                                             double freeGapSinCromoMax, double centerWaferH1Min, double centerWaferH1Max, double cromoCollarinMin, double cromoCollarinMax, double mangaNormMin, double mangaNormMax, double mangaNormAntesMin, double mangaNormAntesMax, double thompsonGapMin, double thompsonGapMax,
                                             double thompClampMin, double thompClampMax, double thompBackUpMin, double thompBackUpMax, double thompPlatoMin, double thompPlatoMax, double vulcanFrontCollarMin, double vulcanFrontCollarMax, double vulcanBackCollarMin, double vulcanBackCollarMax, double vulcanPlungerMin,
@@ -30,7 +30,6 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     CriteriosSegmentos_ obj = new CriteriosSegmentos_();
 
                     //Asignamos los valores
-                    obj.ID_CRITERIO_SEGMENTO = id_criterio_segmento;
                     obj.MPAxialWidthMinPVD = mpaxialWidthMinPVD;
                     obj.MPAxialWidthMaxPVD = mpaxialWidthMaxPVD;
                     obj.MPRadialThickMinPVD = mpradialThickMinPVD;

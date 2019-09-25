@@ -115,6 +115,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Add.
+        /// </summary>
+        public static string lblAdd {
+            get {
+                return ResourceManager.GetString("lblAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Add File.
         /// </summary>
         public static string lblAdjuntarArchivo {
@@ -192,6 +201,16 @@ namespace View.Resources {
         public static string lblAgregarUsuario {
             get {
                 return ResourceManager.GetString("lblAgregarUsuario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Alert! 
+        ///You have not selected users to notify....
+        /// </summary>
+        public static string lblAlertaNotificar {
+            get {
+                return ResourceManager.GetString("lblAlertaNotificar", resourceCulture);
             }
         }
         
@@ -1006,6 +1025,24 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Group name.
+        /// </summary>
+        public static string lblGroupName {
+            get {
+                return ResourceManager.GetString("lblGroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Groups.
+        /// </summary>
+        public static string lblGrupos {
+            get {
+                return ResourceManager.GetString("lblGrupos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Save.
         /// </summary>
         public static string lblGuardar {
@@ -1177,6 +1214,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Member name.
+        /// </summary>
+        public static string lblMemberName {
+            get {
+                return ResourceManager.GetString("lblMemberName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Milimeter (mm).
         /// </summary>
         public static string lblMilimetros {
@@ -1276,7 +1322,7 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Notify.
+        ///   Busca una cadena traducida similar a Notify to.
         /// </summary>
         public static string lblNotificar {
             get {
@@ -2015,6 +2061,16 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The name of the document and the description cannot be the same.
+        ///Change the description please..
+        /// </summary>
+        public static string msgCambiaDescripcion {
+            get {
+                return ResourceManager.GetString("msgCambiaDescripcion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The changes were saved successfully, the files will be verified by the document manager.
         /// </summary>
         public static string msgCambiosGuardadosExito {
@@ -2218,6 +2274,15 @@ namespace View.Resources {
         public static string msgDescNotEspeciales {
             get {
                 return ResourceManager.GetString("msgDescNotEspeciales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The description cannot be the same as the name of the document..
+        /// </summary>
+        public static string msgDescripcionNoIgual {
+            get {
+                return ResourceManager.GetString("msgDescripcionNoIgual", resourceCulture);
             }
         }
         
@@ -3090,6 +3155,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Fill all the fields to insert a file..
+        /// </summary>
+        public static string msgLlenaTodosCampos {
+            get {
+                return ResourceManager.GetString("msgLlenaTodosCampos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The tooling master already exist.
         /// </summary>
         public static string msgMaestroHerramentalExistente {
@@ -3131,6 +3205,16 @@ namespace View.Resources {
         public static string msgNoAdjFile {
             get {
                 return ResourceManager.GetString("msgNoAdjFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The name of the document and the description cannot be the same.
+        ///Change the description and generate the file again, please..
+        /// </summary>
+        public static string msgNombreDescripcionNoIgual {
+            get {
+                return ResourceManager.GetString("msgNombreDescripcionNoIgual", resourceCulture);
             }
         }
         
@@ -3347,6 +3431,15 @@ namespace View.Resources {
         public static string msgRegresaVers {
             get {
                 return ResourceManager.GetString("msgRegresaVers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to notify someone else?.
+        /// </summary>
+        public static string msgRevisarNotificaciones {
+            get {
+                return ResourceManager.GetString("msgRevisarNotificaciones", resourceCulture);
             }
         }
         
@@ -3698,6 +3791,42 @@ namespace View.Resources {
         public static string ttlBusquedHerramental {
             get {
                 return ResourceManager.GetString("ttlBusquedHerramental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Add / Delete members.
+        /// </summary>
+        public static string ttlButtonAddDeleteMembers {
+            get {
+                return ResourceManager.GetString("ttlButtonAddDeleteMembers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Create.
+        /// </summary>
+        public static string ttlButtonCreate {
+            get {
+                return ResourceManager.GetString("ttlButtonCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Create group.
+        /// </summary>
+        public static string ttlButtonCreateGroup {
+            get {
+                return ResourceManager.GetString("ttlButtonCreateGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delete group.
+        /// </summary>
+        public static string ttlButtonDeleteGroup {
+            get {
+                return ResourceManager.GetString("ttlButtonDeleteGroup", resourceCulture);
             }
         }
         
@@ -4166,6 +4295,24 @@ namespace View.Resources {
         public static string ttlRoutingAux {
             get {
                 return ResourceManager.GetString("ttlRoutingAux", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select new(s) member(s).
+        /// </summary>
+        public static string ttlSelectnewmember {
+            get {
+                return ResourceManager.GetString("ttlSelectnewmember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select who to notify.
+        /// </summary>
+        public static string ttlSelectWhoNotify {
+            get {
+                return ResourceManager.GetString("ttlSelectWhoNotify", resourceCulture);
             }
         }
         

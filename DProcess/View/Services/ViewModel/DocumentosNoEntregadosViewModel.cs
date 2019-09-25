@@ -62,6 +62,7 @@ namespace View.Services.ViewModel
                 NotifyChange("Titulo");
             }
         }
+
         #endregion
 
         #region Constructor
@@ -93,6 +94,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(a => _SelecDeselec());
             }
         }
+
         #endregion
 
         #region Métodos
@@ -172,15 +174,13 @@ namespace View.Services.ViewModel
                             body += "</body>";
                             body += "</HTML>";
 
-                            Resultado = serviceEmail.SendEmailLotusCustom(usuario.Pathnsf, correos, "Documento rechazado - " + documentoRezadado.NombreDocumento, body);
-                            
+                            Resultado = serviceEmail.SendEmailLotusCustom(usuario.Pathnsf, correos, "Documento rechazado - " + documentoRezadado.NombreDocumento, body);                            
                         }
                     }
 
                     if (Resultado)
                     {
                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgNotificacionCorreo);
-
                     }
                     else
                     {
@@ -204,7 +204,9 @@ namespace View.Services.ViewModel
                 item.IsSelected = true;
                 Aux.Add(item);
             }
+
             ListaDocumentos.Clear();
+
             foreach (var item in Aux)
             {
                 ListaDocumentos.Add(item);
@@ -223,7 +225,9 @@ namespace View.Services.ViewModel
                 item.IsSelected = false;
                 Aux.Add(item);
             }
+
             ListaDocumentos.Clear();
+
             foreach (var item in Aux)
             {
                 ListaDocumentos.Add(item);
@@ -240,7 +244,6 @@ namespace View.Services.ViewModel
                 Titulo = "Deseleccionar Todos";
                 _SeleccionarTodos();
                 IsSelected = false;
-
             }
             else
             {
@@ -249,6 +252,7 @@ namespace View.Services.ViewModel
                 IsSelected = true;
             }
         }
+
         #endregion
 
     }

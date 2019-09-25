@@ -946,7 +946,7 @@
     <comment>Etiqueta para datagrid de documentos similares</comment>
   </data>
   <data name="lblNotificar" xml:space="preserve">
-    <value>Notificar</value>
+    <value>Notificar a</value>
     <comment>Etiqueta para el campo de notificar a </comment>
   </data>
   <data name="lblNotificarA" xml:space="preserve">
@@ -1910,5 +1910,72 @@ El documento podría no liberarse correctamente.</value>
   <data name="ttlTextNormas" xml:space="preserve">
     <value>Click para ir a normas</value>
     <comment>Texto Normas</comment>
+  </data>
+  <data name="lblAdd" xml:space="preserve">
+    <value>Agregar</value>
+    <comment>Texto agregar</comment>
+  </data>
+  <data name="lblGroupName" xml:space="preserve">
+    <value>Nombre grupo</value>
+    <comment>Texto nombre del grupo</comment>
+  </data>
+  <data name="lblGrupos" xml:space="preserve">
+    <value>Grupos</value>
+    <comment>Texto grupos</comment>
+  </data>
+  <data name="lblMemberName" xml:space="preserve">
+    <value>Nombre integrante</value>
+    <comment>Texto nombre integrante</comment>
+  </data>
+  <data name="ttlButtonAddDeleteMembers" xml:space="preserve">
+    <value>Agregar / Eliminar integrantes</value>
+    <comment>Título botón agregar - eliminar integrantes</comment>
+  </data>
+  <data name="ttlButtonCreate" xml:space="preserve">
+    <value>Crear</value>
+    <comment>Título botón crear</comment>
+  </data>
+  <data name="ttlButtonCreateGroup" xml:space="preserve">
+    <value>Crear grupo</value>
+    <comment>Título botón crear grupo</comment>
+  </data>
+  <data name="ttlButtonDeleteGroup" xml:space="preserve">
+    <value>Eliminar grupo</value>
+    <comment>Título botón eliminar grupo</comment>
+  </data>
+  <data name="ttlSelectnewmember" xml:space="preserve">
+    <value>Selecciona nuevo(s) integrante(s)</value>
+    <comment>Texto seleccionar nuevo integrante</comment>
+  </data>
+  <data name="ttlSelectWhoNotify" xml:space="preserve">
+    <value>Selecciona a quiénes notificar</value>
+    <comment>Título de Flyout Documentos</comment>
+  </data>
+  <data name="msgRevisarNotificaciones" xml:space="preserve">
+    <value>¿Quieres notificar a alguien más?</value>
+    <comment>Mensaje que indica antes de guardar una versión, usuarios a notificar.</comment>
+  </data>
+  <data name="lblAlertaNotificar" xml:space="preserve">
+    <value>¡Alerta! 
+No has seleccionado usuarios a notificar...</value>
+    <comment>Mensaje cuando no se ha seleccionado usuarios para notificar</comment>
+  </data>
+  <data name="msgNombreDescripcionNoIgual" xml:space="preserve">
+    <value>El nombre del documento y la descripción no pueden ser iguales.
+Cambia la descripción y genera nuevamente el archivo, por favor.</value>
+    <comment>Mensaje que indica que el nombre del documento y la descripción no pueden ser iguales</comment>
+  </data>
+  <data name="msgLlenaTodosCampos" xml:space="preserve">
+    <value>Llena todos los campos para poder insertar un archivo.</value>
+    <comment>Mensaje que pide llenar todos los campos para poder insertar un archivo</comment>
+  </data>
+  <data name="msgCambiaDescripcion" xml:space="preserve">
+    <value>El nombre del documento y la descripción no pueden ser iguales. 
+Cambia la descripción por favor.</value>
+    <comment>Mensaje que pide cambiar la descripción de un documento cuando es igual que el nombre.</comment>
+  </data>
+  <data name="msgDescripcionNoIgual" xml:space="preserve">
+    <value>La descripción no puede ser igual al nombre del documento.</value>
+    <comment>Mensaje que se muestra cuando se quiere adjuntar un archivo y la descripción y nombre del documento son iguales</comment>
   </data>
 </root>

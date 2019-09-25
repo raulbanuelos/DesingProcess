@@ -33,6 +33,7 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Propiedades
+
         public Usuario usuario;
         private ObservableCollection<Documento> _Lista;
         public ObservableCollection<Documento> Lista {
@@ -529,6 +530,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => VerEstatusDocumentos(usuario));
             }
         }
+
         #endregion
 
         #region Methods

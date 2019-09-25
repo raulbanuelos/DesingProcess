@@ -18,52 +18,40 @@ namespace View.Services.ViewModel
         private int IdGrupoSeleccionado;
 
         Usuario user;
-        DO_Grupos Grupos;
-        
+
         public int ID_GRUPO { get; set; }
-        
+
+        private string _nombre;
         public string nombre
         {
             get
             {
-                return Grupos.nombre;
+                return _nombre;
             }
             set
             {
-                Grupos.nombre = value;
+                _nombre = value;
                 NotifyChange("nombre");
             }
         }
 
-        public int idgrupo
-        {
-            get
-            {
-                return Grupos.idgrupo;
-            }
-            set
-            {
-                Grupos.idgrupo = value;
-                NotifyChange("idgrupo");
-            }
-        }
         #endregion
 
         #region Propiedades
 
-        private ObservableCollection<DO_Grupos> _ListaGrupos;
-        public ObservableCollection<DO_Grupos> ListaGrupos
-        {
-            get
-            {
-                return _ListaGrupos;
-            }
-            set
-            {
-                _ListaGrupos = value;
-                NotifyChange("ListaGrupos");
-            }
-        }
+        //private ObservableCollection<DO_Grupos> _ListaGrupos;
+        //public ObservableCollection<DO_Grupos> ListaGrupos
+        //{
+        //    get
+        //    {
+        //        return _ListaGrupos;
+        //    }
+        //    set
+        //    {
+        //        _ListaGrupos = value;
+        //        NotifyChange("ListaGrupos");
+        //    }
+        //}
 
         private ObservableCollection<Usuarios> _ListadeUsuarios;
         public ObservableCollection<Usuarios> ListadeUsuarios
@@ -76,20 +64,6 @@ namespace View.Services.ViewModel
             {
                 _ListadeUsuarios = value;
                 NotifyChange("ListadeUsuarios");
-            }
-        }
-
-        private ObservableCollection<Usuarios> _ListaUsuarios2;
-        public ObservableCollection<Usuarios> ListaUsuarios2
-        {
-            get
-            {
-                return _ListaUsuarios2;
-            }
-            set
-            {
-                _ListaUsuarios2 = value;
-                NotifyChange("ListaUsuarios2");
             }
         }
 
@@ -163,27 +137,18 @@ namespace View.Services.ViewModel
             }
         }
 
-        public ICommand EliminarGrupo
-        {
-            get
-            {
-                return new RelayCommand(a => eliminargrupo());
-            }
-        }
-
         #endregion
 
         #region Constructores
 
+        // Constructor para visualizar grupos y ver usuarios integrantes 
         public GruposViewModel(int idGrupoSeleccionado, Usuario usuariolog)
         {
             user = usuariolog;
             IdGrupoSeleccionado = idGrupoSeleccionado;
             ListaIntegrantes_Grupo = DataManagerControlDocumentos.GetAllIntegrantesGrupo(idGrupoSeleccionado);
             ListaIntegrantes_Grupo = ListaIntegrantes_Grupo;
-            ListaGrupos = DataManagerControlDocumentos.GetAllGrupos(user.IdUsuario);
             NotifyChange("ListaIntegrantes_Grupo");
-
             ListadeUsuarios = DataManagerControlDocumentos.GetUsuarios();
 
             foreach (var usuariointegrante in ListaIntegrantes_Grupo)
@@ -198,10 +163,18 @@ namespace View.Services.ViewModel
             }
         }
 
+        // Constructor para ver todos los usuarios y seleccionar al momento de crear un grupo
+        public GruposViewModel(Usuario usuariolog)
+        {
+            user = usuariolog;
+            ListadeUsuarios = DataManagerControlDocumentos.GetUsuarios();
+        }
+        
         #endregion
 
         #region Events INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
+
         #endregion
 
         #region INotifyPropertyChanged Métodos
@@ -215,6 +188,9 @@ namespace View.Services.ViewModel
 
         #region Métodos
 
+        /// <summary>
+        /// Método para abrir y cerrar flyout, muestra la lista de usuarios para añadir al grupo.
+        /// </summary>
         public void iragregarintegrante()
         {
             if (isopen == true)
@@ -228,77 +204,113 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método para obtener todos los registros de la tabla Usuarios desde 2 métodos.
+        /// Método para obtener todos los registros de la tabla Usuarios a partir de 2 métodos.
         /// </summary>
         /// <returns></returns>
         public void ObtenerListaUsuarios()
         {
             ListadeUsuarios = DataManagerControlDocumentos.GetUsuarios();
         }
-        #endregion
 
+        /// <summary>
+        /// Método para actualizar lista de integrantes por grupo.
+        /// </summary>
+        /// <returns></returns>
         public void guardarnintegrantes()
         {
-            //Eliminar un integrante de la lista
+            //Eliminar integrantes de la lista
             foreach (var usuariointegrante in ListaIntegrantes_Grupo)
             {
                 DataManagerControlDocumentos.eliminarintegrantes(IdGrupoSeleccionado, usuariointegrante.idusuariointegrante);
             }
 
-            // Agregar un integrante a la lista
+            // Agregar integrantes a la lista
             foreach (var usuario in ListadeUsuarios)
             {
                 if (usuario.IsSelected)
                 {
                     DataManagerControlDocumentos.agregarintegrante(IdGrupoSeleccionado, usuario.usuario);
                 }
-
             }
 
+            // Se llena la lista de integrantes por grupo
             ListaIntegrantes_Grupo = DataManagerControlDocumentos.GetAllIntegrantesGrupo(IdGrupoSeleccionado);
             ListaIntegrantes_Grupo = ListaIntegrantes_Grupo;
             NotifyChange("ListaIntegrantes_Grupo");
             iragregarintegrante();
         }
 
-
-
-
         /// <summary>
         /// Método para crear un nuevo grupo.
         /// </summary>
-        public void crearGrupo()
-        {           
-            ID_GRUPO = DataManagerControlDocumentos.CrearNuevoGrupo(nombre, user.IdUsuario);
-            
-            foreach (var usuario in ListaUsuarios2)
+        public async void crearGrupo()
+        {
+            DialogService dialog = new DialogService();
+
+            MetroDialogSettings settings = new MetroDialogSettings();
+            settings.AffirmativeButtonText = StringResources.lblYes;
+            settings.NegativeButtonText = StringResources.lblNo;
+
+            if (validar())
             {
-                if (usuario.IsSelected)
+                MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, settings, MessageDialogStyle.AffirmativeAndNegative);
+
+                if (result == MessageDialogResult.Affirmative)
                 {
-                    DataManagerControlDocumentos.agregarintegrante(ID_GRUPO, usuario.usuario);
+                    // Primero se crea nuevo grupo
+                    ID_GRUPO = DataManagerControlDocumentos.CrearNuevoGrupo(nombre, user.NombreUsuario);
+
+                    foreach (var usuario in ListadeUsuarios)
+                    {
+                        // Se recorre la lista de usuarios y se insertan aquellos que están seleccionados
+                        if (usuario.IsSelected)
+                        {
+                            DataManagerControlDocumentos.agregarintegrante(ID_GRUPO, usuario.usuario);
+                        }
+                    }
+
+                    if (ID_GRUPO > 0)
+                    {
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.ttlDone);
+
+                        //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                        var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                        //Verificamos que la pantalla sea diferente de nulo.
+                        if (window != null)
+                        {
+                            //Cerramos la pantalla
+                            window.Close();
+                        }
+                    }
+                    else
+                    {
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgError);
+                    }
                 }
             }
-            ListaGrupos = DataManagerControlDocumentos.GetAllGrupos(user.IdUsuario);            
+            else
+            {
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
+            }
         }
-
 
         /// <summary>
-        /// Método para eliminar un grupo.
+        /// Método que valida los campos vacíos al crear un nuevo grupo, se asegura de que se inserte nombre al mismo
         /// </summary>
-        public void eliminargrupo()
+        private bool validar()
         {
-            foreach (var grupos in ListaGrupos)
+            if (string.IsNullOrEmpty(nombre))
             {
-                if (grupos.IsSelected)
-                {
-                    foreach (var usuariointegrante in ListaIntegrantes_Grupo)
-                    {
-                        DataManagerControlDocumentos.eliminarintegrantes(IdGrupoSeleccionado, usuariointegrante.idusuariointegrante);
-                    }
-                    DataManagerControlDocumentos.eliminarGrupos(GrupoSeleccionado.idgrupo);
-                }                
+                return false;
             }
-            ListaGrupos = DataManagerControlDocumentos.GetAllGrupos(user.IdUsuario);                 
+            else
+            {
+                return true;
+            }
         }
+
+        #endregion
+
     }
 }

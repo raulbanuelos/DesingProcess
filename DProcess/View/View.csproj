@@ -955,6 +955,7 @@
     <Compile Include="Services\ViewModel\UretanoSplitterVM.cs" />
     <Compile Include="Services\ViewModel\UsuariosViewModel.cs" />
     <Compile Include="Services\ViewModel\UsuarioViewModel.cs" />
+    <Compile Include="Services\ViewModel\USUARIO_NOTIFICACION_VERSION_VIEWMODEL.cs" />
     <Compile Include="Services\ViewModel\ValidacionTipoVM.cs" />
     <Compile Include="Services\ViewModel\ValidarDocumentoViewM.cs" />
     <Compile Include="Services\ViewModel\VersionesVM.cs" />
