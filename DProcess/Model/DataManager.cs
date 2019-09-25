@@ -750,15 +750,18 @@ namespace Model
         #endregion
 
         #region Centros de trabajo
+
         public static double GetTimeSetup(string centroDeTrabajo)
         {
             SO_CentroTrabajo ServicesCentroTrabajo = new SO_CentroTrabajo();
 
             return ServicesCentroTrabajo.GetTimeLabor(centroDeTrabajo);
         }
+
         #endregion
 
         #region Material
+
         /// <summary>
         /// Método que obtiene el tipo de material a partir de una especificación.
         /// </summary>
@@ -1109,6 +1112,7 @@ namespace Model
 
             return resul;
         }
+
         #endregion
 
         #region  Operaciones
@@ -1194,6 +1198,7 @@ namespace Model
 
             return ServiceFirstRoughGrind.SetFirstRG(obj.Codigo, obj.Propiedades[0].Valor);
         }
+
         #endregion
 
         #region Second Rough Grind
@@ -1255,6 +1260,7 @@ namespace Model
         #endregion
 
         #region Splitter Casting
+
         /// <summary>
         /// Método que obtiene el tiempo ciclo de la operación de splitter casting.
         /// </summary>
@@ -2318,6 +2324,7 @@ namespace Model
             //Ejecutamos el método
             return ServiceSplitter.DeleteCutter(id);
         }
+
         #endregion
 
         #region Finish Grid
@@ -2988,7 +2995,6 @@ namespace Model
             return ServiceCam.DeleteWorkCam(id);
         }
 
-
         /// <summary>
         /// Método que obtiene todos los registros de CamTurn.
         /// </summary>
@@ -3224,9 +3230,11 @@ namespace Model
             //Ejecutamos el método.
             return ServiceCam.DeleteCutterCamTurn(idH);
         }
+
         #endregion
 
         #region Auto Finish Turn
+
         /// <summary>
         /// Método que obtiene los collars de Auto Fin Turn a partir de los parámetros recibidos.
         /// </summary>
@@ -4637,6 +4645,7 @@ namespace Model
             }
             return DataR;
         }
+
         #endregion
 
         #region BatesBore
@@ -5081,9 +5090,11 @@ namespace Model
             //Ejecutamos el método t retornamos el resultado.
             return ServiceFinishMill.DeleteBushingFM(id);
         }
+
         #endregion
 
         #region Cromo
+
         /// <summary>
         /// Método que obtiene todos los registros de Bushing Cromo.
         /// </summary>
@@ -5520,6 +5531,7 @@ namespace Model
         #endregion
 
         #region Sim
+
         /// <summary>
         /// Método que obtiene todos los registros de Bushing Sim.
         /// </summary>
@@ -6187,9 +6199,11 @@ namespace Model
             //Ejecutamos el método, retornamos el resxultado.
             return ServiceSim.DeleteGuillotinaSim(id);
         }
+
         #endregion
 
         #region Moly
+
         /// <summary>
         /// Método que obtiene todos los registros de Camisa Moly.
         /// </summary>
@@ -6689,7 +6703,6 @@ namespace Model
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Protector_InfMoly");
         }
 
-
         /// <summary>
         /// Método que guarda un registro de Protector Inferior Moly.
         /// </summary>
@@ -6870,7 +6883,6 @@ namespace Model
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Protector_SupMoly");
         }
 
-
         /// <summary>
         /// Método que guarda un registro de Protector Superior Moly.
         /// </summary>
@@ -6944,6 +6956,7 @@ namespace Model
             //Retorna la tabla resultante.
             return DataR;
         }
+
         #endregion
 
         #region Scotchbrite
@@ -7155,6 +7168,7 @@ namespace Model
             //Retorna la tabla resultante.
             return DataR;
         }
+
         #endregion
 
         #region Diskus
@@ -7549,6 +7563,7 @@ namespace Model
         }
 
         #region MaestroHerramentales
+
         /// <summary>
         /// Método que obtiene el maestro de herramentales a partir de un criterio de busqueda.
         /// </summary>
@@ -7677,6 +7692,7 @@ namespace Model
             //Retornamos el objeto
             return obj;
         }
+
         #endregion
 
         /// <summary>
@@ -7798,6 +7814,7 @@ namespace Model
         }
 
         #region Coil
+
         /// <summary>
         /// Método que inserta un registro en la tabla de tbl_coil_feed_roller
         /// </summary>
@@ -9851,6 +9868,7 @@ namespace Model
         #endregion
 
         #region Plano
+
         /// <summary>
         /// Método que obtiene todos los registros del plano
         /// </summary>
@@ -9892,9 +9910,11 @@ namespace Model
             //Retornamos la lista
             return ListaResultante;
         }
+
         #endregion
 
         #region Nissei Rectificados Finos
+
         /// <summary>
         /// 
         /// </summary>
@@ -10250,6 +10270,7 @@ namespace Model
 
             return servicio.UpdateGuillotinaEngrave_(data.idHerramental, data.Codigo, data.Propiedades[0].Valor, data.PropiedadesCadena[0].Valor);
         }
+
         #endregion
 
         #region BarrelLapAnillo
@@ -10901,6 +10922,7 @@ namespace Model
         #endregion
 
         #region Mangas PVD
+
         public static void UpdateRecordsMangaPVDInoxidable(double espesorRadial, double d1)
         {
             SO_MangaPVDAceroInoxidable serviceManga = new SO_MangaPVDAceroInoxidable();
@@ -10948,42 +10970,15 @@ namespace Model
         /// <summary>
         /// Método para insertar un registro a la tabla TBL_MANGA_PVD_ACER_CARBON
         /// </summary>
-        /// <param name="id"></param>
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <param name="a"></param>
         /// <returns></returns>
-        public static int SetAceroCarbon(int id, float min, float max, float a, float factor)
+        public static int setacerocarbon(float min, float max, float a, float factor)
         {
-            try
-            {
-                // Realizamos la conexión a través de EntityFramework
-                using (var Conexion = new EntitiesTooling())
-                {
-                    // Declaramos el objeto de la tabla
-                    TBL_MANGA_PVD_ACERO_CARBON obj = new TBL_MANGA_PVD_ACERO_CARBON();
+            SO_MangaPVDAceroCarbon Service = new SO_MangaPVDAceroCarbon();
 
-                    //Asignamos los valores
-                    obj.ID_MANGA_PVD_ACERO_CARBON = id;
-                    obj.N_MIN = min;
-                    obj.N_MAX = max;
-                    obj.A = a;
-                    obj.FACTOR = factor;
-
-                    //Agregar el objeto a la tabla
-                    Conexion.TBL_MANGA_PVD_ACERO_CARBON.Add(obj);
-                    //Guardamos los cambios
-                    Conexion.SaveChanges();
-
-                    //Retornamos el id
-                    return obj.ID_MANGA_PVD_ACERO_CARBON;
-                }
-            }
-            catch (Exception)
-            {
-                // Si hay error retornamos 0
-                return 0;
-            }
+            return Service.SetAceroCarbon(min, max, a, factor);
         }
 
         /// <summary>
@@ -10994,30 +10989,11 @@ namespace Model
         /// <param name="max"></param>
         /// <param name="a"></param>
         /// <returns></returns>
-        public static int UpdateAceroCarbon(int id, double a)
+        public static int updateacerocarbon(int id, double a)
         {
-            try
-            {
-                //Realizamos la conexión a través de EntityFramework.
-                using (var Conexion = new EntitiesTooling())
-                {
-                    //Declaramos el objeto de la tabla.
-                    TBL_MANGA_PVD_ACERO_CARBON obj = Conexion.TBL_MANGA_PVD_ACERO_CARBON.Where(x => x.ID_MANGA_PVD_ACERO_CARBON == id).FirstOrDefault();
+            SO_MangaPVDAceroCarbon Service = new SO_MangaPVDAceroCarbon();
 
-                    //Asignamos los valores
-                    obj.A = a;
-
-                    //Guardamos los cambios
-                    Conexion.Entry(obj).State = EntityState.Modified;
-
-                    return Conexion.SaveChanges();
-                }
-            }
-            catch (Exception)
-            {
-                //Si hay error, retornamos cero.
-                return 0;
-            }
+            return Service.UpdateAceroCarbon(id, a);
         }
 
         /// <summary>
@@ -11025,64 +11001,25 @@ namespace Model
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static int DeleteAceroCarbon(int id)
+        public static int deleteacerocarbon(int id)
         {
-            try
-            {
-                //Realizamos la conexión a través de EntityFramework.
-                using (var Conexion = new EntitiesTooling())
-                {
-                    TBL_MANGA_PVD_ACERO_CARBON obj = Conexion.TBL_MANGA_PVD_ACERO_CARBON.Where(x => x.ID_MANGA_PVD_ACERO_CARBON == id).FirstOrDefault();
+            SO_MangaPVDAceroCarbon Service = new SO_MangaPVDAceroCarbon();
 
-                    Conexion.Entry(obj).State = EntityState.Deleted;
-                    return Conexion.SaveChanges();
-                }
-            }
-            catch (Exception)
-            {
-                return 0;
-            }
+            return Service.DeleteAceroCarbon(id);
         }
 
         /// <summary>
         /// Método para insertar un registro a la tabla TBL_MANGA:PVD_ACERO_INOXIDABLE
         /// </summary>
-        /// <param name="id"></param>
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <param name="a"></param>
         /// <returns></returns>
-        public static int SetAceroInoxidable(int id, float min, float max, float a, float factor)
+        public static int setaceroinoxidable(float min, float max, float a, float factor)
         {
-            try
-            {
-                // Realizamos la conexión a través de EntityFramework
-                using (var Conexion = new EntitiesTooling())
-                {
-                    // Declaramos el objeto de la tabla
-                    TBL_MANGA_PVD_ACERO_INOXIDABLE obj = new TBL_MANGA_PVD_ACERO_INOXIDABLE();
+            SO_MangaPVDAceroInoxidable Service = new SO_MangaPVDAceroInoxidable();
 
-                    //Asignamos los valores
-                    obj.ID_MANGA_PVD_ACERO_INOXIDABLE = id;
-                    obj.N_MIN = min;
-                    obj.N_MAX = max;
-                    obj.A = a;
-                    obj.FACTOR = factor;
-
-                    //Agregar el objeto a la tabla
-                    Conexion.TBL_MANGA_PVD_ACERO_INOXIDABLE.Add(obj);
-                    //Guardamos los cambios
-                    Conexion.SaveChanges();
-
-                    //Retornamos el id
-                    return obj.ID_MANGA_PVD_ACERO_INOXIDABLE;
-                }
-            }
-            catch (Exception)
-            {
-                // Si hay error retornamos 0
-                return 0;
-            }
+            return Service.SetAceroInoxidable(min, max, a, factor);
         }
 
         /// <summary>
@@ -11093,30 +11030,11 @@ namespace Model
         /// <param name="max"></param>
         /// <param name="a"></param>
         /// <returns></returns>
-        public static int UpdateAceroInoxidable(int id, double a)
+        public static int updateaceroinoxidable(int id, double a)
         {
-            try
-            {
-                //Realizamos la conexión a través de EntityFramework.
-                using (var Conexion = new EntitiesTooling())
-                {
-                    //Declaramos el objeto de la tabla.
-                    TBL_MANGA_PVD_ACERO_INOXIDABLE obj = Conexion.TBL_MANGA_PVD_ACERO_INOXIDABLE.Where(x => x.ID_MANGA_PVD_ACERO_INOXIDABLE == id).FirstOrDefault();
+            SO_MangaPVDAceroInoxidable Service = new SO_MangaPVDAceroInoxidable();
 
-                    //Asignamos los valores
-                    obj.A = a;
-
-                    //Guardamos los cambios
-                    Conexion.Entry(obj).State = EntityState.Modified;
-
-                    return Conexion.SaveChanges();
-                }
-            }
-            catch (Exception)
-            {
-                //Si hay error, retornamos cero.
-                return 0;
-            }
+            return Service.UpdateAceroInoxidable(id, a);
         }
 
         /// <summary>
@@ -11124,14 +11042,9 @@ namespace Model
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static int DeleteAceroInoxidable(int id)
+        public static int deleteaceroinoxidable(int id)
         {
-            try
-            {
-                //Realizamos la conexión a través de EntityFramework.
-                using (var Conexion = new EntitiesTooling())
-                {
-                    TBL_MANGA_PVD_ACERO_INOXIDABLE obj = Conexion.TBL_MANGA_PVD_ACERO_INOXIDABLE.Where(x => x.ID_MANGA_PVD_ACERO_INOXIDABLE == id).FirstOrDefault();
+            SO_MangaPVDAceroInoxidable Service = new SO_MangaPVDAceroInoxidable();
 
                     Conexion.Entry(obj).State = EntityState.Deleted;
                     return Conexion.SaveChanges();
@@ -11465,6 +11378,7 @@ namespace Model
         #region MateriasPrimas
 
         #region Pattern
+
         /// <summary>
         /// Método que obtiene todos los registros de la tabla Pattern2.
         /// </summary>
@@ -12076,9 +11990,11 @@ namespace Model
 
             return sumaAleantes;
         }
+
         #endregion Pattern
 
         #region Cuffs
+
         /// <summary>
         /// Método que obtiene todos los registros de la tabla Cuffs.
         /// </summary>
@@ -12161,8 +12077,8 @@ namespace Model
 
             //Se ejectuta el método de eliminar, se retorna la cantidad de registros eliminados.
             return ServiceCuffs.DeleteCuffs(cuff.no_cuff.Valor);
-
         }
+
         #endregion
 
         #region TubosCL
@@ -12341,6 +12257,7 @@ namespace Model
             //Se ejecuta el método y retorna el número de registros que fueron afectados.
             return ServiceTubosHD.DeleteTubosHD(obj.Tubo.Valor);
         }
+
         #endregion
 
         #region Especificaciones
@@ -12596,6 +12513,7 @@ namespace Model
 
             return ServiceMoutingDia.DeleteMoutingDia(id);
         }
+
         #endregion
 
         #region MoutingWidth
@@ -12681,6 +12599,7 @@ namespace Model
 
             return ServiceMoutingWidth.GetDetalle(h1);
         }
+
         #endregion
 
         #region Materia Prima Rolado
@@ -12782,113 +12701,40 @@ namespace Model
         #endregion
 
         #region Materia Prima Aceros
+
+
         /// <summary>
-        /// Método para insertar un registro a la tabla CAT_MATERIA_PRIMA_ACEROS
+        /// Método para insertar un registro
         /// </summary>
-        /// <param name="codigo"></param>
-        /// <param name="id_material"></param>
-        /// <param name="esp_axial"></param>
-        /// <param name="esp_radial"></param>
-        /// <param name="proveedor"></param>
-        /// <param name="proveedor2"></param>
+        /// <param name="id_norma"></param>
         /// <returns></returns>
-        public static string SetCatMateriaPrimaAcero(string codigo, string id_material, double esp_axial, double esp_radial, string proveedor, string proovedor2)
+        public static string setcatmateriaprimaacero(string codigo, string id_material, double esp_axial, double esp_radial, string proveedor, string proovedor2)
         {
-            try
-            {
-                // Realizamos la conexión a través de EntityFramework
-                using (var Conexion = new EntitiesMateriaPrima())
-                {
-                    // Declaramos el objeto de la tabla
-                    CAT_MATERIA_PRIMA_ACEROS obj = new CAT_MATERIA_PRIMA_ACEROS();
+            SO_CatMateriaPrimaAceros Service = new SO_CatMateriaPrimaAceros();
 
-                    //Asignamos los valores
-                    obj.CODIGO = codigo;
-                    obj.ID_MATERIAL = id_material;
-                    obj.ESP_AXIAL = esp_axial;
-                    obj.ESP_RADIAL = esp_radial;
-                    obj.PROVEEDOR = proveedor;
-                    obj.PROVEEDOR2 = proovedor2;
-
-                    //Agregar el objeto a la tabla
-                    Conexion.CAT_MATERIA_PRIMA_ACEROS.Add(obj);
-                    //Guardamos los cambios
-                    Conexion.SaveChanges();
-
-                    //Retornamos el id
-                    return obj.CODIGO;
-                }
-            }
-            catch (Exception)
-            {
-                // Si hay error retornamos 0
-                return null;
-            }
+            return Service.SetCatMateriaPrimaAcero(codigo, id_material, esp_axial, esp_radial, proveedor, proovedor2);
         }
 
         /// <summary>
-        /// Método para modificar un registro de la tabla CAT_MATERIA_PRIMA_ACEROS
+        /// Método para actualizar un registro
         /// </summary>
-        /// <param name="codigo"></param>
-        /// <param name="id_material"></param>
-        /// <param name="esp_axial"></param>
-        /// <param name="esp_radial"></param>
-        /// <param name="proveedor"></param>
-        /// <param name="proveedor2"></param>
-        /// <returns></returns>
-        public static int UpdateCatMateriaPrimaAcero(string codigo, string id_material, double esp_axial, double esp_radial, string proveedor, string proovedor2)
+        public static int updatecatmateriaprimaacero(string codigo, string id_material, double esp_axial, double esp_radial, string proveedor, string proovedor2)
         {
-            try
-            {
-                //Realizamos la conexión a través de EntityFramework.
-                using (var Conexion = new EntitiesMateriaPrima())
-                {
-                    //Declaramos el objeto de la tabla.
-                    CAT_MATERIA_PRIMA_ACEROS obj = Conexion.CAT_MATERIA_PRIMA_ACEROS.Where(x => x.CODIGO == codigo).FirstOrDefault();
+            SO_CatMateriaPrimaAceros Service = new SO_CatMateriaPrimaAceros();
 
-                    //Asignamos los valores
-                    obj.CODIGO = codigo;
-                    obj.ID_MATERIAL = id_material;
-                    obj.ESP_AXIAL = esp_axial;
-                    obj.ESP_RADIAL = esp_radial;
-                    obj.PROVEEDOR = proveedor;
-                    obj.PROVEEDOR2 = proovedor2;
-
-                    //Guardamos los cambios
-                    Conexion.Entry(obj).State = EntityState.Modified;
-
-                    return Conexion.SaveChanges();
-                }
-            }
-            catch (Exception)
-            {
-                //Si hay error, retornamos cero.
-                return 0;
-            }
+            return Service.UpdateCatMateriaPrimaAcero(codigo, id_material, esp_axial, esp_radial, proveedor, proovedor2);
         }
 
         /// <summary>
-        /// Método para eliminar un registro de la tabla CAT_MATERIA_PRIMA_ACEROS
+        /// Método para eliminar un registro de la tabla TBL_NORMAS
         /// </summary>
-        /// <param name="codigo"></param>
+        /// <param name="id_norma"></param>
         /// <returns></returns>
-        public static int DeleteCatMateriaPrimaAcero(string codigo)
+        public static int deletecatmateriaprimaacero(string codigo)
         {
-            try
-            {
-                //Realizamos la conexión a través de EntityFramework.
-                using (var Conexion = new EntitiesMateriaPrima())
-                {
-                    CAT_MATERIA_PRIMA_ACEROS obj = Conexion.CAT_MATERIA_PRIMA_ACEROS.Where(x => x.CODIGO == codigo).FirstOrDefault();
+            SO_CatMateriaPrimaAceros Service = new SO_CatMateriaPrimaAceros();
 
-                    Conexion.Entry(obj).State = EntityState.Deleted;
-                    return Conexion.SaveChanges();
-                }
-            }
-            catch (Exception)
-            {
-                return 0;
-            }
+            return Service.DeleteCatMateriaPrimaAcero(codigo);
         }
 
         /// <summary>
@@ -12937,232 +12783,46 @@ namespace Model
         #endregion
 
         #region Criterios Segmentos_
-        /// <summary>
-        /// Método para insertar un registro a la tabla CriteriosSegmentos_
-        /// </summary>
-        /// <returns></returns>
-        public static int SetCriteriosSegmentos_(int id_criterio_segmento, double mpaxialWidthMinPVD, double mpaxialWidthMaxPVD, double mpradialThickMinPVD, double mpradialThickMaxPVD, double mpaxialWidthMin, double mpaxialWidthMax, double mpradialThickMin, double mpradialThickMax, double mpradialCromoMin,
+
+        public static int setcriteriossegmentos_(double mpaxialWidthMinPVD, double mpaxialWidthMaxPVD, double mpradialThickMinPVD, double mpradialThickMaxPVD, double mpaxialWidthMin, double mpaxialWidthMax, double mpradialThickMin, double mpradialThickMax, double mpradialCromoMin,
                                             double mpradialCromoMax, double discoMin, double discoMax, double cromoServicio, double cromoEO, double cromoFreeGapMin, double cromoFreeGapMax, double nitruFreeGapMin, double nitruFreeGapMax, double nitru2FreeGapMin, double nitru2FreeGapMax, double freeGapSinCromoMin,
                                             double freeGapSinCromoMax, double centerWaferH1Min, double centerWaferH1Max, double cromoCollarinMin, double cromoCollarinMax, double mangaNormMin, double mangaNormMax, double mangaNormAntesMin, double mangaNormAntesMax, double thompsonGapMin, double thompsonGapMax,
                                             double thompClampMin, double thompClampMax, double thompBackUpMin, double thompBackUpMax, double thompPlatoMin, double thompPlatoMax, double vulcanFrontCollarMin, double vulcanFrontCollarMax, double vulcanBackCollarMin, double vulcanBackCollarMax, double vulcanPlungerMin,
                                             double vulcanPlungerMax, double lapRubberSleeveMin, double lapRubberSleeveMax, double scotchMangaCMin, double scotchMangaCMax, double scotchMangaDMin, double scotchMangaDMax, double scotchMangaFMin, double scotchMangaFMax, double scotchMangaAMin, double scotchMangaAMax,
                                             double scotchMangaBMin, double scotchMangaBMax, double barrelBushingD1Min, double barrelBushingD1Max, double barrelPusherD1Min, double barrelPusherD1Max, double nitruLayerMin, double nitruLayerMax, double anilloPatronMin, double anilloPatronMax, double cromoIntCollarMin, double cromoIntCollarMax)
         {
-            try
-            {
-                // Realizamos la conexión a través de EntityFramework
-                using (var Conexion = new EntitiesMateriaPrima())
-                {
-                    // Declaramos el objeto de la tabla
-                    CriteriosSegmentos_ obj = new CriteriosSegmentos_();
+            SO_CriteriosSegmentos_ Service = new SO_CriteriosSegmentos_();
 
-                    //Asignamos los valores
-                    obj.ID_CRITERIO_SEGMENTO = id_criterio_segmento;
-                    obj.MPAxialWidthMinPVD = mpaxialWidthMinPVD;
-                    obj.MPAxialWidthMaxPVD = mpaxialWidthMaxPVD;
-                    obj.MPRadialThickMinPVD = mpradialThickMinPVD;
-                    obj.MPRadialThickMaxPVD = mpradialThickMaxPVD;
-                    obj.MPAxialWidthMin = mpaxialWidthMin;
-                    obj.MPAxialWidthMax = mpaxialWidthMax;
-                    obj.MPRadialThickMin = mpradialThickMin;
-                    obj.MPRadialThickMax = mpradialThickMax;
-                    obj.MPRadialCromoMin = mpradialCromoMin;
-                    obj.MPRadialCromoMax = mpradialCromoMax;
-                    obj.DiscoMin = discoMin;
-                    obj.DiscoMax = discoMax;
-                    obj.CromoServicio = cromoServicio;
-                    obj.CromoEO = cromoEO;
-                    obj.CromoFreeGapMin = cromoFreeGapMin;
-                    obj.CromoFreeGapMax = cromoFreeGapMax;
-                    obj.NitruFreeGapMin = nitruFreeGapMin;
-                    obj.NitruFreeGapMax = nitruFreeGapMax;
-                    obj.Nitru2FreeGapMin = nitru2FreeGapMin;
-                    obj.Nitru2FreeGapMax = nitru2FreeGapMax;
-                    obj.FreeGapSinCromoMin = freeGapSinCromoMin;
-                    obj.FreeGapSinCromoMax = freeGapSinCromoMax;
-                    obj.CenterWaferH1Min = centerWaferH1Min;
-                    obj.CenterWaferH1Max = centerWaferH1Max;
-                    obj.CromoCollarinMin = cromoCollarinMin;
-                    obj.CromoCollarinMax = cromoCollarinMax;
-                    obj.MangaNormMin = mangaNormMin;
-                    obj.MangaNormMax = mangaNormMax;
-                    obj.MangaNormAntesMin = mangaNormAntesMin;
-                    obj.MangaNormAntesMax = mangaNormAntesMax;
-                    obj.ThompsonGapMin = thompsonGapMin;
-                    obj.ThompsonGapMax = thompsonGapMax;
-                    obj.ThompClampMin = thompClampMin;
-                    obj.ThompClampMax = thompClampMax;
-                    obj.ThompBackUpMin = thompBackUpMin;
-                    obj.ThompBackUpMax = thompBackUpMax;
-                    obj.ThompPlatoMin = thompPlatoMin;
-                    obj.ThompPlatoMax = thompPlatoMax;
-                    obj.VulcanFrontCollarMin = vulcanFrontCollarMin;
-                    obj.VulcanPlungerMax = vulcanFrontCollarMax;
-                    obj.VulcanBackCollarMin = vulcanBackCollarMin;
-                    obj.VulcanBackCollarMax = vulcanBackCollarMax;
-                    obj.VulcanPlungerMin = vulcanPlungerMin;
-                    obj.VulcanPlungerMax = vulcanPlungerMax;
-                    obj.LapRubberSleeveMin = lapRubberSleeveMin;
-                    obj.LapRubberSleeveMax = lapRubberSleeveMax;
-                    obj.ScotchMangaCMin = scotchMangaCMin;
-                    obj.ScotchMangaCMax = scotchMangaCMax;
-                    obj.ScotchMangaDMin = scotchMangaDMin;
-                    obj.ScotchMangaDMax = scotchMangaDMax;
-                    obj.ScotchMangaFMin = scotchMangaFMin;
-                    obj.ScotchMangaFMax = scotchMangaFMax;
-                    obj.ScotchMangaAMin = scotchMangaAMin;
-                    obj.ScotchMangaAMax = scotchMangaAMax;
-                    obj.ScotchMangaBMin = scotchMangaBMin;
-                    obj.ScotchMangaBMax = scotchMangaBMax;
-                    obj.BarrelBushingD1Min = barrelBushingD1Min;
-                    obj.BarrelBushingD1Max = barrelBushingD1Max;
-                    obj.BarrelPusherD1Min = barrelPusherD1Min;
-                    obj.BarrelPusherD1Max = barrelPusherD1Max;
-                    obj.NitruLayerMin = nitruLayerMin;
-                    obj.NitruLayerMax = nitruLayerMax;
-                    obj.AnilloPatronMax = anilloPatronMax;
-                    obj.AnilloPatronMin = anilloPatronMin;
-                    obj.CromoIntCollarMin = cromoIntCollarMin;
-                    obj.CromoIntCollarMax = cromoIntCollarMax;
-
-                    //Agregar el objeto a la tabla
-                    Conexion.CriteriosSegmentos_.Add(obj);
-                    //Guardamos los cambios
-                    Conexion.SaveChanges();
-
-                    //Retornamos el id
-                    return obj.ID_CRITERIO_SEGMENTO;
-                }
-            }
-            catch (Exception)
-            {
-                // Si hay error retornamos 0
-                return 0;
-            }
+            return Service.SetCriteriosSegmentos_(mpaxialWidthMinPVD, mpaxialWidthMaxPVD, mpradialThickMinPVD, mpradialThickMaxPVD, mpaxialWidthMin, mpaxialWidthMax, mpradialThickMin, mpradialThickMax, mpradialCromoMin,
+                                            mpradialCromoMax, discoMin, discoMax, cromoServicio, cromoEO, cromoFreeGapMin, cromoFreeGapMax, nitruFreeGapMin, nitruFreeGapMax, nitru2FreeGapMin, nitru2FreeGapMax, freeGapSinCromoMin,
+                                            freeGapSinCromoMax, centerWaferH1Min, centerWaferH1Max, cromoCollarinMin, cromoCollarinMax, mangaNormMin, mangaNormMax, mangaNormAntesMin, mangaNormAntesMax, thompsonGapMin, thompsonGapMax,
+                                            thompClampMin, thompClampMax, thompBackUpMin, thompBackUpMax, thompPlatoMin, thompPlatoMax, vulcanFrontCollarMin, vulcanFrontCollarMax, vulcanBackCollarMin, vulcanBackCollarMax, vulcanPlungerMin,
+                                            vulcanPlungerMax, lapRubberSleeveMin, lapRubberSleeveMax, scotchMangaCMin, scotchMangaCMax, scotchMangaDMin, scotchMangaDMax, scotchMangaFMin, scotchMangaFMax, scotchMangaAMin, scotchMangaAMax,
+                                            scotchMangaBMin, scotchMangaBMax, barrelBushingD1Min, barrelBushingD1Max, barrelPusherD1Min, barrelPusherD1Max, nitruLayerMin, nitruLayerMax, anilloPatronMin, anilloPatronMax, cromoIntCollarMin, cromoIntCollarMax);
         }
 
-        /// <summary>
-        /// Método para modificar un registro de la tabla CriteriosSegmentos_
-        /// </summary>
-        /// <returns></returns>
-        public static int UpdateCriteriosSegmentos(int id_criterio_segmento, double mpaxialWidthMinPVD, double mpaxialWidthMaxPVD, double mpradialThickMinPVD, double mpradialThickMaxPVD, double mpaxialWidthMin, double mpaxialWidthMax, double mpradialThickMin, double mpradialThickMax, double mpradialCromoMin,
+        public static int updatecriteriossegmentos_(int id_criterio_segmento, double mpaxialWidthMinPVD, double mpaxialWidthMaxPVD, double mpradialThickMinPVD, double mpradialThickMaxPVD, double mpaxialWidthMin, double mpaxialWidthMax, double mpradialThickMin, double mpradialThickMax, double mpradialCromoMin,
                                             double mpradialCromoMax, double discoMin, double discoMax, double cromoServicio, double cromoEO, double cromoFreeGapMin, double cromoFreeGapMax, double nitruFreeGapMin, double nitruFreeGapMax, double nitru2FreeGapMin, double nitru2FreeGapMax, double freeGapSinCromoMin,
                                             double freeGapSinCromoMax, double centerWaferH1Min, double centerWaferH1Max, double cromoCollarinMin, double cromoCollarinMax, double mangaNormMin, double mangaNormMax, double mangaNormAntesMin, double mangaNormAntesMax, double thompsonGapMin, double thompsonGapMax,
                                             double thompClampMin, double thompClampMax, double thompBackUpMin, double thompBackUpMax, double thompPlatoMin, double thompPlatoMax, double vulcanFrontCollarMin, double vulcanFrontCollarMax, double vulcanBackCollarMin, double vulcanBackCollarMax, double vulcanPlungerMin,
                                             double vulcanPlungerMax, double lapRubberSleeveMin, double lapRubberSleeveMax, double scotchMangaCMin, double scotchMangaCMax, double scotchMangaDMin, double scotchMangaDMax, double scotchMangaFMin, double scotchMangaFMax, double scotchMangaAMin, double scotchMangaAMax,
                                             double scotchMangaBMin, double scotchMangaBMax, double barrelBushingD1Min, double barrelBushingD1Max, double barrelPusherD1Min, double barrelPusherD1Max, double nitruLayerMin, double nitruLayerMax, double anilloPatronMin, double anilloPatronMax, double cromoIntCollarMin, double cromoIntCollarMax)
         {
-            try
-            {
-                //Realizamos la conexión a través de EntityFramework.
-                using (var Conexion = new EntitiesMateriaPrima())
-                {
-                    //Declaramos el objeto de la tabla.
-                    CriteriosSegmentos_ obj = Conexion.CriteriosSegmentos_.Where(x => x.ID_CRITERIO_SEGMENTO == id_criterio_segmento).FirstOrDefault();
+            SO_CriteriosSegmentos_ Service = new SO_CriteriosSegmentos_();
 
-                    //Asignamos los valores
-                    obj.ID_CRITERIO_SEGMENTO = id_criterio_segmento;
-                    obj.MPAxialWidthMinPVD = mpaxialWidthMinPVD;
-                    obj.MPAxialWidthMaxPVD = mpaxialWidthMaxPVD;
-                    obj.MPRadialThickMinPVD = mpradialThickMinPVD;
-                    obj.MPRadialThickMaxPVD = mpradialThickMaxPVD;
-                    obj.MPAxialWidthMin = mpaxialWidthMin;
-                    obj.MPAxialWidthMax = mpaxialWidthMax;
-                    obj.MPRadialThickMin = mpradialThickMin;
-                    obj.MPRadialThickMax = mpradialThickMax;
-                    obj.MPRadialCromoMin = mpradialCromoMin;
-                    obj.MPRadialCromoMax = mpradialCromoMax;
-                    obj.DiscoMin = discoMin;
-                    obj.DiscoMax = discoMax;
-                    obj.CromoServicio = cromoServicio;
-                    obj.CromoEO = cromoEO;
-                    obj.CromoFreeGapMin = cromoFreeGapMin;
-                    obj.CromoFreeGapMax = cromoFreeGapMax;
-                    obj.NitruFreeGapMin = nitruFreeGapMin;
-                    obj.NitruFreeGapMax = nitruFreeGapMax;
-                    obj.Nitru2FreeGapMin = nitru2FreeGapMin;
-                    obj.Nitru2FreeGapMax = nitru2FreeGapMax;
-                    obj.FreeGapSinCromoMin = freeGapSinCromoMin;
-                    obj.FreeGapSinCromoMax = freeGapSinCromoMax;
-                    obj.CenterWaferH1Min = centerWaferH1Min;
-                    obj.CenterWaferH1Max = centerWaferH1Max;
-                    obj.CromoCollarinMin = cromoCollarinMin;
-                    obj.CromoCollarinMax = cromoCollarinMax;
-                    obj.MangaNormMin = mangaNormMin;
-                    obj.MangaNormMax = mangaNormMax;
-                    obj.MangaNormAntesMin = mangaNormAntesMin;
-                    obj.MangaNormAntesMax = mangaNormAntesMax;
-                    obj.ThompsonGapMin = thompsonGapMin;
-                    obj.ThompsonGapMax = thompsonGapMax;
-                    obj.ThompClampMin = thompClampMin;
-                    obj.ThompClampMax = thompClampMax;
-                    obj.ThompBackUpMin = thompBackUpMin;
-                    obj.ThompBackUpMax = thompBackUpMax;
-                    obj.ThompPlatoMin = thompPlatoMin;
-                    obj.ThompPlatoMax = thompPlatoMax;
-                    obj.VulcanFrontCollarMin = vulcanFrontCollarMin;
-                    obj.VulcanPlungerMax = vulcanFrontCollarMax;
-                    obj.VulcanBackCollarMin = vulcanBackCollarMin;
-                    obj.VulcanBackCollarMax = vulcanBackCollarMax;
-                    obj.VulcanPlungerMin = vulcanPlungerMin;
-                    obj.VulcanPlungerMax = vulcanPlungerMax;
-                    obj.LapRubberSleeveMin = lapRubberSleeveMin;
-                    obj.LapRubberSleeveMax = lapRubberSleeveMax;
-                    obj.ScotchMangaCMin = scotchMangaCMin;
-                    obj.ScotchMangaCMax = scotchMangaCMax;
-                    obj.ScotchMangaDMin = scotchMangaDMin;
-                    obj.ScotchMangaDMax = scotchMangaDMax;
-                    obj.ScotchMangaFMin = scotchMangaFMin;
-                    obj.ScotchMangaFMax = scotchMangaFMax;
-                    obj.ScotchMangaAMin = scotchMangaAMin;
-                    obj.ScotchMangaAMax = scotchMangaAMax;
-                    obj.ScotchMangaBMin = scotchMangaBMin;
-                    obj.ScotchMangaBMax = scotchMangaBMax;
-                    obj.BarrelBushingD1Min = barrelBushingD1Min;
-                    obj.BarrelBushingD1Max = barrelBushingD1Max;
-                    obj.BarrelPusherD1Min = barrelPusherD1Min;
-                    obj.BarrelPusherD1Max = barrelPusherD1Max;
-                    obj.NitruLayerMin = nitruLayerMin;
-                    obj.NitruLayerMax = nitruLayerMax;
-                    obj.AnilloPatronMax = anilloPatronMax;
-                    obj.AnilloPatronMin = anilloPatronMin;
-                    obj.CromoIntCollarMin = cromoIntCollarMin;
-                    obj.CromoIntCollarMax = cromoIntCollarMax;
-
-                    //Guardamos los cambios
-                    Conexion.Entry(obj).State = EntityState.Modified;
-
-                    return Conexion.SaveChanges();
-                }
-            }
-            catch (Exception)
-            {
-                //Si hay error, retornamos cero.
-                return 0;
-            }
+            return Service.UpdateCriteriosSegmentos(id_criterio_segmento, mpaxialWidthMinPVD, mpaxialWidthMaxPVD, mpradialThickMinPVD, mpradialThickMaxPVD, mpaxialWidthMin, mpaxialWidthMax, mpradialThickMin, mpradialThickMax, mpradialCromoMin,
+                                            mpradialCromoMax, discoMin, discoMax, cromoServicio, cromoEO, cromoFreeGapMin, cromoFreeGapMax, nitruFreeGapMin, nitruFreeGapMax, nitru2FreeGapMin, nitru2FreeGapMax, freeGapSinCromoMin,
+                                            freeGapSinCromoMax, centerWaferH1Min, centerWaferH1Max, cromoCollarinMin, cromoCollarinMax, mangaNormMin, mangaNormMax, mangaNormAntesMin, mangaNormAntesMax, thompsonGapMin, thompsonGapMax,
+                                            thompClampMin, thompClampMax, thompBackUpMin, thompBackUpMax, thompPlatoMin, thompPlatoMax, vulcanFrontCollarMin, vulcanFrontCollarMax, vulcanBackCollarMin, vulcanBackCollarMax, vulcanPlungerMin,
+                                            vulcanPlungerMax, lapRubberSleeveMin, lapRubberSleeveMax, scotchMangaCMin, scotchMangaCMax, scotchMangaDMin, scotchMangaDMax, scotchMangaFMin, scotchMangaFMax, scotchMangaAMin, scotchMangaAMax,
+                                            scotchMangaBMin, scotchMangaBMax, barrelBushingD1Min, barrelBushingD1Max, barrelPusherD1Min, barrelPusherD1Max, nitruLayerMin, nitruLayerMax, anilloPatronMin, anilloPatronMax, cromoIntCollarMin, cromoIntCollarMax);
         }
 
-        /// <summary>
-        /// Método para eliminar un registro de la tabla CriteriosSegmentos_
-        /// </summary>
-        /// <returns></returns>
-        public static int DeleteCriteriosSegmentos_(int id_criterio_segmento)
+        public static int deletecriteriossegmentos_(int id_criterio_segmento)
         {
-            try
-            {
-                //Realizamos la conexión a través de EntityFramework.
-                using (var Conexion = new EntitiesMateriaPrima())
-                {
-                    CriteriosSegmentos_ obj = Conexion.CriteriosSegmentos_.Where(x => x.ID_CRITERIO_SEGMENTO == id_criterio_segmento).FirstOrDefault();
+            SO_CriteriosSegmentos_ Service = new SO_CriteriosSegmentos_();
 
-                    Conexion.Entry(obj).State = EntityState.Deleted;
-                    return Conexion.SaveChanges();
-                }
-            }
-            catch (Exception)
-            {
-                return 0;
-            }
+            return Service.DeleteCriteriosSegmentos_(id_criterio_segmento);
         }
 
         /// <summary>
@@ -13370,6 +13030,7 @@ namespace Model
             return ListaResultante;
 
         }
+
         #endregion
 
         #region Clientes
@@ -13462,6 +13123,7 @@ namespace Model
         #endregion
 
         #region Usuario
+
         /// <summary>
         /// Método que obtiene la información del usuario a partir de un usuario y una contraseña.
         /// </summary>
@@ -13602,7 +13264,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Metodo que elimina privilegios de usuario
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
@@ -13675,6 +13337,7 @@ namespace Model
 
             return user;
         }
+
         #endregion
 
         #region Perfiles Anillos
@@ -14549,7 +14212,6 @@ namespace Model
             return ServicePropiedad.DeletePropiedadPerfil(idPropiedad, idPerfil);
         }
 
-
         #endregion
 
         #region Normas
@@ -14624,6 +14286,9 @@ namespace Model
             return serviceNorma.Delete(id_norma);
         }
 
+        /// <summary>
+        /// Método para actualizar un registro de la tabla TBL_NORMAS
+        /// </summary>
         public static int UpdateNorma(DO_Norma norma)
         {
             SO_Normas ServicePropiedad = new SO_Normas();
@@ -14631,15 +14296,22 @@ namespace Model
             return ServicePropiedad.Update(norma.idNorma, norma.especificacion, norma.descripcionCorta, norma.descripcionLarga);
         }
 
+        /// <summary>
+        /// Método para insertar un registro de la tabla TBL_NORMAS.
+        /// </summary>
+        /// <param name="id_norma"></param>
+        /// <returns></returns>
         public static int SetNorma(DO_Norma norma)
         {
             SO_Normas ServicePropiedad = new SO_Normas();
 
             return ServicePropiedad.Insert(norma.especificacion, norma.descripcionCorta, norma.descripcionLarga);
         }
+
         #endregion
 
         #region Colores y Ubicaciones
+
         public static ObservableCollection<string> GetAllColores()
         {
             SO_ColoresAnillos serviceColores = new SO_ColoresAnillos();
@@ -14678,6 +14350,7 @@ namespace Model
 
             return ubicaciones;
         }
+
         #endregion
     }
 }

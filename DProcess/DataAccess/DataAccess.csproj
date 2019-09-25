@@ -103,6 +103,7 @@
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Sealed.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_TipoError.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Usuarios.cs" />
+    <Compile Include="ServiceObjects\ControlDocumentos\SO_USUARIO_NOTIFICACION_VERSION.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Validacion.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Version.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_ARCHIVO.cs">

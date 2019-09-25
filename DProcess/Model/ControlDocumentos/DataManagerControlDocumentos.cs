@@ -2951,7 +2951,6 @@ namespace Model.ControlDocumentos
             return ServiceVersion.UpdateCodeValidation(idVersion, codeValidation);
         }
 
-
         #endregion
 
         #region ValidacionDocumento
@@ -4392,15 +4391,16 @@ namespace Model.ControlDocumentos
 
         /// <summary>
         /// Método que inserta una notificación.
-        /// </summary>
         /// <param name="notificacion"></param>
         /// <returns></returns>
+        /// </summary>
         public static int insertNotificacion(DO_Notification notificacion)
         {
             SO_Notificaciones ServiceNotificaciones = new SO_Notificaciones();
 
             return ServiceNotificaciones.InsertNotificacion(notificacion.ID_USUARIO_SEND, notificacion.ID_USUARIO_RECEIVER, notificacion.TITLE, notificacion.MSG, notificacion.TYPE_NOTIFICATION);
         }
+
         #endregion
 
         #region Grupos
@@ -4460,6 +4460,37 @@ namespace Model.ControlDocumentos
             return listaResultante;
         }
 
+        public static ObservableCollection<DO_USUARIO_NOTIFICACION_VERSION> GetAllUsuariosNotificacionVersion(int id_version)
+        {
+            SO_USUARIO_NOTIFICACION_VERSION Service = new SO_USUARIO_NOTIFICACION_VERSION();
+
+            IList informacionBD = Service.GetAll(id_version);
+
+            ObservableCollection<DO_USUARIO_NOTIFICACION_VERSION> ListaResultante = new ObservableCollection<DO_USUARIO_NOTIFICACION_VERSION>();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    DO_USUARIO_NOTIFICACION_VERSION obj = new DO_USUARIO_NOTIFICACION_VERSION();
+
+                    Type tipo = item.GetType();
+
+                    obj.id_usuario_notificacion_version = (int)tipo.GetProperty("ID_USUARIO_NOTIFICACION_VERSION").GetValue(item, null);
+                    obj.id_usuario = (string)tipo.GetProperty("ID_USUARIO").GetValue(item, null);
+                    obj.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    obj.IsSelected = false;
+
+                    ListaResultante.Add(obj);
+                }
+            }
+            return ListaResultante;
+        }
+
+        /// <summary>
+        /// Método para eliminar integrantes de los grupos
+        /// </summary>
+        /// <returns></returns>
         public static int eliminarintegrantes(int id_grupo, string id_integrante)
         {
             SO_INTEGRANTES_GRUPO serviceintegrantes = new SO_INTEGRANTES_GRUPO();
@@ -4467,6 +4498,10 @@ namespace Model.ControlDocumentos
             return serviceintegrantes.DeleteIntegrantesGrupos(id_grupo, id_integrante);
         }
 
+        /// <summary>
+        /// Método para agregar nuevo integrante a cualquier grupo
+        /// </summary>
+        /// <returns></returns>
         public static int agregarintegrante(int id_grupo, string id_integrante_grupo)
         {
             SO_INTEGRANTES_GRUPO serviceintegrantes = new SO_INTEGRANTES_GRUPO();
@@ -4474,6 +4509,11 @@ namespace Model.ControlDocumentos
             return serviceintegrantes.SetIntegrantesGrupos(id_grupo, id_integrante_grupo);
         }
 
+        /// <summary>
+        /// Método para crear un nuevo grupo
+        /// </summary>
+        /// <param name="id_norma"></param>
+        /// <returns></returns>
         public static int CrearNuevoGrupo(string nombre_grupo, string id_usuario_dueno)
         {
             SO_GRUPOS servicegrupos = new SO_GRUPOS();
@@ -4481,11 +4521,29 @@ namespace Model.ControlDocumentos
             return servicegrupos.SetGrupo(nombre_grupo, id_usuario_dueno);
         }
 
+        /// <summary>
+        /// Método para eliminar un grupo
+        /// </summary>
+        /// <param name="id_norma"></param>
+        /// <returns></returns>
         public static int eliminarGrupos(int id_grupo)
         {
             SO_GRUPOS servicegrupos = new SO_GRUPOS();
 
             return servicegrupos.DeleteGrupo(id_grupo);
+        }
+
+        /// <summary>
+        /// Método para insertar integrantes finales
+        /// </summary>
+        /// <param name="id_usuario"></param>
+        /// <param name="id_version"></param>
+        /// <returns></returns>
+        public static int InsertUserNotifyVersion(string id_usuario, int id_version)
+        {
+            SO_USUARIO_NOTIFICACION_VERSION Service = new SO_USUARIO_NOTIFICACION_VERSION();
+
+            return Service.SetUserNotifyVersion(id_usuario, id_version);
         }
 
         #endregion

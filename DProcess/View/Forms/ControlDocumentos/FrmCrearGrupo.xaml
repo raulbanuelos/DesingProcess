@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:recursos="clr-namespace:View.Resources"
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
@@ -17,10 +18,10 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Vertical" Margin="10,10,0,0">
-            <TextBox materialDesign:HintAssist.Hint="Nombre Grupo" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding nombre}" Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="355" FontSize="12" Margin="8,0,0,0" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+            <TextBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblGroupName}" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding nombre}" Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="355" FontSize="12" Margin="8,0,0,0" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
         </StackPanel>
 
-        <DataGrid ItemsSource="{Binding ListaUsuarios2}" 
+        <DataGrid ItemsSource="{Binding ListadeUsuarios}" 
                                       ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -28,22 +29,19 @@
                                       Height="430"
                                       Width="360"
                                       AutoGenerateColumns="False"
-                                      Grid.Row="1"
-                                      >
+                                      Grid.Row="1">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                             EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                            Header="Agregar"
-                                            Binding="{Binding IsSelected}"
-                                            />
-                <DataGridTextColumn Header="Nombre Integrante" Binding="{Binding NombreCompleto}">
+                                            Header="{x:Static recursos:StringResources.lblAdd}"
+                                            Binding="{Binding IsSelected}"/>
+                <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNombre}" Binding="{Binding NombreCompleto}">
 
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Grid.Row="2" Content="Crear" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,15" Command="{Binding CrearGrupo}"></Button>
-
+        <Button Grid.Row="2" Content="{x:Static recursos:StringResources.ttlButtonCreate}" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,15" Command="{Binding CrearGrupo}"></Button>
 
     </Grid>
 </Controls:MetroWindow>

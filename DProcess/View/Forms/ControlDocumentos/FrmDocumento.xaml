@@ -55,7 +55,6 @@
     </Window.Resources>
 
     <Grid>
-
         <controls:HamburgerMenu x:Name="HamburgerMenuControl"
                                 DisplayMode="CompactInline"
                                 Foreground="Black"
@@ -66,9 +65,7 @@
                                 OptionsItemTemplate="{StaticResource MenuItemTemplate}"
                                 PaneBackground="#33a6cc" Grid.RowSpan="3">
             <Grid>
-
                 <Grid.Resources>
-
                     <BooleanToVisibilityConverter x:Key="BoolToVis"/>
                     <!--Lista de Archivos-->
                     <DataTemplate x:Key="Lista">
@@ -120,7 +117,6 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="430"></ColumnDefinition>
                             <ColumnDefinition Width="430"></ColumnDefinition>
-                            
                             <ColumnDefinition Width="300"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="3" VerticalAlignment="Top" Content="{x:Static recursos:StringResources.ttlCerrarVentana}" Width="100" Command="{Binding cerrar}" Background="Red"></Button>
@@ -139,6 +135,7 @@
                               DisplayMemberPath="nombre"  
                               SelectedItem="{Binding SelectedDocumento}" 
                               IsEnabled="{Binding NombreEnabled}">
+
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
                                             <i:InvokeCommandAction
@@ -147,7 +144,7 @@
                                     </i:Interaction.Triggers>
                                 </ComboBox>
                                 <!--Version-->
-                                <TextBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblVersion}" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   TextWrapping="Wrap"  Height="50"  Width="420"  BorderBrush="#89535353" FontSize="18" Text="{Binding Version}" IsEnabled="{Binding VersionEnabled}"/>
+                                <TextBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblVersion}" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" Height="50" Width="420" BorderBrush="#89535353" FontSize="18" Text="{Binding Version}" IsEnabled="{Binding VersionEnabled}"/>
                                 <!--Date-->
                                 <StackPanel Orientation="Horizontal" Height="50" Margin="5,5,0,0">
                                     <DatePicker materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFecha}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"
@@ -167,7 +164,6 @@
                                     <Label Content="{materialDesign:PackIcon eye}" HorizontalAlignment="Left"></Label>
                                     <Label Content=" ó " FontWeight="Bold"></Label>
                                     <Label Content="{materialDesign:PackIcon Close}"></Label>
-
                                 </StackPanel>
 
                                 <ListBox  ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" HorizontalAlignment="Left" BorderBrush="#FFB8B6B6" Background="Transparent" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" Margin="5" />
@@ -194,9 +190,7 @@
                                FontSize="18"
                                IsEnabled="{Binding VersionEnabled}" >
                                 </ComboBox>
-
                                 <!--Nombre del departamento-->
-
                                 <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombreDepartamentoProceso}" 
                                Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
                                Height="50" Width="420" BorderBrush="#FFBDBDBD" FontSize="18"
@@ -205,7 +199,7 @@
                                SelectedValuePath="id_dep" 
                                SelectedValue="{Binding id_dep}" 
                                IsEnabled="{Binding VersionEnabled}"/>
-                                <!--Usuario-->
+                                <!--Usuario elaboró-->
                                 <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblUsuarioElaboro}" 
                                Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
                                Height="50" Width="420"  BorderBrush="#FFBDBDBD" FontSize="18" 
@@ -215,6 +209,7 @@
                                SelectedValue="{Binding usuario}" Background="White" 
                                IsEnabled="{Binding VersionEnabled}">
                                 </ComboBox>
+                                <!--Usuario autorizó-->
                                 <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblUsuarioAutorizo}" 
                                Style="{StaticResource MaterialDesignFloatingHintComboBox}"  
                                Height="51" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" 
@@ -222,7 +217,7 @@
                                DisplayMemberPath="NombreCompleto" 
                                SelectedValuePath="usuario" 
                                SelectedValue="{Binding usuarioAutorizo}"
-                       IsEnabled="{Binding IsEnabled}">
+                               IsEnabled="{Binding IsEnabled}">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
                                             <i:InvokeCommandAction
@@ -242,7 +237,7 @@
                             </StackPanel>
 
                             <Button  Grid.Row="1" HorizontalAlignment="Right" Margin="10" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding _AdjuntarArchivo}"  ToolTip="{x:Static recursos:StringResources.lblAdjuntarArchivo}"
-                    Visibility="{Binding BttnArchivos, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"  >
+                            Visibility="{Binding BttnArchivos, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"  >
                                 <materialDesign:PackIcon Kind="Paperclip" Height="24" Width="24" />
                             </Button>
 
@@ -254,9 +249,9 @@
                                       ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                          CanUserAddRows="False"
+                                      CanUserAddRows="False"
                                       Height="200"
-                              Grid.Row="0" AutoGenerateColumns="False">
+                                      Grid.Row="0" AutoGenerateColumns="False">
                                         <DataGrid.Columns>
                                             <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                             EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
@@ -271,10 +266,10 @@
                                 </StackPanel>
                             </StackPanel>
 
-                            <Button Content="Gestionar Listas Grupos" Command="{Binding IrFlyOut}" Grid.Row="2" Width="230" HorizontalAlignment="Left" Margin="10,230,0,-20"></Button>
+                            <Button Content="{x:Static recursos:StringResources.lblNotificar}" Command="{Binding IrFlyOut}" Grid.Row="2" Width="230" HorizontalAlignment="Left" Margin="10,230,0,-20" Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"></Button>
+                            <Label Grid.Row="2" Content="{x:Static recursos:StringResources.lblAlertaNotificar}" VerticalAlignment="Bottom" Margin="6,0,-6,19" FontSize="18" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="{Binding lblVerAlerta, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"></Label>
                             
                         </Grid>
-
                     </Grid>
 
                     <Grid Grid.Column="1" Grid.Row="3">
@@ -284,7 +279,7 @@
                             <ColumnDefinition/>
 
                         </Grid.ColumnDefinitions>
-                        <Button Content="{Binding BotonGuardar}"  Width="170" Grid.Column="0" Command="{Binding GuardarControl}"  Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" />
+                        <Button Content="{Binding BotonGuardar}"  Width="170" Grid.Column="0" Command="{Binding GuardarControl}" Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"/>
                         <Button Content="{x:Static recursos:StringResources.lblModificar}"  Width="104" Grid.Column="2"  Command="{Binding Modificar}" Visibility="{Binding BttnModificar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
                         <Button Content="{x:Static recursos:StringResources.lblGenerarVersion}" FontSize="12" Width="130" Grid.Column="1" Command="{Binding GenerarVersion}" Visibility="{Binding BttnVersion, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
                     </Grid>
@@ -292,34 +287,38 @@
             </Grid>
         </controls:HamburgerMenu>
 
-        <controls:FlyoutsControl>
-
-            <controls:Flyout Theme="Light"  Header="Selecciona a quiénes notificar." Position="Right" Width="450" IsOpen="{Binding isopen}">
+        <controls:FlyoutsControl Margin="0,0,0,0">
+            <controls:Flyout Theme="Light" Header="{x:Static recursos:StringResources.ttlSelectWhoNotify}" FontSize="10" Position="Right" Width="400" IsOpen="{Binding isopen}">
 
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                       
+                        <RowDefinition Height="35"></RowDefinition>
+                        <RowDefinition Height="250"></RowDefinition>
+                        <RowDefinition Height="35"></RowDefinition>
+                        <RowDefinition Height="250"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
+
+                    <CheckBox Grid.Row="0" HorizontalAlignment="Center" Content="{Binding TituloCheckGrupos}" FontSize="15" IsChecked="False" Command="{Binding SelecDeselecGrupos}" CommandParameter="{Binding IsSelectedGrupos}"/>
+                    <CheckBox Grid.Row="2" HorizontalAlignment="Center" Content="{Binding TituloCheckUsuarios}" FontSize="15" IsChecked="False" Command="{Binding SelecDeselecUsuarios}" CommandParameter="{Binding IsSelectedUsuarios}"/>
+
 
                     <DataGrid ItemsSource="{Binding ListaGrupos}" SelectedItem="{Binding GrupoSeleccionado, Mode=TwoWay}"
                                       ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                       CanUserAddRows="False"
-                                      Height="200"
-                                      Width="400"
+                                      Height="240"
+                                      Width="350"
                                       AutoGenerateColumns="False"
                                       VerticalAlignment="Top"
-                          Grid.Row="0">
-
+                                      Grid.Row="1">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                             EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                             Header="{x:Static recursos:StringResources.lblNotificar}"
                                             Binding="{Binding IsSelected}"/>
-                            <DataGridTextColumn Header="Grupos" Binding="{Binding nombre}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn Header="{x:Static recursos:StringResources.lblGrupos}" Binding="{Binding nombre}" IsReadOnly="True"></DataGridTextColumn>
                         </DataGrid.Columns>
 
                         <i:Interaction.Triggers>
@@ -330,11 +329,35 @@
 
                     </DataGrid>
 
-                    <Button Grid.Row="1" Content="Crear Grupo" Command="{Binding IrCrearGrupo}" Width="150" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,15,60"></Button>
-                    <Button Grid.Row="1" Background="red" Content="Eliminar Grupo" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="150" Margin="0,0,15,20" Command="{Binding EliminarGrupo}"></Button>
+                    <Button Grid.Row="5" Content="{x:Static recursos:StringResources.ttlButtonCreateGroup}" Command="{Binding IrCrearGrupo}" Width="150" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,15,40"></Button>
+                    <Button Grid.Row="5" Background="red" Content="{x:Static recursos:StringResources.ttlButtonDeleteGroup}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="150" Margin="0,0,15,5" Command="{Binding EliminarGrupo}"></Button>
 
+                    <DataGrid ItemsSource="{Binding ListaUsuarios}"
+                                      ScrollViewer.CanContentScroll="True" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                      CanUserAddRows="False"
+                                      Height="240"
+                                      Width="350"
+                                      AutoGenerateColumns="False"
+                                      VerticalAlignment="Top"
+                                      Grid.Row="3">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            Header="{x:Static recursos:StringResources.lblNotificar}"
+                                            Binding="{Binding IsSelected}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <i:InvokeCommandAction Command="{Binding ValidarSeleccionados}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+
+                            </DataGridCheckBoxColumn>
+                            <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNombre}" Binding="{Binding NombreCompleto}" IsReadOnly="True"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
-
             </controls:Flyout>
         </controls:FlyoutsControl>
     </Grid>

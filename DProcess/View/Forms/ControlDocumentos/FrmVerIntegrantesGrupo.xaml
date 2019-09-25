@@ -19,24 +19,21 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Content="Agregar/Eliminar Integrantes" Command="{Binding IrAgregarIntegrante}" Width="215" HorizontalAlignment="Right" Margin="0,0,10,0"></Button>
+            <Button Grid.Row="0" Content="{x:Static recursos:StringResources.ttlButtonAddDeleteMembers}" Command="{Binding IrAgregarIntegrante}" Width="220" HorizontalAlignment="Right" Margin="0,0,10,0"></Button>
 
             <DataGrid Grid.Row="1" ItemsSource="{Binding ListaIntegrantes_Grupo}"
                         x:Name="dataGrid" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5"
-                       HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="False" IsReadOnly="True" Width="385">
+                        HeadersVisibility="Column" FontSize="18" AutoGenerateColumns="False" IsReadOnly="True" Width="385">
 
                 <DataGrid.Columns>
-                    <!--<DataGridTextColumn Binding="{Binding idintegrantegrupo}" Header="ID Integrante"></DataGridTextColumn>-->
-                    <DataGridTextColumn Binding="{Binding nombrecompleto}" Header="Nombre Integrante"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding nombrecompleto}" Header="{x:Static recursos:StringResources.lblMemberName}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-
         </Grid>
-
 
         <controls:FlyoutsControl>
 
-            <controls:Flyout Theme="Light" Header="Selecciona nuevo(s) integrante(s)." Position="Left"  Width="400" IsOpen="{Binding isopen}">
+            <controls:Flyout Theme="Light" Header="{x:Static recursos:StringResources.ttlSelectnewmember}" Position="Left"  Width="400" IsOpen="{Binding isopen}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="430"></RowDefinition>
@@ -56,16 +53,16 @@
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                             EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                            Header="Agregar"
+                                            Header="{x:Static recursos:StringResources.lblAdd}"
                                             Binding="{Binding IsSelected}"
                                             />
-                            <DataGridTextColumn Header="Nombre Integrante" Binding="{Binding NombreCompleto}">
+                            <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNombre}" Binding="{Binding NombreCompleto}">
 
                             </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
 
-                <Button Grid.Row="1" Content="Guardar" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,15"  Command="{Binding GuardarNIntegrantes}"></Button>
+                <Button Grid.Row="1" Content="{x:Static recursos:StringResources.lblGuardar}" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,15"  Command="{Binding GuardarNIntegrantes}"></Button>
 
                 </Grid>
             </controls:Flyout>

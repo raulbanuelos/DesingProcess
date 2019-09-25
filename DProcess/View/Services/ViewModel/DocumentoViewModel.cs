@@ -30,6 +30,7 @@ namespace View.Services.ViewModel
     public class DocumentoViewModel : INotifyPropertyChanged
     {
         #region Attributes
+
         UsuariosViewModel vmUsuarios;
         private int idVersion;
         // variables auxiliar, guarda la información cuando se genera una nueva versión
@@ -38,6 +39,7 @@ namespace View.Services.ViewModel
         public Usuario User;
         Archivo ArchivoTemporal;
         string codeValidation = string.Empty;
+
         #endregion
 
         #region PropertyChanged
@@ -54,6 +56,10 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Propiedades
+
+        public bool IsSelectedGrupos;
+        public bool IsSelectedUsuarios;
+
         private static int id_recurso;
 
         public Documento DatosDocumento = new Documento();
@@ -299,7 +305,7 @@ namespace View.Services.ViewModel
 
         }
 
-        private ObservableCollection<Usuarios> _ListaUsuarios;
+        private ObservableCollection<Usuarios> _ListaUsuarios = new ObservableCollection<Usuarios>();
         public ObservableCollection<Usuarios> ListaUsuarios
         {
             get
@@ -476,6 +482,20 @@ namespace View.Services.ViewModel
             }
         }
 
+        private bool _lblVerAlerta = true;
+        public bool lblVerAlerta
+        {
+            get
+            {
+                return _lblVerAlerta;
+            }
+            set
+            {
+                _lblVerAlerta = value;
+                NotifyChange("lblVerAlerta");
+            }
+        }
+
         private bool nombreEnabled = false;
         public bool NombreEnabled
         {
@@ -615,6 +635,20 @@ namespace View.Services.ViewModel
             }
         }
 
+        private ObservableCollection<DO_INTEGRANTES_GRUPO> _ListaIntegrantes_Grupo;
+        public ObservableCollection<DO_INTEGRANTES_GRUPO> ListaIntegrantes_Grupo
+        {
+            get
+            {
+                return _ListaIntegrantes_Grupo;
+            }
+            set
+            {
+                _ListaIntegrantes_Grupo = value;
+                NotifyChange("ListaIntegrantes_Grupo");
+            }
+        }
+
         private bool _EnabledFecha = false;
         public bool EnabledFecha
         {
@@ -709,22 +743,37 @@ namespace View.Services.ViewModel
             }
         }
 
-        private ObservableCollection<Usuarios> _ListaUsuarios2;
-        public ObservableCollection<Usuarios> ListaUsuarios2
+        private string _TituloCheckGrupos = "Seleccionar todos los grupos";
+        public string TituloCheckGrupos
         {
             get
             {
-                return _ListaUsuarios2;
+                return _TituloCheckGrupos;
             }
             set
             {
-                _ListaUsuarios2 = value;
-                NotifyChange("ListaUsuarios2");
+                _TituloCheckGrupos = value;
+                NotifyChange("TituloCheckGrupos");
             }
         }
+
+        private string _TituloCheckUsuarios = "Seleccionar todos los usuarios";
+        public string TituloCheckUsuarios
+        {
+            get
+            {
+                return _TituloCheckUsuarios;
+            }
+            set
+            {
+                _TituloCheckUsuarios = value;
+                NotifyChange("TituloCheckUsuarios");
+            }
+        }
+
         #endregion
 
-        #region Constructor
+        #region Constructores
 
         /// <summary>
         /// Constructor para generar una versión, o modificar el documento
@@ -735,10 +784,10 @@ namespace View.Services.ViewModel
         public DocumentoViewModel(Documento selectedDocumento, bool band, Usuario ModelUsuario)
         {
             //Variables auxiliar guarda la información para cuando se genera una versión nueva 
+            User = ModelUsuario;
             //Inicializa los combobox 
             Inicializar();
             //Asiganmos los valores para que se muestren 
-            User = ModelUsuario;
             Nombre = selectedDocumento.nombre;
             Version = selectedDocumento.version.no_version;
             Fecha = selectedDocumento.fecha_actualizacion;
@@ -763,6 +812,9 @@ namespace View.Services.ViewModel
             BttnArchivos = false;
             //Si es ventana para generar una nueva versión, band = true
             BttnVersion = band;
+
+            //Ocultamos el mensaje en la ventana pendiente por liberar
+            lblVerAlerta = false;
 
             //si band contiene true, significa que el documento esta liberado, caso contrario es por que esta en pendiente por corregir
             if (band == true)
@@ -888,7 +940,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Contructor para liberar documentos
+        /// Constructor para liberar documentos
         /// </summary>
         /// <param name="selectedDocumento"></param>
         /// <param name="ModelUsuario"></param>
@@ -904,6 +956,10 @@ namespace View.Services.ViewModel
             BttnArchivos = false;
             BttnLiberar = true;
             WidthButton = 155;
+
+            //Ocultamos el mensaje en la ventana pendiente por liberar
+            lblVerAlerta = false;
+
             //si el usuario es administrador del sistema
             //se permite modificar el usuario autorizo
             if (Module.UsuarioIsRol(User.Roles, 2))
@@ -1002,6 +1058,9 @@ namespace View.Services.ViewModel
             Model.ControlDocumentos.Version UsuarioObj = DataManagerControlDocumentos.GetIdUsuario(idVersion);
             usuario = UsuarioObj.id_usuario;
             usuarioAutorizo = UsuarioObj.id_usuario_autorizo;
+
+            #region CARGA DE USUARIOS PARA NOTIFICAR
+
             //obtenemos la lista de los usuarios
             ListaUsuariosCorreo = DataManagerControlDocumentos.GetUsuarios();
 
@@ -1025,6 +1084,23 @@ namespace View.Services.ViewModel
                     item.IsSelected = true;
                 }
             }
+
+            // Asignamos nueva lista con todos los usuarios de la tabla TR_USUARIOS_NOTIFICACION_VERSION
+            ObservableCollection<DO_USUARIO_NOTIFICACION_VERSION> ListaUsuariosCorreoCompleta = DataManagerControlDocumentos.GetAllUsuariosNotificacionVersion(idVersion);
+
+            // Iteramos ambas listas, y nos aseguramos de que todos los usuarios necesarios estén seleccionados
+            foreach (var UserTotales in ListaUsuariosCorreoCompleta)
+            {
+                foreach (var User in ListaUsuariosCorreo)
+                {
+                    if (UserTotales.id_usuario == User.usuario)
+                    {
+                        User.IsSelected = true;
+                    }
+                }
+            }
+
+            #endregion
 
             //Método que obtiene los archivos de un documento y de la versión
             Lista = DataManagerControlDocumentos.GetArchivos(id_documento, idVersion);
@@ -1056,27 +1132,35 @@ namespace View.Services.ViewModel
             VentanaProcedencia = "PendienteLiberar";
             //mandamos llamar el método que construye el menú
             CreateMenuItems(VentanaProcedencia);
-
         }
 
         public DocumentoViewModel(DO_Grupos Model)
         {
             //Mapeamos el valor del modelo recibido al atributo de la clase.
             model = Model;
-
             dialogService = new DialogService();
         }
 
         public DocumentoViewModel()
         {
             dialogService = new DialogService();
-            ListaUsuarios2 = DataManagerControlDocumentos.GetUsuarios();
             NotifyChange("ListaIntegrantes_Grupo");
         }
 
         #endregion
 
         #region Commands
+
+        /// <summary>
+        /// Comando que valida usuarios seleccionados para notificar
+        /// </summary>
+        public ICommand ValidarSeleccionados
+        {
+            get
+            {
+                return new RelayCommand(o => RecorrerListas());
+            }
+        }
 
         /// <summary>
         /// Comando que genera el archivo automáticamente.
@@ -1211,7 +1295,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Comando que manda a regresar por corregir
         /// </summary>
         public ICommand RegresarCorregir
         {
@@ -1279,6 +1363,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando para abrir o cerras flyout
+        /// </summary>
         public ICommand IrFlyOut
         {
             get
@@ -1287,6 +1374,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando para abrir grupo y ver usuarios integrantes
+        /// </summary>
         public ICommand AbrirGrupo
         {
             get
@@ -1295,11 +1385,47 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando para ir a la ventana de crear grupos
+        /// </summary>
         public ICommand IrCrearGrupo
         {
             get
             {
                 return new RelayCommand(a => ircreargrupo());
+            }
+        }
+
+        /// <summary>
+        /// Comando para eliminar grupo
+        /// </summary>
+        public ICommand EliminarGrupo
+        {
+            get
+            {
+                return new RelayCommand(a => eliminargrupo());
+            }
+        }
+
+        /// <summary>
+        /// Comando que llama al método para seleccionar o deseleccionar todos los grupos
+        /// </summary>
+        public ICommand SelecDeselecGrupos
+        {
+            get
+            {
+                return new RelayCommand(a => _SelecDeselecGrupos());
+            }
+        }
+
+        /// <summary>
+        /// Comando que llama al métido para seleccionar o deseleccionar todos los usuarios
+        /// </summary>
+        public ICommand SelecDeselecUsuarios
+        {
+            get
+            {
+                return new RelayCommand(a => _SelecDeselecUsuarios());
             }
         }
 
@@ -1599,7 +1725,7 @@ namespace View.Services.ViewModel
 
                     Microsoft.Office.Interop.Excel.Worksheet sheet1;
                     sheet1 = ExcelWork.Sheets[1];
-                    
+
                     if (sheet1.Name != "JES")
                     {
                         mensaje += StringResources.msgLaHoja1 + "JES";
@@ -1777,7 +1903,7 @@ namespace View.Services.ViewModel
                     {
                         string qrFinal = GetPathTempFile(new Archivo { nombre = "tempOuputQR", numero = 1, ext = ".PNG" });
                         generateQRCode(qrFinal);
-                        
+
                         for (int i = 1; i <= ExcelWork.Sheets.Count; i++)
                         {
                             Microsoft.Office.Interop.Excel.Worksheet sheet;
@@ -1801,7 +1927,7 @@ namespace View.Services.ViewModel
                             return 2;
                         }
                     }
-                    
+
                     ExcelWork.Save();
                     ExcelApp.Visible = false;
 
@@ -2444,6 +2570,108 @@ namespace View.Services.ViewModel
                         {
                             if (!string.IsNullOrEmpty(Descripcion))
                             {
+                                if (ValidarNombreDescripcion())
+                                {
+                                    if (ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault() != null)
+                                    {
+                                        ObservableCollection<Archivo> recursos = new ObservableCollection<Archivo>();
+
+                                        switch (id_tipo)
+                                        {
+                                            case 1015:
+                                                //Si es de tipo JES se trae el formato correspondiente
+                                                recursos = DataManagerControlDocumentos.GetRecursosTipoDocumento(1015);
+                                                break;
+                                            case 2:
+                                                //si es de tipo HOE se trae el formato correspondiente
+                                                recursos = DataManagerControlDocumentos.GetRecursosTipoDocumento(2);
+                                                break;
+                                            case 1002:
+                                                //si es de tipo HII se trae el formato correspondiente
+                                                recursos = DataManagerControlDocumentos.GetRecursosTipoDocumento(1002);
+                                                break;
+                                            case 1004:
+                                                {
+                                                    //Inicializamos los servicios de dialog
+                                                    DialogService dialogService = new DialogService();
+
+                                                    //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal. 
+                                                    MetroDialogSettings setting = new MetroDialogSettings();
+                                                    setting.AffirmativeButtonText = StringResources.lblVertical;
+                                                    setting.NegativeButtonText = StringResources.lblHorizontal;
+
+                                                    //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local
+                                                    MessageDialogResult result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgElegirFormato, setting, MessageDialogStyle.AffirmativeAndNegative);
+
+                                                    //Vertical
+                                                    if (result == MessageDialogResult.Affirmative)
+                                                    {
+                                                        id_recurso = 1054;
+                                                    }
+                                                    //Horizontal
+                                                    else
+                                                    {
+                                                        id_recurso = 1055;
+                                                    }
+
+                                                    //Si es de tipo AVY se trae el formato correspondiente
+                                                    recursos = DataManagerControlDocumentos.GetRecursoByIdRecurso(id_recurso);
+                                                }
+                                                break;
+                                        }
+
+                                        Archivo TipoFormato = recursos[0];
+                                        string path = GetPathTempFile(TipoFormato);
+                                        File.WriteAllBytes(path, TipoFormato.archivo);
+                                        string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
+
+                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFormatoGCorrect);
+
+                                        if (id_tipo == 1002)
+                                        {
+                                            ImportExcel.ExportFormatoHII(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                        }
+                                        if (id_tipo == 1004)
+                                        {
+                                            ImportExcel.ExportFormatoAVY(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                        }
+                                        if (id_tipo == 2)
+                                        {
+                                            ImportExcel.ExportFormatoHOE(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                        }
+                                        if (id_tipo == 1015)
+                                        {
+                                            ImportExcel.ExportFormatoJES(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSelectUserAuto);
+                                    }
+
+                                }
+                                else
+                                {
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgNombreDescripcionNoIgual);
+
+                                }
+                            }
+                            else
+                            {
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInDescDoc);
+                            }
+                        }
+                        else
+                        {
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgGenerar1roVers);
+                        }
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(Descripcion))
+                        {
+                            if (ValidarNombreDescripcion())
+                            {
                                 if (ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault() != null)
                                 {
                                     ObservableCollection<Archivo> recursos = new ObservableCollection<Archivo>();
@@ -2459,7 +2687,7 @@ namespace View.Services.ViewModel
                                             recursos = DataManagerControlDocumentos.GetRecursosTipoDocumento(2);
                                             break;
                                         case 1002:
-                                            //si es de tipo HII se trae el formato correspondiente
+                                            //si es de tipo hii se trae el formato correspondiente
                                             recursos = DataManagerControlDocumentos.GetRecursosTipoDocumento(1002);
                                             break;
                                         case 1004:
@@ -2472,7 +2700,7 @@ namespace View.Services.ViewModel
                                                 setting.AffirmativeButtonText = StringResources.lblVertical;
                                                 setting.NegativeButtonText = StringResources.lblHorizontal;
 
-                                                //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local
+                                                //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
                                                 MessageDialogResult result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgElegirFormato, setting, MessageDialogStyle.AffirmativeAndNegative);
 
                                                 //Vertical
@@ -2492,12 +2720,10 @@ namespace View.Services.ViewModel
                                             break;
                                     }
 
-                                    Archivo TipoFormato = recursos[0];
-                                    string path = GetPathTempFile(TipoFormato);
-                                    File.WriteAllBytes(path, TipoFormato.archivo);
+                                    Archivo formato = recursos[0];
+                                    string path = GetPathTempFile(formato);
+                                    File.WriteAllBytes(path, formato.archivo);
                                     string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
-
-                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFormatoGCorrect);
 
                                     if (id_tipo == 1002)
                                     {
@@ -2523,91 +2749,7 @@ namespace View.Services.ViewModel
                             }
                             else
                             {
-                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInDescDoc);
-                            }
-                        }
-                        else
-                        {
-                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgGenerar1roVers);
-                        }
-                    }
-                    else
-                    {
-                        if (!string.IsNullOrEmpty(Descripcion))
-                        {
-                            if (ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault() != null)
-                            {
-                                ObservableCollection<Archivo> recursos = new ObservableCollection<Archivo>();
-
-                                switch (id_tipo)
-                                {
-                                    case 1015:
-                                        //Si es de tipo JES se trae el formato correspondiente
-                                        recursos = DataManagerControlDocumentos.GetRecursosTipoDocumento(1015);
-                                        break;
-                                    case 2:
-                                        //si es de tipo HOE se trae el formato correspondiente
-                                        recursos = DataManagerControlDocumentos.GetRecursosTipoDocumento(2);
-                                        break;
-                                    case 1002:
-                                        //si es de tipo hii se trae el formato correspondiente
-                                        recursos = DataManagerControlDocumentos.GetRecursosTipoDocumento(1002);
-                                        break;
-                                    case 1004:
-                                        {
-                                            //Inicializamos los servicios de dialog
-                                            DialogService dialogService = new DialogService();
-
-                                            //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal. 
-                                            MetroDialogSettings setting = new MetroDialogSettings();
-                                            setting.AffirmativeButtonText = StringResources.lblVertical;
-                                            setting.NegativeButtonText = StringResources.lblHorizontal;
-
-                                            //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-                                            MessageDialogResult result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgElegirFormato, setting, MessageDialogStyle.AffirmativeAndNegative);
-
-                                            //Vertical
-                                            if (result == MessageDialogResult.Affirmative)
-                                            {
-                                                id_recurso = 1054;
-                                            }
-                                            //Horizontal
-                                            else
-                                            {
-                                                id_recurso = 1055;
-                                            }
-
-                                            //Si es de tipo AVY se trae el formato correspondiente
-                                            recursos = DataManagerControlDocumentos.GetRecursoByIdRecurso(id_recurso);
-                                        }
-                                        break;
-                                }
-
-                                Archivo formato = recursos[0];
-                                string path = GetPathTempFile(formato);
-                                File.WriteAllBytes(path, formato.archivo);
-                                string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
-
-                                if (id_tipo == 1002)
-                                {
-                                    ImportExcel.ExportFormatoHII(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
-                                }
-                                if (id_tipo == 1004)
-                                {
-                                    ImportExcel.ExportFormatoAVY(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
-                                }
-                                if (id_tipo == 2)
-                                {
-                                    ImportExcel.ExportFormatoHOE(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
-                                }
-                                if (id_tipo == 1015)
-                                {
-                                    ImportExcel.ExportFormatoJES(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
-                                }
-                            }
-                            else
-                            {
-                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSelectUserAuto);
+                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgNombreDescripcionNoIgual);
                             }
                         }
                         else
@@ -2958,375 +3100,353 @@ namespace View.Services.ViewModel
             setting.NegativeButtonText = StringResources.lblNo;
 
             //si no se ha seleccionado un documento se manda un mensaje indicando que se tiene que seleccionar un documento
-            if (_selectedDocumento == null)
+            //Si no se ha seleccionado un documento, usuario autorizo o la descripción esta vacía, se manda un mensaje indicando que se tienen que llenar todos los campos
+            if (_selectedDocumento == null || string.IsNullOrEmpty(Descripcion) || usuarioAutorizo == null)
             {
-                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSeleccioneArchivo);
+                //await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSeleccioneArchivo);
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgLlenaTodosCampos);
             }
             else
             {
-                //Si la lista no tiene otro archivo adjunto
-                if (ListaDocumentos.Count == 0)
+                //Validamos que la descripción no sea igual al nombre del documento.
+                //Si es igual, impide adjuntar archivos
+                if (ValidarNombreDescripcion())
                 {
-                    //Abre la ventana de explorador de archivos
-                    Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-                    //Filtar los documentos por extensión
-                    if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
-                        dlg.Filter = "Word (97-2003)|*.doc";
-                    else
+                    //Si la lista no tiene otro archivo adjunto
+                    if (ListaDocumentos.Count == 0)
                     {
-                        if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002 || id_tipo == 1004)
+                        //Abre la ventana de explorador de archivos
+                        Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+                        //Filtar los documentos por extensión
+                        if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
+                            dlg.Filter = "Word (97-2003)|*.doc";
+                        else
                         {
-                            dlg.Filter = "Excel Files (.xlsm, .xlsx)|*.xlsm; *.xlsx";
+                            if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002 || id_tipo == 1004)
+                            {
+                                dlg.Filter = "Excel Files (.xlsm, .xlsx)|*.xlsm; *.xlsx";
+                            }
+                            else
+                            {
+                                dlg.Filter = "PDF Files (.pdf)|*.pdf";
+                            }
+                        }
+
+                        Nullable<bool> result;
+
+                        //Permite decidir si se debe o no, mostrar el explorador de archivos
+                        if (string.IsNullOrEmpty(filename))
+                        {
+                            // Mostrar el explorador de archivos
+                            result = dlg.ShowDialog();
                         }
                         else
                         {
-                            dlg.Filter = "PDF Files (.pdf)|*.pdf";
+                            result = true;
+                            dlg.FileName = filename;
                         }
-                    }
 
-                    Nullable<bool> result;
+                        //Se crea el objeto de tipo archivo
+                        Archivo obj = new Archivo();
 
-                    //Permite decidir si se debe o no, mostrar el explorador de archivos
-                    if (string.IsNullOrEmpty(filename))
-                    {
-                        // Mostrar el explorador de archivos
-                        result = dlg.ShowDialog();
-
-                    }
-                    else
-                    {
-                        result = true;
-                        dlg.FileName = filename;
-                    }
-
-                    //Se crea el objeto de tipo archivo
-                    Archivo obj = new Archivo();
-
-                    // Si fue seleccionado un documento 
-                    if (result == true)
-                    {
-                        try
+                        // Si fue seleccionado un documento 
+                        if (result == true)
                         {
-                            //Se obtiene el nombre del documento
-                            filename = dlg.FileName;
-
-                            //Si el archivo no está en uso
-                            if (!Module.IsFileInUse(filename))
+                            try
                             {
-                                //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
-                                AsyncProgress = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgInsertando);
+                                //Se obtiene el nombre del documento
+                                filename = dlg.FileName;
 
-                                //Se convierte el archvio a tipo byte y se le asigna al objeto
-                                obj.archivo = await Task.Run(() => File.ReadAllBytes(filename));
-
-                                //Obtiene la extensión del documento y se le asigna al objeto
-                                obj.ext = System.IO.Path.GetExtension(filename);
-
-                                //Se obtiene sólo el nombre, sin extensión.
-                                obj.nombre = System.IO.Path.GetFileNameWithoutExtension(filename);
-
-                                //Sumamos 1 al contador que tenga la lista de documentos
-                                obj.numero = ListaDocumentos.Count + 1;
-
-                                //Si el archivo tiene extensión pdf
-                                if (obj.ext == ".pdf")
+                                //Si el archivo no está en uso
+                                if (!Module.IsFileInUse(filename))
                                 {
-                                    //asigna la imagen del pdf al objeto
-                                    obj.ruta = @"/Images/p.png";
-                                }
-                                else
-                                {
-                                    if (obj.ext == ".xlsm" || obj.ext == ".xlsx")
+                                    //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
+                                    AsyncProgress = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgInsertando);
+
+                                    //Se convierte el archvio a tipo byte y se le asigna al objeto
+                                    obj.archivo = await Task.Run(() => File.ReadAllBytes(filename));
+
+                                    //Obtiene la extensión del documento y se le asigna al objeto
+                                    obj.ext = System.IO.Path.GetExtension(filename);
+
+                                    //Se obtiene sólo el nombre, sin extensión.
+                                    obj.nombre = System.IO.Path.GetFileNameWithoutExtension(filename);
+
+                                    //Sumamos 1 al contador que tenga la lista de documentos
+                                    obj.numero = ListaDocumentos.Count + 1;
+
+                                    //Si el archivo tiene extensión pdf
+                                    if (obj.ext == ".pdf")
                                     {
-                                        obj.ruta = @"/Images/E.jpg";
+                                        //asigna la imagen del pdf al objeto
+                                        obj.ruta = @"/Images/p.png";
                                     }
                                     else
                                     {
-                                        //Si es archivo de word asigna la imagen correspondiente.
-                                        obj.ruta = @"/Images/w.png";
-                                    }
-                                }
-
-                                //Verificamos de nuevo que se hayan insertado los tipos de archivos correspondiente al tipo de documento
-                                if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
-                                {
-                                    //si el archivo es igual a cualquiera de los id anteriores se comprueba que sea un archivo .doc
-                                    if (obj.ext == ".doc")
-                                    {
-                                        //si se agrego el archivo correspondiente lo agregamos a la lista temporal
-                                        ListaDocumentos.Add(obj);
-                                        //deshabilitamos el boton de agregar archivos
-                                        BttnArchivos = false;
-                                    }//si no es archivo .doc se manda un mensaje y se elimina
-                                    else
-                                    {
-                                        //si se llegara a insertar un tipo de archivo que no corresponde se manda un mensaje indicando que tipo de archivo se debe adjuntar
-                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarTipoArchivoDOC);
-                                        //se borra de la lista temporal
-                                        Lista.Clear();
-                                        //se habilita el boton para adjuntar archivos
-                                        BttnArchivos = true;
-                                    }
-                                }
-                                else
-                                {
-                                    //Verificamos de nuevo que se hayan insertado los tipos de archivos correspondiente al tipo de documento
-                                    if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002 || id_tipo == 1004)
-                                    {
-                                        //si el archivo es de tipo JES se comprueba que se haya insertado una hoja de calculo
                                         if (obj.ext == ".xlsm" || obj.ext == ".xlsx")
                                         {
+                                            obj.ruta = @"/Images/E.jpg";
+                                        }
+                                        else
+                                        {
+                                            //Si es archivo de word asigna la imagen correspondiente.
+                                            obj.ruta = @"/Images/w.png";
+                                        }
+                                    }
+
+                                    //Verificamos de nuevo que se hayan insertado los tipos de archivos correspondiente al tipo de documento
+                                    if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
+                                    {
+                                        //si el archivo es igual a cualquiera de los id anteriores se comprueba que sea un archivo .doc
+                                        if (obj.ext == ".doc")
+                                        {
+                                            //si se agrego el archivo correspondiente lo agregamos a la lista temporal
                                             ListaDocumentos.Add(obj);
-
-                                            string mensaje;
-
-                                            //Mandamos llamar al método que revisa que la JES este correcta
-                                            int r = validarArchivo(out mensaje);
-
-                                            //Si el archivo esta incorrecto, se corrige automáticamente
-                                            if (r == 2)
+                                            //deshabilitamos el boton de agregar archivos
+                                            BttnArchivos = false;
+                                        }//si no es archivo .doc se manda un mensaje y se elimina
+                                        else
+                                        {
+                                            //si se llegara a insertar un tipo de archivo que no corresponde se manda un mensaje indicando que tipo de archivo se debe adjuntar
+                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarTipoArchivoDOC);
+                                            //se borra de la lista temporal
+                                            Lista.Clear();
+                                            //se habilita el boton para adjuntar archivos
+                                            BttnArchivos = true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //Verificamos de nuevo que se hayan insertado los tipos de archivos correspondiente al tipo de documento
+                                        if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002 || id_tipo == 1004)
+                                        {
+                                            //si el archivo es de tipo JES se comprueba que se haya insertado una hoja de calculo
+                                            if (obj.ext == ".xlsm" || obj.ext == ".xlsx")
                                             {
-                                                //se elimina de la lista temporal
-                                                ListaDocumentos.Clear();
-                                                //se habilita el boton para poder adjuntar un archivo
-                                                BttnArchivos = true;
+                                                ListaDocumentos.Add(obj);
 
-                                                setting.AffirmativeButtonText = StringResources.lblAutomaticamente;
-                                                setting.NegativeButtonText = StringResources.lblManualmente;
+                                                string mensaje;
 
-                                                //Modo de corregir un documento
-                                                MessageDialogResult resp = await dialog.SendMessage(StringResources.ttlAlerta, mensaje + "\n\n" + StringResources.msgModoCorregir, setting, MessageDialogStyle.AffirmativeAndNegative);
+                                                //Mandamos llamar al método que revisa que la JES este correcta
+                                                int r = validarArchivo(out mensaje);
 
-                                                string nfilename = dlg.FileName;
-                                                string path = nfilename;
-                                                string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
-
-                                                //Métodos para corregir los archivos
-                                                if (resp == MessageDialogResult.Affirmative)
-                                                {
-                                                    if (id_tipo == 1004)
-                                                    {
-                                                        ImportExcel.ExportAVYCorrecto(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
-                                                        AdjuntarArchivo(path);
-                                                    }
-                                                    if (id_tipo == 2)
-                                                    {
-                                                        ImportExcel.ExportHOECorrecto(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
-                                                        AdjuntarArchivo(path);
-                                                    }
-                                                    if (id_tipo == 1015)
-                                                    {
-                                                        ImportExcel.ExportJESCorrecto(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
-                                                        AdjuntarArchivo(path);
-                                                    }
-                                                    if (id_tipo == 1002)
-                                                    {
-                                                        ImportExcel.ExportHIICorrecto(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
-                                                        AdjuntarArchivo(path);
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCorrigeArchivo);
-                                                }
-                                            }
-                                            else //si el archivo insertado corresponde con el que se pide entramos al else
-                                            {   // Si el archivo es correcto...
-                                                if (r == 1)
-                                                {
-                                                    if (AdjuntarDocumento || DocumentoNuevo)
-                                                    {
-                                                        //si el registro ya esta liberado y se busca hacer una nueva version entramos aqui
-                                                        guardarControl("FORMATO DEL SISTEMA");
-                                                    }
-                                                    else
-                                                    {
-                                                        //si estamos en la ventana de pendiente por corregir entramos aqui
-                                                        CreadoPendienteXLiberar();
-                                                    }
-                                                }
-                                                else
+                                                //Si el archivo esta incorrecto, se corrige automáticamente
+                                                if (r == 2)
                                                 {
                                                     //se elimina de la lista temporal
                                                     ListaDocumentos.Clear();
                                                     //se habilita el boton para poder adjuntar un archivo
                                                     BttnArchivos = true;
 
-                                                    // Si ocurrió un error
-                                                    if (r == 3)
+                                                    setting.AffirmativeButtonText = StringResources.lblAutomaticamente;
+                                                    setting.NegativeButtonText = StringResources.lblManualmente;
+
+                                                    //Modo de corregir un documento
+                                                    MessageDialogResult resp = await dialog.SendMessage(StringResources.ttlAlerta, mensaje + "\n\n" + StringResources.msgModoCorregir, setting, MessageDialogStyle.AffirmativeAndNegative);
+
+                                                    string nfilename = dlg.FileName;
+                                                    string path = nfilename;
+                                                    string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
+
+                                                    //Métodos para corregir los archivos según el tipo
+                                                    if (resp == MessageDialogResult.Affirmative)
                                                     {
-                                                        // Mandar mensaje de por favor intente otra vez adjuntar el archivo cuando ocurre error
-                                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgOcurrioError);
+                                                        if (id_tipo == 1004)
+                                                        {
+                                                            ImportExcel.ExportAVYCorrecto(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                            AdjuntarArchivo(path);
+                                                        }
+                                                        if (id_tipo == 2)
+                                                        {
+                                                            ImportExcel.ExportHOECorrecto(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                            AdjuntarArchivo(path);
+                                                        }
+                                                        if (id_tipo == 1015)
+                                                        {
+                                                            ImportExcel.ExportJESCorrecto(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                            AdjuntarArchivo(path);
+                                                        }
+                                                        if (id_tipo == 1002)
+                                                        {
+                                                            ImportExcel.ExportHIICorrecto(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                            AdjuntarArchivo(path);
+                                                        }
                                                     }
-                                                    // Si el archivo no pertenece al formato
                                                     else
                                                     {
-                                                        // Mandar mensaje de que se adjunto un documento que no pertenece al formato
-                                                        await dialog.SendMessage(StringResources.ttlAlerta, mensaje + "\n\n" + StringResources.msgDocDifFormato + "\n" + StringResources.msgCorrigeArchivo);
+                                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCorrigeArchivo);
                                                     }
-
                                                 }
+                                                else //si el archivo insertado corresponde con el que se pide entramos al else
+                                                {   // Si el archivo es correcto...
+                                                    if (r == 1)
+                                                    {
+                                                        if (AdjuntarDocumento || DocumentoNuevo)
+                                                        {
+                                                            //si el registro ya esta liberado y se busca hacer una nueva version entramos aqui
+                                                            guardarControl("FORMATO DEL SISTEMA");
+                                                        }
+                                                        else
+                                                        {
+                                                            //si estamos en la ventana de pendiente por corregir entramos aqui
+                                                            CreadoPendienteXLiberar();
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        //se elimina de la lista temporal
+                                                        ListaDocumentos.Clear();
+                                                        //se habilita el boton para poder adjuntar un archivo
+                                                        BttnArchivos = true;
+
+                                                        // Si ocurrió un error
+                                                        if (r == 3)
+                                                        {
+                                                            // Mandar mensaje de por favor intente otra vez adjuntar el archivo cuando ocurre error
+                                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgOcurrioError);
+                                                        }
+                                                        // Si el archivo no pertenece al formato
+                                                        else
+                                                        {
+                                                            // Mandar mensaje de que se adjunto un documento que no pertenece al formato
+                                                            await dialog.SendMessage(StringResources.ttlAlerta, mensaje + "\n\n" + StringResources.msgDocDifFormato + "\n" + StringResources.msgCorrigeArchivo);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                //si se llegara a insertar un tipo de archivo que no corresponde se manda un mensaje indicando que tipo de archivo se debe adjuntar                                                                                           
+                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSoloExcel);
+                                                //se borra de la lista temporal
+                                                ListaDocumentos.Clear();
+                                                //habilitamos el boton de adjuntar archivos
+                                                BttnArchivos = true;
                                             }
                                         }
                                         else
                                         {
-                                            //si se llegara a insertar un tipo de archivo que no corresponde se manda un mensaje indicando que tipo de archivo se debe adjuntar                                                                                           
-                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSoloExcel);
-                                            //se borra de la lista temporal
-                                            ListaDocumentos.Clear();
-                                            //habilitamos el boton de adjuntar archivos
-                                            BttnArchivos = true;
+                                            //cualquier id que sea diferente de los anteriores tiene que ser un archivo .pdf.
+                                            //Verificamos de nuevo que no se haya insertado un archivo que no corresponde
+                                            if (obj.ext == ".pdf")
+                                            {
+                                                //si se agrego el archivo correspondiente lo agregamos a la lista temporal
+                                                ListaDocumentos.Add(obj);
+                                                //deshabilitamos el boton de agregar archivos
+                                                BttnArchivos = false;
+                                            }
+                                            else
+                                            {
+                                                //si se llegara a insertar un tipo de archivo que no corresponde se manda un mensaje indicando que tipo de archivo se debe adjuntar
+                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarTipoArchivoPDF);
+                                                //se borra de la lista temporal
+                                                Lista.Clear();
+                                                //habilitamos el boton de adjuntar archivos
+                                                BttnArchivos = true;
+                                            }
                                         }
                                     }
-                                    else
-                                    {
-                                        //cualquier id que sea diferente de los anteriores tiene que ser un archivo .pdf.
-                                        //Verificamos de nuevo que no se haya insertado un archivo que no corresponde
-                                        if (obj.ext == ".pdf")
-                                        {
-                                            //si se agrego el archivo correspondiente lo agregamos a la lista temporal
-                                            ListaDocumentos.Add(obj);
-                                            //deshabilitamos el boton de agregar archivos
-                                            BttnArchivos = false;
-                                        }
-                                        else
-                                        {
-                                            //si se llegara a insertar un tipo de archivo que no corresponde se manda un mensaje indicando que tipo de archivo se debe adjuntar
-                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarTipoArchivoPDF);
-                                            //se borra de la lista temporal
-                                            Lista.Clear();
-                                            //habilitamos el boton de adjuntar archivos
-                                            BttnArchivos = true;
-                                        }
-                                    }
+                                    //Ejecutamos el método para cerrar el mensaje de espera.
+                                    await AsyncProgress.CloseAsync();
                                 }
-                                //Ejecutamos el método para cerrar el mensaje de espera.
-                                await AsyncProgress.CloseAsync();
+                                else
+                                {
+                                    //Si el archivo está abierto mandamos un mensaje indicando que se debe cerrar el archivo para poder adjuntarlo
+                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCierreArchivo);
+                                }
                             }
-                            else
+                            catch (IOException)
                             {
                                 //Si el archivo está abierto mandamos un mensaje indicando que se debe cerrar el archivo para poder adjuntarlo
                                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCierreArchivo);
                             }
-                        }
-                        catch (IOException)
-                        {
-                            //Si el archivo está abierto mandamos un mensaje indicando que se debe cerrar el archivo para poder adjuntarlo
-                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCierreArchivo);
-                        }
-                    }//TERMINA IF DEL RESULT
-                }
-                else
-                {
-                    //Entramos a este else si la lista de documento ya tiene un documento y se quiere agregar uno nuevo
-                    //primero verificamos que la ventana sea SOLO de los archivos pendientes por corregir
-                    if (AdjuntarDocumento != true)
+                        }//TERMINA IF DEL RESULT
+                    }
+                    else
                     {
-                        //si la ventana es pendiente por corregir, solo se elimina el archivo y se sustituye por el nuevo seleccionado
-                        MessageDialogResult Respuesta = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSustituirArchivo, setting, MessageDialogStyle.AffirmativeAndNegative);
-
-                        if (Respuesta == MessageDialogResult.Affirmative)
+                        //Entramos a este else si la lista de documento ya tiene un documento y se quiere agregar uno nuevo
+                        //primero verificamos que la ventana sea SOLO de los archivos pendientes por corregir
+                        if (AdjuntarDocumento != true)
                         {
-                            //Abre la ventana de explorador de archivos
-                            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+                            //si la ventana es pendiente por corregir, solo se elimina el archivo y se sustituye por el nuevo seleccionado
+                            MessageDialogResult Respuesta = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSustituirArchivo, setting, MessageDialogStyle.AffirmativeAndNegative);
 
-                            //Filtar los documentos por extensión
-                            if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
-                                dlg.Filter = "Word (97-2003)|*.doc";
-                            else
+                            if (Respuesta == MessageDialogResult.Affirmative)
                             {
-                                if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002 || id_tipo == 1004)
-                                {
-                                    dlg.Filter = "Excel Files (.xlsm, .xlsx)|*.xlsm; *.xlsx";
-                                }
+                                //Abre la ventana de explorador de archivos
+                                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+                                //Filtar los documentos por extensión
+                                if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
+                                    dlg.Filter = "Word (97-2003)|*.doc";
                                 else
                                 {
-                                    dlg.Filter = "PDF Files (.pdf)|*.pdf";
-                                }
-                            }
-
-                            //mostramos la ventana para poder seleccionar el archivo
-                            Nullable<bool> result = dlg.ShowDialog();
-
-                            // Si fue seleccionado un documento 
-                            if (result == true)
-                            {
-                                try
-                                {
-                                    //Se obtiene el nombre del documento
-                                    filename = dlg.FileName;
-
-                                    //Si el archivo no está en uso
-                                    if (!Module.IsFileInUse(filename))
+                                    if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002 || id_tipo == 1004)
                                     {
-                                        //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
-                                        AsyncProgress = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgInsertando);
+                                        dlg.Filter = "Excel Files (.xlsm, .xlsx)|*.xlsm; *.xlsx";
+                                    }
+                                    else
+                                    {
+                                        dlg.Filter = "PDF Files (.pdf)|*.pdf";
+                                    }
+                                }
 
-                                        //inicializamos la variable global para poder insertar el archivo en la base de datos
-                                        ArchivoTemporal = new Archivo();
+                                //mostramos la ventana para poder seleccionar el archivo
+                                Nullable<bool> result = dlg.ShowDialog();
 
-                                        //Se convierte el archvio a tipo byte y se le asigna al objeto
-                                        ArchivoTemporal.archivo = await Task.Run(() => File.ReadAllBytes(filename));
+                                // Si fue seleccionado un documento 
+                                if (result == true)
+                                {
+                                    try
+                                    {
+                                        //Se obtiene el nombre del documento
+                                        filename = dlg.FileName;
 
-                                        //Obtiene la extensión del documento y se le asigna al objeto
-                                        ArchivoTemporal.ext = System.IO.Path.GetExtension(filename);
-
-                                        //Se obtiene sólo el nombre, sin extensión.
-                                        ArchivoTemporal.nombre = System.IO.Path.GetFileNameWithoutExtension(filename);
-                                        //se obtiene el id_version del documento
-                                        ArchivoTemporal.id_version = idVersion;
-
-                                        //Si el archivo tiene extensión pdf
-                                        if (ArchivoTemporal.ext == ".pdf")
+                                        //Si el archivo no está en uso
+                                        if (!Module.IsFileInUse(filename))
                                         {
-                                            //asigna la imagen del pdf al objeto
-                                            ArchivoTemporal.ruta = @"/Images/p.png";
-                                        }
-                                        else
-                                        {
-                                            if (ArchivoTemporal.ext == ".xlsm" || ArchivoTemporal.ext == ".xlsx")
+                                            //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
+                                            AsyncProgress = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgInsertando);
+
+                                            //inicializamos la variable global para poder insertar el archivo en la base de datos
+                                            ArchivoTemporal = new Archivo();
+
+                                            //Se convierte el archvio a tipo byte y se le asigna al objeto
+                                            ArchivoTemporal.archivo = await Task.Run(() => File.ReadAllBytes(filename));
+
+                                            //Obtiene la extensión del documento y se le asigna al objeto
+                                            ArchivoTemporal.ext = System.IO.Path.GetExtension(filename);
+
+                                            //Se obtiene sólo el nombre, sin extensión.
+                                            ArchivoTemporal.nombre = System.IO.Path.GetFileNameWithoutExtension(filename);
+                                            //se obtiene el id_version del documento
+                                            ArchivoTemporal.id_version = idVersion;
+
+                                            //Si el archivo tiene extensión pdf
+                                            if (ArchivoTemporal.ext == ".pdf")
                                             {
-                                                ArchivoTemporal.ruta = @"/Images/E.jpg";
+                                                //asigna la imagen del pdf al objeto
+                                                ArchivoTemporal.ruta = @"/Images/p.png";
                                             }
                                             else
                                             {
-                                                //Si es archivo de word asigna la imagen correspondiente.
-                                                ArchivoTemporal.ruta = @"/Images/w.png";
-                                            }
-                                        }
-                                        //despues de que el usuario haya seleccionado el archivo a insertar 
-                                        //consultamos de que tipo es el archivo
-                                        if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
-                                        {
-                                            //si el archivo es igual a cualquiera de los id anteriores se comprueba que sea un archivo .doc
-                                            if (ArchivoTemporal.ext == ".doc")
-                                            {
-                                                //BORRAMOS EL ARCHIVO DE LA BASE DE DATOS, EL ARCHIVO QUE SE BORRA ES EL QUE SE ENCUENTRA EN LA LISTA DE DOCUMENTOS
-                                                int n = DataManagerControlDocumentos.DeleteArchivo(ListaDocumentos[0]);
-
-                                                //LIMPIAMOS LA LISTA QUE CONTIENE EL ARCHIVO ANTERIOR
-                                                ListaDocumentos.Clear();
-                                                // Toma tiempo para que se elimine y reemplace el PDF que ya está generado al adjuntar (no genere error de numeración)
-                                                Thread.Sleep(1500);
-
-                                                //AGREGAMOS EL NUEVO ARCHIVO A LA LISTA TEMPORAL QUE SELECCIONO EL USUARIO
-                                                ListaDocumentos.Add(ArchivoTemporal);
-                                            }
-                                            else
-                                            {
-                                                //si el archivo no es del tipo correspondiente se manda un mensaje indicando el tipo de archivo que se puede insertar
-                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarTipoArchivoDOC);
-                                                //limpiamos la lista temporal
-                                                Lista.Clear();
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002 || id_tipo == 1004)
-                                            {
-                                                //si el archivo es igual a cualquiera de los id anteriores se comprueba que sea un archivo .xlsx
                                                 if (ArchivoTemporal.ext == ".xlsm" || ArchivoTemporal.ext == ".xlsx")
+                                                {
+                                                    ArchivoTemporal.ruta = @"/Images/E.jpg";
+                                                }
+                                                else
+                                                {
+                                                    //Si es archivo de word asigna la imagen correspondiente.
+                                                    ArchivoTemporal.ruta = @"/Images/w.png";
+                                                }
+                                            }
+                                            //despues de que el usuario haya seleccionado el archivo a insertar 
+                                            //consultamos de que tipo es el archivo
+                                            if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
+                                            {
+                                                //si el archivo es igual a cualquiera de los id anteriores se comprueba que sea un archivo .doc
+                                                if (ArchivoTemporal.ext == ".doc")
                                                 {
                                                     //BORRAMOS EL ARCHIVO DE LA BASE DE DATOS, EL ARCHIVO QUE SE BORRA ES EL QUE SE ENCUENTRA EN LA LISTA DE DOCUMENTOS
                                                     int n = DataManagerControlDocumentos.DeleteArchivo(ListaDocumentos[0]);
@@ -3338,146 +3458,177 @@ namespace View.Services.ViewModel
 
                                                     //AGREGAMOS EL NUEVO ARCHIVO A LA LISTA TEMPORAL QUE SELECCIONO EL USUARIO
                                                     ListaDocumentos.Add(ArchivoTemporal);
-
-                                                    string mensaje;
-
-                                                    int r = validarArchivo(out mensaje);
-                                                    // Si el archivo es incorrecto se corrige automáticamente
-                                                    if (r == 2)
-                                                    {
-                                                        //si se agrego el archivo correspondiente lo agregamos a la lista temporal
-                                                        ListaDocumentos.Clear();
-                                                        //deshabilitamos el boton de agregar archivos
-                                                        BttnArchivos = true;
-
-                                                        setting.AffirmativeButtonText = StringResources.lblAutomaticamente;
-                                                        setting.NegativeButtonText = StringResources.lblManualmente;
-
-                                                        //Modo de corregir un documento
-                                                        MessageDialogResult resp = await dialog.SendMessage(StringResources.ttlAlerta, mensaje + "\n\n" + StringResources.msgModoCorregir, setting, MessageDialogStyle.AffirmativeAndNegative);
-
-                                                        string nfilename = dlg.FileName;
-                                                        string path = nfilename;
-                                                        string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
-
-                                                        //Métodos para corregir los archivos
-                                                        if (resp == MessageDialogResult.Affirmative)
-                                                        {
-                                                            if (id_tipo == 1004)
-                                                            {
-                                                                ImportExcel.ExportAVYCorrecto(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
-                                                                AdjuntarArchivo(path);
-                                                            }
-                                                            if (id_tipo == 2)
-                                                            {
-                                                                ImportExcel.ExportHOECorrecto(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
-                                                                AdjuntarArchivo(path);
-                                                            }
-                                                            if (id_tipo == 1015)
-                                                            {
-                                                                ImportExcel.ExportJESCorrecto(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
-                                                                AdjuntarArchivo(path);
-                                                            }
-                                                            if (id_tipo == 1002)
-                                                            {
-                                                                ImportExcel.ExportHIICorrecto(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
-                                                                AdjuntarArchivo(path);
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCorrigeArchivo);
-                                                        }
-                                                    }
-                                                    else
-                                                    {   // Si el archivo es correcto...
-                                                        if (r == 1)
-                                                        {
-                                                            if (DocumentoNuevo)
-                                                            {
-                                                                guardarControl("FORMATO DEL SISTEMA");
-                                                            }
-                                                            else
-                                                            {
-                                                                CreadoPendienteXLiberar();
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            //se elimina de la lista temporal
-                                                            ListaDocumentos.Clear();
-                                                            //se habilita el boton para poder adjuntar un archivo
-                                                            BttnArchivos = true;
-
-                                                            // Si ocurrió un error
-                                                            if (r == 3)
-                                                            {
-                                                                // Mandar mensaje de por favor intente otra vez adjuntar el archivo cuando ocurre error
-                                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgOcurrioError);
-                                                            }
-                                                            // Si el archivo no pertenece al formato
-                                                            else
-                                                            {   // Mandar mensaje de que se adjunto un documento que no pertenece al formato
-                                                                await dialog.SendMessage(StringResources.ttlAlerta, mensaje + "\n\n" + StringResources.msgDocDifFormato + "\n" + StringResources.msgCorrigeArchivo);
-                                                            }
-
-                                                        }
-                                                    }
                                                 }
                                                 else
                                                 {
                                                     //si el archivo no es del tipo correspondiente se manda un mensaje indicando el tipo de archivo que se puede insertar
-                                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarTipoArchivoPDF);
+                                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarTipoArchivoDOC);
                                                     //limpiamos la lista temporal
                                                     Lista.Clear();
                                                 }
                                             }
                                             else
                                             {
-                                                //cualquier id que sea diferente de los anteriores tiene que ser un archivo .pdf
-                                                if (ArchivoTemporal.ext == ".pdf")
+                                                if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002 || id_tipo == 1004)
                                                 {
-                                                    //BORRAMOS EL ARCHIVO DE LA BASE DE DATOS, EL ARCHIVO QUE SE BORRA ES EL QUE SE ENCUENTRA EN LA LISTA DE DOCUMENTOS
-                                                    int n = DataManagerControlDocumentos.DeleteArchivo(ListaDocumentos[0]);
+                                                    //si el archivo es igual a cualquiera de los id anteriores se comprueba que sea un archivo .xlsx
+                                                    if (ArchivoTemporal.ext == ".xlsm" || ArchivoTemporal.ext == ".xlsx")
+                                                    {
+                                                        //BORRAMOS EL ARCHIVO DE LA BASE DE DATOS, EL ARCHIVO QUE SE BORRA ES EL QUE SE ENCUENTRA EN LA LISTA DE DOCUMENTOS
+                                                        int n = DataManagerControlDocumentos.DeleteArchivo(ListaDocumentos[0]);
 
-                                                    //LIMPIAMOS LA LISTA QUE CONTIENE EL ARCHIVO ANTERIOR
-                                                    ListaDocumentos.Clear();
+                                                        //LIMPIAMOS LA LISTA QUE CONTIENE EL ARCHIVO ANTERIOR
+                                                        ListaDocumentos.Clear();
+                                                        // Toma tiempo para que se elimine y reemplace el PDF que ya está generado al adjuntar (no genere error de numeración)
+                                                        Thread.Sleep(1500);
 
-                                                    //AGREGAMOS EL NUEVO ARCHIVO A LA LISTA TEMPORAL QUE SELECCIONO EL USUARIO
-                                                    ListaDocumentos.Add(ArchivoTemporal);
+                                                        //AGREGAMOS EL NUEVO ARCHIVO A LA LISTA TEMPORAL QUE SELECCIONO EL USUARIO
+                                                        ListaDocumentos.Add(ArchivoTemporal);
+
+                                                        string mensaje;
+
+                                                        int r = validarArchivo(out mensaje);
+                                                        // Si el archivo es incorrecto se corrige automáticamente
+                                                        if (r == 2)
+                                                        {
+                                                            //si se agrego el archivo correspondiente lo agregamos a la lista temporal
+                                                            ListaDocumentos.Clear();
+                                                            //deshabilitamos el boton de agregar archivos
+                                                            BttnArchivos = true;
+
+                                                            setting.AffirmativeButtonText = StringResources.lblAutomaticamente;
+                                                            setting.NegativeButtonText = StringResources.lblManualmente;
+
+                                                            //Modo de corregir un documento
+                                                            MessageDialogResult resp = await dialog.SendMessage(StringResources.ttlAlerta, mensaje + "\n\n" + StringResources.msgModoCorregir, setting, MessageDialogStyle.AffirmativeAndNegative);
+
+                                                            string nfilename = dlg.FileName;
+                                                            string path = nfilename;
+                                                            string NombreAbreviadoPersonaCreo = ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().nombre.Substring(0, 1) + "." + ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().APaterno;
+
+                                                            //Métodos para corregir los archivos
+                                                            if (resp == MessageDialogResult.Affirmative)
+                                                            {
+                                                                if (id_tipo == 1004)
+                                                                {
+                                                                    ImportExcel.ExportAVYCorrecto(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                                    AdjuntarArchivo(path);
+                                                                }
+                                                                if (id_tipo == 2)
+                                                                {
+                                                                    ImportExcel.ExportHOECorrecto(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                                    AdjuntarArchivo(path);
+                                                                }
+                                                                if (id_tipo == 1015)
+                                                                {
+                                                                    ImportExcel.ExportJESCorrecto(path, FechaFin, NombreAbreviadoPersonaCreo, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                                    AdjuntarArchivo(path);
+                                                                }
+                                                                if (id_tipo == 1002)
+                                                                {
+                                                                    ImportExcel.ExportHIICorrecto(path, FechaFin, ListaUsuarios.Where(x => x.usuario == usuario).FirstOrDefault().NombreCorto, ListaUsuarios.Where(x => x.usuario == usuarioAutorizo).FirstOrDefault().NombreCorto, Descripcion, SelectedDocumento.nombre, ListaDepartamento.Where(x => x.id_dep == id_dep).FirstOrDefault().nombre_dep, Convert.ToInt32(Version), ID_documento);
+                                                                    AdjuntarArchivo(path);
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCorrigeArchivo);
+                                                            }
+                                                        }
+                                                        else
+                                                        {   // Si el archivo es correcto...
+                                                            if (r == 1)
+                                                            {
+                                                                if (DocumentoNuevo)
+                                                                {
+                                                                    guardarControl("FORMATO DEL SISTEMA");
+                                                                }
+                                                                else
+                                                                {
+                                                                    CreadoPendienteXLiberar();
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                //se elimina de la lista temporal
+                                                                ListaDocumentos.Clear();
+                                                                //se habilita el boton para poder adjuntar un archivo
+                                                                BttnArchivos = true;
+
+                                                                // Si ocurrió un error
+                                                                if (r == 3)
+                                                                {
+                                                                    // Mandar mensaje de por favor intente otra vez adjuntar el archivo cuando ocurre error
+                                                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgOcurrioError);
+                                                                }
+                                                                // Si el archivo no pertenece al formato
+                                                                else
+                                                                {   // Mandar mensaje de que se adjunto un documento que no pertenece al formato
+                                                                    await dialog.SendMessage(StringResources.ttlAlerta, mensaje + "\n\n" + StringResources.msgDocDifFormato + "\n" + StringResources.msgCorrigeArchivo);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        //si el archivo no es del tipo correspondiente se manda un mensaje indicando el tipo de archivo que se puede insertar
+                                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarTipoArchivoPDF);
+                                                        //limpiamos la lista temporal
+                                                        Lista.Clear();
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    //si el archivo no es del tipo correspondiente se manda un mensaje indicando el tipo de archivo que se puede insertar
-                                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarTipoArchivoPDF);
-                                                    //limpiamos la lista temporal
-                                                    Lista.Clear();
+                                                    //cualquier id que sea diferente de los anteriores tiene que ser un archivo .pdf
+                                                    if (ArchivoTemporal.ext == ".pdf")
+                                                    {
+                                                        //BORRAMOS EL ARCHIVO DE LA BASE DE DATOS, EL ARCHIVO QUE SE BORRA ES EL QUE SE ENCUENTRA EN LA LISTA DE DOCUMENTOS
+                                                        int n = DataManagerControlDocumentos.DeleteArchivo(ListaDocumentos[0]);
+
+                                                        //LIMPIAMOS LA LISTA QUE CONTIENE EL ARCHIVO ANTERIOR
+                                                        ListaDocumentos.Clear();
+
+                                                        //AGREGAMOS EL NUEVO ARCHIVO A LA LISTA TEMPORAL QUE SELECCIONO EL USUARIO
+                                                        ListaDocumentos.Add(ArchivoTemporal);
+                                                    }
+                                                    else
+                                                    {
+                                                        //si el archivo no es del tipo correspondiente se manda un mensaje indicando el tipo de archivo que se puede insertar
+                                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarTipoArchivoPDF);
+                                                        //limpiamos la lista temporal
+                                                        Lista.Clear();
+                                                    }
+                                                    //Ejecutamos el método para cerrar el mensaje de espera.
+                                                    //await AsyncProgress.CloseAsync();
                                                 }
-                                                //Ejecutamos el método para cerrar el mensaje de espera.
-                                                //await AsyncProgress.CloseAsync();
                                             }
+                                            await AsyncProgress.CloseAsync();
                                         }
-                                        await AsyncProgress.CloseAsync();
+                                        else
+                                        {
+                                            //Si el archivo está abierto le indicamos al usuario que lo tiene que cerrar para poder insetarlo
+                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCierreArchivo);
+                                        }
                                     }
-                                    else
+                                    catch (IOException)
                                     {
                                         //Si el archivo está abierto le indicamos al usuario que lo tiene que cerrar para poder insetarlo
                                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCierreArchivo);
                                     }
                                 }
-                                catch (IOException)
-                                {
-                                    //Si el archivo está abierto le indicamos al usuario que lo tiene que cerrar para poder insetarlo
-                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCierreArchivo);
-                                }
                             }
                         }
+                        else
+                        {
+                            //Si el documento ya esta liberado y se quiere agregar un nuevo archivo se mostrara el mensaje que indique que solo se puede ag
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarUnoSolo);
+                        }
                     }
-                    else
-                    {
-                        //Si el documento ya esta liberado y se quiere agregar un nuevo archivo se mostrara el mensaje que indique que solo se puede ag
-                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertarUnoSolo);
-                    }
+                }
+                else
+                {
+                    //Si la descripción es igual al nombre del documento mandamos mensaje
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgDescripcionNoIgual);
                 }
             }
         }
@@ -3566,12 +3717,25 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método que retorna un true si todos los campos contienen un valor.
+        /// Método que retorna un true si todos los campos contienen un valor
         /// </summary>
         /// <returns></returns>
         private bool ValidarValores()
         {
             if (nombre != null & version != null & fecha != null & !string.IsNullOrEmpty(descripcion) & id_tipo != 0 & ListaDocumentos.Count != 0 & _usuario != null & _id_dep != 0 & usuarioAutorizo != null & !string.IsNullOrWhiteSpace(descripcion))
+                return true;
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// Método que retorna un true si el nombre del documento y la descripción son diferentes
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidarNombreDescripcion()
+        {
+            //Hacemos mayúsculas ambos campos para poder hacer la validación correctamente
+            if (nombre.ToUpper() != descripcion.ToUpper())
                 return true;
             else
                 return false;
@@ -3858,6 +4022,7 @@ namespace View.Services.ViewModel
         {
             ServiceEmail SO_Email = new ServiceEmail();
             string[] correos = new string[ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count];
+
             int i = 0;
             foreach (Usuarios item in ListaUsuariosCorreo)
             {
@@ -3867,6 +4032,9 @@ namespace View.Services.ViewModel
                     i += 1;
                 }
             }
+            // Eliminamos correos duplicados
+            correos = Module.EliminarCorreosDuplicados(correos);
+
             string path = User.Pathnsf;
             string title = "Actualización de documento - " + Nombre;
             string body = string.Empty;
@@ -3907,6 +4075,7 @@ namespace View.Services.ViewModel
                 default:
                     break;
             }
+
             body = "<HTML>";
             body += "<head>";
             body += "<meta http-equiv=\"Content - Type\" content=\"text / html; charset = utf - 8\"/>";
@@ -4013,6 +4182,8 @@ namespace View.Services.ViewModel
                     i += 1;
                 }
             }
+            // Eliminamos correos duplicados
+            correos = Module.EliminarCorreosDuplicados(correos);
 
             string path = User.Pathnsf;
             string title = "Documento sellado y disponible - " + Nombre;
@@ -4080,7 +4251,6 @@ namespace View.Services.ViewModel
             bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body);
 
             return respuesta;
-
         }
 
         /// <summary>
@@ -4102,6 +4272,8 @@ namespace View.Services.ViewModel
                     i += 1;
                 }
             }
+            // Eliminamos correos duplicados
+            CorreosUsuarios = Module.EliminarCorreosDuplicados(CorreosUsuarios);
 
             string path = User.Pathnsf;
             string title = "Documento sellado y disponible - " + Nombre;
@@ -4169,7 +4341,6 @@ namespace View.Services.ViewModel
             bool respuesta = Correo.SendEmailLotusCustom(path, CorreosUsuarios, title, body);
 
             return respuesta;
-
         }
 
         /// <summary>
@@ -4194,6 +4365,8 @@ namespace View.Services.ViewModel
                     i += 1;
                 }
             }
+            // Eliminamos correos duplicados
+            correos = Module.EliminarCorreosDuplicados(correos);
 
             string path = User.Pathnsf;
             string title = "Alta de documento - " + Nombre;
@@ -4296,324 +4469,335 @@ namespace View.Services.ViewModel
             //Verifica que todos los campos estén llenos
             if (ValidarValores())
             {
-                //Quitamos los espacios en blanco de la descripcion para poder verificar que no se encuentre ningún caracter especial
-                string CadenaEvaluar = descripcion.Replace(" ", "");
-
-                //verifica que la descripcion no contenga ningun caracter especial
-                if (Regex.IsMatch(CadenaEvaluar, "^[a-zA-Z0-9-_,;.()áÁéÉíÍóÓúÚÜüñÑ]*$"))
+                //Verifa que el nombre del documento y la descripción no sean iguales
+                if (ValidarNombreDescripcion())
                 {
-                    //Quitamos los espacios en blanco del Nombre del usuario que lo autorizo
-                    string UsuariosPermitido = NombreUsuarioAut.Replace(" ", "");
+                    //Quitamos los espacios en blanco de la descripcion para poder verificar que no se encuentre ningún caracter especial
+                    string CadenaEvaluar = descripcion.Replace(" ", "");
 
-                    //Solo se puede guardar el documento si el nombre es diferente de sistema
-                    if (UsuariosPermitido != "SISTEMA")
+                    //verifica que la descripcion no contenga ningun caracter especial
+                    if (Regex.IsMatch(CadenaEvaluar, "^[a-zA-Z0-9-_,;.()áÁéÉíÍóÓúÚÜüñÑ]*$"))
                     {
-                        MessageDialogResult result;
+                        //Quitamos los espacios en blanco del Nombre del usuario que lo autorizo
+                        string UsuariosPermitido = NombreUsuarioAut.Replace(" ", "");
 
-                        if (TipoDocumento == "FORMATO DEL SISTEMA")
+                        //Solo se puede guardar el documento si el nombre es diferente de sistema
+                        if (UsuariosPermitido != "SISTEMA")
                         {
-                            result = await dialog.SendMessage(StringResources.msgGuardarDocumento, mensaje, setting, MessageDialogStyle.Affirmative);
-                        }
-                        else
-                        {
-                            result = await dialog.SendMessage(StringResources.msgGuardarDocumento, mensaje, setting, MessageDialogStyle.AffirmativeAndNegative);
-                        }
-                        //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
+                            MessageDialogResult result;
 
-                        //Verificamos que el botón contenga la leyenda Guardar, esto indica que el registro es nuevo.
-                        if (BotonGuardar == StringResources.ttlGuardar)
-                        {
-                            //Si la respuesta es afirmativa
-                            if (result == MessageDialogResult.Affirmative)
+                            if (TipoDocumento == "FORMATO DEL SISTEMA")
                             {
-                                //Valída si existe documentos que sena iguales al documento a subir, el resultado se guarda en una variable local.
-                                ObservableCollection<Documento> ListDocIguales = ValidaDocumentosIguales();
+                                result = await dialog.SendMessage(StringResources.msgGuardarDocumento, mensaje, setting, MessageDialogStyle.Affirmative);
+                            }
+                            else
+                            {
+                                result = await dialog.SendMessage(StringResources.msgGuardarDocumento, mensaje, setting, MessageDialogStyle.AffirmativeAndNegative);
+                            }
+                            //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
 
-                                if (ListDocIguales == null)
+                            //Verificamos que el botón contenga la leyenda Guardar, esto indica que el registro es nuevo.
+                            if (BotonGuardar == StringResources.ttlGuardar)
+                            {
+                                //Si la respuesta es afirmativa
+                                if (result == MessageDialogResult.Affirmative)
                                 {
-                                    //Valída si existe documentos que sean similares al documento a subir, el resultado se guarda en una variable local.
-                                    ObservableCollection<Documento> ListDocSimilares = ValidaSimilares();
+                                    //Valída si existe documentos que sean iguales al documento a subir, el resultado se guarda en una variable local.
+                                    ObservableCollection<Documento> ListDocIguales = ValidaDocumentosIguales();
 
-                                    ListDocSimilares = null;
-
-                                    //Si la lista es igual a nulo, no existen documentos similares. Si existe archivos similares, muestra un mensaje
-                                    if (ListDocSimilares == null)
+                                    if (ListDocIguales == null)
                                     {
-                                        //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
-                                        controllerProgressAsync = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgEsperaGuardandoDocumento);
+                                        //Valída si existe documentos que sean similares al documento a subir, el resultado se guarda en una variable local.
+                                        ObservableCollection<Documento> ListDocSimilares = ValidaSimilares();
 
-                                        //Declaramos un objeto de tipo documento.
-                                        Documento obj = new Documento();
+                                        ListDocSimilares = null;
 
-                                        //Declaramos un objeto de tipo Version.
-                                        Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
-
-                                        //Mapeamos los valores al objeto declarado.
-                                        obj.id_documento = _selectedDocumento.id_documento;
-                                        obj.nombre = nombre;
-                                        obj.id_tipo_documento = _id_tipo;
-                                        obj.id_dep = _id_dep;
-                                        obj.fecha_actualizacion = _FechaFin;
-                                        obj.fecha_emision = fecha;
-                                        //si el archivo es una JES, se pone el estatus de documento en pendiente por liberar
-                                        if (TipoDocumento == "FORMATO DEL SISTEMA")
+                                        //Si la lista es igual a nulo, no existen documentos similares. Si existe archivos similares, muestra un mensaje
+                                        if (ListDocSimilares == null)
                                         {
-                                            obj.id_estatus = 4;
+                                            //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
+                                            controllerProgressAsync = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgEsperaGuardandoDocumento);
+
+                                            //Declaramos un objeto de tipo documento.
+                                            Documento obj = new Documento();
+
+                                            //Declaramos un objeto de tipo Version.
+                                            Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
+
+                                            //Mapeamos los valores al objeto declarado.
+                                            obj.id_documento = _selectedDocumento.id_documento;
+                                            obj.nombre = nombre;
+                                            obj.id_tipo_documento = _id_tipo;
+                                            obj.id_dep = _id_dep;
+                                            obj.fecha_actualizacion = _FechaFin;
+                                            obj.fecha_emision = fecha;
+                                            //si el archivo es una JES, se pone el estatus de documento en pendiente por liberar
+                                            if (TipoDocumento == "FORMATO DEL SISTEMA")
+                                            {
+                                                obj.id_estatus = 4;
+                                            }
+                                            else
+                                            {
+                                                obj.id_estatus = 2;
+                                            }
+
+                                            obj.usuario = usuario;
+
+                                            //Ejecutamos el método para guardar el documento. El resultado lo guardamos en una variable local.
+                                            int update = DataManagerControlDocumentos.UpdateDocumento(obj);
+
+                                            //si se guardo el registro en la tabla documento
+                                            if (update != 0)
+                                            {
+                                                //Mapeamos los valores al objeto de versión.
+                                                objVersion.no_version = version;
+                                                objVersion.id_documento = _selectedDocumento.id_documento;
+                                                objVersion.id_usuario = _usuario;
+                                                objVersion.id_usuario_autorizo = _usuarioAutorizo;
+                                                objVersion.fecha_version = fecha;
+                                                //si es una JES, se pone el estatus de version en pendiente por liberar
+                                                if (TipoDocumento == "FORMATO DEL SISTEMA")
+                                                {
+                                                    objVersion.id_estatus_version = 5;
+                                                }
+                                                else
+                                                {
+                                                    objVersion.id_estatus_version = 3;
+                                                }
+                                                objVersion.no_copias = 0;
+                                                objVersion.descripcion_v = Descripcion;
+
+                                                //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
+                                                int id_version = DataManagerControlDocumentos.SetVersion(objVersion, obj.nombre);
+                                                UnirTodosIntegrantes(id_version);
+
+                                                //Actualizamos el código generado en la tabla TBL_VERSION.
+                                                DataManagerControlDocumentos.UpdateCodeValidation(id_version, codeValidation);
+                                                codeValidation = string.Empty;
+
+                                                //si se guardó correctamente el registro en la tabla versión.
+                                                if (id_version != 0)
+                                                {
+                                                    bool banOk = true;
+                                                    //Iteramos la lista de documentos.
+                                                    foreach (var item in ListaDocumentos)
+                                                    {
+                                                        //Declaramos un objeto de tipo Archivo.
+                                                        Archivo objArchivo = new Archivo();
+
+                                                        //Mapeamos los valores al objeto creado, se guarda el archivo con el nombre del documento y la versión.
+                                                        objArchivo.id_version = id_version;
+                                                        objArchivo.archivo = item.archivo;
+                                                        objArchivo.ext = item.ext;
+                                                        objArchivo.nombre = string.Concat(Nombre, version);
+
+                                                        //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
+                                                        int nombre = await DataManagerControlDocumentos.SetArchivo(objArchivo);
+
+                                                        if (nombre == 0)
+                                                        {
+                                                            banOk = false;
+                                                            objVersion.id_estatus_version = 4;
+
+                                                            //Rechazamos el documento.
+                                                            DataManagerControlDocumentos.UpdateVersion(objVersion, User, objArchivo.nombre);
+
+                                                            //await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
+                                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHuboError);
+                                                        }
+                                                    }
+
+                                                    //Ejecutamos el método para cerrar el mensaje de espera.
+                                                    await controllerProgressAsync.CloseAsync();
+
+                                                    if (banOk)
+                                                        //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
+                                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
+
+                                                    //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                                                    var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                                                    //Verificamos que la pantalla sea diferente de nulo.
+                                                    if (window != null)
+                                                    {
+                                                        //Cerramos la pantalla
+                                                        window.Close();
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorRegistrarVersion);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                //Si no se hizo la alta.
+                                                //Ejecutamos el método para enviar un mensaje de alerta al usuario.
+                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorRegistrarDocumento);
+                                            }
                                         }
                                         else
                                         {
-                                            obj.id_estatus = 2;
+                                            // si existen archivos similares 
+                                            VerDocumentosSimilares(ListDocSimilares);
                                         }
+                                    }
+                                    else
+                                    {
+                                        VerDocumentosSimilares(ListDocIguales);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                //Si se genera una nueva versión, leyenda Guardar Version
+                                //Si la respuesta es afirmativa
+                                if (result == MessageDialogResult.Affirmative)
+                                {
+                                    //Valída si existe documentos que sena iguales al documento a subir, el resultado se guarda en una variable local.
+                                    ObservableCollection<Documento> ListDocIguales = ValidaDocumentosIguales();
 
-                                        obj.usuario = usuario;
+                                    //Si no hay documentos con la misma descripción.
+                                    if (ListDocIguales == null)
+                                    {
+                                        //Valída si existe documentos que se aprecezcan al documento a subir, el resultado se guarda en una variable local.
+                                        ObservableCollection<Documento> ListDocSimilares = ValidaSimilares();
 
-                                        //Ejecutamos el método para guardar el documento. El resultado lo guardamos en una variable local.
-                                        int update = DataManagerControlDocumentos.UpdateDocumento(obj);
+                                        ListDocSimilares = null;
 
-                                        //si se guardo el registro en la tabla documento
-                                        if (update != 0)
+                                        //si no existe archivos similares, guarda el documento. Si existe archivos similares, muestra un mensaje
+                                        if (ListDocSimilares == null)
                                         {
+                                            //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
+                                            controllerProgressAsync = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgEsperaGuardandoDocumento);
+
+                                            //Declaramos un objeto de tipo Version.
+                                            Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
                                             //Mapeamos los valores al objeto de versión.
                                             objVersion.no_version = version;
-                                            objVersion.id_documento = _selectedDocumento.id_documento;
+                                            objVersion.id_documento = id_documento;
                                             objVersion.id_usuario = _usuario;
                                             objVersion.id_usuario_autorizo = _usuarioAutorizo;
                                             objVersion.fecha_version = fecha;
-                                            //si es una JES, se pone el estatus de version en pendiente por liberar
+
+                                            //si es archivo JES, se pasa automaticamente a pendiente por liberar
                                             if (TipoDocumento == "FORMATO DEL SISTEMA")
                                             {
                                                 objVersion.id_estatus_version = 5;
                                             }
-                                            else
+                                            else //si no es JES, se pasa a pendiente por validar
                                             {
                                                 objVersion.id_estatus_version = 3;
                                             }
+
                                             objVersion.no_copias = 0;
                                             objVersion.descripcion_v = Descripcion;
 
-                                            //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
-                                            int id_version = DataManagerControlDocumentos.SetVersion(objVersion, obj.nombre);
+                                            //valida que la version en el documento no se repita
+                                            int validacion = DataManagerControlDocumentos.ValidateVersion(objVersion);
 
-                                            //Actualizamos el código generado en la tabla TBL_VERSION.
-                                            DataManagerControlDocumentos.UpdateCodeValidation(id_version, codeValidation);
-                                            codeValidation = string.Empty;
-
-                                            //si se guardó correctamente el registro en la tabla versión.
-                                            if (id_version != 0)
+                                            if (validacion == 0)
                                             {
-                                                bool banOk = true;
-                                                //Iteramos la lista de documentos.
-                                                foreach (var item in ListaDocumentos)
+                                                //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
+                                                int id_version = DataManagerControlDocumentos.SetVersion(objVersion, nombre);
+                                                // Llamamos el método para insertar en la tabla todos usuarios a notificar
+                                                UnirTodosIntegrantes(id_version);
+
+                                                DataManagerControlDocumentos.UpdateCodeValidation(id_version, codeValidation);
+
+                                                //si se realizo guardo la versión 
+                                                if (id_version != 0)
                                                 {
-                                                    //Declaramos un objeto de tipo Archivo.
-                                                    Archivo objArchivo = new Archivo();
-
-                                                    //Mapeamos los valores al objeto creado, se guarda el archivo con el nombre del documento y la versión.
-                                                    objArchivo.id_version = id_version;
-                                                    objArchivo.archivo = item.archivo;
-                                                    objArchivo.ext = item.ext;
-                                                    objArchivo.nombre = string.Concat(Nombre, version);
-
-                                                    //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
-                                                    int nombre = await DataManagerControlDocumentos.SetArchivo(objArchivo);
-
-                                                    if (nombre == 0)
+                                                    bool banOk = true;
+                                                    //Iteramos la lista de documentos.
+                                                    foreach (var item in ListaDocumentos)
                                                     {
-                                                        banOk = false;
-                                                        objVersion.id_estatus_version = 4;
+                                                        Archivo objArchivo = new Archivo();
+                                                        //Mapeamos los valores al objeto creado, se guarda el archivo con el nombre del documento y la versión
+                                                        objArchivo.id_version = id_version;
+                                                        objArchivo.archivo = item.archivo;
+                                                        objArchivo.ext = item.ext;
+                                                        objArchivo.nombre = string.Concat(nombre, version);
 
-                                                        //Rechazamos el documento.
-                                                        DataManagerControlDocumentos.UpdateVersion(objVersion, User, objArchivo.nombre);
+                                                        //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
+                                                        int id_archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
 
-                                                        //await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
-                                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHuboError);
+                                                        if (id_archivo == 0)
+                                                        {
+                                                            banOk = false;
+                                                            objVersion.id_estatus_version = 4;
+
+                                                            //Rechazamos el documento.
+                                                            DataManagerControlDocumentos.UpdateVersion(objVersion, User, objArchivo.nombre);
+
+                                                            //await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
+                                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHuboError);
+                                                        }
+                                                    }
+
+                                                    //Asignamos el valor de Guardar a la etiqueta del botón.
+                                                    BotonGuardar = StringResources.ttlGuardar;
+
+                                                    //Ejecutamos el método para cerrar el mensaje de espera.
+                                                    await controllerProgressAsync.CloseAsync();
+
+                                                    //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
+                                                    if (banOk)
+                                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
+
+                                                    //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                                                    var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                                                    //Verificamos que la pantalla sea diferente de nulo.
+                                                    if (window != null)
+                                                    {
+                                                        //Cerramos la pantalla
+                                                        window.Close();
                                                     }
                                                 }
-
-                                                //Ejecutamos el método para cerrar el mensaje de espera.
-                                                await controllerProgressAsync.CloseAsync();
-
-                                                if (banOk)
-                                                    //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
-                                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
-
-                                                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                                                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                                                //Verificamos que la pantalla sea diferente de nulo.
-                                                if (window != null)
+                                                else
                                                 {
-                                                    //Cerramos la pantalla
-                                                    window.Close();
+                                                    //si hubo algún error en la alta, manda mensaje se error.
+                                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorRegistrarVersion);
                                                 }
                                             }
                                             else
                                             {
-                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorRegistrarVersion);
+                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorRegistrarDocumento);
+                                                await controllerProgressAsync.CloseAsync();
                                             }
                                         }
                                         else
                                         {
-                                            //Si no se hizo la alta.
-                                            //Ejecutamos el método para enviar un mensaje de alerta al usuario.
-                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorRegistrarDocumento);
+                                            //si existen documentos similares 
+                                            VerDocumentosSimilares(ListDocSimilares);
                                         }
                                     }
                                     else
                                     {
-                                        // si existen archivos similares 
-                                        VerDocumentosSimilares(ListDocSimilares);
+                                        //si existen documentos iguales. 
+                                        VerDocumentosSimilares(ListDocIguales);
                                     }
-                                }
-                                else
-                                {
-                                    VerDocumentosSimilares(ListDocIguales);
                                 }
                             }
                         }
                         else
                         {
-                            //Si se genera una nueva versión, leyenda Guardar Version
-                            //Si la respuesta es afirmativa
-                            if (result == MessageDialogResult.Affirmative)
-                            {
-                                //Valída si existe documentos que sena iguales al documento a subir, el resultado se guarda en una variable local.
-                                ObservableCollection<Documento> ListDocIguales = ValidaDocumentosIguales();
-
-                                //Si no hay documentos con la mista descripción.
-                                if (ListDocIguales == null)
-                                {
-                                    //Valída si existe documentos que se aprecezcan al documento a subir, el resultado se guarda en una variable local.
-                                    ObservableCollection<Documento> ListDocSimilares = ValidaSimilares();
-
-                                    ListDocSimilares = null;
-
-                                    //si no existe archivos similares, guarda el documento. Si existe archivos similares, muestra un mensaje
-                                    if (ListDocSimilares == null)
-                                    {
-                                        //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
-                                        controllerProgressAsync = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgEsperaGuardandoDocumento);
-
-                                        //Declaramos un objeto de tipo Version.
-                                        Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
-                                        //Mapeamos los valores al objeto de versión.
-                                        objVersion.no_version = version;
-                                        objVersion.id_documento = id_documento;
-                                        objVersion.id_usuario = _usuario;
-                                        objVersion.id_usuario_autorizo = _usuarioAutorizo;
-                                        objVersion.fecha_version = fecha;
-
-                                        //si es archivo JES, se pasa automaticamente a pendiente por liberar
-                                        if (TipoDocumento == "FORMATO DEL SISTEMA")
-                                        {
-                                            objVersion.id_estatus_version = 5;
-                                        }
-                                        else //si no es JES, se pasa a pendiente por validar
-                                        {
-                                            objVersion.id_estatus_version = 3;
-                                        }
-
-                                        objVersion.no_copias = 0;
-                                        objVersion.descripcion_v = Descripcion;
-
-                                        //valida que la version en el documento no se repita
-                                        int validacion = DataManagerControlDocumentos.ValidateVersion(objVersion);
-
-                                        if (validacion == 0)
-                                        {
-                                            //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
-                                            int id_version = DataManagerControlDocumentos.SetVersion(objVersion, nombre);
-
-                                            DataManagerControlDocumentos.UpdateCodeValidation(id_version, codeValidation);
-
-                                            //si se realizo guardo la versión 
-                                            if (id_version != 0)
-                                            {
-                                                bool banOk = true;
-                                                //Iteramos la lista de documentos.
-                                                foreach (var item in ListaDocumentos)
-                                                {
-                                                    Archivo objArchivo = new Archivo();
-                                                    //Mapeamos los valores al objeto creado, se guarda el archivo con el nombre del documento y la versión
-                                                    objArchivo.id_version = id_version;
-                                                    objArchivo.archivo = item.archivo;
-                                                    objArchivo.ext = item.ext;
-                                                    objArchivo.nombre = string.Concat(nombre, version);
-
-                                                    //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
-                                                    int id_archivo = await DataManagerControlDocumentos.SetArchivo(objArchivo);
-
-                                                    if (id_archivo == 0)
-                                                    {
-                                                        banOk = false;
-                                                        objVersion.id_estatus_version = 4;
-
-                                                        //Rechazamos el documento.
-                                                        DataManagerControlDocumentos.UpdateVersion(objVersion, User, objArchivo.nombre);
-
-                                                        //await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
-                                                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHuboError);
-                                                    }
-                                                }
-
-                                                //Asignamos el valor de Guardar a la etiqueta del botón.
-                                                BotonGuardar = StringResources.ttlGuardar;
-
-                                                //Ejecutamos el método para cerrar el mensaje de espera.
-                                                await controllerProgressAsync.CloseAsync();
-
-                                                //Ejecutamos el método para enviar un mensaje de confirmación al usuario.
-                                                if (banOk)
-                                                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
-
-
-                                                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                                                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                                                //Verificamos que la pantalla sea diferente de nulo.
-                                                if (window != null)
-                                                {
-                                                    //Cerramos la pantalla
-                                                    window.Close();
-                                                }
-                                            }
-                                            else
-                                            {
-                                                //si hubo algún error en la alta, manda mensaje se error.
-                                                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorRegistrarVersion);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorRegistrarDocumento);
-                                            await controllerProgressAsync.CloseAsync();
-                                        }
-                                    }
-                                    else
-                                    {
-                                        //si existen documentos similares 
-                                        VerDocumentosSimilares(ListDocSimilares);
-                                    }
-                                }
-                                else
-                                {
-                                    //si existen documentos iguales. 
-                                    VerDocumentosSimilares(ListDocIguales);
-                                }
-                            }
+                            //Mandamos mensaje que el usuario autorizo no puede ser sistema
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblUsuarioPermitido);
                         }
+                        //CIERRA IF DE VALIDAR CARACTERES ESPECIALES
                     }
                     else
                     {
-                        //Mandamos mensaje que el usuario autorizo no puede ser sistema
-                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblUsuarioPermitido);
+                        //Mandamos mensaje que la descripcion no puede tener caracteres especiales
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblCaracteresEspeciales);
                     }
-                    //CIERRA IF DE VALIDAR CARACTERES ESPECIALES
                 }
                 else
                 {
-                    //Mandamos mensaje que la descripcion no puede tener caracteres especiales
-                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblCaracteresEspeciales);
+                    //Mandamos mensaje que el nombre del documento y la descripción no pueden ser iguales
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiaDescripcion);
                 }
             }
             else
@@ -4621,7 +4805,6 @@ namespace View.Services.ViewModel
                 //Mandamos mensaje de que no puede haber campos vacios
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
             }
-
         }
 
         /// <summary>
@@ -4645,6 +4828,8 @@ namespace View.Services.ViewModel
                         i += 1;
                     }
                 }
+                // Eliminamos duplicados
+                correos = Module.EliminarCorreosDuplicados(correos);
 
                 string path = User.Pathnsf;
                 string title = "Baja de documento - " + Nombre;
@@ -5049,6 +5234,7 @@ namespace View.Services.ViewModel
         //    pdfData.RestoreState();
 
         //}
+
         /// <summary>
         /// Método que inicializa la lista de los departamentos, tipos y usuarios
         /// </summary>
@@ -6114,6 +6300,9 @@ namespace View.Services.ViewModel
                                                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHuboError);
                                                     break;
                                                 }
+
+                                                // Llamamos el método para insertar en la tabla todos usuarios a notificar
+                                                UnirTodosIntegrantes(idVersion);
                                             }
                                         }
                                         if (banOk)
@@ -6165,6 +6354,9 @@ namespace View.Services.ViewModel
                                                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHuboError);
                                                 break;
                                             }
+
+                                            // Llamamos el método para insertar en la tabla todos usuarios a notificar
+                                            UnirTodosIntegrantes(idVersion);
                                         }
                                     }
 
@@ -6354,17 +6546,26 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Método para abrir y cerrar el flyout de la ventana documentos, muestra la lista de grupos por usuario
+        /// </summary>
         public void abrircerrarFlyout()
         {
             if (isopen == true)
             {
                 isopen = false;
-            } else
+                // Se manda llamar método que valida los seleccionados, después que el flyuot se cierra
+                RecorrerListas();
+            }
+            else
             {
                 isopen = true;
             }
         }
 
+        /// <summary>
+        /// Método para abrir o ver registros de un grupo.
+        /// </summary>
         public void abrirgrupo()
         {
             if (GrupoSeleccionado.idgrupo != 0)
@@ -6379,21 +6580,248 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Método para abrir ventana cuando se quiere crear nuevo grupo
+        /// </summary>
         public void ircreargrupo()
         {
             FrmCrearGrupo Form = new FrmCrearGrupo();
 
-            DocumentoViewModel Data = new DocumentoViewModel();
+            GruposViewModel Data = new GruposViewModel(User);
 
             Form.DataContext = Data;
             Form.ShowDialog();
+
+            // Cargamos de nuevo la lista de grupos, para que se actualice al momento de crear nuevo grupo
+            ListaGrupos = DataManagerControlDocumentos.GetAllGrupos(User.NombreUsuario);
+            ListaGrupos = ListaGrupos;
+            NotifyChange("ListaGrupos");
         }
 
-        public void ObtenerListaUsuarios2()
+        /// <summary>
+        /// Método para eliminar un grupo.
+        /// </summary>
+        public async void eliminargrupo()
         {
-            ListaUsuarios2 = DataManagerControlDocumentos.GetUsuarios();
+            foreach (var grupo in ListaGrupos)
+            {
+                if (grupo.IsSelected)
+                {
+                    DialogService dialog = new DialogService();
+                    MetroDialogSettings settings = new MetroDialogSettings();
+
+                    settings.AffirmativeButtonText = StringResources.lblYes;
+                    settings.NegativeButtonText = StringResources.lblNo;
+
+                    MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEliminarRegistro, settings, MessageDialogStyle.AffirmativeAndNegative);
+
+                    // Se asegura que el grupo es existente
+                    if (grupo.idgrupo != 0)
+                    {
+                        if (MessageDialogResult.Affirmative == result)
+                        {
+                            // Generamos lista con integrantes del grupo a eliminar
+                            ObservableCollection<DO_INTEGRANTES_GRUPO> ListaIntegrantes = DataManagerControlDocumentos.GetAllIntegrantesGrupo(grupo.idgrupo);
+
+                            // Recorremos y eliminamos integrantes del grupo
+                            foreach (var usuariointegrante in ListaIntegrantes)
+                            {
+                                DataManagerControlDocumentos.eliminarintegrantes(grupo.idgrupo, usuariointegrante.idusuariointegrante);
+                            }
+
+                            // Eliminamos grupo ya vacío
+                            DataManagerControlDocumentos.eliminarGrupos(grupo.idgrupo);
+
+                            // Cargamos lista de grupos para que se actualice al momento de eliminar alguno
+                            ListaGrupos = DataManagerControlDocumentos.GetAllGrupos(User.NombreUsuario);
+
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.ttlDone);
+
+                            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+                        }
+                    }
+                    else
+                    {
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgError);
+                    }
+                }
+            }
         }
 
-        #endregion       
+        /// <summary>
+        /// Método para juntar en una sola lista los usuarios de todos los grupos y usuarios individuales
+        /// </summary>
+        public void UnirTodosIntegrantes(int ID_VERSION)
+        {
+            // Recorremos la lista
+            foreach (var Grupo in ListaGrupos)
+            {
+                if (Grupo.IsSelected)
+                {
+                    // Nos traemos todos los integrantes de los grupos seleccionados
+                    ListaIntegrantes_Grupo = DataManagerControlDocumentos.GetAllIntegrantesGrupo(Grupo.idgrupo);
+                    // Recorremos la lista
+                    foreach (var Integrante in ListaIntegrantes_Grupo)
+                    {
+                        // Se insertan los integrantes a la tabla TR_USUARIOS_NOTIFICACION_VERSION 
+                        DataManagerControlDocumentos.InsertUserNotifyVersion(Integrante.idusuariointegrante, ID_VERSION);
+                    }
+                }
+            }
+            // Recorremos la lista
+            foreach (var Usuario in ListaUsuarios)
+            {
+                if (Usuario.IsSelected)
+                {
+                    // Los usuarios que estén seleccionados se insertarán en la tabla TR_USUARIOS_NOTIFICACION_VERSION
+                    DataManagerControlDocumentos.InsertUserNotifyVersion(Usuario.usuario, ID_VERSION);
+                }
+            }
+        }
+
+        #region Métodos para seleccionar-deseleccionar grupos y usuarios
+
+        /// <summary>
+        /// Método que selecciona o deselecciona grupos segun sea el caso
+        /// </summary>
+        public void _SelecDeselecGrupos()
+        {
+            if (IsSelectedGrupos)
+            {
+                TituloCheckGrupos = "Seleccionar todos los grupos";
+                _DeseleccionarTodosGrupos();
+                IsSelectedGrupos = false;
+            }
+            else
+            {
+                TituloCheckGrupos = "Deseleccionar todos los grupos";
+                _SeleccionarTodosGrupos();
+                IsSelectedGrupos = true;
+            }
+        }
+
+        /// <summary>
+        /// Método que selecciona o deselecciona usuarios segun sea el caso
+        /// </summary>
+        public void _SelecDeselecUsuarios()
+        {
+            if (IsSelectedUsuarios)
+            {
+                TituloCheckUsuarios = "Seleccionar todos los usuarios";
+                _DeseleccionarTodosUsuarios();
+                IsSelectedUsuarios = false;
+            }
+            else
+            {
+                TituloCheckUsuarios = "Deseleccionar todos los usuarios";
+                _SeleccionarTodosUsuarios();
+                IsSelectedUsuarios = true;
+            }
+        }
+
+        #endregion
+
+        #region SelectDeselect grupos
+
+        /// <summary>
+        /// Método que selecciona todos los grupos
+        /// </summary>
+        public void _SeleccionarTodosGrupos()
+        {
+            ObservableCollection<DO_Grupos> Aux = new ObservableCollection<DO_Grupos>();
+
+            foreach (var grupo in ListaGrupos)
+            {
+                grupo.IsSelected = true;
+                Aux.Add(grupo);
+            }
+
+            ListaGrupos.Clear();
+
+            foreach (var item in Aux)
+            {
+                ListaGrupos.Add(item);
+            }
+        }
+
+        /// <summary>
+        /// Método que deselecciona todos los grupos
+        /// </summary>
+        public void _DeseleccionarTodosGrupos()
+        {
+            ObservableCollection<DO_Grupos> Aux = new ObservableCollection<DO_Grupos>();
+
+            foreach (var grupo in ListaGrupos)
+            {
+                grupo.IsSelected = false;
+                Aux.Add(grupo);
+            }
+
+            ListaGrupos.Clear();
+
+            foreach (var item in Aux)
+            {
+                ListaGrupos.Add(item);
+            }
+        }
+
+        #endregion
+
+        #region SelectDeselect usuarios
+
+        /// <summary>
+        /// Método que selecciona todos los usuarios
+        /// </summary>
+        public void _SeleccionarTodosUsuarios()
+        {
+            ObservableCollection<Usuarios> Aux = new ObservableCollection<Usuarios>();
+
+            foreach (var usuario in ListaUsuarios)
+            {
+                usuario.IsSelected = true;
+                Aux.Add(usuario);
+            }
+
+            ListaUsuarios.Clear();
+
+            foreach (var item in Aux)
+            {
+                ListaUsuarios.Add(item);
+            }
+        }
+
+        /// <summary>
+        /// Método que deselecciona todos los usuarios
+        /// </summary>
+        public void _DeseleccionarTodosUsuarios()
+        {
+            ObservableCollection<Usuarios> Aux = new ObservableCollection<Usuarios>();
+
+            foreach (var usuario in ListaUsuarios)
+            {
+                usuario.IsSelected = false;
+                Aux.Add(usuario);
+            }
+
+            ListaUsuarios.Clear();
+
+            foreach (var item in Aux)
+            {
+                ListaUsuarios.Add(item);
+            }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Método para mostrar mensaje de alerta cuando no hay usuarios seleccionados 
+        /// </summary>
+        public void RecorrerListas()
+        {
+            lblVerAlerta = ListaUsuarios.Where(a => a.IsSelected == true).ToList().Count > 0 || ListaGrupos.Where(b => b.IsSelected == true).ToList().Count > 0 ? false : true;
+        }
+
+        #endregion
     }
 }

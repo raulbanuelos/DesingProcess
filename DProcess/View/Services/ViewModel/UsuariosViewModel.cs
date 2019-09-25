@@ -36,6 +36,7 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Constructors
+
         public UsuariosViewModel(string usuario, string usuarioautorizo)
         {
             ListaUsuariosCorreo = DataManagerControlDocumentos.GetUsuarios();
@@ -60,6 +61,7 @@ namespace View.Services.ViewModel
                 }
             }
         } 
+
         #endregion
     }
 }

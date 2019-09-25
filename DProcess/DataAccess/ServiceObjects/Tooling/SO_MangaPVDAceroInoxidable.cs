@@ -18,7 +18,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="max"></param>
         /// <param name="a"></param>
         /// <returns></returns>
-        public int SetAceroInoxidable(int id, float min, float max, float a, float factor)
+        public int SetAceroInoxidable(float min, float max, float a, float factor)
         {
             try
             {
@@ -28,8 +28,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     // Declaramos el objeto de la tabla
                     TBL_MANGA_PVD_ACERO_INOXIDABLE obj = new TBL_MANGA_PVD_ACERO_INOXIDABLE();
 
-                    //Asignamos los valores
-                    obj.ID_MANGA_PVD_ACERO_INOXIDABLE = id;
+                    //Asignamos los valores                    
                     obj.N_MIN = min;
                     obj.N_MAX = max;
                     obj.A = a;

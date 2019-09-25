@@ -79,6 +79,7 @@
     <Compile Include="ControlDocumentos\Documento.cs" />
     <Compile Include="ControlDocumentos\DO_Grupos.cs" />
     <Compile Include="ControlDocumentos\DO_INTEGRANTES_GRUPO.cs" />
+    <Compile Include="ControlDocumentos\DO_USUARIO_NOTIFICACION_VERSION.cs" />
     <Compile Include="ControlDocumentos\EstatusDocumento.cs" />
     <Compile Include="ControlDocumentos\HistorialVersion.cs" />
     <Compile Include="ControlDocumentos\LeccionesAprendidas.cs" />
