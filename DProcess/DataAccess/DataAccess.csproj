@@ -96,6 +96,7 @@
     <Compile Include="ServiceObjects\ControlDocumentos\SO_EstatusVersion.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_GRUPOS.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_HistorialVersion.cs" />
+    <Compile Include="ServiceObjects\ControlDocumentos\SO_InformacionFrames.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_INTEGRANTES_GRUPO.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_RecursoTipoDocumento.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Rol.cs" />
@@ -133,6 +134,9 @@
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_HISTORIAL_VERSION.cs">
+      <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\TBL_INFORMACION_FRAMES.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_NOTIFICACION_ERROR.cs">
@@ -274,6 +278,9 @@
     <Compile Include="ServiceObjects\Notificaciones\TBL_NOTIFICACIONES.cs">
       <DependentUpon>ModelNotificaciones.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Operaciones\Arquetipo.cs">
+      <DependentUpon>ModelOperaciones.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Operaciones\ModelOperaciones.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -290,6 +297,13 @@
       <DependentUpon>ModelOperaciones.edmx</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Operaciones\OperacionesRouter.cs">
+      <DependentUpon>ModelOperaciones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Operaciones\SO_Calculo.cs" />
+    <Compile Include="ServiceObjects\Operaciones\TBL_CALCULO_ARQUETIPO.cs">
+      <DependentUpon>ModelOperaciones.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Operaciones\TBL_CALCULO_DETALLE.cs">
       <DependentUpon>ModelOperaciones.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Perfiles\ArquetipoRings.cs">
@@ -495,6 +509,7 @@
     </Compile>
     <Compile Include="ServiceObjects\SO_CentroTrabajo.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Material.cs" />
+    <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_Bobinado.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\SO_Diskus.cs" />
     <Compile Include="ServiceObjects\Tooling\PLANO_HERRAMENTAL.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
@@ -536,6 +551,15 @@
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\SPlitterSpacerChart2.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_BOBINADO_LOWER_ROLL.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_BOBINADO_TARGET_ROLL.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_BOBINADO_UPPER_ROLL.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_COIL_CENTER_GUIDE.cs">

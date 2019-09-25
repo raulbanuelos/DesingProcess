@@ -59,6 +59,9 @@ namespace DataAccess.ServiceObjects.Tooling
             this.TBL_SHIM_OF_THE_CUT_SYSTEM = new HashSet<TBL_SHIM_OF_THE_CUT_SYSTEM>();
             this.UretanoSplitter = new HashSet<UretanoSplitter>();
             this.WorkCam = new HashSet<WorkCam>();
+            this.TBL_BOBINADO_LOWER_ROLL = new HashSet<TBL_BOBINADO_LOWER_ROLL>();
+            this.TBL_BOBINADO_UPPER_ROLL = new HashSet<TBL_BOBINADO_UPPER_ROLL>();
+            this.TBL_BOBINADO_TARGET_ROLL = new HashSet<TBL_BOBINADO_TARGET_ROLL>();
         }
     
         public string Codigo { get; set; }
@@ -158,5 +161,11 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual ICollection<UretanoSplitter> UretanoSplitter { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkCam> WorkCam { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_BOBINADO_LOWER_ROLL> TBL_BOBINADO_LOWER_ROLL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_BOBINADO_UPPER_ROLL> TBL_BOBINADO_UPPER_ROLL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_BOBINADO_TARGET_ROLL> TBL_BOBINADO_TARGET_ROLL { get; set; }
     }
 }

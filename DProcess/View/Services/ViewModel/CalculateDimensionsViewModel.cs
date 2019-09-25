@@ -1,13 +1,20 @@
-﻿using Model;
+﻿using MahApps.Metro.Controls;
+using MahApps.Metro.IconPacks;
+using Model;
 using Model.Interfaces;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
+using View.Forms.Routing;
 
 namespace View.Services.ViewModel
 {
     public class CalculateDimensionsViewModel : Arquetipo, INotifyPropertyChanged
     {
+
+        #region Attributes
+        DialogService dialogService;
+        #endregion
 
         #region Properties
         #region Dimensiones Materia Prima
@@ -63,7 +70,7 @@ namespace View.Services.ViewModel
         }
 
         #endregion
-
+        
         private ObservableCollection<IOperacion> _Operaciones = new ObservableCollection<IOperacion>();
         public ObservableCollection<IOperacion> Operaciones
         {
@@ -106,6 +113,45 @@ namespace View.Services.ViewModel
             set { _OperationRouteSelected = value; NotifyChange("OperationRouteSelected"); }
         }
 
+        public ObservableCollection<Arquetipo> ListaComponentes { get; set; }
+
+        private Arquetipo _ComponenteSeleccionado;
+        public Arquetipo ComponenteSeleccionado
+        {
+            get { return _ComponenteSeleccionado; }
+            set { _ComponenteSeleccionado = value; NotifyChange("ComponenteSeleccionado"); }
+        }
+
+        private HamburgerMenuItemCollection _menuItems;
+        public HamburgerMenuItemCollection MenuItems
+        {
+            get
+            {
+                return _menuItems;
+            }
+            set
+            {
+                if (Equals(value, _menuItems)) return;
+                _menuItems = value;
+                //OnPropertyChanged();
+                NotifyChange("MenuItems");
+            }
+        }
+
+        private HamburgerMenuItemCollection _menuOptionItems;
+        public HamburgerMenuItemCollection MenuOptionItems
+        {
+            get
+            {
+                return _menuOptionItems;
+            }
+            set
+            {
+                if (Equals(value, _menuOptionItems)) return;
+                _menuOptionItems = value;
+                NotifyChange("MenuOptionItems");
+            }
+        }
 
         #region Flyouts
         private bool _IsOpenSave;
@@ -140,6 +186,7 @@ namespace View.Services.ViewModel
             //Termina HardCode
 
             ListaOperacionesOpcionales = DataManager.GetAllOperaciones();
+            crearMenuItems();
         }
 
         public CalculateDimensionsViewModel(ObservableCollection<IOperacion> ListaOperaciones)
@@ -147,6 +194,7 @@ namespace View.Services.ViewModel
             Operaciones = ListaOperaciones;
             SetNumberOperation();
             ListaOperacionesOpcionales = DataManager.GetAllOperaciones();
+            crearMenuItems();
         }
 
         #endregion
@@ -293,6 +341,55 @@ namespace View.Services.ViewModel
             Operaciones.Remove(OperationRouteSelected);
         }
 
+        private void guardar()
+        {
+            int r = DataManager.InsertArquetipo(Codigo, DescripcionGeneral, null, true);
+
+            if (r > 0)
+            {
+                r = DataManager.InsertCalculoDetalle(Codigo, WidthAnillo, ThicknessAnillo, DiametroAnillo, GapAnillo);
+
+                if (r > 0)
+                {
+                    foreach (var operacion in Operaciones)
+                    {
+                        double matRemoverWidth, matRemoverThickness, matRemoverDiameter;
+                        bool workGap = false;
+                        bool gapFixed = false;
+                        
+                        matRemoverDiameter = operacion is IObserverDiametro ? ((IObserverDiametro)operacion).MatRemoverDiametro : 0;
+                        matRemoverThickness = operacion is IObserverThickness ? ((IObserverThickness)operacion).MatRemoverThickness : 0;
+                        matRemoverWidth = operacion is IObserverWidth ? ((IObserverWidth)operacion).MatRemoverWidth : 0;
+
+                        workGap = operacion is IObserverDiametro ? ((IObserverDiametro)operacion).RemueveGap : false;
+                        gapFixed = operacion is IObserverDiametro ? ((IObserverDiametro)operacion).GapFijo : false;
+                        
+                        DataManager.InsertCalculoArquetipo(Codigo, operacion.IdXML, matRemoverWidth, matRemoverThickness, matRemoverDiameter, workGap, gapFixed);
+                    }
+                }
+            }
+        }
+
+        private void abrirComponente()
+        {
+            ListaComponentes = DataManager.GetAllArquetipoCalculo();
+
+            WSelectComponent wSelectComponente = new WSelectComponent();
+            wSelectComponente.DataContext = this;
+            wSelectComponente.ShowDialog();
+
+            if (wSelectComponente.DialogResult.HasValue && wSelectComponente.DialogResult.Value)
+            {
+                if (ComponenteSeleccionado != null)
+                {
+                    dialogService = new DialogService();
+
+                    string codigo = ComponenteSeleccionado.Codigo;
+
+                }
+            }
+        }
+
         private void SetNumberOperation()
         {
             #region Asignar numeración a las operaciones
@@ -304,6 +401,57 @@ namespace View.Services.ViewModel
             }
             #endregion
         }
+
+        private void crearMenuItems()
+        {
+            MenuItems = new HamburgerMenuItemCollection();
+            MenuOptionItems = new HamburgerMenuItemCollection();
+            MenuItems.Add(
+                new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Calculator },
+                    Label = "Calcular",
+                    Command = Calcular,
+                    Tag = "Calcular",
+                });
+
+            MenuItems.Add(
+                new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Plus },
+                    Label = "Agregar operación",
+                    Command = OpenCloseFlyoutAddOperation,
+                    Tag = "Agregar operación",
+                });
+
+            MenuItems.Add(
+                new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Delete },
+                    Label = "Eliminar operación",
+                    Command = DeleteOperation,
+                    Tag = "Eliminar operación",
+                });
+
+            MenuItems.Add(
+                new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.ContentSave },
+                    Label = "Guardar calculo",
+                    Command = OpenCloseFlyoutSave,
+                    Tag = "Guardar calculo",
+                });
+
+            MenuItems.Add(
+                new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FolderLockOpen },
+                    Label = "Abrir componente",
+                    Command = AbrirComponente,
+                    Tag = "Abrir componente",
+                });
+        }
+
         #endregion
 
         #region Commands
@@ -347,6 +495,21 @@ namespace View.Services.ViewModel
             get
             {
                 return new RelayCommand(o => deleteOperation());
+            }
+        }
+
+        public ICommand Guardar {
+            get
+            {
+                return new RelayCommand(o => guardar());
+            }
+        }
+
+        public ICommand AbrirComponente
+        {
+            get
+            {
+                return new RelayCommand(o => abrirComponente());
             }
         }
         #endregion

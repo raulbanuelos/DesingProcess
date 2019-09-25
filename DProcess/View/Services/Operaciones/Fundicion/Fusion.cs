@@ -8,6 +8,7 @@ namespace View.Services.Operaciones.Fundicion
 {
     public class Fusion : GenericOperation, IOperacion
     {
+        #region Properties
         #region Propiedades de IOperacion
 
         /// <summary>
@@ -23,7 +24,8 @@ namespace View.Services.Operaciones.Fundicion
         /// <summary>
         /// 
         /// </summary>
-        public string TextoSyteline {
+        public string TextoSyteline
+        {
             get
             {
                 return NombreOperacion + Environment.NewLine + "MET=000 OPR= 00" + Environment.NewLine + TextoProceso + Environment.NewLine + "TOOLING" + Environment.NewLine + TextoHerramienta;
@@ -34,7 +36,7 @@ namespace View.Services.Operaciones.Fundicion
                 {
                     TextoSyteline = value;
                 }
-                
+
             }
         }
 
@@ -57,6 +59,11 @@ namespace View.Services.Operaciones.Fundicion
         /// Cadena que representa el control key de la operación, esto para control de ERP.
         /// </summary>
         public string ControlKey { get; set; }
+
+        /// <summary>
+        /// Cadena que representa el id XML de la operación.
+        /// </summary>
+        public string IdXML { get; set; }
 
         /// <summary>
         /// Entero que representa el número de operación en hoja de ruta.
@@ -120,6 +127,7 @@ namespace View.Services.Operaciones.Fundicion
         /// Anillo que representa el plano ingresado por el usuario.
         /// </summary>
         public Anillo elPlano { get; set; }
+        #endregion 
         #endregion
 
         #region Métodos de IOperacion

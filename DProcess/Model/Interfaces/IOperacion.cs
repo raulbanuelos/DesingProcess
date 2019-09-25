@@ -45,6 +45,11 @@ namespace Model.Interfaces
         string ControlKey { get; set; }
 
         /// <summary>
+        /// Cadena que representa el id en el archivo XML.
+        /// </summary>
+        string IdXML { get; set; }
+
+        /// <summary>
         /// Entero que representa el número de operación en hoja de ruta.
         /// </summary>
         int NoOperacion { get; set; }

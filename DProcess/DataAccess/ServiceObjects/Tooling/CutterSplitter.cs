@@ -17,7 +17,6 @@ namespace DataAccess.ServiceObjects.Tooling
         public int ID_CUTTER_SPLITTER { get; set; }
         public string Codigo { get; set; }
         public Nullable<double> Diametro { get; set; }
-        public int ID_CUTTER_SPLITTER1 { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }

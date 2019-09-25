@@ -61,6 +61,11 @@ namespace View.Services.Operaciones.Segmentos
         public string ControlKey { get; set; }
 
         /// <summary>
+        /// Cadena que representa el id XML de la operación.
+        /// </summary>
+        public string IdXML { get; set; }
+
+        /// <summary>
         /// Entero que representa el número de operación en hoja de ruta.
         /// </summary>
         public int NoOperacion { get; set; }
@@ -182,7 +187,7 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso = "*INSPECCION FINAL" + Environment.NewLine;
             TextoProceso += "*AUDITORIA DIM." + Environment.NewLine;
             TextoProceso += "ABERTURA       " + gapMin.Valor + " - " + gapMax.Valor + "" + Environment.NewLine;
-            TextoProceso += "ESPESOR RADIAL " + thicknessMin + " - " + thicknessMax.Valor + "" + Environment.NewLine;
+            TextoProceso += "ESPESOR RADIAL " + thicknessMin.Valor + " - " + thicknessMax.Valor + "" + Environment.NewLine;
             TextoProceso += "TH. NITRURADO  0.0004 - 0.0023" + Environment.NewLine;
             TextoProceso += "ABERTURA LIBRE " + freeGapMin.Valor + " - " + freeGapMin.Valor + "" + Environment.NewLine;
             TextoProceso += "ESPESOR AXIAL  " + widthMin.Valor + " - " + widthMax.Valor + "" + Environment.NewLine;

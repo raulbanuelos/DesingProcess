@@ -468,7 +468,7 @@ namespace Model.ControlDocumentos
         /// <param name="idTipoDocumento"></param>
         /// <param name="textoBusqueda"></param>
         /// <returns></returns>
-        public static ObservableCollection<Documento> GetDataGrid(int idTipoDocumento, string textoBusqueda)
+        public static ObservableCollection<Documento> GetDocumentoByTipoDocumento(int idTipoDocumento, string textoBusqueda)
         {
             //Se inicializan los servicios de Documento.
             SO_Documento ServiceDocumento = new SO_Documento();
@@ -4356,6 +4356,34 @@ namespace Model.ControlDocumentos
             }
 
             return NombreArea;
+        }
+
+        public static ObservableCollection<Documento> GetAllDocumentosFrames()
+        {
+            ObservableCollection<Documento> documentos = new ObservableCollection<Documento>();
+
+            SO_InformacionFrames ServiceObject = new SO_InformacionFrames();
+
+            IList informacionBD = ServiceObject.GetAll();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    Documento documento = new Documento();
+
+                    documento.nombre = (string)tipo.GetProperty("NOMBRE_DOCUMENTO").GetValue(item, null);
+                    documento.version = new Version();
+                    documento.version.no_version = (string)tipo.GetProperty("VERSION").GetValue(item, null);
+                    documento.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_LIBERACION").GetValue(item, null);
+                    
+                    documentos.Add(documento);
+                }
+            }
+
+            return documentos;
         }
         #endregion
 

@@ -17,7 +17,6 @@ namespace DataAccess.ServiceObjects.Tooling
         public int ID_GUIDE_BAR { get; set; }
         public string Codigo { get; set; }
         public Nullable<double> A { get; set; }
-        public int ID_GUIDE_BAR1 { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }

@@ -11,6 +11,10 @@ namespace View.Services.Operaciones.Segmentos
 {
     public class Bobinado : GenericOperation, IOperacion
     {
+        #region Attributes
+        double thicknessMin, thicknessMax;
+        #endregion
+
         #region Properties
 
         #region Propiedades de IOperacion
@@ -59,6 +63,11 @@ namespace View.Services.Operaciones.Segmentos
         /// Cadena que representa el control key de la operación, esto para control de ERP.
         /// </summary>
         public string ControlKey { get; set; }
+
+        /// <summary>
+        /// Cadena que representa el id XML de la operación.
+        /// </summary>
+        public string IdXML { get; set; }
 
         /// <summary>
         /// Entero que representa el número de operación en hoja de ruta.
@@ -142,8 +151,8 @@ namespace View.Services.Operaciones.Segmentos
             //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
 
-            double thicknessMin = Module.GetValorPropiedadMin("a1", elPlano.PerfilID.Propiedades, true);
-            double thicknessMax = Module.GetValorPropiedadMax("a1", elPlano.PerfilID.Propiedades, true);
+            thicknessMin = Module.GetValorPropiedadMin("a1", elPlano.PerfilID.Propiedades, true);
+            thicknessMax = Module.GetValorPropiedadMax("a1", elPlano.PerfilID.Propiedades, true);
             
             double diaBobinado = elPlano.D1.Valor;
             double pesoAlambre = Math.Round((elPlano.D1.Valor)*(Math.PI) * (elPlano.H1.Valor) * (((thicknessMin + thicknessMax) / 2)) * (128.5),2);
@@ -195,7 +204,15 @@ namespace View.Services.Operaciones.Segmentos
 
         public void BuscarHerramentales()
         {
+            thicknessMin = Module.GetValorPropiedadMin("a1", elPlano.PerfilID.Propiedades, true);
+            thicknessMax = Module.GetValorPropiedadMax("a1", elPlano.PerfilID.Propiedades, true);
+            double a1 = Math.Round( (thicknessMin + thicknessMax) / 2,4);
 
+            ListaHerramentales.Add(DataManager.GetLowerRollBobinadoSegmentos(a1, elPlano.D1.Valor));
+            ListaHerramentales.Add(DataManager.GetUpperRollBobinadoSegmentos(a1, elPlano.D1.Valor));
+            ListaHerramentales.Add(DataManager.GetTargetRoll(elPlano.H1.Valor, elPlano.D1.Valor));
+
+            TextoHerramienta = Module.GetTextoListaHerramentales(ListaHerramentales);
         }
 
         /// <summary>

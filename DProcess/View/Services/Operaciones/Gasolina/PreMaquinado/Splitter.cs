@@ -32,6 +32,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
 
         #endregion
 
+        #region Properties
         #region Properties of IOperacion
 
         /// <summary>
@@ -78,6 +79,11 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         /// Cadena que representa el control key de la operación, esto para control de ERP.
         /// </summary>
         public string ControlKey { get; set; }
+
+        /// <summary>
+        /// Cadena que representa el id XML de la operación.
+        /// </summary>
+        public string IdXML { get; set; }
 
         /// <summary>
         /// Entero que representa el número de operación en hoja de ruta.
@@ -165,6 +171,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
         /// </summary>
         public PasoNISSEI PasoNISSEI { get; set; }
 
+        #endregion 
         #endregion
 
         #region Methods
@@ -294,6 +301,7 @@ namespace View.Services.Operaciones.Gasolina.PreMaquinado
             CentroCostos = "32014170";
             CentroTrabajo = "130";
             ControlKey = "MA42";
+            IdXML = "IDCentroTrabajo130";
 
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();

@@ -26,5 +26,8 @@ namespace DataAccess.ServiceObjects.Operaciones
         }
     
         public virtual DbSet<OperacionesRouter> OperacionesRouter { get; set; }
+        public virtual DbSet<Arquetipo> Arquetipo { get; set; }
+        public virtual DbSet<TBL_CALCULO_ARQUETIPO> TBL_CALCULO_ARQUETIPO { get; set; }
+        public virtual DbSet<TBL_CALCULO_DETALLE> TBL_CALCULO_DETALLE { get; set; }
     }
 }

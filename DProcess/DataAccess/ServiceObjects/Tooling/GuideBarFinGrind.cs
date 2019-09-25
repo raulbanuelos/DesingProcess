@@ -19,7 +19,6 @@ namespace DataAccess.ServiceObjects.Tooling
         public Nullable<double> WidthMinProceso { get; set; }
         public Nullable<double> WidthMaxProceso { get; set; }
         public Nullable<double> EspesorBarraGuia { get; set; }
-        public int ID_GUIDE_BAR_FINISH_GRIND1 { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }

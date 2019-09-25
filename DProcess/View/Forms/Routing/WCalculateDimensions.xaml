@@ -9,190 +9,218 @@
         BorderThickness="2" BorderBrush="Blue"
         mc:Ignorable="d" Title="WCalculateDimensions" Height="800" Width="1500">
     
-    <Controls:MetroWindow.Resources>
-        
-    </Controls:MetroWindow.Resources>
+    
 
-    <Grid>
-        
-        <Grid ShowGridLines="True">
-            
-            <Grid.RowDefinitions>
-                <RowDefinition Height="5"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="5"></RowDefinition>
-            </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="5"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            
-            <!--Medidas de la materia prima-->
-            <Grid Grid.Row="1" Grid.Column="1">
+    <Window.Resources>
+        <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type Controls:HamburgerMenuIconItem}">
+            <Grid x:Name="RootGrid" Cursor="Hand"
+                      Height="48"
+                      Background="#33a6cc">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300"></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                    <ColumnDefinition Width="10"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                    <ColumnDefinition Width="10"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                    <ColumnDefinition Width="10"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                    <ColumnDefinition Width="8"></ColumnDefinition>
-                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="48" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ContentControl Grid.Column="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{Binding Icon}"
+                                    ToolTip="{Binding Tag}"
+                                    Focusable="False"
+                                    Foreground="White" />
+                <TextBlock Grid.Column="1"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Foreground="White"
+                               Text="{Binding Label}" />
+            </Grid>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:HamburgerMenu}}, Path=IsPaneOpen}" Value="False">
+                    <Setter TargetName="RootGrid" Property="ToolTip" Value="{Binding ToolTip, Mode=OneWay}" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Controls:HamburgerMenu x:Name="HamburgerMenuControl" 
+                                DisplayMode="CompactInline"
+                                Foreground="Black"
+                                IsPaneOpen="False"
+                                ItemsSource="{Binding MenuItems}"
+                                OptionsItemsSource="{Binding MenuOptionItems}"
+                                ItemTemplate="{StaticResource MenuItemTemplate}"
+                                OptionsItemTemplate="{StaticResource MenuItemTemplate}"
+                                PaneBackground="#33a6cc" Grid.RowSpan="3">
+            <Grid ShowGridLines="True">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Medidas Materia Prima:" Grid.Column="0" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"></TextBlock>
+                <!--Medidas de la materia prima-->
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="8"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
-                <TextBox materialDesign:HintAssist.Hint="Diámetro " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="2" HorizontalAlignment="Center"
+                    <TextBlock Text="Medidas Materia Prima:" Grid.Column="0" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"></TextBlock>
+
+                    <TextBox materialDesign:HintAssist.Hint="Diámetro " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="2" HorizontalAlignment="Center"
                                                  Text="{Binding DiametroMateriaPrima}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                  ToolTip="Diámetro materia prima"></TextBox>
 
-                <TextBox materialDesign:HintAssist.Hint="Width " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="6" HorizontalAlignment="Center"
+                    <TextBox materialDesign:HintAssist.Hint="Width " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="6" HorizontalAlignment="Center"
                                                  Text="{Binding WidthMateriaPrima}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                  ToolTip="Width materia prima"></TextBox>
 
-                <TextBox materialDesign:HintAssist.Hint="Thickness " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="8" HorizontalAlignment="Center"
+                    <TextBox materialDesign:HintAssist.Hint="Thickness " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="8" HorizontalAlignment="Center"
                                                  Text="{Binding ThicknessMateriaPrima}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                  ToolTip="Thcikness Materia prima"></TextBox>
-                
-                <Button Grid.Column="10" Command="{Binding Calcular}">Calcular</Button>
+                </Grid>
 
-                <Button Grid.Column="12" Command="{Binding OpenCloseFlyoutSave}">Guardar</Button>
+                <!--Títulos de la tabla-->
+                <Grid Grid.Row="2" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
 
-                <Button Grid.Column="14" Command="{Binding OpenCloseFlyoutAddOperation}">Add Operation</Button>
-                
-                <Button Grid.Column="16" Command="{Binding DeleteOperation}">Delete</Button>
-            </Grid>
+                    </Grid.ColumnDefinitions>
 
-            <!--Títulos de la tabla-->
-            <Grid Grid.Row="2" Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300"></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <TextBlock HorizontalAlignment="Center" FontSize="24" Text="Operación" Width="120" Grid.Column="0"></TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="24" Text="Diámetro" Grid.Column="2"></TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="24" Text="GAP" Grid.Column="4"></TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="24" Text="Width" Grid.Column="6" ></TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="24" Text="Thickness" Grid.Column="8"></TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="16" Text="Mat Remover Diámetro" Grid.Column="10" TextWrapping="Wrap"></TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="16" Text="Mat Remover Width" Grid.Column="12" TextWrapping="Wrap"></TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="16" Text="Mat Remover Thickness" Grid.Column="14" TextWrapping="Wrap"></TextBlock>
+                </Grid>
 
-                </Grid.ColumnDefinitions>
-
-                <TextBlock HorizontalAlignment="Center" FontSize="24" Text="Operación" Width="120" Grid.Column="0"></TextBlock>
-                <TextBlock HorizontalAlignment="Center" FontSize="24" Text="Diámetro" Grid.Column="2"></TextBlock>
-                <TextBlock HorizontalAlignment="Center" FontSize="24" Text="GAP" Grid.Column="4"></TextBlock>
-                <TextBlock HorizontalAlignment="Center" FontSize="24" Text="Width" Grid.Column="6" ></TextBlock>
-                <TextBlock HorizontalAlignment="Center" FontSize="24" Text="Thickness" Grid.Column="8"></TextBlock>
-                <TextBlock HorizontalAlignment="Center" FontSize="16" Text="Mat Remover Diámetro" Grid.Column="10" TextWrapping="Wrap"></TextBlock>
-                <TextBlock HorizontalAlignment="Center" FontSize="16" Text="Mat Remover Width" Grid.Column="12" TextWrapping="Wrap"></TextBlock>
-                <TextBlock HorizontalAlignment="Center" FontSize="16" Text="Mat Remover Thickness" Grid.Column="14" TextWrapping="Wrap"></TextBlock>
-            </Grid>
-
-            <!--Listado de operaciones-->
-            <ListView Grid.Row="3" Grid.Column="1"
+                <!--Listado de operaciones-->
+                <ListView Grid.Row="3" Grid.Column="1"
                   Margin="3"  ItemsSource="{Binding Operaciones}" SelectedItem="{Binding OperationRouteSelected}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.Resources>
-                                <BooleanToVisibilityConverter x:Key="BoolToVis"/>
-                            </Grid.Resources>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="300"></ColumnDefinition>
-                                <ColumnDefinition Width="50"></ColumnDefinition>
-                                <ColumnDefinition Width="110"></ColumnDefinition>
-                                <ColumnDefinition Width="50"></ColumnDefinition>
-                                <ColumnDefinition Width="110"></ColumnDefinition>
-                                <ColumnDefinition Width="50"></ColumnDefinition>
-                                <ColumnDefinition Width="110"></ColumnDefinition>
-                                <ColumnDefinition Width="50"></ColumnDefinition>
-                                <ColumnDefinition Width="110"></ColumnDefinition>
-                                <ColumnDefinition Width="50"></ColumnDefinition>
-                                <ColumnDefinition Width="110"></ColumnDefinition>
-                                <ColumnDefinition Width="50"></ColumnDefinition>
-                                <ColumnDefinition Width="110"></ColumnDefinition>
-                                <ColumnDefinition Width="50"></ColumnDefinition>
-                                <ColumnDefinition Width="110"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.Resources>
+                                    <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+                                </Grid.Resources>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="300"></ColumnDefinition>
+                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                    <ColumnDefinition Width="110"></ColumnDefinition>
+                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                    <ColumnDefinition Width="110"></ColumnDefinition>
+                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                    <ColumnDefinition Width="110"></ColumnDefinition>
+                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                    <ColumnDefinition Width="110"></ColumnDefinition>
+                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                    <ColumnDefinition Width="110"></ColumnDefinition>
+                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                    <ColumnDefinition Width="110"></ColumnDefinition>
+                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                    <ColumnDefinition Width="110"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="{Binding NombreOperacion}" TextAlignment="Left" Width="180" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom"></TextBlock>
-                            <TextBox Text="{Binding Diameter}" Visibility="{Binding IsObservableDiametro, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" TextAlignment="Center" Grid.Column="2" IsReadOnly="True"></TextBox>
-                            <StackPanel Grid.Column="4" Orientation="Horizontal" Visibility="{Binding IsObservableDiametro, Converter={StaticResource BoolToVis}, FallbackValue=Visible}">
-                                <TextBox Text="{Binding Gap}" TextAlignment="Center" Width="70"></TextBox>
-                                <CheckBox IsChecked="{Binding GapFijo}" ></CheckBox>
-                            </StackPanel>
-                            <TextBox Text="{Binding WidthOperacion}" Visibility="{Binding IsObservableWidth, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" TextAlignment="Center" Grid.Column="6" IsReadOnly="True" ></TextBox>
-                            <TextBox Text="{Binding Thickness}" Visibility="{Binding IsObservableThickness, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" TextAlignment="Center" Grid.Column="8" IsReadOnly="True"></TextBox>
-                            <TextBox Text="{Binding MatRemoverDiametro}" Visibility="{Binding IsObservableDiametro, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" TextAlignment="Center" Grid.Column="10"></TextBox>
-                            <TextBox Text="{Binding MatRemoverWidth}" Visibility="{Binding IsObservableWidth, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" TextAlignment="Center" Grid.Column="12"></TextBox>
-                            <TextBox Text="{Binding MatRemoverThickness}" Visibility="{Binding IsObservableThickness, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" TextAlignment="Center" Grid.Column="14"></TextBox>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                                <TextBlock Text="{Binding NombreOperacion}" TextAlignment="Left" Width="180" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom"></TextBlock>
+                                <TextBox Text="{Binding Diameter}" Visibility="{Binding IsObservableDiametro, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" TextAlignment="Center" Grid.Column="2" IsReadOnly="True"></TextBox>
+                                <StackPanel Grid.Column="4" Orientation="Horizontal" Visibility="{Binding IsObservableDiametro, Converter={StaticResource BoolToVis}, FallbackValue=Visible}">
+                                    <TextBox Text="{Binding Gap}" TextAlignment="Center" Width="70"></TextBox>
+                                    <CheckBox IsChecked="{Binding GapFijo}" ></CheckBox>
+                                </StackPanel>
+                                <TextBox Text="{Binding WidthOperacion}" Visibility="{Binding IsObservableWidth, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" TextAlignment="Center" Grid.Column="6" IsReadOnly="True" ></TextBox>
+                                <TextBox Text="{Binding Thickness}" Visibility="{Binding IsObservableThickness, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" TextAlignment="Center" Grid.Column="8" IsReadOnly="True"></TextBox>
+                                <TextBox Text="{Binding MatRemoverDiametro}" Visibility="{Binding IsObservableDiametro, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" TextAlignment="Center" Grid.Column="10"></TextBox>
+                                <TextBox Text="{Binding MatRemoverWidth}" Visibility="{Binding IsObservableWidth, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" TextAlignment="Center" Grid.Column="12"></TextBox>
+                                <TextBox Text="{Binding MatRemoverThickness}" Visibility="{Binding IsObservableThickness, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" TextAlignment="Center" Grid.Column="14"></TextBox>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-            <!--Medidas nominales del anillo-->
-            <Grid Grid.Row="5" Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300"></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="110"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
+                <!--Medidas nominales del anillo-->
+                <Grid Grid.Row="5" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Medidas Nominales Anillo:" Grid.Column="0" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"></TextBlock>
+                    <TextBlock Text="Medidas Nominales Anillo:" Grid.Column="0" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"></TextBlock>
 
-                <TextBox materialDesign:HintAssist.Hint="Diámetro " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="2" HorizontalAlignment="Center"
+                    <TextBox materialDesign:HintAssist.Hint="Diámetro " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="2" HorizontalAlignment="Center"
                                                  Text="{Binding DiametroAnillo}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                  ToolTip="Diámetro"></TextBox>
 
-                <TextBox materialDesign:HintAssist.Hint="Gap " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="4" HorizontalAlignment="Center"
+                    <TextBox materialDesign:HintAssist.Hint="Gap " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="4" HorizontalAlignment="Center"
                                                  Text="{Binding GapAnillo}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                  ToolTip="Gap"></TextBox>
 
-                <TextBox materialDesign:HintAssist.Hint="Width " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="6" HorizontalAlignment="Center"
+                    <TextBox materialDesign:HintAssist.Hint="Width " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="6" HorizontalAlignment="Center"
                                                  Text="{Binding WidthAnillo}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                  ToolTip="Width materia prima"></TextBox>
 
-                <TextBox materialDesign:HintAssist.Hint="Thickness " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="8" HorizontalAlignment="Center"
+                    <TextBox materialDesign:HintAssist.Hint="Thickness " FontSize="16" TextAlignment="Center" Width="90" Grid.Column="8" HorizontalAlignment="Center"
                                                  Text="{Binding ThicknessAnillo}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                  ToolTip="Thcikness Materia prima"></TextBox>
+                </Grid>
+
             </Grid>
-
-        </Grid>
-
+        </Controls:HamburgerMenu>
+        
         <!--Flyouts-->
         <Controls:FlyoutsControl>
             <!--Flyout Save-->
@@ -203,9 +231,9 @@
                                                  ToolTip="Nombre del componente"></TextBox>
 
                     <Label Content="Comentarios:" Foreground="White"></Label>
-                    <TextBox TextWrapping="Wrap"  AcceptsReturn="True" Height="200" MaxLength="255" ></TextBox>
+                    <TextBox TextWrapping="Wrap"  AcceptsReturn="True" Height="200" MaxLength="200" Text="{Binding DescripcionGeneral}" ></TextBox>
 
-                    <Button Width="120" HorizontalAlignment="Center" Margin="10" Cursor="Hand">Guardar</Button>
+                    <Button Width="120" HorizontalAlignment="Center" Margin="10" Cursor="Hand" Command="{Binding Guardar}">Guardar</Button>
                 </StackPanel>
             </Controls:Flyout>
 

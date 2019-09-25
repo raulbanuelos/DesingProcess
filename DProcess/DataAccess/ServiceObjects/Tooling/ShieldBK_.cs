@@ -21,7 +21,6 @@ namespace DataAccess.ServiceObjects.Tooling
         public string Detalle { get; set; }
         public string FracMin { get; set; }
         public string FracMax { get; set; }
-        public int Id_ShieldBK1 { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }

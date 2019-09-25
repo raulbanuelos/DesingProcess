@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DataAccess.ServiceObjects.Operaciones.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Arquetipo">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="DescripcionGeneral" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Imagen" Type="image" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="OperacionesRouter">
           <Key>
             <PropertyRef Name="IdOperacion" />
@@ -15,8 +24,67 @@
           <Property Name="NombreEspañol" Type="varchar" MaxLength="100" />
           <Property Name="IDObjectXML" Type="varchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="TBL_CALCULO_ARQUETIPO">
+          <Key>
+            <PropertyRef Name="ID_CALCULO_ARQUETIPO" />
+          </Key>
+          <Property Name="ID_CALCULO_ARQUETIPO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGO" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="XML_OPERATION" Type="varchar" MaxLength="200" />
+          <Property Name="MAT_REMOVE_WIDTH" Type="float" />
+          <Property Name="MAT_REMOVE_THICKNESS" Type="float" />
+          <Property Name="MAT_REMOVE_DIAMETER" Type="float" />
+          <Property Name="WORK_GAP" Type="bit" />
+          <Property Name="GAP_FIXED" Type="bit" />
+        </EntityType>
+        <EntityType Name="TBL_CALCULO_DETALLE">
+          <Key>
+            <PropertyRef Name="ID_CALCULO_DETALLE" />
+          </Key>
+          <Property Name="ID_CALCULO_DETALLE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGO" Type="char" MaxLength="18" />
+          <Property Name="RING_WIDTH" Type="float" />
+          <Property Name="RING_THICKNESS" Type="float" />
+          <Property Name="RING_DIAMETER" Type="float" />
+          <Property Name="RING_GAP" Type="float" />
+        </EntityType>
+        <Association Name="FK_TBL_CALCULO_ARQUETIPO_Arquetipo">
+          <End Role="Arquetipo" Type="Self.Arquetipo" Multiplicity="1" />
+          <End Role="TBL_CALCULO_ARQUETIPO" Type="Self.TBL_CALCULO_ARQUETIPO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arquetipo">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_CALCULO_ARQUETIPO">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CALCULO_DETALLE_Arquetipo">
+          <End Role="Arquetipo" Type="Self.Arquetipo" Multiplicity="0..1" />
+          <End Role="TBL_CALCULO_DETALLE" Type="Self.TBL_CALCULO_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arquetipo">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_CALCULO_DETALLE">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DataAccessServiceObjectsOperacionesStoreContainer">
+          <EntitySet Name="Arquetipo" EntityType="Self.Arquetipo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OperacionesRouter" EntityType="Self.OperacionesRouter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_CALCULO_ARQUETIPO" EntityType="Self.TBL_CALCULO_ARQUETIPO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_CALCULO_DETALLE" EntityType="Self.TBL_CALCULO_DETALLE" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBL_CALCULO_ARQUETIPO_Arquetipo" Association="Self.FK_TBL_CALCULO_ARQUETIPO_Arquetipo">
+            <End Role="Arquetipo" EntitySet="Arquetipo" />
+            <End Role="TBL_CALCULO_ARQUETIPO" EntitySet="TBL_CALCULO_ARQUETIPO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CALCULO_DETALLE_Arquetipo" Association="Self.FK_TBL_CALCULO_DETALLE_Arquetipo">
+            <End Role="Arquetipo" EntitySet="Arquetipo" />
+            <End Role="TBL_CALCULO_DETALLE" EntitySet="TBL_CALCULO_DETALLE" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -24,6 +92,17 @@
       <Schema Namespace="DataAccess.ServiceObjects.Operaciones" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="EntityOperaciones" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="OperacionesRouter" EntityType="DataAccess.ServiceObjects.Operaciones.OperacionesRouter" />
+          <EntitySet Name="Arquetipo" EntityType="DataAccess.ServiceObjects.Operaciones.Arquetipo" />
+          <EntitySet Name="TBL_CALCULO_ARQUETIPO" EntityType="DataAccess.ServiceObjects.Operaciones.TBL_CALCULO_ARQUETIPO" />
+          <EntitySet Name="TBL_CALCULO_DETALLE" EntityType="DataAccess.ServiceObjects.Operaciones.TBL_CALCULO_DETALLE" />
+          <AssociationSet Name="FK_TBL_CALCULO_ARQUETIPO_Arquetipo" Association="DataAccess.ServiceObjects.Operaciones.FK_TBL_CALCULO_ARQUETIPO_Arquetipo">
+            <End Role="Arquetipo" EntitySet="Arquetipo" />
+            <End Role="TBL_CALCULO_ARQUETIPO" EntitySet="TBL_CALCULO_ARQUETIPO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CALCULO_DETALLE_Arquetipo" Association="DataAccess.ServiceObjects.Operaciones.FK_TBL_CALCULO_DETALLE_Arquetipo">
+            <End Role="Arquetipo" EntitySet="Arquetipo" />
+            <End Role="TBL_CALCULO_DETALLE" EntitySet="TBL_CALCULO_DETALLE" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="OperacionesRouter">
           <Key>
@@ -35,6 +114,67 @@
           <Property Name="NombreEspañol" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="IDObjectXML" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="Arquetipo">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DescripcionGeneral" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TBL_CALCULO_ARQUETIPO" Relationship="DataAccess.ServiceObjects.Operaciones.FK_TBL_CALCULO_ARQUETIPO_Arquetipo" FromRole="Arquetipo" ToRole="TBL_CALCULO_ARQUETIPO" />
+          <NavigationProperty Name="TBL_CALCULO_DETALLE" Relationship="DataAccess.ServiceObjects.Operaciones.FK_TBL_CALCULO_DETALLE_Arquetipo" FromRole="Arquetipo" ToRole="TBL_CALCULO_DETALLE" />
+        </EntityType>
+        <EntityType Name="TBL_CALCULO_ARQUETIPO">
+          <Key>
+            <PropertyRef Name="ID_CALCULO_ARQUETIPO" />
+          </Key>
+          <Property Name="ID_CALCULO_ARQUETIPO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="XML_OPERATION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MAT_REMOVE_WIDTH" Type="Double" />
+          <Property Name="MAT_REMOVE_THICKNESS" Type="Double" />
+          <Property Name="MAT_REMOVE_DIAMETER" Type="Double" />
+          <Property Name="WORK_GAP" Type="Boolean" />
+          <Property Name="GAP_FIXED" Type="Boolean" />
+          <NavigationProperty Name="Arquetipo" Relationship="DataAccess.ServiceObjects.Operaciones.FK_TBL_CALCULO_ARQUETIPO_Arquetipo" FromRole="TBL_CALCULO_ARQUETIPO" ToRole="Arquetipo" />
+        </EntityType>
+        <EntityType Name="TBL_CALCULO_DETALLE">
+          <Key>
+            <PropertyRef Name="ID_CALCULO_DETALLE" />
+          </Key>
+          <Property Name="ID_CALCULO_DETALLE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="RING_WIDTH" Type="Double" />
+          <Property Name="RING_THICKNESS" Type="Double" />
+          <Property Name="RING_DIAMETER" Type="Double" />
+          <Property Name="RING_GAP" Type="Double" />
+          <NavigationProperty Name="Arquetipo" Relationship="DataAccess.ServiceObjects.Operaciones.FK_TBL_CALCULO_DETALLE_Arquetipo" FromRole="TBL_CALCULO_DETALLE" ToRole="Arquetipo" />
+        </EntityType>
+        <Association Name="FK_TBL_CALCULO_ARQUETIPO_Arquetipo">
+          <End Type="DataAccess.ServiceObjects.Operaciones.Arquetipo" Role="Arquetipo" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Operaciones.TBL_CALCULO_ARQUETIPO" Role="TBL_CALCULO_ARQUETIPO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arquetipo">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_CALCULO_ARQUETIPO">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CALCULO_DETALLE_Arquetipo">
+          <End Type="DataAccess.ServiceObjects.Operaciones.Arquetipo" Role="Arquetipo" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Operaciones.TBL_CALCULO_DETALLE" Role="TBL_CALCULO_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arquetipo">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_CALCULO_DETALLE">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -49,6 +189,42 @@
                 <ScalarProperty Name="NombreIngles" ColumnName="NombreIngles" />
                 <ScalarProperty Name="CentroTrabajo" ColumnName="CentroTrabajo" />
                 <ScalarProperty Name="IdOperacion" ColumnName="IdOperacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Arquetipo">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Operaciones.Arquetipo">
+              <MappingFragment StoreEntitySet="Arquetipo">
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="DescripcionGeneral" ColumnName="DescripcionGeneral" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_CALCULO_ARQUETIPO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Operaciones.TBL_CALCULO_ARQUETIPO">
+              <MappingFragment StoreEntitySet="TBL_CALCULO_ARQUETIPO">
+                <ScalarProperty Name="GAP_FIXED" ColumnName="GAP_FIXED" />
+                <ScalarProperty Name="WORK_GAP" ColumnName="WORK_GAP" />
+                <ScalarProperty Name="MAT_REMOVE_DIAMETER" ColumnName="MAT_REMOVE_DIAMETER" />
+                <ScalarProperty Name="MAT_REMOVE_THICKNESS" ColumnName="MAT_REMOVE_THICKNESS" />
+                <ScalarProperty Name="MAT_REMOVE_WIDTH" ColumnName="MAT_REMOVE_WIDTH" />
+                <ScalarProperty Name="XML_OPERATION" ColumnName="XML_OPERATION" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_CALCULO_ARQUETIPO" ColumnName="ID_CALCULO_ARQUETIPO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_CALCULO_DETALLE">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Operaciones.TBL_CALCULO_DETALLE">
+              <MappingFragment StoreEntitySet="TBL_CALCULO_DETALLE">
+                <ScalarProperty Name="RING_GAP" ColumnName="RING_GAP" />
+                <ScalarProperty Name="RING_DIAMETER" ColumnName="RING_DIAMETER" />
+                <ScalarProperty Name="RING_THICKNESS" ColumnName="RING_THICKNESS" />
+                <ScalarProperty Name="RING_WIDTH" ColumnName="RING_WIDTH" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_CALCULO_DETALLE" ColumnName="ID_CALCULO_DETALLE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

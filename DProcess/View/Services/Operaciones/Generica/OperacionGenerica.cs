@@ -206,6 +206,11 @@ namespace View.Services.Operaciones.Generica
             }
         }
 
+        /// <summary>
+        /// Cadena que representa el id XML de la operación.
+        /// </summary>
+        public string IdXML { get; set; }
+
         public int NoOperacion
         {
             get

@@ -57,6 +57,11 @@ namespace View.Services.Operaciones.Generica
         public string ControlKey { get; set; }
 
         /// <summary>
+        /// Cadena que representa el id XML de la operación.
+        /// </summary>
+        public string IdXML { get; set; }
+
+        /// <summary>
         /// Entero que representa el número de operación en hoja de ruta.
         /// </summary>
         public int NoOperacion { get; set; }
@@ -203,15 +208,16 @@ namespace View.Services.Operaciones.Generica
         public void InicializarDatosGenerales()
         {
             //Asignamos los valores por default a las propiedades.
-            NombreOperacion = "BATES BORE";
-            CentroCostos = "32012526";
-            CentroTrabajo = "280";
+            NombreOperacion = "";
+            CentroCostos = "";
+            CentroTrabajo = "";
             ControlKey = "MA42";
+            IdXML = "IDOperacionThicknessID";
 
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();
             ListaPropiedadesAdquiridasProceso = new ObservableCollection<Propiedad>();
-            MatRemoverThickness = 0.007;
+            MatRemoverThickness = 0.000;
 
         }
         #endregion
