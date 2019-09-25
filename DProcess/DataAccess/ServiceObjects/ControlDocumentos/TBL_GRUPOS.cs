@@ -18,7 +18,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public TBL_GRUPOS()
         {
             this.TR_INTEGRANTES_GRUPO = new HashSet<TR_INTEGRANTES_GRUPO>();
-            this.TR_GRUPO_VERSION = new HashSet<TR_GRUPO_VERSION>();
         }
     
         public int ID_GRUPO { get; set; }
@@ -28,7 +27,5 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public virtual Usuarios Usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TR_INTEGRANTES_GRUPO> TR_INTEGRANTES_GRUPO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TR_GRUPO_VERSION> TR_GRUPO_VERSION { get; set; }
     }
 }

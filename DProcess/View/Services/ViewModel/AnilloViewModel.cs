@@ -996,7 +996,6 @@ namespace View.Services.ViewModel
 
             ListaUbicaciones = DataManager.GetUbicacionesSegmentos();
             FranjasPintura = new ObservableCollection<PinturaAnillo>();
-
             
         }
 

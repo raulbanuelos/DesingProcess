@@ -80,5 +80,8 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<MaestroHerramentales> MaestroHerramentales { get; set; }
         public virtual DbSet<TBL_MANGA_PVD_ACERO_CARBON> TBL_MANGA_PVD_ACERO_CARBON { get; set; }
         public virtual DbSet<TBL_MANGA_PVD_ACERO_INOXIDABLE> TBL_MANGA_PVD_ACERO_INOXIDABLE { get; set; }
+        public virtual DbSet<TBL_BOBINADO_LOWER_ROLL> TBL_BOBINADO_LOWER_ROLL { get; set; }
+        public virtual DbSet<TBL_BOBINADO_UPPER_ROLL> TBL_BOBINADO_UPPER_ROLL { get; set; }
+        public virtual DbSet<TBL_BOBINADO_TARGET_ROLL> TBL_BOBINADO_TARGET_ROLL { get; set; }
     }
 }

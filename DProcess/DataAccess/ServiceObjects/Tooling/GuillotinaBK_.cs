@@ -19,7 +19,6 @@ namespace DataAccess.ServiceObjects.Tooling
         public string MedidaNominal { get; set; }
         public string Width { get; set; }
         public string SobreMedida { get; set; }
-        public int Id_GuillotinaBK1 { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }

@@ -22,6 +22,7 @@ using DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado;
 using Spring.Objects.Factory.Xml;
 using System.Linq;
 using System.Data.Entity;
+using DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos;
 
 namespace Model
 {
@@ -620,6 +621,131 @@ namespace Model
             }
 
             return anillo;
+        }
+
+        /// <summary>
+        /// Insert en la tabla TBL_CALCULO_DETALLE
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="ringWidth"></param>
+        /// <param name="ringThickness"></param>
+        /// <param name="ringDiameter"></param>
+        /// <param name="ringGap"></param>
+        /// <returns></returns>
+        public static int InsertCalculoDetalle(string codigo, double ringWidth, double ringThickness, double ringDiameter, double ringGap)
+        {
+            SO_Calculo serviceObject = new SO_Calculo();
+
+            return serviceObject.InsertCalculoDetalle(codigo, ringWidth, ringThickness, ringDiameter, ringGap);
+        }
+
+        /// <summary>
+        /// Update en la tabla TBL_CALCULO_DETALLE
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="ringWidth"></param>
+        /// <param name="ringThickness"></param>
+        /// <param name="ringDiameter"></param>
+        /// <param name="ringGap"></param>
+        /// <param name="idCalculoDetalle"></param>
+        /// <returns></returns>
+        public static int UpdateCalculoDetalle(string codigo, double ringWidth, double ringThickness, double ringDiameter, double ringGap, int idCalculoDetalle)
+        {
+            SO_Calculo serviceCalculo = new SO_Calculo();
+
+            return serviceCalculo.UpdateCalculoDetalle(codigo, ringWidth, ringThickness, ringDiameter, ringGap, idCalculoDetalle);
+        }
+
+        /// <summary>
+        /// DELETE EN LA TABLA TBL_CALCULO_DETALLE
+        /// </summary>
+        /// <param name="idCalculoDetalle"></param>
+        /// <returns></returns>
+        public static int DeleteCalculoDetalle(int idCalculoDetalle)
+        {
+            SO_Calculo serviceCalculo = new SO_Calculo();
+
+            return serviceCalculo.DeleteCalculoDetalle(idCalculoDetalle);
+        }
+
+        /// <summary>
+        /// Insert en la tabla TBL_CALCULO_ARQUETIPO
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="xmlOperation"></param>
+        /// <param name="matRemoveWidth"></param>
+        /// <param name="matRemoveThickness"></param>
+        /// <param name="matRemoveDiameter"></param>
+        /// <param name="workGap"></param>
+        /// <param name="gapFixed"></param>
+        /// <returns></returns>
+        public static int InsertCalculoArquetipo(string codigo, string xmlOperation, double matRemoveWidth, double matRemoveThickness, double matRemoveDiameter, bool workGap, bool gapFixed)
+        {
+            SO_Calculo serviceCalculo = new SO_Calculo();
+
+            return serviceCalculo.InsertCalculoArquetipo(codigo, xmlOperation, matRemoveWidth, matRemoveThickness, matRemoveDiameter, workGap, gapFixed);
+        }
+
+        /// <summary>
+        /// Update de la tabla TBL_CALCULO_ARQUETIPO
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="xmlOperation"></param>
+        /// <param name="matRemoveWidth"></param>
+        /// <param name="matRemoveThickness"></param>
+        /// <param name="matRemoveDiameter"></param>
+        /// <param name="workGap"></param>
+        /// <param name="gapFixed"></param>
+        /// <param name="idCalculoArquetipo"></param>
+        /// <returns></returns>
+        public static int UpdateCalculoArquetipo(string codigo, string xmlOperation, double matRemoveWidth, double matRemoveThickness, double matRemoveDiameter, bool workGap, bool gapFixed, int idCalculoArquetipo)
+        {
+            SO_Calculo serviceCalculo = new SO_Calculo();
+
+            return serviceCalculo.UpdateCalculoArquetipo(codigo, xmlOperation, matRemoveWidth, matRemoveThickness, matRemoveDiameter, workGap, gapFixed,idCalculoArquetipo);
+        }
+
+        /// <summary>
+        /// Delete de la tabla TBL_CALCULO_ARQUETIPO
+        /// </summary>
+        /// <param name="idCalculoArquetipo"></param>
+        /// <returns></returns>
+        public static int DeleteCalculoArquetipo(int idCalculoArquetipo)
+        {
+            SO_Calculo serviceCalculo = new SO_Calculo();
+
+            return serviceCalculo.DeleteCalculoArquetipo(idCalculoArquetipo);
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los Arquetipo guardados en la base de datos que tienen un calculo de ruta.
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<Arquetipo> GetAllArquetipoCalculo()
+        {
+            SO_Calculo serviceCalculo = new SO_Calculo();
+
+            ObservableCollection<Arquetipo> listaResultante = new ObservableCollection<Arquetipo>();
+
+            IList informacionBD = serviceCalculo.GetAllArquetipoCalculo();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    Arquetipo arquetipo = new Arquetipo();
+
+                    arquetipo.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    arquetipo.DescripcionGeneral = (string)tipo.GetProperty("DescripcionGeneral").GetValue(item, null);
+                    arquetipo.Activo = (bool)tipo.GetProperty("Activo").GetValue(item, null);
+
+                    listaResultante.Add(arquetipo);
+                }
+            }
+            
+            return listaResultante;
         }
         #endregion
 
@@ -7339,6 +7465,7 @@ namespace Model
                     string idObjectXML = (string)tipo.GetProperty("IDObjectXML").GetValue(item, null);
 
                     IOperacion operacion = createIOperacion(idObjectXML);
+                    operacion.IdXML = idObjectXML;
 
                     ListaResultante.Add(operacion);
                 }
@@ -11014,6 +11141,117 @@ namespace Model
             {
                 return 0;
             }
+        }
+
+        #endregion
+
+        #region Segmentos
+
+        public static Herramental GetLowerRollBobinadoSegmentos(double a1, double d1)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            Herramental herramental = new Herramental();
+
+            IList informacionBD = ServiceBobinado.GetLowerRoll(a1, d1);
+
+            if (informacionBD != null && informacionBD.Count > 0)
+            {
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                    string detalleRodilloInf = (string)tipo.GetProperty("DETALLE_RODILLO").GetValue(item, null);
+                    string engraneInf = (string)tipo.GetProperty("DETALLE_ENGRANE").GetValue(item, null);
+
+                    herramental.DescripcionRuta = "RODILLO INF.  " + detalleRodilloInf + "\n" + "ENGRANE INF.  " + engraneInf;
+                    herramental.Encontrado = true;
+                }
+            }
+            else
+            {
+                //Si no se encontro
+                herramental.DescripcionRuta = "RODILLO INF.  \n" + "ENGRANE INF.  ";
+                herramental.Encontrado = false;
+                herramental.DescripcionMedidasBusqueda = "a1: " + a1 + " between WIRE_WIDTH_MIN and WIRE_WIDTH_MIN AND \nd1: " + d1 + " between DIA_MIN and DIA_MAX";
+            }
+
+            return herramental;
+        }
+
+        public static Herramental GetUpperRollBobinadoSegmentos(double a1, double d1)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            Herramental herramental = new Herramental();
+
+            IList informacionBD = ServiceBobinado.GetUpperRoll(a1, d1);
+
+            if (informacionBD != null && informacionBD.Count > 0)
+            {
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+
+                    string medida = (string)tipo.GetProperty("MEDIDA").GetValue(item, null);
+                    string engraneSup = (string)tipo.GetProperty("DETALLE_ENGRANE").GetValue(item, null);
+                    herramental.Encontrado = true;
+                    herramental.DescripcionRuta = "RODILLO SUP.  " + medida + "\n" + "ENGRANE SUP.  " + engraneSup;
+                }
+            }
+            else
+            {
+                //Si no se encontro
+                herramental.DescripcionRuta = "RODILLO SUP.  \n" + "ENGRANE SUP.  ";
+                herramental.Encontrado = false;
+                herramental.DescripcionMedidasBusqueda = "a1: " + a1 + " between WIRE_WIDTH_MIN and WIRE_WIDTH_MIN AND \nd1: " + d1 + " between DIA_MIN and DIA_MAX";
+            }
+
+            return herramental;
+        }
+
+        public static Herramental GetTargetRoll(double h1, double d1)
+        {
+            double medidaA = h1 + 0.002;
+            double medidaB = 0;
+            if (d1 >= 2 && d1 <= 2.5)
+                medidaB = 0.562;
+
+            if (d1 >= 2.501 && d1 <= 6)
+                medidaB = 0.75;
+
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            Herramental herramental = new Herramental();
+
+            IList informacionBD = ServiceBobinado.GetTargetRoll(medidaA, medidaB);
+
+            if (informacionBD != null && informacionBD.Count > 0)
+            {
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    herramental.Encontrado = true;
+                    medidaA = (double)tipo.GetProperty("A").GetValue(item, null);
+                    medidaB = (double)tipo.GetProperty("B").GetValue(item, null);
+                    herramental.DescripcionRuta = "RODILLO FINAL      " + medidaA + " X " + medidaB;
+                }
+            }
+            else
+            {
+                //Si no se encontro
+                herramental.DescripcionRuta = "RODILLO FINAL      ";
+                herramental.Encontrado = false;
+                herramental.DescripcionMedidasBusqueda = "A: " + medidaA + "\nB:" + medidaB;
+            }
+
+            return herramental;
         }
 
         #endregion

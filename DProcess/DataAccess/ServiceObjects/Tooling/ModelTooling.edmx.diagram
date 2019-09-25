@@ -105,6 +105,12 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_WorkCam_MaestroHerramentales" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_MANGA_PVD_ACERO_CARBON" Width="1.5" PointX="11.375" PointY="0.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_MANGA_PVD_ACERO_INOXIDABLE" Width="1.5" PointX="11.375" PointY="3.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BOBINADO_LOWER_ROLL" Width="2.5" PointX="12.25" PointY="10.625" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BOBINADO_UPPER_ROLL" Width="2.375" PointX="12.25" PointY="14.375" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_LOWER_ROLL_MaestroHerramentales" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_UPPER_ROLL_MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BOBINADO_TARGET_ROLL" Width="2.625" PointX="12.25" PointY="18" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_TARGET_ROLL_MaestroHerramentales" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

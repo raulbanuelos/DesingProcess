@@ -11,6 +11,7 @@ using Model.Interfaces;
 using Model.ControlDocumentos;
 using View.Services.Operaciones.Gasolina.RectificadosFinos;
 using DataAccess;
+using View.Services.ViewModel;
 
 namespace DProcess.Model.Test
 {
@@ -26,6 +27,15 @@ namespace DProcess.Model.Test
 
         //    Assert.AreEqual(true, resp);
         //} 
+
+       [TestMethod]
+        public void textComparative()
+        {
+            ComparativoDocumentosViewModel comparativo = new ComparativoDocumentosViewModel();
+
+            comparativo.CompararArchivos();
+            Assert.AreEqual(true, true);
+        }
         //#endregion
 
         //#region DataManager

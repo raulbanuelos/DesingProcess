@@ -568,6 +568,7 @@ namespace View.Services
                 string dia = fechaFin.Day.ToString().Length > 1 ? fechaFin.Day.ToString() : "0" + fechaFin.Day.ToString();
                 string mes = fechaFin.Month.ToString().Length > 1 ? fechaFin.Month.ToString() : "0" + fechaFin.Month.ToString();
 
+                //TODO
                 string FechaPrimerVersion = DataManagerControlDocumentos.GetFechaPrimeraVersion(id_documento);
 
                 if (id_documento == 0)

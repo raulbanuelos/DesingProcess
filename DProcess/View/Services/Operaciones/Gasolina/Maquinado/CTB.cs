@@ -57,6 +57,11 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         public string ControlKey { get; set; }
 
         /// <summary>
+        /// Cadena que representa el id XML de la operación.
+        /// </summary>
+        public string IdXML { get; set; }
+
+        /// <summary>
         /// Entero que representa el número de operación en hoja de ruta.
         /// </summary>
         public int NoOperacion { get; set; }
@@ -237,6 +242,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
             CentroCostos = "32012526";
             CentroTrabajo = "235";
             ControlKey = "MA42";
+            IdXML = "IDCentroTrabajo235";
 
             ListaHerramentales = new ObservableCollection<Herramental>();
             ListaMateriaPrima = new ObservableCollection<MateriaPrima>();

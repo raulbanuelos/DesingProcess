@@ -1140,7 +1140,7 @@ namespace View.Services.ViewModel
         /// <param name="TextoBusqueda"></param>
         private void GetDataGrid(string TextoBusqueda)
         {
-            Lista = DataManagerControlDocumentos.GetDataGrid(SelectedTipoDocumento.id_tipo, TextoBusqueda);
+            Lista = DataManagerControlDocumentos.GetDocumentoByTipoDocumento(SelectedTipoDocumento.id_tipo, TextoBusqueda);
         }
 
         /// <summary>

@@ -7,17 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DataAccess.ServiceObjects.ControlDocumentos
+namespace DataAccess.ServiceObjects.Operaciones
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class TR_GRUPO_VERSION
+    public partial class TBL_CALCULO_DETALLE
     {
-        public int ID_GRUPO_VERSION { get; set; }
-        public int ID_GRUPO { get; set; }
-        public int ID_VERSION { get; set; }
+        public int ID_CALCULO_DETALLE { get; set; }
+        public string CODIGO { get; set; }
+        public Nullable<double> RING_WIDTH { get; set; }
+        public Nullable<double> RING_THICKNESS { get; set; }
+        public Nullable<double> RING_DIAMETER { get; set; }
+        public Nullable<double> RING_GAP { get; set; }
     
-        public virtual TBL_GRUPOS TBL_GRUPOS { get; set; }
+        public virtual Arquetipo Arquetipo { get; set; }
     }
 }

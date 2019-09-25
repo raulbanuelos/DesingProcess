@@ -19,7 +19,6 @@ namespace DataAccess.ServiceObjects.Tooling
         public string Plano { get; set; }
         public Nullable<double> MedidaNominal { get; set; }
         public string DimB { get; set; }
-        public int Id_Bushing1 { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }

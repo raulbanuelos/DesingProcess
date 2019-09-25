@@ -20,7 +20,6 @@ namespace DataAccess.ServiceObjects.Tooling
         public Nullable<double> WidthMax { get; set; }
         public Nullable<double> DimA { get; set; }
         public Nullable<int> CantidadAnillos { get; set; }
-        public int Id_Guillotina1 { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }

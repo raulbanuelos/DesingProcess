@@ -42,13 +42,15 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios1" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_NOTIFICACION_ERROR" Width="2.125" PointX="4" PointY="9.875" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_GRUPOS" Width="1.5" PointX="21.625" PointY="4.875" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TBL_GRUPO__ID_US__04B07DB2" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TR_INTEGRANTES_GRUPO" Width="2.25" PointX="21" PointY="8.625" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_INTEGR__ID_US__078CEA5D" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_INTEGR__ID_US__08810E96" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TR_GRUPO_VERSION" Width="1.5" PointX="23.625" PointY="8.875" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_GRUPO___ID_GR__0B5D7B41" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_GRUPOS" Width="1.5" PointX="21.375" PointY="5.125" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TR_INTEGRANTES_GRUPO" Width="1.5" PointX="23.625" PointY="1.125" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TR_USUARIO_NOTIFICACION_VERSION" Width="1.5" PointX="27.125" PointY="5.25" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TBL_GRUPO__ID_US__3DB1F273" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_INTEGR__ID_GR__408E5F1E" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_USUARI__ID_VE__4553143B" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_INTEGR__ID_US__41828357" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_USUARI__ID_US__445EF002" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_INFORMACION_FRAMES" Width="1.5" PointX="7.375" PointY="13.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

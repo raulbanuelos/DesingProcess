@@ -6,6 +6,11 @@
     <edmx:Diagrams>
       <Diagram DiagramId="781ccc5599f04db0a6c49499b0f4262d" Name="Diagram1">
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Operaciones.OperacionesRouter" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Operaciones.Arquetipo" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Operaciones.TBL_CALCULO_ARQUETIPO" Width="3.625" PointX="5.625" PointY="8.125" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Operaciones.TBL_CALCULO_DETALLE" Width="3.375" PointX="5.625" PointY="5" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Operaciones.FK_TBL_CALCULO_ARQUETIPO_Arquetipo" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Operaciones.FK_TBL_CALCULO_DETALLE_Arquetipo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
