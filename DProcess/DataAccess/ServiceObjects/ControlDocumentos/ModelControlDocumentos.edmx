@@ -105,6 +105,15 @@
           <Property Name="DESCRIPCION" Type="varchar(max)" />
           <Property Name="NOMBRE_USUARIO" Type="varchar" MaxLength="200" />
         </EntityType>
+        <EntityType Name="TBL_INFORMACION_FRAMES">
+          <Key>
+            <PropertyRef Name="ID_INFORMACION_FRAMES" />
+          </Key>
+          <Property Name="ID_INFORMACION_FRAMES" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE_DOCUMENTO" Type="varchar" MaxLength="50" />
+          <Property Name="VERSION" Type="varchar" MaxLength="10" />
+          <Property Name="FECHA_LIBERACION" Type="date" />
+        </EntityType>
         <EntityType Name="TBL_NOTIFICACION_ERROR">
           <Key>
             <PropertyRef Name="ID_NOTIFICACION_ERROR" />
@@ -502,6 +511,7 @@
           <EntitySet Name="TBL_ESTATUS_VERSION" EntityType="Self.TBL_ESTATUS_VERSION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_GRUPOS" EntityType="Self.TBL_GRUPOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_HISTORIAL_VERSION" EntityType="Self.TBL_HISTORIAL_VERSION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_INFORMACION_FRAMES" EntityType="Self.TBL_INFORMACION_FRAMES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_NOTIFICACION_ERROR" EntityType="Self.TBL_NOTIFICACION_ERROR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_RECURSO_TIPO_DOCUMENTO" EntityType="Self.TBL_RECURSO_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ROL" EntityType="Self.TBL_ROL" Schema="dbo" store:Type="Tables" />
@@ -718,6 +728,7 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TR_USUARIO_NOTIFICACION_VERSION" EntitySet="TR_USUARIO_NOTIFICACION_VERSION" />
           </AssociationSet>
+          <EntitySet Name="TBL_INFORMACION_FRAMES" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_INFORMACION_FRAMES" />
           </EntityContainer>
         <EntityType Name="TBL_ARCHIVO">
           <Key>
@@ -1249,6 +1260,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_INFORMACION_FRAMES">
+          <Key>
+            <PropertyRef Name="ID_INFORMACION_FRAMES" />
+          </Key>
+          <Property Name="ID_INFORMACION_FRAMES" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE_DOCUMENTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VERSION" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_LIBERACION" Type="DateTime" Precision="0" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1496,6 +1516,16 @@
                 <ScalarProperty Name="ID_VERSION" ColumnName="ID_VERSION" />
                 <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
                 <ScalarProperty Name="ID_USUARIO_NOTIFICACION_VERSION" ColumnName="ID_USUARIO_NOTIFICACION_VERSION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_INFORMACION_FRAMES">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TBL_INFORMACION_FRAMES">
+              <MappingFragment StoreEntitySet="TBL_INFORMACION_FRAMES">
+                <ScalarProperty Name="FECHA_LIBERACION" ColumnName="FECHA_LIBERACION" />
+                <ScalarProperty Name="VERSION" ColumnName="VERSION" />
+                <ScalarProperty Name="NOMBRE_DOCUMENTO" ColumnName="NOMBRE_DOCUMENTO" />
+                <ScalarProperty Name="ID_INFORMACION_FRAMES" ColumnName="ID_INFORMACION_FRAMES" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

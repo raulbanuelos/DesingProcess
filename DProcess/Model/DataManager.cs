@@ -11036,26 +11036,6 @@ namespace Model
 
             return Service.UpdateAceroInoxidable(id, a);
         }
-
-        /// <summary>
-        /// Método para eliminar un registro de la tabla TBL_MANGA_PVD_ACERO_INOXIDABLE
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public static int deleteaceroinoxidable(int id)
-        {
-            SO_MangaPVDAceroInoxidable Service = new SO_MangaPVDAceroInoxidable();
-
-                    Conexion.Entry(obj).State = EntityState.Deleted;
-                    return Conexion.SaveChanges();
-                }
-            }
-            catch (Exception)
-            {
-                return 0;
-            }
-        }
-
         #endregion
 
         #region Segmentos

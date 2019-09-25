@@ -50,6 +50,7 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TR_USUARIO_NOTIFICACION_VERSION" Width="2" PointX="21.875" PointY="2.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_USUARI__ID_VE__17C35226" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_USUARI__ID_US__16CF2DED" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_INFORMACION_FRAMES" Width="1.5" PointX="7.375" PointY="13.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

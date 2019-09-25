@@ -276,13 +276,14 @@ namespace View.Services.ViewModel
         #region Constructores
         public UsuarioViewModel()
         {
+
         }
 
         public UsuarioViewModel(Usuario modelUsuario, Page pagina)
         {
             ModelUsuario = modelUsuario;
             this.pagina = pagina;
-            initNotifications();
+            //initNotifications();
         }
 
         #endregion
