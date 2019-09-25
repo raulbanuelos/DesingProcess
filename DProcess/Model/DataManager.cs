@@ -14053,7 +14053,7 @@ namespace Model
         }
 
         /// <summary>
-        /// Método para insertar un registro de la tabla TBL_NORMAS
+        /// Método para insertar un registro de la tabla TBL_NORMAS.
         /// </summary>
         /// <param name="id_norma"></param>
         /// <returns></returns>
