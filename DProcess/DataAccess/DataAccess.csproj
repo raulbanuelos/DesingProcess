@@ -509,6 +509,7 @@
     </Compile>
     <Compile Include="ServiceObjects\SO_CentroTrabajo.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Material.cs" />
+    <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_BarrelGrade.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_Bobinado.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\SO_Diskus.cs" />
     <Compile Include="ServiceObjects\Tooling\PLANO_HERRAMENTAL.cs">
@@ -551,6 +552,15 @@
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\SPlitterSpacerChart2.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_BARREL_GRADE_BUSHING.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_BARREL_GRADE_PUSHER.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_BOBINADO_CENTER_WAFER.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_BOBINADO_LOWER_ROLL.cs">

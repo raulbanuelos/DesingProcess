@@ -21,7 +21,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                                               where a1 <= a.WIRE_WIDTH_MAX && a1 >= a.WIRE_WIDTH_MIN && d1 <= a.DIA_MAX && d1 >= a.DIA_MIN && m.Activo == true
                                               select new
                                               {
-                                                  a.CODIGO,
+                                                  Codigo = a.CODIGO,
                                                   m.Descripcion,
                                                   m.Activo,
                                                   Clasificacion = c.Descripcion,
@@ -56,7 +56,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                                               join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
                                               where a1 <= a.WIRE_WIDTH_MAX && a1 >= a.WIRE_WIDTH_MIN && d1 <= a.DIA_MAX && d1 >= a.DIA_MIN && m.Activo == true
                                               select new {
-                                                  a.CODIGO,
+                                                  Codigo = a.CODIGO,
                                                   m.Descripcion,
                                                   m.Activo,
                                                   Clasificacion = c.Descripcion,
@@ -94,7 +94,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                                               where a.A == medidaA && a.B == medidaB
                                               select new
                                               {
-                                                  a.CODIGO,
+                                                  Codigo = a.CODIGO,
                                                   m.Descripcion,
                                                   m.Activo,
                                                   Clasificacion = c.Descripcion,
@@ -111,6 +111,41 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
 
                     return listaHerramentales;
 
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public IList GetCenterWafer(double h1, double d1, double centerwaferh1min, double centerwaferh1max)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var listaHerramentales = (from a in Conexion.TBL_BOBINADO_CENTER_WAFER
+                                              join m in Conexion.MaestroHerramentales on a.CODIGO equals m.Codigo
+                                              join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                              where a.WIRE_WIDTH >= h1 - centerwaferh1min && a.WIRE_WIDTH <= h1 + centerwaferh1max && d1 >= a.DIM_A_MIN && d1 <= a.DIM_A_MAX
+                                              select new
+                                              {
+                                                  Codigo = a.CODIGO,
+                                                  m.Descripcion,
+                                                  m.Activo,
+                                                  Clasificacion = c.Descripcion,
+                                                  c.UnidadMedida,
+                                                  c.Costo,
+                                                  c.CantidadUtilizar,
+                                                  c.VidaUtil,
+                                                  c.idClasificacion,
+                                                  c.ListaCotasRevisar,
+                                                  c.VerificacionAnual,
+                                                  DETALLE = a.DETALLE,
+                                              }).ToList();
+
+                    return listaHerramentales;
                 }
             }
             catch (Exception)

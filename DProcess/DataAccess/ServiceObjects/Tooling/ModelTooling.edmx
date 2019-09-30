@@ -478,6 +478,35 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <Property Name="CantidadSpacer2" Type="int" Nullable="false" />
           <Property Name="ident" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="TBL_BARREL_GRADE_BUSHING">
+          <Key>
+            <PropertyRef Name="ID_BARREL_GRADE_BUSHING" />
+          </Key>
+          <Property Name="ID_BARREL_GRADE_BUSHING" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGO" Type="char" MaxLength="18" />
+          <Property Name="DIM_D" Type="float" />
+        </EntityType>
+        <EntityType Name="TBL_BARREL_GRADE_PUSHER">
+          <Key>
+            <PropertyRef Name="ID_BARREL_GRADE_PUSHER" />
+          </Key>
+          <Property Name="ID_BARREL_GRADE_PUSHER" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGO" Type="char" MaxLength="18" />
+          <Property Name="DIM_F" Type="float" />
+        </EntityType>
+        <EntityType Name="TBL_BOBINADO_CENTER_WAFER">
+          <Key>
+            <PropertyRef Name="ID_BOBONADO_CENTER_WAFER" />
+          </Key>
+          <Property Name="ID_BOBONADO_CENTER_WAFER" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGO" Type="char" MaxLength="18" />
+          <Property Name="DIM_A_MIN" Type="float" />
+          <Property Name="DIM_A_MAX" Type="float" />
+          <Property Name="WIRE_WIDTH" Type="float" />
+          <Property Name="DETALLE" Type="varchar" MaxLength="50" />
+          <Property Name="DIA_B" Type="float" />
+          <Property Name="F_WIDTH" Type="float" />
+        </EntityType>
         <EntityType Name="TBL_BOBINADO_LOWER_ROLL">
           <Key>
             <PropertyRef Name="ID_BOBINADO_LOWER_ROLL" />
@@ -1123,6 +1152,42 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBL_BARREL_GRADE_BUSHING_MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="0..1" />
+          <End Role="TBL_BARREL_GRADE_BUSHING" Type="Self.TBL_BARREL_GRADE_BUSHING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_BARREL_GRADE_BUSHING">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_BARREL_GRADE_PUSHER_MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="0..1" />
+          <End Role="TBL_BARREL_GRADE_PUSHER" Type="Self.TBL_BARREL_GRADE_PUSHER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_BARREL_GRADE_PUSHER">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_BOBINADO_CENTER_WAFER_MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="0..1" />
+          <End Role="TBL_BOBINADO_CENTER_WAFER" Type="Self.TBL_BOBINADO_CENTER_WAFER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_BOBINADO_CENTER_WAFER">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBL_BOBINADO_LOWER_ROLL_MaestroHerramentales">
           <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="0..1" />
           <End Role="TBL_BOBINADO_LOWER_ROLL" Type="Self.TBL_BOBINADO_LOWER_ROLL" Multiplicity="*" />
@@ -1335,6 +1400,9 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <EntitySet Name="ShieldBK_" EntityType="Self.ShieldBK_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SplitterSpacerChart" EntityType="Self.SplitterSpacerChart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SPlitterSpacerChart2" EntityType="Self.SPlitterSpacerChart2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_BARREL_GRADE_BUSHING" EntityType="Self.TBL_BARREL_GRADE_BUSHING" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_BARREL_GRADE_PUSHER" EntityType="Self.TBL_BARREL_GRADE_PUSHER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_BOBINADO_CENTER_WAFER" EntityType="Self.TBL_BOBINADO_CENTER_WAFER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_BOBINADO_LOWER_ROLL" EntityType="Self.TBL_BOBINADO_LOWER_ROLL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_BOBINADO_TARGET_ROLL" EntityType="Self.TBL_BOBINADO_TARGET_ROLL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_BOBINADO_UPPER_ROLL" EntityType="Self.TBL_BOBINADO_UPPER_ROLL" Schema="dbo" store:Type="Tables" />
@@ -1493,6 +1561,18 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <AssociationSet Name="FK_ShieldBK__MaestroHerramentales" Association="Self.FK_ShieldBK__MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="ShieldBK_" EntitySet="ShieldBK_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_BARREL_GRADE_BUSHING_MaestroHerramentales" Association="Self.FK_TBL_BARREL_GRADE_BUSHING_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_BARREL_GRADE_BUSHING" EntitySet="TBL_BARREL_GRADE_BUSHING" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_BARREL_GRADE_PUSHER_MaestroHerramentales" Association="Self.FK_TBL_BARREL_GRADE_PUSHER_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_BARREL_GRADE_PUSHER" EntitySet="TBL_BARREL_GRADE_PUSHER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_BOBINADO_CENTER_WAFER_MaestroHerramentales" Association="Self.FK_TBL_BOBINADO_CENTER_WAFER_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_BOBINADO_CENTER_WAFER" EntitySet="TBL_BOBINADO_CENTER_WAFER" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_BOBINADO_LOWER_ROLL_MaestroHerramentales" Association="Self.FK_TBL_BOBINADO_LOWER_ROLL_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -1805,6 +1885,21 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <AssociationSet Name="FK_TBL_BOBINADO_TARGET_ROLL_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_TARGET_ROLL_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="TBL_BOBINADO_TARGET_ROLL" EntitySet="TBL_BOBINADO_TARGET_ROLL" />
+          </AssociationSet>
+          <EntitySet Name="TBL_BOBINADO_CENTER_WAFER" EntityType="DataAccess.ServiceObjects.Tooling.TBL_BOBINADO_CENTER_WAFER" />
+          <AssociationSet Name="FK_TBL_BOBINADO_CENTER_WAFER_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_CENTER_WAFER_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_BOBINADO_CENTER_WAFER" EntitySet="TBL_BOBINADO_CENTER_WAFER" />
+          </AssociationSet>
+          <EntitySet Name="TBL_BARREL_GRADE_PUSHER" EntityType="DataAccess.ServiceObjects.Tooling.TBL_BARREL_GRADE_PUSHER" />
+          <AssociationSet Name="FK_TBL_BARREL_GRADE_PUSHER_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BARREL_GRADE_PUSHER_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_BARREL_GRADE_PUSHER" EntitySet="TBL_BARREL_GRADE_PUSHER" />
+          </AssociationSet>
+          <EntitySet Name="TBL_BARREL_GRADE_BUSHING" EntityType="DataAccess.ServiceObjects.Tooling.TBL_BARREL_GRADE_BUSHING" />
+          <AssociationSet Name="FK_TBL_BARREL_GRADE_BUSHING_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BARREL_GRADE_BUSHING_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_BARREL_GRADE_BUSHING" EntitySet="TBL_BARREL_GRADE_BUSHING" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="SplitterSpacerChart">
@@ -2507,6 +2602,9 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <NavigationProperty Name="TBL_BOBINADO_LOWER_ROLL" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_LOWER_ROLL_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_BOBINADO_LOWER_ROLL" />
           <NavigationProperty Name="TBL_BOBINADO_UPPER_ROLL" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_UPPER_ROLL_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_BOBINADO_UPPER_ROLL" />
           <NavigationProperty Name="TBL_BOBINADO_TARGET_ROLL" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_TARGET_ROLL_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_BOBINADO_TARGET_ROLL" />
+          <NavigationProperty Name="TBL_BOBINADO_CENTER_WAFER" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_CENTER_WAFER_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_BOBINADO_CENTER_WAFER" />
+          <NavigationProperty Name="TBL_BARREL_GRADE_PUSHER" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_BARREL_GRADE_PUSHER_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_BARREL_GRADE_PUSHER" />
+          <NavigationProperty Name="TBL_BARREL_GRADE_BUSHING" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_BARREL_GRADE_BUSHING_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_BARREL_GRADE_BUSHING" />
         </EntityType>
         <Association Name="FK__BarrelLap__Codig__4EF38B7F">
           <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
@@ -3185,6 +3283,74 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
               <PropertyRef Name="Codigo" />
             </Principal>
             <Dependent Role="TBL_BOBINADO_TARGET_ROLL">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBL_BOBINADO_CENTER_WAFER">
+          <Key>
+            <PropertyRef Name="ID_BOBONADO_CENTER_WAFER" />
+          </Key>
+          <Property Name="ID_BOBONADO_CENTER_WAFER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DIM_A_MIN" Type="Double" />
+          <Property Name="DIM_A_MAX" Type="Double" />
+          <Property Name="WIRE_WIDTH" Type="Double" />
+          <Property Name="DETALLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIA_B" Type="Double" />
+          <Property Name="F_WIDTH" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_CENTER_WAFER_MaestroHerramentales" FromRole="TBL_BOBINADO_CENTER_WAFER" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_TBL_BOBINADO_CENTER_WAFER_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.TBL_BOBINADO_CENTER_WAFER" Role="TBL_BOBINADO_CENTER_WAFER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_BOBINADO_CENTER_WAFER">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBL_BARREL_GRADE_PUSHER">
+          <Key>
+            <PropertyRef Name="ID_BARREL_GRADE_PUSHER" />
+          </Key>
+          <Property Name="ID_BARREL_GRADE_PUSHER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DIM_F" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_BARREL_GRADE_PUSHER_MaestroHerramentales" FromRole="TBL_BARREL_GRADE_PUSHER" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_TBL_BARREL_GRADE_PUSHER_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.TBL_BARREL_GRADE_PUSHER" Role="TBL_BARREL_GRADE_PUSHER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_BARREL_GRADE_PUSHER">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBL_BARREL_GRADE_BUSHING">
+          <Key>
+            <PropertyRef Name="ID_BARREL_GRADE_BUSHING" />
+          </Key>
+          <Property Name="ID_BARREL_GRADE_BUSHING" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DIM_D" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_BARREL_GRADE_BUSHING_MaestroHerramentales" FromRole="TBL_BARREL_GRADE_BUSHING" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_TBL_BARREL_GRADE_BUSHING_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.TBL_BARREL_GRADE_BUSHING" Role="TBL_BARREL_GRADE_BUSHING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_BARREL_GRADE_BUSHING">
               <PropertyRef Name="CODIGO" />
             </Dependent>
           </ReferentialConstraint>
@@ -3914,6 +4080,38 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
                 <ScalarProperty Name="A" ColumnName="A" />
                 <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="ID_BOBINADO_TARGET_ROLL" ColumnName="ID_BOBINADO_TARGET_ROLL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_BOBINADO_CENTER_WAFER">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_BOBINADO_CENTER_WAFER">
+              <MappingFragment StoreEntitySet="TBL_BOBINADO_CENTER_WAFER">
+                <ScalarProperty Name="F_WIDTH" ColumnName="F_WIDTH" />
+                <ScalarProperty Name="DIA_B" ColumnName="DIA_B" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
+                <ScalarProperty Name="WIRE_WIDTH" ColumnName="WIRE_WIDTH" />
+                <ScalarProperty Name="DIM_A_MAX" ColumnName="DIM_A_MAX" />
+                <ScalarProperty Name="DIM_A_MIN" ColumnName="DIM_A_MIN" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_BOBONADO_CENTER_WAFER" ColumnName="ID_BOBONADO_CENTER_WAFER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_BARREL_GRADE_PUSHER">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_BARREL_GRADE_PUSHER">
+              <MappingFragment StoreEntitySet="TBL_BARREL_GRADE_PUSHER">
+                <ScalarProperty Name="DIM_F" ColumnName="DIM_F" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_BARREL_GRADE_PUSHER" ColumnName="ID_BARREL_GRADE_PUSHER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_BARREL_GRADE_BUSHING">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_BARREL_GRADE_BUSHING">
+              <MappingFragment StoreEntitySet="TBL_BARREL_GRADE_BUSHING">
+                <ScalarProperty Name="DIM_D" ColumnName="DIM_D" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_BARREL_GRADE_BUSHING" ColumnName="ID_BARREL_GRADE_BUSHING" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

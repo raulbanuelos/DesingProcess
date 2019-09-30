@@ -159,7 +159,12 @@ namespace View.Services.Operaciones.Segmentos
 
         public void BuscarHerramentales()
         {
+            double d1Inch = Module.ConvertTo(elPlano.D1.TipoDato, elPlano.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.D1.Valor);
 
+            ListaHerramentales.Add(DataManager.GetBushingBarrelGradeSegmentos(d1Inch));
+            ListaHerramentales.Add(DataManager.GetPusherBarrelGradeSegmentos(d1Inch));
+
+            TextoHerramienta = Module.GetTextoListaHerramentales(ListaHerramentales);
         }
 
         /// <summary>

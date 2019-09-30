@@ -11040,6 +11040,7 @@ namespace Model
 
         #region Segmentos
 
+        #region BOBINADO
         public static Herramental GetLowerRollBobinadoSegmentos(double a1, double d1)
         {
             SO_Bobinado ServiceBobinado = new SO_Bobinado();
@@ -11107,7 +11108,7 @@ namespace Model
             return herramental;
         }
 
-        public static Herramental GetTargetRoll(double h1, double d1)
+        public static Herramental GetTargetRollBobinadoSegmentos(double h1, double d1)
         {
             double medidaA = h1 + 0.002;
             double medidaB = 0;
@@ -11146,6 +11147,109 @@ namespace Model
 
             return herramental;
         }
+
+        public static Herramental GetCenterWaferBobinadoSegmentos(double h1, double d1)
+        {
+            CriteriosSegmentos criterio = GetCriteriosSegmentos();
+
+            Herramental herramental = new Herramental();
+
+            SO_Bobinado serviceBobinado = new SO_Bobinado();
+
+            IList informacionBD = serviceBobinado.GetCenterWafer(h1, d1, criterio.CenterWaferH1Min, criterio.CenterWaferH1Max);
+
+            if (informacionBD != null && informacionBD.Count > 0)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    herramental.Encontrado = true;
+                    string detalle = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
+                    herramental.DescripcionRuta = "LAINA CENTRAL    DET " + detalle;
+                }
+            }
+            else
+            {
+                //Si no se encontro
+                herramental.DescripcionRuta = "LAINA CENTRAL    DET ";
+                herramental.Encontrado = false;
+                herramental.DescripcionMedidasBusqueda = "WIRE_WIDTH Between " + (h1 - criterio.CenterWaferH1Min) + " AND " + (h1 + criterio.CenterWaferH1Max) + "\n " +
+                    "DIM_A_MIN AND DIM_A_MAX BETWEEN " + d1;
+            }
+
+            return herramental;
+        }
+        #endregion
+
+        #region BARREL GRADE
+        public static Herramental GetBushingBarrelGradeSegmentos(double d1)
+        {
+            CriteriosSegmentos criterio = GetCriteriosSegmentos();
+
+            Herramental herramental = new Herramental();
+
+            SO_BarrelGrade serviceBarrelGrade = new SO_BarrelGrade();
+
+            IList informacionBD = serviceBarrelGrade.GetBushing(d1, criterio.BarrelBushingD1Min, criterio.BarrelBushingD1Max);
+
+            if (informacionBD != null && informacionBD.Count > 0)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    herramental.Encontrado = true;
+                    double dimD = (double)tipo.GetProperty("DIM_D").GetValue(item, null);
+                    herramental.DescripcionRuta = "BUSHING " + dimD;
+                }
+            }
+            else
+            {
+                //Si no se encontro
+                herramental.DescripcionRuta = "BUSHING " + d1;
+                herramental.Encontrado = false;
+                herramental.DescripcionMedidasBusqueda = "DIM D = " + d1;
+            }
+
+            return herramental;
+        }
+
+        public static Herramental GetPusherBarrelGradeSegmentos(double d1)
+        {
+            CriteriosSegmentos criterio = GetCriteriosSegmentos();
+
+            Herramental herramental = new Herramental();
+
+            SO_BarrelGrade serviceBarrelGrade = new SO_BarrelGrade();
+
+            IList informacionBD = serviceBarrelGrade.GetPusher(d1, criterio.BarrelPusherD1Min, criterio.BarrelPusherD1Max);
+
+            if (informacionBD != null && informacionBD.Count > 0)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    herramental.Encontrado = true;
+                    double dimD = (double)tipo.GetProperty("DIM_F").GetValue(item, null);
+                    herramental.DescripcionRuta = "PUSHER " + dimD;
+                }
+            }
+            else
+            {
+                //Si no se encontro
+                herramental.DescripcionRuta = "PUSHER " + d1;
+                herramental.Encontrado = false;
+                herramental.DescripcionMedidasBusqueda = "DIM F = " + d1;
+            }
+
+            return herramental;
+        }
+        #endregion
 
         #endregion
 

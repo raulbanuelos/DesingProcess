@@ -208,9 +208,13 @@ namespace View.Services.Operaciones.Segmentos
             thicknessMax = Module.GetValorPropiedadMax("a1", elPlano.PerfilID.Propiedades, true);
             double a1 = Math.Round( (thicknessMin + thicknessMax) / 2,4);
 
-            ListaHerramentales.Add(DataManager.GetLowerRollBobinadoSegmentos(a1, elPlano.D1.Valor));
-            ListaHerramentales.Add(DataManager.GetUpperRollBobinadoSegmentos(a1, elPlano.D1.Valor));
-            ListaHerramentales.Add(DataManager.GetTargetRoll(elPlano.H1.Valor, elPlano.D1.Valor));
+            double d1Inch = Module.ConvertTo(elPlano.D1.TipoDato, elPlano.D1.Unidad,EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.D1.Valor);
+            double h1Inch = Module.ConvertTo(elPlano.H1.TipoDato, elPlano.H1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.H1.Valor);
+            
+            ListaHerramentales.Add(DataManager.GetLowerRollBobinadoSegmentos(a1, d1Inch));
+            ListaHerramentales.Add(DataManager.GetUpperRollBobinadoSegmentos(a1, d1Inch));
+            ListaHerramentales.Add(DataManager.GetTargetRollBobinadoSegmentos(h1Inch, d1Inch));
+            ListaHerramentales.Add(DataManager.GetCenterWaferBobinadoSegmentos(h1Inch, d1Inch));
 
             TextoHerramienta = Module.GetTextoListaHerramentales(ListaHerramentales);
         }
