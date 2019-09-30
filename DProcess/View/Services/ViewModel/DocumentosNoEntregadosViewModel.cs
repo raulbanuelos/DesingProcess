@@ -49,7 +49,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _Titulo = "Deseleccionar Todos";
+        private string _Titulo = StringResources.lblDeseleccionarTodosDocumentos;
         public string Titulo
         {
             get
@@ -241,13 +241,13 @@ namespace View.Services.ViewModel
         {
             if (IsSelected)
             {
-                Titulo = "Deseleccionar Todos";
+                Titulo = StringResources.lblDeseleccionarTodosDocumentos;
                 _SeleccionarTodos();
                 IsSelected = false;
             }
             else
             {
-                Titulo = "Seleccionar Todos";
+                Titulo = StringResources.lblSeleccionarTodosDocumentos;
                 _DeseleccionarTodos();
                 IsSelected = true;
             }

@@ -169,7 +169,7 @@ namespace View.Services.ViewModel
             user = usuariolog;
             ListadeUsuarios = DataManagerControlDocumentos.GetUsuarios();
         }
-        
+
         #endregion
 
         #region Events INotifyPropertyChanged
@@ -251,47 +251,55 @@ namespace View.Services.ViewModel
             settings.AffirmativeButtonText = StringResources.lblYes;
             settings.NegativeButtonText = StringResources.lblNo;
 
+            // Validamos que se ingrese un nombre al grupo
             if (validar())
             {
-                MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, settings, MessageDialogStyle.AffirmativeAndNegative);
-
-                if (result == MessageDialogResult.Affirmative)
+                if (ListadeUsuarios.Where(a => a.IsSelected == true).ToList().Count > 1)
                 {
-                    // Primero se crea nuevo grupo
-                    ID_GRUPO = DataManagerControlDocumentos.CrearNuevoGrupo(nombre, user.NombreUsuario);
+                    MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, settings, MessageDialogStyle.AffirmativeAndNegative);
 
-                    foreach (var usuario in ListadeUsuarios)
+                    if (result == MessageDialogResult.Affirmative)
                     {
-                        // Se recorre la lista de usuarios y se insertan aquellos que están seleccionados
-                        if (usuario.IsSelected)
+                        // Primero se crea nuevo grupo
+                        ID_GRUPO = DataManagerControlDocumentos.CrearNuevoGrupo(nombre, user.NombreUsuario);
+
+                        foreach (var usuario in ListadeUsuarios)
                         {
-                            DataManagerControlDocumentos.agregarintegrante(ID_GRUPO, usuario.usuario);
+                            // Se recorre la lista de usuarios y se insertan aquellos que están seleccionados
+                            if (usuario.IsSelected)
+                            {
+                                DataManagerControlDocumentos.agregarintegrante(ID_GRUPO, usuario.usuario);
+                            }
+                        }
+
+                        if (ID_GRUPO > 0)
+                        {
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.ttlDone);
+
+                            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                            //Verificamos que la pantalla sea diferente de nulo.
+                            if (window != null)
+                            {
+                                //Cerramos la pantalla
+                                window.Close();
+                            }
+                        }
+                        else
+                        {
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgError);
                         }
                     }
-
-                    if (ID_GRUPO > 0)
-                    {
-                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.ttlDone);
-
-                        //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                        var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                        //Verificamos que la pantalla sea diferente de nulo.
-                        if (window != null)
-                        {
-                            //Cerramos la pantalla
-                            window.Close();
-                        }
-                    }
-                    else
-                    {
-                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgError);
-                    }
+                }
+                else
+                {
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSelecciona2MasUsuarios);
                 }
             }
             else
             {
-                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgAsignaNombreGrupo);
             }
         }
 

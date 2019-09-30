@@ -4546,6 +4546,18 @@ namespace Model.ControlDocumentos
             return Service.SetUserNotifyVersion(id_usuario, id_version);
         }
 
+        /// <summary>
+        /// Método para eliminar registros de la tabla TR_USUARIO_NOTIFICACIÓN_VERSION al momento de dar de baja algún documento
+        /// </summary>
+        /// <param name="id_version"></param>
+        /// <returns></returns>
+        public static int EliminarRegistroVersion(int id_version)
+        {
+            SO_USUARIO_NOTIFICACION_VERSION Service = new SO_USUARIO_NOTIFICACION_VERSION();
+
+            return Service.DeleteRegistroVersion(id_version);
+        }
+
         #endregion
     }
 }

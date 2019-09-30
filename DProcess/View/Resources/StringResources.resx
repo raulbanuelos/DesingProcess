@@ -386,7 +386,7 @@
     <comment>Campo para el correo</comment>
   </data>
   <data name="msgEliminarDocumentoFallido" xml:space="preserve">
-    <value>The document can't be deleted</value>
+    <value>The document can't be deleted.</value>
     <comment>Mensaje para notificar que no se puedo eliminar el documento</comment>
   </data>
   <data name="msgEliminarDocumentoFrames" xml:space="preserve">
@@ -1980,7 +1980,44 @@ Change the description please.</value>
     <comment>Mensaje que pide cambiar la descripción de un documento cuando es igual que el nombre.</comment>
   </data>
   <data name="msgDescripcionNoIgual" xml:space="preserve">
-    <value>The description cannot be the same as the name of the document.</value>
+    <value>The description cannot be the same as the name of the document.
+Change the description here and in the file.</value>
     <comment>Mensaje que se muestra cuando se quiere adjuntar un archivo y la descripción y nombre del documento son iguales</comment>
+  </data>
+  <data name="lblCerrar" xml:space="preserve">
+    <value>Close</value>
+    <comment>Título de botón cerrar</comment>
+  </data>
+  <data name="lblDeseleccionarTodosDocumentos" xml:space="preserve">
+    <value>Deselect all</value>
+    <comment>Título label para deseleccionar todos los documentos</comment>
+  </data>
+  <data name="lblDeseleccionarTodosGrupos" xml:space="preserve">
+    <value>Deselect all groups</value>
+    <comment>Título de label para deseleccionar todos los grupos</comment>
+  </data>
+  <data name="lblDeseleccionarTodosUsuarios" xml:space="preserve">
+    <value>Deselect all users</value>
+    <comment>Título de label para deseleccionar todos los usuarios</comment>
+  </data>
+  <data name="lblSeleccionarTodosDocumentos" xml:space="preserve">
+    <value>Select all</value>
+    <comment>Título label para seleccionar todos los documentos</comment>
+  </data>
+  <data name="lblSeleccionarTodosGrupos" xml:space="preserve">
+    <value>Select all groups</value>
+    <comment>Título de label para seleccionar todos los grupos</comment>
+  </data>
+  <data name="lblSeleccionarTodosUsuarios" xml:space="preserve">
+    <value>Select all users</value>
+    <comment>Título de  label para seleccionar todos los usuarios</comment>
+  </data>
+  <data name="msgAsignaNombreGrupo" xml:space="preserve">
+    <value>Assign a name to the group to create it.</value>
+    <comment>Mensaje que pide ingresar un nombre al grupo para poder crearlo</comment>
+  </data>
+  <data name="msgSelecciona2MasUsuarios" xml:space="preserve">
+    <value>Select at least 2 users to create the group.</value>
+    <comment>Mensaje que pide seleccionar al menos 2 usuarios para poder crear un grupo</comment>
   </data>
 </root>

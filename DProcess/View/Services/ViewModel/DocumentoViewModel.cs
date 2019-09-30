@@ -24,6 +24,7 @@ using System.Drawing;
 using Gma.QrCodeNet.Encoding;
 using Gma.QrCodeNet.Encoding.Windows.Render;
 using System.Threading;
+using System.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -503,7 +504,6 @@ namespace View.Services.ViewModel
             set { _banButtonNotificar = value; NotifyChange("banButtonNotificar"); }
         }
 
-
         private bool nombreEnabled = false;
         public bool NombreEnabled
         {
@@ -751,7 +751,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _TituloCheckGrupos = "Seleccionar todos los grupos";
+        private string _TituloCheckGrupos = StringResources.lblSeleccionarTodosGrupos;
         public string TituloCheckGrupos
         {
             get
@@ -765,7 +765,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private string _TituloCheckUsuarios = "Seleccionar todos los usuarios";
+        private string _TituloCheckUsuarios = StringResources.lblSeleccionarTodosUsuarios;
         public string TituloCheckUsuarios
         {
             get
@@ -776,6 +776,20 @@ namespace View.Services.ViewModel
             {
                 _TituloCheckUsuarios = value;
                 NotifyChange("TituloCheckUsuarios");
+            }
+        }
+
+        private string _TituloBotonNotificar = StringResources.lblNotificar;
+        public string TituloBotonNotificar
+        {
+            get
+            {
+                return _TituloBotonNotificar;
+            }
+            set
+            {
+                _TituloBotonNotificar = value;
+                NotifyChange("TituloBotonNotificar");
             }
         }
 
@@ -3858,6 +3872,9 @@ namespace View.Services.ViewModel
                                                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada + "\n" + confirmacionCorreo);
                                             }
 
+                                            // Llamamos el método para eliminar los registros de la tabla TR_USUARIO_NOTIFICACION_VERSION por ID_VERSION, una vez que el documento sea liberado
+                                            DataManagerControlDocumentos.EliminarRegistroVersion(idVersion);
+
                                             //Creamos una notificación para que el usuario la pueda ver.
                                             DO_Notification notificacion = new DO_Notification();
                                             notificacion.TITLE = StringResources.msgDocumentoActualizado;
@@ -3982,6 +3999,9 @@ namespace View.Services.ViewModel
 
                                                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada + "\n" + confirmacionCorreo);
                                             }
+
+                                            // Llamamos el método para eliminar los registros de la tabla TR_USUARIO_NOTIFICACION_VERSION por ID_VERSION, una vez que el documento sea liberado
+                                            DataManagerControlDocumentos.EliminarRegistroVersion(idVersion);
 
                                             //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                             var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -6568,12 +6588,14 @@ namespace View.Services.ViewModel
             if (isopen == true)
             {
                 isopen = false;
+                TituloBotonNotificar = StringResources.lblNotificar;
                 // Se manda llamar método que valida los seleccionados, después que el flyuot se cierra
                 RecorrerListas();
             }
             else
             {
                 isopen = true;
+                TituloBotonNotificar = StringResources.lblCerrar;
             }
         }
 
@@ -6703,13 +6725,13 @@ namespace View.Services.ViewModel
         {
             if (IsSelectedGrupos)
             {
-                TituloCheckGrupos = "Seleccionar todos los grupos";
+                TituloCheckGrupos = StringResources.lblSeleccionarTodosGrupos;
                 _DeseleccionarTodosGrupos();
                 IsSelectedGrupos = false;
             }
             else
             {
-                TituloCheckGrupos = "Deseleccionar todos los grupos";
+                TituloCheckGrupos = StringResources.lblDeseleccionarTodosGrupos;
                 _SeleccionarTodosGrupos();
                 IsSelectedGrupos = true;
             }
@@ -6722,13 +6744,13 @@ namespace View.Services.ViewModel
         {
             if (IsSelectedUsuarios)
             {
-                TituloCheckUsuarios = "Seleccionar todos los usuarios";
+                TituloCheckUsuarios = StringResources.lblSeleccionarTodosUsuarios;
                 _DeseleccionarTodosUsuarios();
                 IsSelectedUsuarios = false;
             }
             else
             {
-                TituloCheckUsuarios = "Deseleccionar todos los usuarios";
+                TituloCheckUsuarios = StringResources.lblDeseleccionarTodosUsuarios;
                 _SeleccionarTodosUsuarios();
                 IsSelectedUsuarios = true;
             }

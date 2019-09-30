@@ -266,9 +266,9 @@
                                 </StackPanel>
                             </StackPanel>
 
-                            <Button Content="{x:Static recursos:StringResources.lblNotificar}" Command="{Binding IrFlyOut}" Grid.Row="2" Width="230" HorizontalAlignment="Left" Margin="10,230,0,-20" Visibility="{Binding banButtonNotificar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"></Button>
+                            <Button Content="{Binding TituloBotonNotificar}" Command="{Binding IrFlyOut}" Grid.Row="2" Width="230" HorizontalAlignment="Left" Margin="10,230,0,-20" Visibility="{Binding banButtonNotificar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"></Button>
                             <Label Grid.Row="2" Content="{x:Static recursos:StringResources.lblAlertaNotificar}" VerticalAlignment="Bottom" Margin="6,0,-6,19" FontSize="18" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="{Binding banAlertaCorreo, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"></Label>
-                            
+
                         </Grid>
                     </Grid>
 
@@ -288,7 +288,7 @@
         </controls:HamburgerMenu>
 
         <controls:FlyoutsControl Margin="0,0,0,0">
-            <controls:Flyout Theme="Light" Header="{x:Static recursos:StringResources.ttlSelectWhoNotify}" FontSize="10" Position="Right" Width="400" IsOpen="{Binding isopen}">
+            <controls:Flyout Theme="Light" BorderBrush="DeepSkyBlue" BorderThickness="3,0,0,0" Header="{x:Static recursos:StringResources.ttlSelectWhoNotify}" FontSize="10" Position="Right" Width="400" IsOpen="{Binding isopen}">
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -301,7 +301,6 @@
 
                     <CheckBox Grid.Row="0" HorizontalAlignment="Center" Content="{Binding TituloCheckGrupos}" FontSize="15" IsChecked="False" Command="{Binding SelecDeselecGrupos}" CommandParameter="{Binding IsSelectedGrupos}"/>
                     <CheckBox Grid.Row="2" HorizontalAlignment="Center" Content="{Binding TituloCheckUsuarios}" FontSize="15" IsChecked="False" Command="{Binding SelecDeselecUsuarios}" CommandParameter="{Binding IsSelectedUsuarios}"/>
-
 
                     <DataGrid ItemsSource="{Binding ListaGrupos}" SelectedItem="{Binding GrupoSeleccionado, Mode=TwoWay}"
                                       ScrollViewer.CanContentScroll="True" 
@@ -318,6 +317,7 @@
                                             EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                             Header="{x:Static recursos:StringResources.lblNotificar}"
                                             Binding="{Binding IsSelected}"/>
+                            
                             <DataGridTextColumn Header="{x:Static recursos:StringResources.lblGrupos}" Binding="{Binding nombre}" IsReadOnly="True"></DataGridTextColumn>
                         </DataGrid.Columns>
 
@@ -346,7 +346,8 @@
                             <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                             EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                             Header="{x:Static recursos:StringResources.lblNotificar}"
-                                            Binding="{Binding IsSelected}">
+                                            Binding="{Binding IsSelected}"
+                                                    >
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Checked">
                                         <i:InvokeCommandAction Command="{Binding ValidarSeleccionados}"/>
