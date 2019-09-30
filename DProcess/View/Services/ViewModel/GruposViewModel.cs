@@ -254,6 +254,7 @@ namespace View.Services.ViewModel
             // Validamos que se ingrese un nombre al grupo
             if (validar())
             {
+                // Validamos que haya seleccionado más de 1 usuario para poder crear un grupo
                 if (ListadeUsuarios.Where(a => a.IsSelected == true).ToList().Count > 1)
                 {
                     MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, settings, MessageDialogStyle.AffirmativeAndNegative);
