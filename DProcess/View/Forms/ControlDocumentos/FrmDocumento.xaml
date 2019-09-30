@@ -288,7 +288,7 @@
         </controls:HamburgerMenu>
 
         <controls:FlyoutsControl Margin="0,0,0,0">
-            <controls:Flyout Theme="Light" BorderBrush="DeepSkyBlue" BorderThickness="3,0,0,0" Header="{x:Static recursos:StringResources.ttlSelectWhoNotify}" FontSize="10" Position="Right" Width="400" IsOpen="{Binding isopen}">
+            <controls:Flyout Theme="Light" BorderBrush="DeepSkyBlue" BorderThickness="3,0,0,0" Header="{x:Static recursos:StringResources.ttlSelectWhoNotify}" FontSize="10" Position="Right" Width="400" IsOpen="{Binding isopen}" CloseButtonVisibility="Hidden">
 
                 <Grid>
                     <Grid.RowDefinitions>
