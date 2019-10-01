@@ -81,6 +81,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                 return string.Empty;
             }
         }
+
         /// <summary>
         /// Método para actualizar los valores de un registro de la tabla Cuff.
         /// </summary>
@@ -117,8 +118,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                 //Si encuentra error devuelve cero.
                 return 0;
             }
-        }
-        
+        }        
            
         /// <summary>
         /// Método para eliminar un registro en la tabla Cuffs.

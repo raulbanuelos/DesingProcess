@@ -92,10 +92,13 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         {
             try
             {
+                // Realizamos la conexión a través de EntityFramework
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
+                    // Delcaramos el objeto de la tabla
                     CAT_MATERIA_PRIMA_ROLADO materiaPrima = new CAT_MATERIA_PRIMA_ROLADO();
 
+                    // Asignamos los valores
                     materiaPrima.ID_MATERIA_PRIMA_ROLADO = codigoMateriaPrima;
                     materiaPrima.ID_ESPECIFICACION = especificacion;
                     materiaPrima.THICKNESS = thickness;
@@ -106,8 +109,10 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     materiaPrima.UBICACION = ubicacion;
                     materiaPrima.ESPEC_PERFIL = Especificacion_Perfil;
 
+                    // Agregamos el objeto a la tabla
                     Conexion.CAT_MATERIA_PRIMA_ROLADO.Add(materiaPrima);
 
+                    // Guardamos los cambios
                     return Conexion.SaveChanges();
                 }
             }

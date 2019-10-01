@@ -11145,6 +11145,147 @@ namespace Model
             }
 
             return herramental;
+        }        
+
+        /// <summary>
+        /// Llamar método para insertar un registro en la tabla TBL_BOBINADO_UPPER_ROLL
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="Wire_Width_Min"></param>
+        /// <param name="Wire_Width_Max"></param>
+        /// <param name="Dia_Min"></param>
+        /// <param name="Dia_Max"></param>
+        /// <param name="Detalle_Engrane"></param>
+        /// <param name="Medida"></param>
+        /// <returns></returns>
+        public static int InsertarBobinadoUpperRoll(string Codigo, double Wire_Width_Min, double Wire_Width_Max, double Dia_Min, double Dia_Max, string Detalle_Engrane, double Medida)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.InsertBobinadoUpperRoll(Codigo, Wire_Width_Min, Wire_Width_Max, Dia_Min, Dia_Max, Detalle_Engrane, Medida);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar un registro en la tabla TBL_BOBINADO_UPPER_ROLL
+        /// </summary>
+        /// <param name="Id_Bobinado_Upper_Roll"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="Wire_Width_Min"></param>
+        /// <param name="Wire_Width_Max"></param>
+        /// <param name="Dia_Min"></param>
+        /// <param name="Dia_Max"></param>
+        /// <param name="Detalle_Engrane"></param>
+        /// <param name="Medida"></param>
+        /// <returns></returns>
+        public static int ActualizarBobinadoUpperRoll(int Id_Bobinado_Upper_Roll, string Codigo, double Wire_Width_Min, double Wire_Width_Max, double Dia_Min, double Dia_Max, string Detalle_Engrane, double Medida)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.UpdateBobinadoUpperRoll(Id_Bobinado_Upper_Roll, Codigo, Wire_Width_Min, Wire_Width_Max, Dia_Min, Dia_Max, Detalle_Engrane, Medida);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar registro de la tabla TBL_BOBINADO_UPPER_ROLL
+        /// </summary>
+        /// <param name="Id_Bobinado_Upper_Roll"></param>
+        /// <returns></returns>
+        public static int EliminarBobinadoUpperRoll(int Id_Bobinado_Upper_Roll)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.DeleteBobinadoUpperRoll(Id_Bobinado_Upper_Roll);
+        }
+
+        /// <summary>
+        /// Llamar método para insertar registos en la tabla TBL_BOBINADO_LOWER_ROLL
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="Detalle_Rodillo"></param>
+        /// <param name="Detalle_Engrane"></param>
+        /// <param name="Wire_Width_Min"></param>
+        /// <param name="Wire_Width_Max"></param>
+        /// <param name="Dia_Min"></param>
+        /// <param name="Dia_Max"></param>
+        /// <param name="Side_Plate_Dia"></param>
+        /// <returns></returns>
+        public static int InsertarBobinadoLowerRoll(string Codigo, string Detalle_Rodillo, string Detalle_Engrane, double Wire_Width_Min, double Wire_Width_Max, double Dia_Min, double Dia_Max, double Side_Plate_Dia)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.InsertBobinadoLowerRoll(Codigo, Detalle_Rodillo, Detalle_Engrane, Wire_Width_Min, Wire_Width_Max, Dia_Min, Dia_Max, Side_Plate_Dia);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar un registro de la tabla TBL_BOBINADO_LOWER_ROLL
+        /// </summary>
+        /// <param name="Id_Bobinado_Lower_Roll"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="Detalle_Rodillo"></param>
+        /// <param name="Detalle_Engrane"></param>
+        /// <param name="Wire_Width_Min"></param>
+        /// <param name="Wire_Width_Max"></param>
+        /// <param name="Dia_Min"></param>
+        /// <param name="Dia_Max"></param>
+        /// <param name="Side_Plate_Dia"></param>
+        /// <returns></returns>
+        public static int ActualizarBobinadoLowerRoll(int Id_Bobinado_Lower_Roll, string Codigo, string Detalle_Rodillo, string Detalle_Engrane, double Wire_Width_Min, double Wire_Width_Max, double Dia_Min, double Dia_Max, double Side_Plate_Dia)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.UpdateBobinadoLowerRoll(Id_Bobinado_Lower_Roll, Codigo, Detalle_Rodillo, Detalle_Engrane, Wire_Width_Min, Wire_Width_Max, Dia_Min, Dia_Max, Side_Plate_Dia);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar un registro de la tabla TBL_BOBINADO_LOWER_ROLL
+        /// </summary>
+        /// <param name="Id_Bobinado_Lower_Roll"></param>
+        /// <returns></returns>
+        public static int EliminarBobinadoLowerRoll(int Id_Bobinado_Lower_Roll)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.DeleteBobinadoLowerRoll(Id_Bobinado_Lower_Roll);
+        }
+
+        /// <summary>
+        /// Llamar método para insertar registro en la tabla TBL_BOBINADO_TARJET_ROLL
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <returns></returns>
+        public static int InsertarBobinadoTarjetRoll(string Codigo, double A, double B)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.InsertBoninadoTarjetRoll(Codigo, A, B);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar registro de la tabla TBL_BOBINADO_TARJET_ROLL
+        /// </summary>
+        /// <param name="Id_Bobinado_Tarjet_Roll"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <returns></returns>
+        public static int ActualizarBobinadoTarjetRoll(int Id_Bobinado_Tarjet_Roll, string Codigo, double A, double B)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.UpdateBobinadoTarjetRoll(Id_Bobinado_Tarjet_Roll, Codigo, A, B);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar registro de la tabla TBL_BOBINADO_TARJET_ROLL
+        /// </summary>
+        /// <param name="Id_Bobinado_Tarjet_Roll"></param>
+        /// <returns></returns>
+        public static int EliminarBobinadoTarjetRoll(int Id_Bobinado_Tarjet_Roll)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.DeletedBobinadoTarjetRoll(Id_Bobinado_Tarjet_Roll);
         }
 
         #endregion
