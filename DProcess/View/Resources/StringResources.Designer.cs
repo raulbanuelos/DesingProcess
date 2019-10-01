@@ -485,6 +485,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Close.
+        /// </summary>
+        public static string lblCerrar {
+            get {
+                return ResourceManager.GetString("lblCerrar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Do you want to close the window?.
         /// </summary>
         public static string lblCerrarVentana {
@@ -688,6 +697,33 @@ namespace View.Resources {
         public static string lblDescripcionSimilar {
             get {
                 return ResourceManager.GetString("lblDescripcionSimilar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Deselect all.
+        /// </summary>
+        public static string lblDeseleccionarTodosDocumentos {
+            get {
+                return ResourceManager.GetString("lblDeseleccionarTodosDocumentos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Deselect all groups.
+        /// </summary>
+        public static string lblDeseleccionarTodosGrupos {
+            get {
+                return ResourceManager.GetString("lblDeseleccionarTodosGrupos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Deselect all users.
+        /// </summary>
+        public static string lblDeseleccionarTodosUsuarios {
+            get {
+                return ResourceManager.GetString("lblDeseleccionarTodosUsuarios", resourceCulture);
             }
         }
         
@@ -1655,6 +1691,33 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Select all.
+        /// </summary>
+        public static string lblSeleccionarTodosDocumentos {
+            get {
+                return ResourceManager.GetString("lblSeleccionarTodosDocumentos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select all groups.
+        /// </summary>
+        public static string lblSeleccionarTodosGrupos {
+            get {
+                return ResourceManager.GetString("lblSeleccionarTodosGrupos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select all users.
+        /// </summary>
+        public static string lblSeleccionarTodosUsuarios {
+            get {
+                return ResourceManager.GetString("lblSeleccionarTodosUsuarios", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Do you want to seal the document?.
         /// </summary>
         public static string lblSellarDocumento {
@@ -2061,6 +2124,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Assign a name to the group to create it..
+        /// </summary>
+        public static string msgAsignaNombreGrupo {
+            get {
+                return ResourceManager.GetString("msgAsignaNombreGrupo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The name of the document and the description cannot be the same.
         ///Change the description please..
         /// </summary>
@@ -2278,7 +2350,8 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a The description cannot be the same as the name of the document..
+        ///   Busca una cadena traducida similar a The description cannot be the same as the name of the document.
+        ///Change the description here and in the file..
         /// </summary>
         public static string msgDescripcionNoIgual {
             get {
@@ -2404,7 +2477,7 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a The document can&apos;t be deleted.
+        ///   Busca una cadena traducida similar a The document can&apos;t be deleted..
         /// </summary>
         public static string msgEliminarDocumentoFallido {
             get {
@@ -3458,6 +3531,15 @@ namespace View.Resources {
         public static string msgSelecciona1error {
             get {
                 return ResourceManager.GetString("msgSelecciona1error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select at least 2 users to create the group..
+        /// </summary>
+        public static string msgSelecciona2MasUsuarios {
+            get {
+                return ResourceManager.GetString("msgSelecciona2MasUsuarios", resourceCulture);
             }
         }
         
