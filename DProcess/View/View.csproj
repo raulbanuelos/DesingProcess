@@ -34,8 +34,8 @@
     <SuiteName>Diseño del proceso</SuiteName>
     <MinimumRequiredVersion>2.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>8</ApplicationRevision>
-    <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>2.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -567,6 +567,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\WCoil.xaml.cs">
       <DependentUpon>WCoil.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\WCoil_CenterGuide..xaml.cs">
+      <DependentUpon>WCoil_CenterGuide..xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\WCoil_D.xaml.cs">
       <DependentUpon>WCoil_D.xaml</DependentUpon>
@@ -1493,6 +1496,10 @@
     <Page Include="Forms\Tooling\WCoil.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WCoil_CenterGuide..xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\Tooling\WCoil_D.xaml">
       <SubType>Designer</SubType>

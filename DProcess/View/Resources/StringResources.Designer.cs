@@ -701,6 +701,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a You can select other users to notify via email when the document is released..
+        /// </summary>
+        public static string lblDescriptionNotify {
+            get {
+                return ResourceManager.GetString("lblDescriptionNotify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Deselect all.
         /// </summary>
         public static string lblDeseleccionarTodosDocumentos {

@@ -14,4 +14,20 @@ namespace Model.ControlDocumentos
         public bool IsSelected { get; set; }
         public string nombrecompleto { get; set; }
     }
+
+    /// <summary>
+    /// Clase para comparar la clase DO_INTEGRANTES_GRUPO
+    /// </summary>
+    public class DO_INTEGRANTES_GRUPO_EqualityComparer : IEqualityComparer<DO_INTEGRANTES_GRUPO>
+    {
+        public bool Equals(DO_INTEGRANTES_GRUPO x, DO_INTEGRANTES_GRUPO y)
+        {
+            return x.idintegrantegrupo == y.idintegrantegrupo;
+        }
+
+        public int GetHashCode(DO_INTEGRANTES_GRUPO obj)
+        {
+            return obj.idintegrantegrupo.GetHashCode();
+        }
+    }
 }
