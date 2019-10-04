@@ -115,8 +115,6 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BARREL_GRADE_PUSHER_MaestroHerramentales" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BARREL_GRADE_BUSHING" Width="1.5" PointX="12.25" PointY="24.375" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BARREL_GRADE_BUSHING_MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BOBINADO_TARGET_ROLL" Width="2.875" PointX="12.25" PointY="17.25" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_TARGET_ROLL_MaestroHerramentales" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
