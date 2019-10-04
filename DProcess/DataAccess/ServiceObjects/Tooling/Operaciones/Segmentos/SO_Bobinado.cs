@@ -91,7 +91,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return upper_roll.ID_BOBINADO_UPPER_ROLL;
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 // Si hay un error retornamos 0
                 return 0;
@@ -137,7 +137,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -167,13 +167,13 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                 }
 
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 // Si hay error retornamos 0
                 return 0;
             }
         }
-    
+
         /// <summary>
         /// Consulta para traer todos los registros LowerRoll
         /// </summary>
@@ -259,7 +259,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return lower_roll.ID_BOBINADO_LOWER_ROLL;
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -307,7 +307,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -336,7 +336,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 // Si hay errror retornamos 0
                 return 0;
@@ -418,7 +418,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return tarjet_roll.ID_BOBINADO_TARGET_ROLL;
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -456,7 +456,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -485,13 +485,21 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 // Si hay error retornamos 0
                 return 0;
             }
         }
 
+        /// <summary>
+        /// Consulta para traer todos los registros CenterWafer
+        /// </summary>
+        /// <param name="h1"></param>
+        /// <param name="d1"></param>
+        /// <param name="centerwaferh1min"></param>
+        /// <param name="centerwaferh1max"></param>
+        /// <returns></returns>
         public IList GetCenterWafer(double h1, double d1, double centerwaferh1min, double centerwaferh1max)
         {
             try
@@ -524,6 +532,128 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
             catch (Exception)
             {
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Inserción de registros CenterWafer
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="dim_a_min"></param>
+        /// <param name="dim_a_max"></param>
+        /// <param name="wire_width"></param>
+        /// <param name="detalle"></param>
+        /// <param name="dia_b"></param>
+        /// <param name="f_width"></param>
+        /// <returns></returns>
+        public int InsertBobinadoCenterWafer(string codigo, double dim_a_min, double dim_a_max, double wire_width, string detalle, double dia_b, double f_width)
+        {
+            try
+            {
+                // Establecemos conexión a través de EntityFramework
+                using (var Conexion = new EntitiesTooling())
+                {
+                    // Declaramos la lista del objeto
+                    TBL_BOBINADO_CENTER_WAFER center_wafer = new TBL_BOBINADO_CENTER_WAFER();
+
+                    // Asignamos valores
+                    center_wafer.CODIGO = codigo;
+                    center_wafer.DIM_A_MIN = dim_a_min;
+                    center_wafer.DIM_A_MAX = dim_a_max;
+                    center_wafer.WIRE_WIDTH = wire_width;
+                    center_wafer.DETALLE = detalle;
+                    center_wafer.DIA_B = dia_b;
+                    center_wafer.F_WIDTH = f_width;
+
+                    // Insertamos el registro
+                    Conexion.TBL_BOBINADO_CENTER_WAFER.Add(center_wafer);
+
+                    // Guardamos los cambios
+                    Conexion.SaveChanges();
+
+                    // Retornamos el ID
+                    return center_wafer.ID_BOBONADO_CENTER_WAFER;
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay error retornamos 0
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Actualización de registros CenterWafer
+        /// </summary>
+        /// <param name="id_bobinado_center_wafer"></param>
+        /// <param name="codigo"></param>
+        /// <param name="dim_a_min"></param>
+        /// <param name="dim_a_max"></param>
+        /// <param name="wire_width"></param>
+        /// <param name="detalle"></param>
+        /// <param name="dia_b"></param>
+        /// <param name="f_width"></param>
+        /// <returns></returns>
+        public int UpdateBobinadoCenterWafer(int id_bobinado_center_wafer, string codigo, double dim_a_min, double dim_a_max, double wire_width, string detalle, double dia_b, double f_width)
+        {
+            try
+            {
+                // Establecemos conexión a través de EntityFramework
+                using (var Conexion = new EntitiesTooling())
+                {
+                    // Declaramos el objeto de la lista
+                    TBL_BOBINADO_CENTER_WAFER center_wafer = Conexion.TBL_BOBINADO_CENTER_WAFER.Where(x => x.ID_BOBONADO_CENTER_WAFER == id_bobinado_center_wafer).FirstOrDefault();
+
+                    // Asignamos valores
+                    center_wafer.ID_BOBONADO_CENTER_WAFER = id_bobinado_center_wafer;
+                    center_wafer.CODIGO = codigo;
+                    center_wafer.DIM_A_MIN = dim_a_min;
+                    center_wafer.DIM_A_MAX = dim_a_max;
+                    center_wafer.WIRE_WIDTH = wire_width;
+                    center_wafer.DETALLE = detalle;
+                    center_wafer.DIA_B = dia_b;
+                    center_wafer.F_WIDTH = f_width;
+
+                    // Actualizamos el registro
+                    Conexion.Entry(center_wafer).State = System.Data.Entity.EntityState.Modified;
+
+                    // Retornamos datos afectados
+                    return Conexion.SaveChanges();                    
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay error retornamos 0
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Eliminar registros CenterWafer
+        /// </summary>
+        /// <param name="id_bobinado_center_wafer"></param>
+        /// <returns></returns>
+        public int DeleteBobinadoCenterWafer(int id_bobinado_center_wafer)
+        {
+            try
+            {
+                // Establecemos conexión a través de EntityFramework
+                using (var Conexion = new EntitiesTooling())
+                {
+                    // Declaramos el objeto de la lista
+                    TBL_BOBINADO_CENTER_WAFER center_wafer = Conexion.TBL_BOBINADO_CENTER_WAFER.Where(x => x.ID_BOBONADO_CENTER_WAFER == id_bobinado_center_wafer).FirstOrDefault();
+
+                    // Eliminamos el registro
+                    Conexion.Entry(center_wafer).State = System.Data.Entity.EntityState.Deleted;
+
+                    // Retornamos registros afectados
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay error retornamos 0
+                return 0;
             }
         }
     }

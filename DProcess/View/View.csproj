@@ -424,8 +424,26 @@
     <Compile Include="Forms\Shared\WSelectedOption.xaml.cs">
       <DependentUpon>WSelectedOption.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlBarrelGradeBushing.xaml.cs">
+      <DependentUpon>ControlBarrelGradeBushing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlBarrelGradePusher.xaml.cs">
+      <DependentUpon>ControlBarrelGradePusher.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlBarrelLapAnillos_.xaml.cs">
       <DependentUpon>ControlBarrelLapAnillos_.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlBobinadoCenterWafer.xaml.cs">
+      <DependentUpon>ControlBobinadoCenterWafer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlBobinadoLowerRoll.xaml.cs">
+      <DependentUpon>ControlBobinadoLowerRoll.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlBobinadoTarjetRoll.xaml.cs">
+      <DependentUpon>ControlBobinadoTarjetRoll.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlBobinadoUpperRoll.xaml.cs">
+      <DependentUpon>ControlBobinadoUpperRoll.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\ControlBushing.xaml.cs">
       <DependentUpon>ControlBushing.xaml</DependentUpon>
@@ -1302,7 +1320,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlBarrelGradeBushing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlBarrelGradePusher.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\ControlBarrelLapAnillos_.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlBobinadoCenterWafer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlBobinadoLowerRoll.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlBobinadoTarjetRoll.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlBobinadoUpperRoll.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="View.Forms.Tooling.ControlBarrelGradePusher"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View.Forms.Tooling"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="450">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <TextBox x:Name="tbx_Dim_F" materialDesign:HintAssist.Hint="Dim F" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="450" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidation" PreviewKeyDown="KeyValidation"></TextBox>
+        </StackPanel>
+    </Grid>
+</UserControl>
