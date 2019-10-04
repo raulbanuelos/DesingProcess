@@ -82,7 +82,6 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<TBL_MANGA_PVD_ACERO_INOXIDABLE> TBL_MANGA_PVD_ACERO_INOXIDABLE { get; set; }
         public virtual DbSet<TBL_BOBINADO_LOWER_ROLL> TBL_BOBINADO_LOWER_ROLL { get; set; }
         public virtual DbSet<TBL_BOBINADO_UPPER_ROLL> TBL_BOBINADO_UPPER_ROLL { get; set; }
-        public virtual DbSet<TBL_BOBINADO_TARGET_ROLL> TBL_BOBINADO_TARGET_ROLL { get; set; }
         public virtual DbSet<TBL_BOBINADO_CENTER_WAFER> TBL_BOBINADO_CENTER_WAFER { get; set; }
         public virtual DbSet<TBL_BARREL_GRADE_PUSHER> TBL_BARREL_GRADE_PUSHER { get; set; }
         public virtual DbSet<TBL_BARREL_GRADE_BUSHING> TBL_BARREL_GRADE_BUSHING { get; set; }

@@ -702,7 +702,7 @@ namespace Model
         {
             SO_Calculo serviceCalculo = new SO_Calculo();
 
-            return serviceCalculo.UpdateCalculoArquetipo(codigo, xmlOperation, matRemoveWidth, matRemoveThickness, matRemoveDiameter, workGap, gapFixed,idCalculoArquetipo);
+            return serviceCalculo.UpdateCalculoArquetipo(codigo, xmlOperation, matRemoveWidth, matRemoveThickness, matRemoveDiameter, workGap, gapFixed, idCalculoArquetipo);
         }
 
         /// <summary>
@@ -744,7 +744,7 @@ namespace Model
                     listaResultante.Add(arquetipo);
                 }
             }
-            
+
             return listaResultante;
         }
         #endregion
@@ -11084,6 +11084,7 @@ namespace Model
         #region Segmentos
 
         #region BOBINADO
+
         public static Herramental GetLowerRollBobinadoSegmentos(double a1, double d1)
         {
             SO_Bobinado ServiceBobinado = new SO_Bobinado();
@@ -11189,7 +11190,41 @@ namespace Model
             }
 
             return herramental;
-        }        
+        }
+
+        public static Herramental GetCenterWaferBobinadoSegmentos(double h1, double d1)
+        {
+            CriteriosSegmentos criterio = GetCriteriosSegmentos();
+
+            Herramental herramental = new Herramental();
+
+            SO_Bobinado serviceBobinado = new SO_Bobinado();
+
+            IList informacionBD = serviceBobinado.GetCenterWafer(h1, d1, criterio.CenterWaferH1Min, criterio.CenterWaferH1Max);
+
+            if (informacionBD != null && informacionBD.Count > 0)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    herramental.Encontrado = true;
+                    string detalle = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
+                    herramental.DescripcionRuta = "LAINA CENTRAL    DET " + detalle;
+                }
+            }
+            else
+            {
+                //Si no se encontro
+                herramental.DescripcionRuta = "LAINA CENTRAL    DET ";
+                herramental.Encontrado = false;
+                herramental.DescripcionMedidasBusqueda = "WIRE_WIDTH Between " + (h1 - criterio.CenterWaferH1Min) + " AND " + (h1 + criterio.CenterWaferH1Max) + "\n " +
+                    "DIM_A_MIN AND DIM_A_MAX BETWEEN " + d1;
+            }
+
+            return herramental;
+        }
 
         /// <summary>
         /// Llamar método para insertar un registro en la tabla TBL_BOBINADO_UPPER_ROLL
@@ -11332,42 +11367,60 @@ namespace Model
             return ServiceBobinado.DeletedBobinadoTarjetRoll(Id_Bobinado_Tarjet_Roll);
         }
 
-        public static Herramental GetCenterWaferBobinadoSegmentos(double h1, double d1)
+        /// <summary>
+        /// Llamar método para insertar un registro en la tabla TBL_BOBINADO_CENTER_WAFER
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_A_Min"></param>
+        /// <param name="Dim_A_Max"></param>
+        /// <param name="Wire_Width"></param>
+        /// <param name="Detalle"></param>
+        /// <param name="Dia_B"></param>
+        /// <param name="F_Width"></param>
+        /// <returns></returns>
+        public static int InsertarBobinadoCenterWafer(string Codigo, double Dim_A_Min, double Dim_A_Max, double Wire_Width, string Detalle, double Dia_B, double F_Width)
         {
-            CriteriosSegmentos criterio = GetCriteriosSegmentos();
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
 
-            Herramental herramental = new Herramental();
-
-            SO_Bobinado serviceBobinado = new SO_Bobinado();
-
-            IList informacionBD = serviceBobinado.GetCenterWafer(h1, d1, criterio.CenterWaferH1Min, criterio.CenterWaferH1Max);
-
-            if (informacionBD != null && informacionBD.Count > 0)
-            {
-                foreach (var item in informacionBD)
-                {
-                    Type tipo = item.GetType();
-
-                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
-                    herramental.Encontrado = true;
-                    string detalle = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
-                    herramental.DescripcionRuta = "LAINA CENTRAL    DET " + detalle;
-                }
-            }
-            else
-            {
-                //Si no se encontro
-                herramental.DescripcionRuta = "LAINA CENTRAL    DET ";
-                herramental.Encontrado = false;
-                herramental.DescripcionMedidasBusqueda = "WIRE_WIDTH Between " + (h1 - criterio.CenterWaferH1Min) + " AND " + (h1 + criterio.CenterWaferH1Max) + "\n " +
-                    "DIM_A_MIN AND DIM_A_MAX BETWEEN " + d1;
-            }
-
-            return herramental;
+            return ServiceBobinado.InsertBobinadoCenterWafer(Codigo, Dim_A_Min, Dim_A_Max, Wire_Width, Detalle, Dia_B, F_Width);
         }
+         
+        /// <summary>
+        /// Llamar método para actualizar un registro de la tabla TBL_BOBINADO_CENTER_WAFER
+        /// </summary>
+        /// <param name="Id_Bobinado_Center_Wafer"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_A_Min"></param>
+        /// <param name="Dim_A_Max"></param>
+        /// <param name="Wire_Width"></param>
+        /// <param name="Detalle"></param>
+        /// <param name="Dia_B"></param>
+        /// <param name="F_Width"></param>
+        /// <returns></returns>
+        public static int ActualizarBobinadoCenterWafer(int Id_Bobinado_Center_Wafer, string Codigo, double Dim_A_Min, double Dim_A_Max, double Wire_Width, string Detalle, double Dia_B, double F_Width)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.UpdateBobinadoCenterWafer(Id_Bobinado_Center_Wafer, Codigo, Dim_A_Min, Dim_A_Max, Wire_Width, Detalle, Dia_B, F_Width);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar un registro de la tabla TBL_BOBINADO_CENTER_WAFER
+        /// </summary>
+        /// <param name="Id_Bobinado_Center_Wafer"></param>
+        /// <returns></returns>
+        public static int EliminarBobinadoCenterWafer(int Id_Bobinado_Center_Wafer)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.DeleteBobinadoCenterWafer(Id_Bobinado_Center_Wafer);
+        }
+
+
         #endregion
 
         #region BARREL GRADE
+
         public static Herramental GetBushingBarrelGradeSegmentos(double d1)
         {
             CriteriosSegmentos criterio = GetCriteriosSegmentos();
@@ -11433,6 +11486,85 @@ namespace Model
 
             return herramental;
         }
+
+        /// <summary>
+        /// Llamar método para insertar un registro en la tabla TBL_BARREL_GRADE_BUSHING
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_D"></param>
+        /// <returns></returns>
+        public static int InsertarBarrelGradeBrushing(string Codigo, double Dim_D)
+        {
+            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
+
+            return ServiceBarrelGrade.InsertBarrelGradeBushing(Codigo, Dim_D);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar un registro en la tabla TBL_BARREL_GRADE_BUSHING
+        /// </summary>
+        /// <param name="Id_Barrel_Grade_Bushing"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_D"></param>
+        /// <returns></returns>
+        public static int ActualizarBarrelGradeBushing(int Id_Barrel_Grade_Bushing, string Codigo, double Dim_D)
+        {
+            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
+
+            return ServiceBarrelGrade.UpdateBarrelGradeBushing(Id_Barrel_Grade_Bushing, Codigo, Dim_D);
+        }
+
+        /// <summary>
+        /// Llamae método para eliminar un registro de la tabla TBL_BARREL_GRADE_BUSHING
+        /// </summary>
+        /// <param name="Id_Barrel_Grade_Bushing"></param>
+        /// <returns></returns>
+        public static int EliminarBarrelGradeBushing(int Id_Barrel_Grade_Bushing)
+        {
+            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
+
+            return ServiceBarrelGrade.DeletedBarrelGradeBushing(Id_Barrel_Grade_Bushing);
+        }
+
+        /// <summary>
+        /// Llamar método para insertar un registro en la tabla TBL_BARREL_GRADE_PUSHER
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_F"></param>
+        /// <returns></returns>
+        public static int InsertarBarrelGradePusher(string Codigo, double Dim_F)
+        {
+            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
+
+            return ServiceBarrelGrade.InsertBarrelGradePusher(Codigo, Dim_F);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar un registro de la tabla TBL_BARREL_GRADE_PUSHER
+        /// </summary>
+        /// <param name="Id_Barrel_Grade_Pusher"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_F"></param>
+        /// <returns></returns>
+        public static int ActualizarBarrelGradePusher(int Id_Barrel_Grade_Pusher, string Codigo, double Dim_F)
+        {
+            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
+
+            return ServiceBarrelGrade.UpdateBarrelGradePusher(Id_Barrel_Grade_Pusher, Codigo, Dim_F);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar un registro de la tabla TBL_BARREL_GRADE_PUSHER
+        /// </summary>
+        /// <param name="Id_Barrel_Grade_Pusher"></param>
+        /// <returns></returns>
+        public static int EliminarBarrelGradePusher(int Id_Barrel_Grade_Pusher)
+        {
+            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
+
+            return ServiceBarrelGrade.DeleteBarrelGradePusher(Id_Barrel_Grade_Pusher);
+        }
+
         #endregion
 
         #region PVD WASH
