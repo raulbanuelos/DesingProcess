@@ -159,7 +159,38 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso += "**********************************************" + Environment.NewLine;
             TextoProceso += "ENSAMBLE DE HERRAMENTAL Y BOBINAS" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
-            TextoProceso += "MANGA " + "" + " mm" + Environment.NewLine;
+
+            double medidaManga = 0;
+
+            double d1mm = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), elPlano.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), elPlano.D1.Valor);
+            Propiedad a1Min = Module.GetPropiedad("a1 Min", elPlano.PerfilID.Propiedades);
+            Propiedad a1Max = Module.GetPropiedad("a1 Max", elPlano.PerfilID.Propiedades);
+
+            double a1Minmm = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), a1Min.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), a1Min.Valor);
+            double a1Maxmm = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), a1Max.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), a1Max.Valor);
+            
+            double a1 = (a1Minmm + a1Maxmm) / 2;
+
+            if (elPlano.MaterialBase.TipoDeMaterial == "ACERO INOXIDABLE")
+            {
+                //Actualizamos la tabla preparando los valores.
+                DataManager.UpdateRecordsMangaPVDInoxidable(a1, d1mm);
+
+                double n = a1 / d1mm;
+
+                medidaManga = DataManager.GetMangaPVDWashAceroInoxidable(n);
+            }
+            else
+            {
+                //Actualizamos la tabla preparando los valores.
+                DataManager.UpdaterecorsMangaPVDCarbon(a1, d1mm);
+
+                double n = a1 / d1mm;
+
+                medidaManga = DataManager.GetMangaPVDWashAceroCarbon(n);
+            }
+            
+            TextoProceso += "MANGA " + medidaManga + " mm" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "ENSAMBLE MANUAL Y MEDIR CON FLEXÓMETRO LA LONGITUD TOTAL DE BOBINAS  IGUAL A 637 mm" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
@@ -176,6 +207,10 @@ namespace View.Services.Operaciones.Segmentos
         public void BuscarHerramentales()
         {
 
+            double d1mm = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), elPlano.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), elPlano.D1.Valor);
+            string noMesa = DataManager.GetMesaPVDWash(d1mm);
+
+            TextoHerramienta = "MESA " + noMesa + Environment.NewLine;
         }
 
         /// <summary>

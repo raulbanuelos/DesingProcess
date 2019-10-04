@@ -514,6 +514,7 @@
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Material.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_BarrelGrade.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_Bobinado.cs" />
+    <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_PVD_Wash.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\SO_Diskus.cs" />
     <Compile Include="ServiceObjects\Tooling\PLANO_HERRAMENTAL.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
@@ -567,9 +568,6 @@
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_BOBINADO_LOWER_ROLL.cs">
-      <DependentUpon>ModelTooling.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ServiceObjects\Tooling\TBL_BOBINADO_TARGET_ROLL.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_BOBINADO_UPPER_ROLL.cs">

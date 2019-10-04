@@ -7686,7 +7686,8 @@ namespace Model
                     obj.id_plano = 0; //(int)tipo.GetProperty("idPlano").GetValue(item, null);
                     obj.activo = (bool)tipo.GetProperty("Activo").GetValue(item, null);
                     obj.objetoXML = (string)tipo.GetProperty("ObjetoXML").GetValue(item, null);
-                    obj.id_plano = (int)tipo.GetProperty("idPlano").GetValue(item, null);
+                    //obj.id_plano = Convert.ToInt32(tipo.GetProperty("idPlano").GetValue(item, null));
+                    obj.id_plano = 1;
                 }
             }
             //Retornamos el objeto
@@ -10945,6 +10946,48 @@ namespace Model
             }
         }
 
+        public static double GetMangaPVDWashAceroInoxidable(double n)
+        {
+            double medidaManga = 0.0;
+
+            SO_MangaPVDAceroInoxidable ServiceManga = new SO_MangaPVDAceroInoxidable();
+
+            IList informacionBD = ServiceManga.GetManga(n);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    medidaManga = (double)tipo.GetProperty("A").GetValue(item, null);
+                }
+            }
+
+            return medidaManga;
+        }
+
+        public static double GetMangaPVDWashAceroCarbon(double n)
+        {
+            double medidaManga = 0.0;
+
+            SO_MangaPVDAceroCarbon ServiceManga = new SO_MangaPVDAceroCarbon();
+
+            IList informacionBD = ServiceManga.GetManga(n);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    medidaManga = (double)tipo.GetProperty("A").GetValue(item, null);
+                }
+            }
+
+            return medidaManga;
+        }
+
         public static void UpdaterecorsMangaPVDCarbon(double espesorRadial, double d1)
         {
             SO_MangaPVDAceroCarbon serviceManga = new SO_MangaPVDAceroCarbon();
@@ -11522,6 +11565,41 @@ namespace Model
             return ServiceBarrelGrade.DeleteBarrelGradePusher(Id_Barrel_Grade_Pusher);
         }
 
+        #endregion
+
+        #region PVD WASH
+
+        /// <summary>
+        /// Función que retorna la mesa de acuerdo a los criterios establecidos.
+        /// </summary>
+        /// <param name="d1">Diámetro del anillo en mm</param>
+        /// <returns></returns>
+        public static string GetMesaPVDWash(double d1)
+        {
+            string noMesa = string.Empty;
+
+            SO_PVD_Wash servicePVDWash = new SO_PVD_Wash();
+
+            IList informacionBD = servicePVDWash.GetMesaFirstOption(d1);
+
+            if (informacionBD != null)
+            {
+                if (informacionBD.Count == 0)
+                {
+                    //Ver la segunda opción.
+                    informacionBD = servicePVDWash.GetMesaSecondOption(d1);
+                }
+
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    noMesa = (string)tipo.GetProperty("NO_MESA").GetValue(item, null);
+                }
+            }
+
+            return noMesa;
+        }
         #endregion
 
         #endregion
