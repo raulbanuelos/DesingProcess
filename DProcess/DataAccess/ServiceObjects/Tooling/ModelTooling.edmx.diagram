@@ -109,7 +109,7 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BOBINADO_UPPER_ROLL" Width="3.25" PointX="12.75" PointY="13.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_LOWER_ROLL_MaestroHerramentales" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_UPPER_ROLL_MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BOBINADO_CENTER_WAFER" Width="3" PointX="13.125" PointY="5.875" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BOBINADO_CENTER_WAFER" Width="3" PointX="13.625" PointY="5.75" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_CENTER_WAFER_MaestroHerramentales" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BARREL_GRADE_PUSHER" Width="1.5" PointX="12.25" PointY="21.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BARREL_GRADE_PUSHER_MaestroHerramentales" />
@@ -117,6 +117,7 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BARREL_GRADE_BUSHING_MaestroHerramentales" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BOBINADO_TARGET_ROLL" Width="2.875" PointX="12.25" PointY="17.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_TARGET_ROLL_MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.AcerosLB" Width="1.5" PointX="3.375" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

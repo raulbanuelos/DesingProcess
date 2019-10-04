@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DataAccess.ServiceObjects.Tooling.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AcerosLB">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="Width" Type="float" />
+          <Property Name="Thickness" Type="float" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="BarrelLapAnillos_">
           <Key>
             <PropertyRef Name="IdBarrelLapAnillos" />
@@ -1359,6 +1368,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DataAccessServiceObjectsToolingStoreContainer">
+          <EntitySet Name="AcerosLB" EntityType="Self.AcerosLB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BarrelLapAnillos_" EntityType="Self.BarrelLapAnillos_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BushingBatesBore_" EntityType="Self.BushingBatesBore_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BushingCromo_" EntityType="Self.BushingCromo_" Schema="dbo" store:Type="Tables" />
@@ -1901,6 +1911,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="TBL_BOBINADO_TARGET_ROLL" EntitySet="TBL_BOBINADO_TARGET_ROLL" />
           </AssociationSet>
+          <EntitySet Name="AcerosLB" EntityType="DataAccess.ServiceObjects.Tooling.AcerosLB" />
         </EntityContainer>
         <EntityType Name="SplitterSpacerChart">
           <Key>
@@ -3355,6 +3366,15 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AcerosLB">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="Width" Type="Double" />
+          <Property Name="Thickness" Type="Double" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4112,6 +4132,16 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
                 <ScalarProperty Name="A" ColumnName="A" />
                 <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="ID_BOBINADO_TARGET_ROLL" ColumnName="ID_BOBINADO_TARGET_ROLL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AcerosLB">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.AcerosLB">
+              <MappingFragment StoreEntitySet="AcerosLB">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Thickness" ColumnName="Thickness" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

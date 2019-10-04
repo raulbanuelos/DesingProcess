@@ -325,6 +325,9 @@
     <Compile Include="ServiceObjects\Perfiles\TR_NORMAS_ARQUETIPO.cs">
       <DependentUpon>ModelPerfiles.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\AcerosLB.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\BarrelLapAnillos_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>

@@ -653,7 +653,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
             catch (Exception er)
             {
                 // Si hay error retornamos 0
-                return 0;
+                return 0;            
             }
         }
     }
