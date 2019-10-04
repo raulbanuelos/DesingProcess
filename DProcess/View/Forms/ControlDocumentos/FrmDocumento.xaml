@@ -14,7 +14,7 @@
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
-        Height="750" Width="1230" 
+        Height="790" Width="1230" 
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize" IsCloseButtonEnabled="False">
 
@@ -175,7 +175,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="250"></RowDefinition>
                                 <RowDefinition Height="60"></RowDefinition>
-                                <RowDefinition Height="250"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
 
                             </Grid.RowDefinitions>
 
@@ -241,7 +241,7 @@
                                 <materialDesign:PackIcon Kind="Paperclip" Height="24" Width="24" />
                             </Button>
 
-                            <StackPanel Grid.Row="3">
+                            <StackPanel Grid.Row="3" Orientation="Vertical">
                                 <StackPanel Orientation="Vertical" Visibility="{Binding BttnLiberar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}">
                                     <Label Content="{x:Static recursos:StringResources.lblNotificarA}" FontWeight="Bold"></Label>
 
@@ -264,11 +264,18 @@
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </StackPanel>
+
+                                <TextBlock FontWeight="Bold" Text="{x:Static recursos:StringResources.lblDescriptionNotify}" TextWrapping="Wrap"
+                                       Visibility="{Binding banButtonNotificar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}">
+                                </TextBlock>
+                                <Label Content="{x:Static recursos:StringResources.lblAlertaNotificar}" VerticalAlignment="Bottom" 
+                                    FontSize="14" FontWeight="Bold" FontStyle="Italic" Foreground="Orange" 
+                                   Visibility="{Binding banAlertaCorreo, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"></Label>
+
+                                <Button Content="{Binding TituloBotonNotificar}" Command="{Binding IrFlyOut}" 
+                                    Width="130" HorizontalAlignment="Left" 
+                                    Visibility="{Binding banButtonNotificar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"></Button>
                             </StackPanel>
-
-                            <Button Content="{Binding TituloBotonNotificar}" Command="{Binding IrFlyOut}" Grid.Row="2" Width="230" HorizontalAlignment="Left" Margin="10,230,0,-20" Visibility="{Binding banButtonNotificar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"></Button>
-                            <Label Grid.Row="2" Content="{x:Static recursos:StringResources.lblAlertaNotificar}" VerticalAlignment="Bottom" Margin="6,0,-6,19" FontSize="18" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="{Binding banAlertaCorreo, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"></Label>
-
                         </Grid>
                     </Grid>
 
@@ -277,8 +284,8 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
-
                         </Grid.ColumnDefinitions>
+                        
                         <Button Content="{Binding BotonGuardar}"  Width="170" Grid.Column="0" Command="{Binding GuardarControl}" Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"/>
                         <Button Content="{x:Static recursos:StringResources.lblModificar}"  Width="104" Grid.Column="2"  Command="{Binding Modificar}" Visibility="{Binding BttnModificar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
                         <Button Content="{x:Static recursos:StringResources.lblGenerarVersion}" FontSize="12" Width="130" Grid.Column="1" Command="{Binding GenerarVersion}" Visibility="{Binding BttnVersion, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
@@ -286,21 +293,34 @@
                 </Grid>
             </Grid>
         </controls:HamburgerMenu>
-
+        
         <controls:FlyoutsControl Margin="0,0,0,0">
-            <controls:Flyout Theme="Light" BorderBrush="DeepSkyBlue" BorderThickness="3,0,0,0" Header="{x:Static recursos:StringResources.ttlSelectWhoNotify}" FontSize="10" Position="Right" Width="400" IsOpen="{Binding isopen}" CloseButtonVisibility="Hidden">
+            <controls:Flyout Theme="Light" BorderBrush="DeepSkyBlue" BorderThickness="3,0,0,0" Header="{x:Static recursos:StringResources.ttlSelectWhoNotify}" 
+                             FontSize="10" Position="Right" Width="400" 
+                             IsOpen="{Binding isopen}"
+                             CloseButtonVisibility="Hidden">
 
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="80"></RowDefinition>
                         <RowDefinition Height="35"></RowDefinition>
                         <RowDefinition Height="250"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
                         <RowDefinition Height="35"></RowDefinition>
-                        <RowDefinition Height="250"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
+                        
                     </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Vertical">
+                        <TextBlock Text="Puedes seleccionar a otros usuarios para que sean notificados a través de correo electrónico cuando tu documento sea liberado." 
+                                   TextWrapping="Wrap" FontSize="14">
+                        </TextBlock>
+                        <TextBlock Text="También puedes crear grupos de usuarios para que se te sea más fácil." 
+                                   TextWrapping="Wrap" FontSize="14" VerticalAlignment="Bottom">
+                        </TextBlock>
+                    </StackPanel>
+                    
 
-                    <CheckBox Grid.Row="0" HorizontalAlignment="Center" Content="{Binding TituloCheckGrupos}" FontSize="15" IsChecked="False" Command="{Binding SelecDeselecGrupos}" CommandParameter="{Binding IsSelectedGrupos}"/>
-                    <CheckBox Grid.Row="2" HorizontalAlignment="Center" Content="{Binding TituloCheckUsuarios}" FontSize="15" IsChecked="False" Command="{Binding SelecDeselecUsuarios}" CommandParameter="{Binding IsSelectedUsuarios}"/>
+                    <CheckBox Grid.Row="1" HorizontalAlignment="Center" Content="{Binding TituloCheckGrupos}" FontSize="15" IsChecked="False" Command="{Binding SelecDeselecGrupos}" CommandParameter="{Binding IsSelectedGrupos}"/>
 
                     <DataGrid ItemsSource="{Binding ListaGrupos}" SelectedItem="{Binding GrupoSeleccionado, Mode=TwoWay}"
                                       ScrollViewer.CanContentScroll="True" 
@@ -311,13 +331,13 @@
                                       Width="350"
                                       AutoGenerateColumns="False"
                                       VerticalAlignment="Top"
-                                      Grid.Row="1">
+                                      Grid.Row="2">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                             EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                             Header="{x:Static recursos:StringResources.lblNotificar}"
                                             Binding="{Binding IsSelected}"/>
-                            
+
                             <DataGridTextColumn Header="{x:Static recursos:StringResources.lblGrupos}" Binding="{Binding nombre}" IsReadOnly="True"></DataGridTextColumn>
                         </DataGrid.Columns>
 
@@ -329,10 +349,14 @@
 
                     </DataGrid>
 
-                    <Button Grid.Row="5" Content="{x:Static recursos:StringResources.ttlButtonCreateGroup}" Command="{Binding IrCrearGrupo}" Width="150" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,15,40"></Button>
-                    <Button Grid.Row="5" Background="red" Content="{x:Static recursos:StringResources.ttlButtonDeleteGroup}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="150" Margin="0,0,15,5" Command="{Binding EliminarGrupo}"></Button>
+                    <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right">
+                        <Button Content="{x:Static recursos:StringResources.ttlButtonCreateGroup}" Command="{Binding IrCrearGrupo}" Width="150"></Button>
+                        <Button Background="red" Content="{x:Static recursos:StringResources.ttlButtonDeleteGroup}" Command="{Binding EliminarGrupo}" Width="150"></Button>
+                    </StackPanel>
+                    
+                    <CheckBox Grid.Row="4" HorizontalAlignment="Center" Content="{Binding TituloCheckUsuarios}" FontSize="15" IsChecked="False" Command="{Binding SelecDeselecUsuarios}" CommandParameter="{Binding IsSelectedUsuarios}"/>
 
-                    <DataGrid ItemsSource="{Binding ListaUsuarios}"
+                    <DataGrid ItemsSource="{Binding ListaUsuariosCorreo}"
                                       ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -341,7 +365,7 @@
                                       Width="350"
                                       AutoGenerateColumns="False"
                                       VerticalAlignment="Top"
-                                      Grid.Row="3">
+                                      Grid.Row="5">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                             EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"

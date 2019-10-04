@@ -25,6 +25,7 @@ using Gma.QrCodeNet.Encoding;
 using Gma.QrCodeNet.Encoding.Windows.Render;
 using System.Threading;
 using System.Resources;
+using System.Collections.Generic;
 
 namespace View.Services.ViewModel
 {
@@ -809,6 +810,79 @@ namespace View.Services.ViewModel
             User = ModelUsuario;
             //Inicializa los combobox 
             Inicializar();
+
+            #region Cargar Usuarios a Notificar
+            //Cargamos la lista de usuarios seleccionados a notificar, si es que existen.
+            ObservableCollection<DO_USUARIO_NOTIFICACION_VERSION> listaUsuariosNotificarGuardados = DataManagerControlDocumentos.GetAllUsuariosNotificacionVersion(selectedDocumento.version.id_version);
+            if (listaUsuariosNotificarGuardados.Count > 0)
+            {
+                if (ListaGrupos.Count > 0)
+                {
+                    foreach (var grupo in ListaGrupos)
+                    {
+                        ObservableCollection<DO_INTEGRANTES_GRUPO> listaUsuariosGrupo = DataManagerControlDocumentos.GetAllIntegrantesGrupo(grupo.idgrupo);
+                        int integrantesGrupo = listaUsuariosGrupo.Count;
+                        int c = 0;
+                        foreach (var usuarioGrupo in listaUsuariosGrupo)
+                        {
+                            foreach (var usuarioGuardado in listaUsuariosNotificarGuardados)
+                            {
+                                if (usuarioGrupo.idusuariointegrante == usuarioGuardado.id_usuario)
+                                {
+                                    c += 1;
+                                }
+                            }
+                        }
+                        if (c == integrantesGrupo)
+                        {
+                            grupo.IsSelected = true;
+                        }
+                    }
+
+
+                    foreach (var item in listaUsuariosNotificarGuardados)
+                    {
+                        foreach (var item2 in ListaUsuariosCorreo)
+                        {
+                            if (item.id_usuario == item2.usuario)
+                            {
+                                item2.IsSelected = true;
+                            }
+                        }
+                    }
+
+                    foreach (var grupoSeleccionado in ListaGrupos.Where(x => x.IsSelected).ToList())
+                    {
+                        ObservableCollection<DO_INTEGRANTES_GRUPO> listaUsuariosGrupo = DataManagerControlDocumentos.GetAllIntegrantesGrupo(grupoSeleccionado.idgrupo);
+                        foreach (var usuarioGrupoSeleccionado in listaUsuariosGrupo)
+                        {
+                            foreach (var usuarioCorreo in ListaUsuariosCorreo)
+                            {
+                                if (usuarioGrupoSeleccionado.idusuariointegrante == usuarioCorreo.usuario)
+                                {
+                                    usuarioCorreo.IsSelected = false;
+                                }
+                            }
+                        }
+                    }
+
+                }
+                else
+                {
+                    foreach (var item in listaUsuariosNotificarGuardados)
+                    {
+                        foreach (var item2 in ListaUsuariosCorreo)
+                        {
+                            if (item.id_usuario == item2.usuario)
+                            {
+                                item2.IsSelected = true;
+                            }
+                        }
+                    }
+                }
+            } 
+            #endregion
+
             //Asiganmos los valores para que se muestren 
             Nombre = selectedDocumento.nombre;
             Version = selectedDocumento.version.no_version;
@@ -822,6 +896,7 @@ namespace View.Services.ViewModel
             idVersion = selectedDocumento.version.id_version;
             id_dep = selectedDocumento.id_dep;
             NombreDepto = selectedDocumento.Departamento;
+
             //Obtenemos la fecha del servidor
             FechaFin = DataManagerControlDocumentos.Get_DateTime();
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
@@ -880,6 +955,8 @@ namespace View.Services.ViewModel
                     EnabledFecha = true;
                 if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002 || id_tipo == 1004 || id_tipo == 1002)
                     BttnModificar = false;
+
+                banAlertaCorreo = ListaGrupos.Where(x => x.IsSelected).ToList().Count > 0 || ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count > 0 ? false : true;
             }
 
             //Obtiene el nombre de documento del id
@@ -6690,29 +6767,36 @@ namespace View.Services.ViewModel
         /// </summary>
         public void UnirTodosIntegrantes(int ID_VERSION)
         {
-            // Recorremos la lista
-            foreach (var Grupo in ListaGrupos)
+            DataManagerControlDocumentos.EliminarRegistroVersion(ID_VERSION);
+
+            ObservableCollection<DO_INTEGRANTES_GRUPO> listaFinal = new ObservableCollection<DO_INTEGRANTES_GRUPO>();
+            
+            foreach (var Grupo in ListaGrupos.Where(x => x.IsSelected).ToList())
             {
-                if (Grupo.IsSelected)
+                ListaIntegrantes_Grupo = DataManagerControlDocumentos.GetAllIntegrantesGrupo(Grupo.idgrupo);
+                
+                foreach (var Integrante in ListaIntegrantes_Grupo)
                 {
-                    // Nos traemos todos los integrantes de los grupos seleccionados
-                    ListaIntegrantes_Grupo = DataManagerControlDocumentos.GetAllIntegrantesGrupo(Grupo.idgrupo);
-                    // Recorremos la lista
-                    foreach (var Integrante in ListaIntegrantes_Grupo)
+                    int r = listaFinal.Where(x => x.idusuariointegrante == Integrante.idusuariointegrante).ToList().Count;
+                    if (r == 0)
                     {
-                        // Se insertan los integrantes a la tabla TR_USUARIOS_NOTIFICACION_VERSION 
-                        DataManagerControlDocumentos.InsertUserNotifyVersion(Integrante.idusuariointegrante, ID_VERSION);
+                        listaFinal.Add(new DO_INTEGRANTES_GRUPO { idusuariointegrante = Integrante.idusuariointegrante });
                     }
                 }
             }
-            // Recorremos la lista
-            foreach (var Usuario in ListaUsuarios)
+            
+            foreach (var Usuario in ListaUsuariosCorreo.Where(x => x.IsSelected).ToList())
             {
-                if (Usuario.IsSelected)
+                int r = listaFinal.Where(x => x.idusuariointegrante == Usuario.usuario).ToList().Count;
+                if (r == 0)
                 {
-                    // Los usuarios que estén seleccionados se insertarán en la tabla TR_USUARIOS_NOTIFICACION_VERSION
-                    DataManagerControlDocumentos.InsertUserNotifyVersion(Usuario.usuario, ID_VERSION);
+                    listaFinal.Add(new DO_INTEGRANTES_GRUPO { idusuariointegrante = Usuario.usuario });
                 }
+            }
+
+            foreach (var item in listaFinal)
+            {
+                DataManagerControlDocumentos.InsertUserNotifyVersion(item.idusuariointegrante, ID_VERSION);
             }
         }
 
@@ -6813,17 +6897,17 @@ namespace View.Services.ViewModel
         {
             ObservableCollection<Usuarios> Aux = new ObservableCollection<Usuarios>();
 
-            foreach (var usuario in ListaUsuarios)
+            foreach (var usuario in ListaUsuariosCorreo)
             {
                 usuario.IsSelected = true;
                 Aux.Add(usuario);
             }
 
-            ListaUsuarios.Clear();
+            ListaUsuariosCorreo.Clear();
 
             foreach (var item in Aux)
             {
-                ListaUsuarios.Add(item);
+                ListaUsuariosCorreo.Add(item);
             }
         }
 
@@ -6832,19 +6916,20 @@ namespace View.Services.ViewModel
         /// </summary>
         public void _DeseleccionarTodosUsuarios()
         {
+            
             ObservableCollection<Usuarios> Aux = new ObservableCollection<Usuarios>();
-
-            foreach (var usuario in ListaUsuarios)
+            
+            foreach (var usuario in ListaUsuariosCorreo)
             {
                 usuario.IsSelected = false;
                 Aux.Add(usuario);
             }
 
-            ListaUsuarios.Clear();
+            ListaUsuariosCorreo.Clear();
 
             foreach (var item in Aux)
             {
-                ListaUsuarios.Add(item);
+                ListaUsuariosCorreo.Add(item);
             }
         }
 
@@ -6855,7 +6940,7 @@ namespace View.Services.ViewModel
         /// </summary>
         public void RecorrerListas()
         {
-            banAlertaCorreo = ListaUsuarios.Where(a => a.IsSelected == true).ToList().Count > 0 || ListaGrupos.Where(b => b.IsSelected == true).ToList().Count > 0 ? false : true;
+            banAlertaCorreo = ListaUsuariosCorreo.Where(a => a.IsSelected == true).ToList().Count > 0 || ListaGrupos.Where(b => b.IsSelected == true).ToList().Count > 0 ? false : true;
         }
 
         #endregion

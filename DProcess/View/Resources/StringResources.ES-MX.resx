@@ -1948,7 +1948,7 @@ El documento podría no liberarse correctamente.</value>
     <comment>Texto seleccionar nuevo integrante</comment>
   </data>
   <data name="ttlSelectWhoNotify" xml:space="preserve">
-    <value>Selecciona a quiénes notificar</value>
+    <value>Notificar a:</value>
     <comment>Título de Flyout Documentos</comment>
   </data>
   <data name="msgRevisarNotificaciones" xml:space="preserve">
@@ -2014,5 +2014,9 @@ Cambia la descripción aquí y en el archivo.</value>
   <data name="msgSelecciona2MasUsuarios" xml:space="preserve">
     <value>Selecciona al menos 2 usuarios para crear el grupo.</value>
     <comment>Mensaje que pide seleccionar al menos 2 usuarios para poder crear un grupo</comment>
+  </data>
+  <data name="lblDescriptionNotify" xml:space="preserve">
+    <value>Puede seleccionar a otros usuarios para notificar a través del correo electrónico cuando el documento sea liberado.</value>
+    <comment>Etiqueta de descripción notificar.</comment>
   </data>
 </root>
