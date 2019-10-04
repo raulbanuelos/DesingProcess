@@ -69,6 +69,17 @@
           <Property Name="DimA" Type="float" />
           <Property Name="Plano" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="CAT_MESA_PVD_WASH">
+          <Key>
+            <PropertyRef Name="ID_MESA_PVD_WASH" />
+          </Key>
+          <Property Name="ID_MESA_PVD_WASH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NO_MESA" Type="varchar" MaxLength="20" />
+          <Property Name="MIN_TECH_AVAILABLE" Type="float" />
+          <Property Name="MAX_TECH_AVAILABLE" Type="float" />
+          <Property Name="MIN_IDEAL_AVAILABLE" Type="float" />
+          <Property Name="MAX_IDEAL_AVAILABLE" Type="float" />
+        </EntityType>
         <EntityType Name="ChuckSplitter">
           <Key>
             <PropertyRef Name="Id_Chuck" />
@@ -1366,6 +1377,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <EntitySet Name="BushingSIM_" EntityType="Self.BushingSIM_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CamBK_" EntityType="Self.CamBK_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CamisaMoly_" EntityType="Self.CamisaMoly_" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CAT_MESA_PVD_WASH" EntityType="Self.CAT_MESA_PVD_WASH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChuckSplitter" EntityType="Self.ChuckSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClasificacionHerramental" EntityType="Self.ClasificacionHerramental" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClosingBandLapeado" EntityType="Self.ClosingBandLapeado" Schema="dbo" store:Type="Tables" />
@@ -1901,6 +1913,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="TBL_BARREL_GRADE_BUSHING" EntitySet="TBL_BARREL_GRADE_BUSHING" />
           </AssociationSet>
+          <EntitySet Name="CAT_MESA_PVD_WASH" EntityType="DataAccess.ServiceObjects.Tooling.CAT_MESA_PVD_WASH" />
         </EntityContainer>
         <EntityType Name="SplitterSpacerChart">
           <Key>
@@ -3355,6 +3368,17 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CAT_MESA_PVD_WASH">
+          <Key>
+            <PropertyRef Name="ID_MESA_PVD_WASH" />
+          </Key>
+          <Property Name="ID_MESA_PVD_WASH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NO_MESA" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MIN_TECH_AVAILABLE" Type="Double" />
+          <Property Name="MAX_TECH_AVAILABLE" Type="Double" />
+          <Property Name="MIN_IDEAL_AVAILABLE" Type="Double" />
+          <Property Name="MAX_IDEAL_AVAILABLE" Type="Double" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4112,6 +4136,18 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
                 <ScalarProperty Name="DIM_D" ColumnName="DIM_D" />
                 <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="ID_BARREL_GRADE_BUSHING" ColumnName="ID_BARREL_GRADE_BUSHING" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAT_MESA_PVD_WASH">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.CAT_MESA_PVD_WASH">
+              <MappingFragment StoreEntitySet="CAT_MESA_PVD_WASH">
+                <ScalarProperty Name="MAX_IDEAL_AVAILABLE" ColumnName="MAX_IDEAL_AVAILABLE" />
+                <ScalarProperty Name="MIN_IDEAL_AVAILABLE" ColumnName="MIN_IDEAL_AVAILABLE" />
+                <ScalarProperty Name="MAX_TECH_AVAILABLE" ColumnName="MAX_TECH_AVAILABLE" />
+                <ScalarProperty Name="MIN_TECH_AVAILABLE" ColumnName="MIN_TECH_AVAILABLE" />
+                <ScalarProperty Name="NO_MESA" ColumnName="NO_MESA" />
+                <ScalarProperty Name="ID_MESA_PVD_WASH" ColumnName="ID_MESA_PVD_WASH" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

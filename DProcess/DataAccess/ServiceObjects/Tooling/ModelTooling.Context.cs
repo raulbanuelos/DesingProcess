@@ -86,5 +86,6 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<TBL_BOBINADO_CENTER_WAFER> TBL_BOBINADO_CENTER_WAFER { get; set; }
         public virtual DbSet<TBL_BARREL_GRADE_PUSHER> TBL_BARREL_GRADE_PUSHER { get; set; }
         public virtual DbSet<TBL_BARREL_GRADE_BUSHING> TBL_BARREL_GRADE_BUSHING { get; set; }
+        public virtual DbSet<CAT_MESA_PVD_WASH> CAT_MESA_PVD_WASH { get; set; }
     }
 }

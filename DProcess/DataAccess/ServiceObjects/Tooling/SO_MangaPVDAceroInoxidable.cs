@@ -126,5 +126,24 @@ namespace DataAccess.ServiceObjects.Tooling
                 throw;
             }
         }
+
+        public IList GetManga(double n)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var listaMangas = (from a in Conexion.TBL_MANGA_PVD_ACERO_INOXIDABLE
+                                       where n >= a.N_MIN && n <= a.N_MAX
+                                       select a).ToList();
+
+                    return listaMangas;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

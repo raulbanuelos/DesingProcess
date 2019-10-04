@@ -117,6 +117,7 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BARREL_GRADE_PUSHER_MaestroHerramentales" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BARREL_GRADE_BUSHING" Width="1.5" PointX="12.25" PointY="24.375" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BARREL_GRADE_BUSHING_MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CAT_MESA_PVD_WASH" Width="1.5" PointX="3.375" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
