@@ -259,6 +259,7 @@
     <Compile Include="ServiceObjects\MateriasPrimas\TubosHD.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Normas\ModelNormas.Designer.cs" />
     <Compile Include="ServiceObjects\Notificaciones\ModelNotificaciones.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -809,6 +810,7 @@
       <LastGenOutput>ModelNotificaciones.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="packages.config" />
+    <None Include="ServiceObjects\Normas\ModelNormas.edmx.diagram" />
     <None Include="ServiceObjects\Notificaciones\ModelNotificaciones.edmx.diagram">
       <DependentUpon>ModelNotificaciones.edmx</DependentUpon>
     </None>
