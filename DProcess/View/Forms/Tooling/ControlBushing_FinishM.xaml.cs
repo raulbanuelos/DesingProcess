@@ -98,6 +98,7 @@ namespace View.Forms.Tooling
             herram.Propiedades.Add(DimensionC);
 
             return DataManager.UpdateBushingFM(herram);
+            
         }
 
         public int Delete()

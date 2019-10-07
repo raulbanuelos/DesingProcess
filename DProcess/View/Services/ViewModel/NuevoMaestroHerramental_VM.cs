@@ -510,7 +510,7 @@ namespace View.Services.ViewModel
         /// <returns></returns>
         private bool ValidaValores()
         {
-            if (!string.IsNullOrEmpty(codigo) & !string.IsNullOrWhiteSpace(codigo) & !string.IsNullOrWhiteSpace(descripcion) & !string.IsNullOrEmpty(descripcion) & SelectedClasificacion != null & SelectedPlano == null)
+            if (!string.IsNullOrEmpty(codigo) && !string.IsNullOrWhiteSpace(codigo) && !string.IsNullOrWhiteSpace(descripcion) && !string.IsNullOrEmpty(descripcion) && SelectedClasificacion != null && SelectedPlano != null)
                 return true;
             else
                 return false;

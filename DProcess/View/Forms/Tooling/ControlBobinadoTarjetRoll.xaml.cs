@@ -46,7 +46,7 @@ namespace View.Forms.Tooling
 
         public void InicializaCampos(string codigoHerramental)
         {
-            throw new NotImplementedException();
+            
         }
 
         public int Update()
