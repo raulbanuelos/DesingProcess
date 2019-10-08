@@ -24,20 +24,63 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlBobinadoUpperRoll : UserControl, IControlTooling
     {
+        #region Myregion
+
+        private Herramental obj;
+        private string Codigo;
+
+        #endregion
+
         public ControlBobinadoUpperRoll()
         {
             InitializeComponent();
-        }
-
-        public int Delete()
-        {
-            throw new NotImplementedException();
-        }
+            obj = new Herramental();
+        }        
 
         public int Guardar(string codigo)
         {            
             // Mandamos llamar al método para insertar el objeto y retornamos el resultado
             return DataManager.InsertarBobinadoUpperRoll(codigo, Convert.ToDouble(tbx_Wire_Width_Min.Text), Convert.ToDouble(tbx_Wire_Width_Max.Text), Convert.ToDouble(tbx_Dia_Min.Text), Convert.ToDouble(tbx_Dia_Max.Text), Convert.ToString(tbx_Detalle_Engrane.Text), Convert.ToDouble(tbx_Medida.Text));
+        }
+
+        public int Update()
+        {
+            // Declaramos propiedades
+            Herramental herramental = new Herramental();
+            Propiedad propiedadwiremin = new Propiedad();
+            Propiedad propiedadwiremax = new Propiedad();
+            Propiedad propiedaddiamin = new Propiedad();
+            Propiedad propiedaddiamax = new Propiedad();
+            PropiedadCadena propiedaddetalle = new PropiedadCadena();
+            Propiedad propiedadmedida = new Propiedad();          
+
+            // Asignamos valores 
+            herramental.Codigo = Codigo;
+            herramental.idHerramental = obj.idHerramental;
+
+            propiedadwiremin.Valor = double.Parse(tbx_Wire_Width_Min.Text);
+            propiedadwiremax.Valor = double.Parse(tbx_Wire_Width_Max.Text);
+            propiedaddiamin.Valor = double.Parse(tbx_Dia_Min.Text);
+            propiedaddiamax.Valor = double.Parse(tbx_Dia_Max.Text);
+            propiedaddetalle.Valor = Convert.ToString(tbx_Detalle_Engrane.Text);
+            propiedadmedida.Valor = double.Parse(tbx_Medida.Text);
+
+            // Agregamos propiedades
+            herramental.Propiedades.Add(propiedadwiremin);
+            herramental.Propiedades.Add(propiedadwiremax);
+            herramental.Propiedades.Add(propiedaddiamin);
+            herramental.Propiedades.Add(propiedaddiamax);
+            herramental.PropiedadesCadena.Add(propiedaddetalle);
+            herramental.Propiedades.Add(propiedadmedida);
+
+            // Mandamos llamar el método para actualizar un registro
+            return DataManager.ActualizarBobinadoUpperRoll(obj.idHerramental, Codigo, Convert.ToDouble(tbx_Wire_Width_Min.Text), Convert.ToDouble(tbx_Wire_Width_Max.Text), Convert.ToDouble(tbx_Dia_Min.Text), Convert.ToDouble(tbx_Dia_Max.Text), Convert.ToString(tbx_Detalle_Engrane.Text), Convert.ToDouble(tbx_Medida.Text));
+        }
+
+        public int Delete()
+        {
+            // Mandamos llamar el método para elminar un registro
+            return DataManager.EliminarBobinadoUpperRoll(obj.idHerramental);
         }
 
         public void Inicializa()
@@ -47,13 +90,15 @@ namespace View.Forms.Tooling
 
         public void InicializaCampos(string codigoHerramental)
         {
-            throw new NotImplementedException();
-        }
-
-        public int Update()
-        {
-            throw new NotImplementedException();
-        }
+            obj = DataManager.GetInfo_UpperRoll(codigoHerramental);
+            Codigo = obj.Codigo;
+            tbx_Wire_Width_Min.Text = Convert.ToString(obj.Propiedades[0].Valor);
+            tbx_Wire_Width_Max.Text = Convert.ToString(obj.Propiedades[1].Valor);
+            tbx_Dia_Min.Text = Convert.ToString(obj.Propiedades[2].Valor);
+            tbx_Dia_Max.Text = Convert.ToString(obj.Propiedades[3].Valor);
+            tbx_Detalle_Engrane.Text = Convert.ToString(obj.PropiedadesCadena[0].Valor);
+            tbx_Medida.Text = Convert.ToString(obj.Propiedades[4].Valor);
+        }        
 
         public bool ValidaError()
         {

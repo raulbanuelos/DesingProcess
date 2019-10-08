@@ -23,20 +23,50 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlBobinadoTarjetRoll : UserControl, IControlTooling
     {
+        #region Myregion
+
+        private Herramental obj;
+        private string Codigo;
+
+        #endregion
         public ControlBobinadoTarjetRoll()
         {
             InitializeComponent();
+            obj = new Herramental();
+        }
+        
+        public int Guardar(string codigo)
+        {
+            // Mandamos llamar al método para insertar el objeto y retornamos el resultado
+            return DataManager.InsertarBobinadoTargetRoll(codigo, Convert.ToDouble(tbx_A.Text), Convert.ToDouble(tbx_B.Text));
+        }
+
+        public int Update()
+        {
+            // Declaramos propiedades
+            Herramental herramental = new Herramental();
+            Propiedad propiedada = new Propiedad();
+            Propiedad propiedadb = new Propiedad();
+
+            // Asignamos valores
+            herramental.Codigo = Codigo;
+            herramental.idHerramental = obj.idHerramental;
+
+            propiedada.Valor = double.Parse(tbx_A.Text);
+            propiedadb.Valor = double.Parse(tbx_B.Text);
+
+            // Agregamos propiedades
+            herramental.Propiedades.Add(propiedada);
+            herramental.Propiedades.Add(propiedadb);
+
+            // Mandamos llamar el métoso para actualizar un registro
+            return DataManager.ActualizarBobinadoTargetRoll(obj.idHerramental, Codigo, Convert.ToDouble(tbx_A.Text), Convert.ToDouble(tbx_B.Text));
         }
 
         public int Delete()
         {
-            throw new NotImplementedException();
-        }
-
-        public int Guardar(string codigo)
-        {
-            // Mandamos llamar al método para insertar el objeto y retornamos el resultado
-            return DataManager.InsertarBobinadoTarjetRoll(codigo, Convert.ToDouble(tbx_A.Text), Convert.ToDouble(tbx_B.Text));
+            // Mandamos llamar el método para eliminar un registro
+            return DataManager.EliminarBobinadoTargetRoll(obj.idHerramental);
         }
 
         public void Inicializa()
@@ -46,14 +76,12 @@ namespace View.Forms.Tooling
 
         public void InicializaCampos(string codigoHerramental)
         {
-            
+            obj = DataManager.GetInfo_TargetRoll(codigoHerramental);
+            Codigo = obj.Codigo;
+            tbx_A.Text = Convert.ToString(obj.Propiedades[0].Valor);
+            tbx_B.Text = Convert.ToString(obj.Propiedades[1].Valor);
         }
-
-        public int Update()
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public bool ValidaError()
         {
             if (!string.IsNullOrEmpty(tbx_A.Text) && !string.IsNullOrEmpty(tbx_B.Text))

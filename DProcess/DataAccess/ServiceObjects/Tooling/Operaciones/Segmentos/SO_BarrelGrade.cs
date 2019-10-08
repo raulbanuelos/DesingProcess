@@ -80,6 +80,42 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
         }
 
         /// <summary>
+        /// Consulta para traernos los datos de un registro BarrelBushing por su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoBushing(string codigo)
+        {
+            try
+            {
+                // Realizamos la conexión a través de EntityFramework
+                using (var Conexion = new EntitiesTooling())
+                {
+                    // Realizamos la consulta y el resultado lo asignamos a una variable anónima
+                    var Lista = (from a in Conexion.TBL_BARREL_GRADE_BUSHING
+                                 join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 where a.CODIGO.Equals(codigo)
+                                 select new
+                                 {
+                                     a.ID_BARREL_GRADE_BUSHING,
+                                     a.CODIGO,
+                                     a.DIM_D,
+                                     b.Descripcion,
+                                     b.Activo
+                                 }).ToList();
+
+                    // Retornamos el resultado de la consulta
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                // Si hay error retornamos nulo
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Inserción de registro BarrelGradeBushing
         /// </summary>
         /// <param name="codigo"></param>
@@ -182,6 +218,42 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
         }
 
         /// <summary>
+        /// Consulta para traernos los datos de un registro BarrelPusher por su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoPusher(string codigo)
+        {
+            try
+            {
+                // Realizamos la conexión a través de EntityFramework
+                using (var Conexion = new EntitiesTooling())
+                {
+                    // Realizamos la consulta y el resultado lo asignamos a una variable anónima
+                    var Lista = (from a in Conexion.TBL_BARREL_GRADE_PUSHER
+                                 join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 where a.CODIGO.Equals(codigo)
+                                 select new
+                                 {
+                                     a.ID_BARREL_GRADE_PUSHER,
+                                     a.CODIGO,
+                                     a.DIM_F,
+                                     b.Descripcion,
+                                     b.Activo
+                                 }).ToList();
+
+                    // Retornamos el resultado de la consulta
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay error retornamos nulo
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Inserción de registro BarrelGradePusher
         /// </summary>
         /// <param name="codigo"></param>
@@ -255,7 +327,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
         }
 
         /// <summary>
-        /// Delete registros BarrelGradePusher
+        /// Eliminar registros BarrelGradePusher
         /// </summary>
         /// <param name="id_barrel_grade_pusher"></param>
         /// <returns></returns>

@@ -23,20 +23,65 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlBobinadoLowerRoll : UserControl, IControlTooling
     {
+        #region Myregion
+
+        private Herramental obj;
+        private string Codigo;
+
+        #endregion
         public ControlBobinadoLowerRoll()
         {
             InitializeComponent();
-        }
-
-        public int Delete()
-        {
-            throw new NotImplementedException();
-        }
+            obj = new Herramental();
+        }        
 
         public int Guardar(string codigo)            
         {
             // Mandamos llamar al método para insertar el objeto y retornamos el resultado
             return DataManager.InsertarBobinadoLowerRoll(codigo, Convert.ToString(tbx_Detalle_Rodillo.Text), Convert.ToString(tbx_Detalle_Engrane.Text), Convert.ToDouble(tbx_Wire_Width_Min.Text), Convert.ToDouble(tbx_Wire_Width_Max.Text), Convert.ToDouble(tbx_Dia_Min.Text), Convert.ToDouble(tbx_Dia_Max.Text), Convert.ToDouble(tbx_Side_Plate_Dia.Text));
+        }
+
+        public int Update()
+        {
+            // Declaramos propiedades
+            Herramental herramental = new Herramental();
+            PropiedadCadena propiedaddetallerodillo = new PropiedadCadena();
+            PropiedadCadena propiedaddetalleengrane = new PropiedadCadena();
+            Propiedad propiedadwiremin = new Propiedad();
+            Propiedad propiedadwiremax = new Propiedad();
+            Propiedad propiedaddiamin = new Propiedad();
+            Propiedad propiedaddiamax = new Propiedad();
+            Propiedad propiedadsideplate = new Propiedad();
+
+            // Asignamos valores
+            herramental.Codigo = Codigo;
+            herramental.idHerramental = obj.idHerramental;
+
+            propiedaddetallerodillo.Valor = Convert.ToString(tbx_Detalle_Rodillo.Text);
+            propiedaddetalleengrane.Valor = Convert.ToString(tbx_Detalle_Engrane.Text);
+            propiedadwiremin.Valor = double.Parse(tbx_Wire_Width_Min.Text);
+            propiedadwiremax.Valor = double.Parse(tbx_Wire_Width_Max.Text);
+            propiedaddiamin.Valor = double.Parse(tbx_Dia_Min.Text);
+            propiedaddiamax.Valor = double.Parse(tbx_Dia_Max.Text);
+            propiedadsideplate.Valor = double.Parse(tbx_Side_Plate_Dia.Text);
+
+            // Agregamos propiedades
+            herramental.PropiedadesCadena.Add(propiedaddetallerodillo);
+            herramental.PropiedadesCadena.Add(propiedaddetalleengrane);
+            herramental.Propiedades.Add(propiedadwiremin);
+            herramental.Propiedades.Add(propiedadwiremax);
+            herramental.Propiedades.Add(propiedaddiamin);
+            herramental.Propiedades.Add(propiedaddiamax);
+            herramental.Propiedades.Add(propiedadsideplate);
+
+            // Mandamos llamar el método para actualizar un registro
+            return DataManager.ActualizarBobinadoLowerRoll(obj.idHerramental, Codigo, Convert.ToString(tbx_Detalle_Rodillo.Text), Convert.ToString(tbx_Detalle_Engrane.Text), Convert.ToDouble(tbx_Wire_Width_Min.Text), Convert.ToDouble(tbx_Wire_Width_Max.Text), Convert.ToDouble(tbx_Dia_Min.Text), Convert.ToDouble(tbx_Dia_Max.Text), Convert.ToDouble(tbx_Side_Plate_Dia.Text));
+        }
+
+        public int Delete()
+        {
+            // Mandamos llamar el método para eliminar un registro
+            return DataManager.EliminarBobinadoLowerRoll(obj.idHerramental);
         }
 
         public void Inicializa()
@@ -46,13 +91,18 @@ namespace View.Forms.Tooling
 
         public void InicializaCampos(string codigoHerramental)
         {
-            throw new NotImplementedException();
+            obj = DataManager.GetInfo_LowerRoll(codigoHerramental);
+            Codigo = obj.Codigo;
+            tbx_Detalle_Rodillo.Text = Convert.ToString(obj.PropiedadesCadena[0].Valor);
+            tbx_Detalle_Engrane.Text = Convert.ToString(obj.PropiedadesCadena[1].Valor);
+            tbx_Wire_Width_Min.Text = Convert.ToString(obj.Propiedades[0].Valor);
+            tbx_Wire_Width_Max.Text = Convert.ToString(obj.Propiedades[1].Valor);
+            tbx_Dia_Min.Text = Convert.ToString(obj.Propiedades[2].Valor);
+            tbx_Dia_Max.Text = Convert.ToString(obj.Propiedades[3].Valor);
+            tbx_Side_Plate_Dia.Text = Convert.ToString(obj.Propiedades[4].Valor);
         }
 
-        public int Update()
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public bool ValidaError()
         {

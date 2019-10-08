@@ -23,20 +23,47 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlBarrelGradePusher : UserControl, IControlTooling
     {
+        #region Myregion
+
+        private Herramental obj;
+        private string Codigo;
+
+        #endregion
         public ControlBarrelGradePusher()
         {
             InitializeComponent();
-        }
-
-        public int Delete()
-        {
-            throw new NotImplementedException();
-        }
+            obj = new Herramental();
+        }        
 
         public int Guardar(string codigo)
         {
             // Mandamos llamar al método para insertar el objeto y retornamos el resultado
             return DataManager.InsertarBarrelGradePusher(codigo, Convert.ToDouble(tbx_Dim_F.Text));
+        }
+
+        public int Update()
+        {
+            // Declaramos propiedades
+            Herramental herramental = new Herramental();
+            Propiedad propiedaddimf = new Propiedad();
+
+            // Asignamos valores
+            herramental.Codigo = Codigo;
+            herramental.idHerramental = obj.idHerramental;
+
+            propiedaddimf.Valor = double.Parse(tbx_Dim_F.Text);
+
+            // Agregamos propiedades
+            herramental.Propiedades.Add(propiedaddimf);
+
+            // Mandamos llamar el método para actualizar un registro
+            return DataManager.ActualizarBarrelGradePusher(obj.idHerramental, Codigo, Convert.ToDouble(tbx_Dim_F.Text));
+        }
+
+        public int Delete()
+        {
+            // Mandamos llamar el método para elminar un registro
+            return DataManager.EliminarBarrelGradePusher(obj.idHerramental);
         }
 
         public void Inicializa()
@@ -46,12 +73,9 @@ namespace View.Forms.Tooling
 
         public void InicializaCampos(string codigoHerramental)
         {
-            throw new NotImplementedException();
-        }
-
-        public int Update()
-        {
-            throw new NotImplementedException();
+            obj = DataManager.GetInfo_Pusher(codigoHerramental);
+            Codigo = obj.Codigo;
+            tbx_Dim_F.Text = Convert.ToString(obj.Propiedades[0].Valor);
         }
 
         public bool ValidaError()
