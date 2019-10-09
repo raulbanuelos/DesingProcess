@@ -25,7 +25,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
                     var Lista = (from c in Conexion.BushingBatesBore_
                                  join m in Conexion.MaestroHerramentales on c.Codigo equals m.Codigo
-                                 where c.Codigo.Contains(texto) || m.Descripcion.Contains(texto)
+                                 where (c.Codigo.Contains(texto) || m.Descripcion.Contains(texto) ) && m.Activo == true
                                  select new
                                  {
                                      c.Codigo,

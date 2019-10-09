@@ -146,7 +146,18 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
 
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "*ENGRAVE\n";
-            TextoProceso += "PIP RADIAL LOC. \n";
+
+            double d1Inch = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), elPlano.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), elPlano.D1.Valor);
+            Propiedad a1Min = Module.GetPropiedad("a1 Min", elPlano.PerfilID.Propiedades);
+            Propiedad a1Max = Module.GetPropiedad("a1 Max", elPlano.PerfilID.Propiedades);
+
+            double a1MinInch= Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), a1Min.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), a1Min.Valor);
+            double a1MaxInch = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), a1Max.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), a1Max.Valor);
+            double diaAnterior = 0;
+
+            double pipRadialLoc = Math.Round(((((a1MaxInch + a1MinInch) / 2) / 2) + (diaAnterior - d1Inch) / 2) - 0.001, 3);
+
+            TextoProceso += "PIP RADIAL LOC. " + pipRadialLoc +" \n";
             TextoProceso += "ANGULAR LOC. \n";
             TextoProceso += "DEPTH \n";
 
@@ -160,7 +171,11 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
         public void BuscarHerramentales()
         {
             double widthAnillo = elPlano.H1.Valor;
-            ListaHerramentales.Add(DataManager.GetGuillotinaEngrave(widthAnillo));
+            Herramental guillotina = DataManager.GetGuillotinaEngrave(widthAnillo);
+            ListaHerramentales.Add(guillotina);
+
+            Herramental broca = DataManager.GetBrocaEngrave(elPlano.MaterialBase.TipoDeMaterial);
+            ListaHerramentales.Add(broca);
 
             TextoHerramienta = Module.GetTextoListaHerramentales(ListaHerramentales);
         }

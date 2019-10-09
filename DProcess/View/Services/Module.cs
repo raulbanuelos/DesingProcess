@@ -19,7 +19,6 @@ namespace View.Services
 		/// <returns>Valor de la propiedad. Regresa una cadena vacía si no encontró.</returns>
 		public static string GetValorPropiedadString(string NombrePropiedad, ObservableCollection<PropiedadCadena> Lista)
         {
-
             //Declaramos una cadena que será la que retornemos en el método.
             string valor = string.Empty;
 
@@ -488,6 +487,18 @@ namespace View.Services
             }
 
             return diametro;
+        }
+
+        public static double GetLastDiameter(ObservableCollection<IOperacion> operaciones,int noOperacion)
+        {
+            double diameter = 0.0;
+            int c = (operaciones.Count/10) - 2;
+            while (c >= 0)
+            {
+
+            }
+
+            return diameter;
         }
 
         /// <summary>

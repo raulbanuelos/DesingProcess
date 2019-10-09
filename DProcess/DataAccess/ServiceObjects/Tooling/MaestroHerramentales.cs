@@ -65,6 +65,7 @@ namespace DataAccess.ServiceObjects.Tooling
             this.TBL_BARREL_GRADE_PUSHER = new HashSet<TBL_BARREL_GRADE_PUSHER>();
             this.TBL_BARREL_GRADE_BUSHING = new HashSet<TBL_BARREL_GRADE_BUSHING>();
             this.TBL_BOBINADO_TARGET_ROLL = new HashSet<TBL_BOBINADO_TARGET_ROLL>();
+            this.DrillEngrave_ = new HashSet<DrillEngrave_>();
         }
     
         public string Codigo { get; set; }
@@ -176,5 +177,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual ICollection<TBL_BARREL_GRADE_BUSHING> TBL_BARREL_GRADE_BUSHING { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_BOBINADO_TARGET_ROLL> TBL_BOBINADO_TARGET_ROLL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DrillEngrave_> DrillEngrave_ { get; set; }
     }
 }

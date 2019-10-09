@@ -10051,6 +10051,42 @@ namespace Model
 
         #endregion
 
+        #region Broca Engrave
+
+        public static Herramental GetBrocaEngrave(string tipoMaterial)
+        {
+            string tipoBroca = string.Empty;
+
+            Herramental broca = new Herramental();
+
+            SO_DrillEngrave ServiceBroca = new SO_DrillEngrave();
+
+            tipoBroca = tipoMaterial == "HIERRO DUCTIL" ? "BROCA " : "BROCA PUNTA DE TITANIUM";
+
+            IList informacionBD = ServiceBroca.GetBroca(tipoBroca);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    broca.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    broca.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    broca.idHerramental = (int)tipo.GetProperty("ID_DRILL_ENGRAVE").GetValue(item, null);
+                    string dimension = (string)tipo.GetProperty("DIMENCION").GetValue(item, null);
+                    broca.DescripcionRuta = "DRILL   " + dimension;
+                    broca.Encontrado = true;
+                }
+            }
+
+            return broca;
+
+
+        }
+
+        #endregion
+
         #region GuillotinaEngrave_
 
         /// <summary>
@@ -10102,11 +10138,13 @@ namespace Model
             Herramental herramental = new Herramental();
             DataTable dt = SelectBestGuillotinaEngrave(GetOptimosGuillotinaEngrave(widthAnillo));
 
-            if (dt.Rows.Count > 1)
+            if (dt.Rows.Count >= 1)
             {
                 DataRow lastRow = dt.Rows[dt.Rows.Count - 1];
 
                 herramental.Codigo = lastRow["Code"].ToString();
+                herramental.DescripcionRuta = "GILL. " + lastRow["Dimensión"].ToString();
+                herramental.Encontrado = true;
             }
 
             return herramental;

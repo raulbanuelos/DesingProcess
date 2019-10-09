@@ -326,9 +326,6 @@
     <Compile Include="ServiceObjects\Perfiles\TR_NORMAS_ARQUETIPO.cs">
       <DependentUpon>ModelPerfiles.tt</DependentUpon>
     </Compile>
-    <Compile Include="ServiceObjects\Tooling\AcerosLB.cs">
-      <DependentUpon>ModelTooling.tt</DependentUpon>
-    </Compile>
     <Compile Include="ServiceObjects\Tooling\BarrelLapAnillos_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -405,6 +402,9 @@
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\DiscoDiskus_.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\DrillEngrave_.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\FrontRearCollarAnillos_.cs">
@@ -544,6 +544,7 @@
     <Compile Include="ServiceObjects\Tooling\SO_CriteriosAnillos.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_Cromo.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_CutterAngle.cs" />
+    <Compile Include="ServiceObjects\Tooling\SO_DrillEngrave.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_FinishMill.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_FrontRearCollarAnillos.cs" />
     <Compile Include="ServiceObjects\Tooling\SO_GuillotinaEngrave.cs" />

@@ -5,15 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DataAccess.ServiceObjects.Tooling.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="AcerosLB">
-          <Key>
-            <PropertyRef Name="Codigo" />
-          </Key>
-          <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="Width" Type="float" />
-          <Property Name="Thickness" Type="float" />
-          <Property Name="Descripcion" Type="varchar" MaxLength="100" />
-        </EntityType>
         <EntityType Name="BarrelLapAnillos_">
           <Key>
             <PropertyRef Name="IdBarrelLapAnillos" />
@@ -314,6 +305,16 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
           <Property Name="Detalle" Type="varchar" MaxLength="50" />
           <Property Name="Plano" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DrillEngrave_">
+          <Key>
+            <PropertyRef Name="ID_DRILL_ENGRAVE" />
+          </Key>
+          <Property Name="ID_DRILL_ENGRAVE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGO" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="50" />
+          <Property Name="DIMENCION" Type="varchar" MaxLength="50" />
+          <Property Name="DETALLE" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="FrontRearCollarAnillos_">
           <Key>
@@ -1020,6 +1021,18 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DrillEngrave__MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1" />
+          <End Role="DrillEngrave_" Type="Self.DrillEngrave_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="DrillEngrave_">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GuideBarFinGrind_MaestroHerramentales">
           <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1379,7 +1392,6 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DataAccessServiceObjectsToolingStoreContainer">
-          <EntitySet Name="AcerosLB" EntityType="Self.AcerosLB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BarrelLapAnillos_" EntityType="Self.BarrelLapAnillos_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BushingBatesBore_" EntityType="Self.BushingBatesBore_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BushingCromo_" EntityType="Self.BushingCromo_" Schema="dbo" store:Type="Tables" />
@@ -1405,6 +1417,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <EntitySet Name="CutterCamTurn" EntityType="Self.CutterCamTurn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CutterSpacerSplitter" EntityType="Self.CutterSpacerSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CutterSplitter" EntityType="Self.CutterSplitter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DrillEngrave_" EntityType="Self.DrillEngrave_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FrontRearCollarAnillos_" EntityType="Self.FrontRearCollarAnillos_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GuideBarFinGrind" EntityType="Self.GuideBarFinGrind" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GuideBarFirstRoughGrind" EntityType="Self.GuideBarFirstRoughGrind" Schema="dbo" store:Type="Tables" />
@@ -1539,6 +1552,10 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <AssociationSet Name="FK_DiscoDiskus__MaestroHerramentales" Association="Self.FK_DiscoDiskus__MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="DiscoDiskus_" EntitySet="DiscoDiskus_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DrillEngrave__MaestroHerramentales" Association="Self.FK_DrillEngrave__MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="DrillEngrave_" EntitySet="DrillEngrave_" />
           </AssociationSet>
           <AssociationSet Name="FK_GuideBarFinGrind_MaestroHerramentales" Association="Self.FK_GuideBarFinGrind_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -1918,13 +1935,17 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="TBL_BARREL_GRADE_BUSHING" EntitySet="TBL_BARREL_GRADE_BUSHING" />
           </AssociationSet>
-          <EntitySet Name="AcerosLB" EntityType="DataAccess.ServiceObjects.Tooling.AcerosLB" />
           <EntitySet Name="TBL_BOBINADO_TARGET_ROLL" EntityType="DataAccess.ServiceObjects.Tooling.TBL_BOBINADO_TARGET_ROLL" />
           <AssociationSet Name="FK_TBL_BOBINADO_TARGET_ROLL_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_TARGET_ROLL_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="TBL_BOBINADO_TARGET_ROLL" EntitySet="TBL_BOBINADO_TARGET_ROLL" />
           </AssociationSet>
           <EntitySet Name="CAT_MESA_PVD_WASH" EntityType="DataAccess.ServiceObjects.Tooling.CAT_MESA_PVD_WASH" />
+          <EntitySet Name="DrillEngrave_" EntityType="DataAccess.ServiceObjects.Tooling.DrillEngrave_" />
+          <AssociationSet Name="FK_DrillEngrave__MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_DrillEngrave__MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="DrillEngrave_" EntitySet="DrillEngrave_" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="SplitterSpacerChart">
           <Key>
@@ -2629,6 +2650,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <NavigationProperty Name="TBL_BARREL_GRADE_PUSHER" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_BARREL_GRADE_PUSHER_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_BARREL_GRADE_PUSHER" />
           <NavigationProperty Name="TBL_BARREL_GRADE_BUSHING" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_BARREL_GRADE_BUSHING_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_BARREL_GRADE_BUSHING" />
           <NavigationProperty Name="TBL_BOBINADO_TARGET_ROLL" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_TARGET_ROLL_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_BOBINADO_TARGET_ROLL" />
+          <NavigationProperty Name="DrillEngrave_" Relationship="DataAccess.ServiceObjects.Tooling.FK_DrillEngrave__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="DrillEngrave_" />
         </EntityType>
         <Association Name="FK__BarrelLap__Codig__4EF38B7F">
           <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
@@ -3357,15 +3379,6 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="AcerosLB">
-          <Key>
-            <PropertyRef Name="Codigo" />
-          </Key>
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="Width" Type="Double" />
-          <Property Name="Thickness" Type="Double" />
-          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="TBL_BOBINADO_TARGET_ROLL">
           <Key>
             <PropertyRef Name="ID_BOBINADO_TARGET_ROLL" />
@@ -3399,6 +3412,29 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <Property Name="MIN_IDEAL_AVAILABLE" Type="Double" />
           <Property Name="MAX_IDEAL_AVAILABLE" Type="Double" />
         </EntityType>
+        <EntityType Name="DrillEngrave_">
+          <Key>
+            <PropertyRef Name="ID_DRILL_ENGRAVE" />
+          </Key>
+          <Property Name="ID_DRILL_ENGRAVE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIMENCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DETALLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_DrillEngrave__MaestroHerramentales" FromRole="DrillEngrave_" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_DrillEngrave__MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.DrillEngrave_" Role="DrillEngrave_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="DrillEngrave_">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4149,16 +4185,6 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AcerosLB">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.AcerosLB">
-              <MappingFragment StoreEntitySet="AcerosLB">
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Thickness" ColumnName="Thickness" />
-                <ScalarProperty Name="Width" ColumnName="Width" />
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TBL_BOBINADO_TARGET_ROLL">
             <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_BOBINADO_TARGET_ROLL">
               <MappingFragment StoreEntitySet="TBL_BOBINADO_TARGET_ROLL">
@@ -4178,6 +4204,17 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
                 <ScalarProperty Name="MIN_TECH_AVAILABLE" ColumnName="MIN_TECH_AVAILABLE" />
                 <ScalarProperty Name="NO_MESA" ColumnName="NO_MESA" />
                 <ScalarProperty Name="ID_MESA_PVD_WASH" ColumnName="ID_MESA_PVD_WASH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DrillEngrave_">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.DrillEngrave_">
+              <MappingFragment StoreEntitySet="DrillEngrave_">
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
+                <ScalarProperty Name="DIMENCION" ColumnName="DIMENCION" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_DRILL_ENGRAVE" ColumnName="ID_DRILL_ENGRAVE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

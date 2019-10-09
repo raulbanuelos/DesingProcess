@@ -12,11 +12,14 @@ namespace DataAccess.ServiceObjects.Tooling
     using System;
     using System.Collections.Generic;
     
-    public partial class AcerosLB
+    public partial class DrillEngrave_
     {
-        public string Codigo { get; set; }
-        public Nullable<double> Width { get; set; }
-        public Nullable<double> Thickness { get; set; }
-        public string Descripcion { get; set; }
+        public int ID_DRILL_ENGRAVE { get; set; }
+        public string CODIGO { get; set; }
+        public string DESCRIPCION { get; set; }
+        public string DIMENCION { get; set; }
+        public string DETALLE { get; set; }
+    
+        public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }
 }
