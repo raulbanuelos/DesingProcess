@@ -11670,6 +11670,7 @@ namespace Model
                     // Agergamos las propiedades
                     herramental.Propiedades.Add(propiedaddimamin);
                     herramental.Propiedades.Add(propiedaddimamax);
+                    herramental.Propiedades.Add(propiedadwirewidth);
                     herramental.PropiedadesCadena.Add(propiedaddetalle);
                     herramental.Propiedades.Add(propiedaddiab);
                     herramental.Propiedades.Add(propiedadfwidth);                    

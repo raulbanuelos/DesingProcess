@@ -36,12 +36,21 @@ namespace View.Forms.Tooling
             obj = new Herramental();
         }
 
+        /// <summary>
+        /// Método para guardar registros
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
         public int Guardar(string codigo)
         {
             // Mandamos llamar al método para insertar el objeto y retornamos el resultado
             return DataManager.InsertarBobinadoCenterWafer(codigo, Convert.ToDouble(tbx_Dim_A_Min.Text), Convert.ToDouble(tbx_Dim_A_Max.Text), Convert.ToDouble(tbx_Wire_Width.Text), Convert.ToString(tbx_Detalle.Text), Convert.ToDouble(tbx_Dia_B.Text), Convert.ToDouble(tbx_F_Width.Text));
         }
 
+        /// <summary>
+        /// Método para actualizar registros
+        /// </summary>
+        /// <returns></returns>
         public int Update()
         {
             // Declaramos propiedades
@@ -76,17 +85,28 @@ namespace View.Forms.Tooling
             return DataManager.ActualizarBobinadoCenterWafer(obj.idHerramental, Codigo, Convert.ToDouble(tbx_Dim_A_Min.Text), Convert.ToDouble(tbx_Dim_A_Max.Text), Convert.ToDouble(tbx_Wire_Width.Text), Convert.ToString(tbx_Detalle.Text), Convert.ToDouble(tbx_Dia_B.Text), Convert.ToDouble(tbx_F_Width.Text));
         }
 
+        /// <summary>
+        /// Método para eliminar registros
+        /// </summary>
+        /// <returns></returns>
         public int Delete()
         {
             // Mandamos llamar al método para eliminar un registro
             return DataManager.EliminarBobinadoCenterWafer(obj.idHerramental);
         }
 
+        /// <summary>
+        /// Método para inicializar componente
+        /// </summary>
         public void Inicializa()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Método para inicializar campos
+        /// </summary>
+        /// <param name="codigoHerramental"></param>
         public void InicializaCampos(string codigoHerramental)
         {
             obj = DataManager.GetInfo_CenterWafer(codigoHerramental);
@@ -99,6 +119,10 @@ namespace View.Forms.Tooling
             tbx_F_Width.Text = Convert.ToString(obj.Propiedades[4].Valor);
         }        
 
+        /// <summary>
+        /// Método para validar que los campos no sean nulos
+        /// </summary>
+        /// <returns></returns>
         public bool ValidaError()
         {
             if (!string.IsNullOrEmpty(tbx_Dim_A_Min.Text) & !string.IsNullOrEmpty(tbx_Dim_A_Max.Text) & !string.IsNullOrEmpty(tbx_Wire_Width.Text) & !string.IsNullOrEmpty(tbx_Detalle.Text) & !string.IsNullOrEmpty(tbx_Dia_B.Text) & !string.IsNullOrEmpty(tbx_F_Width.Text))
@@ -107,6 +131,10 @@ namespace View.Forms.Tooling
                 return false;
         }
 
+        /// <summary>
+        /// Método para validar rangos (el mínimo no sea mayor al máximo y máximo no sea menor al mínimo)
+        /// </summary>
+        /// <returns></returns>
         public bool ValidaRangos()
         {
             double diaamin, diaamax;

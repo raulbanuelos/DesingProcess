@@ -596,7 +596,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                 using (var Conexion = new EntitiesTooling())
                 {
                     // Declaramos el objeto de la lista
-                    TBL_BOBINADO_LOWER_ROLL tarjet_roll = Conexion.TBL_BOBINADO_LOWER_ROLL.Where(x => x.ID_BOBINADO_LOWER_ROLL == id_bobinado_target_roll).FirstOrDefault();
+                    TBL_BOBINADO_TARGET_ROLL tarjet_roll = Conexion.TBL_BOBINADO_TARGET_ROLL.Where(x => x.ID_BOBINADO_TARGET_ROLL == id_bobinado_target_roll).FirstOrDefault();
 
                     // Eliminamos el registro
                     Conexion.Entry(tarjet_roll).State = System.Data.Entity.EntityState.Deleted;
