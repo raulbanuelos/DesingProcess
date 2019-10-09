@@ -11365,44 +11365,44 @@ namespace Model
         }
 
         /// <summary>
-        /// Llamar método para insertar registro en la tabla TBL_BOBINADO_TARJET_ROLL
+        /// Llamar método para insertar registro en la tabla TBL_BOBINADO_TARGET_ROLL
         /// </summary>
         /// <param name="Codigo"></param>
         /// <param name="A"></param>
         /// <param name="B"></param>
         /// <returns></returns>
-        public static int InsertarBobinadoTarjetRoll(string Codigo, double A, double B)
+        public static int InsertarBobinadoTargetRoll(string Codigo, double A, double B)
         {
             SO_Bobinado ServiceBobinado = new SO_Bobinado();
 
-            return ServiceBobinado.InsertBoninadoTarjetRoll(Codigo, A, B);
+            return ServiceBobinado.InsertBobinadoTargetRoll(Codigo, A, B);
         }
 
         /// <summary>
-        /// Llamar método para actualizar registro de la tabla TBL_BOBINADO_TARJET_ROLL
+        /// Llamar método para actualizar registro de la tabla TBL_BOBINADO_TARGET_ROLL
         /// </summary>
-        /// <param name="Id_Bobinado_Tarjet_Roll"></param>
+        /// <param name="Id_Bobinado_Target_Roll"></param>
         /// <param name="Codigo"></param>
         /// <param name="A"></param>
         /// <param name="B"></param>
         /// <returns></returns>
-        public static int ActualizarBobinadoTarjetRoll(int Id_Bobinado_Tarjet_Roll, string Codigo, double A, double B)
+        public static int ActualizarBobinadoTargetRoll(int Id_Bobinado_Target_Roll, string Codigo, double A, double B)
         {
             SO_Bobinado ServiceBobinado = new SO_Bobinado();
 
-            return ServiceBobinado.UpdateBobinadoTarjetRoll(Id_Bobinado_Tarjet_Roll, Codigo, A, B);
+            return ServiceBobinado.UpdateBobinadoTargetRoll(Id_Bobinado_Target_Roll, Codigo, A, B);
         }
 
         /// <summary>
-        /// Llamar método para eliminar registro de la tabla TBL_BOBINADO_TARJET_ROLL
+        /// Llamar método para eliminar registro de la tabla TBL_BOBINADO_TARGET_ROLL
         /// </summary>
-        /// <param name="Id_Bobinado_Tarjet_Roll"></param>
+        /// <param name="Id_Bobinado_Target_Roll"></param>
         /// <returns></returns>
-        public static int EliminarBobinadoTarjetRoll(int Id_Bobinado_Tarjet_Roll)
+        public static int EliminarBobinadoTargetRoll(int Id_Bobinado_Target_Roll)
         {
             SO_Bobinado ServiceBobinado = new SO_Bobinado();
 
-            return ServiceBobinado.DeletedBobinadoTarjetRoll(Id_Bobinado_Tarjet_Roll);
+            return ServiceBobinado.DeletedBobinadoTargetRoll(Id_Bobinado_Target_Roll);
         }
 
         /// <summary>
@@ -11454,6 +11454,231 @@ namespace Model
             return ServiceBobinado.DeleteBobinadoCenterWafer(Id_Bobinado_Center_Wafer);
         }
 
+        /// <summary>
+        /// Llamar método para traernos los datos de un registro UpperRoll con su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfo_UpperRoll(string codigo)
+        {
+            Herramental herramental = new Herramental();
+
+            // Inicializamos los servicios
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            // Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima
+            IList informacionDB = ServiceBobinado.GetInfoUpperRoll(codigo);
+
+            // Si la lista es diferente a nulo
+            if (informacionDB != null)
+            {
+                // Iteramos la lista
+                foreach (var item in informacionDB)
+                {
+                    // Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    // Mapeamos los elementos necesarios en cada una de las propiedades del objeto
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_BOBINADO_UPPER_ROLL").GetValue(item, null);
+
+                    // Declaramos propiedades
+                    Propiedad propiedadwiremin = new Propiedad();
+                    Propiedad propiedadwiremax = new Propiedad();
+                    Propiedad propiedaddiamin = new Propiedad();
+                    Propiedad propiedaddiamax = new Propiedad();
+                    PropiedadCadena propiedaddetalle = new PropiedadCadena();
+                    Propiedad propiedadmedida = new Propiedad();
+
+                    // Asignamos valores a las propiedades
+                    propiedadwiremin.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
+                    propiedadwiremax.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MAX").GetValue(item, null);
+                    propiedaddiamin.Valor = (double)tipo.GetProperty("DIA_MIN").GetValue(item, null);
+                    propiedaddiamax.Valor = (double)tipo.GetProperty("DIA_MAX").GetValue(item, null);
+                    propiedaddetalle.Valor = (string)tipo.GetProperty("DETALLE_ENGRANE").GetValue(item, null);
+                    propiedadmedida.Valor = (double)tipo.GetProperty("MEDIDA").GetValue(item, null);
+
+                    // Agregamos las propiedades
+                    herramental.Propiedades.Add(propiedadwiremin);
+                    herramental.Propiedades.Add(propiedadwiremax);
+                    herramental.Propiedades.Add(propiedaddiamin);
+                    herramental.Propiedades.Add(propiedaddiamax);
+                    herramental.PropiedadesCadena.Add(propiedaddetalle);
+                    herramental.Propiedades.Add(propiedadmedida);
+                }
+            }
+
+            // Retornamos el objeto
+            return herramental;           
+        }
+
+        /// <summary>
+        /// Llamar método para tarernos los datos de un registro LowerRoll con su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfo_LowerRoll(string codigo)
+        {
+            Herramental herramental = new Herramental();
+
+            // Inicializamos los servicios
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            // Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima
+            IList informacionDB = ServiceBobinado.GetInfoLowerRoll(codigo);
+
+            // Si la lista es diferente a nula
+            if (informacionDB != null)
+            {
+                // Iteramos la lista
+                foreach (var item in informacionDB)
+                {
+                    // Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    // Mapeamos los elementos necesarios en cada una de las propiedades del objeto
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_BOBINADO_LOWER_ROLL").GetValue(item, null);
+
+                    // Declaramos las propiedades
+                    PropiedadCadena propiedaddetallerodillo = new PropiedadCadena();
+                    PropiedadCadena propiedaddetalleengrane = new PropiedadCadena();
+                    Propiedad propiedadwiremin = new Propiedad();
+                    Propiedad propiedadwiremax = new Propiedad();
+                    Propiedad propiedaddiamin = new Propiedad();
+                    Propiedad propiedaddiamax = new Propiedad();
+                    Propiedad propiedadsideplate = new Propiedad();
+
+                    // Asignamos los valores a las propiedades
+                    propiedaddetallerodillo.Valor = (string)tipo.GetProperty("DETALLE_RODILLO").GetValue(item, null);
+                    propiedaddetalleengrane.Valor = (string)tipo.GetProperty("DETALLE_ENGRANE").GetValue(item, null);
+                    propiedadwiremin.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
+                    propiedadwiremax.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MAX").GetValue(item, null);
+                    propiedaddiamin.Valor = (double)tipo.GetProperty("DIA_MIN").GetValue(item, null);
+                    propiedaddiamax.Valor = (double)tipo.GetProperty("DIA_MAX").GetValue(item, null);
+                    propiedadsideplate.Valor = (double)tipo.GetProperty("SIDE_PLATE_DIA").GetValue(item, null);
+
+                    // Agregamos las propiedades
+                    herramental.PropiedadesCadena.Add(propiedaddetallerodillo);
+                    herramental.PropiedadesCadena.Add(propiedaddetalleengrane);
+                    herramental.Propiedades.Add(propiedadwiremin);
+                    herramental.Propiedades.Add(propiedadwiremax);
+                    herramental.Propiedades.Add(propiedaddiamin);
+                    herramental.Propiedades.Add(propiedaddiamax);
+                    herramental.Propiedades.Add(propiedadsideplate);
+                }
+            }
+
+            // Retornamos el objeto
+            return herramental;
+        }
+
+        /// <summary>
+        /// Llamar método para traernos los datos de un registro TargetRoll con su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfo_TargetRoll(string codigo)
+        {
+            Herramental herramental = new Herramental();
+
+            // Inicializamos los servicios+
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            // Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima
+            IList informacionDB = ServiceBobinado.GetInfoTargetRoll(codigo);
+
+            // Si la lista es diferente a nulo
+            if (informacionDB != null)
+            {
+                // Iteramos la lista    
+                foreach (var item in informacionDB)
+                {
+                    // Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    // Mapeamos los elementos necesarios para cada una de las propiedades del objeto
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_BOBINADO_TARGET_ROLL").GetValue(item, null); // MODIFICAR NOMBRE DEL CAMPO
+
+                    // Declaramos las propiedades
+                    Propiedad propiedada = new Propiedad();
+                    Propiedad propiedadb = new Propiedad();
+
+                    // Asignamos valores a las propiedades
+                    propiedada.Valor = (double)tipo.GetProperty("A").GetValue(item, null);
+                    propiedadb.Valor = (double)tipo.GetProperty("B").GetValue(item, null);
+
+                    // Agregamos las propiedades
+                    herramental.Propiedades.Add(propiedada);
+                    herramental.Propiedades.Add(propiedadb);
+                }
+            }
+
+            // Retornamos el objeto
+            return herramental;
+        }
+
+        /// <summary>
+        /// Llamar método para traernos los datos de un registro CenterWafer con su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfo_CenterWafer(string codigo)
+        {
+            Herramental herramental = new Herramental();
+
+            // Inicializamos los servicios
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            // Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima
+            IList informacionDB = ServiceBobinado.GetInfoCenterWafer(codigo);
+
+            // Si la lista es diferente a nulo
+            if (informacionDB != null)
+            {
+                // Iteramos la lista
+                foreach (var item in informacionDB)
+                {
+                    // Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    // Mapeamos los elementos necesarios en cada una de las propiedaes del objeto
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_BOBONADO_CENTER_WAFER").GetValue(item, null); // CAMBIAR NOMBRE CAMPO
+
+                    // Declaramos propiedades
+                    Propiedad propiedaddimamin = new Propiedad();
+                    Propiedad propiedaddimamax = new Propiedad();
+                    Propiedad propiedadwirewidth = new Propiedad();
+                    PropiedadCadena propiedaddetalle = new PropiedadCadena();
+                    Propiedad propiedaddiab = new Propiedad();
+                    Propiedad propiedadfwidth = new Propiedad();
+
+                    // Asignamos valores a las propiedades
+                    propiedaddimamin.Valor = (double)tipo.GetProperty("DIM_A_MIN").GetValue(item, null);
+                    propiedaddimamax.Valor = (double)tipo.GetProperty("DIM_A_MAX").GetValue(item, null);
+                    propiedadwirewidth.Valor = (double)tipo.GetProperty("WIRE_WIDTH").GetValue(item, null);
+                    propiedaddetalle.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
+                    propiedaddiab.Valor = (double)tipo.GetProperty("DIA_B").GetValue(item, null);
+                    propiedadfwidth.Valor = (double)tipo.GetProperty("F_WIDTH").GetValue(item, null);
+
+                    // Agergamos las propiedades
+                    herramental.Propiedades.Add(propiedaddimamin);
+                    herramental.Propiedades.Add(propiedaddimamax);
+                    herramental.PropiedadesCadena.Add(propiedaddetalle);
+                    herramental.Propiedades.Add(propiedaddiab);
+                    herramental.Propiedades.Add(propiedadfwidth);                    
+                }
+            }
+
+            // Retornamos el objeto
+            return herramental;
+        }
 
         #endregion
 
@@ -11601,6 +11826,94 @@ namespace Model
             SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
 
             return ServiceBarrelGrade.DeleteBarrelGradePusher(Id_Barrel_Grade_Pusher);
+        }
+
+        /// <summary>
+        /// Llamar método para traernos los datos de un registro Bushing con su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfo_Bushing(string codigo)
+        {
+            Herramental herramental = new Herramental();
+
+            // Inicializamos los servicios
+            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
+
+            // Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima
+            IList informacionDB = ServiceBarrelGrade.GetInfoBushing(codigo);
+
+            // Si la lista es diferente a nula
+            if (informacionDB != null)
+            {
+                // Iteramos la lista
+                foreach (var item in informacionDB)
+                {
+                    // Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    // Mapeamos los elementos necesarios en cada una de las propiedades del objeto
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_BARREL_GRADE_BUSHING").GetValue(item, null);
+
+                    // Declaramos las propiedades
+                    Propiedad propiedaddimd = new Propiedad();
+
+                    // Asignamos valores a las propiedades
+                    propiedaddimd.Valor = (double)tipo.GetProperty("DIM_D").GetValue(item, null);
+
+                    // Agregamos las propieddes
+                    herramental.Propiedades.Add(propiedaddimd);
+                }
+            }
+
+            // Retornamos el objeto
+            return herramental;
+        }
+
+        /// <summary>
+        /// Llamar método para traernos los datos de un registro Pusher con su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfo_Pusher(string codigo)
+        {
+            Herramental herramental = new Herramental();
+
+            // Inicializamos los servicios
+            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
+
+            // Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima
+            IList informacionDB = ServiceBarrelGrade.GetInfoPusher(codigo);
+
+            // Si la lista es diferente a nulo
+            if (informacionDB != null)
+            {
+                // Iteramos la lista
+                foreach (var item in informacionDB)
+                {
+                    // Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    // Mapeamos los elementos necesarios en cada una de las propiedaes del objeto
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_BARREL_GRADE_PUSHER").GetValue(item, null);
+
+                    // Declaramos propiedades
+                    Propiedad propiedaddimf = new Propiedad();
+
+                    // Asignamos valores a las propiedades
+                    propiedaddimf.Valor = (double)tipo.GetProperty("DIM_F").GetValue(item, null);
+
+                    // Agergamos las propiedades
+                    herramental.Propiedades.Add(propiedaddimf);
+                }
+            }
+
+            // Retornamos el objeto
+            return herramental;
         }
 
         #endregion

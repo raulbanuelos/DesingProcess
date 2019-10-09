@@ -23,20 +23,47 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlBarrelGradeBushing : UserControl, IControlTooling
     {
+        #region Myregion
+
+        private Herramental obj;
+        private string Codigo;
+
+        #endregion
+
         public ControlBarrelGradeBushing()
         {
             InitializeComponent();
-        }
-
-        public int Delete()
-        {
-            throw new NotImplementedException();
-        }
+            obj = new Herramental();
+        }       
 
         public int Guardar(string codigo)
         {
             // Mandamos llamar al método para insertar el objeto y retornamos el resultado
             return DataManager.InsertarBarrelGradeBrushing(codigo, Convert.ToDouble(tbx_Dim_D.Text));
+        }
+        public int Update()
+        {
+            // Declaramos propiedades
+            Herramental herramental = new Herramental();
+            Propiedad propiedaddimd = new Propiedad();
+
+            // Asignamos valores
+            herramental.Codigo = Codigo;
+            herramental.idHerramental = obj.idHerramental;
+
+            propiedaddimd.Valor = double.Parse(tbx_Dim_D.Text);
+
+            // Agregamos propiedades
+            herramental.Propiedades.Add(propiedaddimd);
+
+            // Mandamos llamar el método para actualizar un registro
+            return DataManager.ActualizarBarrelGradeBushing(obj.idHerramental, Codigo, Convert.ToDouble(tbx_Dim_D.Text));
+        }
+
+        public int Delete()
+        {
+            // Mandamos llamar al método para eliminar un registro
+            return DataManager.EliminarBarrelGradeBushing(obj.idHerramental);
         }
 
         public void Inicializa()
@@ -46,13 +73,10 @@ namespace View.Forms.Tooling
 
         public void InicializaCampos(string codigoHerramental)
         {
-            throw new NotImplementedException();
-        }
-
-        public int Update()
-        {
-            throw new NotImplementedException();
-        }
+            obj = DataManager.GetInfo_Bushing(codigoHerramental);
+            Codigo = obj.Codigo;
+            tbx_Dim_D.Text = Convert.ToString(obj.Propiedades[0].Valor);
+        }       
 
         public bool ValidaError()
         {

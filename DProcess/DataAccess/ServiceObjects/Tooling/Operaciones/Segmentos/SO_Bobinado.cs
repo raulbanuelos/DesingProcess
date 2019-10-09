@@ -52,6 +52,47 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
         }
 
         /// <summary>
+        /// Consulta para traer los datos de un registro UpperRoll por su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoUpperRoll(string codigo)
+        {
+            try
+            {
+                // Realizamos la conexión a través de EntityFramework
+                using (var Conexion = new EntitiesTooling())
+                {
+                    // Realizamos la consulta y el resultado lo asignamos a una variable anónima
+                    var Lista = (from a in Conexion.TBL_BOBINADO_UPPER_ROLL
+                                 join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 where a.CODIGO.Equals(codigo)
+                                 select new
+                                 {
+                                     a.ID_BOBINADO_UPPER_ROLL,
+                                     a.CODIGO,
+                                     a.WIRE_WIDTH_MIN,
+                                     a.WIRE_WIDTH_MAX,
+                                     a.DIA_MIN,
+                                     a.DIA_MAX,
+                                     a.DETALLE_ENGRANE,
+                                     a.MEDIDA,
+                                     b.Descripcion,
+                                     b.Activo
+                                 }).ToList();
+
+                    // Retornamos el resultado de la consulta
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay error retornamos nulo
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Inserción de registros para UpperRoll
         /// </summary>
         /// <param name="codigo"></param>
@@ -213,6 +254,48 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
             }
             catch (Exception)
             {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Consulta para traer los datos de un registro LowerRoll por su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoLowerRoll(string codigo)
+        {
+            try
+            {
+                // Realizamos la conexión a través de EntityFramework
+                using (var Conexion = new EntitiesTooling())
+                {
+                    // Realizamos la consulta y el resultado lo asignamos a una variable anónima
+                    var Lista = (from a in Conexion.TBL_BOBINADO_LOWER_ROLL
+                                 join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 where a.CODIGO.Equals(codigo)
+                                 select new
+                                 {
+                                     a.ID_BOBINADO_LOWER_ROLL,
+                                     a.CODIGO,
+                                     a.DETALLE_RODILLO,
+                                     a.DETALLE_ENGRANE,
+                                     a.WIRE_WIDTH_MIN,
+                                     a.WIRE_WIDTH_MAX,
+                                     a.DIA_MIN,
+                                     a.DIA_MAX,
+                                     a.SIDE_PLATE_DIA,
+                                     b.Descripcion,
+                                     b.Activo
+                                 }).ToList();
+
+                    // Retornamos el resultado de la consulta
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay error retornamos null
                 return null;
             }
         }
@@ -387,13 +470,50 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
         }
 
         /// <summary>
+        /// Consulta para traernos los datos de un registro TargetRoll por su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoTargetRoll(string codigo)
+        {
+            try
+            {
+                // Realizamos la conexión a través de EntityFramework
+                using (var Conexion = new EntitiesTooling())
+                {
+                    // Realizamos la consulta y el resultado lo asignamos a una variable anónima
+                    var Lista = (from a in Conexion.TBL_BOBINADO_TARGET_ROLL
+                                 join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 where a.CODIGO.Equals(codigo)
+                                 select new
+                                 {
+                                     a.ID_BOBINADO_TARGET_ROLL,
+                                     a.CODIGO,
+                                     a.A,
+                                     a.B,
+                                     b.Descripcion,
+                                     b.Activo
+                                 }).ToList();
+
+                    // Retornamos el resultado de la consulta
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay error retornamos nulo
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Inserción de registros TarjetRoll
         /// </summary>
         /// <param name="codigo"></param>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public int InsertBoninadoTarjetRoll(string codigo, double a, double b)
+        public int InsertBobinadoTargetRoll(string codigo, double a, double b)
         {
             try
             {
@@ -428,12 +548,12 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
         /// <summary>
         /// Actualizacion de registros TarjetRoll
         /// </summary>
-        /// <param name="id_bobinado_tarjet_roll"></param>
+        /// <param name="id_bobinado_target_roll"></param>
         /// <param name="codigo"></param>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public int UpdateBobinadoTarjetRoll(int id_bobinado_tarjet_roll, string codigo, double a, double b)
+        public int UpdateBobinadoTargetRoll(int id_bobinado_target_roll, string codigo, double a, double b)
         {
             try
             {
@@ -441,10 +561,10 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                 using (var Conexion = new EntitiesTooling())
                 {
                     // Declaramos el objeto de la lista
-                    TBL_BOBINADO_TARGET_ROLL tarjet_roll = Conexion.TBL_BOBINADO_TARGET_ROLL.Where(x => x.ID_BOBINADO_TARGET_ROLL == id_bobinado_tarjet_roll).FirstOrDefault();
+                    TBL_BOBINADO_TARGET_ROLL tarjet_roll = Conexion.TBL_BOBINADO_TARGET_ROLL.Where(x => x.ID_BOBINADO_TARGET_ROLL == id_bobinado_target_roll).FirstOrDefault();
 
                     // Establecemos valores
-                    tarjet_roll.ID_BOBINADO_TARGET_ROLL = id_bobinado_tarjet_roll;
+                    tarjet_roll.ID_BOBINADO_TARGET_ROLL = id_bobinado_target_roll;
                     tarjet_roll.CODIGO = codigo;
                     tarjet_roll.A = a;
                     tarjet_roll.B = b;
@@ -466,9 +586,9 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
         /// <summary>
         /// Eliminar registro TarjetLower
         /// </summary>
-        /// <param name="id_bobinado_tarjet_roll"></param>
+        /// <param name="id_bobinado_target_roll"></param>
         /// <returns></returns>
-        public int DeletedBobinadoTarjetRoll(int id_bobinado_tarjet_roll)
+        public int DeletedBobinadoTargetRoll(int id_bobinado_target_roll)
         {
             try
             {
@@ -476,7 +596,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                 using (var Conexion = new EntitiesTooling())
                 {
                     // Declaramos el objeto de la lista
-                    TBL_BOBINADO_LOWER_ROLL tarjet_roll = Conexion.TBL_BOBINADO_LOWER_ROLL.Where(x => x.ID_BOBINADO_LOWER_ROLL == id_bobinado_tarjet_roll).FirstOrDefault();
+                    TBL_BOBINADO_LOWER_ROLL tarjet_roll = Conexion.TBL_BOBINADO_LOWER_ROLL.Where(x => x.ID_BOBINADO_LOWER_ROLL == id_bobinado_target_roll).FirstOrDefault();
 
                     // Eliminamos el registro
                     Conexion.Entry(tarjet_roll).State = System.Data.Entity.EntityState.Deleted;
@@ -531,6 +651,47 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
             }
             catch (Exception)
             {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Consulta para traernos los datos de un registro CenterWafer por su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoCenterWafer(string codigo)
+        {
+            try
+            {
+                // Realizamos la conexión a través de EntityFramework
+                using (var Conexion = new EntitiesTooling())
+                {
+                    // Realizamos la consulta y el rsultado lo asignamos a una variable anónima
+                    var Lista = (from a in Conexion.TBL_BOBINADO_CENTER_WAFER
+                                 join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 where a.CODIGO.Equals(codigo)
+                                 select new
+                                 {
+                                     a.ID_BOBONADO_CENTER_WAFER,
+                                     a.CODIGO,
+                                     a.DIM_A_MIN,
+                                     a.DIM_A_MAX,
+                                     a.WIRE_WIDTH,
+                                     a.DETALLE,
+                                     a.DIA_B,
+                                     a.F_WIDTH,
+                                     b.Descripcion,
+                                     b.Activo
+                                 }).ToList();
+
+                    // Retornamos el resultado de la consulta
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay error retornamos nulo
                 return null;
             }
         }

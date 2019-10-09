@@ -23,20 +23,63 @@ namespace View.Forms.Tooling
     /// </summary>
     public partial class ControlBobinadoCenterWafer : UserControl, IControlTooling
     {
+        #region Myregion
+
+        private Herramental obj;
+        private string Codigo;
+
+        #endregion
+
         public ControlBobinadoCenterWafer()
         {
             InitializeComponent();
-        }
-
-        public int Delete()
-        {
-            throw new NotImplementedException();
+            obj = new Herramental();
         }
 
         public int Guardar(string codigo)
         {
             // Mandamos llamar al método para insertar el objeto y retornamos el resultado
-            return DataManager.InsertarBobinadoCenterWafer(codigo, Convert.ToDouble(tbx_Dia_A_Min.Text), Convert.ToDouble(tbx_Dia_A_Max.Text), Convert.ToDouble(tbx_Wire_Width.Text), Convert.ToString(tbx_Detalle.Text), Convert.ToDouble(tbx_Dia_B.Text), Convert.ToDouble(tbx_F_Width.Text));
+            return DataManager.InsertarBobinadoCenterWafer(codigo, Convert.ToDouble(tbx_Dim_A_Min.Text), Convert.ToDouble(tbx_Dim_A_Max.Text), Convert.ToDouble(tbx_Wire_Width.Text), Convert.ToString(tbx_Detalle.Text), Convert.ToDouble(tbx_Dia_B.Text), Convert.ToDouble(tbx_F_Width.Text));
+        }
+
+        public int Update()
+        {
+            // Declaramos propiedades
+            Herramental herramental = new Herramental();
+            Propiedad propiedaddimamin = new Propiedad();
+            Propiedad propiedaddimamax = new Propiedad();
+            Propiedad propiedadwirewidth = new Propiedad();
+            PropiedadCadena propiedaddetalle = new PropiedadCadena();
+            Propiedad propiedaddiab = new Propiedad();
+            Propiedad propiedadfwidth = new Propiedad();
+
+            // Asignamos valores 
+            herramental.Codigo = Codigo;
+            herramental.idHerramental = obj.idHerramental;
+
+            propiedaddimamin.Valor = double.Parse(tbx_Dim_A_Min.Text);
+            propiedaddimamax.Valor = double.Parse(tbx_Dim_A_Max.Text);
+            propiedadwirewidth.Valor = double.Parse(tbx_Wire_Width.Text);
+            propiedaddetalle.Valor = Convert.ToString(tbx_Detalle.Text);
+            propiedaddiab.Valor = double.Parse(tbx_Dia_B.Text);
+            propiedadfwidth.Valor = double.Parse(tbx_F_Width.Text);
+
+            // Agregamos propiedades
+            herramental.Propiedades.Add(propiedaddimamin);
+            herramental.Propiedades.Add(propiedaddimamax);
+            herramental.Propiedades.Add(propiedadwirewidth);
+            herramental.PropiedadesCadena.Add(propiedaddetalle);
+            herramental.Propiedades.Add(propiedaddiab);
+            herramental.Propiedades.Add(propiedadfwidth);
+
+            // Mandamos llamar el método para actualizar un registro
+            return DataManager.ActualizarBobinadoCenterWafer(obj.idHerramental, Codigo, Convert.ToDouble(tbx_Dim_A_Min.Text), Convert.ToDouble(tbx_Dim_A_Max.Text), Convert.ToDouble(tbx_Wire_Width.Text), Convert.ToString(tbx_Detalle.Text), Convert.ToDouble(tbx_Dia_B.Text), Convert.ToDouble(tbx_F_Width.Text));
+        }
+
+        public int Delete()
+        {
+            // Mandamos llamar al método para eliminar un registro
+            return DataManager.EliminarBobinadoCenterWafer(obj.idHerramental);
         }
 
         public void Inicializa()
@@ -46,17 +89,19 @@ namespace View.Forms.Tooling
 
         public void InicializaCampos(string codigoHerramental)
         {
-            throw new NotImplementedException();
-        }
-
-        public int Update()
-        {
-            throw new NotImplementedException();
-        }
+            obj = DataManager.GetInfo_CenterWafer(codigoHerramental);
+            Codigo = obj.Codigo;
+            tbx_Dim_A_Min.Text = Convert.ToString(obj.Propiedades[0].Valor);
+            tbx_Dim_A_Max.Text = Convert.ToString(obj.Propiedades[1].Valor);
+            tbx_Wire_Width.Text = Convert.ToString(obj.Propiedades[2].Valor);
+            tbx_Detalle.Text = Convert.ToString(obj.PropiedadesCadena[0].Valor);
+            tbx_Dia_B.Text = Convert.ToString(obj.Propiedades[3].Valor);
+            tbx_F_Width.Text = Convert.ToString(obj.Propiedades[4].Valor);
+        }        
 
         public bool ValidaError()
         {
-            if (!string.IsNullOrEmpty(tbx_Dia_A_Min.Text) & !string.IsNullOrEmpty(tbx_Dia_A_Max.Text) & !string.IsNullOrEmpty(tbx_Wire_Width.Text) & !string.IsNullOrEmpty(tbx_Detalle.Text) & !string.IsNullOrEmpty(tbx_Dia_B.Text) & !string.IsNullOrEmpty(tbx_F_Width.Text))
+            if (!string.IsNullOrEmpty(tbx_Dim_A_Min.Text) & !string.IsNullOrEmpty(tbx_Dim_A_Max.Text) & !string.IsNullOrEmpty(tbx_Wire_Width.Text) & !string.IsNullOrEmpty(tbx_Detalle.Text) & !string.IsNullOrEmpty(tbx_Dia_B.Text) & !string.IsNullOrEmpty(tbx_F_Width.Text))
                 return true;
             else
                 return false;
@@ -66,8 +111,8 @@ namespace View.Forms.Tooling
         {
             double diaamin, diaamax;
 
-            diaamin = Convert.ToDouble(tbx_Dia_A_Min.Text);
-            diaamax = Convert.ToDouble(tbx_Dia_A_Max.Text);
+            diaamin = Convert.ToDouble(tbx_Dim_A_Min.Text);
+            diaamax = Convert.ToDouble(tbx_Dim_A_Max.Text);
 
             if (diaamin < diaamax)
                 return true;
