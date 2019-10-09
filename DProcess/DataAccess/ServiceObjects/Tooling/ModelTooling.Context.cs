@@ -88,5 +88,10 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<TBL_BOBINADO_TARGET_ROLL> TBL_BOBINADO_TARGET_ROLL { get; set; }
         public virtual DbSet<CAT_MESA_PVD_WASH> CAT_MESA_PVD_WASH { get; set; }
         public virtual DbSet<DrillEngrave_> DrillEngrave_ { get; set; }
+        public virtual DbSet<TBL_MANGA_LAPEADO_SEGMENTOS> TBL_MANGA_LAPEADO_SEGMENTOS { get; set; }
+        public virtual DbSet<TBL_RUBBER_LAPEADO_SEGMENTOS> TBL_RUBBER_LAPEADO_SEGMENTOS { get; set; }
+        public virtual DbSet<TBL_CONF_DIMA_COLLAR_LAPEADO_SEGMENTOS> TBL_CONF_DIMA_COLLAR_LAPEADO_SEGMENTOS { get; set; }
+        public virtual DbSet<TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS> TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS { get; set; }
+        public virtual DbSet<TBL_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS> TBL_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS { get; set; }
     }
 }

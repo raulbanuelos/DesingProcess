@@ -518,6 +518,7 @@
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Material.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_BarrelGrade.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_Bobinado.cs" />
+    <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_Lapeado.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_PVD_Wash.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\SO_Diskus.cs" />
     <Compile Include="ServiceObjects\Tooling\PLANO_HERRAMENTAL.cs">
@@ -587,6 +588,15 @@
     <Compile Include="ServiceObjects\Tooling\TBL_COIL_FEED_ROLLER.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_CONF_DIMA_COLLAR_LAPEADO_SEGMENTOS.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_EXIT_GUIDE.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -605,10 +615,16 @@
     <Compile Include="ServiceObjects\Tooling\TBL_FEED_WHEEL_RECTIFICADOS_FINOS.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_MANGA_LAPEADO_SEGMENTOS.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_MANGA_PVD_ACERO_CARBON.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_MANGA_PVD_ACERO_INOXIDABLE.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_RUBBER_LAPEADO_SEGMENTOS.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_SHIM_OF_THE_CUT_SYSTEM.cs">

@@ -104,7 +104,7 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_UretanoSplitter_MaestroHerramentales" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_WorkCam_MaestroHerramentales" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_MANGA_PVD_ACERO_CARBON" Width="1.5" PointX="11.375" PointY="0.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_MANGA_PVD_ACERO_INOXIDABLE" Width="1.5" PointX="11.375" PointY="3.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_MANGA_PVD_ACERO_INOXIDABLE" Width="2.875" PointX="11.375" PointY="3.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BOBINADO_LOWER_ROLL" Width="2.5" PointX="13" PointY="9.375" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BOBINADO_UPPER_ROLL" Width="3.25" PointX="12.75" PointY="13.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_LOWER_ROLL_MaestroHerramentales" />
@@ -120,6 +120,13 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CAT_MESA_PVD_WASH" Width="1.5" PointX="3.5" PointY="11.25" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.DrillEngrave_" Width="1.5" PointX="12.25" PointY="27.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_DrillEngrave__MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_MANGA_LAPEADO_SEGMENTOS" Width="2.875" PointX="12.25" PointY="30.5" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_MANGA_LAPEADO_SEGMENTOS_MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_RUBBER_LAPEADO_SEGMENTOS" Width="1.5" PointX="12.25" PointY="33.625" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_RUBBER_LAPEADO_SEGMENTOS_MaestroHerramentales" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_CONF_DIMA_COLLAR_LAPEADO_SEGMENTOS" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS" Width="1.5" PointX="6.375" PointY="12.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS" Width="1.5" PointX="13.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
