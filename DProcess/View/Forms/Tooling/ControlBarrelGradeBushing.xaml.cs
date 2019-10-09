@@ -36,11 +36,21 @@ namespace View.Forms.Tooling
             obj = new Herramental();
         }       
 
+        /// <summary>
+        /// Método para guardar registros
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
         public int Guardar(string codigo)
         {
             // Mandamos llamar al método para insertar el objeto y retornamos el resultado
             return DataManager.InsertarBarrelGradeBrushing(codigo, Convert.ToDouble(tbx_Dim_D.Text));
         }
+
+        /// <summary>
+        /// Método para actualizar registros
+        /// </summary>
+        /// <returns></returns>
         public int Update()
         {
             // Declaramos propiedades
@@ -60,17 +70,28 @@ namespace View.Forms.Tooling
             return DataManager.ActualizarBarrelGradeBushing(obj.idHerramental, Codigo, Convert.ToDouble(tbx_Dim_D.Text));
         }
 
+        /// <summary>
+        /// Método para eliminar registros
+        /// </summary>
+        /// <returns></returns>
         public int Delete()
         {
             // Mandamos llamar al método para eliminar un registro
             return DataManager.EliminarBarrelGradeBushing(obj.idHerramental);
         }
 
+        /// <summary>
+        /// Método para inicializar componente
+        /// </summary>
         public void Inicializa()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Método para inicializar campos
+        /// </summary>
+        /// <param name="codigoHerramental"></param>
         public void InicializaCampos(string codigoHerramental)
         {
             obj = DataManager.GetInfo_Bushing(codigoHerramental);
@@ -78,6 +99,10 @@ namespace View.Forms.Tooling
             tbx_Dim_D.Text = Convert.ToString(obj.Propiedades[0].Valor);
         }       
 
+        /// <summary>
+        /// Método para validar que los campos no sean nulos
+        /// </summary>
+        /// <returns></returns>
         public bool ValidaError()
         {
             if (!string.IsNullOrEmpty(tbx_Dim_D.Text))
@@ -86,6 +111,10 @@ namespace View.Forms.Tooling
                 return false;
         }
 
+        /// <summary>
+        /// Método para validar rangos (mínimo no sea mayor al máximo y máximo no sea menor al mínimo)
+        /// </summary>
+        /// <returns></returns>
         public bool ValidaRangos()
         {
             return true;            

@@ -29,18 +29,28 @@ namespace View.Forms.Tooling
         private string Codigo;
 
         #endregion
+
         public ControlBobinadoTarjetRoll()
         {
             InitializeComponent();
             obj = new Herramental();
         }
         
+        /// <summary>
+        /// Método para guardar registros
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
         public int Guardar(string codigo)
         {
             // Mandamos llamar al método para insertar el objeto y retornamos el resultado
             return DataManager.InsertarBobinadoTargetRoll(codigo, Convert.ToDouble(tbx_A.Text), Convert.ToDouble(tbx_B.Text));
         }
 
+        /// <summary>
+        /// Método para actualizar registros
+        /// </summary>
+        /// <returns></returns>
         public int Update()
         {
             // Declaramos propiedades
@@ -63,17 +73,28 @@ namespace View.Forms.Tooling
             return DataManager.ActualizarBobinadoTargetRoll(obj.idHerramental, Codigo, Convert.ToDouble(tbx_A.Text), Convert.ToDouble(tbx_B.Text));
         }
 
+        /// <summary>
+        /// Método para eliminar registros
+        /// </summary>
+        /// <returns></returns>
         public int Delete()
         {
             // Mandamos llamar el método para eliminar un registro
             return DataManager.EliminarBobinadoTargetRoll(obj.idHerramental);
         }
 
+        /// <summary>
+        /// Método para inicializar componente
+        /// </summary>
         public void Inicializa()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Método para inicializar campos
+        /// </summary>
+        /// <param name="codigoHerramental"></param>
         public void InicializaCampos(string codigoHerramental)
         {
             obj = DataManager.GetInfo_TargetRoll(codigoHerramental);
@@ -82,6 +103,10 @@ namespace View.Forms.Tooling
             tbx_B.Text = Convert.ToString(obj.Propiedades[1].Valor);
         }
        
+        /// <summary>
+        /// Método para validar que los campos no seas nulos
+        /// </summary>
+        /// <returns></returns>
         public bool ValidaError()
         {
             if (!string.IsNullOrEmpty(tbx_A.Text) && !string.IsNullOrEmpty(tbx_B.Text))
@@ -90,6 +115,10 @@ namespace View.Forms.Tooling
                 return false;
         }
 
+        /// <summary>
+        /// Método para validar rangos (el mínimo no sea mayor al máximo y el máximo no seas menor al mínimo)
+        /// </summary>
+        /// <returns></returns>
         public bool ValidaRangos()
         {
             return true;

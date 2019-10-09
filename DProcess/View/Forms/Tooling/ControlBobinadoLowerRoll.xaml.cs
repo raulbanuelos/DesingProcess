@@ -29,18 +29,28 @@ namespace View.Forms.Tooling
         private string Codigo;
 
         #endregion
+
         public ControlBobinadoLowerRoll()
         {
             InitializeComponent();
             obj = new Herramental();
         }        
 
-        public int Guardar(string codigo)            
+        /// <summary>
+        /// Método para guardar registros
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public int Guardar(string codigo)
         {
             // Mandamos llamar al método para insertar el objeto y retornamos el resultado
             return DataManager.InsertarBobinadoLowerRoll(codigo, Convert.ToString(tbx_Detalle_Rodillo.Text), Convert.ToString(tbx_Detalle_Engrane.Text), Convert.ToDouble(tbx_Wire_Width_Min.Text), Convert.ToDouble(tbx_Wire_Width_Max.Text), Convert.ToDouble(tbx_Dia_Min.Text), Convert.ToDouble(tbx_Dia_Max.Text), Convert.ToDouble(tbx_Side_Plate_Dia.Text));
         }
 
+        /// <summary>
+        /// Método para actualizar registros
+        /// </summary>
+        /// <returns></returns>
         public int Update()
         {
             // Declaramos propiedades
@@ -78,17 +88,28 @@ namespace View.Forms.Tooling
             return DataManager.ActualizarBobinadoLowerRoll(obj.idHerramental, Codigo, Convert.ToString(tbx_Detalle_Rodillo.Text), Convert.ToString(tbx_Detalle_Engrane.Text), Convert.ToDouble(tbx_Wire_Width_Min.Text), Convert.ToDouble(tbx_Wire_Width_Max.Text), Convert.ToDouble(tbx_Dia_Min.Text), Convert.ToDouble(tbx_Dia_Max.Text), Convert.ToDouble(tbx_Side_Plate_Dia.Text));
         }
 
+        /// <summary>
+        /// Método para eliminar registros
+        /// </summary>
+        /// <returns></returns>
         public int Delete()
         {
             // Mandamos llamar el método para eliminar un registro
             return DataManager.EliminarBobinadoLowerRoll(obj.idHerramental);
         }
 
+        /// <summary>
+        /// Método para inicializar componente
+        /// </summary>
         public void Inicializa()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Método para inicializar campos
+        /// </summary>
+        /// <param name="codigoHerramental"></param>
         public void InicializaCampos(string codigoHerramental)
         {
             obj = DataManager.GetInfo_LowerRoll(codigoHerramental);
@@ -101,9 +122,11 @@ namespace View.Forms.Tooling
             tbx_Dia_Max.Text = Convert.ToString(obj.Propiedades[3].Valor);
             tbx_Side_Plate_Dia.Text = Convert.ToString(obj.Propiedades[4].Valor);
         }
-
         
-
+        /// <summary>
+        /// Método para validar que los campos no sean nulos
+        /// </summary>
+        /// <returns></returns>
         public bool ValidaError()
         {
             if (!string.IsNullOrEmpty(tbx_Detalle_Rodillo.Text) & !string.IsNullOrEmpty(tbx_Detalle_Engrane.Text) & !string.IsNullOrEmpty(tbx_Wire_Width_Min.Text) & !string.IsNullOrEmpty(tbx_Wire_Width_Max.Text) & !string.IsNullOrEmpty(tbx_Dia_Min.Text) & !string.IsNullOrEmpty(tbx_Dia_Max.Text) & !string.IsNullOrEmpty(tbx_Side_Plate_Dia.Text))
@@ -112,6 +135,10 @@ namespace View.Forms.Tooling
                 return false;
         }
 
+        /// <summary>
+        /// Método para validar rangos (mínimo no sea mayor al máximo y el máximo no sea menor al mínimo)
+        /// </summary>
+        /// <returns></returns>
         public bool ValidaRangos()
         {
             double wirewidthmin, wirewidthmax, diamin, diamax;
