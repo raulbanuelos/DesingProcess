@@ -66,6 +66,8 @@ namespace DataAccess.ServiceObjects.Tooling
             this.TBL_BARREL_GRADE_BUSHING = new HashSet<TBL_BARREL_GRADE_BUSHING>();
             this.TBL_BOBINADO_TARGET_ROLL = new HashSet<TBL_BOBINADO_TARGET_ROLL>();
             this.DrillEngrave_ = new HashSet<DrillEngrave_>();
+            this.TBL_MANGA_LAPEADO_SEGMENTOS = new HashSet<TBL_MANGA_LAPEADO_SEGMENTOS>();
+            this.TBL_RUBBER_LAPEADO_SEGMENTOS = new HashSet<TBL_RUBBER_LAPEADO_SEGMENTOS>();
         }
     
         public string Codigo { get; set; }
@@ -179,5 +181,9 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual ICollection<TBL_BOBINADO_TARGET_ROLL> TBL_BOBINADO_TARGET_ROLL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DrillEngrave_> DrillEngrave_ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_MANGA_LAPEADO_SEGMENTOS> TBL_MANGA_LAPEADO_SEGMENTOS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_RUBBER_LAPEADO_SEGMENTOS> TBL_RUBBER_LAPEADO_SEGMENTOS { get; set; }
     }
 }

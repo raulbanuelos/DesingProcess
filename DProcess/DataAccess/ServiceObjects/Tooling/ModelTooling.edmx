@@ -593,6 +593,34 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <Property Name="WIRE_WIDTH_MIN" Type="float" Nullable="false" />
           <Property Name="WIRE_WIDTH_MAX" Type="float" Nullable="false" />
         </EntityType>
+        <EntityType Name="TBL_CONF_DIMA_COLLAR_LAPEADO_SEGMENTOS">
+          <Key>
+            <PropertyRef Name="ID_CONF_COLLAR_LAPEADO_SEGMENTOS" />
+          </Key>
+          <Property Name="ID_CONF_COLLAR_LAPEADO_SEGMENTOS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DIAMETRO_MIN" Type="float" />
+          <Property Name="DIAMETRO_MAX" Type="float" />
+          <Property Name="THICKNESS_UP_100" Type="float" />
+          <Property Name="THICKNESS_DOWN_100" Type="float" />
+        </EntityType>
+        <EntityType Name="TBL_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS">
+          <Key>
+            <PropertyRef Name="ID_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS" />
+          </Key>
+          <Property Name="ID_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MINIMO" Type="float" />
+          <Property Name="MAXIMO" Type="float" />
+          <Property Name="DETALLE" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS">
+          <Key>
+            <PropertyRef Name="ID_CONF_STD_COLLAR_LAPEADO_SEGMENTOS" />
+          </Key>
+          <Property Name="ID_CONF_STD_COLLAR_LAPEADO_SEGMENTOS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MINIMO" Type="float" />
+          <Property Name="MAXIMO" Type="float" />
+          <Property Name="DETALLE" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="TBL_EXIT_GUIDE">
           <Key>
             <PropertyRef Name="ID_EXIT_GUIDE" />
@@ -668,6 +696,15 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <Property Name="DIM_WIDTH" Type="float" />
           <Property Name="DIM_F" Type="float" />
         </EntityType>
+        <EntityType Name="TBL_MANGA_LAPEADO_SEGMENTOS">
+          <Key>
+            <PropertyRef Name="ID_MANGA_LAPEADO_SEGMENTOS" />
+          </Key>
+          <Property Name="ID_MANGA_LAPEADO_SEGMENTOS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGO" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="MEDIDA" Type="varchar" MaxLength="50" />
+          <Property Name="MEDIDA_DECIMAL" Type="float" />
+        </EntityType>
         <EntityType Name="TBL_MANGA_PVD_ACERO_CARBON">
           <Key>
             <PropertyRef Name="ID_MANGA_PVD_ACERO_CARBON" />
@@ -687,6 +724,15 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <Property Name="N_MAX" Type="float" Nullable="false" />
           <Property Name="A" Type="float" Nullable="false" />
           <Property Name="FACTOR" Type="float" />
+        </EntityType>
+        <EntityType Name="TBL_RUBBER_LAPEADO_SEGMENTOS">
+          <Key>
+            <PropertyRef Name="ID_RUBBER_LAPEADO_SEGMENTOS" />
+          </Key>
+          <Property Name="ID_RUBBER_LAPEADO_SEGMENTOS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGO" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="DIM_A" Type="float" />
+          <Property Name="PLANO" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TBL_SHIM_OF_THE_CUT_SYSTEM">
           <Key>
@@ -1353,6 +1399,30 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBL_MANGA_LAPEADO_SEGMENTOS_MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1" />
+          <End Role="TBL_MANGA_LAPEADO_SEGMENTOS" Type="Self.TBL_MANGA_LAPEADO_SEGMENTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_MANGA_LAPEADO_SEGMENTOS">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_RUBBER_LAPEADO_SEGMENTOS_MaestroHerramentales">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1" />
+          <End Role="TBL_RUBBER_LAPEADO_SEGMENTOS" Type="Self.TBL_RUBBER_LAPEADO_SEGMENTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_RUBBER_LAPEADO_SEGMENTOS">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales">
           <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1" />
           <End Role="TBL_SHIM_OF_THE_CUT_SYSTEM" Type="Self.TBL_SHIM_OF_THE_CUT_SYSTEM" Multiplicity="*" />
@@ -1443,14 +1513,19 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <EntitySet Name="TBL_BOBINADO_UPPER_ROLL" EntityType="Self.TBL_BOBINADO_UPPER_ROLL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_COIL_CENTER_GUIDE" EntityType="Self.TBL_COIL_CENTER_GUIDE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_COIL_FEED_ROLLER" EntityType="Self.TBL_COIL_FEED_ROLLER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_CONF_DIMA_COLLAR_LAPEADO_SEGMENTOS" EntityType="Self.TBL_CONF_DIMA_COLLAR_LAPEADO_SEGMENTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS" EntityType="Self.TBL_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS" EntityType="Self.TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_EXIT_GUIDE" EntityType="Self.TBL_EXIT_GUIDE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" EntityType="Self.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" EntityType="Self.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" EntityType="Self.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" EntityType="Self.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_FEED_WHEEL_RECTIFICADOS_FINOS" EntityType="Self.TBL_FEED_WHEEL_RECTIFICADOS_FINOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_MANGA_LAPEADO_SEGMENTOS" EntityType="Self.TBL_MANGA_LAPEADO_SEGMENTOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_MANGA_PVD_ACERO_CARBON" EntityType="Self.TBL_MANGA_PVD_ACERO_CARBON" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_MANGA_PVD_ACERO_INOXIDABLE" EntityType="Self.TBL_MANGA_PVD_ACERO_INOXIDABLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_RUBBER_LAPEADO_SEGMENTOS" EntityType="Self.TBL_RUBBER_LAPEADO_SEGMENTOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_SHIM_OF_THE_CUT_SYSTEM" EntityType="Self.TBL_SHIM_OF_THE_CUT_SYSTEM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UretanoSplitter" EntityType="Self.UretanoSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkCam" EntityType="Self.WorkCam" Schema="dbo" store:Type="Tables" />
@@ -1656,6 +1731,14 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <AssociationSet Name="FK_TBL_FEED_WHEEL_RECTIFICADOS_FINOS_MaestroHerramentales" Association="Self.FK_TBL_FEED_WHEEL_RECTIFICADOS_FINOS_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="TBL_FEED_WHEEL_RECTIFICADOS_FINOS" EntitySet="TBL_FEED_WHEEL_RECTIFICADOS_FINOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_MANGA_LAPEADO_SEGMENTOS_MaestroHerramentales" Association="Self.FK_TBL_MANGA_LAPEADO_SEGMENTOS_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_MANGA_LAPEADO_SEGMENTOS" EntitySet="TBL_MANGA_LAPEADO_SEGMENTOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_RUBBER_LAPEADO_SEGMENTOS_MaestroHerramentales" Association="Self.FK_TBL_RUBBER_LAPEADO_SEGMENTOS_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_RUBBER_LAPEADO_SEGMENTOS" EntitySet="TBL_RUBBER_LAPEADO_SEGMENTOS" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales" Association="Self.FK_TBL_SHIM_OF_THE_CUT_SYSTEM_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -1946,6 +2029,19 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="DrillEngrave_" EntitySet="DrillEngrave_" />
           </AssociationSet>
+          <EntitySet Name="TBL_MANGA_LAPEADO_SEGMENTOS" EntityType="DataAccess.ServiceObjects.Tooling.TBL_MANGA_LAPEADO_SEGMENTOS" />
+          <AssociationSet Name="FK_TBL_MANGA_LAPEADO_SEGMENTOS_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_MANGA_LAPEADO_SEGMENTOS_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_MANGA_LAPEADO_SEGMENTOS" EntitySet="TBL_MANGA_LAPEADO_SEGMENTOS" />
+          </AssociationSet>
+          <EntitySet Name="TBL_RUBBER_LAPEADO_SEGMENTOS" EntityType="DataAccess.ServiceObjects.Tooling.TBL_RUBBER_LAPEADO_SEGMENTOS" />
+          <AssociationSet Name="FK_TBL_RUBBER_LAPEADO_SEGMENTOS_MaestroHerramentales" Association="DataAccess.ServiceObjects.Tooling.FK_TBL_RUBBER_LAPEADO_SEGMENTOS_MaestroHerramentales">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_RUBBER_LAPEADO_SEGMENTOS" EntitySet="TBL_RUBBER_LAPEADO_SEGMENTOS" />
+          </AssociationSet>
+          <EntitySet Name="TBL_CONF_DIMA_COLLAR_LAPEADO_SEGMENTOS" EntityType="DataAccess.ServiceObjects.Tooling.TBL_CONF_DIMA_COLLAR_LAPEADO_SEGMENTOS" />
+          <EntitySet Name="TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS" EntityType="DataAccess.ServiceObjects.Tooling.TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS" />
+          <EntitySet Name="TBL_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS" EntityType="DataAccess.ServiceObjects.Tooling.TBL_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS" />
         </EntityContainer>
         <EntityType Name="SplitterSpacerChart">
           <Key>
@@ -2651,6 +2747,8 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <NavigationProperty Name="TBL_BARREL_GRADE_BUSHING" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_BARREL_GRADE_BUSHING_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_BARREL_GRADE_BUSHING" />
           <NavigationProperty Name="TBL_BOBINADO_TARGET_ROLL" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_TARGET_ROLL_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_BOBINADO_TARGET_ROLL" />
           <NavigationProperty Name="DrillEngrave_" Relationship="DataAccess.ServiceObjects.Tooling.FK_DrillEngrave__MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="DrillEngrave_" />
+          <NavigationProperty Name="TBL_MANGA_LAPEADO_SEGMENTOS" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_MANGA_LAPEADO_SEGMENTOS_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_MANGA_LAPEADO_SEGMENTOS" />
+          <NavigationProperty Name="TBL_RUBBER_LAPEADO_SEGMENTOS" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_RUBBER_LAPEADO_SEGMENTOS_MaestroHerramentales" FromRole="MaestroHerramentales" ToRole="TBL_RUBBER_LAPEADO_SEGMENTOS" />
         </EntityType>
         <Association Name="FK__BarrelLap__Codig__4EF38B7F">
           <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
@@ -3435,6 +3533,78 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_MANGA_LAPEADO_SEGMENTOS">
+          <Key>
+            <PropertyRef Name="ID_MANGA_LAPEADO_SEGMENTOS" />
+          </Key>
+          <Property Name="ID_MANGA_LAPEADO_SEGMENTOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="MEDIDA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MEDIDA_DECIMAL" Type="Double" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_MANGA_LAPEADO_SEGMENTOS_MaestroHerramentales" FromRole="TBL_MANGA_LAPEADO_SEGMENTOS" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_TBL_MANGA_LAPEADO_SEGMENTOS_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.TBL_MANGA_LAPEADO_SEGMENTOS" Role="TBL_MANGA_LAPEADO_SEGMENTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_MANGA_LAPEADO_SEGMENTOS">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBL_RUBBER_LAPEADO_SEGMENTOS">
+          <Key>
+            <PropertyRef Name="ID_RUBBER_LAPEADO_SEGMENTOS" />
+          </Key>
+          <Property Name="ID_RUBBER_LAPEADO_SEGMENTOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DIM_A" Type="Double" />
+          <Property Name="PLANO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_TBL_RUBBER_LAPEADO_SEGMENTOS_MaestroHerramentales" FromRole="TBL_RUBBER_LAPEADO_SEGMENTOS" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_TBL_RUBBER_LAPEADO_SEGMENTOS_MaestroHerramentales">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.TBL_RUBBER_LAPEADO_SEGMENTOS" Role="TBL_RUBBER_LAPEADO_SEGMENTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_RUBBER_LAPEADO_SEGMENTOS">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBL_CONF_DIMA_COLLAR_LAPEADO_SEGMENTOS">
+          <Key>
+            <PropertyRef Name="ID_CONF_COLLAR_LAPEADO_SEGMENTOS" />
+          </Key>
+          <Property Name="ID_CONF_COLLAR_LAPEADO_SEGMENTOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DIAMETRO_MIN" Type="Double" />
+          <Property Name="DIAMETRO_MAX" Type="Double" />
+          <Property Name="THICKNESS_UP_100" Type="Double" />
+          <Property Name="THICKNESS_DOWN_100" Type="Double" />
+        </EntityType>
+        <EntityType Name="TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS">
+          <Key>
+            <PropertyRef Name="ID_CONF_STD_COLLAR_LAPEADO_SEGMENTOS" />
+          </Key>
+          <Property Name="ID_CONF_STD_COLLAR_LAPEADO_SEGMENTOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MINIMO" Type="Double" />
+          <Property Name="MAXIMO" Type="Double" />
+          <Property Name="DETALLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TBL_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS">
+          <Key>
+            <PropertyRef Name="ID_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS" />
+          </Key>
+          <Property Name="ID_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MINIMO" Type="Double" />
+          <Property Name="MAXIMO" Type="Double" />
+          <Property Name="DETALLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4215,6 +4385,57 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
                 <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="ID_DRILL_ENGRAVE" ColumnName="ID_DRILL_ENGRAVE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_MANGA_LAPEADO_SEGMENTOS">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_MANGA_LAPEADO_SEGMENTOS">
+              <MappingFragment StoreEntitySet="TBL_MANGA_LAPEADO_SEGMENTOS">
+                <ScalarProperty Name="MEDIDA_DECIMAL" ColumnName="MEDIDA_DECIMAL" />
+                <ScalarProperty Name="MEDIDA" ColumnName="MEDIDA" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_MANGA_LAPEADO_SEGMENTOS" ColumnName="ID_MANGA_LAPEADO_SEGMENTOS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_RUBBER_LAPEADO_SEGMENTOS">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_RUBBER_LAPEADO_SEGMENTOS">
+              <MappingFragment StoreEntitySet="TBL_RUBBER_LAPEADO_SEGMENTOS">
+                <ScalarProperty Name="PLANO" ColumnName="PLANO" />
+                <ScalarProperty Name="DIM_A" ColumnName="DIM_A" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_RUBBER_LAPEADO_SEGMENTOS" ColumnName="ID_RUBBER_LAPEADO_SEGMENTOS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_CONF_DIMA_COLLAR_LAPEADO_SEGMENTOS">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_CONF_DIMA_COLLAR_LAPEADO_SEGMENTOS">
+              <MappingFragment StoreEntitySet="TBL_CONF_DIMA_COLLAR_LAPEADO_SEGMENTOS">
+                <ScalarProperty Name="THICKNESS_DOWN_100" ColumnName="THICKNESS_DOWN_100" />
+                <ScalarProperty Name="THICKNESS_UP_100" ColumnName="THICKNESS_UP_100" />
+                <ScalarProperty Name="DIAMETRO_MAX" ColumnName="DIAMETRO_MAX" />
+                <ScalarProperty Name="DIAMETRO_MIN" ColumnName="DIAMETRO_MIN" />
+                <ScalarProperty Name="ID_CONF_COLLAR_LAPEADO_SEGMENTOS" ColumnName="ID_CONF_COLLAR_LAPEADO_SEGMENTOS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS">
+              <MappingFragment StoreEntitySet="TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS">
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
+                <ScalarProperty Name="MAXIMO" ColumnName="MAXIMO" />
+                <ScalarProperty Name="MINIMO" ColumnName="MINIMO" />
+                <ScalarProperty Name="ID_CONF_STD_COLLAR_LAPEADO_SEGMENTOS" ColumnName="ID_CONF_STD_COLLAR_LAPEADO_SEGMENTOS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS">
+              <MappingFragment StoreEntitySet="TBL_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS">
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
+                <ScalarProperty Name="MAXIMO" ColumnName="MAXIMO" />
+                <ScalarProperty Name="MINIMO" ColumnName="MINIMO" />
+                <ScalarProperty Name="ID_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS" ColumnName="ID_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
