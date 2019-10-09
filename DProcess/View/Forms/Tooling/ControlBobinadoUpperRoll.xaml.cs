@@ -126,7 +126,7 @@ namespace View.Forms.Tooling
         /// <returns></returns>
         public bool ValidaError()
         {
-            if (!string.IsNullOrEmpty(tbx_Wire_Width_Min.Text) & !string.IsNullOrEmpty(tbx_Wire_Width_Max.Text) & !string.IsNullOrEmpty(tbx_Dia_Min.Text) & !string.IsNullOrEmpty(tbx_Dia_Max.Text) & !string.IsNullOrEmpty(tbx_Detalle_Engrane.Text) & !string.IsNullOrEmpty(tbx_Medida.Text))
+            if (!string.IsNullOrEmpty(tbx_Wire_Width_Min.Text) && !string.IsNullOrEmpty(tbx_Wire_Width_Max.Text) && !string.IsNullOrEmpty(tbx_Dia_Min.Text) && !string.IsNullOrEmpty(tbx_Dia_Max.Text) && !string.IsNullOrEmpty(tbx_Detalle_Engrane.Text) && !string.IsNullOrEmpty(tbx_Medida.Text))
                 return true;
             else
                 return false;           
