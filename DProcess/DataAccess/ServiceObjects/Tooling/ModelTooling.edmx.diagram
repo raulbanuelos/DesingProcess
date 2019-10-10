@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="da0dc206e6ab4ec6bfee909bb16e9885" Name="Diagram1" ZoomLevel="73">
+      <Diagram DiagramId="da0dc206e6ab4ec6bfee909bb16e9885" Name="Diagram1" ZoomLevel="54">
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart" Width="1.5" PointX="7.375" PointY="7.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.cutter_angle" Width="1.5" PointX="9.375" PointY="4.75" />
@@ -127,6 +127,14 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_CONF_DIMA_COLLAR_LAPEADO_SEGMENTOS" Width="1.5" PointX="0.75" PointY="12.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS" Width="1.5" PointX="6.375" PointY="12.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BACKUP_RING_THOMPSON_SEGMENTOS" Width="3.875" PointX="12.25" PointY="39.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS" Width="3.875" PointX="12.25" PointY="42.375" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS" Width="3.875" PointX="12.25" PointY="37" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS" Width="3.875" PointX="12.25" PointY="45.125" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CODIGO" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CODIGOBACKUP" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CODIGOPLATO" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CODIGOTUBO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

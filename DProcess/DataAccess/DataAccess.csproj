@@ -520,6 +520,7 @@
     <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_Bobinado.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_Lapeado.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_PVD_Wash.cs" />
+    <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_Thompson.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\SO_Diskus.cs" />
     <Compile Include="ServiceObjects\Tooling\PLANO_HERRAMENTAL.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
@@ -564,6 +565,9 @@
     <Compile Include="ServiceObjects\Tooling\SPlitterSpacerChart2.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_BACKUP_RING_THOMPSON_SEGMENTOS.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_BARREL_GRADE_BUSHING.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -580,6 +584,9 @@
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_BOBINADO_UPPER_ROLL.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_COIL_CENTER_GUIDE.cs">
@@ -624,10 +631,16 @@
     <Compile Include="ServiceObjects\Tooling\TBL_MANGA_PVD_ACERO_INOXIDABLE.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_RUBBER_LAPEADO_SEGMENTOS.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_SHIM_OF_THE_CUT_SYSTEM.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\UretanoSplitter.cs">

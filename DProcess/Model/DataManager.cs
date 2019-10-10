@@ -11917,9 +11917,9 @@ namespace Model
             return ServiceBarrelGrade.DeleteBarrelGradePusher(Id_Barrel_Grade_Pusher);
         }
 
-        
 
-        
+
+
 
         #endregion
 
@@ -12101,6 +12101,10 @@ namespace Model
 
             return ServiceLapeado.DeleteRubberLapeado(Id_Rubber_Lapeado_Segmentos);
         }
+
+        #endregion
+
+        #region THOMPSON
 
         #endregion
 

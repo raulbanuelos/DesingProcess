@@ -68,6 +68,10 @@ namespace DataAccess.ServiceObjects.Tooling
             this.DrillEngrave_ = new HashSet<DrillEngrave_>();
             this.TBL_MANGA_LAPEADO_SEGMENTOS = new HashSet<TBL_MANGA_LAPEADO_SEGMENTOS>();
             this.TBL_RUBBER_LAPEADO_SEGMENTOS = new HashSet<TBL_RUBBER_LAPEADO_SEGMENTOS>();
+            this.TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS = new HashSet<TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS>();
+            this.TBL_BACKUP_RING_THOMPSON_SEGMENTOS = new HashSet<TBL_BACKUP_RING_THOMPSON_SEGMENTOS>();
+            this.TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS = new HashSet<TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS>();
+            this.TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS = new HashSet<TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS>();
         }
     
         public string Codigo { get; set; }
@@ -185,5 +189,13 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual ICollection<TBL_MANGA_LAPEADO_SEGMENTOS> TBL_MANGA_LAPEADO_SEGMENTOS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_RUBBER_LAPEADO_SEGMENTOS> TBL_RUBBER_LAPEADO_SEGMENTOS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS> TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_BACKUP_RING_THOMPSON_SEGMENTOS> TBL_BACKUP_RING_THOMPSON_SEGMENTOS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS> TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS> TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS { get; set; }
     }
 }
