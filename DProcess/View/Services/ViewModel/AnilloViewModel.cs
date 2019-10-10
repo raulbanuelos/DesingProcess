@@ -1688,9 +1688,9 @@ namespace View.Services.ViewModel
                 }
 
                 if (IsMaking)
-                    await Task.Delay(5000);
+                    await Task.Delay(500);
                 else
-                    await Task.Delay(1500);
+                    await Task.Delay(500);
 
                 noOperacion += 10;
                 count += count;

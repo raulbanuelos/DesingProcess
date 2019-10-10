@@ -31,7 +31,8 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                                                   c.idClasificacion,
                                                   c.ListaCotasRevisar,
                                                   c.VerificacionAnual,
-                                                  MEDIDA_MANGA = a.MEDIDA
+                                                  MEDIDA_MANGA = a.MEDIDA,
+                                                  a.ID_MANGA_LAPEADO_SEGMENTOS
                                               }).Take(1).ToList();
 
                     return listaHerramentales;
