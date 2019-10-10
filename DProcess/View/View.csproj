@@ -538,6 +538,9 @@
     <Compile Include="Forms\Tooling\ControlLoadingGuideAnillos_.xaml.cs">
       <DependentUpon>ControlLoadingGuideAnillos_.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlMangaLapeado.xaml.cs">
+      <DependentUpon>ControlMangaLapeado.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlProtectorInf_Moly.xaml.cs">
       <DependentUpon>ControlProtectorInf_Moly.xaml</DependentUpon>
     </Compile>
@@ -546,6 +549,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\ControlPusherSim.xaml.cs">
       <DependentUpon>ControlPusherSim.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlRubberLapeado.xaml.cs">
+      <DependentUpon>ControlRubberLapeado.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\ControlShieldBK.xaml.cs">
       <DependentUpon>ControlShieldBK.xaml</DependentUpon>
@@ -1475,6 +1481,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlMangaLapeado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\ControlProtectorInf_Moly.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1484,6 +1494,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\ControlPusherSim.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlRubberLapeado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

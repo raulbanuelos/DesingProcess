@@ -19,9 +19,9 @@ using System.Windows.Shapes;
 namespace View.Forms.Tooling
 {
     /// <summary>
-    /// Lógica de interacción para ControlBobinadoCenterWafer.xaml
+    /// Lógica de interacción para ControlMangaLapeado.xaml
     /// </summary>
-    public partial class ControlBobinadoCenterWafer : UserControl, IControlTooling
+    public partial class ControlMangaLapeado : UserControl, IControlTooling
     {
         #region Myregion
 
@@ -30,7 +30,7 @@ namespace View.Forms.Tooling
 
         #endregion
 
-        public ControlBobinadoCenterWafer()
+        public ControlMangaLapeado()
         {
             InitializeComponent();
             obj = new Herramental();
@@ -44,7 +44,7 @@ namespace View.Forms.Tooling
         public int Guardar(string codigo)
         {
             // Mandamos llamar al método para insertar el objeto y retornamos el resultado
-            return DataManager.InsertarBobinadoCenterWafer(codigo, Convert.ToDouble(tbx_Dim_A_Min.Text), Convert.ToDouble(tbx_Dim_A_Max.Text), Convert.ToDouble(tbx_Wire_Width.Text), Convert.ToString(tbx_Detalle.Text), Convert.ToDouble(tbx_Dia_B.Text), Convert.ToDouble(tbx_F_Width.Text));
+            return DataManager.Insert_MangaLapeado(codigo, Convert.ToString(tbx_Medida.Text), Convert.ToDouble(tbx_Medida_Decimal.Text));
         }
 
         /// <summary>
@@ -55,34 +55,22 @@ namespace View.Forms.Tooling
         {
             // Declaramos propiedades
             Herramental herramental = new Herramental();
-            Propiedad propiedaddimamin = new Propiedad();
-            Propiedad propiedaddimamax = new Propiedad();
-            Propiedad propiedadwirewidth = new Propiedad();
-            PropiedadCadena propiedaddetalle = new PropiedadCadena();
-            Propiedad propiedaddiab = new Propiedad();
-            Propiedad propiedadfwidth = new Propiedad();
+            PropiedadCadena propiedadmedida = new PropiedadCadena();
+            Propiedad propiedadmedidadecimal = new Propiedad();
 
-            // Asignamos valores 
+            // Asignamos valores
             herramental.Codigo = Codigo;
             herramental.idHerramental = obj.idHerramental;
 
-            propiedaddimamin.Valor = double.Parse(tbx_Dim_A_Min.Text);
-            propiedaddimamax.Valor = double.Parse(tbx_Dim_A_Max.Text);
-            propiedadwirewidth.Valor = double.Parse(tbx_Wire_Width.Text);
-            propiedaddetalle.Valor = Convert.ToString(tbx_Detalle.Text);
-            propiedaddiab.Valor = double.Parse(tbx_Dia_B.Text);
-            propiedadfwidth.Valor = double.Parse(tbx_F_Width.Text);
+            propiedadmedida.Valor = Convert.ToString(tbx_Medida.Text);
+            propiedadmedidadecimal.Valor = double.Parse(tbx_Medida_Decimal.Text);
 
             // Agregamos propiedades
-            herramental.Propiedades.Add(propiedaddimamin);
-            herramental.Propiedades.Add(propiedaddimamax);
-            herramental.Propiedades.Add(propiedadwirewidth);
-            herramental.PropiedadesCadena.Add(propiedaddetalle);
-            herramental.Propiedades.Add(propiedaddiab);
-            herramental.Propiedades.Add(propiedadfwidth);
+            herramental.PropiedadesCadena.Add(propiedadmedida);
+            herramental.Propiedades.Add(propiedadmedidadecimal);
 
             // Mandamos llamar el método para actualizar un registro
-            return DataManager.ActualizarBobinadoCenterWafer(obj.idHerramental, Codigo, Convert.ToDouble(tbx_Dim_A_Min.Text), Convert.ToDouble(tbx_Dim_A_Max.Text), Convert.ToDouble(tbx_Wire_Width.Text), Convert.ToString(tbx_Detalle.Text), Convert.ToDouble(tbx_Dia_B.Text), Convert.ToDouble(tbx_F_Width.Text));
+            return DataManager.Update_MangaLapeado(obj.idHerramental, Codigo, Convert.ToString(tbx_Medida.Text), Convert.ToDouble(tbx_Medida_Decimal.Text));
         }
 
         /// <summary>
@@ -91,8 +79,8 @@ namespace View.Forms.Tooling
         /// <returns></returns>
         public int Delete()
         {
-            // Mandamos llamar al método para eliminar un registro
-            return DataManager.EliminarBobinadoCenterWafer(obj.idHerramental);
+            // Mandamos llamar el método para elminar un registro
+            return DataManager.Delete_MangaLapeado(obj.idHerramental);
         }
 
         /// <summary>
@@ -109,15 +97,11 @@ namespace View.Forms.Tooling
         /// <param name="codigoHerramental"></param>
         public void InicializaCampos(string codigoHerramental)
         {
-            obj = DataManager.GetInfo_CenterWafer(codigoHerramental);
+            obj = DataManager.GetInfo_MangaLapeado(codigoHerramental);
             Codigo = obj.Codigo;
-            tbx_Dim_A_Min.Text = Convert.ToString(obj.Propiedades[0].Valor);
-            tbx_Dim_A_Max.Text = Convert.ToString(obj.Propiedades[1].Valor);
-            tbx_Wire_Width.Text = Convert.ToString(obj.Propiedades[2].Valor);
-            tbx_Detalle.Text = Convert.ToString(obj.PropiedadesCadena[0].Valor);
-            tbx_Dia_B.Text = Convert.ToString(obj.Propiedades[3].Valor);
-            tbx_F_Width.Text = Convert.ToString(obj.Propiedades[4].Valor);
-        }        
+            tbx_Medida.Text = Convert.ToString(obj.PropiedadesCadena[0].Valor);
+            tbx_Medida_Decimal.Text = Convert.ToString(obj.Propiedades[0].Valor);
+        }
 
         /// <summary>
         /// Método para validar que los campos no sean nulos
@@ -125,31 +109,23 @@ namespace View.Forms.Tooling
         /// <returns></returns>
         public bool ValidaError()
         {
-            if (!string.IsNullOrEmpty(tbx_Dim_A_Min.Text) && !string.IsNullOrEmpty(tbx_Dim_A_Max.Text) && !string.IsNullOrEmpty(tbx_Wire_Width.Text) && !string.IsNullOrEmpty(tbx_Detalle.Text) && !string.IsNullOrEmpty(tbx_Dia_B.Text) && !string.IsNullOrEmpty(tbx_F_Width.Text))
+            if (!string.IsNullOrEmpty(tbx_Medida.Text) && !string.IsNullOrEmpty(tbx_Medida_Decimal.Text))
                 return true;
             else
                 return false;
         }
 
         /// <summary>
-        /// Método para validar rangos (el mínimo no sea mayor al máximo y máximo no sea menor al mínimo)
+        /// Método para validar rangos (el mínimo no sea mayor al máximo y el máximo no sea menor al mínimo)
         /// </summary>
         /// <returns></returns>
         public bool ValidaRangos()
         {
-            double diaamin, diaamax;
-
-            diaamin = Convert.ToDouble(tbx_Dim_A_Min.Text);
-            diaamax = Convert.ToDouble(tbx_Dim_A_Max.Text);
-
-            if (diaamin < diaamax)
-                return true;
-            else
-                return false;            
+            return true;
         }
 
         /// <summary>
-        /// Valida que solo se introduzcan numeros
+        /// Valida que solo se introduzcan números
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
