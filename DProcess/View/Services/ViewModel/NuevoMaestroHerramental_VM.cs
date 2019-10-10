@@ -600,8 +600,8 @@ namespace View.Services.ViewModel
             setting.AffirmativeButtonText = StringResources.lblYes;
             setting.NegativeButtonText = StringResources.lblNo;
 
-            //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
-            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgConfirmacion, setting, MessageDialogStyle.AffirmativeAndNegative);
+            //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.            
+            MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblConfirmDeleteRecord, setting, MessageDialogStyle.AffirmativeAndNegative);
             //Si el resultado es verdadero
             if (result == MessageDialogResult.Affirmative)
             {
@@ -658,6 +658,7 @@ namespace View.Services.ViewModel
                 }
             }
         }
+
         #endregion
 
         #region Constructor

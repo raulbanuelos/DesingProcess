@@ -11265,196 +11265,6 @@ namespace Model
         }
 
         /// <summary>
-        /// Llamar método para insertar un registro en la tabla TBL_BOBINADO_UPPER_ROLL
-        /// </summary>
-        /// <param name="Codigo"></param>
-        /// <param name="Wire_Width_Min"></param>
-        /// <param name="Wire_Width_Max"></param>
-        /// <param name="Dia_Min"></param>
-        /// <param name="Dia_Max"></param>
-        /// <param name="Detalle_Engrane"></param>
-        /// <param name="Medida"></param>
-        /// <returns></returns>
-        public static int InsertarBobinadoUpperRoll(string Codigo, double Wire_Width_Min, double Wire_Width_Max, double Dia_Min, double Dia_Max, string Detalle_Engrane, double Medida)
-        {
-            SO_Bobinado ServiceBobinado = new SO_Bobinado();
-
-            return ServiceBobinado.InsertBobinadoUpperRoll(Codigo, Wire_Width_Min, Wire_Width_Max, Dia_Min, Dia_Max, Detalle_Engrane, Medida);
-        }
-
-        /// <summary>
-        /// Llamar método para actualizar un registro en la tabla TBL_BOBINADO_UPPER_ROLL
-        /// </summary>
-        /// <param name="Id_Bobinado_Upper_Roll"></param>
-        /// <param name="Codigo"></param>
-        /// <param name="Wire_Width_Min"></param>
-        /// <param name="Wire_Width_Max"></param>
-        /// <param name="Dia_Min"></param>
-        /// <param name="Dia_Max"></param>
-        /// <param name="Detalle_Engrane"></param>
-        /// <param name="Medida"></param>
-        /// <returns></returns>
-        public static int ActualizarBobinadoUpperRoll(int Id_Bobinado_Upper_Roll, string Codigo, double Wire_Width_Min, double Wire_Width_Max, double Dia_Min, double Dia_Max, string Detalle_Engrane, double Medida)
-        {
-            SO_Bobinado ServiceBobinado = new SO_Bobinado();
-
-            return ServiceBobinado.UpdateBobinadoUpperRoll(Id_Bobinado_Upper_Roll, Codigo, Wire_Width_Min, Wire_Width_Max, Dia_Min, Dia_Max, Detalle_Engrane, Medida);
-        }
-
-        /// <summary>
-        /// Llamar método para eliminar registro de la tabla TBL_BOBINADO_UPPER_ROLL
-        /// </summary>
-        /// <param name="Id_Bobinado_Upper_Roll"></param>
-        /// <returns></returns>
-        public static int EliminarBobinadoUpperRoll(int Id_Bobinado_Upper_Roll)
-        {
-            SO_Bobinado ServiceBobinado = new SO_Bobinado();
-
-            return ServiceBobinado.DeleteBobinadoUpperRoll(Id_Bobinado_Upper_Roll);
-        }
-
-        /// <summary>
-        /// Llamar método para insertar registos en la tabla TBL_BOBINADO_LOWER_ROLL
-        /// </summary>
-        /// <param name="Codigo"></param>
-        /// <param name="Detalle_Rodillo"></param>
-        /// <param name="Detalle_Engrane"></param>
-        /// <param name="Wire_Width_Min"></param>
-        /// <param name="Wire_Width_Max"></param>
-        /// <param name="Dia_Min"></param>
-        /// <param name="Dia_Max"></param>
-        /// <param name="Side_Plate_Dia"></param>
-        /// <returns></returns>
-        public static int InsertarBobinadoLowerRoll(string Codigo, string Detalle_Rodillo, string Detalle_Engrane, double Wire_Width_Min, double Wire_Width_Max, double Dia_Min, double Dia_Max, double Side_Plate_Dia)
-        {
-            SO_Bobinado ServiceBobinado = new SO_Bobinado();
-
-            return ServiceBobinado.InsertBobinadoLowerRoll(Codigo, Detalle_Rodillo, Detalle_Engrane, Wire_Width_Min, Wire_Width_Max, Dia_Min, Dia_Max, Side_Plate_Dia);
-        }
-
-        /// <summary>
-        /// Llamar método para actualizar un registro de la tabla TBL_BOBINADO_LOWER_ROLL
-        /// </summary>
-        /// <param name="Id_Bobinado_Lower_Roll"></param>
-        /// <param name="Codigo"></param>
-        /// <param name="Detalle_Rodillo"></param>
-        /// <param name="Detalle_Engrane"></param>
-        /// <param name="Wire_Width_Min"></param>
-        /// <param name="Wire_Width_Max"></param>
-        /// <param name="Dia_Min"></param>
-        /// <param name="Dia_Max"></param>
-        /// <param name="Side_Plate_Dia"></param>
-        /// <returns></returns>
-        public static int ActualizarBobinadoLowerRoll(int Id_Bobinado_Lower_Roll, string Codigo, string Detalle_Rodillo, string Detalle_Engrane, double Wire_Width_Min, double Wire_Width_Max, double Dia_Min, double Dia_Max, double Side_Plate_Dia)
-        {
-            SO_Bobinado ServiceBobinado = new SO_Bobinado();
-
-            return ServiceBobinado.UpdateBobinadoLowerRoll(Id_Bobinado_Lower_Roll, Codigo, Detalle_Rodillo, Detalle_Engrane, Wire_Width_Min, Wire_Width_Max, Dia_Min, Dia_Max, Side_Plate_Dia);
-        }
-
-        /// <summary>
-        /// Llamar método para eliminar un registro de la tabla TBL_BOBINADO_LOWER_ROLL
-        /// </summary>
-        /// <param name="Id_Bobinado_Lower_Roll"></param>
-        /// <returns></returns>
-        public static int EliminarBobinadoLowerRoll(int Id_Bobinado_Lower_Roll)
-        {
-            SO_Bobinado ServiceBobinado = new SO_Bobinado();
-
-            return ServiceBobinado.DeleteBobinadoLowerRoll(Id_Bobinado_Lower_Roll);
-        }
-
-        /// <summary>
-        /// Llamar método para insertar registro en la tabla TBL_BOBINADO_TARGET_ROLL
-        /// </summary>
-        /// <param name="Codigo"></param>
-        /// <param name="A"></param>
-        /// <param name="B"></param>
-        /// <returns></returns>
-        public static int InsertarBobinadoTargetRoll(string Codigo, double A, double B)
-        {
-            SO_Bobinado ServiceBobinado = new SO_Bobinado();
-
-            return ServiceBobinado.InsertBobinadoTargetRoll(Codigo, A, B);
-        }
-
-        /// <summary>
-        /// Llamar método para actualizar registro de la tabla TBL_BOBINADO_TARGET_ROLL
-        /// </summary>
-        /// <param name="Id_Bobinado_Target_Roll"></param>
-        /// <param name="Codigo"></param>
-        /// <param name="A"></param>
-        /// <param name="B"></param>
-        /// <returns></returns>
-        public static int ActualizarBobinadoTargetRoll(int Id_Bobinado_Target_Roll, string Codigo, double A, double B)
-        {
-            SO_Bobinado ServiceBobinado = new SO_Bobinado();
-
-            return ServiceBobinado.UpdateBobinadoTargetRoll(Id_Bobinado_Target_Roll, Codigo, A, B);
-        }
-
-        /// <summary>
-        /// Llamar método para eliminar registro de la tabla TBL_BOBINADO_TARGET_ROLL
-        /// </summary>
-        /// <param name="Id_Bobinado_Target_Roll"></param>
-        /// <returns></returns>
-        public static int EliminarBobinadoTargetRoll(int Id_Bobinado_Target_Roll)
-        {
-            SO_Bobinado ServiceBobinado = new SO_Bobinado();
-
-            return ServiceBobinado.DeletedBobinadoTargetRoll(Id_Bobinado_Target_Roll);
-        }
-
-        /// <summary>
-        /// Llamar método para insertar un registro en la tabla TBL_BOBINADO_CENTER_WAFER
-        /// </summary>
-        /// <param name="Codigo"></param>
-        /// <param name="Dim_A_Min"></param>
-        /// <param name="Dim_A_Max"></param>
-        /// <param name="Wire_Width"></param>
-        /// <param name="Detalle"></param>
-        /// <param name="Dia_B"></param>
-        /// <param name="F_Width"></param>
-        /// <returns></returns>
-        public static int InsertarBobinadoCenterWafer(string Codigo, double Dim_A_Min, double Dim_A_Max, double Wire_Width, string Detalle, double Dia_B, double F_Width)
-        {
-            SO_Bobinado ServiceBobinado = new SO_Bobinado();
-
-            return ServiceBobinado.InsertBobinadoCenterWafer(Codigo, Dim_A_Min, Dim_A_Max, Wire_Width, Detalle, Dia_B, F_Width);
-        }
-         
-        /// <summary>
-        /// Llamar método para actualizar un registro de la tabla TBL_BOBINADO_CENTER_WAFER
-        /// </summary>
-        /// <param name="Id_Bobinado_Center_Wafer"></param>
-        /// <param name="Codigo"></param>
-        /// <param name="Dim_A_Min"></param>
-        /// <param name="Dim_A_Max"></param>
-        /// <param name="Wire_Width"></param>
-        /// <param name="Detalle"></param>
-        /// <param name="Dia_B"></param>
-        /// <param name="F_Width"></param>
-        /// <returns></returns>
-        public static int ActualizarBobinadoCenterWafer(int Id_Bobinado_Center_Wafer, string Codigo, double Dim_A_Min, double Dim_A_Max, double Wire_Width, string Detalle, double Dia_B, double F_Width)
-        {
-            SO_Bobinado ServiceBobinado = new SO_Bobinado();
-
-            return ServiceBobinado.UpdateBobinadoCenterWafer(Id_Bobinado_Center_Wafer, Codigo, Dim_A_Min, Dim_A_Max, Wire_Width, Detalle, Dia_B, F_Width);
-        }
-
-        /// <summary>
-        /// Llamar método para eliminar un registro de la tabla TBL_BOBINADO_CENTER_WAFER
-        /// </summary>
-        /// <param name="Id_Bobinado_Center_Wafer"></param>
-        /// <returns></returns>
-        public static int EliminarBobinadoCenterWafer(int Id_Bobinado_Center_Wafer)
-        {
-            SO_Bobinado ServiceBobinado = new SO_Bobinado();
-
-            return ServiceBobinado.DeleteBobinadoCenterWafer(Id_Bobinado_Center_Wafer);
-        }
-
-        /// <summary>
         /// Llamar método para traernos los datos de un registro UpperRoll con su código
         /// </summary>
         /// <param name="codigo"></param>
@@ -11510,7 +11320,56 @@ namespace Model
             }
 
             // Retornamos el objeto
-            return herramental;           
+            return herramental;
+        }
+
+        /// <summary>
+        /// Llamar método para insertar un registro en la tabla TBL_BOBINADO_UPPER_ROLL
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="Wire_Width_Min"></param>
+        /// <param name="Wire_Width_Max"></param>
+        /// <param name="Dia_Min"></param>
+        /// <param name="Dia_Max"></param>
+        /// <param name="Detalle_Engrane"></param>
+        /// <param name="Medida"></param>
+        /// <returns></returns>
+        public static int InsertarBobinadoUpperRoll(string Codigo, double Wire_Width_Min, double Wire_Width_Max, double Dia_Min, double Dia_Max, string Detalle_Engrane, double Medida)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.InsertBobinadoUpperRoll(Codigo, Wire_Width_Min, Wire_Width_Max, Dia_Min, Dia_Max, Detalle_Engrane, Medida);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar un registro en la tabla TBL_BOBINADO_UPPER_ROLL
+        /// </summary>
+        /// <param name="Id_Bobinado_Upper_Roll"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="Wire_Width_Min"></param>
+        /// <param name="Wire_Width_Max"></param>
+        /// <param name="Dia_Min"></param>
+        /// <param name="Dia_Max"></param>
+        /// <param name="Detalle_Engrane"></param>
+        /// <param name="Medida"></param>
+        /// <returns></returns>
+        public static int ActualizarBobinadoUpperRoll(int Id_Bobinado_Upper_Roll, string Codigo, double Wire_Width_Min, double Wire_Width_Max, double Dia_Min, double Dia_Max, string Detalle_Engrane, double Medida)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.UpdateBobinadoUpperRoll(Id_Bobinado_Upper_Roll, Codigo, Wire_Width_Min, Wire_Width_Max, Dia_Min, Dia_Max, Detalle_Engrane, Medida);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar registro de la tabla TBL_BOBINADO_UPPER_ROLL
+        /// </summary>
+        /// <param name="Id_Bobinado_Upper_Roll"></param>
+        /// <returns></returns>
+        public static int EliminarBobinadoUpperRoll(int Id_Bobinado_Upper_Roll)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.DeleteBobinadoUpperRoll(Id_Bobinado_Upper_Roll);
         }
 
         /// <summary>
@@ -11576,6 +11435,57 @@ namespace Model
         }
 
         /// <summary>
+        /// Llamar método para insertar registos en la tabla TBL_BOBINADO_LOWER_ROLL
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="Detalle_Rodillo"></param>
+        /// <param name="Detalle_Engrane"></param>
+        /// <param name="Wire_Width_Min"></param>
+        /// <param name="Wire_Width_Max"></param>
+        /// <param name="Dia_Min"></param>
+        /// <param name="Dia_Max"></param>
+        /// <param name="Side_Plate_Dia"></param>
+        /// <returns></returns>
+        public static int InsertarBobinadoLowerRoll(string Codigo, string Detalle_Rodillo, string Detalle_Engrane, double Wire_Width_Min, double Wire_Width_Max, double Dia_Min, double Dia_Max, double Side_Plate_Dia)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.InsertBobinadoLowerRoll(Codigo, Detalle_Rodillo, Detalle_Engrane, Wire_Width_Min, Wire_Width_Max, Dia_Min, Dia_Max, Side_Plate_Dia);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar un registro de la tabla TBL_BOBINADO_LOWER_ROLL
+        /// </summary>
+        /// <param name="Id_Bobinado_Lower_Roll"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="Detalle_Rodillo"></param>
+        /// <param name="Detalle_Engrane"></param>
+        /// <param name="Wire_Width_Min"></param>
+        /// <param name="Wire_Width_Max"></param>
+        /// <param name="Dia_Min"></param>
+        /// <param name="Dia_Max"></param>
+        /// <param name="Side_Plate_Dia"></param>
+        /// <returns></returns>
+        public static int ActualizarBobinadoLowerRoll(int Id_Bobinado_Lower_Roll, string Codigo, string Detalle_Rodillo, string Detalle_Engrane, double Wire_Width_Min, double Wire_Width_Max, double Dia_Min, double Dia_Max, double Side_Plate_Dia)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.UpdateBobinadoLowerRoll(Id_Bobinado_Lower_Roll, Codigo, Detalle_Rodillo, Detalle_Engrane, Wire_Width_Min, Wire_Width_Max, Dia_Min, Dia_Max, Side_Plate_Dia);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar un registro de la tabla TBL_BOBINADO_LOWER_ROLL
+        /// </summary>
+        /// <param name="Id_Bobinado_Lower_Roll"></param>
+        /// <returns></returns>
+        public static int EliminarBobinadoLowerRoll(int Id_Bobinado_Lower_Roll)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.DeleteBobinadoLowerRoll(Id_Bobinado_Lower_Roll);
+        }
+
+        /// <summary>
         /// Llamar método para traernos los datos de un registro TargetRoll con su código
         /// </summary>
         /// <param name="codigo"></param>
@@ -11620,6 +11530,47 @@ namespace Model
 
             // Retornamos el objeto
             return herramental;
+        }
+
+        /// <summary>
+        /// Llamar método para insertar registro en la tabla TBL_BOBINADO_TARGET_ROLL
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <returns></returns>
+        public static int InsertarBobinadoTargetRoll(string Codigo, double A, double B)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.InsertBobinadoTargetRoll(Codigo, A, B);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar registro de la tabla TBL_BOBINADO_TARGET_ROLL
+        /// </summary>
+        /// <param name="Id_Bobinado_Target_Roll"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <returns></returns>
+        public static int ActualizarBobinadoTargetRoll(int Id_Bobinado_Target_Roll, string Codigo, double A, double B)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.UpdateBobinadoTargetRoll(Id_Bobinado_Target_Roll, Codigo, A, B);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar registro de la tabla TBL_BOBINADO_TARGET_ROLL
+        /// </summary>
+        /// <param name="Id_Bobinado_Target_Roll"></param>
+        /// <returns></returns>
+        public static int EliminarBobinadoTargetRoll(int Id_Bobinado_Target_Roll)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.DeletedBobinadoTargetRoll(Id_Bobinado_Target_Roll);
         }
 
         /// <summary>
@@ -11673,12 +11624,61 @@ namespace Model
                     herramental.Propiedades.Add(propiedadwirewidth);
                     herramental.PropiedadesCadena.Add(propiedaddetalle);
                     herramental.Propiedades.Add(propiedaddiab);
-                    herramental.Propiedades.Add(propiedadfwidth);                    
+                    herramental.Propiedades.Add(propiedadfwidth);
                 }
             }
 
             // Retornamos el objeto
             return herramental;
+        }
+
+        /// <summary>
+        /// Llamar método para insertar un registro en la tabla TBL_BOBINADO_CENTER_WAFER
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_A_Min"></param>
+        /// <param name="Dim_A_Max"></param>
+        /// <param name="Wire_Width"></param>
+        /// <param name="Detalle"></param>
+        /// <param name="Dia_B"></param>
+        /// <param name="F_Width"></param>
+        /// <returns></returns>
+        public static int InsertarBobinadoCenterWafer(string Codigo, double Dim_A_Min, double Dim_A_Max, double Wire_Width, string Detalle, double Dia_B, double F_Width)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.InsertBobinadoCenterWafer(Codigo, Dim_A_Min, Dim_A_Max, Wire_Width, Detalle, Dia_B, F_Width);
+        }
+         
+        /// <summary>
+        /// Llamar método para actualizar un registro de la tabla TBL_BOBINADO_CENTER_WAFER
+        /// </summary>
+        /// <param name="Id_Bobinado_Center_Wafer"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_A_Min"></param>
+        /// <param name="Dim_A_Max"></param>
+        /// <param name="Wire_Width"></param>
+        /// <param name="Detalle"></param>
+        /// <param name="Dia_B"></param>
+        /// <param name="F_Width"></param>
+        /// <returns></returns>
+        public static int ActualizarBobinadoCenterWafer(int Id_Bobinado_Center_Wafer, string Codigo, double Dim_A_Min, double Dim_A_Max, double Wire_Width, string Detalle, double Dia_B, double F_Width)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.UpdateBobinadoCenterWafer(Id_Bobinado_Center_Wafer, Codigo, Dim_A_Min, Dim_A_Max, Wire_Width, Detalle, Dia_B, F_Width);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar un registro de la tabla TBL_BOBINADO_CENTER_WAFER
+        /// </summary>
+        /// <param name="Id_Bobinado_Center_Wafer"></param>
+        /// <returns></returns>
+        public static int EliminarBobinadoCenterWafer(int Id_Bobinado_Center_Wafer)
+        {
+            SO_Bobinado ServiceBobinado = new SO_Bobinado();
+
+            return ServiceBobinado.DeleteBobinadoCenterWafer(Id_Bobinado_Center_Wafer);
         }
 
         #endregion
@@ -11752,84 +11752,6 @@ namespace Model
         }
 
         /// <summary>
-        /// Llamar método para insertar un registro en la tabla TBL_BARREL_GRADE_BUSHING
-        /// </summary>
-        /// <param name="Codigo"></param>
-        /// <param name="Dim_D"></param>
-        /// <returns></returns>
-        public static int InsertarBarrelGradeBrushing(string Codigo, double Dim_D)
-        {
-            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
-
-            return ServiceBarrelGrade.InsertBarrelGradeBushing(Codigo, Dim_D);
-        }
-
-        /// <summary>
-        /// Llamar método para actualizar un registro en la tabla TBL_BARREL_GRADE_BUSHING
-        /// </summary>
-        /// <param name="Id_Barrel_Grade_Bushing"></param>
-        /// <param name="Codigo"></param>
-        /// <param name="Dim_D"></param>
-        /// <returns></returns>
-        public static int ActualizarBarrelGradeBushing(int Id_Barrel_Grade_Bushing, string Codigo, double Dim_D)
-        {
-            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
-
-            return ServiceBarrelGrade.UpdateBarrelGradeBushing(Id_Barrel_Grade_Bushing, Codigo, Dim_D);
-        }
-
-        /// <summary>
-        /// Llamae método para eliminar un registro de la tabla TBL_BARREL_GRADE_BUSHING
-        /// </summary>
-        /// <param name="Id_Barrel_Grade_Bushing"></param>
-        /// <returns></returns>
-        public static int EliminarBarrelGradeBushing(int Id_Barrel_Grade_Bushing)
-        {
-            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
-
-            return ServiceBarrelGrade.DeletedBarrelGradeBushing(Id_Barrel_Grade_Bushing);
-        }
-
-        /// <summary>
-        /// Llamar método para insertar un registro en la tabla TBL_BARREL_GRADE_PUSHER
-        /// </summary>
-        /// <param name="Codigo"></param>
-        /// <param name="Dim_F"></param>
-        /// <returns></returns>
-        public static int InsertarBarrelGradePusher(string Codigo, double Dim_F)
-        {
-            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
-
-            return ServiceBarrelGrade.InsertBarrelGradePusher(Codigo, Dim_F);
-        }
-
-        /// <summary>
-        /// Llamar método para actualizar un registro de la tabla TBL_BARREL_GRADE_PUSHER
-        /// </summary>
-        /// <param name="Id_Barrel_Grade_Pusher"></param>
-        /// <param name="Codigo"></param>
-        /// <param name="Dim_F"></param>
-        /// <returns></returns>
-        public static int ActualizarBarrelGradePusher(int Id_Barrel_Grade_Pusher, string Codigo, double Dim_F)
-        {
-            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
-
-            return ServiceBarrelGrade.UpdateBarrelGradePusher(Id_Barrel_Grade_Pusher, Codigo, Dim_F);
-        }
-
-        /// <summary>
-        /// Llamar método para eliminar un registro de la tabla TBL_BARREL_GRADE_PUSHER
-        /// </summary>
-        /// <param name="Id_Barrel_Grade_Pusher"></param>
-        /// <returns></returns>
-        public static int EliminarBarrelGradePusher(int Id_Barrel_Grade_Pusher)
-        {
-            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
-
-            return ServiceBarrelGrade.DeleteBarrelGradePusher(Id_Barrel_Grade_Pusher);
-        }
-
-        /// <summary>
         /// Llamar método para traernos los datos de un registro Bushing con su código
         /// </summary>
         /// <param name="codigo"></param>
@@ -11874,6 +11796,45 @@ namespace Model
         }
 
         /// <summary>
+        /// Llamar método para insertar un registro en la tabla TBL_BARREL_GRADE_BUSHING
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_D"></param>
+        /// <returns></returns>
+        public static int InsertarBarrelGradeBrushing(string Codigo, double Dim_D)
+        {
+            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
+
+            return ServiceBarrelGrade.InsertBarrelGradeBushing(Codigo, Dim_D);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar un registro en la tabla TBL_BARREL_GRADE_BUSHING
+        /// </summary>
+        /// <param name="Id_Barrel_Grade_Bushing"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_D"></param>
+        /// <returns></returns>
+        public static int ActualizarBarrelGradeBushing(int Id_Barrel_Grade_Bushing, string Codigo, double Dim_D)
+        {
+            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
+
+            return ServiceBarrelGrade.UpdateBarrelGradeBushing(Id_Barrel_Grade_Bushing, Codigo, Dim_D);
+        }
+
+        /// <summary>
+        /// Llamae método para eliminar un registro de la tabla TBL_BARREL_GRADE_BUSHING
+        /// </summary>
+        /// <param name="Id_Barrel_Grade_Bushing"></param>
+        /// <returns></returns>
+        public static int EliminarBarrelGradeBushing(int Id_Barrel_Grade_Bushing)
+        {
+            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
+
+            return ServiceBarrelGrade.DeletedBarrelGradeBushing(Id_Barrel_Grade_Bushing);
+        }
+
+        /// <summary>
         /// Llamar método para traernos los datos de un registro Pusher con su código
         /// </summary>
         /// <param name="codigo"></param>
@@ -11915,6 +11876,230 @@ namespace Model
 
             // Retornamos el objeto
             return herramental;
+        }
+
+        /// <summary>
+        /// Llamar método para insertar un registro en la tabla TBL_BARREL_GRADE_PUSHER
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_F"></param>
+        /// <returns></returns>
+        public static int InsertarBarrelGradePusher(string Codigo, double Dim_F)
+        {
+            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
+
+            return ServiceBarrelGrade.InsertBarrelGradePusher(Codigo, Dim_F);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar un registro de la tabla TBL_BARREL_GRADE_PUSHER
+        /// </summary>
+        /// <param name="Id_Barrel_Grade_Pusher"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_F"></param>
+        /// <returns></returns>
+        public static int ActualizarBarrelGradePusher(int Id_Barrel_Grade_Pusher, string Codigo, double Dim_F)
+        {
+            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
+
+            return ServiceBarrelGrade.UpdateBarrelGradePusher(Id_Barrel_Grade_Pusher, Codigo, Dim_F);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar un registro de la tabla TBL_BARREL_GRADE_PUSHER
+        /// </summary>
+        /// <param name="Id_Barrel_Grade_Pusher"></param>
+        /// <returns></returns>
+        public static int EliminarBarrelGradePusher(int Id_Barrel_Grade_Pusher)
+        {
+            SO_BarrelGrade ServiceBarrelGrade = new SO_BarrelGrade();
+
+            return ServiceBarrelGrade.DeleteBarrelGradePusher(Id_Barrel_Grade_Pusher);
+        }
+
+        
+
+        
+
+        #endregion
+
+        #region LAPEADO
+
+        /// <summary>
+        /// Llamar método para traernos los datos de un registro MangaLapeado por su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfo_MangaLapeado(string codigo)
+        {
+            Herramental herramental = new Herramental();
+
+            // Inicializamos los servicios
+            SO_Lapeado ServiceLapeado = new SO_Lapeado();
+
+            // Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima
+            IList informacionDB = ServiceLapeado.GetInfoMangaLapeado(codigo);
+
+            // Si la lista es diferente a nulo
+            if (informacionDB != null)
+            {
+                // Iteramos la lista
+                foreach (var item in informacionDB)
+                {
+                    // Obtenemos el tipo
+                    Type TIPO = item.GetType();
+
+                    // Mapeamos los elementos necesarios en cada una de las propiedades del objeto
+                    herramental.Codigo = (string)TIPO.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)TIPO.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)TIPO.GetProperty("ID_MANGA_LAPEADO_SEGMENTOS").GetValue(item, null);
+
+                    // Declaramos propiedades
+                    PropiedadCadena propiedadmedida = new PropiedadCadena();
+                    Propiedad propiedadmedidadecimal = new Propiedad();
+
+                    // Asignamos valores a las propiedades
+                    propiedadmedida.Valor = (string)TIPO.GetProperty("MEDIDA").GetValue(item, null);
+                    propiedadmedidadecimal.Valor = (double)TIPO.GetProperty("MEDIDA_DECIMAL").GetValue(item, null);
+
+                    // Agregamos las propiedades
+                    herramental.PropiedadesCadena.Add(propiedadmedida);
+                    herramental.Propiedades.Add(propiedadmedidadecimal);
+                }
+            }
+
+            // Retornamos el objeto
+            return herramental;
+        }
+
+        ///
+        /// <summary>
+        /// Llamar método para insertar un registro en la tabla TBL_MANGA_LAPEADO_SEGMENTOS
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="Medida"></param>
+        /// <param name="Medida_Decimal"></param>
+        /// <returns></returns>
+        public static int Insert_MangaLapeado(string Codigo, string Medida, double Medida_Decimal)
+        {
+            SO_Lapeado ServiceLapeado = new SO_Lapeado();
+
+            return ServiceLapeado.InsertMangaLapeado(Codigo, Medida, Medida_Decimal);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar un registro de la tabla TBL_MANGA_LAPEADO_SEGMENTOS
+        /// </summary>
+        /// <param name="Id_Manga_Lapeado_Segmentos"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="Medida"></param>
+        /// <param name="Medida_Decimal"></param>
+        /// <returns></returns>
+        public static int Update_MangaLapeado(int Id_Manga_Lapeado_Segmentos, string Codigo, string Medida, double Medida_Decimal)
+        {
+            SO_Lapeado ServiceLapeado = new SO_Lapeado();
+
+            return ServiceLapeado.UpdateMangaLapeado(Id_Manga_Lapeado_Segmentos, Codigo, Medida, Medida_Decimal);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar un registro de la tabla TBL_MANGA_LAPEADO_SEGMENTOS
+        /// </summary>
+        /// <param name="Id_Manga_Lapeado_Segmentos"></param>
+        /// <returns></returns>
+        public static int Delete_MangaLapeado(int Id_Manga_Lapeado_Segmentos)
+        {
+            SO_Lapeado ServiceLapeado = new SO_Lapeado();
+
+            return ServiceLapeado.DeleteMangaLapeado(Id_Manga_Lapeado_Segmentos);
+        }
+
+        /// <summary>
+        /// Llamar método para traernos los datos de un registro RubberLapeado por su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfo_RubberLapeado(string codigo)
+        {
+            Herramental herramental = new Herramental();
+
+            // Inicializamos los servicios
+            SO_Lapeado ServiceLapeado = new SO_Lapeado();
+
+            // Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima
+            IList informacionDB = ServiceLapeado.GetInfoRubberLapeado(codigo);
+
+            // Si la lista es diferente a nulo
+            if (informacionDB != null)
+            {
+                // Iteramos la lista
+                foreach (var item in informacionDB)
+                {
+                    // Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    // Mapeamos los elementos necesarios en cada una de las propiedades del objeto
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_RUBBER_LAPEADO_SEGMENTOS").GetValue(item, null);
+
+                    // Declaramos propiedades
+                    Propiedad propiedaddima = new Propiedad();
+                    PropiedadCadena propiedadplano = new PropiedadCadena();
+
+                    // Asignamos valores a las propiedades
+                    propiedaddima.Valor = (double)tipo.GetProperty("DIM_A").GetValue(item, null);
+                    propiedadplano.Valor = (string)tipo.GetProperty("PLANO").GetValue(item, null);
+
+                    // Agregamos las propiedades
+                    herramental.Propiedades.Add(propiedaddima);
+                    herramental.PropiedadesCadena.Add(propiedadplano);
+                }
+            }
+
+            // Retornamos el objeto
+            return herramental;
+        }
+
+        /// <summary>
+        /// Llamar método para insertar un registro en la tabla TBL_RUBBER_LAPEADO_SEGMENTOS
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="Medida"></param>
+        /// <param name="Medida_Decimal"></param>
+        /// <returns></returns>
+        public static int Insert_RubberLapeado(string Codigo, double Dim_A, string Plano)
+        {
+            SO_Lapeado ServiceLapeado = new SO_Lapeado();
+
+            return ServiceLapeado.InsertRubberLapeado(Codigo, Dim_A, Plano);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar un registro de la tabla TBL_RUBBER_LAPEADO_SEGMENTOS
+        /// </summary>
+        /// <param name="Id_Manga_Lapeado_Segmentos"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="Medida"></param>
+        /// <param name="Medida_Decimal"></param>
+        /// <returns></returns>
+        public static int Update_RubberLapeado(int Id_Rubber_Lapeado_Segmentos, string Codigo, double Dim_A, string Plano)
+        {
+            SO_Lapeado ServiceLapeado = new SO_Lapeado();
+
+            return ServiceLapeado.UpdateRubberLapeado(Id_Rubber_Lapeado_Segmentos, Codigo, Dim_A, Plano);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar un registro de la tabla TBL_RUBBER_LAPEADO_SEGMENTOS
+        /// </summary>
+        /// <param name="Id_Manga_Lapeado_Segmentos"></param>
+        /// <returns></returns>
+        public static int Delete_RubberLapeado(int Id_Rubber_Lapeado_Segmentos)
+        {
+            SO_Lapeado ServiceLapeado = new SO_Lapeado();
+
+            return ServiceLapeado.DeleteRubberLapeado(Id_Rubber_Lapeado_Segmentos);
         }
 
         #endregion
