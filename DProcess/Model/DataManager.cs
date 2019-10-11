@@ -12015,6 +12015,45 @@ namespace Model
         }
 
         /// <summary>
+        /// Método que obtiene la manga de lapeado en segmentos.
+        /// </summary>
+        /// <param name="d1"></param>
+        /// <returns></returns>
+        public static Herramental GetMangaLapeadoSegmentos(double d1)
+        {
+            Herramental herramental = new Herramental();
+
+            SO_Lapeado ServiceLapeado = new SO_Lapeado();
+
+            IList informacionBD = ServiceLapeado.GetManga(d1);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_MANGA_LAPEADO_SEGMENTOS").GetValue(item, null);
+
+                    PropiedadCadena medidaManga = new PropiedadCadena();
+                    medidaManga.DescripcionCorta = "Medida Manga";
+                    medidaManga.Valor = (string)tipo.GetProperty("MEDIDA_MANGA").GetValue(item, null);
+
+                    herramental.PropiedadesCadena.Add(medidaManga);
+                    herramental.DescripcionRuta = "MANGA " + (d1 + 0.010);
+                    herramental.Encontrado = true;
+                }
+            }
+
+            if (!herramental.Encontrado)
+                herramental.DescripcionRuta = "MANGA " + (d1 + 0.010);
+
+            return herramental;
+        }
+
+        /// <summary>
         /// Llamar método para traernos los datos de un registro RubberLapeado por su código
         /// </summary>
         /// <param name="codigo"></param>
@@ -12101,7 +12140,7 @@ namespace Model
 
             return ServiceLapeado.DeleteRubberLapeado(Id_Rubber_Lapeado_Segmentos);
         }
-
+        
         #endregion
 
         #region PVD WASH
@@ -15322,51 +15361,6 @@ namespace Model
 
             return ubicaciones;
         }
-
-        #endregion
-
-
-        #region Seleccion Herramental Lapeado Segmentos
-
-        /// <summary>
-        /// Método que obtiene la manga de lapeado en segmentos.
-        /// </summary>
-        /// <param name="d1"></param>
-        /// <returns></returns>
-        public static Herramental GetMangaLapeadoSegmentos(double d1)
-        {
-            Herramental herramental = new Herramental();
-
-            SO_Lapeado ServiceLapeado = new SO_Lapeado();
-
-            IList informacionBD = ServiceLapeado.GetManga(d1);
-
-            if (informacionBD != null)
-            {
-                foreach (var item in informacionBD)
-                {
-                    Type tipo = item.GetType();
-
-                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
-                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
-                    herramental.idHerramental = (int)tipo.GetProperty("ID_MANGA_LAPEADO_SEGMENTOS").GetValue(item, null);
-
-                    PropiedadCadena medidaManga = new PropiedadCadena();
-                    medidaManga.DescripcionCorta = "Medida Manga";
-                    medidaManga.Valor = (string)tipo.GetProperty("MEDIDA_MANGA").GetValue(item, null);
-
-                    herramental.PropiedadesCadena.Add(medidaManga);
-                    herramental.DescripcionRuta = "MANGA " + (d1 + 0.010);
-                    herramental.Encontrado = true;
-                }
-            }
-
-            if (!herramental.Encontrado)
-                herramental.DescripcionRuta = "MANGA " + (d1 + 0.010);
-
-            return herramental;
-        }
-
 
         #endregion
     }
