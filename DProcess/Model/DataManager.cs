@@ -11649,7 +11649,7 @@ namespace Model
 
             return ServiceBobinado.InsertBobinadoCenterWafer(Codigo, Dim_A_Min, Dim_A_Max, Wire_Width, Detalle, Dia_B, F_Width);
         }
-         
+
         /// <summary>
         /// Llamar método para actualizar un registro de la tabla TBL_BOBINADO_CENTER_WAFER
         /// </summary>
@@ -12105,6 +12105,353 @@ namespace Model
         #endregion
 
         #region THOMPSON
+
+        /// <summary>
+        /// Llamar método para traernos los datos de un registro ClampPlate con su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfo_ClampPlate(string codigo)
+        {
+            Herramental herramental = new Herramental();
+
+            // Inicializamos los servicios
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            // Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima
+            IList informacionDB = ServiceThompson.GetInfoClampPlate(codigo);
+
+            // Si la lista es diferente a nulo
+            if (informacionDB != null)
+            {
+                // Iteramos la lista
+                foreach (var item in informacionDB)
+                {
+                    // Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    // Mapeamos los elementos necesarios en cada una de las propiedades del objeto
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_CLAMP_PLATE").GetValue(item, null);
+
+                    // Declaramos propiedades
+                    Propiedad propiedaddimb = new Propiedad();
+                    PropiedadCadena propiedadparte = new PropiedadCadena();
+
+                    // Asignamos valores a las propiedades
+                    propiedaddimb.Valor = (double)tipo.GetProperty("DIM_B").GetValue(item, null);
+                    propiedadparte.Valor = (string)tipo.GetProperty("PARTE").GetValue(item, null);
+
+                    // Agregamos las propiedades
+                    herramental.Propiedades.Add(propiedaddimb);
+                    herramental.PropiedadesCadena.Add(propiedadparte);
+                }
+            }
+
+            // Retornamos el objeto
+            return herramental;
+        }
+
+        /// <summary>
+        /// Llamar método para insertar un registro en la tabla TBL_CLAMP_PLATE...
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_B"></param>
+        /// <param name="Parte"></param>
+        /// <returns></returns>
+        public static int Insert_ClampPlate(string Codigo, double Dim_B, string Parte)
+        {
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            return ServiceThompson.InsertClampPlate(Codigo, Dim_B, Parte);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar un registro en la tabla TBL_CLAMP_PLATE...
+        /// </summary>
+        /// <param name="Id_Clamp_Plate"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_B"></param>
+        /// <param name="Parte"></param>
+        /// <returns></returns>
+        public static int Update_ClampPlate(int Id_Clamp_Plate, string Codigo, double Dim_B, string Parte)
+        {
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            return ServiceThompson.UpdateClampPlate(Id_Clamp_Plate, Codigo, Dim_B, Parte);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar registro de la tabla TBL_CLAMP_PLATE
+        /// </summary>
+        /// <param name="Id_Clamp_Plate"></param>
+        /// <returns></returns>
+        public static int Delete_ClampPlate(int Id_Clamp_Plate)
+        {
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            return ServiceThompson.DeleteClampPlate(Id_Clamp_Plate);
+        }
+
+        /// <summary>
+        /// Llamar método para traernos los datos de un registro BackUPRing con su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfo_BackUPRing(string codigo)
+        {
+            Herramental herramental = new Herramental();
+
+            // Inicializamos los servicios
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            // Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima
+            IList informacionDB = ServiceThompson.GetInfoBackUPRing(codigo);
+
+            // Si la lista es diferente a nulo
+            if (informacionDB != null)
+            {
+                // Iteramos la lista
+                foreach (var item in informacionDB)
+                {
+                    // Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    // Mapeamos los elementos necesarios en cada una de las propiedades del objeto
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_BACKUP_RING").GetValue(item, null);
+
+                    // Declaramos propiedades
+                    Propiedad propiedaddima = new Propiedad();
+                    PropiedadCadena propiedadparte = new PropiedadCadena();
+
+                    // Asignamos valores a las propiedades
+                    propiedaddima.Valor = (double)tipo.GetProperty("DIM_A").GetValue(item, null);
+                    propiedadparte.Valor = (string)tipo.GetProperty("PARTE").GetValue(item, null);
+
+                    // Agregamos las propiedades
+                    herramental.Propiedades.Add(propiedaddima);
+                    herramental.PropiedadesCadena.Add(propiedadparte);
+                }
+            }
+
+            // Retornamos el objeto
+            return herramental;
+        }
+
+        /// <summary>
+        /// Llamar método para insertar un registro en la tabla TBL_BACKUP_RING...
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_A"></param>
+        /// <param name="Parte"></param>
+        /// <returns></returns>
+        public static int Insert_BackUPRing(string Codigo, double Dim_A, string Parte)
+        {
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            return ServiceThompson.InsertBackUPRing(Codigo, Dim_A, Parte);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar un registro en la tabla TBL_BACKUP_RING
+        /// </summary>
+        /// <param name="Id_BackUP_Ring"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_A"></param>
+        /// <param name="Parte"></param>
+        /// <returns></returns>
+        public static int Update_BackUPRing(int Id_BackUP_Ring, string Codigo, double Dim_A, string Parte)
+        {
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            return ServiceThompson.UpdateBackUPRing(Id_BackUP_Ring, Codigo, Dim_A, Parte);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar registro de la tabla TBL_BACKUP_RING
+        /// </summary>
+        /// <param name="Id_BackUP_Ring"></param>
+        /// <returns></returns>
+        public static int Delete_BackUPRing(int Id_BackUP_Ring)
+        {
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            return ServiceThompson.DeleteBackUPRing(Id_BackUP_Ring);
+        }
+
+        /// <summary>
+        /// Llamar método para traernos los datos de un registro PlatoEmpujador con su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfo_PlatoEmpujador(string codigo)
+        {
+            Herramental herramental = new Herramental();
+
+            // Inicializamos los servicios
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            // Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima
+            IList informacionDB = ServiceThompson.GetInfoPlatoEmpujador(codigo);
+
+            // Si la lista es diferente a nulo
+            if (informacionDB != null)
+            {
+                // Iteramos la lista
+                foreach (var item in informacionDB)
+                {
+                    // Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    // Mapeamos los elementos necesarios en cada una de las propiedades del objeto
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_PLATO_EMPUJADOR").GetValue(item, null);
+
+                    // Declaramos propiedades
+                    Propiedad propiedaddima = new Propiedad();
+                    PropiedadCadena propiedadparte = new PropiedadCadena();
+
+                    // Asignamos valores a las propiedades
+                    propiedaddima.Valor = (double)tipo.GetProperty("DIM_A").GetValue(item, null);
+                    propiedadparte.Valor = (string)tipo.GetProperty("PARTE").GetValue(item, null);
+
+                    // Agregamos las propiedades
+                    herramental.Propiedades.Add(propiedaddima);
+                    herramental.PropiedadesCadena.Add(propiedadparte);
+                }
+            }
+
+            // Retornamos el objeto
+            return herramental;
+        }
+
+        /// <summary>
+        /// Llamar método para insertar un registro en la tabla TBL_PLATO_EMPUJADOR...
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_A"></param>
+        /// <param name="Parte"></param>
+        /// <returns></returns>
+        public static int Insert_PlatoEmpujador(string Codigo, double Dim_A, string Parte)
+        {
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            return ServiceThompson.InsertPlatoEmpujador(Codigo, Dim_A, Parte);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar un registro en la tabla TBL_PLATO_EMPUJADOR
+        /// </summary>
+        /// <param name="Id_Plato_Empujador"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_A"></param>
+        /// <param name="Parte"></param>
+        /// <returns></returns>
+        public static int Update_PlatoEmpujador(int Id_Plato_Empujador, string Codigo, double Dim_A, string Parte)
+        {
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            return ServiceThompson.UpdatePlatoEmpujador(Id_Plato_Empujador, Codigo, Dim_A, Parte);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar registro de la tabla TBL_PLATO_EMPUJADOR
+        /// </summary>
+        /// <param name="Id_Plato_Empujador"></param>
+        /// <returns></returns>
+        public static int Delete_PlatoEmpujador(int Id_Plato_Empujador)
+        {
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            return ServiceThompson.DeletePlatoEmpujador(Id_Plato_Empujador);
+        }
+
+        /// <summary>
+        /// Llamar método para traernos los datos de un registro TuboEnrollador con su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfo_TuboEnrollador(string codigo)
+        {
+            Herramental herramental = new Herramental();
+
+            // Inicializamos los servicios
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            // Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima
+            IList informacionDB = ServiceThompson.GetInfoTuboEnrollador(codigo);
+
+            // Si la lista es diferente a nulo
+            if (informacionDB != null)
+            {
+                // Iteramos la lista
+                foreach (var item in informacionDB)
+                {
+                    // Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    // Mapeamos los elementos necesarios en cada una de las propiedades del objeto
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_TUBO_ENROLLADOR").GetValue(item, null);
+
+                    // Declaramos propiedades
+                    Propiedad propiedaddima = new Propiedad();
+
+                    // Asignamos valores a las propiedades
+                    propiedaddima.Valor = (double)tipo.GetProperty("DIM_A").GetValue(item, null);
+
+                    // Agregamos las propiedades
+                    herramental.Propiedades.Add(propiedaddima);
+                }
+            }
+
+            // Retornamos el objeto
+            return herramental;
+        }
+
+        /// <summary>
+        /// Llamar método para insertar un registro en la tabla TBL_TUBO_ENROLLADOR...
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_A"></param>
+        /// <returns></returns>
+        public static int Insert_TuboEnrollador(string Codigo, double Dim_A)
+        {
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            return ServiceThompson.InsertTuboEnrollador(Codigo, Dim_A);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar un registro en la tabla TBL_TUBO_ENROLLADOR
+        /// </summary>
+        /// <param name="Id_Tubo_Enrollador"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_A"></param>
+        /// <returns></returns>
+        public static int Update_TuboEnrollador(int Id_Tubo_Enrollador, string Codigo, double Dim_A)
+        {
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            return ServiceThompson.UpdateTuboEnrollador(Id_Tubo_Enrollador, Codigo, Dim_A);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar registro de la tabla TBL_TUBO_ENROLLADOR
+        /// </summary>
+        /// <param name="Id_Tubo_Enrollador"></param>
+        /// <returns></returns>
+        public static int Delete_TuboEnrollador(int Id_Tubo_Enrollador)
+        {
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            return ServiceThompson.DeleteTuboEnrollador(Id_Tubo_Enrollador);
+        }
 
         #endregion
 
@@ -14552,12 +14899,12 @@ namespace Model
             int r = 0;
             foreach (var item in listaResultante)
             {
-                r = ServicePerfil.DeleteNormasArquetipo(codigo,item.idNorma);
+                r = ServicePerfil.DeleteNormasArquetipo(codigo, item.idNorma);
             }
 
             return r;
         }
-        
+
         #endregion
 
         #region Propiedades
@@ -15249,7 +15596,7 @@ namespace Model
 
             return listaResultante;
         }
-        
+
         /// <summary>
         /// Método para eliminar un registro de la tabla TBL_NORMAS
         /// </summary>
