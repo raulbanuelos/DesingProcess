@@ -424,6 +424,9 @@
     <Compile Include="Forms\Shared\WSelectedOption.xaml.cs">
       <DependentUpon>WSelectedOption.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlBackUPRingThompson.xaml.cs">
+      <DependentUpon>ControlBackUPRingThompson.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlBarrelGradeBushing.xaml.cs">
       <DependentUpon>ControlBarrelGradeBushing.xaml</DependentUpon>
     </Compile>
@@ -465,6 +468,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\ControlChuckSplitterCasting.xaml.cs">
       <DependentUpon>ControlChuckSplitterCasting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlClampPlateThompson.xaml.cs">
+      <DependentUpon>ControlClampPlateThompson.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\ControlClosingBandLapeado.xaml.cs">
       <DependentUpon>ControlClosingBandLapeado.xaml</DependentUpon>
@@ -541,6 +547,9 @@
     <Compile Include="Forms\Tooling\ControlMangaLapeado.xaml.cs">
       <DependentUpon>ControlMangaLapeado.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlPlatoEmpujadorThompson.xaml.cs">
+      <DependentUpon>ControlPlatoEmpujadorThompson.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlProtectorInf_Moly.xaml.cs">
       <DependentUpon>ControlProtectorInf_Moly.xaml</DependentUpon>
     </Compile>
@@ -558,6 +567,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\ControlShimOTCS.xaml.cs">
       <DependentUpon>ControlShimOTCS.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlTuboEnrolladorThompson.xaml.cs">
+      <DependentUpon>ControlTuboEnrolladorThompson.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\ControlUretanoSplitter.xaml.cs">
       <DependentUpon>ControlUretanoSplitter.xaml</DependentUpon>
@@ -1329,6 +1341,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlBackUPRingThompson.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\ControlBarrelGradeBushing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1382,6 +1398,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\ControlChuckSplitterCasting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlClampPlateThompson.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1485,6 +1505,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlPlatoEmpujadorThompson.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\ControlProtectorInf_Moly.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1506,6 +1530,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\ControlShimOTCS.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlTuboEnrolladorThompson.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
