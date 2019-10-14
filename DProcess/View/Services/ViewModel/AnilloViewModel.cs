@@ -41,16 +41,14 @@ namespace View.Services.ViewModel
             get { return _NotaColorSelected; }
             set { _NotaColorSelected = value; NotifyChange("NotaColorSelected"); }
         }
-
-
+        
         private double _WidthFranjaSelected;
         public double WidthFranjaSelected
         {
             get { return _WidthFranjaSelected; }
             set { _WidthFranjaSelected = value; NotifyChange("WidthFranjaSelected"); }
         }
-
-
+        
         public ObservableCollection<UbicacionPintura> ListaUbicaciones { get; set; }
 
         private UbicacionPintura _UbicacionSelected;
@@ -59,8 +57,7 @@ namespace View.Services.ViewModel
             get { return _UbicacionSelected; }
             set { _UbicacionSelected = value; NotifyChange("UbicacionSelected"); }
         }
-
-
+        
         public ObservableCollection<string> ListaColores { get; set; }
 
         private string _ColorSelected;
@@ -331,8 +328,7 @@ namespace View.Services.ViewModel
             get { return _PerfilSeleccionadoOD; }
             set { _PerfilSeleccionadoOD = value; NotifyChange("PerfilSeleccionadoOD"); }
         }
-
-
+        
         private ObservableCollection<Perfil> _AllPerfilesID;
         public ObservableCollection<Perfil> AllPerfilesID
         {
@@ -346,8 +342,7 @@ namespace View.Services.ViewModel
             get { return _PerfilSeleccionadoID; }
             set { _PerfilSeleccionadoID = value; NotifyChange("_PerfilSeleccionadoID"); }
         }
-
-
+        
         private ObservableCollection<Perfil> _AllPerfilesLateral;
         public ObservableCollection<Perfil> AllPerfilesLateral
         {
@@ -361,8 +356,7 @@ namespace View.Services.ViewModel
             get { return _PerfilSeleccionadoLateral; }
             set { _PerfilSeleccionadoLateral = value; NotifyChange("PerfilSeleccionadoLateral"); }
         }
-
-
+        
         private ObservableCollection<Perfil> _AllPerfilesPuntas;
         public ObservableCollection<Perfil> AllPerfilesPuntas
         {
@@ -422,9 +416,7 @@ namespace View.Services.ViewModel
             get { return _IsNormasOpen; }
             set { _IsNormasOpen = value; NotifyChange("IsNormasOpen"); }
         }
-
-
-
+        
         #endregion
 
         #region Propiedades del Modelo Anillo
