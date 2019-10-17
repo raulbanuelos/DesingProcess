@@ -12492,6 +12492,177 @@ namespace Model
             return ServiceThompson.DeleteTuboEnrollador(Id_Tubo_Enrollador);
         }
 
+        /// <summary>
+        /// Llamar método para traernos los datos de un registro Disco Thompson con su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfo_DiscoThompson(string codigo)
+        {
+            Herramental herramental = new Herramental();
+
+            // Inicializamos los servicios
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            // Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima
+            IList informacionDB = ServiceThompson.GetInfoDiscoThompson(codigo);
+
+            // Si la lista es diferente a nulo
+            if (informacionDB != null)
+            {
+                // Iteramos la lista
+                foreach (var item in informacionDB)
+                {
+                    // Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    // Mapeamos los elementos necesarios en cada una de las propiedades del objeto
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_DISCO").GetValue(item, null);
+
+                    // Declaramos propiedades
+                    Propiedad propiedadmedida = new Propiedad();
+                    PropiedadCadena propiedadoperacion = new PropiedadCadena();
+
+                    // Asignamos valores a las propiedades
+                    propiedadmedida.Valor = (double)tipo.GetProperty("MEDIDA").GetValue(item, null);
+                    propiedadoperacion.Valor = (string)tipo.GetProperty("OPERACION").GetValue(item, null);
+
+                    // Agregamos las propiedades
+                    herramental.Propiedades.Add(propiedadmedida);
+                    herramental.PropiedadesCadena.Add(propiedadoperacion);
+                }
+            }
+
+            // Retornamos el objeto
+            return herramental;
+        }
+
+        /// <summary>
+        /// Llamar método para insertar un registro en la tabla TBL_DISCOS_THOMPSON
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="Medida"></param>
+        /// <param name="Operacion"></param>
+        /// <returns></returns>
+        public static int Insert_DiscoThompson(string Codigo, double Medida, string Operacion)
+        {
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            return ServiceThompson.InsertDiscoThompson(Codigo, Medida, Operacion);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar un registro en la tabla TBL_DISCOS_THOMPSON
+        /// </summary>
+        /// <param name="Id_Disco"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="Medida"></param>
+        /// <param name="Operacion"></param>
+        /// <returns></returns>
+        public static int Update_DiscoThompson(int Id_Disco, string Codigo, double Medida, string Operacion)
+        {
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            return ServiceThompson.UpdateDiscoThompson(Id_Disco, Codigo, Medida, Operacion);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar registro de la tabla TBL_DISCOS_THOMPSON
+        /// </summary>
+        /// <param name="Id_Disco"></param>
+        /// <returns></returns>
+        public static int Delete_DiscoThompson(int Id_Disco)
+        {
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            return ServiceThompson.DeleteDiscoThompson(Id_Disco);
+        }
+
+        /// <summary>
+        /// Llamar método para traernos los datos de un registro Bushing Thompson con su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfo_BushingThompson(string codigo)
+        {
+            Herramental herramental = new Herramental();
+
+            // Inicializamos los servicios
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            // Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima
+            IList informacionDB = ServiceThompson.GetInfoBushingThompson(codigo);
+
+            // Si la lista es diferente a nulo
+            if (informacionDB != null)
+            {
+                // Iteramos la lista
+                foreach (var item in informacionDB)
+                {
+                    // Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    // Mapeamos los elementos necesarios en cada una de las propiedades del objeto
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_BUSHING_THOMPSON").GetValue(item, null);
+
+                    // Declaramos propiedades
+                    Propiedad propiedaddima = new Propiedad();
+
+                    // Asignamos valores a las propiedades
+                    propiedaddima.Valor = (double)tipo.GetProperty("DIM_A").GetValue(item, null);
+
+                    // Agregamos las propiedades
+                    herramental.Propiedades.Add(propiedaddima);
+                }
+            }
+
+            // Retornamos el objeto
+            return herramental;
+        }
+
+        /// <summary>
+        /// Llamar método para insertar un registro en la tabla TBL_BUSHING_THOMPSON
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_A"></param>
+        /// <returns></returns>
+        public static int Insert_BushingThompson(string Codigo, double Dim_A)
+        {
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            return ServiceThompson.InsertBushingThompson(Codigo, Dim_A);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar un registro en la tabla TBL_BUSHING_THOMPSON
+        /// </summary>
+        /// <param name="Id_Bushing"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_A"></param>
+        /// <returns></returns>
+        public static int Update_BushingThompson(int Id_Bushing, string Codigo, double Dim_A)
+        {
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            return ServiceThompson.UpdateBushingThompson(Id_Bushing, Codigo, Dim_A);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar registro de la tabla TBL_BUSHING_THOMPSON
+        /// </summary>
+        /// <param name="Id_Bushing"></param>
+        /// <returns></returns>
+        public static int Delete_BushingThompson(int Id_Bushing)
+        {
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            return ServiceThompson.DeleteBushingThompson(Id_Bushing);
+        }
+
         #endregion
 
         #region PVD WASH

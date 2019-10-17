@@ -586,6 +586,9 @@
     <Compile Include="ServiceObjects\Tooling\TBL_BOBINADO_UPPER_ROLL.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_BUSHING_THOMPSON_SEGMENTOS.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -602,6 +605,9 @@
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_DISCOS_THOMPSON_SEGMENTOS.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_EXIT_GUIDE.cs">

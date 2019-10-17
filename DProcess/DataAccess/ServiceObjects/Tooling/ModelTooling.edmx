@@ -573,6 +573,14 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <Property Name="DETALLE_ENGRANE" Type="varchar" MaxLength="50" />
           <Property Name="MEDIDA" Type="float" />
         </EntityType>
+        <EntityType Name="TBL_BUSHING_THOMPSON_SEGMENTOS">
+          <Key>
+            <PropertyRef Name="ID_BUSHING_THOMPSON" />
+          </Key>
+          <Property Name="ID_BUSHING_THOMPSON" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGO" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="DIM_A" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS">
           <Key>
             <PropertyRef Name="ID_CLAMP_PLATE" />
@@ -638,6 +646,15 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <Property Name="MINIMO" Type="float" />
           <Property Name="MAXIMO" Type="float" />
           <Property Name="DETALLE" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBL_DISCOS_THOMPSON_SEGMENTOS">
+          <Key>
+            <PropertyRef Name="ID_DISCO" />
+          </Key>
+          <Property Name="ID_DISCO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGO" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="MEDIDA" Type="float" Nullable="false" />
+          <Property Name="OPERACION" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TBL_EXIT_GUIDE">
           <Key>
@@ -992,6 +1009,30 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
               <PropertyRef Name="Codigo" />
             </Principal>
             <Dependent Role="TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CODIGO_BUSHING">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1" />
+          <End Role="TBL_BUSHING_THOMPSON_SEGMENTOS" Type="Self.TBL_BUSHING_THOMPSON_SEGMENTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_BUSHING_THOMPSON_SEGMENTOS">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CODIGO_DISCO">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1" />
+          <End Role="TBL_DISCOS_THOMPSON_SEGMENTOS" Type="Self.TBL_DISCOS_THOMPSON_SEGMENTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_DISCOS_THOMPSON_SEGMENTOS">
               <PropertyRef Name="CODIGO" />
             </Dependent>
           </ReferentialConstraint>
@@ -1595,12 +1636,14 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <EntitySet Name="TBL_BOBINADO_LOWER_ROLL" EntityType="Self.TBL_BOBINADO_LOWER_ROLL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_BOBINADO_TARGET_ROLL" EntityType="Self.TBL_BOBINADO_TARGET_ROLL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_BOBINADO_UPPER_ROLL" EntityType="Self.TBL_BOBINADO_UPPER_ROLL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_BUSHING_THOMPSON_SEGMENTOS" EntityType="Self.TBL_BUSHING_THOMPSON_SEGMENTOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS" EntityType="Self.TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_COIL_CENTER_GUIDE" EntityType="Self.TBL_COIL_CENTER_GUIDE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_COIL_FEED_ROLLER" EntityType="Self.TBL_COIL_FEED_ROLLER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_CONF_DIMA_COLLAR_LAPEADO_SEGMENTOS" EntityType="Self.TBL_CONF_DIMA_COLLAR_LAPEADO_SEGMENTOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS" EntityType="Self.TBL_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS" EntityType="Self.TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_DISCOS_THOMPSON_SEGMENTOS" EntityType="Self.TBL_DISCOS_THOMPSON_SEGMENTOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_EXIT_GUIDE" EntityType="Self.TBL_EXIT_GUIDE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" EntityType="Self.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" EntityType="Self.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1" Schema="dbo" store:Type="Tables" />
@@ -1682,6 +1725,14 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <AssociationSet Name="FK_CODIGO" Association="Self.FK_CODIGO">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS" EntitySet="TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CODIGO_BUSHING" Association="Self.FK_CODIGO_BUSHING">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_BUSHING_THOMPSON_SEGMENTOS" EntitySet="TBL_BUSHING_THOMPSON_SEGMENTOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CODIGO_DISCO" Association="Self.FK_CODIGO_DISCO">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_DISCOS_THOMPSON_SEGMENTOS" EntitySet="TBL_DISCOS_THOMPSON_SEGMENTOS" />
           </AssociationSet>
           <AssociationSet Name="FK_CODIGOBACKUP" Association="Self.FK_CODIGOBACKUP">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -2164,6 +2215,16 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <AssociationSet Name="FK_CODIGOTUBO" Association="DataAccess.ServiceObjects.Tooling.FK_CODIGOTUBO">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS" EntitySet="TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS" />
+          </AssociationSet>
+          <EntitySet Name="TBL_DISCOS_THOMPSON_SEGMENTOS" EntityType="DataAccess.ServiceObjects.Tooling.TBL_DISCOS_THOMPSON_SEGMENTOS" />
+          <AssociationSet Name="FK_CODIGO_DISCO" Association="DataAccess.ServiceObjects.Tooling.FK_CODIGO_DISCO">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_DISCOS_THOMPSON_SEGMENTOS" EntitySet="TBL_DISCOS_THOMPSON_SEGMENTOS" />
+          </AssociationSet>
+          <EntitySet Name="TBL_BUSHING_THOMPSON_SEGMENTOS" EntityType="DataAccess.ServiceObjects.Tooling.TBL_BUSHING_THOMPSON_SEGMENTOS" />
+          <AssociationSet Name="FK_CODIGO_BUSHING" Association="DataAccess.ServiceObjects.Tooling.FK_CODIGO_BUSHING">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_BUSHING_THOMPSON_SEGMENTOS" EntitySet="TBL_BUSHING_THOMPSON_SEGMENTOS" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="SplitterSpacerChart">
@@ -2876,6 +2937,8 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <NavigationProperty Name="TBL_BACKUP_RING_THOMPSON_SEGMENTOS" Relationship="DataAccess.ServiceObjects.Tooling.FK_CODIGOBACKUP" FromRole="MaestroHerramentales" ToRole="TBL_BACKUP_RING_THOMPSON_SEGMENTOS" />
           <NavigationProperty Name="TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS" Relationship="DataAccess.ServiceObjects.Tooling.FK_CODIGOPLATO" FromRole="MaestroHerramentales" ToRole="TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS" />
           <NavigationProperty Name="TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS" Relationship="DataAccess.ServiceObjects.Tooling.FK_CODIGOTUBO" FromRole="MaestroHerramentales" ToRole="TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS" />
+          <NavigationProperty Name="TBL_DISCOS_THOMPSON_SEGMENTOS" Relationship="DataAccess.ServiceObjects.Tooling.FK_CODIGO_DISCO" FromRole="MaestroHerramentales" ToRole="TBL_DISCOS_THOMPSON_SEGMENTOS" />
+          <NavigationProperty Name="TBL_BUSHING_THOMPSON_SEGMENTOS" Relationship="DataAccess.ServiceObjects.Tooling.FK_CODIGO_BUSHING" FromRole="MaestroHerramentales" ToRole="TBL_BUSHING_THOMPSON_SEGMENTOS" />
         </EntityType>
         <Association Name="FK__BarrelLap__Codig__4EF38B7F">
           <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
@@ -3819,6 +3882,49 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_DISCOS_THOMPSON_SEGMENTOS">
+          <Key>
+            <PropertyRef Name="ID_DISCO" />
+          </Key>
+          <Property Name="ID_DISCO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="MEDIDA" Type="Double" Nullable="false" />
+          <Property Name="OPERACION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_CODIGO_DISCO" FromRole="TBL_DISCOS_THOMPSON_SEGMENTOS" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_CODIGO_DISCO">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.TBL_DISCOS_THOMPSON_SEGMENTOS" Role="TBL_DISCOS_THOMPSON_SEGMENTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_DISCOS_THOMPSON_SEGMENTOS">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBL_BUSHING_THOMPSON_SEGMENTOS">
+          <Key>
+            <PropertyRef Name="ID_BUSHING_THOMPSON" />
+          </Key>
+          <Property Name="ID_BUSHING_THOMPSON" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DIM_A" Type="Double" Nullable="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_CODIGO_BUSHING" FromRole="TBL_BUSHING_THOMPSON_SEGMENTOS" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_CODIGO_BUSHING">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.TBL_BUSHING_THOMPSON_SEGMENTOS" Role="TBL_BUSHING_THOMPSON_SEGMENTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_BUSHING_THOMPSON_SEGMENTOS">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4689,6 +4795,25 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
                 <ScalarProperty Name="DIM_A" ColumnName="DIM_A" />
                 <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="ID_TUBO_ENROLLADOR" ColumnName="ID_TUBO_ENROLLADOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_DISCOS_THOMPSON_SEGMENTOS">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_DISCOS_THOMPSON_SEGMENTOS">
+              <MappingFragment StoreEntitySet="TBL_DISCOS_THOMPSON_SEGMENTOS">
+                <ScalarProperty Name="OPERACION" ColumnName="OPERACION" />
+                <ScalarProperty Name="MEDIDA" ColumnName="MEDIDA" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_DISCO" ColumnName="ID_DISCO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_BUSHING_THOMPSON_SEGMENTOS">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_BUSHING_THOMPSON_SEGMENTOS">
+              <MappingFragment StoreEntitySet="TBL_BUSHING_THOMPSON_SEGMENTOS">
+                <ScalarProperty Name="DIM_A" ColumnName="DIM_A" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_BUSHING_THOMPSON" ColumnName="ID_BUSHING_THOMPSON" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

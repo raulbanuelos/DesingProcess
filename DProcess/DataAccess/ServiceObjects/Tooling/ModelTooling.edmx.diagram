@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="da0dc206e6ab4ec6bfee909bb16e9885" Name="Diagram1" ZoomLevel="54">
+      <Diagram DiagramId="da0dc206e6ab4ec6bfee909bb16e9885" Name="Diagram1" ZoomLevel="88">
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart" Width="1.5" PointX="7.375" PointY="7.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.cutter_angle" Width="1.5" PointX="9.375" PointY="4.75" />
@@ -109,7 +109,7 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BOBINADO_UPPER_ROLL" Width="3.25" PointX="12.75" PointY="13.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_LOWER_ROLL_MaestroHerramentales" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_UPPER_ROLL_MaestroHerramentales" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BOBINADO_CENTER_WAFER" Width="3" PointX="13.625" PointY="5.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BOBINADO_CENTER_WAFER" Width="3" PointX="13.625" PointY="6.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BOBINADO_CENTER_WAFER_MaestroHerramentales" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BARREL_GRADE_PUSHER" Width="1.5" PointX="12.25" PointY="21.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_TBL_BARREL_GRADE_PUSHER_MaestroHerramentales" />
@@ -135,6 +135,10 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CODIGOBACKUP" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CODIGOPLATO" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CODIGOTUBO" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_DISCOS_THOMPSON_SEGMENTOS" Width="3" PointX="12.25" PointY="48" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CODIGO_DISCO" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BUSHING_THOMPSON_SEGMENTOS" Width="2.25" PointX="12.5" PointY="50.75" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CODIGO_BUSHING" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

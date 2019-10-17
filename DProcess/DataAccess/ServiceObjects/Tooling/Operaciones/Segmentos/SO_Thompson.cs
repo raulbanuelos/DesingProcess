@@ -297,7 +297,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
             catch (Exception er)
             {
                 // Si hay error retornamos 0
-                return 0;              
+                return 0;
             }
         }
 
@@ -371,7 +371,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     Conexion.SaveChanges();
 
                     // Retornamos el ID
-                    return Plato_Empujador.ID_PLATO_EMPUJADOR;              
+                    return Plato_Empujador.ID_PLATO_EMPUJADOR;
                 }
             }
             catch (Exception er)
@@ -580,6 +580,283 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     Conexion.Entry(Tubo_Enrollador).State = System.Data.Entity.EntityState.Deleted;
 
                     // Guardamos cambios
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay error retornamos 0
+                return 0;
+            }
+        }
+
+        #endregion
+
+        #region DISCOS
+
+        /// <summary>
+        /// Consulta para traer los datos de un registro Disco Thompson por su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoDiscoThompson(string codigo)
+        {
+            try
+            {
+                // Realizamos la conexión a través de EntityFramework
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //  Realizamos la consulta y el resultado lo asignamos a una variable anónima
+                    var Lista = (from a in Conexion.TBL_DISCOS_THOMPSON_SEGMENTOS
+                                 join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 where a.CODIGO.Equals(codigo)
+                                 select new
+                                 {
+                                     a.ID_DISCO,
+                                     a.CODIGO,
+                                     a.MEDIDA,
+                                     a.OPERACION,
+                                     b.Descripcion,
+                                     b.Activo
+                                 }).ToList();
+
+                    //  Retornamos el resultado de la consulta
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay error retornamos nulo
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Inserción de registros para Discos Thompson
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="medida"></param>
+        /// <param name="operacion"></param>
+        /// <returns></returns>
+        public int InsertDiscoThompson(string codigo, double medida, string operacion)
+        {
+            try
+            {
+                // Establecemos conexión a través de EntityFramework
+                using (var Conexion = new EntitiesTooling())
+                {
+                    // Declaramos el objeto de la lista
+                    TBL_DISCOS_THOMPSON_SEGMENTOS discos_thompson = new TBL_DISCOS_THOMPSON_SEGMENTOS();
+
+                    // Asignamos valores
+                    discos_thompson.CODIGO = codigo;
+                    discos_thompson.MEDIDA = medida;
+                    discos_thompson.OPERACION = operacion;
+
+                    // Agregamos el objeto a la tabla
+                    Conexion.TBL_DISCOS_THOMPSON_SEGMENTOS.Add(discos_thompson);
+
+                    // Guardamos los cambios
+                    Conexion.SaveChanges();
+
+                    // Retornamos el ID
+                    return discos_thompson.ID_DISCO;
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay un error retornamos 0
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Actualización de registros Discos Thompson
+        /// </summary>
+        /// <param name="id_disco"></param>
+        /// <param name="codigo"></param>
+        /// <param name="medida"></param>
+        /// <param name="operacion"></param>
+        /// <returns></returns>
+        public int UpdateDiscoThompson(int id_disco, string codigo, double medida, string operacion)
+        {
+            try
+            {
+                // Establecemos conexión a través de EntityFramework
+                using (var Conexion = new EntitiesTooling())
+                {
+                    // Declaramos el objeto de la lista
+                    TBL_DISCOS_THOMPSON_SEGMENTOS discos_thompson = Conexion.TBL_DISCOS_THOMPSON_SEGMENTOS.Where(x => x.ID_DISCO == id_disco).FirstOrDefault();
+
+                    // Asignamos valores
+                    discos_thompson.ID_DISCO = id_disco;
+                    discos_thompson.CODIGO = codigo;
+                    discos_thompson.MEDIDA = medida;
+                    discos_thompson.OPERACION = operacion;
+
+                    // Modificamos el registro
+                    Conexion.Entry(discos_thompson).State = System.Data.Entity.EntityState.Modified;
+
+                    // Guardamos los cambios
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay error retornamos 0
+                return 0;
+            }
+        }
+
+        /// <summary>
+        ///  Delete de registros Discos Thompson
+        /// </summary>
+        /// <param name="id_disco"></param>
+        /// <returns></returns>
+        public int DeleteDiscoThompson(int id_disco)
+        {
+            try
+            {
+                // Establecemos conexión a través de EntitFramework
+                using (var Conexion = new EntitiesTooling())
+                {
+                    // Declaramos el objeto de la lista
+                    TBL_DISCOS_THOMPSON_SEGMENTOS discos_thompson = Conexion.TBL_DISCOS_THOMPSON_SEGMENTOS.Where(x => x.ID_DISCO == id_disco).FirstOrDefault();
+
+                    // Eliminamos el registro
+                    Conexion.Entry(discos_thompson).State = System.Data.Entity.EntityState.Deleted;
+
+                    // Guardamos cambios
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay error retornamos 0
+                return 0;
+            }
+        }
+
+        #endregion
+
+        #region BUSHING
+
+        public IList GetInfoBushingThompson(string codigo)
+        {
+            try
+            {
+                // Establecemos conexión
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var Lista = (from a in Conexion.TBL_BUSHING_THOMPSON_SEGMENTOS
+                                 join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 where a.CODIGO.Equals(codigo)
+                                 select new
+                                 {
+                                     a.ID_BUSHING_THOMPSON,
+                                     a.CODIGO,
+                                     a.DIM_A,
+                                     b.Descripcion,
+                                     b.Activo
+                                 }).ToList();
+
+                    return Lista;
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay error retornamos nulo
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Inserción de registros para Bushing Thompson
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="dim_a"></param>
+        /// <returns></returns>
+        public int InsertBushingThompson(string codigo, double dim_a)
+        {
+            try
+            {
+                // Realizamos la conexión a través de EntityFramework
+                using (var Conexion = new EntitiesTooling())
+                {
+                    // Declaramos el objeto de la lista
+                    TBL_BUSHING_THOMPSON_SEGMENTOS bushing_thompson = new TBL_BUSHING_THOMPSON_SEGMENTOS();
+
+                    // Asignamos valores
+                    bushing_thompson.CODIGO = codigo;
+                    bushing_thompson.DIM_A = dim_a;
+
+                    // Agregamos el objeto a la tabla
+                    Conexion.TBL_BUSHING_THOMPSON_SEGMENTOS.Add(bushing_thompson);
+
+                    // Guardamos los datos
+                    Conexion.SaveChanges();
+
+                    // Retornamos el ID del objeto insertado
+                    return bushing_thompson.ID_BUSHING_THOMPSON;
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay error retornamos 0
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Actualización de registros Bushing Thompson
+        /// </summary>
+        /// <param name="id_bushing"></param>
+        /// <param name="codigo"></param>
+        /// <param name="dim_a"></param>
+        /// <returns></returns>
+        public int UpdateBushingThompson(int id_bushing, string codigo, double dim_a)
+        {
+            try
+            {
+                // Establecemos conexión a través de EntityFramework
+                using (var Conexion = new EntitiesTooling())
+                {
+                    // Declaramos el objeto de la lista
+                    TBL_BUSHING_THOMPSON_SEGMENTOS bushing_thompson = Conexion.TBL_BUSHING_THOMPSON_SEGMENTOS.Where(x => x.ID_BUSHING_THOMPSON == id_bushing).FirstOrDefault();
+
+                    // Asignamos valores
+                    bushing_thompson.ID_BUSHING_THOMPSON = id_bushing;
+                    bushing_thompson.CODIGO = codigo;
+                    bushing_thompson.DIM_A = dim_a;
+
+                    // Actualizamos el registro
+                    Conexion.Entry(bushing_thompson).State = System.Data.Entity.EntityState.Modified;
+
+                    // Guardamos losd cambios
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay error retornamos 0
+                return 0;
+            }
+        }
+
+        public int DeleteBushingThompson(int id_bushing)
+        {
+            try
+            {
+                // Establecemos conexión a través de EntityFramework
+                using (var Conexion = new EntitiesTooling())
+                {
+                    // Declaramos el objeto de la lista
+                    TBL_BUSHING_THOMPSON_SEGMENTOS bushing_thompson = Conexion.TBL_BUSHING_THOMPSON_SEGMENTOS.Where(x => x.ID_BUSHING_THOMPSON == id_bushing).FirstOrDefault();
+
+                    // Eliminamos el registro
+                    Conexion.Entry(bushing_thompson).State = System.Data.Entity.EntityState.Deleted;
+
+                    // Guardamos los cambios
                     return Conexion.SaveChanges();
                 }
             }

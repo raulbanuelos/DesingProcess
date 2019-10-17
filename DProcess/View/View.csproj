@@ -457,6 +457,9 @@
     <Compile Include="Forms\Tooling\ControlBushingSim.xaml.cs">
       <DependentUpon>ControlBushingSim.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlBushingThompson.xaml.cs">
+      <DependentUpon>ControlBushingThompson.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlBushing_FinishM.xaml.cs">
       <DependentUpon>ControlBushing_FinishM.xaml</DependentUpon>
     </Compile>
@@ -504,6 +507,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\ControlCutterSplitter.xaml.cs">
       <DependentUpon>ControlCutterSplitter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlDiscoThompson.xaml.cs">
+      <DependentUpon>ControlDiscoThompson.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\ControlExitGuide.xaml.cs">
       <DependentUpon>ControlExitGuide.xaml</DependentUpon>
@@ -1385,6 +1391,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\ControlBushingThompson.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\ControlBushing_FinishM.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1446,6 +1456,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\ControlCutterSplitter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlDiscoThompson.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

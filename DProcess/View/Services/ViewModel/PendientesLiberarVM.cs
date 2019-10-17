@@ -139,6 +139,7 @@ namespace View.Services.ViewModel
         }
 
         #endregion
+
         #region Constructor
 
         public PendientesLiberarVM(Usuario user)

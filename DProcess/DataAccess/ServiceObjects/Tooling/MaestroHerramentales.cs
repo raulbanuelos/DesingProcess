@@ -72,6 +72,8 @@ namespace DataAccess.ServiceObjects.Tooling
             this.TBL_BACKUP_RING_THOMPSON_SEGMENTOS = new HashSet<TBL_BACKUP_RING_THOMPSON_SEGMENTOS>();
             this.TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS = new HashSet<TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS>();
             this.TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS = new HashSet<TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS>();
+            this.TBL_DISCOS_THOMPSON_SEGMENTOS = new HashSet<TBL_DISCOS_THOMPSON_SEGMENTOS>();
+            this.TBL_BUSHING_THOMPSON_SEGMENTOS = new HashSet<TBL_BUSHING_THOMPSON_SEGMENTOS>();
         }
     
         public string Codigo { get; set; }
@@ -197,5 +199,9 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual ICollection<TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS> TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS> TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_DISCOS_THOMPSON_SEGMENTOS> TBL_DISCOS_THOMPSON_SEGMENTOS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_BUSHING_THOMPSON_SEGMENTOS> TBL_BUSHING_THOMPSON_SEGMENTOS { get; set; }
     }
 }
