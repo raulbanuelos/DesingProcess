@@ -165,5 +165,6 @@ namespace View.Forms.Tooling
             if (e.Key == Key.Space)
                 e.Handled = true;
         }
+
     }
 }
