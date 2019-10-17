@@ -364,6 +364,9 @@
     <Compile Include="Forms\Routing\WCalculateDimensions.xaml.cs">
       <DependentUpon>WCalculateDimensions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Routing\WCalculoFreeGap.xaml.cs">
+      <DependentUpon>WCalculoFreeGap.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Routing\WCreateRing.xaml.cs">
       <DependentUpon>WCreateRing.xaml</DependentUpon>
     </Compile>
@@ -916,6 +919,7 @@
     <Compile Include="Services\ViewModel\BushingSimVM.cs" />
     <Compile Include="Services\ViewModel\Busqueda_HerramentalVM.cs" />
     <Compile Include="Services\ViewModel\CalculateDimensionsViewModel.cs" />
+    <Compile Include="Services\ViewModel\CalculoFreeGapViewModel.cs" />
     <Compile Include="Services\ViewModel\CalculoPlacaModeloViewModel.cs" />
     <Compile Include="Services\ViewModel\CamBK_VM.cs" />
     <Compile Include="Services\ViewModel\CamisaMolyVM.cs" />
@@ -1264,6 +1268,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\Routing\WCalculateDimensions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Routing\WCalculoFreeGap.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

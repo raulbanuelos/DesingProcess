@@ -157,9 +157,19 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
 
             double pipRadialLoc = Math.Round(((((a1MaxInch + a1MinInch) / 2) / 2) + (diaAnterior - d1Inch) / 2) - 0.001, 3);
 
+            Propiedad anguloMin = Module.GetPropiedad("AngleMin", elPlano.PerfilLateral.Propiedades);
+            Propiedad anguloMax = Module.GetPropiedad("AngleMax", elPlano.PerfilLateral.Propiedades);
+
+            double angulo = Math.Round((anguloMin.Valor + anguloMax.Valor) / 2,0);
+
+            Propiedad depthMin = Module.GetPropiedad("DepthMin", elPlano.PerfilLateral.Propiedades);
+            Propiedad depthMax = Module.GetPropiedad("DepthMax", elPlano.PerfilLateral.Propiedades);
+
+            double depth = Math.Round(depthMax.Valor - 0.0025, 4);
+
             TextoProceso += "PIP RADIAL LOC. " + pipRadialLoc +" \n";
-            TextoProceso += "ANGULAR LOC. \n";
-            TextoProceso += "DEPTH \n";
+            TextoProceso += "ANGULAR LOC. " + angulo + " DEG\n";
+            TextoProceso += "DEPTH " + depth + " +- 0.0025 \n";
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();

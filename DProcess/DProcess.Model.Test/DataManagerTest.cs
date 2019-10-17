@@ -12,6 +12,7 @@ using Model.ControlDocumentos;
 using View.Services.Operaciones.Gasolina.RectificadosFinos;
 using DataAccess;
 using View.Services.ViewModel;
+using View.Forms.Routing;
 
 namespace DProcess.Model.Test
 {
@@ -28,13 +29,31 @@ namespace DProcess.Model.Test
         //    Assert.AreEqual(true, resp);
         //} 
 
-       [TestMethod]
-        public void textComparative()
-        {
-            ComparativoDocumentosViewModel comparativo = new ComparativoDocumentosViewModel();
+       //[TestMethod]
+       // public void textComparative()
+       // {
+       //     ComparativoDocumentosViewModel comparativo = new ComparativoDocumentosViewModel();
 
-            comparativo.CompararArchivos();
-            Assert.AreEqual(true, true);
+       //     comparativo.CompararArchivos();
+       //     Assert.AreEqual(true, true);
+       // }
+
+        [TestMethod]
+        public void freeGap()
+        {
+            CalculoFreeGapViewModel obj = new CalculoFreeGapViewModel();
+
+            obj.D1 = 97;
+            obj.H1 = 1.25;
+            obj.A1 = 2.5;
+            obj.S1 = 3.05;
+            obj.Material = "MS064";
+            obj.FT = 4.1;
+            obj.OV = 0;
+
+            obj.calcular();
+
+            Assert.AreEqual(obj.TX, 1.25);
         }
         //#endregion
 
