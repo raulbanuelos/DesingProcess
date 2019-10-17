@@ -741,6 +741,11 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
 
         #region BUSHING
 
+        /// <summary>
+        /// Consulta para traer los datos de un registro Bushing Thompson por su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
         public IList GetInfoBushingThompson(string codigo)
         {
             try
@@ -760,6 +765,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                                      b.Activo
                                  }).ToList();
 
+                    // Se retorna la lista
                     return Lista;
                 }
             }
@@ -843,6 +849,11 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
             }
         }
 
+        /// <summary>
+        /// Delete de registros Bushing Thompson
+        /// </summary>
+        /// <param name="id_bushing"></param>
+        /// <returns></returns>
         public int DeleteBushingThompson(int id_bushing)
         {
             try
