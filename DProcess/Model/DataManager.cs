@@ -12662,7 +12662,6 @@ namespace Model
 
             return ServiceThompson.DeleteBushingThompson(Id_Bushing);
         }
-
         #endregion
 
         #region PVD WASH
