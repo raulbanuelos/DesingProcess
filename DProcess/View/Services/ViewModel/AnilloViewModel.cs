@@ -1249,9 +1249,25 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => createRing());
             }
         }
+
+        public ICommand GoCalculateFreeGap
+        {
+            get
+            {
+                return new RelayCommand(o => calculateFreeGap());
+            }
+        }
         #endregion
 
         #region Methods
+
+        private void calculateFreeGap()
+        {
+            WCalculoFreeGap ventana = new WCalculoFreeGap();
+            ventana.DataContext = new CalculoFreeGapViewModel();
+
+            ventana.ShowDialog();
+        }
 
         private void calculateDimensions()
         {
@@ -3188,6 +3204,14 @@ namespace View.Services.ViewModel
                     Label = "Calculate dimensions",
                     Command = CalculateDimensions,
                     Tag = "Calculate dimension"
+                });
+
+            this.MenuItems.Add(
+                new HamburgerMenuIconItem {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.CropFree },
+                    Label = "Calcular free gap",
+                    Command = GoCalculateFreeGap,
+                    Tag = "Calculate free gap",
                 });
         }
         
