@@ -236,6 +236,48 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 
         public void BuscarHerramentales()
         {
+            Herramental barrelGrade = herramentalBarrelGrade();
+
+            ListaHerramentales.Add(barrelGrade);
+
+            Herramental front = DataManager.GetFrontRearCollarAnillos(elPlano.D1.Valor, "FRONT COLLAR ANI.", "FRONT COLLAR. ");
+            Herramental rear = DataManager.GetFrontRearCollarAnillos(elPlano.D1.Valor, "REAR COLLAR ANI.", "REAR COLLAR. ");
+            Herramental loading = DataManager.GetLoadingGuideAnillos(elPlano.D1.Valor);
+            
+            ListaHerramentales.Add(front);
+            ListaHerramentales.Add(rear);
+            ListaHerramentales.Add(loading);
+
+            TextoHerramienta = Module.GetTextoListaHerramentales(ListaHerramentales);
+        }
+
+        private Herramental herramentalBarrelGrade()
+        {
+            ObservableCollection<Herramental> listaBarrelGrade = new ObservableCollection<Herramental>();
+            DataManager.GetALLBarrelLapAnillos_("", out listaBarrelGrade);
+
+            double diametroAnillo = elPlano.D1.Valor;
+            Herramental barrelIdeal = new Herramental();
+
+            foreach (Herramental barrel in listaBarrelGrade)
+            {
+                //Module.ConvertFracToDecimal()
+                string fracc = barrel.PropiedadesCadena[0].Valor;
+                double deci = Convert.ToDouble(Module.ConvertFracToDecimal(fracc));
+                double tope = 0;
+                if (deci <= diametroAnillo)
+                {
+                    if (deci > tope)
+                    {
+                        tope = deci;
+                        barrelIdeal = barrel;
+                        barrelIdeal.Encontrado = true;
+                    }
+                }
+            }
+
+            barrelIdeal.DescripcionRuta = "BARREL " + diametroAnillo;
+            return barrelIdeal;
 
         }
 

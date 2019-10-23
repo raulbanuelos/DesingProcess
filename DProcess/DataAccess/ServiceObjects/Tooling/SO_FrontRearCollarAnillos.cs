@@ -9,6 +9,44 @@ namespace DataAccess.ServiceObjects.Tooling
 {
     public class SO_FrontRearCollarAnillos
     {
+
+        public IList GetFrontRearCollar(string tipoCollar)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var lista = (from a in Conexion.FrontRearCollarAnillos_
+                                 join m in Conexion.MaestroHerramentales on a.Codigo equals m.Codigo
+                                 join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                 where a.Descripcion_Herramental == tipoCollar
+                                 select new {
+                                     Codigo = a.Codigo,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     Clasificacion = c.Descripcion,
+                                     c.UnidadMedida,
+                                     c.Costo,
+                                     c.CantidadUtilizar,
+                                     c.VidaUtil,
+                                     c.idClasificacion,
+                                     c.ListaCotasRevisar,
+                                     c.VerificacionAnual,
+                                     TIPO_COLLAR = a.Descripcion_Herramental,
+                                     a.IdFrontRearCollarAnillos,
+                                     MEDIDA_NOMINAL = a.MedidaNominal,
+                                     MEDIDA = a.Notas
+                                 }).ToList();
+
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// Método que obtiene todos los datos
         /// </summary>

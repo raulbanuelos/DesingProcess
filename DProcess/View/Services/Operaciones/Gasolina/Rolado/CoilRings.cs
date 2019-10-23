@@ -256,7 +256,33 @@ namespace View.Services.Operaciones.Gasolina.Rolado
             Herramental idealCenterGuide = new Herramental();
             DataManager.GetCOIL_CENTER_GUIDE(widthMateriaPrima, thicknessMateriaPrima, out idealCenterGuide);
             ListaHerramentales.Add(idealCenterGuide);
-            
+
+            if (elPlano.TipoAnillo.StartsWith("THM"))
+            {
+                //3 PIECE
+                Herramental threePiece110 = new Herramental();
+                DataManager.GetEXTERNAL_GR_3P_1(widthMateriaPrima, out threePiece110);
+                ListaHerramentales.Add(threePiece110);
+
+                Herramental threePiece111 = new Herramental();
+                DataManager.GetEXTERNAL_GR_3P_2(widthMateriaPrima, out threePiece111);
+                ListaHerramentales.Add(threePiece111);
+
+                Herramental threePiece112 = new Herramental();
+                DataManager.GetEXTERNAL_GR_3P_3(widthMateriaPrima, out threePiece112);
+                ListaHerramentales.Add(threePiece112);
+            }
+            else
+            {
+                if (elPlano.TipoAnillo.StartsWith("RF"))
+                {
+                    //1 PIECE
+                    Herramental onePiece = new Herramental();
+                    DataManager.GetEXTERNAL_GR_1P(widthMateriaPrima, out onePiece);
+                    ListaHerramentales.Add(onePiece);
+                }
+            }
+
             TextoHerramienta = Module.GetTextoListaHerramentales(ListaHerramentales);
         }
 

@@ -25,22 +25,22 @@ namespace DataAccess.ServiceObjects.Perfiles
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Arquetipo> Arquetipo { get; set; }
+        public virtual DbSet<ArquetipoRings> ArquetipoRings { get; set; }
         public virtual DbSet<CAT_PERFIL> CAT_PERFIL { get; set; }
         public virtual DbSet<CAT_PROPIEDAD> CAT_PROPIEDAD { get; set; }
         public virtual DbSet<CAT_PROPIEDAD_BOOL> CAT_PROPIEDAD_BOOL { get; set; }
         public virtual DbSet<CAT_PROPIEDAD_CADENA> CAT_PROPIEDAD_CADENA { get; set; }
         public virtual DbSet<CAT_TIPO_PERFIL> CAT_TIPO_PERFIL { get; set; }
-        public virtual DbSet<TR_PROPIEDAD_BOOL_PERFIL> TR_PROPIEDAD_BOOL_PERFIL { get; set; }
-        public virtual DbSet<TR_PROPIEDAD_CADENA_PERFIL> TR_PROPIEDAD_CADENA_PERFIL { get; set; }
-        public virtual DbSet<Arquetipo> Arquetipo { get; set; }
-        public virtual DbSet<TR_PERFIL_ARQUETIPO> TR_PERFIL_ARQUETIPO { get; set; }
-        public virtual DbSet<TR_PROPIEDAD_PERFIL> TR_PROPIEDAD_PERFIL { get; set; }
+        public virtual DbSet<ColoresAnillos> ColoresAnillos { get; set; }
         public virtual DbSet<TBL_ARQUETIPO_PROPIEDADES> TBL_ARQUETIPO_PROPIEDADES { get; set; }
         public virtual DbSet<TBL_ARQUETIPO_PROPIEDADES_BOOL> TBL_ARQUETIPO_PROPIEDADES_BOOL { get; set; }
         public virtual DbSet<TBL_ARQUETIPO_PROPIEDADES_CADENA> TBL_ARQUETIPO_PROPIEDADES_CADENA { get; set; }
-        public virtual DbSet<ArquetipoRings> ArquetipoRings { get; set; }
-        public virtual DbSet<TR_NORMAS_ARQUETIPO> TR_NORMAS_ARQUETIPO { get; set; }
         public virtual DbSet<TBL_NORMAS> TBL_NORMAS { get; set; }
-        public virtual DbSet<ColoresAnillos> ColoresAnillos { get; set; }
+        public virtual DbSet<TR_NORMAS_ARQUETIPO> TR_NORMAS_ARQUETIPO { get; set; }
+        public virtual DbSet<TR_PERFIL_ARQUETIPO> TR_PERFIL_ARQUETIPO { get; set; }
+        public virtual DbSet<TR_PROPIEDAD_BOOL_PERFIL> TR_PROPIEDAD_BOOL_PERFIL { get; set; }
+        public virtual DbSet<TR_PROPIEDAD_CADENA_PERFIL> TR_PROPIEDAD_CADENA_PERFIL { get; set; }
+        public virtual DbSet<TR_PROPIEDAD_PERFIL> TR_PROPIEDAD_PERFIL { get; set; }
     }
 }

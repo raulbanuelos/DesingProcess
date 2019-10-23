@@ -7,6 +7,7 @@ using System.Data;
 using System.Threading.Tasks;
 using Model;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace View.Services.ViewModel
 {
@@ -98,7 +99,8 @@ namespace View.Services.ViewModel
         #region Métodos
         public void Busqueda(string TextoBuscar)
         {
-            ListaHerramentalesBarrelLapAnillo = DataManager.GetALLBarrelLapAnillos_(TextoBuscar);
+            ObservableCollection<Herramental> aux = new ObservableCollection<Herramental>();
+            ListaHerramentalesBarrelLapAnillo = DataManager.GetALLBarrelLapAnillos_(TextoBuscar, out aux);
         }
         #endregion
 

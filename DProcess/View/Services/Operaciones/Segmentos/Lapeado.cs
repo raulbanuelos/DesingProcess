@@ -181,6 +181,9 @@ namespace View.Services.Operaciones.Segmentos
             double d1Inch = Module.ConvertTo(elPlano.D1.TipoDato, elPlano.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.D1.Valor);
             ListaHerramentales.Add(DataManager.GetMangaLapeadoSegmentos(d1Inch));
 
+            bool hasNitrurado = elPlano.Operaciones.Where(o => o.NombreOperacion == "").ToList().Count > 0 ? true : false;
+
+
             TextoHerramienta = Module.GetTextoListaHerramentales(ListaHerramentales);
         }
 

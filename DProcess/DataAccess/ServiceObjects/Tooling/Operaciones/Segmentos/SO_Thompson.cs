@@ -11,6 +11,41 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
     {
         #region CLAMP PLATE
 
+        public IList GetClampPlate(double medidaMin, double medidaMax)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var listaHerramentales = (from a in Conexion.TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS
+                                 join m in Conexion.MaestroHerramentales on a.CODIGO equals m.Codigo
+                                 join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                 where a.DIM_B >= medidaMin && a.DIM_B <= medidaMax
+                                 select new
+                                 {
+                                      Codigo = a.CODIGO,
+                                      m.Descripcion,
+                                      m.Activo,
+                                      Clasificacion = c.Descripcion,
+                                      c.UnidadMedida,
+                                      c.Costo,
+                                      c.CantidadUtilizar,
+                                      c.VidaUtil,
+                                      c.idClasificacion,
+                                      c.ListaCotasRevisar,
+                                      c.VerificacionAnual,
+                                      DIM_B = a.DIM_B
+                                  }).ToList();
+
+                    return listaHerramentales;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// Consulta para traer los datos de un registro ClampPlate por su código
         /// </summary>
@@ -157,6 +192,41 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
         #endregion
 
         #region BACKUP RING
+
+        public IList GetBackUpRing(double medidaMin, double medidaMax)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var listaHerramentales = (from a in Conexion.TBL_BACKUP_RING_THOMPSON_SEGMENTOS
+                                              join m in Conexion.MaestroHerramentales on a.CODIGO equals m.Codigo
+                                              join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                              where a.DIM_A >= medidaMin && a.DIM_A <= medidaMax
+                                              select new
+                                              {
+                                                  Codigo = a.CODIGO,
+                                                  m.Descripcion,
+                                                  m.Activo,
+                                                  Clasificacion = c.Descripcion,
+                                                  c.UnidadMedida,
+                                                  c.Costo,
+                                                  c.CantidadUtilizar,
+                                                  c.VidaUtil,
+                                                  c.idClasificacion,
+                                                  c.ListaCotasRevisar,
+                                                  c.VerificacionAnual,
+                                                  DIM_A = a.DIM_A
+                                              }).ToList();
+
+                    return listaHerramentales;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
 
         /// <summary>
         /// Consulta para traer los datos de un registro BackUPRing por su código
@@ -305,6 +375,41 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
 
         #region PLATO EMPUJADOR
 
+        public IList GetPlatoEmpujador(double medidaMin, double medidaMax)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var listaHerramentales = (from a in Conexion.TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS
+                                              join m in Conexion.MaestroHerramentales on a.CODIGO equals m.Codigo
+                                              join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                              where a.DIM_A >= medidaMin && a.DIM_A <= medidaMax
+                                              select new
+                                              {
+                                                  Codigo = a.CODIGO,
+                                                  m.Descripcion,
+                                                  m.Activo,
+                                                  Clasificacion = c.Descripcion,
+                                                  c.UnidadMedida,
+                                                  c.Costo,
+                                                  c.CantidadUtilizar,
+                                                  c.VidaUtil,
+                                                  c.idClasificacion,
+                                                  c.ListaCotasRevisar,
+                                                  c.VerificacionAnual,
+                                                  DIM_A = a.DIM_A
+                                              }).ToList();
+
+                    return listaHerramentales;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// Consulta para traer los datos de un registro PlatoEmpujador por su código
         /// </summary>
@@ -452,6 +557,41 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
 
         #region TUBO ENROLLADOR
 
+        public IList GetTuboEnrollador(double medidaBackUp)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var listaHerramentales = (from a in Conexion.TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS
+                                              join m in Conexion.MaestroHerramentales on a.CODIGO equals m.Codigo
+                                              join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                              where a.DIM_A < medidaBackUp orderby a.DIM_A descending
+                                              select new
+                                              {
+                                                  Codigo = a.CODIGO,
+                                                  m.Descripcion,
+                                                  m.Activo,
+                                                  Clasificacion = c.Descripcion,
+                                                  c.UnidadMedida,
+                                                  c.Costo,
+                                                  c.CantidadUtilizar,
+                                                  c.VidaUtil,
+                                                  c.idClasificacion,
+                                                  c.ListaCotasRevisar,
+                                                  c.VerificacionAnual,
+                                                  DIM_A = a.DIM_A
+                                              }).Take(1).ToList();
+
+                    return listaHerramentales;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// Consulta para traer los datos de un registro TuboEnrollador por su código
         /// </summary>
@@ -594,6 +734,85 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
 
         #region DISCOS
 
+        public IList GetDisco(double discoMin, double discoMax, string operacion)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var listaHerramentales = (from a in Conexion.TBL_DISCOS_THOMPSON_SEGMENTOS
+                                              join m in Conexion.MaestroHerramentales on a.CODIGO equals m.Codigo
+                                              join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                              where a.MEDIDA >= discoMin && a.MEDIDA <= discoMax && a.OPERACION == operacion
+                                              select new
+                                              {
+                                                  Codigo = a.CODIGO,
+                                                  m.Descripcion,
+                                                  m.Activo,
+                                                  Clasificacion = c.Descripcion,
+                                                  c.UnidadMedida,
+                                                  c.Costo,
+                                                  c.CantidadUtilizar,
+                                                  c.VidaUtil,
+                                                  c.idClasificacion,
+                                                  c.ListaCotasRevisar,
+                                                  c.VerificacionAnual,
+                                                  MEDIDA = a.MEDIDA
+                                              }).ToList();
+
+                    return listaHerramentales;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene la medida mínima de disco existente.
+        /// </summary>
+        /// <returns></returns>
+        public double GetMinDisco()
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    double medidaMinima = (from a in Conexion.TBL_DISCOS_THOMPSON_SEGMENTOS
+                                           orderby a.MEDIDA ascending
+                                           select a.MEDIDA).Take(1).FirstOrDefault();
+                    return medidaMinima;
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene la medida máxima de disco existente.
+        /// </summary>
+        /// <returns></returns>
+        public double GetMaxDisco()
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    double medidaMinima = (from a in Conexion.TBL_DISCOS_THOMPSON_SEGMENTOS
+                                           orderby a.MEDIDA descending
+                                           select a.MEDIDA).Take(1).FirstOrDefault();
+                    return medidaMinima;
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+        
         /// <summary>
         /// Consulta para traer los datos de un registro Disco Thompson por su código
         /// </summary>
@@ -740,6 +959,41 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
         #endregion
 
         #region BUSHING
+
+        public IList GetBushing(double medidaMin, double medidaMax)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var listaHerramentales = (from a in Conexion.TBL_BUSHING_THOMPSON_SEGMENTOS
+                                              join m in Conexion.MaestroHerramentales on a.CODIGO equals m.Codigo
+                                              join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                              where a.DIM_A >= medidaMin && a.DIM_A <= medidaMax
+                                              select new
+                                              {
+                                                  Codigo = a.CODIGO,
+                                                  m.Descripcion,
+                                                  m.Activo,
+                                                  Clasificacion = c.Descripcion,
+                                                  c.UnidadMedida,
+                                                  c.Costo,
+                                                  c.CantidadUtilizar,
+                                                  c.VidaUtil,
+                                                  c.idClasificacion,
+                                                  c.ListaCotasRevisar,
+                                                  c.VerificacionAnual,
+                                                  DIM_A = a.DIM_A
+                                              }).ToList();
+
+                    return listaHerramentales;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
 
         /// <summary>
         /// Consulta para traer los datos de un registro Bushing Thompson por su código

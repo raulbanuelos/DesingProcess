@@ -1721,7 +1721,7 @@ namespace View.Services.ViewModel
         /// <returns></returns>
         private string GetClasificacionProducto()
         {
-            if (ModelAnillo.TipoAnillo == "THM17")
+            if (ModelAnillo.TipoAnillo == "THM17" || ModelAnillo.TipoAnillo == "THM13")
                 return "Gasolina";
 
             if (ModelAnillo.TipoAnillo == "MD52SNCV")

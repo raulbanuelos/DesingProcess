@@ -17,12 +17,12 @@ namespace DataAccess.ServiceObjects.Perfiles
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Arquetipo()
         {
-            this.TR_PERFIL_ARQUETIPO = new HashSet<TR_PERFIL_ARQUETIPO>();
+            this.ArquetipoRings = new HashSet<ArquetipoRings>();
             this.TBL_ARQUETIPO_PROPIEDADES = new HashSet<TBL_ARQUETIPO_PROPIEDADES>();
             this.TBL_ARQUETIPO_PROPIEDADES_BOOL = new HashSet<TBL_ARQUETIPO_PROPIEDADES_BOOL>();
             this.TBL_ARQUETIPO_PROPIEDADES_CADENA = new HashSet<TBL_ARQUETIPO_PROPIEDADES_CADENA>();
-            this.ArquetipoRings = new HashSet<ArquetipoRings>();
             this.TR_NORMAS_ARQUETIPO = new HashSet<TR_NORMAS_ARQUETIPO>();
+            this.TR_PERFIL_ARQUETIPO = new HashSet<TR_PERFIL_ARQUETIPO>();
         }
     
         public string Codigo { get; set; }
@@ -31,7 +31,7 @@ namespace DataAccess.ServiceObjects.Perfiles
         public bool Activo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TR_PERFIL_ARQUETIPO> TR_PERFIL_ARQUETIPO { get; set; }
+        public virtual ICollection<ArquetipoRings> ArquetipoRings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_ARQUETIPO_PROPIEDADES> TBL_ARQUETIPO_PROPIEDADES { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -39,8 +39,8 @@ namespace DataAccess.ServiceObjects.Perfiles
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_ARQUETIPO_PROPIEDADES_CADENA> TBL_ARQUETIPO_PROPIEDADES_CADENA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ArquetipoRings> ArquetipoRings { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TR_NORMAS_ARQUETIPO> TR_NORMAS_ARQUETIPO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TR_PERFIL_ARQUETIPO> TR_PERFIL_ARQUETIPO { get; set; }
     }
 }

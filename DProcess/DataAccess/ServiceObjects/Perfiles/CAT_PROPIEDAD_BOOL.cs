@@ -17,8 +17,8 @@ namespace DataAccess.ServiceObjects.Perfiles
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CAT_PROPIEDAD_BOOL()
         {
-            this.TR_PROPIEDAD_BOOL_PERFIL = new HashSet<TR_PROPIEDAD_BOOL_PERFIL>();
             this.TBL_ARQUETIPO_PROPIEDADES_BOOL = new HashSet<TBL_ARQUETIPO_PROPIEDADES_BOOL>();
+            this.TR_PROPIEDAD_BOOL_PERFIL = new HashSet<TR_PROPIEDAD_BOOL_PERFIL>();
         }
     
         public int ID_PROPIEDAD_BOOL { get; set; }
@@ -32,8 +32,8 @@ namespace DataAccess.ServiceObjects.Perfiles
         public Nullable<System.DateTime> FECHA_ACTUALIZACION { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TR_PROPIEDAD_BOOL_PERFIL> TR_PROPIEDAD_BOOL_PERFIL { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_ARQUETIPO_PROPIEDADES_BOOL> TBL_ARQUETIPO_PROPIEDADES_BOOL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TR_PROPIEDAD_BOOL_PERFIL> TR_PROPIEDAD_BOOL_PERFIL { get; set; }
     }
 }

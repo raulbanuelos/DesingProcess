@@ -10,6 +10,7 @@ namespace DataAccess.ServiceObjects.Tooling
     public class SO_LoadingGuideAnillos_
     {
 
+
         /// <summary>
         /// Método que obtiene la lista con todos los registros
         /// </summary>
@@ -22,13 +23,30 @@ namespace DataAccess.ServiceObjects.Tooling
                 {
                     var lista = (from a in conexion.LoadingGuideAnillos_
                                  join b in conexion.MaestroHerramentales on a.Codigo equals b.Codigo
+                                 join c in conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
                                  where b.Codigo.Contains(TextoBuscar) || b.Descripcion.Contains(TextoBuscar)
                                  select new
                                  {
-                                     a.Codigo,
+                                     Codigo = a.Codigo,
                                      a.IdLoadingGuideAnillos,
                                      a.MedidaNominal,
-                                     b.Descripcion
+                                     b.Descripcion,
+
+                                     
+                                     b.Activo,
+                                     Clasificacion = c.Descripcion,
+                                     c.UnidadMedida,
+                                     c.Costo,
+                                     c.CantidadUtilizar,
+                                     c.VidaUtil,
+                                     c.idClasificacion,
+                                     c.ListaCotasRevisar,
+                                     c.VerificacionAnual,
+                                     
+                                     
+                                     MEDIDA_NOMINAL = a.MedidaNominal,
+                                     
+
                                  }).ToList();
                     return lista;
                 }

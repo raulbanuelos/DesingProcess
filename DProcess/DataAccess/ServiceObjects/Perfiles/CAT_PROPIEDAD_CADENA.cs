@@ -17,8 +17,8 @@ namespace DataAccess.ServiceObjects.Perfiles
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CAT_PROPIEDAD_CADENA()
         {
-            this.TR_PROPIEDAD_CADENA_PERFIL = new HashSet<TR_PROPIEDAD_CADENA_PERFIL>();
             this.TBL_ARQUETIPO_PROPIEDADES_CADENA = new HashSet<TBL_ARQUETIPO_PROPIEDADES_CADENA>();
+            this.TR_PROPIEDAD_CADENA_PERFIL = new HashSet<TR_PROPIEDAD_CADENA_PERFIL>();
         }
     
         public int ID_PROPIEDAD_CADENA { get; set; }
@@ -32,8 +32,8 @@ namespace DataAccess.ServiceObjects.Perfiles
         public Nullable<System.DateTime> FECHA_ACTUALIZACION { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TR_PROPIEDAD_CADENA_PERFIL> TR_PROPIEDAD_CADENA_PERFIL { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_ARQUETIPO_PROPIEDADES_CADENA> TBL_ARQUETIPO_PROPIEDADES_CADENA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TR_PROPIEDAD_CADENA_PERFIL> TR_PROPIEDAD_CADENA_PERFIL { get; set; }
     }
 }

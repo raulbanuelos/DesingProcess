@@ -117,7 +117,16 @@
                     </StackPanel>
                 </TabItem>
                 <Controls:MetroTabItem Header="{x:Static recursos:StringResources.lblHerramientas}">
-                    <Label Content="{x:Static recursos:StringResources.lblHerramientas}"></Label>
+                    <ListView ItemsSource="{Binding OperationSelected.ListaHerramentales}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Codigo}" Margin="20,0,0,0"></TextBlock>
+                                    <TextBlock Text="{Binding DescripcionGeneral}" Width="300" Margin="20,0,0,0"></TextBlock>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                     
                 </Controls:MetroTabItem>
                 <Controls:MetroTabItem Header="{x:Static recursos:StringResources.ttlRawMaterial}">

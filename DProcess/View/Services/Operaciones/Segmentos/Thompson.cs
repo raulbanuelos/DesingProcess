@@ -164,6 +164,8 @@ namespace View.Services.Operaciones.Segmentos
 
             gapMin.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), gapMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), gapMin.Valor);
             gapMax.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), gapMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), gapMax.Valor);
+            gapMin.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+            gapMax.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
 
             double gapMedia = (gapMin.Valor + gapMax.Valor) / 2;
             double gapTolerancia = gapMedia - gapMin.Valor;
@@ -198,6 +200,38 @@ namespace View.Services.Operaciones.Segmentos
 
         public void BuscarHerramentales()
         {
+            Propiedad gapMin = Module.GetPropiedad("s1 Min", elPlano.PerfilPuntas.Propiedades);
+            Propiedad gapMax = Module.GetPropiedad("s1 Max", elPlano.PerfilPuntas.Propiedades);
+
+            double gapMinInch = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), gapMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), gapMin.Valor);
+            double gapMaxInch = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), gapMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), gapMax.Valor);
+            double gapMedida = Math.Round((gapMinInch + gapMaxInch) / 2,3);
+
+            double d1 = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), elPlano.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.D1.Valor);
+            
+            List<Herramental> bushingAndDisco = DataManager.GetBushingAndDiscoThompsonSegmentos(gapMedida,d1);
+
+            Herramental bushing = bushingAndDisco[0];
+            Herramental disco = bushingAndDisco[1];
+
+            ListaHerramentales.Add(bushing);
+            ListaHerramentales.Add(disco);
+
+            double medidaBushing = bushing.Propiedades[0].Valor;
+
+            Herramental clampPlate = DataManager.GetClampPlateThompsonSegmentos(medidaBushing);
+            Herramental backUp = DataManager.GetBackUpRingThompsonSegmentos(medidaBushing);
+            double medidaBackUp = backUp.Propiedades[0].Valor;
+
+            Herramental platoEmpujador = DataManager.GetPlatoEmpujadorThompsonSegmentos(medidaBushing);
+            Herramental tuboEnrollador = DataManager.GetTuboEnrolladorThompsonSegmentos(medidaBackUp);
+
+            ListaHerramentales.Add(clampPlate);
+            ListaHerramentales.Add(backUp);
+            ListaHerramentales.Add(platoEmpujador);
+            ListaHerramentales.Add(tuboEnrollador);
+
+            TextoHerramienta = Module.GetTextoListaHerramentales(ListaHerramentales);
 
         }
 

@@ -8702,12 +8702,14 @@ namespace Model
         /// </summary>
         /// <param name="widthAlambre">Milímetros</param>
         /// <returns></returns>
-        public static DataTable GetEXTERNAL_GR_1P(double widthAlambre)
+        public static DataTable GetEXTERNAL_GR_1P(double widthAlambre, out Herramental ideal)
         {
             SO_COIL ServicioCoil = new SO_COIL();
 
             //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            ideal = new Herramental();
 
             //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
             IList informacionBD = ServicioCoil.GetEXTERNAL_GR_1P(widthAlambre);
@@ -8738,7 +8740,9 @@ namespace Model
                     herramental.Propiedades.Add(propiedadDimB);
 
                     //Mapeamos el valor a DescipcionRuta.
-                    herramental.DescripcionRuta = "EXTERNAL GUIDE ROLLER 1 PIECE DIM " + propiedadDimB.Valor;
+                    herramental.DescripcionRuta = "EXTERNAL GUIDE ROLLER 1 PIECE DIM " + propiedadDimB.Valor + " DET " + propCode.Valor;
+
+                    ideal = herramental;
 
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
@@ -8916,12 +8920,14 @@ namespace Model
         /// </summary>
         /// <param name="widthAlambre">Milímetros</param>
         /// <returns></returns>
-        public static DataTable GetEXTERNAL_GR_3P_1(double widthAlambre)
+        public static DataTable GetEXTERNAL_GR_3P_1(double widthAlambre, out Herramental ideal)
         {
             SO_COIL ServicioCoil = new SO_COIL();
 
             //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            ideal = new Herramental();
 
             //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
             IList informacionBD = ServicioCoil.GetEXTERNAL_GR_3P_1(widthAlambre);
@@ -8965,7 +8971,9 @@ namespace Model
                     herramental.Propiedades.Add(propiedadDimC);
 
                     //Mapeamos el valor a DescipcionRuta.
-                    herramental.DescripcionRuta = "EXTERNAL GUIDE ROLLER 3 PIECES";
+                    herramental.DescripcionRuta = "DET " + propCode.Valor + " " + herramental.DescripcionGeneral;
+
+                    ideal = herramental;
 
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
@@ -9167,12 +9175,14 @@ namespace Model
         /// </summary>
         /// <param name="widthAlambre">Milímetros</param>
         /// <returns></returns>
-        public static DataTable GetEXTERNAL_GR_3P_2(double widthAlambre)
+        public static DataTable GetEXTERNAL_GR_3P_2(double widthAlambre, out Herramental ideal)
         {
             SO_COIL ServicioCoil = new SO_COIL();
 
             //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            ideal = new Herramental();
 
             //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
             IList informacionBD = ServicioCoil.GetEXTERNAL_GR_3P_2(widthAlambre);
@@ -9216,7 +9226,9 @@ namespace Model
                     herramental.Propiedades.Add(propiedadDimC);
 
                     //Mapeamos el valor a DescipcionRuta.
-                    herramental.DescripcionRuta = "EXTERNAL GUIDE ROLLER 3 PIECES  ";
+                    herramental.DescripcionRuta = "DET " + propCode.Valor + " " + herramental.DescripcionGeneral;
+
+                    ideal = herramental;
 
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
@@ -9417,12 +9429,14 @@ namespace Model
         /// </summary>
         /// <param name="widthAlambre">Milímetros</param>
         /// <returns></returns>
-        public static DataTable GetEXTERNAL_GR_3P_3(double widthAlambre)
+        public static DataTable GetEXTERNAL_GR_3P_3(double widthAlambre, out Herramental ideal)
         {
             SO_COIL ServicioCoil = new SO_COIL();
 
             //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            ideal = new Herramental();
 
             //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
             IList informacionBD = ServicioCoil.GetEXTERNAL_GR_3P_3(widthAlambre);
@@ -9466,7 +9480,9 @@ namespace Model
                     herramental.Propiedades.Add(propiedadDimC);
 
                     //Mapeamos el valor a DescipcionRuta.
-                    herramental.DescripcionRuta = "EXTERNAL GUIDE ROLLER 3 PIECES ";
+                    herramental.DescripcionRuta = "DET " + propCode.Valor + " " + herramental.DescripcionGeneral;
+
+                    ideal = herramental;
 
                     //Agregamos el objeto a la lista resultante.
                     ListaResultante.Add(herramental);
@@ -10319,14 +10335,14 @@ namespace Model
         /// </summary>
         /// <param name="TextoBuscar"></param>
         /// <returns></returns>
-        public static DataTable GetALLBarrelLapAnillos_(string TextoBuscar)
+        public static DataTable GetALLBarrelLapAnillos_(string TextoBuscar, out ObservableCollection<Herramental> ListaResultante)
         {
             SO_BarrelLapAnillos_ servicio = new SO_BarrelLapAnillos_();
 
             IList Informacion = servicio.GetAllBarrelLapAnillos_(TextoBuscar);
 
             //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
-            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+            ListaResultante = new ObservableCollection<Herramental>();
 
             if (Informacion != null)
             {
@@ -10427,6 +10443,74 @@ namespace Model
         #endregion
 
         #region FrontRearCollarAnillos
+
+        public static Herramental GetFrontRearCollarAnillos(double d1, string tipoCollar, string tipoCollarDescripcion)
+        {
+            SO_FrontRearCollarAnillos ServiceFrontRear = new SO_FrontRearCollarAnillos();
+
+            Herramental herramental = new Herramental();
+            
+            ObservableCollection<Herramental> listaTodos = new ObservableCollection<Herramental>();
+
+            IList informacionBD = ServiceFrontRear.GetFrontRearCollar(tipoCollar);
+
+            if (informacionBD != null && informacionBD.Count > 0)
+            {
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+                    herramental = new Herramental();
+
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("IdFrontRearCollarAnillos").GetValue(item, null);
+
+                    string medidaNominal = (string)tipo.GetProperty("MEDIDA_NOMINAL").GetValue(item, null);
+                    PropiedadCadena medidaNominalFrac = new PropiedadCadena();
+                    medidaNominalFrac.Nombre = "MedidaNominal";
+                    medidaNominalFrac.Valor = medidaNominal;
+
+                    string medida = (string)tipo.GetProperty("MEDIDA").GetValue(item, null);
+                    PropiedadCadena nMedida = new PropiedadCadena();
+                    nMedida.Nombre = "NMedida";
+                    nMedida.Valor = medida;
+                    
+                    herramental.PropiedadesCadena.Add(medidaNominalFrac);
+                    herramental.PropiedadesCadena.Add(nMedida);
+
+                    listaTodos.Add(herramental);
+                }
+
+                herramental = new Herramental();
+
+                foreach (var herr in listaTodos)
+                {
+                    string medidaFrac = herr.PropiedadesCadena[0].Valor;
+                    double medidaDecimal = Convert.ToDouble(ConvertFracToDecimal(medidaFrac));
+                    string medida = herr.PropiedadesCadena[1].Valor;
+                    double diff = 0;
+                    if (medida == "PLUS")
+                    {
+                        medidaDecimal += 0.030;
+                    }
+
+                    if (medidaDecimal <= d1)
+                    {
+                        diff = d1 - medidaDecimal;
+                        if (diff <= 0.03125)
+                        {
+                            herramental = herr;
+                            herramental.Encontrado = true;
+                            herramental.DescripcionRuta = tipoCollarDescripcion + " " +  medidaFrac + " " + medida + " ANI.";
+                        }
+                    }
+
+
+                }
+            }
+
+            return herramental;
+        }
 
         /// <summary>
         /// Método que obtiene toda la informacion
@@ -10773,6 +10857,62 @@ namespace Model
         #endregion
 
         #region LoadingGuideAnillos
+
+        public static Herramental GetLoadingGuideAnillos(double d1)
+        {
+            SO_LoadingGuideAnillos_ servicioLoading = new SO_LoadingGuideAnillos_();
+
+            IList informacionBD = servicioLoading.GetAllLoadingGuideAnillos(string.Empty);
+
+            Herramental herramental = new Herramental();
+
+            ObservableCollection<Herramental> ListaHerramentales = new ObservableCollection<Herramental>();
+
+
+            if (informacionBD != null && informacionBD.Count > 0)
+            {
+                foreach (var item in informacionBD)
+                {
+                    System.Type tipo = item.GetType();
+
+                    herramental = new Herramental();
+
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("IdLoadingGuideAnillos").GetValue(item, null);
+
+                    PropiedadCadena MedidaNominal = new PropiedadCadena();
+                    MedidaNominal.DescripcionCorta = "Medida Nominal";
+                    MedidaNominal.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(MedidaNominal);
+
+                    Propiedad medidaDecimal = new Propiedad();
+                    medidaDecimal.DescripcionCorta = "Medida";
+                    medidaDecimal.Valor = Convert.ToDouble(ConvertFracToDecimal(MedidaNominal.Valor));
+                    herramental.Propiedades.Add(medidaDecimal);
+                    ListaHerramentales.Add(herramental);
+
+                }
+
+                herramental = new Herramental();
+
+                foreach (var elHerramental in ListaHerramentales)
+                {
+                    double medidaDecimal = elHerramental.Propiedades[0].Valor;
+                    if ((d1 - medidaDecimal) <= 0.0625)
+                    {
+                        herramental = elHerramental;
+                        herramental.Encontrado = true;
+                        herramental.DescripcionRuta = "LOADING GUIDE " + herramental.PropiedadesCadena[0].Valor;
+                    }
+                }
+            }
+
+            if (!herramental.Encontrado)
+                herramental.DescripcionRuta = "LOADING GUIDE " + d1;
+
+            return herramental;
+        }
 
         /// <summary>
         /// Método que obtiene todos los registros para visualizarlos
@@ -11152,6 +11292,8 @@ namespace Model
                 herramental.DescripcionRuta = "RODILLO INF.  \n" + "ENGRANE INF.  ";
                 herramental.Encontrado = false;
                 herramental.DescripcionMedidasBusqueda = "a1: " + a1 + " between WIRE_WIDTH_MIN and WIRE_WIDTH_MIN AND \nd1: " + d1 + " between DIA_MIN and DIA_MAX";
+                herramental.Codigo = "CODIFICAR";
+                herramental.DescripcionGeneral = "RODILLO INF AND ENGRANE INF";
             }
 
             return herramental;
@@ -11185,6 +11327,8 @@ namespace Model
                 herramental.DescripcionRuta = "RODILLO SUP.  \n" + "ENGRANE SUP.  ";
                 herramental.Encontrado = false;
                 herramental.DescripcionMedidasBusqueda = "a1: " + a1 + " between WIRE_WIDTH_MIN and WIRE_WIDTH_MIN AND \nd1: " + d1 + " between DIA_MIN and DIA_MAX";
+                herramental.Codigo = "CODIFICAR";
+                herramental.DescripcionGeneral = "RODILLO SUP AND ENGRANE SUP";
             }
 
             return herramental;
@@ -11225,6 +11369,8 @@ namespace Model
                 herramental.DescripcionRuta = "RODILLO FINAL      ";
                 herramental.Encontrado = false;
                 herramental.DescripcionMedidasBusqueda = "A: " + medidaA + "\nB:" + medidaB;
+                herramental.Codigo = "CODIFICAR";
+                herramental.DescripcionGeneral = "RODILLO FINAL";
             }
 
             return herramental;
@@ -11259,6 +11405,8 @@ namespace Model
                 herramental.Encontrado = false;
                 herramental.DescripcionMedidasBusqueda = "WIRE_WIDTH Between " + (h1 - criterio.CenterWaferH1Min) + " AND " + (h1 + criterio.CenterWaferH1Max) + "\n " +
                     "DIM_A_MIN AND DIM_A_MAX BETWEEN " + d1;
+                herramental.Codigo = "CODIFICAR";
+                herramental.DescripcionGeneral = "LAINA CENTRAL";
             }
 
             return herramental;
@@ -11713,6 +11861,8 @@ namespace Model
                 herramental.DescripcionRuta = "BUSHING " + d1;
                 herramental.Encontrado = false;
                 herramental.DescripcionMedidasBusqueda = "DIM D = " + d1;
+                herramental.Codigo = "CODIFICAR";
+                herramental.DescripcionGeneral = "BUSHING DIM D = " + d1;
             }
 
             return herramental;
@@ -11746,6 +11896,8 @@ namespace Model
                 herramental.DescripcionRuta = "PUSHER " + d1;
                 herramental.Encontrado = false;
                 herramental.DescripcionMedidasBusqueda = "DIM F = " + d1;
+                herramental.Codigo = "CODIFICAR";
+                herramental.DescripcionGeneral = "PUSHER DIM F = " + d1;
             }
 
             return herramental;
@@ -12048,7 +12200,12 @@ namespace Model
             }
 
             if (!herramental.Encontrado)
+            {
                 herramental.DescripcionRuta = "MANGA " + (d1 + 0.010);
+                herramental.Codigo = "CODIFICAR";
+                herramental.DescripcionGeneral = "MANGA " + (d1 + 0.010);
+            }
+                
 
             return herramental;
         }
@@ -12069,7 +12226,7 @@ namespace Model
             IList informacionDB = ServiceLapeado.GetInfoRubberLapeado(codigo);
 
             // Si la lista es diferente a nulo
-            if (informacionDB != null)
+            if (informacionDB != null && informacionDB.Count >0)
             {
                 // Iteramos la lista
                 foreach (var item in informacionDB)
@@ -12095,7 +12252,7 @@ namespace Model
                     herramental.PropiedadesCadena.Add(propiedadplano);
                 }
             }
-
+            
             // Retornamos el objeto
             return herramental;
         }
@@ -12140,10 +12297,57 @@ namespace Model
 
             return ServiceLapeado.DeleteRubberLapeado(Id_Rubber_Lapeado_Segmentos);
         }
+
+        public static Herramental GetRubberLapeadoSegmentos(double d1, double numero)
+        {
+            return new Herramental();
+        }
         
         #endregion
 
         #region THOMPSON
+
+        /// <summary>
+        /// Método que obtiene el clamp plate ideal (COLLAR IZQ) de la operación Thompson Segmentos.
+        /// </summary>
+        /// <param name="medidaBushing"></param>
+        /// <returns></returns>
+        public static Herramental GetClampPlateThompsonSegmentos(double medidaBushing)
+        {
+            CriteriosSegmentos criterios = GetCriteriosSegmentos();
+            double medida = medidaBushing - 0.033;
+            double medidaMin = medidaBushing - criterios.ThompClampMin;
+            double medidaMax = medidaBushing + criterios.ThompClampMax;
+
+            Herramental clampPlate = new Herramental();
+
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            IList informacionBD = ServiceThompson.GetClampPlate(medidaMin, medidaMax);
+
+            if (informacionBD != null && informacionBD.Count > 0)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    clampPlate = ReadInformacionHerramentalEncontrado(informacionBD);
+                    clampPlate.Encontrado = true;
+                    double dimB = (double)tipo.GetProperty("DIM_B").GetValue(item, null);
+                    clampPlate.DescripcionRuta = "COLL. IZQ.                " + dimB;
+                    clampPlate.Encontrado = true;
+                }
+            }
+            else
+            {
+                //Si no se encontro
+                clampPlate.DescripcionRuta = "COLL. IZQ.                " + medida;
+                clampPlate.Encontrado = false;
+                clampPlate.DescripcionMedidasBusqueda = "DIM B = " + medida;
+            }
+
+            return clampPlate;
+        }
 
         /// <summary>
         /// Llamar método para traernos los datos de un registro ClampPlate con su código
@@ -12231,6 +12435,51 @@ namespace Model
             SO_Thompson ServiceThompson = new SO_Thompson();
 
             return ServiceThompson.DeleteClampPlate(Id_Clamp_Plate);
+        }
+
+        /// <summary>
+        /// Método que obtiene el back up ring (COLLAR DER.) de la operación Thompson Segmentos.
+        /// </summary>
+        /// <param name="medidaBushing"></param>
+        /// <returns></returns>
+        public static Herramental GetBackUpRingThompsonSegmentos(double medidaBushing)
+        {
+            CriteriosSegmentos criterios = GetCriteriosSegmentos();
+            double medida = medidaBushing - 0.113;
+            double medidaMin = medidaBushing - criterios.ThompBackUpMin;
+            double medidaMax = medidaBushing + criterios.ThompBackUpMax;
+
+            Herramental backUpRing = new Herramental();
+
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            IList informacionBD = ServiceThompson.GetBackUpRing(medidaMin, medidaMax);
+
+            if (informacionBD != null && informacionBD.Count > 0)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    backUpRing = ReadInformacionHerramentalEncontrado(informacionBD);
+                    backUpRing.Encontrado = true;
+                    double dimA = (double)tipo.GetProperty("DIM_A").GetValue(item, null);
+                    backUpRing.DescripcionRuta = "COLL. DER.              " + dimA;
+                    backUpRing.Encontrado = true;
+                    backUpRing.Propiedades.Add(new Propiedad { Nombre = "DIM_A", Valor = dimA });
+
+                }
+            }
+            else
+            {
+                //Si no se encontro
+                backUpRing.DescripcionRuta = "COLL. DER.              " + medida;
+                backUpRing.Encontrado = false;
+                backUpRing.DescripcionMedidasBusqueda = "DIM A = " + medida;
+                backUpRing.Propiedades.Add(new Propiedad { Nombre = "DIM_A", Valor = medida });
+            }
+
+            return backUpRing;
         }
 
         /// <summary>
@@ -12322,6 +12571,48 @@ namespace Model
         }
 
         /// <summary>
+        /// Método que obtiene el back up ring (COLLAR DER.) de la operación Thompson Segmentos.
+        /// </summary>
+        /// <param name="medidaBushing"></param>
+        /// <returns></returns>
+        public static Herramental GetPlatoEmpujadorThompsonSegmentos(double medidaBushing)
+        {
+            CriteriosSegmentos criterios = GetCriteriosSegmentos();
+            double medida = medidaBushing - 0.113;
+            double medidaMin = medidaBushing - criterios.ThompPlatoMin;
+            double medidaMax = medidaBushing + criterios.ThompPlatoMax;
+
+            Herramental platoEmpujador = new Herramental();
+
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            IList informacionBD = ServiceThompson.GetPlatoEmpujador(medidaMin, medidaMax);
+
+            if (informacionBD != null && informacionBD.Count > 0)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    platoEmpujador = ReadInformacionHerramentalEncontrado(informacionBD);
+                    platoEmpujador.Encontrado = true;
+                    double dimA = (double)tipo.GetProperty("DIM_A").GetValue(item, null);
+                    platoEmpujador.DescripcionRuta = "PLATO EMPJ.           " + dimA;
+                    platoEmpujador.Encontrado = true;
+                }
+            }
+            else
+            {
+                //Si no se encontro
+                platoEmpujador.DescripcionRuta = "PLATO EMPJ.           " + medida;
+                platoEmpujador.Encontrado = false;
+                platoEmpujador.DescripcionMedidasBusqueda = "DIM A = " + medida;
+            }
+
+            return platoEmpujador;
+        }
+
+        /// <summary>
         /// Llamar método para traernos los datos de un registro PlatoEmpujador con su código
         /// </summary>
         /// <param name="codigo"></param>
@@ -12407,6 +12698,46 @@ namespace Model
             SO_Thompson ServiceThompson = new SO_Thompson();
 
             return ServiceThompson.DeletePlatoEmpujador(Id_Plato_Empujador);
+        }
+
+        /// <summary>
+        /// Método que obtiene el tubo enrollador ideal de la operacion Thompson Segmentos.
+        /// </summary>
+        /// <param name="medidaBackUp"></param>
+        /// <returns></returns>
+        public static Herramental GetTuboEnrolladorThompsonSegmentos(double medidaBackUp)
+        {
+            CriteriosSegmentos criterios = GetCriteriosSegmentos();
+            double medida = medidaBackUp;
+
+            Herramental tuboEnrollador = new Herramental();
+
+            SO_Thompson ServiceThompson = new SO_Thompson();
+
+            IList informacionBD = ServiceThompson.GetTuboEnrollador(medida);
+
+            if (informacionBD != null && informacionBD.Count > 0)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    tuboEnrollador = ReadInformacionHerramentalEncontrado(informacionBD);
+                    tuboEnrollador.Encontrado = true;
+                    double dimA = (double)tipo.GetProperty("DIM_A").GetValue(item, null);
+                    tuboEnrollador.DescripcionRuta = "TUBO ENROLL        " + dimA;
+                    tuboEnrollador.Encontrado = true;
+                }
+            }
+            else
+            {
+                //Si no se encontro
+                tuboEnrollador.DescripcionRuta = "TUBO ENROLL        " + medida;
+                tuboEnrollador.Encontrado = false;
+                tuboEnrollador.DescripcionMedidasBusqueda = "DIM A = " + medida;
+            }
+
+            return tuboEnrollador;
         }
 
         /// <summary>
@@ -12578,6 +12909,104 @@ namespace Model
             SO_Thompson ServiceThompson = new SO_Thompson();
 
             return ServiceThompson.DeleteDiscoThompson(Id_Disco);
+        }
+
+        public static List<Herramental> GetBushingAndDiscoThompsonSegmentos(double mediaGap, double d1)
+        {
+            SO_Thompson ServiceThompson = new SO_Thompson();
+            List<Herramental> listaBushingDisco = new List<Herramental>();
+            double minimoDisco, maximoDisco;
+            minimoDisco = ServiceThompson.GetMinDisco();
+            maximoDisco = ServiceThompson.GetMaxDisco();
+
+            double bushingMin, bushingMax;
+
+            bushingMin = Math.Round(d1 + (minimoDisco - mediaGap) / Math.PI, 4);
+            bushingMax = Math.Round(d1 + (maximoDisco - mediaGap) / Math.PI, 4);
+            List<Herramental> listaBushing = new List<Herramental>();
+
+            double mediaGapProceso = mediaGap - 0.006;
+
+            IList informacionBD = ServiceThompson.GetBushing(bushingMin, bushingMax);
+
+            if (informacionBD != null && informacionBD.Count > 0)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+                    Herramental bushing = new Herramental();
+
+                    bushing.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    bushing.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    //bushing.idHerramental = (int)tipo.GetProperty("ID_BUSHING_THOMPSON").GetValue(item, null);
+                    
+                    // Declaramos propiedades
+                    Propiedad propiedaddima = new Propiedad();
+
+                    // Asignamos valores a las propiedades
+                    propiedaddima.Valor = (double)tipo.GetProperty("DIM_A").GetValue(item, null);
+
+                    bushing.DescripcionRuta = "DIA. DEL BUJE          " + propiedaddima.Valor;
+
+                    // Agregamos las propiedades
+                    bushing.Propiedades.Add(propiedaddima);
+
+                    listaBushing.Add(bushing);
+
+                }
+            }
+
+            foreach (var bushing in listaBushing)
+            {
+                double bushingSeleccionado = bushing.Propiedades[0].Valor;
+                double discoCalculo = Math.Round(((bushingSeleccionado - d1) * Math.PI) + mediaGapProceso, 3);
+                Herramental disco = new Herramental();
+
+                disco = GetDisco(discoCalculo);
+
+                if (disco.Encontrado)
+                {
+                    listaBushingDisco.Add(bushing);
+                    listaBushingDisco.Add(disco);
+                    return listaBushingDisco;
+                }
+            }
+
+            return listaBushingDisco;
+
+        }
+
+        private static Herramental GetDisco(double calculoDisco)
+        {
+            //TODO
+            SO_Thompson ServiceThompson = new SO_Thompson();
+            CriteriosSegmentos criterio = GetCriteriosSegmentos();
+
+            double medidaMin, medidaMax;
+            medidaMin = calculoDisco - criterio.DiscoMin;
+            medidaMax = calculoDisco + criterio.DiscoMax;
+
+            Herramental disco = new Herramental();
+
+            IList informacionBD = ServiceThompson.GetDisco(medidaMin, medidaMax, "CUT OFF THOMPSON");
+
+            if (informacionBD != null && informacionBD.Count > 0)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    disco = ReadInformacionHerramentalEncontrado(informacionBD);
+                    disco.Encontrado = true;
+                    double dimA = (double)tipo.GetProperty("MEDIDA").GetValue(item, null);
+                    disco.DescripcionRuta = "ESP. DE DISCO        " + dimA;
+                    disco.Encontrado = true;
+
+                }
+            }
+
+            return disco;
+
         }
 
         /// <summary>
@@ -15884,6 +16313,98 @@ namespace Model
             return ubicaciones;
         }
 
+        #endregion
+
+        #region Utilities
+        /// <summary>
+        /// Método que indica si una cadena es un número.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static bool IsNumeric(string s)
+        {
+            float output;
+            return float.TryParse(s, out output);
+        }
+
+        public static decimal ConvertFracToDecimal(string Fraccion)
+        {
+            decimal NumeroDecimal;
+            string Entero = "";
+            string Numerador = "";
+            string Denominador = "";
+            int Contador = 0;
+            bool Band = true;
+            string Aux;
+            bool ParteDecimal = false;
+
+            if (IsNumeric(Fraccion))
+            {
+                NumeroDecimal = Convert.ToDecimal(Fraccion);
+            }
+            else
+            {
+                try
+                {
+                    while (Band == true)
+                    {
+                        Aux = Fraccion.Substring(Contador, 1);
+                        if (Aux == " " || Aux == "/")
+                        {
+                            if (Aux == "/")
+                            {
+                                ParteDecimal = true;
+                            }
+                            Band = false;
+                        }
+                        else
+                        {
+                            Entero = Entero + Aux;
+                        }
+                        Contador++;
+                    }
+
+                    Band = true;
+
+                    if (ParteDecimal == true)
+                    {
+                        Numerador = Entero;
+                        Entero = "0";
+                    }
+                    else
+                    {
+                        while (Band == true)
+                        {
+                            Aux = Fraccion.Substring(Contador, 1);
+                            if (Aux == "/")
+                            {
+                                Band = false;
+                            }
+                            else
+                            {
+                                Numerador = Numerador + Aux;
+                            }
+                            Contador++;
+                        }
+                    }
+
+                    while (Contador != Fraccion.Length)
+                    {
+                        Aux = Fraccion.Substring(Contador, 1);
+                        Denominador = Denominador + Aux;
+                        Contador++;
+                    }
+
+                    NumeroDecimal = Convert.ToDecimal((Convert.ToDecimal(Entero) * 1) + (Convert.ToDecimal(Numerador) / Convert.ToDecimal(Denominador)));
+
+                }
+                catch (Exception er)
+                {
+                    return 0;
+                }
+            }
+            return NumeroDecimal;
+        } 
         #endregion
     }
 }

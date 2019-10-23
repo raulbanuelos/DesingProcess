@@ -104,8 +104,10 @@ namespace View.Services.ViewModel
             {
                 ListaOptimos = new DataTable();
                 ListaMejores = new DataTable();
+                Herramental aux = new Herramental();
+
                 //Obtiene los herramental optimos de acuerdo al width
-                ListaOptimos = DataManager.GetEXTERNAL_GR_3P_1(Width);
+                ListaOptimos = DataManager.GetEXTERNAL_GR_3P_1(Width, out aux);
                 //OBtiene el mejor herramental
                 ListaMejores = DataManager.SelectBestCoil(ListaOptimos);
 
