@@ -290,7 +290,7 @@ namespace View.Services
                 foreach (var herrmental in operacion.ListaHerramentales)
                 {
                     //si existe una lista de herramentales se imprimen los titulos
-                    if (herrmental != null)
+                    if (herrmental != null && herrmental.Encontrado)
                     {
                         //Imprimimos el titulo
                         string titleTooling = "Tools for operation " + operacion.NoOperacion;
