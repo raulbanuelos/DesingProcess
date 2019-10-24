@@ -48,6 +48,44 @@ namespace DataAccess.ServiceObjects.Usuario
         }
 
         /// <summary>
+        /// Método que obtiene la lista de las lecciones aprendidas filtradas por texto y fecha.
+        /// </summary>
+        /// <param name="TextoBuscar"></param>
+        /// <param name="fechaInicial"></param>
+        /// <param name="fechaFinal"></param>
+        /// <returns></returns>
+        public IList GetLeccionesAprendidas(string TextoBuscar, DateTime fechaInicial, DateTime fechaFinal)
+        {
+            Encriptacion encript = new Encriptacion();
+            TextoBuscar = string.IsNullOrEmpty(TextoBuscar) ? string.Empty : TextoBuscar;
+            string user = encript.encript(TextoBuscar);
+            try
+            {
+                //declaramos la conexion a la BD
+                using (EntitiesUsuario conexion = new EntitiesUsuario())
+                {
+                    //Obtenemos todas las lecciones aprendidas registradas por un usuario
+                    var LeccionesAprendidas = (from p in conexion.TBL_LECCIONES_APRENDIDAS
+                                               where (p.ID_USUARIO.Contains(user) ||
+                                               p.DESCRIPCION_PROBLEMA.Contains(TextoBuscar) ||
+                                               p.COMPONENTE.Contains(TextoBuscar) ||
+                                               p.REPORTADO_POR.Contains(TextoBuscar)) && 
+                                               p.FECHA_ACTUALIZACION >= fechaInicial &&
+                                               p.FECHA_ACTUALIZACION <= fechaFinal
+                                               orderby p.FECHA_ACTUALIZACION descending
+                                               select p).ToList();
+                    //retornamos la lista
+                    return LeccionesAprendidas;
+                }
+            }
+            catch (Exception)
+            {
+                //si existe error retornamos nulo
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Método que obtiene todos los datos de los componentes similares
         /// </summary>
         /// <param name="NombreComponente"></param>
@@ -295,8 +333,3 @@ namespace DataAccess.ServiceObjects.Usuario
         #endregion
     }
 }
-
-
-
-
-//SP_LA_GET_COMPONENTES_SIMILARES

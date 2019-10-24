@@ -82,7 +82,21 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </TextBox>
+
+
+                        <StackPanel Orientation="Horizontal" Margin="40,5,5,5">
+                            <DatePicker materialDesign:HintAssist.Hint="Fecha Inicial" Width="150" Height="40" Margin="50,0,0,0" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding FechaInicial}" FontSize="20"></DatePicker>
+                            <DatePicker materialDesign:HintAssist.Hint="Fecha Final" Width="150" Margin="50,0,0,0" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding FechaFinal}" FontSize="20"></DatePicker>
+                            <Button Content="Buscar por fecha" Command="{Binding BuscarLeccionByFecha}" Width="150" Cursor="Hand" Margin="15,0,0,0"></Button>
+                        </StackPanel>
+
                     </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Total de registros: " FontWeight="Bold" Margin="10"></TextBlock>
+                        <TextBlock Text="{Binding TotalRegistros,StringFormat='{}{0:0,0}'}" FontWeight="Bold" Margin="1,10"/>
+                    </StackPanel>
+                    
                 </StackPanel>
                 <DataGrid x:Name="dataGrid" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" HeadersVisibility="Column" FontSize="18"  Grid.Column="1" ItemsSource="{Binding Lista}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedLeccion,Mode=TwoWay}">
                     <DataGrid.Columns>

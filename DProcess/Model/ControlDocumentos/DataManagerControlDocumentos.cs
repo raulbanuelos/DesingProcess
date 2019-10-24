@@ -3549,6 +3549,58 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
+        /// Método que obtiene las lecciones aprendidas
+        /// y las filtra por fecha.
+        /// </summary>
+        /// <param name="TextoBuscar"></param>
+        /// <param name="fechaInicial"></param>
+        /// <param name="fechaFinal"></param>
+        /// <returns></returns>
+        public static ObservableCollection<LeccionesAprendidas> GetLec(string TextoBuscar, DateTime fechaInicial, DateTime fechaFinal)
+        {
+            SO_Lecciones ServiceLecciones = new SO_Lecciones();
+
+            ObservableCollection<LeccionesAprendidas> ListaLecciones = new ObservableCollection<LeccionesAprendidas>();
+
+            IList ObjLeccion = ServiceLecciones.GetLeccionesAprendidas(TextoBuscar, fechaInicial, fechaFinal);
+            List<DO_UsuarioNombre> listausuarios = new List<DO_UsuarioNombre>();
+
+            if (ObjLeccion != null)
+            {
+                foreach (var item in ObjLeccion)
+                {
+                    Encriptacion encript = new Encriptacion();
+
+                    System.Type tipo = item.GetType();
+
+                    LeccionesAprendidas ObjLec = new LeccionesAprendidas();
+
+                    ObjLec.ID_LECCIONES_APRENDIDAS = (int)tipo.GetProperty("ID_LECCIONES_APRENDIDAS").GetValue(item, null);
+                    ObjLec.ID_USUARIO = encript.desencript((string)tipo.GetProperty("ID_USUARIO").GetValue(item, null));
+                    ObjLec.COMPONENTE = (string)tipo.GetProperty("COMPONENTE").GetValue(item, null);
+                    ObjLec.DESCRIPCION_PROBLEMA = (string)tipo.GetProperty("DESCRIPCION_PROBLEMA").GetValue(item, null);
+                    ObjLec.FECHA_ULTIMO_CAMBIO = (DateTime)tipo.GetProperty("FECHA_ULTIMO_CAMBIO").GetValue(item, null);
+                    ObjLec.FECHA_ACTUALIZACION = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+                    ObjLec.REPORTADO_POR = (string)tipo.GetProperty("REPORTADO_POR").GetValue(item, null);
+                    ObjLec.SOLICITUD_DE_TRABAJO = (string)tipo.GetProperty("SOLICITUD_DE_TRABAJO_INGENIERIA").GetValue(item, null);
+                    if (VerificarNombre(listausuarios, ObjLec.ID_USUARIO))
+                    {
+                        DO_UsuarioNombre persona = listausuarios.Where(x => x.ID_USUARIO == ObjLec.ID_USUARIO).FirstOrDefault();
+                        ObjLec.NombreCompleto = persona.NOMBRE_COMPLETO;
+                    }
+                    else
+                    {
+                        ObjLec.NombreCompleto = GetNombreUsuario(encript.encript(ObjLec.ID_USUARIO));
+                        listausuarios.Add(new DO_UsuarioNombre { ID_USUARIO = ObjLec.ID_USUARIO, NOMBRE_COMPLETO = ObjLec.NombreCompleto });
+                    }
+
+                    ListaLecciones.Add(ObjLec);
+                }
+            }
+            return ListaLecciones;
+        }
+
+        /// <summary>
         /// Método que obtiene una lista de todos los componentes similares
         /// </summary>
         /// <param name="NombreComponente"></param>

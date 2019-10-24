@@ -108,6 +108,29 @@ namespace View.Services.ViewModel
             }
         }
 
+        private DateTime _FechaInicial;
+        public DateTime FechaInicial
+        {
+            get { return _FechaInicial; }
+            set { _FechaInicial = value; NotifyChange("FechaInicial"); }
+        }
+
+        private DateTime _FechaFinal;
+        public DateTime FechaFinal
+        {
+            get { return _FechaFinal; }
+            set { _FechaFinal = value; NotifyChange("FechaFinal"); }
+        }
+
+        private int _TotalRegistros;
+
+        public int TotalRegistros
+        {
+            get { return _TotalRegistros; }
+            set { _TotalRegistros = value; NotifyChange("TotalRegistros"); }
+        }
+
+
         #endregion
 
         #region Constructor
@@ -142,6 +165,14 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand BuscarLeccionByFecha
+        {
+            get
+            {
+                return new RelayCommand(param => buscarLeccionByFecha((string)param));
+            }
+        }
+
         public ICommand InsertNuevaLeccion
         {
             get
@@ -158,6 +189,9 @@ namespace View.Services.ViewModel
         private void Constructor()
         {
             Lista = DataManagerControlDocumentos.GetLec("");
+            TotalRegistros = Lista.Count;
+            FechaFinal = DateTime.Now;
+            FechaInicial = DateTime.Now;
             CreateMenuItems();
         }
 
@@ -188,6 +222,20 @@ namespace View.Services.ViewModel
         private void buscarleccion(string TextoBusqueda)
         {
             Lista = DataManagerControlDocumentos.GetLec(TextoBusqueda);
+            TotalRegistros = Lista.Count;
+        }
+
+        /// <summary>
+        /// Método para realizar una consulta por fecha y texto
+        /// </summary>
+        /// <param name="TextoBusqueda"></param>
+        private void buscarLeccionByFecha(string TextoBusqueda)
+        {
+            FechaInicial = new DateTime(FechaInicial.Year, FechaInicial.Month, FechaInicial.Day, 0, 0, 0);
+            FechaFinal = new DateTime(FechaFinal.Year, FechaFinal.Month, FechaFinal.Day, 23, 59, 59);
+
+            Lista = DataManagerControlDocumentos.GetLec(TextoBusqueda, FechaInicial, FechaFinal);
+            TotalRegistros = Lista.Count;
         }
 
         /// <summary>
