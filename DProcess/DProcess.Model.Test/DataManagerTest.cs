@@ -294,6 +294,24 @@ namespace DProcess.Model.Test
         //}
 
         //[TestMethod]
+        //public void insertarClosingbandAnillos()
+        //{
+        //    DataManager.Insert_Closingbandanillos("300515", "3 1/12");
+        //}
+
+        //[TestMethod]
+        //public void actualizarClosingbandanillos()
+        //{
+        //    DataManager.Update_Closingbandanillos(106, "2 3/4");
+        //}
+
+        //[TestMethod]
+        //public void eliminarClosingbandanillos()
+        //{
+        //    DataManager.Delete_Closingbandanillos(106);
+        //}
+
+        //[TestMethod]
         //public void SendEmailWithImage()
         //{
         //    ServiceEmail serviceEmail = new ServiceEmail();

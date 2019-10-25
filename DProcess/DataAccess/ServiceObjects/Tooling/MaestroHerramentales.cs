@@ -74,6 +74,8 @@ namespace DataAccess.ServiceObjects.Tooling
             this.TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS = new HashSet<TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS>();
             this.TBL_DISCOS_THOMPSON_SEGMENTOS = new HashSet<TBL_DISCOS_THOMPSON_SEGMENTOS>();
             this.TBL_BUSHING_THOMPSON_SEGMENTOS = new HashSet<TBL_BUSHING_THOMPSON_SEGMENTOS>();
+            this.ClosingBandAnillos_ = new HashSet<ClosingBandAnillos_>();
+            this.TBL_MANGA_PVD_WASH = new HashSet<TBL_MANGA_PVD_WASH>();
         }
     
         public string Codigo { get; set; }
@@ -203,5 +205,9 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual ICollection<TBL_DISCOS_THOMPSON_SEGMENTOS> TBL_DISCOS_THOMPSON_SEGMENTOS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_BUSHING_THOMPSON_SEGMENTOS> TBL_BUSHING_THOMPSON_SEGMENTOS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClosingBandAnillos_> ClosingBandAnillos_ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_MANGA_PVD_WASH> TBL_MANGA_PVD_WASH { get; set; }
     }
 }

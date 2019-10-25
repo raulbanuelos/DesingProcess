@@ -23,6 +23,7 @@ using Spring.Objects.Factory.Xml;
 using System.Linq;
 using System.Data.Entity;
 using DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos;
+using DataAccess.ServiceObjects.Tooling.Operaciones.Rectificados_Finos;
 
 namespace Model
 {
@@ -13128,6 +13129,93 @@ namespace Model
             return noMesa;
         }
         #endregion
+
+        #endregion
+
+        #region Rectificados Finos
+
+        /// <summary>
+        /// Llamar método para traernos los datos de un registro ClosingBandAnillo con su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfo_ClosingBandAnillos(string codigo)
+        {
+            Herramental herramental = new Herramental();
+
+            // Inicializamos los servicios
+            SO_ClosingBandAnillos ServiceAnillos = new SO_ClosingBandAnillos();
+
+            // Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima
+            IList informacionDB = ServiceAnillos.GetInfoClosingBandAnillos(codigo);
+
+            // Si la lista es diferente de nulo
+            if (informacionDB != null)
+            {
+                // Iteramos la lista
+                foreach (var item in informacionDB)
+                {
+                    // Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    // Mapeamos los elementos necesarios en cada una de las propiedades del objeto
+                    herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_ClosingBandAnillo").GetValue(item, null);
+
+                    // Declaramos las propiedades
+                    PropiedadCadena propiedadmedidanominal = new PropiedadCadena();
+
+                    // Asignamos valores a las propiedades
+                    propiedadmedidanominal.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
+
+                    // Agregamos las propiedades
+                    herramental.PropiedadesCadena.Add(propiedadmedidanominal);
+                }
+            }
+
+            // Retornamos el objeto
+            return herramental;
+        }
+
+        /// <summary>
+        /// Llamar método para insertar un registro en la tabla ClosingBandAnillos_
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="MedidaNominal"></param>
+        /// <returns></returns>
+        public static int Insert_Closingbandanillos(string Codigo, string MedidaNominal)
+        {
+            SO_ClosingBandAnillos ServiceClosingBandAnillos = new SO_ClosingBandAnillos();
+
+            return ServiceClosingBandAnillos.InsertClosingBandAnillo(Codigo, MedidaNominal);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar un registro de la tabla ClosingBandAnillos_
+        /// </summary>
+        /// <param name="Id_ClosingBandAnillo"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="MedidaNominal"></param>
+        /// <returns></returns>
+        public static int Update_Closingbandanillos(int Id_ClosingBandAnillo, string MedidaNominal)
+        {
+            SO_ClosingBandAnillos ServiceClosingBandAnillos = new SO_ClosingBandAnillos();
+
+            return ServiceClosingBandAnillos.UpdateClosingBandAnillo(Id_ClosingBandAnillo, MedidaNominal);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar un registro de la tabla ClosingBandAnillos_
+        /// </summary>
+        /// <param name="Id_ClosingBandAnillo"></param>
+        /// <returns></returns>
+        public static int Delete_Closingbandanillos(int Id_ClosingBandAnillo)
+        {
+            SO_ClosingBandAnillos ServiceClosingBandAnillos = new SO_ClosingBandAnillos();
+
+            return ServiceClosingBandAnillos.DeleteClosingBandAnillo(Id_ClosingBandAnillo);
+        }
 
         #endregion
 

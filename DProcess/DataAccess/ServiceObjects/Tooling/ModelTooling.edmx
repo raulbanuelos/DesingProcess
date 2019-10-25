@@ -106,6 +106,14 @@
           <Property Name="TablaDetalles" Type="varchar" MaxLength="50" />
           <Property Name="FechaModificacion" Type="datetime" />
         </EntityType>
+        <EntityType Name="ClosingBandAnillos_">
+          <Key>
+            <PropertyRef Name="ID_ClosingBandAnillo" />
+          </Key>
+          <Property Name="ID_ClosingBandAnillo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="MedidaNominal" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="ClosingBandLapeado">
           <Key>
             <PropertyRef Name="IdClosingBandLapeado" />
@@ -760,6 +768,15 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <Property Name="A" Type="float" Nullable="false" />
           <Property Name="FACTOR" Type="float" />
         </EntityType>
+        <EntityType Name="TBL_MANGA_PVD_WASH">
+          <Key>
+            <PropertyRef Name="ID_MANGA_PVD_WASH" />
+          </Key>
+          <Property Name="ID_MANGA_PVD_WASH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGO" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="DIM_A" Type="float" Nullable="false" />
+          <Property Name="DIM_D" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS">
           <Key>
             <PropertyRef Name="ID_PLATO_EMPUJADOR" />
@@ -984,6 +1001,18 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             </Principal>
             <Dependent Role="MaestroHerramentales">
               <PropertyRef Name="idClasificacionHerramental" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CLOSINGBANDANILLOS_CODIGO">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1" />
+          <End Role="ClosingBandAnillos_" Type="Self.ClosingBandAnillos_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="ClosingBandAnillos_">
+              <PropertyRef Name="Codigo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1284,6 +1313,18 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             </Principal>
             <Dependent Role="GuillotinaSIM_">
               <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MANGA_PVD_WASH_CODIGO">
+          <End Role="MaestroHerramentales" Type="Self.MaestroHerramentales" Multiplicity="1" />
+          <End Role="TBL_MANGA_PVD_WASH" Type="Self.TBL_MANGA_PVD_WASH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_MANGA_PVD_WASH">
+              <PropertyRef Name="CODIGO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1596,6 +1637,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <EntitySet Name="CAT_MESA_PVD_WASH" EntityType="Self.CAT_MESA_PVD_WASH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChuckSplitter" EntityType="Self.ChuckSplitter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClasificacionHerramental" EntityType="Self.ClasificacionHerramental" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClosingBandAnillos_" EntityType="Self.ClosingBandAnillos_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClosingBandLapeado" EntityType="Self.ClosingBandLapeado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClosingSleeveBK" EntityType="Self.ClosingSleeveBK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CollarBK" EntityType="Self.CollarBK" Schema="dbo" store:Type="Tables" />
@@ -1653,6 +1695,7 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <EntitySet Name="TBL_MANGA_LAPEADO_SEGMENTOS" EntityType="Self.TBL_MANGA_LAPEADO_SEGMENTOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_MANGA_PVD_ACERO_CARBON" EntityType="Self.TBL_MANGA_PVD_ACERO_CARBON" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_MANGA_PVD_ACERO_INOXIDABLE" EntityType="Self.TBL_MANGA_PVD_ACERO_INOXIDABLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_MANGA_PVD_WASH" EntityType="Self.TBL_MANGA_PVD_WASH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS" EntityType="Self.TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_RUBBER_LAPEADO_SEGMENTOS" EntityType="Self.TBL_RUBBER_LAPEADO_SEGMENTOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_SHIM_OF_THE_CUT_SYSTEM" EntityType="Self.TBL_SHIM_OF_THE_CUT_SYSTEM" Schema="dbo" store:Type="Tables" />
@@ -1717,6 +1760,10 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <AssociationSet Name="fk_Clasificacion_MaestroHerramentales" Association="Self.fk_Clasificacion_MaestroHerramentales">
             <End Role="ClasificacionHerramental" EntitySet="ClasificacionHerramental" />
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLOSINGBANDANILLOS_CODIGO" Association="Self.FK_CLOSINGBANDANILLOS_CODIGO">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="ClosingBandAnillos_" EntitySet="ClosingBandAnillos_" />
           </AssociationSet>
           <AssociationSet Name="FK_ClosingSleeveBK_MaestroHerramentales" Association="Self.FK_ClosingSleeveBK_MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
@@ -1809,6 +1856,10 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <AssociationSet Name="FK_GuillotinaSIM__MaestroHerramentales" Association="Self.FK_GuillotinaSIM__MaestroHerramentales">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="GuillotinaSIM_" EntitySet="GuillotinaSIM_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MANGA_PVD_WASH_CODIGO" Association="Self.FK_MANGA_PVD_WASH_CODIGO">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_MANGA_PVD_WASH" EntitySet="TBL_MANGA_PVD_WASH" />
           </AssociationSet>
           <AssociationSet Name="fk_Plano_MaestroHerramentales" Association="Self.fk_Plano_MaestroHerramentales">
             <End Role="PLANO_HERRAMENTAL" EntitySet="PLANO_HERRAMENTAL" />
@@ -2225,6 +2276,16 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <AssociationSet Name="FK_CODIGO_BUSHING" Association="DataAccess.ServiceObjects.Tooling.FK_CODIGO_BUSHING">
             <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
             <End Role="TBL_BUSHING_THOMPSON_SEGMENTOS" EntitySet="TBL_BUSHING_THOMPSON_SEGMENTOS" />
+          </AssociationSet>
+          <EntitySet Name="ClosingBandAnillos_" EntityType="DataAccess.ServiceObjects.Tooling.ClosingBandAnillos_" />
+          <AssociationSet Name="FK_CLOSINGBANDANILLOS_CODIGO" Association="DataAccess.ServiceObjects.Tooling.FK_CLOSINGBANDANILLOS_CODIGO">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="ClosingBandAnillos_" EntitySet="ClosingBandAnillos_" />
+          </AssociationSet>
+          <EntitySet Name="TBL_MANGA_PVD_WASH" EntityType="DataAccess.ServiceObjects.Tooling.TBL_MANGA_PVD_WASH" />
+          <AssociationSet Name="FK_MANGA_PVD_WASH_CODIGO" Association="DataAccess.ServiceObjects.Tooling.FK_MANGA_PVD_WASH_CODIGO">
+            <End Role="MaestroHerramentales" EntitySet="MaestroHerramentales" />
+            <End Role="TBL_MANGA_PVD_WASH" EntitySet="TBL_MANGA_PVD_WASH" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="SplitterSpacerChart">
@@ -2939,6 +3000,8 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
           <NavigationProperty Name="TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS" Relationship="DataAccess.ServiceObjects.Tooling.FK_CODIGOTUBO" FromRole="MaestroHerramentales" ToRole="TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS" />
           <NavigationProperty Name="TBL_DISCOS_THOMPSON_SEGMENTOS" Relationship="DataAccess.ServiceObjects.Tooling.FK_CODIGO_DISCO" FromRole="MaestroHerramentales" ToRole="TBL_DISCOS_THOMPSON_SEGMENTOS" />
           <NavigationProperty Name="TBL_BUSHING_THOMPSON_SEGMENTOS" Relationship="DataAccess.ServiceObjects.Tooling.FK_CODIGO_BUSHING" FromRole="MaestroHerramentales" ToRole="TBL_BUSHING_THOMPSON_SEGMENTOS" />
+          <NavigationProperty Name="ClosingBandAnillos_" Relationship="DataAccess.ServiceObjects.Tooling.FK_CLOSINGBANDANILLOS_CODIGO" FromRole="MaestroHerramentales" ToRole="ClosingBandAnillos_" />
+          <NavigationProperty Name="TBL_MANGA_PVD_WASH" Relationship="DataAccess.ServiceObjects.Tooling.FK_MANGA_PVD_WASH_CODIGO" FromRole="MaestroHerramentales" ToRole="TBL_MANGA_PVD_WASH" />
         </EntityType>
         <Association Name="FK__BarrelLap__Codig__4EF38B7F">
           <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
@@ -3925,6 +3988,49 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ClosingBandAnillos_">
+          <Key>
+            <PropertyRef Name="ID_ClosingBandAnillo" />
+          </Key>
+          <Property Name="ID_ClosingBandAnillo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="MedidaNominal" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_CLOSINGBANDANILLOS_CODIGO" FromRole="ClosingBandAnillos_" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_CLOSINGBANDANILLOS_CODIGO">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.ClosingBandAnillos_" Role="ClosingBandAnillos_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="ClosingBandAnillos_">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBL_MANGA_PVD_WASH">
+          <Key>
+            <PropertyRef Name="ID_MANGA_PVD_WASH" />
+          </Key>
+          <Property Name="ID_MANGA_PVD_WASH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="DIM_A" Type="Double" Nullable="false" />
+          <Property Name="DIM_D" Type="Double" Nullable="false" />
+          <NavigationProperty Name="MaestroHerramentales" Relationship="DataAccess.ServiceObjects.Tooling.FK_MANGA_PVD_WASH_CODIGO" FromRole="TBL_MANGA_PVD_WASH" ToRole="MaestroHerramentales" />
+        </EntityType>
+        <Association Name="FK_MANGA_PVD_WASH_CODIGO">
+          <End Type="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Role="MaestroHerramentales" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Tooling.TBL_MANGA_PVD_WASH" Role="TBL_MANGA_PVD_WASH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroHerramentales">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_MANGA_PVD_WASH">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4814,6 +4920,25 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.DiscoDiskus_' no tiene definida
                 <ScalarProperty Name="DIM_A" ColumnName="DIM_A" />
                 <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="ID_BUSHING_THOMPSON" ColumnName="ID_BUSHING_THOMPSON" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClosingBandAnillos_">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.ClosingBandAnillos_">
+              <MappingFragment StoreEntitySet="ClosingBandAnillos_">
+                <ScalarProperty Name="MedidaNominal" ColumnName="MedidaNominal" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="ID_ClosingBandAnillo" ColumnName="ID_ClosingBandAnillo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_MANGA_PVD_WASH">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Tooling.TBL_MANGA_PVD_WASH">
+              <MappingFragment StoreEntitySet="TBL_MANGA_PVD_WASH">
+                <ScalarProperty Name="DIM_D" ColumnName="DIM_D" />
+                <ScalarProperty Name="DIM_A" ColumnName="DIM_A" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_MANGA_PVD_WASH" ColumnName="ID_MANGA_PVD_WASH" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
