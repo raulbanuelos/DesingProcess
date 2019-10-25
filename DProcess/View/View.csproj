@@ -478,6 +478,9 @@
     <Compile Include="Forms\Tooling\ControlClampPlateThompson.xaml.cs">
       <DependentUpon>ControlClampPlateThompson.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlClosingBandAnillos.xaml.cs">
+      <DependentUpon>ControlClosingBandAnillos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlClosingBandLapeado.xaml.cs">
       <DependentUpon>ControlClosingBandLapeado.xaml</DependentUpon>
     </Compile>
@@ -1420,6 +1423,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\ControlClampPlateThompson.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlClosingBandAnillos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

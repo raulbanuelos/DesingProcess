@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="da0dc206e6ab4ec6bfee909bb16e9885" Name="Diagram1" ZoomLevel="88">
+      <Diagram DiagramId="da0dc206e6ab4ec6bfee909bb16e9885" Name="Diagram1" ZoomLevel="66">
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SplitterSpacerChart" Width="1.5" PointX="7.375" PointY="7.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.SPlitterSpacerChart2" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.cutter_angle" Width="1.5" PointX="9.375" PointY="4.75" />
@@ -57,7 +57,7 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.CriGillBK" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.UretanoSplitter" Width="1.5" PointX="17.25" PointY="144.875" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ClasificacionHerramental" Width="1.5" PointX="0.75" PointY="8" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Width="1.5" PointX="10" PointY="8" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.MaestroHerramentales" Width="2.25" PointX="9.5" PointY="7.875" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK__BarrelLap__Codig__4EF38B7F" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_BushingBatesBore__MaestroHerramentales" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_BushingCromo__MaestroHerramentales" />
@@ -139,6 +139,10 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CODIGO_DISCO" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BUSHING_THOMPSON_SEGMENTOS" Width="2.25" PointX="12.5" PointY="50.75" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CODIGO_BUSHING" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.ClosingBandAnillos_" Width="2.625" PointX="12.25" PointY="53.375" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CLOSINGBANDANILLOS_CODIGO" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_MANGA_PVD_WASH" Width="2.75" PointX="12.5" PointY="56.25" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_MANGA_PVD_WASH_CODIGO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

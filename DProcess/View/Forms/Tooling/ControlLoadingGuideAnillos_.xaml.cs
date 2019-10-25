@@ -28,6 +28,7 @@ namespace View.Forms.Tooling
         public ControlLoadingGuideAnillos_()
         {
             InitializeComponent();
+            obj = new Herramental();
         }
 
         #region Métodos

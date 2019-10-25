@@ -356,6 +356,9 @@
     <Compile Include="ServiceObjects\Tooling\ClasificacionHerramental.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\ClosingBandAnillos_.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\ClosingBandLapeado.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
@@ -516,6 +519,7 @@
     </Compile>
     <Compile Include="ServiceObjects\SO_CentroTrabajo.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Material.cs" />
+    <Compile Include="ServiceObjects\Tooling\Operaciones\Rectificados Finos\SO_ClosingBandAnillos.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_BarrelGrade.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_Bobinado.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_Lapeado.cs" />
@@ -635,6 +639,9 @@
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_MANGA_PVD_ACERO_INOXIDABLE.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_MANGA_PVD_WASH.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS.cs">

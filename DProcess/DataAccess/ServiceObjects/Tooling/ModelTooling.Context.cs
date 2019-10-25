@@ -99,5 +99,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS> TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS { get; set; }
         public virtual DbSet<TBL_DISCOS_THOMPSON_SEGMENTOS> TBL_DISCOS_THOMPSON_SEGMENTOS { get; set; }
         public virtual DbSet<TBL_BUSHING_THOMPSON_SEGMENTOS> TBL_BUSHING_THOMPSON_SEGMENTOS { get; set; }
+        public virtual DbSet<ClosingBandAnillos_> ClosingBandAnillos_ { get; set; }
+        public virtual DbSet<TBL_MANGA_PVD_WASH> TBL_MANGA_PVD_WASH { get; set; }
     }
 }
