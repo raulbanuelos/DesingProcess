@@ -13128,6 +13128,95 @@ namespace Model
 
             return noMesa;
         }
+
+        /// <summary>
+        /// Llamar método para traernos los datos de un registro Manga PVD Wash por su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfo_MangaPVDWash(string codigo)
+        {
+            Herramental herramental = new Herramental();
+
+            // Inicializamos los servicios
+            SO_PVD_Wash ServiceMangaWash = new SO_PVD_Wash();
+
+            // Ejecutamos el método para obtener la información
+            IList informacionDB = ServiceMangaWash.GetInfoMangaPVDWash(codigo);
+
+            // Si la lista es diferente a nulo
+            if (informacionDB != null)
+            {
+                // Iteramos la lista
+                foreach (var item in informacionDB)
+                {
+                    // Obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    // Mapeamos los elementos necesarios en cada una de las propiedades del objeto
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_MANGA_PVD_WASH").GetValue(item, null);
+
+                    // Declaramos las propiedades
+                    Propiedad propiedaddima = new Propiedad();
+                    Propiedad propiedaddimd = new Propiedad();
+
+                    // Asignamos los valores a las propiedades
+                    propiedaddima.Valor = (double)tipo.GetProperty("DIM_A").GetValue(item, null);
+                    propiedaddimd.Valor = (double)tipo.GetProperty("DIM_D").GetValue(item, null);
+
+                    // Agregamos las propiedades
+                    herramental.Propiedades.Add(propiedaddima);
+                    herramental.Propiedades.Add(propiedaddimd);
+                }
+            }
+
+            // Retornamos el objeto
+            return herramental;
+        }
+
+        /// <summary>
+        /// Llamar método para insertar un registro en la tabla TBL_MANGA_PVD_WASH
+        /// </summary>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_A"></param>
+        /// <param name="Dim_D"></param>
+        /// <returns></returns>
+        public static int Insert_MangaPVDWash(string Codigo, double Dim_A, double Dim_D)
+        {
+            SO_PVD_Wash ServiceMangaWash = new SO_PVD_Wash();
+
+            return ServiceMangaWash.InsertMangaPVDWash(Codigo, Dim_A, Dim_D);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar un registro de la tabla TBL_MANGA_PVD_WASH
+        /// </summary>
+        /// <param name="Id_Manga_Wash"></param>
+        /// <param name="Codigo"></param>
+        /// <param name="Dim_A"></param>
+        /// <param name="Dim_D"></param>
+        /// <returns></returns>
+        public static int Update_MangaWash(int Id_Manga_Wash, string Codigo, double Dim_A, double Dim_D)
+        {
+            SO_PVD_Wash ServiceMangaWash = new SO_PVD_Wash();
+
+            return ServiceMangaWash.UpdateMangaPVDWash(Id_Manga_Wash, Codigo, Dim_A, Dim_D);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar un registro de la tabla TBL_MANGA_PVD_WASH
+        /// </summary>
+        /// <param name="Id_Manga_Wash"></param>
+        /// <returns></returns>
+        public static int Delete_MangaWash(int Id_Manga_Wash)
+        {
+            SO_PVD_Wash ServiceMangaWash = new SO_PVD_Wash();
+
+            return ServiceMangaWash.DeleteMangaPVDWash(Id_Manga_Wash);
+        }
+
         #endregion
 
         #endregion
