@@ -519,7 +519,7 @@
     </Compile>
     <Compile Include="ServiceObjects\SO_CentroTrabajo.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Material.cs" />
-    <Compile Include="ServiceObjects\Tooling\Operaciones\Rectificados Finos\SO_ClosingBandAnillos.cs" />
+    <Compile Include="ServiceObjects\Tooling\Operaciones\RectificadosFinos\SO_ClosingBandAnillos.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_BarrelGrade.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_Bobinado.cs" />
     <Compile Include="ServiceObjects\Tooling\Operaciones\Segmentos\SO_Lapeado.cs" />
@@ -751,6 +751,25 @@
     <Compile Include="ServiceObjects\Usuario\Usuarios.cs">
       <DependentUpon>ModelUsuario.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\VerificacionAnual\ModelVerificacionAnual.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelVerificacionAnual.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\VerificacionAnual\ModelVerificacionAnual.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelVerificacionAnual.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\VerificacionAnual\ModelVerificacionAnual.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelVerificacionAnual.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\VerificacionAnual\SO_ProgramaAnual.cs" />
+    <Compile Include="ServiceObjects\VerificacionAnual\TBL_PROGRAMA_ANUAL.cs">
+      <DependentUpon>ModelVerificacionAnual.tt</DependentUpon>
+    </Compile>
     <Compile Include="SQLServer\Desing_SQL.cs" />
     <Compile Include="SQLServer\Sealed_SQL.cs" />
   </ItemGroup>
@@ -835,6 +854,16 @@
       <DependentUpon>ModelUsuario.edmx</DependentUpon>
       <LastGenOutput>ModelUsuario.cs</LastGenOutput>
     </Content>
+    <Content Include="ServiceObjects\VerificacionAnual\ModelVerificacionAnual.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelVerificacionAnual.edmx</DependentUpon>
+      <LastGenOutput>ModelVerificacionAnual.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ServiceObjects\VerificacionAnual\ModelVerificacionAnual.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelVerificacionAnual.edmx</DependentUpon>
+      <LastGenOutput>ModelVerificacionAnual.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config">
@@ -876,6 +905,13 @@
     </None>
     <None Include="ServiceObjects\Unidades\ModelUnidades.edmx.diagram">
       <DependentUpon>ModelUnidades.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="ServiceObjects\VerificacionAnual\ModelVerificacionAnual.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelVerificacionAnual.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ServiceObjects\VerificacionAnual\ModelVerificacionAnual.edmx.diagram">
+      <DependentUpon>ModelVerificacionAnual.edmx</DependentUpon>
     </None>
     <None Include="SQLServer\App.config">
       <SubType>Designer</SubType>

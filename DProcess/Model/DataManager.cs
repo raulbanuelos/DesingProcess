@@ -24,6 +24,7 @@ using System.Linq;
 using System.Data.Entity;
 using DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos;
 using DataAccess.ServiceObjects.Tooling.Operaciones.Rectificados_Finos;
+using DataAccess.ServiceObjects.VerificacionAnual;
 
 namespace Model
 {
@@ -16581,7 +16582,51 @@ namespace Model
                 }
             }
             return NumeroDecimal;
-        } 
+        }
+        #endregion
+
+        #region Verificacion Anual
+
+        /// <summary>
+        /// Llamar método para insertar un registro en la tabla TBL_PROGRAMA_ANUAL
+        /// </summary>
+        /// <param name="Material"></param>
+        /// <param name="Codigo_Herramental"></param>
+        /// <param name="Descripcion"></param>
+        /// <returns></returns>
+        public static int Insert_ProgramaAnual(string Material, string Codigo_Herramental, string Descripcion)
+        {
+            SO_ProgramaAnual ServiceProgAnual = new SO_ProgramaAnual();
+
+            return ServiceProgAnual.InsertProgramaAnual(Material, Codigo_Herramental, Descripcion);
+        }
+
+        /// <summary>
+        /// Llamar método para actualizar un registro de la tabla TBL_PROGRAMA_ANUAL
+        /// </summary>
+        /// <param name="Id_Programa_Anual"></param>
+        /// <param name="Material"></param>
+        /// <param name="Codigo_Herramental"></param>
+        /// <param name="Descripcion"></param>
+        /// <returns></returns>
+        public static int Update_PorgramaAnual(int Id_Programa_Anual, string Material, string Codigo_Herramental, string Descripcion)
+        {
+            SO_ProgramaAnual ServiceProgAnual = new SO_ProgramaAnual();
+
+            return ServiceProgAnual.UpdateProgramaAnual(Id_Programa_Anual, Material, Codigo_Herramental, Descripcion);
+        }
+
+        /// <summary>
+        /// Llamar método para eliminar un registro de la tabla TBL_PROGRAMA_ANUAL
+        /// </summary>
+        /// <param name="Id_Programa_Anual"></param>
+        /// <returns></returns>
+        public static int Delete_ProgramaAnual(int Id_Programa_Anual)
+        {
+            SO_ProgramaAnual ServiceProgAnual = new SO_ProgramaAnual();
+
+            return ServiceProgAnual.DeleteProgramaAnual(Id_Programa_Anual);
+        }
         #endregion
     }
 }
