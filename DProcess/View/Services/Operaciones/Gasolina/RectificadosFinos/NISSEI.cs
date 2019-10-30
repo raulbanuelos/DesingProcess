@@ -158,6 +158,7 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 
         private double diametroFabricacionDisco;
         private double widthFabricacionDisco;
+        private double dimFFabricacionDisco;
 
         #region Métodos
 
@@ -274,6 +275,8 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 
             calculoDisco();
 
+            disco = DataManager.GetDiscoNISSEI(diametroFabricacionDisco, widthFabricacionDisco, dimFFabricacionDisco);
+
             return disco;
         }
 
@@ -327,6 +330,7 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 
             diametroFabricacionDisco = ws.Cells[10, 3].Value2;
             widthFabricacionDisco = ws.Cells[13, 6].Value2;
+            dimFFabricacionDisco = ws.Cells[10, 8].Value2;
             
             wb.Close();
 

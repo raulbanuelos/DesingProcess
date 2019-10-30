@@ -9934,6 +9934,41 @@ namespace Model
 
         #region Nissei Rectificados Finos
 
+        public static Herramental GetDiscoNISSEI(double diametro, double width, double dimF)
+        {
+            Herramental herramental = new Herramental();
+
+            SO_NisseiRectificadosFinos serviceNissei = new SO_NisseiRectificadosFinos();
+
+            IList informacionBD = serviceNissei.GetDisco(diametro, width, dimF);
+
+            if (informacionBD != null && informacionBD.Count > 0)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD);
+                    herramental.Encontrado = true;
+                    double dimDiametro = (double)tipo.GetProperty("DIM_DIAMETRO").GetValue(item, null);
+                    double dimWidth = (double)tipo.GetProperty("DIM_WIDTH").GetValue(item, null);
+                    double dimencionF = (double)tipo.GetProperty("DIM_F").GetValue(item, null);
+                    herramental.DescripcionRuta = "DISCO DET. " + dimDiametro + " X " + dimWidth;
+                }
+            }
+            else
+            {
+                herramental.DescripcionRuta = "" + diametro + " X " + width;
+                herramental.Encontrado = false;
+                herramental.DescripcionMedidasBusqueda = "Diametro : " + diametro + "\nWidth : " + width + "\nDIM F : " + dimF;
+                herramental.Codigo = "CODIFICAR";
+                herramental.DescripcionGeneral = "DISCO DET. " + diametro + " X " + width; 
+
+            }
+
+            return herramental;
+        }
+
         /// <summary>
         /// 
         /// </summary>
