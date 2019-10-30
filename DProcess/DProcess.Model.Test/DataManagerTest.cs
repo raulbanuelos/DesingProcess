@@ -19,7 +19,6 @@ namespace DProcess.Model.Test
     [TestClass]
     public class DataManagerTest
     {
-
         //#region DataManagerControlDocumentos
         //[TestMethod]
         //public void testExistsCodeValidation()
@@ -29,32 +28,32 @@ namespace DProcess.Model.Test
         //    Assert.AreEqual(true, resp);
         //} 
 
-       //[TestMethod]
-       // public void textComparative()
-       // {
-       //     ComparativoDocumentosViewModel comparativo = new ComparativoDocumentosViewModel();
+        //[TestMethod]
+        // public void textComparative()
+        // {
+        //     ComparativoDocumentosViewModel comparativo = new ComparativoDocumentosViewModel();
 
-       //     comparativo.CompararArchivos();
-       //     Assert.AreEqual(true, true);
-       // }
+        //     comparativo.CompararArchivos();
+        //     Assert.AreEqual(true, true);
+        // }
 
-        [TestMethod]
-        public void freeGap()
-        {
-            CalculoFreeGapViewModel obj = new CalculoFreeGapViewModel();
+        //[TestMethod]
+        //public void freeGap()
+        //{
+        //    CalculoFreeGapViewModel obj = new CalculoFreeGapViewModel();
 
-            obj.D1 = 97;
-            obj.H1 = 1.25;
-            obj.A1 = 2.5;
-            obj.S1 = 3.05;
-            obj.Material = "MS064";
-            obj.FT = 4.1;
-            obj.OV = 0;
+        //    obj.D1 = 97;
+        //    obj.H1 = 1.25;
+        //    obj.A1 = 2.5;
+        //    obj.S1 = 3.05;
+        //    obj.Material = "MS064";
+        //    obj.FT = 4.1;
+        //    obj.OV = 0;
 
-            obj.calcular();
+        //    obj.calcular();
 
-            Assert.AreEqual(obj.TX, 1.25);
-        }
+        //    Assert.AreEqual(obj.TX, 1.25);
+        //}
         //#endregion
 
         //#region DataManager
@@ -263,17 +262,17 @@ namespace DProcess.Model.Test
 
         //}
 
-        [TestMethod]
-        public void updateMangaAceroInoxidable()
-        {
-            DataManager.UpdateRecordsMangaPVDInoxidable(1.9, 84);
-        }
+        //[TestMethod]
+        //public void updateMangaAceroInoxidable()
+        //{
+        //    DataManager.UpdateRecordsMangaPVDInoxidable(1.9, 84);
+        //}
 
-        [TestMethod]
-        public void updateMangaAceroCarbon()
-        {
-            DataManager.UpdaterecorsMangaPVDCarbon(1, 3);
-        }
+        //[TestMethod]
+        //public void updateMangaAceroCarbon()
+        //{
+        //    DataManager.UpdaterecorsMangaPVDCarbon(1, 3);
+        //}
 
         //[TestMethod]
         //public void CriteriosSegmentos()
@@ -835,6 +834,24 @@ namespace DProcess.Model.Test
         //    bool res = serviceEmail.SendEmailWithImage(@"C:\Users\M0051722\AppData\Local\Lotus\Notes\Data\archive\a_Raul_B.nsf", correos, "Correo de prueba", body);
 
         //    Assert.AreEqual(true, res);
+        //}
+
+        //[TestMethod]
+        //public void PruebaInsertProgramaAnual()
+        //{
+        //    DataManager.Insert_ProgramaAnual("011RT0403SM", "1010894", "Prueba Programa Anual");
+        //}
+
+        //[TestMethod]
+        //public void PruebaUpdateProgramaAnual()
+        //{
+        //    DataManager.Update_PorgramaAnual(1, "011RT0403SM", "1010894", "Prueba Modificada Programa Anual");
+        //}
+
+        //[TestMethod]
+        //public void PruebaDeleteProgramaAnual()
+        //{
+        //    DataManager.Delete_ProgramaAnual(2);
         //}
 
     }

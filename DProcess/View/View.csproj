@@ -559,6 +559,9 @@
     <Compile Include="Forms\Tooling\ControlMangaLapeado.xaml.cs">
       <DependentUpon>ControlMangaLapeado.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\ControlMangaPVDWash.xaml.cs">
+      <DependentUpon>ControlMangaPVDWash.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\ControlPlatoEmpujadorThompson.xaml.cs">
       <DependentUpon>ControlPlatoEmpujadorThompson.xaml</DependentUpon>
     </Compile>
@@ -1531,6 +1534,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\ControlMangaLapeado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlMangaPVDWash.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
