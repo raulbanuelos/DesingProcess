@@ -118,26 +118,26 @@
                 </TabItem>
                 <Controls:MetroTabItem Header="{x:Static recursos:StringResources.lblHerramientas}">
                     <ListView ItemsSource="{Binding OperationSelected.ListaHerramentales}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <WrapPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Codigo}" Margin="20,0,0,0"></TextBlock>
-                                    <TextBlock Text="{Binding DescripcionGeneral}" Width="300" Margin="20,0,0,0"></TextBlock>
-                                </WrapPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="{x:Static recursos:StringResources.lblCodigo}" Width="120" DisplayMemberBinding="{Binding Codigo}" />
+                                <GridViewColumn Header="{x:Static recursos:StringResources.lblDescripcion}" Width="200" DisplayMemberBinding="{Binding DescripcionGeneral}" />
+                            </GridView>
+                        </ListView.View>
                     </ListView>
                     
                 </Controls:MetroTabItem>
                 <Controls:MetroTabItem Header="{x:Static recursos:StringResources.ttlRawMaterial}">
-                    <Controls:Badged Width="120" Height="30" Badge="3" BadgePlacementMode="BottomRight">
-                    <StackPanel>
-                        
-                            <Button Content="Notifications" Width="120"></Button>
-                        
-                    </StackPanel>
-                    </Controls:Badged>
-                    
+                    <ListView   ItemsSource="{Binding OperationSelected.ListaMateriaPrima}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="{x:Static recursos:StringResources.lblCodigo}" Width="120" DisplayMemberBinding="{Binding Codigo}" />
+                                <GridViewColumn Header="{x:Static recursos:StringResources.lblDescripcion}" Width="200" DisplayMemberBinding="{Binding DescripcionGeneral}" />
+                                <GridViewColumn Header="Cantidad" Width="150" DisplayMemberBinding="{Binding Cantidad}" />
+                                <GridViewColumn Header="Unidad de medida" Width="150" DisplayMemberBinding="{Binding Measurement}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </Controls:MetroTabItem>
 
 
