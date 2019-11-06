@@ -1,5 +1,9 @@
-﻿using System;
+﻿using DataAccess.ServiceObjects.VerificacionAnual;
+using DataAccess.SQLServer;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +12,68 @@ namespace DataAccess.ServiceObjects.VerificacionAnual
 {
     public class SO_ProgramaAnual
     {
+        /// <summary>
+        /// Método para realizar una consulta mediante un procedimiento almacenado, por descripción de herramentales a TBL_PROGRAMA_ANUAL
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GetToolingVerificacionAnual()
+        {           
+            try
+            {
+                // Declaramos el DataSet
+                DataSet Datos = new DataSet();
+
+                // Se crea la conexión a la BD
+                Desing_SQL Conexion = new Desing_SQL();
+
+                // Se inicializa un diccionario que contiene propiedades de tipo string y un objeto
+                Dictionary<string, object> parametros = new Dictionary<string, object>();
+
+                // Se ejecuta el procedimiento
+                Datos = Conexion.EjecutarStoredProcedure("SP_RGP_GET_TOOLING_VERIFICACION_ANUAL", parametros);
+
+                // Retorna el número de elementos en la tabla
+                return Datos;
+            }
+            catch (Exception er)
+            {
+                // Si hay error retorna la tabla vacía
+                return null;
+            }                                  
+        }
+
+        /// <summary>
+        /// Elimina todos los registros existentes de la tabla TBL_PROGRAMA_ANUAL
+        /// </summary>
+        /// <returns></returns>
+        public int DeleteAllRecords()
+        {
+            try
+            {
+                // Establecemos conexión a través de EntityFramework
+                using (var Conexion = new EntitiesVerificacionAnual())
+                {
+                    // Declaramos el objeto de la l
+                    TBL_PROGRAMA_ANUAL prog_anual = new TBL_PROGRAMA_ANUAL();
+
+                    // Realizamos la consulta
+                    var ListaRegistros = (from a in Conexion.TBL_PROGRAMA_ANUAL
+                                          select a).ToList();
+
+                    // Eliminamos los registros de la lista obtenida
+                    Conexion.TBL_PROGRAMA_ANUAL.RemoveRange(ListaRegistros);
+
+                    // Retornamos el número de registros eliminados
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay error retornamos null
+                return 0;
+            }
+        }
+       
         /// <summary>
         /// Inserción de registros Programa Anual
         /// </summary>

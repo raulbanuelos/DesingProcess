@@ -1,0 +1,84 @@
+﻿<Controls:MetroWindow  x:Class="View.Forms.Tooling.WNotificarA"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:recursos="clr-namespace:View.Resources"
+        xmlns:local="clr-namespace:View.Forms.Tooling"
+        mc:Ignorable="d"
+        BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen" ShowMaxRestoreButton="False"
+        Title="WNotificarA" Height="600" Width="900">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="250"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="250"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <DataGrid ItemsSource="{Binding ListaGrupos}" SelectedItem="{Binding GrupoSeleccionado, Mode=TwoWay}"
+                      ScrollViewer.CanContentScroll="True" 
+                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      CanUserAddRows="False"
+                      AutoGenerateColumns="False"
+                      Grid.Row="0"
+                      Grid.Column="0">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            Header="{x:Static recursos:StringResources.lblNotificar}"
+                                            Binding="{Binding IsSelected}"/>
+
+                    <DataGridTextColumn Header="{x:Static recursos:StringResources.lblGrupos}" Binding="{Binding nombre}" IsReadOnly="True"></DataGridTextColumn>
+                </DataGrid.Columns>
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding AbrirGrupo}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+            </DataGrid>
+
+            <DataGrid ItemsSource="{Binding ListaUsuarios}"
+                      ScrollViewer.CanContentScroll="True" 
+                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      CanUserAddRows="False"
+                      AutoGenerateColumns="False"
+                      Grid.Row="0"
+                      Grid.Column="1">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            Header="{x:Static recursos:StringResources.lblNotificar}"
+                                            Binding="{Binding IsSelected}">
+                        
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Checked">
+                                <i:InvokeCommandAction Command="{Binding ValidarSeleccionados}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                    </DataGridCheckBoxColumn>
+                    <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNombre}" Binding="{Binding NombreCompleto}" IsReadOnly="True"></DataGridTextColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
+           
+        </Grid>
+
+        <Button Grid.Row="1" Margin="80,0,0,0" HorizontalAlignment="Left" Content="{x:Static recursos:StringResources.ttlButtonCreateGroup}" Command="{Binding IrCrearGrupo}" Width="150"></Button>
+        <Button Grid.Row="1" Margin="250,0,0,0" HorizontalAlignment="Left" Background="red" Content="{x:Static recursos:StringResources.ttlButtonDeleteGroup}" Command="{Binding EliminarGrupo}" Width="150"></Button>
+        <Button Content="NOTIFICAR" Grid.Row="1" HorizontalAlignment="Right" Width="200" Margin="0,0,20,0"></Button>
+        
+    </Grid>
+</Controls:MetroWindow>

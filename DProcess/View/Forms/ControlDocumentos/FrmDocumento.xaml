@@ -236,7 +236,7 @@
                                IsEnabled="{Binding BttnLiberar}"/>
                             </StackPanel>
 
-                            <Button  Grid.Row="1" HorizontalAlignment="Right" Margin="10" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding _AdjuntarArchivo}"  ToolTip="{x:Static recursos:StringResources.lblAdjuntarArchivo}"
+                            <Button  Grid.Row="1" HorizontalAlignment="Right" Margin="10" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding _AdjuntarArchivo}" ToolTip="{x:Static recursos:StringResources.lblAdjuntarArchivo}"
                             Visibility="{Binding BttnArchivos, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"  >
                                 <materialDesign:PackIcon Kind="Paperclip" Height="24" Width="24" />
                             </Button>

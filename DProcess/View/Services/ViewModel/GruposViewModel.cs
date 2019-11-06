@@ -39,20 +39,6 @@ namespace View.Services.ViewModel
 
         #region Propiedades
 
-        //private ObservableCollection<DO_Grupos> _ListaGrupos;
-        //public ObservableCollection<DO_Grupos> ListaGrupos
-        //{
-        //    get
-        //    {
-        //        return _ListaGrupos;
-        //    }
-        //    set
-        //    {
-        //        _ListaGrupos = value;
-        //        NotifyChange("ListaGrupos");
-        //    }
-        //}
-
         private ObservableCollection<Usuarios> _ListadeUsuarios;
         public ObservableCollection<Usuarios> ListadeUsuarios
         {

@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="ed1757f0927241618bb848380d748267" Name="Diagram1" ZoomLevel="64">
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.VerificacionAnual.TBL_PROGRAMA_ANUAL" Width="2.375" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.VerificacionAnual.TBL_PROGRAMA_ANUAL" Width="2.625" PointX="7" PointY="0.875" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

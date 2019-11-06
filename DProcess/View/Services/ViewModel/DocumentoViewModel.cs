@@ -6684,8 +6684,6 @@ namespace View.Services.ViewModel
             if (GrupoSeleccionado.idgrupo != 0)
             {
                 FrmVerIntegrantesGrupo Form = new FrmVerIntegrantesGrupo();
-
-
                 GruposViewModel Data = new GruposViewModel(GrupoSeleccionado.idgrupo, User);
 
                 Form.DataContext = Data;
