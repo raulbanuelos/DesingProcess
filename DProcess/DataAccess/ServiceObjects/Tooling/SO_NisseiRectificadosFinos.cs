@@ -76,6 +76,43 @@ namespace DataAccess.ServiceObjects.Tooling
             }
         }
 
+        public IList GetDisco(double diametro, double width, double dimf)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var listaHerramentales = (from a in Conexion.TBL_FEED_WHEEL_RECTIFICADOS_FINOS
+                                              join m in Conexion.MaestroHerramentales on a.CODIGO equals m.Codigo
+                                              join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                              where a.DIM_DIAMETRO == diametro && a.DIM_WIDTH == width && a.DIM_F == dimf
+                                              select new
+                                              {
+                                                  Codigo = a.CODIGO,
+                                                  m.Descripcion,
+                                                  m.Activo,
+                                                  Clasificacion = c.Descripcion,
+                                                  c.UnidadMedida,
+                                                  c.Costo,
+                                                  c.CantidadUtilizar,
+                                                  c.VidaUtil,
+                                                  c.idClasificacion,
+                                                  c.ListaCotasRevisar,
+                                                  c.VerificacionAnual,
+                                                  DIM_DIAMETRO = a.DIM_DIAMETRO,
+                                                  DIM_WIDTH = a.DIM_WIDTH,
+                                                  DIM_F = a.DIM_F
+                                              }).ToList();
+
+                    return listaHerramentales;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// Método para insertar un núevo registro a la tabla
         /// </summary>

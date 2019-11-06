@@ -3,6 +3,10 @@ using Model.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using View.Services.TiempoEstandar.Gasolina.RectificadosFinos;
+using Microsoft.Office.Interop.Excel;
+using _Excel = Microsoft.Office.Interop.Excel;
+using View.Services.ViewModel;
+using System.IO;
 
 namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 {
@@ -152,6 +156,10 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 
         #endregion
 
+        private double diametroFabricacionDisco;
+        private double widthFabricacionDisco;
+        private double dimFFabricacionDisco;
+
         #region Métodos
 
         #region Métodos de IOperacion
@@ -255,8 +263,76 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 
         public void BuscarHerramentales()
         {
+            ListaHerramentales.Add(GetDisco());
             
             TextoHerramienta = Module.GetTextoListaHerramentales(ListaHerramentales);
+
+        }
+
+        private Herramental GetDisco()
+        {
+            Herramental disco = new Herramental();
+
+            calculoDisco();
+
+            disco = DataManager.GetDiscoNISSEI(diametroFabricacionDisco, widthFabricacionDisco, dimFFabricacionDisco);
+
+            return disco;
+        }
+
+        private void calculoDisco()
+        {
+            Propiedad d1 = elPlano.D1;
+            Propiedad h1 = elPlano.H1;
+            d1.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), d1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), d1.Valor);
+            d1.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter);
+            h1.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), h1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), h1.Valor);
+            h1.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter);
+            Propiedad thicknessMin = Module.GetPropiedad("a1 Min", elPlano.PerfilID.Propiedades);
+            Propiedad thicknessMax = Module.GetPropiedad("a1 Max", elPlano.PerfilID.Propiedades);
+            thicknessMin.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), thicknessMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), thicknessMin.Valor);
+            thicknessMin.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter);
+            thicknessMax.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), thicknessMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), thicknessMax.Valor);
+            thicknessMax.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter);
+            double thicknessMedia = Math.Round((thicknessMax.Valor + thicknessMin.Valor) / 2, 4);
+            Propiedad gapMin = Module.GetPropiedad("s1 Min", elPlano.PerfilPuntas.Propiedades);
+            Propiedad gapMax = Module.GetPropiedad("s1 Max", elPlano.PerfilPuntas.Propiedades);
+            gapMin.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), gapMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), gapMin.Valor);
+            gapMin.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter);
+            gapMax.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), gapMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), gapMax.Valor);
+            gapMax.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter);
+            double gapMedia = Math.Round((gapMax.Valor + gapMin.Valor) / 2, 3);
+            double ovalityMedia = Math.Round((elPlano.OvalityMax.Valor + elPlano.OvalityMin.Valor) / 2, 3);
+
+            CalculoFreeGapViewModel objCalculo = new CalculoFreeGapViewModel(d1.Valor, h1.Valor, thicknessMedia, gapMedia, elPlano.MaterialBase.Especificacion, elPlano.Tension.Valor, ovalityMedia);
+
+            objCalculo.calcular();
+
+            double freeGap = objCalculo.M;
+
+            _Application excel = new _Excel.Application();
+            Workbook wb;
+            Worksheet ws;
+
+            string pathExcel = Directory.GetCurrentDirectory();
+
+            pathExcel = @"\\agufileserv2\TODOSP\R@ul\Deploy\Assets\NISSEI.xlsx";
+
+            wb = excel.Workbooks.Open(pathExcel);
+            ws = wb.Worksheets["DATAS"];
+            
+            //Asignamos los valores.
+            ws.Cells[4, 4].Value2 = Convert.ToString(elPlano.D1.Valor);
+            ws.Cells[5, 4].Value2 = Convert.ToString(elPlano.H1.Valor);
+            ws.Cells[6, 4].Value2 = Convert.ToString(freeGap);
+            
+            wb.Save();
+
+            diametroFabricacionDisco = ws.Cells[10, 3].Value2;
+            widthFabricacionDisco = ws.Cells[13, 6].Value2;
+            dimFFabricacionDisco = ws.Cells[10, 8].Value2;
+            
+            wb.Close();
 
         }
 

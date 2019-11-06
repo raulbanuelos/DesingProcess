@@ -135,7 +135,7 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CODIGOBACKUP" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CODIGOPLATO" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CODIGOTUBO" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_DISCOS_THOMPSON_SEGMENTOS" Width="3" PointX="12.25" PointY="48" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_DISCOS_THOMPSON_SEGMENTOS" Width="3" PointX="13.25" PointY="48" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CODIGO_DISCO" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_BUSHING_THOMPSON_SEGMENTOS" Width="2.25" PointX="12.5" PointY="50.75" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CODIGO_BUSHING" />

@@ -218,8 +218,8 @@ namespace View.Services.ViewModel
                 TX = Math.Round(A1 / 2, 3);
                 LY = Math.Round(H1 * (Math.Pow(A1, 3)) / 12, 3);
                 E = GetMaterialProperties(Material);
-                K = Math.Round((FT * Math.Pow((D1 - 2 * TX), 2) / (4 * E * LY)), 3);
-                FTOutput = Math.Round(4 * K * E * LY / Math.Pow(D1 - 2 * TX, 2), 3);
+                K = (FT * Math.Pow((D1 - 2 * TX), 2)) / (4 * E * LY);
+                FTOutput =  4 * K * E * LY / Math.Pow((D1 - (2 * TX)), 2);
                 FD = Math.Round(2 * FTOutput, 3);
                 M = Math.Round(4.76 * K * (D1 - 2 * TX) - 1.25 * OV + S1 - 0.004 * (D1 - 2 * TX), 3);
                 FreeGapInch = Math.Round(M / 25.4, 3);
