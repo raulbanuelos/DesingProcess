@@ -108,6 +108,9 @@
                 </MenuItem>
 
             </MenuItem>
+            <MenuItem Header="{x:Static recursos:StringResources.ttlVerificacionAnual}">
+                <MenuItem Header="{x:Static recursos:StringResources.ttlCargaHerramental}" Command="{Binding IrVerficacionAnual}"></MenuItem>
+            </MenuItem>
         </Menu>
 
         <Label x:Name="label" Content="{x:Static recursos:StringResources.ttlMaestroHerramental}" HorizontalAlignment="Left" Height="60" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="34" FontWeight="Bold" Grid.Column="1" Grid.Row="1"/>

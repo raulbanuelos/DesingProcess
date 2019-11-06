@@ -2024,4 +2024,25 @@ Change the description here and in the file.</value>
     <value>You can select other users to notify via email when the document is released.</value>
     <comment>Etiqueta de descripción notificar.</comment>
   </data>
+  <data name="msgAdjuntaherramentalaño" xml:space="preserve">
+    <value>Attach the file with the tools used during the year.</value>
+    <comment>Mensaje para adjuntar archivo con herramentales</comment>
+  </data>
+  <data name="msgErrorexportar" xml:space="preserve">
+    <value>An error occurred while exporting the file.</value>
+    <comment>Mensaje de error al exportar el archivo con herramenatales</comment>
+  </data>
+  <data name="msgHerramentalrevisar" xml:space="preserve">
+    <value>The process is over.
+The file was created and saved with the Tooling to review.</value>
+    <comment>Mensaje del herramental a revisar</comment>
+  </data>
+  <data name="ttlCargaHerramental" xml:space="preserve">
+    <value>Tooling Load</value>
+    <comment>Título carga de herramental</comment>
+  </data>
+  <data name="ttlVerificacionAnual" xml:space="preserve">
+    <value>Annual Verification</value>
+    <comment>Título de Verificación Anual</comment>
+  </data>
 </root>

@@ -15288,15 +15288,12 @@ namespace Model
                 //Comparamos si la información obtenida de la consulta es diferente de nulo.
                 if (InformacionBD != null)
                 {
-
                     //Comparamos si la información obtenida contiene al menos una tabla y esa tabla contiene al menos un registro.
                     if (InformacionBD.Tables.Count > 0 && InformacionBD.Tables[0].Rows.Count > 0)
                     {
-
                         //Itermamos los registro de la tabla cero.
                         foreach (DataRow element in InformacionBD.Tables[0].Rows)
                         {
-
                             //Inicializamos el objeto Usuario.
                             usuario = new Usuario();
 
@@ -16588,6 +16585,61 @@ namespace Model
         #region Verificacion Anual
 
         /// <summary>
+        /// Método para realizar la consulta de herramentales en base a la decripción específica
+        /// </summary>
+        /// <returns></returns>
+        public static List< DO_ProgramaAnual> Get_ToolingVerificacionAnual()
+        {             
+                // Declaramos un objeto de tipo Programa Anual que será el que retornemos en el método
+                DO_ProgramaAnual prog_anual = null;
+
+                // Inicializamos los servicios de Programa Anual
+                SO_ProgramaAnual ServiceProg_Anual = new SO_ProgramaAnual();
+
+                // Declaramos la lista que retornaremos
+                List<DO_ProgramaAnual> ListaRetornada = new List<DO_ProgramaAnual>();
+
+                // Ejecutamos el método de GetAllTooling... y la información resultante la asignamos a un objeto local
+                DataSet informacionDB = ServiceProg_Anual.GetToolingVerificacionAnual();
+
+                // Comparamos si la información obtenida de la consulta es diferente a nulo
+                if (informacionDB != null)
+                {
+                    // Comparamos si la información contenida contiene al menos una tabla y esa tabla contiene al menos un registro
+                    if (informacionDB.Tables.Count > 0 && informacionDB.Tables[0].Rows.Count > 0)
+                    {
+                        // Iteramos los registros de la tabla cero
+                        foreach (DataRow element in informacionDB.Tables[0].Rows)
+                        {
+                            // Inicializamos el objeto
+                            prog_anual = new DO_ProgramaAnual();
+
+                            // Asignamos los valores de la información a las propiedades del programa anual correspondiente
+                            prog_anual.material = Convert.ToString(element["MATERIAL"]);
+                            prog_anual.codigo_herramental = Convert.ToString(element["CODIGO_HERRAMENTAL"]);
+                            prog_anual.descripcion = Convert.ToString(element["DESCRIPCION"]);
+
+                            // Agregamos el objeto a la lista
+                            ListaRetornada.Add(prog_anual);
+                        }
+                    }
+                }
+                // Retornamos el programa anual
+                return ListaRetornada;            
+        }
+
+        /// <summary>
+        /// Manda llamar método que elimina todos los registros de la tabla TBL_PROGRAMA_ANUAL
+        /// </summary>
+        /// <returns></returns>
+        public static int Delete_AllRecords()
+        {
+            SO_ProgramaAnual ServiceProgAnual = new SO_ProgramaAnual();
+
+            return ServiceProgAnual.DeleteAllRecords();
+        }
+
+        /// <summary>
         /// Llamar método para insertar un registro en la tabla TBL_PROGRAMA_ANUAL
         /// </summary>
         /// <param name="Material"></param>
@@ -16627,6 +16679,7 @@ namespace Model
 
             return ServiceProgAnual.DeleteProgramaAnual(Id_Programa_Anual);
         }
+
         #endregion
     }
 }

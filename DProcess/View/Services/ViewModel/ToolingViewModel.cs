@@ -15,7 +15,9 @@ namespace View.Services.ViewModel
     public class ToolingViewModel : INotifyPropertyChanged
     {
         #region Attributtes
+
         public Usuario usuario;
+
         #endregion
 
         #region Properties
@@ -529,6 +531,17 @@ namespace View.Services.ViewModel
                 return new RelayCommand(a => _IrLoadingGuide());
             }
         }
+
+        /// <summary>
+        /// Comando para abrir la ventana de Verificación Anual
+        /// </summary>
+        public ICommand IrVerficacionAnual
+        {
+            get
+            {
+                return new RelayCommand(a => irverificacionanual());
+            }
+        }
         #endregion
 
         #region Methods
@@ -1001,6 +1014,18 @@ namespace View.Services.ViewModel
 
             frm.DataContext = context;
             frm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Comando que abre la ventana de Verificacion Anual
+        /// </summary>
+        public void irverificacionanual()
+        {
+            WVerificacionAnual wverifanual = new WVerificacionAnual();
+            VerificacionAnualViewModel vmverifanual = new VerificacionAnualViewModel(usuario);
+
+            wverifanual.DataContext = vmverifanual;
+            wverifanual.ShowDialog();
         }
 
         #endregion

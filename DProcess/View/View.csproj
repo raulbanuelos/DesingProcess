@@ -95,6 +95,10 @@
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Encriptar, Version=1.0.5520.24840, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Documents\DesingProcess\View\bin\Debug\Encriptar.dll</HintPath>
@@ -152,6 +156,10 @@
     </Reference>
     <Reference Include="QRCoder, Version=1.3.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\QRCoder.1.3.4\lib\net40\QRCoder.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SpreadsheetLight, Version=3.4.11.0, Culture=neutral, PublicKeyToken=32fbb46dc1730c57, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpreadsheetLight.3.4.11\lib\net40\SpreadsheetLight.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Spring.Core, Version=2.0.1.45000, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
@@ -658,8 +666,14 @@
     <Compile Include="Forms\Tooling\WMaestroHerramental.xaml.cs">
       <DependentUpon>WMaestroHerramental.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tooling\WNotificarA.xaml.cs">
+      <DependentUpon>WNotificarA.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooling\WShieldBK.xaml.cs">
       <DependentUpon>WShieldBK.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\WVerificacionAnual.xaml.cs">
+      <DependentUpon>WVerificacionAnual.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\WWorkCamTurn.xaml.cs">
       <DependentUpon>WWorkCamTurn.xaml</DependentUpon>
@@ -983,6 +997,7 @@
     <Compile Include="Services\ViewModel\ModificarDatosUsuario.cs" />
     <Compile Include="Services\ViewModel\ModificarLeccionVM.cs" />
     <Compile Include="Services\ViewModel\NormasViewModel.cs" />
+    <Compile Include="Services\ViewModel\NotificarAViewModel.cs" />
     <Compile Include="Services\ViewModel\NuevoDepartamentoVM.cs" />
     <Compile Include="Services\ViewModel\NuevoMaestroHerramental_VM.cs" />
     <Compile Include="Services\ViewModel\NuevoTipoDocumentoVM.cs" />
@@ -1014,6 +1029,7 @@
     <Compile Include="Services\ViewModel\USUARIO_NOTIFICACION_VERSION_VIEWMODEL.cs" />
     <Compile Include="Services\ViewModel\ValidacionTipoVM.cs" />
     <Compile Include="Services\ViewModel\ValidarDocumentoViewM.cs" />
+    <Compile Include="Services\ViewModel\VerificacionAnualViewModel.cs" />
     <Compile Include="Services\ViewModel\VersionesVM.cs" />
     <Compile Include="Services\ViewModel\WorkCamVM.cs" />
     <Compile Include="UserControls\DProcessPropiedad.xaml.cs">
@@ -1669,7 +1685,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\WNotificarA.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\WShieldBK.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\WVerificacionAnual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

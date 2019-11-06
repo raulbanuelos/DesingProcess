@@ -100,6 +100,7 @@
     <Compile Include="DO_Historial_Documento.cs" />
     <Compile Include="DO_Norma.cs" />
     <Compile Include="DO_Notification.cs" />
+    <Compile Include="DO_ProgramaAnual.cs" />
     <Compile Include="DO_UsuarioNombre.cs" />
     <Compile Include="Empaquetado.cs" />
     <Compile Include="EnumEx.cs" />

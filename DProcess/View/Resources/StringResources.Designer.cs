@@ -2069,6 +2069,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Attach the file with the tools used during the year..
+        /// </summary>
+        public static string msgAdjuntaherramentalaño {
+            get {
+                return ResourceManager.GetString("msgAdjuntaherramentalaño", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Admin.
         /// </summary>
         public static string msgAdmin {
@@ -2720,6 +2729,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a An error occurred while exporting the file..
+        /// </summary>
+        public static string msgErrorexportar {
+            get {
+                return ResourceManager.GetString("msgErrorexportar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Error saving the changes.
         /// </summary>
         public static string msgErrorGeneral {
@@ -3134,6 +3152,16 @@ namespace View.Resources {
         public static string msgHerramental {
             get {
                 return ResourceManager.GetString("msgHerramental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The process is over.
+        ///The file was created and saved with the Tooling to review..
+        /// </summary>
+        public static string msgHerramentalrevisar {
+            get {
+                return ResourceManager.GetString("msgHerramentalrevisar", resourceCulture);
             }
         }
         
@@ -3931,6 +3959,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Tooling Load.
+        /// </summary>
+        public static string ttlCargaHerramental {
+            get {
+                return ResourceManager.GetString("ttlCargaHerramental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Close.
         /// </summary>
         public static string ttlCerrarVentana {
@@ -4566,6 +4603,15 @@ namespace View.Resources {
         public static string ttlVerArchivo {
             get {
                 return ResourceManager.GetString("ttlVerArchivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Annual Verification.
+        /// </summary>
+        public static string ttlVerificacionAnual {
+            get {
+                return ResourceManager.GetString("ttlVerificacionAnual", resourceCulture);
             }
         }
         
