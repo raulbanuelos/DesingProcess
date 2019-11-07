@@ -259,6 +259,7 @@ namespace View.Services.ViewModel
                             }
                         }
 
+                        // Si el grupo existe
                         if (ID_GRUPO > 0)
                         {
                             await dialog.SendMessage(StringResources.ttlAlerta, StringResources.ttlDone);
@@ -275,17 +276,20 @@ namespace View.Services.ViewModel
                         }
                         else
                         {
+                            // Mensaje de error
                             await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgError);
                         }
                     }
                 }
                 else
                 {
+                    // Mensaje para seleccionar al menos 2 usuarios para crear grupo
                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSelecciona2MasUsuarios);
                 }
             }
             else
             {
+                // Mensaje para dar nombre al grupo antes de crear
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgAsignaNombreGrupo);
             }
         }
@@ -295,6 +299,7 @@ namespace View.Services.ViewModel
         /// </summary>
         private bool validar()
         {
+            // Valida que el campo nombre no este vacío
             if (string.IsNullOrEmpty(nombre))
             {
                 return false;

@@ -2206,6 +2206,18 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Verify that the names of the cells are:
+        ///A1 (MATERIAL/material)
+        ///A2 (CODIGO_HERRAMENTAL/codigo_herramental)
+        ///A3 (DESCRIPCION/descripcion)..
+        /// </summary>
+        public static string msgCellsName {
+            get {
+                return ResourceManager.GetString("msgCellsName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Close the file to be able to continue.
         /// </summary>
         public static string msgCierreArchivo {
@@ -3066,6 +3078,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Apparently you have attached an invalid format file..
+        /// </summary>
+        public static string msgFormatoNoValido {
+            get {
+                return ResourceManager.GetString("msgFormatoNoValido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The frames system was updated.
         /// </summary>
         public static string msgFramesExito {
@@ -3370,6 +3391,15 @@ namespace View.Resources {
         public static string msgNotificarBaja {
             get {
                 return ResourceManager.GetString("msgNotificarBaja", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to notify someone that the tooling to verify is ready?.
+        /// </summary>
+        public static string msgNotifySomeone {
+            get {
+                return ResourceManager.GetString("msgNotifySomeone", resourceCulture);
             }
         }
         

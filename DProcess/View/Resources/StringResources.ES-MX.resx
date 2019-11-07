@@ -2040,4 +2040,19 @@ Se creó y guardó el archivo con el Herramental a revisar.</value>
     <value>Verificación Anual</value>
     <comment>Título de Verificación Anual</comment>
   </data>
+  <data name="msgNotifySomeone" xml:space="preserve">
+    <value>¿Quieres notificar a alguien que el herramental a verificar está listo?</value>
+    <comment>Mensaje para notificar cuando el herramental está listo</comment>
+  </data>
+  <data name="msgCellsName" xml:space="preserve">
+    <value>Asegúrese que los nombres de las celdas sean:
+A1 (MATERIAL/material)
+A2 (CODIGO_HERRAMENTAL/codigo_herramental)
+A3 (DESCRIPCION/descripcion)."</value>
+    <comment>Mensaje para verificar nombres de las celdas correctos</comment>
+  </data>
+  <data name="msgFormatoNoValido" xml:space="preserve">
+    <value>Al parecer ha adjuntado un archivo con formato no válido.</value>
+    <comment>Mensaje cuando se adjunta un archivo con formato no válido</comment>
+  </data>
 </root>

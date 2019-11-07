@@ -812,6 +812,7 @@ namespace View.Services.ViewModel
             Inicializar();
 
             #region Cargar Usuarios a Notificar
+
             //Cargamos la lista de usuarios seleccionados a notificar, si es que existen.
             ObservableCollection<DO_USUARIO_NOTIFICACION_VERSION> listaUsuariosNotificarGuardados = DataManagerControlDocumentos.GetAllUsuariosNotificacionVersion(selectedDocumento.version.id_version);
             if (listaUsuariosNotificarGuardados.Count > 0)

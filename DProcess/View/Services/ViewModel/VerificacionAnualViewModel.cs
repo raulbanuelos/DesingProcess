@@ -78,17 +78,6 @@ namespace View.Services.ViewModel
             }
         }
 
-        /// <summary>
-        /// Comando que llama al método para ir a la vista notificar
-        /// </summary>
-        public ICommand IrNotificarA
-        {
-            get
-            {
-                return new RelayCommand(a => irnotificara());
-            }
-        }
-       
         #endregion
 
         #region Métodos
@@ -120,6 +109,9 @@ namespace View.Services.ViewModel
             // Filtramos los archivos excel
             dlg.Filter = "Excel Files (.xlsm, .xlsx)|*.xlsm; *.xlsx";
 
+            // Mensaje para informar nombre de celdas en archivo
+            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCellsName);
+
             // Abrimos la ventana de explorador de archivos
             bool? respuesta = dlg.ShowDialog();
 
@@ -132,8 +124,32 @@ namespace View.Services.ViewModel
                 // Validamos que el archivo no este abierto
                 if (!Module.IsFileInUse(nombrearchivo))
                 {
-                    // Mandamos llamar el método para leer los datos del archivo excel
-                    LeerExcel(nombrearchivo);
+                    // Declaramos librería para poder leer el archivo
+                    SLDocument sl = new SLDocument(nombrearchivo);
+
+                    // Inicializamos variable para leer solo el primer registro o renglón
+                    int iRow = 1;
+
+                    // Obtenemos valores de las celdas A1, A2, A3 (títulos de columna)
+                    string A1_Obtenida = sl.GetCellValueAsString(iRow, 1);
+                    string A2_Obtenida = sl.GetCellValueAsString(iRow, 2);
+                    string A3_Obtenida = sl.GetCellValueAsString(iRow, 3);
+
+                    // Nombre que deberán contener dichas celdas
+                    string CellA1 = "Material";
+                    string CellA2 = "Codigo_Herramental";
+                    string CellA3 = "Descripcion";
+
+                    // Validamos que el valor de las celdas obtenidas sea igual al valor necesario
+                    if ((A1_Obtenida.ToUpper() == CellA1.ToUpper()) && (A2_Obtenida.ToUpper() == CellA2.ToUpper()) && (A3_Obtenida.ToUpper() == CellA3.ToUpper()))
+                    {
+                        // Mandamos llamar el método para leer los datos del archivo excel
+                        LeerExcel(nombrearchivo);
+                    }
+                    else
+                    {
+                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFormatoNoValido);
+                    }
                 }
                 else
                 {
@@ -216,12 +232,20 @@ namespace View.Services.ViewModel
         {
             // Inicializamos los servicios
             DialogService dialog = new DialogService();
+            MetroDialogSettings settings = new MetroDialogSettings();
+
+            settings.AffirmativeButtonText = StringResources.lblYes;
+            settings.NegativeButtonText = StringResources.lblNo;
 
             // Ruta del archivo vacía
             string ruta_nombre = string.Empty;
 
-            // Asignamos el nombre del documento al crear      
-            string nombrearchivo = "ProgramaVerificación.xlsx";
+            // Desglosamos el nombre del archivo (nombre y extensión)      
+            string nombre = "ProgramaVerificación";
+            string extension = ".xlsx";
+
+            // Asignamos el nombre del documento al crear  
+            string nombrearchivo = nombre + extension;
 
             // Declaramos el uso de librería para abrir el explorador de archivos
             FolderBrowserDialog WindowDialog = new FolderBrowserDialog();
@@ -234,6 +258,17 @@ namespace View.Services.ViewModel
             {
                 // Concatenamos la ruta y el nombre del archivo
                 ruta_nombre = WindowDialog.SelectedPath + "\\" + nombrearchivo;
+
+                int contNombre = 1;
+
+                // Mientras exista un archivo con el mismo nombre
+                while (File.Exists(ruta_nombre))
+                {
+                    // Concatenamos la ruta del archivo, nombre, contador y extensión
+                    ruta_nombre = WindowDialog.SelectedPath + "\\" + nombre + "_" + contNombre + extension;
+
+                    contNombre++;
+                }
             }
 
             try
@@ -274,17 +309,37 @@ namespace View.Services.ViewModel
 
                 // Guardamos como, ponemos la ruta concatenada con el nombre del archivo
                 sl.SaveAs(ruta_nombre);
+
+                // Mensaje cuando termina el proceso
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHerramentalrevisar);
+
+                // Leemos la respuesta
+                MessageDialogResult resp = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgNotifySomeone, settings, MessageDialogStyle.AffirmativeAndNegative);
+
+                // Si la respuesta es si...
+                if (MessageDialogResult.Affirmative == resp)
+                {
+                    // Se manda llamar el método que abre la ventana para notificar
+                    irnotificara();
+                }
+                else
+                {
+                    //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                    var window = System.Windows.Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                    //Verificamos que la pantalla sea diferente de nulo.
+                    if (window != null)
+                    {
+                        //Cerramos la pantalla
+                        window.Close();
+                    }
+                }
             }
             catch (Exception er)
             {
                 // Si algo sale mal, mandamos este mensaje
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorexportar);
             }
-
-            // Mensaje cuando termina el proceso
-            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHerramentalrevisar);
-
-
         }
 
         #endregion
