@@ -1449,20 +1449,26 @@ namespace View.Services.ViewModel
             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
             window.MetroDialogOptions.DefaultText = MedidaHerramienta.ToString();
 
+            window.MetroDialogOptions.AffirmativeButtonText = "Confirmar";
+            window.MetroDialogOptions.NegativeButtonText = "Cancelar proceso";
+
             //Formulario para ingresar el número de copias, 
-            string inputDiaHerramienta = await window.ShowInputAsync("Confirma el diámetro de la herramienta", "El diámetro sugerido de la herramienta es: " + MedidaHerramienta, null);
+            string inputDiaHerramienta = await window.ShowInputAsync("Confirma el diámetro de la herramienta.", "El diámetro sugerido de la herramienta es: " + MedidaHerramienta + ", si deseas otro diámetro por favor capturalo.", null);
 
             #endregion
-            //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
-            AsyncProgress = await dialog.SendProgressAsync(StringResources.ttlEspereUnMomento, StringResources.ttlWorking);
+            if (!string.IsNullOrEmpty(inputDiaHerramienta))
+            {
+                //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
+                AsyncProgress = await dialog.SendProgressAsync(StringResources.ttlEspereUnMomento, StringResources.ttlWorking);
 
-            int a = await RunMacro();
+                int a = await RunMacro();
 
-            //Ejecutamos el método para cerrar el mensaje de espera.
-            await AsyncProgress.CloseAsync();
+                //Ejecutamos el método para cerrar el mensaje de espera.
+                await AsyncProgress.CloseAsync();
 
-            //si no se selecciono el area, no se libera el documento
-            await dialog.SendMessage(StringResources.lblInformation, StringResources.ttlDone + "\n" + "El archivo fué guardado en la siguiente ruta:" + "\n"  + @"\\agufileserv2\INGENIERIA\RESPRUTAS\Perfiles\" + Codigo + " " + "(" + MedidaHerramienta + ")" + ".xlsx");
+                //si no se selecciono el area, no se libera el documento
+                await dialog.SendMessage(StringResources.lblInformation, StringResources.ttlDone + "\n" + "El archivo fué guardado en la siguiente ruta:" + "\n" + @"\\agufileserv2\INGENIERIA\RESPRUTAS\Perfiles\" + Codigo + " " + "(" + MedidaHerramienta + ")" + ".xlsx"); 
+            }
         }
 
         private void altaPattern()
@@ -1475,9 +1481,16 @@ namespace View.Services.ViewModel
         {
             WPattern pattern = new WPattern();
 
+            calcularPesoPlaca();
+
             pattern.DataContext = this;
 
             pattern.Show();
+        }
+
+        private void calcularPesoPlaca()
+        {
+            peso_cstg.Valor = Math.Round((((3.1416 / 4) * (Convert.ToDouble(Math.Pow(patt_sm_od.Valor, 2)) - Convert.ToDouble(Math.Pow(patt_sm_id.Valor, 2)))) * diametro.Valor * 16.387 * 7.2) / 0.95, 3);
         }
 
         private void seleccionarPlaca()
@@ -1716,7 +1729,7 @@ namespace View.Services.ViewModel
             //Ejecutamos el método para asignar el nombre a las propiedades. Esto para poder ser usadas en otras clases como las de los tiempos estandar
             setNameProperties();
 
-            customer = new Cliente { IdCliente = 1, NombreCliente = "SERVICIO" };
+            //customer = new Cliente { IdCliente = 1, NombreCliente = "SERVICIO" };
             
             //Constante
             joint.Valor = "BUTT";
@@ -1830,7 +1843,7 @@ namespace View.Services.ViewModel
                 OD.Valor = Math.Round(cstg_sm_od.Valor + ((cam_lever.Valor - rise_built.Valor) * 2), 3);
                 ID.Valor = Math.Round(patt_sm_id.Valor - (patt_sm_id.Valor * 0.015), 3);
                 diff.Valor = Math.Round(OD.Valor - ID.Valor, 3);
-                peso_cstg.Valor = Math.Round((((3.1416 / 4) * (Convert.ToDouble(Math.Pow(patt_sm_od.Valor , 2)) - Convert.ToDouble(Math.Pow(patt_sm_id.Valor,2)))) * diametro.Valor * 16.387 * 7.2) / 0.95, 3);
+                calcularPesoPlaca();
                 B_Dia.Valor = Math.Round(patt_sm_od.Valor + (2 * cam_lever.Valor), 4);
 
                 if (IsPatternNew)
@@ -2072,15 +2085,14 @@ namespace View.Services.ViewModel
                 if (model.customer.IdCliente == 0)
                     model.customer.IdCliente = DataManager.GetIDCliente(model.customer.NombreCliente);
                 
-                string codigoRegistrado = DataManager.SetPattern(model);
-                if (!codigoRegistrado.Equals(""))
+                int registroModificados = DataManager.UpdatePattern(model);
+                if (registroModificados > 0)
                 {
-                    await dialog.SendMessage(Resources.StringResources.ttlDone, Resources.StringResources.msgPatternInserted + codigoRegistrado);
+                    await dialog.SendMessage(Resources.StringResources.ttlDone, Resources.StringResources.msgPatternInserted + registroModificados);
 
                     //Inicializamos el objeto anillo que representa nuestro modelo.
                     Inicializar();
                     ListaPattern = DataManager.GetAllPattern();
-
                 }
                 else
                     await dialog.SendMessage(Resources.StringResources.ttlAlerta, Resources.StringResources.msgError);

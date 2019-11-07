@@ -181,7 +181,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                                  select new
                                  {
                                      m.Plato
-                                 }).ToList();
+                                 }).Distinct().ToList();
                     //Retornamos la lista resultante.
                     return Lista;
                 }
