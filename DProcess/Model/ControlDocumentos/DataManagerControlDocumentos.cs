@@ -1739,12 +1739,40 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
+        /// Método que obtiene los detalles de un usuario específico.
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <returns></returns>
+        public static UserDetails GetUserDetails(string idUsuario)
+        {
+            UserDetails details = new UserDetails();
+
+            SO_UserDetails serviceDetails = new SO_UserDetails();
+
+            IList informacion = serviceDetails.GetUserDetails(idUsuario);
+
+            if (informacion != null)
+            {
+                foreach (var item in informacion)
+                {
+                    Type tipo = item.GetType();
+
+                    details = new UserDetails();
+
+                    details.PathPhoto = (string)tipo.GetProperty("URL_PHOTO").GetValue(item, null);
+
+                }
+            }
+
+            return details;
+        }
+
+        /// <summary>
         /// Método para obtener todos los registros de la tabla Usuarios.
         /// </summary>
         /// <returns></returns>
-        public static ObservableCollection<Usuarios> GetUsuarios() {
-
-
+        public static ObservableCollection<Usuarios> GetUsuarios()
+        {
             //Inicializamos los servicios de usuarios.
             SO_Usuarios ServiceUsuarios = new SO_Usuarios();
 
@@ -1779,6 +1807,11 @@ namespace Model.ControlDocumentos
                     obj.bloqueado = (bool)tipo.GetProperty("Bloqueado").GetValue(item, null);
                     obj.Correo = (string)tipo.GetProperty("Correo").GetValue(item, null);
                     obj.Pathnsf = (string)tipo.GetProperty("Pathnsf").GetValue(item, null);
+                    obj.Details = GetUserDetails(obj.usuario);
+
+                    //Verificamos si esta cargada la foto, sino asignamos una por default.
+                    if (string.IsNullOrEmpty(obj.Details.PathPhoto))
+                        obj.Details.PathPhoto = @"\\MXAGSQLSRV01\documents__\ESPECIFICOS\img\defaultuser.jpg";
 
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
@@ -1818,6 +1851,12 @@ namespace Model.ControlDocumentos
                     user.bloqueado = (bool)tipo.GetProperty("Bloqueado").GetValue(item, null);
                     user.Correo = (string)tipo.GetProperty("Correo").GetValue(item, null);
                     user.Pathnsf = (string)tipo.GetProperty("Pathnsf").GetValue(item, null);
+                    user.Details = GetUserDetails(user.usuario);
+
+                    //Verificamos si esta cargada la foto, sino asignamos una por default.
+                    if (string.IsNullOrEmpty(user.Details.PathPhoto))
+                        user.Details.PathPhoto = @"\\MXAGSQLSRV01\documents__\ESPECIFICOS\img\defaultuser.jpg";
+
                     lista.Add(user);
                 }
             }

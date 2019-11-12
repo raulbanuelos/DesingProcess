@@ -81,14 +81,19 @@ namespace View.Forms.LogIn
                         //Ejecutamos el método para desbloquear el sistema, si se venció la fecha final
                         DataManagerControlDocumentos.DesbloquearSistema(date_now);
 
-                        //Una vez que el usuario hizo clic en aceptar el mensaje de bienvenida, se procede con la codificación de la presentación de la pantalla inicial.
+                        //Obtenemos los detalles del usuario logueado.
+                        usuarioConectado.Details = DataManager.GetUserDetails(usuarioConectado.NombreUsuario);
 
+                        //Verificamos si esta cargada la foto, sino asignamos una por default.
+                        if (string.IsNullOrEmpty(usuarioConectado.Details.PathPhoto))
+                            usuarioConectado.Details.PathPhoto = @"\\MXAGSQLSRV01\documents__\ESPECIFICOS\img\defaultuser.jpg";
+
+                        //Una vez que el usuario hizo clic en aceptar el mensaje de bienvenida, se procede con la codificación de la presentación de la pantalla inicial.
                         //Creamos un objeto de tipo Home, la cual es la pantalla inicial del sistema.
                         Home PantallaHome = new Home(usuarioConectado.NombreUsuario);
 
                         //Creamos un objeto UsuarioViewModel, y le asignamos los valores correspondientes, a la propiedad Pagina se le asgina la pantalla inicial de Home.
                         //UsuarioViewModel context = new UsuarioViewModel { ModelUsuario = usuarioConectado, Pagina = PantallaHome };
-
                         UsuarioViewModel context = new UsuarioViewModel(usuarioConectado, PantallaHome);
                         context.ModelUsuario = usuarioConectado;
                         context.Pagina = PantallaHome;

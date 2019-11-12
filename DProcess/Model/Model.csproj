@@ -143,6 +143,7 @@
     <Compile Include="Tubos_CL.cs" />
     <Compile Include="Tubos_HD.cs" />
     <Compile Include="UbicacionPintura.cs" />
+    <Compile Include="UserDetails.cs" />
     <Compile Include="Usuario.cs" />
   </ItemGroup>
   <ItemGroup>

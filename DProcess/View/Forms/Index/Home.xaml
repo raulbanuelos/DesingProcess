@@ -21,9 +21,26 @@
             
             <StackPanel DockPanel.Dock="Left" Width="15"></StackPanel>
             
-            <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Right" Height="100" Orientation="Vertical">
-                <Label Content="{Binding Nombre}" FontSize="24" HorizontalAlignment="Right" Foreground="White" Margin="0,15,15,0"></Label>
-                <Label Content="{Binding ApellidoPaterno}" FontSize="16" Foreground="White" HorizontalAlignment="Right" Margin="0,0,15,0"></Label>
+            <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Right" Orientation="Vertical" Margin="0,15,15,0">
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Height="80" Width="80">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding Details.PathPhoto}"></ImageBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="{Binding Nombre}" FontSize="24" HorizontalAlignment="Right" Foreground="White" Margin="0,15,15,0"></Label>
+                        <Label Content="{Binding ApellidoPaterno}" FontSize="16" Foreground="White" HorizontalAlignment="Right" Margin="0,0,15,0"></Label>
+                    </StackPanel>
+                </StackPanel>
+
+
+                <!--<Image Source="{Binding Details.PathPhoto}" Width="50" Height="50"></Image>-->
+                <!--<materialDesign:Chip Content="{Binding NombreCompleto}">
+                    <materialDesign:Chip.Icon>
+                        <Image Source="{Binding Details.PathPhoto}"></Image>
+                    </materialDesign:Chip.Icon>
+                </materialDesign:Chip>-->
             </StackPanel>
             
             <Grid DockPanel.Dock="Right" ShowGridLines="True">

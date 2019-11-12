@@ -15388,6 +15388,38 @@ namespace Model
         }
 
         /// <summary>
+        /// Método que obtiene los detalles de un usuario específico.
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <returns></returns>
+        public static UserDetails GetUserDetails(string idUsuario)
+        {
+            UserDetails details = new UserDetails();
+
+            SO_UserDetails serviceDetails = new SO_UserDetails();
+
+            IList informacion = serviceDetails.GetUserDetails(idUsuario);
+
+            if (informacion != null)
+            {
+                foreach (var item in informacion)
+                {
+                    Type tipo = item.GetType();
+
+                    details = new UserDetails();
+
+                    details.PathPhoto = (string)tipo.GetProperty("URL_PHOTO").GetValue(item, null);
+
+                    if (string.IsNullOrEmpty(details.PathPhoto))
+                        details.PathPhoto = @"\\MXAGSQLSRV01\documents__\ESPECIFICOS\img\defaultuser.jpe";
+
+                }
+            }
+
+            return details;
+        }
+
+        /// <summary>
         /// Método que obtiene los roles de usuario
         /// </summary>
         /// <param name="usuario"></param>
@@ -15504,6 +15536,7 @@ namespace Model
                     user.Nombre = (string)tipo.GetProperty("Nombre").GetValue(item, null);
                     user.Pathnsf = (string)tipo.GetProperty("Pathnsf").GetValue(item, null);
                     user.IdUsuario = (string)tipo.GetProperty("Usuario").GetValue(item, null);
+                    user.Details = GetUserDetails(user.IdUsuario);
                 }
             }
 

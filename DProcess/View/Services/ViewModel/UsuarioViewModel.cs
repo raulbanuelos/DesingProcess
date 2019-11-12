@@ -114,6 +114,18 @@ namespace View.Services.ViewModel
                 NotifyChange("Roles");
             }
         }
+
+        public UserDetails Details {
+            get
+            {
+                return ModelUsuario.Details;
+            }
+            set
+            {
+                ModelUsuario.Details = value;
+                NotifyChange("Details");
+            }
+        }
         #endregion
 
         #region Propiedades de navegación
@@ -271,6 +283,15 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Properties
+
+        private string _NombreCompleto;
+        public string NombreCompleto
+        {
+            get { return Nombre + " " + ApellidoPaterno ; }
+            set { _NombreCompleto = value; NotifyChange("NombreCompleto"); }
+        }
+
+
         #endregion
 
         #region Constructores

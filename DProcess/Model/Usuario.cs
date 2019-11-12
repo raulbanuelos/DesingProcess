@@ -26,6 +26,8 @@ namespace Model
 
         public string IdUsuario { get; set; }
 
+        public UserDetails Details { get; set; }
+        
         //Perfiles
         public bool PerfilRGP{ get; set;  }
         

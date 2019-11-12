@@ -46,6 +46,9 @@ namespace Model.ControlDocumentos
             }
         }
 
+        public UserDetails Details { get; set; }
+
+
         //string usuario,string password,string nombre,string APaterno,string AMaterno,
         // int estado,string usql,string psql,bool bloqueado, int id_departartemento
         #endregion
@@ -54,6 +57,6 @@ namespace Model.ControlDocumentos
 
         #endregion
 
-        
+
     }
 }

@@ -732,6 +732,7 @@
     <Compile Include="ServiceObjects\Usuario\SO_LeccionesCentroTrabajo.cs" />
     <Compile Include="ServiceObjects\Usuario\SO_LeccionesTipoCambio.cs" />
     <Compile Include="ServiceObjects\Usuario\SO_TipoCambio.cs" />
+    <Compile Include="ServiceObjects\Usuario\SO_UserDetails.cs" />
     <Compile Include="ServiceObjects\Usuario\SO_Usuario.cs" />
     <Compile Include="ServiceObjects\Usuario\TBL_ARCHIVO_LECCIONES.cs">
       <DependentUpon>ModelUsuario.tt</DependentUpon>
@@ -740,6 +741,9 @@
       <DependentUpon>ModelUsuario.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Usuario\TBL_TIPOCAMBIO.cs">
+      <DependentUpon>ModelUsuario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Usuario\TBL_USERS_DETAILS.cs">
       <DependentUpon>ModelUsuario.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Usuario\TR_LECCIONES_CENTROSTRABAJO.cs">

@@ -99,7 +99,7 @@ namespace View.Services.ViewModel
         public void irnotificara()
         {
             WNotificarA notificara = new WNotificarA();
-            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario);
+            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario,string.Empty, new ObservableCollection<Archivo>() );
 
             notificara.DataContext = vwnotifa;
             notificara.ShowDialog();
