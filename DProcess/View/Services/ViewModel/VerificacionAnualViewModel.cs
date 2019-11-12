@@ -27,6 +27,10 @@ namespace View.Services.ViewModel
     public class VerificacionAnualViewModel : INotifyPropertyChanged
     {
 
+        #region Attributes
+        string rutaArchivo; 
+        #endregion
+
         #region Propiedades
 
         public Usuario ModelUsuario;
@@ -87,7 +91,16 @@ namespace View.Services.ViewModel
         public void irnotificara()
         {
             WNotificarA notificara = new WNotificarA();
-            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario,string.Empty, new ObservableCollection<Archivo>() );
+            
+            string body = "<BR><FONT size=2 face=Helv><FONT size=2 face=Helv>";
+            body += "<P><P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para notificar que ya está disponible el archivo con los herramentales a verificar de este año " + DateTime.Now.Year + ", </P></P>";
+            body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; el cual se hizo el análisis de acuerdo al pronóstico de producción de este año el cual fue compartido por logística así </P>";
+            body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; como los herramentales establecidos en el procedimiento <STRONG>W-3571-49282-es.</STRONG></P>";
+            body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dicho archivo se encuentra en la siguiente ruta:</P>";
+            body += "<BR><P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + rutaArchivo + "</P>";
+            body += "<P>Cualquier duda quedo a sus órdenes.</P></FONT></FONT>";
+            
+            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario,body, new ObservableCollection<Archivo>() );
 
             notificara.DataContext = vwnotifa;
             notificara.ShowDialog();
@@ -235,10 +248,7 @@ namespace View.Services.ViewModel
 
             settings.AffirmativeButtonText = StringResources.lblYes;
             settings.NegativeButtonText = StringResources.lblNo;
-
-            // Ruta del archivo vacía
-            string ruta_nombre = string.Empty;
-
+            
             // Desglosamos el nombre del archivo (nombre y extensión)      
             string nombre = "ProgramaVerificación";
             string extension = ".xlsx";
@@ -256,15 +266,15 @@ namespace View.Services.ViewModel
             if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(WindowDialog.SelectedPath))
             {
                 // Concatenamos la ruta y el nombre del archivo
-                ruta_nombre = WindowDialog.SelectedPath + "\\" + nombrearchivo;
+                rutaArchivo = WindowDialog.SelectedPath + "\\" + nombrearchivo;
 
                 int contNombre = 1;
 
                 // Mientras exista un archivo con el mismo nombre
-                while (File.Exists(ruta_nombre))
+                while (File.Exists(rutaArchivo))
                 {
                     // Concatenamos la ruta del archivo, nombre, contador y extensión
-                    ruta_nombre = WindowDialog.SelectedPath + "\\" + nombre + "_" + contNombre + extension;
+                    rutaArchivo = WindowDialog.SelectedPath + "\\" + nombre + "_" + contNombre + extension;
 
                     contNombre++;
                 }
@@ -307,7 +317,7 @@ namespace View.Services.ViewModel
                 }
 
                 // Guardamos como, ponemos la ruta concatenada con el nombre del archivo
-                sl.SaveAs(ruta_nombre);
+                sl.SaveAs(rutaArchivo);
 
                 // Mensaje cuando termina el proceso
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHerramentalrevisar);
