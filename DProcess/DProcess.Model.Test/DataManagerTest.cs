@@ -854,5 +854,10 @@ namespace DProcess.Model.Test
         //    DataManager.Delete_ProgramaAnual(2);
         //}
 
+        //[TestMethod]
+        //public void PruebaSuscripciondoc()
+        //{
+        //    DataManagerControlDocumentos.Get_UserSuscripDoc(7412);
+        //}
     }
 }

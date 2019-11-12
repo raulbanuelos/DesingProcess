@@ -141,6 +141,14 @@
           <Property Name="FECHA_CREACION" Type="datetime" />
           <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
         </EntityType>
+        <EntityType Name="TBL_SUSCRIPCION_DOCUMENTO">
+          <Key>
+            <PropertyRef Name="ID_SUSCRIPCION_DOC" />
+          </Key>
+          <Property Name="ID_SUSCRIPCION_DOC" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_USUARIO_SUSCRITO" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ID_DOCUMENTO" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="TBL_TIPO_DOCUMENTO">
           <Key>
             <PropertyRef Name="ID_TIPO_DOCUMENTO" />
@@ -293,6 +301,18 @@
             </Principal>
             <Dependent Role="TR_USUARIO_NOTIFICACION_VERSION">
               <PropertyRef Name="ID_VERSION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ID_DOCUMENTO">
+          <End Role="TBL_DOCUMENTO" Type="Self.TBL_DOCUMENTO" Multiplicity="1" />
+          <End Role="TBL_SUSCRIPCION_DOCUMENTO" Type="Self.TBL_SUSCRIPCION_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_DOCUMENTO">
+              <PropertyRef Name="ID_DOCUMENTO" />
+            </Principal>
+            <Dependent Role="TBL_SUSCRIPCION_DOCUMENTO">
+              <PropertyRef Name="ID_DOCUMENTO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -500,6 +520,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_USUARIO_SUSCRITO">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="TBL_SUSCRIPCION_DOCUMENTO" Type="Self.TBL_SUSCRIPCION_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario" />
+            </Principal>
+            <Dependent Role="TBL_SUSCRIPCION_DOCUMENTO">
+              <PropertyRef Name="ID_USUARIO_SUSCRITO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DataAccessServiceObjectsControlDocumentosStoreContainer">
           <EntitySet Name="TBL_ARCHIVO" EntityType="Self.TBL_ARCHIVO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_BLOQUEO" EntityType="Self.TBL_BLOQUEO" Schema="dbo" store:Type="Tables" />
@@ -515,6 +547,7 @@
           <EntitySet Name="TBL_NOTIFICACION_ERROR" EntityType="Self.TBL_NOTIFICACION_ERROR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_RECURSO_TIPO_DOCUMENTO" EntityType="Self.TBL_RECURSO_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ROL" EntityType="Self.TBL_ROL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_SUSCRIPCION_DOCUMENTO" EntityType="Self.TBL_SUSCRIPCION_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_TIPO_DOCUMENTO" EntityType="Self.TBL_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_VALIDACION_DOCUMENTO" EntityType="Self.TBL_VALIDACION_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_VALIDACION_VERSION" EntityType="Self.TBL_VALIDACION_VERSION" Schema="dbo" store:Type="Tables" />
@@ -543,6 +576,10 @@
           <AssociationSet Name="FK__TR_USUARI__ID_VE__17C35226" Association="Self.FK__TR_USUARI__ID_VE__17C35226">
             <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
             <End Role="TR_USUARIO_NOTIFICACION_VERSION" EntitySet="TR_USUARIO_NOTIFICACION_VERSION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ID_DOCUMENTO" Association="Self.FK_ID_DOCUMENTO">
+            <End Role="TBL_DOCUMENTO" EntitySet="TBL_DOCUMENTO" />
+            <End Role="TBL_SUSCRIPCION_DOCUMENTO" EntitySet="TBL_SUSCRIPCION_DOCUMENTO" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_ARCHIVO_TBL_VERSION" Association="Self.FK_TBL_ARCHIVO_TBL_VERSION">
             <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
@@ -611,6 +648,10 @@
           <AssociationSet Name="FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_VALIDACION_DOCUMENTO" Association="Self.FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_VALIDACION_DOCUMENTO">
             <End Role="TBL_VALIDACION_DOCUMENTO" EntitySet="TBL_VALIDACION_DOCUMENTO" />
             <End Role="TR_VALIDACION_TIPO_DOCUMENTO" EntitySet="TR_VALIDACION_TIPO_DOCUMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO_SUSCRITO" Association="Self.FK_USUARIO_SUSCRITO">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="TBL_SUSCRIPCION_DOCUMENTO" EntitySet="TBL_SUSCRIPCION_DOCUMENTO" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -729,6 +770,15 @@
             <End Role="TR_USUARIO_NOTIFICACION_VERSION" EntitySet="TR_USUARIO_NOTIFICACION_VERSION" />
           </AssociationSet>
           <EntitySet Name="TBL_INFORMACION_FRAMES" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_INFORMACION_FRAMES" />
+          <EntitySet Name="TBL_SUSCRIPCION_DOCUMENTO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_SUSCRIPCION_DOCUMENTO" />
+          <AssociationSet Name="FK_ID_DOCUMENTO" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_ID_DOCUMENTO">
+            <End Role="TBL_DOCUMENTO" EntitySet="TBL_DOCUMENTO" />
+            <End Role="TBL_SUSCRIPCION_DOCUMENTO" EntitySet="TBL_SUSCRIPCION_DOCUMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO_SUSCRITO" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_USUARIO_SUSCRITO">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="TBL_SUSCRIPCION_DOCUMENTO" EntitySet="TBL_SUSCRIPCION_DOCUMENTO" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="TBL_ARCHIVO">
           <Key>
@@ -875,6 +925,7 @@
           <NavigationProperty Name="TBL_TIPO_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_TIPO_DOCUMENTO" FromRole="TBL_DOCUMENTO" ToRole="TBL_TIPO_DOCUMENTO" />
           <NavigationProperty Name="Usuarios" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_Usuarios" FromRole="TBL_DOCUMENTO" ToRole="Usuarios" />
           <NavigationProperty Name="TBL_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_TBL_DOCUMENTOS" FromRole="TBL_DOCUMENTO" ToRole="TBL_VERSION" />
+          <NavigationProperty Name="TBL_SUSCRIPCION_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_ID_DOCUMENTO" FromRole="TBL_DOCUMENTO" ToRole="TBL_SUSCRIPCION_DOCUMENTO" />
         </EntityType>
         <Association Name="FK_TBL_DOCUMENTO_TBL_DEPARTAMENTO">
           <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_DEPARTAMENTO" Role="TBL_DEPARTAMENTO" Multiplicity="1" />
@@ -1044,6 +1095,7 @@
           <NavigationProperty Name="TBL_GRUPOS" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK__TBL_GRUPO__ID_US__04B07DB2" FromRole="Usuarios" ToRole="TBL_GRUPOS" />
           <NavigationProperty Name="TR_INTEGRANTES_GRUPO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_INTEGR__ID_US__08810E96" FromRole="Usuarios" ToRole="TR_INTEGRANTES_GRUPO" />
           <NavigationProperty Name="TR_USUARIO_NOTIFICACION_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_USUARI__ID_US__16CF2DED" FromRole="Usuarios" ToRole="TR_USUARIO_NOTIFICACION_VERSION" />
+          <NavigationProperty Name="TBL_SUSCRIPCION_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_USUARIO_SUSCRITO" FromRole="Usuarios" ToRole="TBL_SUSCRIPCION_DOCUMENTO" />
           </EntityType>
         <Association Name="FK_TBL_DOCUMENTO_Usuarios">
           <End Type="DataAccess.ServiceObjects.ControlDocumentos.Usuarios" Role="Usuarios" Multiplicity="1" />
@@ -1269,6 +1321,40 @@
           <Property Name="VERSION" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="FECHA_LIBERACION" Type="DateTime" Precision="0" />
         </EntityType>
+        <EntityType Name="TBL_SUSCRIPCION_DOCUMENTO">
+          <Key>
+            <PropertyRef Name="ID_SUSCRIPCION_DOC" />
+          </Key>
+          <Property Name="ID_SUSCRIPCION_DOC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_USUARIO_SUSCRITO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ID_DOCUMENTO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBL_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_ID_DOCUMENTO" FromRole="TBL_SUSCRIPCION_DOCUMENTO" ToRole="TBL_DOCUMENTO" />
+          <NavigationProperty Name="Usuarios" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_USUARIO_SUSCRITO" FromRole="TBL_SUSCRIPCION_DOCUMENTO" ToRole="Usuarios" />
+        </EntityType>
+        <Association Name="FK_ID_DOCUMENTO">
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_DOCUMENTO" Role="TBL_DOCUMENTO" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_SUSCRIPCION_DOCUMENTO" Role="TBL_SUSCRIPCION_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_DOCUMENTO">
+              <PropertyRef Name="ID_DOCUMENTO" />
+            </Principal>
+            <Dependent Role="TBL_SUSCRIPCION_DOCUMENTO">
+              <PropertyRef Name="ID_DOCUMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIO_SUSCRITO">
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_SUSCRIPCION_DOCUMENTO" Role="TBL_SUSCRIPCION_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario" />
+            </Principal>
+            <Dependent Role="TBL_SUSCRIPCION_DOCUMENTO">
+              <PropertyRef Name="ID_USUARIO_SUSCRITO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1526,6 +1612,15 @@
                 <ScalarProperty Name="VERSION" ColumnName="VERSION" />
                 <ScalarProperty Name="NOMBRE_DOCUMENTO" ColumnName="NOMBRE_DOCUMENTO" />
                 <ScalarProperty Name="ID_INFORMACION_FRAMES" ColumnName="ID_INFORMACION_FRAMES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_SUSCRIPCION_DOCUMENTO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TBL_SUSCRIPCION_DOCUMENTO">
+              <MappingFragment StoreEntitySet="TBL_SUSCRIPCION_DOCUMENTO">
+                <ScalarProperty Name="ID_DOCUMENTO" ColumnName="ID_DOCUMENTO" />
+                <ScalarProperty Name="ID_USUARIO_SUSCRITO" ColumnName="ID_USUARIO_SUSCRITO" />
+                <ScalarProperty Name="ID_SUSCRIPCION_DOC" ColumnName="ID_SUSCRIPCION_DOC" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

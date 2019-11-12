@@ -3530,6 +3530,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a I want to subscribe to the changes in this document.
+        /// </summary>
+        public static string msgQuieroSuscribirme {
+            get {
+                return ResourceManager.GetString("msgQuieroSuscribirme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Do you want to remove relationship?.
         /// </summary>
         public static string msgQuitarRelacion {
@@ -3544,6 +3553,15 @@ namespace View.Resources {
         public static string msgRangoFechasInvalido {
             get {
                 return ResourceManager.GetString("msgRangoFechasInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You will receive a notification when this document will be modified or deleted..
+        /// </summary>
+        public static string msgRecicbirNotificacionSuscripcion {
+            get {
+                return ResourceManager.GetString("msgRecicbirNotificacionSuscripcion", resourceCulture);
             }
         }
         

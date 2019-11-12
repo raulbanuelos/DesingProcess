@@ -30,10 +30,9 @@ namespace View.Services.ViewModel
         #region Propiedades
 
         public Usuario ModelUsuario;
+        public string nombrearchivo;
 
         #endregion
-
-        public string nombrearchivo;
 
         #region PropertyChanged
 

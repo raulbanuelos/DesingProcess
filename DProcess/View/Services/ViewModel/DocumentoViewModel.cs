@@ -617,6 +617,60 @@ namespace View.Services.ViewModel
             }
         }
 
+        private bool _visibilitycheck_suscripcion;
+        public bool visibilitycheck_suscripcion
+        {
+            get
+            {
+                return _visibilitycheck_suscripcion;
+            }
+            set
+            {
+                _visibilitycheck_suscripcion = value;
+                NotifyChange("visibilitycheck_suscripcion");
+            }
+        }
+
+        private bool _visibilitylabelsuscripcion;
+        public bool visibilitylabelsuscripcion
+        {
+            get
+            {
+                return _visibilitylabelsuscripcion;
+            }
+            set
+            {
+                _visibilitylabelsuscripcion = value;
+                NotifyChange("visibilitylabelsuscripcion");
+            }
+        }
+        
+        private bool _ActivarSuscripcion;
+        public bool ActivarSuscripcion
+        {
+            get
+            {
+                return _ActivarSuscripcion;
+            }
+            set
+            {
+                _ActivarSuscripcion = value;
+                NotifyChange("ActivarSuscripcion");
+
+                // Validamos el estado del check, si está seleccionado o no
+                if(value == false)
+                {
+                    // Si no está seleccionado, se elimina registro de suscripción al documento
+                    DataManagerControlDocumentos.Delete_SuscriptorDoc(User.NombreUsuario, id_documento);
+                }
+                else
+                {
+                    // Si está seleccionado, se inserta registro de suscripción
+                    DataManagerControlDocumentos.Insert_SuscriptorDoc(User.NombreUsuario, id_documento);
+                }
+            }
+        }
+
         public int idgrupo
         {
             get
@@ -794,6 +848,34 @@ namespace View.Services.ViewModel
             }
         }
 
+        private ObservableCollection<DO_UsuarioSuscrito> _ListaUsuariosSuscritos;
+        public ObservableCollection<DO_UsuarioSuscrito> ListaUsuariosSuscritos
+        {
+            get
+            {
+                return _ListaUsuariosSuscritos;
+            }
+            set
+            {
+                _ListaUsuariosSuscritos = value;
+                NotifyChange("ListaUsuariosSuscritos");
+            }
+        }
+
+        private ObservableCollection<DO_UsuarioSuscrito> _ListaUsuariosSuscritosParaEliminar;
+        public ObservableCollection<DO_UsuarioSuscrito> ListaUsuariosSuscritosParaEliminar
+        {
+            get
+            {
+                return _ListaUsuariosSuscritosParaEliminar;
+            }
+            set
+            {
+                _ListaUsuariosSuscritosParaEliminar = value;
+                NotifyChange("ListaUsuariosSuscritosParaEliminar");
+            }
+        }
+
         #endregion
 
         #region Constructores
@@ -908,6 +990,7 @@ namespace View.Services.ViewModel
             EnabledEliminar = false;
             IsEnabled = false;
             BttnArchivos = false;
+            
             //Si es ventana para generar una nueva versión, band = true
             BttnVersion = band;
             
@@ -917,7 +1000,12 @@ namespace View.Services.ViewModel
                 //mandamos llamar el menú que lo construye
                 //CreateMenuItems(Ventana);
                 AdjuntarDocumento = true;
-            }else
+
+                // Mostramos check de suscripción a documentos
+                visibilitycheck_suscripcion = true;
+                visibilitylabelsuscripcion = true;
+            }
+            else
             {
                 //Ocultamos el mensaje en la ventana pendiente por liberar
                 banAlertaCorreo = true;
@@ -1005,6 +1093,21 @@ namespace View.Services.ViewModel
                 }
                 ListaDocumentos.Add(objArchivo);
             }
+
+            // Asignamos a la variable, si el usuario ya está inscrito o no al documento
+            bool inscrito = DataManagerControlDocumentos.Get_RegisrosSuscritos(User.NombreUsuario, id_documento);
+
+            // Validamos 
+            if (inscrito == true)
+            {
+                // Si ya está inscrito, el botón inicia seleccionado
+                _ActivarSuscripcion = true;
+            }
+            else
+            {
+                // Si no está suscrito, el botón permanece deseleccionado
+                _ActivarSuscripcion = false;
+            }                          
         }
 
         /// <summary>
@@ -1193,12 +1296,27 @@ namespace View.Services.ViewModel
             // Asignamos nueva lista con todos los usuarios de la tabla TR_USUARIOS_NOTIFICACION_VERSION
             ObservableCollection<DO_USUARIO_NOTIFICACION_VERSION> ListaUsuariosCorreoCompleta = DataManagerControlDocumentos.GetAllUsuariosNotificacionVersion(idVersion);
 
+            // Declaramos nueva lista para almacenar los usuarios suscritos a documentos
+            ListaUsuariosSuscritos = DataManagerControlDocumentos.Get_UserSuscripDoc(id_documento);
+
             // Iteramos ambas listas, y nos aseguramos de que todos los usuarios necesarios estén seleccionados
             foreach (var UserTotales in ListaUsuariosCorreoCompleta)
             {
                 foreach (var User in ListaUsuariosCorreo)
                 {
                     if (UserTotales.id_usuario == User.usuario)
+                    {
+                        User.IsSelected = true;
+                    }
+                }
+            }
+
+            // Iteramos la lista con usuarios suscritos y los cargamos a la lista general para notificar
+            foreach (var UserSuscritos in ListaUsuariosSuscritos)
+            {
+                foreach (var User in ListaUsuariosCorreo)
+                {
+                    if (UserSuscritos.id_usuariosuscrito == User.usuario)
                     {
                         User.IsSelected = true;
                     }
@@ -5598,7 +5716,10 @@ namespace View.Services.ViewModel
             //Si el id es diferente de cero
             if (id_documento != 0 & result == MessageDialogResult.Affirmative)
             {
-                vmUsuarios = new UsuariosViewModel(auxUsuario, auxUsuario_Autorizo);
+                // Declaramos nueva lista, para asignarle el total de registros por id_documento
+                ListaUsuariosSuscritosParaEliminar = DataManagerControlDocumentos.Get_UserSuscripDoc(id_documento);
+                // Mandamos llamar el constructor que recibe como parámetro  la lista anterior
+                vmUsuarios = new UsuariosViewModel(ListaUsuariosSuscritosParaEliminar, auxUsuario, auxUsuario_Autorizo);            
                 FrmListaUsuarios frmListaUsuarios = new FrmListaUsuarios();
                 frmListaUsuarios.DataContext = vmUsuarios;
 

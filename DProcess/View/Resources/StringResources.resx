@@ -2060,4 +2060,12 @@ A3 (DESCRIPCION/descripcion).</value>
     <value>Apparently you have attached an invalid format file.</value>
     <comment>Mensaje cuando se adjunta un archivo con formato no válido</comment>
   </data>
+  <data name="msgQuieroSuscribirme" xml:space="preserve">
+    <value>I want to subscribe to the changes in this document</value>
+    <comment>Mensaje del check para suscribirse</comment>
+  </data>
+  <data name="msgRecicbirNotificacionSuscripcion" xml:space="preserve">
+    <value>You will receive a notification when this document will be modified or deleted.</value>
+    <comment>Mensaje para recibir notificaciones de suscripción de un documento</comment>
+  </data>
 </root>
