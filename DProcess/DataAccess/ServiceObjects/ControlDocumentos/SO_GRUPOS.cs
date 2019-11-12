@@ -22,7 +22,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return lista;
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 return null;
             }
@@ -52,7 +52,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return obj.ID_GRUPO;
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 // Si hay un error retoramos un 0
                 return 0;
@@ -96,10 +96,12 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 
                     // Guardamos los cambios
                     Conexion.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
+
+                    // Gardamos los cambios
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 // Si hay error retornamos 0
                 return 0;

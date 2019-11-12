@@ -530,7 +530,7 @@
     <comment>Campo para el correo</comment>
   </data>
   <data name="msgNotificarbaja" xml:space="preserve">
-    <value>No se puedo eliminar la versión. Debes seleccionar a una persona para notificarle la baja.</value>
+    <value>No se puede eliminar la versión. Debes seleccionar a una persona para notificarle la baja.</value>
     <comment>Mensaje que hace seleccionar a una persiona para notificar la baja</comment>
   </data>
   <data name="msgNuevaVersion" xml:space="preserve">
@@ -2039,5 +2039,28 @@ Se creó y guardó el archivo con el Herramental a revisar.</value>
   <data name="ttlVerificacionAnual" xml:space="preserve">
     <value>Verificación Anual</value>
     <comment>Título de Verificación Anual</comment>
+  </data>
+  <data name="msgNotifySomeone" xml:space="preserve">
+    <value>¿Quieres notificar a alguien que el herramental a verificar está listo?</value>
+    <comment>Mensaje para notificar cuando el herramental está listo</comment>
+  </data>
+  <data name="msgCellsName" xml:space="preserve">
+    <value>Asegúrese que los nombres de las celdas sean:
+A1 (MATERIAL/material)
+A2 (CODIGO_HERRAMENTAL/codigo_herramental)
+A3 (DESCRIPCION/descripcion).</value>
+    <comment>Mensaje para verificar nombres de las celdas correctos</comment>
+  </data>
+  <data name="msgFormatoNoValido" xml:space="preserve">
+    <value>Al parecer ha adjuntado un archivo con formato no válido.</value>
+    <comment>Mensaje cuando se adjunta un archivo con formato no válido</comment>
+  </data>
+  <data name="msgQuieroSuscribirme" xml:space="preserve">
+    <value>Quiero suscribirme a los cambios de este documento</value>
+    <comment>Mensaje del check para suscribirse</comment>
+  </data>
+  <data name="msgRecicbirNotificacionSuscripcion" xml:space="preserve">
+    <value>Recibirás una notificación cuando sea modificado o eliminado este documento.</value>
+    <comment>Mensaje para recibir notificaciones de suscripción de un documento</comment>
   </data>
 </root>

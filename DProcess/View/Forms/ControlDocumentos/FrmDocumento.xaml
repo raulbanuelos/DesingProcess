@@ -154,6 +154,10 @@
                                 <TextBox Text="{Binding Descripcion}"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblDescripcion}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="49"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
                         IsEnabled="{Binding IsEnabled}" SpellCheck.IsEnabled="True" Language="es-ES" HorizontalAlignment="Left"></TextBox>
                                 <TextBox Text="{Binding NoCopias}" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNumeroCopias}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="49" Width="420" BorderBrush="#89535353"  FontSize="18" CharacterCasing="Upper" IsReadOnly="True" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
+                               
+                                <!--CheckBox para recibir notificaciones al suscribirse a un documento-->
+                                <CheckBox Content="{x:Static recursos:StringResources.msgQuieroSuscribirme}"  Margin="5" IsChecked="{Binding ActivarSuscripcion}" Cursor="Hand" Visibility="{Binding visibilitycheck_suscripcion, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"></CheckBox>
+                                <Label Content="{x:Static recursos:StringResources.msgRecicbirNotificacionSuscripcion}"  HorizontalAlignment="Center" FontSize="12" Visibility="{Binding visibilitylabelsuscripcion, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"></Label>
 
                             </StackPanel>
                             <!--Lista de Archivos-->

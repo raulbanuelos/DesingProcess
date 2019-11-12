@@ -101,6 +101,7 @@
     <Compile Include="ServiceObjects\ControlDocumentos\SO_RecursoTipoDocumento.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Rol.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Sealed.cs" />
+    <Compile Include="ServiceObjects\ControlDocumentos\SO_Suscripcion_Documento.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_TipoError.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Usuarios.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_USUARIO_NOTIFICACION_VERSION.cs" />
@@ -146,6 +147,9 @@
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_ROL.cs">
+      <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\TBL_SUSCRIPCION_DOCUMENTO.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_TIPO_DOCUMENTO.cs">

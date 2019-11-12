@@ -2045,4 +2045,27 @@ The file was created and saved with the Tooling to review.</value>
     <value>Annual Verification</value>
     <comment>Título de Verificación Anual</comment>
   </data>
+  <data name="msgNotifySomeone" xml:space="preserve">
+    <value>Do you want to notify someone that the tooling to verify is ready?</value>
+    <comment>Mensaje para notificar cuando el herramental está listo</comment>
+  </data>
+  <data name="msgCellsName" xml:space="preserve">
+    <value>Verify that the names of the cells are:
+A1 (MATERIAL/material)
+A2 (CODIGO_HERRAMENTAL/codigo_herramental)
+A3 (DESCRIPCION/descripcion).</value>
+    <comment>Mensaje para verificar nombres de las celdas correctos</comment>
+  </data>
+  <data name="msgFormatoNoValido" xml:space="preserve">
+    <value>Apparently you have attached an invalid format file.</value>
+    <comment>Mensaje cuando se adjunta un archivo con formato no válido</comment>
+  </data>
+  <data name="msgQuieroSuscribirme" xml:space="preserve">
+    <value>I want to subscribe to the changes in this document</value>
+    <comment>Mensaje del check para suscribirse</comment>
+  </data>
+  <data name="msgRecicbirNotificacionSuscripcion" xml:space="preserve">
+    <value>You will receive a notification when this document will be modified or deleted.</value>
+    <comment>Mensaje para recibir notificaciones de suscripción de un documento</comment>
+  </data>
 </root>

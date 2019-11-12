@@ -4650,5 +4650,100 @@ namespace Model.ControlDocumentos
         }
 
         #endregion
+
+        #region Usuarios Suscritos
+
+        /// <summary>
+        /// Método para llamar consulta y traer Usuarios Suscritos
+        /// </summary>
+        /// <param name="id_documento"></param>
+        /// <returns></returns>
+        public static ObservableCollection<DO_UsuarioSuscrito> Get_UserSuscripDoc(int id_documento)
+        {
+            // Inicializmos los servicios
+            SO_Suscripcion_Documento ServiceSuscritos = new SO_Suscripcion_Documento();
+
+            // Declaramos lista con registros obtenidos en la consulta
+            IList informacionDB = ServiceSuscritos.GetUserSuscripDoc(id_documento);
+
+            // Declaramos nueva lista para añadir usuarios suscritos
+            ObservableCollection<DO_UsuarioSuscrito> ListaObtenidaSuscritos = new ObservableCollection<DO_UsuarioSuscrito>();
+
+            // Nos aseguramos que la lista no está vacía
+            if (informacionDB != null)
+            {
+                // Recorremos la lista
+                foreach (var item in informacionDB)
+                {
+                    // Declaramos el objeto 
+                    DO_UsuarioSuscrito Suscrito = new DO_UsuarioSuscrito();
+
+                    // Declaramos el tipo
+                    Type tipo = item.GetType();
+
+                    // Asignamos valores
+                    Suscrito.id_suscripdoc = (int)tipo.GetProperty("ID_SUSCRIPCION_DOC").GetValue(item, null);
+                    Suscrito.id_usuariosuscrito = (string)tipo.GetProperty("ID_USUARIO_SUSCRITO").GetValue(item, null);
+                    Suscrito.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+
+                    // Añadimos objeto a la lista
+                    ListaObtenidaSuscritos.Add(Suscrito);
+                }
+            }
+
+            // Retornamos la lusta con objetos
+            return ListaObtenidaSuscritos;
+        }
+
+        /// <summary>
+        /// Mandamos llamar método que inserta registros en TBL_SUSCRIPCION_DOCUMENTO
+        /// </summary>
+        /// <param name="Usuario_Suscrito"></param>
+        /// <param name="Id_Documento"></param>
+        /// <returns></returns>
+        public static int Insert_SuscriptorDoc(string Usuario_Suscrito, int Id_Documento)
+        {
+            SO_Suscripcion_Documento ServiceSuscritos = new SO_Suscripcion_Documento();
+
+            return ServiceSuscritos.InsertSuscriptorDoc(Usuario_Suscrito, Id_Documento);
+        }
+
+        /// <summary>
+        /// Mandamos llamar método que elimina registros de TBL_SUSCRIPCION_DOCUMENTO
+        /// </summary>
+        /// <param name="Id_Documento"></param>
+        /// <returns></returns>
+        public static int Delete_SuscriptorDoc(string Usuario_Suscrito, int Id_Documento)
+        {
+            SO_Suscripcion_Documento ServiceSuscritos = new SO_Suscripcion_Documento();
+
+            return ServiceSuscritos.DeleteSuscriptorDoc(Usuario_Suscrito, Id_Documento);
+        }
+
+        /// <summary>
+        /// Mandamos llamar la consulta que indica si el usuario ya está o no registrado
+        /// </summary>
+        /// <param name="Usuario_Suscrito"></param>
+        /// <param name="Id_Documento"></param>
+        /// <returns></returns>
+        public static bool Get_RegisrosSuscritos(string Usuario_Suscrito, int Id_Documento)
+        {
+            SO_Suscripcion_Documento ServiceSuscripcion = new SO_Suscripcion_Documento();
+
+            // Retornamos el resultado a la variable
+            int Registros = ServiceSuscripcion.GetRegistrosSuscritos(Usuario_Suscrito, Id_Documento);
+
+            // Si ya contiene registro de suscripción retornamos true
+            if (Registros > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        #endregion
     }
 }

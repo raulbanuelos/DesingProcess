@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="20228259bbed4e74b703f47416098d2d" Name="Diagram1" ZoomLevel="85">
+      <Diagram DiagramId="20228259bbed4e74b703f47416098d2d" Name="Diagram1" ZoomLevel="54">
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_ARCHIVO" Width="1.75" PointX="13.5" PointY="0.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_CONF_DOCUMENTO" Width="3.125" PointX="0.5" PointY="4" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_DEPARTAMENTO" Width="2.125" PointX="11.125" PointY="10.25" />
@@ -17,7 +17,7 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TR_VALIDACION_TIPO_DOCUMENTO" Width="3.125" PointX="4.875" PointY="6.875" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_VALIDACION_TIPO_DOCUMENTO_TBL_VALIDACION_DOCUMENTO" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_BLOQUEO" Width="1.625" PointX="4.625" PointY="12.125" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_DOCUMENTO" Width="2.125" PointX="16.25" PointY="6.625" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_DOCUMENTO" Width="2.125" PointX="16.625" PointY="6.125" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_DEPARTAMENTO" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_TBL_ESTATUS_DOCUMENTO" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_RECURSO_TIPO_DOCUMENTO" Width="2.375" PointX="7.875" PointY="10.25" />
@@ -51,6 +51,9 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_USUARI__ID_VE__17C35226" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_USUARI__ID_US__16CF2DED" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_INFORMACION_FRAMES" Width="1.5" PointX="7.375" PointY="13.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_SUSCRIPCION_DOCUMENTO" Width="2.75" PointX="13.875" PointY="11.25" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_ID_DOCUMENTO" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_USUARIO_SUSCRITO" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -2206,6 +2206,18 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Verify that the names of the cells are:
+        ///A1 (MATERIAL/material)
+        ///A2 (CODIGO_HERRAMENTAL/codigo_herramental)
+        ///A3 (DESCRIPCION/descripcion)..
+        /// </summary>
+        public static string msgCellsName {
+            get {
+                return ResourceManager.GetString("msgCellsName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Close the file to be able to continue.
         /// </summary>
         public static string msgCierreArchivo {
@@ -3066,6 +3078,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Apparently you have attached an invalid format file..
+        /// </summary>
+        public static string msgFormatoNoValido {
+            get {
+                return ResourceManager.GetString("msgFormatoNoValido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The frames system was updated.
         /// </summary>
         public static string msgFramesExito {
@@ -3374,6 +3395,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Do you want to notify someone that the tooling to verify is ready?.
+        /// </summary>
+        public static string msgNotifySomeone {
+            get {
+                return ResourceManager.GetString("msgNotifySomeone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The new version of the document is the number.
         /// </summary>
         public static string msgNuevaVersion {
@@ -3500,6 +3530,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a I want to subscribe to the changes in this document.
+        /// </summary>
+        public static string msgQuieroSuscribirme {
+            get {
+                return ResourceManager.GetString("msgQuieroSuscribirme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Do you want to remove relationship?.
         /// </summary>
         public static string msgQuitarRelacion {
@@ -3514,6 +3553,15 @@ namespace View.Resources {
         public static string msgRangoFechasInvalido {
             get {
                 return ResourceManager.GetString("msgRangoFechasInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You will receive a notification when this document will be modified or deleted..
+        /// </summary>
+        public static string msgRecicbirNotificacionSuscripcion {
+            get {
+                return ResourceManager.GetString("msgRecicbirNotificacionSuscripcion", resourceCulture);
             }
         }
         

@@ -48,5 +48,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public virtual DbSet<TR_INTEGRANTES_GRUPO> TR_INTEGRANTES_GRUPO { get; set; }
         public virtual DbSet<TR_USUARIO_NOTIFICACION_VERSION> TR_USUARIO_NOTIFICACION_VERSION { get; set; }
         public virtual DbSet<TBL_INFORMACION_FRAMES> TBL_INFORMACION_FRAMES { get; set; }
+        public virtual DbSet<TBL_SUSCRIPCION_DOCUMENTO> TBL_SUSCRIPCION_DOCUMENTO { get; set; }
     }
 }

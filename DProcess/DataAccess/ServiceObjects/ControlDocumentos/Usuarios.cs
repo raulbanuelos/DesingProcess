@@ -24,6 +24,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             this.TBL_GRUPOS = new HashSet<TBL_GRUPOS>();
             this.TR_INTEGRANTES_GRUPO = new HashSet<TR_INTEGRANTES_GRUPO>();
             this.TR_USUARIO_NOTIFICACION_VERSION = new HashSet<TR_USUARIO_NOTIFICACION_VERSION>();
+            this.TBL_SUSCRIPCION_DOCUMENTO = new HashSet<TBL_SUSCRIPCION_DOCUMENTO>();
         }
     
         public string Usuario { get; set; }
@@ -52,5 +53,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public virtual ICollection<TR_INTEGRANTES_GRUPO> TR_INTEGRANTES_GRUPO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TR_USUARIO_NOTIFICACION_VERSION> TR_USUARIO_NOTIFICACION_VERSION { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_SUSCRIPCION_DOCUMENTO> TBL_SUSCRIPCION_DOCUMENTO { get; set; }
     }
 }

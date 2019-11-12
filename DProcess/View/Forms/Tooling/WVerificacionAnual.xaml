@@ -20,9 +20,8 @@
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Margin="20" Content="{x:Static recursos:StringResources.msgAdjuntaherramentalaño}"  HorizontalAlignment="Center" FontWeight="Bold" FontSize="20"></Label>
-            <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Height="50" Width="50" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding AdjuntarArchivoHerramentales}" ToolTip="{x:Static recursos:StringResources.lblAdjuntarArchivo}">
-                <materialDesign:PackIcon Kind="Paperclip" Height="30" Width="30"/>
-            </Button>
-        <Button Content="Notificar a" Command="{Binding IrNotificarA}" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="50" Width="150" Margin="15"></Button>
+        <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Height="50" Width="50" Margin="0,20,0,0" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding AdjuntarArchivoHerramentales}" ToolTip="{x:Static recursos:StringResources.lblAdjuntarArchivo}">
+            <materialDesign:PackIcon Kind="Paperclip" Height="30" Width="30"/>
+        </Button>
     </Grid>
 </Controls:MetroWindow>

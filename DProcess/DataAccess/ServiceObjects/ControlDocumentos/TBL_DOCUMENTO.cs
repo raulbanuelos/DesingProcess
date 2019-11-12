@@ -18,6 +18,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public TBL_DOCUMENTO()
         {
             this.TBL_VERSION = new HashSet<TBL_VERSION>();
+            this.TBL_SUSCRIPCION_DOCUMENTO = new HashSet<TBL_SUSCRIPCION_DOCUMENTO>();
         }
     
         public int ID_DOCUMENTO { get; set; }
@@ -36,5 +37,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public virtual Usuarios Usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_VERSION> TBL_VERSION { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_SUSCRIPCION_DOCUMENTO> TBL_SUSCRIPCION_DOCUMENTO { get; set; }
     }
 }

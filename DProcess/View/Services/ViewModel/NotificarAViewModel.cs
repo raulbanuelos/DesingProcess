@@ -424,7 +424,7 @@ namespace View.Services.ViewModel
             wcreargrupo.DataContext = vw;
             wcreargrupo.ShowDialog();
 
-            // Cargamos de nuevo la lista de grupos, para que se actualice al momento de crear nuevo grupo
+            // Cargamos de nuevo la lista de grupos, para que se actualice al momento de crear nuevo o eliminar grupo
             ListaGrupos = DataManagerControlDocumentos.GetAllGrupos(User.NombreUsuario);
             ListaGrupos = ListaGrupos;
             NotifyChange("ListaGrupos");
@@ -450,21 +450,26 @@ namespace View.Services.ViewModel
         /// </summary>
         public async void eliminargrupo()
         {
+            // Recorremos lista grupos
             foreach (var grupo in ListaGrupos)
             {
+                // Si el grupo está seleccionado...
                 if (grupo.IsSelected)
                 {
+                    // Inicializamos servicios
                     DialogService dialog = new DialogService();
                     MetroDialogSettings settings = new MetroDialogSettings();
 
                     settings.AffirmativeButtonText = StringResources.lblYes;
                     settings.NegativeButtonText = StringResources.lblNo;
 
+                    // Leemos la respuesta
                     MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEliminarRegistro, settings, MessageDialogStyle.AffirmativeAndNegative);
 
                     // Se asegura que el grupo es existente
                     if (grupo.idgrupo != 0)
                     {
+                        // Si la respuesta fue si
                         if (MessageDialogResult.Affirmative == result)
                         {
                             // Generamos lista con integrantes del grupo a eliminar
@@ -490,11 +495,13 @@ namespace View.Services.ViewModel
                     }
                     else
                     {
+                        //Si hay error mandamos mensaje
                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgError);
                     }
                 }
             }
         }
+
         #endregion
 
     }
