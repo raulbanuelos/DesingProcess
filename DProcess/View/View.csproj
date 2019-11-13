@@ -158,8 +158,9 @@
       <HintPath>..\packages\QRCoder.1.3.4\lib\net40\QRCoder.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Smith.WPF.HtmlEditor">
-      <HintPath>..\..\..\..\..\Downloads\Smith.WPF.HtmlEditor.dll</HintPath>
+    <Reference Include="Smith.WPF.HtmlEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Smith.WPF.HtmlEditor.dll</HintPath>
     </Reference>
     <Reference Include="SpreadsheetLight, Version=3.4.11.0, Culture=neutral, PublicKeyToken=32fbb46dc1730c57, processorArchitecture=MSIL">
       <HintPath>..\packages\SpreadsheetLight.3.4.11\lib\net40\SpreadsheetLight.dll</HintPath>
