@@ -16,6 +16,7 @@ using View.Resources;
 using MahApps.Metro.Controls.Dialogs;
 using System.IO;
 using System.Diagnostics;
+using View.Forms.Tooling;
 
 namespace View.Services.ViewModel
 {
@@ -349,6 +350,24 @@ namespace View.Services.ViewModel
         public bool InsertarVariosComponentes;
 
         public int SetLeccion;
+
+        private bool _IsNotifyEmail;
+
+        public bool IsNotifyEmail
+        {
+            get { return _IsNotifyEmail; }
+            set { _IsNotifyEmail = value; NotifyChange("IsNotifyEmail"); }
+        }
+
+        private string _UsuarioSelected;
+
+        public string UsuarioSelected
+        {
+            get { return _UsuarioSelected; }
+            set { _UsuarioSelected = value; NotifyChange("UsuarioSelected"); }
+        }
+
+
         #endregion
 
         #region Constructor
@@ -382,6 +401,7 @@ namespace View.Services.ViewModel
 
             //Obtenemos le valor de VariosComponentes para saber cual método de guardar utilizaremos 
             InsertarVariosComponentes = VariosComponentes;
+            IsNotifyEmail = true;
         }
         #endregion
 
@@ -998,7 +1018,6 @@ namespace View.Services.ViewModel
         /// </summary>
         public async void GuardarDatosLeccion()
         {
-
             DialogService dialog = new DialogService();
             bool Guardar = GuardarInformacion();
 
@@ -1060,6 +1079,28 @@ namespace View.Services.ViewModel
 
                         //Mandamos un mensaje de que se guardaron todos los datos correctamente
                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertoExitoLeccion);
+
+                        //Verificamos si está activada la casilla de Notificar vía correo.
+                        if (IsNotifyEmail)
+                        {
+                            Usuario usuarioReporto = DataManager.GetUsuario(UsuarioSelected);
+                            Usuarios usuarioAEnviar = new Usuarios();
+                            usuarioAEnviar.AMaterno = usuarioReporto.ApellidoMaterno;
+                            usuarioAEnviar.APaterno = usuarioReporto.ApellidoPaterno;
+                            usuarioAEnviar.nombre = usuarioReporto.Nombre;
+                            usuarioAEnviar.Details = usuarioReporto.Details;
+                            usuarioAEnviar.Correo = usuarioReporto.Correo;
+
+                            List<Usuarios> listaUsuarios = new List<Usuarios>();
+                            listaUsuarios.Add(usuarioAEnviar);
+
+                            string body = "";
+
+                            NotificarAViewModel vmNotificar = new NotificarAViewModel(User, body,new ObservableCollection<Archivo>(), listaUsuarios);
+                            WNotificarA ventanaCorreo = new WNotificarA();
+                            ventanaCorreo.DataContext = vmNotificar;
+                            
+                        }
 
                         //Cerramos la ventana
                         var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();

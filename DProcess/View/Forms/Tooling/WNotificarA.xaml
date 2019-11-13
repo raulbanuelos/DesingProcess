@@ -12,7 +12,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen" ShowMaxRestoreButton="False"
         Title="Servicio de Correo" Height="900" Width="1000">
-
+        <!--Modificaciones-->
     <!--<Button Grid.Row="1" Margin="80,0,0,0" HorizontalAlignment="Left" Content="{x:Static recursos:StringResources.ttlButtonCreateGroup}" Command="{Binding IrCrearGrupo}" Width="150"></Button>
             <Button Grid.Row="1" Margin="250,0,0,0" HorizontalAlignment="Left" Background="red" Content="{x:Static recursos:StringResources.ttlButtonDeleteGroup}" Command="{Binding EliminarGrupo}" Width="150"></Button>
             <Button Content="NOTIFICAR" Grid.Row="1" HorizontalAlignment="Right" Width="200" Margin="0,0,20,0"></Button>-->

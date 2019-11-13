@@ -154,7 +154,7 @@
                                 <TextBox Text="{Binding Descripcion}"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblDescripcion}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="49"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
                         IsEnabled="{Binding IsEnabled}" SpellCheck.IsEnabled="True" Language="es-ES" HorizontalAlignment="Left"></TextBox>
                                 <TextBox Text="{Binding NoCopias}" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNumeroCopias}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="49" Width="420" BorderBrush="#89535353"  FontSize="18" CharacterCasing="Upper" IsReadOnly="True" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
-                               
+
                                 <!--CheckBox para recibir notificaciones al suscribirse a un documento-->
                                 <CheckBox Content="{x:Static recursos:StringResources.msgQuieroSuscribirme}"  Margin="5" IsChecked="{Binding ActivarSuscripcion}" Cursor="Hand" Visibility="{Binding visibilitycheck_suscripcion, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"></CheckBox>
                                 <Label Content="{x:Static recursos:StringResources.msgRecicbirNotificacionSuscripcion}"  HorizontalAlignment="Center" FontSize="12" Visibility="{Binding visibilitylabelsuscripcion, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"></Label>
@@ -215,13 +215,13 @@
                                 </ComboBox>
                                 <!--Usuario autorizó-->
                                 <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblUsuarioAutorizo}" 
-                               Style="{StaticResource MaterialDesignFloatingHintComboBox}"  
-                               Height="51" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" 
-                               ItemsSource="{Binding Path=ListaUsuarios}" 
-                               DisplayMemberPath="NombreCompleto" 
-                               SelectedValuePath="usuario" 
-                               SelectedValue="{Binding usuarioAutorizo}"
-                               IsEnabled="{Binding IsEnabled}">
+                                           Style="{StaticResource MaterialDesignFloatingHintComboBox}"  
+                                           Height="51" Width="420" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" 
+                                           ItemsSource="{Binding Path=ListaUsuarios}" 
+                                           DisplayMemberPath="NombreCompleto" 
+                                           SelectedValuePath="usuario" 
+                                           SelectedValue="{Binding usuarioAutorizo}"
+                                           IsEnabled="{Binding IsEnabled}">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
                                             <i:InvokeCommandAction
@@ -289,7 +289,7 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        
+
                         <Button Content="{Binding BotonGuardar}"  Width="170" Grid.Column="0" Command="{Binding GuardarControl}" Visibility="{Binding BttnGuardar, Converter={StaticResource BoolToVis}, FallbackValue=Visible}"/>
                         <Button Content="{x:Static recursos:StringResources.lblModificar}"  Width="104" Grid.Column="2"  Command="{Binding Modificar}" Visibility="{Binding BttnModificar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
                         <Button Content="{x:Static recursos:StringResources.lblGenerarVersion}" FontSize="12" Width="130" Grid.Column="1" Command="{Binding GenerarVersion}" Visibility="{Binding BttnVersion, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}"/>
@@ -297,7 +297,7 @@
                 </Grid>
             </Grid>
         </controls:HamburgerMenu>
-        
+
         <controls:FlyoutsControl Margin="0,0,0,0">
             <controls:Flyout Theme="Light" BorderBrush="DeepSkyBlue" BorderThickness="3,0,0,0" Header="{x:Static recursos:StringResources.ttlSelectWhoNotify}" 
                              FontSize="10" Position="Right" Width="400" 
@@ -312,7 +312,7 @@
                         <RowDefinition Height="40"></RowDefinition>
                         <RowDefinition Height="35"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
-                        
+
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Vertical">
                         <TextBlock Text="Puedes seleccionar a otros usuarios para que sean notificados a través de correo electrónico cuando tu documento sea liberado." 
@@ -322,7 +322,7 @@
                                    TextWrapping="Wrap" FontSize="14" VerticalAlignment="Bottom">
                         </TextBlock>
                     </StackPanel>
-                    
+
 
                     <CheckBox Grid.Row="1" HorizontalAlignment="Center" Content="{Binding TituloCheckGrupos}" FontSize="15" IsChecked="False" Command="{Binding SelecDeselecGrupos}" CommandParameter="{Binding IsSelectedGrupos}"/>
 
@@ -357,7 +357,7 @@
                         <Button Content="{x:Static recursos:StringResources.ttlButtonCreateGroup}" Command="{Binding IrCrearGrupo}" Width="150"></Button>
                         <Button Background="red" Content="{x:Static recursos:StringResources.ttlButtonDeleteGroup}" Command="{Binding EliminarGrupo}" Width="150"></Button>
                     </StackPanel>
-                    
+
                     <CheckBox Grid.Row="4" HorizontalAlignment="Center" Content="{Binding TituloCheckUsuarios}" FontSize="15" IsChecked="False" Command="{Binding SelecDeselecUsuarios}" CommandParameter="{Binding IsSelectedUsuarios}"/>
 
                     <DataGrid ItemsSource="{Binding ListaUsuariosCorreo}"

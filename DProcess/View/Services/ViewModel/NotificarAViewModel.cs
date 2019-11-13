@@ -239,7 +239,7 @@ namespace View.Services.ViewModel
 
         #region Constructor
 
-        public NotificarAViewModel(Usuario ModelUsuario, string body, ObservableCollection<Archivo> archivos)
+        public NotificarAViewModel(Usuario ModelUsuario, string body, ObservableCollection<Archivo> archivos, List<Usuarios> listaANotificar)
         {
             IsEnableEditor = true;
             User = ModelUsuario;
@@ -248,6 +248,11 @@ namespace View.Services.ViewModel
             ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
             ListaGrupos = DataManagerControlDocumentos.GetAllGrupos(User.NombreUsuario);
             ListaUsuarioANotificar = new ObservableCollection<Usuarios>();
+
+            foreach (var item in listaANotificar)
+                ListaUsuarioANotificar.Add(item);
+
+            
 
             #region Prueba Correo
             //string body = "<HTML>";

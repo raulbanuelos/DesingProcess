@@ -33,7 +33,7 @@
             <RowDefinition Height="60"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        
+
         <Grid.Resources>
             <!--Lista de Archivos-->
             <DataTemplate x:Key="Lista">
@@ -66,19 +66,36 @@
                 </Border>
             </DataTemplate>
         </Grid.Resources>
-        
+
         <!--Titulo de la ventana-->
         <Label Content="{x:Static recursos:StringResources.lblNuevaLeccion}" Grid.Column="1" FontSize="18" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="Bold"/>
-        
-        <!--Textbox con el nombre de la persona quien lo reporto-->
-        <TextBox Text="{Binding ReportadoPor}"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblReportadoPor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="49"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
-                        SpellCheck.IsEnabled="True" Language="es-ES" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
-        
+
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            
+            <!--Textbox con el nombre de la persona quien lo reporto-->
+            <!--<TextBox HorizontalAlignment="Center" Text="{Binding ReportadoPor}"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblReportadoPor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="49"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
+                        SpellCheck.IsEnabled="True" Language="es-ES"/>-->
+            <ComboBox  materialDesign:HintAssist.Hint="Reportado por" 
+                                            Width="400"
+                                           Style="{StaticResource MaterialDesignFloatingHintComboBox}"  
+                                           Height="51" BorderBrush="#FFBDBDBD" FontSize="18" Background="White" 
+                                           ItemsSource="{Binding Path=ListaUsuarios}" 
+                                           DisplayMemberPath="NombreCompleto" 
+                                           SelectedValuePath="usuario" 
+                                           SelectedValue="{Binding UsuarioSelected}"
+                       HorizontalAlignment="Center"
+                       Text="{Binding ReportadoPor}">
+            </ComboBox>
+
+            <CheckBox Content="Notificar por correo" Cursor="Hand" HorizontalAlignment="Right" IsChecked="{Binding IsNotifyEmail}" ></CheckBox>
+        </Grid>
+
         <!--Textbox con el número de solicitud trabajo de ingeniería-->
         <TextBox Text="{Binding SolicitudTrabajoIng}"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblSolicitudTrabajoIng}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="49"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
                         SpellCheck.IsEnabled="True" Language="es-ES" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="2"/>
-        
-        
+
+
         <!--Combobox con los nombres de los usuarios del sistema-->
         <ComboBox Grid.Row="3" Grid.Column="1" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCambioRealizadoPor}" 
                                Style="{StaticResource MaterialDesignFloatingHintComboBox}"  
@@ -87,7 +104,7 @@
                                DisplayMemberPath="NombreCompleto" 
                                SelectedValuePath="usuario" 
                                SelectedValue="{Binding usuario}"
-                               IsEnabled="{Binding IsEnabled}">
+                               IsEnabled="{Binding IsEnabled}" HorizontalAlignment="Center">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction
@@ -95,7 +112,7 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ComboBox>
-        
+
         <!--ListBox con los archivos que se van a adjuntar-->
         <Grid Grid.Row="4" Grid.Column="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
@@ -128,15 +145,15 @@
                 </Button>
 
             </Grid>
-            
+
             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="4">
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="120,0,30,0">
                     <ListBox  ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" HorizontalAlignment="Center" BorderBrush="#FFB8B6B6" Background="Transparent" Foreground="#DD040404" SelectedItem="{Binding Path=ArchivoSeleccionado}" Margin="5"  Grid.Column="1" Grid.Row="4" Grid.RowSpan="2"/>
                 </StackPanel>
             </ScrollViewer>
-            
+
         </Grid>
-        
+
 
         <!--Botones de Navegación-->
         <Grid Grid.Column="1" Grid.Row="6">
@@ -148,5 +165,5 @@
             <Button Grid.Column="1" Width="150" Command="{Binding GuardarDatos}" Content="{x:Static recursos:StringResources.lblGuardar}"/>
         </Grid>
     </Grid>
-    
+
 </controls:MetroWindow>

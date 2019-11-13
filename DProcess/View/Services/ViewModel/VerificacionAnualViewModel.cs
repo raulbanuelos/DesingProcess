@@ -100,7 +100,7 @@ namespace View.Services.ViewModel
             body += "<BR><P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + rutaArchivo + "</P>";
             body += "<P>Cualquier duda quedo a sus órdenes.</P></FONT></FONT>";
             
-            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario,body, new ObservableCollection<Archivo>() );
+            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario,body, new ObservableCollection<Archivo>(), new List<Usuarios>());
 
             notificara.DataContext = vwnotifa;
             notificara.ShowDialog();
