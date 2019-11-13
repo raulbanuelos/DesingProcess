@@ -2068,4 +2068,8 @@ A3 (DESCRIPCION/descripcion).</value>
     <value>You will receive a notification when this document will be modified or deleted.</value>
     <comment>Mensaje para recibir notificaciones de suscripción de un documento</comment>
   </data>
+  <data name="lblAuxiliar" xml:space="preserve">
+    <value>Auxiliar</value>
+    <comment>Solo como prueba</comment>
+  </data>
 </root>

@@ -350,6 +350,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Auxiliar.
+        /// </summary>
+        public static string lblAuxiliar {
+            get {
+                return ResourceManager.GetString("lblAuxiliar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Lock System.
         /// </summary>
         public static string lblBloquearSistema {
