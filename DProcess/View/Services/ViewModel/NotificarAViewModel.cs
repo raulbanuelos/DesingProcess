@@ -72,6 +72,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando para abrir y cerrar flyout
+        /// </summary>
         public ICommand AbrirCerrarFlyout
         {
             get
@@ -80,6 +83,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando para envíar correo
+        /// </summary>
         public ICommand EnviarCorreo
         {
             get
@@ -88,6 +94,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando para agregar archivos adjuntos
+        /// </summary>
         public ICommand AgregarArchivo
         {
             get
@@ -185,10 +194,12 @@ namespace View.Services.ViewModel
 
                     List<DO_Grupos> listaGrupoAux = ListaGrupos.Where(x => x.IsSelected).ToList();
 
+                    // Recorremos la lista de grupos
                     foreach (DO_Grupos grupo in listaGrupoAux)
                     {
-
                         ObservableCollection<DO_INTEGRANTES_GRUPO> listaUsuariosGrupo = DataManagerControlDocumentos.GetAllIntegrantesGrupo(grupo.idgrupo);
+
+                        // Recorremos la lista de usuarios por grupo
                         foreach (DO_INTEGRANTES_GRUPO integrate in listaUsuariosGrupo)
                         {
                             Usuario usuario = DataManager.GetUsuario(integrate.idusuariointegrante);
@@ -202,12 +213,10 @@ namespace View.Services.ViewModel
                             user.IsSelected = true;
                             user.usuario = usuario.IdUsuario;
 
+                            // Agregamos al usuarios a la lista para notificar
                             ListaUsuarioANotificar.Add(user);
                         }
-
-                    }
-
-
+                    }                
                 }
             }
         }
@@ -250,9 +259,7 @@ namespace View.Services.ViewModel
             ListaUsuarioANotificar = new ObservableCollection<Usuarios>();
 
             foreach (var item in listaANotificar)
-                ListaUsuarioANotificar.Add(item);
-
-            
+                ListaUsuarioANotificar.Add(item);           
 
             #region Prueba Correo
             //string body = "<HTML>";
@@ -306,32 +313,43 @@ namespace View.Services.ViewModel
             return d.Hour <= 11 ? "Buenos días;" : "Buenas tardes;";
         }
 
+        /// <summary>
+        /// Se valida el correo antes de enviar
+        /// </summary>
+        /// <returns></returns>
         private async Task<bool> validar()
         {
             DialogService dialogService = new DialogService();
+
+            // Si no se ha seleccionado a nadie
             if (ListaUsuarioANotificar.Count == 0)
             {
                 IsEnableEditor = false;
-                await dialogService.SendMessage("Por favor valide la información", "Por favor elija al menos un destinatario");
+                await dialogService.SendMessage(StringResources.ttlValideInformacion, StringResources.msgElijaDestinatario);
                 IsEnableEditor = true;
                 return false;
             }
 
+            // Si el título del correo está vacío
             if (string.IsNullOrEmpty(Title))
             {
                 MetroDialogSettings setting = new MetroDialogSettings();
                 setting.AffirmativeButtonText = StringResources.lblYes;
                 setting.NegativeButtonText = StringResources.lblNo;
                 IsEnableEditor = false;
+
                 //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
-                MessageDialogResult result = await dialogService.SendMessage(StringResources.ttlAlerta, "Su correo no contiene asunto, desea enviarlo sin asunto.", setting, MessageDialogStyle.AffirmativeAndNegative);
+                MessageDialogResult result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgCorreoSinAsunto, setting, MessageDialogStyle.AffirmativeAndNegative);
                 IsEnableEditor = true;
                 return result == MessageDialogResult.Affirmative ? true : false;
             }
             return true;
-
         }
 
+        /// <summary>
+        /// Se define el pie del correo
+        /// </summary>
+        /// <returns></returns>
         private string definirPieDeCorreo()
         {
             string pie = "<FONT size=2 face=Helv>";
@@ -349,6 +367,9 @@ namespace View.Services.ViewModel
             return pie;
         }
 
+        /// <summary>
+        /// Método para agregar archivos adjuntos al correo
+        /// </summary>
         private void agregarArchivo()
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
@@ -371,6 +392,9 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Método para enviar el correo
+        /// </summary>
         private async void enviarCorreo()
         {
             if (await validar())
@@ -400,11 +424,11 @@ namespace View.Services.ViewModel
                 IsEnableEditor = false;
                 if (respuesta)
                 {
-                    await dialogService.SendMessage("Aviso", "Correo enviado exitosamente");
+                    await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgCorreoEnviadoOK);
                 }
                 else
                 {
-                    await dialogService.SendMessage("Aviso", "Ocurrio un error al enviar el correo");
+                    await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorEnviarCorreo);
                 }
                 IsEnableEditor = true;
             }
@@ -468,6 +492,9 @@ namespace View.Services.ViewModel
                     settings.AffirmativeButtonText = StringResources.lblYes;
                     settings.NegativeButtonText = StringResources.lblNo;
 
+                    //Ocultamos el editor
+                    IsEnableEditor = false;
+
                     // Leemos la respuesta
                     MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgEliminarRegistro, settings, MessageDialogStyle.AffirmativeAndNegative);
 
@@ -503,6 +530,9 @@ namespace View.Services.ViewModel
                         //Si hay error mandamos mensaje
                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgError);
                     }
+
+                    // Hacemos visible nuevamente el editor
+                    IsEnableEditor = true;
                 }
             }
         }
