@@ -12,11 +12,6 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen" ShowMaxRestoreButton="False"
         Title="Servicio de Correo" Height="900" Width="1000">
-        <!--Modificaciones-->
-    <!--nOTAS-->
-    <!--<Button Grid.Row="1" Margin="80,0,0,0" HorizontalAlignment="Left" Content="{x:Static recursos:StringResources.ttlButtonCreateGroup}" Command="{Binding IrCrearGrupo}" Width="150"></Button>
-            <Button Grid.Row="1" Margin="250,0,0,0" HorizontalAlignment="Left" Background="red" Content="{x:Static recursos:StringResources.ttlButtonDeleteGroup}" Command="{Binding EliminarGrupo}" Width="150"></Button>
-            <Button Content="NOTIFICAR" Grid.Row="1" HorizontalAlignment="Right" Width="200" Margin="0,0,20,0"></Button>-->
 
     <Grid Margin="10">
         <Grid.Resources>
@@ -73,14 +68,14 @@
 
             <!--Botón agregar mas personas-->
             <StackPanel Grid.Row="1">
-                <Button Width="220" Content="Agregar mas personas" Command="{Binding AbrirCerrarFlyout}" Cursor="Hand" HorizontalAlignment="Right" Margin="10,10"></Button>
+                <Button Width="220" Content="{x:Static recursos:StringResources.lblAgregarUsuario}" Command="{Binding AbrirCerrarFlyout}" Cursor="Hand" HorizontalAlignment="Right" Margin="10,10"></Button>
             </StackPanel>
 
             <!--TextBox Título-->
 
             <Border Grid.Row="2" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="10">
                 <StackPanel Grid.Row="2">
-                    <TextBox Text="{Binding Title}" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Asunto" TextAlignment="Center" Width="900" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" Margin="5">
+                    <TextBox Text="{Binding Title}" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.ttlAsunto}" TextAlignment="Center" Width="900" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" Margin="5">
 
                     </TextBox>
                 </StackPanel>
@@ -89,29 +84,28 @@
             <!--Archivos adjuntos-->
             <Border Grid.Row="3" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="10" Margin="0,10,0,0">
                 <StackPanel>
-
                     <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Visible" Height="75">
                         <ItemsControl ItemsSource="{Binding ListaArchivos}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid Margin="3">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <materialDesign:Chip Content="{Binding nombre}">
-                                        </materialDesign:Chip>
-                                    </Grid>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel></WrapPanel>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
+                                        <Grid Margin="3">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <materialDesign:Chip Content="{Binding nombre}">
+                                            </materialDesign:Chip>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel></WrapPanel>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
                     </ScrollViewer>
 
                 </StackPanel>
@@ -119,7 +113,7 @@
 
             <!--Botón Agregar Archivos-->
             <StackPanel Grid.Row="4" Margin="0,10,0,0">
-                <Button Grid.Column="1" Width="120" Content="Adjuntar" Command="{Binding AgregarArchivo}" HorizontalAlignment="Right"></Button>
+                <Button Grid.Column="1" Width="150" Content="{x:Static recursos:StringResources.lblAdjuntarArchivo}" Command="{Binding AgregarArchivo}" HorizontalAlignment="Right"></Button>
             </StackPanel>
 
             <!--Editor Correo-->
@@ -133,7 +127,7 @@
 
             <!--Botón enviar-->
             <StackPanel Grid.Row="6">
-                <Button Command="{Binding EnviarCorreo}" Width="120" Content="Enviar" HorizontalAlignment="Right" Margin="0,10,10,0" Cursor="Hand"></Button>
+                <Button Command="{Binding EnviarCorreo}" Width="120" Content="{x:Static recursos:StringResources.ttlEnviar}" HorizontalAlignment="Right" Margin="0,10,10,0" Cursor="Hand"></Button>
             </StackPanel>
 
         </Grid>
@@ -207,7 +201,11 @@
 
                     </DataGrid>
 
+                    <Button Margin="130,305,0,-37" HorizontalAlignment="Left" Content="{x:Static recursos:StringResources.ttlButtonCreateGroup}" Command="{Binding IrCrearGrupo}" Width="150"/>
+                    <Button Margin="290,305,0,-37" HorizontalAlignment="Left" Background="red" Content="{x:Static recursos:StringResources.ttlButtonDeleteGroup}" Command="{Binding EliminarGrupo}" Width="150"/>
+                    
                 </Grid>
+
             </Controls:Flyout>
         </Controls:FlyoutsControl>
     </Grid>

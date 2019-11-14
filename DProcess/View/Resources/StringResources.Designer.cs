@@ -2308,6 +2308,24 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The email was sent successfully..
+        /// </summary>
+        public static string msgCorreoEnviadoOK {
+            get {
+                return ResourceManager.GetString("msgCorreoEnviadoOK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The email does not contain subject, do you want to send it anyway?.
+        /// </summary>
+        public static string msgCorreoSinAsunto {
+            get {
+                return ResourceManager.GetString("msgCorreoSinAsunto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Please correct the file and attach it again..
         /// </summary>
         public static string msgCorrigeArchivo {
@@ -2503,6 +2521,15 @@ namespace View.Resources {
         public static string msgElegirFormato {
             get {
                 return ResourceManager.GetString("msgElegirFormato", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please choose at least one addressee..
+        /// </summary>
+        public static string msgElijaDestinatario {
+            get {
+                return ResourceManager.GetString("msgElijaDestinatario", resourceCulture);
             }
         }
         
@@ -2746,6 +2773,15 @@ namespace View.Resources {
         public static string msgErrorEliminarValidacion {
             get {
                 return ResourceManager.GetString("msgErrorEliminarValidacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a An error occurred at send the email..
+        /// </summary>
+        public static string msgErrorEnviarCorreo {
+            get {
+                return ResourceManager.GetString("msgErrorEnviarCorreo", resourceCulture);
             }
         }
         
@@ -3926,6 +3962,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Subject.
+        /// </summary>
+        public static string ttlAsunto {
+            get {
+                return ResourceManager.GetString("ttlAsunto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Authentication.
         /// </summary>
         public static string ttlAuthentication {
@@ -4192,6 +4237,15 @@ namespace View.Resources {
         public static string ttlEntregarDocumento {
             get {
                 return ResourceManager.GetString("ttlEntregarDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Send.
+        /// </summary>
+        public static string ttlEnviar {
+            get {
+                return ResourceManager.GetString("ttlEnviar", resourceCulture);
             }
         }
         
@@ -4651,6 +4705,15 @@ namespace View.Resources {
         public static string ttlValidarDocumento {
             get {
                 return ResourceManager.GetString("ttlValidarDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please validate the information.
+        /// </summary>
+        public static string ttlValideInformacion {
+            get {
+                return ResourceManager.GetString("ttlValideInformacion", resourceCulture);
             }
         }
         

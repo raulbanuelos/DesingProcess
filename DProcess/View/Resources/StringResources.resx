@@ -2072,4 +2072,32 @@ A3 (DESCRIPCION/descripcion).</value>
     <value>Auxiliar</value>
     <comment>Solo como prueba</comment>
   </data>
+  <data name="msgCorreoEnviadoOK" xml:space="preserve">
+    <value>The email was sent successfully.</value>
+    <comment>Mensaje cuando se envia el correo exitosamente</comment>
+  </data>
+  <data name="msgCorreoSinAsunto" xml:space="preserve">
+    <value>The email does not contain subject, do you want to send it anyway?</value>
+    <comment>Mensaje cuando se quiere enviar un correo sin asunto</comment>
+  </data>
+  <data name="msgElijaDestinatario" xml:space="preserve">
+    <value>Please choose at least one addressee.</value>
+    <comment>Mensaje para elegir un destinatario</comment>
+  </data>
+  <data name="msgErrorEnviarCorreo" xml:space="preserve">
+    <value>An error occurred at send the email.</value>
+    <comment>Mensaje de error al enviar el correo</comment>
+  </data>
+  <data name="ttlAsunto" xml:space="preserve">
+    <value>Subject</value>
+    <comment>Título asunto de correo</comment>
+  </data>
+  <data name="ttlEnviar" xml:space="preserve">
+    <value>Send</value>
+    <comment>Título enviar</comment>
+  </data>
+  <data name="ttlValideInformacion" xml:space="preserve">
+    <value>Please validate the information</value>
+    <comment>Título para validar información</comment>
+  </data>
 </root>
