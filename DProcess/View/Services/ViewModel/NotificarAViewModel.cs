@@ -239,8 +239,9 @@ namespace View.Services.ViewModel
 
         #region Constructor
 
-        public NotificarAViewModel(Usuario ModelUsuario, string body, ObservableCollection<Archivo> archivos, List<Usuarios> listaANotificar)
+        public NotificarAViewModel(Usuario ModelUsuario, string body, ObservableCollection<Archivo> archivos, List<Usuarios> listaANotificar, string title)
         {
+            Title = title;
             IsEnableEditor = true;
             User = ModelUsuario;
             ListaArchivos = archivos;

@@ -25,6 +25,7 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK__TR_LECCIO__ID_LE__33807B34" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.TBL_USERS_DETAILS" Width="1.5" PointX="3" PointY="15.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK_TBL_USERS_DETAILS_Usuarios" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.TBL_BITACORA_INGRESO" Width="1.5" PointX="9.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -15543,6 +15543,19 @@ namespace Model
             return user;
         }
 
+        /// <summary>
+        /// Método para ingresar un registro en la tabla TBL_BITACORA_INGRESO.
+        /// </summary>
+        /// <param name="nameComputer">Nombre de la computadora de donde se está ingresando.</param>
+        /// <param name="nameUser">Nombre del usuario que está ingresando.</param>
+        /// <returns></returns>
+        public static int InserIngresoBitacora(string nameComputer, string nameUser)
+        {
+            SO_Bitacora_Ingreso ServiceBitacora = new SO_Bitacora_Ingreso();
+
+            return ServiceBitacora.Insert(nameComputer, nameUser);
+        }
+
         #endregion
 
         #region Perfiles Anillos

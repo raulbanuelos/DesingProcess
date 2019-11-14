@@ -428,23 +428,23 @@ namespace View.Services.ViewModel
                 {
                     if (item.EXT == ".pdf")
                     {
-                        item.ruta = @"/Images/p.png";
+                        item.rutaIcono = @"/Images/p.png";
                     }
                     else if (item.EXT == ".doc" || item.EXT == ".DOC")
                     {
-                        item.ruta = @"/Images/w.png";
+                        item.rutaIcono = @"/Images/w.png";
                     }
                     else if (item.EXT == ".xlsx")
                     {
-                        item.ruta = @"/Images/E.jpg";
+                        item.rutaIcono = @"/Images/E.jpg";
                     }
                     else if (item.EXT == ".pptx")
                     {
-                        item.ruta = @"/Images/PP.png";
+                        item.rutaIcono = @"/Images/PP.png";
                     }
                     else
                     {
-                        item.ruta = @"/Images/I.png";
+                        item.rutaIcono = @"/Images/I.png";
                     }
                 }
             }
@@ -727,32 +727,32 @@ namespace View.Services.ViewModel
                         switch (Archivo.EXT)
                         {
                             case ".doc":
-                                Archivo.ruta = @"/Images/w.png";
+                                Archivo.rutaIcono = @"/Images/w.png";
 
                                 break;
                             case ".docx":
-                                Archivo.ruta = @"/Images/w.png";
+                                Archivo.rutaIcono = @"/Images/w.png";
 
                                 break;
                             case ".pdf":
-                                Archivo.ruta = @"/Images/p.png";
+                                Archivo.rutaIcono = @"/Images/p.png";
 
                                 break;
                             case ".xls":
-                                Archivo.ruta = @"/Images/E.jpg";
+                                Archivo.rutaIcono = @"/Images/E.jpg";
 
                                 break;
                             case ".xlsx":
-                                Archivo.ruta = @"/Images/E.jpg";
+                                Archivo.rutaIcono = @"/Images/E.jpg";
 
                                 break;
                             case "ppt":
-                                Archivo.ruta = @"/Images/PP.png";
+                                Archivo.rutaIcono = @"/Images/PP.png";
 
                                 break;
                             //todos los archivos que no tengan alguna de las extenciones antes mencionadas entraran aqui y se les pondra una imagen general
                             default:
-                                Archivo.ruta = @"/Images/I.png";
+                                Archivo.rutaIcono = @"/Images/I.png";
                                 break;
                         }
                         //Agregamos el archivo a la lista, SOLO SE AGREGA LOCALMENTE, AUN NO LO INSERTAMOS EN LA BASE DE DATOS

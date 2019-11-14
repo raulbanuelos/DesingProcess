@@ -878,37 +878,37 @@ namespace View.Services.ViewModel
                         Archivo.ARCHIVO = await Task.Run(() => File.ReadAllBytes(filename));
                         Archivo.EXT = System.IO.Path.GetExtension(filename);
                         Archivo.NOMBRE_ARCHIVO = System.IO.Path.GetFileNameWithoutExtension(filename);
-
+                        Archivo.rutaArchivo = filename;
                         //dependiendo la extensíon del archivo se agrega la ruta de imagen para visualisarla
                         switch (Archivo.EXT)
                         {
                             case ".doc":
-                                Archivo.ruta = @"/Images/w.png";
+                                Archivo.rutaIcono = @"/Images/w.png";
                                 
                                 break;
                             case ".docx":
-                                Archivo.ruta = @"/Images/w.png";
+                                Archivo.rutaIcono = @"/Images/w.png";
                                 
                                 break;
                             case ".pdf":
-                                Archivo.ruta = @"/Images/p.png";
+                                Archivo.rutaIcono = @"/Images/p.png";
                                 
                                 break;
                             case ".xls":
-                                Archivo.ruta = @"/Images/E.jpg";
+                                Archivo.rutaIcono = @"/Images/E.jpg";
                                 
                                 break;
                             case ".xlsx":
-                                Archivo.ruta = @"/Images/E.jpg";
+                                Archivo.rutaIcono = @"/Images/E.jpg";
                                 
                                 break;
                             case "ppt":
-                                Archivo.ruta = @"/Images/PP.png";
+                                Archivo.rutaIcono = @"/Images/PP.png";
                                 
                                 break;
                                 //todos los archivos que no tengan alguna de las extenciones antes mencionadas entraran aqui y se les pondra una imagen general
                             default:
-                                Archivo.ruta = @"/Images/I.png";                                
+                                Archivo.rutaIcono = @"/Images/I.png";                                
                                 break;
                         }
                         //Agregamos el archivo a la lista, SOLO SE AGREGA LOCALMENTE, AUN NO LO INSERTAMOS EN LA BASE DE DATOS
@@ -1094,11 +1094,32 @@ namespace View.Services.ViewModel
                             List<Usuarios> listaUsuarios = new List<Usuarios>();
                             listaUsuarios.Add(usuarioAEnviar);
 
+                            ObservableCollection<Archivo> listaDocumentoA = new ObservableCollection<Archivo>();
+
                             string body = "";
 
-                            NotificarAViewModel vmNotificar = new NotificarAViewModel(User, body,new ObservableCollection<Archivo>(), listaUsuarios);
+                            foreach (Archivo_LeccionesAprendidas archivoLeccion in ListaDocumentos)
+                            {
+                                Archivo file = new Archivo();
+
+                                file.ruta = archivoLeccion.rutaArchivo;
+                                file.nombre = archivoLeccion.NOMBRE_ARCHIVO;
+                                file.ext = archivoLeccion.EXT;
+
+                                listaDocumentoA.Add(file);
+                            }
+
+                            body = "<P>Para informar que se ha realizado la solicitud de trabajo. A continuación se detalla la información:</P>";
+                            body += "<P><STRONG>Componente:</STRONG> "+ Componente +"</P>";
+                            body += "<P><STRONG>No. de Solicitud:</STRONG>" + SolicitudTrabajoIng + "</P>";
+                            body += "<P><STRONG>Descripción:</STRONG>" + DescripcionProblema + "<BR><BR></P>";
+
+                            string title = "Diseño del proceso : Ha concludido la solicitud de cambio del componente " + Componente;
+
+                            NotificarAViewModel vmNotificar = new NotificarAViewModel(User, body, listaDocumentoA, listaUsuarios, title);
                             WNotificarA ventanaCorreo = new WNotificarA();
                             ventanaCorreo.DataContext = vmNotificar;
+                            ventanaCorreo.ShowDialog();
                             
                         }
 
@@ -1174,6 +1195,72 @@ namespace View.Services.ViewModel
                     if (SetLeccion !=0 )
                     {
                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertoExitoLeccion);
+
+                        //Verificamos si está activada la casilla de Notificar vía correo.
+                        if (IsNotifyEmail)
+                        {
+                            Usuario usuarioReporto = DataManager.GetUsuario(UsuarioSelected);
+                            Usuarios usuarioAEnviar = new Usuarios();
+                            usuarioAEnviar.AMaterno = usuarioReporto.ApellidoMaterno;
+                            usuarioAEnviar.APaterno = usuarioReporto.ApellidoPaterno;
+                            usuarioAEnviar.nombre = usuarioReporto.Nombre;
+                            usuarioAEnviar.Details = usuarioReporto.Details;
+                            usuarioAEnviar.Correo = usuarioReporto.Correo;
+
+                            List<Usuarios> listaUsuarios = new List<Usuarios>();
+                            listaUsuarios.Add(usuarioAEnviar);
+
+                            ObservableCollection<Archivo> listaDocumentoA = new ObservableCollection<Archivo>();
+
+                            string body = "";
+
+                            //Recorremos la lista de documentos para agregarlos a una lista la cual será enviada al correo.
+                            foreach (Archivo_LeccionesAprendidas archivoLeccion in ListaDocumentos)
+                            {
+                                Archivo file = new Archivo();
+
+                                file.ruta = archivoLeccion.rutaArchivo;
+                                file.nombre = archivoLeccion.NOMBRE_ARCHIVO;
+                                file.ext = archivoLeccion.EXT;
+
+                                listaDocumentoA.Add(file);
+                            }
+
+                            //Recorremos la lista de componentes para crear el cuerpo y título del correo.
+                            string componentes = string.Empty;
+                            int c = 0;
+                            while (c < ListaCambiosDescripcionSimilar.Count)
+                            {
+                                if (c == ListaCambiosDescripcionSimilar.Count -2)
+                                {
+                                    componentes += ListaCambiosDescripcionSimilar[c].Componente + " y ";
+                                }else
+                                {
+                                    if (c == ListaCambiosDescripcionSimilar.Count - 1)
+                                    {
+                                        componentes += ListaCambiosDescripcionSimilar[c].Componente + ".";
+                                    }
+                                    else
+                                    {
+                                        componentes += ListaCambiosDescripcionSimilar[c].Componente + ",";
+                                    }
+                                }
+                                c++;
+                            }
+
+                            body = "<P>Para informar que se ha realizado la solicitud de trabajo. A continuación se detalla la información:</P>";
+                            body += "<P><STRONG>Componentes:</STRONG> " + componentes + "</P>";
+                            body += "<P><STRONG>No. de Solicitud:</STRONG>" + SolicitudTrabajoIng + "</P>";
+                            body += "<P><STRONG>Descripción:</STRONG>" + DescripcionProblema + "<BR><BR></P>";
+
+                            string title = "Diseño del proceso : Ha concludido la solicitud de cambio de los componentes " + componentes;
+
+                            NotificarAViewModel vmNotificar = new NotificarAViewModel(User, body, listaDocumentoA, listaUsuarios, title);
+                            WNotificarA ventanaCorreo = new WNotificarA();
+                            ventanaCorreo.DataContext = vmNotificar;
+                            ventanaCorreo.ShowDialog();
+
+                        }
 
                         //Obtenemos la ventana actual
                         var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
