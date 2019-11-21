@@ -1812,6 +1812,7 @@ namespace Model.ControlDocumentos
                     //Verificamos si esta cargada la foto, sino asignamos una por default.
                     if (string.IsNullOrEmpty(obj.Details.PathPhoto))
                         obj.Details.PathPhoto = @"\\MXAGSQLSRV01\documents__\ESPECIFICOS\img\defaultuser.jpg";
+                       
 
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);

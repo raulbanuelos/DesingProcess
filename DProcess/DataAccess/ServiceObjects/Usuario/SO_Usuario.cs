@@ -328,6 +328,33 @@ namespace DataAccess.ServiceObjects.Usuario
                 return null;
             }
         }
+
+        /// <summary>
+        /// Método que actualiza el path de correo de un usuario en específico.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public int UpdatePathEmailUser(string path, string userName)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesUsuario())
+                {
+                    Usuarios user = Conexion.Usuarios.Where(x => x.Usuario == userName).FirstOrDefault();
+
+                    user.Pathnsf = path;
+
+                    Conexion.Entry(user).State = EntityState.Modified;
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
         #endregion
     }
 }

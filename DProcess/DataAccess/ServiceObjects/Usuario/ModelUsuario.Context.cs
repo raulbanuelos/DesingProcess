@@ -34,7 +34,7 @@ namespace DataAccess.ServiceObjects.Usuario
         public virtual DbSet<TR_LECCIONES_TIPOCAMBIO> TR_LECCIONES_TIPOCAMBIO { get; set; }
         public virtual DbSet<TR_LECCIONES_CENTROSTRABAJO> TR_LECCIONES_CENTROSTRABAJO { get; set; }
         public virtual DbSet<TBL_LECCIONES_APRENDIDAS> TBL_LECCIONES_APRENDIDAS { get; set; }
-        public virtual DbSet<TBL_USERS_DETAILS> TBL_USERS_DETAILS { get; set; }
         public virtual DbSet<TBL_BITACORA_INGRESO> TBL_BITACORA_INGRESO { get; set; }
+        public virtual DbSet<TBL_USERS_DETAILS> TBL_USERS_DETAILS { get; set; }
     }
 }

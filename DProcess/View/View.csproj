@@ -959,6 +959,7 @@
     <Compile Include="Services\ViewModel\CollarScotchbrite_VM.cs" />
     <Compile Include="Services\ViewModel\CollarSpacerVM.cs" />
     <Compile Include="Services\ViewModel\ComparativoDocumentosViewModel.cs" />
+    <Compile Include="Services\ViewModel\ConfigEmailViewModel.cs" />
     <Compile Include="Services\ViewModel\ConsultarDatosUsuariosVM.cs" />
     <Compile Include="Services\ViewModel\ControlDocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\ConversionFTFDViewModel.cs" />

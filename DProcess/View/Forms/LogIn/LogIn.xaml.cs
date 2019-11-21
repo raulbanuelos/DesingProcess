@@ -86,16 +86,60 @@ namespace View.Forms.LogIn
 
                         //Verificamos si esta cargada la foto, sino asignamos una por default.
                         if (string.IsNullOrEmpty(usuarioConectado.Details.PathPhoto))
-                            usuarioConectado.Details.PathPhoto = @"\\MXAGSQLSRV01\documents__\ESPECIFICOS\img\defaultuser.jpg";
+                            usuarioConectado.Details.PathPhoto = System.Configuration.ConfigurationManager.AppSettings["PathDefaultImage"];
 
                         //Insertamos el ingreso a la bitácora.
                         DataManager.InserIngresoBitacora(Environment.MachineName, usuarioConectado.Nombre + " " + usuarioConectado.ApellidoPaterno + " " + usuarioConectado.ApellidoMaterno);
 
+                        #region Configuración del correo electrónico
+                        //Verificamos si esta configurado el correo electrónico en la plataforma.
+                        if (!usuarioConectado.Details.IsAvailableEmail)
+                        {
+                            //Configuramos las opciones del mesaje de pregunta.
+                            MetroDialogSettings settings = new MetroDialogSettings();
+                            settings.AffirmativeButtonText = StringResources.lblYes;
+                            settings.NegativeButtonText = StringResources.lblNo;
+
+                            //Preguntamos al usuario si lo quiere configurar en estos momentos.
+                            MessageDialogResult resultMSG = await this.ShowMessageAsync("Atención " + usuarioConectado.Nombre, "Tu usuario no esta configurado para enviar Correos electrónicos, ¿Deseas iniciar el proceso de configuración?", MessageDialogStyle.AffirmativeAndNegative, settings);
+
+                            //Verificamos la respuesta del usuario, si es afirmativa iniciamos el proceso de configuración.
+                            if (resultMSG == MessageDialogResult.Affirmative)
+                            {
+                                settings = new MetroDialogSettings();
+                                settings.AffirmativeButtonText = "Ok, lo entiendo";
+
+                                await this.ShowMessageAsync(usuarioConectado.Nombre + ", para tu información:", "Despues de aceptar, se iniciara el proceso de configuración. Por tu seguridad, es posible que Lotus Notes te solicite ingresar la contraseña de tu correo electrónico. Por favor ingresala las veces que te las solicite. La contraseña de tu correo no se guarda en ninguna base de datos de la plataforma Diseño del proceso. Este proceso es totalmente seguro y NO expone tus credenciales hacia otros usuarios.", MessageDialogStyle.Affirmative, settings);
+
+                                ProgressDialogController AsyncProgressConfigEmail;
+
+                                AsyncProgressConfigEmail = await dialog.SendProgressAsync("Por favor espera un momento " + usuarioConectado.Nombre + " ...", "Estamos configurando tu cuenta para que pueda enviar email.");
+
+                                ConfigEmailViewModel configEmail = new ConfigEmailViewModel(usuarioConectado);
+
+                                bool respuestaConfigEmail = await configEmail.setEmail();
+
+                                await AsyncProgressConfigEmail.CloseAsync();
+
+                                if (respuestaConfigEmail)
+                                {
+                                    settings.AffirmativeButtonText = "Genial!";
+                                    await this.ShowMessageAsync("Perfecto " + usuarioConectado.Nombre, "Tu cuenta ha sido configurada correctamente, a partir de este momento puedes enviar correos desde la plataforma de Diseño del proceso. \n En unos momentos te llegara un correo confirmado su configuración.", MessageDialogStyle.Affirmative, settings);
+
+                                }
+                                else
+                                {
+                                    await this.ShowMessageAsync("Ocurrio un error", "No fué posible vincular su cuenta de correo, por favor comuniquese con el administrador del sistema para que se le configure.");
+                                }
+                            }
+                        } 
+                        #endregion
+                        
                         //Una vez que el usuario hizo clic en aceptar el mensaje de bienvenida, se procede con la codificación de la presentación de la pantalla inicial.
                         //Creamos un objeto de tipo Home, la cual es la pantalla inicial del sistema.
                         Home PantallaHome = new Home(usuarioConectado.NombreUsuario);
 
-                        //Creamos un objeto UsuarioViewModel, y le asignamos los valores correspondientes, a la propiedad Pagina se le asgina la pantalla inicial de Home.
+                        //Creamos un objeto UsuarioViewModel, y le asignamos los valores correspondientes, a la propiedad Pagina se le asigna la pantalla inicial de Home.
                         //UsuarioViewModel context = new UsuarioViewModel { ModelUsuario = usuarioConectado, Pagina = PantallaHome };
                         UsuarioViewModel context = new UsuarioViewModel(usuarioConectado, PantallaHome);
                         context.ModelUsuario = usuarioConectado;
