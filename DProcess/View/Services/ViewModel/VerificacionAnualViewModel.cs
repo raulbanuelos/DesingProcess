@@ -28,13 +28,16 @@ namespace View.Services.ViewModel
     {
 
         #region Attributes
+
         string rutaArchivo;
+
         #endregion
 
         #region Propiedades
 
         public Usuario ModelUsuario;
-        public string nombrearchivo;
+        public string nombreArchivoAdjutado;
+        public string nombreArchivoSalida;
 
         #endregion
 
@@ -99,8 +102,22 @@ namespace View.Services.ViewModel
             body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dicho archivo se encuentra en la siguiente ruta:</P>";
             body += "<BR><P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + rutaArchivo + "</P>";
             body += "<P>Cualquier duda quedo a sus órdenes.</P></FONT></FONT>";
-            
-            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario,body, new ObservableCollection<Archivo>(), new List<Usuarios>());
+
+            // Declaramos un objeto tipo archivo
+            Archivo documento = new Archivo();
+
+            // Le asignamos valores
+            documento.nombre = nombreArchivoSalida;
+            documento.ext = rutaArchivo;
+            documento.ruta = @"/Images/E.jpg";
+
+            // Declaramos lista tipo Archivo
+            ObservableCollection<Archivo> ListaDoc = new ObservableCollection<Archivo>();
+
+            // Insertamos el objeto a la lista
+            ListaDoc.Add(documento);
+                        
+            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario,body, ListaDoc /*new ObservableCollection<Archivo>()*/, new List<Usuarios>(), "Listado de Verificación Anual " + DateTime.Now.Year);
 
             notificara.DataContext = vwnotifa;
             notificara.ShowDialog();
@@ -134,13 +151,13 @@ namespace View.Services.ViewModel
             if (respuesta == true)
             {
                 // Asignamos a la variable la ruta del archivo que fue seleccionado
-                nombrearchivo = dlg.FileName;
+                nombreArchivoAdjutado = dlg.FileName;
 
                 // Validamos que el archivo no este abierto
-                if (!Module.IsFileInUse(nombrearchivo))
+                if (!Module.IsFileInUse(nombreArchivoAdjutado))
                 {
                     // Declaramos librería para poder leer el archivo
-                    SLDocument sl = new SLDocument(nombrearchivo);
+                    SLDocument sl = new SLDocument(nombreArchivoAdjutado);
 
                     // Inicializamos variable para leer solo el primer registro o renglón
                     int iRow = 1;
@@ -159,7 +176,7 @@ namespace View.Services.ViewModel
                     if ((A1_Obtenida.ToUpper() == CellA1.ToUpper()) && (A2_Obtenida.ToUpper() == CellA2.ToUpper()) && (A3_Obtenida.ToUpper() == CellA3.ToUpper()))
                     {
                         // Mandamos llamar el método para leer los datos del archivo excel
-                        LeerExcel(nombrearchivo);
+                        LeerExcel(nombreArchivoAdjutado);
                     }
                     else
                     {
@@ -247,17 +264,13 @@ namespace View.Services.ViewModel
         {
             // Inicializamos los servicios
             DialogService dialog = new DialogService();
-            //MetroDialogSettings settings = new MetroDialogSettings();
-
-            //settings.AffirmativeButtonText = StringResources.lblYes;
-            //settings.NegativeButtonText = StringResources.lblNo;
 
             // Desglosamos el nombre del archivo (nombre y extensión)      
             string nombre = "ProgramaVerificación";
             string extension = ".xlsx";
 
             // Asignamos el nombre del documento al crear  
-            string nombrearchivo = nombre + extension;
+            nombreArchivoSalida = nombre + extension;
 
             // Declaramos el uso de librería para abrir el explorador de archivos
             FolderBrowserDialog WindowDialog = new FolderBrowserDialog();
@@ -269,15 +282,16 @@ namespace View.Services.ViewModel
             if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(WindowDialog.SelectedPath))
             {
                 // Concatenamos la ruta y el nombre del archivo
-                rutaArchivo = WindowDialog.SelectedPath + "\\" + nombrearchivo;
+                rutaArchivo = WindowDialog.SelectedPath + "\\" + nombreArchivoSalida;
 
                 int contNombre = 1;
 
                 // Mientras exista un archivo con el mismo nombre
                 while (File.Exists(rutaArchivo))
                 {
+                    nombreArchivoSalida = nombre + "_" + contNombre + extension;
                     // Concatenamos la ruta del archivo, nombre, contador y extensión
-                    rutaArchivo = WindowDialog.SelectedPath + "\\" + nombre + "_" + contNombre + extension;
+                    rutaArchivo = WindowDialog.SelectedPath + "\\" + nombreArchivoSalida;
 
                     contNombre++;
                 }
