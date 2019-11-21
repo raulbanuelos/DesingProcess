@@ -58,6 +58,15 @@
           <Property Name="NOMBRE_ARCHIVO" Type="varchar" MaxLength="200" />
           <Property Name="EXT" Type="varchar" MaxLength="5" />
         </EntityType>
+        <EntityType Name="TBL_BITACORA_INGRESO">
+          <Key>
+            <PropertyRef Name="ID_BITACORA_INGRESOS" />
+          </Key>
+          <Property Name="ID_BITACORA_INGRESOS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USUARIO" Type="varchar" MaxLength="200" />
+          <Property Name="FECHA_INGRESO" Type="datetime" />
+          <Property Name="NOMBRE_COMPUTADORA" Type="varchar" MaxLength="200" />
+        </EntityType>
         <EntityType Name="TBL_LECCIONES_APRENDIDAS">
           <Key>
             <PropertyRef Name="ID_LECCIONES_APRENDIDAS" />
@@ -65,7 +74,7 @@
           <Property Name="ID_LECCIONES_APRENDIDAS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_USUARIO" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="COMPONENTE" Type="varchar" MaxLength="200" />
-          <Property Name="DESCRIPCION_PROBLEMA" Type="varchar" MaxLength="8000" />
+          <Property Name="DESCRIPCION_PROBLEMA" Type="varchar(max)" />
           <Property Name="FECHA_ULTIMO_CAMBIO" Type="datetime" />
           <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
           <Property Name="REPORTADO_POR" Type="varchar" MaxLength="200" />
@@ -82,7 +91,7 @@
           <Key>
             <PropertyRef Name="ID_USERS_DETAILS" />
           </Key>
-          <Property Name="ID_USERS_DETAILS" Type="int" Nullable="false" />
+          <Property Name="ID_USERS_DETAILS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_USUARIO" Type="varchar" MaxLength="20" />
           <Property Name="URL_PHOTO" Type="varchar" MaxLength="500" />
         </EntityType>
@@ -116,9 +125,9 @@
           <Property Name="Psql" Type="varchar" MaxLength="50" />
           <Property Name="Bloqueado" Type="bit" />
           <Property Name="Correo" Type="varchar" MaxLength="100" />
-          <Property Name="Pathnsf" Type="varchar" MaxLength="100" />
+          <Property Name="Pathnsf" Type="varchar" MaxLength="500" />
         </EntityType>
-        <Association Name="FK__TBL_ARCHI__ID_LE__21A1C21B">
+        <Association Name="FK__TBL_ARCHI__ID_LE__1EBA6878">
           <End Role="TBL_LECCIONES_APRENDIDAS" Type="Self.TBL_LECCIONES_APRENDIDAS" Multiplicity="1" />
           <End Role="TBL_ARCHIVO_LECCIONES" Type="Self.TBL_ARCHIVO_LECCIONES" Multiplicity="*" />
           <ReferentialConstraint>
@@ -130,7 +139,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TBL_LECCI__ID_US__1EC55570">
+        <Association Name="FK__TBL_LECCI__ID_US__0BA79404">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
           <End Role="TBL_LECCIONES_APRENDIDAS" Type="Self.TBL_LECCIONES_APRENDIDAS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -142,7 +151,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TR_LECCIO__ID_CE__54B2BF8D">
+        <Association Name="FK__TBL_LECCI__ID_US__1DC6443F">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="TBL_LECCIONES_APRENDIDAS" Type="Self.TBL_LECCIONES_APRENDIDAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario" />
+            </Principal>
+            <Dependent Role="TBL_LECCIONES_APRENDIDAS">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TR_LECCIO__ID_CE__328C56FB">
           <End Role="CentroTrabajo" Type="Self.CentroTrabajo" Multiplicity="1" />
           <End Role="TR_LECCIONES_CENTROSTRABAJO" Type="Self.TR_LECCIONES_CENTROSTRABAJO" Multiplicity="*" />
           <ReferentialConstraint>
@@ -154,7 +175,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TR_LECCIO__ID_LE__3DCE8EDE">
+        <Association Name="FK__TR_LECCIO__ID_LE__280EC888">
           <End Role="TBL_LECCIONES_APRENDIDAS" Type="Self.TBL_LECCIONES_APRENDIDAS" Multiplicity="1" />
           <End Role="TR_LECCIONES_TIPOCAMBIO" Type="Self.TR_LECCIONES_TIPOCAMBIO" Multiplicity="*" />
           <ReferentialConstraint>
@@ -166,7 +187,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TR_LECCIO__ID_LE__55A6E3C6">
+        <Association Name="FK__TR_LECCIO__ID_LE__33807B34">
           <End Role="TBL_LECCIONES_APRENDIDAS" Type="Self.TBL_LECCIONES_APRENDIDAS" Multiplicity="1" />
           <End Role="TR_LECCIONES_CENTROSTRABAJO" Type="Self.TR_LECCIONES_CENTROSTRABAJO" Multiplicity="*" />
           <ReferentialConstraint>
@@ -178,7 +199,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TR_LECCIO__ID_TI__3CDA6AA5">
+        <Association Name="FK__TR_LECCIO__ID_TI__271AA44F">
           <End Role="TBL_TIPOCAMBIO" Type="Self.TBL_TIPOCAMBIO" Multiplicity="1" />
           <End Role="TR_LECCIONES_TIPOCAMBIO" Type="Self.TR_LECCIONES_TIPOCAMBIO" Multiplicity="*" />
           <ReferentialConstraint>
@@ -231,33 +252,38 @@
           <EntitySet Name="PerfilUsuario" EntityType="Self.PerfilUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrivilegioUsuario" EntityType="Self.PrivilegioUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ARCHIVO_LECCIONES" EntityType="Self.TBL_ARCHIVO_LECCIONES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_BITACORA_INGRESO" EntityType="Self.TBL_BITACORA_INGRESO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_LECCIONES_APRENDIDAS" EntityType="Self.TBL_LECCIONES_APRENDIDAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_TIPOCAMBIO" EntityType="Self.TBL_TIPOCAMBIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_USERS_DETAILS" EntityType="Self.TBL_USERS_DETAILS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TR_LECCIONES_CENTROSTRABAJO" EntityType="Self.TR_LECCIONES_CENTROSTRABAJO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TR_LECCIONES_TIPOCAMBIO" EntityType="Self.TR_LECCIONES_TIPOCAMBIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__TBL_ARCHI__ID_LE__21A1C21B" Association="Self.FK__TBL_ARCHI__ID_LE__21A1C21B">
+          <AssociationSet Name="FK__TBL_ARCHI__ID_LE__1EBA6878" Association="Self.FK__TBL_ARCHI__ID_LE__1EBA6878">
             <End Role="TBL_LECCIONES_APRENDIDAS" EntitySet="TBL_LECCIONES_APRENDIDAS" />
             <End Role="TBL_ARCHIVO_LECCIONES" EntitySet="TBL_ARCHIVO_LECCIONES" />
           </AssociationSet>
-          <AssociationSet Name="FK__TBL_LECCI__ID_US__1EC55570" Association="Self.FK__TBL_LECCI__ID_US__1EC55570">
+          <AssociationSet Name="FK__TBL_LECCI__ID_US__0BA79404" Association="Self.FK__TBL_LECCI__ID_US__0BA79404">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TBL_LECCIONES_APRENDIDAS" EntitySet="TBL_LECCIONES_APRENDIDAS" />
           </AssociationSet>
-          <AssociationSet Name="FK__TR_LECCIO__ID_CE__54B2BF8D" Association="Self.FK__TR_LECCIO__ID_CE__54B2BF8D">
+          <AssociationSet Name="FK__TBL_LECCI__ID_US__1DC6443F" Association="Self.FK__TBL_LECCI__ID_US__1DC6443F">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="TBL_LECCIONES_APRENDIDAS" EntitySet="TBL_LECCIONES_APRENDIDAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TR_LECCIO__ID_CE__328C56FB" Association="Self.FK__TR_LECCIO__ID_CE__328C56FB">
             <End Role="CentroTrabajo" EntitySet="CentroTrabajo" />
             <End Role="TR_LECCIONES_CENTROSTRABAJO" EntitySet="TR_LECCIONES_CENTROSTRABAJO" />
           </AssociationSet>
-          <AssociationSet Name="FK__TR_LECCIO__ID_LE__3DCE8EDE" Association="Self.FK__TR_LECCIO__ID_LE__3DCE8EDE">
+          <AssociationSet Name="FK__TR_LECCIO__ID_LE__280EC888" Association="Self.FK__TR_LECCIO__ID_LE__280EC888">
             <End Role="TBL_LECCIONES_APRENDIDAS" EntitySet="TBL_LECCIONES_APRENDIDAS" />
             <End Role="TR_LECCIONES_TIPOCAMBIO" EntitySet="TR_LECCIONES_TIPOCAMBIO" />
           </AssociationSet>
-          <AssociationSet Name="FK__TR_LECCIO__ID_LE__55A6E3C6" Association="Self.FK__TR_LECCIO__ID_LE__55A6E3C6">
+          <AssociationSet Name="FK__TR_LECCIO__ID_LE__33807B34" Association="Self.FK__TR_LECCIO__ID_LE__33807B34">
             <End Role="TBL_LECCIONES_APRENDIDAS" EntitySet="TBL_LECCIONES_APRENDIDAS" />
             <End Role="TR_LECCIONES_CENTROSTRABAJO" EntitySet="TR_LECCIONES_CENTROSTRABAJO" />
           </AssociationSet>
-          <AssociationSet Name="FK__TR_LECCIO__ID_TI__3CDA6AA5" Association="Self.FK__TR_LECCIO__ID_TI__3CDA6AA5">
+          <AssociationSet Name="FK__TR_LECCIO__ID_TI__271AA44F" Association="Self.FK__TR_LECCIO__ID_TI__271AA44F">
             <End Role="TBL_TIPOCAMBIO" EntitySet="TBL_TIPOCAMBIO" />
             <End Role="TR_LECCIONES_TIPOCAMBIO" EntitySet="TR_LECCIONES_TIPOCAMBIO" />
           </AssociationSet>
@@ -346,6 +372,7 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TBL_USERS_DETAILS" EntitySet="TBL_USERS_DETAILS" />
           </AssociationSet>
+          <EntitySet Name="TBL_BITACORA_INGRESO" EntityType="DataAccess.ServiceObjects.Usuario.TBL_BITACORA_INGRESO" />
           </EntityContainer>
         <EntityType Name="Usuarios">
           <Key>
@@ -361,7 +388,7 @@
           <Property Name="Psql" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Bloqueado" Type="Boolean" />
           <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Pathnsf" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Pathnsf" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PerfilUsuario" Relationship="DataAccess.ServiceObjects.Usuario.FK_PerfilUsuario_Usuarios" FromRole="Usuarios" ToRole="PerfilUsuario" />
           <NavigationProperty Name="PrivilegioUsuario" Relationship="DataAccess.ServiceObjects.Usuario.FK_PrivilegioUsuario_Usuarios" FromRole="Usuarios" ToRole="PrivilegioUsuario" />
           <NavigationProperty Name="TBL_LECCIONES_APRENDIDAS" Relationship="DataAccess.ServiceObjects.Usuario.FK__TBL_LECCI__ID_US__0BA79404" FromRole="Usuarios" ToRole="TBL_LECCIONES_APRENDIDAS" />
@@ -491,7 +518,7 @@
           <Property Name="ID_LECCIONES_APRENDIDAS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_USUARIO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="COMPONENTE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="DESCRIPCION_PROBLEMA" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION_PROBLEMA" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="FECHA_ULTIMO_CAMBIO" Type="DateTime" Precision="3" />
           <Property Name="FECHA_ACTUALIZACION" Type="DateTime" Precision="3" />
           <Property Name="REPORTADO_POR" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -583,6 +610,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_BITACORA_INGRESO">
+          <Key>
+            <PropertyRef Name="ID_BITACORA_INGRESOS" />
+          </Key>
+          <Property Name="ID_BITACORA_INGRESOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USUARIO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_INGRESO" Type="DateTime" Precision="3" />
+          <Property Name="NOMBRE_COMPUTADORA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -709,6 +745,16 @@
                 <ScalarProperty Name="URL_PHOTO" ColumnName="URL_PHOTO" />
                 <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
                 <ScalarProperty Name="ID_USERS_DETAILS" ColumnName="ID_USERS_DETAILS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_BITACORA_INGRESO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Usuario.TBL_BITACORA_INGRESO">
+              <MappingFragment StoreEntitySet="TBL_BITACORA_INGRESO">
+                <ScalarProperty Name="NOMBRE_COMPUTADORA" ColumnName="NOMBRE_COMPUTADORA" />
+                <ScalarProperty Name="FECHA_INGRESO" ColumnName="FECHA_INGRESO" />
+                <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+                <ScalarProperty Name="ID_BITACORA_INGRESOS" ColumnName="ID_BITACORA_INGRESOS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

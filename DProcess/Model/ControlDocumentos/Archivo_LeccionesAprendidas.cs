@@ -12,7 +12,8 @@ namespace Model.ControlDocumentos
         public int ID_LECCIONES_APRENDIDAS { get; set; }
         public byte[] ARCHIVO { get; set; }
         public string NOMBRE_ARCHIVO { get; set; }
-        public string ruta { get; set; }
+        public string rutaIcono { get; set; }
         public string EXT { get; set; } 
+        public string rutaArchivo { get; set; }
     }
 }

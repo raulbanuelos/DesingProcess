@@ -88,6 +88,9 @@ namespace View.Forms.LogIn
                         if (string.IsNullOrEmpty(usuarioConectado.Details.PathPhoto))
                             usuarioConectado.Details.PathPhoto = @"\\MXAGSQLSRV01\documents__\ESPECIFICOS\img\defaultuser.jpg";
 
+                        //Insertamos el ingreso a la bitácora.
+                        DataManager.InserIngresoBitacora(Environment.MachineName, usuarioConectado.Nombre + " " + usuarioConectado.ApellidoPaterno + " " + usuarioConectado.ApellidoMaterno);
+
                         //Una vez que el usuario hizo clic en aceptar el mensaje de bienvenida, se procede con la codificación de la presentación de la pantalla inicial.
                         //Creamos un objeto de tipo Home, la cual es la pantalla inicial del sistema.
                         Home PantallaHome = new Home(usuarioConectado.NombreUsuario);
