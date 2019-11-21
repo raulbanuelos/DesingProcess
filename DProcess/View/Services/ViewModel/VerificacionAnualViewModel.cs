@@ -28,7 +28,7 @@ namespace View.Services.ViewModel
     {
 
         #region Attributes
-        string rutaArchivo; 
+        string rutaArchivo;
         #endregion
 
         #region Propiedades
@@ -91,7 +91,7 @@ namespace View.Services.ViewModel
         public void irnotificara()
         {
             WNotificarA notificara = new WNotificarA();
-            
+
             string body = "<BR><FONT size=2 face=Helv><FONT size=2 face=Helv>";
             body += "<P><P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para notificar que ya está disponible el archivo con los herramentales a verificar de este año " + DateTime.Now.Year + ", </P></P>";
             body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; el cual se hizo el análisis de acuerdo al pronóstico de producción de este año el cual fue compartido por logística así </P>";
@@ -100,7 +100,7 @@ namespace View.Services.ViewModel
             body += "<BR><P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + rutaArchivo + "</P>";
             body += "<P>Cualquier duda quedo a sus órdenes.</P></FONT></FONT>";
             
-            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario,body, new ObservableCollection<Archivo>(), new List<Usuarios>(), string.Empty);
+            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario,body, new ObservableCollection<Archivo>(), new List<Usuarios>());
 
             notificara.DataContext = vwnotifa;
             notificara.ShowDialog();
@@ -117,6 +117,9 @@ namespace View.Services.ViewModel
 
             // Declaramos la ventana de explorador de archivos
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            //Se crea el objeto de tipo archivo
+            Archivo obj = new Archivo();
 
             // Filtramos los archivos excel
             dlg.Filter = "Excel Files (.xlsm, .xlsx)|*.xlsm; *.xlsx";
@@ -244,11 +247,11 @@ namespace View.Services.ViewModel
         {
             // Inicializamos los servicios
             DialogService dialog = new DialogService();
-            MetroDialogSettings settings = new MetroDialogSettings();
+            //MetroDialogSettings settings = new MetroDialogSettings();
 
-            settings.AffirmativeButtonText = StringResources.lblYes;
-            settings.NegativeButtonText = StringResources.lblNo;
-            
+            //settings.AffirmativeButtonText = StringResources.lblYes;
+            //settings.NegativeButtonText = StringResources.lblNo;
+
             // Desglosamos el nombre del archivo (nombre y extensión)      
             string nombre = "ProgramaVerificación";
             string extension = ".xlsx";
@@ -316,33 +319,14 @@ namespace View.Services.ViewModel
                     cont++;
                 }
 
-                // Guardamos como, ponemos la ruta concatenada con el nombre del archivo
+                // Guardamos como..., ponemos la ruta concatenada con el nombre del archivo
                 sl.SaveAs(rutaArchivo);
 
-                // Mensaje cuando termina el proceso
+                // Mensaje cuando termina el proceso               
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHerramentalrevisar);
 
-                // Leemos la respuesta
-                MessageDialogResult resp = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgNotifySomeone, settings, MessageDialogStyle.AffirmativeAndNegative);
-
-                // Si la respuesta es si...
-                if (MessageDialogResult.Affirmative == resp)
-                {
-                    // Se manda llamar el método que abre la ventana para notificar
-                    irnotificara();
-                }
-                else
-                {
-                    //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                    var window = System.Windows.Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                    //Verificamos que la pantalla sea diferente de nulo.
-                    if (window != null)
-                    {
-                        //Cerramos la pantalla
-                        window.Close();
-                    }
-                }
+                // Se manda llamar el método que abre la ventana para notificar
+                irnotificara();
             }
             catch (Exception er)
             {
