@@ -146,7 +146,7 @@
                                     </Grid>
 
                                     <!--Columna 0-->
-                                    <Image Name="img_icono" Source="{Binding Path=ruta}" Grid.Column="0" HorizontalAlignment="Stretch" Width="45" VerticalAlignment="Stretch"></Image>
+                                    <Image Name="img_icono" Source="{Binding Path=rutaIcono}" Grid.Column="0" HorizontalAlignment="Stretch" Width="45" VerticalAlignment="Stretch"></Image>
                                 </Grid>
                             </Grid>
                         </DataTemplate>

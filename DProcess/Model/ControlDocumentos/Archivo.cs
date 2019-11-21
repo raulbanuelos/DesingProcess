@@ -16,6 +16,7 @@ namespace Model.ControlDocumentos
         public string nombre { get; set; }
         //int id_archivo,int id_version,byte[] archivo,string ext
         public string ruta { get; set; }
+        public string rutaIcono { get; set; }
         public int numero { get; set; }
         public DateTime fecha_elimino { get; set; }
         #endregion

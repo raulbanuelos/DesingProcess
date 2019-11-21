@@ -1106,6 +1106,35 @@ namespace View.Services.ViewModel
                                 file.nombre = archivoLeccion.NOMBRE_ARCHIVO;
                                 file.ext = archivoLeccion.EXT;
 
+                                //Si el archivo tiene extensión pdf
+                                if (file.ext == ".pdf")
+                                {
+                                    // Asigna la imagen del pdf al objeto
+                                    file.rutaIcono = @"/Images/p.png";
+                                }
+                                else
+                                {
+                                    // Si el archivo tiene extensión xlsm o xlsx
+                                    if (file.ext == ".xlsm" || file.ext == ".xlsx")
+                                    {
+                                        // Asigna la imagen de excel al objeto
+                                        file.rutaIcono = @"/Images/E.jpg";
+                                    }
+                                    else
+                                    {
+                                        if (file.ext == ".doc" || file.ext == ".docx")
+                                        {
+                                            //Si es archivo de word asigna la imagen correspondiente.
+                                            file.rutaIcono = @"/Images/w.png";
+                                        }
+                                        else
+                                        {
+                                            file.rutaIcono = @"/Images/file.png";
+                                        }
+                                        
+                                    }
+                                }
+
                                 listaDocumentoA.Add(file);
                             }
 
@@ -1223,6 +1252,35 @@ namespace View.Services.ViewModel
                                 file.ruta = archivoLeccion.rutaArchivo;
                                 file.nombre = archivoLeccion.NOMBRE_ARCHIVO;
                                 file.ext = archivoLeccion.EXT;
+
+                                //Si el archivo tiene extensión pdf
+                                if (file.ext == ".pdf")
+                                {
+                                    // Asigna la imagen del pdf al objeto
+                                    file.rutaIcono = @"/Images/p.png";
+                                }
+                                else
+                                {
+                                    // Si el archivo tiene extensión xlsm o xlsx
+                                    if (file.ext == ".xlsm" || file.ext == ".xlsx")
+                                    {
+                                        // Asigna la imagen de excel al objeto
+                                        file.rutaIcono = @"/Images/E.jpg";
+                                    }
+                                    else
+                                    {
+                                        if (file.ext == ".doc" || file.ext == ".docx")
+                                        {
+                                            //Si es archivo de word asigna la imagen correspondiente.
+                                            file.rutaIcono = @"/Images/w.png";
+                                        }
+                                        else
+                                        {
+                                            file.rutaIcono = @"/Images/file.png";
+                                        }
+
+                                    }
+                                }
 
                                 listaDocumentoA.Add(file);
                             }

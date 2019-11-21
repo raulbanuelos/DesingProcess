@@ -108,8 +108,9 @@ namespace View.Services.ViewModel
 
             // Le asignamos valores
             documento.nombre = nombreArchivoSalida;
-            documento.ext = rutaArchivo;
-            documento.ruta = @"/Images/E.jpg";
+            //documento.ext = rutaArchivo;
+            documento.ruta = rutaArchivo;
+            documento.rutaIcono = @"/Images/E.jpg";
 
             // Declaramos lista tipo Archivo
             ObservableCollection<Archivo> ListaDoc = new ObservableCollection<Archivo>();
@@ -117,7 +118,7 @@ namespace View.Services.ViewModel
             // Insertamos el objeto a la lista
             ListaDoc.Add(documento);
                         
-            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario,body, ListaDoc /*new ObservableCollection<Archivo>()*/, new List<Usuarios>(), "Listado de Verificación Anual " + DateTime.Now.Year);
+            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario,body, ListaDoc , new List<Usuarios>(), "Listado de Verificación Anual " + DateTime.Now.Year);
 
             notificara.DataContext = vwnotifa;
             notificara.ShowDialog();

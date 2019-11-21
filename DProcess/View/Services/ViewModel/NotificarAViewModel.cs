@@ -415,7 +415,7 @@ namespace View.Services.ViewModel
                     if (objArchivo.ext == ".pdf")
                     {
                         // Asigna la imagen del pdf al objeto
-                        objArchivo.ruta = @"/Images/p.png";
+                        objArchivo.rutaIcono = @"/Images/p.png";
                     }
                     else
                     {
@@ -423,12 +423,19 @@ namespace View.Services.ViewModel
                         if (objArchivo.ext == ".xlsm" || objArchivo.ext == ".xlsx")
                         {
                             // Asigna la imagen de excel al objeto
-                            objArchivo.ruta = @"/Images/E.jpg";
+                            objArchivo.rutaIcono = @"/Images/E.jpg";
                         }
                         else
                         {
-                            //Si es archivo de word asigna la imagen correspondiente.
-                            objArchivo.ruta = @"/Images/w.png";
+                            if (objArchivo.ext == ".doc" || objArchivo.ext == ".docx")
+                            {
+                                //Si es archivo de word asigna la imagen correspondiente.
+                                objArchivo.rutaIcono = @"/Images/w.png";
+                            }
+                            else
+                            {
+                                objArchivo.rutaIcono = @"/Images/file.png";
+                            }
                         }
                     }
 
