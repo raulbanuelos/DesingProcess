@@ -17,6 +17,7 @@ namespace DataAccess.ServiceObjects.Usuario
         public int ID_USERS_DETAILS { get; set; }
         public string ID_USUARIO { get; set; }
         public string URL_PHOTO { get; set; }
+        public Nullable<bool> IS_AVAILABLE_EMAIL { get; set; }
     
         public virtual Usuarios Usuarios { get; set; }
     }

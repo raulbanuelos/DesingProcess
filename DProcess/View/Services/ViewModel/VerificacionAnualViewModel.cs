@@ -99,8 +99,10 @@ namespace View.Services.ViewModel
             body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dicho archivo se encuentra en la siguiente ruta:</P>";
             body += "<BR><P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + rutaArchivo + "</P>";
             body += "<P>Cualquier duda quedo a sus órdenes.</P></FONT></FONT>";
-            
-            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario,body, new ObservableCollection<Archivo>(), new List<Usuarios>(), string.Empty);
+
+            string titulo = "PROGRAMA DE VERIFICACIÓN DE HERRAMENTAL ANUAL " + DateTime.Now.Year;
+
+            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario,body, new ObservableCollection<Archivo>(), new List<Usuarios>(), titulo);
 
             notificara.DataContext = vwnotifa;
             notificara.ShowDialog();

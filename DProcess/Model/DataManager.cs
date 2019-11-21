@@ -9962,7 +9962,7 @@ namespace Model
                 herramental.Encontrado = false;
                 herramental.DescripcionMedidasBusqueda = "Diametro : " + diametro + "\nWidth : " + width + "\nDIM F : " + dimF;
                 herramental.Codigo = "CODIFICAR";
-                herramental.DescripcionGeneral = "DISCO DET. " + diametro + " X " + width; 
+                herramental.DescripcionGeneral = "DISCO DET. " + diametro + " X " + width;
 
             }
 
@@ -10486,7 +10486,7 @@ namespace Model
             SO_FrontRearCollarAnillos ServiceFrontRear = new SO_FrontRearCollarAnillos();
 
             Herramental herramental = new Herramental();
-            
+
             ObservableCollection<Herramental> listaTodos = new ObservableCollection<Herramental>();
 
             IList informacionBD = ServiceFrontRear.GetFrontRearCollar(tipoCollar);
@@ -10511,7 +10511,7 @@ namespace Model
                     PropiedadCadena nMedida = new PropiedadCadena();
                     nMedida.Nombre = "NMedida";
                     nMedida.Valor = medida;
-                    
+
                     herramental.PropiedadesCadena.Add(medidaNominalFrac);
                     herramental.PropiedadesCadena.Add(nMedida);
 
@@ -10538,7 +10538,7 @@ namespace Model
                         {
                             herramental = herr;
                             herramental.Encontrado = true;
-                            herramental.DescripcionRuta = tipoCollarDescripcion + " " +  medidaFrac + " " + medida + " ANI.";
+                            herramental.DescripcionRuta = tipoCollarDescripcion + " " + medidaFrac + " " + medida + " ANI.";
                         }
                     }
 
@@ -12242,7 +12242,7 @@ namespace Model
                 herramental.Codigo = "CODIFICAR";
                 herramental.DescripcionGeneral = "MANGA " + (d1 + 0.010);
             }
-                
+
 
             return herramental;
         }
@@ -12263,7 +12263,7 @@ namespace Model
             IList informacionDB = ServiceLapeado.GetInfoRubberLapeado(codigo);
 
             // Si la lista es diferente a nulo
-            if (informacionDB != null && informacionDB.Count >0)
+            if (informacionDB != null && informacionDB.Count > 0)
             {
                 // Iteramos la lista
                 foreach (var item in informacionDB)
@@ -12289,7 +12289,7 @@ namespace Model
                     herramental.PropiedadesCadena.Add(propiedadplano);
                 }
             }
-            
+
             // Retornamos el objeto
             return herramental;
         }
@@ -12339,7 +12339,7 @@ namespace Model
         {
             return new Herramental();
         }
-        
+
         #endregion
 
         #region THOMPSON
@@ -12976,7 +12976,7 @@ namespace Model
                     bushing.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     bushing.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
                     //bushing.idHerramental = (int)tipo.GetProperty("ID_BUSHING_THOMPSON").GetValue(item, null);
-                    
+
                     // Declaramos propiedades
                     Propiedad propiedaddima = new Propiedad();
 
@@ -15410,8 +15410,7 @@ namespace Model
 
                     details.PathPhoto = (string)tipo.GetProperty("URL_PHOTO").GetValue(item, null);
 
-                    if (string.IsNullOrEmpty(details.PathPhoto))
-                        details.PathPhoto = @"\\MXAGSQLSRV01\documents__\ESPECIFICOS\img\defaultuser.jpe";
+                    details.IsAvailableEmail = (bool)tipo.GetProperty("IS_AVAILABLE_EMAIL").GetValue(item, null);
 
                 }
             }
@@ -15556,6 +15555,31 @@ namespace Model
             return ServiceBitacora.Insert(nameComputer, nameUser);
         }
 
+        /// <summary>
+        /// Método que actualiza el path de email de un usuario en específico.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public static int UpdatePathEmailUser(string path, string userName)
+        {
+            SO_Usuario ServiceUsuarios = new SO_Usuario();
+
+            return ServiceUsuarios.UpdatePathEmailUser(path, userName);
+        }
+
+        /// <summary>
+        /// Método para actulizar el campo de Is Available Email de la tabla TBL_USERS_DETAILS.
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <param name="isAvailableEmail"></param>
+        /// <returns></returns>
+        public static int UpdateUserIsAvailableEmail(string idUsuario, bool isAvailableEmail)
+        {
+            SO_UserDetails ServiceDetails = new SO_UserDetails();
+
+            return ServiceDetails.UpdateIsAvailableEmail(idUsuario, isAvailableEmail);
+        }
         #endregion
 
         #region Perfiles Anillos
@@ -16669,44 +16693,44 @@ namespace Model
         /// Método para realizar la consulta de herramentales en base a la decripción específica
         /// </summary>
         /// <returns></returns>
-        public static List< DO_ProgramaAnual> Get_ToolingVerificacionAnual()
-        {             
-                // Declaramos un objeto de tipo Programa Anual que será el que retornemos en el método
-                DO_ProgramaAnual prog_anual = null;
+        public static List<DO_ProgramaAnual> Get_ToolingVerificacionAnual()
+        {
+            // Declaramos un objeto de tipo Programa Anual que será el que retornemos en el método
+            DO_ProgramaAnual prog_anual = null;
 
-                // Inicializamos los servicios de Programa Anual
-                SO_ProgramaAnual ServiceProg_Anual = new SO_ProgramaAnual();
+            // Inicializamos los servicios de Programa Anual
+            SO_ProgramaAnual ServiceProg_Anual = new SO_ProgramaAnual();
 
-                // Declaramos la lista que retornaremos
-                List<DO_ProgramaAnual> ListaRetornada = new List<DO_ProgramaAnual>();
+            // Declaramos la lista que retornaremos
+            List<DO_ProgramaAnual> ListaRetornada = new List<DO_ProgramaAnual>();
 
-                // Ejecutamos el método de GetAllTooling... y la información resultante la asignamos a un objeto local
-                DataSet informacionDB = ServiceProg_Anual.GetToolingVerificacionAnual();
+            // Ejecutamos el método de GetAllTooling... y la información resultante la asignamos a un objeto local
+            DataSet informacionDB = ServiceProg_Anual.GetToolingVerificacionAnual();
 
-                // Comparamos si la información obtenida de la consulta es diferente a nulo
-                if (informacionDB != null)
+            // Comparamos si la información obtenida de la consulta es diferente a nulo
+            if (informacionDB != null)
+            {
+                // Comparamos si la información contenida contiene al menos una tabla y esa tabla contiene al menos un registro
+                if (informacionDB.Tables.Count > 0 && informacionDB.Tables[0].Rows.Count > 0)
                 {
-                    // Comparamos si la información contenida contiene al menos una tabla y esa tabla contiene al menos un registro
-                    if (informacionDB.Tables.Count > 0 && informacionDB.Tables[0].Rows.Count > 0)
+                    // Iteramos los registros de la tabla cero
+                    foreach (DataRow element in informacionDB.Tables[0].Rows)
                     {
-                        // Iteramos los registros de la tabla cero
-                        foreach (DataRow element in informacionDB.Tables[0].Rows)
-                        {
-                            // Inicializamos el objeto
-                            prog_anual = new DO_ProgramaAnual();
+                        // Inicializamos el objeto
+                        prog_anual = new DO_ProgramaAnual();
 
-                            // Asignamos los valores de la información a las propiedades del programa anual correspondiente
-                            prog_anual.material = Convert.ToString(element["MATERIAL"]);
-                            prog_anual.codigo_herramental = Convert.ToString(element["CODIGO_HERRAMENTAL"]);
-                            prog_anual.descripcion = Convert.ToString(element["DESCRIPCION"]);
+                        // Asignamos los valores de la información a las propiedades del programa anual correspondiente
+                        prog_anual.material = Convert.ToString(element["MATERIAL"]);
+                        prog_anual.codigo_herramental = Convert.ToString(element["CODIGO_HERRAMENTAL"]);
+                        prog_anual.descripcion = Convert.ToString(element["DESCRIPCION"]);
 
-                            // Agregamos el objeto a la lista
-                            ListaRetornada.Add(prog_anual);
-                        }
+                        // Agregamos el objeto a la lista
+                        ListaRetornada.Add(prog_anual);
                     }
                 }
-                // Retornamos el programa anual
-                return ListaRetornada;            
+            }
+            // Retornamos el programa anual
+            return ListaRetornada;
         }
 
         /// <summary>

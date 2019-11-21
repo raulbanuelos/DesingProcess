@@ -94,6 +94,7 @@
           <Property Name="ID_USERS_DETAILS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_USUARIO" Type="varchar" MaxLength="20" />
           <Property Name="URL_PHOTO" Type="varchar" MaxLength="500" />
+          <Property Name="IS_AVAILABLE_EMAIL" Type="bit" />
         </EntityType>
         <EntityType Name="TR_LECCIONES_CENTROSTRABAJO">
           <Key>
@@ -367,12 +368,12 @@
             <End Role="TBL_LECCIONES_APRENDIDAS" EntitySet="TBL_LECCIONES_APRENDIDAS" />
             <End Role="TR_LECCIONES_CENTROSTRABAJO" EntitySet="TR_LECCIONES_CENTROSTRABAJO" />
           </AssociationSet>
+          <EntitySet Name="TBL_BITACORA_INGRESO" EntityType="DataAccess.ServiceObjects.Usuario.TBL_BITACORA_INGRESO" />
           <EntitySet Name="TBL_USERS_DETAILS" EntityType="DataAccess.ServiceObjects.Usuario.TBL_USERS_DETAILS" />
           <AssociationSet Name="FK_TBL_USERS_DETAILS_Usuarios" Association="DataAccess.ServiceObjects.Usuario.FK_TBL_USERS_DETAILS_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TBL_USERS_DETAILS" EntitySet="TBL_USERS_DETAILS" />
           </AssociationSet>
-          <EntitySet Name="TBL_BITACORA_INGRESO" EntityType="DataAccess.ServiceObjects.Usuario.TBL_BITACORA_INGRESO" />
           </EntityContainer>
         <EntityType Name="Usuarios">
           <Key>
@@ -589,13 +590,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_BITACORA_INGRESO">
+          <Key>
+            <PropertyRef Name="ID_BITACORA_INGRESOS" />
+          </Key>
+          <Property Name="ID_BITACORA_INGRESOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USUARIO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_INGRESO" Type="DateTime" Precision="3" />
+          <Property Name="NOMBRE_COMPUTADORA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="TBL_USERS_DETAILS">
           <Key>
             <PropertyRef Name="ID_USERS_DETAILS" />
           </Key>
-          <Property Name="ID_USERS_DETAILS" Type="Int32" Nullable="false" />
+          <Property Name="ID_USERS_DETAILS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_USUARIO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="URL_PHOTO" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IS_AVAILABLE_EMAIL" Type="Boolean" />
           <NavigationProperty Name="Usuarios" Relationship="DataAccess.ServiceObjects.Usuario.FK_TBL_USERS_DETAILS_Usuarios" FromRole="TBL_USERS_DETAILS" ToRole="Usuarios" />
         </EntityType>
         <Association Name="FK_TBL_USERS_DETAILS_Usuarios">
@@ -610,15 +621,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="TBL_BITACORA_INGRESO">
-          <Key>
-            <PropertyRef Name="ID_BITACORA_INGRESOS" />
-          </Key>
-          <Property Name="ID_BITACORA_INGRESOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="USUARIO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="FECHA_INGRESO" Type="DateTime" Precision="3" />
-          <Property Name="NOMBRE_COMPUTADORA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -739,15 +741,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TBL_USERS_DETAILS">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Usuario.TBL_USERS_DETAILS">
-              <MappingFragment StoreEntitySet="TBL_USERS_DETAILS">
-                <ScalarProperty Name="URL_PHOTO" ColumnName="URL_PHOTO" />
-                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
-                <ScalarProperty Name="ID_USERS_DETAILS" ColumnName="ID_USERS_DETAILS" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TBL_BITACORA_INGRESO">
             <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Usuario.TBL_BITACORA_INGRESO">
               <MappingFragment StoreEntitySet="TBL_BITACORA_INGRESO">
@@ -755,6 +748,16 @@
                 <ScalarProperty Name="FECHA_INGRESO" ColumnName="FECHA_INGRESO" />
                 <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
                 <ScalarProperty Name="ID_BITACORA_INGRESOS" ColumnName="ID_BITACORA_INGRESOS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_USERS_DETAILS">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Usuario.TBL_USERS_DETAILS">
+              <MappingFragment StoreEntitySet="TBL_USERS_DETAILS">
+                <ScalarProperty Name="IS_AVAILABLE_EMAIL" ColumnName="IS_AVAILABLE_EMAIL" />
+                <ScalarProperty Name="URL_PHOTO" ColumnName="URL_PHOTO" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="ID_USERS_DETAILS" ColumnName="ID_USERS_DETAILS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

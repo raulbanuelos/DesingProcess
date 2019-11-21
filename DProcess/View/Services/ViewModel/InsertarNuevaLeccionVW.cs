@@ -1109,10 +1109,11 @@ namespace View.Services.ViewModel
                                 listaDocumentoA.Add(file);
                             }
 
-                            body = "<P>Para informar que se ha realizado la solicitud de trabajo. A continuación se detalla la información:</P>";
-                            body += "<P><STRONG>Componente:</STRONG> "+ Componente +"</P>";
-                            body += "<P><STRONG>No. de Solicitud:</STRONG>" + SolicitudTrabajoIng + "</P>";
-                            body += "<P><STRONG>Descripción:</STRONG>" + DescripcionProblema + "<BR><BR></P>";
+                            body = "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para informar que se ha realizado la solicitud de trabajo. A continuación se detalla la información:</P>";
+                            body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Componente:</STRONG> " + Componente +"</P>";
+                            body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No. de Solicitud:</STRONG>" + SolicitudTrabajoIng + "</P>";
+                            body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Descripción:</STRONG>" + DescripcionProblema + "<BR><BR></P>";
+                            body += "<P>Cualuqier duda favor de hacermela saber.</P>";
 
                             string title = "Diseño del proceso : Ha concludido la solicitud de cambio del componente " + Componente;
 
@@ -1248,10 +1249,11 @@ namespace View.Services.ViewModel
                                 c++;
                             }
 
-                            body = "<P>Para informar que se ha realizado la solicitud de trabajo. A continuación se detalla la información:</P>";
-                            body += "<P><STRONG>Componentes:</STRONG> " + componentes + "</P>";
-                            body += "<P><STRONG>No. de Solicitud:</STRONG>" + SolicitudTrabajoIng + "</P>";
-                            body += "<P><STRONG>Descripción:</STRONG>" + DescripcionProblema + "<BR><BR></P>";
+                            body = "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para informar que se ha realizado la solicitud de trabajo. A continuación se detalla la información:</P>";
+                            body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG>Componentes:</STRONG> " + componentes + "</P>";
+                            body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG>No. de Solicitud:</STRONG>" + SolicitudTrabajoIng + "</P>";
+                            body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG>Descripción:</STRONG>" + DescripcionProblema + "<BR><BR></P>";
+                            body += "<P>Cualuqier duda favor de hacermela saber.</P>";
 
                             string title = "Diseño del proceso : Ha concludido la solicitud de cambio de los componentes " + componentes;
 

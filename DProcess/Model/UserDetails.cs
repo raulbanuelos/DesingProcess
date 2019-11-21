@@ -9,5 +9,6 @@ namespace Model
     public class UserDetails
     {
         public string PathPhoto { get; set; }
+        public bool IsAvailableEmail { get; set; }
     }
 }
