@@ -105,6 +105,17 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Método para eliminar un item de listBox
+        /// </summary>
+        public ICommand EliminarItem
+        {
+            get
+            {
+                return new RelayCommand(o => eliminarItem(SelectedItem));
+            }
+        }
+
         #endregion
 
         #region Porpiedades
@@ -216,7 +227,7 @@ namespace View.Services.ViewModel
                             // Agregamos al usuarios a la lista para notificar
                             ListaUsuarioANotificar.Add(user);
                         }
-                    }                
+                    }
                 }
             }
         }
@@ -236,13 +247,25 @@ namespace View.Services.ViewModel
         }
 
         private bool _IsEnableEditor;
-
         public bool IsEnableEditor
         {
             get { return _IsEnableEditor; }
             set { _IsEnableEditor = value; NotifyChange("IsEnableEditor"); }
         }
 
+        private Archivo _selectedItem;
+        public Archivo SelectedItem
+        {
+            get
+            {
+                return _selectedItem;
+            }
+            set
+            {
+                _selectedItem = value;
+                NotifyChange("SelectedItem");
+            }
+        }
 
         #endregion
 
@@ -260,7 +283,7 @@ namespace View.Services.ViewModel
             ListaUsuarioANotificar = new ObservableCollection<Usuarios>();
 
             foreach (var item in listaANotificar)
-                ListaUsuarioANotificar.Add(item);           
+                ListaUsuarioANotificar.Add(item);
 
             #region Prueba Correo
             //string body = "<HTML>";
@@ -388,8 +411,43 @@ namespace View.Services.ViewModel
                     objArchivo.nombre = System.IO.Path.GetFileName(archivo);
                     objArchivo.ruta = archivo;
 
+                    //Si el archivo tiene extensión pdf
+                    if (objArchivo.ext == ".pdf")
+                    {
+                        // Asigna la imagen del pdf al objeto
+                        objArchivo.ruta = @"/Images/p.png";
+                    }
+                    else
+                    {
+                        // Si el archivo tiene extensión xlsm o xlsx
+                        if (objArchivo.ext == ".xlsm" || objArchivo.ext == ".xlsx")
+                        {
+                            // Asigna la imagen de excel al objeto
+                            objArchivo.ruta = @"/Images/E.jpg";
+                        }
+                        else
+                        {
+                            //Si es archivo de word asigna la imagen correspondiente.
+                            objArchivo.ruta = @"/Images/w.png";
+                        }
+                    }
+
+                    // Se agrega el objeto a la lista
                     ListaArchivos.Add(objArchivo);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Método para eliminar archivo adjuntado
+        /// </summary>
+        /// <param name="item"></param>
+        public void eliminarItem(Archivo item)
+        {
+            if (item != null)
+            {
+                //Se elimina el item seleccionado de la listaArchivos.
+                ListaArchivos.Remove(item);
             }
         }
 
@@ -421,17 +479,33 @@ namespace View.Services.ViewModel
                 }
 
                 bool respuesta = SO_Email.SendEmailWithAttachment(User.Pathnsf, usuarios, Title, BodyEmail, archivos);
+
                 DialogService dialogService = new DialogService();
+
+                // Se oculta editor de texto
                 IsEnableEditor = false;
+
                 if (respuesta)
                 {
-                    await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgCorreoEnviadoOK);
+                    await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgCorreoEnviadoOK);                    
                 }
                 else
                 {
                     await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorEnviarCorreo);
                 }
+
+                // Se muestra editor de texto
                 IsEnableEditor = true;
+
+                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                var window = System.Windows.Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                //Verificamos que la pantalla sea diferente de nulo.
+                if (window != null)
+                {
+                    //Cerramos la pantalla
+                    window.Close();
+                }
             }
         }
 
@@ -539,6 +613,5 @@ namespace View.Services.ViewModel
         }
 
         #endregion
-
     }
 }

@@ -3223,7 +3223,9 @@ namespace View.Resources {
         
         /// <summary>
         ///   Busca una cadena traducida similar a The process is over.
-        ///The file was created and saved with the Tooling to review..
+        ///The file was created and saved with the Tooling to verify.
+        ///
+        ///Notify to users that the tooling verification is ready..
         /// </summary>
         public static string msgHerramentalrevisar {
             get {
@@ -4394,6 +4396,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a MY GROUPS.
+        /// </summary>
+        public static string ttlMyGroups {
+            get {
+                return ResourceManager.GetString("ttlMyGroups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Specifications.
         /// </summary>
         public static string ttlNormas {
@@ -4678,6 +4689,15 @@ namespace View.Resources {
         public static string ttlUser {
             get {
                 return ResourceManager.GetString("ttlUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a USERS.
+        /// </summary>
+        public static string ttlUsers {
+            get {
+                return ResourceManager.GetString("ttlUsers", resourceCulture);
             }
         }
         

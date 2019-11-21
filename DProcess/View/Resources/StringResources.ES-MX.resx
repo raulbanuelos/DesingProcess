@@ -2028,8 +2028,10 @@ Cambia la descripción aquí y en el archivo.</value>
     <comment>Mensaje de error al exportar el archivo con herramenatales</comment>
   </data>
   <data name="msgHerramentalrevisar" xml:space="preserve">
-    <value>El proceso ha terminado. 
-Se creó y guardó el archivo con el Herramental a revisar.</value>
+    <value>El proceso ha terminado.
+Se creó y guardó el archivo con el Herramental a verificar.
+
+Notifique a usuarios que la verificación herramental está lista.</value>
     <comment>Mensaje del herramental a revisar</comment>
   </data>
   <data name="ttlCargaHerramental" xml:space="preserve">
@@ -2094,5 +2096,13 @@ A3 (DESCRIPCION/descripcion).</value>
   <data name="ttlValideInformacion" xml:space="preserve">
     <value>Por favor valide la información</value>
     <comment>Título para validar información</comment>
+  </data>
+  <data name="ttlMyGroups" xml:space="preserve">
+    <value>MIS GRUPOS</value>
+    <comment>Título Grupos</comment>
+  </data>
+  <data name="ttlUsers" xml:space="preserve">
+    <value>USUARIOS</value>
+    <comment>Título Usuarios</comment>
   </data>
 </root>
