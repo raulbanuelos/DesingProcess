@@ -11,11 +11,39 @@
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" WindowStartupLocation="CenterScreen" ShowMaxRestoreButton="False"
-        Title="Servicio de Correo" Height="900" Width="1000">
+        Title="Servicio de Correo" Height="900" Width="1000" ShowCloseButton="False">
 
     <Grid Margin="10">
         <Grid.Resources>
+            
             <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+            <DataTemplate x:Key="Lista">
+                <Border Padding="6" BorderThickness="1 1 1 1" BorderBrush="{DynamicResource MaterialDesignDivider}" Width="350">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        
+                        <!--Columna 1-->
+                        <Grid Grid.Column="1" Width="305">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock HorizontalAlignment="Left" FontWeight="Bold" Text="{Binding Path=nombre}" TextWrapping="WrapWithOverflow" Grid.Column="0"></TextBlock>
+
+                            <Button Grid.Column="1" Content="{materialDesign:PackIcon Close}" Style="{StaticResource MaterialDesignFlatButton}" ToolTip="Eliminar Archivo" Command="{Binding Path=DataContext.EliminarItem,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" 
+                                    Visibility="{Binding Path=DataContext.EnabledEliminar, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Converter={StaticResource BoolToVis}}"/>
+                        </Grid>
+                        
+                        <!--Columna 0-->
+                        <Image Name="img_icono" Source="{Binding Path=ruta}" Grid.Column="0" HorizontalAlignment="Stretch" Width="45" VerticalAlignment="Stretch"></Image>
+                    </Grid>
+                </Border>
+            </DataTemplate>
         </Grid.Resources>
         <Grid ShowGridLines="False">
             <Grid.RowDefinitions>
@@ -72,47 +100,67 @@
             </StackPanel>
 
             <!--TextBox Título-->
-
             <Border Grid.Row="2" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="10">
                 <StackPanel Grid.Row="2">
-                    <TextBox Text="{Binding Title}" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.ttlAsunto}" TextAlignment="Center" Width="900" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" Margin="5">
-
-                    </TextBox>
+                    <TextBox Text="{Binding Title}" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.ttlAsunto}" TextAlignment="Center" Width="900" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" Margin="5"></TextBox>
                 </StackPanel>
             </Border>
 
             <!--Archivos adjuntos-->
-            <Border Grid.Row="3" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="10" Margin="0,10,0,0">
-                <StackPanel>
-                    <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Visible" Height="75">
-                        <ItemsControl ItemsSource="{Binding ListaArchivos}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                        <Grid Margin="3">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition></RowDefinition>
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition></ColumnDefinition>
-                                            </Grid.ColumnDefinitions>
-                                            <materialDesign:Chip Content="{Binding nombre}">
-                                            </materialDesign:Chip>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel></WrapPanel>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                            </ItemsControl>
-                    </ScrollViewer>
+            <Border Grid.Row="3" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="10" Margin="0,15,0,0">
 
-                </StackPanel>
+                <!--<ListBox ItemsSource="{Binding ListaArchivos}" ItemTemplate="{StaticResource Lista}" HorizontalAlignment="Left" BorderBrush="#FFB8B6B6" Background="Transparent" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" Margin="5"/>-->
+                <ListBox ItemsSource="{Binding ListaArchivos}" SelectedItem="{Binding Path=SelectedItem}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--Columna 1-->
+                                    <Grid Grid.Column="1" Width="305">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="200"></ColumnDefinition>
+                                            <ColumnDefinition Width="50"></ColumnDefinition>
+                                            <ColumnDefinition Width="50"></ColumnDefinition>
+                                            <!--<ColumnDefinition Width="45"></ColumnDefinition>-->
+                                            <!--<ColumnDefinition Width="50"></ColumnDefinition>-->
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock HorizontalAlignment="Left" FontWeight="Bold" Text="{Binding Path=nombre}" TextWrapping="WrapWithOverflow" Grid.Column="0"></TextBlock>
+                                        <!--<TextBlock Text="{Binding Path=ext}" Grid.Column="1" FontWeight="Bold" ></TextBlock>-->
+
+                                        <Button Grid.Column="1" Content="{materialDesign:PackIcon Close}" Style="{StaticResource MaterialDesignFlatButton}" ToolTip="Eliminar Archivo" Command="{Binding Path=DataContext.EliminarItem,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" 
+                                    Visibility="{Binding Path=DataContext.EnabledEliminar, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Converter={StaticResource BoolToVis}}"/>
+                                        <!--<Button Grid.Column="2" Content="{materialDesign:PackIcon Eye}" Style="{StaticResource MaterialDesignFlatButton}" ToolTip="Ver Archivo" Command="{Binding Path=DataContext.VerArchivo,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"/>-->
+                                    </Grid>
+
+                                    <!--Columna 0-->
+                                    <Image Name="img_icono" Source="{Binding Path=ruta}" Grid.Column="0" HorizontalAlignment="Stretch" Width="45" VerticalAlignment="Stretch"></Image>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel></WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ListBox>
             </Border>
 
             <!--Botón Agregar Archivos-->
-            <StackPanel Grid.Row="4" Margin="0,10,0,0">
+            <StackPanel Grid.Row="4" Margin="0,11,0,0">
                 <Button Grid.Column="1" Width="150" Content="{x:Static recursos:StringResources.lblAdjuntarArchivo}" Command="{Binding AgregarArchivo}" HorizontalAlignment="Right"></Button>
             </StackPanel>
 
@@ -120,7 +168,6 @@
             <Border Grid.Row="5" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="10">
                 <Grid>
                     <smith:HtmlEditor Visibility="{Binding IsEnableEditor, Converter={StaticResource BoolToVis}}" Margin="10" x:Name="editor" BindingContent="{Binding BodyEmail,Mode=TwoWay}">
-
                     </smith:HtmlEditor>
                 </Grid>
             </Border>
@@ -129,18 +176,20 @@
             <StackPanel Grid.Row="6">
                 <Button Command="{Binding EnviarCorreo}" Width="120" Content="{x:Static recursos:StringResources.ttlEnviar}" HorizontalAlignment="Right" Margin="0,10,10,0" Cursor="Hand"></Button>
             </StackPanel>
-
         </Grid>
 
-        <Controls:FlyoutsControl>
+        <Controls:FlyoutsControl Margin="0,0,0,0">
             <Controls:Flyout Theme="Light" BorderBrush="DeepSkyBlue"
                              BorderThickness="3,0,0,0"
                              FontSize="10" Position="Top"
-                             IsOpen="{Binding IsOpen}"
-                             CloseButtonVisibility="Visible" Height="300">
-                <Grid ShowGridLines="True">
+                             IsOpen="{Binding IsOpen}"                             
+                             CloseButtonVisibility="Visible" Height="345">
+                <Grid ShowGridLines="False">
                     <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="260"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
@@ -148,23 +197,21 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
+                    <Label Content="{x:Static recursos:StringResources.ttlMyGroups}" Grid.Row="0" Grid.Column="0" FontWeight="Bold" FontSize="12" HorizontalAlignment="Center"></Label>
                     <DataGrid ItemsSource="{Binding ListaGrupos}" SelectedItem="{Binding GrupoSeleccionado, Mode=TwoWay}"
                       ScrollViewer.CanContentScroll="True" 
                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
                       CanUserAddRows="False"
                       AutoGenerateColumns="False"
-                      Grid.Row="0"
+                      Grid.Row="1"
                       Grid.Column="0">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                             EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                             Header="{x:Static recursos:StringResources.lblNotificar}"
                                             Binding="{Binding IsSelected}"/>
-
                             <DataGridTextColumn Header="{x:Static recursos:StringResources.lblGrupos}" Binding="{Binding nombre}" IsReadOnly="True"></DataGridTextColumn>
-
-
                         </DataGrid.Columns>
 
                         <i:Interaction.Triggers>
@@ -172,16 +219,16 @@
                                 <i:InvokeCommandAction Command="{Binding AbrirGrupo}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-
                     </DataGrid>
 
+                    <Label Content="{x:Static recursos:StringResources.ttlUsers}" Grid.Row="0" Grid.Column="1" FontWeight="Bold" FontSize="12" HorizontalAlignment="Center"></Label>
                     <DataGrid ItemsSource="{Binding ListaUsuarios}"
                       ScrollViewer.CanContentScroll="True" 
                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
                       CanUserAddRows="False"
                       AutoGenerateColumns="False"
-                      Grid.Row="0"
+                      Grid.Row="1"
                       Grid.Column="1">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
@@ -198,12 +245,11 @@
                             </DataGridCheckBoxColumn>
                             <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNombre}" Binding="{Binding NombreCompleto}" IsReadOnly="True"></DataGridTextColumn>
                         </DataGrid.Columns>
-
                     </DataGrid>
-
-                    <Button Margin="130,305,0,-37" HorizontalAlignment="Left" Content="{x:Static recursos:StringResources.ttlButtonCreateGroup}" Command="{Binding IrCrearGrupo}" Width="150"/>
-                    <Button Margin="290,305,0,-37" HorizontalAlignment="Left" Background="red" Content="{x:Static recursos:StringResources.ttlButtonDeleteGroup}" Command="{Binding EliminarGrupo}" Width="150"/>
                     
+                    <Button Grid.Row="2" HorizontalAlignment="Center" Margin="0,0,50,0" Content="{x:Static recursos:StringResources.ttlButtonCreateGroup}" Command="{Binding IrCrearGrupo}" Width="150"/>
+                    <Button Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,10,0" Background="red" Content="{x:Static recursos:StringResources.ttlButtonDeleteGroup}" Command="{Binding EliminarGrupo}" Width="150"/>
+
                 </Grid>
 
             </Controls:Flyout>

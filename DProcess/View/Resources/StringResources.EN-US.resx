@@ -2031,7 +2031,9 @@ Change the description here and in the file.</value>
   </data>
   <data name="msgHerramentalrevisar" xml:space="preserve">
     <value>The process is over.
-The file was created and saved with the Tooling to review.</value>
+The file was created and saved with the Tooling to verify.
+
+Notify to users that the tooling verification is ready.</value>
     <comment>Mensaje del herramental a revisar</comment>
   </data>
   <data name="ttlCargaHerramental" xml:space="preserve">
@@ -2096,5 +2098,13 @@ A3 (DESCRIPCION/descripcion).</value>
   <data name="ttlValideInformacion" xml:space="preserve">
     <value>Please validate the information</value>
     <comment>Título para validar información</comment>
+  </data>
+  <data name="ttlMyGroups" xml:space="preserve">
+    <value>MY GROUPS</value>
+    <comment>Título Grupos</comment>
+  </data>
+  <data name="ttlUsers" xml:space="preserve">
+    <value>USERS</value>
+    <comment>Título Usuarios</comment>
   </data>
 </root>

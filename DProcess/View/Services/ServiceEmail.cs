@@ -7,7 +7,6 @@ namespace View.Services
     {
         //var AttachME = nDocument.CreateRichTextItem("Attachment"); //agregado
 
-
         //var EmbedObj = AttachME.EmbedObject(1454, "", sAttachment, "Attachment");
         public bool SendEmailLotus(string pathDBEmail, string[] recipients,string title,string body)
         {
@@ -86,13 +85,11 @@ namespace View.Services
                 nDocument.ReplaceItemValue("SentTo", recipients);
                 nDocument.ReplaceItemValue("Subject", title);
 
-
                 NotesMIMEEntity sBody = nDocument.CreateMIMEEntity();
                 NotesMIMEEntity chield = sBody.CreateChildEntity();
                 
                 stream.WriteText(body);
-                
-                
+                                
                 chield.SetContentFromText(stream, "text/html;charset=iso-8859-1", MIME_ENCODING.ENC_IDENTITY_8BIT);
                 stream.Close();
                 stream.Truncate();
@@ -130,8 +127,7 @@ namespace View.Services
                 nDocument.ReplaceItemValue("Form", "Memo");
                 nDocument.ReplaceItemValue("SentTo", recipients);
                 nDocument.ReplaceItemValue("Subject", title);
-                
-                
+                                
                 NotesMIMEEntity sBody =  nDocument.CreateMIMEEntity();
                 NotesMIMEEntity chield = sBody.CreateChildEntity();
                 
