@@ -226,7 +226,7 @@
     <comment>Título de finalizado</comment>
   </data>
   <data name="ttlEspereUnMomento" xml:space="preserve">
-    <value>Espere un momento</value>
+    <value>Espera un momento </value>
     <comment>Título de espere un momento</comment>
   </data>
   <data name="ttlLessons" xml:space="preserve">
@@ -2104,5 +2104,50 @@ A3 (DESCRIPCION/descripcion).</value>
   <data name="ttlUsers" xml:space="preserve">
     <value>USUARIOS</value>
     <comment>Título Usuarios</comment>
+  </data>
+  <data name="msgConfiguracionCorreo" xml:space="preserve">
+    <value>Tu usuario no está configurado para enviar correos electrónicos, ¿desea comenzar con el proceso de configuración?</value>
+    <comment>Mensaje configuracion correo</comment>
+  </data>
+  <data name="msgCuentaConfigurada" xml:space="preserve">
+    <value>Tu cuenta ha sido configurada correctamente, a partir de este momento puedes enviar correos electrónicos desde la plataforma de Diseño del Proceso.
+En un momento te llegará un correo electrónico confirmando su configuración.</value>
+    <comment>Mensaje correo configurado</comment>
+  </data>
+  <data name="msgErrorVincular" xml:space="preserve">
+    <value>No fue posible vincular tu cuenta de correo, por favor comuniquese con el administrador del sistema para que se le configure.</value>
+    <comment>Mensaje error al vincular cuenta</comment>
+  </data>
+  <data name="msgEstamosConfigurando" xml:space="preserve">
+    <value>Estamos configurando tu cuenta para que puedas enviar correos electrónicos.</value>
+    <comment>Mensaje mientras configuran cuenta</comment>
+  </data>
+  <data name="msgParaTuInf" xml:space="preserve">
+    <value>, para tu información:</value>
+    <comment>Mensaje información</comment>
+  </data>
+  <data name="msgPerfecto" xml:space="preserve">
+    <value>Perfecto </value>
+    <comment>Mensaje perfecto</comment>
+  </data>
+  <data name="msgProcesoConfiguracion" xml:space="preserve">
+    <value>Después de aceptar, se iniciará el proceso de configuración. Por tu seguridad, es posible que Lotus Notes te solicite ingresar la contraseña de tu correo electrónico. Por favor ingrésala las veces que te las solicite. La contraseña de tu correo no se guarda en ninguna base de datos de la plataforma Diseño del Proceso. Este proceso es totalmente seguro y NO expone tus credenciales hacia otros usuarios.</value>
+    <comment>Mensaje de configuracion</comment>
+  </data>
+  <data name="ttlAtencion" xml:space="preserve">
+    <value>Atención  </value>
+    <comment>Título Atención</comment>
+  </data>
+  <data name="ttlGenial" xml:space="preserve">
+    <value>Genial!</value>
+    <comment>Título genial</comment>
+  </data>
+  <data name="ttlOcurrioError" xml:space="preserve">
+    <value>Ocurrió un error</value>
+    <comment>Mensaje ocurrio error</comment>
+  </data>
+  <data name="ttlOkEntiendo" xml:space="preserve">
+    <value>Ok, lo entiendo</value>
+    <comment>Título OK, lo entiendo</comment>
   </data>
 </root>

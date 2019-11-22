@@ -109,7 +109,6 @@
             <!--Archivos adjuntos-->
             <Border Grid.Row="3" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="10" Margin="0,15,0,0">
 
-                <!--<ListBox ItemsSource="{Binding ListaArchivos}" ItemTemplate="{StaticResource Lista}" HorizontalAlignment="Left" BorderBrush="#FFB8B6B6" Background="Transparent" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" Margin="5"/>-->
                 <ListBox ItemsSource="{Binding ListaArchivos}" SelectedItem="{Binding Path=SelectedItem}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -128,21 +127,16 @@
                                     </Grid.ColumnDefinitions>
 
                                     <!--Columna 1-->
-                                    <Grid Grid.Column="1" Width="305">
+                                    <Grid Grid.Column="1" Width="230">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="200"></ColumnDefinition>
+                                            <ColumnDefinition Width="180"></ColumnDefinition>
                                             <ColumnDefinition Width="50"></ColumnDefinition>
-                                            <ColumnDefinition Width="50"></ColumnDefinition>
-                                            <!--<ColumnDefinition Width="45"></ColumnDefinition>-->
-                                            <!--<ColumnDefinition Width="50"></ColumnDefinition>-->
                                         </Grid.ColumnDefinitions>
 
                                         <TextBlock HorizontalAlignment="Left" FontWeight="Bold" Text="{Binding Path=nombre}" TextWrapping="WrapWithOverflow" Grid.Column="0"></TextBlock>
-                                        <!--<TextBlock Text="{Binding Path=ext}" Grid.Column="1" FontWeight="Bold" ></TextBlock>-->
-
+                                        
                                         <Button Grid.Column="1" Content="{materialDesign:PackIcon Close}" Style="{StaticResource MaterialDesignFlatButton}" ToolTip="Eliminar Archivo" Command="{Binding Path=DataContext.EliminarItem,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}" 
-                                    Visibility="{Binding Path=DataContext.EnabledEliminar, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Converter={StaticResource BoolToVis}}"/>
-                                        <!--<Button Grid.Column="2" Content="{materialDesign:PackIcon Eye}" Style="{StaticResource MaterialDesignFlatButton}" ToolTip="Ver Archivo" Command="{Binding Path=DataContext.VerArchivo,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"/>-->
+                                                Visibility="{Binding Path=DataContext.EnabledEliminar, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Converter={StaticResource BoolToVis}}"/>
                                     </Grid>
 
                                     <!--Columna 0-->

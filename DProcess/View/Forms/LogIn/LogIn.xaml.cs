@@ -92,6 +92,7 @@ namespace View.Forms.LogIn
                         DataManager.InserIngresoBitacora(Environment.MachineName, usuarioConectado.Nombre + " " + usuarioConectado.ApellidoPaterno + " " + usuarioConectado.ApellidoMaterno);
 
                         #region Configuración del correo electrónico
+
                         //Verificamos si esta configurado el correo electrónico en la plataforma.
                         if (!usuarioConectado.Details.IsAvailableEmail)
                         {
@@ -101,19 +102,19 @@ namespace View.Forms.LogIn
                             settings.NegativeButtonText = StringResources.lblNo;
 
                             //Preguntamos al usuario si lo quiere configurar en estos momentos.
-                            MessageDialogResult resultMSG = await this.ShowMessageAsync("Atención " + usuarioConectado.Nombre, "Tu usuario no esta configurado para enviar Correos electrónicos, ¿Deseas iniciar el proceso de configuración?", MessageDialogStyle.AffirmativeAndNegative, settings);
+                            MessageDialogResult resultMSG = await this.ShowMessageAsync(StringResources.ttlAtencion + usuarioConectado.Nombre, StringResources.msgConfiguracionCorreo, MessageDialogStyle.AffirmativeAndNegative, settings);
 
                             //Verificamos la respuesta del usuario, si es afirmativa iniciamos el proceso de configuración.
                             if (resultMSG == MessageDialogResult.Affirmative)
                             {
                                 settings = new MetroDialogSettings();
-                                settings.AffirmativeButtonText = "Ok, lo entiendo";
+                                settings.AffirmativeButtonText = StringResources.ttlOkEntiendo;
 
-                                await this.ShowMessageAsync(usuarioConectado.Nombre + ", para tu información:", "Despues de aceptar, se iniciara el proceso de configuración. Por tu seguridad, es posible que Lotus Notes te solicite ingresar la contraseña de tu correo electrónico. Por favor ingresala las veces que te las solicite. La contraseña de tu correo no se guarda en ninguna base de datos de la plataforma Diseño del proceso. Este proceso es totalmente seguro y NO expone tus credenciales hacia otros usuarios.", MessageDialogStyle.Affirmative, settings);
+                                await this.ShowMessageAsync(usuarioConectado.Nombre + StringResources.msgParaTuInf, StringResources.msgProcesoConfiguracion, MessageDialogStyle.Affirmative, settings);
 
                                 ProgressDialogController AsyncProgressConfigEmail;
 
-                                AsyncProgressConfigEmail = await dialog.SendProgressAsync("Por favor espera un momento " + usuarioConectado.Nombre + " ...", "Estamos configurando tu cuenta para que pueda enviar email.");
+                                AsyncProgressConfigEmail = await dialog.SendProgressAsync(StringResources.ttlEspereUnMomento + usuarioConectado.Nombre + "...", StringResources.msgEstamosConfigurando);
 
                                 ConfigEmailViewModel configEmail = new ConfigEmailViewModel(usuarioConectado);
 
@@ -123,16 +124,17 @@ namespace View.Forms.LogIn
 
                                 if (respuestaConfigEmail)
                                 {
-                                    settings.AffirmativeButtonText = "Genial!";
-                                    await this.ShowMessageAsync("Perfecto " + usuarioConectado.Nombre, "Tu cuenta ha sido configurada correctamente, a partir de este momento puedes enviar correos desde la plataforma de Diseño del proceso. \n En unos momentos te llegara un correo confirmado su configuración.", MessageDialogStyle.Affirmative, settings);
+                                    settings.AffirmativeButtonText = StringResources.ttlGenial;
+                                    await this.ShowMessageAsync(StringResources.msgPerfecto + usuarioConectado.Nombre, StringResources.msgCuentaConfigurada, MessageDialogStyle.Affirmative, settings);
 
                                 }
                                 else
                                 {
-                                    await this.ShowMessageAsync("Ocurrio un error", "No fué posible vincular su cuenta de correo, por favor comuniquese con el administrador del sistema para que se le configure.");
+                                    await this.ShowMessageAsync(StringResources.ttlOcurrioError, StringResources.msgErrorVincular);
                                 }
                             }
                         } 
+
                         #endregion
                         
                         //Una vez que el usuario hizo clic en aceptar el mensaje de bienvenida, se procede con la codificación de la presentación de la pantalla inicial.

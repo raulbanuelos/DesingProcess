@@ -2245,6 +2245,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Your user is not configured to send emails, do you want to start with the configuration process?.
+        /// </summary>
+        public static string msgConfiguracionCorreo {
+            get {
+                return ResourceManager.GetString("msgConfiguracionCorreo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Do you want to save the changes?.
         /// </summary>
         public static string msgConfirmacion {
@@ -2340,6 +2349,16 @@ namespace View.Resources {
         public static string msgCrearDocumento {
             get {
                 return ResourceManager.GetString("msgCrearDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Your account has been set up correctly, from this moment you can send emails from the Process Design platform.
+        ///In a moment you will receive an email confirming your configuration..
+        /// </summary>
+        public static string msgCuentaConfigurada {
+            get {
+                return ResourceManager.GetString("msgCuentaConfigurada", resourceCulture);
             }
         }
         
@@ -2976,6 +2995,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a It was not possible to link your email account, please contact the system administrator to configure it..
+        /// </summary>
+        public static string msgErrorVincular {
+            get {
+                return ResourceManager.GetString("msgErrorVincular", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Please wait.
         /// </summary>
         public static string msgEspera {
@@ -2999,6 +3027,15 @@ namespace View.Resources {
         public static string msgEstado {
             get {
                 return ResourceManager.GetString("msgEstado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a We are setting up your account so you can send emails..
+        /// </summary>
+        public static string msgEstamosConfigurando {
+            get {
+                return ResourceManager.GetString("msgEstamosConfigurando", resourceCulture);
             }
         }
         
@@ -3523,11 +3560,29 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a , for your information:.
+        /// </summary>
+        public static string msgParaTuInf {
+            get {
+                return ResourceManager.GetString("msgParaTuInf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The pattern was inserted with the code: .
         /// </summary>
         public static string msgPatternInserted {
             get {
                 return ResourceManager.GetString("msgPatternInserted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Perfect .
+        /// </summary>
+        public static string msgPerfecto {
+            get {
+                return ResourceManager.GetString("msgPerfecto", resourceCulture);
             }
         }
         
@@ -3555,6 +3610,15 @@ namespace View.Resources {
         public static string msgPrivilegiosUsuario {
             get {
                 return ResourceManager.GetString("msgPrivilegiosUsuario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a After accepting, the configuration process will start. For your security, Lotus Notes may ask you to enter your email password. Please enter it as many times as you request. Your email password is not stored in any database of the Process Design platform. This process is totally secure and does NOT expose your credentials to other users..
+        /// </summary>
+        public static string msgProcesoConfiguracion {
+            get {
+                return ResourceManager.GetString("msgProcesoConfiguracion", resourceCulture);
             }
         }
         
@@ -3973,6 +4037,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Attention .
+        /// </summary>
+        public static string ttlAtencion {
+            get {
+                return ResourceManager.GetString("ttlAtencion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Authentication.
         /// </summary>
         public static string ttlAuthentication {
@@ -4252,7 +4325,7 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Wait a moment.
+        ///   Busca una cadena traducida similar a Wait a moment .
         /// </summary>
         public static string ttlEspereUnMomento {
             get {
@@ -4275,6 +4348,15 @@ namespace View.Resources {
         public static string ttlGeneradorNumero {
             get {
                 return ResourceManager.GetString("ttlGeneradorNumero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Great!.
+        /// </summary>
+        public static string ttlGenial {
+            get {
+                return ResourceManager.GetString("ttlGenial", resourceCulture);
             }
         }
         
@@ -4446,6 +4528,24 @@ namespace View.Resources {
         public static string ttlNuevoUsuario {
             get {
                 return ResourceManager.GetString("ttlNuevoUsuario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a An error occurred.
+        /// </summary>
+        public static string ttlOcurrioError {
+            get {
+                return ResourceManager.GetString("ttlOcurrioError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ok, I understand it.
+        /// </summary>
+        public static string ttlOkEntiendo {
+            get {
+                return ResourceManager.GetString("ttlOkEntiendo", resourceCulture);
             }
         }
         

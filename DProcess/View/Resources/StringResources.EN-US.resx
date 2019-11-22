@@ -218,7 +218,7 @@
     <comment>Título de finalizado</comment>
   </data>
   <data name="ttlEspereUnMomento" xml:space="preserve">
-    <value>Wait a moment</value>
+    <value>Wait a moment </value>
     <comment>Título de espere un momento</comment>
   </data>
   <data name="ttlLessons" xml:space="preserve">
@@ -2106,5 +2106,50 @@ A3 (DESCRIPCION/descripcion).</value>
   <data name="ttlUsers" xml:space="preserve">
     <value>USERS</value>
     <comment>Título Usuarios</comment>
+  </data>
+  <data name="msgConfiguracionCorreo" xml:space="preserve">
+    <value>Your user is not configured to send emails, do you want to start with the configuration process?</value>
+    <comment>Mensaje configuracion correo</comment>
+  </data>
+  <data name="msgCuentaConfigurada" xml:space="preserve">
+    <value>Your account has been set up correctly, from this moment you can send emails from the Process Design platform.
+In a moment you will receive an email confirming your configuration.</value>
+    <comment>Mensaje correo configurado</comment>
+  </data>
+  <data name="msgErrorVincular" xml:space="preserve">
+    <value>It was not possible to link your email account, please contact the system administrator to configure it.</value>
+    <comment>Mensaje error al vincular cuenta</comment>
+  </data>
+  <data name="msgEstamosConfigurando" xml:space="preserve">
+    <value>We are setting up your account so you can send emails.</value>
+    <comment>Mensaje mientras configuran cuenta</comment>
+  </data>
+  <data name="msgParaTuInf" xml:space="preserve">
+    <value>, for your information:</value>
+    <comment>Mensaje información</comment>
+  </data>
+  <data name="msgPerfecto" xml:space="preserve">
+    <value>Perfect </value>
+    <comment>Mensaje perfecto</comment>
+  </data>
+  <data name="msgProcesoConfiguracion" xml:space="preserve">
+    <value>After accepting, the configuration process will start. For your security, Lotus Notes may ask you to enter your email password. Please enter it as many times as you request. Your email password is not stored in any database of the Process Design platform. This process is totally secure and does NOT expose your credentials to other users.</value>
+    <comment>Mensaje de configuracion</comment>
+  </data>
+  <data name="ttlAtencion" xml:space="preserve">
+    <value>Attention </value>
+    <comment>Título Atención</comment>
+  </data>
+  <data name="ttlGenial" xml:space="preserve">
+    <value>Great!</value>
+    <comment>Título genial</comment>
+  </data>
+  <data name="ttlOcurrioError" xml:space="preserve">
+    <value>An error occurred</value>
+    <comment>Mensaje ocurrio error</comment>
+  </data>
+  <data name="ttlOkEntiendo" xml:space="preserve">
+    <value>Ok, I understand it</value>
+    <comment>Título OK, lo entiendo</comment>
   </data>
 </root>
