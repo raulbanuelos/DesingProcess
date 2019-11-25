@@ -61,7 +61,7 @@ namespace View.Services.ViewModel
 
         //public bool setEmail()
         //{
-            
+
         //        ServiceEmail SO_Email = new ServiceEmail();
         //        List<string> paths = new List<string>();
         //        bool respuesta = false;
@@ -101,7 +101,7 @@ namespace View.Services.ViewModel
         {
             DataManager.UpdatePathEmailUser(path, userName);
             DataManager.UpdateUserIsAvailableEmail(userName, true);
-            
+
         }
     }
 }

@@ -107,8 +107,7 @@ namespace View.Services.ViewModel
             Archivo documento = new Archivo();
 
             // Le asignamos valores
-            documento.nombre = nombreArchivoSalida;
-            //documento.ext = rutaArchivo;
+            documento.nombre = nombreArchivoSalida;            
             documento.ruta = rutaArchivo;
             documento.rutaIcono = @"/Images/E.jpg";
 
@@ -342,6 +341,16 @@ namespace View.Services.ViewModel
 
                 // Se manda llamar el método que abre la ventana para notificar
                 irnotificara();
+
+                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                var window = System.Windows.Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                //Verificamos que la pantalla sea diferente de nulo.
+                if (window != null)
+                {
+                    //Cerramos la pantalla
+                    window.Close();
+                }
             }
             catch (Exception er)
             {

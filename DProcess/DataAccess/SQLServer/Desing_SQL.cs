@@ -39,15 +39,12 @@ namespace DataAccess.SQLServer
 
             try
             {
-
                 //Verificamos que la cadena de conexión sea válida y que el nombre del procedimiento sea direfenre de vacío.
                 if (StringDeConexion != string.Empty && !string.IsNullOrEmpty(nombreProcedimientoAlmacenado))
                 {
-
                     //Declaramos la conexión con el string definido.
                     using (SqlConnection DBConnection = new SqlConnection(StringDeConexion))
                     {
-
                         //Declaramos un comando de SQL indicando el nombre del procedimiento y la conexión.
                         SqlCommand sqlCommand = new SqlCommand(nombreProcedimientoAlmacenado, DBConnection);
 
@@ -77,6 +74,7 @@ namespace DataAccess.SQLServer
             {
 
             }
+
             //Retornamos el dataset.
             return data;
         }
