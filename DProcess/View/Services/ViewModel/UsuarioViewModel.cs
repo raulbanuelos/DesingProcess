@@ -304,7 +304,7 @@ namespace View.Services.ViewModel
         {
             ModelUsuario = modelUsuario;
             this.pagina = pagina;
-            //initNotifications();
+            initNotifications();
         }
 
         #endregion
