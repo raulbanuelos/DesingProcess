@@ -51,12 +51,53 @@ namespace View.Services.ViewModel
                     c++;
                 }
 
+                //Si no se obtiene respuesta, buscamos en todo el disco Local C.
+                if (!respuesta)
+                {
+                    paths = GetFiles(@"c:\", fileRule);
+                    c = 0;
+                    while (c < paths.Count && !respuesta)
+                    {
+                        respuesta = SO_Email.SendEmailLotusCustom(paths[c], users, "Diseño del Proceso : Correo electrónico de prueba", bodyTest);
+                        goodPath = respuesta ? paths[c] : string.Empty;
+                        c++;
+                    }
+                }
+
                 if (respuesta)
                     actualizarPath(goodPath, user.NombreUsuario);
 
                 return respuesta;
             });
 
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los archivos con el patrón de busqueda deseado. Busca a partir de una ruta en especifico y todas sus subcarpetas.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="pattern"></param>
+        /// <returns></returns>
+        public static List<string> GetFiles(string path, string pattern)
+        {
+            var files = new List<string>();
+
+            try
+            {
+                files.AddRange(Directory.GetFiles(path, pattern, SearchOption.TopDirectoryOnly));
+                foreach (var directory in Directory.GetDirectories(path))
+                {
+                    files.AddRange(GetFiles(directory, pattern));
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+            }
+            catch (PathTooLongException)
+            {
+            }
+
+            return files;
         }
 
         //public bool setEmail()
