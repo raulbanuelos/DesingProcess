@@ -283,9 +283,23 @@ namespace View.Services.ViewModel
             ListaGrupos = DataManagerControlDocumentos.GetAllGrupos(User.NombreUsuario);
             ListaUsuarioANotificar = new ObservableCollection<Usuarios>();
 
+            // Se carga a la lista el usuario reportó
             foreach (var item in listaANotificar)
-                ListaUsuarioANotificar.Add(item);            
-          
+                ListaUsuarioANotificar.Add(item);
+
+            // Iteramos lista de Usarios a notificar y usuarios para seleccionar
+            foreach (var listusernotify in ListaUsuarioANotificar)
+            {
+                foreach (var listuser in ListaUsuarios)
+                {
+                    // Seleccionamos en la lista de usuarios, los usuarios a notificar ya cargados
+                    if (listusernotify.NombreCorto == listuser.NombreCorto)
+                    {
+                        listuser.IsSelected = true;
+                    }
+                }
+            }
+
             #region Prueba Correo
             //string body = "<HTML>";
             //body += "<head>";
@@ -366,6 +380,7 @@ namespace View.Services.ViewModel
                 //Ejecutamos el método para mostrar el mensaje. El resultado lo asignamos a una variable local.
                 MessageDialogResult result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgCorreoSinAsunto, setting, MessageDialogStyle.AffirmativeAndNegative);
                 IsEnableEditor = true;
+
                 return result == MessageDialogResult.Affirmative ? true : false;
             }
             return true;
@@ -378,6 +393,7 @@ namespace View.Services.ViewModel
         private string definirPieDeCorreo()
         {
             string pie = "<FONT size=2 face=Helv>";
+
             pie += "<FONT size=2 face=Helv>";
             pie += "<P>Saludos / Kind regards<BR>";
             pie += "<BR>" + User.Nombre + " " + User.ApellidoPaterno + " " + User.ApellidoMaterno;
@@ -397,6 +413,7 @@ namespace View.Services.ViewModel
         /// </summary>
         private void agregarArchivo()
         {
+            // Se declara servicio
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.Multiselect = true;
 
@@ -406,8 +423,10 @@ namespace View.Services.ViewModel
             {
                 foreach (string archivo in fileDialog.FileNames)
                 {
-                    //ListaArchivos.Add(archivo);
+                    // Objeto
                     Archivo objArchivo = new Archivo();
+
+                    // Se le asignan propiedades
                     objArchivo.ext = System.IO.Path.GetExtension(archivo);
                     objArchivo.nombre = System.IO.Path.GetFileName(archivo);
                     objArchivo.ruta = archivo;
@@ -435,6 +454,7 @@ namespace View.Services.ViewModel
                             }
                             else
                             {
+                                // Si archivo de otro tipo se le asigna una imagen por default
                                 objArchivo.rutaIcono = @"/Images/file.png";
                             }
                         }
@@ -468,15 +488,22 @@ namespace View.Services.ViewModel
             {
                 ServiceEmail SO_Email = new ServiceEmail();
 
+                // Se declara vector de tamaño elementos ListaUsuarioANotificar + 1
                 int l = ListaUsuarioANotificar.Count;
-                string[] usuarios = new string[l];
+                string[] usuarios = new string[l + 1];
                 int c = 0;
+
+                // Se itera la lista y se agregan a la lista a notificar
                 foreach (Usuarios usuario in ListaUsuarioANotificar)
                 {
                     usuarios[c] = usuario.Correo;
                     c++;
                 }
 
+                // Se agrega al vector el usuario logueado para ser notificado                
+                usuarios[c] = User.Correo;
+
+                // Vector con archivos adjuntados
                 string[] archivos = new string[ListaArchivos.Count];
                 int i = 0;
 

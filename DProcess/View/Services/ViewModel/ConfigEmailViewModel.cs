@@ -19,13 +19,16 @@ namespace View.Services.ViewModel
             this.user = user;
         }
 
-        public Task<bool> setEmail()
+        // Se manda como parámetro un objeto DO_PathMail
+        public Task<DO_PathMail> setEmail()
         {
             return Task.Run(() =>
             {
+                // Se inicializan los servicios
                 ServiceEmail SO_Email = new ServiceEmail();
                 List<string> paths = new List<string>();
-                bool respuesta = false;
+                DO_PathMail respuesta = new DO_PathMail();
+
                 int c = 0;
                 string fileRule = "*.nsf";
                 string[] users = new string[1];
@@ -33,8 +36,9 @@ namespace View.Services.ViewModel
                 string bodyTest = "<P><BR><FONT size=5><EM>Esta es una prueba</EM> de envío</FONT> de <U>correo electrónico</U> a <EM>través de la plataforma</EM> de <STRONG><U><FONT style=\"BACKGROUND - COLOR: #00ffff\">Diseño del Proceso.</FONT></U></STRONG></P>";
                 bodyTest += "<P>&nbsp;<FONT size=6><FONT style=\"BACKGROUND - COLOR: #339966\">Si usted puede visualizar</FONT> este</FONT> <FONT color=#0000ff>correo en Lotus Notes</FONT>, <FONT color=#800080 size=2>significa que podrá</FONT><FONT size=7> </FONT><FONT color=#808000><FONT size=6>enviar correos a</FONT> través de la plataforma</FONT> de <STRONG><FONT style=\"BACKGROUND-COLOR: #00ffff\">Diseño del Proceso.</FONT></STRONG></P>";
 
-
                 string[] directories = new string[3];
+
+                // Se agregan rutas problables establecidas
                 directories[0] = @"C:\Users\" + Environment.UserName + @"\AppData\Local\Lotus\";
                 directories[1] = @"C:\Program Files (x86)\IBM\Lotus\";
                 directories[2] = @"C:\Program Files\IBM\Lotus\";
@@ -43,37 +47,42 @@ namespace View.Services.ViewModel
                 {
                     if (Directory.Exists(path))
                     {
+                        // Realiza la búsqueda del archivo en los directorios
                         string[] files = Directory.GetFiles(path, fileRule, SearchOption.AllDirectories);
                         paths.AddRange(files);
                     }
                 }
 
-                while (c < paths.Count && !respuesta)
+                while (c < paths.Count && !respuesta.respuesta)
                 {
-                    respuesta = SO_Email.SendEmailLotusCustom(paths[c], users, "Diseño del Proceso : Correo electrónico de prueba", bodyTest);
-                    goodPath = respuesta ? paths[c] : string.Empty;
+                    respuesta.respuesta = SO_Email.SendEmailLotusCustom(paths[c], users, "Diseño del Proceso : Correo electrónico de prueba", bodyTest);
+                    goodPath = respuesta.respuesta ? paths[c] : string.Empty;
                     c++;
                 }
 
                 //Si no se obtiene respuesta, buscamos en todo el disco Local C.
-                if (!respuesta)
+                if (!respuesta.respuesta)
                 {
+                    // Se manda llamar método para buscar en todo el disco local C
                     paths = GetFiles(@"c:\", fileRule);
                     c = 0;
-                    while (c < paths.Count && !respuesta)
+
+                    while (c < paths.Count && !respuesta.respuesta)
                     {
-                        respuesta = SO_Email.SendEmailLotusCustom(paths[c], users, "Diseño del Proceso : Correo electrónico de prueba", bodyTest);
-                        goodPath = respuesta ? paths[c] : string.Empty;
+                        respuesta.respuesta = SO_Email.SendEmailLotusCustom(paths[c], users, "Diseño del Proceso : Correo electrónico de prueba", bodyTest);
+                        goodPath = respuesta.respuesta ? paths[c] : string.Empty;
                         c++;
                     }
                 }
 
-                if (respuesta)
+                if (respuesta.respuesta)
                     actualizarPath(goodPath, user.NombreUsuario);
+
+                // Asignamos el valor de la ruta
+                respuesta.rutamail = goodPath;
 
                 return respuesta;
             });
-
         }
 
         /// <summary>
