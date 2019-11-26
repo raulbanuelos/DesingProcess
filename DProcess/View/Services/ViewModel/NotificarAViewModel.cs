@@ -190,12 +190,13 @@ namespace View.Services.ViewModel
             set
             {
                 _IsOpen = value;
-                NotifyChange("IsOpen");
+                NotifyChange("IsOpen");                
+
                 if (!_IsOpen)
                 {
                     //Obtenemos los usuarios seleccionados y los asignamos a una lista temporal.
                     List<Usuarios> listaAux = ListaUsuarios.Where(x => x.IsSelected).ToList();
-
+                   
                     //Limpiamos la lista.
                     ListaUsuarioANotificar.Clear();
 
@@ -283,8 +284,8 @@ namespace View.Services.ViewModel
             ListaUsuarioANotificar = new ObservableCollection<Usuarios>();
 
             foreach (var item in listaANotificar)
-                ListaUsuarioANotificar.Add(item);
-
+                ListaUsuarioANotificar.Add(item);            
+          
             #region Prueba Correo
             //string body = "<HTML>";
             //body += "<head>";

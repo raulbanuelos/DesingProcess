@@ -40,7 +40,6 @@ namespace View.Forms.LogIn
             //Comparamos si el resultado es distinto de nulo. Si es igual a nulo quiere decir que el usuario cancelo la captura o cerró inesperadamente la pantalla.
             if (result != null)
 			{
-
                 //Incializamos los servicios de dialog.
                 DialogService dialog = new DialogService();
 
@@ -118,7 +117,7 @@ namespace View.Forms.LogIn
 
                                 ConfigEmailViewModel configEmail = new ConfigEmailViewModel(usuarioConectado);
 
-                                bool respuestaConfigEmail = await configEmail.setEmail();
+                                bool respuestaConfigEmail = await configEmail.setEmail();                                
 
                                 await AsyncProgressConfigEmail.CloseAsync();
 
