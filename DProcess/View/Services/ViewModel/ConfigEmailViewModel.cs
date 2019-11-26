@@ -34,14 +34,18 @@ namespace View.Services.ViewModel
                 bodyTest += "<P>&nbsp;<FONT size=6><FONT style=\"BACKGROUND - COLOR: #339966\">Si usted puede visualizar</FONT> este</FONT> <FONT color=#0000ff>correo en Lotus Notes</FONT>, <FONT color=#800080 size=2>significa que podrá</FONT><FONT size=7> </FONT><FONT color=#808000><FONT size=6>enviar correos a</FONT> través de la plataforma</FONT> de <STRONG><FONT style=\"BACKGROUND-COLOR: #00ffff\">Diseño del Proceso.</FONT></STRONG></P>";
 
 
-                string[] directories = new string[2];
+                string[] directories = new string[3];
                 directories[0] = @"C:\Users\" + Environment.UserName + @"\AppData\Local\Lotus\";
                 directories[1] = @"C:\Program Files (x86)\IBM\Lotus\";
+                directories[2] = @"C:\Program Files\IBM\Lotus\";
 
                 foreach (var path in directories)
                 {
-                    string[] files = Directory.GetFiles(path, fileRule, SearchOption.AllDirectories);
-                    paths.AddRange(files);
+                    if (Directory.Exists(path))
+                    {
+                        string[] files = Directory.GetFiles(path, fileRule, SearchOption.AllDirectories);
+                        paths.AddRange(files);
+                    }
                 }
 
                 while (c < paths.Count && !respuesta)
