@@ -6416,7 +6416,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        ///´Función para quitar el Excel y poner el pdf
+        /// Función para quitar el Excel y poner el pdf
         /// </summary>
         public async void QuitarExcelPonerPDF(Archivo Arc, string PathPdf)
         {

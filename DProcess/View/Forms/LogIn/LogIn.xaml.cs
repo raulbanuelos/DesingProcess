@@ -40,7 +40,6 @@ namespace View.Forms.LogIn
             //Comparamos si el resultado es distinto de nulo. Si es igual a nulo quiere decir que el usuario cancelo la captura o cerró inesperadamente la pantalla.
             if (result != null)
 			{
-
                 //Incializamos los servicios de dialog.
                 DialogService dialog = new DialogService();
 
@@ -118,15 +117,18 @@ namespace View.Forms.LogIn
 
                                 ConfigEmailViewModel configEmail = new ConfigEmailViewModel(usuarioConectado);
 
-                                bool respuestaConfigEmail = await configEmail.setEmail();
+                                // Se reciben valores de las 2 propiedades del objeto
+                                DO_PathMail respuestaConfigEmail = await configEmail.setEmail();                                
 
                                 await AsyncProgressConfigEmail.CloseAsync();
 
-                                if (respuestaConfigEmail)
+                                if (respuestaConfigEmail.respuesta)
                                 {
+                                    // Actualizamos el path de usuario en la misma cesión
+                                    usuarioConectado.Pathnsf = respuestaConfigEmail.rutamail;
+
                                     settings.AffirmativeButtonText = StringResources.ttlGenial;
                                     await this.ShowMessageAsync(StringResources.msgPerfecto + usuarioConectado.Nombre, StringResources.msgCuentaConfigurada, MessageDialogStyle.Affirmative, settings);
-
                                 }
                                 else
                                 {
