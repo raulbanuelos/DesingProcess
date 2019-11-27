@@ -1138,11 +1138,48 @@ namespace View.Services.ViewModel
                                 listaDocumentoA.Add(file);
                             }
 
+                            string nombresOperaciones = string.Empty;
+                            int c = 0;
+                            while (c < ListaCentrosDeTrabajoSeleccionados.Count)
+                            {
+                                if (c == ListaCentrosDeTrabajoSeleccionados.Count - 2)
+                                    nombresOperaciones += ListaCentrosDeTrabajoSeleccionados[c].NombreOperacion + " y ";
+                                else
+                                {
+                                    if (c == ListaCentrosDeTrabajoSeleccionados.Count - 1)
+                                        nombresOperaciones += ListaCentrosDeTrabajoSeleccionados[c].NombreOperacion + ".";
+                                    else
+                                        nombresOperaciones += ListaCentrosDeTrabajoSeleccionados[c].NombreOperacion + ",";
+                                }
+                                c++;
+                            }
+
+                            string nivelCambio = string.Empty;
+                            c = 0;
+                            while (c < ListaNivelesDeCambioSeleccionados.Count)
+                            {
+                                if (c == ListaNivelesDeCambioSeleccionados.Count - 2)
+                                    nivelCambio += ListaNivelesDeCambioSeleccionados[c].NOMBRETIPOCAMBIO + " y ";
+                                else
+                                {
+                                    if (c == ListaNivelesDeCambioSeleccionados.Count - 1)
+                                        nivelCambio += ListaNivelesDeCambioSeleccionados[c].NOMBRETIPOCAMBIO + ".";
+                                    else
+                                        nivelCambio += ListaNivelesDeCambioSeleccionados[c].NOMBRETIPOCAMBIO + ",";
+                                }
+                                c++;
+                            }
+
                             body = "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para informar que se ha realizado la solicitud de trabajo. A continuación se detalla la información:</P>";
                             body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Componente:</STRONG> " + Componente +"</P>";
                             body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No. de Solicitud:</STRONG>" + SolicitudTrabajoIng + "</P>";
                             body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Descripción:</STRONG>" + DescripcionProblema + "<BR><BR></P>";
-                            body += "<P>Cualuqier duda favor de hacermela saber.</P>";
+                            body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tipo de cambio:</STRONG>" + nivelCambio + "<BR><BR></P>";
+                            if (ListaCentrosDeTrabajoSeleccionados.Count > 0)
+                            {
+                                body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operaciones:</STRONG>" + nombresOperaciones + "<BR><BR></P>";
+                            }
+                            body += "<P>Cualquier duda favor de hacermela saber.</P>";
 
                             string title = "Diseño del proceso : Ha concludido la solicitud de cambio del componente " + Componente;
 
@@ -1307,11 +1344,48 @@ namespace View.Services.ViewModel
                                 c++;
                             }
 
+                            string nombresOperaciones = string.Empty;
+                            c = 0;
+                            while (c < ListaCentrosDeTrabajoSeleccionados.Count)
+                            {
+                                if (c == ListaCentrosDeTrabajoSeleccionados.Count - 2)
+                                    nombresOperaciones += ListaCentrosDeTrabajoSeleccionados[c].NombreOperacion + " y ";
+                                else
+                                {
+                                    if (c == ListaCentrosDeTrabajoSeleccionados.Count - 1)
+                                        nombresOperaciones += ListaCentrosDeTrabajoSeleccionados[c].NombreOperacion + ".";
+                                    else
+                                        nombresOperaciones += ListaCentrosDeTrabajoSeleccionados[c].NombreOperacion + ",";
+                                }
+                                c++;
+                            }
+                            
+                            string nivelCambio = string.Empty;
+                            c = 0;
+                            while (c < ListaNivelesDeCambioSeleccionados.Count)
+                            {
+                                if (c == ListaNivelesDeCambioSeleccionados.Count - 2)
+                                    nivelCambio += ListaNivelesDeCambioSeleccionados[c].NOMBRETIPOCAMBIO + " y ";
+                                else
+                                {
+                                    if (c == ListaNivelesDeCambioSeleccionados.Count - 1)
+                                        nivelCambio += ListaNivelesDeCambioSeleccionados[c].NOMBRETIPOCAMBIO + ".";
+                                    else
+                                        nivelCambio += ListaNivelesDeCambioSeleccionados[c].NOMBRETIPOCAMBIO + ",";
+                                }
+                                c++;
+                            }
+                            
                             body = "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para informar que se ha realizado la solicitud de trabajo. A continuación se detalla la información:</P>";
                             body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG>Componentes:</STRONG> " + componentes + "</P>";
                             body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG>No. de Solicitud:</STRONG>" + SolicitudTrabajoIng + "</P>";
                             body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG>Descripción:</STRONG>" + DescripcionProblema + "<BR><BR></P>";
-                            body += "<P>Cualuqier duda favor de hacermela saber.</P>";
+                            body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tipo de cambio:</STRONG>" + nivelCambio + "<BR><BR></P>";
+                            if (ListaCentrosDeTrabajoSeleccionados.Count > 0)
+                            {
+                                body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operaciones:</STRONG>" + nombresOperaciones + "<BR><BR></P>";
+                            }
+                            body += "<P>Cualquier duda favor de hacermela saber.</P>";
 
                             string title = "Diseño del proceso : Ha concludido la solicitud de cambio de los componentes " + componentes;
 
