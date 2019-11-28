@@ -487,7 +487,7 @@ namespace View.Services.ViewModel
             if (await validar())
             {
                 ServiceEmail SO_Email = new ServiceEmail();
-
+                
                 // Se declara vector de tamaño elementos ListaUsuarioANotificar + 1
                 int l = ListaUsuarioANotificar.Count;
                 string[] usuarios = new string[l + 1];
