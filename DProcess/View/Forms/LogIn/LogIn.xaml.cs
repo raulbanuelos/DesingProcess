@@ -59,7 +59,7 @@ namespace View.Forms.LogIn
 
                 //Ejecutamos el método para verificar las credenciales, el resultado lo asignamos a un objeto local de tipo Usuario.
 				Usuario usuarioConectado = await DataManager.GetLogin(usuario,contrasena);
-
+                
                 //Verificamos el resultado, si es direfente de nulo quiere decir que el logueo fué correcto, si es igual a nulo quiere decir que el usuario no existe con las credenciales proporcionadas.
 				if (usuarioConectado != null) {
 
