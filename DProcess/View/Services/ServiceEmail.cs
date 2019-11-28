@@ -1,5 +1,7 @@
 ﻿using Domino;
+using Model;
 using System;
+using System.Threading.Tasks;
 
 namespace View.Services
 {
@@ -8,7 +10,7 @@ namespace View.Services
         //var AttachME = nDocument.CreateRichTextItem("Attachment"); //agregado
 
         //var EmbedObj = AttachME.EmbedObject(1454, "", sAttachment, "Attachment");
-        public bool SendEmailLotus(string pathDBEmail, string[] recipients,string title,string body)
+        public bool SendEmailLotus(string pathDBEmail, string[] recipients, string title, string body)
         {
             try
             {
@@ -28,7 +30,7 @@ namespace View.Services
                 }
 
                 NotesDocument nDocument = nDatabase.CreateDocument();
-                
+
                 //setup Form
                 nDocument.ReplaceItemValue("Form", "Memo");
                 nDocument.ReplaceItemValue("SentTo", recipients);
@@ -36,7 +38,7 @@ namespace View.Services
                 nDocument.ReplaceItemValue("Body", body);
                 nDocument.SaveMessageOnSend = true; //save message after it's sent
                 nDocument.Send(false, recipients); //send
-                
+
                 return true;
             }
             catch (Exception er)
@@ -54,54 +56,75 @@ namespace View.Services
         /// <param name="body"></param>
         /// <param name="files">Vector con las ubicaciones fisicas del archivo que se enviara.</param>
         /// <returns></returns>
-        public bool SendEmailWithAttachment(string pathDBEmail, string[] recipients, string title, string body, string[] files)
+        public Task<DO_PathMail> SendEmailWithAttachment(string pathDBEmail, string[] recipients, string title, string body, string[] files)
         {
-            try
+            return Task.Run(() =>
             {
-                NotesSession nSession = new NotesSession();
-                nSession.Initialize("");
-                NotesStream stream = nSession.CreateStream();
-                nSession.ConvertMime = false;
-                NotesDatabase nDatabase;
-                
-                string MailDbName = pathDBEmail;
-                nDatabase = nSession.GetDatabase(null, MailDbName, false);
+                DO_PathMail Obj = new DO_PathMail();
 
-                if (!nDatabase.IsOpen)
+                if (System.IO.File.Exists(pathDBEmail))
                 {
-                    nDatabase.Open();
+                    try
+                    {
+                        NotesSession nSession = new NotesSession();
+                        nSession.Initialize("");
+                        NotesStream stream = nSession.CreateStream();
+                        nSession.ConvertMime = false;
+                        NotesDatabase nDatabase;
+
+                        string MailDbName = pathDBEmail;
+                        nDatabase = nSession.GetDatabase(null, MailDbName, false);
+
+                        if (!nDatabase.IsOpen)
+                        {
+                            nDatabase.Open();
+                        }
+
+                        var nDocument = nDatabase.CreateDocument();
+                        var AttachME = nDocument.CreateRichTextItem("Attachment"); //agregado
+
+                        foreach (string file in files)
+                        {
+                            AttachME.EmbedObject(EMBED_TYPE.EMBED_ATTACHMENT, "Attachment", file, "Attachment");
+                        }
+
+                        //setup Form
+                        nDocument.ReplaceItemValue("Form", "Memo");
+                        nDocument.ReplaceItemValue("SentTo", recipients);
+                        nDocument.ReplaceItemValue("Subject", title);
+
+                        NotesMIMEEntity sBody = nDocument.CreateMIMEEntity();
+                        NotesMIMEEntity chield = sBody.CreateChildEntity();
+
+                        stream.WriteText(body);
+
+                        chield.SetContentFromText(stream, "text/html;charset=iso-8859-1", MIME_ENCODING.ENC_IDENTITY_8BIT);
+                        stream.Close();
+                        stream.Truncate();
+
+                        nDocument.Send(false, recipients);
+
+                        Obj.respuesta = true;
+                        Obj.rutamail = "Correo enviado exitosamente";
+
+                        return Obj;
+                    }
+                    catch (Exception er)
+                    {
+                        Obj.respuesta = false;
+                        Obj.rutamail = "ocurrió error al enviar el correo.";
+
+                        return Obj;
+                    }
                 }
-
-                var nDocument = nDatabase.CreateDocument();
-                var AttachME = nDocument.CreateRichTextItem("Attachment"); //agregado
-
-                foreach (string file in files)
+                else
                 {
-                    AttachME.EmbedObject(EMBED_TYPE.EMBED_ATTACHMENT, "Attachment", file, "Attachment");
+                    Obj.respuesta = false;
+                    Obj.rutamail = "Tu correo no está configurado, ¿deseas configurarlo?";
+
+                    return Obj;
                 }
-
-                //setup Form
-                nDocument.ReplaceItemValue("Form", "Memo");
-                nDocument.ReplaceItemValue("SentTo", recipients);
-                nDocument.ReplaceItemValue("Subject", title);
-
-                NotesMIMEEntity sBody = nDocument.CreateMIMEEntity();
-                NotesMIMEEntity chield = sBody.CreateChildEntity();
-                
-                stream.WriteText(body);
-                                
-                chield.SetContentFromText(stream, "text/html;charset=iso-8859-1", MIME_ENCODING.ENC_IDENTITY_8BIT);
-                stream.Close();
-                stream.Truncate();
-
-                nDocument.Send(false, recipients);
-
-                return true;
-            }
-            catch (Exception er)
-            {
-                return false;
-            }
+            });
         }
 
         public bool SendEmailLotusCustom(string pathDBEmail, string[] recipients, string title, string body)
@@ -122,22 +145,22 @@ namespace View.Services
                 }
 
                 var nDocument = nDatabase.CreateDocument();
-                
+
                 //setup Form
                 nDocument.ReplaceItemValue("Form", "Memo");
                 nDocument.ReplaceItemValue("SentTo", recipients);
                 nDocument.ReplaceItemValue("Subject", title);
-                                
-                NotesMIMEEntity sBody =  nDocument.CreateMIMEEntity();
+
+                NotesMIMEEntity sBody = nDocument.CreateMIMEEntity();
                 NotesMIMEEntity chield = sBody.CreateChildEntity();
-                
+
                 stream.WriteText(body);
-                
+
                 chield.SetContentFromText(stream, "text/html;charset=iso-8859-1", MIME_ENCODING.ENC_NONE);
                 stream.Close();
                 stream.Truncate();
 
-                nDocument.Send(false,recipients);
+                nDocument.Send(false, recipients);
 
                 return true;
             }

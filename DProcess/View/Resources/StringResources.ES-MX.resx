@@ -2150,4 +2150,8 @@ En un momento te llegará un correo electrónico confirmando su configuración.<
     <value>Ok, lo entiendo</value>
     <comment>Título OK, lo entiendo</comment>
   </data>
+  <data name="msgEnviandoCorreo" xml:space="preserve">
+    <value>Enviando correo electrónico</value>
+    <comment>Mensaje de espera al mandar correo electrónico</comment>
+  </data>
 </root>

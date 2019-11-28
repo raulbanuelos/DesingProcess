@@ -18,6 +18,7 @@ using View.Services;
 using View.Resources;
 using System.Threading;
 using View.Forms.Routing;
+using System.IO;
 
 namespace View.Forms.LogIn
 {
@@ -118,13 +119,13 @@ namespace View.Forms.LogIn
                                 ConfigEmailViewModel configEmail = new ConfigEmailViewModel(usuarioConectado);
 
                                 // Se reciben valores de las 2 propiedades del objeto
-                                DO_PathMail respuestaConfigEmail = await configEmail.setEmail();                                
+                                DO_PathMail respuestaConfigEmail = await configEmail.setEmail();
 
                                 await AsyncProgressConfigEmail.CloseAsync();
-
+                                                                                  
                                 if (respuestaConfigEmail.respuesta)
                                 {
-                                    // Actualizamos el path de usuario en la misma cesión
+                                    // Actualizamos el path de usuario en la misma sesión
                                     usuarioConectado.Pathnsf = respuestaConfigEmail.rutamail;
 
                                     settings.AffirmativeButtonText = StringResources.ttlGenial;
@@ -161,10 +162,10 @@ namespace View.Forms.LogIn
 
                         //Ejecutamos el método el cual despliega la pantalla.
                         masterPage.ShowDialog();
-
                     }
 				}
-				else{
+				else
+                {
                     //Ejecutamos el método para cerrar el mensaje de espera.
                     await AsyncProgress.CloseAsync();
 

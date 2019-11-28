@@ -107,7 +107,7 @@ namespace View.Services.ViewModel
             Archivo documento = new Archivo();
 
             // Le asignamos valores
-            documento.nombre = nombreArchivoSalida;            
+            documento.nombre = nombreArchivoSalida;
             documento.ruta = rutaArchivo;
             documento.rutaIcono = @"/Images/E.jpg";
 
@@ -116,8 +116,8 @@ namespace View.Services.ViewModel
 
             // Insertamos el objeto a la lista
             ListaDoc.Add(documento);
-                        
-            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario,body, ListaDoc , new List<Usuarios>(), "Listado de Verificación Anual " + DateTime.Now.Year);
+
+            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario, body, ListaDoc, new List<Usuarios>(), "Listado de Verificación Anual " + DateTime.Now.Year);
 
             notificara.DataContext = vwnotifa;
             notificara.ShowDialog();
@@ -127,10 +127,13 @@ namespace View.Services.ViewModel
         /// Método para adjuntar el documento de herramental para subir 
         /// </summary>
         /// <param name="nombrearchivo"></param>
-        private async void adjuntararchivoherramentales()
+        public async void adjuntararchivoherramentales()
         {
             // Inicializamos los servicios
             DialogService dialog = new DialogService();
+
+            //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
+            ProgressDialogController AsyncProgress;
 
             // Declaramos la ventana de explorador de archivos
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
@@ -138,7 +141,7 @@ namespace View.Services.ViewModel
             //Se crea el objeto de tipo archivo
             Archivo obj = new Archivo();
 
-            // Filtramos los archivos excel
+            // Filtramos los archivos Excel
             dlg.Filter = "Excel Files (.xlsm, .xlsx)|*.xlsm; *.xlsx";
 
             // Mensaje para informar nombre de celdas en archivo
@@ -175,8 +178,17 @@ namespace View.Services.ViewModel
                     // Validamos que el valor de las celdas obtenidas sea igual al valor necesario
                     if ((A1_Obtenida.ToUpper() == CellA1.ToUpper()) && (A2_Obtenida.ToUpper() == CellA2.ToUpper()) && (A3_Obtenida.ToUpper() == CellA3.ToUpper()))
                     {
+                        //Ejecutamos el método para enviar un mensaje de espera mientras se lee el archivo.
+                        AsyncProgress = await dialog.SendProgressAsync(StringResources.msgEspera, "");
+
                         // Mandamos llamar el método para leer los datos del archivo excel
-                        LeerExcel(nombreArchivoAdjutado);
+                        List<DO_ProgramaAnual> ListaCrear = await LeerExcel(nombreArchivoAdjutado);
+
+                        //Ejecutamos el método para cerrar el mensaje de espera.
+                        await AsyncProgress.CloseAsync();
+
+                        // Mandamos llamar el método para crear nuevo archivo a partir de la lista recibida
+                        CrearExcel(ListaCrear);
                     }
                     else
                     {
@@ -195,65 +207,68 @@ namespace View.Services.ViewModel
         /// Método para leer el archivo excel adjuntado
         /// </summary>
         /// <param name="nombrearchivo"></param>
-        public void LeerExcel(string nombrearchivo)
+        public Task<List<DO_ProgramaAnual>> LeerExcel(string nombrearchivo)
         {
-            // Asignamos la ruta del archivo a una nueva variable
-            string path = nombrearchivo;
-
-            // Declaramos método que funciona a la par con el paquete SpreadsheetLight instalado
-            SLDocument sl = new SLDocument(path);
-
-            // Declaramos una lista de tipo objeto
-            List<DO_ProgramaAnual> ListaRegistros = new List<DO_ProgramaAnual>();
-
-            // Declaramos el objeto
-            var Objeto = new DO_ProgramaAnual();
-
-            // Manda llamar al método que hace una consulta y elimina todos los registros de la tabla TBL_PROGRAMA_ANUAL
-            DataManager.Delete_AllRecords();
-
-            // Inicializamos la variable para que comience a partir del registro 2, ignorando los encabezados de la tabla
-            int iRow = 2;
-
-            // Ciclo que recorre los renglones del excel hasta encontrar uno vacío
-            while (!string.IsNullOrEmpty(sl.GetCellValueAsString(iRow, 1)))
+            return Task.Run(() =>
             {
-                // Se declaran variables para guardar los datos de las celdas
-                string valormaterial = sl.GetCellValueAsString(iRow, 1);
-                string valorcodigoherramental = sl.GetCellValueAsString(iRow, 2);
-                string valordescripcion = sl.GetCellValueAsString(iRow, 3);
+                // Asignamos la ruta del archivo a una nueva variable
+                string path = nombrearchivo;
 
-                // Limpiamos el objeto
-                Objeto = new DO_ProgramaAnual();
+                // Declaramos método que funciona a la par con el paquete SpreadsheetLight instalado
+                SLDocument sl = new SLDocument(path);
 
-                // Le asignamos los valores al objeto
-                Objeto.material = valormaterial;
-                Objeto.codigo_herramental = valorcodigoherramental;
-                Objeto.descripcion = valordescripcion;
+                // Declaramos una lista de tipo objeto
+                List<DO_ProgramaAnual> ListaRegistros = new List<DO_ProgramaAnual>();
 
-                // Agregamos el registro completo leído
-                ListaRegistros.Add(Objeto);
+                // Declaramos el objeto
+                var Objeto = new DO_ProgramaAnual();
 
-                // Contador 
-                iRow++;
-            }
+                // Manda llamar al método que hace una consulta y elimina todos los registros de la tabla TBL_PROGRAMA_ANUAL
+                DataManager.Delete_AllRecords();
 
-            // Revisamos que la lista de registros no esté vacía
-            if (ListaRegistros != null)
-            {
-                // Recorremos toda la lista
-                foreach (var item in ListaRegistros)
+                // Inicializamos la variable para que comience a partir del registro 2, ignorando los encabezados de la tabla
+                int iRow = 2;
+
+                // Ciclo que recorre los renglones del excel hasta encontrar uno vacío
+                while (!string.IsNullOrEmpty(sl.GetCellValueAsString(iRow, 1)))
                 {
-                    // Mandamos llamar al método que inserta registros
-                    DataManager.Insert_ProgramaAnual(item.material, item.codigo_herramental, item.descripcion);
+                    // Se declaran variables para guardar los datos de las celdas
+                    string valormaterial = sl.GetCellValueAsString(iRow, 1);
+                    string valorcodigoherramental = sl.GetCellValueAsString(iRow, 2);
+                    string valordescripcion = sl.GetCellValueAsString(iRow, 3);
+
+                    // Limpiamos el objeto
+                    Objeto = new DO_ProgramaAnual();
+
+                    // Le asignamos los valores al objeto
+                    Objeto.material = valormaterial;
+                    Objeto.codigo_herramental = valorcodigoherramental;
+                    Objeto.descripcion = valordescripcion;
+
+                    // Agregamos el registro completo leído
+                    ListaRegistros.Add(Objeto);
+
+                    // Contador 
+                    iRow++;
                 }
-            }
 
-            // Ejecutamos la consulta de búsqueda por descripción guardada como procedimiento almacenado
-            List<DO_ProgramaAnual> ListaExportar = DataManager.Get_ToolingVerificacionAnual();
+                // Revisamos que la lista de registros no esté vacía
+                if (ListaRegistros != null)
+                {
+                    // Recorremos toda la lista
+                    foreach (var item in ListaRegistros)
+                    {
+                        // Mandamos llamar al método que inserta registros
+                        DataManager.Insert_ProgramaAnual(item.material, item.codigo_herramental, item.descripcion);
+                    }
+                }
 
-            // Mandamos llamar el método para crear el excel que se va a exportar
-            CrearExcel(ListaExportar);
+                // Ejecutamos la consulta de búsqueda por descripción guardada como procedimiento almacenado
+                List<DO_ProgramaAnual> ListaExportar = DataManager.Get_ToolingVerificacionAnual();
+
+                // Retornamos la lista con los registros finales
+                return ListaExportar;
+            });
         }
 
         /// <summary>
@@ -265,91 +280,91 @@ namespace View.Services.ViewModel
             // Inicializamos los servicios
             DialogService dialog = new DialogService();
 
-            // Desglosamos el nombre del archivo (nombre y extensión)      
-            string nombre = "ProgramaVerificación";
-            string extension = ".xlsx";
-
-            // Asignamos el nombre del documento al crear  
-            nombreArchivoSalida = nombre + extension;
-
-            // Declaramos el uso de librería para abrir el explorador de archivos
-            FolderBrowserDialog WindowDialog = new FolderBrowserDialog();
-
-            // Abrimos el explorador de archivos para elegir ruta
-            DialogResult result = WindowDialog.ShowDialog();
-
-            // Validamos que la ruta no esté vacía
-            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(WindowDialog.SelectedPath))
-            {
-                // Concatenamos la ruta y el nombre del archivo
-                rutaArchivo = WindowDialog.SelectedPath + "\\" + nombreArchivoSalida;
-
-                int contNombre = 1;
-
-                // Mientras exista un archivo con el mismo nombre
-                while (File.Exists(rutaArchivo))
-                {
-                    nombreArchivoSalida = nombre + "_" + contNombre + extension;
-                    // Concatenamos la ruta del archivo, nombre, contador y extensión
-                    rutaArchivo = WindowDialog.SelectedPath + "\\" + nombreArchivoSalida;
-
-                    contNombre++;
-                }
-            }
-
             try
             {
-                // Creamos el objeto SLDocument el cual creará el excel
-                SLDocument sl = new SLDocument();
+                // Desglosamos el nombre del archivo (nombre y extensión)      
+                string nombre = "ProgramaVerificación";
+                string extension = ".xlsx";
 
-                // Declaramos contador en 2 para ignorar el encabezado de las columnas
-                int cont = 2;
+                // Asignamos el nombre del documento al crear  
+                nombreArchivoSalida = nombre + extension;
 
-                // Definimos el estilo a utilizar
-                SLStyle estilo = new SLStyle();
+                // Declaramos el uso de librería para abrir el explorador de archivos
+                FolderBrowserDialog WindowDialog = new FolderBrowserDialog();
 
-                // Títulos en negritas y letra 12
-                estilo.Font.Bold = true;
-                estilo.Font.FontSize = 12;
+                // Abrimos el explorador de archivos para elegir ruta
+                DialogResult result = WindowDialog.ShowDialog();
 
-                // Aplicamos estilo a las celdas
-                sl.SetCellStyle("A1", estilo);
-                sl.SetCellStyle("B1", estilo);
-                sl.SetCellStyle("C1", estilo);
-
-                // Asignamos nombre a las celdas
-                sl.SetCellValue("A1", "Material");
-                sl.SetCellValue("B1", "Codigo Herramental");
-                sl.SetCellValue("C1", "Descripción");
-
-                // Iteramos la lista para empezar a llenar las celdas necesarias
-                foreach (var item in ListaExportar)
+                // Validamos que la ruta no esté vacía
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(WindowDialog.SelectedPath))
                 {
-                    sl.SetCellValue("A" + cont, item.material);
-                    sl.SetCellValue("B" + cont, item.codigo_herramental);
-                    sl.SetCellValue("C" + cont, item.descripcion);
+                    // Concatenamos la ruta y el nombre del archivo
+                    rutaArchivo = WindowDialog.SelectedPath + "\\" + nombreArchivoSalida;
 
-                    // Incrementamos contador
-                    cont++;
-                }
+                    int contNombre = 1;
 
-                // Guardamos como..., ponemos la ruta concatenada con el nombre del archivo
-                sl.SaveAs(rutaArchivo);
+                    // Mientras exista un archivo con el mismo nombre
+                    while (File.Exists(rutaArchivo))
+                    {
+                        nombreArchivoSalida = nombre + "_" + contNombre + extension;
+                        // Concatenamos la ruta del archivo, nombre, contador y extensión
+                        rutaArchivo = WindowDialog.SelectedPath + "\\" + nombreArchivoSalida;
 
-                // Mensaje cuando termina el proceso               
-                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHerramentalrevisar);
+                        contNombre++;
+                    }
 
-                // Se manda llamar el método que abre la ventana para notificar
-                irnotificara();
+                    // Creamos el objeto SLDocument el cual creará el excel
+                    SLDocument sl = new SLDocument();
 
-                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                var window = System.Windows.Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+                    // Declaramos contador en 2 para ignorar el encabezado de las columnas
+                    int cont = 2;
 
-                //Verificamos que la pantalla sea diferente de nulo.
-                if (window != null)
-                {
-                    //Cerramos la pantalla
-                    window.Close();
+                    // Definimos el estilo a utilizar
+                    SLStyle estilo = new SLStyle();
+
+                    // Títulos en negritas y letra 12
+                    estilo.Font.Bold = true;
+                    estilo.Font.FontSize = 12;
+
+                    // Aplicamos estilo a las celdas
+                    sl.SetCellStyle("A1", estilo);
+                    sl.SetCellStyle("B1", estilo);
+                    sl.SetCellStyle("C1", estilo);
+
+                    // Asignamos nombre a las celdas
+                    sl.SetCellValue("A1", "Material");
+                    sl.SetCellValue("B1", "Codigo Herramental");
+                    sl.SetCellValue("C1", "Descripción");
+
+                    // Iteramos la lista para empezar a llenar las celdas necesarias
+                    foreach (var item in ListaExportar)
+                    {
+                        sl.SetCellValue("A" + cont, item.material);
+                        sl.SetCellValue("B" + cont, item.codigo_herramental);
+                        sl.SetCellValue("C" + cont, item.descripcion);
+
+                        // Incrementamos contador
+                        cont++;
+                    }
+
+                    // Guardamos como..., ponemos la ruta concatenada con el nombre del archivo
+                    sl.SaveAs(rutaArchivo);
+
+                    // Mensaje cuando termina el proceso               
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHerramentalrevisar);
+
+                    // Se manda llamar el método que abre la ventana para notificar
+                    irnotificara();
+
+                    //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                    var window = System.Windows.Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                    //Verificamos que la pantalla sea diferente de nulo.
+                    if (window != null)
+                    {
+                        //Cerramos la pantalla
+                        window.Close();
+                    }
                 }
             }
             catch (Exception er)

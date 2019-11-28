@@ -2634,6 +2634,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Sending email.
+        /// </summary>
+        public static string msgEnviandoCorreo {
+            get {
+                return ResourceManager.GetString("msgEnviandoCorreo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Please select again the mistakes found..
         /// </summary>
         public static string msgErrEncontrados {
