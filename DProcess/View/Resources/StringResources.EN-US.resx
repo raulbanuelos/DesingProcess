@@ -2076,7 +2076,7 @@ A3 (DESCRIPCION/descripcion).</value>
     <comment>Mensaje cuando se envia el correo exitosamente</comment>
   </data>
   <data name="msgCorreoSinAsunto" xml:space="preserve">
-    <value>The email does not contain subject, do you want to send it anyway?</value>
+    <value>The email does not contain subject, Do you want to send it anyway?</value>
     <comment>Mensaje cuando se quiere enviar un correo sin asunto</comment>
   </data>
   <data name="msgElijaDestinatario" xml:space="preserve">
@@ -2108,7 +2108,7 @@ A3 (DESCRIPCION/descripcion).</value>
     <comment>Título Usuarios</comment>
   </data>
   <data name="msgConfiguracionCorreo" xml:space="preserve">
-    <value>Your user is not configured to send emails, do you want to start with the configuration process?</value>
+    <value>Your user is not configured to send emails, Do you want to start with the configuration process?</value>
     <comment>Mensaje configuracion correo</comment>
   </data>
   <data name="msgCuentaConfigurada" xml:space="preserve">
@@ -2155,5 +2155,9 @@ In a moment you will receive an email confirming your configuration.</value>
   <data name="msgEnviandoCorreo" xml:space="preserve">
     <value>Sending Email</value>
     <comment>Mensaje de espera al mandar correo electrónico</comment>
+  </data>
+  <data name="msgDeseasConfigCorreo" xml:space="preserve">
+    <value>Your email is not configured, Do you want to configure it?</value>
+    <comment>Mensaje para configurar correo electrónico</comment>
   </data>
 </root>

@@ -2,14 +2,15 @@
 using Model;
 using System;
 using System.Threading.Tasks;
+using View.Resources;
 
 namespace View.Services
 {
     public class ServiceEmail
     {
         //var AttachME = nDocument.CreateRichTextItem("Attachment"); //agregado
-
         //var EmbedObj = AttachME.EmbedObject(1454, "", sAttachment, "Attachment");
+
         public bool SendEmailLotus(string pathDBEmail, string[] recipients, string title, string body)
         {
             try
@@ -105,14 +106,14 @@ namespace View.Services
                         nDocument.Send(false, recipients);
 
                         Obj.respuesta = true;
-                        Obj.rutamail = "Correo enviado exitosamente";
+                        Obj.rutamail = StringResources.msgCorreoEnviadoOK;
 
                         return Obj;
                     }
                     catch (Exception er)
                     {
                         Obj.respuesta = false;
-                        Obj.rutamail = "ocurrió error al enviar el correo.";
+                        Obj.rutamail = StringResources.msgErrorEnviarCorreo;
 
                         return Obj;
                     }
@@ -120,7 +121,7 @@ namespace View.Services
                 else
                 {
                     Obj.respuesta = false;
-                    Obj.rutamail = "Tu correo no está configurado, ¿deseas configurarlo?";
+                    Obj.rutamail = StringResources.msgDeseasConfigCorreo;
 
                     return Obj;
                 }

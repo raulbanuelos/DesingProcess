@@ -541,7 +541,7 @@ namespace View.Services.ViewModel
                 }
                 else
                 {
-                    if (respuesta.rutamail == "Tu correo no está configurado, ¿deseas configurarlo?")
+                    if (respuesta.rutamail == StringResources.msgDeseasConfigCorreo)
                     {
                         //Configuramos las opciones del mesaje de pregunta.
                         MetroDialogSettings settings = new MetroDialogSettings();
@@ -575,7 +575,7 @@ namespace View.Services.ViewModel
                                 // Actualizamos el path de usuario en la misma sesión
                                 User.Pathnsf = respuestaConfigEmail.rutamail;
 
-                                settings.AffirmativeButtonText = StringResources.ttlGenial;
+                                // M
                                 await dialog.SendMessage(StringResources.msgPerfecto + User.Nombre, StringResources.msgCuentaConfigurada);
 
                                 //enviarCorreo();
